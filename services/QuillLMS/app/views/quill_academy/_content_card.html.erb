@@ -1,0 +1,9 @@
+<% availability_class = availability == QuillAcademyHelper::AVAILABLE ? "available" : "coming-soon" %>
+<div class="content-card">
+  <section class="top-section">
+    <img src= <%= image_src %> ></img>
+    <h3> <%= content[:header] %> </h3>
+    <p> <%= content[:text] %> </p>
+  </section>
+  <p class= <%= availability_class %> > <%= availability %> </p>
+</div>

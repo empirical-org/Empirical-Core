@@ -1,0 +1,18 @@
+<% if @invoice_payloads.length > 0 %>
+<p>These Stripe invoices have not yet been associated with a Quill Subscription</p>
+
+<% @invoice_payloads.each do |invoice| %>
+<ul>
+  <li>Invoice ID: <a href="https://dashboard.stripe.com/invoices/<%= invoice[:id] %>"><%= invoice[:id] %></a></li>
+  <li>Created: <%= invoice[:created] %></li>
+  <li>Invoice total: $<%= invoice[:total] %></li>
+  <li>Name: <%= invoice[:customer_name] %></li>
+  <li>Email: <a href="mailto:<%= invoice[:email] %>"><%= invoice[:email] %></a></li>
+  <li>Invoice number: <%= invoice[:number] %></li>
+</ul>
+<% end %>
+
+<p>A standard Metabase query exists to find the inverse of this list: <a href="https://data.quill.org/question/999-active-subscriptions-without-stripe-invoices">Active Quill Subscriptions Without Associated Stripe Invoices</a></p>
+<% else %>
+<p>No Stripe Invoices were found without an associated Quill Subscription.  There's nothing for you to do today!</p>
+<% end %>

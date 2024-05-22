@@ -2,17 +2,15 @@
 // along with their result counts.
 import React from 'react'
 
-import CSVDownloadForProgressReport from './csv_download_for_progress_report.jsx'
-
 import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
-import {sortTableByLastName} from '../../../../modules/sortingMethods.js'
-import LoadingSpinner from '../shared/loading_indicator.jsx'
+import { requestGet, } from '../../../../modules/request/index'
+import { sortTableByLastName } from '../../../../modules/sortingMethods.js'
+import { ReactTable, ReportHeader, } from '../../../Shared/index'
+import { getTimeSpent } from '../../helpers/studentReports'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
-import { getTimeSpent } from '../../helpers/studentReports'
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 const showAllClassroomKey = 'All classrooms'
 
@@ -75,26 +73,19 @@ export default class IndividualStandardsReport extends React.Component {
       }, {
         Header: 'Time spent',
         accessor: 'timespent',
-        className: blurIfNotPremium,
         resizable: false,
-        Cell: ({row}) => (
-          getTimeSpent(row.original['timespent'])
-        )
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{getTimeSpent(row.original['timespent'])}</span>
       }, {
         Header: 'Avg. score',
         accessor: 'average_score',
-        className: blurIfNotPremium,
         resizable: false,
-        Cell: ({row}) => (
-          `${row.original['average_score']}`
-        )
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{`${row.original['average_score']}`}</span>
       }, {
         Header: 'Proficiency Status',
         accessor: 'mastery_status',
-        className: blurIfNotPremium,
         resizable: false,
         Cell: ({row}) => (
-          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
+          <span className={blurIfNotPremium}><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
       }
     ])
@@ -139,19 +130,15 @@ export default class IndividualStandardsReport extends React.Component {
       return <LoadingSpinner />
     }
     return (
-      <div className='progress-reports-2018 individual-standard'>
-        <div className="meta-overview flex-row space-between">
-          <div className='header-and-info'>
-            <h1><span>Standards Report:</span> {standard.name}</h1>
-            <p>You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={csvData} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-          <div className='dropdown-container'>
-            <ItemDropdown callback={this.switchClassrooms} isSearchable={true} items={classrooms.map(c => c.name)} selectedItem={selectedClassroom.name} />
-          </div>
+      <div className='teacher-report-container progress-reports-2018 individual-standard'>
+        <ReportHeader
+          csvData={csvData}
+          headerText="Standards Report:"
+          subHeaderElement={<p className="report-sub-header">{standard.name}</p>}
+          tooltipText="You can print this report by downloading a PDF file or export this data by downloading a CSV file."
+        />
+        <div className='dropdown-container'>
+          <ItemDropdown callback={this.switchClassrooms} className="bordered-dropdown dropdown-with-icon" isSearchable={true} items={classrooms.map(c => c.name)} selectedItem={selectedClassroom.name} />
         </div>
         <div key={`concept-progress-report-length-${studentData.length}`}>
           <ReactTable

@@ -29,6 +29,7 @@ class CreateOrIncrementResponseWorker
 
   def increment_counts(response, symbolized_vals)
     response.increment!(:count, 1, touch: true)
+    UpdateIndividualResponseWorker.perform_async(response.id)
     increment_first_attempt_count(response, symbolized_vals)
     increment_child_count_of_parent(response)
   end
@@ -48,7 +49,11 @@ class CreateOrIncrementResponseWorker
     return if id == 0
 
     parent = Response.find_by_id_or_uid(id)
-    parent.increment!(:child_count, 1, touch: true) unless parent.nil?
+
+    return if parent.nil?
+
+    parent.increment!(:child_count, 1, touch: true)
+    UpdateIndividualResponseWorker.perform_async(parent.id)
   end
 
 end

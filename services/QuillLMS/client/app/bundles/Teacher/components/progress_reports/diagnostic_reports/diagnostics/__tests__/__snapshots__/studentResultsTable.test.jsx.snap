@@ -9,51 +9,51 @@ exports[`StudentResultsTable component should render when there is no student da
     Array [
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Compound-Complex Sentences",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Appositive Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Relative Clauses",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Participal Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Parallel Structure",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Advanced Combining",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Subject-Verb Agreement",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Nouns, Pronouns, and Verbs",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [],
       },
     ]
   }
@@ -106,17 +106,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Compound-Complex Sentences
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Compound-Complex Sentences"
                 name="Compound-Complex Sentences"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Compound-Complex Sentences<br/><br/>null</p>"
+                  tooltipText="<p>Compound-Complex Sentences<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -157,7 +159,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -166,17 +167,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Appositive Phrases
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Appositive Phrases"
                 name="Appositive Phrases"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Appositive Phrases<br/><br/>null</p>"
+                  tooltipText="<p>Appositive Phrases<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -217,7 +220,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -226,17 +228,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Relative Clauses
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Relative Clauses"
                 name="Relative Clauses"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Relative Clauses<br/><br/>null</p>"
+                  tooltipText="<p>Relative Clauses<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -277,7 +281,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -286,17 +289,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Participal Phrases
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Participal Phrases"
                 name="Participal Phrases"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Participal Phrases<br/><br/>null</p>"
+                  tooltipText="<p>Participal Phrases<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -337,7 +342,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -346,17 +350,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Parallel Structure
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Parallel Structure"
                 name="Parallel Structure"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Parallel Structure<br/><br/>null</p>"
+                  tooltipText="<p>Parallel Structure<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -397,7 +403,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -406,17 +411,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Advanced Combining
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Advanced Combining"
                 name="Advanced Combining"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Advanced Combining<br/><br/>null</p>"
+                  tooltipText="<p>Advanced Combining<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -457,7 +464,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -466,17 +472,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Subject-Verb Agreement
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Subject-Verb Agreement"
                 name="Subject-Verb Agreement"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Subject-Verb Agreement<br/><br/>null</p>"
+                  tooltipText="<p>Subject-Verb Agreement<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -517,7 +525,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
           <th
             className="skill-group-header"
@@ -526,17 +533,19 @@ exports[`StudentResultsTable component should render when there is no student da
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Nouns, Pronouns, and Verbs
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Nouns, Pronouns, and Verbs"
                 name="Nouns, Pronouns, and Verbs"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Nouns, Pronouns, and Verbs<br/><br/>null</p>"
+                  tooltipText="<p>Nouns, Pronouns, and Verbs<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -577,7 +586,6 @@ exports[`StudentResultsTable component should render when there is no student da
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            0
           </th>
         </tr>
       </thead>
@@ -601,51 +609,51 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
             ]
           }
@@ -671,6 +679,13 @@ exports[`StudentResultsTable component should render when there is no student da
                     Ken Liu
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -713,51 +728,51 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
             ]
           }
@@ -783,6 +798,13 @@ exports[`StudentResultsTable component should render when there is no student da
                     Tahereh Mafi
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -825,51 +847,51 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
             ]
           }
@@ -895,6 +917,13 @@ exports[`StudentResultsTable component should render when there is no student da
                     Jason Reynolds
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -937,51 +966,51 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
             ]
           }
@@ -1007,6 +1036,13 @@ exports[`StudentResultsTable component should render when there is no student da
                     Nic Stone
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -1049,51 +1085,51 @@ exports[`StudentResultsTable component should render when there is no student da
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound-Complex Sentences",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Appositive Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Relative Clauses",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Participal Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Parallel Structure",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Advanced Combining",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Subject-Verb Agreement",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Nouns, Pronouns, and Verbs",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [],
               },
             ]
           }
@@ -1119,6 +1155,13 @@ exports[`StudentResultsTable component should render when there is no student da
                     Angie Thomas
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -1167,57 +1210,45 @@ exports[`StudentResultsTable component should render when there is student data 
     Array [
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Capitalization",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [
-          "Angie Thomas",
-        ],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Plural and Possessive Nouns",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
         ],
-        "not_yet_proficient_in_pre_test_student_names": Array [
-          "Angie Thomas",
-        ],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Adjectives and Adverbs",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
         ],
-        "not_yet_proficient_in_pre_test_student_names": Array [
-          "Angie Thomas",
-        ],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Prepositional Phrases",
         "not_yet_proficient_in_post_test_student_names": Array [
           "Angie Thomas",
         ],
-        "not_yet_proficient_in_pre_test_student_names": Array [
-          "Angie Thomas",
-        ],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Compound Subjects, Objects, and Predicates",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [
-          "Angie Thomas",
-        ],
       },
       Object {
         "description": null,
+        "gained_proficiency_in_post_test_student_names": Array [],
         "name": "Commonly Confused Words",
         "not_yet_proficient_in_post_test_student_names": Array [],
-        "not_yet_proficient_in_pre_test_student_names": Array [
-          "Angie Thomas",
-        ],
       },
     ]
   }
@@ -1244,7 +1275,7 @@ exports[`StudentResultsTable component should render when there is student data 
               1,
             ],
             "id": 3,
-            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "number_of_correct_questions_text": "1 of 1 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "Gained proficiency",
@@ -1271,7 +1302,7 @@ exports[`StudentResultsTable component should render when there is student data 
           Object {
             "acquired_skill_ids": Array [],
             "id": 4,
-            "number_of_correct_skills_text": "0 of 1 skills correct",
+            "number_of_correct_questions_text": "0 of 1 questions correct",
             "post_test_proficiency": "No proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "No proficiency",
@@ -1303,7 +1334,7 @@ exports[`StudentResultsTable component should render when there is student data 
               8,
             ],
             "id": 5,
-            "number_of_correct_skills_text": "5 of 6 skills correct",
+            "number_of_correct_questions_text": "5 of 6 questions correct",
             "post_test_proficiency": "Partial proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Partial proficiency",
@@ -1412,7 +1443,7 @@ exports[`StudentResultsTable component should render when there is student data 
               9,
             ],
             "id": 6,
-            "number_of_correct_skills_text": "2 of 3 skills correct",
+            "number_of_correct_questions_text": "2 of 3 questions correct",
             "post_test_proficiency": "Partial proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Partial proficiency",
@@ -1473,7 +1504,7 @@ exports[`StudentResultsTable component should render when there is student data 
               12,
             ],
             "id": 7,
-            "number_of_correct_skills_text": "4 of 4 skills correct",
+            "number_of_correct_questions_text": "4 of 4 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "Partial proficiency",
             "proficiency_text": "Gained proficiency",
@@ -1550,7 +1581,7 @@ exports[`StudentResultsTable component should render when there is student data 
               16,
             ],
             "id": 8,
-            "number_of_correct_skills_text": "1 of 1 skills correct",
+            "number_of_correct_questions_text": "1 of 1 questions correct",
             "post_test_proficiency": "Proficiency",
             "pre_test_proficiency": "No proficiency",
             "proficiency_text": "Gained proficiency",
@@ -1609,17 +1640,19 @@ exports[`StudentResultsTable component should render when there is student data 
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Capitalization
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Capitalization"
                 name="Capitalization"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Capitalization<br/><br/>null</p>"
+                  tooltipText="<p>Capitalization<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1660,15 +1693,26 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            <span
-              className="label"
+            <div
+              className="student-proficiency-data-container"
             >
-              1
-               of 
-              1
-               student
-               proficient
-            </span>
+              <span
+                className="label"
+              >
+                0
+                 of 
+                1
+                 Student
+                 Improved or Maintained Skill
+              </span>
+              <div
+                className="skills-delta"
+              >
+                <span
+                  className="skill-count"
+                />
+              </div>
+            </div>
           </th>
           <th
             className="skill-group-header"
@@ -1677,17 +1721,19 @@ exports[`StudentResultsTable component should render when there is student data 
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Plural and Possessive Nouns
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Plural and Possessive Nouns"
                 name="Plural and Possessive Nouns"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Plural and Possessive Nouns<br/><br/>null</p>"
+                  tooltipText="<p>Plural and Possessive Nouns<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1728,16 +1774,26 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            <span
-              className="label"
+            <div
+              className="student-proficiency-data-container"
             >
-              0
-               of 
-              1
-               student
-              s
-               proficient
-            </span>
+              <span
+                className="label"
+              >
+                0
+                 of 
+                1
+                 Student
+                 Improved or Maintained Skill
+              </span>
+              <div
+                className="skills-delta"
+              >
+                <span
+                  className="skill-count"
+                />
+              </div>
+            </div>
           </th>
           <th
             className="skill-group-header"
@@ -1746,17 +1802,19 @@ exports[`StudentResultsTable component should render when there is student data 
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Adjectives and Adverbs
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Adjectives and Adverbs"
                 name="Adjectives and Adverbs"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Adjectives and Adverbs<br/><br/>null</p>"
+                  tooltipText="<p>Adjectives and Adverbs<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1797,16 +1855,26 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            <span
-              className="label"
+            <div
+              className="student-proficiency-data-container"
             >
-              0
-               of 
-              1
-               student
-              s
-               proficient
-            </span>
+              <span
+                className="label"
+              >
+                0
+                 of 
+                1
+                 Student
+                 Improved or Maintained Skill
+              </span>
+              <div
+                className="skills-delta"
+              >
+                <span
+                  className="skill-count"
+                />
+              </div>
+            </div>
           </th>
           <th
             className="skill-group-header"
@@ -1815,17 +1883,19 @@ exports[`StudentResultsTable component should render when there is student data 
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Prepositional Phrases
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Prepositional Phrases"
                 name="Prepositional Phrases"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Prepositional Phrases<br/><br/>null</p>"
+                  tooltipText="<p>Prepositional Phrases<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1866,16 +1936,26 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            <span
-              className="label"
+            <div
+              className="student-proficiency-data-container"
             >
-              0
-               of 
-              1
-               student
-              s
-               proficient
-            </span>
+              <span
+                className="label"
+              >
+                0
+                 of 
+                1
+                 Student
+                 Improved or Maintained Skill
+              </span>
+              <div
+                className="skills-delta"
+              >
+                <span
+                  className="skill-count"
+                />
+              </div>
+            </div>
           </th>
           <th
             className="skill-group-header"
@@ -1884,17 +1964,19 @@ exports[`StudentResultsTable component should render when there is student data 
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Compound Subjects, Objects, and Predicates
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Compound Subjects, Objects, and Predicates"
                 name="Compound Subjects, Objects, and Predicates"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>null</p>"
+                  tooltipText="<p>Compound Subjects, Objects, and Predicates<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -1935,15 +2017,26 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            <span
-              className="label"
+            <div
+              className="student-proficiency-data-container"
             >
-              1
-               of 
-              1
-               student
-               proficient
-            </span>
+              <span
+                className="label"
+              >
+                0
+                 of 
+                1
+                 Student
+                 Improved or Maintained Skill
+              </span>
+              <div
+                className="skills-delta"
+              >
+                <span
+                  className="skill-count"
+                />
+              </div>
+            </div>
           </th>
           <th
             className="skill-group-header"
@@ -1952,17 +2045,19 @@ exports[`StudentResultsTable component should render when there is student data 
             <div
               className="name-and-tooltip"
             >
-              <span>
+              <span
+                className="skill-name"
+              >
                 Commonly Confused Words
               </span>
               <SkillGroupTooltip
-                description={null}
+                description="null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic."
                 key="Commonly Confused Words"
                 name="Commonly Confused Words"
               >
                 <Tooltip
                   isTabbable={true}
-                  tooltipText="<p>Commonly Confused Words<br/><br/>null</p>"
+                  tooltipText="<p>Commonly Confused Words<br/><br/>null<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \\"improved\\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \\"maintained\\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.<br/><br/>The average score is based on the overall questions answered correctly across the class.</p>"
                   tooltipTriggerText={
                     <img
                       alt="Question mark icon"
@@ -2003,15 +2098,26 @@ exports[`StudentResultsTable component should render when there is student data 
                 </Tooltip>
               </SkillGroupTooltip>
             </div>
-            <span
-              className="label"
+            <div
+              className="student-proficiency-data-container"
             >
-              1
-               of 
-              1
-               student
-               proficient
-            </span>
+              <span
+                className="label"
+              >
+                0
+                 of 
+                1
+                 Student
+                 Improved or Maintained Skill
+              </span>
+              <div
+                className="skills-delta"
+              >
+                <span
+                  className="skill-count"
+                />
+              </div>
+            </div>
           </th>
         </tr>
       </thead>
@@ -2025,57 +2131,45 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
             ]
           }
@@ -2101,6 +2195,13 @@ exports[`StudentResultsTable component should render when there is student data 
                     Ken Liu
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -2137,57 +2238,45 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
             ]
           }
@@ -2213,6 +2302,13 @@ exports[`StudentResultsTable component should render when there is student data 
                     Tahereh Mafi
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -2249,57 +2345,45 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
             ]
           }
@@ -2325,6 +2409,13 @@ exports[`StudentResultsTable component should render when there is student data 
                     Jason Reynolds
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -2361,57 +2452,45 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
             ]
           }
@@ -2437,6 +2516,13 @@ exports[`StudentResultsTable component should render when there is student data 
                     Nic Stone
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -2473,57 +2559,45 @@ exports[`StudentResultsTable component should render when there is student data 
             Array [
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Capitalization",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Plural and Possessive Nouns",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Adjectives and Adverbs",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Prepositional Phrases",
                 "not_yet_proficient_in_post_test_student_names": Array [
                   "Angie Thomas",
                 ],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Compound Subjects, Objects, and Predicates",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
               Object {
                 "description": null,
+                "gained_proficiency_in_post_test_student_names": Array [],
                 "name": "Commonly Confused Words",
                 "not_yet_proficient_in_post_test_student_names": Array [],
-                "not_yet_proficient_in_pre_test_student_names": Array [
-                  "Angie Thomas",
-                ],
               },
             ]
           }
@@ -2537,7 +2611,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     1,
                   ],
                   "id": 3,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2564,7 +2638,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 Object {
                   "acquired_skill_ids": Array [],
                   "id": 4,
-                  "number_of_correct_skills_text": "0 of 1 skills correct",
+                  "number_of_correct_questions_text": "0 of 1 questions correct",
                   "post_test_proficiency": "No proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "No proficiency",
@@ -2596,7 +2670,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     8,
                   ],
                   "id": 5,
-                  "number_of_correct_skills_text": "5 of 6 skills correct",
+                  "number_of_correct_questions_text": "5 of 6 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -2705,7 +2779,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     9,
                   ],
                   "id": 6,
-                  "number_of_correct_skills_text": "2 of 3 skills correct",
+                  "number_of_correct_questions_text": "2 of 3 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -2766,7 +2840,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     12,
                   ],
                   "id": 7,
-                  "number_of_correct_skills_text": "4 of 4 skills correct",
+                  "number_of_correct_questions_text": "4 of 4 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2843,7 +2917,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     16,
                   ],
                   "id": 8,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2889,6 +2963,13 @@ exports[`StudentResultsTable component should render when there is student data 
                     Angie Thomas
                   </span>
                 </StudentNameOrTooltip>
+                <div
+                  className="name-section-subheader"
+                >
+                  <span
+                    className="correct-skill-text"
+                  />
+                </div>
                 <span
                   className="name-section-subheader"
                 >
@@ -2907,7 +2988,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     1,
                   ],
                   "id": 3,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -2942,7 +3023,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -2969,7 +3050,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -3001,7 +3082,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3110,7 +3191,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3171,7 +3252,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3248,7 +3329,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3286,37 +3367,13 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag proficiency"
-                  >
-                    <img
-                      alt="Filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                    />
-                    <span>
-                      Gained proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      1 of 1 skills correct
+                      1 of 1 questions correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -3330,7 +3387,7 @@ exports[`StudentResultsTable component should render when there is student data 
                 Object {
                   "acquired_skill_ids": Array [],
                   "id": 4,
-                  "number_of_correct_skills_text": "0 of 1 skills correct",
+                  "number_of_correct_questions_text": "0 of 1 questions correct",
                   "post_test_proficiency": "No proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "No proficiency",
@@ -3365,7 +3422,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3392,7 +3449,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -3424,7 +3481,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3533,7 +3590,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -3594,7 +3651,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3671,7 +3728,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3709,23 +3766,12 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag no-proficiency"
-                  >
-                    <img
-                      alt="Outlined circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-no-proficient.svg"
-                    />
-                    <span>
-                      No proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      0 of 1 skills correct
+                      0 of 1 questions correct
                     </span>
                   </div>
                 </button>
@@ -3745,7 +3791,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     8,
                   ],
                   "id": 5,
-                  "number_of_correct_skills_text": "5 of 6 skills correct",
+                  "number_of_correct_questions_text": "5 of 6 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -3860,7 +3906,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -3887,7 +3933,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -3919,7 +3965,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4028,7 +4074,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4089,7 +4135,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4166,7 +4212,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4204,37 +4250,13 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag partial-proficiency"
-                  >
-                    <img
-                      alt="Half filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-partial-proficiency.svg"
-                    />
-                    <span>
-                      Partial proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      5 of 6 skills correct
+                      5 of 6 questions correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        4
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -4250,7 +4272,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     9,
                   ],
                   "id": 6,
-                  "number_of_correct_skills_text": "2 of 3 skills correct",
+                  "number_of_correct_questions_text": "2 of 3 questions correct",
                   "post_test_proficiency": "Partial proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Partial proficiency",
@@ -4317,7 +4339,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4344,7 +4366,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -4376,7 +4398,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4485,7 +4507,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4546,7 +4568,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4623,7 +4645,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4661,37 +4683,13 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag partial-proficiency"
-                  >
-                    <img
-                      alt="Half filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-partial-proficiency.svg"
-                    />
-                    <span>
-                      Partial proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      2 of 3 skills correct
+                      2 of 3 questions correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -4707,7 +4705,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     12,
                   ],
                   "id": 7,
-                  "number_of_correct_skills_text": "4 of 4 skills correct",
+                  "number_of_correct_questions_text": "4 of 4 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "Partial proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -4790,7 +4788,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -4817,7 +4815,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -4849,7 +4847,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -4958,7 +4956,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -5019,7 +5017,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5096,7 +5094,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5134,37 +5132,13 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag proficiency"
-                  >
-                    <img
-                      alt="Filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                    />
-                    <span>
-                      Gained proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      4 of 4 skills correct
+                      4 of 4 questions correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>
@@ -5180,7 +5154,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     16,
                   ],
                   "id": 8,
-                  "number_of_correct_skills_text": "1 of 1 skills correct",
+                  "number_of_correct_questions_text": "1 of 1 questions correct",
                   "post_test_proficiency": "Proficiency",
                   "pre_test_proficiency": "No proficiency",
                   "proficiency_text": "Gained proficiency",
@@ -5215,7 +5189,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         1,
                       ],
                       "id": 3,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5242,7 +5216,7 @@ exports[`StudentResultsTable component should render when there is student data 
                     Object {
                       "acquired_skill_ids": Array [],
                       "id": 4,
-                      "number_of_correct_skills_text": "0 of 1 skills correct",
+                      "number_of_correct_questions_text": "0 of 1 questions correct",
                       "post_test_proficiency": "No proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "No proficiency",
@@ -5274,7 +5248,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         8,
                       ],
                       "id": 5,
-                      "number_of_correct_skills_text": "5 of 6 skills correct",
+                      "number_of_correct_questions_text": "5 of 6 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -5383,7 +5357,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         9,
                       ],
                       "id": 6,
-                      "number_of_correct_skills_text": "2 of 3 skills correct",
+                      "number_of_correct_questions_text": "2 of 3 questions correct",
                       "post_test_proficiency": "Partial proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Partial proficiency",
@@ -5444,7 +5418,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         12,
                       ],
                       "id": 7,
-                      "number_of_correct_skills_text": "4 of 4 skills correct",
+                      "number_of_correct_questions_text": "4 of 4 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "Partial proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5521,7 +5495,7 @@ exports[`StudentResultsTable component should render when there is student data 
                         16,
                       ],
                       "id": 8,
-                      "number_of_correct_skills_text": "1 of 1 skills correct",
+                      "number_of_correct_questions_text": "1 of 1 questions correct",
                       "post_test_proficiency": "Proficiency",
                       "pre_test_proficiency": "No proficiency",
                       "proficiency_text": "Gained proficiency",
@@ -5559,37 +5533,13 @@ exports[`StudentResultsTable component should render when there is student data 
                   type="button"
                 >
                   <div
-                    className="proficiency-tag proficiency"
-                  >
-                    <img
-                      alt="Filled in circle"
-                      src="undefined/images/pages/diagnostic_reports/components-proficiency-circle-color-proficiency.svg"
-                    />
-                    <span>
-                      Gained proficiency
-                    </span>
-                  </div>
-                  <div
                     className="correct-skills-and-delta-wrapper"
                   >
                     <span
                       className="number-of-correct-skills-text"
                     >
-                      1 of 1 skills correct
+                      1 of 1 questions correct
                     </span>
-                    <div
-                      className="skills-delta"
-                    >
-                      <img
-                        alt="Triangle up icon"
-                        src="undefined/images/pages/diagnostic_reports/icons-triangle-up-light-green.svg"
-                      />
-                      <span
-                        className="skill-count"
-                      >
-                        1
-                      </span>
-                    </div>
                   </div>
                 </button>
               </td>

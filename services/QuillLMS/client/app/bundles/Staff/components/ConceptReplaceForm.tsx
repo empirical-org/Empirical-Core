@@ -1,10 +1,10 @@
+import gql from "graphql-tag";
 import * as React from "react";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
-import { DropdownInput } from '../../Shared/index'
+import { DropdownInput } from '../../Shared/index';
 
-import { Concept } from '../interfaces/interfaces'
-import ChangeLogModal from './shared/changeLogModal'
+import { Concept } from '../interfaces/interfaces';
+import ChangeLogModal from './shared/changeLogModal';
 
 const REPLACE_CONCEPT = gql`
   mutation replaceConcept($id: ID! $replacementId: ID!, $changeLogs: [ChangeLogInput!]!){
@@ -133,10 +133,6 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     }
   }
 
-  handleConceptsInUseAlert = () => {
-    alert("This feature no longer works. Please contact the current Support Dev to get Concepts in Use info for particular concept(s).")
-  }
-
   render() {
     return (
       <Mutation mutation={REPLACE_CONCEPT} onCompleted={this.props.showSuccessBanner}>
@@ -146,7 +142,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
             <div className="find-and-replace-section">
               <div className="find-and-replace-section-header">
                 <div className="section-number">1</div>
-                <a onClick={this.handleConceptsInUseAlert}>View Concepts in use</a>
+                <a href="https://data.quill.org/question/1064-concepts-in-use-query-7-27-v3" rel="noopener noreferrer" target="_blank">View Concepts in use</a>
               </div>
             </div>
             <form acceptCharset="UTF-8" className="find-and-replace-form" onSubmit={this.handleSubmit} >

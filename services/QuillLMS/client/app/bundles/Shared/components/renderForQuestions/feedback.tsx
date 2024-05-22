@@ -123,4 +123,5 @@ const Feedback = ({ feedbackType, feedback, }: any) => (
   </div>
 );
 
-export { Feedback }
+export { Feedback };
+

@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import UnitTemplateMinisTable from '../unitTemplateMinisTable';
 import { activityPack } from '../../../../../../test_data/activityPack';
+import UnitTemplateMinisTable from '../unitTemplateMinisTable';
 
 const mockProps = {
   unitTemplates: [activityPack]

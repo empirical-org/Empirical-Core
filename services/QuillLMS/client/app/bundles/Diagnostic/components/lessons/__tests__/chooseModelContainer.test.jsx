@@ -1,8 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
-import { ChooseModel } from '../chooseModel.tsx';
-import ConceptSelector from '../../shared/conceptSelector.jsx';
+import React from 'react';
 import { ConceptExplanation } from '../../../../Shared/index';
+import ConceptSelector from '../../shared/conceptSelector.jsx';
+import { ChooseModel } from '../chooseModel.tsx';
 
 describe('ChooseModel component', () => {
   const mockProps = {

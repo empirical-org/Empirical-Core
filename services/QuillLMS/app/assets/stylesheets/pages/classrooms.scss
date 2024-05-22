@@ -1,12 +1,12 @@
-.import-from-clever-button.loading,
-.import-from-google-button.loading {
-  background-color: #f5f5f5;
-}
-
-.import-from-clever-button-icon,
-.import-from-google-button-icon {
+.import-from-provider-button-icon {
   margin-right: 8px;
   margin-left: 16px;
+}
+
+.import-from-provider-button {
+  .button-loading-spinner-container {
+    margin-left: 8px;
+  }
 }
 
 .classrooms-page {
@@ -58,9 +58,59 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 56px;
+
+    .input-container {
+      width: 250px;
+      min-height: min-content;
+      justify-content: flex-start;
+
+      input {
+        font-size: 14px !important;
+      }
+
+      .dropdown {
+        margin-bottom: 0px;
+      }
+
+      .dropdown__control {
+        background-color: transparent;
+        border: none;
+        margin-bottom: 0px;
+      }
+
+      .dropdown__single-value {
+        display: flex;
+      }
+
+      &.inactive.has-text label {
+        margin-bottom: 0px;
+      }
+
+      &.inactive {
+        width: 160px;
+      }
+
+      &.import-classes-dropdown-input {
+        .dropdown__single-value::before {
+          content: url('https://assets.quill.org/images/pages/activity_summary/students.svg');
+          position: relative;
+          margin-right: 8px;
+        }
+        .dropdown__single-value {
+          margin-right: 4px;
+          align-items: center;
+          font-size: 14px;
+          justify-content: flex-end;
+        }
+        .dropdown__menu {
+          margin-top: -20px;
+        }
+      }
+    }
   }
   .buttons {
     display: flex;
+    align-items: center;
     .create-a-class-button {
       margin-left: 24px;
     }
@@ -101,13 +151,13 @@
   .coteacher-invitation {
     height: 122px;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     padding: 32px;
     margin-bottom: 24px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #ffffff;
+    background-color: $quill-white;
     .coteacher-invitation-content {
       display: flex;
       justify-content: space-between;
@@ -123,6 +173,18 @@
         cursor: pointer;
         margin-left: 40px;
       }
+      .accept-or-decline {
+        display: flex;
+        button:first-of-type {
+          margin-right: 16px;
+        }
+        .spinner-container {
+          margin: 0;
+          .spinner {
+            height: 24px;
+          }
+        }
+      }
     }
   }
 
@@ -130,27 +192,49 @@
     z-index: 5;
   }
 
-  .google-or-clever-note-of-explanation {
-    height: 174px;
-    border-radius: 6px;
-    background-color: #eeeeee;
-    padding: 40px 32px;
+  .duplicate-account-pro-tip {
+    padding: 16px 24px;
     display: flex;
-    justify-content: space-between;
+    background: #F7F5F5;
+    border-radius: 8px;
+    align-items: flex-start;
+    line-height: 20px;
+    color: #565656;
+    margin-top: 32px;
+    img {
+      margin-right: 18px;
+    }
+    h4 {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  .provider-note-of-explanation {
+    padding: 32px 24px;
+    display: flex;
     align-items: flex-start;
     margin-bottom: 40px;
-    .google-or-clever-note-of-explanation-text {
-      max-width: 600px;
+    background: $quill-green-1;
+    border: 1px solid $quill-green-20;
+    border-radius: 8px;
+    img {
+      margin-right: 18px;
+    }
+    .provider-note-of-explanation-text {
       h4 {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 24px;
-        line-height: 1.63;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+        color: $quill-green;
+        margin-bottom: 10px;
       }
       p {
+        font-weight: 400;
         font-size: 14px;
-        line-height: 1.57;
-        color: #646464;
+        line-height: 20px;
+        color: $quill-green;
       }
     }
   }
@@ -190,7 +274,7 @@
       }
     }
     .data-table-row:last-of-type {
-      border-bottom: none;
+      border-bottom: 1px solid $quill-grey-5;
     }
   }
 
@@ -230,7 +314,7 @@
       width: 207px;
       height: 48px;
       display: flex;
-      color: #000;
+      color: $quill-black;
       font-size: 16px;
       align-items: center;
       padding: 0px 16px;
@@ -257,7 +341,7 @@
   }
 }
 
-.sortable-classroom, .classrooms-page .list-item {
+.dragged-sortable-classroom, .classrooms-page .list-item {
   display: flex;
   align-items: baseline;
   width: calc(#{$sitewidepagewidth} + 38px); // to make up for negative margin left below
@@ -274,8 +358,8 @@
 .classroom {
   width: 100%;
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin-bottom: 24px;
   h3 {
     font-size: 16px;
@@ -315,7 +399,7 @@
     }
   }
   .class-settings, .students-section {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $quill-grey-5;
   }
   .class-settings {
     padding: 0px 32px 32px;
@@ -336,8 +420,7 @@
       margin-right: 16px;
     }
   }
-  .invite-clever-classroom-students,
-  .invite-google-classroom-students {
+  .invite-provider-classroom-students {
     display: flex;
     flex-direction: column;
     span {
@@ -347,8 +430,7 @@
       font-size: 12px;
     }
   }
-  .invite-clever-classroom-students,
-  .invite-google-classroom-students {
+  .invite-provider-classroom-students {
     align-items: flex-end;
     margin-bottom: 20px;
     span {
@@ -400,6 +482,8 @@
       min-height: 76px;
       div {
         display: flex;
+      }
+      .login-pdf-and-view-as-student {
         .quill-button {
           margin-right: 16px;
         }
@@ -418,7 +502,6 @@
   .student-actions-dropdown {
     width: 200px;
     justify-content: flex-start;
-    min-height: 59px !important;
     .dropdown {
       font-size: 16px;
     }
@@ -439,8 +522,16 @@
   }
 }
 
+@media(max-width: 1200px) {
+  .classrooms-page {
+    .data-table {
+      overflow-x: auto !important;
+    }
+  }
+}
+
 @media (min-width: 768px) and (max-width: 992px) {
-  .sortable-classroom, .classrooms-page .list-item {
+  .dragged-sortable-classroom, .classrooms-page .list-item {
     display: flex;
     align-items: baseline;
     width: 762px;
@@ -449,10 +540,71 @@
 }
 
 @media (max-width: 768px) {
-  .sortable-classroom, .classrooms-page .list-item {
+  .dragged-sortable-classroom, .classrooms-page .list-item {
     display: flex;
     align-items: baseline;
     width: auto;
     margin-left: 0px;
+  }
+}
+
+@media (max-width: 600px) {
+  .classrooms-page {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+        button:first-of-type {
+          margin: 16px 0px;
+        }
+      }
+    }
+    .classroom-card-header {
+      height: max-content;
+      .classroom-data {
+        display: flex;
+        flex-direction: column;
+        .bullet.item {
+          display: none;
+        }
+      }
+    }
+    .students-section-header-buttons {
+      flex-direction: column;
+      .top-buttons-container {
+        flex-direction: column;
+      }
+    }
+    .class-settings {
+      .class-settings-buttons {
+        flex-direction: column;
+      }
+    }
+    .classroom {
+      &.open {
+        width: 80vw;
+        .student-actions-dropdown-wrapper {
+          display: none;
+        }
+        .students-section-header {
+          .students-section-header-buttons {
+            .top-buttons-container {
+              a {
+                white-space: pre-wrap;
+                height: auto;
+                text-align: left;
+                width: 100%;
+                padding: 16px;
+              }
+            }
+          }
+        }
+        .data-table {
+          display: none;
+        }
+      }
+    }
   }
 }

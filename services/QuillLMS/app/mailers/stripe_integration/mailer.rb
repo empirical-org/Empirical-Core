@@ -4,6 +4,8 @@ module StripeIntegration
   class Mailer < ApplicationMailer
     default from: QUILL_TEAM_EMAIL_ADDRESS
 
+    SALES_OPS_EMAIL = ENV.fetch('SALES_OPS_EMAIL', '')
+
     STRIPE_DASHBOARD_URL = 'https://dashboard.stripe.com'
     STRIPE_BANKING_NOTIFICATIONS_EMAIL = ENV.fetch('STRIPE_BANKING_NOTIFICATIONS_EMAIL', '')
     STRIPE_PAYMENT_NOTIFICATIONS_EMAIL = ENV.fetch('STRIPE_PAYMENT_NOTIFICATIONS_EMAIL', '')
@@ -28,6 +30,11 @@ module StripeIntegration
       @external_id = external_id
       @dashboard_url = "#{STRIPE_DASHBOARD_URL}/disputes?statuses[0]=needs_response"
       mail to: STRIPE_PAYMENT_NOTIFICATIONS_EMAIL, subject: 'Charge Dispute Created'
+    end
+
+    def invoices_without_subscriptions(invoice_payloads)
+      @invoice_payloads = invoice_payloads
+      mail to: SALES_OPS_EMAIL, subject: 'Stripe Invoices Without Associated Subscriptions'
     end
   end
 end

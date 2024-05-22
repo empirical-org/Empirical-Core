@@ -1,5 +1,5 @@
+import React from 'react';
 import _ from 'underscore';
-import React from 'react'
 
 export default class SortableTh extends React.Component {
   arrowClass = () => {

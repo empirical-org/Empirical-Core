@@ -1,4 +1,3 @@
-declare function require(name:string);
 import * as React from 'react';
 const WatchTeacherIllustration = `${process.env.CDN_URL}/images/illustrations/teacher-presenting-lessons.svg`
 

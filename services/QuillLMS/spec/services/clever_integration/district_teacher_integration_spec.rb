@@ -6,6 +6,7 @@ RSpec.describe CleverIntegration::DistrictTeacherIntegration do
   let(:teacher) { create(:teacher, :signed_up_with_clever) }
   let(:district_id) { '1abcdefg'}
   let(:district) { create(:district, clever_id: district_id) }
+  let(:auth_credential_class) { CleverDistrictAuthCredential }
 
   subject { described_class.run(teacher, district_id) }
 
@@ -13,9 +14,16 @@ RSpec.describe CleverIntegration::DistrictTeacherIntegration do
     expect(CleverIntegration::Importers::CleverDistrict).to receive(:run).and_return(district)
     expect(CleverIntegration::Importers::School).to receive(:run).with(teacher, district.token)
 
+    expect(CleverIntegration::AuthCredentialSaver)
+      .to receive(:run)
+      .with(
+        access_token: district.token,
+        auth_credential_class: auth_credential_class,
+        user: teacher
+      )
+
     subject
 
-    expect(AuthCredential.count).to eq 1
     expect(teacher.districts).to eq [district]
   end
 

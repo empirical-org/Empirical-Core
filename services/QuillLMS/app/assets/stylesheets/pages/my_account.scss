@@ -32,7 +32,7 @@
       width: 300px;
       height: 40px;
       border-radius: 3px;
-      background-color: #ffffff;
+      background-color: $quill-white;
       border: solid 1px #e9e9e9;
       &.inactive {
         background-color: #F7F5F5;
@@ -47,9 +47,7 @@
   .dropdown-toggle.btn.btn-default {
     width: 300px;
   }
-  .error {
 
-  }
   .gray-text {
     color: #969696;
     .row {
@@ -130,28 +128,6 @@
     color: $quillforestgreen;
     margin-left: 3px;
   }
-  // .modal-dialog {
-  //   .modal-header {
-  //     min-height: 59px;
-  //   }
-  //   .account-form {
-  //     margin-bottom: 50px;
-  //   }
-  //   .close {
-  //     background-color: black;
-  //   }
-  //   .form-label, #zip{
-  //     float: none;
-  //     height: inherit;
-  //   line-height: inherit;
-  //   }
-  //   .row {
-  //     padding: 0px;
-  //   }
-  //   #select_school {
-  //     width: 50%;
-  //   }
-  // }
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -164,38 +140,6 @@
   }
 }
 
-// @media (max-width: 767px) {
-//   #my-account {
-//     .form-row {
-//       display: flex;
-//       align-items: center;
-//       &.email-row {
-//         position: relative;
-//       }
-//       .form-button {
-//         margin-left: 4%;
-//       }
-//     }
-//     .form-label {
-//       width: 110% !important;
-//     }
-//     .form-input {
-//       input {
-//         margin-left: -125%;
-//         width: 225%;
-//         height: 40px;
-//         border-radius: 3px;
-//         background-color: #ffffff;
-//         border: solid 1px #e9e9e9;
-//         &.inactive {
-//           width: 100%;
-//           background-color: #F7F5F5;
-//           border: dashed 1px #969696;
-//         }
-//       }
-//     }
-//   }
-// }
 
 @media (max-width: 767px) {
   #my-account {
@@ -236,7 +180,7 @@
         width: 100%;
         height: 40px;
         border-radius: 3px;
-        background-color: #ffffff;
+        background-color: $quill-white;
         border: solid 1px #e9e9e9;
         &.inactive {
           background-color: #F7F5F5;
@@ -255,8 +199,8 @@
   max-width: 577px;
   width: 100%;
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin: auto;
   padding: 38px 32px 0px;
   margin-bottom: 24px;
@@ -266,28 +210,48 @@
   h1 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 42px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  p {
+    img {
+      margin-right: 10px;
+    }
   }
   .input-container {
     margin-bottom: 20px;
     &.unacknowledged {
       margin-bottom: 0px;
     }
-    &.active.not-editable {
-      margin-bottom: 71px;
-    }
+  }
+  .school-container {
+    margin-bottom: 40px;
   }
   .school-container, .inactive-password-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .school, .not-a-password {
+    .not-a-password {
       input {
         border-bottom: none;
       }
     }
-    .school input {
-      width: 400px;
+    .school-name-container {
+      width: 80%;
+    }
+    .school-name-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7f7f7f;
+      display: flex;
+      margin-bottom: 5px;
+    }
+    .school-name {
+      font-size: 16px;
     }
     .not-a-password input {
       max-width: 300px;
@@ -302,6 +266,9 @@
       cursor: pointer;
       background-color: transparent;
       border: none;
+    }
+    .change-school {
+      margin-top: 27px;
     }
   }
   .school-search-container {
@@ -319,16 +286,19 @@
     }
   }
 
+  .checkboxes {
+    margin-bottom: 32px;
+  }
+
   .checkbox-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 12px;
     span {
       line-height: 1.57;
     }
   }
   .quill-checkbox {
-    margin-top: 2px;
     margin-right: 24px;
   }
   @media (max-width: 580px) {
@@ -388,7 +358,7 @@
 }
 
 .user-linked-accounts {
-  padding-bottom: 42px;
+  padding-bottom: 32px;
   hr {
     width: 576px;
     margin: 25px 0px 25px -32px;
@@ -432,13 +402,19 @@
   left: 0;
   z-index: 99;
   opacity: 0.5;
-  background-color: #000;
+  background-color: $quill-black;
+}
+
+.subject-area-section {
+  .subject-area-row span {
+    color: $quill-grey-40;
+  }
 }
 
 .unlink-modal, .delete-account-modal {
   width: 560px;
   border-radius: 6px;
-  background-color: #ffffff;
+  background-color: $quill-white;
   z-index: 100;
   position: fixed;
   top: 45%;
@@ -526,6 +502,41 @@
   .text {
     color: #646464;
     margin: 0px 30px 40px 0px;
+  }
+}
+
+.student-dashboard-settings-section {
+  padding-bottom: 40px;
+  h1 {
+    margin-bottom: 8px;
+  }
+  p {
+    margin-bottom: 32px;
+    color: $quill-grey-40;
+    a {
+      color: $quill-green;
+      font-weight: 600;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  label {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    color: $quill-grey-40;
+    margin-bottom: 0px;
+  }
+  .checkbox-row {
+    margin-bottom: 0px;
+  }
+  form {
+    margin-bottom: 0px;
+  }
+  .button-section {
+    padding-bottom: 0px;
   }
 }
 

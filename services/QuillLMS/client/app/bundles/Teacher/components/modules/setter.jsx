@@ -2,7 +2,7 @@
 // setter has drastically changed as per slack conversation between ryan and donald
 // this will affect anything that was set up to use setter before 6/16/2016
 
-import _ from 'underscore'
+import _ from 'underscore';
 
 //http://stackoverflow.com/questions/14843815/recursive-deep-extend-assign-in-underscore-js
 let _deepFunction = function(mergeArrays) {

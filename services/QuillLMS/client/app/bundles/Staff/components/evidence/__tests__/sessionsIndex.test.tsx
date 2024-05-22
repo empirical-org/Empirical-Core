@@ -1,8 +1,8 @@
-import * as React from 'react';
-import 'whatwg-fetch';
 import { shallow } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
-import { QueryClientProvider } from 'react-query'
+import { createLocation, createMemoryHistory } from 'history';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
+import 'whatwg-fetch';
 
 import { DefaultReactQueryClient } from '../../../../Shared/index';
 import SessionsIndex from '../activitySessions/sessionsIndex';

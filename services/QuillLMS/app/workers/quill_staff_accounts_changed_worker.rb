@@ -6,6 +6,7 @@ class QuillStaffAccountsChangedWorker
 
   PARAMS_TO_TRACK = %w(id name email username created_at google_id signed_up_with_google)
   STAFF_ACCOUNTS_CACHE_KEY = 'check_staff_accounts'
+  EXPIRES_IN = 25.hours.to_i
 
   EMAIL_NOTIFICATION_FROM = 'eng-alerts@quill.org'
   EMAIL_NOTIFICATION_TO = 'eng-alerts@quill.org'
@@ -14,17 +15,14 @@ class QuillStaffAccountsChangedWorker
     current_staff_accounts = current_staff_account_data
     previous_staff_accounts = cached_staff_account_data
     notify_staff(current_staff_accounts, previous_staff_accounts) unless current_staff_accounts == previous_staff_accounts
-    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json, ex: 25.hours.to_i)
+    $redis.set(STAFF_ACCOUNTS_CACHE_KEY, current_staff_accounts.to_json, ex: EXPIRES_IN)
   end
 
   def current_staff_account_data
-    current_staff_accounts = User.where(role: User::STAFF)
-    current_staff_accounts.map do |account|
-      hash = {}
-      obj = account.as_json
-      PARAMS_TO_TRACK.each { |key| hash[key] = obj[key].to_s }
-      hash
-    end
+    User
+      .where(role: User::STAFF)
+      .order(:id)
+      .as_json(only: PARAMS_TO_TRACK)
   end
 
   def cached_staff_account_data
@@ -41,12 +39,12 @@ class QuillStaffAccountsChangedWorker
     existing_ids = current_ids & previous_ids
 
     new_ids.each do |id|
-      body << "New Account: #{current_staff_accounts.find{ |acc| acc['id'] == id.to_s }['name']} (ID ##{id})\n\n"
+      body << "New Account: #{current_staff_accounts.find{ |acc| acc['id'] == id }['name']} (ID ##{id})\n\n"
     end
 
     existing_ids.each do |id|
-      old_data = previous_staff_accounts.find { |acc| acc['id'] === id.to_s }
-      new_data = current_staff_accounts.find { |acc| acc['id'] === id.to_s }
+      old_data = previous_staff_accounts.find { |acc| acc['id'] === id }
+      new_data = current_staff_accounts.find { |acc| acc['id'] === id }
       PARAMS_TO_TRACK.each do |key|
         unless old_data[key] === new_data[key]
           body << "ID ##{id} #{key}: #{old_data[key]} => #{new_data[key]}\n\n"

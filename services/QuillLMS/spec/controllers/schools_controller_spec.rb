@@ -35,6 +35,15 @@ describe SchoolsController, type: :controller do
       expect(json['data'].first['id']).to eq(@school2.id)
     end
 
+    it 'fetches schools even if the search string is not the start of the school name' do
+      get :index, params: { search: 'Academy' }, as: :json
+
+      expect(response.status).to eq(200)
+
+      json = JSON.parse(response.body)
+      expect(json['data'].first['id']).to eq(@school2.id)
+    end
+
     it 'will return an empty array if the search length is less than the minimum' do
       get :index, params: { search: 'M' }, as: :json
 

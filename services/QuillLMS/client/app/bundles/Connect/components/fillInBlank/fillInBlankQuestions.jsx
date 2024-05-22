@@ -1,8 +1,8 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { QuestionList } from '../shared/questionList'
-import { hashToCollection, ArchivedButton, } from '../../../Shared/index'
+import { ArchivedButton, hashToCollection, } from '../../../Shared/index';
+import { QuestionList } from '../shared/questionList';
 
 class FillInBlankQuestions extends Component {
   constructor(props) {

@@ -16,6 +16,7 @@ describe DeleteObsoleteActiveActivitySessionsWorker, type: :worker do
       uid: obsolete_session2.uid,
       classroom_unit: create(:classroom_unit, visible: false)
     )
+    stub_const("DeleteObsoleteActiveActivitySessionsWorker::BATCH_SIZE", 1)
   end
 
   it 'should delete obsolete sessions' do

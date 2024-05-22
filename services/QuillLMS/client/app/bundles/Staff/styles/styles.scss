@@ -7,6 +7,7 @@
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/empty_state.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/filter_column.scss';
 @import '../../../../../app/assets/stylesheets/pages/custom_activity_pack/mobile_sort_and_filter_menus.scss';
+@import "../../../../node_modules/react-datetime/css/react-datetime";
 
 @import './concept_manager.scss';
 @import './attributes_manager.scss';
@@ -47,3 +48,8 @@
 @import './locker/personalLocker.scss';
 @import './locker/organizeLocker.scss';
 @import './locker/lockerTile.scss';
+
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}

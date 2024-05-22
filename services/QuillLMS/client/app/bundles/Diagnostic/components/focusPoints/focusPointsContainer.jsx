@@ -1,13 +1,13 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
 
 import { TextEditor } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
-import { hashToCollection, SortableList, } from '../../../Shared/index'
+import { hashToCollection, SortableList, } from '../../../Shared/index';
 
 export class FocusPointsContainer extends Component {
   constructor(props) {
@@ -137,17 +137,18 @@ export class FocusPointsContainer extends Component {
 
   updatefpOrder = () => {
     const { actionFile, fpOrderedIds, focusPoints } = this.state;
-    const { match } = this.props;
+    const { match, dispatch, } = this.props;
     const { params } = match;
     const { questionID } = params;
     if (fpOrderedIds) {
       const newFp = {};
+      const focusPointsArray = hashToCollection(focusPoints)
       fpOrderedIds.forEach((id, index) => {
-        const fp = Object.assign({}, focusPoints[id]);
+        const fp = Object.assign({}, focusPointsArray.find(fp => fp.key === id));
         fp.order = index + 1;
         newFp[id] = fp;
       });
-      this.props.dispatch(actionFile.submitBatchEditedFocusPoint(questionID, newFp));
+      dispatch(actionFile.submitBatchEditedFocusPoint(questionID, newFp));
       this.setState({focusPoints: newFp})
       alert('saved!');
     } else {
@@ -177,7 +178,7 @@ export class FocusPointsContainer extends Component {
     const components = this.fPsortedByOrder().map((fp) => {
       const { conceptResults, feedback, key, order, text } = fp;
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={key}>
+        <div className="card is-fullwidth has-bottom-margin" id={key} key={key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, key)} placeholder="Name" type="text" value={fp.name || ''} />
           </header>
@@ -215,7 +216,7 @@ export class FocusPointsContainer extends Component {
   renderTextInputFields = (sequenceString, key) => {
     let className = `input regex-inline-edit regex-${key}`
     return sequenceString.split(/\|{3}(?!\|)/).map(text => (
-      <input className={className} onChange={(e) => this.handleFocusPointChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
+      <input className={className} key={key} onChange={(e) => this.handleFocusPointChange(e, key)} style={{ marginBottom: 5, minWidth: `${(text.length + 1) * 8}px`}} type="text" value={text || ''} />
     ));
   }
 

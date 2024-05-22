@@ -3,7 +3,26 @@
 require 'rails_helper'
 
 describe ProfilesController, type: :controller do
-  describe 'as a student' do
+  context 'as an admin' do
+    let!(:admin) { create(:admin) }
+
+    before do
+      allow(controller).to receive(:current_user) { admin }
+    end
+
+    describe '#show' do
+      it 'should redirect to /sign-up/verify-email if the user has pending verification' do
+        token = 'valid_token'
+        create(:user_email_verification, user: admin, verification_token: token)
+
+        get :show
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to('/sign-up/verify-email')
+      end
+    end
+  end
+
+  context 'as a student' do
     let!(:classroom) {create(:classroom)}
     let!(:student) { create(:student) }
     let!(:students_classrooms) do
@@ -12,13 +31,10 @@ describe ProfilesController, type: :controller do
         classroom: classroom
       )
     end
-    let!(:other_student) {create(:student)}
-    let!(:units) do [
-        create(:unit),
-        create(:unit)
-      ]
-    end
+    let!(:other_student) { create(:student) }
+    let!(:units) { create_list(:unit, 2) }
     let!(:post_test) { create(:activity) }
+
     let!(:activities) do [
         create(:activity),
         create(:activity, follow_up_activity_id: post_test.id),
@@ -27,6 +43,7 @@ describe ProfilesController, type: :controller do
         post_test
       ]
     end
+
     let!(:unit_activities) do [
         create(:unit_activity, unit: units[0], activity: activities[0], order_number: 3),
         create(:unit_activity, unit: units[0], activity: activities[1], order_number: 2),
@@ -35,6 +52,7 @@ describe ProfilesController, type: :controller do
         create(:unit_activity, unit: units[1], activity: activities[4], order_number: 1),
       ]
     end
+
     let!(:classroom_units) do [
         create(:classroom_unit,
           unit: units[0],
@@ -48,7 +66,9 @@ describe ProfilesController, type: :controller do
         )
       ]
     end
-    let!(:classroom_unit_activity_states) do [
+
+    let!(:classroom_unit_activity_states) do
+      [
         create(:classroom_unit_activity_state, unit_activity: unit_activities[0], classroom_unit: classroom_units[0], locked: true),
         create(:classroom_unit_activity_state, unit_activity: unit_activities[1], classroom_unit: classroom_units[0]),
         create(:classroom_unit_activity_state, unit_activity: unit_activities[2], classroom_unit: classroom_units[0], pinned: true),
@@ -56,14 +76,10 @@ describe ProfilesController, type: :controller do
         create(:classroom_unit_activity_state, unit_activity: unit_activities[4], classroom_unit: classroom_units[1])
       ]
     end
-    let!(:activity_sessions) do [
-        create(:activity_session, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9)
-      ]
-    end
 
-    before do
-      session[:user_id] = student.id
-    end
+    let!(:activity_sessions) { create_list(:activity_session, 1, classroom_unit: classroom_units[0], user: student, visible: true, activity: activities[1], percentage: 0.9) }
+
+    before { session[:user_id] = student.id }
 
     it 'redirects to the student classes page' do
       get :show
@@ -102,7 +118,7 @@ describe ProfilesController, type: :controller do
 
       context 'when the student has a single classroom' do
         it "returns student, classroom, and teacher info when the current user has classrooms" do
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           response_body = JSON.parse(response.body)
           expect(student.classrooms.count).to eq(1)
           students_classroom = student.classrooms.first
@@ -137,7 +153,7 @@ describe ProfilesController, type: :controller do
         end
 
         it 'sorts pinned activities to the front' do
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           scores = JSON.parse(response.body)['scores']
           pinned_flags = scores.map { |score| score['pinned'].to_s }
           expect(pinned_flags).to eq(pinned_flags.sort.reverse)
@@ -148,7 +164,7 @@ describe ProfilesController, type: :controller do
             activity_state.pinned = false
             activity_state.save
           end
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           scores = JSON.parse(response.body)['scores']
           locked_flags = scores.map { |score| score['locked'].to_s }
           expect(locked_flags).to eq(locked_flags.sort)
@@ -160,7 +176,7 @@ describe ProfilesController, type: :controller do
             activity_state.locked = false
             activity_state.save
           end
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           scores = JSON.parse(response.body)['scores']
           unit_created_at_times = scores.map { |score| score['unit_created_at'] }
           expect(unit_created_at_times).to eq(unit_created_at_times.sort)
@@ -174,7 +190,7 @@ describe ProfilesController, type: :controller do
           end
           # Note that our current sorting algorithm uses "max_percentage" as a weak proxy for this
           # It may ultimately result in some unexpected behavior
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
           max_percentages = single_unit_scores.map { |score| score['max_percentage'] }.compact
@@ -187,7 +203,7 @@ describe ProfilesController, type: :controller do
             activity_state.locked = false
             activity_state.save
           end
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           scores = JSON.parse(response.body)['scores']
           single_unit_scores = scores.select { |item| item['unit_id'] == units[0].id }
           single_unit_scores = scores.reject { |item| item['max_percentage'].nil? }
@@ -199,7 +215,7 @@ describe ProfilesController, type: :controller do
           # This test attempts to do a complex, total sorting algorithm comparison
           # It's probably doing too much in one place, but the coverage is nice
 
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           scores = JSON.parse(response.body)['scores']
           relevant_classroom = student.classrooms.last
           scores_array = []
@@ -218,7 +234,7 @@ describe ProfilesController, type: :controller do
 
               scores_array << {
                 'name' => activity.name,
-                'description' => activity.description,
+                'activity_description' => activity.description,
                 'repeatable' => activity.repeatable,
                 'activity_classification_id' => activity.activity_classification_id,
                 'activity_classification_key' => activity.classification.key,
@@ -233,6 +249,7 @@ describe ProfilesController, type: :controller do
                 'completed_date' => activity_session&.completed_at,
                 'order_number' => unit_activity.order_number,
                 'due_date' => unit_activity.due_date,
+                'publish_date' => unit_activity.publish_date,
                 'pre_activity_id' => pre_test&.id,
                 'unit_activity_created_at' => classroom_unit.created_at,
                 'user_pack_sequence_item_status' => nil,
@@ -242,7 +259,9 @@ describe ProfilesController, type: :controller do
                 'completed_pre_activity_session' => pre_test_completed_session.present?,
                 'finished' => activity_session&.percentage ? true : false,
                 'resume_link' => activity_session&.state == 'started' ? 1 : 0,
-                'closed' => false
+                'closed' => false,
+                'activity_session_id' => activity_session&.id,
+                'completed_attempt_count' => activity_session&.completed_at ? 1 : 0
               }
             end
           end
@@ -260,11 +279,68 @@ describe ProfilesController, type: :controller do
         end
 
         it 'returns next activity session' do
-          get :student_profile_data
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
           response_body = JSON.parse(response.body)
           expect(response_body['next_activity_session']).to eq(response_body['scores'].first)
         end
+
+        it 'returns the student metrics' do
+          classroom = student.classrooms.first
+          get :student_profile_data, params: { current_classroom_id: classroom.id }
+          response_body = JSON.parse(response.body)
+          expect(response_body['metrics'].to_json).to eq(StudentDashboardMetrics.new(student, classroom.id).run.to_json)
+        end
       end
     end
+
+    context 'as a student with activity sessions' do
+      let(:student) { create(:student) }
+      let(:activity) { create(:activity) }
+      let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id]) }
+      let!(:activity_sessions) do
+        create_list(
+          :activity_session,
+          2,
+          classroom_unit: classroom_unit,
+          activity: activity,
+          user: student,
+          state: 'finished'
+        )
+      end
+      let(:data_param) do
+        [
+          {
+            'activity_id' => activity.id,
+            'classroom_unit_id' => classroom_unit.id
+          }
+        ]
+      end
+
+      before { allow(controller).to receive(:current_user) { student } }
+
+      describe '#student_exact_scores_data' do
+        it 'returns formatted data for activity sessions' do
+          post :student_exact_scores_data, params: { data: data_param, classroom_id: classroom_unit.classroom_id }, as: :json
+
+          expect(response).to have_http_status(:ok)
+          json_response = JSON.parse(response.body)
+          expect(json_response['exact_scores_data']).to be_a(Array)
+          expect(json_response['exact_scores_data'].size).to eq(1)
+
+          session_data = json_response['exact_scores_data'].first
+          expect(session_data['sessions']).to be_a(Array)
+          expect(session_data['sessions'].size).to eq(2)
+          expect(session_data['completed_attempts']).to eq(2)
+
+          expect(session_data['sessions'][0]['completed_at']).to be < session_data['sessions'][1]['completed_at']
+
+          session_data['sessions'].each do |session|
+            expect(session.keys).to include('percentage', 'id', 'description', 'due_date', 'completed_at')
+          end
+        end
+
+      end
+    end
+
   end
 end

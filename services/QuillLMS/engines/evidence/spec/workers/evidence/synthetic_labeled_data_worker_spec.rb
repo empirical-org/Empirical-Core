@@ -5,6 +5,8 @@ require 'rails_helper'
 module Evidence
   describe SyntheticLabeledDataWorker, type: :worker do
     let(:email) { 'test@quill.org' }
+    let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
+    let(:prompt)  { activity.prompts.first }
 
     before do
       stub_const("Evidence::Synthetic::EMAIL", email)
@@ -18,9 +20,6 @@ module Evidence
       let(:mock_uploader) { double(file: file) }
       let(:file) { fixture_file_upload(filename) }
       let(:file_as_array) {[['hello', 'world'], ['data','here']]}
-      let(:activity) { create(:evidence_activity) }
-      let(:passage_text) {"some passage text" * 20}
-      let!(:passage) { create(:evidence_passage, activity: activity, text: passage_text) }
 
       let(:generator_response) { double }
 
@@ -34,14 +33,14 @@ module Evidence
         expect(mock_uploader).to receive(:retrieve_from_store!).with(filename)
 
         expect(Evidence::Synthetic::LabeledDataGenerator).to receive(:csvs_from_run)
-          .with(file_as_array, filename, passage_text)
+          .with(file_as_array, filename, prompt)
           .and_return(generator_response)
 
         expect(FileMailer).to receive(:send_multiple_files)
           .with(email, email_subject, generator_response)
           .and_return(mailer)
 
-        subject.perform(filename, activity.id)
+        subject.perform(filename, prompt.id)
       end
 
       context 'utf-8 encoding' do
@@ -53,14 +52,14 @@ module Evidence
           expect(mock_uploader).to receive(:retrieve_from_store!).with(filename)
 
           expect(Evidence::Synthetic::LabeledDataGenerator).to receive(:csvs_from_run)
-            .with(file_as_array, filename, passage_text)
+            .with(file_as_array, filename, prompt)
             .and_return(generator_response)
 
           expect(FileMailer).to receive(:send_multiple_files)
             .with(email, email_subject, generator_response)
             .and_return(mailer)
 
-          subject.perform(filename, activity.id)
+          subject.perform(filename, prompt.id)
         end
       end
     end

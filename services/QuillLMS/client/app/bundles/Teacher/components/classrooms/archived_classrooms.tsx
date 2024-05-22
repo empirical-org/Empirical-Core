@@ -1,10 +1,12 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import Classroom from './classroom'
-import UnarchiveClassroomModal from './unarchive_classroom_modal'
+import Classroom from './classroom';
+import UnarchiveClassroomModal from './unarchive_classroom_modal';
 
-import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index'
 import { requestGet } from '../../../../modules/request/index';
+import { Snackbar, defaultSnackbarTimeout } from '../../../Shared/index';
+import { MY_CLASSES_FEATURED_BLOG_POST_ID } from '../../constants/featuredBlogPost';
+import ArticleSpotlight from '../shared/articleSpotlight';
 
 interface ArchivedClassroomsProps {
   classrooms: Array<any>;
@@ -149,12 +151,15 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
 
   render() {
     return (
-      <div className="archived-classrooms classrooms-page">
-        {this.renderUnarchiveClassroomModal()}
-        {this.renderSnackbar()}
-        {this.renderHeader()}
-        {this.renderPageContent()}
-      </div>
+      <React.Fragment>
+        <div className="container gray-background-accommodate-footer archived-classrooms classrooms-page">
+          {this.renderUnarchiveClassroomModal()}
+          {this.renderSnackbar()}
+          {this.renderHeader()}
+          {this.renderPageContent()}
+        </div>
+        <ArticleSpotlight blogPostId={MY_CLASSES_FEATURED_BLOG_POST_ID} />
+      </React.Fragment>
     )
   }
 }

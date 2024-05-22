@@ -7,7 +7,7 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
   <div
     className="modal-background"
   />
-  <Component
+  <ForwardRef
     height={900}
     numberOfPieces={700}
     recycle={false}

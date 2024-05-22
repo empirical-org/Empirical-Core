@@ -2,15 +2,14 @@
 
 require 'rails_helper'
 
-describe 'SerializeEvidencePromptHealth' do
-
+describe SerializeEvidencePromptHealth do
   before do
-    @activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+    @activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
     @activity.update(flag: "production")
     @previous_version = @activity.version
     @activity.increment_version!
 
-    @because_prompt1 = Evidence::Prompt.create!(activity: @activity, conjunction: 'because', text: 'Some feedback text because', max_attempts_feedback: 'Feedback')
+    @because_prompt1 = create(:evidence_prompt, activity: @activity, conjunction: 'because', text: 'Some feedback text because', max_attempts_feedback: 'Feedback')
     @activity_session1 = create(:activity_session, state: "finished", data: {time_tracking: {because: 600}})
     @activity_session2 = create(:activity_session, state: "finished", data: {time_tracking: {because: 250}})
     @activity_session3 = create(:activity_session, state: "started", data: {time_tracking: {because: 200}})
@@ -28,16 +27,16 @@ describe 'SerializeEvidencePromptHealth' do
     @feedback_session5_uid = FeedbackSession.get_uid_for_activity_session(@activity_session5_uid)
     @comprehension_turking_round = create(:comprehension_turking_round_activity_session, activity_session_uid: @activity_session1_uid)
 
-    @automl_rule = Evidence::Rule.create!(name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_AUTOML)
-    Evidence::PromptsRule.create!(prompt: @because_prompt1, rule: @automl_rule)
-    @plagiarism_rule = Evidence::Rule.create!(name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_PLAGIARISM)
-    Evidence::PromptsRule.create!(prompt: @because_prompt1, rule: @plagiarism_rule)
-    @opinion_rule = Evidence::Rule.create!(name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_OPINION)
-    Evidence::PromptsRule.create!(prompt: @because_prompt1, rule: @opinion_rule)
-    @grammar_rule = Evidence::Rule.create!(name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_GRAMMAR)
-    Evidence::PromptsRule.create!(prompt: @because_prompt1, rule: @grammar_rule)
-    @spelling_rule = Evidence::Rule.create!(name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_SPELLING)
-    Evidence::PromptsRule.create!(prompt: @because_prompt1, rule: @spelling_rule)
+    @automl_rule = create(:evidence_rule, name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_AUTOML)
+    create(:evidence_prompts_rule, prompt: @because_prompt1, rule: @automl_rule)
+    @plagiarism_rule = create(:evidence_rule, name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_PLAGIARISM)
+    create(:evidence_prompts_rule, prompt: @because_prompt1, rule: @plagiarism_rule)
+    @opinion_rule = create(:evidence_rule, name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_OPINION)
+    create(:evidence_prompts_rule, prompt: @because_prompt1, rule: @opinion_rule)
+    @grammar_rule = create(:evidence_rule, name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_GRAMMAR)
+    create(:evidence_prompts_rule, prompt: @because_prompt1, rule: @grammar_rule)
+    @spelling_rule = create(:evidence_rule, name: "rule", universal: false, state: "active", optimal: false, rule_type: Evidence::Rule::TYPE_SPELLING)
+    create(:evidence_prompts_rule, prompt: @because_prompt1, rule: @spelling_rule)
 
     @user = create(:user)
     @first_session_feedback1 = create(:feedback_history, feedback_session_uid: @activity_session1_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @activity.version, metadata: {api: {confidence: 0.99}}, rule_uid: @automl_rule.uid)
@@ -57,7 +56,7 @@ describe 'SerializeEvidencePromptHealth' do
     @fifth_session_feedback = create(:feedback_history, feedback_session_uid: @activity_session5_uid, prompt_id: @because_prompt1.id, optimal: false, activity_version: @activity.version, rule_uid: @opinion_rule.uid)
     @fifth_session_feedback2 = create(:feedback_history, feedback_session_uid: @activity_session5_uid, prompt_id: @because_prompt1.id, attempt: 2, optimal: true, activity_version: @activity.version, rule_uid: @grammar_rule.uid)
 
-    @prompt_feedback_history = PromptFeedbackHistory.run({activity_id: @activity.id, activity_version: @activity.version})
+    @prompt_feedback_history = PromptFeedbackHistory.run(**{activity_id: @activity.id, activity_version: @activity.version})
   end
 
   let(:expected_results) do
@@ -87,7 +86,7 @@ describe 'SerializeEvidencePromptHealth' do
     expect(data).to eq expected_results
   end
 
-  it 'will return without errring if prompt_feedback_history object is empty' do
+  it 'will return without erring if prompt_feedback_history object is empty' do
     nil_data_object = {
       prompt_id: @because_prompt1.id,
       activity_short_name: @activity.notes,
@@ -109,6 +108,31 @@ describe 'SerializeEvidencePromptHealth' do
 
     prompt = @because_prompt1
     data = SerializeEvidencePromptHealth.new(prompt, {}).data
+    expect(data).to eq nil_data_object
+  end
+
+  it 'will return without erring if prompt_feedback_history hash value for prompt id is empty' do
+    nil_data_object = {
+      prompt_id: @because_prompt1.id,
+      activity_short_name: @activity.notes,
+      text: @because_prompt1.text,
+      current_version: @activity.version,
+      version_responses: 0,
+      first_attempt_optimal: nil,
+      final_attempt_optimal: nil,
+      avg_attempts: nil,
+      confidence: nil,
+      percent_automl_consecutive_repeated: nil,
+      percent_automl: nil,
+      percent_plagiarism: nil,
+      percent_opinion: nil,
+      percent_grammar: nil,
+      percent_spelling: nil,
+      avg_time_spent_per_prompt: nil
+    }
+
+    prompt = @because_prompt1
+    data = SerializeEvidencePromptHealth.new(prompt, {"empty_prompt": "empty"}).data
     expect(data).to eq nil_data_object
   end
 end

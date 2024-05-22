@@ -15,7 +15,7 @@ class GoogleIntegration::User
     @user ||= begin
       find_user_by_google_id_or_email.tap do |user|
         new_attributes = user_params(user)
-        user.new_record? ? user.assign_attributes(new_attributes) : user.update(new_attributes)
+        user.new_record? ? user.assign_attributes(new_attributes) : user.update!(new_attributes)
       end
     end
   end
@@ -43,10 +43,10 @@ class GoogleIntegration::User
 
   private def auth_credential_attributes(user)
     {
-      provider:      'google',
-      refresh_token: profile.refresh_token || user&.auth_credential&.refresh_token,
-      expires_at:    profile.expires_at,
       access_token:  profile.access_token,
+      expires_at:    profile.expires_at,
+      refresh_token: profile.refresh_token || user&.auth_credential&.refresh_token,
+      type: GoogleAuthCredential.name
     }
   end
 end

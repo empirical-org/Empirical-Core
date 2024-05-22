@@ -16,7 +16,7 @@
     min-width: 90px;
     color: #b2b2b2;
     &.has-grade {
-      color: #000;
+      color: $quill-black;
     }
     &.inactive {
       background-color: transparent;
@@ -30,7 +30,7 @@
 .dropdown-toggle.btn.btn-default {
   font-weight: normal;
   border-radius: 6px;
-  color: #000000;
+  color: $quill-black;
   padding: 0px 14px;
   height: 40px;
   min-width: 200px;

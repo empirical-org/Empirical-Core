@@ -14,8 +14,8 @@ class SerializeEvidenceActivityHealth
       flag: activity.flag.to_s,
       activity_id: activity.id,
       version: activity.version,
-      version_plays: FeedbackHistory.get_total_count({activity_id: activity.id, activity_version: activity.version}),
-      total_plays: FeedbackHistory.get_total_count({activity_id: activity.id}),
+      version_plays: FeedbackHistory.get_total_count(**{activity_id: activity.id, activity_version: activity.version}),
+      total_plays: FeedbackHistory.get_total_count(**{activity_id: activity.id}),
       completion_rate: activity_feedback_history[:average_completion_rate],
       because_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::BECAUSE),
       but_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::BUT),
@@ -35,11 +35,17 @@ class SerializeEvidenceActivityHealth
     prompt = activity.prompts.find_by(conjunction: conjunction)
     return nil unless prompt && prompt_feedback_history[prompt.id]
 
-    ((prompt_feedback_history[prompt.id]["num_final_attempt_optimal"].to_f / prompt_feedback_history[prompt.id]["session_count"]) * 100).round
+    num_final_attempt_optimal = prompt_feedback_history[prompt.id]["num_final_attempt_optimal"]
+    num_final_attempt_not_optimal = prompt_feedback_history[prompt.id]["num_final_attempt_not_optimal"]
+    num_final_attempts = num_final_attempt_optimal + num_final_attempt_not_optimal
+
+    return 0 if num_final_attempt_optimal.zero? || num_final_attempts.zero?
+
+    ((num_final_attempt_optimal.to_f / num_final_attempts) * 100).round
   end
 
   private def activity_feedback_history
-    @activity_feedback_history ||= ActivityFeedbackHistory.run({activity_id: activity.id, activity_version: activity.version})
+    @activity_feedback_history ||= ActivityFeedbackHistory.run(**{activity_id: activity.id, activity_version: activity.version})
   end
 
 end

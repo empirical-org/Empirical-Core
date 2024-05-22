@@ -632,130 +632,30 @@ exports[`LessonsMini component not on mobile should render when there are lesson
       <table
         className="data-table undefined"
       >
-        <tr
-          className="data-table-headers"
-        >
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "290px",
-                "textAlign": "left",
-                "width": "290px",
-              }
-            }
-          >
-            Quill Lesson
-          </th>
-          <th
-            className="data-table-header undefined"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "300px",
-                "textAlign": "left",
-                "width": "300px",
-              }
-            }
-          >
-            Class
-          </th>
-          <th
-            className="data-table-header actions-header"
-            scope="col"
-          >
-            More
-          </th>
-          <th
-            className="data-table-header last-header"
-            scope="col"
-            style={
-              Object {
-                "minWidth": "78px",
-                "textAlign": "left",
-                "width": "78px",
-              }
-            }
-          >
-            Present
-          </th>
-        </tr>
-        <tbody
-          className="data-table-body"
-        >
+        <thead>
           <tr
-            className="data-table-row  "
-            key="649-1-undefined"
+            className="data-table-headers"
           >
-            <td>
-              <Tooltip
-                isTabbable={true}
-                key="lesson-649-1-undefined"
-                tooltipText="Advanced Combining: Complex Sentences with Modifiers"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
-                  }
+            <th
+              className="data-table-header undefined"
+              key="0"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "290px",
+                  "textAlign": "left",
+                  "width": "290px",
                 }
-                tooltipTriggerText="Advanced Combining: Complex Sentences with Modifiers"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
-                  style={
-                    Object {
-                      "minWidth": "290px",
-                      "textAlign": "left",
-                      "width": "290px",
-                    }
-                  }
-                >
-                  <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    style={
-                      Object {
-                        "minWidth": "290px",
-                        "textAlign": "left",
-                        "width": "290px",
-                      }
-                    }
-                    tabIndex={0}
-                  >
-                    Advanced Combining: Complex Sentences with Modifiers
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
-                  </span>
-                </span>
-              </Tooltip>
-            </td>
-            <td
-              className="data-table-row-section undefined"
-              key="classroom-649-1-undefined"
+              }
+            >
+              <span>
+                Quill Lesson
+              </span>
+            </th>
+            <th
+              className="data-table-header undefined"
+              key="1"
+              scope="col"
               style={
                 Object {
                   "minWidth": "300px",
@@ -764,12 +664,134 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Quill Classroom
+              <span>
+                Class
+              </span>
+            </th>
+            <th
+              className="data-table-header actions-header"
+              key="2"
+              scope="col"
+            >
+              More
+            </th>
+            <th
+              className="data-table-header last-header"
+              key="3"
+              scope="col"
+              style={
+                Object {
+                  "minWidth": "78px",
+                  "textAlign": "left",
+                  "width": "78px",
+                }
+              }
+            >
+              <span>
+                Present
+              </span>
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          className="data-table-body"
+        >
+          <tr
+            className="data-table-row  "
+            key="649-1-undefined"
+          >
+            <td
+              key="lesson-649-1-undefined"
+            >
+              <TableCellContentWrapper>
+                <Tooltip
+                  isTabbable={true}
+                  key="lesson-649-1-undefined"
+                  tooltipText="Advanced Combining: Complex Sentences with Modifiers"
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "290px",
+                      "textAlign": "left",
+                      "width": "290px",
+                    }
+                  }
+                  tooltipTriggerText="Advanced Combining: Complex Sentences with Modifiers"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
+                    Object {
+                      "minWidth": "290px",
+                      "textAlign": "left",
+                      "width": "290px",
+                    }
+                  }
+                >
+                  <span
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
+                    style={
+                      Object {
+                        "minWidth": "290px",
+                        "textAlign": "left",
+                        "width": "290px",
+                      }
+                    }
+                  >
+                    <span
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "290px",
+                          "textAlign": "left",
+                          "width": "290px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Advanced Combining: Complex Sentences with Modifiers
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
+                  </span>
+                </Tooltip>
+              </TableCellContentWrapper>
+            </td>
+            <td
+              className="data-table-row-section undefined"
+              key="classroom-649-1-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "minWidth": "300px",
+                  "textAlign": "left",
+                  "width": "300px",
+                }
+              }
+            >
+              <TableCellContentWrapper>
+                Quill Classroom
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="649-1-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -783,6 +805,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-649-1-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -791,18 +815,20 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/classroom_units/92/launch_lesson/649"
-              >
-                <img
-                  alt="Square play button icon"
-                  src="undefined/images/icons/icons-play-box.svg"
-                />
-                <span>
-                  Present
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/classroom_units/92/launch_lesson/649"
+                >
+                  <img
+                    alt="Square play button icon"
+                    src="undefined/images/icons/icons-play-box.svg"
+                  />
+                  <span>
+                    Present
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -812,6 +838,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="lesson-563-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -820,11 +848,15 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Lesson 1: And, Or, But, So
+              <TableCellContentWrapper>
+                Lesson 1: And, Or, But, So
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="classroom-563-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -833,12 +865,16 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              New Class
+              <TableCellContentWrapper>
+                New Class
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="563-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -852,6 +888,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-563-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -860,18 +898,20 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/classroom_units/91/launch_lesson/563"
-              >
-                <img
-                  alt="Square play button icon"
-                  src="undefined/images/icons/icons-play-box.svg"
-                />
-                <span>
-                  Present
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/classroom_units/91/launch_lesson/563"
+                >
+                  <img
+                    alt="Square play button icon"
+                    src="undefined/images/icons/icons-play-box.svg"
+                  />
+                  <span>
+                    Present
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -881,6 +921,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="lesson-829-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -889,11 +931,15 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Complex Sentences Overview
+              <TableCellContentWrapper>
+                Complex Sentences Overview
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="classroom-829-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -902,12 +948,16 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              New Class
+              <TableCellContentWrapper>
+                New Class
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="829-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -921,6 +971,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-829-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -929,51 +981,44 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/classroom_units/91/launch_lesson/829"
-              >
-                <img
-                  alt="Square play button icon"
-                  src="undefined/images/icons/icons-play-box.svg"
-                />
-                <span>
-                  Present
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/classroom_units/91/launch_lesson/829"
+                >
+                  <img
+                    alt="Square play button icon"
+                    src="undefined/images/icons/icons-play-box.svg"
+                  />
+                  <span>
+                    Present
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
             className="data-table-row  "
             key="566-6-undefined"
           >
-            <td>
-              <Tooltip
-                isTabbable={true}
-                key="lesson-566-6-undefined"
-                tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
-                tooltipTriggerStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
+            <td
+              key="lesson-566-6-undefined"
+            >
+              <TableCellContentWrapper>
+                <Tooltip
+                  isTabbable={true}
+                  key="lesson-566-6-undefined"
+                  tooltipText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
+                  tooltipTriggerStyle={
+                    Object {
+                      "minWidth": "290px",
+                      "textAlign": "left",
+                      "width": "290px",
+                    }
                   }
-                }
-                tooltipTriggerText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
-                tooltipTriggerTextClass="data-table-row-section undefined"
-                tooltipTriggerTextStyle={
-                  Object {
-                    "minWidth": "290px",
-                    "textAlign": "left",
-                    "width": "290px",
-                  }
-                }
-              >
-                <span
-                  aria-hidden={false}
-                  className="quill-tooltip-trigger "
-                  role="tooltip"
-                  style={
+                  tooltipTriggerText="Lesson 1: Conjunctions of Time (After, Until, Before, etc.)"
+                  tooltipTriggerTextClass="data-table-row-section undefined"
+                  tooltipTriggerTextStyle={
                     Object {
                       "minWidth": "290px",
                       "textAlign": "left",
@@ -982,14 +1027,9 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   }
                 >
                   <span
-                    className="data-table-row-section undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
+                    aria-hidden={false}
+                    className="quill-tooltip-trigger "
+                    role="tooltip"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -997,24 +1037,44 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                         "width": "290px",
                       }
                     }
-                    tabIndex={0}
-                  >
-                    Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
-                  </span>
-                  <span
-                    className="quill-tooltip-wrapper"
                   >
                     <span
-                      aria-live="polite"
-                      className="quill-tooltip"
-                    />
+                      className="data-table-row-section undefined"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "minWidth": "290px",
+                          "textAlign": "left",
+                          "width": "290px",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
+                    </span>
+                    <span
+                      className="quill-tooltip-wrapper"
+                    >
+                      <span
+                        aria-live="polite"
+                        className="quill-tooltip"
+                      />
+                    </span>
                   </span>
-                </span>
-              </Tooltip>
+                </Tooltip>
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="classroom-566-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -1023,12 +1083,16 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              New Class
+              <TableCellContentWrapper>
+                New Class
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="566-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -1042,6 +1106,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-566-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -1050,18 +1116,20 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/classroom_units/91/launch_lesson/566"
-              >
-                <img
-                  alt="Square play button icon"
-                  src="undefined/images/icons/icons-play-box.svg"
-                />
-                <span>
-                  Present
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/classroom_units/91/launch_lesson/566"
+                >
+                  <img
+                    alt="Square play button icon"
+                    src="undefined/images/icons/icons-play-box.svg"
+                  />
+                  <span>
+                    Present
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
           <tr
@@ -1071,6 +1139,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section undefined"
               key="lesson-568-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "290px",
@@ -1079,11 +1149,15 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              Lesson 1: Compound Objects and Predicates
+              <TableCellContentWrapper>
+                Lesson 1: Compound Objects and Predicates
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section undefined"
               key="classroom-568-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "300px",
@@ -1092,12 +1166,16 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              New Class
+              <TableCellContentWrapper>
+                New Class
+              </TableCellContentWrapper>
             </td>
             <td
               className="data-table-row-section actions-section"
+              key="568-6-undefined"
             >
               <button
+                aria-label="Actions"
                 className="quill-button actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
@@ -1111,6 +1189,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             <td
               className="data-table-row-section last-row-section"
               key="present-568-6-undefined"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
               style={
                 Object {
                   "minWidth": "78px",
@@ -1119,18 +1199,20 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                 }
               }
             >
-              <a
-                className="focus-on-light"
-                href="/teachers/classroom_units/91/launch_lesson/568"
-              >
-                <img
-                  alt="Square play button icon"
-                  src="undefined/images/icons/icons-play-box.svg"
-                />
-                <span>
-                  Present
-                </span>
-              </a>
+              <TableCellContentWrapper>
+                <a
+                  className="focus-on-light"
+                  href="/teachers/classroom_units/91/launch_lesson/568"
+                >
+                  <img
+                    alt="Square play button icon"
+                    src="undefined/images/icons/icons-play-box.svg"
+                  />
+                  <span>
+                    Present
+                  </span>
+                </a>
+              </TableCellContentWrapper>
             </td>
           </tr>
         </tbody>

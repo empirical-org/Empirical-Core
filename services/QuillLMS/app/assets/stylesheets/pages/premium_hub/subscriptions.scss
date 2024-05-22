@@ -1,0 +1,22 @@
+#premium-hub .school-subscriptions-container {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 32px;
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  .school-dropdown-container {
+    max-width: 552px;
+    margin-bottom: 24px;
+    .dropdown__single-value {
+      font-weight: 700;
+    }
+  }
+}

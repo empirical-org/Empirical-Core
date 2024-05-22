@@ -48,12 +48,9 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def run_background_jobs
-    if @user.teacher?
-      GoogleIntegration::UpdateTeacherImportedClassroomsWorker.perform_async(@user.id)
-      GoogleStudentImporterWorker.perform_async(@user.id, 'Auth::GoogleController')
-    elsif @user.student?
-      GoogleStudentClassroomWorker.perform_async(@user.id)
-    end
+    return unless @user.teacher?
+
+    GoogleIntegration::UpdateTeacherImportedClassroomsWorker.perform_async(@user.id)
   end
 
   private def follow_google_redirect
@@ -128,10 +125,9 @@ class Auth::GoogleController < ApplicationController
   private def user_not_found_error_message
     <<-HTML
       <p align='left'>
-        We could not find your account. Is this your first time logging in? <a href='/account/new'>Sign up</a> here if so.
+        We could not find an account connected to your Google email. If you have an account, please attempt to log in using Clever or by typing your email/username in the fields.
+        If this is your first time accessing Quill, please create an account on our <a href='/account/new'>sign up page</a>
         <br/>
-        If you believe this is an error, please contact <strong>support@quill.org</strong> with the following info to unblock your account:
-        <i>failed login of #{@profile.email} and googleID #{@profile.google_id} at #{Time.current}</i>.
       </p>
     HTML
   end
@@ -144,7 +140,9 @@ class Auth::GoogleController < ApplicationController
   end
 
   private def save_teacher_from_google_signup
-    return unless @user.new_record? && @user.teacher? && !@user.admin?
+    return unless @user.new_record? && @user.teacher?
+
+    success_redirect_path = @user.admin? ? '/sign-up/select-sub-role' : '/sign-up/add-k12'
 
     @js_file = 'session'
 
@@ -153,7 +151,7 @@ class Auth::GoogleController < ApplicationController
       @teacher_from_google_signup = true
 
       sign_in(@user)
-      return redirect_to '/sign-up/add-k12'
+      return redirect_to success_redirect_path
     else
       @teacher_from_google_signup = false
       flash.now[:error] = @user.errors.full_messages.join(', ')
@@ -161,4 +159,5 @@ class Auth::GoogleController < ApplicationController
 
     render 'accounts/new'
   end
+
 end

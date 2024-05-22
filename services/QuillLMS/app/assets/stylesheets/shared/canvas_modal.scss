@@ -1,0 +1,46 @@
+.modal-body.canvas-modal {
+  max-width: 700px;
+  .title {
+    margin-bottom: 16px;
+  }
+  p, li {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 137.5% */
+    color: $quill-grey-90;
+  }
+  p {
+    margin-bottom: 24px;
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 0px;
+  }
+  li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    img {
+      margin-right: 8px;
+      margin-top: 3px;
+    }
+  }
+  .asterisk {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px; /* 183.333% */
+    margin-top: 24px;
+  }
+  .form-buttons {
+    margin-top: 32px;;
+    justify-content: space-between;
+    .quill-button.secondary {
+      margin-left: 0px;
+    }
+    div {
+      display: flex;
+    }
+  }
+}

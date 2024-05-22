@@ -5,17 +5,16 @@
 # Table name: classrooms
 #
 #  id                  :integer          not null, primary key
-#  code                :string
-#  grade               :string
+#  code                :string(255)
+#  grade               :string(255)
 #  grade_level         :integer
-#  name                :string
+#  name                :string(255)
 #  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime
-#  clever_id           :string
+#  clever_id           :string(255)
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,7 +23,6 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 class ClassroomSerializer < ApplicationSerializer
   attributes :id, :name, :code, :grade, :updated_at

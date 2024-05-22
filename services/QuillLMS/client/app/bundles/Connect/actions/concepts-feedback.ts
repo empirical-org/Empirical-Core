@@ -1,6 +1,6 @@
-const C = require('../constants').default;
-import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 import { push } from 'react-router-redux';
+import C from '../constants';
+import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 
 const actions = {
   // called when the app starts. this means we immediately download all quotes, and
@@ -49,7 +49,7 @@ const actions = {
       ConceptFeedbackApi.update(cid, content).then(() => {
         dispatch(actions.loadConceptFeedback(cid))
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+        alert("Update successfully saved!");
       }).catch((error) => {
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
         dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });

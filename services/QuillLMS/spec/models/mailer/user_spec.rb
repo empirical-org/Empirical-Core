@@ -16,60 +16,60 @@ RSpec.describe Mailer::User do
     allow(user).to receive(:mailer_user).and_return(mailer_user)
   end
 
-  context 'Admin Dashboard' do
-    let(:mailer_class)  { AdminDashboardUserMailer }
+  context 'Premium Hub' do
+    let(:mailer_class)  { PremiumHubUserMailer }
 
-    describe '#send_admin_dashboard_teacher_account_created_email' do
+    describe '#send_premium_hub_teacher_account_created_email' do
       let(:mailer_method) { :teacher_account_created_email}
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name, true)
-        user.mailer_user.send_admin_dashboard_teacher_account_created_email(admin_user.name, school.name, true)
+        user.mailer_user.send_premium_hub_teacher_account_created_email(admin_user.name, school.name, true)
       end
     end
 
-    describe '#send_admin_dashboard_admin_account_created_email' do
+    describe '#send_premium_hub_admin_account_created_email' do
       let(:mailer_method) { :admin_account_created_email}
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name, true)
-        user.mailer_user.send_admin_dashboard_admin_account_created_email(admin_user.name, school.name, true)
+        user.mailer_user.send_premium_hub_admin_account_created_email(admin_user.name, school.name, true)
       end
     end
 
-    describe '#send_admin_dashboard_teacher_link_school_email' do
+    describe '#send_premium_hub_teacher_link_school_email' do
       let(:mailer_method) { :teacher_link_school_email}
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school)
-        user.mailer_user.send_admin_dashboard_teacher_link_school_email(admin_user.name, school)
+        user.mailer_user.send_premium_hub_teacher_link_school_email(admin_user.name, school)
       end
     end
 
-    describe '#send_admin_dashboard_made_school_admin_email' do
+    describe '#send_premium_hub_made_school_admin_email' do
       let(:mailer_method) { :made_school_admin_email}
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name)
-        user.mailer_user.send_admin_dashboard_made_school_admin_email(admin_user.name, school.name)
+        user.mailer_user.send_premium_hub_made_school_admin_email(admin_user.name, school.name)
       end
     end
 
-    describe '#send_admin_dashboard_made_school_admin_link_school_email' do
+    describe '#send_premium_hub_made_school_admin_link_school_email' do
       let(:mailer_method) { :made_school_admin_link_school_email}
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name)
-        user.mailer_user.send_admin_dashboard_made_school_admin_link_school_email(admin_user.name, school.name)
+        user.mailer_user.send_premium_hub_made_school_admin_link_school_email(admin_user.name, school.name)
       end
     end
 
-    describe '#send_admin_dashboard_made_school_admin_change_school_email' do
+    describe '#send_premium_hub_made_school_admin_change_school_email' do
       let(:mailer_method) { :made_school_admin_change_school_email}
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, new_school, existing_school)
-        user.mailer_user.send_admin_dashboard_made_school_admin_change_school_email(admin_user.name, new_school, existing_school)
+        user.mailer_user.send_premium_hub_made_school_admin_change_school_email(admin_user.name, new_school, existing_school)
       end
     end
   end

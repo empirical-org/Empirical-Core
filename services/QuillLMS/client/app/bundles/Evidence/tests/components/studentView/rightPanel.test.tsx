@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import { activityOne } from './data'
+import { activityOne } from './data';
 
 import RightPanel from '../../../components/studentView/rightPanel';
 

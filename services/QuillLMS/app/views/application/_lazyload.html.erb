@@ -1,0 +1,13 @@
+<script>
+  window.lazyLoadOptions = {
+    threshold: 0
+  }
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (e) {
+      console.log(e.detail.instance);
+    },
+    false
+  );
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script>

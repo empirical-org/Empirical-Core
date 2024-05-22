@@ -6,35 +6,29 @@ class InvitationsController < ApplicationController
 
 
   def create_coteacher_invitation
-    begin
-      validate_email_and_classroom_ids
-      @pending_invite = find_or_create_coteacher_invite_from_current_user
-      raise StandardError, @pending_invite.errors[:base].join(" ") unless @pending_invite.valid?
+    validate_email_and_classroom_ids
+    @pending_invite = find_or_create_coteacher_invite_from_current_user
+    raise StandardError, @pending_invite.errors[:base].join(" ") unless @pending_invite.valid?
 
-      assign_classrooms_to_invitee
-      invoke_email_worker
-      render json: { invite_id: @pending_invite.id }
-    rescue => e
-      render json: { error: e.message }, status: 422
-    end
+    assign_classrooms_to_invitee
+    invoke_email_worker
+    render json: { invite_id: @pending_invite.id }
+  rescue => e
+    render json: { error: e.message }, status: 422
   end
 
   def destroy_pending_invitations_to_specific_invitee
-    begin
-      Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: current_user.id, invitee_email: params[:invitee_email], archived: false).destroy
-      render json: {}
-    rescue => e
-      render json: { error: e.message }, status: 422
-    end
+    Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: current_user.id, invitee_email: params[:invitee_email], archived: false).destroy
+    render json: {}
+  rescue => e
+    render json: { error: e.message }, status: 422
   end
 
   def destroy_pending_invitations_from_specific_inviter
-    begin
-      Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email, archived: false).destroy
-      render json: {}
-    rescue => e
-      render json: { error: e.message }, status: 422
-    end
+    Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email, archived: false).destroy
+    render json: {}
+  rescue => e
+    render json: { error: e.message }, status: 422
   end
 
   private def invoke_email_worker
@@ -59,7 +53,7 @@ class InvitationsController < ApplicationController
   end
 
   private def validate_email_format
-    return if @invitee_email =~ User::VALID_EMAIL_REGEX
+    return if ValidatesEmailFormatOf.validate_email_format(@invitee_email).nil?
 
     raise StandardError, "Please make sure you've entered a valid email."
   end

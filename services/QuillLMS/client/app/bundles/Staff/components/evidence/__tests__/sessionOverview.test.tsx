@@ -1,11 +1,11 @@
+import { shallow } from 'enzyme';
+import { createLocation, createMemoryHistory } from 'history';
 import * as React from 'react';
 import 'whatwg-fetch';
-import { shallow } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
 
 import SessionOverview from '../activitySessions/sessionOverview';
 
-const sessionData = require('../__mocks__/sessionData.json');
+import sessionData from '../__mocks__/sessionData.json';
 
 const mockProps = {
   match: {

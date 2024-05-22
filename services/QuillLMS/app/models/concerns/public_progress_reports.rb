@@ -1,8 +1,19 @@
 # frozen_string_literal: true
 
 module PublicProgressReports
-  extend ActiveSupport::Concern
   include DiagnosticReports
+  include GetScoreForQuestion
+  include EvidenceReports
+
+  extend ActiveSupport::Concern
+
+  GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Well done! That's the correct answer."
+  GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Good try! Compare your response to the strong responses, and then go to on to the next question."
+  PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Correct"
+  PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Incorrect"
+  CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "That's a strong sentence!"
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK = "Nice try. Let's try a multiple choice question."
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  "Good try! Compare your response to the strong responses, and then go to on to the next question."
 
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -57,6 +68,7 @@ module PublicProgressReports
       curr_quest[:total] += 1
       curr_quest[:prompt] ||= answer.concept_result_prompt&.text
       curr_quest[:question_number] ||= answer.question_number
+      curr_quest[:question_uid] ||= answer.extra_metadata['question_uid']
       if answer.attempt_number == 1 || !curr_quest[:instructions]
         direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ""
         curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
@@ -65,10 +77,14 @@ module PublicProgressReports
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
     # being converted to an array because that is what the diagnostic reports expect
     questions_arr = questions.map do |k,v|
-      {question_id: k,
-       score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
-       prompt: v[:prompt],
-       instructions: v[:instructions]}
+      {
+        question_id: k,
+        question_number: v[:question_number],
+        question_uid: v[:question_uid],
+        score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
+        prompt: v[:prompt],
+        instructions: v[:instructions]
+     }
     end
 
     return questions_arr unless questions_arr.empty?
@@ -113,6 +129,30 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  def finished_activity_sessions_for_unit_activity_classroom_and_student(unit_id, activity_id, classroom_id, student_id)
+    classroom_unit = ClassroomUnit.find_by(
+      classroom_id: classroom_id,
+      unit_id: unit_id
+    )
+
+    return [] if !classroom_unit
+
+    activity_sessions = ActivitySession
+      .includes(concept_results: :concept)
+      .where(
+        user_id: student_id,
+        classroom_unit_id: classroom_unit.id,
+        activity_id: activity_id,
+        state: ActivitySession::STATE_FINISHED_KEY
+      )
+      .order('activity_sessions.completed_at')
+
+    classification = Activity.find_by(id: activity_id).classification
+    student = User.find_by(id: student_id)
+
+    activity_sessions.map { |activity_session| formatted_score_obj(activity_session, classification, student) }
+  end
+
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_for_classroom(unit_id, activity_id, classroom_id)
     classroom_unit = ClassroomUnit.find_by(
@@ -120,7 +160,7 @@ module PublicProgressReports
       unit_id: unit_id
     )
     activity = Activity.find_by_id_or_uid(activity_id)
-    classification_key = activity.classification.key
+    classification = activity.classification
     unit_activity = UnitActivity.find_by(unit_id: unit_id, activity: activity)
     state = ClassroomUnitActivityState.find_by(
       unit_activity: unit_activity,
@@ -157,7 +197,7 @@ module PublicProgressReports
 
       finished_session = final_sessions_by_user[student.id]&.first
       if finished_session.present?
-        score_obj = formatted_score_obj(finished_session, classification_key, student, average_scores[student.id])
+        score_obj = formatted_score_obj(finished_session, classification, student, average_scores[student.id] || 0)
         scores[:students].push(score_obj)
         next
       end
@@ -177,27 +217,66 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(final_activity_session, classification_key, student, average_score_on_quill)
-    formatted_concept_results = format_concept_results(final_activity_session, final_activity_session.concept_results)
-    if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification_key)
+  def formatted_score_obj(activity_session, classification, student, average_score_on_quill=0)
+    formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
+    if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
-    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification_key)
+    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key)
       score = nil
     else
-      score = (final_activity_session.percentage * 100).round
+      score = (activity_session.percentage * 100).round
     end
+
+    time_offset = current_user ? current_user.utc_offset.seconds : 0
+
     {
-      activity_classification: classification_key,
+      activity_classification: classification.key,
+      activity_classification_name: classification.name,
       id: student.id,
       name: student.name,
-      time: final_activity_session.timespent,
+      time: activity_session.timespent,
+      number_of_correct_questions: formatted_concept_results.filter { |q| q[:key_target_skill_concept][:correct] }.length,
       number_of_questions: formatted_concept_results.length,
       concept_results: formatted_concept_results,
-      score: score,
-      average_score_on_quill: average_score_on_quill || 0
+      score:,
+      average_score_on_quill:,
+      activity_session_id: activity_session.id,
+      completed_at: activity_session.completed_at + time_offset
     }
   end
 
+  def format_activity_session_for_tooltip(activity_session, user)
+    questions = activity_session.concept_results.group_by { |cr| cr.question_number }
+
+    key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, activity_session) }
+
+    correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
+
+    {
+      id: activity_session.id,
+      percentage: activity_session.percentage,
+      description: activity_session.activity.description,
+      due_date: activity_session.unit_activity.due_date,
+      completed_at: activity_session.completed_at + user.utc_offset.seconds,
+      grouped_key_target_skill_concepts: format_grouped_key_target_skill_concepts(key_target_skill_concepts),
+      number_of_questions: questions.length,
+      number_of_correct_questions: correct_key_target_skill_concepts.length,
+      timespent: activity_session.timespent,
+      is_final_score: activity_session.is_final_score
+    }
+  end
+
+  def format_grouped_key_target_skill_concepts(key_target_skill_concepts)
+    key_target_skill_concepts
+      .group_by { |ktsc| ktsc[:name] }
+      .map do |key, key_target_skill_group|
+        {
+          name: key_target_skill_group.first[:name],
+          correct: key_target_skill_group.filter { |ktsc| ktsc[:correct] }.length,
+          incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length,
+        }
+      end
+  end
 
   def get_time_in_minutes(activity_session)
     return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
@@ -209,16 +288,21 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
     concept_results.group_by{|cr| cr.question_number}.map { |key, cr|
+
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
       cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ""
       prompt_text = cr.first.concept_result_prompt&.text
+      score = get_score_for_question(cr)
+      question_uid = cr.first.extra_metadata&.dig('question_uid')
       hash = {
         directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
         prompt: prompt_text,
         answer: cr.first.answer,
-        score: get_score_for_question(cr),
+        cues: cr.first.extra_metadata&.dig('cues'),
+        score:,
+        key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
           direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
@@ -228,12 +312,14 @@ module PublicProgressReports
             correct: crs.correct,
             feedback: get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number),
             lastFeedback: crs.concept_result_previous_feedback&.text,
+            finalAttemptFeedback: get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number),
             attempt: attempt_number || 1,
             answer: crs.answer,
             directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
           }
         },
-        question_number: cr.first.question_number
+        question_number: cr.first.question_number,
+        question_uid:
       }
       if cr.first.question_score
         hash[:questionScore] = cr.first.question_score
@@ -243,12 +329,37 @@ module PublicProgressReports
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def get_score_for_question(concept_results)
-    if !concept_results.empty? && concept_results.first.question_score
-      concept_results.first.question_score * 100
-    else
-      concept_results.inject(0) {|sum, crs| sum + (crs.correct ? 1 : 0)} / concept_results.length * 100
-    end
+  def get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number)
+    question = question_uid ? Question.find_by_uid(question_uid) : nil
+    classification = activity_session&.classification
+
+    return evidence_final_attempt_feedback(activity_session, score, prompt_text, attempt_number) if classification == ActivityClassification.evidence
+    return grammar_final_attempt_feedback(score) if classification == ActivityClassification.grammar
+    return proofreader_final_attempt_feedback(question, score) if classification == ActivityClassification.proofreader
+    return connect_final_attempt_feedback(question, score) if classification == ActivityClassification.connect
+  end
+
+  def get_key_target_skill_concept_for_question(concept_results, activity_session)
+    default = {
+      name: activity_session.is_evidence? ? 'Writing with Evidence' : 'Conventions of Language',
+      correct: get_score_for_question(concept_results) > 0
+    }
+
+    return default unless concept_results.first.extra_metadata
+
+    question_concept_uid = concept_results.first.extra_metadata['question_concept_uid']
+    question_concept = Concept.find_by_uid(question_concept_uid)
+
+    return default unless question_concept
+
+    key_target_skill_concept = question_concept.parent
+
+    {
+      id: key_target_skill_concept.id,
+      uid: key_target_skill_concept.uid,
+      name: key_target_skill_concept.name,
+      correct: get_score_for_question(concept_results) > 0
+    }
   end
 
   def get_average_score(formatted_results)
@@ -258,18 +369,6 @@ module PublicProgressReports
       (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
     end
   end
-
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def get_feedback_from_feedback_history(activity_session, prompt_text, attempt_number)
-    feedback_histories = activity_session.feedback_histories
-    return "" if feedback_histories.empty? || prompt_text.blank? || attempt_number.blank?
-
-    prompt_ids = activity_session.activity.child_activity.prompt_ids
-    prompt = Evidence::Prompt.where(id: prompt_ids, text: prompt_text)&.first
-    feedback_history = feedback_histories.select {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }&.first
-    feedback_history&.feedback_text
-  end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
@@ -402,12 +501,32 @@ module PublicProgressReports
 
       question_array.push({
         question_id: question_array.length + 1,
+        question_uid: q.uid,
         score: nil,
         prompt: q.data['prompt'],
         instructions: q.data['instructions']
       })
     end
     question_array
+  end
+
+  private def grammar_final_attempt_feedback(score)
+    score > 0 ? GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+  end
+
+  private def proofreader_final_attempt_feedback(question, score)
+    if question&.question_type == Question::TYPE_GRAMMAR_QUESTION
+      grammar_final_attempt_feedback(score)
+    else
+      score > 0 ? PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK : PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK
+    end
+  end
+
+  private def connect_final_attempt_feedback(question, score)
+    return CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK if score > 0
+    return CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK if question&.connect_sentence_combining?
+
+    CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
   end
 
 end

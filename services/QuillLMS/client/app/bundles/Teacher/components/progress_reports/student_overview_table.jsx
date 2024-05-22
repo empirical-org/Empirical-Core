@@ -1,12 +1,12 @@
+import moment from 'moment'
 import React from 'react'
 import _ from 'underscore'
-import moment from 'moment'
 
-import gradeColor from '../modules/grade_color.js'
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
-import userIsPremium from '../modules/user_is_premium'
 import { Tooltip } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports'
+import gradeColor from '../modules/grade_color.js'
+import userIsPremium from '../modules/user_is_premium'
 
 export default class StudentOveriewTable extends React.Component {
 

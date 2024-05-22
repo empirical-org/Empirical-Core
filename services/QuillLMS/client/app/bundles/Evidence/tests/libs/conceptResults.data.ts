@@ -39,7 +39,7 @@ export const submittedResponses = {
       "concept_uid": "placeholder",
       "entry":"Type an answer, so some response should be provided.",
       "feedback":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word should, and make sure that your response expresses an idea from the text.",
-      "feedback_type":"opinion",
+      "feedback_type":"grammar",
       "optimal":false,
       "highlight":[
         {
@@ -128,7 +128,7 @@ export const expectedPayload = {
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, but",
         "questionNumber":2,
-        "questionScore":0.75
+        "questionScore":1
       }
     },
     {
@@ -141,7 +141,20 @@ export const expectedPayload = {
         "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word must, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, but",
         "questionNumber":2,
-        "questionScore":0.75
+        "questionScore":1
+      }
+    },
+    {
+      "concept_uid": "IBdOFpAWi42LgfXvcz0scQ",
+      "question_type":"comprehension",
+      "metadata":{
+        "answer":"Type an answer, so some response should be provided.",
+        "attemptNumber":1,
+        "correct":1,
+        "directions":"Use information from the text to finish the sentence:",
+        "prompt":"Type an answer, so",
+        "questionNumber":3,
+        "questionScore":1
       }
     },
     {
@@ -154,7 +167,7 @@ export const expectedPayload = {
         "directions":"Use information from the text to finish the sentence:",
         "prompt":"Type an answer, so",
         "questionNumber":3,
-        "questionScore":0.75
+        "questionScore":1
       }
     },
     {
@@ -167,8 +180,16 @@ export const expectedPayload = {
         "directions":"Remember, for this activity, avoid giving your opinion—your thoughts, feelings, or suggestions. Rewrite your response without the word should, and make sure that your response expresses an idea from the text.",
         "prompt":"Type an answer, so",
         "questionNumber":3,
-        "questionScore":0.75
+        "questionScore":1
       }
     }
   ]
 }
+
+export const topicOptimalData = {
+  concept_uids: {
+    3: "IBdOFpAWi42LgfXvcz0scQ"
+  },
+  rule_types: ["grammar"]
+}
+

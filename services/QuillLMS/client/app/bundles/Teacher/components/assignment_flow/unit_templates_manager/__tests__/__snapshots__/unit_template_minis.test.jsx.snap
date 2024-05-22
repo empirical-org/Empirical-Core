@@ -143,6 +143,7 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
             >
               <div
                 className="unit-template-mini-wrapper"
+                key="20"
               >
                 <p
                   className="pack-type-header"
@@ -181,7 +182,6 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
                     }
                   }
                   index={0}
-                  key="20"
                   signedInTeacher={true}
                 />
               </div>
@@ -195,6 +195,7 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
             >
               <div
                 className="unit-template-mini-wrapper"
+                key="createYourOwn"
               >
                 <p
                   className="pack-type-header"
@@ -210,7 +211,6 @@ exports[`UnitTemplateMinis component should render dropdowns when on mobile 1`] 
                     }
                   }
                   index={0}
-                  key="createYourOwn"
                   signedInTeacher={true}
                 />
               </div>
@@ -361,6 +361,7 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
             >
               <div
                 className="unit-template-mini-wrapper"
+                key="20"
               >
                 <p
                   className="pack-type-header"
@@ -399,7 +400,6 @@ exports[`UnitTemplateMinis component should render without createYourOwn mini wh
                     }
                   }
                   index={0}
-                  key="20"
                   signedInTeacher={false}
                 />
               </div>

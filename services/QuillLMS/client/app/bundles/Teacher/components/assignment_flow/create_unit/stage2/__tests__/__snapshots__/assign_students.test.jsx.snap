@@ -2,7 +2,10 @@
 
 exports[`Assign students component should render 1`] = `
 <div>
-  <Snackbar />
+  <Snackbar
+    text=""
+    visible={false}
+  />
   <div
     className="assignment-section"
   >
@@ -26,30 +29,32 @@ exports[`Assign students component should render 1`] = `
       <div
         className="import-or-create-classroom-buttons"
       >
-        <button
-          className="interactive-wrapper import-from-clever-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Clever Icon"
-            className="import-from-clever-button-icon"
-            src="undefined/images/icons/clever.svg"
-          />
-          Import from Clever
-        </button>
-        <button
-          className="interactive-wrapper import-from-google-button"
-          onClick={[Function]}
-          type="button"
-        >
-          <img
-            alt="Google Classroom Icon"
-            className="import-from-google-button-icon"
-            src="undefined/images/icons/google-classroom.svg"
-          />
-           Import from Google Classroom
-        </button>
+        <DropdownInput
+          className="import-classes-dropdown-input"
+          handleChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Import from Clever",
+                "value": "Clever",
+              },
+              Object {
+                "label": "Import from Google Classroom",
+                "value": "Google",
+              },
+              Object {
+                "label": "Import from Canvas",
+                "value": "Canvas",
+              },
+            ]
+          }
+          value={
+            Object {
+              "label": "Import Classes",
+              "value": null,
+            }
+          }
+        />
         <button
           className="quill-button medium secondary outlined create-a-class-button"
           onClick={[Function]}
@@ -99,6 +104,7 @@ exports[`Assign students component should render 1`] = `
               "visible": true,
             }
           }
+          key="285380"
           students={
             Array [
               Object {
@@ -746,6 +752,7 @@ exports[`Assign students component should render 1`] = `
               "visible": true,
             }
           }
+          key="285380"
           students={Array []}
           toggleClassroomSelection={[Function]}
           toggleStudentSelection={[Function]}

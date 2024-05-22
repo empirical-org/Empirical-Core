@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe PreviousYearSchoolDatum, type: :model do
-
+RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
   context '#calculate_data' do
     let!(:year) { 2016 }
     let!(:student) { create(:user, last_sign_in: Date.new(year, 10, 2))}
@@ -33,7 +32,7 @@ RSpec.describe PreviousYearSchoolDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { PreviousYearSchoolDatum.new(school, Date.current.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { described_class.new(school, Date.current.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
     end
 
     it 'should calculate active students' do
@@ -43,7 +42,7 @@ RSpec.describe PreviousYearSchoolDatum, type: :model do
         activities_finished: 1,
         activities_per_student: 1.0
       }
-      teacher_data = PreviousYearSchoolDatum.new(school, year).calculate_data
+      teacher_data = described_class.new(school, year).calculate_data
       expect(teacher_data).to eq(expected_data)
     end
   end

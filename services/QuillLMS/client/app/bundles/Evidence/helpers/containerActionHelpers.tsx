@@ -1,5 +1,5 @@
 import queryString from 'query-string'
-import stripHtml from "string-strip-html"
+import { stripHtml } from "string-strip-html"
 
 import getParameterByName from './getParameterByName'
 
@@ -85,5 +85,5 @@ export const getLastSubmittedResponse = ({ activities, session, activeStep }) =>
 export const getStrippedPassageHighlights = ({ activities, session, activeStep }) => {
   const lastSubmittedResponse = getLastSubmittedResponse({ activities, session, activeStep });
   const passageHighlights = lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
-  return passageHighlights && passageHighlights.map(highlight => stripHtml(highlight.text));
+  return passageHighlights && passageHighlights.map(highlight => stripHtml(highlight.text).result);
 }

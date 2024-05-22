@@ -1,287 +1,5412 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Questions component should render when there is no student data 1`] = `
-<Questions
-  location={
-    Object {
-      "search": "",
-    }
-  }
-  match={
-    Object {
-      "params": Object {
-        "activityId": 0,
-        "classroomId": 6,
-      },
-    }
-  }
-  mobileNavigation={<span />}
-  passedQuestions={
-    Array [
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
-        "prompt": "<p>Katherine Johnson helped launch the first American astronaut into orbit. <br/>She was one of the most trusted NASA mathematicians.</p>",
-        "question_id": 1,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
-        "prompt": "<p>CNSA made history in 2019 by landing a rover on the far side of the moon.  </p><p>CNSA is China&#x27;s space agency.</p>",
-        "question_id": 2,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
-        "prompt": "<p>The first successful airplane was invented in 1903. </p><p>The first successful airplane stayed in flight for a few seconds.</p>",
-        "question_id": 3,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not change any words or add any new words.",
-        "prompt": "<p>The wind lifted entire houses off the ground. </p><p>The wind was blowing with incredible speed and force.</p>",
-        "question_id": 4,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Use one of the joining words.",
-        "prompt": "<p>The light bulb was an invention. </p><p>It brought electricity into homes.</p>",
-        "question_id": 5,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Use one of the joining words.",
-        "prompt": "<p>The pressurized deep sea diving suit was invented in 1932. </p><p>It led to the exploration of unknown parts of the ocean.</p>",
-        "question_id": 6,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.",
-        "prompt": "<p>The sun provides energy for plants. </p><p>Oceans are warmed by the sun. </p><p>Impacting weather patterns is also a thing the sun does.</p>",
-        "question_id": 7,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.",
-        "prompt": "<p>Alpha wolves track the prey. </p><p>The prey is also hunted by alpha wolves. </p><p>Alpha wolves decide where to build the pack&#x27;s den. </p><p>Producing pups for the pack is also something alpha wolves do.</p>",
-        "question_id": 8,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences. Use both joining words.",
-        "prompt": "<p>Guppies can live with other peaceful fish in aquariums.</p><p>Piranhas should only be kept in tanks with other piranhas.</p><p>Piranhas typically eat other fish.</p>",
-        "question_id": 9,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Use both joining words.",
-        "prompt": "<p>Thousands of meteors hit the earth each day. </p><p>Our planet is covered by more water than land. </p><p>Most meteors fall in the water.</p>",
-        "question_id": 10,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Use the joining word.",
-        "prompt": "<p>The clouds turned stormy gray. </p><p>The clouds were slowly moving across the sky. </p><p>I knew it was time to head indoors.</p>",
-        "question_id": 11,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences. You may remove unnecessary words, but do not add any new words.",
-        "prompt": "<p>Melipona bees produce a small amount of honey each year. </p><p>Melipona bees are a type of stingless bee.  </p><p>They are native to the Americas.</p>",
-        "question_id": 12,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "<p>Hummus is a dip made from chickpeas. </p><p>Hummus is a healthy dip. </p><p>Hummus can be made at home.</p><p>It can be made easily. </p><p>Hummus has become a popular food in many countries.</p>",
-        "question_id": 13,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "<p>The telephone was an exciting invention. </p><p>It revolutionized communication. </p><p>The telephone instantly connected people across the country for the first time. </p><p>People were concerned there would be negative consequences.</p>",
-        "question_id": 14,
-        "score": null,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "<p>The earth and the moon have both been hit by asteroids. </p><p>They&#x27;ve been hit throughout history. </p><p>There are no craters on the earth&#x27;s surface. </p><p>Weather, water, and plants work together to erase craters from the earth&#x27;s surface.</p>",
-        "question_id": 15,
-        "score": null,
-      },
-    ]
-  }
->
-  <_default>
-    <div
-      className="spinner-container"
+<DocumentFragment>
+  <main
+    class="questions-index-container"
+  >
+    <header>
+      <h1>
+        Questions analysis
+      </h1>
+      <a
+        class="focus-on-light"
+        href="https://support.quill.org/en/articles/5698219-how-do-i-read-the-questions-analysis-report"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="File document icon"
+          src="undefined/images/pages/diagnostic_reports/icons-file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
+    </header>
+    <span />
+    <section
+      class="skill-group-section"
     >
-      <img
-        alt=""
-        className="spinner"
-        src="/images/loader_still.svg"
-      />
-    </div>
-  </_default>
-</Questions>
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Compound Subjects, Objects, and Predicates
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                15
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Tornadoes can pick up trees while they spin. Tornadoes can rip off roofs while they spin.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                16
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p />
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Anthony wants to sing. Matthew wants to sing.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      Tornadoes can pick up trees while they spin. 
+                    </p>
+                    <p>
+                      Tornadoes can rip off roofs while they spin. 
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p />
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      Anthony wants to sing.
+                    </p>
+                    <p>
+                      Matthew wants to sing.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Compound Sentences
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                17
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Use the joining word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I joined the soccer team. Joe tried out for the school play.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                18
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Use one of the joining words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Eagles and hawks are both birds of prey. Eagles are typically larger in size.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Use the joining word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      I joined the soccer team. 
+                    </p>
+                    <p>
+                      Joe tried out for the school play. 
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Use one of the joining words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      Eagles and hawks are both birds of prey. 
+                    </p>
+                    <p>
+                      Eagles are typically larger in size.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Complex Sentences
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                19
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Combine the sentences. Use the joining word that best shows the relationship between the ideas.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      They are not strong swimmers. Chimpanzees often live close to large bodies of water.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                20
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Combine the sentences. Use the joining word that best shows the relationship between the ideas.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Nelson Mandela won the Nobel Peace Prize. He brought South Africa together.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences. Use the joining word that best shows the relationship between the ideas.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      They are not strong swimmers.
+                    </p>
+                    <p>
+                      Chimpanzees often live close to large bodies of water.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences. Use the joining word that best shows the relationship between the ideas.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      Nelson Mandela won the Nobel Peace Prize.  
+                      <br />
+                      He brought South Africa together. 
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Conjunctive Adverbs
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                21
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Use one of the joining words to connect the sentences. Your response may be one sentence or two.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Levees were built to keep New Orleans from flooding. They were not strong enough to withstand Hurricane Katrina.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                22
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Use one of the joining words to connect the ideas. Your response may be one sentence or two.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        A cello is a large instrument with four strings. A violin has four strings that can be played by hand or with a bow.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Use one of the joining words to connect the sentences. Your response may be one sentence or two.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      Levees were built to keep New Orleans from flooding. 
+                    </p>
+                    <p>
+                      They were not strong enough to withstand Hurricane Katrina.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Use one of the joining words to connect the ideas. Your response may be one sentence or two. 
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      A cello is a large instrument with four strings. 
+                    </p>
+                    <p>
+                      A violin has four strings that can be played by hand or with a bow.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Parallel Structure
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                14
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I like surfing. I like to skate. I like walks.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      I like surfing. 
+                    </p>
+                    <p>
+                      I like to skate. 
+                    </p>
+                    <p>
+                      I like walks.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Capitalization
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                12
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      the president visited jackson high school to honor the national teacher of the year.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                13
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        every summer, my dad teaches a biology class about sea turtles that live in the atlantic ocean.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      the president visited jackson high school to honor the national teacher of the year.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p />
+                    <p>
+                      every summer, my dad teaches a biology class about sea turtles that live in the atlantic ocean.
+                    </p>
+                    <p />
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Subject-Verb Agreement
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                4
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Each of the soccer players ___ a green jersey.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                5
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      A huge flock of birds ___ right above us.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Each of the soccer players ___ a green jersey.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      A huge flock of birds ___ right above us.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Nouns, Pronouns, and Verbs
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                1
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      ___ were soaked from the rain.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                2
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The artist drew a picture of ___.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                3
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The bad weather forced ___ to go inside.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                6
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Both ___ uniforms are purple and white.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                7
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      He cleans up the ___ toys.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                8
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I always borrow my two best ___ clothes.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                9
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word or group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I ___ the movie yesterday.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                10
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word or group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I ___ to California three times so far.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                11
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: right;"
+              />
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      When I got home, I was excited to see that my new bike ___.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      ___ were soaked from the rain.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The artist drew a picture of ___.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The bad weather forced ___ to go inside.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Both ___ uniforms are purple and white.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      He cleans up the ___ toys.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I always borrow my two best ___ clothes.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word or group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I ___ the movie yesterday.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word or group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I ___ to California three times so far.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct group of words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      When I got home, I was excited to see that my new bike ___.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: right;"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</DocumentFragment>
 `;
 
 exports[`Questions component should render when there is student data 1`] = `
-<Questions
-  location={
-    Object {
-      "search": "",
-    }
-  }
-  match={
-    Object {
-      "params": Object {
-        "activityId": 0,
-        "classroomId": 6,
-      },
-    }
-  }
-  mobileNavigation={<span />}
-  passedQuestions={
-    Array [
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "Pho is a soup made with herbs. Pho is a soup made with bone broth. Pho is a soup made with noodles.",
-        "question_id": 21,
-        "score": 45,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "The cat is sleeping. The dog is sleeping.",
-        "question_id": 20,
-        "score": 45,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "Bees collect pollen. Bees carry it back to the hive.",
-        "question_id": 19,
-        "score": 36,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "The bear stands on the ice.The bear is white.It is a polar bear.",
-        "question_id": 18,
-        "score": 55,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
-        "prompt": "It is another cold day in Seattle. It is another windy day in Seattle.",
-        "question_id": 17,
-        "score": 18,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence.",
-        "prompt": "He is going on vacation. He is going to a beach. The beach is beautiful. The beach is in San Diego. ",
-        "question_id": 16,
-        "score": 36,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
-        "prompt": "A tree fell and blocked traffic. It fell onto the road.",
-        "question_id": 15,
-        "score": 45,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
-        "prompt": "The stream floods during rainstorms. The stream is muddy. The stream floods easily.",
-        "question_id": 14,
-        "score": 55,
-      },
-      Object {
-        "instructions": " Combine the sentences into one sentence.",
-        "prompt": "Rico writes a letter and mails it. He writes quickly.",
-        "question_id": 13,
-        "score": 64,
-      },
-      Object {
-        "instructions": "Combine the sentences into one sentence. Do not add any new words.",
-        "prompt": "Scorpions thrive in the desert. The desert is dry. ",
-        "question_id": 12,
-        "score": 64,
-      },
-      Object {
-        "instructions": "Rewrite the sentence with the correct capitalization.",
-        "prompt": "in january, i went to montana.",
-        "question_id": 11,
-        "score": 73,
-      },
-      Object {
-        "instructions": "Rewrite the sentence with the correct capitalization.",
-        "prompt": "xavier was born in pittsburgh on halloween.",
-        "question_id": 10,
-        "score": 55,
-      },
-      Object {
-        "instructions": "Rewrite the sentence. Correct each bold word.",
-        "prompt": "The athlete goal is to win medal at all of her competition this season.",
-        "question_id": 9,
-        "score": 64,
-      },
-      Object {
-        "instructions": "Rewrite the sentence. Correct each bold word.",
-        "prompt": "The family big house was built a hundred year ago.",
-        "question_id": 8,
-        "score": 45,
-      },
-      Object {
-        "instructions": "Fill in the blank with the correct word or words. (More brighter, More bright, Brightest, Brighter)",
-        "prompt": "Stars look ___ in the country than in the city.",
-        "question_id": 7,
-        "score": 55,
-      },
-      Object {
-        "instructions": "Fill in the blank with the correct word or words. (More easier, More easy, Easiest, Easier)",
-        "prompt": "Traveling is ___ with a guide than without one.",
-        "question_id": 6,
-        "score": 64,
-      },
-      Object {
-        "instructions": "Choose which word fits best in each blank. You may use the same word twice. (They’re, There, Their)",
-        "prompt": "Runners stretch ___ legs while ___ waiting for the race to start.",
-        "question_id": 5,
-        "score": 55,
-      },
-      Object {
-        "instructions": "Choose which word fits best in each blank. You may use the same word twice. (You're, Your)",
-        "prompt": "I’ll watch a movie at ___ house while ___ studying.",
-        "question_id": 4,
-        "score": 36,
-      },
-      Object {
-        "instructions": "Fill in the blank with the action word that matches the rest of the sentence. (Are, Is)",
-        "prompt": "The streets of Tokyo ___ bright.",
-        "question_id": 3,
-        "score": 55,
-      },
-      Object {
-        "instructions": "Fill in the blank with the action word that matches the rest of the sentence. (Kicks, Kick)",
-        "prompt": "The players on the field ___ the ball.",
-        "question_id": 2,
-        "score": 64,
-      },
-      Object {
-        "instructions": "Fill in the blank with the action word that matches the rest of the sentence. (Doesn't, Don't)",
-        "prompt": "He ___ like to wake up early.",
-        "question_id": 1,
-        "score": 45,
-      },
-    ]
-  }
->
-  <_default>
-    <div
-      className="spinner-container"
+<DocumentFragment>
+  <main
+    class="questions-index-container"
+  >
+    <header>
+      <h1>
+        Questions analysis
+      </h1>
+      <a
+        class="focus-on-light"
+        href="https://support.quill.org/en/articles/5698219-how-do-i-read-the-questions-analysis-report"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <img
+          alt="File document icon"
+          src="undefined/images/pages/diagnostic_reports/icons-file-document.svg"
+        />
+        <span>
+          Guide
+        </span>
+      </a>
+    </header>
+    <span />
+    <section
+      class="skill-group-section"
     >
-      <img
-        alt=""
-        className="spinner"
-        src="/images/loader_still.svg"
-      />
-    </div>
-  </_default>
-</Questions>
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Subject-Verb Agreement
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                1
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Fill in the blank with the action word that matches the rest of the sentence. (Doesn't, Don't)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      He ___ like to wake up early.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                2
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  60%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Fill in the blank with the action word that matches the rest of the sentence. (Kicks, Kick)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The players on the field ___ the ball.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                3
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Fill in the blank with the action word that matches the rest of the sentence. (Are, Is)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The streets of Tokyo ___ bright.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the action word that matches the rest of the sentence. (Doesn't, Don't)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      He ___ like to wake up early.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the action word that matches the rest of the sentence. (Kicks, Kick)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The players on the field ___ the ball.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  60%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the action word that matches the rest of the sentence. (Are, Is)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The streets of Tokyo ___ bright.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Commonly Confused Words
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                4
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Choose which word fits best in each blank. You may use the same word twice. (You're, Your)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I’ll watch a movie at ___ house while ___ studying.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                5
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Choose which word fits best in each blank. You may use the same word twice. (They’re, There, Their)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Runners stretch ___ legs while ___ waiting for the race to start.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Choose which word fits best in each blank. You may use the same word twice. (You're, Your)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      I’ll watch a movie at ___ house while ___ studying.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Choose which word fits best in each blank. You may use the same word twice. (They’re, There, Their)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Runners stretch ___ legs while ___ waiting for the race to start.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Adjectives and Adverbs
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                6
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="frequently-demonstrated-skill"
+                >
+                  100%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Fill in the blank with the correct word or words. (More easier, More easy, Easiest, Easier)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Traveling is ___ with a guide than without one.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                7
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  80%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Fill in the blank with the correct word or words. (More brighter, More bright, Brightest, Brighter)
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Stars look ___ in the country than in the city.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                12
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Scorpions thrive in the desert. The desert is dry.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                13
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Rico writes a letter and mails it. He writes quickly.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                14
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The stream floods during rainstorms. The stream is muddy. The stream floods easily.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                17
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      It is another cold day in Seattle. It is another windy day in Seattle.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                18
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The bear stands on the ice.The bear is white.It is a polar bear.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word or words. (More easier, More easy, Easiest, Easier)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Traveling is ___ with a guide than without one.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="frequently-demonstrated-skill"
+                >
+                  100%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Fill in the blank with the correct word or words. (More brighter, More bright, Brightest, Brighter)
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Stars look ___ in the country than in the city.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  80%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Scorpions thrive in the desert. The desert is dry. 
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                       Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Rico writes a letter and mails it. He writes quickly.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The stream floods during rainstorms. The stream is muddy. The stream floods easily.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      It is another cold day in Seattle. It is another windy day in Seattle.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The bear stands on the ice.The bear is white.It is a polar bear.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Plural and Possessive Nouns
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                8
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence. Correct each bold word. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The family big house was built a hundred year ago.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                9
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence. Correct each bold word. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The athlete goal is to win medal at all of her competition this season.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence. Correct each bold word. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The family big house was built a hundred year ago.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence. Correct each bold word. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The athlete goal is to win medal at all of her competition this season.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Capitalization
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                10
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      xavier was born in pittsburgh on halloween.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                11
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      in january, i went to montana.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      xavier was born in pittsburgh on halloween.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Rewrite the sentence with the correct capitalization.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      in january, i went to montana.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  40%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Prepositional Phrases
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                15
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  0%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      A tree fell and blocked traffic. It fell onto the road.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                16
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        He is going on vacation. He is going to a beach. The beach is beautiful. The beach is in San Diego.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence. Do not add any new words.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      A tree fell and blocked traffic. It fell onto the road.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  0%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      He is going on vacation. He is going to a beach. The beach is beautiful. The beach is in San Diego. 
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="rarely-demonstrated-skill"
+                >
+                  20%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section
+      class="skill-group-section"
+    >
+      <div
+        class="skill-group-section-header"
+      >
+        <h2>
+          <span>
+            Compound Subjects, Objects, and Predicates
+          </span>
+        </h2>
+      </div>
+      <div
+        class="data-table-container"
+      >
+        <table
+          class="data-table hide-on-mobile"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                <span>
+                  Question
+                </span>
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span>
+                  Activity Scores
+                </span>
+              </th>
+              <th
+                class="data-table-header directions-and-prompt-header"
+                scope="col"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <span />
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                19
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  80%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Bees collect nectar. Bees carry it back to the hive.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                20
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  60%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The cat is sleeping. The dog is sleeping.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section question-number-section"
+                style="width: 112px; min-width: 112px; text-align: center;"
+              >
+                21
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 120px; min-width: 120px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  60%
+                </span>
+              </td>
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 644px; min-width: 644px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <span
+                      aria-hidden="false"
+                      class="quill-tooltip-trigger "
+                      role="tooltip"
+                    >
+                      <span
+                        class="directions-or-prompt"
+                        role="button"
+                        tabindex="0"
+                      >
+                        Pho is a soup made with herbs. Pho is a soup made with bone broth. Pho is a soup made with noodles.
+                      </span>
+                      <span
+                        class="quill-tooltip-wrapper"
+                      >
+                        <span
+                          aria-live="polite"
+                          class="quill-tooltip"
+                        />
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+          class="data-table hide-on-desktop"
+        >
+          <thead>
+            <tr
+              class="data-table-headers"
+            >
+              <th
+                class="data-table-header undefined"
+                scope="col"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <span />
+              </th>
+              <th
+                class="data-table-header score-header"
+                scope="col"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span>
+                  Scores
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table-body"
+          >
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Bees collect nectar. Bees carry it back to the hive.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  80%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      The cat is sleeping. The dog is sleeping.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  60%
+                </span>
+              </td>
+            </tr>
+            <tr
+              class="data-table-row  "
+            >
+              <td
+                class="data-table-row-section directions-and-prompt-section"
+                style="width: 188px; min-width: 188px; text-align: left;"
+              >
+                <div
+                  class="directions-and-prompt"
+                >
+                  <div
+                    class="directions"
+                  >
+                    <span>
+                      Directions
+                    </span>
+                    <p>
+                      Combine the sentences into one sentence.
+                    </p>
+                  </div>
+                  <div
+                    class="prompt"
+                  >
+                    <span>
+                      Prompt
+                    </span>
+                    <p>
+                      Pho is a soup made with herbs. Pho is a soup made with bone broth. Pho is a soup made with noodles.
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="data-table-row-section score-section"
+                style="width: 52px; min-width: 52px; text-align: left;"
+              >
+                <span
+                  class="sometimes-demonstrated-skill"
+                >
+                  60%
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</DocumentFragment>
 `;

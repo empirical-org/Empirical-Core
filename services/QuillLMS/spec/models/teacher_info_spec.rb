@@ -4,13 +4,15 @@
 #
 # Table name: teacher_infos
 #
-#  id                      :bigint           not null, primary key
-#  maximum_grade_level     :integer
-#  minimum_grade_level     :integer
-#  role_selected_at_signup :string           default("")
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  user_id                 :bigint           not null
+#  id                           :bigint           not null, primary key
+#  maximum_grade_level          :integer
+#  minimum_grade_level          :integer
+#  notification_email_frequency :text
+#  role_selected_at_signup      :string           default("")
+#  show_students_exact_score    :boolean          default(TRUE), not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  user_id                      :bigint           not null
 #
 # Indexes
 #
@@ -31,6 +33,9 @@ describe TeacherInfo, type: :model, redis: true do
   it {should validate_numericality_of(:maximum_grade_level)}
 
   it {should validate_presence_of(:user_id)}
+
+  it {should validate_inclusion_of(:notification_email_frequency).in_array(TeacherInfo::NOTIFICATION_EMAIL_FREQUENCIES)}
+  it {should validate_inclusion_of(:show_students_exact_score).in_array([true, false])}
 
   context 'uniqueness' do
     let!(:teacher_info) {create(:teacher_info)}

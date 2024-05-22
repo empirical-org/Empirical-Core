@@ -1,17 +1,18 @@
-import * as React from 'react'
 import _ from 'lodash'
-import LinkListItem from '../shared/linkListItem'
+import * as React from 'react'
+import { Link } from 'react-router-dom'
+
+import { hashToCollection } from '../../../Shared/index'
 import { Concept } from '../../interfaces/concepts'
+import { Question } from '../../interfaces/questions'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
-import { Question } from '../../interfaces/questions'
-import { hashToCollection } from '../../../Shared/index'
+
 
 interface QuestionListByConceptProps {
   concepts: ConceptReducerState;
   showOnlyArchived: boolean;
   basePath: string;
-  displayNoConceptQuestions: boolean;
   questions: QuestionsReducerState;
 }
 
@@ -32,6 +33,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   }
 
   renderQuestionLinks(questions: Question[]): Array<JSX.Element|undefined> {
+    const { basePath } = this.props;
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -40,15 +42,10 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     }
     return filtered.map((question: Question) => {
       if (question.prompt) {
-        const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
-          <LinkListItem
-            basePath={this.props.basePath}
-            itemKey={question.key}
-            key={question.key}
-            subpath="responses"
-            text={formattedPrompt}
-          />
+          <Link to={'/admin/' + basePath + '/' + question.key + '/responses'}>
+            <span dangerouslySetInnerHTML={{ __html: question.prompt }} />
+          </Link>
         );
       }
     });
@@ -80,9 +77,20 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     })
   }
 
+  renderQuestionsWithoutValidKey = () => {
+    const concepts = hashToCollection(this.props.concepts.data['0']);
+    const questions = hashToCollection(this.props.questions);
+    const questionsToRender = _.reject(questions, (question) => {
+      return !!_.find(concepts, {uid: question.conceptID})
+    })
+    const label = (<p className="menu-label">No valid concept</p>)
+    return this.renderConceptWithQuestions(questionsToRender, label, 0);
+  }
+
   render() {
     return (
       <aside className="menu">
+        {this.renderQuestionsWithoutValidKey()}
         {this.mapConceptsToList()}
       </aside>
     );

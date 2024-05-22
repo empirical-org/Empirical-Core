@@ -1,5 +1,5 @@
-import * as React from 'react'
-import ContentEditable from 'react-contenteditable'
+import * as React from 'react';
+import ContentEditable from 'react-contenteditable';
 
 const enabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
 const disabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-disabled.svg`

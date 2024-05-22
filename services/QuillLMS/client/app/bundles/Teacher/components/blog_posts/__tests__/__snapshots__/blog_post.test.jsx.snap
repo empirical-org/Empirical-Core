@@ -34,7 +34,7 @@ exports[`BlogPost component renders 1`] = `
       "updated_at": "2023-01-27T17:25:32.210Z",
     }
   }
-  mostRecentPosts={
+  relatedPosts={
     Array [
       Object {
         "author_id": null,
@@ -410,7 +410,9 @@ exports[`BlogPost component renders 1`] = `
   <div
     id="article-container"
   >
-    <article>
+    <article
+      className="container"
+    >
       <BlogPostContent
         author={
           Object {
@@ -537,6 +539,7 @@ exports[`BlogPost component renders 1`] = `
       id="similar-posts"
     >
       <div
+        className="container"
         id="similar-post-container"
       >
         <h2>
@@ -798,6 +801,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/webinars"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -805,14 +809,13 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__4_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>List of Available Quill Reading for Evidence Activities</h3>\\\\n       <p>This article offers a great way to get a sense of the content and topics available in current Reading for Evidence activities!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
             externalLink={false}
             key="List of Available Quill Reading for Evidence Activities"
             link="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
           >
             <a
-              className="preview-card-link purple"
+              className="preview-card-link green"
               href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
               target="_self"
             >
@@ -1049,6 +1052,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -1300,6 +1304,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/michele-ellis-teacher-story"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -1307,14 +1312,14 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="teal"
+            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__9_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill Reports Cheat Sheet</h3>\\\\n       <p> This PDF provides an overview of what information you can find in each of Quill's student data reports. </p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
             externalLink={true}
             key="📋 PDF | Quill Reports Cheat Sheet"
             link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
           >
             <a
-              className="preview-card-link teal"
+              className="preview-card-link purple"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
               target="_blank"
             >
@@ -1551,6 +1556,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Read
@@ -1558,14 +1564,13 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__2_.png' />\\\\n       <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Introducing Quill Reading for  Evidence: One-Pager </h3>\\\\n       <p>This one-pager will introduce you to our newest tool, Quill Reading for  Evidence. Includes a link to a demo video!</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Sherry L.</p>\\\\n    </div>"
             externalLink={false}
             key="📋 PDF | Introducing Quill Reading for Evidence: One-Pager "
             link="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
           >
             <a
-              className="preview-card-link purple"
+              className="preview-card-link green"
               href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
               target="_self"
             >
@@ -1802,6 +1807,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -1809,14 +1815,14 @@ exports[`BlogPost component renders 1`] = `
             </a>
           </PreviewCard>
           <PreviewCard
-            color="teal"
+            color="purple"
             content="<img class='preview-card-image' src='https://s3.amazonaws.com/quill-image-uploads/uploads/files/Cover__10_.png' />\\\\n    <div class='preview-card-body'>\\\\n       <h3>📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning</h3>\\\\n       <p>This PDF provides information on tools teachers can use to support students with remote instruction.</p>\\\\n       <span/>\\\\n    </div>\\\\n    <div class='preview-card-footer'>\\\\n      <p class='author'>by Quill Staff</p>\\\\n    </div>"
             externalLink={true}
             key="📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning"
             link="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
           >
             <a
-              className="preview-card-link teal"
+              className="preview-card-link purple"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
               target="_blank"
             >
@@ -2053,6 +2059,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Read
@@ -2304,6 +2311,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/using-quill-as-a-homeschool-educator"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -2555,6 +2563,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Read
@@ -2806,6 +2815,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -3057,6 +3067,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/quill-and-masterybased-learning"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -3290,6 +3301,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/4-ways-to-use-quill-lessons"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -3541,6 +3553,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/student-center-video---why-is-writing-important"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -3792,6 +3805,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -4043,6 +4057,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read
@@ -4294,6 +4309,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 Read
@@ -4545,6 +4561,7 @@ exports[`BlogPost component renders 1`] = `
               <a
                 className="quill-button fun contained primary focus-on-light"
                 href="/teacher-center/quills-ell-implementation-guide-"
+                rel="noopener noreferrer"
                 target="_self"
               >
                 Read

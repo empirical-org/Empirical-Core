@@ -1,7 +1,6 @@
 .student-profile-tab-container {
   background-color: white;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid $quill-grey-5;
   margin-bottom: 32px;
   position: sticky;
   top: 0;
@@ -11,7 +10,7 @@
     font-size: 14px;
     font-weight: 600;
     line-height: normal;
-    color: #5c5c5c;
+    color: $quill-grey-50;
     padding: 14px 16px;
     min-width: 90px;
     background-color: transparent;
@@ -23,8 +22,8 @@
       outline: none;
     }
     &.active {
-      border-bottom: 2px #06806b solid;
-      color: #06806b;
+      border-bottom: 2px $quill-green solid;
+      color: $quill-green;
     }
   }
 }

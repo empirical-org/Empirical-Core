@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import TopicLevelTable from './topicLevelTable'
-import TopicBox from './topicBox'
 import ArchivedTopicBox from './archivedTopicBox'
 import NewTopicBox from './newTopicBox'
+import TopicBox from './topicBox'
+import TopicLevelTable from './topicLevelTable'
 
 const TopicColumns = ({ topics, searchValue, saveTopicChanges, createNewTopic, visible, }) => {
   const [selectedTopicId, setSelectedTopicId] = React.useState(null)

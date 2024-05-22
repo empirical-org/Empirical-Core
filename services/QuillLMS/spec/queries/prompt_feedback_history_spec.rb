@@ -22,12 +22,12 @@ RSpec.describe PromptFeedbackHistory, type: :model do
   # rubocop:enable Metrics/ParameterLists
 
   before do
-    @main_activity = Evidence::Activity.create!(notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-    @unused_activity = Evidence::Activity.create!(notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
+    @main_activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
+    @unused_activity = create(:evidence_activity, notes: 'Title_2', title: 'Title 2', parent_activity_id: 2, target_level: 1)
 
-    @prompt1 = Evidence::Prompt.create!(activity: @main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-    @prompt2 = Evidence::Prompt.create!(activity: @main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
-    @prompt3 = Evidence::Prompt.create!(activity: @unused_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+    @prompt1 = create(:evidence_prompt, activity: @main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+    @prompt2 = create(:evidence_prompt, activity: @main_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
+    @prompt3 = create(:evidence_prompt, activity: @unused_activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback')
 
     generate_feedback_history(@prompt3.id)
   end

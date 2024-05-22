@@ -2,8 +2,8 @@ import * as React from "react";
 import { RouteConfig } from "react-router-config";
 import { Route, Switch } from "react-router-dom";
 import PageLayout from "./components/PageLayout";
-import PlayGrammar from "./components/grammarActivities/container";
 import Admin from "./components/admin/admin";
+import PlayGrammar from "./components/grammarActivities/container";
 
 export const routes: RouteConfig[] = [
   {

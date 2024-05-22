@@ -1,0 +1,11 @@
+<% if current_user.school_or_district_premium? %>
+  <div class='availability-disclaimer accessible'>
+    <i class='fas fa-icon fa-check-circle'></i>
+    <p>You have access to Quill Academy through a School Premium or District Premium subscription.<p>
+  </div>
+<% else %>
+  <div class='availability-disclaimer restricted'>
+    <i class='fas fa-icon fa-exclamation-circle'></i>
+    <p>Quill Academy and Quill's Professional Development are included in School Premium and District Premium subscriptions.<p>
+  </div>
+<% end %>

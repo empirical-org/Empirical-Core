@@ -1,6 +1,7 @@
 <%= react_component('ResultsPageApp', props: {results: @results,
   percentage: @activity_session.percentage,
   activityName: @activity_session.activity.name,
+  activitySessionId: @activity_session.id,
   activityType: ActivityClassification.find(@activity_session.activity.activity_classification_id).key,
   anonymous: !@activity_session.user_id && current_user.nil?,
   classroomId: @classroom_id,
@@ -8,5 +9,9 @@
   integrationPartnerSessionId: @partner_session_id,
   classroomUnitId: @activity_session.classroom_unit_id,
   activityId: @activity_session.activity_id,
-  resultCategoryNames: @result_category_names
+  resultCategoryNames: @result_category_names,
+  showExactScore: @activity_session&.classroom_unit&.classroom&.owner&.teacher_info&.show_students_exact_score,
+  numberOfQuestions: @number_of_questions,
+  numberOfCorrectQuestions: @number_of_correct_questions,
+  groupedKeyTargetSkillConcepts: @grouped_key_target_skill_concepts
 }) %>

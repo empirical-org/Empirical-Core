@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { titleCase, Input } from '../../../Shared';
-import { FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, ZIPCODE } from '../../../../constants/salesForm';
+import { EMAIL, FIRST_NAME, LAST_NAME, PHONE_NUMBER, ZIPCODE } from '../../../../constants/salesForm';
+import { Input, titleCase } from '../../../Shared';
 
 export const UpperFormFields = ({ type, errors, handleUpdateField, firstName, lastName, email, phoneNumber, zipcode }) => {
 

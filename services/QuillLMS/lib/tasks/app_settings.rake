@@ -3,13 +3,15 @@
 namespace :app_settings do
   desc 'Creates a new AppSetting.'
   # Example usage: rake 'app_settings:create[theName,true,true,50,[]]'
+  # To pass user_ids to the allow list, separate ids with spaces instead of commas
+  # Example usage: rake 'app_settings:create[theName,true,true,50,[1 5]]'
   task :create, [:name, :enabled, :enabled_for_staff, :percent_active, :user_ids_allow_list] => :environment do |t, args|
     app_setting = AppSetting.create!(
       name: args[:name],
       enabled: args[:enabled],
       enabled_for_staff: args[:enabled_for_staff],
       percent_active: args[:percent_active],
-      user_ids_allow_list: args[:user_ids_allow_list]
+      user_ids_allow_list: JSON.parse(args[:user_ids_allow_list].tr(' ',','))
     )
     puts "AppSetting with name #{app_setting.name} created."
   end

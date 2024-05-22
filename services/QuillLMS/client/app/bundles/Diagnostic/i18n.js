@@ -3,16 +3,16 @@ import { initReactI18next } from "react-i18next";
 
 import translationAR from './modules/translation/arabic/translation.json';
 import translationCN from './modules/translation/chinese/translation.json';
-import translationDE from './modules/translation/german/translation.json';
 import translationDR from './modules/translation/dari/translation.json';
 import translationEN from './modules/translation/english/translation.json';
-import translationES from './modules/translation/spanish/translation.json';
 import translationFR from './modules/translation/french/translation.json';
+import translationDE from './modules/translation/german/translation.json';
 import translationHI from './modules/translation/hindi/translation.json';
 import translationJP from './modules/translation/japanese/translation.json';
 import translationKR from './modules/translation/korean/translation.json';
 import translationPT from './modules/translation/portuguese/translation.json';
 import translationRU from './modules/translation/russian/translation.json';
+import translationES from './modules/translation/spanish/translation.json';
 import translationTG from './modules/translation/tagalog/translation.json';
 import translationTH from './modules/translation/thai/translation.json';
 import translationUK from './modules/translation/ukrainian/translation.json';

@@ -1,13 +1,12 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
 
-import { TextEditor } from '../../../Shared/index';
+import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import { hashToCollection, SortableList, } from '../../../Shared/index'
 
 export class FocusPointsContainer extends Component {
   constructor(props) {
@@ -112,8 +111,9 @@ export class FocusPointsContainer extends Component {
     const { questionID } = params
     if (fpOrderedIds) {
       const newFp = {};
+      const focusPointsArray = hashToCollection(focusPoints)
       fpOrderedIds.forEach((id, index) => {
-        const fp = Object.assign({}, focusPoints[id]);
+        const fp = Object.assign({}, focusPointsArray.find(fp => fp.key === id));
         fp.order = index + 1;
         newFp[id] = fp;
       });
@@ -178,7 +178,7 @@ export class FocusPointsContainer extends Component {
     const { questionID } = params
     const components = this.fPsortedByOrder().map((fp) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={fp.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={fp.key} key={fp.key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, fp.key)} placeholder="Name" type="text" value={fp.name || ''} />
           </header>

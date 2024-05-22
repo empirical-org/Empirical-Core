@@ -1,9 +1,8 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
-import StudentFillInTheBlank from '../play/fillInTheBlank'
-import promptSplitter from '../shared/promptSplitter'
+import StudentFillInTheBlank from '../play/fillInTheBlank';
+import promptSplitter from '../shared/promptSplitter';
 
 interface AdminFillInTheBlanksProps {
   question: CLIntF.QuestionData,

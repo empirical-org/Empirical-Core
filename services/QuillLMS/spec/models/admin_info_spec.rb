@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  approval_status     :string
+#  approver_role       :string
 #  sub_role            :string
 #  verification_reason :text
 #  verification_url    :string
@@ -77,6 +78,24 @@ describe AdminInfo, type: :model, redis: true do
 
     it "should not allow invalid values" do
       admin_info.sub_role = 'other'
+      expect(admin_info).not_to be_valid
+    end
+  end
+
+  describe '#approver_role' do
+
+    it "should allow valid values" do
+      AdminInfo::APPROVER_ROLES.each do |v|
+        admin_info.approver_role = v
+        expect(admin_info).to be_valid
+      end
+
+      admin_info.approver_role = nil
+      expect(admin_info).to be_valid
+    end
+
+    it "should not allow invalid values" do
+      admin_info.approver_role = 'other'
       expect(admin_info).not_to be_valid
     end
   end

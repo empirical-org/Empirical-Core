@@ -9,6 +9,8 @@ RSpec.describe CleverIntegration::TeacherIntegration do
 
   let(:info_hash) { auth_hash.info }
   let(:teacher_data) { double(:teacher_data) }
+  let(:user_failure) { { type: 'user_failure', data: "Error: #{message}" } }
+  let(:user_success) { { type: 'user_success', data: teacher } }
 
   context 'library integration' do
     let(:auth_hash) { library_auth_hash }
@@ -17,17 +19,16 @@ RSpec.describe CleverIntegration::TeacherIntegration do
       expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::LibraryTeacherIntegration).to receive(:run).with(teacher, auth_hash.credentials.token)
-      expect(CleverIntegration::TeacherClassroomsCacheHydrator).to receive(:run).with(teacher.id)
-      expect(CleverIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(teacher.id)
+      expect(CleverIntegration::UpdateTeacherImportedClassroomsWorker).to receive(:perform_async).with(teacher.id)
 
-      expect(subject).to eq user_success(teacher)
+      expect(subject).to eq user_success
     end
 
     context 'nil email' do
       let(:email) { nil }
       let(:message) { CleverIntegration::TeacherDataAdapter::BlankEmailError::MESSAGE }
 
-      it { expect(subject).to eq user_failure(message) }
+      it { expect(subject).to eq user_failure }
     end
   end
 
@@ -38,10 +39,9 @@ RSpec.describe CleverIntegration::TeacherIntegration do
       expect(CleverIntegration::TeacherDataAdapter).to receive(:run).with(info_hash).and_return(teacher_data)
       expect(CleverIntegration::TeacherImporter).to receive(:run).with(teacher_data).and_return(teacher)
       expect(CleverIntegration::DistrictTeacherIntegration).to receive(:run).with(teacher, district.clever_id)
-      expect(CleverIntegration::TeacherClassroomsCacheHydrator).to receive(:run).with(teacher.id)
-      expect(CleverIntegration::TeacherImportedClassroomsUpdater).to receive(:run).with(teacher.id)
+      expect(CleverIntegration::UpdateTeacherImportedClassroomsWorker).to receive(:perform_async).with(teacher.id)
 
-      expect(subject).to eq user_success(teacher)
+      expect(subject).to eq user_success
     end
 
     context 'nil district' do
@@ -49,15 +49,7 @@ RSpec.describe CleverIntegration::TeacherIntegration do
 
       before { expect(CleverIntegration::Importers::CleverDistrict).to receive(:run).and_return(nil) }
 
-      it { expect(subject).to eq user_failure(message) }
+      it { expect(subject).to eq user_failure }
     end
-  end
-
-  def user_failure(message)
-    { type: 'user_failure', data: "Error: #{message}" }
-  end
-
-  def user_success(teacher)
-    { type: 'user_success', data: teacher }
   end
 end

@@ -1,21 +1,22 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { Switch, Route, withRouter, NavLink, } from 'react-router-dom';
-import qs from 'qs'
+import qs from 'qs';
+import { NavLink, Route, Switch, withRouter, } from 'react-router-dom';
 
-import GrowthResults from './growthResults'
-import Results from './results'
-import GrowthSummary from './growthSummary'
-import Summary from './summary'
-import StudentResponsesIndex from './studentResponsesIndex'
-import IndividualStudentResponses from './individualStudentResponses'
-import Recommendations from './recommendations'
-import Questions from './questions'
-import { Classroom, Activity, Diagnostic, } from './interfaces'
-import { goToAssign, baseDiagnosticImageSrc, accountCommentIcon, closeIcon, } from './shared'
+import GrowthResults from './growthResults';
+import GrowthSummary from './growthSummary';
+import IndividualStudentResponses from './individualStudentResponses';
+import Questions from './questions';
+import Recommendations from './recommendations';
+import Results from './results';
+import { accountCommentIcon, baseDiagnosticImageSrc, closeIcon, goToAssign, } from './shared';
+import StudentResponsesIndex from './studentResponsesIndex';
+import Summary from './summary';
 
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants'
-import { DropdownInput, } from '../../../../../Shared/index'
+import { DropdownInput, } from '../../../../../Shared/index';
+import { RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID } from '../../../../constants/featuredBlogPost';
+import ArticleSpotlight from '../../../shared/articleSpotlight';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from '../../progress_report_constants';
 
 const barChartIcon = <img alt="Bar chart icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart.svg`} />
 const barChartGrowthIcon = <img alt="Chart showing growth icon" src={`${baseDiagnosticImageSrc}/icons-bar-chart-growth.svg`} />
@@ -143,9 +144,9 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
   function diagnosticForClassroom(classroom) {
     return classroom.diagnostics.find(d => {
       const assignedDiagnosticAsEitherPreOrPost = (d.pre.activity_id === activityId) || (d.post && d.post.activity_id === activityId)
-      const preOrPostHasUnitId = d.pre.unit_id || d.post.unit_id
+      const preOrPostHasUnitId = d.pre.unit_id || d.post?.unit_id
       if (assignedDiagnosticAsEitherPreOrPost && unitId && preOrPostHasUnitId) {
-        return d.pre.unit_id === Number(unitId) || d.post && d.post.unit_id === Number(unitId)
+        return d.pre.unit_id === Number(unitId) || d.post?.unit_id === Number(unitId)
       }
       return assignedDiagnosticAsEitherPreOrPost
     })
@@ -173,6 +174,13 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     }
 
     return false
+  }
+
+  function eligibleForQuestionScoring() {
+    if (!activeDiagnostic) { return false }
+
+    // we only care about whether or not the pre-diagnostic is eligible because even if the post- is, we can't compare the data and so need to keep the empty state
+    return activeDiagnostic.pre.eligible_for_question_scoring
   }
 
   function onClassesDropdownChange(e) {
@@ -222,29 +230,33 @@ const IndividualPack = ({ classrooms, history, match, location, lessonsBannerIsS
     mobileNavigation: (<section className="mobile-navigation hide-on-desktop">{classroomDropdown}{linkDropdown}</section>),
     lessonsBannerIsShowable,
     isPostDiagnostic: activeDiagnosticIsPost(),
-    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id
+    postDiagnosticUnitTemplateId: activeDiagnostic.post?.unit_template_id,
+    eligibleForQuestionScoring: eligibleForQuestionScoring()
   }
 
   return (
-    <div className="white-background-accommodate-footer">
-      <div className="diagnostic-individual-pack">
-        <nav className="diagnostic-report-navigation hide-on-mobile">
-          {classroomDropdown}
-          <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
-          {postDiagnosticContent}
-        </nav>
-        <Switch>
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_summary' render={() => <GrowthSummary {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/summary' render={() => <Summary {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
-          <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
-        </Switch>
+    <React.Fragment>
+      <div className="white-background-accommodate-footer">
+        <div className="diagnostic-individual-pack">
+          <nav className="diagnostic-report-navigation hide-on-mobile">
+            {classroomDropdown}
+            <DiagnosticSection activity={activeDiagnostic.pre} search={location.search} />
+            {postDiagnosticContent}
+          </nav>
+          <Switch>
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_summary' render={() => <GrowthSummary {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/growth_results' render={() => <GrowthResults {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/summary' render={() => <Summary {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/results' render={() => <Results {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/recommendations' render={() => <Recommendations {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/questions' render={() => <Questions {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/responses/:studentId' render={() => <IndividualStudentResponses {...sharedProps} />} />
+            <Route path='/diagnostics/:activityId/classroom/:classroomId/responses' render={() => <StudentResponsesIndex {...sharedProps} />} />
+          </Switch>
+        </div>
       </div>
-    </div>
+      <ArticleSpotlight blogPostId={RESULTS_AND_RECOMMENDATIONS_FEATURED_BLOG_POST_ID} />
+    </React.Fragment>
   )
 }
 

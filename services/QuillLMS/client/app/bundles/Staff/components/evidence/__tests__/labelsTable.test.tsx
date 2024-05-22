@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
+import { QueryClientProvider } from 'react-query';
 import LabelsTable from '../semanticRules/labelsTable';
-import { QueryClientProvider } from 'react-query'
 
 import { DefaultReactQueryClient } from '../../../../Shared/index';
 

@@ -1,10 +1,10 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
-
-import { requestGet, requestPut, } from '../../../../../modules/request/index'
-import CustomActivityPackPage from '../../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/index'
+import _ from 'lodash';
+import { requestGet, requestPut, } from '../../../../../modules/request/index';
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
+import { Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index';
+import CustomActivityPackPage from '../../../../Teacher/components/assignment_flow/create_unit/custom_activity_pack/index';
 
 const ActivityCategories = () => {
   const [activityCategories, setActivityCategories] = React.useState([])

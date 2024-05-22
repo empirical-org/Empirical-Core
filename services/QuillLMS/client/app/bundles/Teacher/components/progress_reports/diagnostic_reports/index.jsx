@@ -1,11 +1,11 @@
+import $ from 'jquery'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import NavBar from './nav_bar.jsx'
-import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-import StudentReport from './student_report.tsx'
 import ClassReport from './class_report.jsx'
+import NavBar from './nav_bar.jsx'
 import QuestionReport from './question_report.jsx'
+import StudentReport from './student_report.tsx'
 
 class DiagnosticReports extends React.Component {
   constructor(props) {
@@ -54,7 +54,9 @@ class DiagnosticReports extends React.Component {
     const classroomId = classroomIdChunk ? classroomIdChunk.replace('/c/', '') : null
     const studentIdChunk = (pathname.match(/\/student_report\/[^\/]*/) || [])[0]
     const studentId = studentIdChunk ? studentIdChunk.replace('/student_report/', '') : null
-    return { activityId, unitId, classroomId, studentId, }
+    const activitySessionIdChunk = (pathname.match(/\/activity_session_id\/[^\/]*/) || [])[0]
+    const activitySessionId = activitySessionIdChunk ? activitySessionIdChunk.replace('/activity_session_id/', '') : null
+    return { activityId, unitId, classroomId, studentId, activitySessionId, }
   }
 
   getActivityData = (params) => {
@@ -123,6 +125,23 @@ class DiagnosticReports extends React.Component {
     history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${value}`)
   };
 
+  changeActivitySession = (activitySession) => {
+    const { history } = this.props
+    const { value } = activitySession
+    const p = this.parseParams(this.props.location.pathname);
+    const { activityId, classroomId, unitId, activitySessionId, studentId, } = p
+    history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${studentId}/activity_session_id/${value}`)
+  }
+
+  changeStudent = (student) => {
+    const { history } = this.props
+    const { value } = student
+    this.setState({selectedStudentId: value })
+    const p = this.parseParams(this.props.location.pathname);
+    const { activityId, classroomId, unitId } = p
+    history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${value}`)
+  };
+
   findClassroomById = (id) => {
     return this.props.classrooms
       ? this.props.classrooms.find((c) => c.id === id)
@@ -159,7 +178,8 @@ class DiagnosticReports extends React.Component {
           />
           {this.props.children}
           <Switch>
-            <Route component={routerProps => <StudentReport params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
+            <Route component={routerProps => <StudentReport activitySessionDropdownCallback={this.changeActivitySession} params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId/activity_session_id/:activitySessionId' />
+            <Route component={routerProps => <StudentReport activitySessionDropdownCallback={this.changeActivitySession} params={params} studentDropdownCallback={this.changeStudent} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
             <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
             <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
           </Switch>

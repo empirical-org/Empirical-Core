@@ -43,7 +43,7 @@
       padding-top: 64px;
       .topic-section {
         background-color: white;
-        color: #2C7F9B;
+        color: $quill-teal;
         max-width: 355px;
         border-radius: 8px;
         .topic {
@@ -71,7 +71,7 @@
         }
         .q-button {
           margin-bottom: 18px;
-          border: 1px solid #2C7F9B;
+          border: 1px solid $quill-teal;
           border-radius: 4px;
           font-size: 14px;
           padding: 13px 16px 13px 16px;
@@ -80,23 +80,23 @@
     }
   }
   #q-and-a {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: $quill-white;
+    color: $quill-black;
     .q-and-a-inner-wrapper {
       .qa-section {
         border-bottom: solid 1px #C1C1C1;
         .question, .expand-collapse-button {
-          background-color: #ffffff;
+          background-color: $quill-white;
         }
         .question {
-          padding-left: 0;
+          padding: 0;
         }
         .answer {
-          color: #000000;
+          color: $quill-black;
           margin: 0px 0px 32px 0px;
           p {
             a {
-              color:#000000;
+              color:$quill-black;
             }
             .header-link {
               font-weight: 600;
@@ -117,14 +117,14 @@
         }
       }
       .support-link {
-        color: #000000;
+        color: $quill-black;
       }
     }
   }
   #instructions-container {
     display: flex;
     justify-content: center;
-    background-color: #2C7F9B;
+    background-color: $quill-teal;
     padding: 48px 0px 30px 0px;
     .instruction-container {
       display: flex;
@@ -143,7 +143,7 @@
         background-color: #194E60;
         font-size: 20px;
         font-weight: 700;
-        color: #ffffff;
+        color: $quill-white;
       }
       .step-text {
         font-size: 24px;
@@ -151,17 +151,17 @@
         margin-top: 12px;
         padding: 0px 16px;
         font-weight: bold;
-        color: #ffffff;
+        color: $quill-white;
         margin-bottom: 24px;
       }
     }
   }
   .evidence-feature-container {
-    background-color: #2C7F9B;
+    background-color: $quill-teal;
     padding: 72px 0px 72px 0px;
     justify-content: center;
     display: flex;
-    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.png");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern3.webp");
     background-position-y: -32px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -181,7 +181,7 @@
           #header {
             font-size: 24px;
             font-weight: 700;
-            color: #ffffff;
+            color: $quill-white;
             margin: 0px;
           }
         }
@@ -193,7 +193,7 @@
         .subtext {
           font-size: 16px;
           font-weight: 600;
-          color: #ffffff;
+          color: $quill-white;
           max-width: 264px;
         }
       }
@@ -203,34 +203,22 @@
     display: flex;
     justify-content: center;
     padding: 36px 0px;
-    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.png");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern1.webp");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    .image-container {
+    .video-container {
       position: relative;
-      width: 450px;
+      width: 448px;
       height: 410px;
-      background: #FFFFFF !important;
+      background: $quill-white !important;
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
       border-radius: 8px;
-      .evidence-image {
-        position: absolute;
-        width: 450px;
-        height: 410px;
-        right: 0px;
-        &.inactive {
-          -webkit-animation: fadeOut 0.5s forwards;
-          -webkit-animation-delay: 0.5s;
-          animation: fadeOut 0.5s forwards;
-          animation-delay: 0.5s;
-        }
-      }
     }
   }
 
   .bg-book-pattern {
-    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.png");
+    background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern4.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position-y: 26px;
@@ -249,13 +237,54 @@
     padding: 82px 22%;
     background-color: #F8F9F9;
   }
+  .banner-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 64px;
+    .evidence-teacher-handbook-banner {
+      max-width: 950px;
+      .information-section {
+        align-items: flex-start;
+        h2 {
+          margin: 0;
+        }
+        p {
+          text-align: left;
+        }
+      }
+      img {
+        margin-left: 8px;
+      }
+    }
+  }
+  .evidence-preview-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 46px;
+    .preview-card-link {
+      max-width: 459px;
+      text-align: left;
+      flex-basis: 50%;
+      flex-grow: 1;
+    }
+    .preview-card-link:nth-of-type(1), .preview-card-link:nth-of-type(3) {
+      margin-right: 32px;
+    }
+    .preview-card-link:nth-of-type(1) {
+      margin-bottom: 32px;
+    }
+    button {
+      background-color: $quill-teal !important;
+    }
+  }
 }
 
 .prompts-walkthrough-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.png");
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern2.webp");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -320,12 +349,12 @@
       padding-right: 24px;
     }
     .prompt-example-container {
-      .image-container {
-        width: 340px;
-        height: 330px;
-        .evidence-image {
+      .video-container {
+        width: 338px;
+        height: 310px;
+        video {
           width: 340px;
-          height: 330px;
+          height: 310px;
         }
       }
     }
@@ -343,7 +372,7 @@
         background-image: none;
         #information-section {
           padding: 24px 0px 24px 0px;
-          border-bottom: 1px solid #ffffff;
+          border-bottom: 1px solid $quill-white;
           .subtext {
             max-width: none;
           }
@@ -394,6 +423,9 @@
           }
         }
       }
+    }
+    .banner-container, .evidence-preview-card-container {
+      display: none;
     }
     #q-and-a {
       padding-left: 24px;

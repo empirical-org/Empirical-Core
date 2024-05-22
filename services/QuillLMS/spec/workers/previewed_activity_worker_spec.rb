@@ -10,9 +10,7 @@ describe PreviewedActivityWorker do
     let!(:activity) { create(:activity) }
     let(:analyzer) { double(:analyzer, track_previewed_activity: true) }
 
-    before do
-      allow(SegmentAnalytics).to receive(:new) { analyzer }
-    end
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }
 
     it 'should track the previewed activity if there is a user id' do
       expect(analyzer).to receive(:track_previewed_activity).with(user.id, activity.id)

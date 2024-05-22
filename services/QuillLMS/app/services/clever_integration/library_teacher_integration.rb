@@ -14,7 +14,11 @@ module CleverIntegration
     end
 
     private def save_auth_credential
-      AuthCredentialSaver.run(teacher, token, ::AuthCredential::CLEVER_LIBRARY_PROVIDER)
+      AuthCredentialSaver.run(
+        access_token: token,
+        auth_credential_class: CleverLibraryAuthCredential,
+        user: teacher
+      )
     end
   end
 end

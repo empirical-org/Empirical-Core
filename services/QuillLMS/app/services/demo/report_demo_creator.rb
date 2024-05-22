@@ -1,240 +1,148 @@
 # frozen_string_literal: true
 
 module Demo::ReportDemoCreator
-
-  EMAIL = "hello+demoteacher@quill.org"
+  EMAIL = 'hello+demoteacher@quill.org'
+  STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
   REPLAYED_ACTIVITY_ID = 434
   REPLAYED_SAMPLE_USER_ID = 312664
 
+  STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
+
+  ANGIE_ID = 14862320
+  NIC_ID = 14862321
+  JASON_ID = 14862322
+  TAHEREH_ID = 14862323
+  KEN_ID = 14862324
+
+  DEFAULT_TIMESPENT = 10.minutes.to_i
+
+  # Use report_demo:generate_new_data to generate new data
   ACTIVITY_PACKS_TEMPLATES = [
     {
-      name: "Quill Activity Pack",
+      name: 'Starter Baseline Diagnostic (Pre)',
+      unit_template_id: 99,
       activity_sessions: [
         {
-          1663 => 9706466,
-          437 => 313241,
-          434 => 446637,
-          215 => 369874,
-          41 => 438155,
-          386 => 387966,
-          289 => 442653,
-          295 => 442645,
-          418 => 662204
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => KEN_ID
         },
         {
-          1663 => 9706465,
-          437 => 409030,
-          434 => 313319,
-          215 => 370995,
-          41 => 459240,
-          386 => 387956,
-          289 => 442649,
-          295 => 442649,
-          418 => 662204
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => TAHEREH_ID
         },
         {
-          1663 => 9706463,
-          437 => 446637,
-          434 => 312664,
-          215 => 369875,
-          41 => 438144,
-          386 => 387967,
-          289 => 442670,
-          295 => 442638,
-          418 => 662204
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => JASON_ID
         },
         {
-          1663 => 9962415,
-          437 => 312664,
-          434 => 313241,
-          215 => 369883,
-          41 => 438171,
-          386 => 387954,
-          289 => 442645,
-          295 => 442653,
-          418 => 662204
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => NIC_ID
         },
         {
-          1663 => 9962377,
-          437 => 446641,
-          434 => 446641,
-          215 => 369872,
-          41 => 438152,
-          386 => 387948,
-          289 => 442656,
-          295 => 442643,
-          418 => 662204
+          STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => ANGIE_ID
         }
       ]
     },
     {
-      name: "Paragraph Transitions",
+      name: 'Capitalization (Starter Baseline Recommendation)',
+      unit_template_id: 308,
       activity_sessions: [
+        {}, # Ken Liu
         {
-          851 => 9962415,
-          863 => 9962415,
-          861 => 9962415,
-          985 => 9962415,
-          986 => 9962415,
-          1446 => 9962415
+          886 => TAHEREH_ID,
+          887 => TAHEREH_ID,
+          801 => TAHEREH_ID,
+          885 => TAHEREH_ID,
+          804 => TAHEREH_ID,
+          181 => TAHEREH_ID,
+          802 => TAHEREH_ID
+        },
+        {}, # Jason Reynolds
+        {
+          801 => NIC_ID,
+          887 => NIC_ID,
+          804 => NIC_ID,
+          885 => NIC_ID,
+          886 => NIC_ID,
+          181 => NIC_ID,
+          802 => NIC_ID
         },
         {
-          851 => 9706466,
-          863 => 9706466,
-          861 => 9706466,
-          985 => 9706466,
-          986 => 9706466,
-          1446 => 9706466
-        },
-        {
-          851 => 9706464,
-          863 => 9706464,
-          861 => 9706464,
-          985 => 9706464,
-          986 => 9706464,
-          1446 => 9706464
-        },
-        {
-          851 => 9706465,
-          863 => 9706465,
-          861 => 9706465,
-          985 => 9706465,
-          986 => 9706465,
-          1446 => 9706465
-        },
-        {
-          851 => 9962377,
-          863 => 9962377,
-          861 => 9962377,
-          985 => 9962377,
-          986 => 9962377,
-          1446 => 9962377
+          804 => ANGIE_ID,
+          886 => ANGIE_ID,
+          887 => ANGIE_ID,
+          801 => ANGIE_ID,
+          885 => ANGIE_ID,
+          181 => ANGIE_ID,
+          802 => ANGIE_ID
         }
       ]
     },
     {
-      name: "Social Studies: Maya, Aztec, and Inca Sentence Combining Practice",
+      name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
+      unit_template_id: 310,
       activity_sessions: [
         {
-          627 => 9962415,
-          628 =>  9962415,
-          629 => 9962415,
-          535 => 9962415,
-          523 => 9962415
+          1440 => KEN_ID,
+          283 => KEN_ID,
+          252 => KEN_ID,
+          808 => KEN_ID,
+          1308 => KEN_ID,
+          803 => KEN_ID
+        },
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
+        {}  # Angie Thomas
+      ]
+    },
+    {
+      name: 'Prepositional Phrases (Starter Baseline Recommendation)',
+      unit_template_id: 314,
+      activity_sessions: [
+        {}, # Ken Liu
+        {}, # Tahereh Mafi
+        {
+          846 => JASON_ID,
+          600 => JASON_ID,
+          712 => JASON_ID,
+          599 => JASON_ID,
+          765 => JASON_ID
+        },
+        {}, # Nic Stone
+        {}  # Angie Thomas
+      ]
+    },
+    {
+      name: 'Starter Growth Diagnostic (Post)',
+      unit_template_id: 217,
+      activity_sessions: [
+        {
+          1664 => KEN_ID
         },
         {
-          627 => 9706466,
-          628 =>  9706466,
-          629 => 9706466,
-          535 => 9706466,
-          523 => 9706466
+          1664 => TAHEREH_ID
         },
         {
-          627 => 9706464,
-          628 =>  9706464,
-          629 => 9706464,
-          535 => 9706464,
-          523 => 9706464
+          1664 => JASON_ID
         },
         {
-          627 => 9706465,
-          628 =>  9706465,
-          629 => 9706465,
-          535 => 9706465,
-          523 => 9706465
+          1664 => NIC_ID
         },
         {
-          627 => 9962377,
-          628 =>  9962377,
-          629 => 9962377,
-          535 => 9962377,
-          523 => 9962377
+          1664 => ANGIE_ID
         }
       ]
     },
     {
-      name: "Subject-Verb Agreement Practice",
+      name: 'Reading for Evidence Pack',
+      unit_template_id: nil,
       activity_sessions: [
         {
-          742 => 9962415,
-          751 => 9962415,
-          765 => 9962415
+          2371 => KEN_ID,
+          2317 => KEN_ID,
+          1676 => KEN_ID
         },
-        {
-          742 => 9706466,
-          751 => 9706466,
-          765 => 9706466
-        },
-        {
-          742 => 9706464,
-          751 => 9706464,
-          765 => 9706464
-        },
-        {
-          742 => 9706465,
-          751 => 9706465,
-          765 => 9706465
-        },
-        {
-          742 => 9962377,
-          751 => 9962377,
-          765 => 9962377
-        }
-      ]
-    },
-    {
-      name: "Starter Growth Diagnostic (Post)",
-      activity_sessions: [
-        {
-          1664 => 11662573
-        },
-        {
-          1664 => 9706466
-        },
-        {
-          1664 => 9706464
-        },
-        {
-          1664 => 9706465
-        },
-        {
-          1664 => 9962377
-        }
-      ]
-    },
-    {
-      name: "Evidence-Based Writing: Ethics in Science [Beta]",
-      activity_sessions: [
-        {
-          1726 => 11776892,
-          1815 => 11776892,
-          1813 => 11776892,
-          1830 => 11776892
-        },
-        {
-          1726 => 11776894,
-          1815 => 11776894,
-          1813 => 11776894,
-          1830 => 11776894
-        },
-        {
-          1726 => 11776893,
-          1815 => 11776893,
-          1813 => 11776893,
-          1830 => 11776893
-        },
-        {
-          1726 => 11776896,
-          1815 => 11776896,
-          1813 => 11776896,
-          1830 => 11776896
-        },
-        {
-          1726 => 11776895,
-          1815 => 11776895,
-          1813 => 11776895,
-          1830 => 11776895
-        }
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
+        {}  # Angie Thomas
       ]
     }
   ]
@@ -252,49 +160,52 @@ module Demo::ReportDemoCreator
   end
 
   STUDENT_TEMPLATES = [
-    StudentTemplate.new(name: "Ken Liu", email_eligible: false),
-    StudentTemplate.new(name: "Jason Reynolds", email_eligible: false),
-    StudentTemplate.new(name: "Nic Stone", email_eligible: false),
-    StudentTemplate.new(name: "Tahereh Mafi", email_eligible: false),
-    StudentTemplate.new(name: "Angie Thomas", email_eligible: true)
+    StudentTemplate.new(name: 'Ken Liu', email_eligible: false),
+    StudentTemplate.new(name: 'Jason Reynolds', email_eligible: false),
+    StudentTemplate.new(name: 'Nic Stone', email_eligible: false),
+    StudentTemplate.new(name: 'Tahereh Mafi', email_eligible: false),
+    StudentTemplate.new(name: 'Angie Thomas', email_eligible: true)
   ]
   PASSWORD = 'password'
-  CLASSROOM_NAME = "Quill Classroom"
+  CLASSROOM_NAME = 'Quill Classroom'
 
   STUDENT_COUNT = STUDENT_TEMPLATES.count
   UNITS_COUNT = ACTIVITY_PACKS_TEMPLATES.count
 
-  def self.create_demo(email = nil, teacher_demo: false)
+  def self.create_demo(email = nil, is_teacher_demo: false)
     ActiveRecord::Base.transaction do
       teacher = create_teacher(email)
       create_teacher_info(teacher)
       create_subscription(teacher)
-      create_demo_classroom_data(teacher, teacher_demo: teacher_demo)
+      create_demo_classroom_data(teacher, is_teacher_demo:)
     end
   rescue ActiveRecord::RecordInvalid
     # ignore invalid records
   end
 
-  def self.create_demo_classroom_data(teacher, teacher_demo: false)
-    units = reset_units(teacher)
+  def self.create_demo_classroom_data(teacher, is_teacher_demo: false, classroom: nil, student_names: nil)
+    units = reset_units(teacher, student_names.nil?, is_teacher_demo)
 
-    classroom = create_classroom(teacher)
-    students = create_students(classroom, teacher_demo)
+    classroom ||= create_classroom(teacher)
+
+    student_templates = student_names ? student_names.map { |name| StudentTemplate.new(name: name, email_eligible: false) } : STUDENT_TEMPLATES
+
+    students = create_students(classroom, is_teacher_demo, student_templates)
 
     classroom_units = create_classroom_units(classroom, units)
 
     session_data = Demo::SessionData.new
 
-    create_activity_sessions(students, classroom, session_data)
+    create_activity_sessions(students, classroom, session_data, is_teacher_demo)
     create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
 
-  def self.reset_units(teacher)
-    teacher.units&.destroy_all
+  def self.reset_units(teacher, destroy_existing_units, is_teacher_demo)
+    teacher.units&.destroy_all if destroy_existing_units
 
-    create_units(teacher)
+    create_units(teacher, is_teacher_demo)
   end
 
   def self.reset_account(teacher_id)
@@ -318,7 +229,7 @@ module Demo::ReportDemoCreator
       if teacher && demo_classroom_modified?(teacher)
         # mark as invisible and reset class code (since the demo logic uses a specific class code)
         demo_classroom(teacher)&.update(visible: false, code: nil)
-        create_demo_classroom_data(teacher, teacher_demo: true)
+        create_demo_classroom_data(teacher, is_teacher_demo: true)
       end
     end
   rescue ActiveRecord::RecordInvalid
@@ -328,7 +239,7 @@ module Demo::ReportDemoCreator
   def self.demo_classroom_modified?(teacher)
     classroom = demo_classroom(teacher)
 
-    return true if classroom.nil?
+    return true if classroom.nil? || !classroom.visible
 
     classroom.name != CLASSROOM_NAME ||
       classroom.students.count != STUDENT_COUNT ||
@@ -342,12 +253,12 @@ module Demo::ReportDemoCreator
     existing_teacher.destroy if existing_teacher
 
     User.create(
-      name: "Demo Teacher",
+      name: 'Demo Teacher',
       email: email,
       role: User::TEACHER,
       password: 'password',
       password_confirmation: 'password',
-      flags: ["beta"]
+      flags: ['beta']
     )
   end
 
@@ -358,12 +269,13 @@ module Demo::ReportDemoCreator
 
   def self.create_classroom(teacher)
     values = {
-      name: "Quill Classroom",
+      name: 'Quill Classroom',
       code: classcode(teacher.id),
       grade: '9'
     }
 
     classroom = Classroom.create_with_join(values, teacher.id)
+
     classroom.save!
     classroom
   end
@@ -373,21 +285,29 @@ module Demo::ReportDemoCreator
   end
 
   def self.demo_classroom(teacher)
-    teacher.classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
   end
 
   def self.non_demo_classrooms(teacher)
-    teacher.classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
   end
 
-  def self.create_units(teacher)
-    ACTIVITY_PACKS_TEMPLATES.map do |ap|
-      unit = Unit.find_or_create_by(name: ap[:name], user: teacher)
-      activity_ids = activity_ids_for_config(ap)
-      activity_ids.each { |act_id| UnitActivity.find_or_create_by(activity_id: act_id, unit: unit) }
+  def self.create_units(teacher, is_teacher_demo)
+    ACTIVITY_PACKS_TEMPLATES.map do |activity_pack_template|
+      # the following line sets the unit template id to nil for the quill_staff_demo account by request of the partnerships team, because they want to be able to assign the starter baseline recommendations
+      # and it ensures the unit template actually exists in our database
+      unit_template_id = teacher.email == STAFF_DEMO_EMAIL ? nil : UnitTemplate.find_by_id(activity_pack_template[:unit_template_id])&.id
+      name = unit_name(activity_pack_template[:name], is_teacher_demo)
+      unit = Unit.find_or_create_by(name:, user: teacher, unit_template_id:)
+      activity_ids = activity_ids_for_config(activity_pack_template)
+      activity_ids.each { |activity_id| UnitActivity.find_or_create_by(activity_id:, unit:) }
 
       unit
     end
+  end
+
+  def self.unit_name(name, is_teacher_demo)
+    is_teacher_demo ? name : "#{name} (Demo)"
   end
 
   def self.activity_ids_for_config(template_hash)
@@ -405,15 +325,15 @@ module Demo::ReportDemoCreator
     Subscription.create_and_attach_subscriber(attributes, teacher)
   end
 
-  def self.create_students(classroom, is_teacher_facing)
-    delete_student_email_accounts if is_teacher_facing
+  def self.create_students(classroom, is_teacher_demo, student_templates)
+    delete_student_email_accounts if is_teacher_demo
 
-    STUDENT_TEMPLATES.map do |template|
+    student_templates.map do |template|
       student = User.create!(
         name: template.name,
         username: template.username(classroom.id),
         role: User::STUDENT,
-        email: is_teacher_facing ? template.email : nil,
+        email: is_teacher_demo ? template.email : nil,
         password: PASSWORD,
         password_confirmation: PASSWORD
       )
@@ -452,7 +372,7 @@ module Demo::ReportDemoCreator
 
     return unless session_to_clone
 
-    act_session = ActivitySession.create!(activity_id: clone_activity_id, classroom_unit_id: classroom_unit_id, user_id: student_id, state: "finished", percentage: session_to_clone.percentage)
+    act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
       question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
@@ -465,13 +385,30 @@ module Demo::ReportDemoCreator
     end
   end
 
-  def self.create_activity_sessions(students, classroom, session_data)
+  def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
+    ActivitySession.create!(
+      activity_id: clone_activity_id,
+      classroom_unit_id: classroom_unit_id,
+      user_id: student_id,
+      state: 'finished',
+      percentage: session_to_clone.percentage,
+      timespent: session_to_clone.timespent || DEFAULT_TIMESPENT
+    )
+  end
+
+  def self.create_activity_sessions(students, classroom, session_data, is_teacher_demo)
     students.each_with_index do |student, num|
       ACTIVITY_PACKS_TEMPLATES.each do |activity_pack|
-        unit = Unit.where(name: activity_pack[:name]).last
+        name = unit_name(activity_pack[:name], is_teacher_demo)
+        unit = Unit.where(name:, user: classroom.owner).last
         classroom_unit = ClassroomUnit.find_by(classroom: classroom, unit: unit)
-        act_sessions = activity_pack[:activity_sessions]
-        act_sessions[num].each do |clone_activity_id, clone_user_id|
+
+        # Calculate the index for activity_sessions using modulo
+        # This will cycle through the activity_sessions for more students
+        activity_sessions_index = num % activity_pack[:activity_sessions].length
+
+        activity_sessions = activity_pack[:activity_sessions]
+        activity_sessions[activity_sessions_index].each do |clone_activity_id, clone_user_id|
           clone_activity_session(
             student.id,
             classroom_unit.id,

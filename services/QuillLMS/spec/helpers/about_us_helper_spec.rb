@@ -11,7 +11,8 @@ describe AboutUsHelper do
         {id: 'Pathways Initiative', name: 'Pathways Initiative', url: '/pathways'},
         {id: 'Team', name: 'Team', url: '/team'},
         {id: 'Careers', name: 'Careers', url: '/careers'},
-        {id: 'Press', name: 'Press', url: '/press'}
+        {id: 'Press', name: 'Press', url: '/press'},
+        {id: 'Contact Us', name: 'Contact Us', url: '/contact'}
       ]
     }
     let(:small_tabs)  {
@@ -21,7 +22,8 @@ describe AboutUsHelper do
         {id: 'Pathways Initiative', name: 'Pathways', url: '/pathways'},
         {id: 'Team', name: 'Team', url: '/team'},
         {id: 'Careers', name: 'Careers', url: '/careers'},
-        {id: 'Press', name: 'Press', url: '/press'}
+        {id: 'Press', name: 'Press', url: '/press'},
+        {id: 'Contact Us', name: 'Contact Us', url: '/contact'}
       ]
     }
 

@@ -120,6 +120,11 @@ export const premiumFeatures = ({ independentPracticeActivityCount, diagnosticAc
         tooltipText: "A single sign on option that lets schools or districts automatically sync teacher's Clever rosters with their Quill classes.",
       },
       {
+        label: "Canvas Rostering",
+        school: true,
+        tooltipText: "A single sign on option through Canvas that lets teachers sync their Canvas rosters with their Quill classes.",
+      },
+      {
         label: "Unlimited number of teacher licenses",
         school: true,
         tooltipText: "All teachers in the school or district receive premium access for consistent implementation in writing courses.",

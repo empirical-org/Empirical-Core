@@ -1,25 +1,23 @@
+import * as jsDiff from 'diff';
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import * as _ from 'underscore';
-import * as jsDiff from 'diff'
-import { EditorState, ContentState } from 'draft-js'
 
+import ConceptResults from './conceptResults';
 import ResponseList from './responseList';
-import ConceptResults from './conceptResults'
-import getBoilerplateFeedback from './boilerplateFeedback';
 
-import * as questionActions from '../../actions/questions';
+import {
+  Modal,
+  TextEditor
+} from '../../../Shared/index';
+import { ActionTypes } from '../../actions/actionTypes';
 import * as massEdit from '../../actions/massEdit';
+import * as questionActions from '../../actions/questions';
 import {
   deleteResponse,
-  submitResponseEdit,
   getGradedResponsesWithCallback,
+  submitResponseEdit,
 } from '../../actions/responses';
-import { ActionTypes } from '../../actions/actionTypes';
-import {
-  hashToCollection,
-  Modal,
-  TextEditor,
-} from '../../../Shared/index'
 
 interface ResponseState {
   feedback: string,
@@ -210,9 +208,9 @@ export default class extends React.Component<ResponseProps, ResponseState> {
   deleteConceptResult = (crid) => {
     const { conceptResults } = this.state
     if (confirm('Are you sure?')) {
-      const conceptResults = Object.assign({}, conceptResults || {});
-      delete conceptResults[crid];
-      this.setState({conceptResults})
+      const newConceptResults = Object.assign({}, conceptResults || {});
+      delete newConceptResults[crid];
+      this.setState({conceptResults: newConceptResults})
     }
   }
 
@@ -367,7 +365,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
   }
 
   renderResponseFooter = (isEditing, response) => {
-    const { readOnly, expanded, response } = this.props
+    const { readOnly, expanded, } = this.props
     if (!readOnly || !expanded) {
       return;
     }
@@ -416,7 +414,7 @@ export default class extends React.Component<ResponseProps, ResponseState> {
           <div className="content">
             <div className="media">
               <div className="media-content">
-                <p><span style={{ whiteSpace: 'pre-wrap' }}>{response.text}</span> {author}</p>
+                <p><pre dangerouslySetInnerHTML={{ __html: response.text }} /> {author}</p>
               </div>
               <div className="media-right" style={{ textAlign: 'right', }}>
                 <figure className="image is-32x32">

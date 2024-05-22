@@ -10,6 +10,7 @@
 #  draft                 :boolean          default(TRUE)
 #  external_link         :string
 #  featured_order_number :integer
+#  footer_content        :text             default("")
 #  image_link            :string
 #  order_number          :integer
 #  premium               :boolean          default(FALSE)
@@ -49,7 +50,7 @@ class BlogPost < ApplicationRecord
   TWITTER_LOVE = "Twitter love"
   VIDEO_TUTORIALS = "Video tutorials"
   WHATS_NEW = "What's new?"
-  USING_QUILL_FOR_READING_COMPREHENSION = "Using quill for reading comprehension"
+  WRITING_FOR_LEARNING = "Writing for learning"
 
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'
@@ -57,9 +58,11 @@ class BlogPost < ApplicationRecord
   HOW_TO = 'How to'
   ALL_RESOURCES = 'All resources'
 
+  WHATS_NEW_SLUG = 'whats-new'
+
   TOPICS = [
     WHATS_NEW,
-    USING_QUILL_FOR_READING_COMPREHENSION,
+    WRITING_FOR_LEARNING,
     GETTING_STARTED,
     BEST_PRACTICES,
     WEBINARS,
@@ -86,8 +89,6 @@ class BlogPost < ApplicationRecord
   after_save :add_published_at
 
   scope :live, -> { where(draft: false) }
-  scope :most_recent, -> { live.order('updated_at DESC').limit(MOST_RECENT_LIMIT)}
-
   scope :for_topics, ->(topic) { live.order('order_number ASC').where(topic: topic) }
 
   def set_order_number
@@ -139,6 +140,15 @@ class BlogPost < ApplicationRecord
     return if published_at
 
     update(published_at: DateTime.current)
+  end
+
+  def related_posts
+    BlogPost
+      .where(topic: topic)
+      .where.not(id: id)
+      .live
+      .order(created_at: :desc)
+      .limit(MOST_RECENT_LIMIT)
   end
 
   private def generate_slug

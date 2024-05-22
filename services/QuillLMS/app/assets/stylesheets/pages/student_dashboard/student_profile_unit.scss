@@ -1,18 +1,23 @@
 .student-profile-unit {
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin-bottom: 24px;
+  .score-tooltip-activator {
+    position: relative;
+    white-space: normal;
+    width: 100%;
+  }
   &.selected-unit {
     .unit-name-and-staggered-release-status {
       animation: highlight 5s 1;
 
       @keyframes highlight {
         0%  {
-          background-color: #fff3e0;
+          background-color: #FFF3E0;
         }
         100% {
-          background-color: #ffffff;
+          background-color: $quill-white;
         }
       }
 
@@ -33,8 +38,8 @@
     }
   }
   .activities-container {
-    padding: 32px 24px;
-    border-top: 1px solid #e0e0e0;
+    padding: 32px 0px;
+    border-top: 1px solid $quill-grey-5;
     h3 {
       font-size: 16px;
       font-weight: bold;
@@ -53,13 +58,15 @@
         cursor: text;
       }
       .data-table-row {
-        height: 72px;
+        min-height: 72px;
+        height: min-content;
+        padding: 18px 20px;
         &:hover {
           background-color: transparent;
         }
       }
-      .data-table-headers, .data-table-row {
-        padding: 0px;
+      .data-table-headers {
+        padding: 0px 20px;
       }
     }
     .action-button-section {
@@ -74,27 +81,51 @@
         pointer-events: auto;
       }
     }
+    .view-results-section {
+      margin-right: 16px;
+    }
     .score {
       display: flex;
       align-items: center;
+      .button-loading-spinner {
+        margin-right: 8px;
+      }
       div {
         display: inline-block;
         width: 24px;
         height: 24px;
         border-radius: 2px;
         margin-right: 8px;
+        position: relative;
         &.completed {
           background-color: #358fdf;
         }
-        &.proficient {
+        &.frequently-demonstrated-skill {
           background-color: #4ea500;
         }
-        &.nearly-proficient {
+        &.sometimes-demonstrated-skill {
           background-color: #eb9911;
         }
-        &.not-yet-proficient {
+        &.rarely-demonstrated-skill {
           background-color: #e73030;
         }
+
+        .attempt-symbol {
+          vertical-align: middle;
+          position: absolute;
+          top: -6px;
+          right: -6px;
+          height: 16px;
+      	}
+      	.attempt-count {
+          color: $quill-white;
+          position: absolute;
+          right: -1px;
+          top: -5px;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 700;
+      	}
       }
     }
     .complete-baseline {
@@ -103,7 +134,7 @@
     }
 
     @media (max-width: 1200px) {
-      .tool-icon-section, .completed-due-date-section {
+      .tool-icon-section, .completed-due-date-section, .completed-date-section {
         display: none;
       }
       .name-section {
@@ -112,7 +143,7 @@
       .due-date-section {
         flex: 1;
       }
-      .action-button-section {
+      .action-button-section, .view-results-section {
         flex: 1;
       }
       .score-section {
@@ -120,26 +151,26 @@
       }
       .data-table-headers, .data-table-header, .data-table-row, .data-table-row-section {
         min-width: auto !important;
+        width: auto !important;
       }
       .data-table-row {
         flex-wrap: wrap;
       }
     }
-    @media (max-width: 682px) {
+    @media (max-width: 850px) {
       .name-section {
         white-space: normal;
       }
       .data-table-row {
-        padding: 16px 0px !important;
         min-height: 108px;
         height: min-content !important;
       }
-      .data-table-row-section.action-button-section {
+      .data-table-row-section.action-button-section, .data-table-row-section.view-results-section {
         flex: 1 0 100%;
         justify-content: flex-start;
         margin-top: 12px;
       }
-      .data-table-header.action-button-section {
+      .data-table-header.action-button-section, .data-table-header.view-results-section {
         display: none !important;
       }
       .due-date-section {
@@ -149,13 +180,18 @@
       .score-section {
         flex: 1;
         overflow: visible;
+        margin-right: 0px;
+        .quill-tooltip-trigger {
+          margin-right: 0px;
+        }
         .score {
-          position: relative;
+          flex-direction: column;
+          align-items: flex-start;
+          div {
+            margin-bottom: 8px;
+          }
           span {
-            position: absolute;
-            top: 32px;
-            max-width: 80px;
-            white-space: normal
+            white-space: normal;
           }
         }
       }

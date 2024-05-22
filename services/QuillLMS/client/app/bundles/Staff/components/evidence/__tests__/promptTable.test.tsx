@@ -1,16 +1,12 @@
-import * as React from 'react';
-import 'whatwg-fetch';
 import { shallow } from 'enzyme';
-import { QueryClientProvider } from 'react-query'
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
+import 'whatwg-fetch';
 
 import { DefaultReactQueryClient } from '../../../../Shared/index';
 import PromptTable from '../activitySessions/promptTable';
 
 const queryClient = new DefaultReactQueryClient();
-
-jest.mock('string-strip-html', () => ({
-  default: jest.fn()
-}));
 
 const mockProps = {
   activity: {

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import Footer from './footer';
 
-import useFocus from '../../../Shared/hooks/useFocus'
+import useFocus from '../../../Shared/hooks/useFocus';
 
 export const ExplanationSlide = ({ slideData, onHandleClick }) => {
   const { buttonText, header, imageData, isBeta, step, subtext } = slideData;

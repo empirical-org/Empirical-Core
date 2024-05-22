@@ -1,6 +1,6 @@
 import Pusher from 'pusher-js';
 
-import { requestGet, } from '../modules/request/index'
+import { requestGet, } from '../modules/request/index';
 
 export const recieveDistrictConceptReports = (body) => {
   return { type: 'RECIEVE_DISTRICT_CONCEPT_REPORTS', body, };
@@ -23,7 +23,7 @@ export const initializePusherForDistrictConceptReports = (adminId) => {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     const channel = pusher.subscribe(adminId);
     channel.bind('district-concept-reports-found', () => {
       dispatch(getDistrictConceptReports())

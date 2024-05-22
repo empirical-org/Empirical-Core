@@ -1,22 +1,21 @@
 import React from 'react';
 
+import _ from 'lodash';
+import { requestGet, requestPost, } from '../../../../../modules/request';
+import {
+  ACTIVITY_IDS_ARRAY,
+  ASSIGNED_CLASSROOMS,
+  CLASSROOMS,
+  UNIT_ID,
+  UNIT_NAME,
+  UNIT_TEMPLATE_ID,
+  UNIT_TEMPLATE_NAME
+} from '../assignmentFlowConstants';
+import parsedQueryParams from '../parsedQueryParams';
 import Stage1 from './select_activities_container';
+import ShareToStudents from './share_activity_pack/shareToStudents';
 import Stage2 from './stage2/Stage2';
 import UnitAssignmentFollowup from './unit_assignment_followup.tsx';
-import ShareToStudents from './share_activity_pack/shareToStudents';
-
-import {
-  CLASSROOMS,
-  UNIT_NAME,
-  UNIT_TEMPLATE_NAME,
-  UNIT_TEMPLATE_ID,
-  ACTIVITY_IDS_ARRAY,
-  UNIT_ID,
-  ASSIGNED_CLASSROOMS,
-  postTestClassAssignmentLockedMessages,
-} from '../assignmentFlowConstants'
-import parsedQueryParams from '../parsedQueryParams'
-import { requestGet, requestPost, } from '../../../../../modules/request';
 
 export default class CreateUnit extends React.Component {
   constructor(props) {
@@ -385,7 +384,7 @@ export default class CreateUnit extends React.Component {
 
   stage2SpecificComponents = () => {
     const { model, } = this.state
-    const { cleverLink, user, showGradeLevelWarning, } = this.props
+    const { cleverLink, googleLink, user, showGradeLevelWarning, } = this.props
 
     const restrictedActivity = this.restrictedActivityBeingAssigned()
 
@@ -401,6 +400,7 @@ export default class CreateUnit extends React.Component {
         errorMessage={this.determineStage2ErrorMessage()}
         fetchClassrooms={this.fetchClassrooms}
         finish={this.finish}
+        googleLink={googleLink}
         isFromDiagnosticPath={!!parsedQueryParams().diagnostic_unit_template_id}
         lockedClassroomIds={this.lockedClassroomIds()}
         notYetCompletedPreTestStudentNames={this.notYetCompletedPreTestStudentNames()}
@@ -450,7 +450,6 @@ export default class CreateUnit extends React.Component {
           classrooms={classrooms}
           history={history}
           location={location}
-          referralCode={referralCode}
           referralCode={referralCode}
           selectedActivities={selectedActivities}
           unitName={name}

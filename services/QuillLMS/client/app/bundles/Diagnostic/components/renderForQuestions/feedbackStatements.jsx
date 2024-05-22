@@ -1,6 +1,5 @@
 import React from 'react';
-import _ from 'underscore';
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 

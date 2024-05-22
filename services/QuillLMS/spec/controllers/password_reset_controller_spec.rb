@@ -25,6 +25,11 @@ describe PasswordResetController do
         allow(UserMailer).to receive(:password_reset_email) { mailer }
       end
 
+      it 'does not call unlink_google_account!' do
+        expect(user).not_to receive(:unlink_google_account!)
+        subject
+      end
+
       it 'should refresh the token, send the password reset mailer and redirect to index path' do
         expect_any_instance_of(User).to receive(:refresh_token!)
         expect(UserMailer).to receive(:password_reset_email).with(user)
@@ -48,6 +53,41 @@ describe PasswordResetController do
       it 'should refresh the token, send the password reset mailer and redirect to index path' do
         post :create, params: { user: { email: user.email } }
         expect(response.body).to eq ({ message: 'An account with this email does not exist. Try again.', type: 'email' }.to_json)
+      end
+    end
+
+    context 'when user exists and is a google user' do
+      subject { post :create, params: { user: { email: user.email } } }
+
+      let(:user) { create(:user, google_id: 1234, role: role) }
+
+      before { allow(User).to receive(:find_by_email).with(user.email).and_return(user) }
+
+      context 'when user is a teacher' do
+        let(:role) { User::TEACHER }
+
+        it 'calls unlink_google_account!' do
+          expect(user).to receive(:unlink_google_account!)
+          subject
+        end
+      end
+
+      context 'when user is an admin' do
+        let(:role) { User::ADMIN }
+
+        it 'calls unlink_google_account!' do
+          expect(user).to receive(:unlink_google_account!)
+          subject
+        end
+      end
+
+      context 'when user is a student' do
+        let(:role) { User::STUDENT }
+
+        it 'does not call unlink_google_account!' do
+          expect(user).not_to receive(:unlink_google_account!)
+          subject
+        end
       end
     end
   end

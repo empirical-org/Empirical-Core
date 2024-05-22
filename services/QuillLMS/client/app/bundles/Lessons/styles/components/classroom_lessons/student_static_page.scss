@@ -5,13 +5,13 @@
   background-color: white;
   height: calc(100vh - 50px);
   text-align: left;
-  color: #000000;
+  color: $quill-black;
   margin-top: 40px;
   .student-static-page {
     width: 100%;
     margin:0 auto;
     strong {
-      color: #000;
+      color: $quill-black;
     }
     blockquote {
       border-radius: 4px;

@@ -1,4 +1,4 @@
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
 export const toggleExpandSingleResponse = (rkey: string) => {
   return {type: ActionTypes.TOGGLE_EXPAND_SINGLE_RESPONSE, rkey, };
@@ -14,6 +14,10 @@ export const expandAllResponses = (expandedResponses: {[key: string]: boolean}) 
 
 export const toggleStatusField = (status: string) => {
   return {type: ActionTypes.TOGGLE_STATUS_FIELD, status, };
+}
+
+export function toggleStatusFieldAndResetPage(status) {
+  return {type: ActionTypes.TOGGLE_STATUS_FIELD_AND_RESET_PAGE, status, };
 }
 
 export const toggleResponseSort = (field: string) => {

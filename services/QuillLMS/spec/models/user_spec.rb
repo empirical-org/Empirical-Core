@@ -7,25 +7,25 @@
 #  id                    :integer          not null, primary key
 #  account_type          :string           default("unknown")
 #  active                :boolean          default(FALSE)
-#  classcode             :string
-#  email                 :string
+#  classcode             :string(255)
+#  email                 :string(255)
 #  flags                 :string           default([]), not null, is an Array
 #  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
-#  name                  :string
-#  password_digest       :string
-#  role                  :string           default("user")
+#  name                  :string(255)
+#  password_digest       :string(255)
+#  role                  :string(255)      default("user")
 #  send_newsletter       :boolean          default(FALSE)
 #  signed_up_with_google :boolean          default(FALSE)
 #  time_zone             :string
 #  title                 :string
-#  token                 :string
-#  username              :string
-#  created_at            :datetime
-#  updated_at            :datetime
-#  clever_id             :string
+#  token                 :string(255)
+#  username              :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  clever_id             :string(255)
 #  google_id             :string
 #  stripe_customer_id    :string
 #
@@ -50,15 +50,21 @@
 #  username_idx                       (username) USING gin
 #  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
 #  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx10            (to_tsvector('english'::regconfig, (username)::text)) USING gin
+#  users_to_tsvector_idx11            (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
 #  users_to_tsvector_idx3             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
+#  users_to_tsvector_idx6             (to_tsvector('english'::regconfig, (name)::text)) USING gin
+#  users_to_tsvector_idx7             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx8             (to_tsvector('english'::regconfig, (role)::text)) USING gin
+#  users_to_tsvector_idx9             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #
 require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
-describe User, type: :model do
+RSpec.describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
@@ -75,13 +81,23 @@ describe User, type: :model do
   it { should have_many(:administered_schools).through(:schools_admins).source(:school).with_foreign_key('user_id') }
   it { should have_many(:classrooms_teachers) }
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
+  it { should have_many(:teacher_notifications) }
+  it { should have_many(:teacher_notification_settings) }
   it { should have_many(:activities).through(:teacher_saved_activities)}
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
+  it { should have_many(:user_logins).dependent(:destroy) }
   it { should have_many(:user_milestones) }
   it { should have_many(:milestones).through(:user_milestones) }
+  it { should have_many(:admin_approval_requests).with_foreign_key('requestee_id') }
+  it { should have_one(:learn_worlds_account) }
+  it { should have_many(:canvas_accounts).dependent(:destroy) }
+  it { should have_many(:canvas_instances).through(:canvas_accounts) }
+  it { should have_one(:auth_credential).dependent(:destroy) }
+  it { should have_many(:admin_report_filter_selections).dependent(:destroy) }
+  it { should have_many(:pdf_subscriptions).through(:admin_report_filter_selections) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -104,7 +120,6 @@ describe User, type: :model do
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
   describe 'flags' do
-
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
@@ -317,24 +332,63 @@ describe User, type: :model do
     it "should give the correct value for all the constants" do
       expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
       expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
-      expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
   end
 
   describe '#capitalize_name' do
-    let(:user) { create(:user) }
+    subject { user.capitalize_name }
 
-    it 'should set the name as a capitalized name if name is single' do
-      user.name = "test"
-      expect(user.capitalize_name).to eq("Test")
-      expect(user.name).to eq("Test")
+    let(:user) { build(:user, name: name) }
+
+    context 'single name' do
+      let(:name) { 'test' }
+
+      it { expect { subject }.to change(user, :name).from(name).to('Test') }
     end
 
-    it 'should capitalize both first name and last name if exists' do
-      user.name = "test test"
-      expect(user.capitalize_name).to eq("Test Test")
-      expect(user.name).to eq("Test Test")
+    context 'two names' do
+      let(:name) { 'test test' }
+
+      it { expect { subject }.to change(user, :name).from(name).to('Test Test') }
     end
+
+    context 'patronymic prefix' do
+      let(:name) { 'test mctest'}
+
+      it { expect { subject }.to change(user, :name).from(name).to('Test McTest') }
+    end
+  end
+
+  context 'capitalize_name callback' do
+    subject { user.save }
+
+    let!(:user) { create(:user) }
+
+    context 'name not changed' do
+      it do
+        expect(user).not_to receive(:capitalize_name)
+        subject
+      end
+    end
+
+    context 'name changed' do
+      before { user.name = 'Ronald Macdonald' }
+
+      it do
+        expect(user).to receive(:capitalize_name)
+        subject
+      end
+
+      context 'skip_capitalize_names_callback is true' do
+        before { user.skip_capitalize_names_callback = true }
+
+        it do
+          expect(user).not_to receive(:capitalize_name)
+          subject
+        end
+      end
+    end
+
   end
 
   describe '#admin?' do
@@ -523,7 +577,14 @@ describe User, type: :model do
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
-        subject_area_ids: teacher_info.subject_area_ids
+        subject_area_ids: teacher_info.subject_area_ids,
+        show_students_exact_score: teacher_info.show_students_exact_score,
+        notification_email_frequency: TeacherInfo::DAILY_EMAIL,
+        teacher_notification_settings: {
+          "TeacherNotifications::StudentCompletedDiagnostic" => false,
+          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
+          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+        }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
@@ -536,7 +597,14 @@ describe User, type: :model do
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
         maximum_grade_level: teacher_info.maximum_grade_level,
-        subject_area_ids: teacher_info.subject_area_ids
+        subject_area_ids: teacher_info.subject_area_ids,
+        show_students_exact_score: teacher_info.show_students_exact_score,
+        notification_email_frequency: TeacherInfo::DAILY_EMAIL,
+        teacher_notification_settings: {
+          "TeacherNotifications::StudentCompletedDiagnostic" => false,
+          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
+          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+        }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
     end
@@ -786,11 +854,52 @@ describe User, type: :model do
   end
 
   describe '#requires_password?' do
+    subject { user.send(:requires_password?) }
+
     let(:user) { build(:user) }
 
-    it 'returns true for all roles but temporary' do
-      user.safe_role_assignment 'user'
-      expect(user.send(:requires_password?)).to eq(true)
+    context 'all roles except temporary' do
+      before { user.safe_role_assignment('user') }
+
+      it { is_expected.to be true }
+    end
+
+    context 'user has clever_id' do
+      before { user.clever_id = '1234' }
+
+      it { is_expected.to be false }
+    end
+
+    context 'user has google_id' do
+      before { user.google_id = '1234' }
+
+      it { is_expected.to be false }
+    end
+
+    context 'user has canvas_accounts' do
+      let(:canvas_instance) { build(:canvas_instance) }
+      let(:canvas_user_external_id) { 1234 }
+
+      context 'when user has canvas accounts initialized' do
+        before do
+          user
+            .canvas_accounts
+            .build(canvas_instance: canvas_instance, external_id: canvas_user_external_id)
+        end
+
+        it { is_expected.to be false }
+      end
+
+      context 'when user has canvas accounts persisted' do
+        before do
+          user
+            .tap(&:save)
+            .canvas_accounts
+            .create(canvas_instance: canvas_instance, external_id: canvas_user_external_id)
+        end
+
+        it { is_expected.to be false }
+      end
     end
   end
 
@@ -1133,13 +1242,17 @@ describe User, type: :model do
   end
 
   describe '#update_invitee_email_address' do
+    subject { User.find_by_email(old_email).update(email: new_email) }
+
     let!(:invite_one) { create(:invitation) }
     let!(:old_email) { invite_one.invitee_email }
+    let(:new_email) { 'new-email@fake-email.com' }
     let!(:invite_two) { create(:invitation, invitee_email: old_email) }
 
+    before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
     it 'should update invitee email address in invitations table if email changed' do
-      new_email = "new-email@fake-email.com"
-      User.find_by_email(old_email).update(email: new_email)
+      expect { subject }.to change { invite_two.reload.updated_at }
       expect(Invitation.where(invitee_email: old_email).count).to be(0)
       expect(Invitation.where(invitee_email: new_email).count).to be(2)
     end
@@ -1261,27 +1374,83 @@ describe User, type: :model do
     it { expect(User.valid_email?('a@b.com')).to be true }
   end
 
-  describe '#google_authorized?' do
-    context 'user without auth_credentials is unauthorized' do
-      it { expect(user.google_authorized?).to be_falsey }
+  describe '#canvas_authorized?' do
+    subject { user }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    context 'no auth credential' do
+      let(:auth_credential) { nil }
+
+      it { is_expected.not_to be_canvas_authorized }
     end
 
-    context 'user with auth credentials has valid authorization' do
-      let(:google_user) { create(:google_auth_credential).user }
+    context 'auth credential is not canvas_authorized' do
+      let(:auth_credential) { double(:auth_credential, canvas_authorized?: false) }
 
-      it { expect(google_user.google_authorized?).to be true }
+      it { is_expected.not_to be_canvas_authorized }
+    end
+
+    context 'auth credential is canvas_authorized' do
+      let(:auth_credential) { double(:auth_credential, canvas_authorized?: true) }
+
+      it { is_expected.to be_canvas_authorized }
     end
   end
 
   describe '#clever_authorized?' do
-    context 'user without auth_credentials is unauthorized' do
-      it { expect(user.clever_authorized?).to be_falsey }
+    subject { user }
+
+    let(:auth_credential) { nil }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    it { is_expected.not_to be_clever_authorized }
+
+    context 'user with clever_id is unauthorized' do
+      before { user.update(clever_id: '1234') }
+
+      it { is_expected.not_to be_clever_authorized }
+
+      context 'with auth credentials that is not clever_authorized' do
+        let(:auth_credential) { double(:auth_credential, clever_authorized?: false) }
+
+        it { is_expected.not_to be_clever_authorized}
+      end
+
+      context 'with auth credentials that is clever_authorized' do
+        let(:auth_credential) { double(:auth_credential, clever_authorized?: true) }
+
+        it { is_expected.to be_clever_authorized }
+      end
     end
+  end
 
-    context 'user with auth credentials has valid authorization' do
-      let(:clever_user) { create(:clever_library_auth_credential).user }
+  describe '#google_authorized?' do
+    subject { user }
 
-      it { expect(clever_user.clever_authorized?).to be true }
+    let(:auth_credential) { nil }
+
+    before { allow(user).to receive(:auth_credential).and_return(auth_credential) }
+
+    it { is_expected.not_to be_google_authorized }
+
+    context 'user with google_id is unauthorized' do
+      before { user.update(google_id: '1234') }
+
+      it { is_expected.not_to be_google_authorized }
+
+      context 'with auth credentials that is not google_authorized' do
+        let(:auth_credential) { double(:auth_credential, google_authorized?: false) }
+
+        it { is_expected.not_to be_google_authorized}
+      end
+
+      context 'with auth credentials that is google_authorized' do
+        let(:auth_credential) { double(:auth_credential, google_authorized?: true) }
+
+        it { is_expected.to be_google_authorized }
+      end
     end
   end
 
@@ -1542,7 +1711,7 @@ describe User, type: :model do
     context 'user has admin info' do
       let!(:admin_info) { create(:admin_info, user: user)}
 
-      it 'returns the sub role from the admin info' do
+      it 'returns the approval status from the admin info' do
         expect(user.admin_approval_status).to eq(admin_info.approval_status)
       end
     end
@@ -1550,6 +1719,42 @@ describe User, type: :model do
     context 'user has no admin info' do
       it 'returns nil' do
         expect(user.admin_approval_status).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_url' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org')}
+
+      it 'returns the verification url from the admin info' do
+        expect(user.admin_verification_url).to eq(admin_info.verification_url)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_url).to eq(nil)
+      end
+    end
+  end
+
+  describe '#admin_verification_reason' do
+    let(:user) { create(:user) }
+
+    context 'user has admin info' do
+      let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.')}
+
+      it 'returns the verification reason from the admin info' do
+        expect(user.admin_verification_reason).to eq(admin_info.verification_reason)
+      end
+    end
+
+    context 'user has no admin info' do
+      it 'returns nil' do
+        expect(user.admin_verification_reason).to eq(nil)
       end
     end
   end
@@ -1573,7 +1778,6 @@ describe User, type: :model do
       end
     end
   end
-
 
   describe 'email verification logic' do
     let(:user) { create(:user) }
@@ -1665,6 +1869,528 @@ describe User, type: :model do
         expect(user).to receive(:requires_email_verification?).and_return(true)
         expect(user).to receive(:email_verified?).and_return(true)
         expect(user.email_verification_pending?).to be(false)
+      end
+    end
+  end
+
+  describe '#email_verification_status' do
+    it 'should return nil if there is no user email verification record' do
+      expect(user.email_verification_status).to eq(nil)
+    end
+
+    it 'should return Pending if the user email verification record does not have a verified_at timestamp' do
+      create(:user_email_verification, user: user)
+      expect(user.email_verification_status).to eq(UserEmailVerification::PENDING)
+    end
+
+    it 'should return Verified if the user email verification record has a verified_at timestamp' do
+      create(:user_email_verification, user: user, verified_at: Time.zone.today)
+      expect(user.email_verification_status).to eq(UserEmailVerification::VERIFIED)
+    end
+  end
+
+  describe '#email_verification_status=' do
+    it 'should call #verify_email if the passed status is Verified' do
+      create(:user_email_verification, user: user)
+
+      expect(user).to receive(:verify_email).with(UserEmailVerification::STAFF_VERIFICATION)
+      user.email_verification_status= UserEmailVerification::VERIFIED
+    end
+
+    it 'should call require_email_verification if the passed status is Pending and update the verification record to have verified_at and verification_method as nil' do
+      user_email_verification = create(:user_email_verification, user: user, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION)
+
+      expect(user).to receive(:require_email_verification)
+      user.email_verification_status= UserEmailVerification::PENDING
+      expect(user_email_verification.reload.verified_at).not_to be
+      expect(user_email_verification.reload.verification_method).not_to be
+    end
+  end
+
+  describe '#learn_worlds_access?' do
+    subject { user.learn_worlds_access? }
+
+    let(:user) { create(:teacher) }
+
+    context 'school_premium? is false' do
+      before { allow(user).to receive(:school_premium?).and_return(false) }
+
+      context 'district_premium? is false' do
+        before { allow(user).to receive(:district_premium?).and_return(false) }
+
+        it { expect(subject).to eq false }
+      end
+
+      context 'district_premium? is true' do
+        before { allow(user).to receive(:district_premium?).and_return(true) }
+
+        it { expect(subject).to be_truthy }
+      end
+    end
+
+    context 'school_premium? is true' do
+      before { allow(user).to receive(:school_premium?).and_return(true) }
+
+      it { expect(subject).to be_truthy }
+    end
+
+    context 'learn_worlds_access override? is true' do
+      before { allow(user).to receive(:learn_worlds_access_override?).and_return(true) }
+
+      it { expect(subject).to be_truthy }
+    end
+  end
+
+  describe '#learn_worlds_access_override?' do
+    subject { user.learn_worlds_access_override? }
+
+    it { expect(subject).to eq false }
+
+    context 'override exists' do
+      before do
+        create(
+          :app_setting,
+          name: AppSetting::LEARN_WORLDS_ACCESS_OVERRIDE,
+          enabled: true,
+          user_ids_allow_list: [user.id]
+        )
+      end
+
+      it { expect(subject).to be_truthy }
+    end
+  end
+
+  describe '#generate_default_teacher_info' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_teacher_info)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_teacher_info)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_teacher_info)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+  end
+
+  describe '#generate_default_teacher_notification_settings' do
+    it 'should be called after creation if teacher?' do
+      teacher = build(:teacher)
+
+      expect(teacher).to receive(:generate_default_teacher_notification_settings)
+      teacher.save
+    end
+
+    it 'should not be called after creation if not teacher?' do
+      student = build(:student)
+
+      expect(student).not_to receive(:generate_default_teacher_notification_settings)
+      student.save
+    end
+
+    it 'should not be called on non-create updates' do
+      teacher = create(:teacher)
+
+      expect(teacher).not_to receive(:generate_default_teacher_info)
+      teacher.name = 'New Name'
+      teacher.save
+    end
+
+    it 'should create new TeacherInfo record' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherInfo, :count).by(1)
+    end
+
+    it 'should create new TeacherNotificationSetting records based on configured defaults' do
+      teacher = build(:teacher)
+
+      expect do
+        teacher.save
+      end.to change(TeacherNotificationSetting, :count).by(TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.length)
+    end
+  end
+
+  describe '#should_render_teacher_premium?' do
+    let(:user) { create(:user) }
+
+    subject { user.should_render_teacher_premium? }
+
+    it 'should return true if the teacher has a paid teacher premium subscription' do
+      subscription = create(:subscription, account_type: Subscription::TEACHER_PAID)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq true
+    end
+
+    it 'should return false if the teacher has an unpaid subscription' do
+      subscription = create(:subscription, account_type: Subscription::TEACHER_TRIAL)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq false
+    end
+
+    it 'should return false if the teacher has a school subscription' do
+      subscription = create(:subscription, account_type: Subscription::SCHOOL_PAID)
+      create(:user_subscription, user: user, subscription: subscription)
+
+      expect(subject).to eq false
+    end
+
+    it 'should return false if the teacher has no subscription' do
+      teacher = create(:teacher)
+
+      expect(subject).to eq false
+    end
+  end
+
+  describe '#receives_notification_type?' do
+    let(:user) { create(:user) }
+    let(:notification_type) { TeacherNotifications::StudentCompletedDiagnostic }
+
+    it 'should return true if the user has the appropriate TeacherNotification type' do
+      user.teacher_notification_settings.create(notification_type: notification_type)
+
+      expect(user.receives_notification_type?(notification_type)).to be(true)
+    end
+
+    it 'should return false if the user does not have the appropriate TeacherNotification type' do
+      expect(user.receives_notification_type?(notification_type)).to be(false)
+    end
+  end
+
+  describe '#save_user_pack_sequence_items' do
+    subject { user.save_user_pack_sequence_items}
+
+    context 'user has no classrooms' do
+      it { expect { subject }.not_to change { SaveUserPackSequenceItemsWorker.jobs.size } }
+    end
+
+    context 'user belongs to a classroom' do
+      let(:classroom) { double(:classroom, id: 1) }
+
+      before { allow(user).to receive(:classrooms).and_return([classroom]) }
+
+      it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(1) }
+    end
+  end
+
+  describe '#user_external_id' do
+    subject { user.user_external_id }
+
+    it { is_expected.to be_nil }
+
+    context 'user has google_id' do
+      let(:google_id) { Faker::Number.number }
+
+      before { allow(user).to receive(:google_id).and_return(google_id)}
+
+      it { is_expected.to eq google_id }
+    end
+
+    context 'user has clever_id' do
+      let(:clever_id) { SecureRandom.hex(12) }
+
+      before { allow(user).to receive(:clever_id).and_return(clever_id) }
+
+      it { is_expected.to eq clever_id }
+    end
+
+    context 'user has canvas_account' do
+      let(:canvas_classroom) { create(:canvas_classroom) }
+      let(:canvas_account) { create(:canvas_account, canvas_instance: canvas_instance, user: user) }
+      let(:canvas_accounts) { CanvasAccount.where(id: canvas_account.id) }
+      let(:canvas_instance) { canvas_classroom.canvas_instance }
+
+      before { allow(user).to receive(:canvas_accounts).and_return(canvas_accounts) }
+
+      context 'no canvas_instance argument given' do
+        subject { user.user_external_id }
+
+        let(:canvas_instance) { create(:canvas_instance) }
+
+        it { is_expected.to be_nil }
+      end
+
+      context 'canvas_account and canvas_classroom have the same canvas_instance' do
+        subject { user.user_external_id(canvas_instance: canvas_instance) }
+
+        it { is_expected.to eq canvas_account.user_external_id }
+      end
+
+      context 'canvas_account and canvas_classroom have different canvas_instance' do
+        subject { user.user_external_id(canvas_instance: another_canvas_instance) }
+
+        let(:another_canvas_instance) { create(:canvas_instance) }
+
+        it { is_expected.to be_nil }
+      end
+    end
+  end
+
+  describe '.find_by_canvas_user_external_ids' do
+    subject { described_class.find_by_canvas_user_external_ids(user_external_ids) }
+
+    context 'user_external_ids is nil' do
+      let(:user_external_ids) { nil }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is empty' do
+      let(:user_external_ids) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context 'user_external_ids is not empty' do
+      context 'canvas_accounts do not exist' do
+        let(:user_external_ids) { [CanvasAccount.build_user_external_id(0, 0)] }
+
+        it { is_expected.to be_empty }
+      end
+
+      context 'canvas_accounts exist' do
+        let(:canvas_account1) { create(:canvas_account) }
+        let(:canvas_account2) { create(:canvas_account) }
+        let(:user_external_ids) { [canvas_account1.user_external_id, canvas_account2.user_external_id] }
+
+        it { is_expected.to match_array [canvas_account1.user, canvas_account2.user] }
+      end
+
+    end
+  end
+
+  describe '#provider' do
+    subject { user.provider }
+
+    it { is_expected.to be_nil }
+
+    context 'has google_id' do
+      before { user.update(google_id: Faker::Number) }
+
+      it { is_expected.to be described_class::GOOGLE_PROVIDER }
+    end
+
+    context 'has clever_id' do
+      before { user.update(clever_id: SecureRandom.hex(12)) }
+
+      it { is_expected.to be described_class::CLEVER_PROVIDER }
+    end
+
+    context 'has canvas account' do
+      let(:canvas_accounts) { double(:canvas_account) }
+
+      before { allow(user).to receive(:canvas_accounts).and_return(canvas_accounts) }
+
+      it { is_expected.to be described_class::CANVAS_PROVIDER }
+    end
+  end
+
+  describe '#unlink_clever_and_google_accounts!' do
+    subject { user.unlink_clever_and_google_accounts! }
+
+    context 'user has google_account' do
+      let(:user) { create(:teacher, :signed_up_with_google) }
+
+      it { expect { subject }.to change(user, :google_id).from(user.google_id).to(nil) }
+      it { expect { subject }.to change(user, :signed_up_with_google).from(true).to(false) }
+    end
+
+    context 'user has clever_id' do
+      let(:user) { create(:teacher, :signed_up_with_clever) }
+
+      it { expect { subject }.to change(user, :clever_id).from(user.clever_id).to(nil) }
+    end
+
+    context 'user has neither google nor clever_id' do
+      let(:user) { create(:user) }
+
+      it { expect { subject }.not_to change(user, :google_id) }
+      it { expect { subject }.not_to change(user, :signed_up_with_google) }
+      it { expect { subject }.not_to change(user, :clever_id) }
+    end
+  end
+
+  describe '#unlink_google_account!' do
+    subject { user.unlink_google_account! }
+
+    context 'user has google_account' do
+      let(:user) { create(:teacher, :signed_up_with_google) }
+
+      it { expect { subject }.to change(user, :google_id).from(user.google_id).to(nil) }
+      it { expect { subject }.to change(user, :signed_up_with_google).from(true).to(false) }
+    end
+
+    context 'user does not have google_account' do
+      let(:user) { create(:teacher) }
+
+      it { expect { subject }.not_to change(user, :google_id) }
+      it { expect { subject }.not_to change(user, :signed_up_with_google) }
+    end
+  end
+
+  describe '#google_access_expired?' do
+    subject { user.google_access_expired? }
+
+    let(:user) { create(:user) }
+
+    context 'google_id is not present' do
+      before { allow(user).to receive(:google_id).and_return(nil) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'google_id is present' do
+      before { allow(user).to receive(:google_id).and_return('some-google-id') }
+
+      context 'auth credential is not present' do
+        it { is_expected.to eq false }
+      end
+
+      context 'auth_credential is not expired' do
+        before { create(:google_auth_credential, user: user)  }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'auth_credential is expired' do
+        before { create(:google_auth_credential, :expired, user: user)  }
+
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#google_access_expired_and_no_password?' do
+    subject { user.google_access_expired_and_no_password? }
+
+    context 'google_access_expired? is false' do
+      before { allow(user).to receive(:google_access_expired?).and_return(false) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'google_access_expired? is true' do
+      before { allow(user).to receive(:google_access_expired?).and_return(true) }
+
+      context 'password digest is not nil' do
+        before { allow(user).to receive(:password_digest).and_return('some-password-digest') }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'password digest is nil' do
+        before { allow(user).to receive(:password_digest).and_return(nil) }
+
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#google_student_set_password?' do
+    subject { user.google_student_set_password? }
+
+    let(:user) { create(:user, google_id: google_id, password: password, role: role) }
+    let(:role) { User::STUDENT}
+    let(:google_id) { 'abc123' }
+    let(:password) { 'password' }
+
+    context 'user is not a student' do
+      let(:role) { User::TEACHER }
+
+      it { expect(subject).to eq false }
+    end
+
+    context 'google_id is not present' do
+      let(:google_id) { nil }
+
+      it 'is not a google user so false' do
+        user.password = 'new_password'
+        expect(subject).to eq false
+      end
+    end
+
+    context 'password_digest has not changed' do
+      it { expect(subject).to eq false }
+    end
+
+    context 'password_digest has changed' do
+      context 'password_digest was not nil' do
+        let(:password) { 'password' }
+
+        it 'already had a password' do
+          user.password = nil
+          expect(subject).to eq false
+        end
+      end
+
+      context 'password_digest was nil' do
+        let(:password) { nil }
+
+        it 'sets a password' do
+          user.password = 'password'
+          expect(subject).to eq true
+        end
+      end
+    end
+  end
+
+  describe '#track_google_student_set_password' do
+    subject { user.track_google_student_set_password }
+
+    let(:analytics_instance) { double('Analytics') }
+    let(:user) { create(:user, google_id: 'abc123') }
+    let(:teacher) { double('Teacher') }
+
+    before do
+      allow(Analytics::SegmentAnalytics).to receive(:new).and_return(analytics_instance)
+      allow(analytics_instance).to receive(:track_google_student_set_password)
+      allow(user).to receive(:teacher_of_student).and_return(teacher)
+    end
+
+    it 'tracks google student set password' do
+      expect(analytics_instance).to receive(:track_google_student_set_password).with(user, teacher)
+      user.password = 'password'
+      subject
+    end
+  end
+
+  describe '#premium_admin?' do
+    subject { user.premium_admin? }
+
+    context 'user is not an admin' do
+      before { allow(user).to receive(:admin?).and_return(false) }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'user is an admin' do
+      before { allow(user).to receive(:admin?).and_return(true) }
+
+      context 'user does not have premium' do
+        before { allow(user).to receive(:school_or_district_premium?).and_return(false) }
+
+        it { is_expected.to eq false }
+      end
+
+      context 'user has premium' do
+        before { allow(user).to receive(:school_or_district_premium?).and_return(true) }
+
+        it { is_expected.to eq true }
       end
     end
   end

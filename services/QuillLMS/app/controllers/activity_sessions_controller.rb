@@ -2,16 +2,17 @@
 
 class ActivitySessionsController < ApplicationController
   include HTTParty
+  include PublicProgressReports
 
   layout :determine_layout
 
   around_action :force_writer_db_role, only: [:activity_session_from_classroom_unit_and_activity]
 
-  before_action :activity_session_from_id, only: [:play, :concept_results]
+  before_action :activity_session_from_id, only: [:play, :concept_results, :student_activity_report]
   before_action :activity_session_from_uid, only: [:result]
   before_action :activity_session_for_update, only: [:update]
   before_action :activity, only: [:play, :result]
-  before_action :activity_session_authorize!, only: [:play, :result]
+  before_action :activity_session_authorize!, only: [:play, :result, :student_activity_report]
   before_action :activity_session_authorize_teacher!, only: [:concept_results]
   before_action :authorize_student_belongs_to_classroom_unit!, only: [:activity_session_from_classroom_unit_and_activity]
   before_action :redirect_if_student_has_not_completed_pre_test, only: [:play]
@@ -25,24 +26,27 @@ class ActivitySessionsController < ApplicationController
 
   def result
     allow_iframe
-    if session[:partner_session]
-      @partner_name = session[:partner_session]["partner_name"]
-      @partner_session_id = session[:partner_session]["session_id"]
-    end
-    if @partner_name && @partner_session_id
-      @activity_url = @activity_session.activity.anonymous_module_url.to_s
-      @results_url = url_for(action: 'result', uid: @activity_session.uid)
-      AmplifyReportActivityWorker.perform_async(@partner_session_id, @activity_session.activity.name, @activity_session.activity.description, @activity_session.percentage, @activity_url, @results_url)
-    end
+
+    run_partner_session_worker
+
     @activity = @activity_session
-    @results  = @activity_session.parse_for_results
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
-    @result_category_names = {
-      PROFICIENT: ActivitySession::PROFICIENT,
-      NEARLY_PROFICIENT: ActivitySession::NEARLY_PROFICIENT,
-      NOT_YET_PROFICIENT: ActivitySession::NOT_YET_PROFICIENT
-    }
+
+    questions = @activity_session.concept_results.group_by { |cr| cr.question_number }
+    key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, @activity_session) }
+    correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
+
+    @number_of_questions = questions.length
+    @number_of_correct_questions = correct_key_target_skill_concepts.length
+    @grouped_key_target_skill_concepts = format_grouped_key_target_skill_concepts(key_target_skill_concepts)
+
     @title = 'Classwork'
+  end
+
+  def student_activity_report
+    @js_file = 'student'
+    @activity_sessions = finished_activity_sessions_for_unit_activity_classroom_and_student(@activity_session.unit&.id, @activity_session.activity_id, @activity_session.classroom&.id, @activity_session.user_id)
+    @report_data = @activity_sessions.find { |session| session[:activity_session_id] == @activity_session.id }
   end
 
   def anonymous
@@ -54,6 +58,26 @@ class ActivitySessionsController < ApplicationController
   def activity_session_from_classroom_unit_and_activity
     started_activity_session_id = ActivitySession.find_or_create_started_activity_session(current_user.id, params[:classroom_unit_id], params[:activity_id])&.id
     redirect_to "/activity_sessions/#{started_activity_session_id}/play"
+  end
+
+  private def partner_session? = session[:partner_session].present? && partner_name && partner_session_id
+  private def partner_name = session[:partner_session]["partner_name"]
+  private def partner_session_id = session[:partner_session]["session_id"]
+
+  private def run_partner_session_worker
+    return unless partner_session?
+
+    activity_url = @activity_session.activity.anonymous_module_url.to_s
+    results_url = url_for(action: 'result', uid: @activity_session.uid)
+
+    AmplifyReportActivityWorker.perform_async(
+      partner_session_id,
+      @activity_session.activity.name,
+      @activity_session.activity.description,
+      @activity_session.percentage,
+      activity_url,
+      results_url
+    )
   end
 
   private def activity_session_from_id
@@ -130,14 +154,8 @@ class ActivitySessionsController < ApplicationController
     if current_user.classrooms.exclude?(@classroom_unit.classroom) then auth_failed(hard: false) end
   end
 
-  private def determine_layout
-    return unless session[:partner_session]
-
-    @partner_name = session[:partner_session]["partner_name"]
-    @partner_session_id = session[:partner_session]["session_id"]
-    return unless  @partner_name && @partner_session_id
-
-    "integrations"
+  def determine_layout
+    "integrations" if partner_session?
   end
 
   private def allow_iframe

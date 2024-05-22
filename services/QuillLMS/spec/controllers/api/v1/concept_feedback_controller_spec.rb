@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'json'
 require 'rails_helper'
 
 describe Api::V1::ConceptFeedbackController, type: :controller do
   let!(:concept_feedback) { create(:concept_feedback) }
 
   describe "#index" do
+
     it "should return a list of ConceptFeedbacks" do
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
       expect(JSON.parse(response.body).keys.length).to eq(1)
@@ -15,6 +15,17 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
     it "should include the response from the db" do
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
       expect(JSON.parse(response.body).keys.first).to eq(concept_feedback.uid)
+    end
+
+    it 'resets the redis cache for all concept feedbacks if not set already' do
+      $redis.del(concept_feedback.cache_key)
+      get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
+      expect(JSON.parse(response.body)).to eq(
+        ConceptFeedback
+          .where(activity_type: concept_feedback.activity_type)
+          .all
+          .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      )
     end
   end
 
@@ -39,6 +50,11 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       pre_create_count = ConceptFeedback.count
       post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: data }, as: :json
       expect(ConceptFeedback.count).to eq(pre_create_count + 1)
+    end
+
+    it "should expire the redis cache for concept feedbacks with that activity type" do
+      expect($redis).to receive(:del).with(concept_feedback.cache_key)
+      post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: {foo: "bar"} }, as: :json
     end
   end
 
@@ -70,6 +86,18 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
         as: :json
 
       expect(ConceptFeedback.find_by(uid: uid)).to be
+    end
+
+    it "should expire the redis cache for concept feedbacks with that activity type" do
+      expect($redis).to receive(:del).with(concept_feedback.cache_key)
+      data = {"foo" => "bar"}
+      put :update,
+        params: {
+          activity_type: concept_feedback.activity_type,
+          id: concept_feedback.uid,
+          concept_feedback: data
+        },
+        as: :json
     end
   end
 end

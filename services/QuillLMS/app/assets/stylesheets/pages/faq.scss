@@ -9,7 +9,7 @@
 
   header {
     background: #348fdf url('/images/homepage/homepage_pattern_blue_premium.png');
-    color: #ffffff;
+    color: $quill-white;
     padding: 40px 10px;
     text-align: center;
 
@@ -30,7 +30,7 @@
       font-size: 14px;
 
       a {
-        color: #ffffff;
+        color: $quill-white;
         font-weight: 600;
         text-decoration: underline;
       }
@@ -104,7 +104,7 @@
         }
 
         .question-answer {
-          color: #666666;
+          color: $quill-grey-40;
           display: none;
           font-size: 18px;
           line-height: 1.8;
@@ -116,7 +116,7 @@
 
           a {
             font-weight: 400;
-            color: #666666;
+            color: $quill-grey-40;
             text-decoration: underline;
           }
         }
@@ -124,7 +124,7 @@
     }
 
     .faq-view-all {
-      border: solid 1px #666666;
+      border: solid 1px $quill-grey-40;
       border-radius: 6px;
       font-size: 14px;
       font-weight: 700;

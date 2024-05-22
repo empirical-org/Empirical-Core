@@ -2,12 +2,12 @@
 
 module CleverIntegration
   class TeacherImporter < ApplicationService
-    attr_reader :data, :clever_id, :email
+    attr_reader :data, :email, :user_external_id
 
     def initialize(data)
       @data = data
-      @clever_id = data[:clever_id]
       @email = data[:email]
+      @user_external_id = data[:user_external_id]
     end
 
     def run
@@ -15,15 +15,15 @@ module CleverIntegration
     end
 
     private def teacher
-      teacher_by_clever_id || teacher_by_email
+      teacher_by_user_external_id || teacher_by_email
     end
 
     private def teacher_by_email
       email && ::User.find_by(email: email)
     end
 
-    private def teacher_by_clever_id
-      clever_id && ::User.find_by(clever_id: clever_id)
+    private def teacher_by_user_external_id
+      user_external_id && ::User.find_by(clever_id: user_external_id)
     end
   end
 end

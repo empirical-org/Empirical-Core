@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CanvasIntegrationInstance it should render 1`] = `
+<DocumentFragment>
+  <section
+    class="canvas-integration-instance"
+  >
+    <div
+      class="section-header"
+    >
+      <h3>
+        https://quill.instructure.com
+      </h3>
+      <button
+        class="quill-button medium secondary outlined focus-on-light"
+        type="button"
+      >
+        Edit
+      </button>
+    </div>
+    <div
+      class="school"
+    >
+      <img
+        alt=""
+        src="https://assets.quill.org/images/pages/administrator/integrations/school.svg"
+      />
+      <span>
+        MLK Middle School
+      </span>
+    </div>
+    <div
+      class="school"
+    >
+      <img
+        alt=""
+        src="https://assets.quill.org/images/pages/administrator/integrations/school.svg"
+      />
+      <span>
+        Toni Morrison High School
+      </span>
+    </div>
+  </section>
+</DocumentFragment>
+`;

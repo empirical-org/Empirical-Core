@@ -1,20 +1,22 @@
-import React from 'react';
 import Pusher from 'pusher-js';
+import qs from 'qs';
+import React from 'react';
 import { connect } from 'react-redux';
-import qs from 'qs'
 
-import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
-import StudentProfileHeader from '../components/student_profile/student_profile_header';
-import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
-import SelectAClassroom from '../../Student/components/selectAClassroom'
-import LoadingIndicator from '../components/shared/loading_indicator'
 import {
   fetchStudentProfile,
   fetchStudentsClassrooms,
+  fetchExactScoresData,
   handleClassroomClick,
-  updateActiveClassworkTab
+  updateActiveClassworkTab,
 } from '../../../actions/student_profile';
-import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
+import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES } from '../../../constants/student_profile';
+import SelectAClassroom from '../../Student/components/selectAClassroom';
+import LoadingIndicator from '../components/shared/loading_indicator';
+import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
+import StudentProfileHeader from '../components/student_profile/student_profile_header';
+import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
+import KeyMetrics from '../components/student_profile/key_metrics'
 
 class StudentProfile extends React.Component {
   componentDidMount() {
@@ -26,13 +28,12 @@ class StudentProfile extends React.Component {
 
     if (classroomId) {
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId);
+      fetchStudentProfile(classroomId)
       fetchStudentsClassrooms();
     } else {
       fetchStudentProfile();
       fetchStudentsClassrooms();
     }
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -62,14 +63,14 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
+    const { loading, handleClassroomClick, history, fetchStudentProfile, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
       history.push(newUrl);
       handleClassroomClick(classroomId);
-      fetchStudentProfile(classroomId);
       updateActiveClassworkTab(TO_DO_ACTIVITIES)
+      fetchStudentProfile(classroomId)
     }
   }
 
@@ -80,8 +81,12 @@ class StudentProfile extends React.Component {
   }
 
   handleClickClassworkTab = (classworkTab) => {
-    const { updateActiveClassworkTab, } = this.props
+    const { updateActiveClassworkTab, exactScoresDataPending, fetchExactScoresData, scores, classroomId, } = this.props
     updateActiveClassworkTab(classworkTab)
+
+    if (classworkTab === COMPLETED_ACTIVITIES && exactScoresDataPending) {
+      fetchExactScoresData(scores, classroomId)
+    }
   }
 
   initializePusher = (nextProps) => {
@@ -92,7 +97,7 @@ class StudentProfile extends React.Component {
       if (process.env.RAILS_ENV === 'development') {
         Pusher.logToConsole = true;
       }
-      const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+      const pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
       const channel = pusher.subscribe(classroomId.toString());
       channel.bind('lesson-launched', () => {
         fetchStudentProfile(classroomId);
@@ -114,6 +119,10 @@ class StudentProfile extends React.Component {
       activeClassworkTab,
       isBeingPreviewed,
       history,
+      metrics,
+      exactScoresDataPending,
+      exactScoresData,
+      showExactScores,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
@@ -129,6 +138,11 @@ class StudentProfile extends React.Component {
         />
         <div className="header-container">
           <div className="container">
+            <h1>Your progress</h1>
+            <KeyMetrics
+              firstName={student.name.split(' ')[0]}
+              metrics={metrics}
+            />
             <h1>Classwork</h1>
           </div>
         </div>
@@ -140,10 +154,13 @@ class StudentProfile extends React.Component {
           <StudentProfileUnits
             activeClassworkTab={activeClassworkTab}
             data={scores}
+            exactScoresData={exactScoresData}
+            exactScoresDataPending={exactScoresDataPending}
             isBeingPreviewed={isBeingPreviewed}
             loading={loading}
             nextActivitySession={nextActivitySession}
             selectedUnitId={this.parsedQueryParams().unit_id}
+            showExactScores={showExactScores}
             teacherName={student.classroom.teacher.name}
           />
         </div>
@@ -154,10 +171,11 @@ class StudentProfile extends React.Component {
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
-  fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
+  fetchStudentProfile: (classroomId) => dispatch(fetchStudentProfile(classroomId)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
+  fetchExactScoresData: (scores, classroomId) => dispatch(fetchExactScoresData(scores, classroomId)),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
-  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab))
+  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);

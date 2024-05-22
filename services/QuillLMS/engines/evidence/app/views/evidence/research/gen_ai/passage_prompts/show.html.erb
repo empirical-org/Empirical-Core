@@ -1,0 +1,24 @@
+<div>
+  <h2>Passage Prompt</h2>
+
+  <h3>Name</h3>
+  <p><%= link_to @passage_prompt.name, @passage_prompt.passage %></p>
+
+  <h3>Conjunction</h3>
+  <p><%= @passage_prompt.conjunction %></p>
+
+  <h3>Prompt</h3>
+  <p><%= simple_format(@passage_prompt.prompt) %></p>
+
+  <h3>Instructions</h3>
+  <p><%= simple_format(@passage_prompt.instructions) %></p>
+
+  <h3>Relevant Passage</h3>
+  <p><%= simple_format(@passage_prompt.relevant_passage) %></p>
+</div>
+
+<br>
+<%= link_to 'New Experiment', new_research_gen_ai_experiment_path %>
+<br>
+<br>
+<%= link_to 'Experiments', research_gen_ai_experiments_path %>

@@ -1,6 +1,6 @@
 .student-lobby {
   .projector-view {
-    color: #000;
+    color: $quill-black;
     .projector-header {
       width: 100vw;
       position: absolute;
@@ -55,12 +55,12 @@
           padding: 10px;
           position: relative;
           &.present {
-            border: solid 2px #06806b;
+            border: solid 2px $quill-green;
             background-color: #e1f3f1;
             .decorative-circle {
               width: 12px;
               height: 12px;
-              background-color: #06806b;
+              background-color: $quill-green;
               position: absolute;
               left: -6px;
               top: -6px;

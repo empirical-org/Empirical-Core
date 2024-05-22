@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Activity, ContentPartner } from './interfaces'
-import { CONTENT_PARTNER_FILTERS } from './shared'
+import { Activity, ContentPartner } from './interfaces';
+import { CONTENT_PARTNER_FILTERS } from './shared';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 

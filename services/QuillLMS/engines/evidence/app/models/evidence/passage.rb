@@ -1,5 +1,25 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_passages
+#
+#  id                       :integer          not null, primary key
+#  essential_knowledge_text :string           default("")
+#  highlight_prompt         :string
+#  image_alt_text           :string           default("")
+#  image_attribution        :text             default("")
+#  image_caption            :text             default("")
+#  image_link               :string
+#  text                     :text
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  activity_id              :integer
+#
+# Indexes
+#
+#  index_comprehension_passages_on_activity_id  (activity_id)
+#
 module Evidence
   class Passage < ApplicationRecord
     self.table_name = 'comprehension_passages'

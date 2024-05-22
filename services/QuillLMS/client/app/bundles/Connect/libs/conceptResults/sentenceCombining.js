@@ -1,5 +1,5 @@
+import { hashToCollection, } from '../../../Shared/index';
 import { formattedCues } from '../formattedCues';
-import { hashToCollection, } from '../../../Shared/index'
 
 export function getConceptResultsForSentenceCombining(question) {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
@@ -21,6 +21,7 @@ export function getConceptResultsForSentenceCombining(question) {
   if (question.cues && question.cues[0] !== '') {
     directions += ` ${formattedCues(question.cues)}`;
   }
+  
   return conceptResults.map((conceptResult, i) => ({
     concept_uid: conceptResult.conceptUID,
     question_type: 'sentence-combining',
@@ -29,7 +30,10 @@ export function getConceptResultsForSentenceCombining(question) {
       directions,
       prompt,
       answer,
-      attemptNumber: i + 1
+      attemptNumber: i + 1,
+      question_uid: question.key,
+      question_concept_uid: question.conceptID,
+      cues: question.cues?.filter(Boolean)
     },
   }));
 }

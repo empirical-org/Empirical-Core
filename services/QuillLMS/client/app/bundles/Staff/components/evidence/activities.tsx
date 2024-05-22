@@ -1,13 +1,14 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
 import Navigation from './navigation';
 
-import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
-import { fetchActivities } from '../../utils/evidence/activityAPIs';
-import { DataTable, Error, Spinner, FlagDropdown, } from '../../../Shared/index';
+import { DataTable, Error, FlagDropdown, Spinner, } from '../../../Shared/index';
 import { getCheckIcon, renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
+import { ActivityInterface } from '../../interfaces/evidenceInterfaces';
+import { fetchActivities, } from '../../utils/evidence/activityAPIs';
+import ActivityInvalidHighlights from './activityInvalidHighlights'
 
 const Activities = ({ location, match }) => {
 
@@ -19,14 +20,17 @@ const Activities = ({ location, match }) => {
   const filteredActivities = activitiesData && activitiesData.activities && activitiesData.activities.filter(act => flag === 'All Flags' || act.flag === flag) || []
 
   const formattedRows = filteredActivities.map((activity: ActivityInterface) => {
-    const { id, title, invalid_highlights, parent_activity_id, notes } = activity;
+    const { id, title, parent_activity_id, notes } = activity;
+    const activityInternalNameLink = (<Link to={`/activities/${id}`}>{notes}</Link>);
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
-    const highlightLabel = (<Link to={`/activities/${id}`}>{getCheckIcon(!(invalid_highlights && invalid_highlights.length))}</Link>);
+    const highlightLabel = (
+      <ActivityInvalidHighlights activityId={id} />
+    );
     return {
       id,
       parent_activity_id,
       title: activityLink,
-      notes,
+      notes: activityInternalNameLink,
       valid_highlights: highlightLabel
     }
   });

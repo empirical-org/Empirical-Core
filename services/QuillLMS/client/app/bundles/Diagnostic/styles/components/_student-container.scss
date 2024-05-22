@@ -5,7 +5,7 @@
 
 .student-container {
   @extend .container;
-  max-width: 800px;
+  max-width: 800px !important;
 }
 
 
@@ -28,7 +28,7 @@
 }
 
 .ell-footer {
-  background-color: #ffffff;
+  background-color: $quill-white;
   height: 81px;
   padding: 20px;
   width: 100%;

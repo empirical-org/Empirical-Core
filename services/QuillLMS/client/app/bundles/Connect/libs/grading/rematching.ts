@@ -1,12 +1,10 @@
-declare function require(name:string);
 // import AWS from 'aws-sdk'
 import * as _ from 'underscore';
-import { hashToCollection, } from '../../../Shared/index'
 
-// const qml = require('quill-marking-logic')
-import { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, ConceptResult } from 'quill-marking-logic'
+import { hashToCollection, } from '../../../Shared/index';
+import { ConceptResult, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkSentenceCombining, checkSentenceFragment } from '../../../Shared/quill-marking-logic/src/main';
+import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index';
 import objectWithSnakeKeysFromCamel from '../objectWithSnakeKeysFromCamel';
-import { requestGet, requestPost, requestPut, } from '../../../../modules/request/index'
 
 // AWS.config.update({ region:'us-east-1', accessKeyId: 'akid', secretAccessKey: 'secret' });
 
@@ -218,6 +216,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID
+  const { caseInsensitive, } = question
 
   if (mode === 'sentenceFragments') {
     return {
@@ -235,7 +234,7 @@ function getMatcherFields(mode:string, question:Question, responses:{[key:string
   } else if (mode === 'diagnosticQuestions') {
     return [question.key, hashToCollection(responses), defaultConceptUID]
   } else if (mode === 'fillInBlank') {
-    return [question.key, hashToCollection(responses), defaultConceptUID]
+    return [question.key, hashToCollection(responses), caseInsensitive, defaultConceptUID, false]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
   }
@@ -260,7 +259,7 @@ function getResponseBody(pageNumber) {
 }
 
 function getGradedResponses(questionID) {
-  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`);
+  return requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses_for_rematching`);
 }
 
 function formatGradedResponses(jsonString):{[key:string]: Response} {

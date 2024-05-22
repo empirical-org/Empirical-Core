@@ -17,7 +17,7 @@ describe PusherRecommendationCompleted do
           app_id: ENV["PUSHER_APP_ID"],
           key: ENV["PUSHER_KEY"],
           secret: ENV["PUSHER_SECRET"],
-          encrypted: true
+          use_tls: true
         )
         expect(client).to receive(:trigger).with(
           "some_id",
@@ -34,7 +34,7 @@ describe PusherRecommendationCompleted do
           app_id: ENV["PUSHER_APP_ID"],
           key: ENV["PUSHER_KEY"],
           secret: ENV["PUSHER_SECRET"],
-          encrypted: true
+          use_tls: true
         )
         expect(client).to receive(:trigger).with(
           "some_id",

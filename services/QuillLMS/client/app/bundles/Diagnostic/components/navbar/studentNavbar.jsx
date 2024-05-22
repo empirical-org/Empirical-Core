@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { closeLanguageMenu } from '../../actions/diagnostics';
 import { LanguageOptions } from '../shared/languageOptions';
-import { closeLanguageMenu } from '../../actions/diagnostics'
 
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
 const closeSrc = `${process.env.CDN_URL}/images/icons/close-white.svg`
@@ -18,7 +18,7 @@ const Links = ({ playDiagnostic, dispatch, }) => {
   if (!languageMenuOpen) {
     return (
       <div className="student-nav-section">
-        <button activeClassName="is-active" className="student-nav-item focus-on-dark" key="a-tag-student-navabar" onClick={handleSaveAndExitClick} tabIndex="0" type="button">Save and exit</button>
+        <button className="student-nav-item focus-on-dark" key="a-tag-student-navabar" onClick={handleSaveAndExitClick} tabIndex="0" type="button">Save and exit</button>
       </div>
     )
   }

@@ -100,7 +100,8 @@ class ChangeLog < ApplicationRecord
     sign_in: 'Impersonated User',
     show: 'Visited User Admin Page',
     edit: 'Visited User Edit Page',
-    update: 'Edited User'
+    update: 'Edited User',
+    recalculate_staggered_release_locks: 'Recalculated Staggered Release Locks'
   }
 
   GENERIC_USER_ACTIONS = [
@@ -195,7 +196,12 @@ class ChangeLog < ApplicationRecord
     changed_record&.conjunctions if changed_record.respond_to?(:conjunctions)
   end
 
+  # TODO: Fix this overwrite of :user association
   def user
+    User.find_by(id: user_id)&.name
+  end
+
+  def user_name
     User.find_by(id: user_id)&.name
   end
 

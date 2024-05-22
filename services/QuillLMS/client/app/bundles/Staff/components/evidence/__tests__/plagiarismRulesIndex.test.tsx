@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { createMemoryHistory, createLocation } from 'history';
-import { QueryClientProvider } from 'react-query'
+import { createLocation, createMemoryHistory } from 'history';
+import * as React from 'react';
+import { QueryClientProvider } from 'react-query';
 import 'whatwg-fetch';
 
-import PlagiarismRulesIndex from '../plagiarismRules/plagiarismRulesIndex';
 import { DefaultReactQueryClient } from '../../../../Shared/index';
+import PlagiarismRulesIndex from '../plagiarismRules/plagiarismRulesIndex';
 
 const queryClient = new DefaultReactQueryClient();
 

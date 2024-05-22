@@ -10,7 +10,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   around_action :force_writer_db_role, only: [:assign, :dashboard, :lesson_planner]
 
-  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo]
+  before_action :teacher_or_public_activity_packs, except: [:unset_preview_as_student, :unset_view_demo, :view_demo]
   # WARNING: these filter methods check against classroom_id, not id.
   before_action :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student, :view_demo, :unset_view_demo, :activity_feed]
   before_action :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
@@ -18,9 +18,12 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'
+  UNASSIGN_WARNING_MILESTONE = Milestone.find_by_name(Milestone::TYPES[:dismiss_unassign_warning_modal])
 
   def lesson_planner
     set_classroom_variables
+    @unassign_warning_hidden = UserMilestone.exists?(milestone_id: UNASSIGN_WARNING_MILESTONE&.id, user_id: current_user&.id)
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
   end
 
   def assign
@@ -30,7 +33,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     set_banner_variables
     set_diagnostic_variables
     @clever_link = clever_link
+    @google_link = Auth::Google::REAUTHORIZATION_PATH
     @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
+    @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
     find_or_create_checkbox(Objective::EXPLORE_OUR_LIBRARY, current_user)
     return unless params[:tab] == 'diagnostic'
 
@@ -77,7 +82,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     teacher_info_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
     teacher_info_user_milestone = UserMilestone.find_by(milestone_id: teacher_info_milestone&.id, user_id: current_user&.id)
     teacher_info_user_milestone_in_right_timeframe = teacher_info_user_milestone.nil? || (teacher_info_user_milestone.updated_at < 1.month.ago && teacher_info_user_milestone.created_at > 6.months.ago)
-    @must_see_teacher_info_modal = current_user&.teacher_info.nil? && teacher_info_user_milestone_in_right_timeframe
+    @must_see_teacher_info_modal = current_user&.teacher_info&.minimum_grade_level.nil? && teacher_info_user_milestone_in_right_timeframe
 
     welcome_milestone = Milestone.find_by_name(Milestone::TYPES[:see_welcome_modal])
     @must_see_welcome_modal = !UserMilestone.find_by(milestone_id: welcome_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
@@ -87,9 +92,9 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
 
     @featured_blog_posts = BlogPost.where.not(featured_order_number: nil).order(:featured_order_number)
-
     @objective_checklist = generate_onboarding_checklist
     @first_name = current_user.first_name
+    @classrooms = format_classrooms_for_dashboard
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -161,6 +166,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     session[:clever_redirect] = request.env['PATH_INFO']
     @google_or_clever_just_set = session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET]
+    @clever_link = clever_link
     session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = nil
     @account_info = current_user.generate_teacher_account_info
     @show_dismiss_school_selection_reminder_checkbox = show_school_selection_reminders
@@ -200,39 +206,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     render json: {}
   end
 
-  def retrieve_google_classrooms
-    serialized_google_classrooms = GoogleIntegration::TeacherClassroomsCache.read(current_user.id)
-    if serialized_google_classrooms
-      render json: JSON.parse(serialized_google_classrooms)
-    else
-      GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
-      render json: { id: current_user.id, quill_retrieval_processing: true }
-    end
-  end
-
-  def update_google_classrooms
-    serialized_classrooms_data = { classrooms: params[:selected_classrooms] }.to_json
-
-    GoogleIntegration::TeacherClassroomsData
-      .new(current_user, serialized_classrooms_data)
-      .each { |classroom_data| GoogleIntegration::ClassroomImporter.run(classroom_data) }
-
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleIntegration::RetrieveTeacherClassroomsWorker.perform_async(current_user.id)
-    render json: { classrooms: current_user.google_classrooms }.to_json
-  end
-
-  def import_google_students
-    selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
-    GoogleIntegration::TeacherClassroomsCache.delete(current_user.id)
-    GoogleStudentImporterWorker.perform_async(
-      current_user.id,
-      'Teachers::ClassroomManagerController',
-      selected_classroom_ids
-    )
-    render json: { id: current_user.id }
-  end
-
   def view_demo
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
     return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
@@ -259,7 +232,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def preview_as_student
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
-      Analyzer.new.track(current_user, SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
+      Analytics::Analyzer.new.track(current_user, Analytics::SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
       self.preview_student_id= params[:student_id]
     end
     redirect_to '/profile'
@@ -274,6 +247,14 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def activity_feed
     render json: { data: TeacherActivityFeed.get(current_user.id) }
+  end
+
+  private def format_classrooms_for_dashboard
+    classrooms = current_user.classrooms_i_teach
+
+    classrooms.map do |classroom|
+      classroom.attributes.merge({ students: classroom.students, student_count: classroom.students.length })
+    end
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

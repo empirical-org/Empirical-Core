@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'underscore';
+import { Modal } from '../../../Shared/index';
 import lessonActions from '../../actions/lessons.ts';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.tsx';
-import { Modal } from '../../../Shared/index'
 
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
@@ -51,7 +51,6 @@ class Lesson extends React.Component {
     const { params } = match;
     const { lessonID } = params;
     if (confirm('do you want to do this?')) {
-      // TODO: fix delete lesson action
       dispatch(lessonActions.deleteLesson(lessonID));
     }
   };

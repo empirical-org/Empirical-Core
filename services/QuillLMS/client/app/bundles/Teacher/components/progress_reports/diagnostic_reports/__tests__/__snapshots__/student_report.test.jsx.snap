@@ -1,0 +1,1446 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentReport should render 1`] = `
+<DocumentFragment>
+  <div
+    class="individual-student-activity-view white-background-accommodate-footer"
+  >
+    <div
+      class="container"
+    >
+      <header
+        class="activity-view-header-container"
+      >
+        <div
+          class="left-side-container"
+        >
+          <span>
+            Student:
+          </span>
+          <h3
+            class="activity-view-header"
+          >
+            Carson Bryant
+          </h3>
+        </div>
+        <div
+          class="dropdowns"
+        >
+          <div
+            class="dropdown-container input-container inactive has-text not-editable bordered  "
+            role="button"
+            tabindex="0"
+          >
+            <label />
+            <div
+              class="dropdown css-b62m3t-container"
+            >
+              <span
+                class="css-1f43avz-a11yText-A11yText"
+                id="react-select-2-live-region"
+              />
+              <span
+                aria-atomic="false"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="css-1f43avz-a11yText-A11yText"
+              />
+              <div
+                class="dropdown__control css-13cymwt-control"
+              >
+                <div
+                  class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+                >
+                  <div
+                    class="dropdown__single-value css-1dimb5e-singleValue"
+                  >
+                    Carson Bryant
+                  </div>
+                  <div
+                    class="dropdown__input-container css-qbdosj-Input"
+                    data-value=""
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      autocapitalize="none"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="dropdown__input"
+                      id="react-select-2-input"
+                      role="combobox"
+                      spellcheck="false"
+                      style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                      tabindex="-1"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+                >
+                  <span
+                    class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="css-tj5bde-Svg"
+                      focusable="false"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      width="20"
+                    >
+                      <path
+                        d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div
+        class="time-spent-and-target-skills-count"
+      >
+        <div>
+          <span>
+            Time spent:
+          </span>
+          <p>
+            1 min
+          </p>
+        </div>
+        <div>
+          <span>
+            Target skills demonstrated correctly in prompts:
+          </span>
+          <p>
+            10 of 10 (100%)
+          </p>
+        </div>
+      </div>
+      <div
+        class="helpful-tips"
+      >
+        <div
+          class="helpful-tips-header"
+        >
+          <img
+            alt="Lightbulb icon for helpful tips"
+            src="undefined/images/pages/activity_analysis/lightbulb.svg"
+          />
+          <h3>
+            Helpful Tips for Teachers 
+            <span>
+              (Expand to show more information)
+            </span>
+          </h3>
+        </div>
+        <button
+          class="toggle-student-report-explanation scoring-explanation is-closed"
+          type="button"
+        >
+          <img
+            alt="Expand icon"
+            src="undefined/images/icons/expand.svg"
+          />
+          <h4>
+            The score for Quill Connect activities is based on reaching a correct response by the final attempt.
+          </h4>
+        </button>
+        <button
+          class="toggle-student-report-explanation scoring-explanation is-closed"
+          type="button"
+        >
+          <img
+            alt="Expand icon"
+            src="undefined/images/icons/expand.svg"
+          />
+          <h4>
+            The bolded text helps you see the edits. It is not what the student sees.
+          </h4>
+        </button>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              1
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Has watched, Watched)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Jason went to the basketball game last night. There, he ___ his sister score thirty points.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Jason went to the basketball game last night. There, he watched his sister score thirty points.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Past Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              2
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Took, Has taken)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Kara is very skilled with pottery. That is because she ___ many pottery classes over the last five years.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Kara is very skilled with pottery. That is because she has taken many pottery classes over the last five years.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Present Perfect
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              3
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Have gone, Went)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    When did you go to Florida? I ___ to Florida last month.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      When did you go to Florida? I went to Florida last month.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Past Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              4
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Have traveled, Traveled)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Have you ever traveled to Canada? Yes, I ___ to Canada.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Have you ever traveled to Canada? Yes, I have traveled to Canada.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Present Perfect
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              5
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Got, Has gotten)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Dan’s sister can drive us to the park. She ___ her license two weeks ago.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Dan’s sister can drive us to the park. She has gotten her license two weeks ago.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    Try again. How can you show that get is an action completed at a specific time in the past?
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result incorrect"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/revise.svg"
+                      />
+                      <span>
+                        Past Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    2nd submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      <span>
+                        Dan’s sister can drive us to the park. She 
+                      </span>
+                      <b>
+                        got
+                      </b>
+                      <span>
+                         
+                      </span>
+                      <span>
+                        her license two weeks ago.
+                      </span>
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Past Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              6
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Saw, Has seen)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Marina loves that band. She ___ them in concert seven times.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Marina loves that band. She has seen them in concert seven times.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Present Perfect
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              7
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Sent, Have sent)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    I don’t know if I have the correct email address for Mr. Walker. I ___ him at least five emails this week, and I still haven’t heard back.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      I don’t know if I have the correct email address for Mr. Walker. I have sent him at least five emails this week, and I still haven’t heard back.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Present Perfect
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              8
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Ran, Have run)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    My legs hurt. I ___ five miles yesterday.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      My legs hurt. I ran five miles yesterday.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Past Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              9
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Won, Has won)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Shana competed in the robotics competition last year. She ___ first place.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Shana competed in the robotics competition last year. She won first place.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Past Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div
+        class="individual-activity-report"
+      >
+        <div
+          class="student-report-box"
+        >
+          <div
+            class="student-report-table-and-index"
+          >
+            <div
+              class="question-index"
+            >
+              10
+            </div>
+            <table>
+              <tbody>
+                <tr
+                  class="Directions"
+                >
+                  <td>
+                    Directions
+                  </td>
+                  <td />
+                  <td>
+                    Fill in the blank with the correct form of the action word. (Folded, Has folded)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Prompt
+                  </td>
+                  <td />
+                  <td>
+                    Zak clearly enjoys origami. He ___ over 1,000 paper cranes over the past year.
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Score
+                  </td>
+                  <td />
+                  <td>
+                    100%
+                  </td>
+                </tr>
+                <tr
+                  class="correct-target-skill-background"
+                >
+                  <td>
+                    Target Skill
+                  </td>
+                  <td />
+                  <td>
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Perfect Tense
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td />
+                </tr>
+                <tr
+                  class="submission"
+                >
+                  <td>
+                    1st submission
+                  </td>
+                  <td />
+                  <td>
+                    <span
+                      style="white-space: pre-wrap;"
+                    >
+                      Zak clearly enjoys origami. He has folded over 1,000 paper cranes over the past year.
+                    </span>
+                  </td>
+                </tr>
+                <tr
+                  class="Feedback"
+                >
+                  <td>
+                    Feedback
+                  </td>
+                  <td />
+                  <td>
+                    That's a strong sentence!
+                  </td>
+                </tr>
+                <tr>
+                  <td />
+                  <td />
+                  <td
+                    class="concept-results-cell"
+                  >
+                    <div
+                      class="concept-result correct"
+                    >
+                      <img
+                        alt=""
+                        src="undefined/images/pages/activity_analysis/checkmark.svg"
+                      />
+                      <span>
+                        Present Perfect
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

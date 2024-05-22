@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import StudentOptions from '../student_options'
+import StudentOptions from '../student_options';
 
 describe('StudentOptions component', () => {
 

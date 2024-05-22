@@ -1,16 +1,14 @@
 import React from 'react';
 
-import { timeZoneOptions, } from './shared'
+import { timeZoneOptions, } from './shared';
 
-import SchoolSelector from '../../shared/school_selector'
-import { Input, DropdownInput, } from '../../../../Shared/index'
-import { requestPost, } from '../../../../../modules/request'
+import { requestPost, } from '../../../../../modules/request';
+import { DropdownInput, Input, NOT_LISTED, NO_SCHOOL_SELECTED, } from '../../../../Shared/index';
+import SchoolSelector from '../../shared/school_selector';
 
 const HOME_SCHOOL_SCHOOL_NAME = 'home school'
 const US_HIGHER_ED_SCHOOL_NAME = 'us higher ed'
 const INTERNATIONAL_SCHOOL_NAME = 'international'
-const NOT_LISTED_SCHOOL_NAME = 'not listed'
-const NO_SCHOOL_SELECTED_SCHOOL_NAME = 'no school selected'
 const OTHER_SCHOOL_NAME = 'other'
 const US_K12_SCHOOL = 'U.S. K-12 school'
 
@@ -81,7 +79,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const { alternativeSchools, } = this.props
     if (id !== school.id) {
       this.setState({ changedSchools: true, })
-      if ([NOT_LISTED_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(id)) {
+      if ([NOT_LISTED, NO_SCHOOL_SELECTED].includes(id)) {
         const alternativeSchool = alternativeSchools.find(school => school.name === id)
         this.setState({ school: alternativeSchool, showSchoolSelector: false, }, () => this.handleSubmit())
       } else {
@@ -92,9 +90,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   };
 
   handleSchoolTypeChange = schoolType => {
+    const { alternativeSchools, alternativeSchoolsNameMap, } = this.props
     // we don't want teachers to set their school as "not-listed" if they already have a school selected
     if (schoolType.value !== US_K12_SCHOOL || this.state.schoolType !== US_K12_SCHOOL) {
-      this.setState({ schoolType: schoolType.value, school: schoolType, changedSchools: true});
+      const alternativeSchoolName = Object.keys(alternativeSchoolsNameMap).find(key => alternativeSchoolsNameMap[key] === schoolType.value)
+      const school = alternativeSchools.find(school => school.name === alternativeSchoolName)
+      this.setState({ schoolType: schoolType.value, school, changedSchools: true});
     }
   };
 
@@ -222,23 +223,20 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       } else {
         let schoolNameValue = school && school.name ? school.name : ''
         let buttonCopy = 'Change school'
-        if (schoolNameValue === NOT_LISTED_SCHOOL_NAME) {
+        if (schoolNameValue === NOT_LISTED) {
           schoolNameValue = 'Not listed'
-        } else if ([HOME_SCHOOL_SCHOOL_NAME, US_HIGHER_ED_SCHOOL_NAME, INTERNATIONAL_SCHOOL_NAME, OTHER_SCHOOL_NAME, NO_SCHOOL_SELECTED_SCHOOL_NAME].includes(schoolNameValue)) {
+        } else if ([HOME_SCHOOL_SCHOOL_NAME, US_HIGHER_ED_SCHOOL_NAME, INTERNATIONAL_SCHOOL_NAME, OTHER_SCHOOL_NAME, NO_SCHOOL_SELECTED].includes(schoolNameValue)) {
           schoolNameValue = 'No school selected'
           buttonCopy = 'Select school'
         }
         let schoolContainerClass = "school-container"
-        schoolContainerClass += schoolSelectionReminderVisible && (!school || school.name === NO_SCHOOL_SELECTED_SCHOOL_NAME) ? ' show-notification-badges' : ''
+        schoolContainerClass += schoolSelectionReminderVisible && (!school || school.name === NO_SCHOOL_SELECTED) ? ' show-notification-badges' : ''
         return (
           <div className={schoolContainerClass}>
-            <Input
-              className="school"
-              disabled={true}
-              label="School"
-              type="text"
-              value={schoolNameValue}
-            />
+            <div className="school-name-container">
+              <label className="school-name-label">School</label>
+              <p className="school-name">{schoolNameValue}</p>
+            </div>
             <button className="change-school notification-badge-relative interactive-wrapper" onClick={this.showSchoolSelector} type="button">{buttonCopy}</button>
           </div>
         )

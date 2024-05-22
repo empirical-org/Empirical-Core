@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 module FooterHelper
-
   def teacher_dashboard_links
     [
       { href: '/assign', label: 'Assign Activities' },
       { href: '/teachers/classrooms', label: 'My Classes' },
       { href: '/teachers/classrooms/activity_planner', label: 'My Activities' },
-      { href: '/teachers/progress_reports/landing_page', label: 'My Student Reports' }
+      { href: '/teachers/progress_reports/landing_page', label: 'My Reports' }
     ]
   end
 
@@ -44,7 +43,8 @@ module FooterHelper
   def teacher_center_links
     [
       { href: '/teacher-center', label: 'All Resources' },
-      { href: '/tools/evidence', label: 'Reading Comprehension' },
+      { href: '/teacher-center/topic/whats-new', label: "What's New?" },
+      { href: '/teacher-center/topic/writing-for-learning', label: 'Writing For Learning' },
       { href: '/teacher-center/topic/getting_started', label: 'Getting Started' },
       { href: '/teacher-center/topic/video-tutorials', label: 'Video Tutorials' },
       { href: '/teacher-center/topic/best-practices', label: 'Best Practices' },
@@ -59,7 +59,8 @@ module FooterHelper
       { href: '/pathways', label: 'Pathways Initiative' },
       { href: '/team', label: 'Team' },
       { href: '/careers', label: 'Careers' },
-      { href: '/press', label: 'Press' }
+      { href: '/press', label: 'Press' },
+      { href: '/contact', label: 'Contact Us' }
     ]
   end
 end

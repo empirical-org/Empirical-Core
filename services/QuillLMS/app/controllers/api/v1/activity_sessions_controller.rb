@@ -2,7 +2,7 @@
 
 class Api::V1::ActivitySessionsController < Api::ApiController
 
-  before_action :doorkeeper_authorize!, only: [:destroy]
+  before_action :staff!, only: [:destroy]
   before_action :transform_incoming_request, only: [:update, :create]
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
@@ -21,6 +21,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       status = :ok
       message = "Activity Session Updated"
       handle_concept_results
+      send_teacher_notifications
       ActiveActivitySession.find_by_uid(@activity_session.uid)&.destroy if @activity_session.completed_at
     else
       status = :unprocessable_entity
@@ -60,7 +61,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   def destroy
-    if @activity_session.destroy!
+    if @activity_session.destroy
       render json: ActivitySession.new,
         meta: {
           status: 'success',
@@ -82,17 +83,14 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   private def handle_concept_results
     return if !@concept_results
 
-    @concept_results
-      .map { |cr| concept_results_hash(cr) }
-      .reject(&:empty?)
-      .each { |crh| SaveActivitySessionConceptResultsWorker.perform_async(crh) }
+    BatchSaveActivitySessionConceptResultsWorker.perform_async(@concept_results, @activity_session.id, @activity_session.uid)
+
   end
 
-  private def concept_results_hash(concept_result)
-    concept = Concept.find_by(uid: concept_result["concept_uid"])
-    return {} if concept.blank?
+  private def send_teacher_notifications
+    return unless @activity_session.completed_at.present?
 
-    concept_result.merge(concept_id: concept.id, activity_session_id: @activity_session.id)
+    TeacherNotifications::FanoutSendNotificationsWorker.perform_async(@activity_session.id)
   end
 
   private def find_activity_session
@@ -106,25 +104,11 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     time_tracking = clean_data&.fetch(ActivitySession::TIME_TRACKING_KEY, nil)
     timespent = ActivitySession.calculate_timespent(@activity_session, time_tracking)
 
-    record_long_timespent(timespent, @activity_session&.user_id, @activity_session&.id)
-
     params
       .permit(activity_session_permitted_params)
       .merge(data: clean_data&.permit!)
       .reject { |_, v| v.nil? }
       .merge(timespent: timespent)
-  end
-
-  private def record_long_timespent(timespent, user_id, activity_session_id)
-    return if timespent.nil?
-    return if timespent <= 3600
-
-    ErrorNotifier.report(
-      ActivitySession::LongTimeTrackingError.new,
-      activity_session_id: activity_session_id,
-      timespent: timespent,
-      user_id: user_id
-    )
   end
 
   private def transform_incoming_request

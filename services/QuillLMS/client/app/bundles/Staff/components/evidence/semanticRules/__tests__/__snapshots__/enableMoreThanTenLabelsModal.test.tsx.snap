@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EnableMoreThanLabelsModal matches the snapshot when modal is open 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container"
+  >
+    <div
+      class="enable-more-than-ten-labels-modal quill-modal modal-body"
+    >
+      <div>
+        <div
+          class="title-and-description"
+        >
+          <h2>
+            Vertex AI: Enable more than 10 labels
+          </h2>
+          <p
+            class="description"
+          >
+            When adding a vertex AI model through the Google Cloud UI, it will only allow us to pull 10 labels in automatically. This modal will allow you to manually specify the additional labels you want enabled on our platform.
+          </p>
+        </div>
+        <div
+          class="input-container  inactive  undefined "
+          role="button"
+          tabindex="-1"
+        >
+          <label
+            for="additionalLabels"
+          >
+            Additional labels (separated by commas)
+          </label>
+          <input
+            autocomplete="on"
+            id="additionalLabels"
+            maxlength="10000"
+            value=""
+          />
+        </div>
+        <div
+          class="save-and-cancel-buttons"
+        >
+          <button
+            class="quill-button medium secondary outlined focus-on-light"
+            type="button"
+          >
+            Cancel
+          </button>
+          <button
+            class="quill-button medium primary contained focus-on-light"
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

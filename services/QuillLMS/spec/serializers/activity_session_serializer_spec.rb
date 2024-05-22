@@ -11,30 +11,27 @@
 #  is_retry              :boolean          default(FALSE)
 #  percentage            :float
 #  started_at            :datetime
-#  state                 :string           default("unstarted"), not null
+#  state                 :string(255)      default("unstarted"), not null
 #  temporary             :boolean          default(FALSE)
 #  timespent             :integer
-#  uid                   :string
+#  uid                   :string(255)
 #  visible               :boolean          default(TRUE), not null
 #  created_at            :datetime
 #  updated_at            :datetime
 #  activity_id           :integer
 #  classroom_activity_id :integer
 #  classroom_unit_id     :integer
-#  pairing_id            :string
+#  pairing_id            :string(255)
 #  user_id               :integer
 #
 # Indexes
 #
-#  index_activity_sessions_on_activity_id            (activity_id)
-#  index_activity_sessions_on_classroom_activity_id  (classroom_activity_id)
-#  index_activity_sessions_on_classroom_unit_id      (classroom_unit_id)
-#  index_activity_sessions_on_completed_at           (completed_at)
-#  index_activity_sessions_on_pairing_id             (pairing_id)
-#  index_activity_sessions_on_started_at             (started_at)
-#  index_activity_sessions_on_state                  (state)
-#  index_activity_sessions_on_uid                    (uid) UNIQUE
-#  index_activity_sessions_on_user_id                (user_id)
+#  new_activity_sessions_activity_id_idx        (activity_id)
+#  new_activity_sessions_classroom_unit_id_idx  (classroom_unit_id)
+#  new_activity_sessions_completed_at_idx       (completed_at)
+#  new_activity_sessions_uid_idx                (uid) UNIQUE
+#  new_activity_sessions_uid_key                (uid) UNIQUE
+#  new_activity_sessions_user_id_idx            (user_id)
 #
 require 'rails_helper'
 

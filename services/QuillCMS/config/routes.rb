@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions, only: [], param: :question_uid do
-    get :responses, :multiple_choice_options, on: :member
+    get :responses, :multiple_choice_options, :responses_for_rematching, on: :member
   end
 
   # Sidekiq web interface

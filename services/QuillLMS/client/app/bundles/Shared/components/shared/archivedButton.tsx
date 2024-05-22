@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 const ArchivedButton = (props) => {
   let tagClass = 'tag';
@@ -17,4 +17,5 @@ const ArchivedButton = (props) => {
   )
 }
 
-export { ArchivedButton }
+export { ArchivedButton };
+

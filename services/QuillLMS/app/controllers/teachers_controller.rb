@@ -26,8 +26,9 @@ class TeachersController < ApplicationController
     end
   end
 
-  def admin_dashboard
+  def premium_hub
     if current_user.present? && current_user.admin? && !admin_impersonating_user?(current_user)
+      @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
       render 'admin'
     else
       redirect_to profile_path

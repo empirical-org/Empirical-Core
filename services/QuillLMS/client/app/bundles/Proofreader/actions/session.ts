@@ -1,9 +1,9 @@
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 
-import { ActionTypes } from './actionTypes'
+import { ActionTypes } from './actionTypes';
 
-import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivities'
-import { SessionApi } from '../lib/sessions_api'
+import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivities';
+import { SessionApi } from '../lib/sessions_api';
 
 export const updateSessionOnFirebase = (sessionID: string, session: { passage: Array<Array<WordObject>>|undefined, timeTracking: { [key:string]: number } }, callback: Function) => {
   return (dispatch: Function) => {

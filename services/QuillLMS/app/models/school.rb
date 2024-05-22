@@ -5,38 +5,38 @@
 # Table name: schools
 #
 #  id                    :integer          not null, primary key
-#  charter               :string
-#  city                  :string
-#  ethnic_group          :string
+#  charter               :string(255)
+#  city                  :string(255)
+#  ethnic_group          :string(255)
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
 #  latitude              :decimal(9, 6)
 #  longitude             :decimal(9, 6)
 #  lower_grade           :integer
-#  magnet                :string
-#  mail_city             :string
-#  mail_state            :string
-#  mail_street           :string
-#  mail_zipcode          :string
-#  name                  :string
-#  nces_status_code      :string
-#  nces_type_code        :string
-#  phone                 :string
+#  magnet                :string(255)
+#  mail_city             :string(255)
+#  mail_state            :string(255)
+#  mail_street           :string(255)
+#  mail_zipcode          :string(255)
+#  name                  :string(255)
+#  nces_status_code      :string(255)
+#  nces_type_code        :string(255)
+#  phone                 :string(255)
 #  ppin                  :string
 #  school_level          :integer
-#  state                 :string
-#  street                :string
+#  state                 :string(255)
+#  street                :string(255)
 #  total_students        :integer
 #  ulocal                :integer
 #  upper_grade           :integer
-#  zipcode               :string
+#  zipcode               :string(255)
 #  created_at            :datetime
 #  updated_at            :datetime
 #  authorizer_id         :integer
-#  clever_id             :string
+#  clever_id             :string(255)
 #  coordinator_id        :integer
 #  district_id           :bigint
-#  nces_id               :string
+#  nces_id               :string(255)
 #
 # Indexes
 #
@@ -58,6 +58,9 @@ class School < ApplicationRecord
   has_many :users, through: :schools_users
   has_many :schools_admins, class_name: 'SchoolsAdmins'
   has_many :admins, through: :schools_admins, source: :user
+  has_many :canvas_instance_schools, dependent: :destroy
+  has_many :canvas_instances, through: :canvas_instance_schools
+
   belongs_to :authorizer, class_name: 'User'
   belongs_to :coordinator, class_name: 'User'
   belongs_to :district
@@ -116,6 +119,21 @@ class School < ApplicationRecord
     12 => HIGH,
   }
 
+  LEAP_CSV_HEADERS = %w[
+    QuillID
+    DistrictID
+    StudentName
+    StudentEmail
+    TeacherName
+    ClassroomName
+    SchoolName
+    Percentage
+    Date
+    ActivityName
+    StandardName
+    MinutesSpent
+  ].freeze
+
   def self.school_year_start(time)
     time.month >= SCHOOL_YEAR_START_MONTH ? time.beginning_of_year + HALF_A_YEAR : time.beginning_of_year - HALF_A_YEAR
   end
@@ -145,9 +163,9 @@ class School < ApplicationRecord
     data[ulocal.to_s.to_sym]
   end
 
-  def generate_leap_csv(activities_since = Date.parse("2010-01-01"), options = {})
-    CSV.generate(options) do |csv_file|
-      csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
+  def generate_leap_csv(activities_since = Date.parse("2010-01-01"))
+    CSV.generate do |csv_file|
+      csv_file << LEAP_CSV_HEADERS
 
       students.each do |student|
         student.activity_sessions.where("completed_at >= ?", activities_since).where.not(completed_at: nil).each do |activity_session|

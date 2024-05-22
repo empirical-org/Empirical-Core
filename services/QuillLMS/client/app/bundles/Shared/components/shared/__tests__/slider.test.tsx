@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { TwoThumbSlider, OneThumbSlider } from '../slider'
+import { OneThumbSlider, TwoThumbSlider } from '../slider';
 
 const handleChange = () => {}
 

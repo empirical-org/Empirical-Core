@@ -1,8 +1,7 @@
-import * as React from 'react';
 
+import { ALL, BECAUSE, BUT, SO } from '../../../../constants/evidence';
 import { mockActivity } from '../../components/evidence/__mocks__/data';
 import { getPromptConjunction } from '../evidence/promptHelpers';
-import { BECAUSE, BUT, SO, ALL } from '../../../../constants/evidence';
 
 describe('Evidence helper functions', () => {
 

@@ -7,25 +7,25 @@
 #  id                    :integer          not null, primary key
 #  account_type          :string           default("unknown")
 #  active                :boolean          default(FALSE)
-#  classcode             :string
-#  email                 :string
+#  classcode             :string(255)
+#  email                 :string(255)
 #  flags                 :string           default([]), not null, is an Array
 #  flagset               :string           default("production"), not null
 #  ip_address            :inet
 #  last_active           :datetime
 #  last_sign_in          :datetime
-#  name                  :string
-#  password_digest       :string
-#  role                  :string           default("user")
+#  name                  :string(255)
+#  password_digest       :string(255)
+#  role                  :string(255)      default("user")
 #  send_newsletter       :boolean          default(FALSE)
 #  signed_up_with_google :boolean          default(FALSE)
 #  time_zone             :string
 #  title                 :string
-#  token                 :string
-#  username              :string
-#  created_at            :datetime
-#  updated_at            :datetime
-#  clever_id             :string
+#  token                 :string(255)
+#  username              :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  clever_id             :string(255)
 #  google_id             :string
 #  stripe_customer_id    :string
 #
@@ -50,13 +50,20 @@
 #  username_idx                       (username) USING gin
 #  users_to_tsvector_idx              (to_tsvector('english'::regconfig, (name)::text)) USING gin
 #  users_to_tsvector_idx1             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx10            (to_tsvector('english'::regconfig, (username)::text)) USING gin
+#  users_to_tsvector_idx11            (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
 #  users_to_tsvector_idx2             (to_tsvector('english'::regconfig, (role)::text)) USING gin
 #  users_to_tsvector_idx3             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #  users_to_tsvector_idx4             (to_tsvector('english'::regconfig, (username)::text)) USING gin
 #  users_to_tsvector_idx5             (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1))) USING gin
+#  users_to_tsvector_idx6             (to_tsvector('english'::regconfig, (name)::text)) USING gin
+#  users_to_tsvector_idx7             (to_tsvector('english'::regconfig, (email)::text)) USING gin
+#  users_to_tsvector_idx8             (to_tsvector('english'::regconfig, (role)::text)) USING gin
+#  users_to_tsvector_idx9             (to_tsvector('english'::regconfig, (classcode)::text)) USING gin
 #
 
 # rubocop:disable Metrics/ClassLength
+
 class User < ApplicationRecord
   include Student
   include Teacher
@@ -66,7 +73,7 @@ class User < ApplicationRecord
   include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
-  STAFF_SESSION_DURATION= 4.hours
+  STAFF_SESSION_DURATION= 12.hours
   USER_INACTIVITY_DURATION = 30.days
   USER_SESSION_DURATION = 30.days
 
@@ -92,7 +99,6 @@ class User < ApplicationRecord
   TEACHER_INFO_ROLES = [TEACHER, INDIVIDUAL_CONTRIBUTOR, ADMIN]
   ROLES              = [TEACHER, STUDENT, STAFF, SALES_CONTACT, ADMIN]
   SAFE_ROLES         = [STUDENT, TEACHER, SALES_CONTACT, ADMIN]
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   ALPHA = 'alpha'
   BETA = 'beta'
@@ -104,27 +110,42 @@ class User < ApplicationRecord
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
+  CANVAS_ACCOUNT = 'Canvas'
   CLEVER_ACCOUNT = 'Clever'
+  GOOGLE_CLASSROOM_ACCOUNT = 'Google Classroom'
 
-  attr_accessor :validate_username, :require_password_confirmation_when_password_present, :newsletter
+  CANVAS_PROVIDER = 'Canvas'
+  CLEVER_PROVIDER = 'Clever'
+  GOOGLE_PROVIDER = 'Google'
+
+  SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
+
+  attr_accessor :newsletter,
+    :require_password_confirmation_when_password_present,
+    :skip_capitalize_names_callback,
+    :validate_username
 
   has_secure_password validations: false
   has_one :admin_info, dependent: :destroy
   has_one :auth_credential, dependent: :destroy
   has_one :teacher_info, dependent: :destroy
   has_many :teacher_info_subject_areas, through: :teacher_info
+  has_many :teacher_notifications, dependent: :destroy
+  has_many :teacher_notification_settings, dependent: :destroy
   has_many :subject_areas, through: :teacher_info_subject_areas
   has_many :checkboxes
   has_many :credit_transactions
   has_many :invitations, foreign_key: 'inviter_id'
   has_many :objectives, through: :checkboxes
   has_many :user_activity_classifications, dependent: :destroy
+  has_many :user_logins, dependent: :destroy
   has_many :user_subscriptions
   has_many :subscriptions, through: :user_subscriptions
   has_many :activity_sessions
+  has_many :started_activities, through: :activity_sessions, source: :activity
+
   has_one :schools_users
-  has_one :sales_contact
+  has_one :sales_contact, dependent: :destroy
   has_one :school, through: :schools_users
   has_many :schools_i_coordinate, class_name: 'School', foreign_key: 'coordinator_id'
   has_many :schools_i_authorize, class_name: 'School', foreign_key: 'authorizer_id'
@@ -146,6 +167,8 @@ class User < ApplicationRecord
 
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
 
+  has_many :admin_approval_requests, dependent: :destroy, foreign_key: 'requestee_id'
+
   has_and_belongs_to_many :districts
   has_one :ip_location
   has_many :user_milestones
@@ -161,7 +184,24 @@ class User < ApplicationRecord
 
   has_one :user_email_verification, dependent: :destroy
 
-  accepts_nested_attributes_for :auth_credential
+  has_one :learn_worlds_account, dependent: :destroy
+
+  has_many :canvas_accounts, dependent: :destroy
+  has_many :canvas_instances, through: :canvas_accounts
+
+  has_many :administered_school_canvas_instance_schools, through: :administered_schools, source: :canvas_instance_schools
+
+  has_many :administered_school_canvas_instances_with_canvas_configs,
+    -> { joins(:canvas_config).where.not(canvas_configs: { id: nil }).distinct },
+    through: :administered_school_canvas_instance_schools,
+    source: :canvas_instance
+
+  has_many :administered_school_canvas_configs, through: :administered_school_canvas_instances_with_canvas_configs, source: :canvas_config
+
+  has_many :admin_report_filter_selections, dependent: :destroy
+  has_many :pdf_subscriptions, through: :admin_report_filter_selections
+
+  accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
   delegate :name, :mail_city, :mail_state,
     to: :school,
@@ -204,15 +244,27 @@ class User < ApplicationRecord
 
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
-  before_save :capitalize_name
+  before_save :capitalize_name, if: proc { will_save_change_to_name? && !skip_capitalize_names_callback }
   before_save :set_time_zone, unless: :time_zone
-  after_save  :update_invitee_email_address, if: proc { saved_change_to_email? }
+  before_update :track_google_student_set_password, if: proc { google_student_set_password? }
+  after_save :update_invitee_email_address, if: proc { saved_change_to_email? }
   after_save :check_for_school
   after_create :generate_referrer_id, if: proc { teacher? }
+  after_create :generate_default_teacher_info, if: :teacher?
+  after_create :generate_default_teacher_notification_settings, if: :teacher?
 
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
+  scope :admin, ->  { where(role: ADMIN) }
+
+  scope :teachers_in_schools, lambda { |school_ids|
+    distinct
+      .joins(:schools_users)
+      .left_outer_joins(:classrooms_teachers)
+      .joins("LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id")
+      .where(schools_users: { school_id: school_ids })
+  }
 
   def self.deleted_users
     where(
@@ -230,6 +282,10 @@ class User < ApplicationRecord
     else
       User.find_by!(email: email)
     end
+  end
+
+  def self.find_by_canvas_user_external_ids(user_external_ids)
+    where(id: CanvasAccount.custom_find_by_user_external_ids(user_external_ids).pluck(:user_id))
   end
 
   def self.valid_email?(email)
@@ -259,8 +315,26 @@ class User < ApplicationRecord
     user_email_verification.verify(verification_method, verification_token)
   end
 
+  def email_verification_status
+    return UserEmailVerification::PENDING if email_verification_pending?
+
+    return UserEmailVerification::VERIFIED if email_verified?
+
+    return nil
+  end
+
+  def email_verification_status=(status)
+    case status
+    when UserEmailVerification::VERIFIED
+      verify_email(UserEmailVerification::STAFF_VERIFICATION)
+    when UserEmailVerification::PENDING
+      require_email_verification
+      user_email_verification.update(verification_method: nil, verified_at: nil)
+    end
+  end
+
   def testing_flag
-    role == STAFF ? ARCHIVED : flags.detect{|f| TESTING_FLAGS.include?(f)}
+    role == STAFF ? ARCHIVED : flags.find { |f| TESTING_FLAGS.include?(f) }
   end
 
   def auditor?
@@ -326,21 +400,21 @@ class User < ApplicationRecord
     subscriptions.active
   end
 
-  def create(*args)
+  def create(*args, **options)
     super
   rescue ActiveRecord::RecordNotUnique => e
     errors.add(:db_level, e)
     false
   end
 
-  def update(*args)
+  def update(*args, **options)
     super
   rescue ActiveRecord::RecordNotUnique => e
     errors.add(:db_level, e)
     false
   end
 
-  def create_or_update(*args)
+  def create_or_update(*args, **options)
     super
   rescue ActiveRecord::RecordNotUnique => e
     errors.add(:db_level, e)
@@ -352,7 +426,7 @@ class User < ApplicationRecord
   end
 
   def username_cannot_be_an_email
-    return unless username =~ VALID_EMAIL_REGEX
+    return unless ValidatesEmailFormatOf.validate_email_format(username).nil?
 
     if new_record?
       errors.add(:username, :invalid)
@@ -397,16 +471,7 @@ class User < ApplicationRecord
   end
 
   def capitalize_name
-    result = name
-    if name.present?
-      f,l = name.split(/\s+/, 2)
-      if f.present? and l.present?
-        result = "#{f.capitalize} #{l.gsub(/\S+/, &:capitalize)}"
-      else
-        result = name.capitalize
-      end
-    end
-    self.name = result
+    self.name = ::CapitalizeNames.capitalize(name)
   end
 
   def admin?
@@ -608,15 +673,14 @@ class User < ApplicationRecord
     user_attributes[:subscription]['subscriptionType'] = premium_state
     user_attributes[:minimum_grade_level] = teacher_info&.minimum_grade_level
     user_attributes[:maximum_grade_level] = teacher_info&.maximum_grade_level
+    user_attributes[:notification_email_frequency] = teacher_info&.notification_email_frequency
+    user_attributes[:show_students_exact_score] = teacher_info&.show_students_exact_score
+    user_attributes[:teacher_notification_settings] = teacher_notification_settings_info
     user_attributes[:subject_area_ids] = subject_area_ids
 
-    if school && school.name
-      user_attributes[:school] = school
-      user_attributes[:school_type] = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME
-    else
-      user_attributes[:school] = School.find_by_name(School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
-      user_attributes[:school_type] = School::US_K12_SCHOOL_DISPLAY_NAME
-    end
+    user_attributes[:school] = school_account_info
+    user_attributes[:school_type] = school_type_account_info
+
     user_attributes
   end
 
@@ -650,16 +714,24 @@ class User < ApplicationRecord
     self.username = GenerateUsername.run(first_name, last_name, get_class_code(classroom_id))
   end
 
+  def canvas_authorized?
+    auth_credential.present? && auth_credential.canvas_authorized?
+  end
+
   def clever_authorized?
-    clever_id && auth_credential&.clever_authorized?
+    clever_id.present? && auth_credential.present? && auth_credential.clever_authorized?
   end
 
   def google_authorized?
-    google_id && auth_credential&.google_authorized?
+    google_id.present? && auth_credential.present? && auth_credential.google_authorized?
   end
 
   def google_access_expired?
-    google_id && auth_credential&.google_access_expired?
+    google_id.present? && auth_credential.present? && auth_credential.google_access_expired?
+  end
+
+  def google_access_expired_and_no_password?
+    google_access_expired? && password_digest.nil?
   end
 
   # Note this is an incremented count, so could be off.
@@ -716,8 +788,7 @@ class User < ApplicationRecord
   end
 
   def set_time_zone
-    z = ::Ziptz.new
-    school_timezone = z.time_zone_name(school&.zipcode || school&.mail_zipcode)
+    school_timezone = ::Ziptz.instance.time_zone_name(school&.zipcode || school&.mail_zipcode)
 
     if school_timezone.present?
       self.time_zone = school_timezone
@@ -739,6 +810,14 @@ class User < ApplicationRecord
     units.where('name ILIKE ?', name)
   end
 
+  def admin_verification_reason
+    admin_info&.verification_reason
+  end
+
+  def admin_verification_url
+    admin_info&.verification_url
+  end
+
   def admin_sub_role
     admin_info&.sub_role
   end
@@ -753,6 +832,80 @@ class User < ApplicationRecord
     else
       AdminInfo.create(sub_role: sub_role, user_id: id)
     end
+  end
+
+  def learn_worlds_access?
+    school_premium? || district_premium? || learn_worlds_access_override?
+  end
+
+  def learn_worlds_access_override?
+    AppSetting.enabled?(name: AppSetting::LEARN_WORLDS_ACCESS_OVERRIDE, user: self)
+  end
+
+  def premium_admin?
+    admin? && school_or_district_premium?
+  end
+
+  def school_premium?
+    school&.subscription&.present?
+  end
+
+  def district_premium?
+    school&.district&.subscription&.present?
+  end
+
+  def school_or_district_premium?
+    school_premium? || district_premium?
+  end
+
+  def should_render_teacher_premium?
+    premium_state == 'paid' && Subscription::OFFICIAL_TEACHER_TYPES.include?(subscription&.account_type)
+  end
+
+  def receives_notification_type?(type)
+    teacher_notification_settings.exists?(notification_type: type)
+  end
+
+  def save_user_pack_sequence_items
+    classrooms.each { |classroom| SaveUserPackSequenceItemsWorker.perform_async(classroom.id, id) }
+  end
+
+  def record_login
+    user_logins.create
+  end
+
+  def provider
+    return GOOGLE_PROVIDER if google_id.present?
+    return CLEVER_PROVIDER if clever_id.present?
+    return CANVAS_PROVIDER if canvas_accounts.present?
+  end
+
+  def user_external_id(canvas_instance: nil)
+    return google_id if google_id.present?
+
+    return clever_id if clever_id.present?
+
+    return nil unless canvas_instance.is_a?(CanvasInstance)
+
+    canvas_accounts
+      .find_by(canvas_instance: canvas_instance)
+      &.user_external_id
+  end
+
+  def unlink_clever_and_google_accounts!
+    update!(clever_id: nil, google_id: nil, signed_up_with_google: false)
+  end
+
+  def unlink_google_account!
+    update!(google_id: nil, signed_up_with_google: false)
+  end
+
+  def track_google_student_set_password
+    Analytics::SegmentAnalytics.new.track_google_student_set_password(self, teacher_of_student)
+  end
+
+  def google_student_set_password?
+    student? && google_id.present? && password_digest_changed? && password_digest_was.nil?
   end
 
   private def validate_flags
@@ -795,8 +948,7 @@ class User < ApplicationRecord
   end
 
   private def requires_password?
-    return false if clever_id
-    return false if signed_up_with_google
+    return false if clever_id || google_id || canvas_accounts.present?
 
     permanent? && new_record?
   end
@@ -808,7 +960,34 @@ class User < ApplicationRecord
   end
 
   private def update_invitee_email_address
-    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email)
+    Invitation.where(invitee_email: email_before_last_save).update_all(invitee_email: email, updated_at: DateTime.current)
+  end
+
+  private def generate_default_teacher_info
+    # in addition to setting the notification_email_frequency here, show_students_exact_score is also being set to true automatically on creation
+    create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
+  end
+
+  private def generate_default_teacher_notification_settings
+    TeacherNotificationSetting::DEFAULT_FOR_NEW_USERS.each do |notification_type|
+      teacher_notification_settings.create!(notification_type: notification_type)
+    end
+  end
+
+  private def teacher_notification_settings_info
+    teacher_notification_settings.rollup_hash
+  end
+
+  private def school_account_info
+    return school if school&.name
+
+    School.find_by(name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
+  end
+
+  private def school_type_account_info
+    return (School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME) if school&.name
+
+    School::US_K12_SCHOOL_DISPLAY_NAME
   end
 end
 # rubocop:enable Metrics/ClassLength

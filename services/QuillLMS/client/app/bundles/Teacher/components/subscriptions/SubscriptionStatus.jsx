@@ -1,15 +1,16 @@
-import React from 'react';
 import moment from 'moment';
 import pluralize from 'pluralize';
+import React from 'react';
 
 import {
-  TEACHER_PREMIUM_TRIAL,
-  TEACHER_PREMIUM_CREDIT,
-  TEACHER_PREMIUM_SCHOLARSHIP,
-  TEACHER_PREMIUM,
+  DISTRICT_PREMIUM,
+  SALESMATE_RENEWAL_FORM_URL,
   SCHOOL_PREMIUM,
   SCHOOL_PREMIUM_SCHOLARSHIP,
-  DISTRICT_PREMIUM
+  TEACHER_PREMIUM,
+  TEACHER_PREMIUM_CREDIT,
+  TEACHER_PREMIUM_SCHOLARSHIP,
+  TEACHER_PREMIUM_TRIAL
 } from './constants';
 
 import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';
@@ -171,7 +172,9 @@ const SubscriptionStatus = ({
         content.buttonOrDate = (
           <a
             className={CTA_BUTTON_CLASSNAME}
-            href="mailto:sales@quill.org"
+            href={SALESMATE_RENEWAL_FORM_URL}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             Contact us to renew
           </a>
@@ -196,14 +199,14 @@ const SubscriptionStatus = ({
 
   return (
     <section className="subscription-status">
-      <div className="flex-row space-between">
-        <div className="box-and-h2 flex-row space-between">
+      <div className="upper-section">
+        <div className="left-side-container">
           <div className="box" style={{ backgroundColor: content.boxColor, }} />
           {content.status}
         </div>
         {content.buttonOrDate}
       </div>
-      <p>{content.premiumCopy}</p>
+      <p className="premium-subscription-copy">{content.premiumCopy}</p>
     </section>
   );
 }

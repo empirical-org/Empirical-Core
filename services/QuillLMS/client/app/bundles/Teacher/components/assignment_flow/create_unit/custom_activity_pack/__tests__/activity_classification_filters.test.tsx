@@ -1,8 +1,8 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
-import ActivityClassificationFilters from '../activity_classification_filters'
+import ActivityClassificationFilters from '../activity_classification_filters';
+import { activities } from './data';
 
 function filterActivities(ignoredKey=null) { return activities }
 

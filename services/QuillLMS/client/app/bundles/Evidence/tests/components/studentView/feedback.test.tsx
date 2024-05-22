@@ -1,11 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
 import Feedback from '../../../components/studentView/feedback';
-
-jest.mock('string-strip-html', () => ({
-  default: jest.fn()
-}));
 
 const mockProps = {
   lastSubmittedResponse: [{}],

@@ -87,6 +87,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "merge activity packs",
               "delete last activity sessions",
               "remove unsynced students from classes",
+              "recalculate staggered release locks",
             ],
             "user management": Array [
               "users",
@@ -147,6 +148,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "merge activity packs",
               "delete last activity sessions",
               "remove unsynced students from classes",
+              "recalculate staggered release locks",
             ],
             "user management": Array [
               "users",
@@ -196,6 +198,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "merge activity packs",
               "delete last activity sessions",
               "remove unsynced students from classes",
+              "recalculate staggered release locks",
             ],
             "tools": Array [
               "evidence",

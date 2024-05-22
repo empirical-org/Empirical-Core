@@ -1,12 +1,11 @@
-import React from 'react'
+import { ContentState, EditorState } from 'draft-js';
+import React from 'react';
 import {
-  TextEditor,
-  FlagDropdown
+  FlagDropdown,
+  TextEditor
 } from '../../../Shared/index';
-import { EditorState, ContentState } from 'draft-js'
-import _ from 'lodash'
-import ConceptSelector from '../shared/conceptSelector.jsx'
-import C from '../../constants.js'
+import C from '../../constants.js';
+import ConceptSelector from '../shared/conceptSelector.jsx';
 
 export default class extends React.Component {
   state = {
@@ -17,11 +16,19 @@ export default class extends React.Component {
     cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
     optimalResponseText: '',
     showDefaultInstructions: false,
+    showConceptNullError: false,
   };
 
   submit = () => {
+    const { concept } = this.state
+
+    if (!concept) {
+      this.setState({showConceptNullError: true})
+      return
+    }
+
     const questionObj = {
-      conceptUID: this.props.question.conceptUID,
+      conceptID: concept,
       cuesLabel: this.props.question.cuesLabel,
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
@@ -33,7 +40,7 @@ export default class extends React.Component {
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.state.optimalResponseText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
+      const optimalResponseObj = {text: this.state.optimalResponseText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!", concept_results: [{conceptUID: concept, correct: true}]}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept
@@ -77,14 +84,18 @@ export default class extends React.Component {
   };
 
   renderConceptSelector = () => {
+    const { showConceptNullError } = this.state
+    const labelClass = showConceptNullError ? 'red-label' : ''
+
     return (
       <div>
-        <label className="label">Concept</label>
+        <label className={`label ${labelClass}`}>Concept</label>
         <div>
           <ConceptSelector
             currentConceptUID={this.state.concept}
             handleSelectorChange={this.handleSelectorChange}
           />
+          {showConceptNullError && <p className={labelClass}>Add a concept to save this question</p>}
         </div>
       </div>
     )

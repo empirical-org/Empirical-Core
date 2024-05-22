@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Evidence
-  require 'json'
-
   class FeedbackController < ApiController
     before_action :set_params, only: [:create]
 

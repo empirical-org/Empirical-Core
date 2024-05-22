@@ -51,6 +51,19 @@ const headers3 = [
   }
 ]
 
+const headers4 = [
+  {
+    name: 'Diagnostic',
+    attribute: 'name',
+    width: '200px'
+  },
+  {
+    name: 'Average Score',
+    attribute: 'average_score',
+    width: '100px'
+  }
+]
+
 const rows1 = [
   {
     name: 'Maya Angelou',
@@ -145,16 +158,80 @@ const rows3 = [
   }
 ]
 
+const rows4 = [
+  {
+    name: 'Starter Diagnostic',
+    id: 1,
+    average_score: "75%",
+    aggregate_rows: [
+      {
+        id: 1,
+        name: 'Grade 6',
+        average_score: '50%'
+      },
+      {
+        id: 2,
+        name: 'Grade 7',
+        average_score: '100%'
+      },
+    ]
+  },
+  {
+    name: 'Intermediate Diagnostic',
+    id: 2,
+    average_score: "85%",
+    aggregate_rows: [
+      {
+        id: 1,
+        name: 'Grade 6',
+        average_score: '80%'
+      },
+      {
+        id: 2,
+        name: 'Grade 7',
+        average_score: '90%'
+      },
+    ]
+  },
+  {
+    name: 'Advanced Diagnostic',
+    id: 3,
+    average_score: "90%",
+    aggregate_rows: [
+      {
+        id: 1,
+        name: 'Grade 6',
+        average_score: '100%'
+      },
+      {
+        id: 2,
+        name: 'Grade 7',
+        average_score: '80%'
+      },
+    ]
+  }
+]
+
 class DataTables extends React.Component<any, any> {
   constructor(props) {
     super(props)
 
-    this.state = { checkedIds: [] }
+    this.state = { checkedIds: [], orderableRows: rows3 }
 
     this.checkRow = this.checkRow.bind(this)
     this.uncheckRow = this.uncheckRow.bind(this)
     this.checkAllRows = this.checkAllRows.bind(this)
     this.uncheckAllRows = this.uncheckAllRows.bind(this)
+  }
+
+  sortCallback = (sortInfo) => {
+    const { orderableRows, } = this.state
+    const newRows = sortInfo.map(item => {
+      const { key } = item;
+      return orderableRows.find(r => String(r.id) === String(key))
+    });
+
+    this.setState({ orderableRows: newRows, })
   }
 
   checkAllRows() {
@@ -181,6 +258,8 @@ class DataTables extends React.Component<any, any> {
   }
 
   render() {
+    const { orderableRows, } = this.state
+
     const checkedRows = rows2.map(row => {
       row.checked = this.state.checkedIds.includes(row.id)
       return row
@@ -206,6 +285,27 @@ const headers1 = ${JSON.stringify(headers1)}
               <DataTable
                 headers={headers1}
                 rows={rows1}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="element-container">
+          <div>
+            <h4 className="style-guide-h4">Data table with aggregate row data</h4>
+            <pre>
+              {`
+const rows1 = ${JSON.stringify(rows4)}
+const headers1 = ${JSON.stringify(headers4)}
+<DataTable
+  rows={rows4}
+  headers={headers4}
+/>
+`}
+            </pre>
+            <div className="data-tables-container">
+              <DataTable
+                headers={headers4}
+                rows={rows4}
               />
             </div>
           </div>
@@ -309,6 +409,52 @@ const headers3 = ${JSON.stringify(headers3)}
             </div>
           </div>
         </div>
+
+        <div className="element-container">
+          <div>
+            <h4 className="style-guide-h4">Data table with ordering</h4>
+            <pre>
+              {`
+  export class DataTableWrapper {
+    constructor(props) {
+      super(props)
+
+      this.state = { rows: ${JSON.stringify(rows3)} }
+    }
+
+    sortCallback = (sortInfo) => {
+      const { rows, } = this.state
+      const newRows = sortInfo.map(item => {
+        const { key } = item;
+        return rows.find(r => String(r.id) === String(key))
+      });
+      this.setState({ rows: newRows, })
+    }
+
+    render() {
+      const headers3 = ${JSON.stringify(headers3)}
+
+      return <DataTable
+        headers={headers3}
+        isReorderable={true}
+        reorderCallback={this.sortCallback}
+        rows={rows}
+      />
+    }
+  }
+`}
+            </pre>
+            <div className="data-tables-container">
+              <DataTable
+                headers={headers3}
+                isReorderable={true}
+                reorderCallback={this.sortCallback}
+                rows={orderableRows}
+              />
+            </div>
+          </div>
+        </div>
+
       </div>
     )
   }

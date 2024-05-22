@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProgessBar
+class ProgressBar
   def initialize(total)
     @total = total
     @counter = 1

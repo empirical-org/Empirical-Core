@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: heroku_ext; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA heroku_ext;
+
+
+--
 -- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -24,6 +31,20 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -35,6 +56,20 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
 --
 
 COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+--
+-- Name: vector; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS vector WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION vector; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION vector IS 'vector data type and ivfflat and hnsw access methods';
 
 
 --
@@ -110,7 +145,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -125,11 +160,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -153,11 +188,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -172,7 +207,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -254,22 +289,23 @@ ALTER SEQUENCE public.active_activity_sessions_id_seq OWNED BY public.active_act
 
 CREATE TABLE public.activities (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     description text,
-    uid character varying NOT NULL,
+    uid character varying(255) NOT NULL,
     data jsonb,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    flags character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
     repeatable boolean DEFAULT true,
     follow_up_activity_id integer,
     supporting_info character varying,
     standard_id integer,
     raw_score_id integer,
-    minimum_grade_level smallint,
-    maximum_grade_level smallint
+    minimum_grade_level integer,
+    maximum_grade_level integer,
+    question_count smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -278,7 +314,6 @@ CREATE TABLE public.activities (
 --
 
 CREATE SEQUENCE public.activities_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -343,7 +378,6 @@ CREATE TABLE public.activity_categories (
 --
 
 CREATE SEQUENCE public.activity_categories_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -377,7 +411,6 @@ CREATE TABLE public.activity_category_activities (
 --
 
 CREATE SEQUENCE public.activity_category_activities_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -398,14 +431,14 @@ ALTER SEQUENCE public.activity_category_activities_id_seq OWNED BY public.activi
 
 CREATE TABLE public.activity_classifications (
     id integer NOT NULL,
-    name character varying,
-    key character varying NOT NULL,
-    form_url character varying,
-    uid character varying NOT NULL,
-    module_url character varying,
+    name character varying(255),
+    key character varying(255) NOT NULL,
+    form_url character varying(255),
+    uid character varying(255) NOT NULL,
+    module_url character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    app_name character varying,
+    app_name character varying(255),
     order_number integer DEFAULT 999999999,
     instructor_mode boolean DEFAULT false,
     locked_by_default boolean DEFAULT false,
@@ -418,7 +451,6 @@ CREATE TABLE public.activity_classifications (
 --
 
 CREATE SEQUENCE public.activity_classifications_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -484,11 +516,11 @@ CREATE TABLE public.activity_sessions (
     classroom_activity_id integer,
     activity_id integer,
     user_id integer,
-    pairing_id character varying,
+    pairing_id character varying(255),
     percentage double precision,
-    state character varying DEFAULT 'unstarted'::character varying NOT NULL,
+    state character varying(255) DEFAULT 'unstarted'::character varying NOT NULL,
     completed_at timestamp without time zone,
-    uid character varying,
+    uid character varying(255),
     temporary boolean DEFAULT false,
     data jsonb,
     created_at timestamp without time zone,
@@ -507,7 +539,6 @@ CREATE TABLE public.activity_sessions (
 --
 
 CREATE SEQUENCE public.activity_sessions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -595,7 +626,7 @@ CREATE TABLE public.admin_accounts (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    name character varying
+    name character varying(255)
 );
 
 
@@ -617,7 +648,6 @@ CREATE TABLE public.admin_accounts_admins (
 --
 
 CREATE SEQUENCE public.admin_accounts_admins_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -637,7 +667,6 @@ ALTER SEQUENCE public.admin_accounts_admins_id_seq OWNED BY public.admin_account
 --
 
 CREATE SEQUENCE public.admin_accounts_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -670,7 +699,6 @@ CREATE TABLE public.admin_accounts_teachers (
 --
 
 CREATE SEQUENCE public.admin_accounts_teachers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -686,6 +714,39 @@ ALTER SEQUENCE public.admin_accounts_teachers_id_seq OWNED BY public.admin_accou
 
 
 --
+-- Name: admin_approval_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_approval_requests (
+    id bigint NOT NULL,
+    admin_info_id bigint,
+    requestee_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    request_made_during_sign_up boolean DEFAULT false
+);
+
+
+--
+-- Name: admin_approval_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_approval_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_approval_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_approval_requests_id_seq OWNED BY public.admin_approval_requests.id;
+
+
+--
 -- Name: admin_infos; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -697,7 +758,8 @@ CREATE TABLE public.admin_infos (
     verification_reason text,
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    approver_role character varying
 );
 
 
@@ -718,6 +780,39 @@ CREATE SEQUENCE public.admin_infos_id_seq
 --
 
 ALTER SEQUENCE public.admin_infos_id_seq OWNED BY public.admin_infos.id;
+
+
+--
+-- Name: admin_report_filter_selections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.admin_report_filter_selections (
+    id bigint NOT NULL,
+    report character varying NOT NULL,
+    filter_selections jsonb NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.admin_report_filter_selections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: admin_report_filter_selections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.admin_report_filter_selections_id_seq OWNED BY public.admin_report_filter_selections.id;
 
 
 --
@@ -797,8 +892,8 @@ ALTER SEQUENCE public.app_settings_id_seq OWNED BY public.app_settings.id;
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -813,9 +908,9 @@ CREATE TABLE public.auth_credentials (
     expires_at timestamp without time zone,
     "timestamp" timestamp without time zone,
     access_token character varying NOT NULL,
-    provider character varying NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    type character varying NOT NULL
 );
 
 
@@ -845,7 +940,7 @@ ALTER SEQUENCE public.auth_credentials_id_seq OWNED BY public.auth_credentials.i
 
 CREATE TABLE public.authors (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     avatar text
 );
 
@@ -855,7 +950,6 @@ CREATE TABLE public.authors (
 --
 
 CREATE SEQUENCE public.authors_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -929,7 +1023,8 @@ CREATE TABLE public.blog_posts (
     order_number integer,
     image_link character varying,
     press_name character varying,
-    featured_order_number integer
+    featured_order_number integer,
+    footer_content text DEFAULT ''::text
 );
 
 
@@ -954,14 +1049,173 @@ ALTER SEQUENCE public.blog_posts_id_seq OWNED BY public.blog_posts.id;
 
 
 --
+-- Name: canvas_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_accounts (
+    id bigint NOT NULL,
+    external_id character varying NOT NULL,
+    user_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_accounts_id_seq OWNED BY public.canvas_accounts.id;
+
+
+--
+-- Name: canvas_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_configs (
+    id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    client_id text NOT NULL,
+    client_secret text NOT NULL
+);
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_configs_id_seq OWNED BY public.canvas_configs.id;
+
+
+--
+-- Name: canvas_instance_auth_credentials; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instance_auth_credentials (
+    id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    auth_credential_id bigint NOT NULL
+);
+
+
+--
+-- Name: canvas_instance_auth_credentials_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instance_auth_credentials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instance_auth_credentials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instance_auth_credentials_id_seq OWNED BY public.canvas_instance_auth_credentials.id;
+
+
+--
+-- Name: canvas_instance_schools; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instance_schools (
+    id bigint NOT NULL,
+    school_id bigint NOT NULL,
+    canvas_instance_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instance_schools_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instance_schools_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instance_schools_id_seq OWNED BY public.canvas_instance_schools.id;
+
+
+--
+-- Name: canvas_instances; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.canvas_instances (
+    id bigint NOT NULL,
+    url character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.canvas_instances_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: canvas_instances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.canvas_instances_id_seq OWNED BY public.canvas_instances.id;
+
+
+--
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.categories (
     id integer NOT NULL,
     title text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -970,7 +1224,6 @@ CREATE TABLE public.categories (
 --
 
 CREATE SEQUENCE public.categories_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -993,8 +1246,8 @@ CREATE TABLE public.change_logs (
     id integer NOT NULL,
     explanation text,
     action character varying NOT NULL,
-    changed_record_type character varying NOT NULL,
     changed_record_id integer,
+    changed_record_type character varying NOT NULL,
     user_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -1043,7 +1296,6 @@ CREATE TABLE public.checkboxes (
 --
 
 CREATE SEQUENCE public.checkboxes_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1084,7 +1336,6 @@ CREATE TABLE public.classroom_activities (
 --
 
 CREATE SEQUENCE public.classroom_activities_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1178,13 +1429,12 @@ ALTER SEQUENCE public.classroom_units_id_seq OWNED BY public.classroom_units.id;
 
 CREATE TABLE public.classrooms (
     id integer NOT NULL,
-    name character varying,
-    code character varying,
-    teacher_id integer,
+    name character varying(255),
+    code character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying,
-    grade character varying,
+    clever_id character varying(255),
+    grade character varying(255),
     visible boolean DEFAULT true NOT NULL,
     google_classroom_id bigint,
     grade_level integer,
@@ -1197,7 +1447,6 @@ CREATE TABLE public.classrooms (
 --
 
 CREATE SEQUENCE public.classrooms_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1233,7 +1482,6 @@ CREATE TABLE public.classrooms_teachers (
 --
 
 CREATE SEQUENCE public.classrooms_teachers_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1246,6 +1494,42 @@ CREATE SEQUENCE public.classrooms_teachers_id_seq
 --
 
 ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teachers.id;
+
+
+--
+-- Name: comments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comments (
+    id integer NOT NULL,
+    title character varying(255),
+    body text,
+    user_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    ancestry character varying(255),
+    reply_type character varying(255),
+    lecture_chapter_id integer
+);
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
@@ -1949,11 +2233,11 @@ ALTER SEQUENCE public.concept_results_id_seq OWNED BY public.concept_results.id;
 
 CREATE TABLE public.concepts (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     parent_id integer,
-    uid character varying NOT NULL,
+    uid character varying(255) NOT NULL,
     replacement_id integer,
     visible boolean DEFAULT true,
     description text,
@@ -1966,7 +2250,6 @@ CREATE TABLE public.concepts (
 --
 
 CREATE SEQUENCE public.concepts_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2066,7 +2349,6 @@ CREATE TABLE public.coteacher_classroom_invitations (
 --
 
 CREATE SEQUENCE public.coteacher_classroom_invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2089,8 +2371,8 @@ CREATE TABLE public.credit_transactions (
     id integer NOT NULL,
     amount integer NOT NULL,
     user_id integer NOT NULL,
-    source_type character varying,
     source_id integer,
+    source_type character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -2155,13 +2437,13 @@ ALTER SEQUENCE public.criteria_id_seq OWNED BY public.criteria.id;
 
 CREATE TABLE public.csv_exports (
     id integer NOT NULL,
-    export_type character varying,
+    export_type character varying(255),
     emailed_at timestamp without time zone,
     filters json,
     teacher_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    csv_file character varying
+    csv_file character varying(255)
 );
 
 
@@ -2170,7 +2452,6 @@ CREATE TABLE public.csv_exports (
 --
 
 CREATE SEQUENCE public.csv_exports_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2183,6 +2464,71 @@ CREATE SEQUENCE public.csv_exports_id_seq
 --
 
 ALTER SEQUENCE public.csv_exports_id_seq OWNED BY public.csv_exports.id;
+
+
+--
+-- Name: diagnostic_question_optimal_concepts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.diagnostic_question_optimal_concepts (
+    id bigint NOT NULL,
+    question_uid character varying NOT NULL,
+    concept_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: diagnostic_question_optimal_concepts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.diagnostic_question_optimal_concepts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: diagnostic_question_optimal_concepts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.diagnostic_question_optimal_concepts_id_seq OWNED BY public.diagnostic_question_optimal_concepts.id;
+
+
+--
+-- Name: diagnostic_question_skills; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.diagnostic_question_skills (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    question_id bigint NOT NULL,
+    skill_group_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: diagnostic_question_skills_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.diagnostic_question_skills_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: diagnostic_question_skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.diagnostic_question_skills_id_seq OWNED BY public.diagnostic_question_skills.id;
 
 
 --
@@ -2255,9 +2601,9 @@ ALTER SEQUENCE public.district_subscriptions_id_seq OWNED BY public.district_sub
 
 CREATE TABLE public.districts (
     id integer NOT NULL,
-    clever_id character varying,
-    name character varying NOT NULL,
-    token character varying,
+    clever_id character varying(255),
+    name character varying(255) NOT NULL,
+    token character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     nces_id bigint,
@@ -2276,7 +2622,6 @@ CREATE TABLE public.districts (
 --
 
 CREATE SEQUENCE public.districts_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2340,6 +2685,43 @@ CREATE SEQUENCE public.evidence_activity_healths_id_seq
 --
 
 ALTER SEQUENCE public.evidence_activity_healths_id_seq OWNED BY public.evidence_activity_healths.id;
+
+
+--
+-- Name: evidence_automl_models; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_automl_models (
+    id bigint NOT NULL,
+    model_external_id character varying NOT NULL,
+    endpoint_external_id character varying NOT NULL,
+    name character varying NOT NULL,
+    labels character varying[] DEFAULT '{}'::character varying[],
+    prompt_id bigint,
+    state character varying NOT NULL,
+    notes text DEFAULT ''::text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_automl_models_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_automl_models_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_automl_models_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_automl_models_id_seq OWNED BY public.evidence_automl_models.id;
 
 
 --
@@ -2425,14 +2807,482 @@ ALTER SEQUENCE public.evidence_prompt_healths_id_seq OWNED BY public.evidence_pr
 
 
 --
+-- Name: evidence_prompt_response_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_response_feedbacks (
+    id bigint NOT NULL,
+    prompt_response_id integer NOT NULL,
+    feedback text NOT NULL,
+    metadata jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_response_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_response_feedbacks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_response_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_response_feedbacks_id_seq OWNED BY public.evidence_prompt_response_feedbacks.id;
+
+
+--
+-- Name: evidence_prompt_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_responses (
+    id bigint NOT NULL,
+    prompt_id integer NOT NULL,
+    response_text text NOT NULL,
+    embedding public.vector(1536) NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_responses_id_seq OWNED BY public.evidence_prompt_responses.id;
+
+
+--
+-- Name: evidence_prompt_text_batches; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_text_batches (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    prompt_id integer NOT NULL,
+    config jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_text_batches_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_text_batches_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_text_batches_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_text_batches_id_seq OWNED BY public.evidence_prompt_text_batches.id;
+
+
+--
+-- Name: evidence_prompt_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_prompt_texts (
+    id bigint NOT NULL,
+    prompt_text_batch_id integer NOT NULL,
+    text_generation_id integer NOT NULL,
+    text character varying NOT NULL,
+    label character varying,
+    ml_type character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_prompt_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_prompt_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_prompt_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_prompt_texts_id_seq OWNED BY public.evidence_prompt_texts.id;
+
+
+--
+-- Name: evidence_research_gen_ai_example_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_example_feedbacks (
+    id bigint NOT NULL,
+    passage_prompt_response_id integer NOT NULL,
+    text text NOT NULL,
+    label character varying NOT NULL,
+    paraphrase text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    data_partition character varying
+);
+
+
+--
+-- Name: evidence_research_gen_ai_example_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_example_feedbacks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_example_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_example_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_example_feedbacks.id;
+
+
+--
+-- Name: evidence_research_gen_ai_experiments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_experiments (
+    id bigint NOT NULL,
+    passage_prompt_id integer NOT NULL,
+    llm_config_id integer NOT NULL,
+    llm_prompt_id integer NOT NULL,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    experiment_errors text[] DEFAULT '{}'::text[] NOT NULL,
+    results jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    num_examples integer DEFAULT 0 NOT NULL,
+    experiment_duration double precision,
+    evaluation_duration double precision
+);
+
+
+--
+-- Name: evidence_research_gen_ai_experiments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_experiments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_experiments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_experiments_id_seq OWNED BY public.evidence_research_gen_ai_experiments.id;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_configs (
+    id bigint NOT NULL,
+    vendor character varying NOT NULL,
+    version character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq OWNED BY public.evidence_research_gen_ai_llm_configs.id;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_feedbacks (
+    id bigint NOT NULL,
+    passage_prompt_response_id integer NOT NULL,
+    text text NOT NULL,
+    label character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    experiment_id integer NOT NULL,
+    raw_text text NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_llm_feedbacks.id;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
+    id bigint NOT NULL,
+    description text NOT NULL,
+    contents text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompt_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_templates_id_seq OWNED BY public.evidence_research_gen_ai_llm_prompt_templates.id;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_prompts (
+    id bigint NOT NULL,
+    prompt text NOT NULL,
+    llm_prompt_template_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompts_id_seq OWNED BY public.evidence_research_gen_ai_llm_prompts.id;
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_passage_prompt_responses (
+    id bigint NOT NULL,
+    passage_prompt_id integer NOT NULL,
+    response text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq OWNED BY public.evidence_research_gen_ai_passage_prompt_responses.id;
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_passage_prompts (
+    id bigint NOT NULL,
+    passage_id integer NOT NULL,
+    prompt text NOT NULL,
+    instructions text NOT NULL,
+    conjunction character varying NOT NULL,
+    relevant_passage text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq OWNED BY public.evidence_research_gen_ai_passage_prompts.id;
+
+
+--
+-- Name: evidence_research_gen_ai_passages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_passages (
+    id bigint NOT NULL,
+    contents text NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_passages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_passages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_passages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_passages_id_seq OWNED BY public.evidence_research_gen_ai_passages.id;
+
+
+--
+-- Name: evidence_text_generations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_text_generations (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    config jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_text_generations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_text_generations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_text_generations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_text_generations_id_seq OWNED BY public.evidence_text_generations.id;
+
+
+--
 -- Name: feedback_histories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.feedback_histories (
     id integer NOT NULL,
     feedback_session_uid text,
-    prompt_type character varying,
     prompt_id integer,
+    prompt_type character varying,
     concept_uid text,
     attempt integer NOT NULL,
     entry text NOT NULL,
@@ -2585,11 +3435,11 @@ ALTER SEQUENCE public.feedback_sessions_id_seq OWNED BY public.feedback_sessions
 
 CREATE TABLE public.file_uploads (
     id integer NOT NULL,
-    name character varying,
-    file character varying,
+    name character varying(255),
+    file character varying(255),
     description text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2598,7 +3448,6 @@ CREATE TABLE public.file_uploads (
 --
 
 CREATE SEQUENCE public.file_uploads_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2619,8 +3468,8 @@ ALTER SEQUENCE public.file_uploads_id_seq OWNED BY public.file_uploads.id;
 
 CREATE TABLE public.firebase_apps (
     id integer NOT NULL,
-    name character varying,
-    secret character varying,
+    name character varying(255),
+    secret character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     pkey text,
@@ -2633,7 +3482,6 @@ CREATE TABLE public.firebase_apps (
 --
 
 CREATE SEQUENCE public.firebase_apps_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2700,7 +3548,6 @@ CREATE TABLE public.invitations (
 --
 
 CREATE SEQUENCE public.invitations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2736,7 +3583,6 @@ CREATE TABLE public.ip_locations (
 --
 
 CREATE SEQUENCE public.ip_locations_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2749,6 +3595,104 @@ CREATE SEQUENCE public.ip_locations_id_seq
 --
 
 ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
+
+
+--
+-- Name: learn_worlds_account_course_events; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.learn_worlds_account_course_events (
+    id bigint NOT NULL,
+    learn_worlds_account_id bigint NOT NULL,
+    learn_worlds_course_id bigint NOT NULL,
+    event_type character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: learn_worlds_account_course_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.learn_worlds_account_course_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: learn_worlds_account_course_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.learn_worlds_account_course_events_id_seq OWNED BY public.learn_worlds_account_course_events.id;
+
+
+--
+-- Name: learn_worlds_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.learn_worlds_accounts (
+    id bigint NOT NULL,
+    user_id bigint,
+    external_id character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    last_login timestamp without time zone
+);
+
+
+--
+-- Name: learn_worlds_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.learn_worlds_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: learn_worlds_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.learn_worlds_accounts_id_seq OWNED BY public.learn_worlds_accounts.id;
+
+
+--
+-- Name: learn_worlds_courses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.learn_worlds_courses (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    external_id character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: learn_worlds_courses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.learn_worlds_courses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: learn_worlds_courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.learn_worlds_courses_id_seq OWNED BY public.learn_worlds_courses.id;
 
 
 --
@@ -2801,7 +3745,6 @@ CREATE TABLE public.milestones (
 --
 
 CREATE SEQUENCE public.milestones_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2824,12 +3767,12 @@ CREATE TABLE public.oauth_access_grants (
     id integer NOT NULL,
     resource_owner_id integer NOT NULL,
     application_id integer NOT NULL,
-    token character varying NOT NULL,
+    token character varying(255) NOT NULL,
     expires_in integer NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     revoked_at timestamp without time zone,
-    scopes character varying
+    scopes character varying(255)
 );
 
 
@@ -2838,7 +3781,6 @@ CREATE TABLE public.oauth_access_grants (
 --
 
 CREATE SEQUENCE public.oauth_access_grants_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2861,12 +3803,12 @@ CREATE TABLE public.oauth_access_tokens (
     id integer NOT NULL,
     resource_owner_id integer,
     application_id integer,
-    token character varying NOT NULL,
-    refresh_token character varying,
+    token character varying(255) NOT NULL,
+    refresh_token character varying(255),
     expires_in integer,
     revoked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    scopes character varying
+    scopes character varying(255)
 );
 
 
@@ -2875,7 +3817,6 @@ CREATE TABLE public.oauth_access_tokens (
 --
 
 CREATE SEQUENCE public.oauth_access_tokens_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2896,9 +3837,9 @@ ALTER SEQUENCE public.oauth_access_tokens_id_seq OWNED BY public.oauth_access_to
 
 CREATE TABLE public.oauth_applications (
     id integer NOT NULL,
-    name character varying NOT NULL,
-    uid character varying NOT NULL,
-    secret character varying NOT NULL,
+    name character varying(255) NOT NULL,
+    uid character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL,
     redirect_uri text NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -2910,7 +3851,6 @@ CREATE TABLE public.oauth_applications (
 --
 
 CREATE SEQUENCE public.oauth_applications_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2947,7 +3887,6 @@ CREATE TABLE public.objectives (
 --
 
 CREATE SEQUENCE public.objectives_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3034,11 +3973,11 @@ ALTER SEQUENCE public.pack_sequences_id_seq OWNED BY public.pack_sequences.id;
 
 CREATE TABLE public.page_areas (
     id integer NOT NULL,
-    name character varying,
-    description character varying,
+    name character varying(255),
+    description character varying(255),
     content text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -3047,7 +3986,6 @@ CREATE TABLE public.page_areas (
 --
 
 CREATE SEQUENCE public.page_areas_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3095,6 +4033,39 @@ CREATE SEQUENCE public.partner_contents_id_seq
 --
 
 ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.id;
+
+
+--
+-- Name: pdf_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pdf_subscriptions (
+    id bigint NOT NULL,
+    frequency character varying NOT NULL,
+    admin_report_filter_selection_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    token character varying NOT NULL
+);
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pdf_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pdf_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pdf_subscriptions_id_seq OWNED BY public.pdf_subscriptions.id;
 
 
 --
@@ -3179,8 +4150,8 @@ ALTER SEQUENCE public.prompt_healths_id_seq OWNED BY public.prompt_healths.id;
 CREATE TABLE public.provider_classroom_users (
     id bigint NOT NULL,
     type character varying NOT NULL,
-    provider_classroom_id character varying NOT NULL,
-    provider_user_id character varying NOT NULL,
+    classroom_external_id character varying NOT NULL,
+    user_external_id character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -3204,6 +4175,40 @@ CREATE SEQUENCE public.provider_classroom_users_id_seq
 --
 
 ALTER SEQUENCE public.provider_classroom_users_id_seq OWNED BY public.provider_classroom_users.id;
+
+
+--
+-- Name: provider_classrooms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.provider_classrooms (
+    id bigint NOT NULL,
+    type character varying NOT NULL,
+    external_id character varying NOT NULL,
+    classroom_id bigint NOT NULL,
+    canvas_instance_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: provider_classrooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.provider_classrooms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: provider_classrooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.provider_classrooms_id_seq OWNED BY public.provider_classrooms.id;
 
 
 --
@@ -3375,6 +4380,41 @@ ALTER SEQUENCE public.referrer_users_id_seq OWNED BY public.referrer_users.id;
 
 
 --
+-- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.rules_misseds (
+    id integer NOT NULL,
+    rule_id integer,
+    user_id integer,
+    assessment_id integer,
+    time_take timestamp without time zone,
+    missed boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.rules_misseds_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.rules_misseds_id_seq OWNED BY public.rules_misseds.id;
+
+
+--
 -- Name: sales_contacts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3524,7 +4564,7 @@ ALTER SEQUENCE public.sales_stages_id_seq OWNED BY public.sales_stages.id;
 --
 
 CREATE TABLE public.schema_migrations (
-    version character varying NOT NULL
+    version character varying(255) NOT NULL
 );
 
 
@@ -3546,7 +4586,6 @@ CREATE TABLE public.school_subscriptions (
 --
 
 CREATE SEQUENCE public.school_subscriptions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3567,22 +4606,22 @@ ALTER SEQUENCE public.school_subscriptions_id_seq OWNED BY public.school_subscri
 
 CREATE TABLE public.schools (
     id integer NOT NULL,
-    nces_id character varying,
-    name character varying,
-    phone character varying,
-    mail_street character varying,
-    mail_city character varying,
-    mail_state character varying,
-    mail_zipcode character varying,
-    street character varying,
-    city character varying,
-    state character varying,
-    zipcode character varying,
-    nces_type_code character varying,
-    nces_status_code character varying,
-    magnet character varying,
-    charter character varying,
-    ethnic_group character varying,
+    nces_id character varying(255),
+    name character varying(255),
+    phone character varying(255),
+    mail_street character varying(255),
+    mail_city character varying(255),
+    mail_state character varying(255),
+    mail_zipcode character varying(255),
+    street character varying(255),
+    city character varying(255),
+    state character varying(255),
+    zipcode character varying(255),
+    nces_type_code character varying(255),
+    nces_status_code character varying(255),
+    magnet character varying(255),
+    charter character varying(255),
+    ethnic_group character varying(255),
     longitude numeric(9,6),
     latitude numeric(9,6),
     ulocal integer,
@@ -3594,7 +4633,7 @@ CREATE TABLE public.schools (
     total_students integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    clever_id character varying,
+    clever_id character varying(255),
     ppin character varying,
     authorizer_id integer,
     coordinator_id integer,
@@ -3620,7 +4659,6 @@ CREATE TABLE public.schools_admins (
 --
 
 CREATE SEQUENCE public.schools_admins_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3640,7 +4678,6 @@ ALTER SEQUENCE public.schools_admins_id_seq OWNED BY public.schools_admins.id;
 --
 
 CREATE SEQUENCE public.schools_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3671,7 +4708,6 @@ CREATE TABLE public.schools_users (
 --
 
 CREATE SEQUENCE public.schools_users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4071,7 +5107,6 @@ CREATE TABLE public.students_classrooms (
 --
 
 CREATE SEQUENCE public.students_classrooms_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4136,7 +5171,8 @@ CREATE TABLE public.subscriptions (
     payment_method character varying,
     payment_amount integer,
     stripe_invoice_id character varying,
-    stripe_subscription_id character varying
+    stripe_subscription_id character varying,
+    purchase_order_number character varying
 );
 
 
@@ -4145,7 +5181,6 @@ CREATE TABLE public.subscriptions (
 --
 
 CREATE SEQUENCE public.subscriptions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4203,7 +5238,9 @@ CREATE TABLE public.teacher_infos (
     user_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    role_selected_at_signup character varying DEFAULT ''::character varying
+    role_selected_at_signup character varying DEFAULT ''::character varying,
+    notification_email_frequency text,
+    show_students_exact_score boolean DEFAULT true NOT NULL
 );
 
 
@@ -4224,6 +5261,72 @@ CREATE SEQUENCE public.teacher_infos_id_seq
 --
 
 ALTER SEQUENCE public.teacher_infos_id_seq OWNED BY public.teacher_infos.id;
+
+
+--
+-- Name: teacher_notification_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_notification_settings (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    notification_type text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_notification_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_notification_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_notification_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_notification_settings_id_seq OWNED BY public.teacher_notification_settings.id;
+
+
+--
+-- Name: teacher_notifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.teacher_notifications (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    type text,
+    email_sent timestamp without time zone,
+    message_attrs jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: teacher_notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.teacher_notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: teacher_notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.teacher_notifications_id_seq OWNED BY public.teacher_notifications.id;
 
 
 --
@@ -4406,9 +5509,9 @@ ALTER SEQUENCE public.unit_activities_id_seq OWNED BY public.unit_activities.id;
 
 CREATE TABLE public.unit_template_categories (
     id integer NOT NULL,
-    name character varying,
-    primary_color character varying,
-    secondary_color character varying
+    name character varying(255),
+    primary_color character varying(255),
+    secondary_color character varying(255)
 );
 
 
@@ -4417,7 +5520,6 @@ CREATE TABLE public.unit_template_categories (
 --
 
 CREATE SEQUENCE public.unit_template_categories_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4438,7 +5540,7 @@ ALTER SEQUENCE public.unit_template_categories_id_seq OWNED BY public.unit_templ
 
 CREATE TABLE public.unit_templates (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     unit_template_category_id integer,
     "time" integer,
     grades text,
@@ -4457,7 +5559,6 @@ CREATE TABLE public.unit_templates (
 --
 
 CREATE SEQUENCE public.unit_templates_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4478,7 +5579,7 @@ ALTER SEQUENCE public.unit_templates_id_seq OWNED BY public.unit_templates.id;
 
 CREATE TABLE public.units (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     visible boolean DEFAULT true NOT NULL,
@@ -4493,7 +5594,6 @@ CREATE TABLE public.units (
 --
 
 CREATE SEQUENCE public.units_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4574,6 +5674,36 @@ ALTER SEQUENCE public.user_email_verifications_id_seq OWNED BY public.user_email
 
 
 --
+-- Name: user_logins; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_logins (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: user_logins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_logins_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_logins_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_logins_id_seq OWNED BY public.user_logins.id;
+
+
+--
 -- Name: user_milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4591,7 +5721,6 @@ CREATE TABLE public.user_milestones (
 --
 
 CREATE SEQUENCE public.user_milestones_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4657,7 +5786,6 @@ CREATE TABLE public.user_subscriptions (
 --
 
 CREATE SEQUENCE public.user_subscriptions_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4678,18 +5806,18 @@ ALTER SEQUENCE public.user_subscriptions_id_seq OWNED BY public.user_subscriptio
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    name character varying,
-    email character varying,
-    password_digest character varying,
-    role character varying DEFAULT 'user'::character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    classcode character varying,
+    name character varying(255),
+    email character varying(255),
+    password_digest character varying(255),
+    role character varying(255) DEFAULT 'user'::character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    classcode character varying(255),
     active boolean DEFAULT false,
-    username character varying,
-    token character varying,
+    username character varying(255),
+    token character varying(255),
     ip_address inet,
-    clever_id character varying,
+    clever_id character varying(255),
     signed_up_with_google boolean DEFAULT false,
     send_newsletter boolean DEFAULT false,
     google_id character varying,
@@ -4697,8 +5825,8 @@ CREATE TABLE public.users (
     last_active timestamp without time zone,
     stripe_customer_id character varying,
     flags character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    time_zone character varying,
     title character varying,
+    time_zone character varying,
     account_type character varying DEFAULT 'unknown'::character varying,
     flagset character varying DEFAULT 'production'::character varying NOT NULL
 );
@@ -4709,7 +5837,6 @@ CREATE TABLE public.users (
 --
 
 CREATE SEQUENCE public.users_id_seq
-    AS integer
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -4857,10 +5984,24 @@ ALTER TABLE ONLY public.admin_accounts_teachers ALTER COLUMN id SET DEFAULT next
 
 
 --
+-- Name: admin_approval_requests id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_approval_requests ALTER COLUMN id SET DEFAULT nextval('public.admin_approval_requests_id_seq'::regclass);
+
+
+--
 -- Name: admin_infos id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_infos ALTER COLUMN id SET DEFAULT nextval('public.admin_infos_id_seq'::regclass);
+
+
+--
+-- Name: admin_report_filter_selections id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections ALTER COLUMN id SET DEFAULT nextval('public.admin_report_filter_selections_id_seq'::regclass);
 
 
 --
@@ -4903,6 +6044,41 @@ ALTER TABLE ONLY public.blog_post_user_ratings ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY public.blog_posts ALTER COLUMN id SET DEFAULT nextval('public.blog_posts_id_seq'::regclass);
+
+
+--
+-- Name: canvas_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts ALTER COLUMN id SET DEFAULT nextval('public.canvas_accounts_id_seq'::regclass);
+
+
+--
+-- Name: canvas_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs ALTER COLUMN id SET DEFAULT nextval('public.canvas_configs_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instance_auth_credentials id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials ALTER COLUMN id SET DEFAULT nextval('public.canvas_instance_auth_credentials_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instance_schools id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools ALTER COLUMN id SET DEFAULT nextval('public.canvas_instance_schools_id_seq'::regclass);
+
+
+--
+-- Name: canvas_instances id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances ALTER COLUMN id SET DEFAULT nextval('public.canvas_instances_id_seq'::regclass);
 
 
 --
@@ -4959,6 +6135,13 @@ ALTER TABLE ONLY public.classrooms ALTER COLUMN id SET DEFAULT nextval('public.c
 --
 
 ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('public.classrooms_teachers_id_seq'::regclass);
+
+
+--
+-- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
@@ -5151,6 +6334,20 @@ ALTER TABLE ONLY public.csv_exports ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: diagnostic_question_optimal_concepts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_optimal_concepts ALTER COLUMN id SET DEFAULT nextval('public.diagnostic_question_optimal_concepts_id_seq'::regclass);
+
+
+--
+-- Name: diagnostic_question_skills id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_skills ALTER COLUMN id SET DEFAULT nextval('public.diagnostic_question_skills_id_seq'::regclass);
+
+
+--
 -- Name: district_admins id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5179,6 +6376,13 @@ ALTER TABLE ONLY public.evidence_activity_healths ALTER COLUMN id SET DEFAULT ne
 
 
 --
+-- Name: evidence_automl_models id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models ALTER COLUMN id SET DEFAULT nextval('public.evidence_automl_models_id_seq'::regclass);
+
+
+--
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5190,6 +6394,104 @@ ALTER TABLE ONLY public.evidence_hints ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.evidence_prompt_healths ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_healths_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_response_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_response_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_response_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_responses_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_text_batches id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_text_batches ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_text_batches_id_seq'::regclass);
+
+
+--
+-- Name: evidence_prompt_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_texts ALTER COLUMN id SET DEFAULT nextval('public.evidence_prompt_texts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_example_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_example_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_example_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_experiments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_experiments ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_experiments_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_configs_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_templates ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_prompt_templates_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompts ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_prompts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompt_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passage_prompt_responses_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passage_prompts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_passages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passages ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passages_id_seq'::regclass);
+
+
+--
+-- Name: evidence_text_generations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_text_generations ALTER COLUMN id SET DEFAULT nextval('public.evidence_text_generations_id_seq'::regclass);
 
 
 --
@@ -5253,6 +6555,27 @@ ALTER TABLE ONLY public.invitations ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public.ip_locations_id_seq'::regclass);
+
+
+--
+-- Name: learn_worlds_account_course_events id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_account_course_events_id_seq'::regclass);
+
+
+--
+-- Name: learn_worlds_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_accounts ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_accounts_id_seq'::regclass);
+
+
+--
+-- Name: learn_worlds_courses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_courses ALTER COLUMN id SET DEFAULT nextval('public.learn_worlds_courses_id_seq'::regclass);
 
 
 --
@@ -5326,6 +6649,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: pdf_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.pdf_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5344,6 +6674,13 @@ ALTER TABLE ONLY public.prompt_healths ALTER COLUMN id SET DEFAULT nextval('publ
 --
 
 ALTER TABLE ONLY public.provider_classroom_users ALTER COLUMN id SET DEFAULT nextval('public.provider_classroom_users_id_seq'::regclass);
+
+
+--
+-- Name: provider_classrooms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms ALTER COLUMN id SET DEFAULT nextval('public.provider_classrooms_id_seq'::regclass);
 
 
 --
@@ -5379,6 +6716,13 @@ ALTER TABLE ONLY public.referrals_users ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.referrer_users ALTER COLUMN id SET DEFAULT nextval('public.referrer_users_id_seq'::regclass);
+
+
+--
+-- Name: rules_misseds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rules_misseds ALTER COLUMN id SET DEFAULT nextval('public.rules_misseds_id_seq'::regclass);
 
 
 --
@@ -5550,6 +6894,20 @@ ALTER TABLE ONLY public.teacher_infos ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: teacher_notification_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings ALTER COLUMN id SET DEFAULT nextval('public.teacher_notification_settings_id_seq'::regclass);
+
+
+--
+-- Name: teacher_notifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications ALTER COLUMN id SET DEFAULT nextval('public.teacher_notifications_id_seq'::regclass);
+
+
+--
 -- Name: teacher_saved_activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5617,6 +6975,13 @@ ALTER TABLE ONLY public.user_activity_classifications ALTER COLUMN id SET DEFAUL
 --
 
 ALTER TABLE ONLY public.user_email_verifications ALTER COLUMN id SET DEFAULT nextval('public.user_email_verifications_id_seq'::regclass);
+
+
+--
+-- Name: user_logins id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_logins ALTER COLUMN id SET DEFAULT nextval('public.user_logins_id_seq'::regclass);
 
 
 --
@@ -5711,14 +7076,6 @@ ALTER TABLE ONLY public.activity_healths
 
 
 --
--- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_sessions
-    ADD CONSTRAINT activity_sessions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: activity_survey_responses activity_survey_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5759,11 +7116,27 @@ ALTER TABLE ONLY public.admin_accounts_teachers
 
 
 --
+-- Name: admin_approval_requests admin_approval_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_approval_requests
+    ADD CONSTRAINT admin_approval_requests_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: admin_infos admin_infos_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.admin_infos
     ADD CONSTRAINT admin_infos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_report_filter_selections admin_report_filter_selections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_report_filter_selections
+    ADD CONSTRAINT admin_report_filter_selections_pkey PRIMARY KEY (id);
 
 
 --
@@ -5820,6 +7193,46 @@ ALTER TABLE ONLY public.blog_post_user_ratings
 
 ALTER TABLE ONLY public.blog_posts
     ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_accounts canvas_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT canvas_accounts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_configs canvas_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT canvas_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instance_auth_credentials canvas_instance_auth_credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials
+    ADD CONSTRAINT canvas_instance_auth_credentials_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instance_schools canvas_instance_schools_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT canvas_instance_schools_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: canvas_instances canvas_instances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instances
+    ADD CONSTRAINT canvas_instances_pkey PRIMARY KEY (id);
 
 
 --
@@ -5884,6 +7297,14 @@ ALTER TABLE ONLY public.classrooms
 
 ALTER TABLE ONLY public.classrooms_teachers
     ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -6103,6 +7524,22 @@ ALTER TABLE ONLY public.csv_exports
 
 
 --
+-- Name: diagnostic_question_optimal_concepts diagnostic_question_optimal_concepts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_optimal_concepts
+    ADD CONSTRAINT diagnostic_question_optimal_concepts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: diagnostic_question_skills diagnostic_question_skills_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_skills
+    ADD CONSTRAINT diagnostic_question_skills_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: district_admins district_admins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6135,6 +7572,14 @@ ALTER TABLE ONLY public.evidence_activity_healths
 
 
 --
+-- Name: evidence_automl_models evidence_automl_models_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models
+    ADD CONSTRAINT evidence_automl_models_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6148,6 +7593,118 @@ ALTER TABLE ONLY public.evidence_hints
 
 ALTER TABLE ONLY public.evidence_prompt_healths
     ADD CONSTRAINT evidence_prompt_healths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_response_feedbacks evidence_prompt_response_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_response_feedbacks
+    ADD CONSTRAINT evidence_prompt_response_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_responses evidence_prompt_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_responses
+    ADD CONSTRAINT evidence_prompt_responses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_text_batches evidence_prompt_text_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_text_batches
+    ADD CONSTRAINT evidence_prompt_text_batches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_prompt_texts evidence_prompt_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_prompt_texts
+    ADD CONSTRAINT evidence_prompt_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_example_feedbacks evidence_research_gen_ai_example_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_example_feedbacks
+    ADD CONSTRAINT evidence_research_gen_ai_example_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_experiments evidence_research_gen_ai_experiments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_experiments
+    ADD CONSTRAINT evidence_research_gen_ai_experiments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_configs evidence_research_gen_ai_llm_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs
+    ADD CONSTRAINT evidence_research_gen_ai_llm_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_feedbacks evidence_research_gen_ai_llm_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks
+    ADD CONSTRAINT evidence_research_gen_ai_llm_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_templates evidence_research_gen_ai_llm_prompt_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_templates
+    ADD CONSTRAINT evidence_research_gen_ai_llm_prompt_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompts evidence_research_gen_ai_llm_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompts
+    ADD CONSTRAINT evidence_research_gen_ai_llm_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompt_responses evidence_research_gen_ai_passage_prompt_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompt_responses
+    ADD CONSTRAINT evidence_research_gen_ai_passage_prompt_responses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_passage_prompts evidence_research_gen_ai_passage_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts
+    ADD CONSTRAINT evidence_research_gen_ai_passage_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_passages evidence_research_gen_ai_passages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_passages
+    ADD CONSTRAINT evidence_research_gen_ai_passages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_text_generations evidence_text_generations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_text_generations
+    ADD CONSTRAINT evidence_text_generations_pkey PRIMARY KEY (id);
 
 
 --
@@ -6223,6 +7780,30 @@ ALTER TABLE ONLY public.ip_locations
 
 
 --
+-- Name: learn_worlds_account_course_events learn_worlds_account_course_events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events
+    ADD CONSTRAINT learn_worlds_account_course_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: learn_worlds_accounts learn_worlds_accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_accounts
+    ADD CONSTRAINT learn_worlds_accounts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: learn_worlds_courses learn_worlds_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_courses
+    ADD CONSTRAINT learn_worlds_courses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: lockers lockers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6236,6 +7817,22 @@ ALTER TABLE ONLY public.lockers
 
 ALTER TABLE ONLY public.milestones
     ADD CONSTRAINT milestones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_sessions new_activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_sessions
+    ADD CONSTRAINT new_activity_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_sessions new_activity_sessions_uid_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.activity_sessions
+    ADD CONSTRAINT new_activity_sessions_uid_key UNIQUE (uid);
 
 
 --
@@ -6303,6 +7900,14 @@ ALTER TABLE ONLY public.partner_contents
 
 
 --
+-- Name: pdf_subscriptions pdf_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pdf_subscriptions
+    ADD CONSTRAINT pdf_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: plans plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6324,6 +7929,14 @@ ALTER TABLE ONLY public.prompt_healths
 
 ALTER TABLE ONLY public.provider_classroom_users
     ADD CONSTRAINT provider_classroom_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: provider_classrooms provider_classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms
+    ADD CONSTRAINT provider_classrooms_pkey PRIMARY KEY (id);
 
 
 --
@@ -6367,6 +7980,14 @@ ALTER TABLE ONLY public.referrer_users
 
 
 --
+-- Name: rules_misseds rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.rules_misseds
+    ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: sales_contacts sales_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6396,14 +8017,6 @@ ALTER TABLE ONLY public.sales_stage_types
 
 ALTER TABLE ONLY public.sales_stages
     ADD CONSTRAINT sales_stages_pkey PRIMARY KEY (id);
-
-
---
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
 --
@@ -6567,6 +8180,22 @@ ALTER TABLE ONLY public.teacher_infos
 
 
 --
+-- Name: teacher_notification_settings teacher_notification_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings
+    ADD CONSTRAINT teacher_notification_settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: teacher_notifications teacher_notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications
+    ADD CONSTRAINT teacher_notifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: teacher_saved_activities teacher_saved_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6644,6 +8273,14 @@ ALTER TABLE ONLY public.user_activity_classifications
 
 ALTER TABLE ONLY public.user_email_verifications
     ADD CONSTRAINT user_email_verifications_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_logins user_logins_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_logins
+    ADD CONSTRAINT user_logins_pkey PRIMARY KEY (id);
 
 
 --
@@ -6778,69 +8415,6 @@ CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_cla
 
 
 --
--- Name: index_activity_sessions_on_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_activity_id ON public.activity_sessions USING btree (activity_id);
-
-
---
--- Name: index_activity_sessions_on_classroom_activity_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_classroom_activity_id ON public.activity_sessions USING btree (classroom_activity_id);
-
-
---
--- Name: index_activity_sessions_on_classroom_unit_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_classroom_unit_id ON public.activity_sessions USING btree (classroom_unit_id);
-
-
---
--- Name: index_activity_sessions_on_completed_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_completed_at ON public.activity_sessions USING btree (completed_at);
-
-
---
--- Name: index_activity_sessions_on_pairing_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_pairing_id ON public.activity_sessions USING btree (pairing_id);
-
-
---
--- Name: index_activity_sessions_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_started_at ON public.activity_sessions USING btree (started_at);
-
-
---
--- Name: index_activity_sessions_on_state; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_state ON public.activity_sessions USING btree (state);
-
-
---
--- Name: index_activity_sessions_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_activity_sessions_on_uid ON public.activity_sessions USING btree (uid);
-
-
---
--- Name: index_activity_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_sessions_on_user_id ON public.activity_sessions USING btree (user_id);
-
-
---
 -- Name: index_activity_survey_responses_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6890,10 +8464,31 @@ CREATE INDEX index_admin_accounts_teachers_on_teacher_id ON public.admin_account
 
 
 --
+-- Name: index_admin_approval_requests_on_admin_info_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_approval_requests_on_admin_info_id ON public.admin_approval_requests USING btree (admin_info_id);
+
+
+--
 -- Name: index_admin_infos_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_admin_infos_on_user_id ON public.admin_infos USING btree (user_id);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_report; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_report ON public.admin_report_filter_selections USING btree (report);
+
+
+--
+-- Name: index_admin_report_filter_selections_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_admin_report_filter_selections_on_user_id ON public.admin_report_filter_selections USING btree (user_id);
 
 
 --
@@ -6908,13 +8503,6 @@ CREATE INDEX index_announcements_on_start_and_end ON public.announcements USING 
 --
 
 CREATE UNIQUE INDEX index_app_settings_on_name ON public.app_settings USING btree (name);
-
-
---
--- Name: index_auth_credentials_on_provider; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_auth_credentials_on_provider ON public.auth_credentials USING btree (provider);
 
 
 --
@@ -6964,6 +8552,69 @@ CREATE INDEX index_blog_posts_on_title ON public.blog_posts USING btree (title);
 --
 
 CREATE INDEX index_blog_posts_on_topic ON public.blog_posts USING btree (topic);
+
+
+--
+-- Name: index_canvas_accounts_on_canvas_instance_id_and_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_accounts_on_canvas_instance_id_and_external_id ON public.canvas_accounts USING btree (canvas_instance_id, external_id);
+
+
+--
+-- Name: index_canvas_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_accounts_on_user_id ON public.canvas_accounts USING btree (user_id);
+
+
+--
+-- Name: index_canvas_configs_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_configs_on_canvas_instance_id ON public.canvas_configs USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_auth_credentials_on_auth_credential_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instance_auth_credentials_on_auth_credential_id ON public.canvas_instance_auth_credentials USING btree (auth_credential_id);
+
+
+--
+-- Name: index_canvas_instance_auth_credentials_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_auth_credentials_on_canvas_instance_id ON public.canvas_instance_auth_credentials USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_and_school; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instance_schools_on_canvas_instance_and_school ON public.canvas_instance_schools USING btree (canvas_instance_id, school_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_canvas_instance_id ON public.canvas_instance_schools USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_canvas_instance_schools_on_school_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_canvas_instance_schools_on_school_id ON public.canvas_instance_schools USING btree (school_id);
+
+
+--
+-- Name: index_canvas_instances_on_url; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_canvas_instances_on_url ON public.canvas_instances USING btree (url);
 
 
 --
@@ -7093,13 +8744,6 @@ CREATE INDEX index_classrooms_on_grade_level ON public.classrooms USING btree (g
 
 
 --
--- Name: index_classrooms_on_teacher_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_classrooms_on_teacher_id ON public.classrooms USING btree (teacher_id);
-
-
---
 -- Name: index_classrooms_teachers_on_classroom_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7118,6 +8762,13 @@ CREATE INDEX index_classrooms_teachers_on_role ON public.classrooms_teachers USI
 --
 
 CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers USING btree (user_id);
+
+
+--
+-- Name: index_comments_on_ancestry; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comments_on_ancestry ON public.comments USING btree (ancestry);
 
 
 --
@@ -7317,6 +8968,20 @@ CREATE INDEX index_criteria_on_recommendation_id ON public.criteria USING btree 
 
 
 --
+-- Name: index_diagnostic_question_skills_on_question_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_diagnostic_question_skills_on_question_id ON public.diagnostic_question_skills USING btree (question_id);
+
+
+--
+-- Name: index_diagnostic_question_skills_on_skill_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_diagnostic_question_skills_on_skill_group_id ON public.diagnostic_question_skills USING btree (skill_group_id);
+
+
+--
 -- Name: index_district_admins_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7370,6 +9035,13 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.district
 --
 
 CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
+
+
+--
+-- Name: index_evidence_automl_models_on_prompt_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_evidence_automl_models_on_prompt_id ON public.evidence_automl_models USING btree (prompt_id);
 
 
 --
@@ -7461,6 +9133,27 @@ CREATE INDEX index_ip_locations_on_user_id ON public.ip_locations USING btree (u
 --
 
 CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
+
+
+--
+-- Name: index_learn_worlds_accounts_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_learn_worlds_accounts_on_external_id ON public.learn_worlds_accounts USING btree (external_id);
+
+
+--
+-- Name: index_learn_worlds_accounts_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_learn_worlds_accounts_on_user_id ON public.learn_worlds_accounts USING btree (user_id);
+
+
+--
+-- Name: index_learn_worlds_courses_on_external_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_learn_worlds_courses_on_external_id ON public.learn_worlds_courses USING btree (external_id);
 
 
 --
@@ -7562,6 +9255,20 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
+-- Name: index_pdf_subscriptions_on_admin_report_filter_selection_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_admin_report_filter_selection_id ON public.pdf_subscriptions USING btree (admin_report_filter_selection_id);
+
+
+--
+-- Name: index_pdf_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdf_subscriptions_on_frequency ON public.pdf_subscriptions USING btree (frequency);
+
+
+--
 -- Name: index_plans_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7569,10 +9276,24 @@ CREATE UNIQUE INDEX index_plans_on_name ON public.plans USING btree (name);
 
 
 --
+-- Name: index_provider_classrooms_on_canvas_instance_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_classrooms_on_canvas_instance_id ON public.provider_classrooms USING btree (canvas_instance_id);
+
+
+--
+-- Name: index_provider_classrooms_on_classroom_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_provider_classrooms_on_classroom_id ON public.provider_classrooms USING btree (classroom_id);
+
+
+--
 -- Name: index_provider_type_and_classroom_id_and_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.provider_classroom_users USING btree (type, provider_classroom_id, provider_user_id);
+CREATE UNIQUE INDEX index_provider_type_and_classroom_id_and_user_id ON public.provider_classroom_users USING btree (type, classroom_external_id, user_external_id);
 
 
 --
@@ -7912,6 +9633,27 @@ CREATE INDEX index_teacher_infos_on_user_id ON public.teacher_infos USING btree 
 
 
 --
+-- Name: index_teacher_notification_settings_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_notification_settings_on_user_id ON public.teacher_notification_settings USING btree (user_id);
+
+
+--
+-- Name: index_teacher_notification_settings_on_user_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_teacher_notification_settings_on_user_id_and_type ON public.teacher_notification_settings USING btree (user_id, notification_type);
+
+
+--
+-- Name: index_teacher_notifications_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_teacher_notifications_on_user_id ON public.teacher_notifications USING btree (user_id);
+
+
+--
 -- Name: index_teacher_saved_activities_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7975,13 +9717,6 @@ CREATE UNIQUE INDEX index_unit_activities_on_unit_id_and_activity_id ON public.u
 
 
 --
--- Name: index_unit_templates_on_activity_info; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_unit_templates_on_activity_info ON public.unit_templates USING btree (activity_info);
-
-
---
 -- Name: index_unit_templates_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8028,6 +9763,13 @@ CREATE INDEX index_user_activity_classifications_on_user_id ON public.user_activ
 --
 
 CREATE UNIQUE INDEX index_user_email_verifications_on_user_id ON public.user_email_verifications USING btree (user_id);
+
+
+--
+-- Name: index_user_logins_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_logins_on_user_id ON public.user_logins USING btree (user_id);
 
 
 --
@@ -8164,10 +9906,59 @@ CREATE UNIQUE INDEX index_zipcode_infos_on_zipcode ON public.zipcode_infos USING
 
 
 --
+-- Name: learn_worlds_account_course_events_on_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX learn_worlds_account_course_events_on_account_id ON public.learn_worlds_account_course_events USING btree (learn_worlds_account_id);
+
+
+--
+-- Name: learn_worlds_account_course_events_on_course_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX learn_worlds_account_course_events_on_course_id ON public.learn_worlds_account_course_events USING btree (learn_worlds_course_id);
+
+
+--
 -- Name: name_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX name_idx ON public.users USING gin (name public.gin_trgm_ops);
+
+
+--
+-- Name: new_activity_sessions_activity_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX new_activity_sessions_activity_id_idx ON public.activity_sessions USING btree (activity_id);
+
+
+--
+-- Name: new_activity_sessions_classroom_unit_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX new_activity_sessions_classroom_unit_id_idx ON public.activity_sessions USING btree (classroom_unit_id);
+
+
+--
+-- Name: new_activity_sessions_completed_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX new_activity_sessions_completed_at_idx ON public.activity_sessions USING btree (completed_at);
+
+
+--
+-- Name: new_activity_sessions_uid_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX new_activity_sessions_uid_idx ON public.activity_sessions USING btree (uid);
+
+
+--
+-- Name: new_activity_sessions_user_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX new_activity_sessions_user_id_idx ON public.activity_sessions USING btree (user_id);
 
 
 --
@@ -8189,6 +9980,13 @@ CREATE UNIQUE INDEX unique_classroom_and_activity_for_cua_state ON public.classr
 --
 
 CREATE UNIQUE INDEX unique_classroom_and_user_ids_on_classrooms_teachers ON public.classrooms_teachers USING btree (user_id, classroom_id);
+
+
+--
+-- Name: unique_diagnostic_question_optimal_concepts_uid_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_diagnostic_question_optimal_concepts_uid_id ON public.diagnostic_question_optimal_concepts USING btree (question_uid, concept_id);
 
 
 --
@@ -8234,6 +10032,13 @@ CREATE UNIQUE INDEX unique_index_users_on_username ON public.users USING btree (
 
 
 --
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
+
+
+--
 -- Name: user_activity_classification_unique_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8262,6 +10067,20 @@ CREATE INDEX users_to_tsvector_idx1 ON public.users USING gin (to_tsvector('engl
 
 
 --
+-- Name: users_to_tsvector_idx10; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_to_tsvector_idx10 ON public.users USING gin (to_tsvector('english'::regconfig, (username)::text));
+
+
+--
+-- Name: users_to_tsvector_idx11; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_to_tsvector_idx11 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
+
+
+--
 -- Name: users_to_tsvector_idx2; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8287,6 +10106,34 @@ CREATE INDEX users_to_tsvector_idx4 ON public.users USING gin (to_tsvector('engl
 --
 
 CREATE INDEX users_to_tsvector_idx5 ON public.users USING gin (to_tsvector('english'::regconfig, split_part((ip_address)::text, '/'::text, 1)));
+
+
+--
+-- Name: users_to_tsvector_idx6; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_to_tsvector_idx6 ON public.users USING gin (to_tsvector('english'::regconfig, (name)::text));
+
+
+--
+-- Name: users_to_tsvector_idx7; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_to_tsvector_idx7 ON public.users USING gin (to_tsvector('english'::regconfig, (email)::text));
+
+
+--
+-- Name: users_to_tsvector_idx8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_to_tsvector_idx8 ON public.users USING gin (to_tsvector('english'::regconfig, (role)::text));
+
+
+--
+-- Name: users_to_tsvector_idx9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX users_to_tsvector_idx9 ON public.users USING gin (to_tsvector('english'::regconfig, (classcode)::text));
 
 
 --
@@ -8368,6 +10215,30 @@ ALTER TABLE ONLY public.evidence_prompt_healths
 
 
 --
+-- Name: canvas_instance_auth_credentials fk_rails_26ff7f2393; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials
+    ADD CONSTRAINT fk_rails_26ff7f2393 FOREIGN KEY (auth_credential_id) REFERENCES public.auth_credentials(id);
+
+
+--
+-- Name: diagnostic_question_skills fk_rails_30c45cabf6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_skills
+    ADD CONSTRAINT fk_rails_30c45cabf6 FOREIGN KEY (skill_group_id) REFERENCES public.skill_groups(id);
+
+
+--
+-- Name: teacher_notification_settings fk_rails_3291865e04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notification_settings
+    ADD CONSTRAINT fk_rails_3291865e04 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: comprehension_automl_models fk_rails_35c32f80fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8381,6 +10252,14 @@ ALTER TABLE ONLY public.comprehension_automl_models
 
 ALTER TABLE ONLY public.district_subscriptions
     ADD CONSTRAINT fk_rails_38a73665c2 FOREIGN KEY (subscription_id) REFERENCES public.subscriptions(id);
+
+
+--
+-- Name: evidence_automl_models fk_rails_3c28762764; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_automl_models
+    ADD CONSTRAINT fk_rails_3c28762764 FOREIGN KEY (prompt_id) REFERENCES public.comprehension_prompts(id);
 
 
 --
@@ -8421,6 +10300,14 @@ ALTER TABLE ONLY public.pack_sequences
 
 ALTER TABLE ONLY public.stripe_checkout_sessions
     ADD CONSTRAINT fk_rails_428a7d5f1b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: user_logins fk_rails_43d9929204; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_logins
+    ADD CONSTRAINT fk_rails_43d9929204 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8488,6 +10375,14 @@ ALTER TABLE ONLY public.topics
 
 
 --
+-- Name: admin_approval_requests fk_rails_60654ded5f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.admin_approval_requests
+    ADD CONSTRAINT fk_rails_60654ded5f FOREIGN KEY (admin_info_id) REFERENCES public.admin_infos(id);
+
+
+--
 -- Name: comprehension_labels fk_rails_6112e49a74; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8528,6 +10423,14 @@ ALTER TABLE ONLY public.pack_sequence_items
 
 
 --
+-- Name: provider_classrooms fk_rails_78d7d3d31c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms
+    ADD CONSTRAINT fk_rails_78d7d3d31c FOREIGN KEY (classroom_id) REFERENCES public.classrooms(id);
+
+
+--
 -- Name: pack_sequences fk_rails_79fa628e65; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8544,11 +10447,27 @@ ALTER TABLE ONLY public.standards
 
 
 --
+-- Name: canvas_instance_schools fk_rails_7da1e5386c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_7da1e5386c FOREIGN KEY (school_id) REFERENCES public.schools(id);
+
+
+--
 -- Name: user_pack_sequence_items fk_rails_8011bf338d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_pack_sequence_items
     ADD CONSTRAINT fk_rails_8011bf338d FOREIGN KEY (pack_sequence_item_id) REFERENCES public.pack_sequence_items(id);
+
+
+--
+-- Name: teacher_notifications fk_rails_81552fbc91; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.teacher_notifications
+    ADD CONSTRAINT fk_rails_81552fbc91 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8568,11 +10487,35 @@ ALTER TABLE ONLY public.activity_topics
 
 
 --
+-- Name: learn_worlds_accounts fk_rails_96f37b8ce0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_accounts
+    ADD CONSTRAINT fk_rails_96f37b8ce0 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: provider_classrooms fk_rails_9c61f34d66; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.provider_classrooms
+    ADD CONSTRAINT fk_rails_9c61f34d66 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: comprehension_highlights fk_rails_9d58aa0a3c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.comprehension_highlights
     ADD CONSTRAINT fk_rails_9d58aa0a3c FOREIGN KEY (feedback_id) REFERENCES public.comprehension_feedbacks(id) ON DELETE CASCADE;
+
+
+--
+-- Name: canvas_instance_auth_credentials fk_rails_a0ef1de1af; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_auth_credentials
+    ADD CONSTRAINT fk_rails_a0ef1de1af FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -8632,6 +10575,14 @@ ALTER TABLE ONLY public.criteria
 
 
 --
+-- Name: diagnostic_question_skills fk_rails_ae69c93feb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.diagnostic_question_skills
+    ADD CONSTRAINT fk_rails_ae69c93feb FOREIGN KEY (question_id) REFERENCES public.questions(id);
+
+
+--
 -- Name: admin_infos fk_rails_b0fee17293; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8672,11 +10623,27 @@ ALTER TABLE ONLY public.comprehension_plagiarism_texts
 
 
 --
+-- Name: canvas_instance_schools fk_rails_bf91c7cfc4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_instance_schools
+    ADD CONSTRAINT fk_rails_bf91c7cfc4 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: teacher_infos fk_rails_bff7948d7b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_infos
     ADD CONSTRAINT fk_rails_bff7948d7b FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: canvas_configs fk_rails_c246baa530; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_configs
+    ADD CONSTRAINT fk_rails_c246baa530 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
 
 
 --
@@ -8693,6 +10660,14 @@ ALTER TABLE ONLY public.standards
 
 ALTER TABLE ONLY public.teacher_saved_activities
     ADD CONSTRAINT fk_rails_d0477bd187 FOREIGN KEY (activity_id) REFERENCES public.activities(id);
+
+
+--
+-- Name: learn_worlds_account_course_events fk_rails_d14877312a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events
+    ADD CONSTRAINT fk_rails_d14877312a FOREIGN KEY (learn_worlds_account_id) REFERENCES public.learn_worlds_accounts(id);
 
 
 --
@@ -8728,6 +10703,14 @@ ALTER TABLE ONLY public.sales_contacts
 
 
 --
+-- Name: canvas_accounts fk_rails_d739d9f5b3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_d739d9f5b3 FOREIGN KEY (canvas_instance_id) REFERENCES public.canvas_instances(id);
+
+
+--
 -- Name: student_problem_reports fk_rails_d7543aef9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8749,6 +10732,14 @@ ALTER TABLE ONLY public.recommendations
 
 ALTER TABLE ONLY public.comprehension_regex_rules
     ADD CONSTRAINT fk_rails_dd1bb7c35b FOREIGN KEY (rule_id) REFERENCES public.comprehension_rules(id) ON DELETE CASCADE;
+
+
+--
+-- Name: canvas_accounts fk_rails_e2efdd920f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.canvas_accounts
+    ADD CONSTRAINT fk_rails_e2efdd920f FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -8784,6 +10775,14 @@ ALTER TABLE ONLY public.auth_credentials
 
 
 --
+-- Name: learn_worlds_account_course_events fk_rails_f9564aaf30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.learn_worlds_account_course_events
+    ADD CONSTRAINT fk_rails_f9564aaf30 FOREIGN KEY (learn_worlds_course_id) REFERENCES public.learn_worlds_courses(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -8791,6 +10790,10 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20121024193845'),
+('20121211230953'),
+('20121211231231'),
+('20121214024613'),
+('20121218155200'),
 ('20130309011601'),
 ('20130319203258'),
 ('20130319203518'),
@@ -8805,6 +10808,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20130426032817'),
 ('20130426032952'),
 ('20130429171512'),
+('20130510221334'),
 ('20130517024024'),
 ('20130517024604'),
 ('20130517024731'),
@@ -9285,9 +11289,75 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20221209151611'),
 ('20221209151957'),
 ('20230104183416'),
+('20230111214530'),
 ('20230113132638'),
 ('20230130190215'),
 ('20230201202210'),
-('20230206203447');
+('20230206203447'),
+('20230301151808'),
+('20230301160642'),
+('20230323114351'),
+('20230328155819'),
+('20230405140349'),
+('20230411145111'),
+('20230411145241'),
+('20230413140558'),
+('20230413215936'),
+('20230413215937'),
+('20230413215938'),
+('20230414164818'),
+('20230420141952'),
+('20230421172858'),
+('20230428190706'),
+('20230523191206'),
+('20230523191347'),
+('20230523192828'),
+('20230524142914'),
+('20230524143000'),
+('20230601210338'),
+('20230613164607'),
+('20230621161210'),
+('20230622125712'),
+('20230622525712'),
+('20230623154333'),
+('20230623154418'),
+('20230630172652'),
+('20230630173229'),
+('20230630184901'),
+('20230706155155'),
+('20230710144829'),
+('20230725175024'),
+('20230728183700'),
+('20230731184420'),
+('20230801140455'),
+('20230801140522'),
+('20230912150456'),
+('20230929135017'),
+('20231018141022'),
+('20231206143410'),
+('20231207135455'),
+('20231207151344'),
+('20231214182438'),
+('20240111143245'),
+('20240221192859'),
+('20240229153806'),
+('20240306124720'),
+('20240307143356'),
+('20240307182109'),
+('20240315141121'),
+('20240315171249'),
+('20240315181419'),
+('20240315184614'),
+('20240315191827'),
+('20240318141154'),
+('20240318142126'),
+('20240318143324'),
+('20240318144601'),
+('20240401223448'),
+('20240403160959'),
+('20240407173007'),
+('20240411135759'),
+('20240425125302'),
+('20240513162849');
 
 

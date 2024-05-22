@@ -2,27 +2,27 @@ $tool-grey: #f8f9f9;
 
 .q-button.bg-white {
   &.text-orange:hover, &.text-connect-yellow:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #f9b95c;
   }
   &.text-red:hover, &.text-darkred:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #ff6473;
   }
   &.text-lessonspurple:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #e358ab;
   }
   &.text-purple:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #c96cf0;
   }
   &.text-blue:hover, &.text-quillblue:hover {
     background-color: #6cb3ed;
-    color: #ffffff;
+    color: $quill-white;
   }
-  &.text-quillteal:hover {
-    color: #ffffff;
+  &.text-quill-teal:hover {
+    color: $quill-white;
     background-color: rgba(255, 255, 255, 0.38)
   }
 }
@@ -31,6 +31,11 @@ $tool-grey: #f8f9f9;
   background-color: $quillgreen;
   .q-nav-bar {
     max-width: $sitewidepagewidth;
+  }
+  @media only screen and (max-width : 921px) {
+    background-image: url(https://assets.quill.org/images/background_images/homepage_pattern.webp);
+    background-position: top;
+    background-position-y: 24px;
   }
 }
 
@@ -111,10 +116,10 @@ $tool-grey: #f8f9f9;
 
   .proofreader-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/proofreader_pattern.png");
+      background-image: url("https://assets.quill.org/images/homepage/proofreader_pattern.png");
     }
     .learn-more-button:hover {
-      background-color: #fff;
+      background-color: $quill-white;
       color: #358fe0;
     }
   }
@@ -122,30 +127,30 @@ $tool-grey: #f8f9f9;
 
   .diagnostic-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/diagnostic_pattern.png");
+      background-image: url("https://assets.quill.org/images/homepage/diagnostic_pattern.png");
     }
     .learn-more-button:hover {
-      background-color: #fff;
+      background-color: $quill-white;
       color: #e8522c;
     }
   }
 
   .connect-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/connect_pattern.png");
+      background-image: url("https://assets.quill.org/images/homepage/connect_pattern.png");
     }
     .learn-more-button:hover {
-      background-color: #fff;
+      background-color: $quill-white;
       color: #f8a724;
     }
   }
 
   .grammar-tool {
     .video-section {
-      background-image: url("../../../../public/images/homepage/grammar_pattern.png");
+      background-image: url("https://assets.quill.org/images/homepage/grammar_pattern.png");
     }
     .learn-more-button:hover {
-      background-color: #fff;
+      background-color: $quill-white;
       color: #9c2bde;
     }
   }
@@ -155,7 +160,7 @@ $tool-grey: #f8f9f9;
       background-image: url('https://assets.quill.org/images/homepage/lessonspatternhomepage.png')
     }
     .learn-more-button:hover {
-      background-color: #fff;
+      background-color: $quill-white;
       color: #a51070;
     }
   }
@@ -368,7 +373,7 @@ $tool-grey: #f8f9f9;
                 border: none !important;
 
                 &.active {
-                    background-color: $quillgreen;
+                    background-color: $quillgreen !important;
                 }
             }
         }
@@ -814,7 +819,7 @@ $tool-grey: #f8f9f9;
 
 .diagnostic-tool-page {
   .tool-animation-section {
-    background-image: url('../../../../public/images/landing_page_diagnostic_pattern.png');
+    background-image: url('https://assets.quill.org/images/shared/landing_page_diagnostic_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -836,14 +841,14 @@ $tool-grey: #f8f9f9;
 
 .connect-tool-page {
   .tool-animation-section {
-    background-image: url('../../../../public/images/landing_page_connect_pattern.png');
+    background-image: url('https://assets.quill.org/images/shared/landing_page_connect_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
   .walk-thru-wrapper {
     .walk-thru-step {
       &:first-of-type {
-        background-color: #fff8f0;
+        background-color: #FFF8F0;
       }
       .content-wrapper {
         position: relative;
@@ -989,7 +994,7 @@ $tool-grey: #f8f9f9;
 
 .proofreader-tool-page {
   .tool-animation-section {
-    background-image: url('../../../../public/images/landing_page_proofreader_pattern.png');
+    background-image: url('https://assets.quill.org/images/shared/landing_page_proofreader_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -997,7 +1002,7 @@ $tool-grey: #f8f9f9;
 
 .grammar-tool-page {
   .tool-animation-section {
-    background-image: url('../../../../public/images/landing_page_grammar_pattern.png');
+    background-image: url('https://assets.quill.org/images/shared/landing_page_grammar_pattern.png');
     background-position: center;
     background-repeat: no-repeat;
   }
@@ -1126,7 +1131,7 @@ $tool-grey: #f8f9f9;
     margin-top: 1.3em;
   }
   .support-link {
-    color: #ffffff;
+    color: $quill-white;
     font-size: 18px;
     font-weight: 600;
     display: flex;

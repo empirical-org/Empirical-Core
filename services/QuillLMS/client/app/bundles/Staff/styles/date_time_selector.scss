@@ -15,30 +15,11 @@
   }
   &.rules-analysis {
     margin-bottom: 24px;
-
-    .react-datetime-picker {
-      input:nth-of-type(2) {
-        width: 32px !important;
-      }
-      input:nth-of-type(3), input:nth-of-type(4), input:nth-of-type(5), input:nth-of-type(6) {
-        width: 16px !important;
-      }
-    }
   }
 }
 
 .date-picker-label {
   margin: 0px 16px 0px 0px;
-}
-.react-datetime-picker {
-  display: inline;
-  margin-right: 24px;
-}
-.react-datetime-picker__inputGroup {
-  padding-top: 2px;
-}
-.react-datetime-picker__inputGroup__input {
-  height: auto;
 }
 
 .error-container {

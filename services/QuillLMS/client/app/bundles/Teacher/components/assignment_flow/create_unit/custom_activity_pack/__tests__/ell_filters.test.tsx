@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { activities } from './data'
+import { activities } from './data';
 
-import ELLFilters from '../ell_filters'
+import ELLFilters from '../ell_filters';
 
 function filterActivities(ignoredKey=null) { return activities }
 

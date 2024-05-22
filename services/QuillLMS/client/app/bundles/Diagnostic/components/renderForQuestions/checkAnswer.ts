@@ -1,7 +1,6 @@
-declare function require(name:string);
-import * as _ from 'underscore'
-import { checkDiagnosticQuestion } from 'quill-marking-logic'
-import { hashToCollection } from '../../../Shared/index'
+import { checkDiagnosticQuestion } from '../../../Shared/quill-marking-logic/src/main';
+import * as _ from 'underscore';
+import { hashToCollection } from '../../../Shared/index';
 
 export default function checkAnswer(question, response, responses, mode='default') {
   const defaultConceptUID = question.modelConceptUID || question.conceptID

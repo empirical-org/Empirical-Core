@@ -1,26 +1,25 @@
-declare function require(name:string);
-
+import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as  _ from 'underscore';
-import { stringNormalize } from 'quill-string-normalizer'
+import * as _ from 'underscore';
+import { checkFillInTheBlankQuestion, } from '../../../Shared/quill-marking-logic/src/main'
 
+import {
+  Feedback,
+  Prompt,
+  fillInBlankInputLabel,
+  fillInBlankInputWidth,
+  splitPromptForFillInBlank,
+  hashToCollection,
+} from '../../../Shared/index';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import { Feedback, Prompt, } from '../../../Shared/index';
 import Cues from '../renderForQuestions/cues.jsx';
-import { hashToCollection, fillInBlankInputLabel, } from '../../../Shared/index'
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-
-const qml = require('quill-marking-logic')
-const checkFillInTheBlankQuestion = qml.checkFillInTheBlankQuestion
 
 const styles = {
   container: {
     marginTop: 35,
     marginBottom: 18,
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'wrap',
     fontSize: 24,
   },
   text: {
@@ -49,7 +48,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   setQuestionValues = (question) => {
     const q = question;
-    const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
+    const splitPrompt = splitPromptForFillInBlank(question.prompt);
     const numberOfInputVals = q.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
@@ -149,9 +148,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (inputErrors.has(i)) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
-    const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px`}
+
+    const value = inputVals[i]
+
     return (
       <input
         aria-label={fillInBlankInputLabel(cues, blankAllowed)}
@@ -160,9 +159,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         key={i + 100}
         onBlur={this.getBlurHandler(i)}
         onChange={this.getChangeHandler(i)}
-        style={styling}
+        style={fillInBlankInputWidth(value, cues)}
         type="text"
-        value={inputVals[i]}
+        value={value}
       />
     );
   }

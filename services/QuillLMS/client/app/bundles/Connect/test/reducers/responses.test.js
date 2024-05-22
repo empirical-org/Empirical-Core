@@ -1,7 +1,7 @@
 import expect from 'expect';
 import 'whatwg-fetch';
-import responsesReducer from '../../reducers/responsesReducer'
-import {updateStatus, deleteStatus, updateData} from '../../actions/responses'
+import { deleteStatus, updateData, updateStatus } from '../../actions/responses';
+import responsesReducer from '../../reducers/responsesReducer';
 
 describe("The responses reducer", () => {
   const initialState = {

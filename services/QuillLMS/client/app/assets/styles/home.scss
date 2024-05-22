@@ -9,6 +9,7 @@
 @import '../../../../app/assets/stylesheets/shared/flash.scss';
 @import '../../../../app/assets/stylesheets/shared/banner.scss';
 @import '../../../../app/assets/stylesheets/shared/banner-with-button.scss';
+@import '../../../../app/assets/stylesheets/pages/blog_posts.scss';
 @import './typography.scss';
 @import './tool-section.scss';
 @import './schools-section.scss';
@@ -113,8 +114,7 @@ a.q-button {
     }
   }
   &.cta-button {
-    // padding-left: 33px;
-    // padding-right: 33px;
+
     border: none;
     font-size: 20px;
     font-weight: bold;
@@ -126,7 +126,7 @@ a.q-button {
     font-weight: 600;
   }
   &.cta-home:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #00DFB1;
   }
   &:hover.text-white {
@@ -185,7 +185,7 @@ a.q-button {
 
 
 
-$list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quillteal: $quillteal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, darkblue: $darkblue, green: $green, darkgreen2: $darkgreen2, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
+$list: (quillgreen: $quill-green, quillred: $quillred, quillnavbar: $quillnavbar, quillforestgreen: $quillforestgreen, quillblue: $quillblue, quill-teal: $quill-teal, white: $white, black: $black, orange: $orange, red: $red, darkred: $darkred, darkorange: $darkorange, green: $green, lightgray: $lightgray, darkgray: $darkgray, purple: $purple, lessonspurple: $lessonspurple);
 
 @each $name, $color in $list {
   .text-#{"" + $name} {
@@ -278,7 +278,7 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 
 @each $background-image in $background-images-list {
   .bg-image-#{$background-image} {
-    background-image: url("../../../../public/images/background_images/#{$background-image}.png");
+    background-image: url("https://assets.quill.org/images/background_images/#{$background-image}.png");
     background-repeat: repeat;
     background-position-y: -10px;
   }
@@ -293,10 +293,16 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 section.q-hero {
   width: 100%;
   min-height: 530px;
-  background-image: url("https://assets.quill.org/images/background_images/homepage_pattern.webp");
+  background-image: url("https://assets.quill.org/images/background_images/background-pattern-crop.png");
   background-position: center center;
+  background-size: 800px;
   .navbar {
     background-color: initial;
+    .navbar-tooltip-trigger {
+      span {
+        color: $quill-white;
+      }
+    }
   }
   .header-section {
     display: flex;
@@ -331,7 +337,7 @@ section.q-hero {
 .evidence-explanation-section {
   display: flex;
   justify-content: center;
-  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern5.png");
+  background-image: url("https://assets.quill.org/images/evidence/home_page/EvidenceLandingPage_BackgroundPattern5.webp");
   background-size: contain;
   background-position-x: 96px;
   background-repeat: no-repeat;
@@ -370,7 +376,7 @@ section.q-hero {
         margin: 0;
       }
       .divider-tab {
-        background-color: #FFFFFF;
+        background-color: $quill-white;
         width: 29px;
         height: 6px;
         opacity: 0.2;
@@ -380,24 +386,19 @@ section.q-hero {
         margin-top: 16px;
       }
     }
-    .image-container {
+    .video-container {
       position: relative;
       width: 450px;
       height: 410px;
-      background: #FFFFFF !important;
+      background: $quill-white !important;
       box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15) !important;
       border-radius: 8px;
-      .evidence-image {
+      video {
         position: absolute;
-        width: 450px;
+        width: 448px;
         height: 410px;
         right: 0px;
-        &.inactive {
-          -webkit-animation: fadeOut 0.5s forwards;
-          -webkit-animation-delay: 0.5s;
-          animation: fadeOut 0.5s forwards;
-          animation-delay: 0.5s;
-        }
+        border-radius: 8px;
       }
     }
   }
@@ -427,7 +428,7 @@ section.q-hero {
     padding-top: 64px;
     .topic-section {
       background-color: white;
-      color: #2C7F9B;
+      color: $quill-teal;
       max-width: 355px;
       border-radius: 8px;
       .topic {
@@ -455,14 +456,14 @@ section.q-hero {
       }
       .q-button {
         margin-bottom: 18px;
-        border: 1px solid #2C7F9B;
+        border: 1px solid $quill-teal;
         border-radius: 4px;
         font-size: 14px;
         padding: 13px 16px 13px 16px;
       }
       .q-button:hover {
-        background-color: #2C7F9B;
-        color: #FFFFFF;
+        background-color: $quill-teal;
+        color: $quill-white;
       }
     }
   }
@@ -480,7 +481,7 @@ section.q-hero {
       background-color: white;
       border-radius: 4px;
       p, a {
-        color: #2C7F9B !important;
+        color: $quill-teal !important;
         height: auto !important;
       }
       .topic {
@@ -497,7 +498,7 @@ section.q-hero {
       }
       .q-button {
         font-size: 14px;
-        border: 1px solid #2C7F9B;
+        border: 1px solid $quill-teal;
         margin-top: 16px;
         margin-bottom: 16px;
       }
@@ -510,7 +511,7 @@ section.q-hero {
       width: 8px;
       &.active {
         margin: 0px 2px 0px 2px;
-        background-color: #FFFFFF !important;
+        background-color: $quill-white !important;
         height: 8px;
         width: 8px;
       }
@@ -520,7 +521,7 @@ section.q-hero {
 
 .evidence-new-tag {
   background-color:#F3AC4E;
-  color: #ffffff;
+  color: $quill-white;
   border-radius: 8px;
   font-weight: 600;
   font-size: 16px !important;
@@ -541,7 +542,7 @@ section.q-hero {
     margin-bottom: 128px;
   }
   .text-quillgreen:hover {
-    color: #ffffff;
+    color: $quill-white;
     background-color: #00DFB1;
   }
   @media only screen and (max-width : 600px) {
@@ -562,7 +563,7 @@ section.q-hero {
 
 .q-hero-footer {
   text-align: center;
-  background-color: #027360;
+  background-color: $quill-viridian;
   p {
     font-size: 20px;
     letter-spacing: 0.1px;
@@ -595,13 +596,14 @@ section.q-hero {
       .header-and-icon-container {
         text-align: center;
       }
-      .image-container {
+      .video-container {
+        width: 338px;
+        height: 310px;
         margin: 32px 0px;
-        width: 340px;
-        height: 330px;
-        .evidence-image {
+        video {
           width: 340px;
-          height: 330px;
+          height: 310px;
+          border-radius: 8px;
         }
       }
     }

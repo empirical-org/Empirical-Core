@@ -42,7 +42,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       data
     )
 
-    states.update_all(locked: true, pinned: false, completed: true)
+    states.update_all(locked: true, pinned: false, completed: true, updated_at: DateTime.current)
 
     concept_results = concept_result_params[:concept_results].map(&:to_h)
 
@@ -109,7 +109,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
     if teacher_ids
-      teacher_ids_h = teacher_ids.collect { |item| [item, true] }.to_h
+      teacher_ids_h = teacher_ids.to_h { |item| [item, true] }
     end
     render json: {teacher_ids: teacher_ids_h || {}}
   end
@@ -146,6 +146,8 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
         :question_type,
         metadata: [
           :activity_session_uid,
+          :question_uid,
+          :question_concept_uid,
           :answer,
           :attemptNumber,
           :correct,

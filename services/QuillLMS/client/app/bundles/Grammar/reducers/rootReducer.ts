@@ -1,17 +1,17 @@
 import { combineReducers } from "redux";
 import { IState } from "../store/configStore";
 // import { todos } from "./todosReducer";
-import grammarActivities from './grammarActivitiesReducer'
-import session from './sessionReducer'
-import questions from './questionsReducer'
-import concepts from './conceptsReducer'
-import display from './displayReducer'
-import responses from './responsesReducer'
-import massEdit from './massEditReducer'
-import filters from './filtersReducer'
-import conceptsFeedback from './conceptsFeedbackReducer'
-import generatedIncorrectSequences from './generatedIncorrectSequencesReducer'
-import questionAndConceptMap from './questionAndConceptMapReducer'
+import conceptsFeedback from './conceptsFeedbackReducer';
+import concepts from './conceptsReducer';
+import display from './displayReducer';
+import filters from './filtersReducer';
+import generatedIncorrectSequences from './generatedIncorrectSequencesReducer';
+import grammarActivities from './grammarActivitiesReducer';
+import massEdit from './massEditReducer';
+import questionAndConceptMap from './questionAndConceptMapReducer';
+import questions from './questionsReducer';
+import responses from './responsesReducer';
+import session from './sessionReducer';
 
 export const initState: IState = {
   grammarActivities: {},

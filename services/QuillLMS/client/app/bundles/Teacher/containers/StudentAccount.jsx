@@ -1,10 +1,10 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
+import { requestPut } from '../../../modules/request/index';
 import { Snackbar, defaultSnackbarTimeout } from '../../Shared/index';
 import StudentGeneralAccountInfo from '../components/accounts/edit/student_general.jsx';
 import StudentPasswordAccountInfo from '../components/accounts/edit/update_password';
 import getAuthToken from '../components/modules/get_auth_token';
-import { requestPut } from '../../../modules/request/index';
-import _ from 'lodash';
 
 const GENERAL = 'general'
 const PASSWORD = 'password'

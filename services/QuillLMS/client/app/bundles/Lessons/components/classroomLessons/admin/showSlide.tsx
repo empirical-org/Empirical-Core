@@ -1,23 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  getComponentDisplayName,
-  getComponent,
-  getClassroomLesson,
-  scriptItemTypeKeys
-} from './helpers'
-import {
-  addScriptItem
-} from '../../../actions/classroomLesson'
-import * as IntF from '../interfaces';
-import * as CustomizeIntF from '../../../interfaces/customize'
-import Script from './script'
-import {
-  saveEditionSlide,
+  addScriptItem,
   deleteEditionSlide,
+  saveEditionSlide,
   updateSlideScriptItems
-} from '../../../actions/classroomLesson'
-import { getEditionQuestions } from '../../../actions/customize'
+} from '../../../actions/classroomLesson';
+import { getEditionQuestions } from '../../../actions/customize';
+import * as CustomizeIntF from '../../../interfaces/customize';
+import * as IntF from '../interfaces';
+import {
+  getClassroomLesson,
+  getComponent,
+  getComponentDisplayName,
+  scriptItemTypeKeys
+} from './helpers';
+import Script from './script';
 
 class ShowEditionSlide extends Component<any, any> {
   constructor(props){

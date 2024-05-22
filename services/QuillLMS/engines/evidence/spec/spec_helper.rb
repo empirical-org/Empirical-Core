@@ -3,7 +3,6 @@
 require 'simplecov'
 require 'simplecov-json'
 require 'webmock/rspec'
-require 'factory_bot_rails'
 WebMock.disable_net_connect!
 
 

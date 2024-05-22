@@ -4,12 +4,12 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 import RegexRulesIndex from './regexRulesIndex';
 
-import RuleViewFormWrapper from '../configureRules/ruleViewFormWrapper';
+import { Error, Spinner } from '../../../../Shared/index';
+import { getRefetchQueryString } from '../../../helpers/evidence/ruleHelpers';
+import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
 import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { createRule, updateRule } from '../../../utils/evidence/ruleAPIs';
-import { Error, Spinner } from '../../../../Shared/index';
-import { RuleInterface } from '../../../interfaces/evidenceInterfaces';
-import { getRefetchQueryString } from '../../../helpers/evidence/ruleHelpers';
+import RuleViewFormWrapper from '../configureRules/ruleViewFormWrapper';
 
 const RegexRulesRouter = ({ history, match }) => {
   const { params } = match;
@@ -50,7 +50,8 @@ const RegexRulesRouter = ({ history, match }) => {
       } else {
         setErrors([]);
         // update rules cache to display newly updated rule
-        queryClient.refetchQueries(`rule-${ruleId}`).then(() => {
+        queryClient.refetchQueries(`rule-${ruleId}`)
+        queryClient.refetchQueries(`rules-${activityId}-${rule.rule_type}`).then(() => {
           history.push(`/activities/${activityId}/regex-rules`);
         });
       }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import _ from 'underscore';
-import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
+import { connect } from 'react-redux';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
+import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 
 class NewIncorrectSequencesContainer extends Component {
   constructor() {
@@ -29,14 +29,17 @@ class NewIncorrectSequencesContainer extends Component {
   }
 
   submitSequenceForm = data => {
-    const { actionFile, questionTypeLink } = this.state;
-    const { dispatch, history, match } = this.props;
-    const { params } = match;
-    const { questionID } = params;
+    const { dispatch, history, match, questions } = this.props;
+    const { actionFile } = this.state;
+    const incorrectSequences = questions.data[match.params.questionID].incorrectSequences
+
     delete data.conceptResults.null;
-    // TODO: fix add new incorrect sequence action to show new incorrect sequence without refreshing
-    dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
-    history.push(`/admin/${questionTypeLink}/${questionID}/incorrect-sequences`)
+    data.order = _.keys(incorrectSequences).length;
+    const url = match.url.replace('/new', '')
+    const callback = () => {
+      history.push(url)
+    }
+    dispatch(actionFile.submitNewIncorrectSequence(match.params.questionID, data, callback));
   }
 
   render() {

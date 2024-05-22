@@ -4,7 +4,7 @@
 
   .search-box {
     border: 1px solid rgba(0,0,0,0.1);
-    background-color: #fff;
+    background-color: $quill-white;
     padding: 5px 7px;
     font-size: inherit;
     border-radius: 3px;
@@ -18,7 +18,7 @@
     display: inline-block;
     float: right;
     border: 1px solid rgba(0,0,0,0.1);
-    background: #fff;
+    background: $quill-white;
     padding: 5px 7px;
     font-size: inherit;
     border-radius: 3px;
@@ -88,7 +88,7 @@
 }
 
 .grammar-badge {
-  color: #fff;
+  color: $quill-white;
   background-color: teal;
   border-color: teal;
 }

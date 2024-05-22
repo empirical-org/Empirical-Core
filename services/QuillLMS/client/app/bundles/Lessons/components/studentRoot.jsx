@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import Play from './classroomLessons/play/container.tsx'
+import { Route, Switch } from 'react-router-dom';
+import Play from './classroomLessons/play/container.tsx';
 
 const StudentRoot = () => (
   <Switch>

@@ -5,15 +5,16 @@ module GoogleIntegration
     include Sidekiq::Worker
     sidekiq_options queue: SidekiqQueue::CRITICAL_EXTERNAL
 
+    class UserNotFoundError < StandardError; end
+
     def perform(user_id)
-      return unless google_authorized?(user_id)
+      user = ::User.find_by(id: user_id)
 
-      TeacherClassroomsRetriever.run(user_id)
-      TeacherImportedClassroomsUpdater.run(user_id)
-    end
+      return ErrorNotifier.report(UserNotFoundError, user_id: user_id) if user.nil?
+      return unless user.google_authorized?
 
-    private def google_authorized?(user_id)
-      user_id && ::User.find_by(id: user_id)&.google_authorized?
+      TeacherClassroomsCacheHydrator.run(user)
+      TeacherImportedClassroomsUpdater.run(user)
     end
   end
 end

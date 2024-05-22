@@ -1,11 +1,11 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
+import { v4 as uuid } from 'uuid';
 
-import { TextEditor, isValidRegex } from '../../../Shared/index';
-import { hashToCollection, SortableList } from '../../../Shared/index';
+import { SortableList, TextEditor, hashToCollection, isValidRegex } from '../../../Shared/index';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 
@@ -17,38 +17,31 @@ class IncorrectSequencesContainer extends Component {
     const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
     const question = props[questionType].data[props.match.params.questionID]
-    const incorrectSequences = this.getSequences(question)
+    const incorrectSequences = question.incorrectSequences
 
-    this.state = { orderedIds: null, questionType, actionFile, questionTypeLink, incorrectSequences };
+    const sequencesCollection = hashToCollection(incorrectSequences)
+    const orderedIds = sequencesCollection.sort((a, b) => a.order - b.order).map(b => b.key);
+
+    this.state = { orderedIds, questionType, actionFile, questionTypeLink, incorrectSequences };
   }
 
-  componentDidMount() {
-    const { actionFile } = this.state
-    const { getUsedSequences } = actionFile
-    const { dispatch, match } = this.props
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { incorrectSequences } = this.state
+    const { match, questions } = nextProps
     const { params } = match
-    const { questionID } = params
-    if (getUsedSequences) {
-      dispatch(getUsedSequences(questionID))
+
+    const incomingIncorrectSequences = questions.data[params.questionID].incorrectSequences
+    const incomingOrderedIds = hashToCollection(incomingIncorrectSequences).sort((a, b) => a.order - b.order).map(seq => seq.key)
+    if (!_.isEqual(incorrectSequences, incomingIncorrectSequences)) {
+      this.setState({ incorrectSequences: incomingIncorrectSequences, orderedIds: incomingOrderedIds})
     }
-  }
-
-  componentDidUpdate(previousProps, previousState) {
-    const question = this.props[this.state.questionType].data[this.props.match.params.questionID]
-    const incorrectSequences = this.getSequences(question)
-
-    if (!_.isEqual(previousState.incorrectSequences, incorrectSequences)) {
-      this.setState({ incorrectSequences, });
-    };
   }
 
   getSequences = (question) => {
-    const sequences = question.incorrectSequences;
-    if(sequences && sequences.length) {
-      return sequences.filter(incorrectSequence => incorrectSequence)
-    } else {
-      return sequences
-    }
+    return hashToCollection(question.incorrectSequences).map(is => {
+      is.uid = is.uid || uuid()
+      return is
+    }).filter(incorrectSequence => incorrectSequence);
   }
 
   deleteConceptResult = (conceptResultKey, sequenceKey) => {
@@ -60,12 +53,12 @@ class IncorrectSequencesContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = incorrectSequences[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      dispatch(submitEditedIncorrectSequence(questionID, data, sequenceKey));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, data.key));
     }
   }
 
   deleteSequence = sequenceID => {
-    const { actionFile, incorrectSequences } = this.state
+    const { actionFile, incorrectSequences, orderedIds } = this.state
     const { deleteIncorrectSequence } = actionFile
     const { dispatch, match } = this.props
     const { params } = match
@@ -73,29 +66,82 @@ class IncorrectSequencesContainer extends Component {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(deleteIncorrectSequence(questionID, sequenceID));
       delete incorrectSequences[sequenceID];
-      this.setState({incorrectSequences: incorrectSequences})
+      const newOrderedIds = orderedIds.filter(id => id !== sequenceID)
+      const incorrectSequenceArray = hashToCollection(incorrectSequences)
+
+      let newIncorrectSequences = {}
+      newOrderedIds.forEach((id, index) => {
+        const sequence = incorrectSequenceArray.find(is => is.key === id);
+        sequence.order = index
+        newIncorrectSequences[sequence.key] = sequence
+      })
+
+      if (incorrectSequenceArray.length > 0) {
+        dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertDeleted))
+      } else {
+        this.alertDeleted()
+      }
+
+      this.setState({ orderedIds: newOrderedIds, incorrectSequences: newIncorrectSequences })
     }
   };
 
   sequencesSortedByOrder = () => {
     const { orderedIds, incorrectSequences } = this.state
-    if (orderedIds) {
-      const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(sequence => sequence.key === id))
-    } else {
-      return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
-    }
+
+    const sequencesCollection = Array.isArray(incorrectSequences) ? incorrectSequences : hashToCollection(incorrectSequences)
+
+    return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
+
   }
 
   sortCallback = sortInfo => {
-    const { actionFile } = this.state
+    const orderedIds = sortInfo.map(item => item.key);
+    this.setState({ orderedIds });
+  };
+
+  alertSaved = () => {
+    alert('Saved!')
+  }
+
+  alertDeleted = () => {
+    alert('Deleted!')
+  }
+
+  handleSaveAllSequences = () => {
+    const { orderedIds, incorrectSequences } = this.state
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
-    const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(actionFile.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
-  };
+    const newIncorrectSequences = {}
+    const incorrectSequenceArray = hashToCollection(incorrectSequences)
+    orderedIds.forEach((id, index) => {
+      const sequence = incorrectSequenceArray.find(is => is.key === id);
+      sequence.order = index
+      newIncorrectSequences[sequence.key] = sequence
+    })
+    dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertSaved))
+  }
+
+  updateOrder = () => {
+    const { actionFile, orderedIds, incorrectSequences } = this.state
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
+    if (orderedIds) {
+      const newIncorrectSequences = {}
+      const incorrectSequenceArray = hashToCollection(incorrectSequences)
+      orderedIds.forEach((id, index) => {
+        const sequence = incorrectSequenceArray.find(is => is.key === id);
+        sequence.order = index
+        newIncorrectSequences[sequence.key] = sequence
+      })
+      dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences))
+      alert('Saved!')
+    } else {
+      alert('No changes to incorrect sequence order have been made.')
+    }
+  }
 
   saveSequencesAndFeedback = (key) => {
     const { actionFile } = this.state
@@ -108,7 +154,7 @@ class IncorrectSequencesContainer extends Component {
     let data = filteredSequences[key]
     delete data.conceptResults.null;
     if (data.text === '') {
-      delete filteredSequences[key]
+      delete filteredSequences[index]
       dispatch(deleteIncorrectSequence(questionID, key));
     } else if (data.text.split('|||').some(sequence => !isValidRegex(sequence))) {
       alert('Your regex syntax is invalid. Try again!')
@@ -178,12 +224,18 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
+  renderSaveButton() {
+    return (
+      <button className="button is-outlined is-primary" onClick={this.handleSaveAllSequences} style={{ float: 'right', }} type="button">Save Sequences</button>
+    );
+  }
+
   renderSequenceList = () => {
     const { match } = this.props
 
     const components = this.sequencesSortedByOrder().map((sequence) => {
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={sequence.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={sequence.key} key={sequence.key} >
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, sequence.key)} placeholder="Name" type="text" value={sequence.name || ''} />
           </header>
@@ -212,7 +264,6 @@ class IncorrectSequencesContainer extends Component {
           <footer className="card-footer">
             <NavLink className="card-footer-item" to={`${match.url}/${sequence.key}/edit`}>Edit</NavLink>
             <a className="card-footer-item" onClick={() => this.deleteSequence(sequence.key)}>Delete</a>
-            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(sequence.key)}>Save</a>
           </footer>
         </div>
       )
@@ -228,6 +279,13 @@ class IncorrectSequencesContainer extends Component {
     ));
   }
 
+  renderSaveOrderButton() {
+    const { orderedIds } = this.state
+    return (
+      orderedIds ? <button className="button is-outlined is-primary" onClick={this.updateOrder} style={{ float: 'right', }}>Save Sequence Order</button> : null
+    );
+  }
+
   render() {
     const { match } = this.props
     return (
@@ -235,6 +293,7 @@ class IncorrectSequencesContainer extends Component {
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
           <a className="button is-outlined is-primary" href={`#${match.url}/new`} rel="noopener noreferrer" style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          {this.renderSaveButton()}
         </div>
         {this.renderSequenceList()}
       </div>

@@ -1,11 +1,11 @@
+import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
 
-import { DataTable } from '../../../../Shared/index'
+import { DataTable } from '../../../../Shared/index';
 
 const classroom = { id: 1, code: 'happy-day', name: 'Classroom'}
 
-import CreateStudentAccounts from '../create_student_accounts'
+import CreateStudentAccounts from '../create_student_accounts';
 
 describe('CreateStudentAccounts component', () => {
 

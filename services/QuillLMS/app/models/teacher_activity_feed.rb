@@ -54,11 +54,11 @@ class TeacherActivityFeed < RedisFeed
     return '' unless percentage
 
     if percentage >= ProficiencyEvaluator.proficiency_cutoff
-      ActivitySession::PROFICIENT
+      ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL
     elsif percentage >= ProficiencyEvaluator.nearly_proficient_cutoff
-      ActivitySession::NEARLY_PROFICIENT
+      ActivitySession::SOMETIMES_DEMONSTRATED_SKILL
     else
-      ActivitySession::NOT_YET_PROFICIENT
+      ActivitySession::RARELY_DEMONSTRATED_SKILL
     end
   end
 

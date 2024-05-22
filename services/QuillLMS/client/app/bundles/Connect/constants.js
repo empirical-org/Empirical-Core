@@ -136,6 +136,7 @@ export default {
   COLLAPSE_ALL_RESPONSES: 'COLLAPSE_ALL_RESPONSES',
   EXPAND_ALL_RESPONSES: 'EXPAND_ALL_RESPONSES',
   TOGGLE_STATUS_FIELD: 'TOGGLE_STATUS_FIELD',
+  TOGGLE_STATUS_FIELD_AND_RESET_PAGE: 'TOGGLE_STATUS_FIELD_AND_RESET_PAGE',
   TOGGLE_RESPONSE_SORT: 'TOGGLE_RESPONSE_SORT',
   TOGGLE_EXCLUDE_MISSPELLINGS: 'TOGGLE_EXCLUDE_MISSPELLINGS',
   RESET_ALL_FIELDS: 'RESET_ALL_FIELDS',
@@ -217,6 +218,9 @@ export default {
     'Too Long Hint',
     'Parts of Speech',
     'Spelling Hint',
+    'Quotation Mark Hint',
+    'Words Out of Order Hint',
+    'Spacing After Comma Hint',
   ],
 
   // cONCEPTS FEEDBACK ACTIONS
@@ -329,7 +333,7 @@ export default {
     "Fill in the blank with the correct action word.",
     "Fill in the blank with the correct set of words."
   ],
-  
+
   // flags
   PRODUCTION: 'production'
 

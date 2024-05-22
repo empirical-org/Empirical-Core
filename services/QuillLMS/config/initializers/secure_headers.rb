@@ -19,7 +19,9 @@ SecureHeaders::Configuration.default do |config|
       "https://youtube.com",
       "https://*.youtube.com",
       "https://*.amazonaws.com",
-      "https://*.loom.com"
+      "https://*.loom.com",
+      "https://*.salesmate.io",
+      "https://td.doubleclick.net/"
     ],
 
     object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
@@ -57,7 +59,11 @@ SecureHeaders::Configuration.default do |config|
       "https://*.intercomcdn.com",
       "https://*.coview.com",
       "https://*.sentry.io",
-      "https://*.heapanalytics.com"
+      "https://*.heapanalytics.com",
+      "https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js",
+      "https://*.salesmate.io",
+      "https://*.googletagmanager.com",
+      "https://code.jquery.com"
     ],
 
     font_src: [
@@ -70,8 +76,9 @@ SecureHeaders::Configuration.default do |config|
       "https://*.quill.org",
       "https://*.typekit.net",
       "https://*.fontawesome.com",
-      "https://*.gstatic.com"
-
+      "https://*.gstatic.com",
+      "https://rsms.me",
+      "https://*.rsms.me"
     ],
 
     img_src: [
@@ -91,7 +98,8 @@ SecureHeaders::Configuration.default do |config|
       "https://*.coview.com",
       "https://*.fontawesome.com",
       "https://*.googleapis.com",
-      "https://*.gstatic.com"
+      "https://*.gstatic.com",
+      "https://rsms.me"
     ],
 
     connect_src: [                                                # for XHR, etc
@@ -110,6 +118,7 @@ SecureHeaders::Configuration.default do |config|
       "https://*.pusher.com",
       "wss://coview.com",
       "wss://*.coview.com",
+      "wss://*.pusher.com",
       "wss://*.pusherapp.com",
       "wss://*.inspectlet.com",
       "https://*.intercom.io",
@@ -121,9 +130,13 @@ SecureHeaders::Configuration.default do |config|
       "http://localhost:8080/",
       "http://localhost:3200",
       "http://localhost:3100",
+      "wss://localhost:3200",
       "ws://localhost:3200",
+      "wss://localhost:3036",
+      "ws://localhost:3036",
       "https://checkout.stripe.com",
-      "https://capture-api.ap3prod.com"
+      "https://capture-api.ap3prod.com",
+      "https://pagead2.googlesyndication.com/"
     ]
   }
 

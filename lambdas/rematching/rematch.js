@@ -1,49 +1,15 @@
-const request = require('request-promise').defaults({ family: 4 });
-const _ = require('lodash');
-const u = require('underscore');
-const Sequelize = require('sequelize');
+import _ from 'lodash';
+import {
+  checkSentenceCombining,
+  checkSentenceFragment,
+  checkDiagnosticQuestion,
+  checkFillInTheBlankQuestion,
+  checkDiagnosticSentenceFragment,
+  checkGrammarQuestion,
+} from '@shared'
 
-const { checkSentenceCombining, checkSentenceFragment, checkDiagnosticQuestion, checkFillInTheBlankQuestion, checkDiagnosticSentenceFragment, checkGrammarQuestion, ConceptResult } = require('quill-marking-logic')
 const CMS_URL = 'https://cms.quill.org'
 const FIREBASE_NAME = 'quillconnect'
-
-const sequelize = new Sequelize(process.env.DATABASE, process.env.USERNAME, process.env.PASSWORD, {
-  host: process.env.HOST,
-  dialect: 'postgres',
-  port: 5432,
-  logging: false,
-
-  pool: {
-    max: 30,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-
-  // http://docs.sequelizejs.com/manual/tutorial/querying.html#operators
-  operatorsAliases: false
-});
-
-const QuestionResponse = sequelize.define('response', {
-  uid: Sequelize.STRING,
-  parent_id: Sequelize.INTEGER,
-  parent_uid: Sequelize.STRING,
-  question_uid: Sequelize.STRING,
-  author: Sequelize.STRING,
-  text: Sequelize.TEXT,
-  feedback: Sequelize.TEXT,
-  count: Sequelize.INTEGER,
-  first_attempt_count: Sequelize.INTEGER,
-  child_count: Sequelize.INTEGER,
-  optimal: Sequelize.BOOLEAN,
-  weak: Sequelize.BOOLEAN,
-  concept_results: Sequelize.JSONB,
-  spelling_error: Sequelize.BOOLEAN
-},
-{
-  timestamps: true,
-  underscored: true,
-});
 
 let questionCount = 0
 const numberOfResponses = {}
@@ -159,8 +125,8 @@ function updateResponse(response, content) {
 function determineDelta(response, newResponse) {
   const conceptResults = newResponse.response.conceptResults || newResponse.response.concept_results
   const parentIDChanged = (newResponse.response.parent_id? parseInt(newResponse.response.parent_id) : null) !== response.parent_id;
-  const authorChanged = newResponse.response.author != response.author;
-  const feedbackChanged = newResponse.response.feedback != response.feedback;
+  const authorChanged = newResponse.response.author !== response.author;
+  const feedbackChanged = newResponse.response.feedback !== response.feedback;
   const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(conceptResults), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
 
@@ -190,6 +156,7 @@ function getMatcherFields(type, question, responses) {
   const focusPoints = question.focusPoints ? hashToCollection(question.focusPoints).sort((a, b) => a.order - b.order) : [];
   const incorrectSequences = question.incorrectSequences ? hashToCollection(question.incorrectSequences) : [];
   const defaultConceptUID = question.modelConceptUID || question.conceptID || question.concept_uid
+  const { caseInsensitive, } = question
 
   if (type === 'sentenceFragments' || type === 'diagnostic_sentenceFragments') {
     return {
@@ -204,8 +171,10 @@ function getMatcherFields(type, question, responses) {
       mlUrl: CMS_URL,
       defaultConceptUID
     };
-  } else if (type === 'fillInBlankQuestions' || type === 'diagnostic_fillInBlankQuestions') {
-    return [question.key, hashToCollection(responses), defaultConceptUID]
+  } else if (type === 'fillInBlankQuestions') {
+    return [question.key, hashToCollection(responses), caseInsensitive, defaultConceptUID, false]
+  } else if (type === 'diagnostic_fillInBlankQuestions') {
+    return [question.key, hashToCollection(responses), caseInsensitive, defaultConceptUID, true]
   } else {
     return [question.key, responseArray, focusPoints, incorrectSequences, defaultConceptUID]
   }
@@ -241,6 +210,4 @@ function convertResponsesArrayToHash(crArray) {
   return newHash;
 }
 
-module.exports = {
-  rematchIndividualQuestion
-}
+export { rematchIndividualQuestion, }

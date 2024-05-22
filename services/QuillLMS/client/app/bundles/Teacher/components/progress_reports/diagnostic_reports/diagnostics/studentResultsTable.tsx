@@ -1,34 +1,33 @@
 import * as React from 'react'
 import { Link, } from 'react-router-dom'
 
-import SkillGroupTooltip from './skillGroupTooltip'
-import SkillsTable from './skillsTable'
-import GrowthSkillsTable from './growthSkillsTable'
-import StudentNameOrTooltip from './studentNameOrTooltip'
 import {
-  noDataYet,
-  closeIcon,
-  accountCommentIcon,
-  proficiencyTextToTag,
-  lightGreenTriangleUpIcon,
-  LEFT_OFFSET,
-  DEFAULT_LEFT_PADDING,
-  MOBILE_WIDTH,
-  DEFAULT_LEFT_PADDING_FOR_MOBILE
-} from './shared'
-import {
-  SkillGroupSummary,
   OpenPopover,
-  StudentResult,
   SkillGroup,
+  SkillGroupSummary,
+  StudentResult,
 } from './interfaces'
+import {
+  accountCommentIcon,
+  closeIcon,
+  DEFAULT_LEFT_PADDING,
+  DEFAULT_LEFT_PADDING_FOR_MOBILE,
+  LEFT_OFFSET,
+  brightGreenTriangleUpIcon,
+  MOBILE_WIDTH,
+  noDataYet,
+  proficiencyTextToTag
+} from './shared'
+import SkillGroupTooltip from './skillGroupTooltip'
+import StudentNameOrTooltip from './studentNameOrTooltip'
 
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 import {
   helpIcon,
   Tooltip,
 } from '../../../../../Shared/index'
-import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
 
+const POST_TEST_DESCRIPTION = '<br/><br/>The number of students who improved or maintained this skill shows you how many students had a positive outcome for this skill area on the post-diagnostic. Students who \"improved\" the skill showed growth by answering more capitalization questions correctly on the post-diagnostic than they did on the pre. Students who \"maintained\" the skill showed proficiency by answering all capitalization questions correctly on both the pre and the post-diagnostic.<br/><br/>The up arrow and number following it focuses just on growth between diagnostics. It shows you how many students improved in the skill from pre to post-diagnostic, not including students who had already shown proficiency in the skill on the pre-diagnostic.'
 
 interface StudentResultsTableProps {
   skillGroupSummaries: SkillGroupSummary[];
@@ -36,6 +35,7 @@ interface StudentResultsTableProps {
   openPopover: OpenPopover;
   setOpenPopover: (popover: OpenPopover) => void;
   responsesLink: (id: number) => string;
+  isPreTest?: boolean;
 }
 
 interface PopoverProps {
@@ -53,6 +53,47 @@ interface StudentResultCellProps {
   responsesLink: (id: number) => string;
 }
 
+function renderDelta(count: number) {
+  return (
+    <div className="skills-delta">
+      {count ? brightGreenTriangleUpIcon : null}
+      <span className="skill-count">{count ? count : null}</span>
+    </div>
+  )
+}
+
+function renderStudentHeaderSkillsData({ isPreTest, totalAcquiredSkillGroupsCount, correct_question_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count, correct_skill_groups_text }) {
+  const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
+  const tooltipText = "The number of improved skills helps you celebrate each student's learning and growth. It shows you how many skills the student improved between the pre and post-diagnostic. A skill is considered “improved” if the student answered more questions for that skill correctly on the post-diagnostic than they did on the pre. <br/><br/> If the student maintained skills, you'll see that number in parentheses. A skill is considered “maintained” if the student answered all the questions for that skill correctly on both the pre and the post-diagnostic."
+  const skillsDelta = (<div className="skills-delta">
+    <Tooltip
+      tooltipText={tooltipText}
+      tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
+    />
+  </div>)
+  const skillsSubHeader = correct_question_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_question_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
+  let skillGroupsSubHeader = <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_groups_text}</span></div>
+  const noSkillChange = !total_acquired_skill_groups_count && !total_maintained_skill_group_proficiency_count
+
+  if (!isPreTest && !noSkillChange) {
+    const acquiredText = totalAcquiredSkillGroupsCount === 1 ? '1 Improved Skill' : `${totalAcquiredSkillGroupsCount} Improved Skills`
+    const maintainedText = total_maintained_skill_group_proficiency_count === 1 ? '(1 Maintained)' : `(${total_maintained_skill_group_proficiency_count} Maintained)`
+    skillGroupsSubHeader = (
+      <div className="name-section-subheader">
+        {!!total_acquired_skill_groups_count && <div className="skills-delta">{brightGreenTriangleUpIcon}</div>}
+        {!!total_acquired_skill_groups_count && <span className="correct-skill-text acquired">{acquiredText}</span>}
+        {!!total_maintained_skill_group_proficiency_count && <span className="correct-skill-text maintained">{maintainedText}</span>}
+      </div>
+    )
+  }
+  return (
+    <React.Fragment>
+      {skillGroupsSubHeader}
+      {skillsSubHeader}
+    </React.Fragment>
+  )
+}
+
 const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: PopoverProps) => {
   return (
     <div className="student-results-popover-container hide-on-mobile">
@@ -62,15 +103,14 @@ const Popover = ({ studentResult, skillGroup, closePopover, responsesLink, }: Po
           <button className="interactive-wrapper focus-on-light" onClick={closePopover} type="button">{closeIcon}</button>
         </header>
         <p dangerouslySetInnerHTML={{ __html: skillGroup.description }} />
-        {skillGroup.skills[0].pre ? <GrowthSkillsTable skillGroup={skillGroup} /> : <SkillsTable skillGroup={skillGroup} />}
-        <Link to={responsesLink(studentResult.id)}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses</span></Link>
+        <Link to={`${responsesLink(studentResult.id)}#${skillGroup.id}`}>{accountCommentIcon}<span>View {studentResult.name}&#39;s responses for {skillGroup.skill_group}</span></Link>
       </section>
     </div>
   )
 }
 
 const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopover, responsesLink, }: StudentResultCellProps) => {
-  const { proficiency_text, number_of_correct_skills_text, id, pre_test_proficiency, post_test_proficiency, acquired_skill_ids, } = skillGroup
+  const { proficiency_text, number_of_correct_questions_text, id, } = skillGroup
   function showPopover() {
     setOpenPopover({
       studentId: studentResult.id,
@@ -82,37 +122,26 @@ const StudentResultCell = ({ skillGroup, studentResult, setOpenPopover, openPopo
     setOpenPopover({})
   }
 
-  const skillsDelta = acquired_skill_ids && acquired_skill_ids.length ? <div className="skills-delta">{lightGreenTriangleUpIcon}<span className="skill-count">{acquired_skill_ids.length}</span></div> : null
-
-
   return (
     <td className="student-result-cell">
       <button className="interactive-wrapper" onClick={showPopover} type="button">
         {proficiencyTextToTag[proficiency_text]}
-        <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_skills_text}</span>{skillsDelta}</div>
+        <div className="correct-skills-and-delta-wrapper"><span className="number-of-correct-skills-text">{number_of_correct_questions_text}</span></div>
       </button>
       {openPopover.studentId === studentResult.id && openPopover.skillGroupId === id && <Popover closePopover={closePopover} responsesLink={responsesLink} skillGroup={skillGroup} studentResult={studentResult} />}
     </td>
   )
 }
 
-const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, }) => {
-  const { name, skill_groups, id, total_acquired_skills_count, correct_skill_text, } = studentResult
-  const diagnosticNotCompletedMessage = <span className="name-section-subheader">Diagnostic not completed</span>
-  const skillsDelta = total_acquired_skills_count ? (<div className="skills-delta">
-    {lightGreenTriangleUpIcon}
-    <span className="skill-count">{total_acquired_skills_count}</span>
-    <Tooltip
-      tooltipText="This growth score is the total number of skills gained, or the number of skills that were not fully correct on the pre-test but were fully correct on the post-test. This growth score only counts each skill one time, even if the skill is part of more than one skill group."
-      tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
-    />
-  </div>) : null
-  const subHeader = correct_skill_text ? <div className="name-section-subheader"><span className="correct-skill-text">{correct_skill_text}</span>{skillsDelta}</div> : diagnosticNotCompletedMessage
+const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPopover, responsesLink, isPreTest }) => {
+  const { name, skill_groups, id, total_acquired_skill_groups_count, correct_question_text, correct_skill_groups_text, total_maintained_skill_group_proficiency_count } = studentResult
+
+  const totalAcquiredSkillGroupsCount = total_acquired_skill_groups_count > 0 ? total_acquired_skill_groups_count : 0;
 
   const firstCell = (<th className="name-cell">
     <div>
       <StudentNameOrTooltip name={name} />
-      {subHeader}
+      {renderStudentHeaderSkillsData({ isPreTest, totalAcquiredSkillGroupsCount, correct_question_text, total_acquired_skill_groups_count, total_maintained_skill_group_proficiency_count, correct_skill_groups_text })}
     </div>
   </th>)
 
@@ -132,7 +161,7 @@ const StudentRow = ({ studentResult, skillGroupSummaries, openPopover, setOpenPo
   return <tr id={id} key={name}>{firstCell}{skillGroupCells}</tr>
 }
 
-const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink, }: StudentResultsTableProps) => {
+const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, openPopover, setOpenPopover, responsesLink }: StudentResultsTableProps) => {
   const size = useWindowSize();
   const [isSticky, setIsSticky] = React.useState(false);
   const tableRef = React.useRef(null);
@@ -155,7 +184,9 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
     onScroll()
   }, [size])
 
-  const handleScroll = React.useCallback(({ top, bottom, left, right, }) => {
+  const handleScroll = React.useCallback(() => {
+    const { top, bottom, left, } = tableRef.current.getBoundingClientRect()
+
     if (top <= 0 && bottom > 92) {
       setStickyTableStyle(oldStickyTableStyle => ({ ...oldStickyTableStyle, left: left + paddingLeft() }))
       !isSticky && setIsSticky(true);
@@ -167,7 +198,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   const onScroll = () => {
     if (tableRef && tableRef.current) {
-      handleScroll(tableRef.current.getBoundingClientRect());
+      handleScroll();
     }
   }
 
@@ -181,6 +212,7 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   const studentRows = studentResults.map(studentResult => (
     <StudentRow
+      isPreTest={isPreTest}
       key={studentResult.name}
       openPopover={openPopover}
       responsesLink={responsesLink}
@@ -195,20 +227,37 @@ const StudentResultsTable = ({ skillGroupSummaries, studentResults, openPopover,
 
   const tableClassName = completedStudentCount ? 'student-results-table' : 'empty student-results-table'
 
+  function renderCountData({ completedStudentCount, proficientStudentCount }) {
+    if (!completedStudentCount) { return }
+
+    if (isPreTest) {
+      return <span className="label">{proficientStudentCount} of {completedStudentCount} Student{completedStudentCount === 1 ? '' : 's'}{' Proficient'}</span>
+    }
+
+    return (
+      <div className="student-proficiency-data-container">
+        <span className="label">{proficientStudentCount} of {completedStudentCount} Student{completedStudentCount === 1 ? '' : 's'}{' Improved or Maintained Skill'}</span>
+        {renderDelta(proficientStudentCount)}
+      </div>
+    )
+  }
+
   const tableHeaders = skillGroupSummaries.map(skillGroupSummary => {
-    const { name, description, not_yet_proficient_student_names, not_yet_proficient_in_post_test_student_names, } = skillGroupSummary
-    const notYetProficientStudentCount = (not_yet_proficient_student_names || not_yet_proficient_in_post_test_student_names).length
-    const proficientStudentCount = completedStudentCount - notYetProficientStudentCount
+    const { name, description, gained_proficiency_in_post_test_student_names, not_yet_proficient_student_names } = skillGroupSummary
+    const appendedDescription = isPreTest ? description : description + POST_TEST_DESCRIPTION
+    const notYetProficientStudentCount = isPreTest && not_yet_proficient_student_names.length
+    const proficientStudentCount = isPreTest ? completedStudentCount - notYetProficientStudentCount : gained_proficiency_in_post_test_student_names.length
     return (
       <th className="skill-group-header" key={name}>
         <div className="name-and-tooltip">
-          <span>{name}</span>
-          <SkillGroupTooltip description={description} key={name} name={name} />
+          <span className="skill-name">{name}</span>
+          <SkillGroupTooltip description={appendedDescription} key={name} name={name} />
         </div>
-        {completedStudentCount && <span className="label">{proficientStudentCount} of {completedStudentCount} student{proficientStudentCount === 1 ? '' : 's'} proficient</span>}
+        {renderCountData({ completedStudentCount, proficientStudentCount })}
       </th>
     )
   })
+
 
   const renderHeader = (sticky) => {
     let style = { position: 'inherit' }

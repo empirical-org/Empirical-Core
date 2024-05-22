@@ -9,6 +9,10 @@ describe GenerateUsername do
     expect(subject).to eq 'john.smith@student'
   end
 
+  it 'replaces any spaces with a hyphen' do
+    expect(described_class.run('John Jacob', 'Jingleheimer Schmitt', 'student')).to eq('john-jacob.jingleheimer-schmitt@student')
+  end
+
   it 'doesnt increment count if a different class code' do
     create(:student, { username: 'john.smith@teacher' })
 

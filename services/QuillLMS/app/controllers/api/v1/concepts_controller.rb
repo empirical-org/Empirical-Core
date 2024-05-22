@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Api::V1::ConceptsController < Api::ApiController
-  before_action :doorkeeper_authorize!, only: [:create]
+  before_action :staff!, only: [:create]
+
+  CACHE_EXPIRY = 24.hours
 
   def create
     concept = Concept.new(concept_params)
@@ -12,8 +14,6 @@ class Api::V1::ConceptsController < Api::ApiController
     end
   end
 
-  caches_action :index, format: 'json', expires_in: 1.hour
-
   def index
     # Returns all the concepts, sorted by level
     # Example Response:
@@ -23,7 +23,9 @@ class Api::V1::ConceptsController < Api::ApiController
     #   concept_level_0: [concepts where parent id matches a level one concept]
     # }
     #
-    render json: {concepts: Concept.all_with_level}.to_json
+    concepts = $redis.get(Concept::ALL_CONCEPTS_KEY)
+    concepts ||= fetch_all_concepts_and_cache
+    render json: concepts
   end
 
   def level_zero_concepts_with_lineage
@@ -33,5 +35,11 @@ class Api::V1::ConceptsController < Api::ApiController
 
   private def concept_params
     params.require(:concept).permit(:name, :parent_uid)
+  end
+
+  private def fetch_all_concepts_and_cache
+    concepts = {concepts: Concept.all_with_level}.to_json
+    $redis.set(Concept::ALL_CONCEPTS_KEY, concepts)
+    concepts
   end
 end

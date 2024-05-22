@@ -29,10 +29,19 @@ RSpec.describe SaveUserPackSequenceItemWorker do
     end
   end
 
-  context 'nil pack_sequence_item' do
+  context 'pack_sequence_item does not exist' do
     before { PackSequenceItem.find_by(id: pack_sequence_item_id).destroy }
 
-    it 'should_not_query_user_pack_sequence_item' do
+    it do
+      expect(UserPackSequenceItem).not_to receive(:create_or_find_by!)
+      subject
+    end
+  end
+
+  context 'user does not exist' do
+    before { User.find_by(id: user_id).destroy }
+
+    it do
       expect(UserPackSequenceItem).not_to receive(:create_or_find_by!)
       subject
     end
@@ -64,5 +73,16 @@ RSpec.describe SaveUserPackSequenceItemWorker do
       it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
       it { expect { subject }.to change { user_pack_sequence_item.reload.status } }
     end
+  end
+
+  context 'handle race condition where pack_sequence_item is deleted concurrently' do
+    before do
+      PackSequenceItem.find_by(id: pack_sequence_item_id).destroy
+      allow(PackSequenceItem).to receive(:exists?).and_return(true).once.and_call_original # simulate race condition
+      allow(UserPackSequenceItem).to receive(:create_or_find_by!).and_raise(ActiveRecord::InvalidForeignKey)
+    end
+
+    it { expect { subject }.not_to raise_error }
+    it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
   end
 end

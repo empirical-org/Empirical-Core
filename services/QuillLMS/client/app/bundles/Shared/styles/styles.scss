@@ -1,3 +1,5 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
+@import './banner.scss';
 @import './button.scss';
 @import './spinner.scss';
 @import './input.scss';
@@ -19,10 +21,14 @@
 @import './text_editor';
 @import './react_table';
 @import './react_dates';
+@import './react_select';
 @import './screenreader_instructions';
 @import './video_players.scss';
 @import './notification_bar.scss';
-@import "~react-select-search/style.css";
+@import './dropdown_input_with_search_tokens.scss';
+@import './internal_tool';
+@import "react-select-search/style.css";
+@import './helpful_tips.scss';
 
 #main-content {
   outline: none;

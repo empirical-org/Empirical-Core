@@ -21,7 +21,6 @@ describe DistrictAdmin, type: :model, redis: true do
   it { should belong_to(:district) }
   it { should belong_to(:user) }
 
-  it { is_expected.to callback(:attach_schools).after(:create) }
   it { is_expected.to callback(:detach_schools).after(:destroy) }
 
   let!(:user) { create(:user, email: 'test@quill.org') }
@@ -35,14 +34,12 @@ describe DistrictAdmin, type: :model, redis: true do
   end
 
   describe '#attach_schools' do
-    let(:attach_school_to_district) { create(:school, district: district) }
+    let!(:school1) { create(:school) }
+    let!(:school2) { create(:school) }
 
-    it { expect { attach_school_to_district }.to change(SchoolsAdmins, :count).from(0).to(1) }
-
-    context 'school is already attached' do
-      before { attach_school_to_district }
-
-      it { expect { district_admin.attach_schools }.to not_change(SchoolsAdmins, :count) }
+    it 'should attach the specified schools to the district admin as administered schools' do
+      district_admin.attach_schools([school1.id, school2.id])
+      expect(district_admin.user.administered_schools).to match_array([school1, school2])
     end
   end
 
@@ -57,6 +54,17 @@ describe DistrictAdmin, type: :model, redis: true do
       before { subject }
 
       it { expect { subject }.to not_change(SchoolsAdmins, :count) }
+    end
+
+    context 'admin is teacher for a school' do
+      before do
+        school = create(:school)
+        create(:schools_users, user: user, school: school)
+      end
+
+      it 'should detach that admin as teacher from the school' do
+        expect { subject }.to change(SchoolsUsers, :count).from(1).to(0)
+      end
     end
   end
 end

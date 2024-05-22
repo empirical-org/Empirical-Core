@@ -1,20 +1,25 @@
+import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import { EditorState, ContentState } from 'draft-js'
+import { v4 as uuid } from 'uuid';
 
-import { TextEditor } from '../../../Shared/index';
+import { hashToCollection, SortableList, TextEditor } from '../../../Shared/index';
 import * as questionActions from '../../actions/questions';
-import { hashToCollection, SortableList, } from '../../../Shared/index';
-import dispatch from '../../../Evidence/__mocks__/dispatch';
 
 class IncorrectSequencesContainer extends React.Component {
 
   constructor(props) {
     super(props);
+    const { questions, match } = this.props
 
-    const question = this.props.questions.data[this.props.match.params.questionID]
-    this.state = { orderedIds: null, incorrectSequences: question.incorrectSequences }
+    const question = questions.data[match.params.questionID]
+    const incorrectSequences = question.incorrectSequences
+
+    const sequencesCollection = hashToCollection(incorrectSequences)
+    const orderedIds = sequencesCollection.sort((a, b) => a.order - b.order).map(b => b.key);
+
+    this.state = { orderedIds: orderedIds, incorrectSequences: incorrectSequences, }
   }
 
   UNSAFE_componentWillMount() {
@@ -22,13 +27,44 @@ class IncorrectSequencesContainer extends React.Component {
     dispatch(questionActions.getUsedSequences(match.params.questionID))
   }
 
-  deleteSequence = (sequenceID: string) => {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { incorrectSequences } = this.state
+    const { match, questions } = nextProps
+    const { params } = match
+
+    const incomingIncorrectSequences = questions.data[params.questionID].incorrectSequences
+    const incomingOrderedIds = hashToCollection(incomingIncorrectSequences).sort((a, b) => a.order - b.order).map(seq => seq.key)
+    if (!_.isEqual(incorrectSequences, incomingIncorrectSequences)) {
+      this.setState({ incorrectSequences: incomingIncorrectSequences, orderedIds: incomingOrderedIds})
+    }
+  }
+
+  deleteSequence = (sequenceID: string) => {
+    const { incorrectSequences, orderedIds } = this.state
     const { dispatch, match, } = this.props
+    const { params } = match;
+    const { questionID } = params;
+
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(questionActions.deleteIncorrectSequence(match.params.questionID, sequenceID));
       delete incorrectSequences[sequenceID]
-      this.setState({ incorrectSequences: incorrectSequences})
+      const newOrderedIds = orderedIds.filter(id => id !== sequenceID)
+      const incorrectSequenceArray = hashToCollection(incorrectSequences)
+
+      let newIncorrectSequences = {}
+      newOrderedIds.forEach((id, index) => {
+        const sequence = incorrectSequenceArray.find(is => is.key === id);
+        sequence.order = index
+        newIncorrectSequences[sequence.key] = sequence
+      })
+
+      if (incorrectSequenceArray.length > 0) {
+        dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertDeleted))
+      } else {
+        this.alertDeleted()
+      }
+
+      this.setState({ orderedIds: newOrderedIds, incorrectSequences: newIncorrectSequences })
     }
   }
 
@@ -116,23 +152,38 @@ class IncorrectSequencesContainer extends React.Component {
 
   sequencesSortedByOrder = () => {
     const { orderedIds, incorrectSequences } = this.state
-    if (orderedIds) {
-      const sequencesCollection = hashToCollection(incorrectSequences)
-      return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
-    } else {
-      return hashToCollection(incorrectSequences).sort((a, b) => a.order - b.order);
-    }
+
+    const sequencesCollection = hashToCollection(incorrectSequences)
+    return orderedIds.map(id => sequencesCollection.find(s => s.key === id))
   }
 
   sortCallback = sortInfo => {
+    const orderedIds = sortInfo.map(item => item.key);
+    this.setState({ orderedIds });
+  }
+
+  alertSaved = () => {
+    alert('Saved!')
+  }
+
+  alertDeleted = () => {
+    alert('Deleted!')
+  }
+
+  handleSaveAllSequences = () => {
+    const { orderedIds, incorrectSequences } = this.state
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
-    const orderedIds = sortInfo.map(item => item.key);
-    this.setState({ orderedIds, });
-    dispatch(questionActions.updateIncorrectSequences(questionID, this.sequencesSortedByOrder()));
+    const newIncorrectSequences = {}
+    const incorrectSequenceArray = hashToCollection(incorrectSequences)
+    orderedIds.forEach((id, index) => {
+      const sequence = incorrectSequenceArray.find(is => is.key === id);
+      sequence.order = index
+      newIncorrectSequences[sequence.key] = sequence
+    })
+    dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences, this.alertSaved))
   }
-
 
   renderConceptResults(concepts, sequenceKey: string) {
     if (concepts) {
@@ -156,12 +207,18 @@ class IncorrectSequencesContainer extends React.Component {
     ));
   }
 
+  renderSaveButton() {
+    return (
+      <button className="button is-outlined is-primary" onClick={this.handleSaveAllSequences} style={{ float: 'right', }} type="button">Save Sequences</button>
+    );
+  }
+
   renderSequenceList() {
     const { match } = this.props
     const components = this.sequencesSortedByOrder().map((seq) => {
       const onClickDelete = () => { this.handleDeleteSequence(seq.key) }
       return (
-        <div className="card is-fullwidth has-bottom-margin" key={seq.key}>
+        <div className="card is-fullwidth has-bottom-margin" id={seq.key} key={seq.key}>
           <header className="card-header">
             <input className="regex-name" onChange={(e) => this.handleNameChange(e, seq.key)} placeholder="Name" type="text" value={seq.name || ''} />
           </header>
@@ -189,7 +246,6 @@ class IncorrectSequencesContainer extends React.Component {
           <footer className="card-footer">
             <a className="card-footer-item" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/${seq.key}/edit`}>Edit</a>
             <button className="card-footer-item" onClick={onClickDelete} type="button">Delete</button>
-            <a className="card-footer-item" onClick={() => this.saveSequencesAndFeedback(seq.key)}>Save</a>
           </footer>
         </div>
       )});
@@ -202,7 +258,8 @@ class IncorrectSequencesContainer extends React.Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/new`} rel="noopener noreferrer" style={{ float: 'right', }} target="_blank">Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/grammar/#/admin/questions/${match.params.questionID}/incorrect-sequences/new`} rel="noopener noreferrer" style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          {this.renderSaveButton()}
         </div>
         {this.renderSequenceList()}
         {children}

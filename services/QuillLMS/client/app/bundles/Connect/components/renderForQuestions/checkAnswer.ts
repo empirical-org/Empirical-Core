@@ -1,8 +1,6 @@
-declare function require(name:string);
+import { checkSentenceCombining } from '../../../Shared/quill-marking-logic/src/main';
 import * as _ from 'underscore';
-import {checkSentenceCombining, checkDiagnosticQuestion} from 'quill-marking-logic';
 
-import { getParameterByName } from '../../libs/getParameterByName';
 import { hashToCollection } from '../../../Shared/index';
 
 export default function checkAnswer(question, response, responses, mode='default') {

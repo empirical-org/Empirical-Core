@@ -1,5 +1,38 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: evidence_prompt_healths
+#
+#  id                                  :bigint           not null, primary key
+#  activity_short_name                 :string           not null
+#  avg_attempts                        :float
+#  avg_time_spent_per_prompt           :integer
+#  confidence                          :float
+#  current_version                     :integer          not null
+#  final_attempt_optimal               :integer
+#  first_attempt_optimal               :integer
+#  percent_automl                      :integer
+#  percent_automl_consecutive_repeated :integer
+#  percent_grammar                     :integer
+#  percent_opinion                     :integer
+#  percent_plagiarism                  :integer
+#  percent_spelling                    :integer
+#  text                                :string           not null
+#  version_responses                   :integer          not null
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  evidence_activity_health_id         :bigint
+#  prompt_id                           :integer          not null
+#
+# Indexes
+#
+#  index_evidence_prompt_healths_on_evidence_activity_health_id  (evidence_activity_health_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (evidence_activity_health_id => evidence_activity_healths.id) ON DELETE => cascade
+#
 module Evidence
   class PromptHealth < ApplicationRecord
     FIRST_ATTEMPT_OPTIMAL_CUTOFF = 25

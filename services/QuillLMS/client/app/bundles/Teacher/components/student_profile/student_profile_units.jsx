@@ -1,13 +1,13 @@
 import React from 'react';
 import _ from 'underscore';
 
+import PinnedActivityBar from './pinned_activity_bar';
+import PinnedActivityModal from './pinned_activity_modal';
+import PreviewActivityModal from './preview_activity_modal';
 import StudentProfileUnit from './student_profile_unit.jsx';
-import PinnedActivityModal from './pinned_activity_modal'
-import PreviewActivityModal from './preview_activity_modal'
-import PinnedActivityBar from './pinned_activity_bar'
 
-import LoadingIndicator from '../shared/loading_indicator'
-import { TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
+import { COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES, } from '../../../../constants/student_profile';
+import LoadingIndicator from '../shared/loading_indicator';
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
@@ -94,7 +94,7 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
@@ -102,12 +102,15 @@ export default class StudentProfileUnits extends React.Component {
       return (
         <StudentProfileUnit
           data={unit}
+          exactScoresData={exactScoresData}
+          exactScoresDataPending={exactScoresDataPending}
           id={unit_id}
           isBeingPreviewed={isBeingPreviewed}
           isSelectedUnit={String(unit_id) === selectedUnitId}
           key={unit_id}
           nextActivitySession={nextActivitySession}
           onShowPreviewModal={this.handleShowPreviewModal}
+          showExactScores={showExactScores}
           staggeredReleaseStatus={user_pack_sequence_item_status}
           unitName={unit_name}
         />

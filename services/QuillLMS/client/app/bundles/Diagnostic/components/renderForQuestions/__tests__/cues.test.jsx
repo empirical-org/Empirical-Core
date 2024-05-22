@@ -1,8 +1,8 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import { Cues } from '../cues.tsx';
 import { Cue, CueExplanation } from '../../../../Shared/index';
+import { Cues } from '../cues.tsx';
 
 let mockProps = {
   diagnosticID: 'ell',

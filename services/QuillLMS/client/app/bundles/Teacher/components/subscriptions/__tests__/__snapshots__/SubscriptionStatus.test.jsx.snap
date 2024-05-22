@@ -29,10 +29,10 @@ exports[`SubscriptionStatus container should render when the subscription is exp
     className="subscription-status"
   >
     <div
-      className="flex-row space-between"
+      className="upper-section"
     >
       <div
-        className="box-and-h2 flex-row space-between"
+        className="left-side-container"
       >
         <div
           className="box"
@@ -65,7 +65,9 @@ exports[`SubscriptionStatus container should render when the subscription is exp
         </button>
       </StripeSubscriptionCheckoutSessionButton>
     </div>
-    <p>
+    <p
+      className="premium-subscription-copy"
+    >
       <span>
         <strong>
           Your 
@@ -94,10 +96,10 @@ exports[`SubscriptionStatus container should render when there is no subscriptio
     className="subscription-status"
   >
     <div
-      className="flex-row space-between"
+      className="upper-section"
     >
       <div
-        className="box-and-h2 flex-row space-between"
+        className="left-side-container"
       >
         <div
           className="box"
@@ -122,7 +124,9 @@ exports[`SubscriptionStatus container should render when there is no subscriptio
         Learn more about Quill Premium
       </a>
     </div>
-    <p>
+    <p
+      className="premium-subscription-copy"
+    >
       <span>
         Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription.
       </span>

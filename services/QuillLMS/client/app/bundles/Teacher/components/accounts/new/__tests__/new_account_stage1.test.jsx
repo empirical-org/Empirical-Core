@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import NewAccountStage1 from '../new_account_stage1';
 

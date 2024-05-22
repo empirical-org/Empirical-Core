@@ -1,5 +1,5 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
 import DateRangeFilterOption from '../date_range_filter_option';
 

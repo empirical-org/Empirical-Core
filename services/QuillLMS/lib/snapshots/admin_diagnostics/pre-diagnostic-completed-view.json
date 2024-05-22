@@ -1,0 +1,269 @@
+{
+  "GROUP BY grade": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "pre_students_completed": 98,
+      "pre_average_score": 0.5510204081632653,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "6",
+          "name": "Grade 6",
+          "group_by": "grade",
+          "pre_students_completed": 33,
+          "pre_average_score": 0.4357864357864358
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "pre_students_completed": 65,
+          "pre_average_score": 0.6095238095238096
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "pre_students_completed": 17,
+      "pre_average_score": 0.56951871657754,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "pre_students_completed": 17,
+          "pre_average_score": 0.56951871657754
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "grade",
+      "pre_students_completed": 23,
+      "pre_average_score": 0.2927536231884058,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": "9",
+          "name": "Grade 9",
+          "group_by": "grade",
+          "pre_students_completed": 23,
+          "pre_average_score": 0.2927536231884058
+        }
+      ]
+    }
+  ],
+  "GROUP BY teacher": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "pre_students_completed": 98,
+      "pre_average_score": 0.5510204081632653,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "pre_students_completed": 29,
+          "pre_average_score": 0.6863711001642037
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 4722961,
+          "name": "Trista Johnston",
+          "group_by": "teacher",
+          "pre_students_completed": 18,
+          "pre_average_score": 0.6455026455026455
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 4595888,
+          "name": "Desiree Mott",
+          "group_by": "teacher",
+          "pre_students_completed": 21,
+          "pre_average_score": 0.3832199546485261
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 13775265,
+          "name": "Samuel Orsot",
+          "group_by": "teacher",
+          "pre_students_completed": 12,
+          "pre_average_score": 0.5277777777777778
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 2082409,
+          "name": "Jamie Sargent",
+          "group_by": "teacher",
+          "pre_students_completed": 18,
+          "pre_average_score": 0.4497354497354497
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "pre_students_completed": 17,
+      "pre_average_score": 0.56951871657754,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "pre_students_completed": 17,
+          "pre_average_score": 0.56951871657754
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "teacher",
+      "pre_students_completed": 23,
+      "pre_average_score": 0.2927536231884058,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": 12924154,
+          "name": "Cassie Broussard",
+          "group_by": "teacher",
+          "pre_students_completed": 23,
+          "pre_average_score": 0.2927536231884058
+        }
+      ]
+    }
+  ],
+  "GROUP BY classroom": [
+    {
+      "diagnostic_id": 1663,
+      "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "pre_students_completed": 98,
+      "pre_average_score": 0.5510204081632654,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1457177,
+          "name": "ENGLISH 6 -NO GR - MOTT - 07",
+          "group_by": "classroom",
+          "pre_students_completed": 21,
+          "pre_average_score": 0.3832199546485261
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1521712,
+          "name": "ENGLISH I - SARGENT - 01",
+          "group_by": "classroom",
+          "pre_students_completed": 18,
+          "pre_average_score": 0.4497354497354497
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448748,
+          "name": "ENGLISH II - JOHNSTON - 01",
+          "group_by": "classroom",
+          "pre_students_completed": 18,
+          "pre_average_score": 0.6455026455026455
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "pre_students_completed": 29,
+          "pre_average_score": 0.6863711001642037
+        },
+        {
+          "diagnostic_id": 1663,
+          "diagnostic_name": "Starter Baseline Diagnostic (Pre)",
+          "aggregate_id": 1530378,
+          "name": "English III 6th Hour",
+          "group_by": "classroom",
+          "pre_students_completed": 12,
+          "pre_average_score": 0.5277777777777778
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1668,
+      "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "pre_students_completed": 17,
+      "pre_average_score": 0.56951871657754,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1668,
+          "diagnostic_name": "Intermediate Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "pre_students_completed": 17,
+          "pre_average_score": 0.56951871657754
+        }
+      ]
+    },
+    {
+      "diagnostic_id": 1678,
+      "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+      "aggregate_id": null,
+      "name": "ROLLUP",
+      "group_by": "classroom",
+      "pre_students_completed": 23,
+      "pre_average_score": 0.2927536231884058,
+      "aggregate_rows": [
+        {
+          "diagnostic_id": 1678,
+          "diagnostic_name": "Advanced Baseline Diagnostic (Pre)",
+          "aggregate_id": 1448764,
+          "name": "ENGLISH II ADV - BROUSSARD - 01",
+          "group_by": "classroom",
+          "pre_students_completed": 23,
+          "pre_average_score": 0.2927536231884058
+        }
+      ]
+    }
+  ]
+}

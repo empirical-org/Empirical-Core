@@ -1,27 +1,28 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as filterActions from '../../actions/filters';
 import _ from 'underscore';
+import { requestGet, } from '../../../../modules/request/index';
 import {
+  QuestionBar,
   ResponseSortFields,
   ResponseToggleFields,
-  QuestionBar,
+  Spinner,
   hashToCollection,
+  responsesWithStatus,
 } from '../../../Shared/index';
-import ResponseList from './responseList';
+import * as filterActions from '../../actions/filters';
+import * as massEdit from '../../actions/massEdit';
 import * as questionActions from '../../actions/questions';
-import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging';
-import POSForResponsesList from './POSForResponsesList';
-import respWithStatus from '../../libs/responseTools';
+import {
+  submitResponseEdit,
+} from '../../actions/responses';
 import {
   rematchAll,
   rematchOne
 } from '../../libs/grading/rematching.ts';
-import * as massEdit from '../../actions/massEdit';
-import {
-  submitResponseEdit,
-} from '../../actions/responses';
-import { requestGet, } from '../../../../modules/request/index'
+import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging';
+import POSForResponsesList from './POSForResponsesList';
+import ResponseList from './responseList';
 
 import { ActionTypes } from '../../actions/actionTypes';
 
@@ -46,6 +47,7 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
       enableRematchAllButton: true,
+      isLoadingResponses: false,
     };
 
     this.getHealth = this.getHealth.bind(this)
@@ -74,7 +76,7 @@ class ResponseComponent extends React.Component {
     this.renderResponses = this.renderResponses.bind(this)
     this.toggleResponseSort = this.toggleResponseSort.bind(this)
     this.renderSortingFields = this.renderSortingFields.bind(this)
-    this.toggleField = this.toggleField.bind(this)
+    this.toggleFieldAndResetPage = this.toggleFieldAndResetPage.bind(this)
     this.toggleExcludeMisspellings = this.toggleExcludeMisspellings.bind(this)
     this.resetFields = this.resetFields.bind(this)
     this.deselectFields = this.deselectFields.bind(this)
@@ -98,6 +100,7 @@ class ResponseComponent extends React.Component {
     this.resetPageNumber = this.resetPageNumber.bind(this)
     this.renderDisplayingMessage = this.renderDisplayingMessage.bind(this)
     this.renderPageNumbers = this.renderPageNumbers.bind(this)
+    this.setResponsesLoaded = this.setResponsesLoaded.bind(this)
   }
 
   componentDidMount() {
@@ -108,9 +111,9 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
-      this.searchResponses();
-    } else if (this.props.states && this.props.states[this.props.questionID] === ActionTypes.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== ActionTypes.SHOULD_RELOAD_RESPONSES) {
+    // remove text field when comparing, since sometimes the text search can change without necessarilly requiring
+    // a new search (e.g when admin is typing)
+    if (this.props.states && this.props.states[this.props.questionID] === ActionTypes.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== ActionTypes.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
     }
@@ -143,13 +146,21 @@ class ResponseComponent extends React.Component {
     )
   }
 
+  setResponsesLoaded() {
+    this.setState({isLoadingResponses: false})
+  }
+
   clearResponses() {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   }
 
   searchResponses() {
+    const { questionID } = this.props
+
+    this.setState({isLoadingResponses: true})
+
     this.props.dispatch(questionActions.incrementRequestCount())
-    this.props.dispatch(questionActions.searchResponses(this.props.questionID));
+    this.props.dispatch(questionActions.searchResponses(questionID, this.setResponsesLoaded))
   }
 
   getTotalAttempts() {
@@ -218,8 +229,7 @@ class ResponseComponent extends React.Component {
   }
 
   responsesWithStatus() {
-    const responsesWithStatus = respWithStatus(this.props.filters.responses)
-    return hashToCollection(responsesWithStatus);
+    return hashToCollection(responsesWithStatus(this.props.filters.responses));
   }
 
   responsesGroupedByStatus() {
@@ -276,7 +286,16 @@ class ResponseComponent extends React.Component {
   }
 
   renderResponses() {
-    if (this.state.viewingResponses) {
+    const { isLoadingResponses, viewingResponses } = this.state
+
+    if (isLoadingResponses && viewingResponses) {
+      return (
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      );
+    }
+    if (viewingResponses) {
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const responsesWStatus = this.responsesWithStatus();
       const responses = _.sortBy(responsesWStatus, 'sortOrder');
@@ -320,8 +339,8 @@ class ResponseComponent extends React.Component {
     );
   }
 
-  toggleField(status) {
-    this.props.dispatch(filterActions.toggleStatusField(status));
+  toggleFieldAndResetPage(status) {
+    this.props.dispatch(filterActions.toggleStatusFieldAndResetPage(status));
   }
 
   toggleExcludeMisspellings() {
@@ -351,7 +370,7 @@ class ResponseComponent extends React.Component {
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
-        toggleField={this.toggleField}
+        toggleFieldAndResetPage={this.toggleFieldAndResetPage}
         visibleStatuses={visibleStatuses}
       />
     );
@@ -512,7 +531,8 @@ class ResponseComponent extends React.Component {
   }
 
   updatePageNumber(pageNumber) {
-    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
+    this.props.dispatch(questionActions.updatePageNumber(pageNumber));
+    this.searchResponses();
   }
 
   incrementPageNumber() {
@@ -558,10 +578,10 @@ class ResponseComponent extends React.Component {
     //   array = this.getPOSTagsList()
     // }
 
+    let pageNumbers = [1]
+
     if (this.props.filters.numberOfPages) {
-      const pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
-    } else {
-      const pageNumbers = [1]
+      pageNumbers = _.range(1, this.props.filters.numberOfPages + 1);
     }
 
     let pageNumberStyle = {};
@@ -608,6 +628,18 @@ class ResponseComponent extends React.Component {
     );
   }
 
+  showResults = () => {
+    this.searchResponses();
+  }
+
+  renderShowResultsButton = () => {
+    return (
+      <div className="show-results-container">
+        <a className="button is-outlined is-primary search" onClick={this.showResults}>Show Results</a>
+      </div>
+    );
+  }
+
   render() {
     const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
       ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
@@ -620,27 +652,30 @@ class ResponseComponent extends React.Component {
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak responses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
-        <div className="tabs is-toggle is-fullwidth">
-          {this.renderStatusToggleMenu()}
-        </div>
-        <div className="columns">
-          <div className="column">
-            <div className="tabs is-toggle is-fullwidth">
-              {this.renderSortingFields()}
-            </div>
+        <div className="filters-and-sorting-container">
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderStatusToggleMenu()}
           </div>
-          <div className="column">
-            <div className="columns">
-              <div className="column">
-                {this.renderExpandCollapseAll()}
+          <div className="columns">
+            <div className="column">
+              <div className="tabs is-toggle is-fullwidth">
+                {this.renderSortingFields()}
               </div>
-              {this.renderResetAllFiltersButton()}
-              {this.renderDeselectAllFiltersButton()}
-              {this.renderViewResponsesOrPOSButton()}
+            </div>
+            <div className="column">
+              <div className="columns">
+                <div className="column">
+                  {this.renderExpandCollapseAll()}
+                </div>
+                {this.renderResetAllFiltersButton()}
+                {this.renderDeselectAllFiltersButton()}
+                {this.renderViewResponsesOrPOSButton()}
+              </div>
             </div>
           </div>
+          <input className="input" onChange={this.handleStringFiltering} placeholder="Enter a search term or /regular expression/" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
         </div>
-        <input className="input" onChange={this.handleStringFiltering} placeholder="Enter a search term or /regular expression/" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
+        {this.renderShowResultsButton()}
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

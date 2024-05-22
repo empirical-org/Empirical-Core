@@ -1,31 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import filterActions from '../../actions/filters';
 import _ from 'underscore';
+import { requestGet, } from '../../../../modules/request/index';
 import {
+  QuestionBar,
   ResponseSortFields,
   ResponseToggleFields,
-  QuestionBar,
-  hashToCollection
+  Spinner,
+  hashToCollection,
+  responsesWithStatus,
 } from '../../../Shared/index';
-import ResponseList from './responseList.jsx';
-import QuestionMatcher from '../../libs/question';
+import * as filterActions from '../../actions/filters';
+import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
+import { submitResponseEdit } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
-import POSForResponsesList from './POSForResponsesList.jsx';
-import respWithStatus from '../../libs/responseTools.js';
-import POSMatcher from '../../libs/sentenceFragment.js';
 import {
   rematchAll,
   rematchOne
 } from '../../libs/grading/rematching.ts';
-import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
-import massEdit from '../../actions/massEdit';
-import { submitResponseEdit } from '../../actions/responses';
-import { requestGet, } from '../../../../modules/request/index'
+import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
+import QuestionMatcher from '../../libs/question';
+import POSMatcher from '../../libs/sentenceFragment.js';
+import POSForResponsesList from './POSForResponsesList.jsx';
+import ResponseList from './responseList.tsx';
 
-const C = require('../../constants').default;
+import C from '../../constants';
 
 const labels = C.ERROR_AUTHORS;
 const qualityLabels = ['Human Optimal', 'Human Sub-Optimal', 'Algorithm Optimal', 'Algorithm Sub-Optimal', 'Unmatched'];
@@ -57,6 +57,8 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
       enableRematchAllButton: true,
+      responses: this.props.filters.responses,
+      isLoadingResponses: false
     };
   }
 
@@ -68,11 +70,13 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
-      this.searchResponses();
-    } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
+    const { filters } = this.props
+
+    if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
       this.props.dispatch(questionActions.clearQuestionState(this.props.questionID));
       this.searchResponses();
+    } else if (!_.isEqual(filters.responses, prevProps.filters.responses)) {
+      this.setState({responses: filters.responses})
     }
   }
 
@@ -80,6 +84,12 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.removeSubscription(this.props.questionID));
     this.clearResponses();
   }
+
+  updateResponse = (id, response) => {
+    const { responses } = this.state
+    responses[id] = response
+    this.setState({responses:  responses})
+  };
 
   getHealth = () => {
     requestGet(
@@ -107,10 +117,17 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   };
 
+  setResponsesLoaded = () => {
+    this.setState({isLoadingResponses: false})
+  }
+
   searchResponses = () => {
     const { dispatch, questionID } = this.props;
+
+    this.setState({isLoadingResponses: true})
+
     dispatch(questionActions.incrementRequestCount())
-    dispatch(questionActions.searchResponses(questionID));
+    dispatch(questionActions.searchResponses(questionID, this.setResponsesLoaded));
   }
 
   getTotalAttempts = () => {
@@ -154,12 +171,6 @@ class ResponseComponent extends React.Component {
     return errors;
   };
 
-  rematchResponse = rid => {
-    const response = this.props.filters.responses[rid];
-    const callback = this.searchResponses;
-    rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
-  };
-
   rematchAllResponses = () => {
     this.setState({enableRematchAllButton: false});
     const pageNumber = 1;
@@ -178,16 +189,18 @@ class ResponseComponent extends React.Component {
     // });
   };
 
-  responsesWithStatus = () => {
-    return hashToCollection(respWithStatus(this.props.filters.responses));
-  };
-
   responsesGroupedByStatus = () => {
     return _.groupBy(this.responsesWithStatus(), 'statusCode');
   };
 
   responsesByStatusCodeAndResponseCount = () => {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
+  };
+
+  responsesWithStatus = () => {
+    const { filters } = this.props
+
+    return hashToCollection(responsesWithStatus(filters.responses));
   };
 
   formatForQuestionBar = () => {
@@ -210,7 +223,7 @@ class ResponseComponent extends React.Component {
   };
 
   getResponse = responseID => {
-    return this.props.filters.responses[responseID];
+    return this.state.responses[responseID];
   };
 
   getChildResponses = responseID => {
@@ -229,31 +242,39 @@ class ResponseComponent extends React.Component {
   };
 
   renderResponses = () => {
-    if (this.state.viewingResponses) {
+    const { isLoadingResponses, viewingResponses } = this.state
+
+    if (isLoadingResponses && viewingResponses) {
+      return (
+        <div className="loading-spinner-container">
+          <Spinner />
+        </div>
+      );
+    }
+
+    if (viewingResponses) {
+      const { responses } = this.state;
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
-      const responsesWStatus = this.responsesWithStatus();
-      const responses = _.sortBy(responsesWStatus, 'sortOrder');
+      const sortedResponses = _.sortBy(hashToCollection(responses), 'sortOrder')
       return (
         <ResponseList
           admin={this.props.admin}
           ascending={this.props.filters.ascending}
-          conceptID={this.props.question.conceptID}
           concepts={this.props.concepts}
-          conceptsFeedback={this.props.conceptsFeedback}
           dispatch={this.props.dispatch}
           expand={this.expand}
           expanded={this.props.filters.expanded}
           getChildResponses={this.getChildResponses}
-          getMatchingResponse={this.rematchResponse}
           getResponse={this.getResponse}
-          massEdit={this.props.massEdit}
+          massEditResponses={this.props.massEdit}
           mode={this.props.mode}
           question={this.props.question}
           questionID={questionID}
-          responses={responses}
+          responses={sortedResponses}
           selectedFocusPoints={selectedFocusPoints}
           selectedIncorrectSequences={selectedIncorrectSequences}
           states={this.props.states}
+          updateResponse={this.updateResponse}
         />
       );
     }
@@ -273,8 +294,8 @@ class ResponseComponent extends React.Component {
     );
   };
 
-  toggleField = status => {
-    this.props.dispatch(filterActions.toggleStatusField(status));
+  toggleFieldAndResetPage = status => {
+    this.props.dispatch(filterActions.toggleStatusFieldAndResetPage(status));
   };
 
   toggleExcludeMisspellings = () => {
@@ -304,7 +325,7 @@ class ResponseComponent extends React.Component {
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
-        toggleField={this.toggleField}
+        toggleFieldAndResetPage={this.toggleFieldAndResetPage}
         visibleStatuses={visibleStatuses}
       />
     );
@@ -455,7 +476,7 @@ class ResponseComponent extends React.Component {
     const { dispatch, questionID } = this.props;
     const { stringFilter } = this.refs;
     const { value } = stringFilter;
-    dispatch(questionActions.updateStringFilter(value, questionID));
+    dispatch(questionActions.updateStringFilter(value));
   }
 
   handleSearchEnter = (e) => {
@@ -473,7 +494,8 @@ class ResponseComponent extends React.Component {
   };
 
   updatePageNumber = pageNumber => {
-    this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
+    this.props.dispatch(questionActions.updatePageNumber(pageNumber));
+    this.searchResponses();
   };
 
   incrementPageNumber = () => {
@@ -565,6 +587,18 @@ class ResponseComponent extends React.Component {
     );
   };
 
+  showResults = () => {
+    this.searchResponses();
+  }
+
+  renderShowResultsButton = () => {
+    return (
+      <div className="show-results-container">
+        <a className="button is-outlined is-primary search" onClick={this.showResults}>Show Results</a>
+      </div>
+    );
+  }
+
   render() {
     const { filters, mode } = this.props;
     const { responses, stringFilter } = filters;
@@ -580,38 +614,40 @@ class ResponseComponent extends React.Component {
         <h4 className="title is-5" >
           Overview - Total Attempts: <strong>{this.getTotalAttempts()}</strong> | Unique Responses: <strong>{this.getResponseCount()}</strong> | Percentage of weak responses: <strong>{this.getPercentageWeakResponses()}%</strong>
         </h4>
-        <div className="tabs is-toggle is-fullwidth">
-          {this.renderStatusToggleMenu()}
-        </div>
-        <div className="columns">
-          <div className="column">
-            <div className="tabs is-toggle is-fullwidth">
-              {this.renderSortingFields()}
-            </div>
+        <div className="filters-and-sorting-container">
+          <div className="tabs is-toggle is-fullwidth">
+            {this.renderStatusToggleMenu()}
           </div>
-          <div className="column">
-            <div className="columns">
-              <div className="column">
-                {this.renderExpandCollapseAll()}
+          <div className="columns">
+            <div className="column">
+              <div className="tabs is-toggle is-fullwidth">
+                {this.renderSortingFields()}
               </div>
-              {this.renderResetAllFiltersButton()}
-              {this.renderDeselectAllFiltersButton()}
-              {showPosOrUniqueButton}
+            </div>
+            <div className="column">
+              <div className="columns">
+                <div className="column">
+                  {this.renderExpandCollapseAll()}
+                </div>
+                {this.renderResetAllFiltersButton()}
+                {this.renderDeselectAllFiltersButton()}
+                {showPosOrUniqueButton}
+              </div>
             </div>
           </div>
+          <div className="search-container">
+            <input
+              className="input"
+              onChange={this.handleStringFiltering}
+              onKeyPress={this.handleSearchEnter}
+              placeholder="Enter a search term or /regular expression/"
+              ref="stringFilter"
+              type="text"
+              value={stringFilter}
+            />
+          </div>
         </div>
-        <div className="search-container">
-          <input
-            className="input"
-            onChange={this.handleStringFiltering}
-            onKeyPress={this.handleSearchEnter}
-            placeholder="Enter a search term or /regular expression/"
-            ref="stringFilter"
-            type="text"
-            value={stringFilter}
-          />
-          <button className="button is-outlined is-primary search" onClick={this.searchResponses} type="submit">Search</button>
-        </div>
+        {this.renderShowResultsButton()}
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

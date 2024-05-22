@@ -1,5 +1,5 @@
+import { apiFetch, handleApiError } from '../../helpers/evidence/routingHelpers';
 import { TurkSessionInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch } from '../../helpers/evidence/routingHelpers';
 
 export const fetchTurkSessions = async ({ queryKey, }) => {
   const [key, activityId]: [string, string] = queryKey

@@ -7,8 +7,8 @@
 #  id             :integer          not null, primary key
 #  description    :text
 #  explanation    :text
-#  name           :string
-#  uid            :string           not null
+#  name           :string(255)
+#  uid            :string(255)      not null
 #  visible        :boolean          default(TRUE)
 #  created_at     :datetime
 #  updated_at     :datetime
@@ -20,10 +20,29 @@ require 'rails_helper'
 describe Concept, type: :model do
 
   it { should have_many(:change_logs) }
+  it { should have_many(:diagnostic_question_optimal_concepts).dependent(:destroy) }
 
   describe 'can behave like an uid class' do
     context 'when behaves like uid' do
       it_behaves_like 'uid'
+    end
+  end
+
+  describe 'callbacks' do
+    let!(:concept) { create(:concept, name: 'test') }
+
+    context 'after update' do
+      it 'calls redis cache delete on all concepts key' do
+        expect($redis).to receive(:del).with(Concept::ALL_CONCEPTS_KEY)
+        concept.update(name: 'test2')
+      end
+    end
+
+    context 'after create' do
+      it 'calls redis cache delete on all concepts key' do
+        expect($redis).to receive(:del).with(Concept::ALL_CONCEPTS_KEY)
+        Concept.create(name: 'test')
+      end
     end
   end
 

@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import AssignmentCard from './assignment_card';
 
-import AssignmentFlowNavigation from '../assignment_flow_navigation'
-import * as constants from '../assignmentFlowConstants'
-import ScrollToTop from '../../shared/scroll_to_top'
+import ScrollToTop from '../../shared/scroll_to_top';
+import * as constants from '../assignmentFlowConstants';
+import AssignmentFlowNavigation from '../assignment_flow_navigation';
 
 const ALL = 'All'
 const GENERAL = 'General'
@@ -41,6 +41,7 @@ const DiagnosticAssignmentCard = ({ history, diagnostic, lockedText, showNewTag,
       buttonLink={`/activity_sessions/anonymous?activity_id=${diagnostic.activityId}`}
       buttonText="Preview"
       header={diagnostic.name}
+      key={diagnostic.activityId}
       lockedText={lockedText}
       selectCard={onSelectCard}
       showNewTag={showNewTag}

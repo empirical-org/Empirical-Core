@@ -1,6 +1,5 @@
-import React from 'react';
 import { mount } from 'enzyme';
-import { DropdownInput } from '../../../../Shared/index'
+import React from 'react';
 
 import DemoAccountBanner from '../demoAccountBanner';
 

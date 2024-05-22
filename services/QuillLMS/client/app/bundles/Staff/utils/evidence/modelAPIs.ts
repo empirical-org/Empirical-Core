@@ -1,4 +1,4 @@
-import { handleApiError, apiFetch, getModelsUrl } from '../../helpers/evidence/routingHelpers';
+import { apiFetch, getModelsUrl, handleApiError } from '../../helpers/evidence/routingHelpers';
 
 export const fetchModels = async ({ queryKey }) => {
   const [key, promptId, state]: [string, number, string?] = queryKey
@@ -29,10 +29,10 @@ export const fetchModel = async ({ queryKey }) => {
   return { error: handleApiError('Failed to fetch models, please try again.', response), model: model };
 }
 
-export const createModel = async (autoMLId: string, promptId: number, notes: string) => {
+export const createModel = async (name: string, notes: string, promptId: number) => {
   const response = await apiFetch(`automl_models`, {
     method: 'POST',
-    body: JSON.stringify({ automl_model_id: autoMLId, prompt_id: promptId, notes })
+    body: JSON.stringify({ name: name, notes, prompt_id: promptId })
   });
   const newModel = await response.json();
   return { error: handleApiError('Failed to create model, please try again.', response), model: newModel };
@@ -44,4 +44,18 @@ export const activateModel = async (modelId: string) => {
     body: JSON.stringify({ model_id: modelId })
   });
   return { error: handleApiError('Failed to create model, please try again.', response)};
+}
+
+export const fetchDeployedModelNames = async () => {
+  const response = await apiFetch('automl_models/deployed_model_names');
+  const names = await response.json();
+  return { error: handleApiError('Failed to fetch deployed model names, please try again.', response), names: names };
+};
+
+export const enableMoreThanTenLabels = async (promptId: string, additionalLabels: string) => {
+  const response = await apiFetch(`automl_models/${promptId}/enable_more_than_ten_labels`, {
+    method: 'PUT',
+    body: JSON.stringify({ additional_labels: additionalLabels })
+  });
+  return { error: handleApiError('Failed to enable additional labels, please try again.', response) };
 }

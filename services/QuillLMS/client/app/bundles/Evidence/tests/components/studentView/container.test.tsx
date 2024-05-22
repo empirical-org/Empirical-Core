@@ -1,38 +1,17 @@
-import * as React from 'react'
-import { shallow, mount, } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import * as React from 'react';
 
-import { activityOne } from './data'
+import { activityOne } from './data';
 
 const csrfToken = 'mocked-csrf-token';
 document.head.innerHTML = `<meta name="csrf-token" content="${csrfToken}">`;
 
 global.scrollTo = jest.fn()
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-
-  disconnect() {
-    return null;
-  }
-
-  observe() {
-    return null;
-  }
-
-  takeRecords() {
-    return null;
-  }
-
-  unobserve() {
-    return null;
-  }
-};
 
 const mockParse = () => ({ uid: activityOne.activity_id })
 jest.mock('query-string', () => ({
-  default: {
-    parse: mockParse
-  }
+  parse: mockParse
 }))
 
 const mockTrackAnalyticsEvent = jest.fn()
@@ -41,17 +20,26 @@ jest.mock('../../../actions/analytics', () => ({
 }))
 
 const mockGetActivity = jest.fn()
+const mockGetTopicOptimalInfo = jest.fn()
 jest.mock('../../../actions/activities', () => ({
-  getActivity: mockGetActivity
+  getActivity: mockGetActivity,
+  getTopicOptimalInfo: mockGetTopicOptimalInfo
 }))
 
-jest.mock('string-strip-html', () => ({
-  default: jest.fn(() => {
-    return {};
-  })
-}))
+const mockResponse = jest.fn();
+Object.defineProperty(window, 'location', {
+  value: {
+    hash: {
+      endsWith: mockResponse,
+      includes: mockResponse,
+    },
+    href: '',
+    assign: mockResponse,
+  },
+  writable: true,
+});
 
-import { StudentViewContainer } from '../../../components/studentView/container'
+import { StudentViewContainer } from '../../../components/studentView/container';
 
 const dispatch = () => {}
 

@@ -1,7 +1,6 @@
-import { ConceptFeedback } from '../interfaces/conceptsFeedback'
-import { ActionTypes } from './actionTypes'
-import { push } from 'react-router-redux';
+import { ConceptFeedback } from '../interfaces/conceptsFeedback';
 import { ConceptFeedbackApi } from '../libs/concept_feedback_api';
+import { ActionTypes } from './actionTypes';
 
 export const startListeningToConceptsFeedback = () => {
   return (dispatch: Function) => {
@@ -44,7 +43,7 @@ export const submitConceptsFeedbackEdit = (cid: string, content: ConceptFeedback
     dispatch({ type: ActionTypes.SUBMIT_CONCEPTS_FEEDBACK_EDIT, cid, });
     ConceptFeedbackApi.update(cid, content).then(() => {
       dispatch({ type: ActionTypes.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
-      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      alert("Update successfully saved!");
       dispatch(loadConceptsFeedback())
     }).catch((error) => {
       dispatch({ type: ActionTypes.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });

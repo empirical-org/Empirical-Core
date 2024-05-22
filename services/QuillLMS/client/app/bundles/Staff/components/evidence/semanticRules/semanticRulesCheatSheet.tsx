@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Link } from 'react-router-dom'
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
-import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 import { DataTable, Spinner } from '../../../../Shared/index';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { fetchRules } from '../../../utils/evidence/ruleAPIs';
 
 const SemanticRulesCheatSheet = ({ match, }) => {
   const { params } = match;

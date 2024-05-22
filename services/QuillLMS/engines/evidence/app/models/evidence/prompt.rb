@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: comprehension_prompts
+#
+#  id                    :integer          not null, primary key
+#  conjunction           :string(20)
+#  first_strong_example  :string           default("")
+#  max_attempts          :integer
+#  max_attempts_feedback :text
+#  second_strong_example :string           default("")
+#  text                  :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  activity_id           :integer
+#
+# Indexes
+#
+#  index_comprehension_prompts_on_activity_id  (activity_id)
+#
 module Evidence
   class Prompt < ApplicationRecord
     self.table_name = 'comprehension_prompts'

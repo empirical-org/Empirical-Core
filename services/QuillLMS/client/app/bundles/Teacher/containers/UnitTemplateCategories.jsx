@@ -1,6 +1,6 @@
-import * as React from 'react'
-import Cms from './Cms.jsx'
-import Resource from '../components/cms/resources/resource.jsx'
+import * as React from 'react';
+import Resource from '../components/cms/resources/resource.jsx';
+import Cms from './Cms.jsx';
 
 export default class UnitTemplateCategories extends React.Component {
 

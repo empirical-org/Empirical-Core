@@ -73,10 +73,10 @@ describe ApplicationController, type: :controller do
         end
       end
 
-      context "when a reset_session? and current_user.google_access_expired? both false" do
+      context "when a reset_session? and current_user.google_access_expired_and_no_password? both false" do
         before do
           allow(controller).to receive(:reset_session?).and_return(false)
-          allow(user).to receive(:google_access_expired?).and_return(false)
+          allow(user).to receive(:google_access_expired_and_no_password?).and_return(false)
         end
 
         it do
@@ -94,8 +94,8 @@ describe ApplicationController, type: :controller do
         end
       end
 
-      context "when current_user.google_access_expired? is true" do
-        before { allow(user).to receive(:google_access_expired?).and_return(true) }
+      context "when current_user.google_access_expired_and_no_password? is true" do
+        before { allow(user).to receive(:google_access_expired_and_no_password?).and_return(true) }
 
         it do
           expect(controller).to receive(:reset_session_and_redirect_to_sign_in)

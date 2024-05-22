@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 describe PublicProgressReports, type: :model do
-
   before do
     class FakeReports
       attr_accessor :session
+      attr_reader :current_user
 
       include PublicProgressReports
     end
   end
 
   describe '#results_by_question' do
-    let!(:activity) { create(:evidence_activity) }
+    let!(:activity) { create(:evidence_lms_activity) }
 
     it 'should return an empty array when questions array is empty' do
       report = FakeReports.new
@@ -24,7 +24,7 @@ describe PublicProgressReports, type: :model do
 
   describe '#results_for_classroom' do
     let!(:classroom) { create(:classroom) }
-    let!(:activity) { create(:evidence_activity) }
+    let!(:activity) { create(:evidence_lms_activity) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assign_on_join: true) }
     let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom)}
     let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom)}
@@ -62,9 +62,9 @@ describe PublicProgressReports, type: :model do
 
     it 'populates feedback for an evidence activity' do
       activity_session_two = create(:activity_session_without_concept_results, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student)
-      prompt = Evidence::Prompt.create(text: "prompt text", conjunction: "but")
+      prompt = create(:evidence_prompt, text: "prompt text", conjunction: "but")
       feedback = "This is the current feedback the student is receiving."
-      evidence_child_activity = Evidence::Activity.create(parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: "test activity", notes: "note")
+      evidence_child_activity = create(:evidence_activity, parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: "test activity", notes: "note")
       feedback_history = create(:feedback_history, feedback_session_uid: activity_session_two.uid, attempt: 2, prompt: prompt, feedback_text: feedback)
 
       last_feedback = "This is the last feedback the student received."
@@ -160,12 +160,14 @@ describe PublicProgressReports, type: :model do
 
     context "no students have completed the activity" do
       describe "it is a diagnostic activity" do
+        let(:instance) { FakeReports.new }
         let!(:diagnostic) { create(:diagnostic) }
         let!(:diagnostic_activity) { create(:diagnostic_activity) }
         let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit)}
 
+        before { allow(instance).to receive(:current_user).and_return(teacher) }
+
         it "should return an array of classrooms that have been assigned the activity" do
-          instance = FakeReports.new
           instance.session = { user_id: teacher.id }
           classrooms = instance.classrooms_with_students_for_report(unit.id, diagnostic_activity.id)
 
@@ -178,8 +180,6 @@ describe PublicProgressReports, type: :model do
 
           expect(classrooms[c1_index][:classroom_unit_id]).to eq(classroom_unit1.id)
           expect(classrooms[c2_index][:classroom_unit_id]).to eq(classroom_unit2.id)
-
-
         end
       end
     end
@@ -303,18 +303,21 @@ describe PublicProgressReports, type: :model do
       expected_response = [
         {
           question_id: 1,
+          question_uid: question1.uid,
           score: nil,
           prompt: question1.data['prompt'],
           instructions: question1.data['instructions']
         },
         {
           question_id: 2,
+          question_uid: question2.uid,
           score: nil,
           prompt: question2.data['prompt'],
           instructions: question2.data['instructions']
         },
         {
           question_id: 3,
+          question_uid: question3.uid,
           score: nil,
           prompt: question3.data['prompt'],
           instructions: question3.data['instructions']
@@ -343,7 +346,246 @@ describe PublicProgressReports, type: :model do
     let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2, assigned_student_ids: [student2.id, student3.id] )}
 
     it 'returns a flattened and unique-d array of all the assigned student ids for that classroom and those units' do
-      expect(FakeReports.new.assigned_student_ids_for_classroom_and_units(classroom, [unit1, unit2])).to eq([student1.id, student2.id, student3.id])
+      expect(
+        Set.new(FakeReports.new.assigned_student_ids_for_classroom_and_units(classroom, [unit1, unit2]))
+      ).to(
+        eq(Set[student1.id, student2.id, student3.id])
+      )
     end
   end
+
+  describe '#format_activity_session_for_tooltip' do
+    let(:student_user) { create(:user) }
+    let(:activity_session) { create(:activity_session_without_concept_results, user: student_user) }
+    let(:concept) { create(:concept_with_grandparent) }
+    let!(:incorrect_concept_result) { create(:concept_result, activity_session: activity_session, correct: false, concept_id: concept.id, question_score: 0, question_number: 1, extra_metadata: { question_concept_uid: concept.uid }) }
+    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session, correct: true, concept_id: concept.id, question_score: 1, question_number: 2, extra_metadata: { question_concept_uid: concept.uid }) }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: activity_session.classroom_unit.classroom) }
+
+    it 'should render the correct json' do
+      formatted_activity_session = FakeReports.new.format_activity_session_for_tooltip(activity_session, student_user)
+
+      expect(formatted_activity_session).to include(
+        percentage: activity_session.percentage,
+        id: activity_session.id,
+        description: activity_session.activity.description,
+        due_date: activity_session.classroom_unit.unit_activities.first.due_date,
+        grouped_key_target_skill_concepts: [{ name: concept.parent.name, correct: 1, incorrect: 1 }],
+        number_of_questions: 2,
+        number_of_correct_questions: 1,
+        timespent: activity_session.timespent,
+        is_final_score: activity_session.is_final_score
+      )
+
+      # Due to time-precision rounding on strings, we have to do this comparison
+      # in a convoluted way
+      expect(formatted_activity_session[:completed_at].to_datetime.to_i)
+        .to eq((activity_session.reload.completed_at + classrooms_teacher.teacher.utc_offset.seconds).to_datetime.to_i)
+
+    end
+  end
+
+  describe '#get_key_target_skill_concept_for_question' do
+    let!(:default ) {
+      {
+        name: 'Conventions of Language',
+        correct: true
+      }
+    }
+
+    let!(:evidence_default) {
+      {
+        name: 'Writing with Evidence',
+        correct: true
+      }
+    }
+
+    it 'should return a default key target skill concept if the first concept result has no extra metadata' do
+      concept_result =  create(:concept_result)
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(default)
+    end
+
+    it 'should return the evidence default key target skill concept if the first concept result has no extra metadata and it was an evidence session' do
+      evidence_activity_session = create(:evidence_activity_session)
+      concept_result =  create(:concept_result, activity_session: evidence_activity_session)
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(evidence_default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result does not have a question_concept_uid' do
+      concept_result =  create(:concept_result, extra_metadata: { question_uid: 'blah' })
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(default)
+    end
+
+    it 'should return a default key target skill concept if the first concept result has a question_concept_uid that is not in the database' do
+      concept_result =  create(:concept_result, extra_metadata: { question_concept_uid: 'blah' })
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(default)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is correct if the student reached an optimal response' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+      correct_concept_result =  create(:concept_result, correct: true, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: true,
+        name: concept.parent.name
+      }
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result, correct_concept_result], correct_concept_result.activity_session)).to eq(expected)
+    end
+
+    it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if the student did not reach an optimal response' do
+      concept =  create(:concept_with_grandparent)
+      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
+
+      expected = {
+        id: concept.parent.id,
+        uid: concept.parent.uid,
+        correct: false,
+        name: concept.parent.name
+      }
+
+      expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result], incorrect_concept_result.activity_session)).to eq(expected)
+    end
+
+  end
+
+  describe '#get_final_attempt_feedback' do
+    let(:proofreader_activity) { create(:proofreader_activity)}
+    let(:connect_activity) { create(:connect_activity)}
+    let(:question_uid) { '123' }
+    let(:prompt_text) { 'This is my prompt text' }
+    let(:one) { 1 }
+    let(:zero) { 0 }
+    let(:final_attempt_number) {FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
+    let(:not_final_attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER - 1 }
+
+    describe 'evidence activity' do
+      let(:evidence_activity) { create(:evidence_lms_activity)}
+      let!(:activity_session) { create(:activity_session, activity: evidence_activity) }
+
+      it 'should return the default evidence suboptimal final attempt feedback if the concept result is for the fifth attempt and the score is zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+
+      it 'should not return the default evidence suboptimal final attempt feedback if the concept result is not for the fifth attempt' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, not_final_attempt_number)).not_to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+
+      it 'should not return the default evidence suboptimal final attempt feedback if the score is greater than zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, one, prompt_text, final_attempt_number)).not_to eq(FakeReports::EVIDENCE_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+    end
+
+    describe 'grammar activity' do
+      let(:grammar_activity) { create(:grammar_activity)}
+      let!(:activity_session) { create(:activity_session, activity: grammar_activity) }
+
+      it 'should return the default grammar optimal final attempt feedback if the score is greater than zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+
+      it 'should return the default grammar suboptimal final attempt feedback if the score is zero' do
+        expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+      end
+    end
+
+    describe 'proofreader activity' do
+      let(:proofreader_activity) { create(:proofreader_activity)}
+      let!(:activity_session) { create(:activity_session, activity: proofreader_activity) }
+
+      describe 'the question is a grammar question' do
+        let!(:question) { create(:question, question_type: Question::TYPE_GRAMMAR_QUESTION) }
+
+        it 'should return the default grammar optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default grammar suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+      end
+
+      describe 'the question is not a grammar question' do
+        it 'should return the default proofreader optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default proofreader suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+      end
+
+    end
+
+    describe 'connect activity' do
+      let(:connect_activity) { create(:connect_activity)}
+      let!(:activity_session) { create(:activity_session, activity: connect_activity) }
+
+      describe 'the question is a sentence combining question' do
+        let!(:question) { create(:question, question_type: Question::TYPE_CONNECT_SENTENCE_COMBINING) }
+
+        it 'should return the default connect optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default connect sentence combining suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK)
+        end
+      end
+
+      describe 'the question is a fill in the blank question' do
+        let!(:question) { create(:question, question_type: Question::TYPE_CONNECT_FILL_IN_BLANKS) }
+
+        it 'should return the default connect optimal final attempt feedback if the score is greater than zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, one, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK)
+        end
+
+        it 'should return the default connect sentence combining suboptimal final attempt feedback if the score is zero' do
+          expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK)
+        end
+      end
+
+    end
+
+  end
+
+  describe '#finished_activity_sessions_for_unit_activity_classroom_and_student' do
+    let!(:unit) { create(:unit) }
+    let!(:classroom) { create(:classroom) }
+    let!(:student) { create(:user) }
+    let!(:activity) { create(:activity) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
+    let!(:activity_session) { create(:activity_session, user: student, classroom_unit: classroom_unit, activity: activity) }
+
+    it 'returns an array of formatted activity sessions' do
+      result = FakeReports.new.finished_activity_sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
+      expect(result).to be_an(Array)
+      expect(result.first).to have_key(:activity_session_id)
+    end
+
+    it 'returns an empty array when no sessions are found' do
+      expect(FakeReports.new.finished_activity_sessions_for_unit_activity_classroom_and_student(999, 999, 999, 999)).to eq([])
+    end
+
+    it 'correctly orders sessions by completed_at' do
+      earlier_session = create(:activity_session, completed_at: 1.day.ago, user: student, classroom_unit: classroom_unit, activity: activity)
+      result = FakeReports.new.finished_activity_sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
+      expect(result.first[:activity_session_id]).to eq(earlier_session.id)
+      expect(result.length).to eq(2)
+    end
+
+    it 'only includes finished sessions' do
+      other_session = create(:activity_session, state: ActivitySession::STATE_STARTED, user: student, classroom_unit: classroom_unit, activity: activity)
+      result = FakeReports.new.finished_activity_sessions_for_unit_activity_classroom_and_student(unit.id, activity.id, classroom.id, student.id)
+      expect(result.length).to eq(1)
+    end
+  end
+
 end

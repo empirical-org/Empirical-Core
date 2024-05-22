@@ -1,5 +1,6 @@
 <%= react_component('NewAdminOrDistrictUserApp', props: {
   type: 'district',
   districtId: @district&.id,
-  returnUrl: @cms_district_path
+  returnUrl: @cms_district_path,
+  schools: @schools
 })%>

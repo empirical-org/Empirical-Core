@@ -1,8 +1,7 @@
-import React from 'react';
 import $ from 'jquery';
+import React from 'react';
 
 import { DropdownInput } from '../../../../Shared/index';
-import { requestGet } from '../../../../../modules/request/index';
 
 const studentsButton = ({ buttonGroupCallback, }) => {
   const identifier = 'students'
@@ -38,7 +37,7 @@ const Navbar = ({ params, selectedActivity, classrooms, buttonGroupCallback, dro
       <div className="container">
         <div className="name-and-classroom-dropdown">
           <h1>{selectedActivity.name}</h1>
-          <DropdownInput handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
+          <DropdownInput className="bordered" handleChange={onDropdownChange} options={classroomOptions} value={classroomOptions.find(opt => String(opt.value) === params.classroomId)} />
         </div>
         <nav>
           {studentsButton({ buttonGroupCallback, })}

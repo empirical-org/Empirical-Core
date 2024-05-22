@@ -1,6 +1,6 @@
-import { RuleInterface } from '../../interfaces/evidenceInterfaces';
-import { handleApiError, apiFetch, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
+import { apiFetch, handleApiError, handleRequestErrors, requestFailed } from '../../helpers/evidence/routingHelpers';
 import { getRulesUrl } from '../../helpers/evidence/ruleHelpers';
+import { RuleInterface } from '../../interfaces/evidenceInterfaces';
 
 export const fetchRules = async ({ queryKey }) => {
   const [key, activityId, promptId, ruleType]: [string, string, any, string] = queryKey

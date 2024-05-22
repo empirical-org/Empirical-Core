@@ -1,16 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 
+import AssignStudents from './assign_students';
+import GradeLevelWarningModal from './gradeLevelWarningModal';
 import NameTheUnit from './name_the_unit';
-import ReviewActivities from './review_activities'
-import AssignStudents from './assign_students'
-import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal'
-import OverrideWarningModal from './overrideWarningModal'
-import GradeLevelWarningModal from './gradeLevelWarningModal'
+import OverrideWarningModal from './overrideWarningModal';
+import ReviewActivities from './review_activities';
+import SkipRecommendationsWarningModal from './skipRecommendationsWarningModal';
 
-import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
-import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
-import ScrollToTop from '../../../shared/scroll_to_top'
-import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants'
+import { ButtonLoadingSpinner, } from '../../../../../Shared/index'
+;
+import ScrollToTop from '../../../shared/scroll_to_top';
+import { postTestClassAssignmentLockedMessages, } from '../../assignmentFlowConstants';
+import AssignmentFlowNavigation from '../../assignment_flow_navigation';
 
 export class Stage2 extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export class Stage2 extends React.Component {
   assignButton() {
     const { loading, } = this.state
     return loading
-      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" type="button">Assigning... <ButtonLoadingIndicator /></button>
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" type="button">Assigning... <ButtonLoadingSpinner /></button>
       : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.handleClickAssign} type="button">Assign pack to classes</button>;
   }
 
@@ -51,7 +52,7 @@ export class Stage2 extends React.Component {
 
   handleClickAssign = () => {
     const { timesSubmitted, } = this.state
-    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, classrooms, selectedActivities, } = this.props
+    const { errorMessage, finish, alreadyCompletedDiagnosticStudentNames, notYetCompletedPreTestStudentNames, showGradeLevelWarning, selectedActivities, } = this.props
 
     const selectedClassrooms = this.selectedClassrooms()
     const lowestSelectedClassroomGrade = Math.min(...selectedClassrooms.map(c => Number(c.classroom.grade) || 12))
@@ -151,6 +152,7 @@ export class Stage2 extends React.Component {
       lockedClassroomIds,
       restrictedActivity,
       cleverLink,
+      googleLink,
     } = this.props
 
     return (
@@ -158,6 +160,7 @@ export class Stage2 extends React.Component {
         classrooms={classrooms}
         cleverLink={cleverLink}
         fetchClassrooms={fetchClassrooms}
+        googleLink={googleLink}
         lockedClassroomIds={lockedClassroomIds}
         lockedMessage={restrictedActivity ? postTestClassAssignmentLockedMessages[restrictedActivity.id] : ''}
         toggleClassroomSelection={toggleClassroomSelection}
@@ -200,7 +203,7 @@ export class Stage2 extends React.Component {
   }
 
   render() {
-    const { unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
+    const { unitTemplateName, unitTemplateId, isFromDiagnosticPath, } = this.props
     return (
       <div>
         {this.renderGradeLevelWarningModal()}

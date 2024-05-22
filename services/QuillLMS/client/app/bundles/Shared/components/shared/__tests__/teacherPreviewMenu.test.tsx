@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 import { Provider } from "react-redux";
 
-import { TeacherPreviewMenu } from '../../../../Shared/index';
 import createStore from '../../../../Connect/utils/configureStore';
+import { TeacherPreviewMenu } from '../../../../Shared/index';
 const store = createStore();
 
 describe('TeacherPreviewMenu component', () => {
@@ -31,7 +31,10 @@ describe('TeacherPreviewMenu component', () => {
       },
     },
     showPreview: true,
-    isOnMobile: false
+    isOnMobile: false,
+    session: {
+      previewSessionStep: 'introduction'
+    }
   }
   const component = mount(
     <Provider store={store}>

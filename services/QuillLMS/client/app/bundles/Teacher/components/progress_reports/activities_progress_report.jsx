@@ -1,18 +1,20 @@
-import React from 'react'
 import createReactClass from 'create-react-class';
-import moment from 'moment'
-import queryString from 'query-string'
+import moment from 'moment';
+import queryString from 'query-string';
+import React from 'react';
+import _ from 'underscore';
 
-import ProgressReportFilters from './progress_report_filters.jsx'
-import EmptyStateForReport from './empty_state_for_report.jsx'
-import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants'
+import EmptyStateForReport from './empty_state_for_report.jsx';
+import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';
+import ProgressReportFilters from './progress_report_filters.jsx';
 
-import LoadingSpinner from '../shared/loading_indicator.jsx'
-import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
+import { requestGet, } from '../../../../modules/request/index';
+import { ReactTable, ReportHeader, } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
-import { ReactTable, } from '../../../Shared/index'
-import { requestGet, } from '../../../../modules/request/index'
+import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin';
+import LoadingSpinner from '../shared/loading_indicator.jsx';
 
+// TODO: refactor this, progress_report and Scorebook files to remove create-react-class package
 
 export default createReactClass({
   displayName: 'activities_progress_report',
@@ -107,14 +109,14 @@ export default createReactClass({
 
   columnDefinitions: function() {
     const { studentFilters, } = this.state
+    const cellClassName = this.nonPremiumBlur()
     // Student, Date, Activity, Score, Standard, Tool
     return [
       {
         Header: 'Student',
         accessor: 'student_id',
         resizeable: false,
-        Cell: ({row}) => studentFilters.find(student => student.value == row.original.student_id)?.name,
-        className: this.nonPremiumBlur(),
+        Cell: ({ row }) => <span className={cellClassName}>{studentFilters.find(student => student.value == row.original.student_id)?.name}</span>,
         maxWidth: 200
       },
       {
@@ -128,22 +130,23 @@ export default createReactClass({
         Header: 'Activity',
         accessor: 'activity_name',
         resizeable: false,
-        className: 'show-overflow'
+        Cell: ({ row }) => <span className="show-overflow">{row.original.activity_name}</span>
       },
       {
         Header: 'Score',
         accessor: 'percentage',
         resizeable: false,
-        Cell: ({row}) => row.original.percentage >= 0 ? `${Math.round(row.original.percentage * 100)}%` : 'Completed',
-        className: this.nonPremiumBlur(),
+        Cell: ({row}) => {
+          const score = row.original.percentage >= 0 ? `${Math.round(row.original.percentage * 100)}%` : 'Completed'
+          return <span className={cellClassName}>{score}</span>
+        },
         maxWidth: 90
       },
       {
         Header: 'Time spent',
         accessor: 'timespent',
         resizeable: false,
-        Cell: ({row}) => getTimeSpent(row.original.timespent),
-        className: this.nonPremiumBlur(),
+        Cell: ({ row }) => <span className={cellClassName}>{getTimeSpent(row.original.timespent)}</span>,
         maxWidth: 90
       },
       {
@@ -295,17 +298,12 @@ export default createReactClass({
 
   render: function() {
     return (
-      <div className='progress-reports-2018 data-export'>
-        <div className='meta-overview flex-row space-between'>
-          <div className='header-and-info'>
-            <h1>Data Export</h1>
-            <p>You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."</p>
-          </div>
-          <div className='csv-and-how-we-grade'>
-            <button className='quill-button medium primary contained focus-on-light' onClick={this.downloadReport} style={{display: 'block'}}>Download Report</button>
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
-          </div>
-        </div>
+      <div className='teacher-report-container progress-reports-2018 data-export'>
+        <ReportHeader
+          downloadReportButton={<button className='quill-button medium primary contained focus-on-light' onClick={this.downloadReport} style={{ display: 'block' }}>Download Report</button>}
+          headerText="Data Export"
+          tooltipText='You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."'
+        />
         {this.renderFiltersAndTable()}
       </div>
     );

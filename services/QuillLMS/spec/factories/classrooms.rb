@@ -5,17 +5,16 @@
 # Table name: classrooms
 #
 #  id                  :integer          not null, primary key
-#  code                :string
-#  grade               :string
+#  code                :string(255)
+#  grade               :string(255)
 #  grade_level         :integer
-#  name                :string
+#  name                :string(255)
 #  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime
-#  clever_id           :string
+#  clever_id           :string(255)
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,11 +23,10 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 FactoryBot.define do
-  factory :simple_classroom, class: Classroom do
-    name 'a'
+  factory :simple_classroom, class: 'Classroom' do
+    name { 'a' }
   end
 
   factory :classroom do
@@ -36,11 +34,20 @@ FactoryBot.define do
     grade { [(1..12).to_a, 'University', 'Kindergarten'].flatten.sample.to_s }
 
     trait :from_google do
-      google_classroom_id { (1..10).map { (1..9).to_a.sample }.join } # mock a google id
+      google_classroom_id { Faker::Number.number(digits: 11) }
     end
 
     trait :from_clever do
-      clever_id { (1..24).map { (('a'..'f').to_a + (1..9).to_a).sample }.join } # mock a clever id
+      clever_id { SecureRandom.hex(12) }
+    end
+
+    trait :from_canvas do
+      transient { canvas_instance { FactoryBot.create(:canvas_instance) } }
+
+      after(:create) do |classroom, context|
+        create(:canvas_classroom, classroom: classroom, canvas_instance: context.canvas_instance)
+        classroom.reload
+      end
     end
 
     factory :classroom_with_a_couple_students do
@@ -102,9 +109,7 @@ FactoryBot.define do
       end
     end
 
-    trait :archived do
-      visible false
-    end
+    trait(:archived) { visible { false } }
 
     after(:create) do |classroom|
       if classroom.classrooms_teachers.none?

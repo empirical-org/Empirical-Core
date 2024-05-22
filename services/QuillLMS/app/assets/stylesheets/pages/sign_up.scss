@@ -99,10 +99,10 @@
       max-width: 427px;
       width: 100%;
       border-radius: 6px 0px 0px 6px;
-      border: solid 1px #e0e0e0;
+      border: solid 1px $quill-grey-5;
       border-right: none;
-      background-color: #666666;
-      color: #ffffff;
+      background-color: $quill-grey-40;
+      color: $quill-white;
       padding: 40px 64px;
       h2 {
         font-size: 24px;
@@ -117,7 +117,7 @@
       }
       li:before {
         content: "";
-        border: 2px #fff solid !important;
+        border: 2px $quill-white solid !important;
         border-radius: 50px;
         margin-top: 11px;
         margin-left: -25px;
@@ -128,7 +128,7 @@
       flex-direction: column;
       .account-container, .info {
         border-radius: 6px;
-        border: solid 1px #e0e0e0;
+        border: solid 1px $quill-grey-5;
         margin: 0px auto 20px;
       }
     }
@@ -144,13 +144,18 @@
   }
 }
 
-.account-form.add-teacher-info {
+.account-form.add-teacher-info, .account-form.add-admin-info {
   display: flex;
   align-items: center;
   flex-direction: column;
   max-width: 546px;
   h1 {
     margin: 32px 0px 4px;
+    display: flex;
+    flex-direction: column;
+    .school-name {
+      font-weight: 400;
+    }
   }
   .sub-header {
     max-width: 100%;
@@ -164,10 +169,64 @@
   .quill-button {
     margin-top: 8px;
   }
+  .input-container.inactive .dropdown__placeholder {
+    display: inherit;
+  }
+  .skip-for-now {
+    font-weight: 600;
+    color: #009A80;
+    margin-top: 32px;
+  }
   @media (min-width: 560px) {
     h1 {
       white-space: nowrap;
     }
+  }
+}
+
+.email-verification {
+  .sub-header {
+    line-height: 24px;
+  }
+  .body {
+    line-height: 22px;
+    color: #646464;
+    margin-bottom: 32px;
+  }
+  a, .interactive-wrapper {
+    color: #009A80;
+    font-weight: 600;
+  }
+}
+
+.school-verification-section {
+  h3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 12px;
+    color: $quill-grey-90;
+    margin-bottom: 32px;
+  }
+  .helper-text {
+    line-height: 16px;
+  }
+  .input-container:first-of-type {
+    margin-bottom: 40px;
+  }
+  .input-container:last-of-type {
+    min-height: auto;
+  }
+  .input-container.inactive:not(.has-text) input {
+    height: 25px;
+  }
+}
+
+.admin-access-request-section {
+  .admin-selection-table {
+    border: 1px solid $quill-grey-5;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 32px;
   }
 }
 
@@ -204,6 +263,24 @@
   line-height: 14px;
 }
 
+.district-admin-note {
+  background: rgba(223, 158, 61, 0.1);
+  border-radius: 10px;
+  padding: 32px 16px;
+  display: flex;
+  align-items: flex-start;
+  margin-top: -8px;
+  margin-bottom: 24px;
+  border: none;
+  img {
+    margin-right: 8px;
+  }
+  p {
+    color: $quill-gold-dark;
+    line-height: 16.88px;
+  }
+}
+
 .grade-dropdowns-wrapper {
   display: flex;
   justify-content: space-between;
@@ -227,22 +304,22 @@
 .school-search-container {
   max-width: 577px;
   border-radius: 6px;
-  border: solid 1px #e0e0e0;
-  background-color: #ffffff;
+  border: solid 1px $quill-grey-5;
+  background-color: $quill-white;
   margin: auto;
   padding: 14px 32px 0px;
   .schools-list-section {
     margin: 38px 0px;
     max-width: 513px;
     border-radius: 6px;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $quill-grey-5;
     .title {
       padding: 18px 16px;
       line-height: 1px;
       font-size: 12px;
       font-weight: 600;
       color: #888888;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $quill-grey-5;
     }
     .list {
       overflow: scroll;
@@ -258,7 +335,7 @@
       }
     }
     .school-not-listed {
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid $quill-grey-5;
       font-size: 14px;
       padding: 16px 16px 18px;
       line-height: 1;

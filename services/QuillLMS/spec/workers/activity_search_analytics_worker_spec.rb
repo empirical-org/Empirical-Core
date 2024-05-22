@@ -9,9 +9,7 @@ describe ActivitySearchAnalyticsWorker do
     let(:analytics) { double(:analytics) }
     let!(:user) { create(:user) }
 
-    before do
-      allow(SegmentAnalytics).to receive(:new) { analytics }
-    end
+    before { allow(Analytics::SegmentAnalytics).to receive(:new) { analytics } }
 
     it 'should track the activity search' do
       expect(analytics).to receive(:track_activity_search).with(user.id, "query")

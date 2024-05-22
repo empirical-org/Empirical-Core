@@ -5,16 +5,13 @@
 # Table name: firebase_apps
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string(255)
 #  pkey       :text
-#  secret     :string
+#  secret     :string(255)
 #  throwaway  :text             default("lorem")
 #  created_at :datetime
 #  updated_at :datetime
 #
-require 'firebase_token_generator'
-require "jwt"
-
 class FirebaseApp < ApplicationRecord
 
   def token_for(user)

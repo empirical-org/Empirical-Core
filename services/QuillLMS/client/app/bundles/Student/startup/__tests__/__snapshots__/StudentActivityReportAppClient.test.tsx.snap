@@ -1,0 +1,1191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentActivityReportApp renders as expected when showExactScore is true 1`] = `
+<DocumentFragment>
+  <div
+    class="student-activity-report"
+  >
+    <div
+      class="student-profile-header"
+    >
+      <div
+        class="container"
+      >
+        <a
+          class="quill-button secondary outlined medium focus-on-light"
+          href="/classrooms/1582402"
+        >
+          <img
+            alt="Back arrow icon"
+            src="undefined/images/icons/arrow-back.svg"
+          />
+          All activities
+        </a>
+      </div>
+    </div>
+    <div
+      class="container"
+    >
+      <div
+        class="header"
+      >
+        <h1>
+          Simple Past vs. Present Perfect 1
+        </h1>
+        <div
+          class="dropdown-and-score"
+        >
+          <div
+            class="dropdown-container input-container inactive has-text not-editable bordered activity-sessions  "
+            role="button"
+            tabindex="0"
+          >
+            <label />
+            <div
+              class="dropdown css-b62m3t-container"
+            >
+              <span
+                class="css-1f43avz-a11yText-A11yText"
+                id="react-select-2-live-region"
+              />
+              <span
+                aria-atomic="false"
+                aria-live="polite"
+                aria-relevant="additions text"
+                class="css-1f43avz-a11yText-A11yText"
+              />
+              <div
+                class="dropdown__control css-13cymwt-control"
+              >
+                <div
+                  class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+                >
+                  <div
+                    class="dropdown__single-value css-1dimb5e-singleValue"
+                  >
+                    3rd Score: 100% - Apr 23, 5:58pm
+                  </div>
+                  <div
+                    class="dropdown__input-container css-qbdosj-Input"
+                    data-value=""
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      autocapitalize="none"
+                      autocomplete="off"
+                      autocorrect="off"
+                      class="dropdown__input"
+                      id="react-select-2-input"
+                      role="combobox"
+                      spellcheck="false"
+                      style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                      tabindex="-1"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+                >
+                  <span
+                    class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                  />
+                  <div
+                    aria-hidden="true"
+                    class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="css-tj5bde-Svg"
+                      focusable="false"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      width="20"
+                    >
+                      <path
+                        d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="score proficient"
+          >
+            <span
+              class="score-indicator"
+            />
+            <strong>
+              10 of 10 correct
+            </strong>
+             (100%)
+          </div>
+        </div>
+      </div>
+      <div
+        class="helpful-tips"
+      >
+        <div
+          class="helpful-tips-header"
+        >
+          <img
+            alt="Lightbulb icon for helpful tips"
+            src="undefined/images/pages/activity_analysis/lightbulb.svg"
+          />
+          <h3>
+            Helpful Tips 
+            <span>
+              (Expand to show more information)
+            </span>
+          </h3>
+        </div>
+        <button
+          class="toggle-student-report-explanation scoring-explanation is-closed"
+          type="button"
+        >
+          <img
+            alt="Expand icon"
+            src="undefined/images/icons/expand.svg"
+          />
+          <h4>
+            You will receive full credit on each question where you reach a strong response by the final attempt.
+          </h4>
+        </button>
+        <button
+          class="toggle-student-report-explanation scoring-explanation is-closed"
+          type="button"
+        >
+          <img
+            alt="Expand icon"
+            src="undefined/images/icons/expand.svg"
+          />
+          <h4>
+            The bolded text helps you see edits you made to your writing.
+          </h4>
+        </button>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 1
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Jason went to the basketball game last night. There, he ___ his sister score thirty points.
+              </div>
+              <span
+                class="cue"
+              >
+                has watched
+              </span>
+              <span
+                class="cue"
+              >
+                watched
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Jason went to the basketball game last night. There, he watched his sister score thirty points.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 2
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Kara is very skilled with pottery. That is because she ___ many pottery classes over the last five years.
+              </div>
+              <span
+                class="cue"
+              >
+                took
+              </span>
+              <span
+                class="cue"
+              >
+                has taken
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Kara is very skilled with pottery. That is because she has taken many pottery classes over the last five years.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 3
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                When did you go to Florida? I ___ to Florida last month.
+              </div>
+              <span
+                class="cue"
+              >
+                have gone
+              </span>
+              <span
+                class="cue"
+              >
+                went
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              When did you go to Florida? I went to Florida last month.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 4
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Have you ever traveled to Canada? Yes, I ___ to Canada.
+              </div>
+              <span
+                class="cue"
+              >
+                have traveled
+              </span>
+              <span
+                class="cue"
+              >
+                traveled
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Have you ever traveled to Canada? Yes, I have traveled to Canada.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 5
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Dan’s sister can drive us to the park. She ___ her license two weeks ago.
+              </div>
+              <span
+                class="cue"
+              >
+                got
+              </span>
+              <span
+                class="cue"
+              >
+                has gotten
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Dan’s sister can drive us to the park. She has gotten her license two weeks ago.
+            </p>
+            <div
+              class="feedback suboptimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_revise.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                Try again. How can you show that get is an action completed at a specific time in the past?
+              </p>
+            </div>
+          </div>
+          <div
+            class="attempt"
+          >
+            <h3>
+              2nd attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Dan’s sister can drive us to the park. She got her license two weeks ago.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 6
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Marina loves that band. She ___ them in concert seven times.
+              </div>
+              <span
+                class="cue"
+              >
+                saw
+              </span>
+              <span
+                class="cue"
+              >
+                has seen
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Marina loves that band. She has seen them in concert seven times.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 7
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                I don’t know if I have the correct email address for Mr. Walker. I ___ him at least five emails this week, and I still haven’t heard back.
+              </div>
+              <span
+                class="cue"
+              >
+                sent
+              </span>
+              <span
+                class="cue"
+              >
+                have sent
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              I don’t know if I have the correct email address for Mr. Walker. I have sent him at least five emails this week, and I still haven’t heard back.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 8
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                My legs hurt. I ___ five miles yesterday.
+              </div>
+              <span
+                class="cue"
+              >
+                ran
+              </span>
+              <span
+                class="cue"
+              >
+                have run
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              My legs hurt. I ran five miles yesterday.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 9
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Shana competed in the robotics competition last year. She ___ first place.
+              </div>
+              <span
+                class="cue"
+              >
+                won
+              </span>
+              <span
+                class="cue"
+              >
+                has won
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Shana competed in the robotics competition last year. She won first place.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="question-container"
+      >
+        <div
+          class="question-level-information optimal"
+        >
+          <h2>
+            <span>
+              Question 10
+            </span>
+            <img
+              alt=""
+              src="undefined/images/pages/student_activity_report/question_check.svg"
+            />
+          </h2>
+          <div
+            class="directions"
+          >
+            <h3>
+              Directions
+            </h3>
+            <p>
+              Fill in the blank with the correct form of the action word.
+            </p>
+          </div>
+          <div
+            class="prompt"
+          >
+            <h3>
+              Prompt
+            </h3>
+            <div>
+              <div
+                class="prompt-text"
+              >
+                Zak clearly enjoys origami. He ___ over 1,000 paper cranes over the past year.
+              </div>
+              <span
+                class="cue"
+              >
+                folded
+              </span>
+              <span
+                class="cue"
+              >
+                has folded
+              </span>
+            </div>
+          </div>
+          <div
+            class="target-skill"
+          >
+            <h3>
+              Target Skill
+            </h3>
+            <div
+              class="target-skill-indicator correct"
+            >
+              <img
+                alt=""
+                src="undefined/images/pages/student_activity_report/skill_check.svg"
+              />
+              <span>
+                Perfect Tense
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="attempts"
+        >
+          <div
+            class="attempt"
+          >
+            <h3>
+              1st attempt
+            </h3>
+            <p
+              class="answer"
+            >
+              Zak clearly enjoys origami. He has folded over 1,000 paper cranes over the past year.
+            </p>
+            <div
+              class="feedback optimal"
+            >
+              <h4>
+                <img
+                  alt=""
+                  src="undefined/images/pages/student_activity_report/feedback_check.svg"
+                />
+                 Feedback
+              </h4>
+              <p>
+                That's a strong sentence!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

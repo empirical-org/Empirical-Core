@@ -13,7 +13,9 @@ exports[`Header Image component should render Header Image 1`] = `
     >
       <p
         className="header-image-caption"
-      />
+      >
+        test caption
+      </p>
       <Tooltip
         handleClick={[Function]}
         isTabbable={false}

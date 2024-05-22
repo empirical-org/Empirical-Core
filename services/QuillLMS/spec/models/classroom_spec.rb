@@ -5,17 +5,16 @@
 # Table name: classrooms
 #
 #  id                  :integer          not null, primary key
-#  code                :string
-#  grade               :string
+#  code                :string(255)
+#  grade               :string(255)
 #  grade_level         :integer
-#  name                :string
+#  name                :string(255)
 #  synced_name         :string
 #  visible             :boolean          default(TRUE), not null
 #  created_at          :datetime
 #  updated_at          :datetime
-#  clever_id           :string
+#  clever_id           :string(255)
 #  google_classroom_id :bigint
-#  teacher_id          :integer
 #
 # Indexes
 #
@@ -24,12 +23,10 @@
 #  index_classrooms_on_google_classroom_id  (google_classroom_id)
 #  index_classrooms_on_grade                (grade)
 #  index_classrooms_on_grade_level          (grade_level)
-#  index_classrooms_on_teacher_id           (teacher_id)
 #
 require 'rails_helper'
 
 describe Classroom, type: :model do
-
   it { should validate_uniqueness_of(:code) }
   it { should validate_presence_of(:name) }
 
@@ -38,13 +35,16 @@ describe Classroom, type: :model do
   it { should have_many(:unit_activities).through(:units) }
   it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:activity_sessions).through(:classroom_units) }
-  #check if the code is correct as assign activities model does not exist
-  #it { should have_many(:standard_levels).through(:assign) }
   it { should have_many(:coteacher_classroom_invitations) }
   it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name("StudentsClassrooms") }
   it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name("User") }
   it { should have_many(:classrooms_teachers).with_foreign_key('classroom_id') }
   it { should have_many(:teachers).through(:classrooms_teachers).source(:user) }
+  it { should have_one(:canvas_classroom).dependent(:destroy) }
+  it { should have_one(:canvas_instance).through(:canvas_classroom) }
+  it { should accept_nested_attributes_for(:classrooms_teachers) }
+  it { should accept_nested_attributes_for(:canvas_classroom) }
+  it { should delegate_method(:classroom_external_id).to(:canvas_classroom).allow_nil }
 
   it { is_expected.to callback(:hide_appropriate_classroom_units).after(:commit) }
 
@@ -217,6 +217,28 @@ describe Classroom, type: :model do
     end
   end
 
+  describe '#hide_all_classroom_units' do
+    subject { classroom.hide_all_classroom_units }
+
+    let(:owner) { create(:teacher) }
+    let(:classroom) { create(:classroom, classrooms_teachers: [build(:classrooms_teacher, user: owner, role: 'owner')]) }
+    let(:unit) { create(:unit, user: owner) }
+    let(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, classroom_id: classroom.id ) }
+    let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
+
+    it { expect { subject }.to change { classroom_unit.reload.visible }.from(true).to(false) }
+    it { expect { subject }.to change { activity_session.reload.visible }.from(true).to(false) }
+    it { expect { subject }.to change { unit.reload.visible }.from(true).to(false) }
+
+    context 'updated_at checks' do
+      before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
+
+      it { expect { subject }.to change { classroom_unit.reload.updated_at } }
+      it { expect { subject }.to change  { activity_session.reload.updated_at } }
+      it { expect { subject }.to change { unit.reload.updated_at } }
+    end
+  end
+
   describe '#with_student_ids' do
     let(:classroom) { create(:classroom) }
 
@@ -369,6 +391,34 @@ describe Classroom, type: :model do
           it { expect { subject }.to change { SaveUserPackSequenceItemsWorker.jobs.size }.by(num_students) }
         end
       end
+    end
+  end
+
+  describe '#classroom_external_id' do
+    subject { classroom.classroom_external_id }
+
+    context 'when classroom has no provider' do
+      let(:classroom) { create(:classroom) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'when google_classroom_id is present' do
+      let(:classroom) { create(:classroom, :from_google) }
+
+      it { is_expected.to eq classroom.google_classroom_id }
+    end
+
+    context 'when clever_id is present' do
+      let(:classroom) { create(:classroom, :from_clever) }
+
+      it { is_expected.to eq classroom.clever_id }
+    end
+
+    context 'when canvas_classroom is present' do
+      let(:classroom) { create(:classroom, :from_canvas) }
+
+      it { is_expected.to eq classroom.canvas_classroom.classroom_external_id }
     end
   end
 end

@@ -48,6 +48,15 @@ describe TeacherFixController do
   end
 
   describe '#unarchive_units' do
+    subject do
+      post :unarchive_units,
+        params: {
+          changed_names: [[unit.id, "new name"]],
+          unit_ids: [unit.id, unit1.id, unit2.id]
+        },
+        as: :json
+    end
+
     let!(:unit) { create(:unit, visible: false) }
     let!(:activity) { create(:classroom_unit, unit_id: unit.id, visible: false) }
     let!(:session) { create(:activity_session, classroom_unit_id: activity.id, visible: false) }
@@ -59,23 +68,13 @@ describe TeacherFixController do
     let!(:session2) { create(:activity_session, classroom_unit_id: activity.id) }
 
     it 'should change the names of given units' do
-      post :unarchive_units,
-        params: {
-          changed_names: [[unit.id, "new name"]],
-          unit_ids: [unit.id, unit1.id, unit2.id]
-        },
-        as: :json
+      subject
 
       expect(unit.reload.name).to eq "new name"
     end
 
     it 'should make all the units visible' do
-      post :unarchive_units,
-        params: {
-          changed_names: [],
-          unit_ids: [unit.id, unit1.id, unit2.id]
-        },
-        as: :json
+      subject
 
       expect(unit.reload.visible).to eq true
       expect(unit1.reload.visible).to eq true
@@ -83,12 +82,7 @@ describe TeacherFixController do
     end
 
     it 'should mark all the activity sessions visible' do
-      post :unarchive_units,
-        params: {
-          changed_names: [],
-          unit_ids: [unit.id, unit1.id, unit2.id]
-        },
-        as: :json
+      subject
 
       expect(activity.reload.visible).to eq true
       expect(activity1.reload.visible).to eq true
@@ -97,6 +91,8 @@ describe TeacherFixController do
       expect(session1.reload.visible).to eq true
       expect(session2.reload.visible).to eq true
     end
+
+    it { expect { subject }.to change { unit.reload.updated_at } }
   end
 
   describe '#recover_classroom_units' do
@@ -256,6 +252,8 @@ describe TeacherFixController do
           expect(unit.reload.user_id).to eq teacher1.id
           expect(classrooms_teacher.reload.user_id).to eq teacher1.id
         end
+
+        it { expect { post :merge_teacher_accounts, params: { account1_identifier: teacher.email, account2_identifier: teacher1.email } }.to change { unit.reload.updated_at } }
       end
 
       context 'when both the accounts are not teachers' do
@@ -338,8 +336,9 @@ describe TeacherFixController do
 
   describe '#google_unsync_account' do
     context 'when user exists' do
+      let(:user) { create(:student, :signed_up_with_google) }
+
       context 'when new email is not given' do
-        let!(:user) { create(:student, :signed_up_with_google) }
 
         it 'should reset the google id and set the signed up with google flag' do
           post :google_unsync_account, params: { original_email: user.email, password: "test123" }
@@ -349,14 +348,22 @@ describe TeacherFixController do
       end
 
       context 'when new email is given' do
-        let!(:user) { create(:student, :signed_up_with_google) }
-
         it 'should update the email, reset the google id and set the signed up with google flag' do
           post :google_unsync_account, params: { original_email: user.email, password: "test123", new_email: "new@email.com" }
           expect(user.reload.email).to eq "new@email.com"
           expect(user.reload.signed_up_with_google).to eq false
           expect(user.reload.google_id).to eq nil
         end
+      end
+
+      context 'when email is not downcased' do
+        it 'should update the email, reset the google id and set the signed up with google flag' do
+          post :google_unsync_account, params: { original_email: user.email.upcase, password: "test123", new_email: "new@email.com" }
+          expect(user.reload.email).to eq "new@email.com"
+          expect(user.reload.signed_up_with_google).to eq false
+          expect(user.reload.google_id).to eq nil
+        end
+
       end
     end
 
@@ -551,15 +558,15 @@ describe TeacherFixController do
 
           create(
             :google_classroom_user,
-            provider_user_id: synced_student.google_id,
-            provider_classroom_id: classroom.google_classroom_id
+            user_external_id: synced_student.google_id,
+            classroom_external_id: classroom.classroom_external_id
           )
 
           create(
             :google_classroom_user,
             :deleted,
-            provider_user_id: unsynced_student.google_id,
-            provider_classroom_id: classroom.google_classroom_id
+            user_external_id: unsynced_student.google_id,
+            classroom_external_id: classroom.classroom_external_id
           )
         end
 
@@ -568,6 +575,47 @@ describe TeacherFixController do
             post :remove_unsynced_students, params: { teacher_identifier: teacher.email }
           }.to change(StudentsClassrooms, :count).from(2).to(1)
         end
+      end
+    end
+  end
+
+  describe '#recalculate_staggered_release_locks' do
+    subject { post :recalculate_staggered_release_locks, params: { teacher_identifier: teacher_identifier } }
+
+    context 'with a valid teacher identifier' do
+      let(:teacher) { create(:teacher) }
+      let(:teacher_identifier) { teacher.email }
+
+      context 'that has a classroom with students' do
+        let!(:classroom) { create(:classroom) }
+        let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+        let!(:student) { create(:students_classrooms, classroom: classroom).student }
+
+        it 'calls the background job' do
+          expect(SaveUserPackSequenceItemsWorker).to receive(:perform_async).with(classroom.id, student.id)
+          subject
+          expect(response.code).to eq '200'
+        end
+
+        it { expect { subject }.to change(ChangeLog, :count).by(1) }
+      end
+
+      context 'that has no students' do
+        it 'calls no background jobs' do
+          expect(SaveUserPackSequenceItemsWorker).not_to receive(:perform_async)
+          subject
+          expect(response.code).to eq '200'
+        end
+      end
+    end
+
+    context 'with a teacher identifier that does not exist' do
+      let(:teacher_identifier) { 'not-an-identifier' }
+
+      it 'should return an error' do
+        expect(SaveUserPackSequenceItemsWorker).not_to receive(:perform_async)
+        subject
+        expect(response.code).to eq '404'
       end
     end
   end

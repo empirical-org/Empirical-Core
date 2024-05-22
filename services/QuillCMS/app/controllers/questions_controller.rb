@@ -2,6 +2,10 @@ class QuestionsController < ApplicationController
   MULTIPLE_CHOICE_LIMIT = 2
   CACHE_EXPIRY = 24.hours.to_i
 
+  def responses_for_rematching
+    render json: graded_fallback
+  end
+
   def responses
     graded = GradedResponse.no_parent.where(question_uid: params[:question_uid])
 
@@ -28,7 +32,6 @@ class QuestionsController < ApplicationController
 
     render json: optimal.concat(nonoptimal)
   end
-
 
   # Newly added questions aren't in GradedResponse since that's only refreshed nightly
   private def graded_fallback

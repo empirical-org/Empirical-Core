@@ -1,7 +1,9 @@
 import * as React from "react";
-import {HashRouter} from "react-router-dom";
-import {Provider} from "react-redux";
-import {route} from "./routes";
+import { Provider } from "react-redux";
+import { HashRouter } from "react-router-dom";
+import { CompatRouter } from "react-router-dom-v5-compat";
+
+import { route } from "./routes";
 import { configureStore, initStore } from "./store/configStore";
 
 const store = configureStore();
@@ -15,7 +17,11 @@ class App extends React.Component<{}, {}> {
   public render(): JSX.Element {
     return (
       <Provider store={store}>
-        <HashRouter basename="/">{route}</HashRouter>
+        <HashRouter basename="/">
+          <CompatRouter>
+            {route}
+          </CompatRouter>
+        </HashRouter>
       </Provider>
     );
   }

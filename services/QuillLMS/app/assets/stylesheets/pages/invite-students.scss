@@ -5,7 +5,7 @@
     width: 280px;
     height: 40px;
     border-radius: 6px;
-    background-color: #ffffff;
+    background-color: $quill-white;
     border: solid 1px #737373;
     font-size: 16px;
     font-weight: bold;
@@ -43,7 +43,7 @@
       width: 100%;
       height: 59px;
       // border-radius: 3px;
-      background-color: #ebebeb;
+      background-color: $quill-grey-3;
       align-items: center;
       border-bottom: solid 1px #c0c0c0;
       h1 {
@@ -124,7 +124,7 @@
             width: 188px;
             height: 40px;
             border-radius: 6px;
-            background-color: #ffffff;
+            background-color: $quill-white;
             border: solid 1px #c0c0c0;
             margin-right: 15px;
           }

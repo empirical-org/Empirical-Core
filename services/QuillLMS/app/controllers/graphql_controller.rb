@@ -32,21 +32,4 @@ class GraphqlController < ApplicationController
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
   end
-
-  private def current_user
-    begin
-      if session[:user_id]
-        @current_user ||= User.find(session[:user_id])
-      elsif doorkeeper_token
-        User.find_by_id(doorkeeper_token.resource_owner_id)
-      else
-        authenticate_with_http_basic do |username, password|
-          return @current_user ||= User.find_by_token!(username) if username.present?
-        end
-      end
-    rescue ActiveRecord::RecordNotFound
-      sign_out
-      nil
-    end
-  end
 end

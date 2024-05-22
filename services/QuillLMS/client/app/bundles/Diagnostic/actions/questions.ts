@@ -1,5 +1,4 @@
-const C = require('../constants').default;
-const moment = require('moment');
+import C from '../constants';
 
 import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
@@ -7,18 +6,17 @@ declare global {
   interface Window { pusher: any }
 }
 
-import _ from 'underscore';
-import _l from 'lodash';
 import { push } from 'react-router-redux';
-import { submitResponse } from './responses';
-import sessionActions from './sessions';
+import _ from 'underscore';
+import { requestPost, } from '../../../modules/request/index';
 import {
-  QuestionApi,
   FocusPointApi,
   IncorrectSequenceApi,
+  QuestionApi,
   SENTENCE_COMBINING_TYPE
-} from '../libs/questions_api'
-import { requestPost, } from '../../../modules/request/index'
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
+import sessionActions from './sessions';
 
 function loadQuestions() {
   return (dispatch, getState) => {
@@ -73,7 +71,7 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    QuestionApi.update(qid, content).then( () => {
+    QuestionApi.update(qid, content).then(() => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
@@ -171,10 +169,11 @@ function updateModelConceptUID(qid, modelConceptUID) {
   }
 }
 
-function submitNewIncorrectSequence(qid, data) {
+function submitNewIncorrectSequence(qid, data, callback) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.create(qid, data).then(() => {
       dispatch(loadQuestion(qid));
+      callback();
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });
@@ -201,10 +200,11 @@ function deleteIncorrectSequence(qid, seqid) {
   };
 }
 
-function updateIncorrectSequences(qid, data) {
+function updateIncorrectSequences(qid, data, callback) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
+      callback();
     }).catch((error) => {
       alert(`Order update failed! ${error}`);
     });
@@ -218,7 +218,7 @@ function getFormattedSearchData(state) {
   return searchData;
 }
 
-function searchResponses(qid) {
+function searchResponses(qid, callback) {
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
@@ -230,7 +230,7 @@ function searchResponses(qid) {
         // if equal to const set earlier, update the state
         // otherwise, do nothing
         if (getState().filters.requestCount === requestNumber && body) {
-          const embeddedOrder = _.map(body.results, (response, i) => {
+          const embeddedOrder = _.map(body.results, (response: any, i: number) => {
             response.sortOrder = i;
             return response;
           });
@@ -241,6 +241,7 @@ function searchResponses(qid) {
             numberOfPages: body.numberOfPages,
           };
           dispatch(updateResponses(responseData));
+          callback();
         }
       }
     );
@@ -253,12 +254,15 @@ function initializeSubscription(qid) {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {
       setTimeout(() => dispatch(searchResponses(qid)), 1000);
     });
+    channel.bind('rematching-finished', () => {
+      window.alert(`Rematching finished for the diagnostic question with uid ${qid}! Reload the page to see the rematched responses.`)
+    })
   };
 }
 
@@ -270,17 +274,15 @@ function removeSubscription(qid) {
   };
 }
 
-function updatePageNumber(pageNumber, qid) {
+function updatePageNumber(pageNumber) {
   return (dispatch) => {
     dispatch(setPageNumber(pageNumber));
-    dispatch(searchResponses(qid));
   };
 }
 
-function updateStringFilter(stringFilter, qid) {
+function updateStringFilter(stringFilter) {
   return (dispatch) => {
     dispatch(setStringFilter(stringFilter));
-    stringFilter === '' && dispatch(searchResponses(qid));
   };
 }
 
@@ -301,7 +303,7 @@ function getUsedSequences(qid) {
 }
 
 function setUsedSequences(qid, seq) {
-  return {type: C.SET_USED_SEQUENCES, qid, seq}
+  return { type: C.SET_USED_SEQUENCES, qid, seq }
 }
 
 function startResponseEdit(qid, rid) {

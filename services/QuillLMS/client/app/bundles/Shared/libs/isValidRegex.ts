@@ -6,3 +6,7 @@ export function isValidRegex(str) {
     return false
   }
 }
+
+export function isValidAndNotEmptyRegex(string) {
+  return string.length && isValidRegex(string)
+}

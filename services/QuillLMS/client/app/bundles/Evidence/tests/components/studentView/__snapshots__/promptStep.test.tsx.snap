@@ -81,16 +81,6 @@ exports[`PromptStep component active state before any responses have been submit
               </ContentEditable>
             </div>
           </EditorContainer>
-          <div
-            className="character-counter-container"
-          >
-            <p>
-              Your response is too long for our feedback bot to understand
-            </p>
-            <p>
-              undefined/200
-            </p>
-          </div>
         </div>
         <div
           className="attempts-and-button-container"
@@ -227,16 +217,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
               </ContentEditable>
             </div>
           </EditorContainer>
-          <div
-            className="character-counter-container"
-          >
-            <p>
-              Your response is too long for our feedback bot to understand
-            </p>
-            <p>
-              undefined/200
-            </p>
-          </div>
         </div>
         <div
           className="attempts-and-button-container"
@@ -484,16 +464,6 @@ exports[`PromptStep component active state when an optimal response has been sub
               </ContentEditable>
             </div>
           </EditorContainer>
-          <div
-            className="character-counter-container"
-          >
-            <p>
-              Your response is too long for our feedback bot to understand
-            </p>
-            <p>
-              undefined/200
-            </p>
-          </div>
         </div>
         <div
           className="attempts-and-button-container"
@@ -765,16 +735,6 @@ exports[`PromptStep component active state when the max attempts have been reach
               </ContentEditable>
             </div>
           </EditorContainer>
-          <div
-            className="character-counter-container"
-          >
-            <p>
-              Your response is too long for our feedback bot to understand
-            </p>
-            <p>
-              undefined/200
-            </p>
-          </div>
         </div>
         <div
           className="attempts-and-button-container"
@@ -1070,16 +1030,6 @@ exports[`PromptStep component active state when the max attempts have been reach
               </ContentEditable>
             </div>
           </EditorContainer>
-          <div
-            className="character-counter-container"
-          >
-            <p>
-              Your response is too long for our feedback bot to understand
-            </p>
-            <p>
-              undefined/200
-            </p>
-          </div>
         </div>
         <div
           className="attempts-and-button-container"
@@ -1316,16 +1266,6 @@ exports[`PromptStep component inactive state renders 1`] = `
               </ContentEditable>
             </div>
           </EditorContainer>
-          <div
-            className="character-counter-container"
-          >
-            <p>
-              Your response is too long for our feedback bot to understand
-            </p>
-            <p>
-              undefined/200
-            </p>
-          </div>
         </div>
         <div
           className="attempts-and-button-container"

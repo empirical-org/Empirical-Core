@@ -1,11 +1,11 @@
 import expect from 'expect';
-import data from '../jsonFromDiagnostic';
 import {
-  getConceptResultsForQuestion,
-  getNestedConceptResultsForAllQuestions,
+  embedQuestionNumbers,
   getConceptResultsForAllQuestions,
-  embedQuestionNumbers
+  getConceptResultsForQuestion,
+  getNestedConceptResultsForAllQuestions
 } from '../../libs/conceptResults/diagnostic';
+import data from '../jsonFromDiagnostic';
 import conceptResults from './conceptResultsWithMetadata.js';
 
 describe('Getting concept results from an answered SC object',
@@ -14,50 +14,54 @@ describe('Getting concept results from an answered SC object',
     const rideHomeWithQNumber = Object.assign({},
       conceptResults.rideHome);
     rideHomeWithQNumber.metadata.questionNumber = 1;
-
     it('can get the results for a single SF question',
       () => {
+        const question = data[0]
         const expected = [
           {
             concept_uid: 'j89kdRGDVjG8j37A12p37Q',
+            question_type: 'sentence-fragment-identification',
             metadata: {
-              answer: 'Fragment',
               correct: 1,
               directions: 'Is this a sentence or a fragment?',
               prompt: 'Listening to music on the ride home.',
-              attemptNumber: 1,
-            },
-            question_type: 'sentence-fragment-identification',
+              answer: 'Fragment',
+              attemptNumber: 1
+            }
           },
           {
             concept_uid: 'KfA8-dg8FvlJz4eY0PkekA',
+            question_type: 'sentence-fragment-expansion',
             metadata: {
-              answer: 'I am listening to music on the ride home.',
               correct: 1,
               directions: 'Add/change as few words as you can to change this fragment into a sentence.',
               prompt: 'Listening to music on the ride home.',
-              attemptNumber: 1,
-            },
-            question_type: 'sentence-fragment-expansion',
+              answer: 'I am listening to music on the ride home.',
+              attemptNumber: 1
+            }
           },
           {
             concept_uid: 'iUE6tekeyep8U385dtmVfQ',
+            question_type: 'sentence-fragment-expansion',
             metadata: {
-              answer: 'I am listening to music on the ride home.',
               correct: 1,
               directions: 'Add/change as few words as you can to change this fragment into a sentence.',
               prompt: 'Listening to music on the ride home.',
               attemptNumber: 1,
-            },
-            question_type: 'sentence-fragment-expansion',
+              answer: 'I am listening to music on the ride home.',
+              question_uid: '-KOqKBMgXHF2dNMM8jhg',
+              question_concept_uid: undefined,
+              cues: undefined,
+            }
           }
-        ];
-        const generated = getConceptResultsForQuestion(data[0]);
+        ]
+        const generated = getConceptResultsForQuestion(question);
         expect(expected).toEqual(generated);
 
       });
 
     it('can get the results for a single SC question', () => {
+      const question = data[2]
       const expected = [
         {
           concept_uid: '7H2IMZvq0VJ4Uvftyrw7Eg',
@@ -67,7 +71,10 @@ describe('Getting concept results from an answered SC object',
             directions: 'Combine the sentences. (After, Even though, Since)',
             prompt: 'It was snowing. Marcella wore a sweater.',
             answer: 'Marcella wore a sweater since it was snowing.',
-            attemptNumber: 1
+            attemptNumber: 1,
+            question_uid: question.data.key,
+            question_concept_uid: question.data.conceptID,
+            cues: question.data.cues
           }
         },
         {
@@ -78,11 +85,14 @@ describe('Getting concept results from an answered SC object',
             directions: 'Combine the sentences. (After, Even though, Since)',
             prompt: 'It was snowing. Marcella wore a sweater.',
             answer: 'Marcella wore a sweater since it was snowing.',
-            attemptNumber: 2
+            attemptNumber: 2,
+            question_uid: question.data.key,
+            question_concept_uid: question.data.conceptID,
+            cues: question.data.cues
           }
         }
       ];
-      const generated = getConceptResultsForQuestion(data[2]);
+      const generated = getConceptResultsForQuestion(question);
       expect(generated).toEqual(expected);
 
     });
@@ -120,7 +130,10 @@ describe('Getting concept results from an answered SC object',
               directions: 'Add/change as few words as you can to change this fragment into a sentence.',
               prompt: 'Listening to music on the ride home.',
               attemptNumber: 1,
-              answer: 'I am listening to music on the ride home.'
+              answer: 'I am listening to music on the ride home.',
+              question_uid: '-KOqKBMgXHF2dNMM8jhg',
+              question_concept_uid: undefined,
+              cues: undefined,
             }
           }
         ],
@@ -157,7 +170,10 @@ describe('Getting concept results from an answered SC object',
               directions: 'Combine the sentences. (After, Even though, Since)',
               prompt: 'It was snowing. Marcella wore a sweater.',
               answer: 'Marcella wore a sweater since it was snowing.',
-              attemptNumber: 1
+              attemptNumber: 1,
+              question_uid: '-KP-Mm-zR8JQcT62iUHW',
+              question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+              cues: ['after', 'even though', 'since']
             }
           },
           {
@@ -168,11 +184,14 @@ describe('Getting concept results from an answered SC object',
               directions: 'Combine the sentences. (After, Even though, Since)',
               prompt: 'It was snowing. Marcella wore a sweater.',
               answer: 'Marcella wore a sweater since it was snowing.',
-              attemptNumber: 2
+              attemptNumber: 2,
+              question_uid: '-KP-Mm-zR8JQcT62iUHW',
+              question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+              cues: ['after', 'even though', 'since']
             }
           }
         ]
-      ];
+      ]
       const generated = getNestedConceptResultsForAllQuestions(data);
       expect(generated).toEqual(expected);
 
@@ -215,6 +234,9 @@ describe('Getting concept results from an answered SC object',
                 prompt: 'Listening to music on the ride home.',
                 attemptNumber: 1,
                 answer: 'I am listening to music on the ride home.',
+                question_uid: '-KOqKBMgXHF2dNMM8jhg',
+                question_concept_uid: undefined,
+                cues: undefined,
                 questionNumber: 1
               }
             }
@@ -255,6 +277,9 @@ describe('Getting concept results from an answered SC object',
                 prompt: 'It was snowing. Marcella wore a sweater.',
                 answer: 'Marcella wore a sweater since it was snowing.',
                 attemptNumber: 1,
+                question_uid: '-KP-Mm-zR8JQcT62iUHW',
+                question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+                cues: ['after', 'even though', 'since'],
                 questionNumber: 3
               }
             },
@@ -267,12 +292,17 @@ describe('Getting concept results from an answered SC object',
                 prompt: 'It was snowing. Marcella wore a sweater.',
                 answer: 'Marcella wore a sweater since it was snowing.',
                 attemptNumber: 2,
+                question_uid: '-KP-Mm-zR8JQcT62iUHW',
+                question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+                cues: ['after', 'even though', 'since'],
                 questionNumber: 3
               }
             }
           ]
-        ];
+        ]
+
         const generated = embedQuestionNumbers(getNestedConceptResultsForAllQuestions(data));
+
         expect(generated).toEqual(expected);
       });
 
@@ -311,6 +341,9 @@ describe('Getting concept results from an answered SC object',
             prompt: 'Listening to music on the ride home.',
             attemptNumber: 1,
             answer: 'I am listening to music on the ride home.',
+            question_uid: '-KOqKBMgXHF2dNMM8jhg',
+            question_concept_uid: undefined,
+            cues: undefined,
             questionNumber: 1
           }
         },
@@ -347,6 +380,9 @@ describe('Getting concept results from an answered SC object',
             prompt: 'It was snowing. Marcella wore a sweater.',
             answer: 'Marcella wore a sweater since it was snowing.',
             attemptNumber: 1,
+            question_uid: '-KP-Mm-zR8JQcT62iUHW',
+            question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+            cues: ['after', 'even though', 'since'],
             questionNumber: 3
           }
         },
@@ -359,12 +395,16 @@ describe('Getting concept results from an answered SC object',
             prompt: 'It was snowing. Marcella wore a sweater.',
             answer: 'Marcella wore a sweater since it was snowing.',
             attemptNumber: 2,
+            question_uid: '-KP-Mm-zR8JQcT62iUHW',
+            question_concept_uid: '-KP-Jqv3V5eGauVBB7tU',
+            cues: ['after', 'even though', 'since'],
             questionNumber: 3
           }
         }
-      ];
+      ]
 
       const generated = getConceptResultsForAllQuestions(data);
+
       expect(generated).toEqual(expected);
 
     });

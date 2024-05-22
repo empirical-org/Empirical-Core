@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'setup_concepts'
-require 'download_concepts'
-require 'create_concepts'
 
 VCR.configure do |config|
   config.cassette_library_dir = "fixtures/vcr_cassettes"

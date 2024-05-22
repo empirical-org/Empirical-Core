@@ -67,7 +67,7 @@ class StudentsClassrooms < ApplicationRecord
   private def run_associator
     return unless student && classroom && visible
 
-    Associators::StudentsToClassrooms.run(student, classroom)
+    StudentClassroomAssociator.run(student, classroom)
   end
 
   private def checkbox

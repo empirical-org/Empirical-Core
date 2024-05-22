@@ -1,3 +1,4 @@
+@import '../../../../../app/assets/stylesheets/variables.scss';
 @import 'variables';
 @import 'textbox';
 @import "components/activity-health";
@@ -9,8 +10,7 @@
 @import "components/landing-page-html";
 @import "components/multiple-choice";
 @import "components/_question_health";
-@import '~react-select/dist/react-select.css';
-@import '~font-awesome/css/font-awesome.css';
+@import '@node_modules/font-awesome/css/font-awesome.css';
 @import '../../../../../app/assets/stylesheets/shared/teacher-preview-menu.scss';
 
 body {
@@ -102,6 +102,38 @@ ul.is-unstyled {
 
 .panel-checkbox.toggle {
   padding: 5px;
+  span.tag:not(.is-dark, .is-info, .is-danger, .is-success, .is-warning) {
+    background-color: $quill-white;
+    color: $quill-black;
+    border-color: $quill-black;
+  }
+}
+
+.sort-field:not(.is-active) {
+  a {
+    background-color: $quill-white;
+    color: $quill-black;
+  }
+}
+
+.sort-field {
+  a {
+    border-color: $quill-grey-5;
+  }
+}
+
+.filters-and-sorting-container {
+  background-color: $quill-grey-3;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.show-results-container {
+  padding-left: 0;
+  margin: 30px 30px 30px 0px;
+  a {
+    margin: 0px;
+  }
 }
 
 .intro-next-button {
@@ -184,14 +216,14 @@ textarea.submission {
   &:hover,
   &:focus {
     color: #333; //$dropdown-link-color;
-    background-color: #fff; //$dropdown-bg;
+    background-color: $quill-white; //$dropdown-bg;
   }
 }
 .dropdown-input.dropdown-menu > .active > a {
   &:hover,
   &:focus {
     text-decoration: none;
-    color: #fff; // $dropdown-link-hover-color;  // #fff
+    color: $quill-white; // $dropdown-link-hover-color;  // $quill-white
     background-color: #337ab7; // $dropdown-link-hover-bg;  // #337ab7
   }
 }
@@ -510,6 +542,10 @@ textarea.submission {
   }
 }
 
+.red-label {
+  color: red;
+}
+
 .lesson-sidebar-section {
   display: flex;
   flex-direction: row;
@@ -541,7 +577,7 @@ textarea.submission {
   width: 360px;
 }
 
-.select-search__option {
+.select-search__option, .select-search-option {
   height: min-content;
   padding: 8px 16px 8px 16px;
 }

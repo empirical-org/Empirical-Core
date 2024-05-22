@@ -1,8 +1,8 @@
 import _ from 'underscore';
 
-import { requestGet, } from '../../../modules/request/index'
+import { requestGet, } from '../../../modules/request/index';
 
-const C = require('../constants').default;
+import C from '../constants';
 
 const conceptsEndpoint = `${process.env.DEFAULT_URL}/api/v1/concepts.json`;
 

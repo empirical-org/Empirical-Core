@@ -1,0 +1,2204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivityPacks it should render EmptyProgressReport for no activities at all 1`] = `
+<DocumentFragment>
+  <div
+    class="container manage-units gray-background-accommodate-footer"
+  >
+    <div
+      class="activity-analysis"
+    >
+      <h1>
+        Activity Analysis
+      </h1>
+      <p>
+        Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.
+      </p>
+      <div
+        class="classroom-selector"
+      >
+        <p>
+          Select a classroom:
+        </p>
+        <div
+          class="dropdown-container input-container inactive has-text not-editable select-item-dropdown  "
+          role="button"
+          tabindex="0"
+        >
+          <label />
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-6-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__single-value css-1dimb5e-singleValue"
+                >
+                  All Classrooms
+                </div>
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-6-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="-1"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="empty-progress-report"
+      >
+        <h2>
+          You have no reports yet!
+        </h2>
+        <p>
+          In order to access our different reports, you need to assign activities to your students.
+        </p>
+        <button
+          class="quill-button fun primary contained create-unit featured-button"
+          type="button"
+        >
+          Assign an Activity
+        </button>
+        <a
+          href="/teacher-center"
+        >
+          Teacher Center
+        </a>
+      </div>
+    </div>
+  </div>
+  <span />
+</DocumentFragment>
+`;
+
+exports[`ActivityPacks it should render EmptyProgressReport for no activities for selected classroom 1`] = `
+<DocumentFragment>
+  <div
+    class="container manage-units gray-background-accommodate-footer"
+  >
+    <div
+      class="activity-analysis"
+    >
+      <h1>
+        Activity Analysis
+      </h1>
+      <p>
+        Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.
+      </p>
+      <div
+        class="classroom-selector"
+      >
+        <p>
+          Select a classroom:
+        </p>
+        <div
+          class="dropdown-container input-container inactive has-text not-editable select-item-dropdown  "
+          role="button"
+          tabindex="0"
+        >
+          <label />
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-5-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__single-value css-1dimb5e-singleValue"
+                >
+                  All Classrooms
+                </div>
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-5-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="-1"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="empty-progress-report"
+      >
+        <h2>
+          You have no reports yet!
+        </h2>
+        <p>
+          In order to access our different reports, you need to assign activities to your students.
+        </p>
+        <button
+          class="quill-button fun primary contained create-unit featured-button"
+          type="button"
+        >
+          Assign an Activity
+        </button>
+        <a
+          href="/teacher-center"
+        >
+          Teacher Center
+        </a>
+      </div>
+    </div>
+  </div>
+  <span />
+</DocumentFragment>
+`;
+
+exports[`ActivityPacks it should render EmptyProgressReport when there are no classrooms 1`] = `
+<DocumentFragment>
+  <div
+    class="container manage-units gray-background-accommodate-footer"
+  >
+    <div
+      class="activity-analysis"
+    >
+      <h1>
+        Activity Analysis
+      </h1>
+      <p>
+        Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.
+      </p>
+      <div
+        class="classroom-selector"
+      >
+        <p>
+          Select a classroom:
+        </p>
+        <div
+          class="dropdown-container input-container inactive has-text not-editable select-item-dropdown  "
+          role="button"
+          tabindex="0"
+        >
+          <label />
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-4-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__single-value css-1dimb5e-singleValue"
+                >
+                  All Classrooms
+                </div>
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-4-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="-1"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="empty-progress-report"
+      >
+        <h2>
+          You have no reports yet!
+        </h2>
+        <p>
+          In order to access our different reports, you need to create a class and assign activities to your students.
+        </p>
+        <button
+          class="quill-button fun primary contained create-unit featured-button"
+          type="button"
+        >
+          Create a Class
+        </button>
+        <a
+          href="/teacher-center"
+        >
+          Teacher Center
+        </a>
+      </div>
+    </div>
+  </div>
+  <span />
+</DocumentFragment>
+`;
+
+exports[`ActivityPacks it should render once loading is finished 1`] = `
+<DocumentFragment>
+  <div
+    class="container manage-units gray-background-accommodate-footer"
+  >
+    <div
+      class="activity-analysis"
+    >
+      <h1>
+        Activity Analysis
+      </h1>
+      <p>
+        Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.
+      </p>
+      <div
+        class="classroom-selector"
+      >
+        <p>
+          Select a classroom:
+        </p>
+        <div
+          class="dropdown-container input-container inactive has-text not-editable select-item-dropdown  "
+          role="button"
+          tabindex="0"
+        >
+          <label />
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-3-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__single-value css-1dimb5e-singleValue"
+                >
+                  All Classrooms
+                </div>
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-3-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="-1"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span>
+        <div>
+          <section
+            class="activities-unit"
+          >
+            <div
+              class="row unit-header-row"
+              id="2875220"
+            >
+              <div
+                class="left"
+              >
+                <span
+                  class="unit-name"
+                >
+                  <span
+                    class="h-pointer"
+                  >
+                    Starter Baseline Diagnostic (Pre)
+                  </span>
+                </span>
+                <span />
+              </div>
+              <div
+                class="right"
+              >
+                <div
+                  class="assigned-to"
+                >
+                  <span
+                    class="heading"
+                  >
+                    Assigned to 1 class:
+                  </span>
+                  <ul>
+                    <li>
+                      Quill Classroom 
+                      <span>
+                        (5/5 students)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table assigned-activities"
+            >
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-diagnostic-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Starter Baseline Diagnostic (Pre)
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            class="quill-snackbar "
+          >
+            Activity order saved
+          </div>
+        </div>
+        <div>
+          <section
+            class="activities-unit"
+          >
+            <div
+              class="row unit-header-row"
+              id="2875221"
+            >
+              <div
+                class="left"
+              >
+                <span
+                  class="unit-name"
+                >
+                  <span
+                    class="h-pointer"
+                  >
+                    Capitalization (Starter Baseline Recommendation)
+                  </span>
+                </span>
+                <span />
+              </div>
+              <div
+                class="right"
+              >
+                <div
+                  class="assigned-to"
+                >
+                  <span
+                    class="heading"
+                  >
+                    Assigned to 1 class:
+                  </span>
+                  <ul>
+                    <li>
+                      Quill Classroom 
+                      <span>
+                        (5/5 students)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table assigned-activities"
+            >
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing People, Places, & the Pronoun "I" - Mixed Topics
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing Holidays, People, & Places - Mixed Topics
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing Dates & Holidays - Mixed Topics 1
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing Names of People & the Pronoun "I" - Mixed Topics
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing Names of People - Mixed Topics 1
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing Geographic Names & Holidays - Mixed Topics
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Capitalizing Geographic Names - Mixed Topics 1
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            class="quill-snackbar "
+          >
+            Activity order saved
+          </div>
+        </div>
+        <div>
+          <section
+            class="activities-unit"
+          >
+            <div
+              class="row unit-header-row"
+              id="2875222"
+            >
+              <div
+                class="left"
+              >
+                <span
+                  class="unit-name"
+                >
+                  <span
+                    class="h-pointer"
+                  >
+                    Plural and Possessive Nouns (Starter Baseline Recommendation)
+                  </span>
+                </span>
+                <span />
+              </div>
+              <div
+                class="right"
+              >
+                <div
+                  class="assigned-to"
+                >
+                  <span
+                    class="heading"
+                  >
+                    Assigned to 1 class:
+                  </span>
+                  <ul>
+                    <li>
+                      Quill Classroom 
+                      <span>
+                        (5/5 students)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table assigned-activities"
+            >
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Plural vs. Possessive Nouns - Mixed Topics 2
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Irregular Plural Nouns - Mixed Topics
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-flag-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Proofreading Plural vs. Possessive Nouns - Eleanor Roosevelt
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Plural vs. Possessive Nouns - Mixed Topics 3
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Plural vs. Possessive Nouns - Mixed Topics 1
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-puzzle-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Regular Plural Nouns - Mixed Topics 1
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            class="quill-snackbar "
+          >
+            Activity order saved
+          </div>
+        </div>
+        <div>
+          <section
+            class="activities-unit"
+          >
+            <div
+              class="row unit-header-row"
+              id="2875223"
+            >
+              <div
+                class="left"
+              >
+                <span
+                  class="unit-name"
+                >
+                  <span
+                    class="h-pointer"
+                  >
+                    Prepositional Phrases (Starter Baseline Recommendation)
+                  </span>
+                </span>
+                <span />
+              </div>
+              <div
+                class="right"
+              >
+                <div
+                  class="assigned-to"
+                >
+                  <span
+                    class="heading"
+                  >
+                    Assigned to 1 class:
+                  </span>
+                  <ul>
+                    <li>
+                      Quill Classroom 
+                      <span>
+                        (5/5 students)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table assigned-activities"
+            >
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Adjectives, Adverbs, & Prepositional Phrases - Mixed Topics 1
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Placing Prepositional Phrases - Weather
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Prepositional Phrases with In & On - Grand Teton National Park
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Prepositional Phrases with At, In, On, & To - A Farmer
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-connect-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Subject-Verb Agreement with Interrupters - Mixed Topics
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            class="quill-snackbar "
+          >
+            Activity order saved
+          </div>
+        </div>
+        <div>
+          <section
+            class="activities-unit"
+          >
+            <div
+              class="row unit-header-row"
+              id="2875224"
+            >
+              <div
+                class="left"
+              >
+                <span
+                  class="unit-name"
+                >
+                  <span
+                    class="h-pointer"
+                  >
+                    Starter Growth Diagnostic (Post)
+                  </span>
+                </span>
+                <span />
+              </div>
+              <div
+                class="right"
+              >
+                <div
+                  class="assigned-to"
+                >
+                  <span
+                    class="heading"
+                  >
+                    Assigned to 1 class:
+                  </span>
+                  <ul>
+                    <li>
+                      Quill Classroom 
+                      <span>
+                        (5/5 students)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table assigned-activities"
+            >
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-diagnostic-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Starter Growth Diagnostic (Post)
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            class="quill-snackbar "
+          >
+            Activity order saved
+          </div>
+        </div>
+        <div>
+          <section
+            class="activities-unit"
+          >
+            <div
+              class="row unit-header-row"
+              id="2875225"
+            >
+              <div
+                class="left"
+              >
+                <span
+                  class="unit-name"
+                >
+                  <span
+                    class="h-pointer"
+                  >
+                    Reading for Evidence Pack
+                  </span>
+                </span>
+                <span />
+              </div>
+              <div
+                class="right"
+              >
+                <div
+                  class="assigned-to"
+                >
+                  <span
+                    class="heading"
+                  >
+                    Assigned to 1 class:
+                  </span>
+                  <ul>
+                    <li>
+                      Quill Classroom 
+                      <span>
+                        (5/5 students)
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="table assigned-activities"
+            >
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-evidence-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      How Do Oxpeckers Help Black Rhinos? [Beta]
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-evidence-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Should Cell Phones Be Banned in Schools? [Beta]
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+              <div
+                class="row activity"
+                style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+              >
+                <div
+                  class="starting-row"
+                >
+                  <div
+                    class="cell"
+                  >
+                    <div
+                      class="pull-left icon-wrapper icon-evidence-green-no-border"
+                    />
+                  </div>
+                  <div
+                    class="cell"
+                    id="activity-analysis-activity-name"
+                  >
+                    <a
+                      target="_new"
+                    >
+                      Are Surge Barriers Worth the Ecological Cost? [Beta]
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="cell activity-analysis-row-right"
+                  style="display: flex; justify-content: space-between; align-items: center; margin-right: 15px; width: 350px;"
+                >
+                  <span
+                    class="number-of-students"
+                  >
+                    <svg
+                      class="activity-analysis-pie-chart"
+                      viewBox="-1 -1 2 2"
+                    >
+                      <path
+                        d="M 1 0 A 1 1 0 0 1 NaN NaN L 0 0"
+                        fill="#348fdf"
+                      />
+                    </svg>
+                     NaN of 5 students
+                  </span>
+                  <span
+                    class="average-score"
+                  >
+                    —
+                  </span>
+                  <img
+                    alt=""
+                    class="chevron-right"
+                    src="https://assets.quill.org/images/icons/chevron-dark-green.svg"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+          <div
+            class="quill-snackbar "
+          >
+            Activity order saved
+          </div>
+        </div>
+      </span>
+    </div>
+  </div>
+  <span />
+</DocumentFragment>
+`;
+
+exports[`ActivityPacks it should render with initial loading state 1`] = `
+<DocumentFragment>
+  <div
+    class="container manage-units gray-background-accommodate-footer"
+  >
+    <div
+      class="activity-analysis"
+    >
+      <h1>
+        Activity Analysis
+      </h1>
+      <p>
+        Open an activity analysis to view students' responses, the overall results on each question, and the concepts students need to practice.
+      </p>
+      <div
+        class="classroom-selector"
+      >
+        <p>
+          Select a classroom:
+        </p>
+        <div
+          class="dropdown-container input-container inactive has-text not-editable select-item-dropdown  "
+          role="button"
+          tabindex="0"
+        >
+          <label />
+          <div
+            class="dropdown css-b62m3t-container"
+          >
+            <span
+              class="css-1f43avz-a11yText-A11yText"
+              id="react-select-2-live-region"
+            />
+            <span
+              aria-atomic="false"
+              aria-live="polite"
+              aria-relevant="additions text"
+              class="css-1f43avz-a11yText-A11yText"
+            />
+            <div
+              class="dropdown__control css-13cymwt-control"
+            >
+              <div
+                class="dropdown__value-container dropdown__value-container--has-value css-1fdsijx-ValueContainer"
+              >
+                <div
+                  class="dropdown__single-value css-1dimb5e-singleValue"
+                >
+                  All Classrooms
+                </div>
+                <div
+                  class="dropdown__input-container css-qbdosj-Input"
+                  data-value=""
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"
+                    class="dropdown__input"
+                    id="react-select-2-input"
+                    role="combobox"
+                    spellcheck="false"
+                    style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                    tabindex="-1"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div
+                class="dropdown__indicators css-1hb7zxy-IndicatorsContainer"
+              >
+                <span
+                  class="dropdown__indicator-separator css-1u9des2-indicatorSeparator"
+                />
+                <div
+                  aria-hidden="true"
+                  class="dropdown__indicator dropdown__dropdown-indicator css-1xc3v61-indicatorContainer"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="css-tj5bde-Svg"
+                    focusable="false"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    width="20"
+                  >
+                    <path
+                      d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="loading-spinner"
+      >
+        <div
+          class="spinner-container"
+        >
+          <img
+            alt="Loading spinner"
+            class="spinner"
+            src="https://assets.quill.org/images/icons/loader_still.svg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <span />
+</DocumentFragment>
+`;

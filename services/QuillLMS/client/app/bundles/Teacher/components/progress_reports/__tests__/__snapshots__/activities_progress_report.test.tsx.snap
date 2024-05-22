@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActivitiesProgressReport it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="teacher-report-container progress-reports-2018 data-export"
+  >
+    <div
+      class="header-container "
+    >
+      <div
+        class="header-and-tooltip"
+      >
+        <h1>
+          Data Export
+        </h1>
+        <span
+          aria-hidden="false"
+          class="quill-tooltip-trigger "
+          role="tooltip"
+        >
+          <span
+            class="undefined"
+            role="button"
+            tabindex="0"
+          >
+            <img
+              alt="Question mark icon"
+              src="undefined/images/icons/icons-help.svg"
+            />
+          </span>
+          <span
+            class="quill-tooltip-wrapper"
+          >
+            <span
+              aria-live="polite"
+              class="quill-tooltip"
+            />
+          </span>
+        </span>
+      </div>
+      <div
+        class="csv-and-how-we-grade"
+      >
+        <button
+          class="quill-button medium primary contained focus-on-light"
+          style="display: block;"
+        >
+          Download Report
+        </button>
+        <a
+          class="how-we-grade focus-on-light"
+          href="https://support.quill.org/activities-implementation/how-does-grading-work"
+        >
+          How we grade
+        </a>
+      </div>
+    </div>
+    <div
+      class="spinner-container"
+    >
+      <img
+        alt=""
+        class="spinner"
+        src="/images/loader_still.svg"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

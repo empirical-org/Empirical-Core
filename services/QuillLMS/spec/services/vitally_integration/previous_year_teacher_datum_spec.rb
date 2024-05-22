@@ -2,8 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe PreviousYearTeacherDatum, type: :model do
-
+RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
   context '#calculate_data' do
     let!(:year) { 2016 }
     let!(:teacher) { create(:user, role: 'teacher') }
@@ -24,7 +23,7 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
     let!(:classroom_unit4) { create(:classroom_unit, classroom: current_classroom, unit: unit4, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id])}
     let!(:diagnostic) { create(:diagnostic_activity)}
     let!(:connect) { create(:connect_activity)}
-    let!(:evidence) { create(:evidence_activity)}
+    let!(:evidence) { create(:evidence_lms_activity)}
     let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic, created_at: Date.new(year, 10, 1)) }
     let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: diagnostic, created_at: Date.new(2021, 10, 1)) }
     let!(:unit_activity3) { create(:unit_activity, unit: unit3, activity: connect, created_at: Date.new(year, 10, 1)) }
@@ -79,7 +78,7 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { PreviousYearTeacherDatum.new(teacher, Time.current.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { described_class.new(teacher, Time.current.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
     end
 
     it 'should calculate all data' do
@@ -97,7 +96,7 @@ RSpec.describe PreviousYearTeacherDatum, type: :model do
         evidence_activities_completed: 1,
         percent_completed_diagnostics: 1.0
       }
-      teacher_data = PreviousYearTeacherDatum.new(teacher, year).calculate_data
+      teacher_data = described_class.new(teacher, year).calculate_data
       expect(teacher_data).to eq(expected_data)
     end
   end

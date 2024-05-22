@@ -25,8 +25,9 @@
 require 'rails_helper'
 
 RSpec.describe StripeCheckoutSession, type: :model do
-
   describe '.custom_find_or_create_by!' do
+    subject { described_class.custom_find_or_create_by!(**stripe_checkout_session_args) }
+
     let(:stripe_checkout_session_args) do
       {
         external_checkout_session_args: {},
@@ -35,8 +36,6 @@ RSpec.describe StripeCheckoutSession, type: :model do
         user_id: user_id
       }
     end
-
-    subject { described_class.custom_find_or_create_by!(stripe_checkout_session_args) }
 
     context 'stripe_checkout_session exists' do
       let!(:stripe_checkout_session) { create(:stripe_checkout_session) }

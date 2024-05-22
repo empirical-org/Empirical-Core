@@ -5,27 +5,27 @@ module CleverIntegration
     ACCOUNT_TYPE = ::User::CLEVER_ACCOUNT
     ROLE = ::User::TEACHER
 
-    attr_reader :data, :name
+    attr_reader :email, :name, :user_external_id
 
     def initialize(data)
-      @data = data
+      @email = data[:email]
       @name = data[:name]
+      @user_external_id = data[:user_external_id]
     end
 
     def run
-      teacher
-    end
-
-    private def teacher
-      ::User.create!(teacher_attrs)
-    end
-
-    private def teacher_attrs
-      data.merge(role: ROLE, account_type: ACCOUNT_TYPE, username: username)
+      ::User.create!(
+        account_type: ACCOUNT_TYPE,
+        clever_id: user_external_id,
+        email: email,
+        name: name,
+        role: ROLE,
+        username: username
+      )
     end
 
     private def username
-      UsernameGenerator.new(name).run
+      UsernameGenerator.run(name)
     end
   end
 end

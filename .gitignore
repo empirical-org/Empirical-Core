@@ -9,6 +9,7 @@
 # ruby configs
 .bundle
 lambdas/*.zip
+lambdas/rematching/dist
 
 # database
 config/database.yml

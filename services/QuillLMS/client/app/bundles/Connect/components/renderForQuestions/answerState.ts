@@ -1,4 +1,4 @@
-import {Response} from "quill-marking-logic"
+import { Response } from "../../../Shared/quill-marking-logic/src/main";
 
 export interface Attempt {
   response: Response

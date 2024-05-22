@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import _ from 'lodash';
+import React, { Component } from 'react';
 import * as CLIntF from '../../../interfaces/classroomLessons';
-import _ from 'lodash'
-import MultipleTextEditor from '../shared/multipleTextEditor'
-import StudentSingleAnswer from '../play/singleAnswer'
+import StudentSingleAnswer from '../play/singleAnswer';
+import MultipleTextEditor from '../shared/multipleTextEditor';
 
 interface SingleAnswerProps {
   question: CLIntF.QuestionData,

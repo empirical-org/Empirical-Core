@@ -1,7 +1,7 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import EmptyDiagnosticProgressReport from '../empty_diagnostic_progress_report.jsx'
+import EmptyDiagnosticProgressReport from '../empty_diagnostic_progress_report.jsx';
 
 describe('EmptyDiagnosticProgressReport component', () => {
 

@@ -5,9 +5,9 @@
 # Table name: csv_exports
 #
 #  id          :integer          not null, primary key
-#  csv_file    :string
+#  csv_file    :string(255)
 #  emailed_at  :datetime
-#  export_type :string
+#  export_type :string(255)
 #  filters     :json
 #  created_at  :datetime
 #  updated_at  :datetime
@@ -15,6 +15,6 @@
 #
 FactoryBot.define do
   factory :csv_export do
-    export_type 'activity_sessions'
+    export_type { 'activity_sessions' }
   end
 end

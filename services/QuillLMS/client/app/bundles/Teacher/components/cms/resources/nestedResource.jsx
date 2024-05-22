@@ -1,6 +1,6 @@
-import React from 'react'
-import NewNestedResource from './newNestedResource.jsx'
-import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
+import React from 'react';
+import CmsIndexTable from '../cms_index_table/cms_index_table.jsx';
+import NewNestedResource from './newNestedResource.jsx';
 
 export default class NestedResource extends React.Component {
 

@@ -1,55 +1,55 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'underscore';
 import { withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
 
-import PlaySentenceFragment from './sentenceFragment.jsx';
-import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import Footer from './footer';
 import LandingPage from './landingPage.jsx';
 import LanguagePage from './languagePage.jsx';
-import PlayTitleCard from './titleCard.tsx'
-import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import Footer from './footer'
+import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
+import PlayTitleCard from './titleCard.tsx';
 
+import { saveSession, } from '../../utils/saveSession'
 import {
-  CarouselAnimation,
-  ProgressBar,
-  TeacherPreviewMenuButton,
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
   CLICK,
+  CarouselAnimation,
+  KEYDOWN,
   KEYPRESS,
-  VISIBILITYCHANGE,
+  MOUSEDOWN,
+  MOUSEMOVE,
+  ProgressBar,
   SCROLL,
+  TeacherPreviewMenuButton,
+  VISIBILITYCHANGE,
+  roundValuesToSeconds,
 } from '../../../Shared/index';
 import {
   clearData,
   loadData,
   nextQuestion,
+  openLanguageMenu,
+  resumePreviousDiagnosticSession,
+  setCurrentQuestion,
+  setDiagnosticID,
   submitResponse,
   updateCurrentQuestion,
-  resumePreviousDiagnosticSession,
-  updateLanguage,
-  setDiagnosticID,
-  openLanguageMenu,
-  setCurrentQuestion
+  updateLanguage
 } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
-import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { getParameterByName } from '../../libs/getParameterByName';
 import i18n from '../../i18n';
+import {
+  answeredQuestionCount,
+  getProgressPercent,
+  questionCount
+} from '../../libs/calculateProgress';
+import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import { getParameterByName } from '../../libs/getParameterByName';
 import { ENGLISH } from '../../modules/translation/languagePageInfo';
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
+const TURK = 'turk'
 
 export class ELLStudentDiagnostic extends React.Component {
   constructor(props) {
@@ -183,62 +183,19 @@ export class ELLStudentDiagnostic extends React.Component {
     }
   }
 
+  isTurkSession = () => {
+    const { match, } = this.props
+    return match.path.includes(TURK)
+  }
+
+  handleStateUpdate = (newState) => {
+    this.setState(newState)
+  }
+
   saveToLMS = () => {
-    const { match, playDiagnostic, } = this.props;
-    const { params } = match;
-    const { diagnosticID } = params;
-
     const { sessionID, timeTracking, } = this.state
-
-    this.setState({ error: false, });
-    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
-    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    const data = { time_tracking: roundValuesToSeconds(timeTracking), }
-
-    if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1, data);
-    } else {
-      this.createAnonActivitySession(diagnosticID, results, 1, data);
-    }
-  }
-
-  finishActivitySession = (sessionID, results, score, data) => {
-    requestPut(
-      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-      {
-        state: 'finished',
-        concept_results: results,
-        percentage: score,
-        data
-      },
-      (body) => {
-        document.location.href = process.env.DEFAULT_URL;
-        this.setState({ saved: true, });
-      },
-      (body) => {
-        this.setState({
-          saved: false,
-          error: body.meta.message,
-        });
-      }
-    )
-  }
-
-  createAnonActivitySession = (diagnosticID, results, score, data) => {
-    requestPost(
-      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-      {
-        state: 'finished',
-        activity_uid: lessonID,
-        concept_results: results,
-        percentage: score,
-        data
-      },
-      (body) => {
-        document.location.href = process.env.DEFAULT_URL;
-        this.setState({ saved: true, });
-      }
-    )
+    const { playDiagnostic, match } = this.props
+    saveSession(sessionID, timeTracking, playDiagnostic, match, this.isTurkSession(), this.handleStateUpdate)
   }
 
   submitResponse = (response) => {

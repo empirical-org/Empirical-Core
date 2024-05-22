@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'json'
 require 'rails_helper'
 
 describe Api::V1::QuestionsController, type: :controller do

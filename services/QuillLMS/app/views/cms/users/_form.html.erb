@@ -42,6 +42,10 @@
         <%= f.label :admin_approval_status %>
         <%= f.text_field :admin_approval_status, :readonly => true %>
       </div>
+      <div class='cms-form-row'>
+        <%= f.label :email_verification_status %>
+        <%= f.select :email_verification_status, [nil, UserEmailVerification::PENDING, UserEmailVerification::VERIFIED] %>
+      </div>
     <% end %>
     <div class='cms-form-row'>
       <%= f.label :flagset %>

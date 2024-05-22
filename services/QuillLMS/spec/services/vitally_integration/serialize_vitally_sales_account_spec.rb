@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'SerializeVitallySalesAccount' do
+describe VitallyIntegration::SerializeVitallySalesAccount do
   let!(:district) { create(:district, name: 'Kool District') }
   let(:school) do
     create(:school,
@@ -29,11 +29,11 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student: 1.0
     }
     year = School.school_year_start(1.year.ago).year
-    CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
+    VitallyIntegration::CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
   end
 
   it 'includes the accountId' do
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(accountId: school.id.to_s)
   end
@@ -41,7 +41,7 @@ describe 'SerializeVitallySalesAccount' do
   it 'includes the organizationId if the school has a subscription' do
     create(:school_subscription, school: school, subscription: subscription)
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: school.district_id.to_s)
   end
@@ -50,13 +50,13 @@ describe 'SerializeVitallySalesAccount' do
     different_school = create(:school, district: district)
     create(:school_subscription, school: different_school, subscription: subscription)
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: school.district_id.to_s)
   end
 
   it 'does not include the organizationId if no schools in the district have a subscription' do
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: '')
   end
@@ -64,14 +64,14 @@ describe 'SerializeVitallySalesAccount' do
   it 'does not include the organizationId if the school is not part of a district' do
     school.update(district: nil)
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data).to include(organizationId: '')
   end
 
   it 'generates basic school params' do
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       name: 'Kool School',
@@ -84,7 +84,7 @@ describe 'SerializeVitallySalesAccount' do
       frl: 0,
       ppin: nil,
       nces_id: '111111111',
-      school_subscription: SerializeVitallySalesAccount::NOT_APPLICABLE,
+      school_subscription: described_class::NOT_APPLICABLE,
       school_type: 'Rural, Fringe',
       employee_count: 0,
       paid_teacher_subscriptions: 0,
@@ -97,10 +97,11 @@ describe 'SerializeVitallySalesAccount' do
       activities_per_student_this_year: 0,
       activities_finished: 0,
       school_link: "https://www.quill.org/cms/schools/#{school.id}",
-      premium_expiry_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      premium_start_date: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      annual_revenue_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE,
-      stripe_invoice_id_current_contract: SerializeVitallySalesAccount::NOT_APPLICABLE
+      premium_expiry_date: described_class::NOT_APPLICABLE,
+      premium_start_date: described_class::NOT_APPLICABLE,
+      annual_revenue_current_contract: described_class::NOT_APPLICABLE,
+      stripe_invoice_id_current_contract: described_class::NOT_APPLICABLE,
+      purchase_order_number_current_contract: described_class::NOT_APPLICABLE
     )
   end
 
@@ -109,21 +110,23 @@ describe 'SerializeVitallySalesAccount' do
       account_type: 'SUPER SAVER PREMIUM',
       expiration: Date.tomorrow,
       payment_amount: '1800',
-      stripe_invoice_id: 'in_12345678'
+      stripe_invoice_id: 'in_12345678',
+      purchase_order_number: 'PO-1234'
     )
     create(:school_subscription,
       subscription_id: school_subscription.id,
       school_id: school.id
     )
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       school_subscription: school_subscription.account_type,
       premium_expiry_date: school_subscription.expiration,
       premium_start_date: school_subscription.start_date,
       annual_revenue_current_contract: school_subscription.payment_amount,
-      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id
+      stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id,
+      purchase_order_number_current_contract: school_subscription.purchase_order_number
     )
   end
 
@@ -146,7 +149,7 @@ describe 'SerializeVitallySalesAccount' do
       school_id: school.id
     )
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       school_subscription: next_school_subscription.account_type
@@ -168,7 +171,7 @@ describe 'SerializeVitallySalesAccount' do
     school.users << teacher_with_subscription
     school.users << create(:user, role: 'teacher')
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       employee_count: 2,
@@ -179,7 +182,7 @@ describe 'SerializeVitallySalesAccount' do
   end
 
   it 'generates previous year data' do
-    school_data = SerializeVitallySalesAccount.new(school).data
+    school_data = described_class.new(school).data
     expect(school_data[:traits]).to include(
       total_students_last_year: 2,
       active_students_last_year: 1,
@@ -188,54 +191,74 @@ describe 'SerializeVitallySalesAccount' do
     )
   end
 
-  it 'generates student data' do
-    active_student = create(:user, role: 'student', last_sign_in: Date.current)
-    active_old_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
-    inactive_student = create(:user, role: 'student', last_sign_in: 2.years.ago)
-    teacher = create(:user, role: 'teacher')
-    teacher2 = create(:user, role: 'teacher')
-    classroom = create(:classroom)
-    classroom_unit = create(:classroom_unit, classroom: classroom)
-    old_classroom_unit = create(:classroom_unit, classroom: classroom)
-    create(:classrooms_teacher, user: teacher, classroom: classroom)
-    create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
-    create(:students_classrooms, student: active_student, classroom: classroom)
-    create(:students_classrooms, student: inactive_student, classroom: classroom)
-    create(:students_classrooms, student: active_old_student, classroom: classroom)
-    create(:activity_session,
-      user: active_student,
-      classroom_unit: classroom_unit,
-      state: 'finished'
-    )
-    create(:activity_session,
-      user: active_old_student,
-      classroom_unit: old_classroom_unit,
-      state: 'finished',
-      updated_at: 2.year.ago
-    )
-    last_activity_session = create(:activity_session,
-      user: active_student,
-      classroom_unit: classroom_unit,
-      state: 'finished'
-    )
-    school.users << active_student
-    school.users << inactive_student
-    school.users << teacher
-    school.users << teacher2
-    school.users << create(:user, role: 'student')
+  context 'student data' do
+    let!(:active_student) { create(:user, role: 'student', last_sign_in: Date.current) }
+    let!(:active_old_student) { create(:user, role: 'student', last_sign_in: 2.years.ago) }
+    let!(:inactive_student) { create(:user, role: 'student', last_sign_in: 2.years.ago) }
+    let!(:teacher) { create(:user, role: 'teacher') }
+    let!(:teacher2) { create(:user, role: 'teacher') }
+    let!(:schools_users1) { create(:schools_users, school: school, user: teacher) }
+    let!(:schools_users2) { create(:schools_users, school: school, user: teacher2) }
+    let!(:classroom) { create(:classroom) }
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
+    let!(:old_classroom_unit) { create(:classroom_unit, classroom: classroom) }
+    let!(:classroom_teachers) do
+      [
+        create(:classrooms_teacher, user: teacher, classroom: classroom),
+        create(:classrooms_teacher, user: teacher2, classroom: classroom, role: 'coteacher')
+      ]
+    end
+    let!(:student_classrooms) do
+      [
+        create(:students_classrooms, student: active_student, classroom: classroom),
+        create(:students_classrooms, student: inactive_student, classroom: classroom),
+        create(:students_classrooms, student: active_old_student, classroom: classroom)
+      ]
+    end
+    let!(:recent_activity_session) do
+      create(:activity_session,
+        user: active_student,
+        classroom_unit: classroom_unit,
+        state: 'finished')
+    end
+    let!(:old_activity_session) do
+      create(:activity_session,
+        user: active_old_student,
+        classroom_unit: old_classroom_unit,
+        state: 'finished',
+        completed_at: 2.year.ago,
+        updated_at: 2.year.ago)
+    end
+    let!(:last_activity_session) do
+      create(:activity_session,
+        user: active_student,
+        classroom_unit: classroom_unit,
+        state: 'finished')
+    end
 
-    school_data = SerializeVitallySalesAccount.new(school).data
+    let(:results) { described_class.new(school).data }
 
-    expect(school_data[:traits]).to include(
-      active_students: 2,
-      active_students_this_year: 1,
-      total_students: 3,
-      total_students_this_year: 1,
-      activities_finished: 3,
-      activities_finished_this_year: 2,
-      activities_per_student: 1.5,
-      activities_per_student_this_year: 2.0
-    )
-    expect(school_data[:traits][:last_active]).to be_within(0.000001.second).of(last_activity_session.completed_at)
+    it do
+      expect(results[:traits]).to include(
+        active_students: 2,
+        active_students_this_year: 1,
+        total_students: 3,
+        total_students_this_year: 1,
+        activities_finished: 3,
+        activities_finished_this_year: 2,
+        activities_per_student: 1.5,
+        activities_per_student_this_year: 2.0
+      )
+    end
+
+    it { expect(results[:traits][:last_active]).to be_within(0.000001.second).of(last_activity_session.completed_at) }
+
+    context 'archived activity_sessions' do
+      before do
+        ActivitySession.update_all(visible: false)
+      end
+
+      it { expect(results[:traits][:active_students]).to eq(2) }
+    end
   end
 end

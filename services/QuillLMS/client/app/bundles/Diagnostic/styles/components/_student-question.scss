@@ -25,7 +25,7 @@
         font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        color: #000000;
+        color: $quill-black;
     }
   }
 }
@@ -58,7 +58,7 @@
   display: inline-flex;
   align-items: center;
   .cue {
-    background-color: #fffed5;
+    background-color: #FFFED5;
     line-height: 28px;
     font-size: 20px;
     margin-right: 13px;
@@ -314,13 +314,14 @@
 .fill-in-blank-input {
   color: rgb(61, 61, 61);
   font-size: 24px;
-  margin-right: 10px;
-  width: 40px;
+  margin: 4px 10px 4px 0px;
+  min-width: 55px;
+  max-width: 100%;
   height: 40px;
-  text-align: center;
   box-shadow: 0 2px 4px 0 rgba(10, 10, 10, 0.2), 0 -1px 1px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   border: none;
+  padding-left: 10px;
   &.error:not(:focus) {
     box-shadow: none;
     border-radius: 4px;
@@ -330,7 +331,7 @@
   }
   &:focus {
     outline: none;
-    border: solid 2px #06806b;
+    border: solid 2px $quill-green;
     border-radius: 4px;
   }
 }

@@ -1,2 +1,3 @@
-<% tabs = device == 'mobile' ? student_center_tabs(large: false) : student_center_tabs(large: true) %>
+<% tabs = student_center_tabs %>
 <%= render partial: "pages/shared/sub_navbar", locals: { tabs: tabs, active_tab: active_tab } %>
+<%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: tabs, active_tab: active_tab } %>

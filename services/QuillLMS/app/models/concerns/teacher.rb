@@ -46,6 +46,10 @@ module Teacher
     Classroom.find_by_sql(base_sql_for_teacher_classrooms)
   end
 
+  def unscoped_classrooms_i_teach
+    Classroom.find_by_sql(base_sql_for_teacher_classrooms(only_visible_classrooms: false))
+  end
+
   def classrooms_i_own
     Classroom.find_by_sql("#{base_sql_for_teacher_classrooms} AND ct.role = 'owner'")
   end
@@ -346,6 +350,13 @@ module Teacher
       .where.not(clever_id: nil)
   end
 
+  def canvas_classrooms
+    Classroom
+      .joins(:classrooms_teachers)
+      .joins(:canvas_classroom)
+      .where(classrooms_teachers: { user_id: id })
+  end
+
   def classroom_units(includes_value = nil)
     classroom_ids = classrooms_i_teach.map(&:id)
     if includes_value
@@ -359,7 +370,6 @@ module Teacher
   def update_teacher params
     return if !teacher?
 
-    params[:role] = User::TEACHER if params[:role] != User::STUDENT
     params.permit(
       :id,
       :name,
@@ -457,11 +467,11 @@ module Teacher
   end
 
   def subscription_is_expired?
-    subscription && subscription.expiration < Date.current
+    subscription && subscription.expired?
   end
 
   def subscription_is_valid?
-    subscription && subscription.expiration > Date.current
+    subscription && !subscription.expired?
   end
 
   def teachers_activity_sessions_since_trial_start_date

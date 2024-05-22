@@ -64,7 +64,7 @@ module PagesHelper
         members: [
           {
             name: 'Christina Collins-Berry',
-            title: 'Managing Director of Partnerships',
+            title: 'VP of Partnerships & Professional Services',
             img: 'team-christina-collins.webp'
           },
           {
@@ -78,18 +78,8 @@ module PagesHelper
             img: 'team-peter-gault.webp'
           },
           {
-            name: 'Sarah Kelly',
-            title: 'Managing Director of Strategic Impact',
-            img: 'team-sarah-kelly.webp'
-          },
-          {
-            name: 'Lila Jane Mabe',
-            title: 'Managing Director of Strategy & Impact',
-            img: 'team-lila-jane-mabe.webp'
-          },
-          {
             name: 'Hannah Monk',
-            title: 'Managing Director of Curriculum',
+            title: 'VP of Curriculum',
             img: 'team-hannah-monk.webp'
           }
         ]
@@ -100,12 +90,12 @@ module PagesHelper
         members: [
           {
             name: 'Eric Adams',
-            title: 'Software Engineer II',
+            title: 'Senior Software Engineer I',
             img: 'team-eric-adams.webp'
           },
           {
             name: 'Devin Kawailani Barricklow',
-            title: 'Senior Curriculum Developer',
+            title: 'Curriculum Consultant',
             img: 'team-devin-barricklow.webp'
           },
           {
@@ -114,34 +104,34 @@ module PagesHelper
             img: 'team-shannon-browne.webp'
           },
           {
+            name: 'Rachel Calabrese',
+            title: 'Lead Curriculum Developer',
+            img: 'team-rachel-calabrese.webp'
+          },
+          {
             name: 'Nattalie Dai',
-            title: 'Partnerships Specialist I',
+            title: 'Senior Partnerships Specialist',
             img: 'team-nattalie-dai.webp'
           },
           {
-            name: 'Rachel Dantzler',
-            title: 'Senior Curriculum Developer',
-            img: 'team-rachel-dantzler.webp'
-          },
-          {
             name: 'Ellie Dean',
-            title: 'Finance & Operations Specialist II',
+            title: 'Finance & Operations Manager I',
             img: 'team-ellie-dean.webp'
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Senior Software Engineer I',
+            title: 'Senior Software Engineer II',
             img: 'team-emilia-friedberg.webp'
+          },
+          {
+            name: 'Ari Friedman',
+            title: 'Social Studies Curriculum Developer',
+            img: 'team-ari-friedman.webp'
           },
           {
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
             img: 'team-peter-kong.webp'
-          },
-          {
-            name: 'Sherry Lewkowicz',
-            title: 'Professional Learning Manager',
-            img: 'team-sherry-lewkowicz.webp'
           },
           {
             name: 'Charlie Looper',
@@ -150,17 +140,25 @@ module PagesHelper
           },
           {
             name: 'Stephanee McCadney',
-            title: 'Curriculum Developer II',
+            title: 'Senior Curriculum Developer',
             img: 'team-stephanee-mccadney.webp'
           },
           {
             name: 'Scarlet Melo',
-            title: 'Partnerships Specialist II',
+            title: 'Instructional Coach',
             img: 'team-scarlet-melo.webp'
           },
           {
+            name: 'Jamie Monville',
+            title: 'Associate Curriculum Product Manager',
+            img: 'team-jamie-monville.webp',
+            srcset: {
+              '2x' => 'team-jamie-monville.webp'
+            }
+          },
+          {
             name: 'Katie Moylan',
-            title: 'Curriculum Developer II',
+            title: 'Lead Social Studies Curriculum Developer',
             img: 'team-katie-moylan.webp'
           },
           {
@@ -184,6 +182,14 @@ module PagesHelper
             img: 'team-thomas-robertson.webp'
           },
           {
+            name: 'Maheen Sahoo',
+            title: 'Director of Strategic Partnerships, AI for Education',
+            img: 'team-maheen-sahoo.webp',
+            srcset: {
+              '2x' => 'team-maheen-sahoo.webp'
+            }
+          },
+          {
             name: 'Peter Sharkey',
             title: 'Principal Product Manager',
             img: 'team-peter-sharkey.webp'
@@ -194,13 +200,13 @@ module PagesHelper
             img: 'team-brendan-shean.webp'
           },
           {
-            name: 'Emma Volk',
-            title: 'Lead Curriculum Developer',
-            img: 'team-emma-volk.webp'
+            name: 'Hallie Smith',
+            title: 'Senior Marketing Partner',
+            img: 'team-hallie-smith@2x.webp'
           },
           {
             name: 'Anna Waterman',
-            title: 'Curriculum Developer II',
+            title: 'Lead Curriculum Editor',
             img: 'team-anna-waterman.webp'
           },
           {
@@ -234,44 +240,124 @@ module PagesHelper
             img: 'board-tony-sebro.webp'
           },
           {
-            name: 'Peg Tyre',
-            title: 'VP of Strategy at the Edwin Gould Foundation',
-            img: 'board-peg-tyre.webp'
-          },
-          {
             name: 'Matthew Rodriguez',
-            title: 'Trader at Millennium Management',
+            title: 'Portfolio Manager at Millennium Management',
             img: 'board-matthew-rodriguez.webp'
           },
           {
             name: 'Stephanie Cohen',
-            title: 'Co-Head of Consumer Wealth Management at Goldman',
+            title: 'Chief Strategy Officer at Cloudflare',
             img: 'board-stephanie-cohen.webp'
           },
           {
             name: 'Ben Sussman',
-            title: 'Engineer at Stripe',
+            title: 'Engineer at Pomelo Care',
             img: 'board-ben-sussman.webp'
+          },
+          {
+            name: 'David Siegel',
+            title: 'Former CEO of Meetup & Investopedia',
+            img: 'board-david-siegel.webp'
           }
         ]
       },
       {
-        team: 'Advisors',
+        team: 'Advisory Board',
         members: [
           {
-            name: 'Rick Benger',
-            title: 'Creator of Once upon a Pancake',
-            img: 'advisor-rick-benger.webp'
+            name: 'Peg Tyre',
+            title: 'VP of Strategy at the Edwin Gould Foundation',
+            img: 'advisor-peg-tyre.webp'
           },
           {
-            name: 'Alex Redmon',
-            title: 'Engineering Manager at Hearst',
-            img: 'advisor-alex-redmon.webp'
+            name: 'Alexandria Redmon',
+            title: 'Senior Director of Product & Technology at Hearst',
+            img: 'advisor-alexandria-redmon.webp'
+          }
+        ]
+      },
+      {
+        team: 'Teacher Advisors',
+        description_one: 'Quill works with an advisory council of more than 300 teachers from 42 states who advise us on the development of new tools. The following 13 teachers are some of the most active teachers who have contributed to the development of our learning tools.',
+        description_two: 'Email us at advisorycouncil@quill.org if you’re a Quill educator who would like to join this group!',
+        members: [
+          {
+            name: 'Carmen Adamucci',
+            title: 'Saint Monica Preparatory',
+            subtitle: 'Santa Monica, CA',
+            img: 'advisor-carmen-adamucci@2x.png'
           },
           {
-            name: 'Ashley Winn',
-            title: 'English Language Arts Teacher, Educational Consultant',
-            img: 'advisor-ashley-winn.webp'
+            name: 'Juan G. Alvarado',
+            title: 'Valley View High School',
+            subtitle: 'Hidalgo, TX',
+            img: 'advisor-juan-alvarado@2x.png'
+          },
+          {
+            name: 'Alesha Cary',
+            title: 'Madison-Ridgeland Academy',
+            subtitle: 'Madison, MS',
+            img: 'advisor-alesha-cary@2x.png'
+          },
+          {
+            name: 'Rebecca Foland',
+            title: 'Waukee Public Schools',
+            subtitle: 'Waukee, IA',
+            img: 'advisor-rebecca-foland@2x.png'
+          },
+          {
+            name: 'Audrey Gebber',
+            title: 'Gulf Coast High School',
+            subtitle: 'Naples, FL',
+            img: 'advisor-audrey-gebber@2x.png'
+          },
+          {
+            name: 'Deana M. Harris',
+            title: 'Thorndale High School',
+            subtitle: 'Thorndale, TX',
+            img: 'advisor-deana-harris@2x.png'
+          },
+          {
+            name: 'Jasmine Hobson Rodriguez',
+            title: 'Hesperia High School',
+            subtitle: 'Hesperia, CA',
+            img: 'advisor-jasmine-hobson-rodriguez@2x.png'
+          },
+          {
+            name: 'Jennifer James',
+            title: 'Vinemont High School',
+            subtitle: 'Vinemont, AL',
+            img: 'advisor-jennifer-james@2x.png'
+          },
+          {
+            name: 'Meleighsa McLaughlin',
+            title: 'James Clemens High School',
+            subtitle: 'Madison, AL',
+            img: 'advisor-meleighsa-mclaughlin@2x.png'
+          },
+          {
+            name: 'Sera Ramirez',
+            title: 'Fort Stockton High School',
+            subtitle: 'Fort Stockton, TX',
+            img: 'advisor-sera-ramirez@2x.png'
+          },
+          {
+            name: 'Elma Ruiz',
+            title: 'Port Isabel Junior High',
+            subtitle: 'Port Isabel, TX',
+            img: 'advisor-elma-ruiz@2x.png'
+          },
+          {
+            name: 'Elizabeth Tanner',
+            title: 'Westwood High School',
+            subtitle: 'Mesa, AZ',
+            img: 'advisor-elizabeth-tanner@2x.png'
+          },
+          {
+            name: 'Megan Tourda-Nelsen',
+            title: 'Bay City Central High School',
+            subtitle: 'Bay City, MI',
+            img: 'advisor-megan-tourda-nelsen@2x.png'
           }
         ]
       }

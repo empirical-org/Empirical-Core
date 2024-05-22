@@ -1,5 +1,5 @@
-import { mainFetch, requestFailed } from './../../Staff/helpers/evidence/routingHelpers';
 import getAuthToken from '../components/modules/get_auth_token';
+import { mainFetch, requestFailed } from './../../Staff/helpers/evidence/routingHelpers';
 
 export const createUnitTemplate = async (unitTemplate: any) => {
   const response = await mainFetch(`cms/unit_templates`, {

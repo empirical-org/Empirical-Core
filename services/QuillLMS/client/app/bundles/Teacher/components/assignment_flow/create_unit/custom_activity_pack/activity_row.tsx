@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
 
-import { Activity, Topic, } from './interfaces'
-import { stringifyLowerLevelTopics, AVERAGE_FONT_WIDTH, } from './shared'
+import { Activity, Topic, } from './interfaces';
+import { AVERAGE_FONT_WIDTH, stringifyLowerLevelTopics, } from './shared';
 
-import { imageTagForClassification, } from '../../assignmentFlowConstants'
-import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder'
-import useWindowSize from '../../../../../Shared/hooks/useWindowSize'
-import { Tooltip, } from '../../../../../Shared/index'
+import useWindowSize from '../../../../../Shared/hooks/useWindowSize';
+import { Tooltip, } from '../../../../../Shared/index';
+import NumberSuffixBuilder from '../../../modules/numberSuffixBuilder';
+import { imageTagForClassification, } from '../../assignmentFlowConstants';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 const expandSrc = `${process.env.CDN_URL}/images/shared/expand.svg`
@@ -126,7 +126,7 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
       const thirdLevelTopic = getParentTopic(secondLevelTopic)
       const diagonalDivider = <span className="diagonal-divider">/</span>
       return (
-        <span className="attribute-section extended-topic">
+        <span className="attribute-section extended-topic" key={topic.name}>
           <span><img alt="Globe icon" src={topicSrc} />{thirdLevelTopic?.name}</span>
           {diagonalDivider}
           <span>{secondLevelTopic?.name}</span>
@@ -138,7 +138,7 @@ const ActivityRowTopics = ({ allTopics, topics, maxAllowedLength, onTertiaryLine
   } else if ((widthExceedsAllottedSpaceOnSecondLine && onTertiaryLine) || (!widthExceedsAllottedSpaceOnSecondLine && !onTertiaryLine)) {
     return topics.map((topic, i) => {
       return (
-        <span className={className}>
+        <span className={className} key={topic.name}>
           {!onTertiaryLine && hasConcept && i === 0 && <span className="vertical-divider" />}
           <img alt="Globe icon" src={topicSrc} />
           <span>{topic.name}</span>
@@ -173,7 +173,7 @@ const ActivityRowGradeRange = ({ minimumGradeLevel, maximumGradeLevel, gradeLeve
       className += ' not-recommended'
     }
 
-    return <span className={className}>{gradeBand}</span>
+    return <span className={className} key={gradeBand}>{gradeBand}</span>
   })
 
   return (
@@ -212,7 +212,7 @@ const ActivityRowExpandedSection = ({ activity, isExpanded}: { activity: Activit
   </div>)
 
   const contentPartnersArray = activity.content_partners.map(cp => (
-    <React.Fragment>
+    <React.Fragment key={cp.description}>
       <img alt="Copyright icon" src={copyrightSrc} />
       <span>{cp.description}</span>
     </React.Fragment>

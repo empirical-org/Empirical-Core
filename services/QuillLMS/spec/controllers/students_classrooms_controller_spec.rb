@@ -19,7 +19,7 @@ describe StudentsClassroomsController, type: :controller do
           # There's a weird setup here where this Associator calls `save` if
           # it creates a new record, and there's an `after_save` hook on the
           # model that that triggers the Associator a second time.
-          expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom).twice.and_call_original
+          expect(StudentClassroomAssociator).to receive(:run).with(user, classroom).twice.and_call_original
           post :create, params: { classcode: classroom.code }
           expect(JSON.parse(response.body)).to eq classroom.reload.as_json
         end
@@ -31,7 +31,7 @@ describe StudentsClassroomsController, type: :controller do
           # There's a weird setup here where this Associator calls `save` if
           # it creates a new record, and there's an `after_save` hook on the
           # model that that triggers the Associator a second time.
-          expect(Associators::StudentsToClassrooms).to receive(:run).with(user, classroom).twice.and_call_original
+          expect(StudentClassroomAssociator).to receive(:run).with(user, classroom).twice.and_call_original
           expect do
             post :create, params: { classcode: classroom.code }
           end.to not_change(StudentsClassrooms.unscoped, :count)

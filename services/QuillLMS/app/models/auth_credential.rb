@@ -7,16 +7,15 @@
 #  id            :integer          not null, primary key
 #  access_token  :string           not null
 #  expires_at    :datetime
-#  provider      :string           not null
 #  refresh_token :string
 #  timestamp     :datetime
+#  type          :string           not null
 #  created_at    :datetime
 #  updated_at    :datetime
 #  user_id       :integer          not null
 #
 # Indexes
 #
-#  index_auth_credentials_on_provider       (provider)
 #  index_auth_credentials_on_refresh_token  (refresh_token)
 #  index_auth_credentials_on_user_id        (user_id)
 #
@@ -27,38 +26,32 @@
 class AuthCredential < ApplicationRecord
   belongs_to :user
 
-  GOOGLE_PROVIDER = 'google'
-  GOOGLE_EXPIRATION_DURATION = 6.months
+  TYPES = %w[
+    CanvasAuthCredential
+    CleverDistrictAuthCredential
+    CleverLibraryAuthCredential
+    GoogleAuthCredential
+  ].freeze
 
-  CLEVER_DISTRICT_PROVIDER = 'clever_district'
-  CLEVER_LIBRARY_PROVIDER = 'clever_library'
-  CLEVER_EXPIRATION_DURATION = 23.hours
+  validates :type, inclusion: { in: TYPES }
 
-  def google_access_expired?
-    google_provider? && !refresh_token_valid?
+  def access_token_expired?
+    expires_at.nil? || (expires_at < Time.current)
   end
 
-  def google_authorized?
-    google_provider? && refresh_token_valid?
-  end
-
-  def google_provider?
-    provider == GOOGLE_PROVIDER
+  def canvas_authorized?
+    false
   end
 
   def clever_authorized?
-    [CLEVER_DISTRICT_PROVIDER, CLEVER_LIBRARY_PROVIDER].include?(provider)
+    false
   end
 
-  def refresh_token_valid?
-    return false if !google_provider? || expires_at.nil? || refresh_token.nil?
-
-    Time.current < refresh_token_expires_at
+  def google_access_expired?
+    false
   end
 
-  def refresh_token_expires_at
-    return nil if !google_provider? || expires_at.nil?
-
-    expires_at + GOOGLE_EXPIRATION_DURATION
+  def google_authorized?
+    false
   end
 end

@@ -4,7 +4,7 @@ class Cms::SchoolAdminsController < Cms::CmsController
   before_action :set_school, only: [:create]
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: params[:email].downcase)
     if user
       create_admin_user_for_existing_user(user)
     else
@@ -72,6 +72,9 @@ class Cms::SchoolAdminsController < Cms::CmsController
     new_school_admin = user.schools_admins.build(school_id: school_id)
 
     if new_school_admin.save!
+      admin_info = AdminInfo.find_or_create_by!(user: user)
+      admin_info.update(approver_role: User::STAFF, approval_status: AdminInfo::APPROVED)
+
       handle_school_admin_save(user, school_id, new_user)
     else
       render json: { error: new_school_admin.errors.messages }

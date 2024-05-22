@@ -171,13 +171,9 @@
         .data-table-row {
           height: auto;
           padding: 10px 16px;
-          span {
-            div {
-              .entry {
-                margin-bottom: 0px;
-                white-space: break-spaces !important;
-              }
-            }
+          .entry {
+            margin-bottom: 0px;
+            white-space: break-spaces !important;
           }
         }
       }

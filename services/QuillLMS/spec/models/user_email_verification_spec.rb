@@ -61,23 +61,45 @@ describe UserEmailVerification, type: :model do
     end
   end
 
+  describe '#send_email' do
+    let(:mailer) { double(:mailer, deliver_now!: true) }
+
+    before do
+      allow(UserMailer).to receive(:email_verification_email) { mailer }
+    end
+
+    it 'should call #email_verification_email on the UserMailer' do
+      expect(UserMailer).to receive(:email_verification_email).with(user_email_verification.user)
+      user_email_verification.send_email
+    end
+  end
+
   describe '#set_new_token' do
+    let(:new_token) { '1234567890' }
+
     it 'should set a new verification_token value' do
-      new_token = '1234567890'
       expect(SecureRandom).to receive(:uuid).and_return(new_token)
 
       user_email_verification.set_new_token
 
       expect(user_email_verification.verification_token).to eq(new_token)
+      expect(UserEmailVerification.find_by(verification_token: new_token)).to eq(user_email_verification)
     end
 
     it 'should be called on create' do
       new_user = create(:user)
-      new_token = '1234567890'
       expect(SecureRandom).to receive(:uuid).and_return(new_token)
       verification = UserEmailVerification.create(user: new_user)
 
       expect(verification.verification_token).to eq(new_token)
+    end
+
+    it 'should not be called on create if the record is already verified' do
+      new_user = create(:user)
+      expect(SecureRandom).not_to receive(:uuid)
+      verification = UserEmailVerification.create(user: new_user, verified_at: Time.zone.today)
+
+      expect(verification.verification_token).to eq(nil)
     end
   end
 end

@@ -1,6 +1,5 @@
-const C = require('../constants').default;
+import C from '../constants';
 
-const moment = require('moment');
 
 import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
@@ -9,17 +8,17 @@ declare global {
 }
 
 import _ from 'underscore';
-import { submitResponse } from './responses';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import { requestPost, } from '../../../modules/request/index';
+import lessonActions from '../actions/lessons';
+import { Question } from '../interfaces/questions';
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  QuestionApi,
   FocusPointApi,
   IncorrectSequenceApi,
+  QuestionApi,
   SENTENCE_COMBINING_TYPE
-} from '../libs/questions_api'
-import { LessonApi, TYPE_CONNECT_LESSON} from  '../libs/lessons_api'
-import lessonActions from '../actions/lessons'
-import { requestPost, } from '../../../modules/request/index'
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
 
 function startListeningToQuestions() {
   return loadQuestions();
@@ -69,11 +68,11 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    QuestionApi.update(qid, content).then( () => {
+    QuestionApi.update(qid, content).then(() => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-    }).catch( (error) => {
+    }).catch((error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
@@ -94,13 +93,13 @@ function submitNewQuestion(content, response, lessonID) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_COMBINING_TYPE}
+      const lessonQuestion = { key: response.questionUID, questionType: C.INTERNAL_SENTENCE_COMBINING_TYPE }
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
-      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then(() => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
         dispatch(lessonActions.loadLesson(lessonID));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
-      }).catch( (error) => {
+      }).catch((error) => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
         dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
       });
@@ -157,7 +156,7 @@ function updateFlag(qid, flag) {
   return dispatch => {
     QuestionApi.updateFlag(qid, flag).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Flag update failed! ${error}`);
     });
   }
@@ -169,7 +168,7 @@ function updateModelConceptUID(qid, modelConceptUID) {
       if (!question.modelConceptUID) {
         QuestionApi.updateModelConcept(qid, modelConceptUID).then(() => {
           dispatch(loadQuestion(qid));
-        }).catch( (error) => {
+        }).catch((error) => {
           alert(`Model concept update failed! ${error}`);
         });
       }
@@ -177,10 +176,11 @@ function updateModelConceptUID(qid, modelConceptUID) {
   }
 }
 
-function submitNewIncorrectSequence(qid, data) {
+function submitNewIncorrectSequence(qid, data, callback) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.create(qid, data).then(() => {
       dispatch(loadQuestion(qid));
+      callback();
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });
@@ -191,7 +191,7 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.update(qid, seqid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -207,11 +207,12 @@ function deleteIncorrectSequence(qid, seqid) {
   };
 }
 
-function updateIncorrectSequences(qid, data) {
+function updateIncorrectSequences(qid, data, callback) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+      callback();
+    }).catch((error) => {
       alert(`Order update failed! ${error}`);
     });
   }
@@ -224,7 +225,7 @@ function getFormattedSearchData(state) {
   return searchData;
 }
 
-function searchResponses(qid) {
+function searchResponses(qid, callback) {
   return (dispatch, getState) => {
     const requestNumber = getState().filters.requestCount
     // check for request number in state, save as const
@@ -247,6 +248,7 @@ function searchResponses(qid) {
             numberOfPages: data.numberOfPages,
           };
           dispatch(updateResponses(responseData));
+          callback();
         }
       }
     );
@@ -259,12 +261,15 @@ function initializeSubscription(qid) {
       Pusher.logToConsole = true;
     }
     if (!window.pusher) {
-      window.pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+      window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     }
     const channel = window.pusher.subscribe(`admin-${qid}`);
     channel.bind('new-response', (data) => {
       setTimeout(() => dispatch(searchResponses(qid)), 1000);
     });
+    channel.bind('rematching-finished', () => {
+      window.alert(`Rematching finished for the Connect question with uid ${qid}! Reload the page to see the rematched responses.`)
+    })
   };
 }
 
@@ -276,17 +281,15 @@ function removeSubscription(qid) {
   };
 }
 
-function updatePageNumber(pageNumber, qid) {
+function updatePageNumber(pageNumber) {
   return (dispatch) => {
     dispatch(setPageNumber(pageNumber));
-    dispatch(searchResponses(qid));
   };
 }
 
-function updateStringFilter(stringFilter, qid) {
+function updateStringFilter(stringFilter) {
   return (dispatch) => {
     dispatch(setStringFilter(stringFilter));
-    stringFilter === '' && dispatch(searchResponses(qid));
   };
 }
 
@@ -307,7 +310,7 @@ function getUsedSequences(qid) {
 }
 
 function setUsedSequences(qid, seq) {
-  return {type: C.SET_USED_SEQUENCES, qid, seq}
+  return { type: C.SET_USED_SEQUENCES, qid, seq }
 }
 
 function startResponseEdit(qid, rid) {

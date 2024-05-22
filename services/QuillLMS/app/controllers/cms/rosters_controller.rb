@@ -33,6 +33,9 @@ class Cms::RostersController < Cms::CmsController
 
         password = s[:password].present? ? s[:password] : s[:name].split[1]
         student = User.find_by(email: student_email)
+        if student.present? && params[:overwritePasswords]
+          student.update!(password: password)
+        end
         student ||= User.create!(name: s[:name], email: student_email, password: password, password_confirmation: password, role: 'student')
 
         teacher = User.find_by(email: teacher_email)

@@ -7,6 +7,7 @@ module AboutUsHelper
   TEAM = 'Team'
   CAREERS = 'Careers'
   PRESS = 'Press'
+  CONTACT_US = 'Contact Us'
 
   def about_us_tabs(large: true)
     [
@@ -39,6 +40,11 @@ module AboutUsHelper
         id: PRESS,
         name: PRESS,
         url: '/press'
+      },
+      {
+        id: CONTACT_US,
+        name: CONTACT_US,
+        url: '/contact'
       }
     ]
   end

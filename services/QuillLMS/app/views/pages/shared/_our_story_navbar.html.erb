@@ -1,2 +1,3 @@
 <% tabs = device == 'mobile' ? about_us_tabs(large: false) : about_us_tabs(large: true) %>
 <%= render partial: "pages/shared/sub_navbar", locals: { tabs: tabs, active_tab:  @active_tab } %>
+<%= render partial: 'pages/shared/mobile_sub_navbar', locals: { tabs: tabs, active_tab:  @active_tab } %>

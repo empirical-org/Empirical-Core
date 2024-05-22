@@ -1,26 +1,29 @@
 import * as React from 'react';
 
 import { requestGet } from '../../../modules/request';
-import WelcomeModal from '../components/dashboard/welcome_modal'
-import DemoModal from '../components/dashboard/demo_modal'
-import TeacherInfoModal from '../components/dashboard/teacher_info_modal'
-import OnboardingChecklist from '../components/dashboard/onboarding_checklist'
-import DiagnosticMini from '../components/dashboard/diagnostic_mini'
-import LessonsMini from '../components/dashboard/lessons_mini'
-import ActivityFeed from '../components/dashboard/activity_feed'
-import HandyActions from '../components/dashboard/handy_actions'
-import DailyTinyTip from '../components/dashboard/daily_tiny_tip'
-import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights'
-import CollegeBoard from '../components/dashboard/college_board'
-import KeyMetrics from '../components/dashboard/key_metrics'
-import EvidencePromotionCard from '../components/dashboard/evidence_promotion_card'
-import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour'
-import useWindowSize from '../../Shared/hooks/useWindowSize'
-import { Spinner, } from '../../Shared/index'
+import useWindowSize from '../../Shared/hooks/useWindowSize';
+import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
+import { Spinner, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index';
+import ActivityFeed from '../components/dashboard/activity_feed';
+import CollegeBoard from '../components/dashboard/college_board';
+import DailyTinyTip from '../components/dashboard/daily_tiny_tip';
+import DemoModal from '../components/dashboard/demo_modal';
+import DiagnosticMini from '../components/dashboard/diagnostic_mini';
+import PromotionalCard from '../components/dashboard/promotional_card';
+import HandyActions from '../components/dashboard/handy_actions';
+import KeyMetrics from '../components/dashboard/key_metrics';
+import LessonsMini from '../components/dashboard/lessons_mini';
+import OnboardingChecklist from '../components/dashboard/onboarding_checklist';
+import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights';
+import TeacherInfoModal from '../components/dashboard/teacher_info_modal';
+import WelcomeModal from '../components/dashboard/welcome_modal';
+import ArticleSpotlight from '../components/shared/articleSpotlight';
+import DemoOnboardingTour, { DEMO_ONBOARDING_DASHBOARD, } from '../components/shared/demo_onboarding_tour';
+import { TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID } from '../constants/featuredBlogPost';
 
 const MAX_VIEW_WIDTH_FOR_MOBILE = 1103
 
-const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, }) => {
+const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSeeTeacherInfoModal, linkedToClever, featuredBlogPosts, showEvidencePromotionCard, subjectAreas, userId, classrooms, }) => {
   const size = useWindowSize();
   const className = "dashboard white-background-accommodate-footer"
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
@@ -28,6 +31,10 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
   const [showWelcomeModal, setShowWelcomeModal] = React.useState(mustSeeWelcomeModal)
   const [showTeacherInfoModal, setShowTeacherInfoModal] = React.useState(mustSeeTeacherInfoModal)
   const [showDemoModal, setShowDemoModal] = React.useState(false)
+  const [showSnackbar, setShowSnackbar] = React.useState(false);
+  const [snackbarText, setSnackbarText] = React.useState('');
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   function closeWelcomeModal() { setShowWelcomeModal(false) }
   function closeDemoModal() { setShowDemoModal(false) }
@@ -94,6 +101,11 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
     )
   }
 
+  function handleBulkArchiveSuccess(snackbarCopy) {
+    setSnackbarText(snackbarCopy)
+    setShowSnackbar(true)
+  }
+
   if (loading) {
     return (
       <div className={className}>
@@ -105,28 +117,37 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
   }
 
   return (
-    <div className={className}>
-      <div className="post-checklist-container">
-        <DemoOnboardingTour
-          pageKey={DEMO_ONBOARDING_DASHBOARD}
-        />
-        {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
-        {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
-        <main>
-          {showEvidencePromotionCard && <EvidencePromotionCard />}
-          <KeyMetrics firstName={firstName} metrics={metrics} />
-          <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
-          <LessonsMini lessons={lessons} onMobile={onMobile()} />
-          <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
-        </main>
-        <aside>
-          <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
-          <DailyTinyTip />
-          <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
-          <CollegeBoard />
-        </aside>
+    <React.Fragment>
+      <Snackbar text={snackbarText} visible={showSnackbar} />
+      <div className={className}>
+        <div className="post-checklist-container">
+          <DemoOnboardingTour
+            pageKey={DEMO_ONBOARDING_DASHBOARD}
+          />
+          {showDemoModal && <DemoModal close={closeDemoModal} size={size} />}
+          {showTeacherInfoModal && <TeacherInfoModal close={closeTeacherInfoModal} subjectAreas={subjectAreas} />}
+          <main>
+            <PromotionalCard
+              classrooms={classrooms}
+              handleBulkArchiveSuccess={handleBulkArchiveSuccess}
+              showEvidencePromotionCard={showEvidencePromotionCard}
+              userId={userId}
+            />
+            <KeyMetrics firstName={firstName} metrics={metrics} />
+            <DiagnosticMini diagnostics={diagnostics} onMobile={onMobile()} />
+            <LessonsMini lessons={lessons} onMobile={onMobile()} />
+            <ActivityFeed activityFeed={activityFeed} onMobile={onMobile()} />
+          </main>
+          <aside>
+            <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
+            <DailyTinyTip />
+            <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
+            <CollegeBoard />
+          </aside>
+        </div>
       </div>
-    </div>
+      <ArticleSpotlight blogPostId={TEACHER_DASHBOARD_FEATURED_BLOG_POST_ID} />
+    </React.Fragment>
   )
 
 }

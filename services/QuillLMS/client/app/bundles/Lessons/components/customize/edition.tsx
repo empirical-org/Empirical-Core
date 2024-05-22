@@ -1,18 +1,17 @@
+import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getComponent } from './helpers'
-import _ from 'lodash'
-import Slide from './slide'
-import CustomizeEditionHeader from './customizeEditionHeader'
-import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
-import CustomizeNavbar from '../navbar/customizeNavbar'
-import SuccessModal from './successModal'
-import { getParameterByName } from '../../libs/getParameterByName'
-import { Question } from '../classroomLessons/interfaces'
+import { getParameterByName } from '../../libs/getParameterByName';
+import { Question } from '../classroomLessons/interfaces';
+import CustomizeNavbar from '../navbar/customizeNavbar';
+import CustomizeEditionHeader from './customizeEditionHeader';
+import NameAndSampleQuestionModal from './nameAndSampleQuestionModal';
+import Slide from './slide';
+import SuccessModal from './successModal';
 
 import {
   getClassLesson
-} from '../../actions/classroomLesson'
+} from '../../actions/classroomLesson';
 
 import {
   getCurrentUserAndCoteachersFromLMS,
@@ -26,25 +25,25 @@ import {
   setOriginalEditionQuestions,
   setWorkingEditionMetadata,
   setWorkingEditionQuestions,
-} from '../../actions/customize'
+} from '../../actions/customize';
 
 import {
   setEditionId,
   setTeacherModels,
   startListeningToSession,
-} from '../../actions/classroomSessions'
+} from '../../actions/classroomSessions';
 
 import {
-  getStoredEditionMetadata,
   getIncompleteQuestions,
+  getStoredEditionMetadata,
   getStoredEditionQuestions,
   getStoredOriginalEditionQuestions,
-} from '../../reducers/combined'
+} from '../../reducers/combined';
 
 import {
   ClassroomSessionId,
   ClassroomUnitId
-} from '../classroomLessons/interfaces'
+} from '../classroomLessons/interfaces';
 
 
 class CustomizeEdition extends React.Component<any, any> {

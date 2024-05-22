@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IndividualFeaturesTable from './individual_features_table'
+import IndividualFeaturesTable from './individual_features_table';
 
 const greenCheckSrc = `${process.env.CDN_URL}/images/icons/icons-check-green.svg`
 
@@ -26,7 +26,7 @@ const SchoolPricingMini = ({ plan, premiumFeatureData, showBadges, handleClickPu
       </div>
       {showBadges && <div className="school-premium-badge-container">
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Quill Academy</div>
-        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Admin dashboard</div>
+        <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Premium Hub</div>
         <div className="school-premium-badge"><img alt="Check icon" src={greenCheckSrc} /> Custom reports</div>
       </div>}
     </section>

@@ -4,12 +4,12 @@ import { useHistory, } from 'react-router-dom';
 
 import Navigation from './navigation';
 
+import { blankHint, } from "../../../../constants/evidence";
+import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
+import { Error, Snackbar, Spinner, defaultSnackbarTimeout } from '../../../Shared/index';
+import { renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 import { HintInterface } from '../../interfaces/evidenceInterfaces';
 import { createHint, deleteHint, fetchHints, updateHint, } from '../../utils/evidence/hintAPIs';
-import { DropdownInput, Error, Spinner, Snackbar, defaultSnackbarTimeout, } from '../../../Shared/index';
-import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor'
-import { blankHint, } from "../../../../constants/evidence";
-import { renderErrorsContainer } from "../../helpers/evidence/renderHelpers";
 import RuleHint from "./configureRules/ruleHint";
 import RuleHintDropdown from "./configureRules/ruleHintDropdown";
 
@@ -132,7 +132,7 @@ const Hints = ({ location, match }) => {
 
     return (<button className="quill-button medium primary outlined delete-hint" onClick={handleDeleteHint} type="button">Delete Hint</button>)
   }
-    
+
   return(
     <React.Fragment>
       <Navigation location={location} match={match} />

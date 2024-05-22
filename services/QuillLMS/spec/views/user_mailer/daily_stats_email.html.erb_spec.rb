@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 describe "user_mailer/daily_stats_email.html.erb", type: :view do
-
   it "displays the email" do
-    allow(view).to receive(:stylesheet_link_tag)
+    allow(view).to receive(:vite_stylesheet_tag)
     mock_nps = {
       'nps': 100,
       'respondents': [9, 0, 0]
@@ -25,8 +24,7 @@ describe "user_mailer/daily_stats_email.html.erb", type: :view do
     assign(:satismeter_nps_data, mock_nps.to_json)
     assign(:satismeter_comment_data, [])
 
-    render
-
+    render template: 'user_mailer/daily_stats_email'
     expect(rendered).to match("nps")
   end
 end

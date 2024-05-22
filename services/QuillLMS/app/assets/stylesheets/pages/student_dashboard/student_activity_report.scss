@@ -1,0 +1,273 @@
+.student-activity-report {
+  .header {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 32px;
+    }
+    .dropdown-and-score {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      .dropdown-container {
+        min-height: 38px;
+        min-width: 300px;
+        justify-content: center;
+      }
+    }
+    .score {
+      padding: 6px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      min-height: 38px;
+      .score-indicator {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        margin-right: 8px;
+        border-radius: 4px;
+      }
+
+      &.proficient {
+        background-color: $quill-green-vibrant-10;
+        border: 1px solid $quill-green-vibrant-50;
+        .score-indicator {
+          background-color: $quill-green-vibrant-50;
+        }
+      }
+
+      &.nearly-proficient {
+        background-color: $quill-gold-5;
+        border: 1px solid $quill-gold-dark-10;
+        .score-indicator {
+          background-color: $quill-gold;
+        }
+      }
+
+      &.not-yet-proficient {
+        background-color: $quill-red-5;
+        border: 1px solid $quill-red-50;
+        .score-indicator {
+          background-color: $quill-red;
+        }
+      }
+
+    }
+  }
+
+
+  .helpful-tips {
+    margin-top: 32px;
+  }
+
+  .question-container {
+    display: flex;
+    gap: 32px;
+    padding: 32px 0px;
+    border-bottom: 1px solid $quill-grey-15;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .question-level-information, .attempts {
+      flex: 1;
+    }
+
+    .question-level-information {
+      padding: 24px;
+      border-radius: 8px;
+      height: min-content;
+
+      &.optimal {
+        border: 1px solid $quill-green-vibrant-50;
+        background: $quill-green-vibrant-10;
+      }
+      &.suboptimal {
+        border: 1px solid $quill-gold-dark-20;
+        background: $quill-gold-5;
+      }
+
+      h2 {
+        font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .directions, .prompt, .target-skill {
+        display: flex;
+        padding-top: 16px;
+        margin-top: 16px;
+        border-top: 1px solid $quill-black-transparent-20;
+        gap: 10px;
+
+        h3 {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 22px;
+          min-width: 110px;
+        }
+
+        p, .prompt-text {
+          font-size: 16px;
+          line-height: normal;
+        }
+      }
+
+      .target-skill {
+        align-items: center;
+      }
+
+      .cue {
+        font-weight: 700;
+        line-height: normal;
+        margin-top: 8px;
+        display: inline-block;
+        margin-right: 20px;
+      }
+
+      .target-skill-indicator {
+        display: flex;
+        padding: 2px 8px 2px 3px;
+        align-items: center;
+        gap: 4px;
+        border-radius: 15px;
+        font-weight: 600;
+
+        &.correct {
+          border: 1px solid $quill-green-vibrant-50;
+          background-color: $quill-green-vibrant-20;
+          color: $quill-green-vibrant;
+        }
+
+        &.incorrect {
+          border: 1px solid $quill-gold-50;
+          background: $quill-gold-20;
+          color: $quill-gold-dark;
+        }
+      }
+    }
+
+    .attempts {
+      border-radius: 8px;
+      border: 1px solid $quill-grey-15;
+      padding: 32px;
+
+      .attempt:not(:last-of-type) {
+        border-bottom: 1px solid $quill-grey-15;
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+      }
+
+      h3 {
+        color: $quill-grey-35;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 22px;
+        margin-bottom: 4px;
+      }
+
+      .answer {
+        border-radius: 8px;
+        border: 1px solid $quill-grey-15;
+        background: $quill-grey-2;
+        font-size: 16px;
+        line-height: normal;
+        margin-bottom: 24px;
+        padding: 8px;
+      }
+
+      .feedback {
+        border-radius: 8px;
+        padding: 8px;
+
+        h4 {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        p {
+          font-size: 16px;
+          line-height: normal;
+        }
+
+        &.suboptimal {
+          border: 1px solid $quill-gold-20;
+          background: $quill-gold-1;
+          h4 {
+            color: $quill-gold-dark;
+          }
+        }
+
+        &.optimal {
+          border: 1px solid $quill-green-vibrant-50;
+          background: $quill-green-vibrant-10;
+          h4 {
+            color: $quill-green-vibrant;
+          }
+        }
+
+        &.final-suboptimal {
+          border: 1px solid $quill-gold;
+          background: $quill-gold-5;
+          h4 {
+            color: $quill-gold-dark;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 840px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      .score {
+        margin-left: auto;
+      }
+    }
+    .question-container {
+      flex-direction: column;
+      border-bottom: none;
+      .question-level-information .target-skill {
+        align-items: flex-start;
+        .target-skill-indicator {
+          align-items: flex-start;
+          img {
+            margin-top: 3px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    .header .dropdown-and-score {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      .dropdown-container {
+        width: 100%;
+      }
+      .score {
+        margin-left: 0px;
+      }
+    }
+  }
+
+}

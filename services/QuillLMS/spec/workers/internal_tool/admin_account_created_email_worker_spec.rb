@@ -16,7 +16,7 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
     allow(School).to receive(:find_by).and_return(school)
     allow(mailer_class).to receive(mailer_method).with(mailer_user, school.name).and_return(double(:email, deliver_now!: true))
     allow(teacher).to receive(:mailer_user).and_return(mailer_user)
-    allow(SegmentAnalytics).to receive(:new) { analytics }
+    allow(Analytics::SegmentAnalytics).to receive(:new) { analytics }
   end
 
   describe 'user is nil' do
@@ -50,9 +50,9 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
     it 'should send a segment.io event' do
       expect(analytics).to receive(:track_school_admin_user).with(
         teacher,
-        SegmentIo::BackgroundEvents::STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT,
+        Analytics::SegmentIo::BackgroundEvents::STAFF_CREATED_SCHOOL_ADMIN_ACCOUNT,
         school.name,
-        SegmentIo::Properties::STAFF_USER
+        Analytics::SegmentIo::Properties::STAFF_USER
       )
       subject
     end

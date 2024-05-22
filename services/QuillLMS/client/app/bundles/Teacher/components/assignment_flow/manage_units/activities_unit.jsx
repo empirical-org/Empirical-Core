@@ -1,10 +1,9 @@
-import React from 'react';
-import _ from 'underscore';
 import moment from 'moment';
 import Pluralize from 'pluralize';
+import React from 'react';
 
-import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
+import ClassroomActivity from './classroom_activity';
 
 import { Snackbar, defaultSnackbarTimeout } from '../../../../Shared/index';
 import * as api from '../../modules/call_api';

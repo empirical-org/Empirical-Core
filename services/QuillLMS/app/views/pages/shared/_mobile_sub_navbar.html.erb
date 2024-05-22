@@ -1,0 +1,23 @@
+<% home_or_tools_page_class = local_assigns[:on_home_or_tools_page] ? 'home-or-tools-page' : '' %>
+<% active_tab_label = local_assigns[:active_subtab] ? active_subtab : active_tab %>
+
+<div class="tab-subnavigation-wrapper mobile <%= home_or_tools_page_class %>">
+  <div class="dropdown-container">
+    <div id="mobile-subnav-toggle">
+      <button class="interactive-wrapper" onclick="toggleMobileSecondaryDropdown()" id="mobile-subnav-dropdown" type='button'>
+        <p><%= active_tab_label %></p>
+        <i class="fa fa-thin fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu" role='menu'>
+        <% tabs.each do |tab| %>
+          <li id="<%= tab[:id] ? tab[:id] : '' %>">
+            <a class="focus-on-dark" href=<%= tab[:url] %>>
+              <%= render partial: 'pages/shared/tabs/my_reports_tab', locals: { tab_name: tab[:name] } %>
+            </a>
+            <div class="checkmark-icon <%= (tab[:name] == active_tab_label || tab[:id] == active_tab_label) ? 'active' : '' %>" id="<%= tab[:id] %>-checkmark"></div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

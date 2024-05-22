@@ -1,7 +1,12 @@
-import { requestGet, } from '../modules/request/index'
+import { requestGet, requestPost, } from '../modules/request/index';
 
 export const receiveStudentProfile = data => ({
   type: 'RECEIVE_STUDENT_PROFILE',
+  data
+})
+
+export const receiveExactScoresData = (data) => ({
+  type: 'RECEIVE_EXACT_SCORES_DATA',
   data
 })
 
@@ -16,6 +21,24 @@ export const fetchStudentProfile = (classroomId) => {
     );
   };
 };
+
+export const fetchExactScoresData = (scores, classroomId) => {
+  return (dispatch) => {
+    const relevantData = scores.map(score => {
+      const { ua_id, unit_id, activity_id, classroom_unit_id, } = score
+      return { ua_id, unit_id, activity_id, classroom_unit_id }
+    })
+
+    // using requestPost here because params have potential to be very large
+    requestPost(
+      `${process.env.DEFAULT_URL}/student_exact_scores_data`,
+      { data: relevantData, classroom_id: classroomId },
+      body => {
+        dispatch(receiveExactScoresData(body))
+      }
+    )
+  }
+}
 
 export const receiveStudentsClassrooms = (classrooms) => {
   return {

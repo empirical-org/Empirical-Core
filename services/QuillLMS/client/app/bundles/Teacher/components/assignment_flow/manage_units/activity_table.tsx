@@ -1,21 +1,21 @@
-import * as React from 'react'
-import * as moment from 'moment';
+import moment from 'moment';
+import * as React from 'react';
 
-import CopyModal from './copy_modal'
+import CopyModal from './copy_modal';
 import RemoveActivityModal from './remove_activity_modal';
 
-import * as api from '../../modules/call_api';
-import {
-  formatDateTimeForDisplay,
-  DatePickerContainer,
-  DUE_DATE_DEFAULT_TEXT,
-  PUBLISH_DATE_DEFAULT_TEXT,
-  INVALID_DATES_SNACKBAR_COPY,
-} from '../../../helpers/unitActivityDates'
 import { requestPut } from '../../../../../modules/request/index';
-import { DataTable, Tooltip, publishedIcon, scheduledIcon, Snackbar, defaultSnackbarTimeout, } from '../../../../Shared/index'
-import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor'
+import useSnackbarMonitor from '../../../../Shared/hooks/useSnackbarMonitor';
+import { DataTable, Snackbar, Tooltip, defaultSnackbarTimeout, publishedIcon, scheduledIcon, } from '../../../../Shared/index';
 import { getIconForActivityClassification } from '../../../../Shared/libs';
+import {
+  DUE_DATE_DEFAULT_TEXT,
+  DatePickerContainer,
+  INVALID_DATES_SNACKBAR_COPY,
+  PUBLISH_DATE_DEFAULT_TEXT,
+  formatDateTimeForDisplay,
+} from '../../../helpers/unitActivityDates';
+import * as api from '../../modules/call_api';
 
 const shareActivitySrc = `${process.env.CDN_URL}/images/icons/icons-share.svg`
 
@@ -34,6 +34,7 @@ const tableHeaders = (isOwner) => ([
     name: <span className="tool-and-name-header"><span>Tool</span><span>Activity</span></span>,
     attribute: 'toolAndNameSection',
     width: isOwner ? '624px' : '764px',
+    headerClassName: 'tool-and-name-section-header',
     rowSectionClassName: 'tool-and-name-section'
   },
   {
@@ -170,11 +171,13 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
     const activity = classroomActivityArray.find(act => act.activityId === activityId)
     if (!activity){ return }
     const toolIcon = getIconForActivityClassification(activity.activityClassificationId)
-    const previewLink = <a href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} tabIndex={-1}>{activity.name}</a>
-    activity.toolAndNameSection = (<a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`}>
-      <span className="tool-icon-wrapper">{toolIcon}</span>
-      {previewLink}
-    </a>)
+    const previewLink = <a className="interactive-wrapper focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activity.activityId}`} id={`tool-and-name-section-${activity.uaId}`} rel="noopener noreferrer" target="_blank">{activity.name}</a>
+    activity.toolAndNameSection = (
+      <div className="tool-icon-and-name">
+        <span className="tool-icon-wrapper">{toolIcon}</span>
+        {previewLink}
+      </div>
+    )
 
     const dueDateInMoment = activity.dueDate ? moment.utc(activity.dueDate) : null
     const publishDateInMoment = activity.publishDate ? moment.utc(activity.publishDate) : null

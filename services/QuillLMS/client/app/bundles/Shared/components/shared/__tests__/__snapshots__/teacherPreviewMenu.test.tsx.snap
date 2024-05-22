@@ -46,6 +46,11 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
         },
       }
     }
+    session={
+      Object {
+        "previewSessionStep": "introduction",
+      }
+    }
     showPreview={true}
   >
     <TeacherPreviewMenuComponent
@@ -67,7 +72,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
           className="header-container"
         >
           <h1>
-            Menu
+            Preview Menu
           </h1>
           <button
             className="close-preview-button focus-on-light"

@@ -35,33 +35,33 @@ const evidence = () => [
         <p>Written at an 8th-9th grade reading level, each activity&apos;s text explores a complex question of interest to students, such as: <i>Should schools have strict dress codes?</i> Topics are relevant to English, social studies, and/or science, with a focus on 21st century, real-world issues. The activities for the launch are aligned to <i><a href="https://www.serpinstitute.org/wordgen-weekly" rel="noopener noreferrer" target="_blank">WordGen Weekly</a></i>, a free, interdisciplinary curriculum. Reading for Evidence activities were designed to be used on their own, but can also be used in conjunction with the <i>WordGen</i> units (<a href="https://www.quill.org/teacher-center/quill-evidences-wordgen-activities" rel="noopener noreferrer" target="_blank">linked here</a>).</p>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/459" rel="noopener noreferrer" target="_blank">School Policies & Student Life</a></p>
         <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=219&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Schools Have Extended School Days?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=186&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Schools Have Strict Dress Codes?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=221&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Food Sold in Schools Be Regulated By Law?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=219" rel="noopener noreferrer" target="_blank">Should Schools Have Extended School Days?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=186" rel="noopener noreferrer" target="_blank">Should Schools Have Strict Dress Codes?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=221" rel="noopener noreferrer" target="_blank">Should Food Sold in Schools Be Regulated By Law?</a></li>
         </ul>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/450" rel="noopener noreferrer" target="_blank">Ethics in Science</a></p>
         <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=127&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Medical Testing Be Done on Animals?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=171&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Is Cloning Mammals Ethical?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=220&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Companies Be Required to Label Foods that Contain GMOs?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=127" rel="noopener noreferrer" target="_blank">Should Medical Testing Be Done on Animals?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=171" rel="noopener noreferrer" target="_blank">Is Cloning Mammals Ethical?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=220" rel="noopener noreferrer" target="_blank">Should Companies Be Required to Label Foods that Contain GMOs?</a></li>
         </ul>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/451" rel="noopener noreferrer" target="_blank">Environmental Protection</a></p>
         <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=177&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Do Plastic Bag Bans Help or Harm Local Communities?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=87&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Are Surge Barriers Worth the Ecological Cost?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=176&skipToPrompts=true" rel="noopener noreferrer" target="_blank">How Does Eating Meat Impact Global Warming?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=177" rel="noopener noreferrer" target="_blank">Do Plastic Bag Bans Help or Harm Local Communities?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=87" rel="noopener noreferrer" target="_blank">Are Surge Barriers Worth the Ecological Cost?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=176" rel="noopener noreferrer" target="_blank">How Does Eating Meat Impact Global Warming?</a></li>
         </ul>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/455" rel="noopener noreferrer" target="_blank">Sports & Recreation</a></p>
         <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=185&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Colleges Be Responsible for Maintaining Gender Equity in Sports?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=181&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Minor League Baseball Players Make More Money?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=180&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Should Schools Have Grade Requirements for Student Athletes?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=185" rel="noopener noreferrer" target="_blank">Should Colleges Be Responsible for Maintaining Gender Equity in Sports?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=181" rel="noopener noreferrer" target="_blank">Should Minor League Baseball Players Make More Money?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=180" rel="noopener noreferrer" target="_blank">Should Schools Have Grade Requirements for Student Athletes?</a></li>
         </ul>
         <p><a className="header-link" href="https://www.quill.org/assign/featured-activity-packs/448" rel="noopener noreferrer" target="_blank">Alternative Energy & Sustainability </a></p>
         <ul>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=175&skipToPrompts=true" rel="noopener noreferrer" target="_blank">How Does Drought Affect Hydroelectricity Generation?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=173&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Are Community Solar Programs a Good Energy Alternative for Local Communities?</a></li>
-          <li><a href="https://www.quill.org/evidence/#/play?uid=89&skipToPrompts=true" rel="noopener noreferrer" target="_blank">Are Wind Farms a Good Alternative Energy Source?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=175" rel="noopener noreferrer" target="_blank">How Does Drought Affect Hydroelectricity Generation?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=173" rel="noopener noreferrer" target="_blank">Are Community Solar Programs a Good Energy Alternative for Local Communities?</a></li>
+          <li><a href="https://www.quill.org/evidence/#/play?uid=89" rel="noopener noreferrer" target="_blank">Are Wind Farms a Good Alternative Energy Source?</a></li>
         </ul>
       </div>
     ),
@@ -119,7 +119,7 @@ const evidence = () => [
     question: 'I’m ready to explore! Where can I find and assign Quill Reading for Evidence activities?',
     answer: (
       <div>
-        <p><a href="https://www.quill.org/teacher-center/how-to-find-and-assign-quill-evidence-activities" rel="noopener noreferrer" target="_blank">This article in Quill&apos;s Teacher Center</a> gives detailed directions for finding, previewing, and assigning Reading Evidence activities (either from the <a href="https://www.quill.org/assign/activity-library" rel="noopener noreferrer" target="_blank">Activity Library</a> or from the <a href="https://www.quill.org/assign/featured-activity-packs?type=reading-texts" rel="noopener noreferrer" target="_blank">Featured Activity Packs page</a>). We also have a library of resources dedicated to Reading for Evidence in the “Reading Comprehension” section of our Teacher Center—we recommend <a href="We also have a library of resources dedicated to Reading for Evidence in the “Reading Comprehension” section of our Teacher Center—we recommend starting with our introductory article." rel="noopener noreferrer" target="_blank">starting with our introductory article</a>.</p>
+        <p><a href="https://www.quill.org/teacher-center/how-to-find-and-assign-quill-evidence-activities" rel="noopener noreferrer" target="_blank">This article in Quill&apos;s Teacher Center</a> gives detailed directions for finding, previewing, and assigning Reading Evidence activities (either from the <a href="https://www.quill.org/assign/activity-library" rel="noopener noreferrer" target="_blank">Activity Library</a> or from the <a href="https://www.quill.org/assign/featured-activity-packs?type=reading-texts" rel="noopener noreferrer" target="_blank">Featured Activity Packs page</a>). We also have a library of resources dedicated to Reading for Evidence in the “Reading Comprehension” section of our Teacher Center—we recommend <a href="https://www.quill.org/teacher-center/introducing-quills-new-writing-and-reading-tool-quill-evidence" rel="noopener noreferrer" target="_blank">starting with our introductory article</a>.</p>
         <p>We are extremely eager to hear any and all of your feedback about Reading for Evidence! Please send your questions and/or feedback to <a href="mailto:support@quill.org">support@quill.org</a>. If you want to request any topics or scaffolds for the tool, please let us know here: <a href="https://quillorg.canny.io/content-feedback ">https://quillorg.canny.io/content-feedback</a>. You can also live chat with our Support team through the green message bubble on the bottom right corner of the site.</p>
       </div>
     )

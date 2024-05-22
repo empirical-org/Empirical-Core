@@ -1,11 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
 import { Prompt } from '../prompt';
-
-jest.mock('string-strip-html', () => ({
-  default: jest.fn()
-}))
 
 const mockProps = {
   style: {},

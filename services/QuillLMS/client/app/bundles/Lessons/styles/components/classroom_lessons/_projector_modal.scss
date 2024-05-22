@@ -14,7 +14,7 @@
   .projector-modal {
     width: 650px;
     border-radius: 6px;
-    background-color: #ffffff;
+    background-color: $quill-white;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -37,7 +37,7 @@
       width: 100%;
       background-color: #fafafa;
       border-top: 1px solid #e9e9e9;
-      color: #666666;
+      color: $quill-grey-40;
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       .bottom-section-header {
@@ -78,7 +78,7 @@
     h1 {
       font-size: 20px;
       font-weight: 600px;
-      color: #000000;
+      color: $quill-black;
     }
 
     p {

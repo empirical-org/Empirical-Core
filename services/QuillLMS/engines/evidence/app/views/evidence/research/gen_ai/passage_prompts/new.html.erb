@@ -1,0 +1,35 @@
+<h1>New Passage Prompt</h1>
+
+<%= form_for @passage_prompt do |f| %>
+  <%= render 'errors', object: @passage_prompt %>
+
+  <div class="field-spacing">
+    <%= f.label :passage_id, "Passage:" %>
+    <%= f.collection_select :passage_id, @passages, :id, :name, { required: true } %>
+    <%= link_to 'new', new_research_gen_ai_passage_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :conjunction, "Conjunction:" %>
+    <%= f.select :conjunction, options_for_select(@conjunctions), { required: true } %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :prompt %><br>
+    <%= f.text_field :prompt, size: 100, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :instructions %><br>
+    <%= f.text_area :instructions, cols: 100, rows: 25, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :relevant_passage  %><br>
+    <%= f.text_area :relevant_passage, cols: 100, rows: 25, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

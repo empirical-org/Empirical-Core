@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
 import ActivityPackInformation from '../share_activity_pack/activityPackInformation';
 

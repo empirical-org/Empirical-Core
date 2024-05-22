@@ -1,8 +1,7 @@
-import * as React from 'react';
 
+import { AUTO_ML, PLAGIARISM, RULES_BASED_1, RULES_BASED_2, RULES_BASED_3 } from '../../../../constants/evidence';
 import { mockRule } from '../../components/evidence/__mocks__/data';
-import { getRefetchQueryString, calculatePercentageForResponses } from '../evidence/ruleHelpers';
-import { RULES_BASED_1, RULES_BASED_2, RULES_BASED_3, PLAGIARISM, AUTO_ML } from '../../../../constants/evidence';
+import { calculatePercentageForResponses, getRefetchQueryString } from '../evidence/ruleHelpers';
 
 describe('Evidence rule helper functions', () => {
 

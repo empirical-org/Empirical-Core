@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as Redux from "redux";
 import { connect } from "react-redux";
-import '../styles/headerStyling.scss'
+import * as Redux from "redux";
+import '../styles/headerStyling.scss';
 
 import getParameterByName from '../helpers/getParameterByName';
 

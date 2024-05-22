@@ -1,9 +1,8 @@
 import * as React from 'react';
-import _ from 'underscore';
 import ContentEditable from 'react-contenteditable';
+import _ from 'underscore';
+import C from '../../constants';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
-import { getParameterByName } from '../../libs/getParameterByName';
-const C = require('../../constants').default;
 
 const noUnderlineErrors = [];
 

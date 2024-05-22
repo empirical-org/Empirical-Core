@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HelpfulTips it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="helpful-tips"
+  >
+    <div
+      class="helpful-tips-header"
+    >
+      <img
+        alt="Lightbulb icon for helpful tips"
+        src="undefined/images/pages/activity_analysis/lightbulb.svg"
+      />
+      <h3>
+        Helpful Tips 
+        <span>
+          (Expand to show more information)
+        </span>
+      </h3>
+    </div>
+    <button
+      class="toggle-student-report-explanation scoring-explanation is-closed"
+      type="button"
+    >
+      <img
+        alt="Expand icon"
+        src="undefined/images/icons/expand.svg"
+      />
+      <h4>
+        You will receive full credit on each question where you reach a strong response by the final attempt.
+      </h4>
+    </button>
+    <button
+      class="toggle-student-report-explanation scoring-explanation is-closed"
+      type="button"
+    >
+      <img
+        alt="Expand icon"
+        src="undefined/images/icons/expand.svg"
+      />
+      <h4>
+        The bolded text helps you see edits you made to your writing.
+      </h4>
+    </button>
+    <div
+      class="toggle-student-report-explanation scoring-explanation is-closed"
+    >
+      <span />
+      <h4>
+        This one is disabled
+      </h4>
+    </div>
+  </div>
+</DocumentFragment>
+`;

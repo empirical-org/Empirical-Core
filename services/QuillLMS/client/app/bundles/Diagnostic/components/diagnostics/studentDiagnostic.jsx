@@ -4,38 +4,40 @@ import _ from 'underscore';
 
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import LandingPage from './landing.jsx';
-import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
+import PlaySentenceFragment from './sentenceFragment.jsx';
 
-import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
+import FinishedTurkDiagnostic from '../turk/finishedDiagnostic'
+import { saveSession, } from '../../utils/saveSession'
 import {
+  CLICK,
   CarouselAnimation,
-  SmartSpinner,
+  KEYDOWN,
+  KEYPRESS,
+  MOUSEDOWN,
+  MOUSEMOVE,
   PlayTitleCard,
   ProgressBar,
-  hashToCollection,
-  TeacherPreviewMenuButton,
-  roundValuesToSeconds,
-  KEYDOWN,
-  MOUSEMOVE,
-  MOUSEDOWN,
-  CLICK,
-  KEYPRESS,
-  VISIBILITYCHANGE,
   SCROLL,
+  SmartSpinner,
+  TeacherPreviewMenuButton,
+  VISIBILITYCHANGE,
+  hashToCollection,
+  roundValuesToSeconds,
 } from '../../../Shared/index';
+import { clearData, loadData, nextQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID, submitResponse, updateCurrentQuestion } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
-import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession, setCurrentQuestion, setDiagnosticID } from '../../actions/diagnostics.js';
+import {
+  answeredQuestionCount,
+  getProgressPercent,
+  questionCount
+} from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
-import {
-  questionCount,
-  answeredQuestionCount,
-  getProgressPercent
-} from '../../libs/calculateProgress'
-import { requestPut, requestPost, } from '../../../../modules/request/index'
+import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
+const TURK = 'turk'
 
 // TODO: triage issue with missing title cards. Currently, we have to dipatch data from this.questionsForLesson() to the loadData action in
 // three different places to ensure that preview mode always works: componentDidMount, onSpinnerMount & startActivity. Without these three calls,
@@ -120,6 +122,21 @@ export class StudentDiagnostic extends React.Component {
     if (currentQuestion.type !== TITLE_CARD_TYPE) { return `prompt_${finishedQuestions.length + 1}`}
   }
 
+  isTurkSession = () => {
+    const { match, } = this.props
+    return match.path.includes(TURK)
+  }
+
+  handleStateUpdate = (newState) => {
+    this.setState(newState)
+  }
+
+  saveToLMS = () => {
+    const { sessionID, timeTracking, } = this.state
+    const { playDiagnostic, match } = this.props
+    saveSession(sessionID, timeTracking, playDiagnostic, match, this.isTurkSession(), this.handleStateUpdate)
+  }
+
   resetTimers = (e=null) => {
     const now = Date.now()
     this.setState((prevState, props) => {
@@ -179,64 +196,6 @@ export class StudentDiagnostic extends React.Component {
   hasQuestionsInQuestionSet = (props) => {
     const pL = props.playDiagnostic;
     return (pL && pL.questionSet && pL.questionSet.length);
-  }
-
-  saveToLMS = () => {
-    const { sessionID, timeTracking, } = this.state
-    const { playDiagnostic, match } = this.props
-    const { params } = match
-    const { diagnosticID } = params
-
-    this.setState({ error: false, });
-
-    const relevantAnsweredQuestions = playDiagnostic.answeredQuestions.filter(q => q.questionType !== TITLE_CARD_TYPE)
-    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    const data = { time_tracking: roundValuesToSeconds(timeTracking), }
-
-    if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1, data);
-    } else {
-      this.createAnonActivitySession(diagnosticID, results, 1, data);
-    }
-  }
-
-  finishActivitySession = (sessionID, results, score, data) => {
-    requestPut(
-      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
-      {
-        state: 'finished',
-        concept_results: results,
-        percentage: score,
-        data
-      },
-      (body) => {
-        document.location.href = process.env.DEFAULT_URL;
-        this.setState({ saved: true, });
-      },
-      (body) => {
-        this.setState({
-          saved: false,
-          error: body.meta.message,
-        });
-      }
-    )
-  }
-
-  createAnonActivitySession = (lessonID, results, score, data) => {
-    requestPost(
-      `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
-      {
-        state: 'finished',
-        activity_uid: lessonID,
-        concept_results: results,
-        percentage: score,
-        data
-      },
-      (body) => {
-        document.location.href = process.env.DEFAULT_URL;
-        this.setState({ saved: true, });
-      }
-    )
   }
 
   submitResponse = (response) => {
@@ -408,7 +367,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, dispatch, previewMode, isOnMobile, handleTogglePreview } = this.props
+    const { playDiagnostic, dispatch, previewMode, isOnMobile, handleTogglePreview, match, } = this.props
     const { error, saved, } = this.state
     let component;
 
@@ -476,11 +435,17 @@ export class StudentDiagnostic extends React.Component {
         );
       }
     } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
-      component = (<FinishedDiagnostic
-        error={error}
-        saved={saved}
-        saveToLMS={this.saveToLMS}
-      />);
+      component = this.isTurkSession() ? (
+        <FinishedTurkDiagnostic
+          error={error}
+          saved={saved}
+          saveToLMS={this.saveToLMS}
+        />
+      ) : (
+        <FinishedDiagnostic
+          saveToLMS={this.saveToLMS}
+        />
+      );
     } else {
       component = (<LandingPage
         begin={this.startActivity}
@@ -493,7 +458,7 @@ export class StudentDiagnostic extends React.Component {
     return (
       <div>
         <section className="section is-fullheight minus-nav student">
-          {isOnMobile && !studentSession && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
+          {isOnMobile && !studentSession && !this.isTurkSession() && <TeacherPreviewMenuButton containerClass="is-on-mobile" handleTogglePreview={handleTogglePreview} />}
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>

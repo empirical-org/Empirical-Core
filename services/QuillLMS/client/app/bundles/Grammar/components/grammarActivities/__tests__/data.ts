@@ -1,7 +1,7 @@
-import { GrammarActivityState } from "../../../reducers/grammarActivitiesReducer"
-import { SessionState } from "../../../reducers/sessionReducer"
 import { GrammarActivity } from "../../../interfaces/grammarActivities"
 import { Question } from "../../../interfaces/questions"
+import { GrammarActivityState } from "../../../reducers/grammarActivitiesReducer"
+import { SessionState } from "../../../reducers/sessionReducer"
 
 export const currentActivity: GrammarActivity = {
   concepts: {

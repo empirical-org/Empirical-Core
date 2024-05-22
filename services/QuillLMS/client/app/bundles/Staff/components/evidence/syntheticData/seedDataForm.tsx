@@ -1,12 +1,12 @@
 import * as React from "react";
+import ReactHtmlParser from 'react-html-parser';
 import { useQuery, useQueryClient, } from 'react-query';
-import ReactHtmlParser from 'react-html-parser'
 
+import { BECAUSE, BUT, SO, TITLE } from "../../../../../constants/evidence";
+import { DropdownInput, Input, Spinner, } from '../../../../Shared/index';
+import { quillCloseX, renderHeader } from "../../../helpers/evidence/renderHelpers";
+import { createSeedData, fetchActivity } from '../../../utils/evidence/activityAPIs';
 import SubmissionModal from '../shared/submissionModal';
-import { fetchActivity, createSeedData } from '../../../utils/evidence/activityAPIs';
-import { renderHeader, quillCloseX } from "../../../helpers/evidence/renderHelpers";
-import { Input, Spinner, DropdownInput, } from '../../../../Shared/index';
-import { TITLE, BECAUSE, BUT, SO } from "../../../../../constants/evidence";
 
 const SeedDataForm = ({ history, match }) => {
   const { params } = match;
@@ -205,7 +205,7 @@ const SeedDataForm = ({ history, match }) => {
     const capitalizeConjunction = conjunction.charAt(0).toUpperCase() + conjunction.substring(1)
     return (
       <div className='label-section'>
-        <h4 className='bg-quillteal label-title'>
+        <h4 className='bg-quill-teal label-title'>
           <span className='highlight'>{capitalizeConjunction}</span>
           &nbsp;Label Examples
         </h4>

@@ -1,7 +1,7 @@
 .activity-container {
   display: flex;
   background-color: white;
-  color: #000;
+  color: $quill-black;
 
   .step-number {
     width: 100%;
@@ -50,7 +50,7 @@
         margin: 8px 0px 32px 0px;
         .header-image-caption {
           font-size: 14px;
-          color: #5c5c5c;
+          color: $quill-grey-50;
         }
         .quill-tooltip-trigger {
           margin-left: 24px;
@@ -60,7 +60,7 @@
             border-bottom: dashed 1px #808080;
           }
           .image-attribution-tooltip:focus {
-            outline: dashed 2px #06806b;
+            outline: dashed 2px $quill-green;
             outline-offset: 4px;
           }
           .quill-tooltip-wrapper {
@@ -107,7 +107,7 @@
       }
     }
     .passage-highlight {
-      background-color: #fff6e4;
+      background-color: #FFF6E4;
       text-decoration: underline;
       text-decoration-color: #ff9f00;
       padding-top: 3px;
@@ -145,7 +145,7 @@
         font-size: 14px;
         font-weight: 600;
         line-height: 1.43;
-        color: #5c5c5c;
+        color: $quill-grey-50;
         margin-bottom: 8px;
       }
       p {
@@ -220,7 +220,7 @@
       font-size: 14px;
       font-weight: 600;
       line-height: 1.43;
-      color: #5c5c5c;
+      color: $quill-grey-50;
     }
   }
 

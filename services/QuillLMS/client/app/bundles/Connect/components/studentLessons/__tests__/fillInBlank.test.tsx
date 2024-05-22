@@ -1,14 +1,15 @@
-import 'whatwg-fetch'
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import stripHtml from "string-strip-html";
+import * as React from 'react';
+import { stripHtml } from "string-strip-html";
+import 'whatwg-fetch';
 
-import { fillInBlankQuestionWithOneAttempt, conceptsFeedback } from '../../../test/studentLessonData'
+import { conceptsFeedback, fillInBlankQuestionWithOneAttempt } from '../../../test/studentLessonData';
 import PlayFillInBlankQuestion from '../fillInBlank';
 
 jest.mock('string-strip-html', () => ({
-  default: jest.fn()
+  stripHtml: jest.fn(val => ({ result: val }))
 }));
+
 const mockAnon = () => jest.fn();
 
 describe('PlayFillInBlankQuestion component', () => {

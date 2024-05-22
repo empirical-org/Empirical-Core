@@ -1,14 +1,14 @@
 import * as React from "react";
-import { NavLink, Switch, Redirect, Route, withRouter } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import Rules from './rules';
 
-import { renderHeader } from '../../../helpers/evidence/renderHelpers';
-import { getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
-import { BECAUSE, BUT, SO, ALL } from '../../../../../constants/evidence';
-import { fetchActivity } from '../../../utils/evidence/activityAPIs';
+import { ALL, BECAUSE, BUT, SO } from '../../../../../constants/evidence';
 import { Error, Spinner } from '../../../../Shared/index';
+import { getPromptForComponent } from '../../../helpers/evidence/promptHelpers';
+import { renderHeader } from '../../../helpers/evidence/renderHelpers';
+import { fetchActivity } from '../../../utils/evidence/activityAPIs';
 
 const RulesIndexRouter = ({ history, match }) => {
   const { params } = match;

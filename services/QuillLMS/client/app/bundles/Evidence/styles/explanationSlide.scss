@@ -22,12 +22,12 @@
       h1 {
         font-size: 40px;
         font-weight: bold;
-        color: #ffffff;
+        color: $quill-white;
       }
       #beta-tag {
         width: 66px;
         border-radius: 13.5px;
-        background-color: #06806b;
+        background-color: $quill-green;
         color: #b4e2db;
         font-size: 16px;
         font-weight: 600;
@@ -60,7 +60,7 @@
           margin-top: -24px;
           background-color: #08907b;
           font-size: 20px;
-          color: #ffffff;
+          color: $quill-white;
         }
         .step-text {
           font-size: 24px;
@@ -68,7 +68,7 @@
           margin-top: 12px;
           padding: 0px 16px;
           font-weight: bold;
-          color: #ffffff;
+          color: $quill-white;
           margin-bottom: 24px;
         }
       }
@@ -77,12 +77,10 @@
   #button-container {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid $quill-white;
     width: 100%;
     padding: 16px;
     background-color: #005341;
-    position: fixed;
-    bottom: 0;
     button {
       margin-left: 96px;
     }
@@ -98,16 +96,11 @@
         border-radius: 8px;
         margin-left: 8px;
         &.active {
-          background-color: #ffffff;
-          border-color: #ffffff;
+          background-color: $quill-white;
+          border-color: $quill-white;
         }
       }
     }
-  }
-  #button-container {
-    justify-content: space-between;
-    position: fixed;
-    bottom: 0;
   }
 }
 
@@ -163,6 +156,11 @@
         margin-top: 40px;
         padding-bottom: 16px;
       }
+    }
+    #button-container {
+      justify-content: space-between;
+      position: sticky;
+      bottom: 0;
     }
   }
 }

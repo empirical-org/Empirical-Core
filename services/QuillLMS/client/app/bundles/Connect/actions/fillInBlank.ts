@@ -1,25 +1,22 @@
-const C = require('../constants').default;
+import C from '../constants';
 
-const moment = require('moment');
 
-import Pusher from 'pusher-js';
 // Put 'pusher' on global window for TypeScript validation
 declare global {
   interface Window { pusher: any }
 }
 
-import _ from 'underscore';
 import { goBack } from 'react-router-redux';
-import { submitResponse } from './responses';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import lessonActions from '../actions/lessons';
+import { Question } from '../interfaces/questions';
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import {
-  QuestionApi,
+  FILL_IN_BLANKS_TYPE,
   FocusPointApi,
   IncorrectSequenceApi,
-  FILL_IN_BLANKS_TYPE
-} from '../libs/questions_api'
-import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api'
-import lessonActions from '../actions/lessons'
+  QuestionApi
+} from '../libs/questions_api';
+import { submitResponse } from './responses';
 
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
@@ -72,13 +69,13 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_FILL_IN_BLANK_QUESTION_EDIT, qid, });
-    QuestionApi.update(qid, content).then( () => {
+    QuestionApi.update(qid, content).then(() => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       const action = goBack();
       dispatch(action);
-    }).catch( (error) => {
+    }).catch((error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     })
@@ -98,13 +95,13 @@ function submitNewQuestion(content, response, lessonID) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_FILL_IN_BLANK_TYPE}
+      const lessonQuestion = { key: response.questionUID, questionType: C.INTERNAL_FILL_IN_BLANK_TYPE }
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
-      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then(() => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
         dispatch(lessonActions.loadLesson(lessonID));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
-      }).catch( (error) => {
+      }).catch((error) => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
         dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
       });
@@ -139,7 +136,7 @@ function submitBatchEditedFocusPoint(qid, data) {
   return (dispatch, getState) => {
     FocusPointApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -169,7 +166,7 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.update(qid, seqid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }).catch( (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };

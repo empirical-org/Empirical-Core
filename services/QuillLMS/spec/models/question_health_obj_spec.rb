@@ -44,7 +44,7 @@ RSpec.describe QuestionHealthObj, type: :model do
     end
 
     it 'should return an object with that questions health info' do
-      activity.update(data: {questions: [{key: question.uid}]}.to_json)
+      activity.update(data: {questions: [{key: question.uid}]})
       health_obj = QuestionHealthObj.new(activity, question, 1, connect.key).run
       expect(health_obj[:url]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
       expect(health_obj[:text]).to eq(question.data['prompt'])

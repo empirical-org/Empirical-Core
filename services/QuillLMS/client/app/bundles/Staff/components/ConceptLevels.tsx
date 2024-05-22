@@ -1,8 +1,7 @@
 import * as React from "react";
-import _ from 'lodash'
-import ConceptColumn from './ConceptColumn'
+import ConceptColumn from './ConceptColumn';
 
-import { Concept } from '../interfaces/interfaces'
+import { Concept } from '../interfaces/interfaces';
 
 interface ConceptLevelsProps {
   concepts: Array<Concept>;

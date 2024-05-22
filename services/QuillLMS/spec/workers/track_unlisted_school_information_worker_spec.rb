@@ -10,9 +10,7 @@ describe TrackUnlistedSchoolInformationWorker, type: :worker do
   school_name = 'Nonexistent'
   zipcode = 55555
 
-  before do
-    allow(SegmentAnalytics).to receive(:new) { analytics }
-  end
+  before { allow(Analytics::SegmentAnalytics).to receive(:new) { analytics } }
 
   it 'sends a segment.io event if there is a user and school name' do
     expect(analytics).to receive(:track_teacher_school_not_listed).with(teacher, school_name, zipcode)

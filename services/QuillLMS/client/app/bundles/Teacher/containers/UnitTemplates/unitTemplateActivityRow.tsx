@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { DataTable, Tooltip, getIconForActivityClassification, NOT_APPLICABLE } from '../../../Shared'
+import { DataTable, NOT_APPLICABLE, Tooltip, getIconForActivityClassification } from '../../../Shared';
 import { editActivityLink } from '../../helpers/unitTemplates';
 
 const conceptMaxWidth = '152px';

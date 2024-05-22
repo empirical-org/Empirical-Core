@@ -10,11 +10,19 @@
 .progress-reports-2018 {
   max-width: $sitewidepagewidth;
   margin: auto;
-  padding-top: 30px;
 
   &.data-export, &.concept-student-concepts {
     .ReactTable .rt-td.show-overflow {
       white-space: pre-wrap;
+    }
+  }
+  .admin-standards {
+    .rt-td {
+      span {
+        &.show-overflow {
+          white-space: pre-wrap;
+        }
+      }
     }
   }
 
@@ -41,17 +49,9 @@
         font-weight: normal;
       }
     }
-  }
-
-  .dropdown-container {
-    margin-top: 21px;
-    margin-bottom: 21px;
-    width: 100%;
-  }
-  #flexed {
-    display: flex;
-    .admin-activity-dropdown, .admin-concept-dropdown, .student-reports-class-dropdown {
-      margin-right: 10px;
+    p {
+      color: $quill-grey-40;
+      margin-bottom: 8px;
     }
   }
 
@@ -137,19 +137,9 @@
   }
 }
 
-.individual-standard, .individual-student {
-  padding-top: 30px;
-  .meta-overview {
-    margin-bottom: 20px;
-    align-items: center;
-  }
-  .header-and-info {
-    max-width: 720px;
-    min-width: 575px;
-  }
-}
-
 .navigate-back {
+  display: inline-block;
+  margin-bottom: 8px;
   img {
     height: 12px;
     margin-right: 5px;
@@ -194,8 +184,35 @@
   background-color: #ff4542;
 }
 
-.standards-all-classrooms {
-  .dropdown {
-    margin-right: 20px;
+@media (max-width: 850px) {
+  .progress-reports-2018 {
+    .progress-report {
+      overflow-x: auto;
+    }
+  }
+}
+
+@media print {
+  .activities-scores-by-classroom, .concepts-overview, .standards-all-classrooms, .individual-standard {
+    table {
+      width: 100%;
+    }
+    td, th {
+      width: 20% !important;
+    }
+  }
+
+  .concept-student-concepts, .individual-student {
+    table, .ReactTable {
+      width: 100%;
+      page-break-inside: unset !important;
+    }
+    td, th {
+      width: 18% !important;
+    }
+  }
+
+  .standards-all-classrooms, .individual-student {
+    zoom: 90%;
   }
 }

@@ -16,9 +16,8 @@ describe Admin::TeacherSerializer do
         last_sign_in
         schools
         number_of_students
-        number_of_activities_completed
-        time_spent
         has_valid_subscription
+        admin_info
       }
     end
   end
@@ -50,8 +49,21 @@ describe Admin::TeacherSerializer do
     it 'returns the expected payload' do
       expect(subject.schools.count).to eq(2)
       expect(subject.number_of_students).to eq(classroom.students.count)
-      expect(subject.number_of_activities_completed).to eq(3)
-      expect(subject.time_spent).to eq("0 hours")
     end
+
+    describe 'role value' do
+      it 'returns the user who does have a school admin record with an Admin role' do
+        expect(subject.schools[0][:role]).to eq('Admin')
+      end
+
+      it 'returns the user who does not have a school admin record with a Teacher role' do
+        user_with_admin_role = create(:admin)
+        create(:schools_users, user: user_with_admin_role, school: school2)
+
+        record_for_user_with_admin_role = TeachersData.run([user_with_admin_role.id])[0]
+        expect(described_class.new(record_for_user_with_admin_role).schools[0][:role]).to eq('Teacher')
+      end
+    end
+
   end
 end

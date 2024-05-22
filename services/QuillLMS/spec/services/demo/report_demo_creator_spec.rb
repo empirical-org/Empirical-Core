@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Demo::ReportDemoCreator do
   context 'ACTIVITY_PACKS_TEMPLATES config' do
-    let(:expected_keys) {[:activity_sessions, :name]}
+    let(:expected_keys) {[:activity_sessions, :name, :unit_template_id]}
 
     subject { described_class::ACTIVITY_PACKS_TEMPLATES }
 
@@ -34,7 +34,7 @@ RSpec.describe Demo::ReportDemoCreator do
       let(:demo_teacher) { User.find_by(email: "hello+demoteacher@quill.org") }
 
       it 'should create teacher and classroom with activity' do
-        expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(2165).times
+        expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(1187).times
 
         described_class.create_demo
 
@@ -42,7 +42,7 @@ RSpec.describe Demo::ReportDemoCreator do
         classroom = demo_teacher.classrooms_i_teach.first
 
         expect(classroom.students.count).to eq(5)
-        expect(classroom.activity_sessions.count).to eq(140)
+        expect(classroom.activity_sessions.count).to eq(45)
       end
     end
   end
@@ -51,8 +51,8 @@ RSpec.describe Demo::ReportDemoCreator do
     let!(:teacher) {create(:teacher)}
     let(:session_data) { Demo::SessionData.new }
     # essentially using these as fixtures to test the demo data
-    let(:activity_id) { 1663 }
-    let(:user_id) { 9706466 }
+    let(:activity_id) { described_class::STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID }
+    let(:user_id) { described_class::KEN_ID }
     let!(:activity) { create(:activity, id: activity_id) }
 
     let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }
@@ -72,6 +72,8 @@ RSpec.describe Demo::ReportDemoCreator do
         }
       ]
     end
+
+    let(:is_teacher_demo) { true }
 
     before do
       stub_const("Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES", demo_config)
@@ -99,7 +101,7 @@ RSpec.describe Demo::ReportDemoCreator do
     end
 
     it 'creates units' do
-      Demo::ReportDemoCreator.create_units(teacher)
+      Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
       Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.each do |unit_obj|
         unit = Unit.find_by(name: unit_obj[:name])
         activity_ids = Demo::ReportDemoCreator.activity_ids_for_config(unit_obj)
@@ -117,7 +119,7 @@ RSpec.describe Demo::ReportDemoCreator do
     it 'create classroom units' do
       student = create(:student)
       students = [student]
-      units = Demo::ReportDemoCreator.create_units(teacher)
+      units = Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
       classroom = create(:classroom)
       create(:students_classrooms, student: student, classroom: classroom)
       create(:classrooms_teacher, classroom: classroom, user: teacher)
@@ -136,7 +138,7 @@ RSpec.describe Demo::ReportDemoCreator do
       subject { classroom.students }
 
       context 'teacher-facing' do
-        before { Demo::ReportDemoCreator.create_students(classroom, true) }
+        before { Demo::ReportDemoCreator.create_students(classroom, true, Demo::ReportDemoCreator::STUDENT_TEMPLATES) }
 
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
@@ -146,7 +148,7 @@ RSpec.describe Demo::ReportDemoCreator do
       end
 
       context 'not teacher-facing' do
-        before { Demo::ReportDemoCreator.create_students(classroom, false) }
+        before { Demo::ReportDemoCreator.create_students(classroom, false, Demo::ReportDemoCreator::STUDENT_TEMPLATES) }
 
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
@@ -163,7 +165,7 @@ RSpec.describe Demo::ReportDemoCreator do
       user = build(:user, id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID)
       user.save
       sample_session = create(:activity_session, activity_id: Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, user_id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID, is_final_score: true)
-      units = Demo::ReportDemoCreator.create_units(teacher)
+      units = Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
       classroom_unit = Demo::ReportDemoCreator.create_classroom_units(classroom, units).first
       expect {Demo::ReportDemoCreator.create_replayed_activity_session(student, classroom_unit, session_data)}.to change {ActivitySession.count}.by(1)
     end
@@ -174,24 +176,31 @@ RSpec.describe Demo::ReportDemoCreator do
           .find {|session| session.activity_id == activity_id && session.user_id == user_id}
 
         student = create(:student)
-        classroom = create(:classroom)
+        classroom = create(:classroom, :with_no_teacher)
+        create(:classrooms_teacher, classroom: classroom, user: teacher)
         create(:students_classrooms, student: student, classroom: classroom)
-        units = Demo::ReportDemoCreator.create_units(teacher)
+        units = Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
 
         Demo::ReportDemoCreator.create_classroom_units(classroom, units)
+
         total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
-        expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data)}.to change {ActivitySession.count}.by(total_act_sesh_count)
-        act_sesh = ActivitySession.last
+
+        expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data, is_teacher_demo)}
+          .to change {ActivitySession.count}
+          .by(total_act_sesh_count)
+
+        activity_session = ActivitySession.last
 
         last_template = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.last
-        expect(act_sesh.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
-        expect(act_sesh.user_id).to eq(student.id)
-        expect(act_sesh.state).to eq('finished')
+        expect(activity_session.activity_id).to eq(last_template[:activity_sessions][0].keys.last)
+        expect(activity_session.user_id).to eq(student.id)
+        expect(activity_session.state).to eq('finished')
 
-        expect(act_sesh.percentage).to eq(session_clone.percentage)
-        expect(act_sesh.concept_results.first.extra_metadata).to be nil
+        expect(activity_session.percentage).to eq(session_clone.percentage)
+        expect(activity_session.timespent).to eq(session_clone.timespent || Demo::ReportDemoCreator::DEFAULT_TIMESPENT)
+        expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
         # Taken from actual concept_result
-        expect(act_sesh.concept_results.first.answer).to eq("Pho is a soup made with herbs, bone broth and noodles.")
+        expect(activity_session.concept_results.first.answer).to eq('Traveling is easier with a guide than without one.')
       end
     end
 
@@ -199,7 +208,7 @@ RSpec.describe Demo::ReportDemoCreator do
       before do
         stub_const("Demo::ReportDemoCreator::UNITS_COUNT", 1)
 
-        Demo::ReportDemoCreator.create_demo_classroom_data(teacher, teacher_demo: true)
+        Demo::ReportDemoCreator.create_demo_classroom_data(teacher, is_teacher_demo: true)
       end
 
       subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
@@ -217,7 +226,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
       context "teacher account has added data" do
         let(:teacher) {create(:teacher, google_id: 1234, clever_id: 5678)}
-        let!(:auth_credential) {create(:auth_credential, user: teacher) }
+        let!(:auth_credential) {create(:google_auth_credential, user: teacher) }
         let(:classroom) {create(:classroom)}
         let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 

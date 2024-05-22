@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import UnitTemplates from '../../UnitTemplates'
+import UnitTemplates from '../../UnitTemplates';
 
 describe('UnitTemplates container', () => {
 

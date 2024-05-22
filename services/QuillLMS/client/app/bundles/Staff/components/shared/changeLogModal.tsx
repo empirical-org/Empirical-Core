@@ -1,7 +1,7 @@
-import React from 'react'
-import { TextArea } from '../../../Shared/index'
+import React from 'react';
+import { TextArea } from '../../../Shared/index';
 
-import { Concept } from '../../interfaces/interfaces'
+import { Concept } from '../../interfaces/interfaces';
 
 interface ChangeLogModalProps {
   changedFields: Array<{ fieldName: string; previousValue?: any, newValue?: any }>;

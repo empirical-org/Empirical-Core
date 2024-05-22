@@ -6,7 +6,7 @@ class CheckboxAnalyticsWorker
   def perform(user_id, activity_id)
     return unless User.exists?(id: user_id)
 
-    SegmentAnalytics
+    Analytics::SegmentAnalytics
       .new
       .track_activity_assignment(user_id, activity_id)
   end

@@ -26,13 +26,13 @@
       padding: 28px;
       max-width: 466px;
       width: 100%;
-      background: #F8F8F8;
+      background: $quill-grey-1;
       border-radius: 6px;
       cursor: pointer;
       display: flex;
-      border: 4px solid #F8F8F8;
+      border: 4px solid $quill-grey-1;
       &.selected {
-        border: 4px solid #06806B;
+        border: 4px solid $quill-green;
       }
       .illustration {
         height: 253px;
@@ -48,7 +48,7 @@
           font-weight: 700;
           font-size: 20px;
           line-height: 22px;
-          color: #000000;
+          color: $quill-black;
         }
       }
       .subheader {
@@ -59,7 +59,7 @@
         font-weight: 400;
         font-size: 14px;
         line-height: 22px;
-        color: #373737;
+        color: $quill-grey-90;
         margin-top: 16px;
       }
     }

@@ -1,7 +1,7 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 
-import { Instructions } from '../../../../Shared/index'
+import { Instructions } from '../../../../Shared/index';
 
 describe('Instructions component', () => {
 

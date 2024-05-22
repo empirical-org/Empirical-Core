@@ -1500,51 +1500,61 @@ exports[`adminContainer component should render with main sidebar when url does 
                                     onChange={[Function]}
                                   >
                                     <option
+                                      key="All Flags"
                                       value="All Flags"
                                     >
                                       All Flags
                                     </option>
                                     <option
+                                      key="alpha"
                                       value="alpha"
                                     >
                                       alpha
                                     </option>
                                     <option
+                                      key="private"
                                       value="private"
                                     >
                                       private
                                     </option>
                                     <option
+                                      key="beta"
                                       value="beta"
                                     >
                                       beta
                                     </option>
                                     <option
+                                      key="gamma"
                                       value="gamma"
                                     >
                                       gamma
                                     </option>
                                     <option
+                                      key="evidence_beta1"
                                       value="evidence_beta1"
                                     >
                                       Evidence Beta 1
                                     </option>
                                     <option
+                                      key="evidence_beta2"
                                       value="evidence_beta2"
                                     >
                                       Evidence Beta 2
                                     </option>
                                     <option
+                                      key="college_board"
                                       value="college_board"
                                     >
                                       College Board
                                     </option>
                                     <option
+                                      key="production"
                                       value="production"
                                     >
                                       production
                                     </option>
                                     <option
+                                      key="archived"
                                       value="archived"
                                     >
                                       archived

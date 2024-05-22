@@ -3,6 +3,12 @@
 module Student
   extend ActiveSupport::Concern
 
+  EXACT_SCORES_CACHE_KEY = 'student_exact_scores_by_student'
+
+  class_methods do
+    def student_scores_cache_key(user_id, classroom_id) = "#{EXACT_SCORES_CACHE_KEY}/#{user_id}/#{classroom_id}"
+  end
+
   included do
     #TODO: move these relationships into the users model
 
@@ -18,8 +24,26 @@ module Student
       class_name: "Classroom"
 
     has_many :activity_sessions, dependent: :destroy
-    has_many :assigned_activities, through: :classrooms, source: :activities
-    has_many :started_activities, through: :activity_sessions, source: :activity
+    has_many :assigned_activities, -> { where("students_classrooms.student_id = ANY (classroom_units.assigned_student_ids)") }, through: :classrooms, source: :activities
+
+    def incomplete_assigned_activities
+      assigned_activities_with_activity_sessions
+        .where(activity_sessions: {completed_at: nil})
+    end
+
+    private def assigned_activities_with_activity_sessions
+      # Because we're looking for a very narrow join condition, we have to
+      # do the join clause manually (the ON conditions are too complex for
+      # ActiveRecord relationships)
+      assigned_activities
+        .joins(<<-SQL
+          LEFT OUTER JOIN activity_sessions
+            ON classroom_units.id = activity_sessions.classroom_unit_id
+              AND students_classrooms.student_id = activity_sessions.user_id
+              AND activities.id = activity_sessions.activity_id
+        SQL
+        )
+    end
 
     def finished_activities(classroom)
       classroom_unit_score_join(classroom).where('activity_sessions.completed_at is not null')
@@ -83,7 +107,7 @@ module Student
 
           ActivitySession
             .where(classroom_unit_id: cu.id, user_id: user_id)
-            .update_all(classroom_unit_id: sibling_cu.id)
+            .update_all(classroom_unit_id: sibling_cu.id, updated_at: DateTime.current)
 
           hide_extra_activity_sessions(cu.id)
           cu.save_user_pack_sequence_items
@@ -103,7 +127,7 @@ module Student
           activity_ids = (activity_sessions.pluck(:activity_id) - unit.unit_activities.pluck(:activity_id)).uniq
           activity_ids.each { |activity_id| UnitActivity.find_or_create_by(unit_id: unit.id, activity_id: activity_id) }
 
-          activity_sessions.update_all(classroom_unit_id: new_cu.id)
+          activity_sessions.update_all(classroom_unit_id: new_cu.id, updated_at: DateTime.current)
 
           hide_extra_activity_sessions(cu.id)
           cu.save_user_pack_sequence_items
@@ -118,9 +142,9 @@ module Student
     .where("users.id = ?", id)
     .where("classroom_units.id = ?", classroom_unit_id)
     .where("activity_sessions.visible = true")
-    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage ASC, activity_sessions.started_at")
+    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at")
     .offset(1)
-    .update_all(visible: false)
+    .update_all(visible: false, updated_at: DateTime.current)
   end
 
   def merge_student_account(secondary_account, teacher_id=nil)
@@ -154,7 +178,7 @@ module Student
 
     secondary_account_grouped_activity_sessions.each do |classroom_unit_id, activity_sessions|
       if classroom_unit_id
-        activity_sessions.each {|as| as.update_columns(user_id: id) }
+        activity_sessions.each {|as| as.update_columns(user_id: id, updated_at: DateTime.current) }
         if primary_account_grouped_activity_sessions[classroom_unit_id]
           hide_extra_activity_sessions(classroom_unit_id)
         else

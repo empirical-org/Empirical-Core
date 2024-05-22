@@ -1,8 +1,8 @@
+import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
-import { EditorState, ContentState } from 'draft-js'
+import { FlagDropdown, TextEditor } from '../../../Shared/index';
+import C from '../../constants.js';
 import ConceptSelector from '../shared/conceptSelector.jsx';
-import C from '../../constants.js'
-import { TextEditor, FlagDropdown } from '../../../Shared/index';
 
 class FillInBlankForm extends Component {
   constructor(props) {
@@ -106,7 +106,6 @@ class FillInBlankForm extends Component {
       flag: flag ? flag : 'alpha',
       cuesLabel: cuesLabel
     };
-    data.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
     if (this.props.new && data.prompt != '') {
       action(
         data,
@@ -114,7 +113,8 @@ class FillInBlankForm extends Component {
           text: newQuestionOptimalResponse.trim(),
           optimal: true,
           count: 0,
-          feedback: "That's a strong sentence!"
+          feedback: "That's a strong sentence!",
+          concept_results: [{conceptUID: conceptID, correct: true}]
         }
       );
     } else {

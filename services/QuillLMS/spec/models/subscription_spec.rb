@@ -10,6 +10,7 @@
 #  expiration             :date
 #  payment_amount         :integer
 #  payment_method         :string
+#  purchase_order_number  :string
 #  purchaser_email        :string
 #  recurring              :boolean          default(FALSE)
 #  start_date             :date
@@ -35,8 +36,45 @@ describe Subscription, type: :model do
     let(:subscription) { build(:subscription) }
 
     it 'expects stripe_invoice_id to be of a given format' do
+      subscription.stripe_invoice_id = 'not_the_invoice_format'
+      expect(subscription).not_to be_valid
+    end
+
+    it 'expects stripe_subscription_id to be of a given format' do
       subscription.stripe_invoice_id = 'not_the_subscription_format'
       expect(subscription).not_to be_valid
+    end
+  end
+
+  context 'before_validation' do
+    let(:subscription) { build(:subscription) }
+
+    context '#strip_stripe_id_whitespace' do
+      it 'should strip whitespace from stripe_invoice_id if present' do
+        invoice_id = " in_#{SecureRandom.hex} "
+        subscription.stripe_invoice_id = invoice_id
+
+        expect(subscription).to be_valid
+        expect(subscription.stripe_invoice_id).to eq(invoice_id.strip)
+      end
+
+      it 'should do nothing to stripe_invoice_id if it is not set' do
+        expect(subscription).to be_valid
+        expect(subscription.stripe_invoice_id).to be(nil)
+      end
+
+      it 'should strip whitespace from stripe_subscription_id if present' do
+        subscription_id = " sub_#{SecureRandom.hex} "
+        subscription.stripe_subscription_id = subscription_id
+
+        expect(subscription).to be_valid
+        expect(subscription.stripe_subscription_id).to eq(subscription_id.strip)
+      end
+
+      it 'should do nothing to stripe_subscription_id if not set' do
+        expect(subscription).to be_valid
+        expect(subscription.stripe_subscription_id).to be(nil)
+      end
     end
   end
 
@@ -142,8 +180,8 @@ describe Subscription, type: :model do
         allow(Date).to receive(:current).and_return Date.new(2018,4,4)
       end
 
-      it "returns an expiration date of June 30 the next year when called on a day prior to July" do
-        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,6,30))
+      it "returns an expiration date of July 31 the next year when called on a day prior to July" do
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,7,31))
       end
 
       it "returns a start date one year from the day it was called" do
@@ -347,6 +385,41 @@ describe Subscription, type: :model do
       it "does not return subscriptions that are neither recurring nor expiring today" do
         expect(subject).not_to include(subscription)
       end
+    end
+  end
+
+  context '#populate_data_from_stripe_invoice' do
+    invoice_total = 8000
+    customer_email = 'fake@email.com'
+
+    before do
+      stripe_invoice_double = double('Stripe::Invoice', total: invoice_total, customer_email: customer_email)
+      allow(Stripe::Invoice).to receive(:retrieve).and_return(stripe_invoice_double)
+    end
+
+    it 'should set the values for payment_amount and purchaser_email' do
+      subscription = create(:subscription)
+      # This fakes a valid stripe_invoice_id being set on the model
+      allow(subscription).to receive(:stripe_invoice_id).and_return(true)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(invoice_total)
+      expect(subscription.purchaser_email).to eq(customer_email)
+    end
+
+    it 'should not set new values for payment_amount and purchaser_email if they are already set' do
+      pre_set_payment_amount = 10000
+      pre_set_purchaser_email = 'someone@somewhere.email'
+      subscription = create(:subscription, payment_amount: pre_set_payment_amount, purchaser_email: pre_set_purchaser_email)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(pre_set_payment_amount)
+      expect(subscription.purchaser_email).to eq(pre_set_purchaser_email)
+    end
+
+    it 'should silently not set values for payment_amount and purchaser_email if stripe_invoice_id is not set' do
+      subscription = create(:subscription, stripe_invoice_id: nil)
+      subscription.populate_data_from_stripe_invoice
+      expect(subscription.payment_amount).to eq(nil)
+      expect(subscription.purchaser_email).to eq(nil)
     end
   end
 

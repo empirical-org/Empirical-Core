@@ -1,7 +1,7 @@
+import moment from 'moment';
 import * as React from "react";
-import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
-import * as moment from 'moment';
+import "react-dates/initialize";
 import { useQueryClient, } from 'react-query';
 
 import { deleteTurkSession, editTurkSession } from '../../../utils/evidence/turkAPIs';

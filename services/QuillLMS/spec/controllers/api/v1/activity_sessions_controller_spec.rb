@@ -3,19 +3,16 @@
 require 'rails_helper'
 
 describe Api::V1::ActivitySessionsController, type: :controller do
-  describe '#update' do
+  let(:user) { create(:student) }
 
-    let(:token) { double :acceptable? => true, resource_owner_id: user.id }
-    let(:user) { create(:student) }
+  before { allow(controller).to receive(:current_user) { user } }
+
+  describe '#update' do
     let(:activity_classification) { create(:activity_classification) }
     let(:activity) { create(:activity, classification: activity_classification) }
     let!(:activity_session) { create(:activity_session, state: 'started', user: user, completed_at: nil, activity: activity) }
 
-    before { allow(controller).to receive(:doorkeeper_token) { token } }
-
     context 'default behavior' do
-      include_context "calling the api"
-
       before { put :update, params: { id: activity_session.uid }, as: :json }
 
       it 'responds with 200' do
@@ -181,7 +178,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           }
         }
 
-        expect(Raven).to_not receive(:capture_exception)
+        expect(Sentry).to_not receive(:capture_exception)
 
         put :update, params: { id: activity_session.uid, data: data }, as: :json
         activity_session.reload
@@ -189,23 +186,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         expect(activity_session.timespent).to eq 29
         expect(activity_session.data['time_tracking']).to include(modified_data['time_tracking'])
         expect(activity_session.data['time_tracking_edits']).to include(modified_data['time_tracking_edits'])
-      end
-
-      it 'should log long session' do
-        # lots of keys to hit Tracking error but avoid time_tracking cleaner
-        data = {
-          'time_tracking' => ('a'..'z').to_h {|k| [k,600]}
-        }
-
-        reporting_params = {
-          activity_session_id: activity_session.id,
-          timespent: 15600,
-          user_id: activity_session.user_id
-        }
-
-        expect(ErrorNotifier).to receive(:report).with(ActivitySession::LongTimeTrackingError, reporting_params).once
-
-        put :update, params: { id: activity_session.uid, data: data }, as: :json
       end
     end
 
@@ -215,8 +195,6 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       let!(:activity_session) do
         create(:activity_session, state: 'finished', user: user, percentage: 1.0, completed_at: Time.current)
       end
-
-      before { allow(controller).to receive(:doorkeeper_token) {token} }
 
       it 'returns a 422 error if activity session is already saved' do
         put :update, params: { id: activity_session.uid }, as: :json
@@ -239,6 +217,24 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         put :update, params: { id: activity_session.uid }, as: :json
         parsed_body = JSON.parse(response.body)
         expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+      end
+
+      context '#send_teacher_notifications' do
+        before do
+          activity_session.update(completed_at: nil, state: 'started')
+        end
+
+        it 'should enqueue a FanoutSendNotificationsWorker job if the activity session has been completed' do
+          expect(TeacherNotifications::FanoutSendNotificationsWorker).to receive(:perform_async).with(activity_session.id)
+
+          put :update, params: { id: activity_session.uid, completed_at: Time.current }, as: :json
+        end
+
+        it 'should not enqueue a FanoutSendNotificationWorker job if the activity session is being updated, but not marked complete' do
+          expect(TeacherNotifications::FanoutSendNotificationsWorker).not_to receive(:perform_async)
+
+          put :update, params: { id: activity_session.uid }, as: :json
+        end
       end
     end
   end
@@ -281,16 +277,20 @@ describe Api::V1::ActivitySessionsController, type: :controller do
   end
 
   describe '#destroy' do
-    include_context "calling the api" #bypass doorkeeper
-    let!(:session) { create(:proofreader_activity_session) }
+    subject { delete :destroy, params: { id: activity_session.uid }, as: :json }
 
-    it 'destroys the activity session' do
-      delete :destroy, params: { id: session.uid }, as: :json
-      expect(JSON.parse(response.body)["meta"]).to eq({
-        "status" => "success",
-        "message" => "Activity Session Destroy Successful",
-        "errors" => nil
-      })
+    let!(:activity_session) { create(:proofreader_activity_session) }
+
+    it { expect { subject }.not_to change(ActivitySession, :count) }
+
+    context 'as staff' do
+      let(:user) { create(:staff) }
+      let(:meta) { { "status" => "success", "message" => "Activity Session Destroy Successful", "errors" => nil } }
+      let(:parsed_body) { JSON.parse(response.body) }
+
+      before { subject }
+
+      it { expect(parsed_body["meta"]).to eq meta }
     end
   end
 end

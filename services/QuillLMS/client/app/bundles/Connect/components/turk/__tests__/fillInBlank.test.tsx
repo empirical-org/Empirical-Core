@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 
-import { PlayFillInTheBlankQuestion } from '../fillInBlank';
 import Cues from '../../renderForQuestions/cues.jsx';
+import { PlayFillInTheBlankQuestion } from '../fillInBlank';
 
 // TODO: add more tests
 

@@ -1,0 +1,10 @@
+<svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M70 48.125V23.125H90.625V35.625H70" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M77.5 116.875V95H62.5V116.875" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M62.5 79.375H77.5V70H62.5V79.375Z" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.75 104.375H43.75V95H28.75V104.375Z" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M96.25 104.375H111.25V95H96.25V104.375Z" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M96.25 79.375V63.75L70 48.125L43.75 63.75V79.375H13.75V116.875H126.25V79.375H96.25Z" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M120 102C110.064 102 102 110.064 102 120C102 129.936 110.064 138 120 138C129.936 138 138 129.936 138 120C138 110.064 129.936 102 120 102Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M102 120C102 110.064 110.064 102 120 102C129.936 102 138 110.064 138 120C138 129.936 129.936 138 120 138C110.064 138 102 129.936 102 120ZM107.4 120L116.4 129L132.6 112.8L130.062 110.244L116.4 123.906L109.938 117.462L107.4 120Z" fill="#06806B"/>
+</svg>

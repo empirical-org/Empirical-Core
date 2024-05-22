@@ -1,8 +1,8 @@
-import React from 'react';
 import { mount } from 'enzyme';
+import React from 'react';
 
-import Landing from '../landing';
 import { ResumeOrBeginButton } from '../../../../Shared/index';
+import Landing from '../landing';
 
 describe('Landing component', () => {
 

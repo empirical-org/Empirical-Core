@@ -1,11 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from '../reducers/combined';
-import { persistState } from '@redux-devtools/core';
-import { persistStore, autoRehydrate } from 'redux-persist';
-import thunk from 'redux-thunk';
-import { routerMiddleware } from 'react-router-redux';
 import createHashHistory from 'history/lib/createHashHistory';
-import localForage from 'localforage';
+import { routerMiddleware } from 'react-router-redux';
+import { applyMiddleware, compose, createStore } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers/combined';
 
 const hashhistory = createHashHistory({ queryKey: false, });
 const middleware = routerMiddleware(hashhistory);
@@ -27,11 +24,6 @@ function getDebugSessionKey() {
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
-  if (module.hot) {
-    module.hot.accept('../reducers/combined', () =>
-      store.replaceReducer(require('../reducers/combined')/* .default if you use Babel 6+ */)
-    );
-  }
 
   return store;
 }

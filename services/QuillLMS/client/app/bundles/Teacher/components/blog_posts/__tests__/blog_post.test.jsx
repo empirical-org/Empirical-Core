@@ -1,12 +1,12 @@
-import * as React from 'react';
 import { mount } from 'enzyme';
+import * as React from 'react';
 
-import { blogPosts, blogPostWithBody, author, } from './data'
+import { author, blogPostWithBody, blogPosts, } from './data';
 
 import BlogPost from '../blog_post';
 
 const props = {
-  mostRecentPosts: blogPosts,
+  relatedPosts: blogPosts,
   blogPost: blogPostWithBody,
   author
 }
@@ -16,5 +16,4 @@ describe('BlogPost component', () => {
     const wrapper = mount(<BlogPost {...props} />)
     expect(wrapper).toMatchSnapshot()
   })
-
 })

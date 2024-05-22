@@ -37,7 +37,11 @@ module CleverIntegration
     end
 
     private def save_auth_credential
-      AuthCredentialSaver.run(teacher, district.token, ::AuthCredential::CLEVER_DISTRICT_PROVIDER)
+      AuthCredentialSaver.run(
+        access_token: district.token,
+        auth_credential_class: CleverDistrictAuthCredential,
+        user: teacher
+      )
     end
   end
 end

@@ -26,7 +26,7 @@ class TeacherFixController < ApplicationController
       Unit.unscoped.where(id: id).first.update_attribute('name', name)
     end
     units = Unit.unscoped.where(id: unit_ids)
-    units.update_all(visible: true)
+    units.update_all(visible: true, updated_at: DateTime.current)
     TeacherFixes::recover_unit_activities_for_units(units)
     classroom_units = ClassroomUnit.where(unit_id: unit_ids)
     TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
@@ -47,18 +47,18 @@ class TeacherFixController < ApplicationController
   end
 
   def recover_unit_activities
-    user = User.find_by_email(params['email'])
+    user = User.find_by(email: params_email)
     if user&.teacher?
       units = Unit.where(user_id: user.id)
       TeacherFixes::recover_unit_activities_for_units(units)
       render json: {}, status: 200
     else
-      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+      render json: {error: "Cannot find a teacher with the email #{params_email}."}
     end
   end
 
   def recover_activity_sessions
-    user = User.find_by_email(params['email'])
+    user = User.find_by(email: params_email)
     if user&.teacher?
       unit = Unit.find_by(name: params['unit_name'], user_id: user.id)
       if unit
@@ -69,7 +69,7 @@ class TeacherFixController < ApplicationController
         render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}
       end
     else
-      render json: {error: "Cannot find a teacher with the email #{params['email']}."}
+      render json: {error: "Cannot find a teacher with the email #{params_email}."}
     end
   end
 
@@ -101,7 +101,7 @@ class TeacherFixController < ApplicationController
     account2 = User.find_by_username_or_email(params['account2_identifier'])
     if account1 && account2
       if account1.teacher? && account2.teacher?
-        Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id)
+        Unit.unscoped.where(user_id: account1.id).update_all(user_id: account2.id, updated_at: DateTime.current)
         ClassroomsTeacher.where(user_id: account1.id).each do |ct|
           if ClassroomsTeacher.find_by(user_id: account2.id, classroom_id: ct.classroom_id)
             ct.destroy
@@ -151,8 +151,8 @@ class TeacherFixController < ApplicationController
   end
 
   def google_unsync_account
-    original_email = params['original_email']
-    user = User.find_by_email(original_email)
+    original_email = params['original_email'].downcase
+    user = User.find_by(email: original_email)
     if user
       new_email = params['new_email']
       if new_email == ''
@@ -253,6 +253,19 @@ class TeacherFixController < ApplicationController
     end
   end
 
+  def recalculate_staggered_release_locks
+    return render json: { error: 'Teacher not found' }, status: 404 if teacher.nil?
+
+    teacher.classrooms_i_teach.each(&:save_user_pack_sequence_items)
+    log_recalculate_staggered_release_locks
+
+    render json: {}, status: 200
+  end
+
+  private def params_email
+    params['email'].downcase
+  end
+
   private def set_user
     @user = User.find_by_username_or_email(params['teacher_identifier'])
   end
@@ -278,5 +291,17 @@ class TeacherFixController < ApplicationController
 
   private def teacher
     @teacher ||= User.find_by_username_or_email(params['teacher_identifier'])
+  end
+
+  private def log_recalculate_staggered_release_locks
+    ChangeLog.create!(
+      action: ChangeLog::USER_ACTIONS[:recalculate_staggered_release_locks],
+      changed_attribute: nil,
+      changed_record: teacher,
+      explanation: caller_locations[0].to_s,
+      new_value: nil,
+      previous_value: nil,
+      user_id: current_user.id
+    )
   end
 end

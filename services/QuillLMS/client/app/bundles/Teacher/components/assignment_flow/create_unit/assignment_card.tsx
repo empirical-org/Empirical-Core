@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { Tooltip, previewIcon, lockedIcon, } from '../../../../Shared/index'
+import { Tooltip, lockedIcon, previewIcon, } from '../../../../Shared/index';
 
 interface AssignmentCardProps {
   selectCard?: () => void;

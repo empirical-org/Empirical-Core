@@ -8,7 +8,7 @@ class ClassroomCreationWorker
     classroom = Classroom.unscoped.find_by_id(classroom_id)
     return unless classroom
 
-    analytics = SegmentAnalytics.new
+    analytics = Analytics::SegmentAnalytics.new
     analytics.track_classroom_creation(classroom)
   end
 end

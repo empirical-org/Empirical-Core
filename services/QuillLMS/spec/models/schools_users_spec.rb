@@ -32,4 +32,31 @@ describe SchoolsUsers, type: :model, redis: true do
       schools_user.update_subscriptions
     end
   end
+
+  describe '#school_changed_change_log' do
+    let!(:school1) { create(:school) }
+    let!(:school2) { create(:school) }
+    let(:schools_user) { create(:schools_users, school: school1) }
+
+    it 'should do nothing if school_id does not change' do
+      expect do
+        schools_user.save
+      end.to not_change(ChangeLog, :count)
+    end
+
+    it 'should create a new ChangeLog record when school_id changes' do
+      expect do
+        schools_user.school_id = school2.id
+        schools_user.save
+      end.to change(ChangeLog, :count).by(1)
+    end
+
+    it 'should have an old and new school_id in the ChangeLog created' do
+      schools_user.school_id = school2.id
+      schools_user.save
+
+      expect(ChangeLog.last.previous_value).to eq(school1.id.to_s)
+      expect(ChangeLog.last.new_value).to eq(school2.id.to_s)
+    end
+  end
 end
