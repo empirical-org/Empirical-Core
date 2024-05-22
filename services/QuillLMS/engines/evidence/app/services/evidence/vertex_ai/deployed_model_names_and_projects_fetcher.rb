@@ -9,7 +9,7 @@ module Evidence
         projects
           .map { |project| fetch_deployed_model_names_and_projects(project) }
           .flatten
-          .sort_by(&:keys)
+          .sort
       end
 
       private def projects = AutomlModel.all.pluck(:project).uniq
@@ -18,7 +18,7 @@ module Evidence
         client(project)
           .list_endpoints(parent: parent(ClientFetcher.project_id(project)))
           .select { |endpoint| matching_deployed_model?(endpoint) }
-          .map { |endpoint| { endpoint.display_name => project } }
+          .map { |endpoint| "#{endpoint.display_name},#{project}" }
       end
 
       private def client(project) = ClientFetcher.run(client_class: ENDPOINT_CLIENT_CLASS, project:)
