@@ -108,18 +108,24 @@ module Adapters
         {
           pre_questions_ratio: format_as_ratio,
           pre_skills_proficient_ratio: format_as_ratio,
+          pre_questions_percentage: format_percent_as_integer,
           pre_skills_proficient_list: format_as_list,
           pre_skills_to_practice_list: format_as_list,
           post_questions_ratio: format_as_ratio,
           post_skills_improved_or_maintained_ratio: format_as_ratio,
+          post_questions_percentage: format_percent_as_integer,
           post_skills_improved_list: format_as_list,
           post_skills_maintained_list: format_as_list,
-          post_skills_to_practice_list: format_as_list
+          post_skills_to_practice_list: format_as_list,
+          time_spent_seconds: format_as_minutes_string
         }
       end
 
       def self.format_as_list = ->(x) { x.join(', ') }
       def self.format_as_ratio = ->(x) { x.join(' of ') }
+      def self.format_as_minutes_string = ->(x) { x.present? ? "#{x.round / 60}:#{(x.round % 60).to_s.rjust(2, "0")}" : format_blank_as_zero.call(x) }
+      def self.format_percent_as_integer = ->(x) { x.present? ? format_as_rounded_integer.call(x * 100) : format_blank_as_zero.call(x) }
+      def self.format_blank_as_zero = ->(x) { x.blank? ? 0 : x }
     end
   end
 end
