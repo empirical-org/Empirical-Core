@@ -2701,7 +2701,8 @@ CREATE TABLE public.evidence_automl_models (
     state character varying NOT NULL,
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    project character varying NOT NULL
 );
 
 
@@ -11358,6 +11359,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240407173007'),
 ('20240411135759'),
 ('20240425125302'),
-('20240513162849');
+('20240513162849'),
+('20240521201204');
 
 

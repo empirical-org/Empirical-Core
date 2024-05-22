@@ -13,6 +13,7 @@ module Evidence
               .pluck(:llm_config_id, :llm_prompt_id, :passage_prompt_id, :num_examples)
               .map { |llm_config_id, llm_prompt_id, passage_prompt_id, num_examples| { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: } }
               .to_set
+
           @experiments = Experiment.all.reject do |experiment|
             experiment.failed? && completed_experiments.include?(
               llm_config_id: experiment.llm_config_id,
