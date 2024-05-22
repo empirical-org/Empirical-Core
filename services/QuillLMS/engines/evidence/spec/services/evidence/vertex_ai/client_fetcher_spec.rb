@@ -48,6 +48,23 @@ module Evidence
 
           subject
         end
+
+        context 'when a block is given' do
+          let(:custom_value) { 'custom_value' }
+          let(:config_struct) { Struct.new(:credentials, :custom_option).new }
+
+          subject { described_class.run(client_class:, project:) { |config| config.custom_option = custom_value } }
+
+          it 'yields the config to the block' do
+            expect(client_class).to receive(:new) do |&block|
+              config = config_struct
+              block.call(config)
+              expect(config.custom_option).to eq custom_value
+            end.and_return(client_instance)
+
+            subject
+          end
+        end
       end
     end
   end

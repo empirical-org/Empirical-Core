@@ -3,7 +3,12 @@
 module Evidence
   module VertexAI
     class ClientFetcher
-      def self.run(client_class:, project:) = client_class.new {  |config| config.credentials = credentials(project) }
+      def self.run(client_class:, project:)
+        client_class.new do  |config|
+          config.credentials = credentials(project)
+          yield config if block_given?
+        end
+      end
 
       def self.credentials(project) = JSON.parse(ENV.fetch("VERTEX_AI_CREDENTIALS_#{project.upcase}", '{}'))
 
