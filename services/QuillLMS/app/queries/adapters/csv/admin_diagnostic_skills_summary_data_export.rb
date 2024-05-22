@@ -47,13 +47,14 @@ module Adapters
 
       def self.format_lambdas
         {
-          pre_score: format_as_integer,
-          post_score: format_as_integer,
-          growth_percentage: format_as_integer
+          pre_score: format_percent_as_ingeger,
+          post_score: format_percent_as_ingeger,
+          growth_percentage: format_percent_as_ingeger
         }
       end
 
-      def self.format_as_integer = ->(x) { x.to_i }
+      def self.format_percent_as_integer = ->(x) { x.present? ? format_as_rounded_integer.call(x * 100) : format_blank_as_zero.call(x) }
+      def self.format_blank_as_zero = ->(x) { x.blank? ? 0 : x }
     end
   end
 end
