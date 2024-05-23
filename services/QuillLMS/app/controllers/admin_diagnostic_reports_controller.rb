@@ -17,7 +17,7 @@ class AdminDiagnosticReportsController < ApplicationController
 
   def download
     WORKERS_FOR_ACTIONS[action_name].perform_async(current_user.id)
-    render json: 'OK'
+    render json: {}, status: :ok
   end
 
   private def set_query

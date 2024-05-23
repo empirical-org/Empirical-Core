@@ -756,6 +756,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :admin_diagnostic_reports, only: [] do
     collection do
       post :report
+      post :download
     end
   end
 
