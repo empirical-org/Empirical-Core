@@ -5,7 +5,9 @@ module AdminDiagnosticReports
     include Sidekiq::Worker
 
     BASE_REPORT_NAME = 'diagnostic_growth_report'
+    OVERVIEW_REPORT_NAME = 'diagnostic_growth_report_overview'
     SKILL_REPORT_NAME = 'diagnostic_growth_report_skill'
+    STUDENT_REPORT_NAME = 'diagnostic_growth_report_student'
 
     DEFAULT_TIMEFRAME = 'this-school-year'
     DEFAULT_AGGREGATION = 'grade'
@@ -14,22 +16,13 @@ module AdminDiagnosticReports
     def perform(user_id)
       @user = User.find(user_id)
 
-      SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, filters, aggregation, diagnostic_id)
+      SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
     end
 
-    private def base_filters
-      @base_filters ||= extract_filter_selection(BASE_REPORT_NAME)
-    end
-
-    private def skill_filters
-      @skill_filters ||= extract_filter_selection(SKILL_REPORT_NAME)
-    end
-
-    private def timeframe
-      timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(base_filters&.fetch('timeframe', nil) || DEFAULT_TIMEFRAME)
-        .map(&:to_s)
-      {timeframe_start:, timeframe_end:}.stringify_keys
-    end
+    private def base_filters = @base_filters ||= extract_filter_selection(BASE_REPORT_NAME)
+    private def overview_filters = @overview_filters ||= extract_filter_selection(OVERVIEW_REPORT_NAME)
+    private def skills_filters = @skill_filters ||= extract_filter_selection(SKILL_REPORT_NAME)
+    private def students_filters = @students_filters ||= extract_filter_selection(STUDENT_REPORT_NAME)
 
     private def extract_filter_selection(report_name)
       AdminReportFilterSelection.find_by(user_id: @user.id, report: report_name)
@@ -41,9 +34,13 @@ module AdminDiagnosticReports
         end
     end
 
-    private def aggregation = skill_filters&.fetch('group_by_value', nil) || DEFAULT_AGGREGATION
-    private def diagnostic_id = skill_filters&.fetch('diagnostic_type_value', nil) || DEFAULT_DIAGNOSTIC_ID
-    private def filters = base_filters&.slice('grades', 'teacher_ids', 'classroom_ids')
+    private def timeframe
+      timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(base_filters&.fetch('timeframe', nil) || DEFAULT_TIMEFRAME)
+        .map(&:to_s)
+      {timeframe_start:, timeframe_end:}.stringify_keys
+    end
+
     private def school_ids = base_filters&.fetch('school_ids', nil) || @user.administered_premium_schools.map(&:id)
+    private def shared_filters = base_filters&.slice('grades', 'teacher_ids', 'classroom_ids')
   end
 end

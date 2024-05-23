@@ -8,9 +8,12 @@ module AdminDiagnosticReports
 
     TEMPFILE_NAME = 'temp.csv'
 
-    def perform(user_id, timeframe, school_ids, filters, aggregation, diagnostic_id)
+    def perform(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
       @user = User.find(user_id)
-      @payload = generate_query_payload(timeframe, school_ids, filters, aggregation, diagnostic_id)
+      @payload = generate_query_payload(timeframe, school_ids, shared_filters, aggregation, diagnostic_id)
+      @overview_filters = overview_filters
+      @skills_filters = skills_filters
+      @students_filters = students_filters
 
       ReportMailer.csv_download_email(user_id, overview_link, skills_link, students_link).deliver_now!
     end
@@ -30,7 +33,7 @@ module AdminDiagnosticReports
     end
 
     private def overview_link
-      overview_payload = @payload.except(:diagnostic_id)
+      overview_payload = @payload.merge(@overview_filters)
 
       pre_assigned = PreDiagnosticAssignedViewQuery.run(**overview_payload)
       pre_completed = PreDiagnosticCompletedViewQuery.run(**overview_payload)
@@ -85,13 +88,15 @@ module AdminDiagnosticReports
     end
 
     private def skills_link
-      query_results = DiagnosticPerformanceBySkillViewQuery.run(**@payload)
+      skills_payload = @payload.merge(@skills_filters)
+
+      query_results = DiagnosticPerformanceBySkillViewQuery.run(**skills_payload)
       data = Adapters::Csv::AdminDiagnosticSkillsSummaryDataExport.to_csv_string(query_results)
       upload_csv(data)
     end
 
     private def students_link
-      student_payload = @payload.except(:aggregation)
+      student_payload = @payload.merge(@students_filters)
 
       query_results = DiagnosticPerformanceByStudentViewQuery.run(**student_payload)
       recommendation_results = DiagnosticRecommendationsByStudentQuery.run(**student_payload)
