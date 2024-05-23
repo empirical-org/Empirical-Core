@@ -11,7 +11,7 @@ class ConceptFeedback extends React.Component {
     const { params } = match;
     const { conceptFeedbackID } = params;
     if (confirm('⚠️ Are you sure you’d like to delete this concept feedback?')) {
-      dispatch(actions.deleteConceptsFeedback(conceptFeedbackID, () => window.location.reload()))
+      dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
     }
   };
 
