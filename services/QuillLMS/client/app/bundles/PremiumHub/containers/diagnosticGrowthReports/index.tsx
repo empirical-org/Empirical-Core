@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, diagnosticTypeDropdownOptions } from '../../shared'
-import { Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
+import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
 import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
