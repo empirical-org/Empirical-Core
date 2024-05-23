@@ -6,6 +6,7 @@ module Evidence
       def self.run(client_class:, project:)
         client_class.new do  |config|
           config.credentials = credentials(project)
+
           yield config if block_given?
         end
       end

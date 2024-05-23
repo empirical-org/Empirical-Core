@@ -6,25 +6,13 @@ module Evidence
   module VertexAI
     RSpec.describe ClientFetcher do
       let(:client_class) { double('ClientClass') }
-      let(:endpoint) { 'test_endpoint'}
       let(:project) { 'test_project' }
       let(:project_id) { 'test_project_id' }
       let(:credentials_hash) { { 'project_id' => project_id } }
       let(:credentials) { credentials_hash.to_json }
+      let(:global_config) { ::Google::Cloud::AIPlatform.configure }
 
       before { stub_const('ENV', ENV.to_hash.merge("VERTEX_AI_CREDENTIALS_#{project.upcase}" => credentials)) }
-
-      describe '.credentials' do
-        subject { described_class.credentials(project) }
-
-        it { is_expected.to eq credentials_hash }
-      end
-
-      describe '.project_id' do
-        subject { described_class.project_id(project) }
-
-        it { is_expected.to eq project_id }
-      end
 
       describe '.run' do
         subject { described_class.run(client_class:, project:) }
@@ -37,6 +25,24 @@ module Evidence
             .to receive(:new)
             .and_yield(config_struct)
             .and_return(client_instance)
+        end
+
+        it { expect { subject }.not_to change(global_config, :endpoint).from(VERTEX_AI_ENDPOINT) }
+        it { expect { subject }.not_to change(global_config, :credentials).from(nil) }
+
+        context 'when global credentials are set via block' do
+          let(:global_credentials) { 'global-credentials' }
+
+          # We don't actually do this in practice, but it's meant to show that you can set global credentials
+          # Furthermore, it helps demonstrate that the two previous specs which check that global credentials
+          # are not changed are correct
+          subject do
+            described_class.run(client_class: client_class, project: project) do
+              ::Google::Cloud::AIPlatform.configure { |config| config.credentials = global_credentials }
+            end
+          end
+
+          it { expect { subject }.to change(global_config, :credentials).from(nil).to(global_credentials) }
         end
 
         it 'creates a new client with the correct credentials' do
