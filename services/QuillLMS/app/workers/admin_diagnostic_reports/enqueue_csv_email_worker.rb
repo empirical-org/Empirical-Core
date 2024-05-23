@@ -44,6 +44,6 @@ module AdminDiagnosticReports
     private def aggregation = skill_filters&.fetch('group_by_value', nil) || DEFAULT_AGGREGATION
     private def diagnostic_id = skill_filters&.fetch('diagnostic_type_value', nil) || DEFAULT_DIAGNOSTIC_ID
     private def filters = base_filters&.slice('grades', 'teacher_ids', 'classroom_ids')
-    private def school_ids = base_filters&.fetch('school_ids', nil) || @user.administered_premium_schools
+    private def school_ids = base_filters&.fetch('school_ids', nil) || @user.administered_premium_schools.map(&:id)
   end
 end
