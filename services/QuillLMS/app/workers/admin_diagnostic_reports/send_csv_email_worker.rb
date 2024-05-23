@@ -10,7 +10,7 @@ module AdminDiagnosticReports
 
     def perform(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
       @user = User.find(user_id)
-      @payload = generate_query_payload(timeframe, school_ids, shared_filters, aggregation, diagnostic_id)
+      @payload = generate_query_payload(timeframe, school_ids, shared_filters)
       @overview_filters = overview_filters
       @skills_filters = skills_filters
       @students_filters = students_filters
@@ -18,7 +18,7 @@ module AdminDiagnosticReports
       ReportMailer.csv_download_email(user_id, overview_link, skills_link, students_link).deliver_now!
     end
 
-    private def generate_query_payload(timeframe, school_ids, filters, aggregation, diagnostic_id)
+    private def generate_query_payload(timeframe, school_ids, filters)
       {
         timeframe_start: parse_datetime_string(timeframe['timeframe_start']),
         timeframe_end: parse_datetime_string(timeframe['timeframe_end']),
@@ -26,8 +26,6 @@ module AdminDiagnosticReports
         grades: filters.fetch('grades', nil),
         teacher_ids: filters.fetch('teacher_ids', nil),
         classroom_ids: filters.fetch('classroom_ids', nil),
-        aggregation:,
-        diagnostic_id:,
         user: @user
       }
     end

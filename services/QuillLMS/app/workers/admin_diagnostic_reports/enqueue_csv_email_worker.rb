@@ -20,9 +20,9 @@ module AdminDiagnosticReports
     end
 
     private def base_filters = @base_filters ||= extract_filter_selection(BASE_REPORT_NAME)
-    private def overview_filters = @overview_filters ||= extract_filter_selection(OVERVIEW_REPORT_NAME)
-    private def skills_filters = @skill_filters ||= extract_filter_selection(SKILL_REPORT_NAME)
-    private def students_filters = @students_filters ||= extract_filter_selection(STUDENT_REPORT_NAME)
+    private def overview_filters = @overview_filters ||= extract_filter_selection(OVERVIEW_REPORT_NAME) || {aggregation: DEFAULT_AGGREGATION}
+    private def skills_filters = @skill_filters ||= extract_filter_selection(SKILL_REPORT_NAME) || {aggregation: DEFAULT_AGGREGATION, diagnostic_id: DEFAULT_DIAGNOSTIC_ID}
+    private def students_filters = @students_filters ||= extract_filter_selection(STUDENT_REPORT_NAME) || {diagnostic_id: DEFAULT_DIAGNOSTIC_ID}
 
     private def extract_filter_selection(report_name)
       AdminReportFilterSelection.find_by(user_id: @user.id, report: report_name)
@@ -40,7 +40,7 @@ module AdminDiagnosticReports
       {timeframe_start:, timeframe_end:}.stringify_keys
     end
 
-    private def school_ids = base_filters&.fetch('school_ids', nil) || @user.administered_premium_schools.map(&:id)
+    private def school_ids = base_filters&.fetch('school_ids', nil) || @user.administered_premium_schools.pluck(&:id)
     private def shared_filters = base_filters&.slice('grades', 'teacher_ids', 'classroom_ids')
   end
 end
