@@ -16,8 +16,8 @@ module AdminDiagnosticReports
     def perform(user_id)
       @user = User.find(user_id)
 
-      SendCsvEmailWorker.new.perform(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
-      #SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
+      #SendCsvEmailWorker.new.perform(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
+      SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
     end
 
     private def base_filters = @base_filters ||= extract_filter_selection(BASE_REPORT_NAME)
@@ -38,7 +38,7 @@ module AdminDiagnosticReports
 
     private def students_filters
       @students_filters ||= {
-        aggregation: extract_filter_selection(STUDENT_REPORT_NAME)&.fetch('group_by_value', nil) || DEFAULT_AGGREGATION
+        diagnostic_id: extract_filter_selection(STUDENT_REPORT_NAME)&.fetch('diagnostic_type_value', nil) || DEFAULT_AGGREGATION
       }
     end
 
