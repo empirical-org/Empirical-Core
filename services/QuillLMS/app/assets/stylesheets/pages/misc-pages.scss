@@ -2,10 +2,6 @@
 	padding-right: 20%;
 	padding-bottom: 10%;
 
-	iframe {   // for impact page
-		margin-top: 5%;
-	}
-
 	h4, h3, h2 {
 		margin-top: 5%;
 	}
@@ -148,6 +144,10 @@
 
 .white-page {
 	background-color: $quill-white;
+}
+
+.about-the-org-page {
+	margin-top: 80px;
 }
 
 .pages-faq {
