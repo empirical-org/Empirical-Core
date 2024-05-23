@@ -10,7 +10,9 @@ class ConceptFeedback extends React.Component {
     const { dispatch, match } = this.props;
     const { params } = match;
     const { conceptFeedbackID } = params;
-    dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
+    if (confirm('⚠️ Are you sure you’d like to delete this concept feedback?')) {
+      dispatch(actions.deleteConceptsFeedback(conceptFeedbackID, () => window.location.reload()))
+    }
   };
 
   toggleEdit = () => {
