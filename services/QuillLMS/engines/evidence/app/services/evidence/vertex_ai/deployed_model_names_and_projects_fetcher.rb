@@ -6,13 +6,11 @@ module Evidence
       ENDPOINT_CLIENT_CLASS = ::Google::Cloud::AIPlatform::V1::EndpointService::Client
 
       def run
-        projects
+        VERTEX_AI_PROJECTS
           .map { |project| fetch_deployed_model_names_and_projects(project) }
           .flatten
           .sort
       end
-
-      private def projects = AutomlModel.all.pluck(:project).uniq
 
       private def fetch_deployed_model_names_and_projects(project)
         client(project)

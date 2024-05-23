@@ -6,8 +6,8 @@ module Evidence
   module VertexAI
     RSpec.describe ClientFetcher do
       let(:client_class) { double('ClientClass') }
-      let(:project) { 'test_project' }
-      let(:project_id) { 'test_project_id' }
+      let(:project) { VERTEX_AI_PROJECTS.first }
+      let(:project_id) { 'project_id' }
       let(:credentials_hash) { { 'project_id' => project_id } }
       let(:credentials) { credentials_hash.to_json }
       let(:global_config) { ::Google::Cloud::AIPlatform.configure }

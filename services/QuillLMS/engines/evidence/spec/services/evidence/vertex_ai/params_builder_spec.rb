@@ -8,7 +8,7 @@ module Evidence
       subject { described_class.run(name:, project:) }
 
       let(:name) { 'name' }
-      let(:project) { 'project' }
+      let(:project) { VERTEX_AI_PROJECTS.first }
 
       let(:endpoint_external_id) { 'endpoint_external_id' }
       let(:endpoint_name) { "/projects/project_id/locations/location_id/endpoints/#{endpoint_external_id}" }

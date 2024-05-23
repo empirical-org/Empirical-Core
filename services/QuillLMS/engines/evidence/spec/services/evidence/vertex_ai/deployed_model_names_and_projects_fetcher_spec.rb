@@ -7,7 +7,7 @@ module Evidence
     RSpec.describe DeployedModelNamesAndProjectsFetcher do
       subject { described_class.run }
 
-      let(:project) { 'your_project_id' }
+      let(:project) { VERTEX_AI_PROJECTS.first }
       let(:vertex_ai_location) { 'your_location' }
       let(:client_class) { described_class::ENDPOINT_CLIENT_CLASS }
       let(:client_instance) { instance_double(client_class, list_endpoints:) }

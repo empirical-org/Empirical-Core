@@ -8,7 +8,7 @@ module Evidence
       subject { described_class.run(endpoint_external_id:, project:, text:) }
 
       let(:endpoint_external_id) { 'endpoint-external_id' }
-      let(:project) { 'project' }
+      let(:project) { VERTEX_AI_PROJECTS.first }
       let(:prediction_client_class) { ::Google::Cloud::AIPlatform::V1::PredictionService::Client }
       let(:prediction_client) { instance_double(prediction_client_class) }
       let(:text) { 'some text' }
