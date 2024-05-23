@@ -18,21 +18,27 @@ module AdminDiagnosticReports
     end
 
     private def base_filters
-      @base_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: BASE_REPORT_NAME)
-        &.filter_selections
-        &.transform_values { |value| value.map{|v| v.fetch('value', nil) }.compact }
+      @base_filters ||= extract_filter_selection(BASE_REPORT_NAME)
     end
 
     private def skill_filters
-      @skill_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: SKILL_REPORT_NAME)
-        &.filter_selections
-        &.transform_values { |value| value.map{|v| v.fetch('value', nil) }.compact }
+      @skill_filters ||= extract_filter_selection(SKILL_REPORT_NAME)
     end
 
     private def timeframe
       timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(base_filters&.fetch('timeframe', nil) || DEFAULT_TIMEFRAME)
         .map(&:to_s)
       {timeframe_start:, timeframe_end:}.stringify_keys
+    end
+
+    private def extract_filter_selection(report_name)
+      AdminReportFilterSelection.find_by(user_id: @user.id, report: report_name)
+        &.filter_selections
+        &.transform_values do |value|
+          next value.map{|selection| selection.fetch('value', nil)}.compact if value.is_a? Array
+
+          value&.fetch('value', nil)
+        end
     end
 
     private def aggregation = skill_filters&.fetch('group_by_value', nil) || DEFAULT_AGGREGATION
