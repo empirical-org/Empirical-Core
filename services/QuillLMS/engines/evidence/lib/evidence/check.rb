@@ -32,7 +32,7 @@ module Evidence
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
     def self.find_triggered_check(entry, prompt, previous_feedback, session_uid=nil, feedback_types=nil)
-      auto_ml_check = nil
+      optimal_feedback_check = nil
 
       checks_to_run(feedback_types).reduce(nil) do |response, check_to_run|
         check = check_to_run.run(entry, prompt, previous_feedback, session_uid)
