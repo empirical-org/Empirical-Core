@@ -51,7 +51,7 @@ module Evidence
     def deployed_model_names_and_projects
       @names_and_projects =
         VERTEX_AI_PROJECTS
-          .map { |project| EndpointClient.new(project:).list_model_names_and_projects }
+          .map { |project| VertexAI::EndpointClient.new(project:).list_model_names_and_projects }
           .flatten
           .sort
 
