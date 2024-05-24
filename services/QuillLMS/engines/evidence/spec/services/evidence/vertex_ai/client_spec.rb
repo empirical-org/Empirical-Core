@@ -9,9 +9,12 @@ module Evidence
       let(:project_id) { 'project_id' }
       let(:credentials_hash) { { 'project_id' => project_id } }
       let(:credentials) { credentials_hash.to_json }
-      let(:subclass) { Class.new(described_class)}
+      let(:client_subclass) { ClientSubclass }
 
-      before { stub_const('ENV', ENV.to_hash.merge("VERTEX_AI_CREDENTIALS_#{project.upcase}" => credentials)) }
+      before do
+        stub_const("VERTEX_AI_CREDENTIALS_#{project.upcase}", credentials)
+        stub_const("ClientSubclass", Class.new(described_class))
+      end
 
       describe '.credentials' do
         subject { described_class.credentials(project) }
@@ -29,7 +32,7 @@ module Evidence
         subject { described_class.new(project:) }
 
         it { expect { described_class.new(project:) }.to raise_error(described_class::NotImplementedError) }
-        it { expect { subclass.new(project:) }.not_to raise_error }
+        it { expect { client_subclass.new(project:) }.not_to raise_error }
       end
 
       describe '#service_client' do
@@ -38,10 +41,10 @@ module Evidence
         let(:config_struct) { Struct.new(:credentials).new }
         let(:global_config) { ::Google::Cloud::AIPlatform.configure }
 
-        subject { subclass.new(project:).send(:service_client) }
+        subject { client_subclass.new(project:).send(:service_client) }
 
         before do
-          stub_const('SERVICE_CLIENT_CLASS', service_client_class)
+          stub_const('ClientSubclass::SERVICE_CLIENT_CLASS', service_client_class)
 
           allow(service_client_class)
             .to receive(:new)
@@ -67,7 +70,7 @@ module Evidence
         # are not changed are correct
         context 'when a block is given' do
           subject do
-            subclass
+            client_subclass
              .new(project:)
              .send(:service_client) { |config| config.custom_option = custom_value }
           end
