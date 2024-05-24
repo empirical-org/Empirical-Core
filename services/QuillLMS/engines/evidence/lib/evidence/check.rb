@@ -9,7 +9,7 @@ module Evidence
       RegexSentence,
       Opinion,
       Plagiarism,
-      ChatGPT,
+      GenAI,
       RegexPostTopic,
       Grammar,
       Spelling,

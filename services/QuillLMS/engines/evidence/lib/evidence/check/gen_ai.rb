@@ -20,7 +20,7 @@ module Evidence
       def use_for_optimal_feedback? = true
 
       private def current_entry = entry
-      private def conjunction = prompt.conjuntion
+      private def conjunction = prompt.conjunction
 
       private def history
         session = Evidence.feedback_session_class.find_by(activity_session_uid: session_uid)
