@@ -9,7 +9,6 @@ module Evidence
 
       MODEL = 'gpt-4-turbo'
 
-      BLANK = ' '
       KEY_ROLE = "role"
       KEY_CONTENT = "content"
       ROLE_SYSTEM = "system"

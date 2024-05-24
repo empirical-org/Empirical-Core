@@ -50,8 +50,7 @@ class FeedbackHistory < ApplicationRecord
     SPELLING = "spelling",
     OPINION = "opinion",
     PREFILTER = "prefilter",
-    LOW_CONFIDENCE = 'low-confidence',
-    CHAT_GPT = 'chatGPT'
+    LOW_CONFIDENCE = 'low-confidence'
   ]
   FILTER_TYPES = [
     FILTER_ALL = "all",

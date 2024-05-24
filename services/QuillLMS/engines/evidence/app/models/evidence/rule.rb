@@ -40,7 +40,7 @@ module Evidence
     TYPES = [
       TYPE_AUTOML       = 'autoML',
       TYPE_GEN_AI       = 'genAI',
-      TYPE_ERROR	      = 'error',
+      TYPE_ERROR        = 'error',
       TYPE_GRAMMAR      = 'grammar',
       TYPE_OPINION      = 'opinion',
       TYPE_PLAGIARISM   = 'plagiarism',
