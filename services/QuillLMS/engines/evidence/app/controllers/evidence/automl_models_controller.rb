@@ -49,7 +49,12 @@ module Evidence
     end
 
     def deployed_model_names_and_projects
-      @names_and_projects = VertexAI::DeployedModelNamesAndProjectsFetcher.run
+      @names_and_projects =
+        VERTEX_AI_PROJECTS
+          .map { |project| EndpointClient.new(project:).list_model_names_and_projects }
+          .flatten
+          .sort
+
       render json: @names_and_projects
     end
 

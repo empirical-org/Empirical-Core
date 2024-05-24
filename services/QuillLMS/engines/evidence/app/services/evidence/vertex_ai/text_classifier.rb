@@ -5,7 +5,6 @@ module Evidence
     class TextClassifier < ApplicationService
       CONFIDENCES = 'confidences'
       DISPLAY_NAMES = 'displayNames'
-      PREDICT_API_TIMEOUT = 5.0
 
       PREDICTION_EXCEPTION_CLASSES = [
         Google::Cloud::InternalError,
@@ -13,8 +12,6 @@ module Evidence
         Google::Cloud::DeadlineExceededError
       ].freeze
 
-
-      PREDICTION_CLIENT_CLASS = ::Google::Cloud::AIPlatform::V1::PredictionService::Client
 
       PREDICTION_NUM_RETRIES = 1
 
@@ -35,31 +32,19 @@ module Evidence
           .map(&:number_value)
       end
 
-      private def client
-        ClientFetcher.run(client_class: PREDICTION_CLIENT_CLASS, project: project) do |config|
-          config.timeout = PREDICT_API_TIMEOUT
-        end
-      end
-
-      private def endpoint = "projects/#{project_id}/locations/#{VERTEX_AI_LOCATION}/endpoints/#{endpoint_external_id}"
-
-      private def project_id = ClientFetcher.project_id(project)
-
-      private def instances
-        [::Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
-      end
 
       private def prediction
-        prediction_response
-          .predictions
-          .first
-          .struct_value
-          .fields
+        @prediction ||=
+          prediction_response
+            .predictions
+            .first
+            .struct_value
+            .fields
       end
 
       private def prediction_response
         retry_with_exceptions(PREDICTION_NUM_RETRIES, PREDICTION_EXCEPTION_CLASSES) do
-          client.predict(endpoint:, instances:)
+          PredictionClient.new(project:).predict_label_and_score(endpoint_external_id:, text:)
         end
       end
 
