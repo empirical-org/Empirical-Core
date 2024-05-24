@@ -43,7 +43,7 @@ module Evidence
 
         optimal_feedback_check = check&.response if check.use_for_optimal_feedback?
 
-        auto_ml_check
+        optimal_feedback_check
       end
     rescue => e
       Evidence.error_notifier.report(e)

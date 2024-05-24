@@ -45,6 +45,7 @@ class FeedbackHistory < ApplicationRecord
     RULES_BASED_ONE = "rules-based-1",
     RULES_BASED_TWO = "rules-based-2",
     RULES_BASED_THREE = "rules-based-3",
+    GEN_AI = 'genAI',
     AUTO_ML = "autoML",
     SPELLING = "spelling",
     OPINION = "opinion",
