@@ -37,6 +37,14 @@ describe AdminDiagnosticReportsController, type: :controller do
       allow(DateTime).to receive(:current).and_return(now)
     end
 
+    context 'download action' do
+      it do
+        expect(AdminDiagnosticReports::EnqueueCsvEmailWorker).to receive(:perform_async).with(user.id)
+
+        post :download
+      end
+    end
+
     context 'cache key generation' do
       let(:query) { 'pre-diagnostic-assigned' }
       let(:query_group_by) { "#{query}-#{group_by}" }
