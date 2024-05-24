@@ -17,6 +17,9 @@ module Evidence
       ROLE_ASSISTANT = "assistant"
       RESPONSE_FORMAT = { "type" => "json_object" }
 
+      KEY_FEEDBACK = 'feedback'
+      KEY_OPTIMAL = 'optimal'
+
       attr_reader :system_prompt, :current_entry, :history, :temperature
 
       def initialize(system_prompt:, current_entry:, history: [], temperature: 0.5)
@@ -26,9 +29,7 @@ module Evidence
         @temperature = temperature
       end
 
-      def cleaned_results
-        result_text
-      end
+      def cleaned_results = feedback
 
       private def messages = [system_message, history_messages, current_message].flatten
 
@@ -44,19 +45,25 @@ module Evidence
         end.flatten
       end
 
-      private def result_text
-        response
-          # .parsed_response['choices']
-          # .map{|r| r['message']['content'] }
-          # .first
+      def result
+        @result ||= JSON.parse(result_json_string)
       end
+
+      private def result_json_string
+        response
+          .parsed_response['choices']
+          .map{|r| r['message']['content'] }
+          .first
+      end
+
+      private def feedback = result[KEY_FEEDBACK]
 
       def endpoint = ENDPOINT
 
       def optimal?
-        # return false unless response.present?
+        return false unless response.present?
 
-        # result_text.starts_with?(CORRECT_TEXT)
+        result[KEY_OPTIMAL]
       end
 
       # https://platform.openai.com/docs/api-reference/chat/create
