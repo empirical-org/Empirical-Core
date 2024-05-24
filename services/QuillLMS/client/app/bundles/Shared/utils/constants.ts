@@ -49,3 +49,8 @@ export const CHECKLIST = 'checklist'
 export const READ_AND_HIGHLIGHT = 'read-and-highlight'
 
 export const ALLOWED_ATTEMPTS = 5
+
+export const INDETERMINATE = 'indeterminate'
+export const ACTIVE = 'active'
+export const INACTIVE = 'inactive'
+export const DISABLED = 'disabled'

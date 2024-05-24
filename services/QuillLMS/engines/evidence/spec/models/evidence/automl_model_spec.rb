@@ -2,17 +2,27 @@
 
 # == Schema Information
 #
-# Table name: comprehension_automl_models
+# Table name: evidence_automl_models
 #
-#  id              :integer          not null, primary key
-#  automl_model_id :string           not null
-#  name            :string           not null
-#  labels          :string           default([]), is an Array
-#  prompt_id       :integer
-#  state           :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  notes           :text             default("")
+#  id                   :bigint           not null, primary key
+#  labels               :string           default([]), is an Array
+#  name                 :string           not null
+#  notes                :text             default("")
+#  project              :string           not null
+#  state                :string           not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  endpoint_external_id :string           not null
+#  model_external_id    :string           not null
+#  prompt_id            :bigint
+#
+# Indexes
+#
+#  index_evidence_automl_models_on_prompt_id  (prompt_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (prompt_id => comprehension_prompts.id)
 #
 require 'rails_helper'
 

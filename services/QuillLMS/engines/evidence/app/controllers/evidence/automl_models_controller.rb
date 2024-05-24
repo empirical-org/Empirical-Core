@@ -90,7 +90,7 @@ module Evidence
     private def automl_model_params
       params
         .require(:automl_model)
-        .permit(:name, :notes, :prompt_id)
+        .permit(:name, :notes, :prompt_id, :project)
     end
 
   end

@@ -62,6 +62,7 @@ module Evidence
               create_list(
                 :evidence_research_gen_ai_example_feedback,
                 num_of_examples,
+                :prompt_engineering,
                 passage_prompt_response: create(:evidence_research_gen_ai_passage_prompt_response, passage_prompt:)
               )
             end
@@ -79,7 +80,6 @@ module Evidence
             it { is_expected.to eq "#{prompt} #{filler} #{instructions}" }
           end
         end
-
       end
     end
   end

@@ -34,7 +34,8 @@
     "npm": "8.x"
   },
   "overrides": {
-     "minimist": "^1.2.8"
+     "minimist": "^1.2.8",
+     "ansi-regex": "^4.1.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "npm run eslint:staged_files"

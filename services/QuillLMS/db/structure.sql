@@ -2701,7 +2701,8 @@ CREATE TABLE public.evidence_automl_models (
     state character varying NOT NULL,
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    project character varying NOT NULL
 );
 
 
@@ -3055,7 +3056,8 @@ CREATE TABLE public.evidence_research_gen_ai_llm_feedbacks (
     label character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    experiment_id integer NOT NULL
+    experiment_id integer NOT NULL,
+    raw_text text NOT NULL
 );
 
 
@@ -11356,6 +11358,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240403160959'),
 ('20240407173007'),
 ('20240411135759'),
-('20240425125302');
+('20240425125302'),
+('20240513162849'),
+('20240521201204');
 
 

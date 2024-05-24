@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "postinstall": "cd ./client && npm install",
+    "heroku-postbuild": "[ $NODE_ENV = staging ] && npm prune --production ; :",
     "test": "npm run jest && npm run build:test && npm run lint && bundle exec rake spec",
     "lint": "cd client && npm run lint",
     "build:test": "cd client && npm run build:test",
@@ -47,7 +48,7 @@
     "react-csv": "^1.1.2",
     "rollup-plugin-friendly-type-imports": "^1.0.3",
     "sass": "^1.58.3",
-    "vite": "^4.2.1",
+    "vite": "^4.5.2",
     "vite-plugin-ruby": "^3.1.3",
     "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@vitejs/plugin-react": "^3.1.0",

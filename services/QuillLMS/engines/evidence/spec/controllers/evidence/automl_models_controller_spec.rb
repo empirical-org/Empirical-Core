@@ -56,7 +56,8 @@ module Evidence
 
       context 'valid params' do
         let(:name) { 'name' }
-        let(:automl_model_params) { { name: name, prompt_id: prompt.id } }
+        let(:project) { 'project' }
+        let(:automl_model_params) { { name:, prompt_id: prompt.id, project: } }
         let(:endpoint_external_id) { 'endpoint_external_id' }
         let(:model_external_id) { 'model_external_id' }
         let(:state) { AutomlModel::STATE_INACTIVE }

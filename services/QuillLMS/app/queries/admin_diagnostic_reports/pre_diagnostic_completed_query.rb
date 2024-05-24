@@ -30,7 +30,7 @@ module AdminDiagnosticReports
         JOIN lms.activity_sessions
           ON classroom_units.id = activity_sessions.classroom_unit_id
             AND activity_sessions.visible = true
-        JOIN special.concept_results
+        JOIN lms.concept_results
           ON activity_sessions.id = concept_results.activity_session_id
         JOIN lms.activities
           ON activity_sessions.activity_id = activities.id

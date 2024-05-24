@@ -44,7 +44,7 @@ class ProgressReports::DistrictConceptReports
           ON activity_sessions.classroom_unit_id = classroom_units.id
         JOIN lms.users AS students
           ON students.id = activity_sessions.user_id
-        JOIN special.concept_results
+        JOIN lms.concept_results
           ON concept_results.activity_session_id = activity_sessions.id
         WHERE schools_admins.user_id = #{admin_id}
         GROUP BY

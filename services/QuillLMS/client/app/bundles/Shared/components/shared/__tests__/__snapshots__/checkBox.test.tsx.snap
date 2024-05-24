@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="checkbox-container"
+  >
+    <button
+      aria-checked="true"
+      class="quill-checkbox selected light"
+      role="checkbox"
+      type="button"
+    >
+      <img
+        alt="check"
+        src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+      />
+    </button>
+    <span
+      class=" light"
+    >
+      test label
+    </span>
+  </div>
+</DocumentFragment>
+`;

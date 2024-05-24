@@ -6,6 +6,7 @@
 #
 #  id                         :bigint           not null, primary key
 #  label                      :string
+#  raw_text                   :text             not null
 #  text                       :text             not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
@@ -21,11 +22,12 @@ module Evidence
         belongs_to :experiment, class_name: 'Evidence::Research::GenAI::Experiment'
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
 
+        validates :raw_text, presence: true
         validates :text, presence: true
         validates :passage_prompt_response_id, presence: true
         validates :experiment_id, presence: true
 
-        attr_readonly :experiment_id, :label, :passage_prompt_response_id, :text
+        attr_readonly :experiment_id, :label, :passage_prompt_response_id, :raw_text, :text
 
         delegate :example_optimal?, :example_feedback, to: :passage_prompt_response
 

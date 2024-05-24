@@ -22,8 +22,7 @@ describe('rethinkdbConfig', () => {
     expect(config.host).toEqual('url.com');
     expect(config.port).toEqual('4321');
     expect(config.db).toEqual('quill_lessons');
-    expect(config.authKey).toEqual('1234');
-    expect(config.ssl).toHaveProperty('ca');
+    expect(config.password).toEqual('1234');
   });
 });
 

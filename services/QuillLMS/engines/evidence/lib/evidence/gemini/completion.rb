@@ -14,10 +14,6 @@ module Evidence
         @prompt = prompt
       end
 
-      private def model_version = llm_config.version
-      private def instruction = GENERATE_CONTENT
-
-      # From curl request body structure: https://aistudio.google.com/app/apikey
       def request_body
         {
           "contents" => [
@@ -27,8 +23,12 @@ module Evidence
               ]
             }
           ]
-        }
+        }.merge(llm_config.request_body_customizations)
       end
+
+      private def model_version = llm_config.version
+
+      private def instruction = GENERATE_CONTENT
 
       private def cleaned_results
         response

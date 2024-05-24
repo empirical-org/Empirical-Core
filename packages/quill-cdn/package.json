@@ -2,33 +2,21 @@
   "name": "quill-cdn",
   "version": "1.0.0",
   "description": "Locally hosts Quill assets and Deploys to Cloudfront",
-  "main": "index.js",
   "scripts": {
     "start": "cd ./assets && ws -p 45537",
     "deploy": "./production.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/empirical-org/Quill-CDN.git"
-  },
   "author": "Donald McKendrick",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/empirical-org/Quill-CDN/issues"
-  },
-  "homepage": "https://github.com/empirical-org/Quill-CDN#readme",
   "engines": {
     "node": "14.x",
     "npm": "8.x"
   },
   "overrides": {
-     "thenify": "^3.3.1"
   },
   "devDependencies": {
-    "local-web-server": "^4.0.0"
   },
   "dependencies": {
-    "ws": "^7.5.2"
   }
 }

@@ -31,6 +31,14 @@ class ConceptFeedback extends React.Component {
     dispatch(actions.startConceptsFeedbackEdit(conceptFeedbackID))
   }
 
+  concept = () => {
+    const { match, concepts } = this.props
+    const { params } = match
+    const { conceptFeedbackID } = params
+
+    return concepts.hasreceiveddata ? concepts.data[0].find((c) => c.uid === conceptFeedbackID) : null
+  }
+
   render() {
     const { concepts, conceptsFeedback, match } = this.props
     const { data, states } = conceptsFeedback
@@ -38,18 +46,22 @@ class ConceptFeedback extends React.Component {
     const { params } = match
     const { conceptFeedbackID } = params
 
+    const concept = this.concept()
+    const conceptName = concept ? <h4 className="title">{concept.displayName}</h4> : null
+
     if (data && data[conceptFeedbackID]) {
       const isEditing = (states[conceptFeedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
       if (isEditing) {
         return (
           <div className="admin-container" key={conceptFeedbackID}>
-            <h4 className="title">{data[conceptFeedbackID].name}</h4>
+            {conceptName}
             <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
           </div>
         )
       } else {
         return (
           <div className="admin-container" key={conceptFeedbackID}>
+            {conceptName}
             <ConceptExplanation {...data[conceptFeedbackID]} />
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>

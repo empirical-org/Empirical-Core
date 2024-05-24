@@ -46,20 +46,15 @@ module Evidence
           subject { experiment.run }
 
           let(:experiment) { create(:evidence_research_gen_ai_experiment, num_examples:) }
-          let(:num_examples) { 4 }
+          let(:num_examples) { 3 }
           let(:passage_prompt) { experiment.passage_prompt }
           let(:llm_config) { experiment.llm_config }
+          let(:llm_prompt) { experiment.llm_prompt }
           let(:llm_client) { double(:llm_client) }
-          let(:llm_feedback_text) { 'Test feedback' }
+          let(:llm_feedback_text) { { 'feedback' => 'This is feedback' }.to_json }
 
           let(:passage_prompt_responses) do
             create_list(:evidence_research_gen_ai_passage_prompt_response, num_examples, passage_prompt:)
-          end
-
-          let!(:example_feedbacks) do
-            passage_prompt_responses.map do |passage_prompt_response|
-              create(:evidence_research_gen_ai_example_feedback, passage_prompt_response:)
-            end
           end
 
           before do
@@ -73,12 +68,29 @@ module Evidence
             allow(CalculateResultsWorker).to receive(:perform_async).with(experiment.id)
 
             passage_prompt_responses.each do |passage_prompt_response|
-              create(:evidence_research_gen_ai_example_feedback, passage_prompt_response:)
+              create(:evidence_research_gen_ai_example_feedback, :testing, passage_prompt_response:)
             end
           end
 
           it { expect { subject }.to change { experiment.reload.status }.to(described_class::COMPLETED) }
           it { expect { subject }.to change(LLMFeedback, :count).by(num_examples) }
+
+          context 'when creating LLM prompt responses feedbacks' do
+            it 'only processes testing data responses' do
+              expect(llm_client).to receive(:run).exactly(num_examples).times
+
+              subject
+            end
+
+            it 'measures and records API call times' do
+              # 2 calls for each example: one for the API call and one for the experiment_duration
+              expect(Time.zone).to receive(:now).exactly((num_examples * 2) + 2).times.and_call_original
+
+              subject
+
+              expect(experiment.reload.results['api_call_times'].size).to eq(num_examples)
+            end
+          end
 
           context 'when an error occurs during execution' do
             let(:error_message) { 'Test error' }
