@@ -19,6 +19,13 @@ module Evidence
         - The sentence is logically correct.
         - The sentence uses at least one piece of evidence from the selected text.
         - The evidence used from the text is specific, not vague.
+        - The sentence doesn't have to be perfect and include all details in the passage.
+        Here are some example optimal answers to show the amount of information needed:
+        ```
+          - %{example_one}
+          - %{example_two}
+        ```
+
 
         A response is considered {'optimal' => false} if ANY of these are true:
         - The sentence doesn't include evidence from the text.
@@ -87,11 +94,13 @@ module Evidence
         @prompt = prompt
       end
 
-      def run = TEMPLATE % {passage:, plagiarism_text:, stem: }
+      def run = TEMPLATE % {passage:, plagiarism_text:, stem:, example_one:, example_two:}
 
       private def passage = prompt.first_passage&.text
       private def plagiarism_text = prompt.plagiarism_text
       private def stem = prompt.text
+      private def example_one = prompt.first_strong_example
+      private def example_two = prompt.second_strong_example
     end
   end
 end
