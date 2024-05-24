@@ -3,7 +3,7 @@
 module Evidence
   module GenAI
     class SystemPromptBuilder < ApplicationService
-      TEMPLATE = <<~TEXT
+      DEFAULT_TEMPLATE = <<~TEXT
         You are an 8th grade English teacher giving feedback to a student.
         You are to be helpful and encouraging always.
 
@@ -78,6 +78,8 @@ module Evidence
         - {'optimal' : false, 'feedback' : "It's true that driverless cars can save lives, but the text doesn't talk about pollution. Remove that part from your sentence and focus your response on how driverless cars can save lives instead."}
         - {'optimal' : false, 'feedback' : "It's true that companies are investing billions of dollars into driverless cars, but that's a result or outcome. Clear your response and try again. This time, use because to give a reason. Why might driverless cars be helpful for society?"}
       TEXT
+
+      TEMPLATE = ENV.fetch('GEN_AI_SYSTEM_PROMPT', DEFAULT_TEMPLATE)
 
       attr_reader :prompt
 
