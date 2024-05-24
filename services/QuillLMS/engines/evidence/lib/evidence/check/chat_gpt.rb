@@ -43,8 +43,6 @@ module Evidence
         .order(attempt: :asc)
     end
 
-    def auto_ml?
-      true
-    end
+    def use_for_optimal_feedback? = true
   end
 end

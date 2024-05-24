@@ -41,7 +41,7 @@ module Evidence
 
         break check&.response unless check.optimal?
 
-        auto_ml_check = check&.response if check.auto_ml?
+        optimal_feedback_check = check&.response if check.use_for_optimal_feedback?
 
         auto_ml_check
       end

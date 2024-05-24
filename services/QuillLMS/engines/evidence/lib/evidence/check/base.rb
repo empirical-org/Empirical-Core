@@ -37,9 +37,7 @@ module Evidence
       response.stringify_keys['optimal']
     end
 
-    def auto_ml?
-      false
-    end
+    def use_for_optimal_feedback? = false
 
     def success?
       error.nil?
