@@ -31,6 +31,10 @@
       border-radius: 2px;
       background-color: $quill-white;
       border-left: 2px solid #a5a5a5;
+      ul {
+        list-style: revert !important;
+        padding-left: 32px;
+      }
     }
   }
   @media (max-width: 650px) {
