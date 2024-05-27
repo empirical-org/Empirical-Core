@@ -75,6 +75,7 @@ class ConceptFeedback extends React.Component {
     } else {
       return (
         <div className="admin-container" key={conceptFeedbackID}>
+          {conceptName}
           <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
         </div>
       )
