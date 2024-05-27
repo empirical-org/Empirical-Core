@@ -346,6 +346,9 @@ const CustomActivityPack = ({
     topics,
   }
 
+  console.log(flagFilters)
+  console.log(selectedActivities)
+
   const selectedActivitiesFilteredByFlag =  isStaff && !flagFilters.length ? [] : selectedActivities.filter(a => filterByFlag(flagFilters, a))
 
   return (
