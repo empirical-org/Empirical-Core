@@ -215,42 +215,21 @@ RailsAdmin.config do |config|
   end
 
   config.model 'SkillGroup' do
-    edit do
+    list do
       field :name
       field :description
       field :order_number
 
-      # Configuring activities for both adding and removing
-      field :activities do
-        searchable :name # Optionally, make the association searchable by name
-        inline_add false  # Optional: Remove if you want to allow inline adding
-        inline_edit false # Optional: Remove if you want to allow inline editing
-      end
-
-      # Configuring skills for both adding and removing
       field :skills do
-        searchable :name
-        inline_add false
-        inline_edit false
+        removable? true
       end
 
-      # Configuring skill_group_activities for both adding and removing
-      field :skill_group_activities do
-        inline_add true
-        inline_edit true
-      end
-
-      # Configuring diagnostic_question_skills for both adding and removing
       field :diagnostic_question_skills do
-        inline_add true
-        inline_edit true
+        removable? true
       end
 
-      # Configuring questions for both adding and removing
-      field :questions do
-        searchable :content
-        inline_add false
-        inline_edit false
+      field :skill_group_activities do
+        removable? true
       end
     end
 
