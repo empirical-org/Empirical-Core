@@ -43,14 +43,7 @@ module Evidence
       let(:prompt) { create(:evidence_prompt) }
       let(:automl_model) { build(:evidence_automl_model, **automl_model_params) }
       let(:labels) { ['label1'] }
-
-      let(:vertex_ai_params) do
-        {
-          endpoint_external_id: endpoint_external_id,
-          labels: labels,
-          model_external_id: model_external_id
-        }
-      end
+      let(:vertex_ai_params) { { endpoint_external_id:, labels:, model_external_id: } }
 
       before { session[:user_id] = user.id }
 
@@ -65,7 +58,7 @@ module Evidence
         before do
           allow(Evidence::VertexAI::ParamsBuilder)
             .to receive(:run)
-            .with(name)
+            .with(name:, project:)
             .and_return(vertex_ai_params)
         end
 
@@ -115,7 +108,7 @@ module Evidence
 
       context 'invalid params' do
         let(:name) { '' }
-        let(:automl_model_params) { { name: name, prompt_id: prompt.id } }
+        let(:automl_model_params) { { name:, prompt_id: prompt.id } }
 
         it 'does not create record and return errors as json' do
           subject
@@ -192,8 +185,8 @@ module Evidence
         let(:rule) { create(:evidence_rule, :type_automl) }
 
         before do
-          create(:evidence_label, rule: rule, name: automl_model.labels.first)
-          create(:evidence_prompts_rule, prompt: automl_model.prompt, rule: rule)
+          create(:evidence_label, rule:, name: automl_model.labels.first)
+          create(:evidence_prompts_rule, prompt: automl_model.prompt, rule:)
         end
 
         it 'should return an empty 204 response if activation is successful' do
