@@ -306,8 +306,18 @@ main {
     flex-direction: column;
     align-items: center;
     margin-top: 48px;
-    p {
-      font-size: 12px;
+    .text-container {
+      display: flex;
+      p {
+        font-size: 12px;
+      }
+      p:first-of-type {
+        margin-right: 3px;
+      }
+      a {
+        font-weight: 700;
+        color: $quill-green;
+      }
     }
     button {
       margin-top: 16px;

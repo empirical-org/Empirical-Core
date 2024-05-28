@@ -719,13 +719,17 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
   <div
     class="load-more-button-container"
   >
-    <p>
-      Displaying 
-      <strong>
-        50 of 2
-      </strong>
-       students
-    </p>
+    <div
+      class="text-container"
+    >
+      <p>
+        Displaying 
+        <strong>
+          50 of null
+        </strong>
+         students
+      </p>
+    </div>
     <button
       class="quill-button small secondary focus-on-light outlined"
     >
@@ -1334,13 +1338,17 @@ exports[`StudentSection loaded state it should render the expected data when dat
     <div
       class="load-more-button-container"
     >
-      <p>
-        Displaying 
-        <strong>
-          50 of 2
-        </strong>
-         students
-      </p>
+      <div
+        class="text-container"
+      >
+        <p>
+          Displaying 
+          <strong>
+            50 of null
+          </strong>
+           students
+        </p>
+      </div>
       <button
         class="quill-button small secondary focus-on-light outlined"
       >
@@ -1792,13 +1800,17 @@ exports[`StudentSection loaded state it should render the expected empty state m
     <div
       class="load-more-button-container"
     >
-      <p>
-        Displaying 
-        <strong>
-          50 of 0
-        </strong>
-         students
-      </p>
+      <div
+        class="text-container"
+      >
+        <p>
+          Displaying 
+          <strong>
+            50 of null
+          </strong>
+           students
+        </p>
+      </div>
       <button
         class="quill-button small secondary focus-on-light outlined"
       >
@@ -2250,13 +2262,17 @@ exports[`StudentSection loaded state it should render the expected header compon
     <div
       class="load-more-button-container"
     >
-      <p>
-        Displaying 
-        <strong>
-          50 of 0
-        </strong>
-         students
-      </p>
+      <div
+        class="text-container"
+      >
+        <p>
+          Displaying 
+          <strong>
+            50 of null
+          </strong>
+           students
+        </p>
+      </div>
       <button
         class="quill-button small secondary focus-on-light outlined"
       >
