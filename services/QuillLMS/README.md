@@ -20,9 +20,9 @@ In your terminal:
 
 1. Clone the Empirical Core repo `git clone https://github.com/empirical-org/Empirical-Core.git`
 2. Navigate to LMS directory: `cd services/QuillLMS`
-3. (recommended) Install the version of [Postgres.app](https://postgresapp.com/) that supports all postgres versions.
+3. (recommended) Install [Postgres.app](https://postgresapp.com/) 
    - install the binary
-   - create a postgresql v10 server through the Postgres.app GUI and start it
+   - create a postgresql v15 server through the Postgres.app GUI and start it
 4. Run install script: `sh bin/dev/bootstrap.sh`
 5. Open your browser to [localhost:3000](http://localhost:3000), the app should be running.
 
@@ -39,7 +39,7 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
    3. `echo 'eval "$(rbenv init -)"' >> ~/.bash_profile`
    4. Close and reopen your terminal.
 
-2. Download and install [postgres](http://www.postgresql.org/) version 10.5, the database engine Empirical Core uses. The easiest way to get started with this is to download [postgres.app](http://postgresapp.com/).
+2. Download and install [postgres](http://www.postgresql.org/) version 15.6, the database engine Empirical Core uses. The easiest way to get started with this is to download [postgres.app](http://postgresapp.com/).
 
    If you're more comfortable with installing custom software, you can use [homebrew](http://brew.sh/) to download and install postgres instead using the following commands:
 
