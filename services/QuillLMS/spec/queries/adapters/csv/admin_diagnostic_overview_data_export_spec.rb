@@ -6,7 +6,7 @@ describe Adapters::Csv::AdminDiagnosticOverviewDataExport do
   subject { described_class }
 
   describe '#format_cell' do
-    it { expect(subject.format_cell(:diagnostic_name, 'Name')).to eq('Name') }
+    it { expect(subject.format_cell(:diagnostic_name, 'Name')).to eq('NAME') }
     it { expect(subject.format_cell(:pre_students_assigned, 10)).to eq(10) }
     it { expect(subject.format_cell(:pre_students_completed, nil)).to eq(0) }
     it { expect(subject.format_cell(:students_completed_practice, nil)).to eq(0) }

@@ -47,12 +47,14 @@ module Adapters
 
       def self.format_lambdas
         {
+          skill_group_name: format_all_caps,
           pre_score: format_percent_as_integer,
           post_score: format_percent_as_integer,
           growth_percentage: format_percent_as_integer
         }
       end
 
+      def self.format_all_caps = ->(x) { x.upcase }
       def self.format_as_rounded_integer = ->(x) { x.present? ? x.round : format_blank_as_zero.call(x) }
       def self.format_percent_as_integer = ->(x) { x.present? ? format_as_rounded_integer.call(x * 100) : format_blank_as_zero.call(x) }
       def self.format_blank_as_zero = ->(x) { x.blank? ? 0 : x }
