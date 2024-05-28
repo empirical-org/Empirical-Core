@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButton it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="quill-radio-button-container"
+  >
+    <button
+      aria-checked="true"
+      class="quill-radio-button interactive-wrapper selected  light"
+      role="checkbox"
+      type="button"
+    >
+      <div
+        class="button-fill"
+      />
+    </button>
+    <span
+      class=" light"
+    >
+      test label
+    </span>
+  </div>
+</DocumentFragment>
+`;

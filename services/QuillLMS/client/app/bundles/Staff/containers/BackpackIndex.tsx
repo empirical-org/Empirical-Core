@@ -53,7 +53,7 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#menus-with-search-tokens', 'Menus (DropdownInputs) with Search Tokens')}
             {this.renderLink('#textFields', 'Text Fields (Inputs)')}
             {this.renderLink('#checkboxes', 'Checkboxes')}
-            {this.renderLink('#radiobuttons', 'Radio Buttons')}
+            {this.renderLink('#radio-buttons', 'Radio Buttons')}
             {this.renderLink('#snackbars', 'Snackbars')}
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
