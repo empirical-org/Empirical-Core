@@ -3,6 +3,9 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 
+require 'dotenv'
+Dotenv.load('.env.test')
+
 require File.expand_path('../spec/dummy/config/environment', __dir__)
 
 # Prevent database truncation if the environment is production
@@ -12,8 +15,6 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'neighbor'
 require 'faker'
-require 'dotenv'
-Dotenv.load('.env.test')
 
 # Checks for pending migrations and applies them before tests are run.
 begin

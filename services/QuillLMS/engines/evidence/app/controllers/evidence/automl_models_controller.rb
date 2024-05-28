@@ -48,9 +48,14 @@ module Evidence
       head :no_content
     end
 
-    def deployed_model_names
-      @names = VertexAI::DeployedModelNamesFetcher.run
-      render json: @names
+    def deployed_model_names_and_projects
+      @names_and_projects =
+        VERTEX_AI_PROJECTS
+          .map { |project| VertexAI::EndpointClient.new(project:).list_model_names_and_projects }
+          .flatten
+          .sort
+
+      render json: @names_and_projects
     end
 
     def enable_more_than_ten_labels
@@ -71,7 +76,7 @@ module Evidence
 
     private def custom_create_attrs
       VertexAI::ParamsBuilder
-        .run(@automl_model.name)
+        .run(name: @automl_model.name, project: @automl_model.project)
         .merge(state: AutomlModel::STATE_INACTIVE)
     end
 
