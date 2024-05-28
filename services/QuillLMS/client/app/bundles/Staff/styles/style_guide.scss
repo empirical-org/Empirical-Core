@@ -170,7 +170,7 @@
   }
 }
 
-#checkboxes {
+#checkboxes, #radio-buttons {
   h2 {
     font-weight: 700;
   }
@@ -205,7 +205,7 @@
           color: #8B8B8B;
           align-self: flex-start;
         }
-        .checkbox-container, .checkboxes {
+        .checkbox-container, .checkboxes, .radio-buttons {
           margin: auto;
           padding-bottom: 24px;
         }
