@@ -26,7 +26,7 @@
 
   <hr/>
   <h3>Results</h3>
-  <% if @experiment.results %>
+  <% if @experiment.api_call_times %>
     <p>Accuracy (identical): <%= @experiment.accuracy_identical&.round(2) %></p>
     <p>Accuracy (sub/optimal): <%= @experiment.accuracy_optimal_sub_optimal&.round(2) %></p>
     <p>Bleu: <%= @experiment.results.dig('misc_metrics', 'bleu', 'bleu')&.round(2) %></p>
@@ -37,7 +37,7 @@
     <p>Experiment duration: <%= experiment_duration(@experiment) %></p>
     <p>Evaluation duration: <%= evaluation_duration(@experiment) %></p>
 
-    <% if @experiment.api_call_times %>
+    <% if @experiment.api_call_times && @histogram %>
       <p>Api call times: <%= @experiment.api_call_times %></p>
       <%= render 'histogram', histogram: @histogram %>
     <% end %>
