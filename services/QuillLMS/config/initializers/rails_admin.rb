@@ -215,24 +215,6 @@ RailsAdmin.config do |config|
   end
 
   config.model 'SkillGroup' do
-    list do
-      field :name
-      field :description
-      field :order_number
-
-      field :skills do
-        removable? true
-      end
-
-      field :diagnostic_question_skills do
-        removable? true
-      end
-
-      field :skill_group_activities do
-        removable? true
-      end
-    end
-
     object_label_method do
       :display_name_for_rails_admin
     end
