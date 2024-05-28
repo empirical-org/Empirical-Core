@@ -18,19 +18,16 @@ const RadioButtons= () => {
                 <div className="radio-buttons">
                   <RadioButton
                     label="Text"
-                    onClick={() => { }}
                     selected={false}
                     state={state}
                   />
                   <RadioButton
                     label="Text"
-                    onClick={() => { }}
                     selected={state === ACTIVE}
                     state={state}
                   />
                   <RadioButton
                     label="Text"
-                    onClick={() => { }}
                     selected={false}
                     state={state}
                   />
