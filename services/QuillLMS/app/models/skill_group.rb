@@ -20,6 +20,8 @@ class SkillGroup < ApplicationRecord
 
   validates_presence_of :name
 
+  accepts_nested_attributes_for :skill_group_activities, :skills, :diagnostic_question_skills, :allow_destroy => true
+
   def display_name_for_rails_admin
     "#{name} ##{id}"
   end
