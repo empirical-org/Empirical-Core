@@ -30,7 +30,7 @@ In your terminal:
 
 QuillLMS is the Learning Management System that powers Quill.org. It is part of Empirical-Core Here's how to get QuillLMS running on your system:
 
-1. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or another Ruby version manager of your choice). You need to have Ruby version 2.5.1 installed in order to use Empirical Core. The best way to make sure you have version 2.5.1 is to follow the README and wiki of the Ruby version manager that you download.
+2. Download and install [rbenv](https://github.com/sstephenson/rbenv) (or another Ruby version manager of your choice). You need to have Ruby version 3.1.4 installed in order to use Empirical Core. The best way to make sure you have version 3.1.4 is to follow the README and wiki of the Ruby version manager that you download. (You can check the .ruby-version file to find out the latest ruby version we are using in case this readme is out of date).
 
    If you decide to use rbenv, then [homebrew](http://brew.sh/) has a really great and easy-to-use setup and install process:
 
@@ -59,21 +59,38 @@ QuillLMS is the Learning Management System that powers Quill.org. It is part of 
 
 6. Install bundler with `gem install bundler`.
 
+7. Set bundle config, needed for sidekiq-pro
+```
+export BUNDLE_GEMS__CONTRIBSYS__COM=$(heroku config:get BUNDLE_GEMS__CONTRIBSYS__COM -a empirical-grammar)
+bundle config --local gems.contribsys.com $BUNDLE_GEMS__CONTRIBSYS__COM
+```
+
+
 7. Install the bundle with `bundle install`.
 
+8. Troubleshooting unicode 0.4.4.4: on an M1 mac, you may need to install the unicode gem with the following flag: 
+`gem install unicode -- --with-cflags="-Wno-incompatible-function-pointer-types"` 
+From [stack overflow](https://stackoverflow.com/questions/78129921/gemextbuilderror-error-failed-to-build-gem-native-extension-unicode-c1058)
+
 8. Install node via [nvm](https://github.com/creationix/nvm#installation). Run `nvm install` to install the version of node used by this app.
+Note: check that the `.nvmrc` file has the same version of node as in the `package.json` file. 
 
-9. Install npm by running `brew install npm`.
+9. Install npm by running `brew install npm`
 
-10. Install node modules by running `npm install`.
+10. Install node modules by running `npm install`
 
+10. Copy the environment `cp -n .env-sample .env`
+
+11. You'll have to manually add BIGQUERY_CREDENTIALS from the heroku empirical-grammer-staging Config Vars
+
+12. Install [pgvector](https://github.com/pgvector/pgvector?tab=readme-ov-file#installation-notes---linux-and-mac)
 11. Run `bundle exec rake empirical:setup` to automagically get all of your dependencies and databases configured.
 
-12. Switch into the client directory `cd client/`
+13. You're ready to run QuillLMS! Switch back into the QuillLMS directory 
 
-13. You're ready to run QuillLMS! Switch back into the QuillLMS directory `cd ..`
-
-    1. Run the server using the command `foreman start -f Procfile.dev`.
+    1. Run the server using the command `foreman start -f Procfile.dev`
+      - Note: if you get the error `Failed listening on port 7654 (TCP)` it means there is an extra redis instance running. You can run `lsof -i :7654` and then kill the redis process. 
+      - Note 2: if you get an error on port 5000, and you're on a mac, it may be your airplay server which you'll have to turn off. See [this post](https://nono.ma/port-5000-used-by-control-center-in-macos-controlce) for info. 
     2. Navigate your browser to [localhost:3000](http://localhost:3000).
     3. When you're done with the server, use Ctrl-C to break it and return to your command line.
 
@@ -84,6 +101,8 @@ For more information on setting up and launching QuillLMS, visit the [docs](http
 ## Test Suite
 
 - backend
+- you will need to populate the .env file with `ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY`, 
+`ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY` and `ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT` by following instructions in that file. 
 
 ```ruby
 bundle exec rspec spec
