@@ -218,6 +218,10 @@ RailsAdmin.config do |config|
     list do
       exclude_fields :skill_group_activities, :activities, :skills
     end
+
+    object_label_method do
+      :display_name_for_rails_admin
+    end
   end
 
   config.model 'Standard' do
