@@ -28,7 +28,7 @@ module Adapters
           ],
           post_students_completed: [
             'Students Who Completed Pre and Post Diagnostic',
-
+            "The total number of students who completed the Pre and Post diagnostic."
           ],
           improved_proficiency: [
             'Students Improved Skill',

@@ -16,11 +16,11 @@ module Adapters
           ],
           pre_students_assigned: [
             'Students Assigned Pre Diagnostic',
-            "PLACEHOLDER"
+            "The total number of students assigned the Pre diagnostic."
           ],
           pre_students_completed: [
             'Students Who Completed Pre Diagnostic',
-            "PLACEHOLDER"
+            "The total number of students who completed the Pre diagnostic."
           ],
           students_completed_practice: [
             'Completed Activities',
@@ -36,11 +36,11 @@ module Adapters
           ],
           post_students_assigned: [
             'Students Assigned Post Diagnostic',
-            "PLACEHOLDER"
+            "The total number of students assigned the Post diagnostic."
           ],
           post_students_completed: [
             'Students Who Completed Post Diagnostic',
-            "PLACEHOLDER"
+            "The total number of students who completed the Post diagnostic."
           ],
           overall_skill_growth: [
             'Overall Skill Growth',

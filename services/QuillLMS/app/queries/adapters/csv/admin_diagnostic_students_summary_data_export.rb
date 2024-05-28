@@ -43,63 +43,63 @@ module Adapters
           ],
           pre_questions_ratio: [
             'Pre: Questions Correct (Ratio)',
-            "PLACEHOLDER"
+            "The ratio of questions the student answered correctly on the Pre diagnostic."
           ],
           pre_questions_percentage: [
             'Pre: Questions Correct (Percentage)',
-            "PLACEHOLDER"
+            "The percentage of questions the student answered correctly on the Pre diagnostic."
           ],
           pre_skills_proficient_ratio: [
             'Pre: Skills Proficient (Ratio)',
-            "PLACEHOLDER"
+            "The ratio of skills the student demonstrated proficiency in on the Pre diagnostic."
           ],
           pre_skills_proficient_list: [
             'Pre: Skills Proficient (List)',
-            "PLACEHOLDER"
+            "A list of skills the student demonstrated proficiency in on the Pre diagnostic."
           ],
           pre_skills_to_practice_list: [
             'Pre: Skills to Practice (List)',
-            "PLACEHOLDER"
+            "A list of skills the student did not demonstrate proficiency in on the Pre diagnostic."
           ],
           completed_activities: [
             'Total Activities',
-            "PLACEHOLDER"
+            "The total number of activities the student completed that are linked to this particular diagnostic."
           ],
           time_spent_seconds: [
             'Total Time Spent',
-            "PLACEHOLDER"
+            "The total time spent by the student on activities that are linked to this particular diagnostic."
           ],
           post_questions_ratio: [
             'Post: Questions Correct (Ratio)',
-            "PLACEHOLDER"
+            "The ratio of questions the student answered correctly on the Post diagnostic."
           ],
           post_questions_percentage: [
             'Post: Questions Correct (Percentage)',
-            "PLACEHOLDER"
+            "The percentage of questions the student answered correctly on the Post diagnostic."
           ],
           post_skills_improved_or_maintained_ratio: [
             'Post: Skills Improved or Maintained (Ratio)',
-            "PLACEHOLDER"
+            "The ratio of skills the student improved or maintained proficiency in on the Post diagnostic."
           ],
           post_skills_improved: [
             'Post: Skills Improved (Count)',
-            "PLACEHOLDER"
+            "The number of skills the student improved proficiency in on the Post diagnostic."
           ],
           post_skills_maintained: [
             'Post: Skills Maintained (Count)',
-            "PLACEHOLDER"
+            "The number of skills the student maintained proficiency in on the Post diagnostic."
           ],
           post_skills_improved_list: [
             'Post: Skills Improved (List)',
-            "PLACEHOLDER"
+            "A list of skills the student improved on the Post diagnostic."
           ],
           post_skills_maintained_list: [
             'Post: Skills Maintained (List)',
-            "PLACEHOLDER"
+            "A list of skills the student maintained proficiency in on the Post diagnostic."
           ],
           post_skills_to_practice_list: [
             'Post: Skills with No Growth (List)',
-            "PLACEHOLDER"
+            "A list of skills the student demonstrated no growth in on the Post diagnostic."
           ]
         }
       end
