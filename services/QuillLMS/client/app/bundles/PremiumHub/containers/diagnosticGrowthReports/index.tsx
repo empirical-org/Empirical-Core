@@ -53,7 +53,6 @@ export const DiagnosticGrowthReportsContainer = ({
   selectedSchools,
   selectedTeachers,
   availableTeachers,
-  handleClickDownloadReport,
   openMobileFilterMenu,
   hasAdjustedFiltersFromDefault,
   handleSetDiagnosticIdForStudentCount,
@@ -114,6 +113,7 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const studentSectionProps = {
     ...sharedProps,
+    createCsvReportDownload: createCsvReportDownload,
     diagnosticTypeValue: selectedDiagnosticType,
     handleSetSelectedDiagnosticType,
     passedStudentData: null,

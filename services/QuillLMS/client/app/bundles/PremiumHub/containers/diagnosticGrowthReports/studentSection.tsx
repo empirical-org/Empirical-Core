@@ -108,6 +108,7 @@ export const StudentSection = ({
   selectedTimeframe,
   diagnosticTypeValue,
   pusherChannel,
+  createCsvReportDownload,
   handleSetDiagnosticIdForStudentCount,
   handleSetSelectedDiagnosticType,
   passedStudentData,
