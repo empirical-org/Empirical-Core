@@ -209,6 +209,11 @@
           margin: auto;
           padding-bottom: 24px;
         }
+        .radio-buttons {
+          .quill-radio-button-container:not(:last-of-type) {
+            padding-bottom: 12px;
+          }
+        }
       }
     }
   }
