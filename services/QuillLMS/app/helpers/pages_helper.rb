@@ -129,6 +129,11 @@ module PagesHelper
             img: 'team-ari-friedman.webp'
           },
           {
+            name: 'Samantha John',
+            title: 'Software Engineering Consultant',
+            img: 'team-samantha-john.webp'
+          },
+          {
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
             img: 'team-peter-kong.webp'
@@ -218,11 +223,6 @@ module PagesHelper
             name: 'Cissy Yu',
             title: 'Software Engineer II',
             img: 'team-cissy-yu.webp'
-          },
-          {
-            name: 'Samantha John',
-            title: 'Software Engineering Consultant',
-            img: 'team-samantha-john.webp'
           }
         ]
       }
