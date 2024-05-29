@@ -65,7 +65,7 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
         create(:admin_report_filter_selection, user: user, report: described_class::OVERVIEW_REPORT_NAME, filter_selections: overview_filter_selections)
       end
 
-      it do 
+      it do
         expect(AdminDiagnosticReports::SendCsvEmailWorker).to receive(:perform_async).with(*expected_params)
 
         subject.perform(user_id)
@@ -80,7 +80,7 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
         create(:admin_report_filter_selection, user: user, report: described_class::SKILL_REPORT_NAME, filter_selections: skills_filter_selections)
       end
 
-      it do 
+      it do
         expect(AdminDiagnosticReports::SendCsvEmailWorker).to receive(:perform_async).with(*expected_params)
 
         subject.perform(user_id)
@@ -95,7 +95,7 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
         create(:admin_report_filter_selection, user: user, report: described_class::STUDENT_REPORT_NAME, filter_selections: students_filter_selections)
       end
 
-      it do 
+      it do
         expect(AdminDiagnosticReports::SendCsvEmailWorker).to receive(:perform_async).with(*expected_params)
 
         subject.perform(user_id)

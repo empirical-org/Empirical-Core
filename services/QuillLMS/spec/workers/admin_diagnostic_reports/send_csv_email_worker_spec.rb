@@ -69,7 +69,7 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
         {
           timeframe_start: subject.send(:parse_datetime_string, timeframe['timeframe_start']),
           timeframe_end: subject.send(:parse_datetime_string, timeframe['timeframe_end']),
-          school_ids:, 
+          school_ids:,
           grades: shared_filters['grades'],
           teacher_ids: nil,
           classroom_ids: nil,

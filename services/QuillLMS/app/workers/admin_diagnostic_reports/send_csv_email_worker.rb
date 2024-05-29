@@ -22,7 +22,7 @@ module AdminDiagnosticReports
       {
         timeframe_start: parse_datetime_string(timeframe['timeframe_start']),
         timeframe_end: parse_datetime_string(timeframe['timeframe_end']),
-        school_ids:, 
+        school_ids:,
         grades: filters.fetch('grades', nil),
         teacher_ids: filters.fetch('teacher_ids', nil),
         classroom_ids: filters.fetch('classroom_ids', nil),
@@ -77,8 +77,8 @@ module AdminDiagnosticReports
       unique_base_keys = (base_data&.first&.keys || []) - (supplemental_data&.first&.keys || [])
       unique_supplemental_keys = (supplemental_data&.first&.keys || []) - (base_data&.first&.keys || [])
 
-      base_data_fallback = unique_base_keys.to_h{|key| [key, nil]}
-      supplemental_data_fallback = unique_supplemental_keys.to_h{|key| [key, nil]}
+      base_data_fallback = unique_base_keys.index_with{nil}
+      supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
 
       all_aggregate_ids.map do |aggregate_id|
         left_data = base_data&.find{|row| row[:aggregate_id] == aggregate_id} || base_data_fallback

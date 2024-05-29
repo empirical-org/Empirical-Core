@@ -15,6 +15,6 @@ module AdminDiagnosticReports
       email = 'thomas@quill.org' # TODO: replace this with user.email
 
       mail to: email, subject: "Your Quill Diagnostic Growth Report is ready"
-    end 
+    end
   end
 end

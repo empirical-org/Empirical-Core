@@ -64,10 +64,10 @@ module Adapters
       end
 
       def self.format_all_caps = ->(x) { x.upcase }
-      def self.format_as_minutes_string = ->(x) { x.present? ? "#{x.round / 60}:#{(x.round % 60).to_s.rjust(2, "0")}" : format_blank_as_zero.call(x) }
+      def self.format_as_minutes_string = ->(x) { x.present? ? "#{x.round / 60}:#{(x.round % 60).to_s.rjust(2, '0')}" : format_blank_as_zero.call(x) }
       def self.format_percent_as_integer = ->(x) { x.present? ? format_as_rounded_integer.call(x * 100) : format_blank_as_zero.call(x) }
       def self.format_as_rounded_integer = ->(x) { x.present? ? x.round : format_blank_as_zero.call(x) }
-      def self.format_blank_as_zero = ->(x) { x.blank? ? 0 : x }
+      def self.format_blank_as_zero = ->(x) { x.presence || 0 }
     end
   end
 end
