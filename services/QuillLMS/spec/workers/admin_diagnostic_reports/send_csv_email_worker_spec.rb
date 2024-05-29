@@ -36,8 +36,8 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
       allow(AdminDiagnosticReports::PreDiagnosticAssignedViewQuery).to receive(:run).and_return(mock_pre_assigned_payload)
       allow(AdminDiagnosticReports::PreDiagnosticCompletedViewQuery).to receive(:run).and_return(mock_pre_completed_payload)
       allow(AdminDiagnosticReports::DiagnosticRecommendationsQuery).to receive(:run).and_return(mock_recommendations_payload)
-      allow(AdminDiagnosticReports::PostDiagnosticAssignedViewQuery).to receive(:run).and_return(mock_pre_assigned_payload)
-      allow(AdminDiagnosticReports::PostDiagnosticCompletedViewQuery).to receive(:run).and_return(mock_pre_completed_payload)
+      allow(AdminDiagnosticReports::PostDiagnosticAssignedViewQuery).to receive(:run).and_return(mock_post_assigned_payload)
+      allow(AdminDiagnosticReports::PostDiagnosticCompletedViewQuery).to receive(:run).and_return(mock_post_completed_payload)
 
       allow(AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery).to receive(:run).and_return(mock_skill_payload)
 
@@ -235,9 +235,14 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
               pre_average_score: 0.5708,
               pre_students_completed: 3012,
               post_students_assigned: 2057,
+              overall_skill_growth: 0.1442,
+              post_students_completed: 1158,
+              average_practice_activities_count: 19.4781,
+              average_time_spent_seconds: 5954.5283,
+              students_completed_practice: 1215,
               aggregate_rows: [
-                {aggregate_id: "9", pre_students_assigned: 2994, pre_average_score: 0.5557, pre_students_completed: 2284, post_students_assigned: 1797},
-                {aggregate_id: "10", pre_students_assigned: 417, pre_average_score: 0.6497, pre_students_completed: 329, post_students_assigned: 96}
+                {aggregate_id: "9", pre_students_assigned: 2994, pre_average_score: 0.5557, pre_students_completed: 2284, post_students_assigned: 1797, overall_skill_growth: 0.1463, post_students_completed: 1056, average_practice_activities_count: 19.5791, average_time_spent_seconds: 6041.9606, students_completed_practice: 1093},
+                {aggregate_id: "10", pre_students_assigned: 417, pre_average_score: 0.6497, pre_students_completed: 329, post_students_assigned: 96, overall_skill_growth: 0.0754, post_students_completed: 37, average_practice_activities_count: 14.6666, average_time_spent_seconds: 4466, students_completed_practice: 3}
               ]
             },
             {
@@ -246,12 +251,23 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
               pre_average_score: 0.4544,
               pre_students_completed: 1340,
               post_students_assigned: 745,
+              overall_skill_growth: 0.1014,
+              post_students_completed: 473,
+              average_practice_activities_count: 26.5725,
+              average_time_spent_seconds: 7010.8548,
+              students_completed_practice: 627,
               aggregate_rows: [
-                {aggregate_id: "9", pre_students_assigned: 1385, pre_average_score: 0.4534, pre_students_completed: 1036, post_students_assigned: 682},
-                {aggregate_id: "10", pre_students_assigned: 108, pre_average_score: 0.4309, pre_students_completed: 81}
+                {aggregate_id: "9", pre_students_assigned: 1385, pre_average_score: 0.4534, pre_students_completed: 1036, post_students_assigned: 682, overall_skill_growth: 0.1037, post_students_completed: 437, average_practice_activities_count: 26.4242, average_time_spent_seconds: 6989.6919, students_completed_practice: 568},
+                {aggregate_id: "10", pre_students_assigned: 108, pre_average_score: 0.4309, pre_students_completed: 81, post_students_assigned: nil, overall_skill_growth: nil, post_students_completed: 0, average_practice_activities_count: 13.7857, average_time_spent_seconds: 4167.5714, students_completed_practice: 14}
               ]
             }
           ]
+        end
+
+        it do
+          expect(Adapters::Csv::AdminDiagnosticOverviewDataExport).to receive(:to_csv_string).with(combined_payload)
+
+          subject.perform(*default_params)
         end
       end
 
