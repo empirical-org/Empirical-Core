@@ -55,11 +55,7 @@ module AdminDiagnosticReports
       base_keys = base_data.first&.keys || []
       supplemental_keys = supplemental_data.first&.keys || []
 
-      unique_base_keys = base_keys - supplemental_keys
-      unique_supplemental_keys = supplemental_keys - base_keys
-
-      base_data_fallback = unique_base_keys.index_with{nil}
-      supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
+      base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data)
 
       merged_data = diagnostic_ids.map do |diagnostic_id|
         left_data = base_data.find{|row| row[:diagnostic_id] == diagnostic_id} || base_data_fallback
@@ -74,11 +70,7 @@ module AdminDiagnosticReports
     private def merge_aggregate_rows(base_data, supplemental_data)
       all_aggregate_ids = ((base_data&.map{|row| row[:aggregate_id]} || []) + (supplemental_data&.map{|row| row[:aggregate_id]} || [])).uniq
 
-      unique_base_keys = (base_data&.first&.keys || []) - (supplemental_data&.first&.keys || [])
-      unique_supplemental_keys = (supplemental_data&.first&.keys || []) - (base_data&.first&.keys || [])
-
-      base_data_fallback = unique_base_keys.index_with{nil}
-      supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
+      base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data)
 
       all_aggregate_ids.map do |aggregate_id|
         left_data = base_data&.find{|row| row[:aggregate_id] == aggregate_id} || base_data_fallback
@@ -86,6 +78,16 @@ module AdminDiagnosticReports
 
         left_data.merge(right_data)
       end
+    end
+
+    private def generate_fallback_hashes(base_data, supplemental_data)
+      unique_base_keys = (base_data&.first&.keys || []) - (supplemental_data&.first&.keys || [])
+      unique_supplemental_keys = (supplemental_data&.first&.keys || []) - (base_data&.first&.keys || [])
+
+      base_data_fallback = unique_base_keys.index_with{nil}
+      supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
+
+      [base_data_fallback, supplemental_data_fallback]
     end
 
     private def skills_link
