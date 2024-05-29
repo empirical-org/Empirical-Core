@@ -30,7 +30,9 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
     end
 
     before do
-      allow(subject).to receive(:school_ids).and_return(school_ids)
+      allow(User).to receive(:find).with(user_id).and_return(user)
+      allow(user).to receive(:administered_premium_schools).and_return(schools)
+
       allow(Snapshots::Timeframes).to receive(:calculate_timeframes).with(described_class::DEFAULT_TIMEFRAME).and_return(stub_timeframe)
     end
 
