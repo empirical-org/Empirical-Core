@@ -149,6 +149,11 @@ module PagesHelper
             img: 'team-stephanee-mccadney.webp'
           },
           {
+            name: 'Katie McNeil',
+            title: 'Marketing Manager',
+            img: 'team-katie-mcneil.webp'
+          },
+          {
             name: 'Scarlet Melo',
             title: 'Instructional Coach',
             img: 'team-scarlet-melo.webp'
