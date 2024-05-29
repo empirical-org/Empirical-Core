@@ -1,5 +1,5 @@
 .student-profile-unit {
-  border-radius: 6px;
+  border-radius: 8px;
   border: solid 1px $quill-grey-5;
   background-color: $quill-white;
   margin-bottom: 24px;
@@ -29,6 +29,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: $quill-grey-1;
+    border-radius: 8px 8px 0px 0px;
     h2 {
       font-size: 20px;
       font-weight: bold;
