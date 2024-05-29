@@ -58,8 +58,8 @@ module AdminDiagnosticReports
       unique_base_keys = base_keys - supplemental_keys
       unique_supplemental_keys = supplemental_keys - base_keys
 
-      base_data_fallback = unique_base_keys.to_h{|key| [key, nil]}
-      supplemental_data_fallback = unique_supplemental_keys.to_h{|key| [key, nil]}
+      base_data_fallback = unique_base_keys.index_with{nil}
+      supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
 
       merged_data = diagnostic_ids.map do |diagnostic_id|
         left_data = base_data.find{|row| row[:diagnostic_id] == diagnostic_id} || base_data_fallback
