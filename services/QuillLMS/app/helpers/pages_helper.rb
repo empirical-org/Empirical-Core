@@ -218,6 +218,11 @@ module PagesHelper
             name: 'Cissy Yu',
             title: 'Software Engineer II',
             img: 'team-cissy-yu.webp'
+          },
+          {
+            name: 'Samantha John',
+            title: 'Software Engineering Consultant',
+            img: 'team-samantha-john.webp'
           }
         ]
       }
