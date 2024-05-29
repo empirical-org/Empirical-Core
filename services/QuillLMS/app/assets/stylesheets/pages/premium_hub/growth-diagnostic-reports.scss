@@ -314,12 +314,12 @@ main {
       p:first-of-type {
         margin-right: 3px;
       }
-      a {
+      button {
         font-weight: 700;
         color: $quill-green;
       }
     }
-    button {
+    .quill-button {
       margin-top: 16px;
       padding: 13px 16px;
       border-radius: 8px;
