@@ -48,6 +48,9 @@
 .checkbox-container {
   display: flex;
   align-items: center;
+  .quill-checkbox:focus {
+    outline-offset: 3px;
+  }
   span:last-of-type {
     margin-left: 8px;
     &.disabled {
