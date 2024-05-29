@@ -52,8 +52,11 @@ module AdminDiagnosticReports
     private def merge_results(base_data, supplemental_data)
       diagnostic_ids = (base_data.map{|row| row[:diagnostic_id]} + supplemental_data.map{|row| row[:diagnostic_id]}).uniq
 
-      unique_base_keys = base_data.first.keys - supplemental_data.first.keys
-      unique_supplemental_keys = supplemental_data.first.keys - base_data.first.keys
+      base_keys = base_data.first&.keys || []
+      supplemental_keys = supplemental_data.first&.keys || []
+
+      unique_base_keys = base_keys - supplemental_keys
+      unique_supplemental_keys = supplemental_keys - base_keys
 
       base_data_fallback = unique_base_keys.to_h{|key| [key, nil]}
       supplemental_data_fallback = unique_supplemental_keys.to_h{|key| [key, nil]}
@@ -112,7 +115,7 @@ module AdminDiagnosticReports
       # store! returns nil on failure, rather than raising an exception.
       # We address this gotcha by manually raising an exception.
       upload_status = uploader.store!(csv_tempfile)
-      raise CloudUploadError, "Unable to upload CSV for user #{user_id}" unless upload_status
+      raise CloudUploadError, "Unable to upload CSV for user #{@user.id}" unless upload_status
 
       # The response-content-disposition param triggers browser file download instead of screen rendering
       uploader.url(query: {"response-content-disposition" => "attachment;"})
