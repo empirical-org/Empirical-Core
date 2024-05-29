@@ -7,7 +7,7 @@ exports[`RadioButton it should render 1`] = `
   >
     <button
       aria-checked="true"
-      class="quill-radio-button interactive-wrapper selected  light"
+      class="quill-radio-button interactive-wrapper selected  light focus-on-light"
       role="checkbox"
       type="button"
     >
@@ -16,7 +16,7 @@ exports[`RadioButton it should render 1`] = `
       />
     </button>
     <span
-      class=" light"
+      class=" light focus-on-light"
     >
       test label
     </span>

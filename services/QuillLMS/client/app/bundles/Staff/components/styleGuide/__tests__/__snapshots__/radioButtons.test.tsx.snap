@@ -37,7 +37,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  light"
+                class="quill-radio-button interactive-wrapper unselected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -46,7 +46,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -56,7 +56,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  light"
+                class="quill-radio-button interactive-wrapper unselected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -65,7 +65,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -75,7 +75,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  light"
+                class="quill-radio-button interactive-wrapper unselected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -84,7 +84,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -107,7 +107,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  light"
+                class="quill-radio-button interactive-wrapper unselected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -116,7 +116,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -126,7 +126,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="true"
-                class="quill-radio-button interactive-wrapper selected  light"
+                class="quill-radio-button interactive-wrapper selected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -135,7 +135,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -145,7 +145,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  light"
+                class="quill-radio-button interactive-wrapper unselected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -154,7 +154,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -177,7 +177,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected disabled light"
+                class="quill-radio-button interactive-wrapper unselected disabled light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -186,7 +186,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class="disabled light"
+                class="disabled light focus-on-light"
               >
                 Text
               </span>
@@ -196,7 +196,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected disabled light"
+                class="quill-radio-button interactive-wrapper unselected disabled light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -205,7 +205,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class="disabled light"
+                class="disabled light focus-on-light"
               >
                 Text
               </span>
@@ -215,7 +215,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected disabled light"
+                class="quill-radio-button interactive-wrapper unselected disabled light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -224,7 +224,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class="disabled light"
+                class="disabled light focus-on-light"
               >
                 Text
               </span>
@@ -256,7 +256,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  light"
+                class="quill-radio-button interactive-wrapper unselected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -265,7 +265,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -275,7 +275,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="true"
-                class="quill-radio-button interactive-wrapper selected  light"
+                class="quill-radio-button interactive-wrapper selected  light focus-on-light"
                 role="checkbox"
                 type="button"
               >
@@ -284,7 +284,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" light"
+                class=" light focus-on-light"
               >
                 Text
               </span>
@@ -307,7 +307,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="false"
-                class="quill-radio-button interactive-wrapper unselected  dark"
+                class="quill-radio-button interactive-wrapper unselected  dark focus-on-dark"
                 role="checkbox"
                 type="button"
               >
@@ -316,7 +316,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" dark"
+                class=" dark focus-on-dark"
               >
                 Text
               </span>
@@ -326,7 +326,7 @@ exports[`RadioButtons it should render 1`] = `
             >
               <button
                 aria-checked="true"
-                class="quill-radio-button interactive-wrapper selected  dark"
+                class="quill-radio-button interactive-wrapper selected  dark focus-on-dark"
                 role="checkbox"
                 type="button"
               >
@@ -335,7 +335,7 @@ exports[`RadioButtons it should render 1`] = `
                 />
               </button>
               <span
-                class=" dark"
+                class=" dark focus-on-dark"
               >
                 Text
               </span>

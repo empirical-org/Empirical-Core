@@ -13,7 +13,7 @@ interface radioButtonProps {
 }
 
 export const RadioButton = ({ label, mode = LIGHT, onClick, state, selected, value }: radioButtonProps) => {
-  const elementClass = `${state === DISABLED ? DISABLED : ''} ${mode}`
+  const elementClass = `${state === DISABLED ? DISABLED : ''} ${mode === LIGHT ? `${mode} focus-on-light` : `${mode} focus-on-dark`}`
 
   return (
     <div className="quill-radio-button-container">

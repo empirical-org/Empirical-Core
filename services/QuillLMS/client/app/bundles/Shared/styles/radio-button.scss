@@ -20,6 +20,9 @@
     &.disabled {
       border: 2px solid $quill-grey-15;
     }
+    &:focus {
+      outline-offset: 2px;
+    }
   }
   span {
     margin-left: 8px;
