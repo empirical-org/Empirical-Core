@@ -53,6 +53,7 @@ Evidence::Engine.routes.draw do
       resources :passage_prompts, only: [:new, :create, :show, :index]
       resources :passages, only: [:new, :create, :show]
       resources :auto_chain_of_thoughts, only: [:new, :create]
+      resources :g_evals, only: [:new, :create, :show]
     end
   end
 end

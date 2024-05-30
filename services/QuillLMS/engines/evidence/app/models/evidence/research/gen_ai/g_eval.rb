@@ -35,7 +35,7 @@ module Evidence
           :max_score,
           :version
 
-        before_create :set_version
+        before_validation :set_version
 
         scope :selectable, -> { where(selectable: true) }
 
