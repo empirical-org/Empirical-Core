@@ -51,6 +51,7 @@ module Evidence
           :accuracy_identical,
           :accuracy_optimal_sub_optimal,
           :confusion_matrix,
+          :g_eval_ids,
           :g_evals
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id

@@ -38,7 +38,7 @@ module Evidence
         end
 
         private def g_evals
-          experiment.g_evals&.[]('ids')&.index_with do |g_eval_id|
+          experiment.g_eval_ids&.index_with do |g_eval_id|
             llm_feedbacks.map do |llm_feedback|
               GEvalRunner.run(g_eval_id:, llm_feedback:)
             end

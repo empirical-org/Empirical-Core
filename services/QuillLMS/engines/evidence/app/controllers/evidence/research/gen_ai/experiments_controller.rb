@@ -56,7 +56,7 @@ module Evidence
           @histogram = @experiment.api_call_times.map(&:round).tally if @experiment.api_call_times.present?
           @next = Experiment.where("id > ?", @experiment.id).order(id: :asc).first
           @previous = Experiment.where("id < ?", @experiment.id).order(id: :desc).first
-          @g_evals = GEval.where(id: @experiment.g_evals.keys).order(:id)
+          @g_evals = GEval.where(id: @experiment.g_eval_ids).order(:id)
         end
 
         def retry
@@ -66,8 +66,8 @@ module Evidence
         end
 
         private def run_experiment(llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples:)
-          results = { g_evals:  g_eval_ids.index_with { |id| [] } }
-          experiment = Experiment.new(llm_config_id:, passage_prompt_id:, llm_prompt_id:, num_examples:, results:)
+          experiment = Experiment.new(llm_config_id:, passage_prompt_id:, llm_prompt_id:, num_examples:)
+          experiment.results = { g_eval_ids: }
 
           RunExperimentWorker.perform_async(experiment.id) if experiment.save
         end
