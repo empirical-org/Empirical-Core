@@ -3014,6 +3014,44 @@ ALTER SEQUENCE public.evidence_research_gen_ai_experiments_id_seq OWNED BY publi
 
 
 --
+-- Name: evidence_research_gen_ai_g_evals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_g_evals (
+    id bigint NOT NULL,
+    task_introduction text NOT NULL,
+    evaluation_criteria text NOT NULL,
+    evaluation_steps text NOT NULL,
+    metric character varying NOT NULL,
+    max_score integer NOT NULL,
+    selectable boolean DEFAULT true,
+    misc jsonb DEFAULT '{}'::jsonb,
+    version integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_g_evals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_g_evals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.evidence_research_gen_ai_g_evals.id;
+
+
+--
 -- Name: evidence_research_gen_ai_llm_configs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6440,6 +6478,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_experiments ALTER COLUMN id SET
 
 
 --
+-- Name: evidence_research_gen_ai_g_evals id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_g_evals ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_g_evals_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_llm_configs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7642,6 +7687,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_example_feedbacks
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_experiments
     ADD CONSTRAINT evidence_research_gen_ai_experiments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_g_evals evidence_research_gen_ai_g_evals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_g_evals
+    ADD CONSTRAINT evidence_research_gen_ai_g_evals_pkey PRIMARY KEY (id);
 
 
 --
@@ -11360,6 +11413,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240411135759'),
 ('20240425125302'),
 ('20240513162849'),
-('20240521201204');
+('20240521201204'),
+('20240529125138');
 
 
