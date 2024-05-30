@@ -324,7 +324,7 @@ lower_count_questions = [{:uid=>"-Jzw0qjJeHLqN6eDQTJk", :count=>349, :new_uid=>"
  {:uid=>"-Jzw0qjQwbyM2twtkmWZ", :count=>3460, :new_uid=>"74448d32-1aa1-4ead-bb05-b2fa4d95207f"}]
 =end
 
-# took 13 minutes to run this in staging
+# took 34 minutes to run this in staging
 
 start_time = Time.now
 lower_count_questions.each do |question|
