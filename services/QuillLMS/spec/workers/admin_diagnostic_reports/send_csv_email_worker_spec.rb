@@ -78,7 +78,7 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
       end
 
       context 'overview payload' do
-        let(:expected_payload) { shared_payload.merge(overview_filters) }
+        let(:expected_payload) { shared_payload.merge(overview_filters.symbolize_keys) }
 
         it do
           expect(AdminDiagnosticReports::PreDiagnosticAssignedViewQuery)
@@ -91,7 +91,7 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
       end
 
       context 'skills payload' do
-        let(:expected_payload) { shared_payload.merge(skills_filters) }
+        let(:expected_payload) { shared_payload.merge(skills_filters.symbolize_keys) }
 
         it do
           expect(AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery)
@@ -104,7 +104,7 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
       end
 
       context 'students payload' do
-        let(:expected_payload) { shared_payload.merge(students_filters) }
+        let(:expected_payload) { shared_payload.merge(students_filters.symbolize_keys) }
 
         it do
           expect(AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery)
