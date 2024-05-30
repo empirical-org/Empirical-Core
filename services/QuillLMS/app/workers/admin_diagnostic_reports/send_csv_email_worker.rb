@@ -11,9 +11,9 @@ module AdminDiagnosticReports
     def perform(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
       @user = User.find(user_id)
       @payload = generate_query_payload(timeframe, school_ids, shared_filters)
-      @overview_filters = overview_filters
-      @skills_filters = skills_filters
-      @students_filters = students_filters
+      @overview_filters = overview_filters.symbolize_keys
+      @skills_filters = skills_filters.symbolize_keys
+      @students_filters = students_filters.symbolize_keys
 
       ReportMailer.csv_download_email(user_id, overview_link, skills_link, students_link).deliver_now!
     end
