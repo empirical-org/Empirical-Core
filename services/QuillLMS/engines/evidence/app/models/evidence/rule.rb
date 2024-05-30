@@ -89,6 +89,12 @@ module Evidence
     validates :state, inclusion: {in: STATES}
     validates :suborder, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to: 0}
 
+    scope :active, -> {where(state: STATE_ACTIVE)}
+    scope :auto_ml, -> {where(rule_type: TYPE_AUTOML)}
+    scope :optimal, -> {where(optimal: true)}
+    scope :suboptimal, -> {where(optimal: false)}
+
+
     def serializable_hash(options = nil)
       options ||= {}
 

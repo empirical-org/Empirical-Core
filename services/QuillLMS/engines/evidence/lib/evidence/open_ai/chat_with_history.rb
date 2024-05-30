@@ -5,6 +5,7 @@ module Evidence
     class ChatWithHistory < Evidence::ApplicationService
       include Evidence::OpenAI::Concerns::Api
 
+
       ENDPOINT = '/chat/completions'
 
       MODEL = 'gpt-4-turbo'
@@ -18,6 +19,7 @@ module Evidence
 
       KEY_FEEDBACK = 'feedback'
       KEY_OPTIMAL = 'optimal'
+      KEY_HIGHLIGHT = 'highlight'
 
       attr_reader :system_prompt, :current_entry, :history, :temperature
 
@@ -64,6 +66,8 @@ module Evidence
 
         result[KEY_OPTIMAL]
       end
+
+      def highlight = result[KEY_HIGHLIGHT]
 
       # https://platform.openai.com/docs/api-reference/chat/create
       def request_body

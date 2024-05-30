@@ -15,12 +15,12 @@ module Evidence
         Evidence::Activity::SO_CONJUNCTION      => '1a5383e2-c52e-4b96-9c27-315380008d06'
       }
 
-      attr_reader :chat, :entry, :conjunction
+      attr_reader :chat, :entry, :prompt
 
-      def initialize(chat:, entry:, conjunction:)
+      def initialize(chat:, entry:, prompt:)
         @chat = chat
         @entry = entry
-        @conjunction = conjunction
+        @prompt = prompt
       end
 
       def run
@@ -37,13 +37,32 @@ module Evidence
           entry:,
           concept_uid: rule&.concept_uid,
           rule_uid:,
-          hint: nil
+          hint: nil,
+          highlight:,
         }
       end
 
+      private def conjunction = prompt.conjunction
       private def rule = Evidence::Rule.find_by(uid: rule_uid)
       private def rule_uid = rule_set[conjunction]
       private def rule_set = chat.optimal? ? RULES_OPTIMAL : RULES_SUBOPTIMAL
+
+
+      private def highlight_text
+        return nil if chat.highlight.nil?
+
+        prompt.distinct_highlight_texts[chat.highlight.to_i - 1]
+      end
+
+      private def highlight
+        return [] if highlight_text.nil?
+
+        [{
+          type: Evidence::Highlight::TYPE_PASSAGE,
+          text: highlight_text,
+          category: ''
+        }]
+      end
     end
   end
 end

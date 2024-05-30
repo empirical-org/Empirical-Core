@@ -26,7 +26,6 @@ module Evidence
           - %{example_two}
         ```
 
-
         A response is considered {'optimal' => false} if ANY of these are true:
         - The sentence doesn't include evidence from the text.
         - The sentence uses information that is outside of the source text.
@@ -44,11 +43,15 @@ module Evidence
         3. If the student is very far from an optimal response, e.g. is completely off topic. Ask the student to "Clear their response and start again." and ask them a question to help them get closer to the area of the answer.
         4. Only give one piece of direction in the feedback, e.g. this one direction is GOOD: "That's true! Now add more information about why driverless cars are helpful", but this TWO DIRECTIONS is BAD: "That's true! Now add more information about why driverless cars are helpful. Also, remove the mention of cost because that is not in the text."
 
-        JSON format with two keys
+        Highlight Guidelines:
+        1. Return a random integer between 1 and 2 for 'highlight'.
+
+        JSON format with three keys
         | Key | Type | description |
         |-----|------|-------------|
-        | optimal | boolean | 'true' if the answer is correct, 'false' if the answer is incorrect|
-        | feedback | string | the feedback text to show the student.
+        | optimal | boolean | 'true' if the answer is correct, 'false' if the answer is incorrect.|
+        | feedback | string | the feedback text to show the student.|
+        | highlight | integer | index of highlight used or null if a highlight is not needed.|
 
         This is the source text separated by backticks:
 
@@ -69,38 +72,62 @@ module Evidence
         Follow these steps:
         1. Combine the 'stem' and the student's answer to make the full sentence.
         2. Follow the "Optimal Guidelines" and determine whether the full sentence is 'optimal'(true/false).
-        3. Follow the "Feedback Guidelines" and write "feedback" for the student.
-        4. Return JSON with 'optimal' and 'feedback' keys from these steps.
+        3. Follow the "Feedback Guidelines" and write 'feedback' for the student.
+        4. Follow the "Highlight Guidelines" and determine the value the 'highlight' field.
+        5. If the 'highlight' is not null, add "Read the highlighted text for ideas." to the end of 'feedback'
+        6. Return JSON with 'optimal', 'feedback', and 'highlight' keys from these steps.
 
         Here are some example responses for a different activity (not this one) about driverless cars to give you an idea of tone and language of feedback:
-        - {'optimal' : false, 'feedback' : "Clear your response and try again. Focus on a positive of driverless cars. What is one way driverless cars could be good for society?"}
-        - {'optimal' : false, 'feedback' : "It's true that driverless cars could make driving more accessible, but that idea isn't found in this text. Clear your response and try again. This time, only use information you read about in the text."}
-        - {'optimal' : false, 'feedback' : "That's true! Now add more information. Why is it helpful that a driverless car can track objects around them?"}
-        - {'optimal' : false, 'feedback' : "That's true! Now add more information. Why do driverless cars reduce the number of car accidents?"}
-        - {'optimal' : false, 'feedback' : "Clear your response and try again. Many people think driverless cars are cool, but that's an opinion not expressed in the text. Focus your response on a way driverless cars might help society instead."}
-        - {'optimal' : false, 'feedback' : "The text doesn't mention the environmental impact of driverless cars. Clear your response and try again. This time, only use information you read about in the text."}
-        - {'optimal' : false, 'feedback' : "That's true! Now add more explanation. Why are driverless cars able to get people around faster?"}
-        - {'optimal' : true, 'feedback' : "Nice work! You used information from the text to explain how driverless cars could benefit society."}
-        - {'optimal' : false, 'feedback' : "Clear your response and try again. What is one way driverless cars could be helpful for society?"}
-        - {'optimal' : false, 'feedback' : "It's true that driverless cars can save lives, but the text doesn't talk about pollution. Remove that part from your sentence and focus your response on how driverless cars can save lives instead."}
-        - {'optimal' : false, 'feedback' : "It's true that companies are investing billions of dollars into driverless cars, but that's a result or outcome. Clear your response and try again. This time, use because to give a reason. Why might driverless cars be helpful for society?"}
+        - {'optimal' : false, 'highlight' : null, 'feedback' : "Clear your response and try again. Focus on a positive of driverless cars. What is one way driverless cars could be good for society?"}
+        - {'optimal' : false, 'highlight' : null, 'feedback' : "It's true that driverless cars could make driving more accessible, but that idea isn't found in this text. Clear your response and try again. This time, only use information you read about in the text."}
+        - {'optimal' : false, 'highlight' : null, 'feedback' : "That's true! Now add more information. Why is it helpful that a driverless car can track objects around them?"}
+        - {'optimal' : false, 'highlight' : 3, 'feedback' : "That's true! Now add more information. Why do driverless cars reduce the number of car accidents?"}
+        - {'optimal' : false, 'highlight' : 2, 'feedback' : "Clear your response and try again. Many people think driverless cars are cool, but that's an opinion not expressed in the text. Focus your response on a way driverless cars might help society instead. Read the highlighted text for ideas."}
+        - {'optimal' : false, 'highlight' : 1, 'feedback' : "The text doesn't mention the environmental impact of driverless cars. Clear your response and try again. This time, only use information you read about in the text. Read the highlighted text for ideas."}
+        - {'optimal' : false, 'highlight' : 2, 'feedback' : "That's true! Now add more explanation. Why are driverless cars able to get people around faster?  Read the highlighted text for ideas."}
+        - {'optimal' : true, 'highlight' : null, 'feedback' : "Nice work! You used information from the text to explain how driverless cars could benefit society."}
+        - {'optimal' : false, 'highlight' : null, 'feedback' : "Clear your response and try again. What is one way driverless cars could be helpful for society?"}
+        - {'optimal' : false, 'highlight' : null, 'feedback' : "It's true that driverless cars can save lives, but the text doesn't talk about pollution. Remove that part from your sentence and focus your response on how driverless cars can save lives instead."}
+        - {'optimal' : false, 'highlight' : 1, 'feedback' : "It's true that companies are investing billions of dollars into driverless cars, but that's a result or outcome. Clear your response and try again. This time, use because to give a reason. Why might driverless cars be helpful for society? Read the highlighted text for ideas."}
       TEXT
 
       TEMPLATE = ENV.fetch('GEN_AI_SYSTEM_PROMPT', DEFAULT_TEMPLATE)
 
-      attr_reader :prompt
+      attr_reader :prompt, :history
 
-      def initialize(prompt:)
+      def initialize(prompt:, history:)
         @prompt = prompt
+        @history = history
       end
 
-      def run = TEMPLATE % {passage:, plagiarism_text:, stem:, example_one:, example_two:}
+      def run = TEMPLATE % template_variables
+
+      private def template_variables
+        {
+          passage:,
+          plagiarism_text:,
+          stem:,
+          example_one:,
+          example_two:,
+          highlight_texts:,
+          feedback_history:,
+          percent_similar:
+        }
+      end
 
       private def passage = prompt.first_passage&.text
       private def plagiarism_text = prompt.plagiarism_text
       private def stem = prompt.text
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
+      private def highlight_texts
+        prompt.distinct_highlight_texts.map.with_index {|text,i| "#{i+1}. #{text}" }.join("\n")
+      end
+
+      private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
+
+      # Using a % in the template gave errors, so making this a variable
+      private def percent_similar = '90%'
     end
   end
 end

@@ -6,7 +6,7 @@ module Evidence
       HistoryItem = Struct.new(:entry, :feedback, keyword_init: true)
 
       def run
-        system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt: prompt)
+        system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, history:)
 
         chat = Evidence::OpenAI::ChatWithHistory.new(
           system_prompt:,
@@ -14,13 +14,12 @@ module Evidence
           history:
         )
 
-        @response = Evidence::GenAI::ResponseBuilder.run(chat:, entry:, conjunction:)
+        @response = Evidence::GenAI::ResponseBuilder.run(chat:, entry:, prompt:)
       end
 
       def use_for_optimal_feedback? = true
 
       private def current_entry = entry
-      private def conjunction = prompt.conjunction
 
       private def history
         session = Evidence.feedback_session_class.find_by(activity_session_uid: session_uid)
