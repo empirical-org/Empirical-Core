@@ -271,8 +271,8 @@ export const StudentSection = ({
     })
   }
 
-  function handleDiagnosticTypeOptionChange(option) {
-    setDiagnosticTypeValue(option)
+  function handleDiagnosticTypeOptionChange(option: DropdownObjectInterface) {
+    handleSetSelectedDiagnosticType(option)
   }
 
   function getInitialDiagnosticType() {
