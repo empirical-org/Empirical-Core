@@ -61,6 +61,7 @@ export const cancelLessonEdit = (cid: string) => {
 export const submitLessonEdit = (cid: string, content: GrammarActivity) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
+
     const cleanedContent = pickBy(content)
     GrammarActivityApi.update(cid, content).then(() => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });

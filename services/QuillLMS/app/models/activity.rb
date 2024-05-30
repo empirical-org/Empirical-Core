@@ -313,19 +313,31 @@ class Activity < ApplicationRecord
     serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
   end
 
-  private def update_evidence_title?
+  def update_questions_flag_status_if_necessary!
+    return unless flags.include?(:production)
+
+    question_ids = data["questions"].map{|q| q["key"]}
+    questions = Question.where("uid in (?)", question_ids)
+
+    questions.each do |question|
+      question.update_flag("production")
+    end
+  end
+
+  private
+  def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end
 
-  private def update_evidence_flags?
+  def update_evidence_flags?
     is_evidence? && saved_change_to_flags? && child_activity
   end
 
-  private def update_evidence_child_title
+  def update_evidence_child_title
     child_activity&.update(title: name)
   end
 
-  private def log_evidence_flag_change
+  def log_evidence_flag_change
     change_log = {
       user_id: @lms_user_id,
       action: ChangeLog::EVIDENCE_ACTIONS[:update],
@@ -339,15 +351,15 @@ class Activity < ApplicationRecord
     ChangeLog.create(change_log)
   end
 
-  private def data_must_be_hash
+  def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
   end
 
-  private def flag_as_beta
+  def flag_as_beta
     flag 'beta'
   end
 
-  private def lesson_url_helper
+  def lesson_url_helper
     base_url = "#{classification.module_url}#{uid}"
     initial_params = {
       classroom_unit_id: @activity_session.classroom_unit.id.to_s,
@@ -356,12 +368,12 @@ class Activity < ApplicationRecord
     construct_redirect_url(base_url, initial_params)
   end
 
-  private def connect_url_helper(initial_params)
+  def connect_url_helper(initial_params)
     base_url = "#{classification.module_url}#{uid}"
     construct_redirect_url(base_url, initial_params)
   end
 
-  private def evidence_url_helper(initial_params)
+  def evidence_url_helper(initial_params)
     base_url = classification.module_url.to_s
     # Rename "student" to "session" because it's called "student" in all tools other than Evidence
     initial_params[:session] = initial_params.delete :student if initial_params[:student]
@@ -369,7 +381,7 @@ class Activity < ApplicationRecord
     construct_redirect_url(base_url, initial_params)
   end
 
-  private def construct_redirect_url(base_url, initial_params)
+  def construct_redirect_url(base_url, initial_params)
     @url = Addressable::URI.parse(base_url)
     params = (@url.query_values || {})
     params.merge!(initial_params)
@@ -377,7 +389,7 @@ class Activity < ApplicationRecord
     fix_angular_fragment!
   end
 
-  private def module_url_helper(initial_params)
+  def module_url_helper(initial_params)
     return connect_url_helper(initial_params) if [ActivityClassification::DIAGNOSTIC_KEY, ActivityClassification::CONNECT_KEY].include?(classification.key)
     return lesson_url_helper if classification.key == ActivityClassification::LESSONS_KEY
     return evidence_url_helper(initial_params) if classification.key == ActivityClassification::EVIDENCE_KEY
@@ -390,7 +402,7 @@ class Activity < ApplicationRecord
     fix_angular_fragment!
   end
 
-  private def fix_angular_fragment!
+  def fix_angular_fragment!
     unless @url.fragment.blank?
       path = @url.path || '/'
       @url.path = "#{@url.path}##{@url.fragment}"
@@ -400,7 +412,7 @@ class Activity < ApplicationRecord
     @url
   end
 
-  private def validate_question(question)
+  def validate_question(question)
     if Question.find_by_uid(question[:key]).blank? && TitleCard.find_by_uid(question[:key]).blank?
       errors.add(:question, "Question #{question[:key]} does not exist.")
       return false
@@ -412,7 +424,7 @@ class Activity < ApplicationRecord
     return true
   end
 
-  private def populate_question_count
+  def populate_question_count
     self.question_count = QuestionCounter.run(self)
   end
 
