@@ -129,6 +129,11 @@ module PagesHelper
             img: 'team-ari-friedman.webp'
           },
           {
+            name: 'Samantha John',
+            title: 'Software Engineering Consultant',
+            img: 'team-samantha-john.webp'
+          },
+          {
             name: 'Peter Kong',
             title: 'Senior Software Engineer II',
             img: 'team-peter-kong.webp'
@@ -142,6 +147,11 @@ module PagesHelper
             name: 'Stephanee McCadney',
             title: 'Senior Curriculum Developer',
             img: 'team-stephanee-mccadney.webp'
+          },
+          {
+            name: 'Katie McNeil',
+            title: 'Marketing Manager',
+            img: 'team-katie-mcneil.webp'
           },
           {
             name: 'Scarlet Melo',

@@ -1,0 +1,36 @@
+.quill-radio-button-container {
+  display: flex;
+  align-items: center;
+  .quill-radio-button {
+    width: 14px;
+    height: 14px;
+    border: 2px solid $quill-grey-40;
+    border-radius: 10px;
+    &.light {
+      &.selected {
+       border:4.5px solid $quill-green;
+      }
+    }
+    &.dark {
+      border: 2px solid $quill-white;
+      &.selected {
+        border: 4.5px solid $quill-white;
+      }
+    }
+    &.disabled {
+      border: 2px solid $quill-grey-15;
+    }
+    &:focus {
+      outline-offset: 2px;
+    }
+  }
+  span {
+    margin-left: 8px;
+    &.disabled {
+      color: $quill-grey-30;
+    }
+    &.dark {
+      color: $quill-white;
+    }
+  }
+}

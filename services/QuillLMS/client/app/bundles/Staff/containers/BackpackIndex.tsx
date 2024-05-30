@@ -14,6 +14,7 @@ import Snackbars from '../components/styleGuide/snackbars'
 import TextFields from '../components/styleGuide/textFields'
 import Tooltips from '../components/styleGuide/tooltips'
 import Checkboxes from '../components/styleGuide/checkBoxes'
+import RadioButtons from '../components/styleGuide/radioButtons'
 
 export default class BackpackIndex extends React.Component {
   renderLink(href, text) {
@@ -52,6 +53,7 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#menus-with-search-tokens', 'Menus (DropdownInputs) with Search Tokens')}
             {this.renderLink('#textFields', 'Text Fields (Inputs)')}
             {this.renderLink('#checkboxes', 'Checkboxes')}
+            {this.renderLink('#radio-buttons', 'Radio Buttons')}
             {this.renderLink('#snackbars', 'Snackbars')}
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
@@ -72,6 +74,7 @@ export default class BackpackIndex extends React.Component {
           <DropdownInputsWithSearchTokens />
           <TextFields />
           <Checkboxes />
+          <RadioButtons />
           <Snackbars />
           <Tooltips />
           <DataTables />

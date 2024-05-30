@@ -69,6 +69,10 @@ export {
 } from './passthrough'
 
 export {
+  RadioButton
+} from './radioButton'
+
+export {
   ResumeOrBeginButton
 } from './resumeOrBeginButton'
 

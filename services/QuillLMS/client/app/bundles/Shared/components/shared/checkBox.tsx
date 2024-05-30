@@ -19,6 +19,7 @@ interface checkboxProps {
 
 export const Checkbox = ({ label, mode=LIGHT, onClick, state, selected }: checkboxProps) => {
   const labelClass = `${state === DISABLED ? DISABLED : ''} ${mode}`
+  const modeClass = mode === LIGHT ? `${mode} focus-on-light` : `${mode} focus-on-dark`
 
   function renderCheck() {
     if (state === INDETERMINATE) { return <img alt="dash" src={mode === DARK ? indeterminateBlackSrc : indeterminateWhiteSrc} /> }
@@ -27,20 +28,20 @@ export const Checkbox = ({ label, mode=LIGHT, onClick, state, selected }: checkb
   }
 
   function renderCheckbox() {
-    let checkbox = (<button aria-checked={selected} className={`quill-checkbox unselected ${mode}`} onClick={onClick} role="checkbox" type="button">
+    let checkbox = (<button aria-checked={selected} className={`quill-checkbox unselected ${modeClass}`} onClick={onClick} role="checkbox" type="button">
       {renderCheck()}
     </button>)
     if (state === INDETERMINATE) {
-      checkbox = (<button aria-checked={selected} className={`quill-checkbox indeterminate ${mode}`} onClick={onClick} role="checkbox" type="button">
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox indeterminate ${modeClass}`} onClick={onClick} role="checkbox" type="button">
         {renderCheck()}
       </button>)
 
     } else if (state === DISABLED) {
-      checkbox = (<button aria-checked={selected} className={`quill-checkbox ${selected ? 'selected' : 'unselected'} ${mode} disabled`} role="checkbox" type="button">
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox ${selected ? 'selected' : 'unselected'} ${modeClass} disabled`} role="checkbox" type="button">
         {renderCheck()}
       </button>)
     } else if (selected) {
-      checkbox = (<button aria-checked={selected} className={`quill-checkbox selected ${mode}`} onClick={onClick} role="checkbox" type="button">
+      checkbox = (<button aria-checked={selected} className={`quill-checkbox selected ${modeClass}`} onClick={onClick} role="checkbox" type="button">
         {renderCheck()}
       </button>)
     }
