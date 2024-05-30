@@ -388,6 +388,7 @@ lower_count_questions.each do |lower_count_question|
 
     # archive the old question
     old_question.data['flag'] = Question::FLAG_ARCHIVED
+    old_question.data['uid_after_deduplication'] = new_uid
     old_question.save!
   rescue => e
     puts e.message
