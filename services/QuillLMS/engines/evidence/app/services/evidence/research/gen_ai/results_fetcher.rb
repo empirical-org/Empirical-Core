@@ -12,10 +12,11 @@ module Evidence
 
         base_uri BASE_URI
 
-        attr_reader :llm_feedbacks, :predictions, :references
+        attr_reader :experiment, :llm_feedbacks, :predictions, :references
 
-        def initialize(llm_feedbacks)
-          @llm_feedbacks = llm_feedbacks
+        def initialize(experiment)
+          @experiment = experiment
+          @llm_feedbacks = experiment.llm_feedbacks
           @predictions = llm_feedbacks.map(&:text)
           @references = llm_feedbacks.map(&:example_feedback).map(&:text)
         end
@@ -25,6 +26,7 @@ module Evidence
             accuracy_identical:,
             accuracy_optimal_sub_optimal: optimal_and_sub_optimal_results[:accuracy],
             confusion_matrix: optimal_and_sub_optimal_results[:confusion_matrix],
+            g_evals:,
             misc_metrics:
           }
         end
@@ -33,6 +35,14 @@ module Evidence
           return nil if llm_feedbacks.empty?
 
           1.0 * llm_feedbacks.select(&:identical_feedback?).size / llm_feedbacks.size
+        end
+
+        private def g_evals
+          experiment.g_evals&.[]('ids')&.index_with do |g_eval_id|
+            llm_feedbacks.map do |llm_feedback|
+              GEvalRunner.run(g_eval_id:, llm_feedback:)
+            end
+          end
         end
 
         private def optimal_and_sub_optimal_results

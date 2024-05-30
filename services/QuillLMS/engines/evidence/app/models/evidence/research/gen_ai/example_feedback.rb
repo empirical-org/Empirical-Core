@@ -40,7 +40,7 @@ module Evidence
         scope :fine_tuning_data, -> { where(data_partition: FINE_TUNING_DATA) }
         scope :prompt_engineering_data, -> { where(data_partition: PROMPT_ENGINEERING_DATA) }
 
-        def response_and_feedback = { response:, feedback: text }.to_json
+        def response_and_feedback = { response:, feedback: text, optimal: optimal? }.to_json
 
         def to_s = text
       end
