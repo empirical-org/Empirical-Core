@@ -25,7 +25,7 @@ module Evidence
         private def passage_prompt_params
           params
             .require(:research_gen_ai_passage_prompt)
-            .permit(:conjunction, :instructions, :prompt, :passage_id)
+            .permit(:conjunction, :instructions, :prompt, :passage_id, :relevant_passage)
         end
       end
     end

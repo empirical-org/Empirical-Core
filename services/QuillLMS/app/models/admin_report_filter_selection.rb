@@ -22,6 +22,9 @@ class AdminReportFilterSelection < ApplicationRecord
   REPORTS = [
     DATA_EXPORT = 'data_export',
     DIAGNOSTIC_GROWTH_REPORT = 'diagnostic_growth_report',
+    DIAGNOSTIC_GROWTH_REPORT_OVERVIEW = 'diagnostic_growth_report_overview',
+    DIAGNOSTIC_GROWTH_REPORT_SKILL = 'diagnostic_growth_report_skill',
+    DIAGNOSTIC_GROWTH_REPORT_STUDENT = 'diagnostic_growth_report_student',
     USAGE_SNAPSHOT_REPORT = 'usage_snapshot_report',
     USAGE_SNAPSHOT_REPORT_PDF = 'usage_snapshot_report_pdf'
   ]

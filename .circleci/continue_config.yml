@@ -240,6 +240,44 @@ jobs:
                   cd services/QuillLMS
                   TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
                   bin/rspec ${TESTFILES} --tag big_query_snapshot
+  lessons_server_build:
+    parameters:
+      <<: *should_run_params
+    working_directory: ~/Empirical-Core
+    parallelism: 4
+    docker:
+      - image: cimg/node:14.21
+    steps:
+      - run:
+          <<: *blank_required_step
+      - when:
+          condition: << parameters.should-run >>
+          steps:
+            - checkout
+            - run:
+                name: Install npm 8
+                command: |
+                  sudo npm install npm@8.19.2 -g
+            - restore_cache:
+                keys:
+                  - npm-cache-lessons-server-v1-{{ checksum "services/QuillLessonsServer/package.json" }}-{{ checksum "services/QuillLessonsServer/package-lock.json" }}
+                  - npm-cache-lessons-server-v1-{{ checksum "services/QuillLessonsServer/package.json" }}-
+                  - npm-cache-lessons-server-v1-
+            - run:
+                name: Install NPM dependencies
+                command: |
+                  cd services/QuillLessonsServer
+                  npm install --legacy-peer-deps
+            - save_cache:
+                key: npm-cache-lessons-server-v1-{{ checksum "services/QuillLessonsServer/package.json" }}-{{ checksum "services/QuillLessonsServer/package-lock.json" }}
+                paths:
+                  - services/QuillLessonsServer/node_modules
+            - run:
+                name: Run Lessons Server Jest Tests
+                command: |
+                  cd services/QuillLessonsServer
+                  node --expose-gc ./node_modules/.bin/jest test --maxWorkers=2 --logHeapUsage
+
   lms_node_build:
     parameters:
       <<: *should_run_params
@@ -470,6 +508,9 @@ parameters:
   lms-run-javascript:
     type: boolean
     default: false
+  lessons-server-run:
+    type: boolean
+    default: false
   lms-run-queries:
     type: boolean
     default: false
@@ -503,6 +544,9 @@ workflows:
           <<: *default_filter
       - lms_node_build:
           should-run: << pipeline.parameters.lms-run-javascript >>
+          <<: *default_filter
+      - lessons_server_build:
+          should-run: << pipeline.parameters.lessons-server-run >>
           <<: *default_filter
       - lms_big_query_build:
           should-run: << pipeline.parameters.lms-run-queries >>

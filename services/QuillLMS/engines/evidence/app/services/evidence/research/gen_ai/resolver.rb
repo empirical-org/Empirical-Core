@@ -4,38 +4,67 @@ module Evidence
   module Research
     module GenAI
       class Resolver < ApplicationService
-        attr_reader :feedback
 
         class ResolverError < StandardError; end
         class NilFeedbackError < ResolverError; end
         class EmptyFeedbackError < ResolverError; end
         class BlankTextError < ResolverError; end
+        class InvalidJSONError < ResolverError; end
+        class UnknownJSONStructureError < ResolverError; end
 
-        FEEDBACK_MARKER = 'Feedback:'
+        # The order of these methods is important
+        FEEDBACK_METHODS = %i[
+          feedback
+          properties_feedback
+          properties_feedback_value
+          properties_feedback_enum
+        ]
 
-        def initialize(feedback:)
-          @feedback = feedback
+        attr_reader :raw_text
+
+        def initialize(raw_text:)
+          @raw_text = raw_text
         end
 
         def run
-          raise NilFeedbackError if feedback.nil?
-          raise EmptyFeedbackError if feedback.empty?
+          validate_raw_text
 
-          extract_feedback_content
+          return raw_text unless data.is_a?(Hash)
+
+          find_feedback || raise(UnknownJSONStructureError)
         end
 
-        private def feedback_index = feedback.index(FEEDBACK_MARKER)
-
-        private def extract_feedback_content
-          return feedback if feedback_index.nil?
-
-          content_start = feedback_index + FEEDBACK_MARKER.length
-          feedback_content = feedback[content_start..].strip
-
-          raise BlankTextError, "Feedback provided: '#{feedback}'" if feedback_content.blank?
-
-          feedback_content
+        private def validate_raw_text
+          raise NilFeedbackError if raw_text.nil?
+          raise EmptyFeedbackError if raw_text.blank?
         end
+
+        private def cleaned_text = MalformedJSONFixer.run(preprocessed_text:)
+
+        private def preprocessed_text = RawTextPreprocessor.run(raw_text:)
+
+        private def data
+          @data ||= JSON.parse(preprocessed_text)
+        rescue JSON::ParserError
+          raise InvalidJSONError
+        end
+
+        private def find_feedback
+          FEEDBACK_METHODS.each do |method|
+            result = send(method)
+            return result if result.is_a?(String)
+          end
+
+          nil
+        end
+
+        private def feedback = data['feedback']
+
+        private def properties_feedback = data.dig('properties', 'feedback')
+
+        private def properties_feedback_value = data.dig('properties', 'feedback', 'value')
+
+        private def properties_feedback_enum = data.dig('properties', 'feedback', 'enum')&.join(' ')
       end
     end
   end

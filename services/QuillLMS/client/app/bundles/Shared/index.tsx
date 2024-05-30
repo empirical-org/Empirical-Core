@@ -28,6 +28,7 @@ export {
   LightButtonLoadingSpinner,
   Card,
   CarouselAnimation,
+  Checkbox,
   DataTable,
   ProgressBar,
   DragHandle,
@@ -40,6 +41,7 @@ export {
   Input,
   OneThumbSlider,
   Passthrough,
+  RadioButton,
   ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
@@ -235,7 +237,11 @@ export {
   INTRODUCTION,
   CHECKLIST,
   READ_AND_HIGHLIGHT,
-  ALLOWED_ATTEMPTS
+  ALLOWED_ATTEMPTS,
+  ACTIVE,
+  INACTIVE,
+  INDETERMINATE,
+  DISABLED
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

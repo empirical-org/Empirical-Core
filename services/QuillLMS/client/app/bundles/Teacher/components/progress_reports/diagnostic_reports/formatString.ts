@@ -3,6 +3,8 @@ export const formatString = (str: string) => {
 }
 
 export const formatStringAndAddSpacesAfterPeriods = (str: string) => {
+  // some concept results don't have a concept result prompt so we early return to prevent the page from crashing
+  if (!str) { return }
   return formatString(str).replace(/\.(?=[^ ])/g, '. ')
 }
 

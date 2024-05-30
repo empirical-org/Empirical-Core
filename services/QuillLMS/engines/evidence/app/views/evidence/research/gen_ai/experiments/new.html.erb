@@ -1,4 +1,4 @@
-<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link', target: '_blank' %>
+<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link' %>
 <h1>Experiment Runner</h1>
 
 <%= form_for @experiment, html: { id: 'new_experiment_form' } do |f| %>
@@ -12,8 +12,11 @@
     <%= check_box_tag 'select_all_llm_config', '', false, id: 'select_all_llm_config', class: 'check-all' %> Select all
     <br/>
     <% @llm_configs.each do |llm_config| %>
-      <%= check_box_tag 'research_gen_ai_experiment[llm_config_ids][]', llm_config.id, false, id: dom_id(llm_config), class: 'llm-config-checkbox' %>
-      <%= label_tag dom_id(llm_config), llm_config.to_s %><br/>
+      <div class="llm-config-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_experiment[llm_config_ids][]', llm_config.id, false, id: dom_id(llm_config), class: 'llm-config-checkbox' %>
+        <%= label_tag dom_id(llm_config), llm_config.to_s %><br/>
+        <%= link_to 'view', llm_config, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
     <% end %>
   </div>
 
@@ -25,8 +28,11 @@
     <%= check_box_tag 'select_all_llm_prompt_template', '', false, id: 'select_all_llm_prompt_template', class: 'check-all' %> Select all
     <br/>
   <% @llm_prompt_templates.each do |llm_prompt_template| %>
-    <%= check_box_tag 'research_gen_ai_experiment[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
-    <%= label_tag dom_id(llm_prompt_template), llm_prompt_template.to_s %><br/>
+      <div class="llm-prompt-template-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_experiment[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
+        <%= label_tag dom_id(llm_prompt_template), llm_prompt_template.to_s %><br/>
+        <%= link_to 'view', llm_prompt_template, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
   <% end %>
   </div>
 
@@ -37,9 +43,12 @@
     </div>
     <%= check_box_tag 'select_all_passage_prompt', '', false, id: 'select_all_passage_prompt', class: 'check-all' %> Select all
     <br/>
-    <% @passage_prompts.each do |passage_prompt, index| %>
-      <%= check_box_tag 'research_gen_ai_experiment[passage_prompt_ids][]', passage_prompt.id, false, id: dom_id(passage_prompt), class: 'passage-prompt-checkbox' %>
-      <%= label_tag dom_id(passage_prompt), passage_prompt.to_s %><br/>
+    <% @passage_prompts.each do |passage_prompt| %>
+      <div class="passage-prompt-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_experiment[passage_prompt_ids][]', passage_prompt.id, false, id: dom_id(passage_prompt), class: 'passage-prompt-checkbox' %>
+        <%= label_tag dom_id(passage_prompt), passage_prompt.to_s %>
+        <%= link_to 'view', passage_prompt, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
     <% end %>
   </div>
 
@@ -53,7 +62,7 @@
   </div>
 <% end %>
 
-<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link', target: '_blank' %>
+<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link' %>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {

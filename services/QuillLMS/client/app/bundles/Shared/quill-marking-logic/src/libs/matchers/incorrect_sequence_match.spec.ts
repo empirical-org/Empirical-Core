@@ -28,43 +28,52 @@ const incorrectSequences = [
     text: 'early stage companies|||high potential companies',
     feedback: 'Inc 1',
     concept_results: [{correct: true, conceptUID: 'a'}],
-    caseInsensitive: true
+    caseInsensitive: true,
+    order: 0
   },
   {
     text: 'because|||however',
     feedback: 'Inc 2',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 1
   },
   {
     text: 'triangle ',
     feedback: 'Inc 3',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 2
   },
   {
     text: '(startups.*){2,}',
     feedback: 'Inc 4',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 3
   },
   {
     text: '^Emilia',
     feedback: 'Inc 5',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 4
   },
   {
     text: 'fun.$',
     feedback: 'Inc 6',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 5
   },
   {
     text: 'likes&&loves',
     feedback: 'Inc 7',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    name: 'likes and loves',
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 6
   },
   {
     text: '^Cissy',
     feedback: 'Inc 8',
     name: 'do not mention Cissy',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    order: 7
   }
 ]
 
@@ -145,6 +154,21 @@ describe('The incorrectSequenceChecker', () => {
     const partialResponse =  {
       feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
       author: 'do not mention Cissy',
+      parent_id: getTopOptimalResponse(savedResponses).id,
+      concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
+    }
+
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback).toEqual(partialResponse.feedback);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author).toEqual(partialResponse.author);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id).toEqual(partialResponse.parent_id);
+    expect(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results).toEqual(partialResponse.concept_results);
+  });
+
+  it("should match incorrect sequences in sequential order, returning an earlier ordered sequence before hitting a later-ordered sequence", () => {
+    const responseString = "Cissy likes and loves some companies.";
+    const partialResponse =  {
+      feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+      author: 'likes and loves',
       parent_id: getTopOptimalResponse(savedResponses).id,
       concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
     }

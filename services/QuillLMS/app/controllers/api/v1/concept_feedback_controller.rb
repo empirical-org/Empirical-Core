@@ -36,7 +36,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
 
   def destroy
     @concept_feedback.destroy
-    render(plain: 'OK')
+    render json: {}, status: :ok
   end
 
   private def activity_type

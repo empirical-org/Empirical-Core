@@ -12,6 +12,13 @@ class Cron
   def self.interval_1_hour
     CreditReferringAccountsWorker.perform_async
     TeacherNotifications::EnqueueUsersForRollupEmailWorker.perform_async(TeacherInfo::HOURLY_EMAIL)
+
+    # 7/8AM depending on daylight savings
+    run_at_12_hour_mark if now.hour == 12
+    # 12/1PM depending on daylight savings
+    run_at_17_hour_mark if now.hour == 17
+    # 4/5PM depending on daylight savings
+    run_at_21_hour_mark if now.hour == 21
   end
 
   # Configured in Heroku Scheduler to run every day at 07:00UTC
@@ -64,6 +71,21 @@ class Cron
   # Configured in Heroku Scheduler to run at XX:50
   def self.run_at_50_minute_mark
     ResetGhostInspectorAccountWorker.perform_async
+  end
+
+  # 7/8AM depending on daylight savings
+  def self.run_at_12_hour_mark
+    AdminDiagnosticReports::PerformanceBenchmarkWorker.perform_async
+  end
+
+  # 12/1PM depending on daylight savings
+  def self.run_at_17_hour_mark
+    AdminDiagnosticReports::PerformanceBenchmarkWorker.perform_async
+  end
+
+  # 4/5PM depending on daylight savings
+  def self.run_at_21_hour_mark
+    AdminDiagnosticReports::PerformanceBenchmarkWorker.perform_async
   end
 
   def self.run_weekday

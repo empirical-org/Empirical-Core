@@ -1,5 +1,3 @@
-<meta http-equiv="refresh" content="5">
-
 <%= link_to 'Back to Experiments', research_gen_ai_experiments_path %>
 <br>
 
@@ -16,7 +14,7 @@
   <p><%= @experiment.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
   <h3>Passage</h3>
-  <p><%= @experiment.passage_prompt %></p>
+  <p><%= link_to @experiment.passage_prompt, @experiment.passage_prompt %></p>
 
   <h3>LLM</h3>
   <p><%= @experiment.llm_config %></p>
@@ -29,8 +27,8 @@
   <hr/>
   <h3>Results</h3>
   <% if @experiment.results %>
-    <p>Accuracy (identical): <%= @experiment.results['accuracy_identical'] %></p>
-    <p>Accuracy (sub/optimal): <%= @experiment.results['accuracy_optimal_sub_optimal'] %></p>
+    <p>Accuracy (identical): <%= @experiment.accuracy_identical&.round(2) %></p>
+    <p>Accuracy (sub/optimal): <%= @experiment.accuracy_optimal_sub_optimal&.round(2) %></p>
     <p>Bleu: <%= @experiment.results.dig('misc_metrics', 'bleu', 'bleu')&.round(2) %></p>
     <p>Rouge1: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rouge1')&.round(2) %></p>
     <p>Rouge2: <%= @experiment.results.dig('misc_metrics', 'rouge', 'rouge2')&.round(2) %></p>
@@ -39,7 +37,12 @@
     <p>Experiment duration: <%= experiment_duration(@experiment) %></p>
     <p>Evaluation duration: <%= evaluation_duration(@experiment) %></p>
 
-    <%= render 'matrix', matrix: @experiment.results['confusion_matrix'], title: 'Confusion Matrix' %>
+    <% if @experiment.api_call_times %>
+      <p>Api call times: <%= @experiment.api_call_times %></p>
+      <%= render 'histogram', histogram: @histogram %>
+    <% end %>
+
+    <%= render 'matrix', matrix: @experiment.confusion_matrix, title: 'Confusion Matrix' %>
 
     <table>
       <thead>
@@ -50,8 +53,8 @@
           <th>BertScore (Precision)</th>
           <th>BertScore (Recall)</th>
           <th>Prompt Response</th>
-          <th>Example Feedback</th>
-          <th>LLM Feedback</th>
+          <th class='feedback-column'>Example Feedback</th>
+          <th class='feedback-column'>LLM Feedback</th>
         </tr>
       </thead>
       <tbody>

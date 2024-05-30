@@ -17,6 +17,10 @@ export {
 } from './card'
 
 export {
+  Checkbox
+} from './checkBox'
+
+export {
   DragHandle
 } from './dragHandle'
 
@@ -63,6 +67,10 @@ export {
 export {
   Passthrough
 } from './passthrough'
+
+export {
+  RadioButton
+} from './radioButton'
 
 export {
   ResumeOrBeginButton

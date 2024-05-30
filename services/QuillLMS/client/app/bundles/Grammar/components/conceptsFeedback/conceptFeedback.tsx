@@ -31,7 +31,9 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
   deleteConceptsFeedback() {
     const conceptFeedbackID = this.props.match.params.conceptFeedbackID
     if (conceptFeedbackID) {
-      this.props.dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
+      if (confirm('⚠️ Are you sure you’d like to delete this concept feedback?')) {
+        this.props.dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
+      }
     }
   }
 

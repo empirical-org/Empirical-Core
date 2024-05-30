@@ -1,25 +1,26 @@
-import { fillInBlankInputWidth, determineBaseString, } from '../fillInBlankInputWidth';
+import { fillInBlankInputWidth, determineShortestCue, } from '../fillInBlankInputWidth';
 
-describe('determineBaseString function', () => {
-  it('returns the value when the value is longer than the shortest cue', () => {
-    const string = determineBaseString('aaaa', ['a', 'longercue', 'muchlongercue']);
-    expect(string).toBe('aaaa');
+describe('determineShortestCue function', () => {
+  it('returns the shortest cue from a list of cues', () => {
+    const shortest = determineShortestCue(['aaa', 'a', 'aa']);
+    expect(shortest).toBe('a');
   });
 
-  it('returns the shortest cue when the shortest cue is longer than the value', () => {
-    const string = determineBaseString('a', ['aaaaaa', 'longercue', 'muchlongercue']);
-    expect(string).toBe('aaaaaa');
+  it('returns an empty string if cues array is empty', () => {
+    const shortest = determineShortestCue([]);
+    expect(shortest).toBe('');
   });
 
-  it('handles empty value and cues array by returning an empty string', () => {
-    const string = determineBaseString('', []);
-    expect(string).toBe('');
+  it('returns an empty string if cues is null', () => {
+    const shortest = determineShortestCue(null);
+    expect(shortest).toBe('');
   });
 
-  it('handles null value and cues array by returning an empty string', () => {
-    const string = determineBaseString(null, null);
-    expect(string).toBe('');
+  it('handles array with one cue', () => {
+    const shortest = determineShortestCue(['only']);
+    expect(shortest).toBe('only');
   });
+
 });
 
 

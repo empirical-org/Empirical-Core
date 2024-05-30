@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkboxes it should render 1`] = `
+<DocumentFragment>
+  <div
+    id="checkboxes"
+  >
+    <h2
+      class="style-guide-h2"
+    >
+      Checkboxes
+    </h2>
+    <div
+      class="states-and-modes-container"
+    >
+      <h4
+        class="style-guide-h4"
+      >
+        States
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Inactive
+          </p>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-checked="false"
+              class="quill-checkbox unselected light focus-on-light"
+              role="checkbox"
+              type="button"
+            />
+            <span
+              class=" light"
+            >
+              Text
+            </span>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Active
+          </p>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-checked="true"
+              class="quill-checkbox selected light focus-on-light"
+              role="checkbox"
+              type="button"
+            >
+              <img
+                alt="check"
+                src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+              />
+            </button>
+            <span
+              class=" light"
+            >
+              Text
+            </span>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Indeterminate
+          </p>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-checked="false"
+              class="quill-checkbox indeterminate light focus-on-light"
+              role="checkbox"
+              type="button"
+            >
+              <img
+                alt="dash"
+                src="https://assets.quill.org/images/icons/xs/dash-white.svg"
+              />
+            </button>
+            <span
+              class=" light"
+            >
+              Text
+            </span>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Disabled
+          </p>
+          <div
+            class="checkbox-container"
+          >
+            <button
+              aria-checked="false"
+              class="quill-checkbox unselected light focus-on-light disabled"
+              role="checkbox"
+              type="button"
+            />
+            <span
+              class="disabled light"
+            >
+              Text
+            </span>
+          </div>
+        </div>
+      </div>
+      <h4
+        class="style-guide-h4"
+      >
+        Modes
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            On Light
+          </p>
+          <div
+            class="checkboxes"
+          >
+            <div
+              class="checkbox-container"
+            >
+              <button
+                aria-checked="false"
+                class="quill-checkbox unselected light focus-on-light"
+                role="checkbox"
+                type="button"
+              />
+              <span
+                class=" light"
+              >
+                Text
+              </span>
+            </div>
+            <div
+              class="checkbox-container"
+            >
+              <button
+                aria-checked="true"
+                class="quill-checkbox selected light focus-on-light"
+                role="checkbox"
+                type="button"
+              >
+                <img
+                  alt="check"
+                  src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                />
+              </button>
+              <span
+                class=" light"
+              >
+                Text
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="option-container dark"
+        >
+          <p
+            class="option-label"
+          >
+            On Dark
+          </p>
+          <div
+            class="checkboxes"
+          >
+            <div
+              class="checkbox-container"
+            >
+              <button
+                aria-checked="false"
+                class="quill-checkbox unselected dark focus-on-dark"
+                role="checkbox"
+                type="button"
+              />
+              <span
+                class=" dark"
+              >
+                Text
+              </span>
+            </div>
+            <div
+              class="checkbox-container"
+            >
+              <button
+                aria-checked="true"
+                class="quill-checkbox selected dark focus-on-dark"
+                role="checkbox"
+                type="button"
+              >
+                <img
+                  alt="check"
+                  src="https://assets.quill.org/images/icons/xs/check-small.svg"
+                />
+              </button>
+              <span
+                class=" dark"
+              >
+                Text
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

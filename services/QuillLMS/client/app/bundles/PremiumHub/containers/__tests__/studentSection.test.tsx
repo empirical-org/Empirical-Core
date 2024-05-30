@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import * as requestsApi from '../../../../modules/request';
 import StudentSection from "../diagnosticGrowthReports/studentSection";
 import { aggregateStudentData } from "../diagnosticGrowthReports/helpers";
+import { diagnosticTypeDropdownOptions } from "../../shared";
 
 const props = {
   searchCount: 0,
@@ -13,8 +14,10 @@ const props = {
   selectedTeacherIds: [],
   selectedClassroomIds: [],
   selectedTimeframe: "This school year",
+  diagnosticTypeValue: diagnosticTypeDropdownOptions[0],
   pusherChannel: null,
   handleSetDiagnosticIdForStudentCount: jest.fn(),
+  handleSetSelectedDiagnosticType: jest.fn(),
   passedStudentData: null,
   passedRecommendationsData: null,
   passedVisibleData: null
