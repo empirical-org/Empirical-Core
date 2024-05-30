@@ -34,7 +34,6 @@ module AdminDiagnosticReports
       overview_payload = @payload.merge(@overview_filters)
 
       puts overview_payload
-      raise StandardError
 
       pre_assigned = PreDiagnosticAssignedViewQuery.run(**overview_payload)
       pre_completed = PreDiagnosticCompletedViewQuery.run(**overview_payload)
@@ -53,7 +52,7 @@ module AdminDiagnosticReports
     end
 
     private def merge_results(base_data, supplemental_data)
-      diagnostic_ids = (base_data.map{|row| row[:diagnostic_id]} + supplemental_data.map{|row| row[:diagnostic_id]}).uniq
+      diagnostic_ids = extract_unique_ids(base_data, supplemental_data, :diagnostic_id)
 
       base_keys = base_data.first&.keys || []
       supplemental_keys = supplemental_data.first&.keys || []
@@ -71,7 +70,7 @@ module AdminDiagnosticReports
     end
 
     private def merge_aggregate_rows(base_data, supplemental_data)
-      all_aggregate_ids = ((base_data&.map{|row| row[:aggregate_id]} || []) + (supplemental_data&.map{|row| row[:aggregate_id]} || [])).uniq
+      all_aggregate_ids = extract_unique_ids(base_data, supplemental_data, :aggregate_id)
 
       base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data)
 
@@ -83,14 +82,22 @@ module AdminDiagnosticReports
       end
     end
 
+    private def extract_unique_ids(base_data, supplemental_data, key)
+      ((base_data&.map{|row| row[key]} || []) + (supplemental_data&.map{|row| row[key]} || [])).uniq
+    end
+
     private def generate_fallback_hashes(base_data, supplemental_data)
-      unique_base_keys = (base_data&.first&.keys || []) - (supplemental_data&.first&.keys || [])
-      unique_supplemental_keys = (supplemental_data&.first&.keys || []) - (base_data&.first&.keys || [])
+      unique_base_keys = calculate_unique_keys(base_data, supplemental_data)
+      unique_supplemental_keys = calculate_unique_keys(supplemental_data, base_data)
 
       base_data_fallback = unique_base_keys.index_with{nil}
       supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
 
       [base_data_fallback, supplemental_data_fallback]
+    end
+
+    private def calculate_unique_keys(unique_from, compare_to)
+      (unique_from&.first&.keys || []) - (compare_to&.first&.keys || [])
     end
 
     private def skills_link
