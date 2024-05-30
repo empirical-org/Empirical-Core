@@ -52,6 +52,7 @@ Evidence::Engine.routes.draw do
       resources :llm_prompt_templates, only: [:new, :create, :show, :index]
       resources :passage_prompts, only: [:new, :create, :show, :index]
       resources :passages, only: [:new, :create, :show]
+      resources :auto_chain_of_thoughts, only: [:new, :create]
     end
   end
 end
