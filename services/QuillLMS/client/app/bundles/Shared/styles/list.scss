@@ -2,9 +2,12 @@
   list-style: none;
   padding-left: 0px;
   margin-bottom: 0px;
+  background-color: $quill-white;
   &.single-line {
     li {
       padding: 16px;
+      font-size: 13px;
+      font-weight: 500;
     }
   }
   &.double-line {
@@ -18,9 +21,14 @@
         display: flex;
         flex-direction: column;
       }
+      .primary-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
       .secondary-text {
-        font-size: 14px;
-        color: #888888;
+        font-size: 12px;
+        font-weight: 400;
+        color: $quill-grey-35;
         margin-top: 8px;
       }
       .metadata {

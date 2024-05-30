@@ -94,7 +94,8 @@
   padding: 15px;
   position: sticky;
   top: 0;
-  height: 400px;
+  height: 80vh;
+  overflow: scroll;
   .menu-label {
     color: #7a7a7a;
     font-size: 12px;
@@ -170,11 +171,11 @@
   }
 }
 
-#checkboxes, #radio-buttons {
+#checkboxes, #radio-buttons, #lists {
   h2 {
     font-weight: 700;
   }
-  .states-and-modes-container {
+  .variations-container {
     h4 {
       @include display-xl;
       margin-bottom: 20px;
@@ -209,6 +210,9 @@
           margin: auto;
           padding-bottom: 24px;
         }
+        .quill-list {
+          margin: auto;
+        }
         .radio-buttons {
           .quill-radio-button-container:not(:last-of-type) {
             padding-bottom: 12px;
@@ -216,6 +220,13 @@
         }
       }
     }
+  }
+}
+
+#lists .variations-container .options-container .option-container {
+  background-color: $quill-grey-1;
+  .checkbox-container {
+    padding-bottom: 0px;
   }
 }
 
