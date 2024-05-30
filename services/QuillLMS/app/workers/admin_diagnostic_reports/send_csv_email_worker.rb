@@ -83,7 +83,7 @@ module AdminDiagnosticReports
     end
 
     private def find_row_or_fallback(data, key, value, fallback)
-      data.find{|row| row[key] == value} || fallback
+      data&.find{|row| row[key] == value} || fallback
     end
 
     private def extract_unique_ids(base_data, supplemental_data, key)
