@@ -19,7 +19,14 @@ module AdminDiagnosticReports
       SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
     end
 
-    private def base_filters = @base_filters ||= extract_filter_selection(BASE_REPORT_NAME) || {}
+    private def base_filters = @base_filters ||= rename_base_filter_keys(extract_filter_selection(BASE_REPORT_NAME) || {})
+
+    private def rename_base_filter_keys(processed_filters)
+      processed_filters[:teacher_ids] = processed_filters.delete(:teachers) if processed_filters[:teachers]
+      processed_filters[:classroom_ids] = processed_filters.delete(:classrooms) if processed_filters[:classrooms]
+
+      processed_filters
+    end
 
     private def overview_filters
       @overview_filters ||= {
