@@ -60,8 +60,8 @@ module AdminDiagnosticReports
       base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data)
 
       merged_data = diagnostic_ids.map do |diagnostic_id|
-        left_data = base_data.find{|row| row[:diagnostic_id] == diagnostic_id} || base_data_fallback
-        right_data = supplemental_data.find{|row| row[:diagnostic_id] == diagnostic_id} || supplemental_data_fallback
+        left_data = find_row_or_fallback(base_data, :diagnostic_id, diagnostic_id, base_data_fallback)
+        right_data = find_row_or_fallback(supplemental_data, :diagnostic_id, diagnostic_id, supplemental_data_fallback)
 
         aggregate_rows = merge_aggregate_rows(left_data.delete(:aggregate_rows), right_data.delete(:aggregate_rows))
 
@@ -75,11 +75,15 @@ module AdminDiagnosticReports
       base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data)
 
       all_aggregate_ids.map do |aggregate_id|
-        left_data = base_data&.find{|row| row[:aggregate_id] == aggregate_id} || base_data_fallback
-        right_data = supplemental_data&.find{|row| row[:aggregate_id] == aggregate_id} || supplemental_data_fallback
+        left_data = find_row_or_fallback(base_data, :aggregate_id, aggregate_id, base_data_fallback)
+        right_data = find_row_or_fallback(supplemental_data, :aggregate_id, aggregate_id, supplemental_data_fallback)
 
         left_data.merge(right_data)
       end
+    end
+
+    private def find_row_or_fallback(data, key, value, fallback)
+      data.find{|row| row[key] == value} || fallback
     end
 
     private def extract_unique_ids(base_data, supplemental_data, key)
