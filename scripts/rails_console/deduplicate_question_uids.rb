@@ -335,13 +335,10 @@ lower_count_questions.each do |question|
 
         duplicated_response['question_uid'] = question[:new_uid]
 
-        # set created and updated at to Time.now because insert_all doesn't autopopulate
-        duplicated_response['created_at'] = Time.now
-        duplicated_response['updated_at'] = Time.now
-
         responses_for_insertion.push(duplicated_response.symbolize_keys)
       end
-      Response.insert_all!(responses_for_insertion)
+      responses = Response.insert_all!(responses_for_insertion, record_timestamps: true)
+      responses.each { |r| UpdateIndividualResponseWorker.perform_async(r[:id]) }
     rescue => e
       puts "Failed to process response batch for question UID #{question[:uid]}: #{e.message}"
       next
@@ -349,8 +346,6 @@ lower_count_questions.each do |question|
   end
   puts 'Processed question uid', question[:uid]
 end; puts Time.now - start_time
-
-UpdateElasticsearchWorker.perform_async(start_time.to_s, Time.now.to_s)
 
 # RUN THIS IN THE LMS
 
@@ -367,6 +362,8 @@ lower_count_questions.each do |lower_count_question|
     # update the UID and the data->key with the new UID
     duplicated_question.uid = new_uid
     duplicated_question.data['key'] = new_uid
+    duplicated_question.data['uid_before_deduplication'] = lower_count_question[:uid]
+    duplicated_question.data['created_at_before_deduplication'] = old_question.created_at
 
     # set created and updated at to nil so they get autopopulated correctly
     duplicated_question.created_at = nil
@@ -388,6 +385,8 @@ lower_count_questions.each do |lower_count_question|
     old_question.save!
   rescue => e
     puts e.message
+    puts 'lower_count_question', lower_count_question
+    puts '**********'
   end
 end
 
