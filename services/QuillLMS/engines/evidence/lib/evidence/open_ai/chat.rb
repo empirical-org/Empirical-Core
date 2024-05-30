@@ -2,9 +2,10 @@
 
 module Evidence
   module OpenAI
-    class ChatWithHistory < Evidence::ApplicationService
+    class Chat < Evidence::ApplicationService
       include Evidence::OpenAI::Concerns::Api
 
+      History = Struct.new(:user, :assistant, keyword_init: true)
 
       ENDPOINT = '/chat/completions'
 
