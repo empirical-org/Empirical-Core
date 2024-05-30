@@ -32,7 +32,6 @@ module Evidence
         it { should validate_presence_of(:evaluation_steps) }
         it { should validate_presence_of(:metric) }
         it { should validate_presence_of(:max_score) }
-        it { should validate_presence_of(:version) }
 
         it { should have_readonly_attribute(:task_introduction) }
         it { should have_readonly_attribute(:evaluation_criteria) }

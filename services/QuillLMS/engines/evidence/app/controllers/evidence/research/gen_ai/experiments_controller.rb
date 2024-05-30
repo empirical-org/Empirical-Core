@@ -87,7 +87,7 @@ module Evidence
         private def llm_config_ids = experiment_params[:llm_config_ids].reject(&:blank?).map(&:to_i)
         private def llm_prompt_template_ids = experiment_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
         private def passage_prompt_ids = experiment_params[:passage_prompt_ids].reject(&:blank?).map(&:to_i)
-        private def g_eval_ids = experiment_params[:g_eval_ids].reject(&:blank?).map(&:to_i).sort
+        private def g_eval_ids = experiment_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []
 
         private def num_examples(passage_prompt_id)
           max_num_examples = PassagePrompt.find(passage_prompt_id).passage_prompt_responses.testing_data.count

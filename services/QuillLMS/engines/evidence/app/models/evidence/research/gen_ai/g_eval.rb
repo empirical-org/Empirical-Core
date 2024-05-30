@@ -25,7 +25,6 @@ module Evidence
         validates :evaluation_steps, presence: true
         validates :metric, presence: true
         validates :max_score, presence: true
-        validates :version, presence: true
         validates :selectable, inclusion: { in: [true, false] }
 
         attr_readonly :task_introduction,

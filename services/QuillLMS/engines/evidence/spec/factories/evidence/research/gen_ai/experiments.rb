@@ -27,7 +27,6 @@ module Evidence
           llm_config { association :evidence_research_gen_ai_llm_config }
           llm_prompt { association :evidence_research_gen_ai_llm_prompt }
           passage_prompt { association :evidence_research_gen_ai_passage_prompt }
-          results { {}.to_json }
         end
       end
     end

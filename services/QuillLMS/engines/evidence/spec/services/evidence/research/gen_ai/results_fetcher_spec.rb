@@ -8,7 +8,7 @@ module Evidence
       RSpec.describe ResultsFetcher, type: :service do
         subject { described_class.run(experiment) }
 
-        let(:experiment) { create(:evidence_research_gen_ai_experiment) }
+        let(:experiment) { create(:evidence_research_gen_ai_experiment, results: '{}') }
 
         let(:example_feedback1) { create(:evidence_research_gen_ai_example_feedback) }
 
@@ -38,7 +38,6 @@ module Evidence
 
         context 'accuracy_identical results' do
           let(:result) { subject[:accuracy_identical] }
-
 
           let(:misc_metrics) { {} }
 
@@ -71,7 +70,7 @@ module Evidence
           let(:misc_metrics) { {} }
           let(:llm_feedbacks) { [llm_feedback_identical, llm_feedback_non_identical] }
 
-          before { experiment.update!(results: { g_evals: { 'ids' => [1, 2, 3] } } ) }
+          before { experiment.update!(results: { g_eval_ids: [1, 2, 3] }) }
 
           it 'runs GEvalRunner for each g_eval id' do
             expect(GEvalRunner).to receive(:run).exactly(6).times

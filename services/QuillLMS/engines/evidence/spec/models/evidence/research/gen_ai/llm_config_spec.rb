@@ -37,7 +37,7 @@ module Evidence
           end
 
           context 'when vendor is OPEN_AI' do
-            let(:vendor) { described_class::OPEN_AI }
+            let(:vendor) { OPEN_AI }
 
             context 'when version is GPT_3_5_TURBO_0125' do
               let(:version) { described_class::GPT_3_5_TURBO_0125 }
@@ -59,7 +59,7 @@ module Evidence
           end
 
           context 'when vendor is GOOGLE' do
-            let(:vendor) { described_class::GOOGLE }
+            let(:vendor) { GOOGLE }
 
             context 'when version is GEMINI_1_5_PRO_LATEST' do
               let(:version) { described_class::GEMINI_1_5_PRO_LATEST }
