@@ -33,8 +33,6 @@ module AdminDiagnosticReports
     private def overview_link
       overview_payload = @payload.merge(@overview_filters)
 
-      puts overview_payload
-
       pre_assigned = PreDiagnosticAssignedViewQuery.run(**overview_payload)
       pre_completed = PreDiagnosticCompletedViewQuery.run(**overview_payload)
       recommendations = DiagnosticRecommendationsQuery.run(**overview_payload)
