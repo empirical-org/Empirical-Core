@@ -94,10 +94,13 @@ module AdminDiagnosticReports
       # sorting call at the end since we're using ORDER BY in the SQL
       return [] if result.empty?
 
-      result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
+      result = result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
-        .slice(0, MAX_STUDENTS_TO_RETURN) if @limited
+
+      return result.slice(0, MAX_STUDENTS_TO_RETURN) if @limited
+
+      result
     end
 
     private def valid_aggregation_options = ['student']
