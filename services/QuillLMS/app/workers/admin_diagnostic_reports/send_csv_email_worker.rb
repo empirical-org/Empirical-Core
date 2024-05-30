@@ -111,7 +111,7 @@ module AdminDiagnosticReports
     end
 
     private def students_link
-      student_payload = @payload.merge(@students_filters)
+      student_payload = @payload.merge(@students_filters).merge({limited: false})
 
       query_results = DiagnosticPerformanceByStudentViewQuery.run(**student_payload)
       recommendation_results = DiagnosticRecommendationsByStudentQuery.run(**student_payload)
