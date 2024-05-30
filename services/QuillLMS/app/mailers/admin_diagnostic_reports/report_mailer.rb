@@ -12,7 +12,7 @@ module AdminDiagnosticReports
       @students_url = students_url
       @human_date = DateTime.current.strftime('%B %d, %Y')
 
-      email = 'psharkey+1@quill.org' # TODO: replace this with user.email
+      email = ['thomas@quill.org','psharkey+1@quill.org'] # TODO: replace this with user.email
 
       mail to: email, subject: "Your Quill Diagnostic Growth Report is ready"
     end
