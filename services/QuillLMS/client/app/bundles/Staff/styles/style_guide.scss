@@ -225,6 +225,20 @@
 
 #lists .variations-container .options-container .option-container {
   background-color: $quill-grey-1;
+  &.hover {
+    .quill-list {
+      li:nth-of-type(2) {
+        background-color: $quill-grey-2;
+      }
+    }
+  }
+  &.active {
+    .quill-list {
+      li:nth-of-type(2) {
+        background-color: $quill-green-5;
+      }
+    }
+  }
   .checkbox-container {
     padding-bottom: 0px;
   }

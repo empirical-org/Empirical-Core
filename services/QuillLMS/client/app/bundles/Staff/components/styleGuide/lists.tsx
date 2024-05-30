@@ -11,23 +11,30 @@ const TEXT = 'Text'
 
 const STYLES = [{ label: 'Text', value: PRIMARY }, {label: 'Text with Secondary Text', value: SECONDARY}, {label: 'Checkbox', value: CHECKBOX}]
 const STATES = [DEFAULT, HOVER, ACTIVE]
-const ITEMS = {
-  [PRIMARY]: [LIST_ITEM, LIST_ITEM, LIST_ITEM],
+const LIST_ITEMS = [LIST_ITEM, LIST_ITEM, LIST_ITEM]
+const CHECKBOX_ITEMS = [
+  {
+    label: "Text",
+    selected: true
+  },
+  {
+    label: "Text",
+    selected: true
+  },
+  {
+    label: "Text",
+    selected: true
+  }
+]
+const STYLE_ITEMS = {
+  [PRIMARY]: LIST_ITEMS,
   [SECONDARY]: [{ primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT }, { primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT }, { primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT }],
-  [CHECKBOX]: [
-    {
-      label: "Text",
-      selected: true
-    },
-    {
-      label: "Text",
-      selected: true
-    },
-    {
-      label: "Text",
-      selected: true
-    }
-  ]
+  [CHECKBOX]: CHECKBOX_ITEMS
+}
+const STATE_ITEMS = {
+  [DEFAULT]: LIST_ITEMS,
+  [HOVER]: LIST_ITEMS,
+  [ACTIVE]: CHECKBOX_ITEMS
 }
 
 export const Lists = ({}) => {
@@ -41,27 +48,23 @@ export const Lists = ({}) => {
             return (
               <div className="option-container">
                 <p className="option-label">{label}</p>
-                <List items={ITEMS[value]} style={value}/>
+                <List items={STYLE_ITEMS[value]} style={value}/>
               </div>
             )
           })}
         </div>
-        {/* <h4 className="style-guide-h4">States</h4>
+        <h4 className="style-guide-h4">States</h4>
         <div className="options-container">
-          {STATES.map(state => {
+          {STATES.map((state, i) => {
+            const listStyle = i === 2 ?CHECKBOX : PRIMARY
             return (
-              <div className="option-container">
+              <div className={`option-container ${state}`}>
                 <p className="option-label">{_.capitalize(state)}</p>
-                <Checkbox
-                  label="Text"
-                  onClick={() => { }}
-                  selected={state === ACTIVE}
-                  state={state}
-                />
+                <List items={STATE_ITEMS[state]} style={listStyle} />
               </div>
             )
           })}
-        </div> */}
+        </div>
       </div>
     </div>
   )
