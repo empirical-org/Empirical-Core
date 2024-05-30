@@ -16,8 +16,7 @@ module AdminDiagnosticReports
     def perform(user_id)
       @user = User.find(user_id)
 
-      SendCsvEmailWorker.new.perform(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
-      #SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
+      SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
     end
 
     private def base_filters = @base_filters ||= extract_filter_selection(BASE_REPORT_NAME) || {}
