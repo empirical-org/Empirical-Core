@@ -325,6 +325,7 @@ lower_count_questions = [{:uid=>"-Jzw0qjJeHLqN6eDQTJk", :count=>349, :new_uid=>"
 =end
 
 # took 13 minutes to run this in staging
+
 start_time = Time.now
 lower_count_questions.each do |question|
   Response.where(question_uid: question[:uid]).find_in_batches(batch_size: 100) do |batch|
@@ -335,10 +336,15 @@ lower_count_questions.each do |question|
 
         duplicated_response['question_uid'] = question[:new_uid]
 
+        # have to manually set created_at and updated_at because `insert_all` doesn't handle that in Rails 6
+        right_now = Time.now
+        duplicated_response['created_at'] = right_now
+        duplicated_response['updated_at'] =  right_now
+
         responses_for_insertion.push(duplicated_response.symbolize_keys)
       end
-      responses = Response.insert_all!(responses_for_insertion, record_timestamps: true)
-      responses.each { |r| UpdateIndividualResponseWorker.perform_async(r[:id]) }
+      responses = Response.insert_all!(responses_for_insertion)
+      responses.each { |r| UpdateIndividualResponseWorker.perform_async(r['id']) }
     rescue => e
       puts "Failed to process response batch for question UID #{question[:uid]}: #{e.message}"
       next
