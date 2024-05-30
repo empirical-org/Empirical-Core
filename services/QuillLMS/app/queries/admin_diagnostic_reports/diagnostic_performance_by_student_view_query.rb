@@ -97,7 +97,7 @@ module AdminDiagnosticReports
       result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
-        .slice(0, MAX_STUDENTS_TO_RETURN)
+        .slice(0, MAX_STUDENTS_TO_RETURN) if @limited
     end
 
     private def valid_aggregation_options = ['student']
