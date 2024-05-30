@@ -5,7 +5,7 @@ module Evidence
     class Chat < Evidence::ApplicationService
       include Evidence::OpenAI::Concerns::Api
 
-      History = Struct.new(:user, :assistant, keyword_init: true)
+      HistoryItem = Struct.new(:user, :assistant, keyword_init: true)
 
       ENDPOINT = '/chat/completions'
 
@@ -18,37 +18,31 @@ module Evidence
       ROLE_ASSISTANT = "assistant"
       RESPONSE_FORMAT = { "type" => "json_object" }
 
-      KEY_FEEDBACK = 'feedback'
-      KEY_OPTIMAL = 'optimal'
-      KEY_HIGHLIGHT = 'highlight'
+      attr_reader :system_prompt, :entry, :history, :temperature
 
-      attr_reader :system_prompt, :current_entry, :history, :temperature
-
-      def initialize(system_prompt:, current_entry:, history: [], temperature: 0.5)
+      def initialize(system_prompt:, entry:, history: [], temperature: 0.5)
         @system_prompt = system_prompt
-        @current_entry = current_entry
+        @entry = entry
         @history = history
         @temperature = temperature
       end
 
-      def cleaned_results = feedback
-
       private def messages = [system_message, history_messages, current_message].flatten
 
       private def system_message = {KEY_ROLE => ROLE_SYSTEM, KEY_CONTENT => system_prompt}
-      private def current_message = {KEY_ROLE => ROLE_USER, KEY_CONTENT => current_entry}
+      private def current_message = {KEY_ROLE => ROLE_USER, KEY_CONTENT => entry}
 
       private def history_messages
         history.map do |h|
           [
-            {KEY_ROLE => ROLE_USER, KEY_CONTENT => h.entry },
-            {KEY_ROLE => ROLE_ASSISTANT, KEY_CONTENT => h.feedback},
+            {KEY_ROLE => ROLE_USER, KEY_CONTENT => h.user },
+            {KEY_ROLE => ROLE_ASSISTANT, KEY_CONTENT => h.assistant},
           ]
         end.flatten
       end
 
-      def result
-        @result ||= JSON.parse(result_json_string)
+      def cleaned_results
+        @cleaned_results ||= JSON.parse(result_json_string)
       end
 
       private def result_json_string
@@ -58,17 +52,7 @@ module Evidence
           .first
       end
 
-      private def feedback = result[KEY_FEEDBACK]
-
       def endpoint = ENDPOINT
-
-      def optimal?
-        return false unless response.present?
-
-        result[KEY_OPTIMAL]
-      end
-
-      def highlight = result[KEY_HIGHLIGHT]
 
       # https://platform.openai.com/docs/api-reference/chat/create
       def request_body

@@ -95,7 +95,7 @@ module Evidence
 
       attr_reader :prompt, :history
 
-      def initialize(prompt:, history:)
+      def initialize(prompt:, history: [])
         @prompt = prompt
         @history = history
       end

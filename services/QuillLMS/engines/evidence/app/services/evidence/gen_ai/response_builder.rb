@@ -15,25 +15,27 @@ module Evidence
         Evidence::Activity::SO_CONJUNCTION      => '1a5383e2-c52e-4b96-9c27-315380008d06'
       }
 
-      attr_reader :chat, :entry, :prompt
+      KEY_FEEDBACK = 'feedback'
+      KEY_OPTIMAL = 'optimal'
+      KEY_HIGHLIGHT = 'highlight'
 
-      def initialize(chat:, entry:, prompt:)
-        @chat = chat
+      attr_reader :chat_response, :entry, :prompt
+
+      def initialize(chat_response:, entry:, prompt:)
+        @chat_response = chat_response
         @entry = entry
         @prompt = prompt
       end
 
       def run
-        chat.run
-
         response_object
       end
 
       private def response_object
         {
-          feedback: chat.cleaned_results,
+          feedback:,
           feedback_type: Evidence::Rule::TYPE_GEN_AI,
-          optimal: chat.optimal?,
+          optimal:,
           entry:,
           concept_uid: rule&.concept_uid,
           rule_uid:,
@@ -45,13 +47,12 @@ module Evidence
       private def conjunction = prompt.conjunction
       private def rule = Evidence::Rule.find_by(uid: rule_uid)
       private def rule_uid = rule_set[conjunction]
-      private def rule_set = chat.optimal? ? RULES_OPTIMAL : RULES_SUBOPTIMAL
-
+      private def rule_set = optimal ? RULES_OPTIMAL : RULES_SUBOPTIMAL
 
       private def highlight_text
-        return nil if chat.highlight.nil?
+        return nil if highlight_key.nil?
 
-        prompt.distinct_highlight_texts[chat.highlight.to_i - 1]
+        prompt.distinct_highlight_texts[highlight_key.to_i - 1]
       end
 
       private def highlight
@@ -63,6 +64,11 @@ module Evidence
           category: ''
         }]
       end
+
+      private def highlight_key = chat_response[KEY_HIGHLIGHT]
+      private def optimal = chat_response[KEY_OPTIMAL]
+      private def feedback = chat_response[KEY_FEEDBACK]
+
     end
   end
 end
