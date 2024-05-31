@@ -9,8 +9,10 @@
       <label style="margin-right: 10px;">llm config:</label>
       <%= link_to 'new', new_research_gen_ai_llm_config_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
     </div>
+
     <%= check_box_tag 'select_all_llm_config', '', false, id: 'select_all_llm_config', class: 'check-all' %> Select all
     <br/>
+
     <% @llm_configs.each do |llm_config| %>
       <div class="llm-config-item" style="display: flex; align-items: baseline;">
         <%= check_box_tag 'research_gen_ai_experiment[llm_config_ids][]', llm_config.id, false, id: dom_id(llm_config), class: 'llm-config-checkbox' %>
@@ -25,15 +27,17 @@
       <label style="margin-right: 10px;">llm prompt template:</label>
       <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
     </div>
+
     <%= check_box_tag 'select_all_llm_prompt_template', '', false, id: 'select_all_llm_prompt_template', class: 'check-all' %> Select all
     <br/>
-  <% @llm_prompt_templates.each do |llm_prompt_template| %>
+
+    <% @llm_prompt_templates.each do |llm_prompt_template| %>
       <div class="llm-prompt-template-item" style="display: flex; align-items: baseline;">
         <%= check_box_tag 'research_gen_ai_experiment[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
         <%= label_tag dom_id(llm_prompt_template), llm_prompt_template.to_s %><br/>
         <%= link_to 'view', llm_prompt_template, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
-  <% end %>
+    <% end %>
   </div>
 
   <div id="passage-prompts-container" class="field-spacing">
@@ -41,13 +45,33 @@
       <label style="margin-right: 10px;">passage prompt:</label>
       <%= link_to 'new', new_research_gen_ai_passage_prompt_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
     </div>
+
     <%= check_box_tag 'select_all_passage_prompt', '', false, id: 'select_all_passage_prompt', class: 'check-all' %> Select all
     <br/>
+
     <% @passage_prompts.each do |passage_prompt| %>
       <div class="passage-prompt-item" style="display: flex; align-items: baseline;">
         <%= check_box_tag 'research_gen_ai_experiment[passage_prompt_ids][]', passage_prompt.id, false, id: dom_id(passage_prompt), class: 'passage-prompt-checkbox' %>
         <%= label_tag dom_id(passage_prompt), passage_prompt.to_s %>
         <%= link_to 'view', passage_prompt, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="g-evals-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">g-eval:</label>
+      <%= link_to 'new', new_research_gen_ai_auto_chain_of_thought_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+
+    <%= check_box_tag 'select_all_g_eval', '', false, id: 'select_all_g_eval', class: 'check-all' %> Select all
+    <br/>
+
+    <% @g_evals.each do |g_eval| %>
+      <div class="g-eval-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_experiment[g_eval_ids][]', g_eval.id, false, id: dom_id(g_eval), class: 'g-eval-checkbox' %>
+        <%= label_tag dom_id(g_eval), g_eval.to_s %>
+        <%= link_to 'view', g_eval, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
     <% end %>
   </div>
@@ -82,6 +106,7 @@
       {selector: '#llm-configs-container', name: 'LLM Config'},
       {selector: '#llm-prompt-templates-container', name: 'LLM Prompt Template'},
       {selector: '#passage-prompts-container', name: 'Passage Prompt'},
+      {selector: '#g-evals-container', name: 'G-Eval'}
     ];
 
     const messages = [];

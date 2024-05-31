@@ -1,0 +1,52 @@
+# frozen_string_literal: true
+
+module Evidence
+  module Research
+    module GenAI
+      class GEvalRunner < ApplicationService
+        attr_reader :g_eval_id, :llm_feedback
+
+        def initialize(g_eval_id:, llm_feedback:)
+          @g_eval_id = g_eval_id
+          @llm_feedback = llm_feedback
+        end
+
+        def run = JSON.parse(g_eval_output)[g_eval.metric]
+
+        private def g_eval_output = llm_config.completion(prompt:).strip
+
+        private def llm_config = LLMConfig.g_eval
+
+        private def g_eval = @g_eval ||= GEval.find(g_eval_id)
+
+        private def student_response = llm_feedback.passage_prompt_response.response
+
+        private def passage_prompt = llm_feedback.passage_prompt_response.passage_prompt.prompt
+
+        private def ideal_feedback = llm_feedback.example_feedback.text
+
+        private def prompt
+          "
+          Task Introduction:
+          #{g_eval.task_introduction}
+
+          Evaluation Criteria:
+          #{g_eval.evaluation_criteria}
+
+          Evaluation Steps:
+          #{g_eval.evaluation_steps}
+
+          Example:
+          Passage Prompt: #{passage_prompt}
+          Student Response: #{student_response}
+          LLM Feedback: #{llm_feedback.text}
+          Ideal Feedback: #{ideal_feedback}
+
+          Evaluation Form (scores ONLY):
+          - #{g_eval.metric}:
+          "
+        end
+      end
+    end
+  end
+end

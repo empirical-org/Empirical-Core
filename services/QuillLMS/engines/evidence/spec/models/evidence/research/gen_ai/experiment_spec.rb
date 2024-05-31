@@ -50,7 +50,6 @@ module Evidence
           let(:passage_prompt) { experiment.passage_prompt }
           let(:llm_config) { experiment.llm_config }
           let(:llm_prompt) { experiment.llm_prompt }
-          let(:llm_client) { double(:llm_client) }
           let(:llm_feedback_text) { { 'feedback' => 'This is feedback' }.to_json }
 
           let(:passage_prompt_responses) do
@@ -58,11 +57,11 @@ module Evidence
           end
 
           before do
-            allow(experiment).to receive(:llm_client).and_return(llm_client)
+            allow(experiment).to receive(:llm_config).and_return(llm_config)
 
-            allow(llm_client)
-              .to receive(:run)
-              .with(llm_config:, prompt: instance_of(String))
+            allow(llm_config)
+              .to receive(:completion)
+              .with(prompt: instance_of(String))
               .and_return(llm_feedback_text)
 
             allow(CalculateResultsWorker).to receive(:perform_async).with(experiment.id)
@@ -77,7 +76,7 @@ module Evidence
 
           context 'when creating LLM prompt responses feedbacks' do
             it 'only processes testing data responses' do
-              expect(llm_client).to receive(:run).exactly(num_examples).times
+              expect(llm_config).to receive(:completion).exactly(num_examples).times
 
               subject
             end
@@ -88,7 +87,7 @@ module Evidence
 
               subject
 
-              expect(experiment.reload.results['api_call_times'].size).to eq(num_examples)
+              expect(experiment.reload.api_call_times.size).to eq(num_examples)
             end
           end
 

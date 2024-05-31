@@ -8,6 +8,8 @@ Rails.autoloaders.each do |autoloader|
     'concept_replacement_lms_worker' => 'ConceptReplacementLMSWorker',
     'ell_starter_diagnostic_email_job' => 'ELLStarterDiagnosticEmailJob',
     'gen_ai' => 'GenAI',
+    'g_eval' => 'GEval',
+    'g_evals_controller' => 'GEvalsController',
     'graphiql' => 'GraphiQL',
     'html_tag_remover' => 'HTMLTagRemover',
     'llm_config' => 'LLMConfig',

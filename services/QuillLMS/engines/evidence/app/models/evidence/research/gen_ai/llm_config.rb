@@ -10,23 +10,20 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 module Evidence
   module Research
     module GenAI
       class LLMConfig < ApplicationRecord
         class UnsupportedVendorError < StandardError; end
 
-        GOOGLE = 'google'
-
         GOOGLE_VERSIONS = [
           GEMINI_1_0_PRO = 'gemini-1.0-pro',
           GEMINI_1_5_PRO_LATEST = 'gemini-1.5-pro-latest',
-          GEMINI_1_5_FLASH_LATEST = 'gemini-1-5-flash-latest'
+          GEMINI_1_5_FLASH_LATEST = 'gemini-1.5-flash-latest'
         ].freeze
 
         GOOGLE_JSON_FORMAT_RESPONSES = { "generationConfig": { "response_mime_type": "application/json" } }.freeze
-
-        OPEN_AI = 'open_ai'
 
         OPEN_AI_VERSIONS = [
           GPT_3_5_TURBO_0125 = 'gpt-3.5-turbo-0125',
@@ -36,18 +33,17 @@ module Evidence
 
         OPEN_AI_JSON_FORMAT_RESPONSES = { "response_format": {"type": "json_object"} }.freeze
 
-        VENDOR_MAP = {
-          GOOGLE => Evidence::Gemini::Completion,
-          OPEN_AI => Evidence::OpenAI::Completion
-        }.freeze
-
-
         validates :vendor, presence: true
         validates :version, presence: true
 
         attr_readonly :vendor, :version
 
-        def llm_client = VENDOR_MAP.fetch(vendor) { raise UnsupportedVendorError }
+        def self.auto_cot = find_by(vendor: OPEN_AI, version: GPT_4_O)
+        def self.g_eval = find_by(vendor: GOOGLE, version: GEMINI_1_5_FLASH_LATEST)
+
+        def completion_client = VENDOR_COMPLETION_MAP.fetch(vendor) { raise UnsupportedVendorError }
+
+        def completion(prompt:) = completion_client.run(prompt:, llm_config: self)
 
         def google? = vendor == GOOGLE
         def open_ai? = vendor == OPEN_AI

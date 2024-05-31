@@ -29,6 +29,7 @@ module Evidence
           @llm_configs = LLMConfig.all
           @passage_prompts = PassagePrompt.all
           @llm_prompt_templates = LLMPromptTemplate.all
+          @g_evals = GEval.selectable
         end
 
         def create
@@ -55,6 +56,7 @@ module Evidence
           @histogram = @experiment.api_call_times.map(&:round).tally if @experiment.api_call_times.present?
           @next = Experiment.where("id > ?", @experiment.id).order(id: :asc).first
           @previous = Experiment.where("id < ?", @experiment.id).order(id: :desc).first
+          @g_evals = GEval.where(id: @experiment.g_eval_ids).order(:id)
         end
 
         def retry
@@ -65,6 +67,7 @@ module Evidence
 
         private def run_experiment(llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples:)
           experiment = Experiment.new(llm_config_id:, passage_prompt_id:, llm_prompt_id:, num_examples:)
+          experiment.results = { g_eval_ids: }
 
           RunExperimentWorker.perform_async(experiment.id) if experiment.save
         end
@@ -76,13 +79,15 @@ module Evidence
               :num_examples,
               llm_config_ids: [],
               llm_prompt_template_ids: [],
-              passage_prompt_ids: []
+              passage_prompt_ids: [],
+              g_eval_ids: []
             )
         end
 
         private def llm_config_ids = experiment_params[:llm_config_ids].reject(&:blank?).map(&:to_i)
         private def llm_prompt_template_ids = experiment_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
         private def passage_prompt_ids = experiment_params[:passage_prompt_ids].reject(&:blank?).map(&:to_i)
+        private def g_eval_ids = experiment_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []
 
         private def num_examples(passage_prompt_id)
           max_num_examples = PassagePrompt.find(passage_prompt_id).passage_prompt_responses.testing_data.count
