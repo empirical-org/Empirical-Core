@@ -40,14 +40,19 @@ module Evidence
         validates :status, presence: true, inclusion: { in: STATUSES }
 
         delegate :conjunction, :name, to: :passage_prompt
-        delegate :llm_client, to: :llm_config
         delegate :vendor, :version, to: :llm_config
         delegate :llm_prompt_template_id, to: :llm_prompt
 
         scope :completed, -> { where(status: COMPLETED) }
         scope :failed, -> { where(status: FAILED) }
 
-        store_accessor :results, :api_call_times, :accuracy_identical, :accuracy_optimal_sub_optimal, :confusion_matrix
+        store_accessor :results,
+          :api_call_times,
+          :accuracy_identical,
+          :accuracy_optimal_sub_optimal,
+          :confusion_matrix,
+          :g_eval_ids,
+          :g_evals
 
         attr_readonly :llm_config_id, :llm_prompt_id, :passage_prompt_id
 
@@ -85,7 +90,7 @@ module Evidence
           [].tap do |api_call_times|
             passage_prompt_responses.testing_data.limit(num_examples).each do |passage_prompt_response|
               api_call_start_time = Time.zone.now
-              raw_text = llm_client.run(llm_config:, prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+              raw_text = llm_config.completion(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
               api_call_times << (Time.zone.now - api_call_start_time).round(2)
 
               text = Resolver.run(raw_text:)

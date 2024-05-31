@@ -41,6 +41,7 @@ export {
   Input,
   OneThumbSlider,
   Passthrough,
+  RadioButton,
   ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,

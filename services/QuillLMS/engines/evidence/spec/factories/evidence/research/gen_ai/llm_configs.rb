@@ -15,11 +15,11 @@ module Evidence
     module GenAI
       FactoryBot.define do
         factory :evidence_research_gen_ai_llm_config, class: 'Evidence::Research::GenAI::LLMConfig' do
-          vendor { Evidence::Research::GenAI::LLMConfig::VENDOR_MAP.keys.sample }
+          vendor { Evidence::Research::GenAI::VENDOR_COMPLETION_MAP.keys.sample }
           version { 'v1.0' }
 
-          trait(:google) { vendor { Evidence::Research::GenAI::LLMConfig::GOOGLE } }
-          trait(:open_ai) { vendor { Evidence::Research::GenAI::LLMConfig::OPEN_AI } }
+          trait(:google) { vendor { Evidence::Research::GenAI::GOOGLE } }
+          trait(:open_ai) { vendor { Evidence::Research::GenAI::OPEN_AI } }
         end
       end
     end

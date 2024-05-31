@@ -16,7 +16,7 @@ Evidence::Engine.routes.draw do
 
   resources :automl_models, only: [:index, :show, :create, :update, :destroy] do
     member { put :activate }
-    collection { get :deployed_model_names }
+    collection { get :deployed_model_names_and_projects }
   end
 
   put 'automl_models/:prompt_id/enable_more_than_ten_labels' => 'automl_models#enable_more_than_ten_labels'
@@ -52,6 +52,8 @@ Evidence::Engine.routes.draw do
       resources :llm_prompt_templates, only: [:new, :create, :show, :index]
       resources :passage_prompts, only: [:new, :create, :show, :index]
       resources :passages, only: [:new, :create, :show]
+      resources :auto_chain_of_thoughts, only: [:new, :create]
+      resources :g_evals, only: [:new, :create, :show]
     end
   end
 end

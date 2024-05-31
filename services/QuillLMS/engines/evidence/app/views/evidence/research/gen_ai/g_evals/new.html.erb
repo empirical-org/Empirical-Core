@@ -1,0 +1,34 @@
+<%= form_for @g_eval do |f| %>
+  <%= render 'errors', object: @g_eval %>
+
+  <h1>New G-Eval</h1>
+
+  <div class="field-spacing">
+    <%= f.label :metric %>
+    <%= f.text_field :metric, size: 50, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :task_introduction %><br>
+    <%= f.text_area :task_introduction, cols: 100, rows: 5, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :evaluation_criteria %><br>
+    <%= f.text_area :evaluation_criteria, cols: 100, rows: 5, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :evaluation_steps %><br>
+    <%= f.text_area :evaluation_steps, cols: 100, rows: 20, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :max_score %>
+    <%= f.number_field :max_score, min: 1, class: 'number-input', required: true, style: "width: 75px;" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
