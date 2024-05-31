@@ -49,7 +49,7 @@ classDiagram
          status
     }
 
-    PassagePrompt --|> Experiment
+    PassagePrompt --|>
     LLMConfig --|> Experiment
     LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Experiment

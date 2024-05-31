@@ -2,15 +2,15 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_experiments
+# Table name: evidence_research_gen_ai_trials
 #
 #  id                  :bigint           not null, primary key
 #  evaluation_duration :float
-#  experiment_duration :float
-#  experiment_errors   :text             default([]), not null, is an Array
 #  num_examples        :integer          default(0), not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  trial_duration      :float
+#  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  llm_config_id       :integer          not null
