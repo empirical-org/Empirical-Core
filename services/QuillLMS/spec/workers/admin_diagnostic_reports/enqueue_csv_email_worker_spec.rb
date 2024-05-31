@@ -45,8 +45,8 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
     end
 
     context 'saved shared filters' do
-      let(:shared_filter_selections) { {'grades' => [{'value' => 1}]} }
-      let(:shared_filters) { {'grades' => [1]} }
+      let(:shared_filter_selections) { {'grades' => [{'value' => 1}], 'teachers'=> [{'value' => 2}] } }
+      let(:shared_filters) { {'grades' => [1], 'teacher_ids' => [2]} }
 
       before do
         create(:admin_report_filter_selection, user: user, report: described_class::BASE_REPORT_NAME, filter_selections: shared_filter_selections)

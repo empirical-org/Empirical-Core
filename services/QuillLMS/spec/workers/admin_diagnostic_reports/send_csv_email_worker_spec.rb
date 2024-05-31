@@ -104,7 +104,11 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
       end
 
       context 'students payload' do
-        let(:expected_payload) { shared_payload.merge(students_filters.symbolize_keys) }
+        let(:expected_payload) do
+          shared_payload
+            .merge(students_filters.symbolize_keys)
+            .merge(limited: false)
+        end
 
         it do
           expect(AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery)
@@ -268,6 +272,54 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
           expect(Adapters::Csv::AdminDiagnosticOverviewDataExport).to receive(:to_csv_string).with(combined_payload)
 
           subject.perform(*default_params)
+        end
+
+        # in cases where no one was assigned a post diagnostic, this value is an empty array instead of one containing a '0' value, and we need to ensure that our special handling in post-processing works
+        context 'empty post_assigned' do
+          let(:mock_post_assigned_payload) { [] }
+          # The only changes below involve :post_students_assigned, but I couldn't think of a cleaner way to do that change without doing the whole payload
+          let(:combined_payload) do
+            [
+              {
+                diagnostic_id: 1663,
+                pre_students_assigned: 4104,
+                pre_average_score: 0.5708,
+                pre_students_completed: 3012,
+                post_students_assigned: nil,
+                overall_skill_growth: 0.1442,
+                post_students_completed: 1158,
+                average_practice_activities_count: 19.4781,
+                average_time_spent_seconds: 5954.5283,
+                students_completed_practice: 1215,
+                aggregate_rows: [
+                  {aggregate_id: "9", pre_students_assigned: 2994, pre_average_score: 0.5557, pre_students_completed: 2284, overall_skill_growth: 0.1463, post_students_completed: 1056, average_practice_activities_count: 19.5791, average_time_spent_seconds: 6041.9606, students_completed_practice: 1093},
+                  {aggregate_id: "10", pre_students_assigned: 417, pre_average_score: 0.6497, pre_students_completed: 329, overall_skill_growth: 0.0754, post_students_completed: 37, average_practice_activities_count: 14.6666, average_time_spent_seconds: 4466, students_completed_practice: 3}
+                ]
+              },
+              {
+                diagnostic_id: 1668,
+                pre_students_assigned: 1869,
+                pre_average_score: 0.4544,
+                pre_students_completed: 1340,
+                post_students_assigned: nil,
+                overall_skill_growth: 0.1014,
+                post_students_completed: 473,
+                average_practice_activities_count: 26.5725,
+                average_time_spent_seconds: 7010.8548,
+                students_completed_practice: 627,
+                aggregate_rows: [
+                  {aggregate_id: "9", pre_students_assigned: 1385, pre_average_score: 0.4534, pre_students_completed: 1036, overall_skill_growth: 0.1037, post_students_completed: 437, average_practice_activities_count: 26.4242, average_time_spent_seconds: 6989.6919, students_completed_practice: 568},
+                  {aggregate_id: "10", pre_students_assigned: 108, pre_average_score: 0.4309, pre_students_completed: 81, overall_skill_growth: nil, post_students_completed: 0, average_practice_activities_count: 13.7857, average_time_spent_seconds: 4167.5714, students_completed_practice: 14}
+                ]
+              }
+            ]
+          end
+
+          it do
+            expect(Adapters::Csv::AdminDiagnosticOverviewDataExport).to receive(:to_csv_string).with(combined_payload)
+  
+            subject.perform(*default_params)
+          end
         end
       end
 

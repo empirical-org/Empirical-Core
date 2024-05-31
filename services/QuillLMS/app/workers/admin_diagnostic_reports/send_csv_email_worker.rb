@@ -41,7 +41,7 @@ module AdminDiagnosticReports
 
       combined_pre = merge_results(pre_assigned, pre_completed)
       combined_recommendations = merge_results(combined_pre, recommendations)
-      combined_post = merge_results(post_assigned, post_completed)
+      combined_post = merge_results(post_assigned, post_completed, [:post_students_assigned])
 
       query_results = merge_results(combined_recommendations, combined_post)
 
@@ -49,13 +49,10 @@ module AdminDiagnosticReports
       upload_csv(data)
     end
 
-    private def merge_results(base_data, supplemental_data)
+    private def merge_results(base_data, supplemental_data, ensure_base_keys = [], ensure_supplemental_keys = [])
       diagnostic_ids = extract_unique_ids(base_data, supplemental_data, :diagnostic_id)
 
-      base_keys = base_data.first&.keys || []
-      supplemental_keys = supplemental_data.first&.keys || []
-
-      base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data)
+      base_data_fallback, supplemental_data_fallback = generate_fallback_hashes(base_data, supplemental_data, ensure_base_keys, ensure_supplemental_keys)
 
       merged_data = diagnostic_ids.map do |diagnostic_id|
         left_data = find_row_or_fallback(base_data, :diagnostic_id, diagnostic_id, base_data_fallback)
@@ -88,9 +85,9 @@ module AdminDiagnosticReports
       ((base_data&.map{|row| row[key]} || []) + (supplemental_data&.map{|row| row[key]} || [])).uniq
     end
 
-    private def generate_fallback_hashes(base_data, supplemental_data)
-      unique_base_keys = calculate_unique_keys(base_data, supplemental_data)
-      unique_supplemental_keys = calculate_unique_keys(supplemental_data, base_data)
+    private def generate_fallback_hashes(base_data, supplemental_data, ensure_base_keys = [], ensure_supplemental_keys = [])
+      unique_base_keys = calculate_unique_keys(base_data, supplemental_data, ensure_base_keys)
+      unique_supplemental_keys = calculate_unique_keys(supplemental_data, base_data, ensure_supplemental_keys)
 
       base_data_fallback = unique_base_keys.index_with{nil}
       supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
@@ -98,8 +95,8 @@ module AdminDiagnosticReports
       [base_data_fallback, supplemental_data_fallback]
     end
 
-    private def calculate_unique_keys(unique_from, compare_to)
-      (unique_from&.first&.keys || []) - (compare_to&.first&.keys || [])
+    private def calculate_unique_keys(unique_from, compare_to, ensure_keys)
+      ((unique_from&.first&.keys || []) + ensure_keys).uniq - (compare_to&.first&.keys || [])
     end
 
     private def skills_link
