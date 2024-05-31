@@ -317,7 +317,7 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
 
           it do
             expect(Adapters::Csv::AdminDiagnosticOverviewDataExport).to receive(:to_csv_string).with(combined_payload)
-  
+
             subject.perform(*default_params)
           end
         end
