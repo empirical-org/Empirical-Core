@@ -40,7 +40,7 @@ module AdminDiagnosticReports
       post_completed = PostDiagnosticCompletedViewQuery.run(**overview_payload)
 
       combined_pre = merge_results(pre_assigned, pre_completed)
-      combined_recommendations = merge_results(combined_pre, recommendations)
+      combined_recommendations = merge_results(combined_pre, recommendations, [], [:students_completed_practice, :average_practice_activities_count, :average_time_spent_seconds])
       combined_post = merge_results(post_assigned, post_completed, [:post_students_assigned])
 
       query_results = merge_results(combined_recommendations, combined_post)
