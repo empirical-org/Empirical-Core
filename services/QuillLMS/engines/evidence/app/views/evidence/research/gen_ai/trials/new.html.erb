@@ -1,8 +1,8 @@
-<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link' %>
-<h1>Experiment Runner</h1>
+<%= link_to 'Trials', research_gen_ai_trials_path, class: 'new-link' %>
+<h1>Trial Runner</h1>
 
-<%= form_for @experiment, html: { id: 'new_experiment_form' } do |f| %>
-  <%= render 'errors', object: @experiment %>
+<%= form_for @trial, html: { id: 'new_trial_form' } do |f| %>
+  <%= render 'errors', object: @trial %>
 
   <div id="llm-configs-container" class="field-spacing">
     <div style="display: flex; align-items: baseline;">
@@ -15,7 +15,7 @@
 
     <% @llm_configs.each do |llm_config| %>
       <div class="llm-config-item" style="display: flex; align-items: baseline;">
-        <%= check_box_tag 'research_gen_ai_experiment[llm_config_ids][]', llm_config.id, false, id: dom_id(llm_config), class: 'llm-config-checkbox' %>
+        <%= check_box_tag 'research_gen_ai_trial[llm_config_ids][]', llm_config.id, false, id: dom_id(llm_config), class: 'llm-config-checkbox' %>
         <%= label_tag dom_id(llm_config), llm_config.to_s %><br/>
         <%= link_to 'view', llm_config, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
@@ -33,7 +33,7 @@
 
     <% @llm_prompt_templates.each do |llm_prompt_template| %>
       <div class="llm-prompt-template-item" style="display: flex; align-items: baseline;">
-        <%= check_box_tag 'research_gen_ai_experiment[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
+        <%= check_box_tag 'research_gen_ai_trial[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
         <%= label_tag dom_id(llm_prompt_template), llm_prompt_template.to_s %><br/>
         <%= link_to 'view', llm_prompt_template, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
@@ -51,7 +51,7 @@
 
     <% @passage_prompts.each do |passage_prompt| %>
       <div class="passage-prompt-item" style="display: flex; align-items: baseline;">
-        <%= check_box_tag 'research_gen_ai_experiment[passage_prompt_ids][]', passage_prompt.id, false, id: dom_id(passage_prompt), class: 'passage-prompt-checkbox' %>
+        <%= check_box_tag 'research_gen_ai_trial[passage_prompt_ids][]', passage_prompt.id, false, id: dom_id(passage_prompt), class: 'passage-prompt-checkbox' %>
         <%= label_tag dom_id(passage_prompt), passage_prompt.to_s %>
         <%= link_to 'view', passage_prompt, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
@@ -69,7 +69,7 @@
 
     <% @g_evals.each do |g_eval| %>
       <div class="g-eval-item" style="display: flex; align-items: baseline;">
-        <%= check_box_tag 'research_gen_ai_experiment[g_eval_ids][]', g_eval.id, false, id: dom_id(g_eval), class: 'g-eval-checkbox' %>
+        <%= check_box_tag 'research_gen_ai_trial[g_eval_ids][]', g_eval.id, false, id: dom_id(g_eval), class: 'g-eval-checkbox' %>
         <%= label_tag dom_id(g_eval), g_eval.to_s %>
         <%= link_to 'view', g_eval, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
@@ -86,7 +86,7 @@
   </div>
 <% end %>
 
-<%= link_to 'Experiments', research_gen_ai_experiments_path, class: 'new-link' %>
+<%= link_to 'Trials', research_gen_ai_trials_path, class: 'new-link' %>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -101,7 +101,7 @@
     });
   });
 
-  document.getElementById('new_experiment_form').onsubmit = function(event) {
+  document.getElementById('new_trial_form').onsubmit = function(event) {
     const containers = [
       {selector: '#llm-configs-container', name: 'LLM Config'},
       {selector: '#llm-prompt-templates-container', name: 'LLM Prompt Template'},

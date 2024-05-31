@@ -1,4 +1,4 @@
-# Generative AI Experiments
+# Generative AI Trials
 ## 1. Data Importing
 `Passage`, `PassagePrompt`, `PassagePromptResponse` and `ExampleFeedback` records are imported with the following structure
 
@@ -27,8 +27,8 @@ classDiagram
     PassagePromptResponse --|> ExampleFeedback
 ```
 
-## 2. Experiment Configuration
-Within the create `Experiment` UI, `LLMConfig`, `LLMPromptTemplate0` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the experiment
+## 2. Trial Configuration
+Within the create `Trial` UI, `LLMConfig`, `LLMPromptTemplate0` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
 
 ```mermaid
 classDiagram
@@ -45,18 +45,18 @@ classDiagram
     }
     class PassagePrompt {
     }
-    class Experiment {
+    class Trial {
          status
     }
 
     PassagePrompt --|>
-    LLMConfig --|> Experiment
+    LLMConfig --|> Trial
     LLMPromptTemplate --|> LLMPrompt
-    LLMPrompt --|> Experiment
+    LLMPrompt --|> Trial
 ```
 
-## 3. Experiment Ouptut
-As the `Experiment` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `experiment_id`.   These results are compared with `ExampleFeedback` and evaluated.
+## 3. Trial Ouptut
+As the `Trial` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `ExampleFeedback` and evaluated.
 
 ```mermaid
 classDiagram
@@ -70,5 +70,5 @@ classDiagram
     }
     PassagePromptResponse --|> ExampleFeedback
     PassagePromptResponse --|> LLMFeedback
-    Experiment --|> LLMFeedback
+    Trial --|> LLMFeedback
 ```

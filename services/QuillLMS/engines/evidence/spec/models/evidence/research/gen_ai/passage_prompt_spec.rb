@@ -36,7 +36,7 @@ module Evidence
         it { have_many(:passage_prompt_responses).dependent(:destroy) }
         it { have_many(:example_feedbacks).through(:passage_prompt_responses) }
         it { have_many(:llm_feedbacks).through(:passage_prompt_responses) }
-        it { have_many(:experiments).dependent(:destroy) }
+        it { have_many(:trials).dependent(:destroy) }
 
         it { expect(build(:evidence_research_gen_ai_passage_prompt)).to be_valid }
       end

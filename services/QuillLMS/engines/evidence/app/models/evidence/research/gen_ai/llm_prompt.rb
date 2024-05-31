@@ -18,7 +18,7 @@ module Evidence
 
         belongs_to :llm_prompt_template, class_name: 'Evidence::Research::GenAI::LLMPromptTemplate'
 
-        has_many :experiments, class_name: 'Evidence::Research::GenAI::Experiment', dependent: :destroy
+        has_many :trials, class_name: 'Evidence::Research::GenAI::Trial', dependent: :destroy
 
         validates :prompt, presence: true
         validates :llm_prompt_template_id, presence: true

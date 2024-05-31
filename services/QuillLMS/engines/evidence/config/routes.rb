@@ -43,7 +43,7 @@ Evidence::Engine.routes.draw do
 
   namespace :research do
     namespace :gen_ai do
-      resources :experiments, only: [:new, :create, :show, :index] do
+      resources :trials, only: [:new, :create, :show, :index] do
         post :retry, on: :member
       end
 

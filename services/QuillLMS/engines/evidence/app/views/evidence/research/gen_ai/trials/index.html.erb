@@ -1,10 +1,10 @@
 <header>
-  <h2>Experiments</h2>
+  <h2>Trials</h2>
 </header>
 
-<%= link_to 'New Experiment', new_research_gen_ai_experiment_path %>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
 
-<% if @experiments.any? %>
+<% if @trials.any? %>
   <table>
     <thead>
       <tr>
@@ -19,23 +19,23 @@
       </tr>
     </thead>
     <tbody>
-      <% @experiments.each do |experiment| %>
+      <% @trials.each do |trial| %>
         <tr>
-          <td><%= experiment.id %></td>
-          <td><%= experiment.llm_config %></td>
-          <td><%= experiment.passage_prompt.name %></td>
-          <td><%= experiment.conjunction %></td>
-          <td><%= experiment.llm_prompt.description %></td>
-          <td><%= experiment.num_examples %></td>
-          <td><%= experiment.status %></td>
+          <td><%= trial.id %></td>
+          <td><%= trial.llm_config %></td>
+          <td><%= trial.passage_prompt.name %></td>
+          <td><%= trial.conjunction %></td>
+          <td><%= trial.llm_prompt.description %></td>
+          <td><%= trial.num_examples %></td>
+          <td><%= trial.status %></td>
           <td>
             <div class=link-container">
-              <%= link_to "View", experiment %>
-              <% if experiment.failed? %>
+              <%= link_to "View", trial %>
+              <% if trial.failed? %>
                 <%= button_to 'Retry',
-                      retry_research_gen_ai_experiment_path(experiment),
+                      retry_research_gen_ai_trial_path(trial),
                       method: :post,
-                      data: { confirm: 'Are you sure you want to retry this experiment?' },
+                      data: { confirm: 'Are you sure you want to retry this trial?' },
                       class: 'link-button'
                 %>
               <% end %>
@@ -46,7 +46,7 @@
     </tbody>
   </table>
 <% else %>
-  <p>No experiments found.</p>
+  <p>No trials found.</p>
 <% end %>
 
-<%= link_to 'New Experiment', new_research_gen_ai_experiment_path %>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
