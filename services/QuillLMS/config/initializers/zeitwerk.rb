@@ -24,7 +24,6 @@ Rails.autoloaders.each do |autoloader|
     'open_ai' => 'OpenAI',
     'pusher_csv_export_completed' => 'PusherCSVExportCompleted',
     'report_demo_ap_creator' => 'ReportDemoAPCreator',
-    'sso_request' => 'SSORequest',
     'staff_csv_uploader' => 'StaffCSVUploader',
     'vertex_ai' => 'VertexAI'
   )

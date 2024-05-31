@@ -31,7 +31,7 @@ module Auth
     end
 
     private def sso_response
-      @sso_response ||= LearnWorlds::SSORequest.run(current_user)
+      @sso_response ||= LearnWorlds::Request.run(current_user)
     end
 
     private def sso_success?
