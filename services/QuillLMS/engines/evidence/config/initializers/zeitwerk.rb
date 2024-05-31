@@ -5,6 +5,8 @@ Rails.autoloaders.each do |autoloader|
   autoloader.inflector.inflect(
     'auto_ml' => 'AutoML',
     'gen_ai' => 'GenAI',
+    'g_eval' => 'GEval',
+    'g_evals_controller' => 'GEvalsController',
     'html_tag_remover' => 'HTMLTagRemover',
     'llm_config' => 'LLMConfig',
     'llm_configs_controller' => 'LLMConfigsController',

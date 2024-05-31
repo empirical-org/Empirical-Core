@@ -28,7 +28,7 @@ module Evidence
           before do
             allow(ResultsFetcher)
               .to receive(:run)
-              .with(experiment.llm_feedbacks)
+              .with(experiment)
               .and_return(fetched_results)
 
             allow(Experiment)

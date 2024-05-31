@@ -14,8 +14,7 @@ module Evidence
           return if ENV.fetch('STOP_ALL_GEN_AI_EXPERIMENTS', 'false') == 'true'
 
           experiment = Experiment.find(experiment_id)
-          experiment.update_results(ResultsFetcher.run(experiment.llm_feedbacks))
-        ensure
+          experiment.update_results(ResultsFetcher.run(experiment))
           experiment&.update!(evaluation_duration: Time.zone.now - start_time)
         end
       end
