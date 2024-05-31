@@ -49,7 +49,7 @@ classDiagram
          status
     }
 
-    PassagePrompt --|>
+    PassagePrompt --|> Trial
     LLMConfig --|> Trial
     LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial
