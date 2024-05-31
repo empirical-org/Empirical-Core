@@ -2,9 +2,7 @@
 
 module Auth
   module LearnWorlds
-    class SSORequest < ::ApplicationService
-      class NilEmailError < StandardError; end
-      class NilUserError < StandardError; end
+    class UserRequest < ::ApplicationService
 
       attr_reader :user
 
