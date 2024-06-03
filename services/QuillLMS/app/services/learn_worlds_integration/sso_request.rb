@@ -1,20 +1,13 @@
 # frozen_string_literal: true
 
 module LearnWorlds
-  class Request < ::ApplicationService
+  class SSORequest < UserRequest
     class NilEmailError < StandardError; end
-    class NilUserError < StandardError; end
-
-    attr_reader :user
 
     delegate :email, :learn_worlds_account, :username, to: :user
 
-    def initialize(user)
-      @user = user
-    end
-
     def run
-      raise NilUserError if user.nil?
+      super
       raise NilEmailError if email.nil?
 
       HTTParty.post(SSO_ENDPOINT, body: body, headers: headers)
@@ -43,11 +36,5 @@ module LearnWorlds
       }
     end
 
-    private def headers
-      {
-        "Lw-Client" => CLIENT_ID,
-        "Authorization" => "Bearer #{ACCESS_TOKEN}"
-      }
-    end
   end
 end
