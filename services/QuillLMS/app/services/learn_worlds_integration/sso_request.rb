@@ -6,10 +6,7 @@ module LearnWorldsIntegration
 
     delegate :email, :learn_worlds_account, :username, to: :user
 
-    def run
-      raise NilEmailError if email.nil?
-      super
-    end
+    def endpoint = SSO_ENDPOINT
 
     private def data
       learn_worlds_account ? existing_user_data : new_user_data

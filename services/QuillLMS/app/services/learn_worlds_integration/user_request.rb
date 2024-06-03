@@ -6,23 +6,24 @@ module LearnWorldsIntegration
 
     attr_reader :user
 
+    delegate :email, :learn_worlds_account, :username, to: :user
+
     def initialize(user)
       @user = user
     end
 
     def run
       raise NilUserError if user.nil?
+      raise NilEmailError if email.nil?
 
-      HTTParty.post(SSO_ENDPOINT, body: body, headers: headers)
+      HTTParty.post(endpoint, body: body, headers: headers)
     end
 
-    def data
-      raise NotImplementedError
-    end
+    def data = raise NotImplementedError
 
-    private def body
-      URI.encode_www_form(data)
-    end
+    def endpoint = raise NotImplementedError
+
+    private def body = URI.encode_www_form(data)
 
     private def headers
       {

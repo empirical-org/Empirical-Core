@@ -3,12 +3,15 @@
 module LearnWorldsIntegration
   class UserTagsRequest < UserRequest
 
+    def endpoint = "#{USER_TAGS_ENDPOINT}/#{learn_worlds_account.external_id}/tags"
+
     def data
       {
-        "tags": [
+        email: email,
+        tags: [
           "test1"
         ],
-        "action": "attach"
+        action: "attach"
       }
     end
 
