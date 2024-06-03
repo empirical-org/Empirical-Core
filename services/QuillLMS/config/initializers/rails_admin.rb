@@ -215,8 +215,8 @@ RailsAdmin.config do |config|
   end
 
   config.model 'SkillGroup' do
-    list do
-      exclude_fields :skill_group_activities, :activities, :skills
+    object_label_method do
+      :display_name_for_rails_admin
     end
   end
 

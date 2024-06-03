@@ -37,9 +37,9 @@ class PagesController < ApplicationController
 
     @title = 'Quill.org | Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
-    # default numbers are current as of 03/12/19
-    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
-    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
+    # default numbers are current as of 06/03/24
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 1972000000
+    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 8900000
 
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
@@ -345,11 +345,12 @@ class PagesController < ApplicationController
   end
 
   def impact
-    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
-    @number_of_schools = $redis.get(NUMBER_OF_SCHOOLS) || 14651
-    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
-    @number_of_low_income_schools = $redis.get(NUMBER_OF_LOW_INCOME_SCHOOLS) || 8911
-    @number_of_teachers = $redis.get(NUMBER_OF_TEACHERS) || 44100
+    # default numbers are current as of 06/03/24
+    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 8900000
+    @number_of_schools = $redis.get(NUMBER_OF_SCHOOLS) || 38018
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 1972000000
+    @number_of_low_income_schools = $redis.get(NUMBER_OF_LOW_INCOME_SCHOOLS) || 23951
+    @number_of_teachers = $redis.get(NUMBER_OF_TEACHERS) || 186300
   end
 
   def team

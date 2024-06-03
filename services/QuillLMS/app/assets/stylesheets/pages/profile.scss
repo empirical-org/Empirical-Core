@@ -222,12 +222,19 @@
     border: 1px solid #E0E0E0;
     padding: 20px;
     margin-top: 16px;
+    background-color: $quill-grey-1;
+    max-width: 780px;
     header {
       margin-bottom: 24px;
     }
     h2 {
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1.3;
+      font-weight: 700;
+      color: $quill-grey-90;
+    }
+    .key-metric h4 {
+      font-weight: 700;
     }
     .dropdown-container {
       font-size: 14px;
@@ -247,6 +254,9 @@
     }
     .dropdown-container .dropdown .dropdown__menu {
       width: 142px;
+    }
+    .dropdown__control {
+      background-color: transparent;
     }
   }
 }

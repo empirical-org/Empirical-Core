@@ -57,7 +57,7 @@ describe SetImpactMetricsWorker do
 
     it 'should set the NUMBER_OF_LOW_INCOME_SCHOOLS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq(schools_payload.filter { |s| s[:free_lunches] > SetImpactMetricsWorker::FREE_LUNCH_MINIMUM}.length.to_s)
+      expect($redis.get(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS)).to eq((schools_payload.length * SetImpactMetricsWorker::LOW_INCOME_PERCENTAGE).floor.to_s)
     end
   end
 end
