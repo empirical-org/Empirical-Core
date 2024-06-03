@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LearnWorlds
+module LearnWorldsIntegration
   class UserRequest < ::ApplicationService
     class NilUserError < StandardError; end
 
@@ -11,7 +11,17 @@ module LearnWorlds
     end
 
     def run
+      raise NilUserError if user.nil?
+
+      HTTParty.post(SSO_ENDPOINT, body: body, headers: headers)
+    end
+
+    def data
       raise NotImplementedError
+    end
+
+    private def body
+      URI.encode_www_form(data)
     end
 
     private def headers

@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
-module LearnWorlds
+module LearnWorldsIntegration
   class SSORequest < UserRequest
     class NilEmailError < StandardError; end
 
     delegate :email, :learn_worlds_account, :username, to: :user
 
     def run
-      super
       raise NilEmailError if email.nil?
-
-      HTTParty.post(SSO_ENDPOINT, body: body, headers: headers)
-    end
-
-    private def body
-      URI.encode_www_form(data)
+      super
     end
 
     private def data
