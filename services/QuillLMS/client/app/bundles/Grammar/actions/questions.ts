@@ -42,7 +42,7 @@ export const getQuestion = (questionID: string) => {
 
 export const getGradedResponsesWithCallback = (questionID: string, callback: Function) => {
   requestGet(`${process.env.QUILL_CMS}/questions/${questionID}/responses`, (body) => {
-    const bodyToObj: {[key: string]: Response} = {};
+    const bodyToObj: { [key: string]: Response } = {};
     body.forEach((resp: Response) => {
       bodyToObj[resp.id] = resp;
       if (typeof resp.concept_results === 'string') {
@@ -51,7 +51,7 @@ export const getGradedResponsesWithCallback = (questionID: string, callback: Fun
       if (resp.concept_results) {
         for (const cr in resp.concept_results) {
           if (resp.concept_results.hasOwnProperty(cr)) {
-            const formattedCr: ConceptResult = { conceptUID: '', correct: false};
+            const formattedCr: ConceptResult = { conceptUID: '', correct: false };
             formattedCr.conceptUID = cr;
             formattedCr.correct = resp.concept_results[cr];
             resp.concept_results[cr] = formattedCr;
@@ -63,16 +63,6 @@ export const getGradedResponsesWithCallback = (questionID: string, callback: Fun
     });
     callback(bodyToObj);
   });
-}
-
-export const updateFlag = (qid: string, flag: string) => {
-  return (dispatch: Function) => {
-    QuestionApi.updateFlag(qid, flag).then(() => {
-      dispatch(getQuestion(qid))
-    }).catch((error: string) => {
-      alert(`Flag update failed! ${error}`);
-    });
-  }
 }
 
 export const incrementRequestCount = () => {
@@ -191,7 +181,7 @@ export const submitQuestionEdit = (qid: string, formContent: Question) => {
   };
 }
 
-export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {text: string}) => {
+export const saveOptimalResponse = (qid: string, conceptUid: string, answer: { text: string }) => {
   return (dispatch: Function) => {
     if (answer.text) {
       const conceptResults = [{ conceptUID: conceptUid, correct: true }]
@@ -250,7 +240,7 @@ export const updateIncorrectSequences = (qid: string, data: Array<IncorrectSeque
   }
 }
 
-export const submitNewFocusPoint = (qid:string, data: FocusPoint) => {
+export const submitNewFocusPoint = (qid: string, data: FocusPoint) => {
   return (dispatch: Function) => {
     FocusPointApi.create(qid, data).then(() => {
       dispatch(getQuestion(qid))
@@ -260,7 +250,7 @@ export const submitNewFocusPoint = (qid:string, data: FocusPoint) => {
   }
 }
 
-export const submitEditedFocusPoint = (qid:string, data: FocusPoint, fpid: string) => {
+export const submitEditedFocusPoint = (qid: string, data: FocusPoint, fpid: string) => {
   return (dispatch: Function) => {
     FocusPointApi.update(qid, fpid, data).then(() => {
       dispatch(getQuestion(qid))
@@ -270,7 +260,7 @@ export const submitEditedFocusPoint = (qid:string, data: FocusPoint, fpid: strin
   };
 }
 
-export const submitBatchEditedFocusPoint = (qid:string, data: Array<FocusPoint>) => {
+export const submitBatchEditedFocusPoint = (qid: string, data: Array<FocusPoint>) => {
   return (dispatch: Function) => {
     FocusPointApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(getQuestion(qid))
@@ -280,7 +270,7 @@ export const submitBatchEditedFocusPoint = (qid:string, data: Array<FocusPoint>)
   };
 }
 
-export const deleteFocusPoint = (qid:string, fpid: string) => {
+export const deleteFocusPoint = (qid: string, fpid: string) => {
   return (dispatch: Function) => {
     FocusPointApi.remove(qid, fpid).then(() => {
       dispatch(getQuestion(qid))
@@ -307,7 +297,7 @@ export const getUsedSequences = (qid: string) => {
 }
 
 export const setUsedSequences = (qid: string, seq: Array<string>) => {
-  return {type: ActionTypes.SET_USED_SEQUENCES, qid, seq}
+  return { type: ActionTypes.SET_USED_SEQUENCES, qid, seq }
 }
 
 export const updateStringFilter = (stringFilter: string, qid: string) => {

@@ -49,40 +49,28 @@ describe('QuestionApi calls', () => {
   describe('create', () => {
     it('should call requestPost', () => {
       const MOCK_TYPE = 'TYPE'
-      const MOCK_CONTENT : Question = {
+      const MOCK_CONTENT: Question = {
         prompt: 'test',
         conceptUID: 'test',
         instructions: ''
       }
       const url = `${questionApiBaseUrl}.json?question_type=${MOCK_TYPE}`
       QuestionApi.create(MOCK_TYPE, MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {question: MOCK_CONTENT}, null, expect.anything())
+      expect(mockRequestPost).toHaveBeenLastCalledWith(url, { question: MOCK_CONTENT }, null, expect.anything())
     })
   })
 
   describe('update', () => {
     it('should call requestPut', () => {
       const MOCK_ID = 'id'
-      const MOCK_CONTENT : Question = {
+      const MOCK_CONTENT: Question = {
         prompt: 'test',
         conceptUID: 'test',
         instructions: ''
       }
       const url = `${questionApiBaseUrl}/${MOCK_ID}.json`
       QuestionApi.update(MOCK_ID, MOCK_CONTENT)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {question: MOCK_CONTENT}, null, expect.anything())
-    })
-  })
-
-  describe('updateFlag', () => {
-    it('should call requestPut', () => {
-      const MOCK_ID = 'id'
-      const MOCK_FLAG = 'FLAG'
-      const url = `${questionApiBaseUrl}/${MOCK_ID}/update_flag.json`
-      QuestionApi.updateFlag(MOCK_ID, MOCK_FLAG)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {question: {
-        flag: MOCK_FLAG
-      }}, null, expect.anything())
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, { question: MOCK_CONTENT }, null, expect.anything())
     })
   })
 
@@ -92,9 +80,11 @@ describe('QuestionApi calls', () => {
       const MOCK_CONCEPT_UID = 'UID'
       const url = `${questionApiBaseUrl}/${MOCK_ID}/update_model_concept.json`
       QuestionApi.updateModelConcept(MOCK_ID, MOCK_CONCEPT_UID)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {question: {
-        modelConcept: MOCK_CONCEPT_UID
-      }}, null, expect.anything())
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {
+        question: {
+          modelConcept: MOCK_CONCEPT_UID
+        }
+      }, null, expect.anything())
     })
   })
 })
@@ -122,7 +112,7 @@ describe('FocusPointApi calls', () => {
   describe('create', () => {
     it('should call requestPost', () => {
       const MOCK_QUESTION_ID = 'id'
-      const MOCK_CONTENT : FocusPoint = {
+      const MOCK_CONTENT: FocusPoint = {
         'text': '',
         'feedback': '',
         'conceptResults': {}
@@ -137,7 +127,7 @@ describe('FocusPointApi calls', () => {
     it('should call requestPut', () => {
       const MOCK_QUESTION_ID = 'id'
       const MOCK_FP_ID = 'id'
-      const MOCK_CONTENT : FocusPoint = {
+      const MOCK_CONTENT: FocusPoint = {
         'text': '',
         'feedback': '',
         'conceptResults': {}
@@ -193,7 +183,7 @@ describe('IncorrectSequenceApi calls', () => {
   describe('create', () => {
     it('should call requestPost', () => {
       const MOCK_QUESTION_ID = 'id'
-      const MOCK_CONTENT : IncorrectSequence = {
+      const MOCK_CONTENT: IncorrectSequence = {
         'text': '',
         'feedback': '',
         'conceptResults': {}
@@ -208,7 +198,7 @@ describe('IncorrectSequenceApi calls', () => {
     it('should call requestPut', () => {
       const MOCK_QUESTION_ID = 'id'
       const MOCK_IS_ID = 'id'
-      const MOCK_CONTENT : IncorrectSequence = {
+      const MOCK_CONTENT: IncorrectSequence = {
         'text': '',
         'feedback': '',
         'conceptResults': {}

@@ -31,14 +31,6 @@ class QuestionApi {
     return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}.json`, {question: data}, null, (error) => {throw(error)});
   }
 
-  static updateFlag(uid: string, flag: string): Promise<Question> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}/update_flag.json`, {
-      question: {
-        flag: flag
-      }
-    }, null, (error) => {throw(error)});
-  }
-
   static updateModelConcept(uid: string, modelConceptUid: string): Promise<Question> {
     return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}/update_model_concept.json`, {
       question: {
@@ -108,4 +100,3 @@ export {
   SENTENCE_FRAGMENTS_TYPE,
   FILL_IN_BLANKS_TYPE
 };
-
