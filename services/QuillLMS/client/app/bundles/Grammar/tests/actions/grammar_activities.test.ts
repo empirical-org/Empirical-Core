@@ -38,9 +38,6 @@ describe('GrammarActivities actions', () => {
       dispatch(grammarActions.submitLessonEdit(MOCK_ID, MOCK_CONTENT))
       expect(mockGrammarActivityApi.update).toHaveBeenLastCalledWith(MOCK_ID, MOCK_CONTENT)
     })
-
-    it('should update the questions feature flag if the feature flag has changed to production', () => {
-    })
   })
 
   describe('deleteLesson', () => {
