@@ -19,4 +19,8 @@ class SkillGroup < ApplicationRecord
   has_many :questions, through: :diagnostic_question_skills
 
   validates_presence_of :name
+
+  def display_name_for_rails_admin
+    "#{name} ##{id}"
+  end
 end

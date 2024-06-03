@@ -15,7 +15,7 @@ namespace :local_data do
   # 1) Go to Resources: https://dashboard.heroku.com/apps/empirical-grammar/resources
   # 2) Go to Follower Postgres DB (says "Attached as..", confirm says Primary 'No')
   # 3) Go Credentials -> use 'dan-readonly'
-  # Current link (this will change): https://data.heroku.com/datastores/fd15e308-d56a-4d8d-8cba-78f9c2b43dac#credentials
+  # Current link (this will change): https://data.heroku.com/datastores/7804c56a-9553-456e-b9e8-b1944d8c3228#credentials
   # PROD_FOLLOWER_DB_NAME
   # PROD_FOLLOWER_DB_HOST
   # PROD_FOLLOWER_DB_USER
@@ -150,6 +150,7 @@ namespace :local_data do
       schools
       skill_concepts
       skill_group_activities
+      diagnostic_question_skills
       subject_areas
       title_cards
       unit_template_categories
