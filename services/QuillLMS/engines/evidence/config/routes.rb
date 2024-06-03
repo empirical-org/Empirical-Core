@@ -47,7 +47,7 @@ Evidence::Engine.routes.draw do
         post :retry, on: :member
       end
 
-      resources :llm_configs, only: [:new, :create, :show, :index]
+      resources :llms, only: [:new, :create, :show, :index]
       resources :llm_prompts, only: [:show]
       resources :llm_prompt_templates, only: [:new, :create, :show, :index]
       resources :passage_prompts, only: [:new, :create, :show, :index]

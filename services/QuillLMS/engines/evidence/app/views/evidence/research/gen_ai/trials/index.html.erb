@@ -22,7 +22,7 @@
       <% @trials.each do |trial| %>
         <tr>
           <td><%= trial.id %></td>
-          <td><%= trial.llm_config %></td>
+          <td><%= trial.llm %></td>
           <td><%= trial.passage_prompt.name %></td>
           <td><%= trial.conjunction %></td>
           <td><%= trial.llm_prompt.description %></td>

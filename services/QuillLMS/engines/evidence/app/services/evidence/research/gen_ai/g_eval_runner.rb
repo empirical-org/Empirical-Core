@@ -13,9 +13,9 @@ module Evidence
 
         def run = JSON.parse(g_eval_output)[g_eval.metric]
 
-        private def g_eval_output = llm_config.completion(prompt:).strip
+        private def g_eval_output = llm.completion(prompt:).strip
 
-        private def llm_config = LLMConfig.g_eval
+        private def llm = LLM.g_eval
 
         private def g_eval = @g_eval ||= GEval.find(g_eval_id)
 

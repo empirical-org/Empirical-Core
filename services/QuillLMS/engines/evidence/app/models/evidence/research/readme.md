@@ -28,11 +28,11 @@ classDiagram
 ```
 
 ## 2. Trial Configuration
-Within the create `Trial` UI, `LLMConfig`, `LLMPromptTemplate0` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
+Within the create `Trial` UI, `LLM`, `LLMPromptTemplate0` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
 
 ```mermaid
 classDiagram
-    class LLMConfig {
+    class LLM {
          vendor
          version
     }
@@ -50,7 +50,7 @@ classDiagram
     }
 
     PassagePrompt --|> Trial
-    LLMConfig --|> Trial
+    LLM --|> Trial
     LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial
 ```

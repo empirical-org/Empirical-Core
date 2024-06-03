@@ -3,26 +3,26 @@
 module Evidence
   module Research
     module GenAI
-      class LLMConfigsController < ApplicationController
+      class LLMsController < ApplicationController
         def new
-          @llm_config = LLMConfig.new
+          @llm = LLM.new
         end
 
         def create
-          @llm_config = LLMConfig.new(llm_config_params)
+          @llm = LLM.new(llm_params)
 
-          if @llm_config.save
+          if @llm.save
             redirect_to new_research_gen_ai_trial_path
           else
             render :new
           end
         end
 
-        def show = @llm_config = LLMConfig.find(params[:id])
+        def show = @llm = LLM.find(params[:id])
 
-        private def llm_config_params
+        private def llm_params
           params
-            .require(:research_gen_ai_llm_config)
+            .require(:research_gen_ai_llm)
             .permit(:vendor, :version)
         end
       end

@@ -3013,38 +3013,6 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 
 --
--- Name: evidence_research_gen_ai_llm_configs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_research_gen_ai_llm_configs (
-    id bigint NOT NULL,
-    vendor character varying NOT NULL,
-    version character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: evidence_research_gen_ai_llm_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_research_gen_ai_llm_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_research_gen_ai_llm_configs_id_seq OWNED BY public.evidence_research_gen_ai_llm_configs.id;
-
-
---
 -- Name: evidence_research_gen_ai_llm_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3141,6 +3109,38 @@ CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompts_id_seq
 --
 
 ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompts_id_seq OWNED BY public.evidence_research_gen_ai_llm_prompts.id;
+
+
+--
+-- Name: evidence_research_gen_ai_llms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llms (
+    id bigint NOT NULL,
+    vendor character varying NOT NULL,
+    version character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llms_id_seq OWNED BY public.evidence_research_gen_ai_llms.id;
 
 
 --
@@ -3249,7 +3249,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_passages_id_seq OWNED BY public.e
 CREATE TABLE public.evidence_research_gen_ai_trials (
     id bigint NOT NULL,
     passage_prompt_id integer NOT NULL,
-    llm_config_id integer NOT NULL,
+    llm_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
     trial_errors text[] DEFAULT '{}'::text[] NOT NULL,
@@ -6478,13 +6478,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_g_evals ALTER COLUMN id SET DEF
 
 
 --
--- Name: evidence_research_gen_ai_llm_configs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_configs_id_seq'::regclass);
-
-
---
 -- Name: evidence_research_gen_ai_llm_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6503,6 +6496,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_templates ALTER COLU
 --
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompts ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_prompts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_llms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llms ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llms_id_seq'::regclass);
 
 
 --
@@ -7690,14 +7690,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_g_evals
 
 
 --
--- Name: evidence_research_gen_ai_llm_configs evidence_research_gen_ai_llm_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_llm_configs
-    ADD CONSTRAINT evidence_research_gen_ai_llm_configs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: evidence_research_gen_ai_llm_feedbacks evidence_research_gen_ai_llm_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7719,6 +7711,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_templates
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompts
     ADD CONSTRAINT evidence_research_gen_ai_llm_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llms evidence_research_gen_ai_llms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llms
+    ADD CONSTRAINT evidence_research_gen_ai_llms_pkey PRIMARY KEY (id);
 
 
 --
@@ -11415,6 +11415,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240513162849'),
 ('20240521201204'),
 ('20240529125138'),
-('20240531184027');
+('20240531184027'),
+('20240603162552');
 
 

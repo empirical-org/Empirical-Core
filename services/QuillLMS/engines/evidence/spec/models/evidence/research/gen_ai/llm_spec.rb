@@ -2,11 +2,11 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_llm_configs
+# Table name: evidence_research_gen_ai_llms
 #
 #  id         :bigint           not null, primary key
-#  vendor     :string
-#  version    :string
+#  vendor     :string           not null
+#  version    :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -16,18 +16,18 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe LLMConfig, type: :model do
+      RSpec.describe LLM, type: :model do
         it { should validate_presence_of(:vendor) }
         it { should validate_presence_of(:version) }
         it { should have_readonly_attribute(:vendor) }
         it { should have_readonly_attribute(:version) }
 
-        it { expect(FactoryBot.build(:evidence_research_gen_ai_llm_config)).to be_valid }
+        it { expect(FactoryBot.build(:evidence_research_gen_ai_llm)).to be_valid }
 
         describe '#request_body_customizations' do
-          subject { llm_config.request_body_customizations }
+          subject { llm.request_body_customizations }
 
-          let(:llm_config) { build(:evidence_research_gen_ai_llm_config, vendor:, version:) }
+          let(:llm) { build(:evidence_research_gen_ai_llm, vendor:, version:) }
 
           context 'when vendor is not GOOGLE or OPEN_AI' do
             let(:vendor) { 'any_vendor' }

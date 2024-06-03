@@ -22,11 +22,11 @@ module Evidence
           )
         end
 
-        let(:llm_config) { instance_double('LLMConfig', completion: llm_response) }
+        let(:llm) { instance_double('LLM', completion: llm_response) }
         let(:llm_response) { { metric => score }.to_json }
         let(:score) { rand(1..g_eval.max_score) }
 
-        before { allow(LLMConfig).to receive(:g_eval).and_return(llm_config) }
+        before { allow(LLM).to receive(:g_eval).and_return(llm) }
 
         it { is_expected.to eq score }
       end

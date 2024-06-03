@@ -10,13 +10,13 @@ module Evidence
           completed_trials =
             Trial
               .completed
-              .pluck(:llm_config_id, :llm_prompt_id, :passage_prompt_id, :num_examples)
-              .map { |llm_config_id, llm_prompt_id, passage_prompt_id, num_examples| { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: } }
+              .pluck(:llm_id, :llm_prompt_id, :passage_prompt_id, :num_examples)
+              .map { |llm_id, llm_prompt_id, passage_prompt_id, num_examples| { llm_id:, llm_prompt_id:, passage_prompt_id:, num_examples: } }
               .to_set
 
           @trials = Trial.all.reject do |trial|
             trial.failed? && completed_trials.include?(
-              llm_config_id: trial.llm_config_id,
+              llm_id: trial.llm_id,
               llm_prompt_id: trial.llm_prompt_id,
               passage_prompt_id: trial.passage_prompt_id,
               num_examples: trial.num_examples
@@ -26,20 +26,20 @@ module Evidence
 
         def new
           @trial = Trial.new
-          @llm_configs = LLMConfig.all
+          @llms = LLM.all
           @passage_prompts = PassagePrompt.all
           @llm_prompt_templates = LLMPromptTemplate.all
           @g_evals = GEval.selectable
         end
 
         def create
-          llm_config_ids.each do |llm_config_id|
+          llm_ids.each do |llm_id|
             llm_prompt_template_ids.each do |llm_prompt_template_id|
               passage_prompt_ids.each do |passage_prompt_id|
                 llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
 
                 run_trial(
-                  llm_config_id:,
+                  llm_id:,
                   llm_prompt_id: llm_prompt.id,
                   passage_prompt_id:,
                   num_examples: num_examples(passage_prompt_id)
@@ -65,8 +65,8 @@ module Evidence
           redirect_to research_gen_ai_trials_path
         end
 
-        private def run_trial(llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples:)
-          trial = Trial.new(llm_config_id:, passage_prompt_id:, llm_prompt_id:, num_examples:)
+        private def run_trial(llm_id:, llm_prompt_id:, passage_prompt_id:, num_examples:)
+          trial = Trial.new(llm_id:, passage_prompt_id:, llm_prompt_id:, num_examples:)
           trial.results = { g_eval_ids: }
 
           RunTrialWorker.perform_async(trial.id) if trial.save
@@ -77,14 +77,14 @@ module Evidence
             .require(:research_gen_ai_trial)
             .permit(
               :num_examples,
-              llm_config_ids: [],
+              llm_ids: [],
               llm_prompt_template_ids: [],
               passage_prompt_ids: [],
               g_eval_ids: []
             )
         end
 
-        private def llm_config_ids = trial_params[:llm_config_ids].reject(&:blank?).map(&:to_i)
+        private def llm_ids = trial_params[:llm_ids].reject(&:blank?).map(&:to_i)
         private def llm_prompt_template_ids = trial_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
         private def passage_prompt_ids = trial_params[:passage_prompt_ids].reject(&:blank?).map(&:to_i)
         private def g_eval_ids = trial_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []

@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_llm_configs
+# Table name: evidence_research_gen_ai_llms
 #
 #  id         :bigint           not null, primary key
 #  vendor     :string           not null
@@ -14,7 +14,7 @@
 module Evidence
   module Research
     module GenAI
-      class LLMConfig < ApplicationRecord
+      class LLM < ApplicationRecord
         class UnsupportedVendorError < StandardError; end
 
         GOOGLE_VERSIONS = [
@@ -43,7 +43,7 @@ module Evidence
 
         def completion_client = VENDOR_COMPLETION_MAP.fetch(vendor) { raise UnsupportedVendorError }
 
-        def completion(prompt:) = completion_client.run(prompt:, llm_config: self)
+        def completion(prompt:) = completion_client.run(prompt:, llm: self)
 
         def google? = vendor == GOOGLE
         def open_ai? = vendor == OPEN_AI
