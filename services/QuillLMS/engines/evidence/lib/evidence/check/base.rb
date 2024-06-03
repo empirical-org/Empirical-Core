@@ -5,7 +5,7 @@ module Evidence
 
     attr_reader :entry, :prompt, :previous_feedback, :session_uid, :error, :response
 
-    def initialize(entry, prompt, previous_feedback, session_uid)
+    def initialize(entry, prompt, previous_feedback, session_uid = nil)
       @entry = entry
       @prompt = prompt
       @previous_feedback = previous_feedback

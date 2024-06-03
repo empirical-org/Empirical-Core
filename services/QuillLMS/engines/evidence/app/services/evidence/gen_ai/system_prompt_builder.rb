@@ -18,7 +18,8 @@ module Evidence
 
       # Template priority order
       # 1. GEN_AI_SYSTEM_PROMPT env var
-      # 2. Passed in template_file (has a default)
+      # 2. Passed in template_file
+      # 3. Default template_file
       private def template = ENV.fetch('GEN_AI_SYSTEM_PROMPT', template_file_text)
       private def template_file_text = File.read(template_file_path)
       private def template_file_path = Evidence::Engine.root.join(TEMPLATE_FOLDER, template_file)
@@ -29,9 +30,9 @@ module Evidence
           plagiarism_text:,
           stem:,
           example_one:,
-          example_two:,
-          highlight_texts:,
-          feedback_history:
+          example_two:
+          # feedback_history:,
+          # highlight_texts:,
         }
       end
 
@@ -40,11 +41,14 @@ module Evidence
       private def stem = prompt.text
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
-      private def highlight_texts
-        prompt.distinct_highlight_texts.map.with_index {|text,i| "#{i+1}. #{text}" }.join("\n")
-      end
 
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
+      private def highlight_texts
+        prompt
+          .distinct_highlight_texts
+          .map.with_index {|text,i| "#{i+1}. #{text}" }
+          .join("\n")
+      end
     end
   end
 end
