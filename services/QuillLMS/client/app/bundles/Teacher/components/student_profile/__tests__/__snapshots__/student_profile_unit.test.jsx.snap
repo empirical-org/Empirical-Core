@@ -16,6 +16,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        Completed activities
+      </h3>
+    </div>
+    <div
       class="activities-container completed-activities"
     >
       <table
@@ -37,7 +44,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <span>
                 Activity
@@ -107,7 +114,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -195,7 +202,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -283,7 +290,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -371,7 +378,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -459,7 +466,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -547,7 +554,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -635,7 +642,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -728,6 +735,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        Completed activities
+      </h3>
+    </div>
+    <div
       class="activities-container completed-activities"
     >
       <table
@@ -749,7 +763,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <span>
                 Activity
@@ -819,7 +833,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -911,7 +925,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1003,7 +1017,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1095,7 +1109,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1187,7 +1201,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1279,7 +1293,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1371,7 +1385,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1468,6 +1482,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        Completed activities
+      </h3>
+    </div>
+    <div
       class="activities-container completed-activities"
     >
       <table
@@ -1489,7 +1510,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <span>
                 Activity
@@ -1555,7 +1576,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing People, Places, & the Pronoun - Mixed Topics
             </td>
@@ -1636,7 +1657,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Names of People & the Pronoun  - Mixed Topics
             </td>
@@ -1717,7 +1738,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Names of People - Mixed Topics 1
             </td>
@@ -1798,7 +1819,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Holidays, People, & Places - Mixed Topics
             </td>
@@ -1879,7 +1900,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Dates & Holidays - Mixed Topics 1
             </td>
@@ -1960,7 +1981,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Geographic Names - Mixed Topics 1
             </td>
@@ -2041,7 +2062,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Geographic Names & Holidays - Mixed Topics
             </td>
@@ -2131,6 +2152,13 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        To-do activities
+      </h3>
+    </div>
+    <div
       class="activities-container incomplete-activities"
     >
       <table
@@ -2152,7 +2180,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               <span>
                 Activity
@@ -2188,7 +2216,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               The Travels of Marco Polo
             </td>
@@ -2220,7 +2248,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Christopher Columbus
             </td>
@@ -2252,7 +2280,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               A, An, The
             </td>
@@ -2284,7 +2312,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Magellan
             </td>
@@ -2316,7 +2344,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Jamestown
             </td>
@@ -2348,7 +2376,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Age of Exploration: Sailing with the Stars
             </td>
@@ -2380,7 +2408,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Age of Exploration: The Cape of Good Hope
             </td>
@@ -2412,7 +2440,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Age of Exploration: Roanoke
             </td>
