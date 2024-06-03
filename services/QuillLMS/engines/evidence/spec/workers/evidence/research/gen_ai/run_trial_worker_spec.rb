@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe CalculateResultsWorker do
+      RSpec.describe Evidence::Research::GenAI::RunTrialWorker do
         subject { described_class.new.perform(trial.id) }
 
         let(:trial) { create(:evidence_research_gen_ai_trial) }
@@ -23,23 +23,11 @@ module Evidence
 
         context 'when STOP_ALL_GEN_AI_EXPERIMENTS is false' do
           let(:stop_all_gen_ai_experiments) { 'false' }
-          let(:fetched_results) { { key: 'value' } }
 
-          before do
-            allow(ResultsFetcher)
-              .to receive(:run)
-              .with(trial)
-              .and_return(fetched_results)
+          before { allow(Trial).to receive(:find).with(trial.id).and_return(trial) }
 
-            allow(Trial)
-              .to receive(:find)
-              .with(trial.id)
-              .and_return(trial)
-          end
-
-          it 'merges and updates the trial results' do
-            expect(trial).to receive(:update_results).with(fetched_results)
-            expect(trial).to receive(:update!).with(evaluation_duration: an_instance_of(Float))
+          it 'finds and runs the trial' do
+            expect(trial).to receive(:run)
             subject
           end
         end

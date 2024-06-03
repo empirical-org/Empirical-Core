@@ -12,7 +12,7 @@ module Evidence
           @passage = Passage.new(passage_params)
 
           if @passage.save
-            redirect_to new_research_gen_ai_experiment_path
+            redirect_to new_research_gen_ai_trial_path
           else
             render :new
           end

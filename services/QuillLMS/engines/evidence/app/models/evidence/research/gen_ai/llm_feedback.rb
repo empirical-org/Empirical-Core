@@ -10,8 +10,8 @@
 #  text                       :text             not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  experiment_id              :integer          not null
 #  passage_prompt_response_id :integer          not null
+#  trial_id                   :integer          not null
 #
 module Evidence
   module Research
@@ -19,15 +19,15 @@ module Evidence
       class LLMFeedback < ApplicationRecord
         include HasOptimalAndSubOptimal
 
-        belongs_to :experiment, class_name: 'Evidence::Research::GenAI::Experiment'
+        belongs_to :trial, class_name: 'Evidence::Research::GenAI::Trial'
         belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
 
         validates :raw_text, presence: true
         validates :text, presence: true
         validates :passage_prompt_response_id, presence: true
-        validates :experiment_id, presence: true
+        validates :trial_id, presence: true
 
-        attr_readonly :experiment_id, :label, :passage_prompt_response_id, :raw_text, :text
+        attr_readonly :trial_id, :label, :passage_prompt_response_id, :raw_text, :text
 
         delegate :example_optimal?, :example_feedback, to: :passage_prompt_response
 

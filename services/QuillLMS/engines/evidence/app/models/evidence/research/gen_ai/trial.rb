@@ -2,15 +2,15 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_experiments
+# Table name: evidence_research_gen_ai_trials
 #
 #  id                  :bigint           not null, primary key
 #  evaluation_duration :float
-#  experiment_duration :float
-#  experiment_errors   :text             default([]), not null, is an Array
 #  num_examples        :integer          default(0), not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  trial_duration      :float
+#  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  llm_config_id       :integer          not null
@@ -20,7 +20,7 @@
 module Evidence
   module Research
     module GenAI
-      class Experiment < ApplicationRecord
+      class Trial < ApplicationRecord
         STATUSES = [
           PENDING = 'pending',
           RUNNING = 'running',
@@ -70,12 +70,12 @@ module Evidence
           update!(status: RUNNING)
           create_llm_prompt_responses_feedbacks
           CalculateResultsWorker.perform_async(id)
-          experiment_errors.empty? ? update!(status: COMPLETED) : update!(status: FAILED)
+          trial_errors.empty? ? update!(status: COMPLETED) : update!(status: FAILED)
         rescue => e
-          experiment_errors << e.message
+          trial_errors << e.message
           update!(status: FAILED)
         ensure
-          update!(experiment_duration: Time.zone.now - start_time)
+          update!(trial_duration: Time.zone.now - start_time)
         end
 
         def update_results(new_data)
@@ -94,9 +94,9 @@ module Evidence
               api_call_times << (Time.zone.now - api_call_start_time).round(2)
 
               text = Resolver.run(raw_text:)
-              LLMFeedback.create!(experiment: self, raw_text:, text:, passage_prompt_response:)
+              LLMFeedback.create!(trial: self, raw_text:, text:, passage_prompt_response:)
             rescue => e
-              experiment_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text: }.to_json
+              trial_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text: }.to_json
               next
             end
             update_results(api_call_times:)

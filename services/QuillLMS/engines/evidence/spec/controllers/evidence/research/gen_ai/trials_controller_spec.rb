@@ -3,7 +3,7 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe ExperimentsController, type: :controller do
+      RSpec.describe TrialsController, type: :controller do
         routes { Evidence::Engine.routes }
 
         let(:user) { double('User') }
@@ -32,7 +32,7 @@ module Evidence
 
           subject do
             post :create, params: {
-              research_gen_ai_experiment: {
+              research_gen_ai_trial: {
                 llm_config_ids:,
                 llm_prompt_template_ids:,
                 passage_prompt_ids:,
@@ -44,7 +44,7 @@ module Evidence
           context 'as not staff' do
             let(:is_staff) { false }
 
-            it { expect { subject }.not_to change(Experiment, :count) }
+            it { expect { subject }.not_to change(Trial, :count) }
             it { expect(subject).to redirect_to '/' }
           end
 
@@ -56,24 +56,24 @@ module Evidence
             context 'with valid parameters' do
               let(:total_combinations) { num_llm_configs * num_llm_prompt_templates * num_passage_prompts }
 
-              before { allow(RunExperimentWorker).to receive(:perform_async) }
+              before { allow(RunTrialWorker).to receive(:perform_async) }
 
-              it { expect { subject }.to change(Experiment, :count).by(total_combinations) }
+              it { expect { subject }.to change(Trial, :count).by(total_combinations) }
 
               it 'enqueues a worker for each combination and redirects' do
-                expect(RunExperimentWorker).to receive(:perform_async).exactly(total_combinations).times
+                expect(RunTrialWorker).to receive(:perform_async).exactly(total_combinations).times
                 subject
-                expect(response).to redirect_to(research_gen_ai_experiments_path)
+                expect(response).to redirect_to(research_gen_ai_trials_path)
               end
             end
 
             context 'with invalid parameters' do
               let(:llm_config_ids) { [nil] }
 
-              it { expect { subject }.not_to change(Experiment, :count) }
+              it { expect { subject }.not_to change(Trial, :count) }
 
               it 'does not enqueue a worker' do
-                expect(RunExperimentWorker).not_to receive(:perform_async)
+                expect(RunTrialWorker).not_to receive(:perform_async)
                 subject
               end
             end
