@@ -225,6 +225,11 @@
 
 #lists .variations-container .options-container .option-container {
   background-color: $quill-grey-1;
+  .quill-list {
+    li {
+      min-width: 196px;
+    }
+  }
   &.hover {
     .quill-list {
       li:nth-of-type(2) {

@@ -12,7 +12,7 @@ export const List = ({ items, style }: ListProps) => {
     return(
       <ul className="list quill-list single-line">
         {items.map(item => (
-          <li>{item}</li>
+          <li className="focus-on-light" tabIndex={0}>{item}</li>
         ))}
       </ul>
     )
@@ -21,7 +21,7 @@ export const List = ({ items, style }: ListProps) => {
     return (
       <ul className="list quill-list double-line">
         {items.map(({ primaryText, secondaryText}) => (
-          <li>
+          <li className="focus-on-light" tabIndex={0}>
             <span className="text">
               <p className="primary-text">{primaryText}</p>
               <p className='secondary-text'>{secondaryText}</p>
@@ -35,7 +35,7 @@ export const List = ({ items, style }: ListProps) => {
     return (
       <ul className="list quill-list single-line">
         {items.map(({ label, mode, onClick, state, selected }) => (
-          <li>
+          <li className="focus-on-light" tabIndex={0}>
             <Checkbox
               label={label}
               mode={mode}
