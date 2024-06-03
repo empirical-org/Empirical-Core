@@ -6,6 +6,8 @@ import fillInBlankActions from './fillInBlank';
 import questionActions from './questions';
 import sentenceFragmentActions from './sentenceFragments.ts';
 import * as titleCardActions from './titleCards.ts';
+import { reloadQuestionsIfNecessary } from '../../Shared/actions/questions';
+import { DIAGNOSTIC } from '../../Shared';
 
 // called when the app starts. this means we immediately download all quotes, and
 // then receive all quotes again as soon as anyone changes anything.
@@ -87,6 +89,7 @@ const submitLessonEdit = (cid, content, qids) => {
     LessonApi.update(TYPE_DIAGNOSTIC_LESSON, cid, cleanedContent).then((lesson) => {
       dispatch(loadLesson(cid))
       dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
+      dispatch(reloadQuestionsIfNecessary(content.flag, DIAGNOSTIC));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
     }).catch((error) => {
       dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
