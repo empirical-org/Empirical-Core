@@ -49,7 +49,7 @@ export const Lists = ({}) => {
             return (
               <div className="option-container">
                 <p className="option-label">{label}</p>
-                <List items={STYLE_ITEMS[value]} style={value}/>
+                <List items={STYLE_ITEMS[value]} style={value} />
               </div>
             )
           })}

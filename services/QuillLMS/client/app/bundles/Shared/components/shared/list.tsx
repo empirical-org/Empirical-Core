@@ -48,8 +48,8 @@ export const List = ({ items, style }: ListProps) => {
               label={label}
               mode={mode}
               onClick={onClick}
-              state={state}
               selected={selected}
+              state={state}
             />
           </li>
         ))}
