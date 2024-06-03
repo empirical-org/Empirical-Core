@@ -4,7 +4,7 @@ module Evidence
   module GenAI
     class SystemPromptBuilder < ApplicationService
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
-      DEFAULT_TEMPLATE = '2024_05_24_initial.md'
+      DEFAULT_TEMPLATE = '2024_06_03_optimal_and_feedback.md'
 
       attr_reader :prompt, :history, :template_file
 
@@ -31,8 +31,7 @@ module Evidence
           example_one:,
           example_two:,
           highlight_texts:,
-          feedback_history:,
-          percent_similar:
+          feedback_history:
         }
       end
 
@@ -46,9 +45,6 @@ module Evidence
       end
 
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
-
-      # Using a % in the template gave errors, so making this a variable
-      private def percent_similar = '90%'
     end
   end
 end
