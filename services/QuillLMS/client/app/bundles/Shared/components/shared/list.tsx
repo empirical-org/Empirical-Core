@@ -7,35 +7,43 @@ interface ListProps {
   style: StyleType
 }
 
+const PRIMARY = 'primary'
+const SECONDARY = 'secondary'
+const CHECKBOX = 'checkbox'
+
 export const List = ({ items, style }: ListProps) => {
-  if(style === 'primary') {
+  if(style === PRIMARY) {
     return(
       <ul className="list quill-list single-line">
-        {items.map(item => (
-          <li className="focus-on-light" tabIndex={0}>{item}</li>
-        ))}
-      </ul>
-    )
-  }
-  if(style === 'secondary') {
-    return (
-      <ul className="list quill-list double-line">
-        {items.map(({ primaryText, secondaryText}) => (
-          <li className="focus-on-light" tabIndex={0}>
-            <span className="text">
-              <p className="primary-text">{primaryText}</p>
-              <p className='secondary-text'>{secondaryText}</p>
-            </span>
+        {items.map(({ label, onClick }) => (
+          <li>
+            <button className="interactive-wrapper" onClick={onClick}>{label}</button>
           </li>
         ))}
       </ul>
     )
   }
-  if(style === 'checkbox') {
+  if(style === SECONDARY) {
+    return (
+      <ul className="list quill-list double-line">
+        {items.map(({ primaryText, secondaryText, onClick }) => (
+          <li>
+            <button className="interactive-wrapper" onClick={onClick}>
+              <span className="text">
+                <p className="primary-text">{primaryText}</p>
+                <p className='secondary-text'>{secondaryText}</p>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  if(style === CHECKBOX) {
     return (
       <ul className="list quill-list single-line">
         {items.map(({ label, mode, onClick, state, selected }) => (
-          <li className="focus-on-light" tabIndex={0}>
+          <li>
             <Checkbox
               label={label}
               mode={mode}

@@ -1,0 +1,370 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lists it should render 1`] = `
+<DocumentFragment>
+  <div
+    id="lists"
+  >
+    <h2
+      class="style-guide-h2"
+    >
+      Lists
+    </h2>
+    <div
+      class="variations-container"
+    >
+      <h4
+        class="style-guide-h4"
+      >
+        Styles
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Text
+          </p>
+          <ul
+            class="list quill-list single-line"
+          >
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Text with Secondary Text
+          </p>
+          <ul
+            class="list quill-list double-line"
+          >
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                <span
+                  class="text"
+                >
+                  <p
+                    class="primary-text"
+                  >
+                    List Item
+                  </p>
+                  <p
+                    class="secondary-text"
+                  >
+                    Secondary text
+                  </p>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                <span
+                  class="text"
+                >
+                  <p
+                    class="primary-text"
+                  >
+                    List Item
+                  </p>
+                  <p
+                    class="secondary-text"
+                  >
+                    Secondary text
+                  </p>
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                <span
+                  class="text"
+                >
+                  <p
+                    class="primary-text"
+                  >
+                    List Item
+                  </p>
+                  <p
+                    class="secondary-text"
+                  >
+                    Secondary text
+                  </p>
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Checkbox
+          </p>
+          <ul
+            class="list quill-list single-line"
+          >
+            <li>
+              <div
+                class="checkbox-container"
+              >
+                <button
+                  aria-checked="true"
+                  class="quill-checkbox selected light focus-on-light"
+                  role="checkbox"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                  />
+                </button>
+                <span
+                  class=" light"
+                >
+                  Text
+                </span>
+              </div>
+            </li>
+            <li>
+              <div
+                class="checkbox-container"
+              >
+                <button
+                  aria-checked="true"
+                  class="quill-checkbox selected light focus-on-light"
+                  role="checkbox"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                  />
+                </button>
+                <span
+                  class=" light"
+                >
+                  Text
+                </span>
+              </div>
+            </li>
+            <li>
+              <div
+                class="checkbox-container"
+              >
+                <button
+                  aria-checked="true"
+                  class="quill-checkbox selected light focus-on-light"
+                  role="checkbox"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                  />
+                </button>
+                <span
+                  class=" light"
+                >
+                  Text
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <h4
+        class="style-guide-h4"
+      >
+        States
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container default"
+        >
+          <p
+            class="option-label"
+          >
+            Default
+          </p>
+          <ul
+            class="list quill-list single-line"
+          >
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="option-container hover"
+        >
+          <p
+            class="option-label"
+          >
+            Hover
+          </p>
+          <ul
+            class="list quill-list single-line"
+          >
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+            <li>
+              <button
+                class="interactive-wrapper"
+              >
+                List Item
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="option-container active"
+        >
+          <p
+            class="option-label"
+          >
+            Active
+          </p>
+          <ul
+            class="list quill-list single-line"
+          >
+            <li>
+              <div
+                class="checkbox-container"
+              >
+                <button
+                  aria-checked="true"
+                  class="quill-checkbox selected light focus-on-light"
+                  role="checkbox"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                  />
+                </button>
+                <span
+                  class=" light"
+                >
+                  Text
+                </span>
+              </div>
+            </li>
+            <li>
+              <div
+                class="checkbox-container"
+              >
+                <button
+                  aria-checked="true"
+                  class="quill-checkbox selected light focus-on-light"
+                  role="checkbox"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                  />
+                </button>
+                <span
+                  class=" light"
+                >
+                  Text
+                </span>
+              </div>
+            </li>
+            <li>
+              <div
+                class="checkbox-container"
+              >
+                <button
+                  aria-checked="true"
+                  class="quill-checkbox selected light focus-on-light"
+                  role="checkbox"
+                  type="button"
+                >
+                  <img
+                    alt="check"
+                    src="https://assets.quill.org/images/icons/xs/check-small-white.svg"
+                  />
+                </button>
+                <span
+                  class=" light"
+                >
+                  Text
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

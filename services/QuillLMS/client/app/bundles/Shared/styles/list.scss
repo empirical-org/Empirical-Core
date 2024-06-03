@@ -17,6 +17,9 @@
       justify-content: space-between;
       align-items: flex-start;
       line-height: 1;
+      button {
+        text-align: left;
+      }
       .text {
         display: flex;
         flex-direction: column;
@@ -42,9 +45,8 @@
     &:hover {
       background-color: $quill-grey-2;
     }
-    &:focus {
-      background-color: $quill-green-5 !important;
-      outline-offset: -2px;
-    }
+  }
+  li:focus-within {
+    background-color: $quill-green-5 !important;
   }
 }

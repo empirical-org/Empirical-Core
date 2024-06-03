@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List it should render checkbox style as expected 1`] = `
+<DocumentFragment>
+  <ul
+    class="list quill-list single-line"
+  >
+    <li>
+      <div
+        class="checkbox-container"
+      >
+        <button
+          aria-checked="false"
+          class="quill-checkbox unselected light focus-on-light"
+          role="checkbox"
+          type="button"
+        />
+        <span
+          class=" light"
+        >
+          checkbox 1
+        </span>
+      </div>
+    </li>
+    <li>
+      <div
+        class="checkbox-container"
+      >
+        <button
+          aria-checked="false"
+          class="quill-checkbox unselected light focus-on-light"
+          role="checkbox"
+          type="button"
+        />
+        <span
+          class=" light"
+        >
+          checkbox 2
+        </span>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`List it should render primary style as expected 1`] = `
+<DocumentFragment>
+  <ul
+    class="list quill-list single-line"
+  >
+    <li>
+      <button
+        class="interactive-wrapper"
+      >
+        List Item 1
+      </button>
+    </li>
+    <li>
+      <button
+        class="interactive-wrapper"
+      >
+        List Item 2
+      </button>
+    </li>
+    <li>
+      <button
+        class="interactive-wrapper"
+      >
+        List Item 3
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`List it should render secondary style as expected 1`] = `
+<DocumentFragment>
+  <ul
+    class="list quill-list double-line"
+  >
+    <li>
+      <button
+        class="interactive-wrapper"
+      >
+        <span
+          class="text"
+        >
+          <p
+            class="primary-text"
+          >
+            Title 1
+          </p>
+          <p
+            class="secondary-text"
+          >
+            Text 1
+          </p>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        class="interactive-wrapper"
+      >
+        <span
+          class="text"
+        >
+          <p
+            class="primary-text"
+          >
+            Title 2
+          </p>
+          <p
+            class="secondary-text"
+          >
+            Text 2
+          </p>
+        </span>
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

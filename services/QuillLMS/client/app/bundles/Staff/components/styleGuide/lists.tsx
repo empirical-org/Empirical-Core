@@ -8,27 +8,28 @@ const CHECKBOX = 'checkbox'
 const LIST_ITEM = 'List Item'
 const SECONDARY_TEXT = 'Secondary text'
 const TEXT = 'Text'
+const onClick = () => {}
 
-const STYLES = [{ label: 'Text', value: PRIMARY }, {label: 'Text with Secondary Text', value: SECONDARY}, {label: 'Checkbox', value: CHECKBOX}]
+const STYLES = [{ label: TEXT, value: PRIMARY }, {label: 'Text with Secondary Text', value: SECONDARY}, {label: 'Checkbox', value: CHECKBOX}]
 const STATES = [DEFAULT, HOVER, ACTIVE]
-const LIST_ITEMS = [LIST_ITEM, LIST_ITEM, LIST_ITEM]
+const LIST_ITEMS = [{ label: LIST_ITEM, onClick: onClick }, { label: LIST_ITEM, onClick: onClick }, { label: LIST_ITEM, onClick: onClick }]
 const CHECKBOX_ITEMS = [
   {
-    label: "Text",
+    label: TEXT,
     selected: true
   },
   {
-    label: "Text",
+    label: TEXT,
     selected: true
   },
   {
-    label: "Text",
+    label: TEXT,
     selected: true
   }
 ]
 const STYLE_ITEMS = {
   [PRIMARY]: LIST_ITEMS,
-  [SECONDARY]: [{ primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT }, { primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT }, { primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT }],
+  [SECONDARY]: [{ primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT, onClick: onClick }, { primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT, onClick: onClick }, { primaryText: LIST_ITEM, secondaryText: SECONDARY_TEXT, onClick: onClick }],
   [CHECKBOX]: CHECKBOX_ITEMS
 }
 const STATE_ITEMS = {
@@ -56,7 +57,7 @@ export const Lists = ({}) => {
         <h4 className="style-guide-h4">States</h4>
         <div className="options-container">
           {STATES.map((state, i) => {
-            const listStyle = i === 2 ?CHECKBOX : PRIMARY
+            const listStyle = i === 2 ? CHECKBOX : PRIMARY
             return (
               <div className={`option-container ${state}`}>
                 <p className="option-label">{_.capitalize(state)}</p>
