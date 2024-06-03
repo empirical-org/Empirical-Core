@@ -12,11 +12,11 @@ module Evidence
 
         base_uri BASE_URI
 
-        attr_reader :experiment, :llm_feedbacks, :predictions, :references
+        attr_reader :trial, :llm_feedbacks, :predictions, :references
 
-        def initialize(experiment)
-          @experiment = experiment
-          @llm_feedbacks = experiment.llm_feedbacks
+        def initialize(trial)
+          @trial = trial
+          @llm_feedbacks = trial.llm_feedbacks
           @predictions = llm_feedbacks.map(&:text)
           @references = llm_feedbacks.map(&:example_feedback).map(&:text)
         end
@@ -38,7 +38,7 @@ module Evidence
         end
 
         private def g_evals
-          experiment.g_eval_ids&.index_with do |g_eval_id|
+          trial.g_eval_ids&.index_with do |g_eval_id|
             llm_feedbacks.map do |llm_feedback|
               GEvalRunner.run(g_eval_id:, llm_feedback:)
             end

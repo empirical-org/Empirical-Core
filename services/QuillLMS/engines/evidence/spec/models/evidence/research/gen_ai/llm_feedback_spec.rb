@@ -10,8 +10,8 @@
 #  text                       :text             not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
-#  experiment_id              :integer          not null
 #  passage_prompt_response_id :integer          not null
+#  trial_id                   :integer          not null
 #
 require 'rails_helper'
 
@@ -22,16 +22,16 @@ module Evidence
         it { should validate_presence_of(:raw_text) }
         it { should validate_presence_of(:text) }
         it { should validate_presence_of(:passage_prompt_response_id)}
-        it { should validate_presence_of(:experiment_id)}
+        it { should validate_presence_of(:trial_id)}
 
         it { should have_readonly_attribute(:raw_text)}
         it { should have_readonly_attribute(:text) }
         it { should have_readonly_attribute(:label) }
         it { should have_readonly_attribute(:passage_prompt_response_id) }
-        it { should have_readonly_attribute(:experiment_id)}
+        it { should have_readonly_attribute(:trial_id)}
 
         it { should belong_to(:passage_prompt_response) }
-        it { should belong_to(:experiment) }
+        it { should belong_to(:trial) }
 
         it { expect(build(:evidence_research_gen_ai_llm_feedback)).to be_valid }
 

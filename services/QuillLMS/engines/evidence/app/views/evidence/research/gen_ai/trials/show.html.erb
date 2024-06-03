@@ -1,0 +1,112 @@
+<%= link_to 'Back to Trials', research_gen_ai_trials_path %>
+<br>
+
+<% if @previous %>
+  <%= link_to "Previous", @previous %>
+<% end %>
+
+<% if @next %>
+  <%= link_to "Next", @next %>
+<% end %>
+
+<div>
+  <h2>Trial</h2>
+  <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
+
+  <h3>Passage</h3>
+  <p><%= link_to @trial.passage_prompt, @trial.passage_prompt %></p>
+
+  <h3>LLM</h3>
+  <p><%= @trial.llm_config %></p>
+
+  <%= link_to 'LLMPromptTemplate', @trial.llm_prompt.llm_prompt_template %>
+
+  <h3>LLM Prompt</h3>
+  <p><%= link_to @trial.llm_prompt.description, @trial.llm_prompt %></p>
+
+  <% if @g_evals %>
+    <h3>G-eval</h3>
+    <% @g_evals.each do |g_eval| %>
+      <p><%= link_to g_eval, g_eval %></p>
+    <% end %>
+  <% end %>
+
+  <hr/>
+  <h3>Results</h3>
+  <% if @trial.api_call_times %>
+    <p>Accuracy (identical): <%= @trial.accuracy_identical&.round(2) %></p>
+    <p>Accuracy (sub/optimal): <%= @trial.accuracy_optimal_sub_optimal&.round(2) %></p>
+    <p>Bleu: <%= @trial.results.dig('misc_metrics', 'bleu', 'bleu')&.round(2) %></p>
+    <p>Rouge1: <%= @trial.results.dig('misc_metrics', 'rouge', 'rouge1')&.round(2) %></p>
+    <p>Rouge2: <%= @trial.results.dig('misc_metrics', 'rouge', 'rouge2')&.round(2) %></p>
+    <p>RougeL: <%= @trial.results.dig('misc_metrics', 'rouge', 'rougeL')&.round(2) %></p>
+    <p>RougeL Sum: <%= @trial.results.dig('misc_metrics', 'rouge', 'rougeLsum')&.round(2) %></p>
+    <p>Trial duration: <%= trial_duration(@trial) %></p>
+    <p>Evaluation duration: <%= evaluation_duration(@trial) %></p>
+
+    <% if @trial.api_call_times && @histogram %>
+      <p>Api call times: <%= @trial.api_call_times %></p>
+      <%= render 'histogram', histogram: @histogram %>
+    <% end %>
+
+    <%= render 'matrix', matrix: @trial.confusion_matrix, title: 'Confusion Matrix' %>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Identical match</th>
+          <th>OptSubOpt match</th>
+          <th>BertScore (F1)</th>
+          <th>BertScore (Precision)</th>
+          <th>BertScore (Recall)</th>
+          <% if @trial.g_evals %>
+            <% @g_evals.each do |g_eval| %>
+              <th>G-Eval (<%= g_eval %>)</th>
+            <% end %>
+          <% end %>
+          <th>Prompt Response</th>
+          <th class='feedback-column'>Example Feedback</th>
+          <th class='feedback-column'>LLM Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @trial.llm_feedbacks.each.with_index do |llm_feedback, index| %>
+          <tr>
+            <% example_feedback = llm_feedback.example_feedback %>
+            <td class="<%= llm_feedback.identical_feedback? ? 'green' : 'red' %>"></td>
+            <td class="<%= llm_feedback.optimal_or_sub_optimal_match? ? 'green' : 'red' %>"></td>
+            <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
+            <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'precision', index)&.round(2) %></td>
+            <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'recall', index)&.round(2) %></td>
+            <% if @trial.g_evals %>
+              <% @trial.g_evals.keys.each do |g_eval_id| %>
+                <td><%= @trial.g_evals[g_eval_id][index] %></td>
+              <% end %>
+            <% end %>
+            <td><%= llm_feedback.passage_prompt_response %></td>
+            <td><%= llm_feedback.example_feedback %></td>
+            <td><%= llm_feedback  %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% else %>
+      <p><%= progress(@trial) %></p>
+    <% end %>
+
+
+
+  <h3>Status</h3>
+  <p><%= @trial.status.capitalize %></p>
+
+  <% if @trial.trial_errors&.any? %>
+  <h3>Trial Errors</h3>
+    <ul>
+      <% @trial.trial_errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+</div>
+

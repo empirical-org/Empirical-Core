@@ -25,7 +25,7 @@ module Evidence
 
         belongs_to :passage, class_name: 'Evidence::Research::GenAI::Passage'
 
-        has_many :experiments, dependent: :destroy
+        has_many :trials, dependent: :destroy
         has_many :passage_prompt_responses, class_name: 'Evidence::Research::GenAI::PassagePromptResponse', dependent: :destroy
         has_many :example_feedbacks, class_name: 'Evidence::Research::GenAI::ExampleFeedback', through: :passage_prompt_responses
 

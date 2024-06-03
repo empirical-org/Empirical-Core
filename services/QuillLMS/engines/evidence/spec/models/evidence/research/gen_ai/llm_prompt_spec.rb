@@ -22,7 +22,7 @@ module Evidence
         it { should have_readonly_attribute(:prompt) }
         it { should have_readonly_attribute(:llm_prompt_template_id) }
 
-        it { should have_many(:experiments).dependent(:destroy) }
+        it { should have_many(:trials).dependent(:destroy) }
 
         it { expect(build(:evidence_research_gen_ai_llm_prompt)).to be_valid }
       end
