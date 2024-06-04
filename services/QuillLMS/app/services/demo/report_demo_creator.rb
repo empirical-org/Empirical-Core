@@ -365,7 +365,7 @@ module Demo::ReportDemoCreator
 
     return unless sessions_to_clone.length
 
-    sessions_to_clone.each { |session_to_clone| self.clone_activity_session(session_to_clone) }
+    sessions_to_clone.each { |session_to_clone| clone_activity_session(session_to_clone) }
   end
 
   def self.clone_activity_session(session_to_clone)
