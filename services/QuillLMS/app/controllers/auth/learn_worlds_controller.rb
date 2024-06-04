@@ -31,10 +31,11 @@ module Auth
     end
 
     private def sso_response
-      @sso_response ||= LearnWorlds::Request.run(current_user)
+      @sso_response ||= LearnWorldsIntegration::SSORequest.run(current_user)
     end
 
     private def sso_success?
+      puts "\n\n\n\n ~~~~~~~~~~~~~~sso response: #{sso_response.inspect}"
       sso_response["success"] == true
     end
 
