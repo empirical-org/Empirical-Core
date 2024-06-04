@@ -365,10 +365,10 @@ module Demo::ReportDemoCreator
 
     return unless sessions_to_clone.length
 
-    sessions_to_clone.each { |session_to_clone| clone_activity_session(session_to_clone) }
+    sessions_to_clone.each { |session_to_clone| clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data) }
   end
 
-  def self.clone_activity_session(session_to_clone)
+  def self.clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data)
     act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
