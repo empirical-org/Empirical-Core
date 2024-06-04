@@ -4,11 +4,11 @@ module LearnWorldsIntegration
   class SSORequest < UserRequest
     class NilEmailError < StandardError; end
 
-    delegate :email, :learn_worlds_account, :username, to: :user
-
     def endpoint = SSO_ENDPOINT
 
-    private def data
+    def body = URI.encode_www_form(data)
+
+    def data
       learn_worlds_account ? existing_user_data : new_user_data
     end
 

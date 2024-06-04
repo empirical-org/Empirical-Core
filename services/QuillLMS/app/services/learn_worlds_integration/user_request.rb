@@ -16,8 +16,6 @@ module LearnWorldsIntegration
       raise NilUserError if user.nil?
       raise NilEmailError if email.nil?
 
-      puts "ENDPOINT: #{endpoint}"
-
       HTTParty.post(endpoint, body: body, headers: headers)
     end
 
@@ -25,16 +23,12 @@ module LearnWorldsIntegration
 
     def endpoint = raise NotImplementedError
 
-    private def body
-      URI.encode_www_form(data)
-    end
+    def body = raise NotImplementedError
 
     private def headers
       {
         "Lw-Client" => CLIENT_ID,
-        "Authorization" => "Bearer #{ACCESS_TOKEN}",
-        "Content-Type" => "application/json",
-        "Accept" => "*/*"
+        "Authorization" => "Bearer #{ACCESS_TOKEN}"
       }
     end
   end

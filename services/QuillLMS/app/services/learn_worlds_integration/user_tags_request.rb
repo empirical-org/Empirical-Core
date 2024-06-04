@@ -7,10 +7,11 @@ module LearnWorldsIntegration
 
     def run
       raise NilUserError if user.nil?
-      raise NilEmailError if email.nil?
 
-      HTTParty.put(endpoint, body: data.to_json, headers: headers, :debug_output => $stdout)
+      HTTParty.put(endpoint, body: body, headers: headers)
     end
+
+    def body = data.to_json
 
     def data
       {
