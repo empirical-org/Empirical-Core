@@ -316,8 +316,8 @@ class Activity < ApplicationRecord
   def update_questions_flag_status_if_necessary!
     return unless flags.include?(:production)
 
-    question_ids = data["questions"].map{|q| q["key"]}
-    questions = Question.where("uid in (?)", question_ids)
+    question_uids = data["questions"].map{|q| q["key"]}
+    questions = Question.where("uid in (?)", question_uids)
 
     questions.each do |question|
       question.update_flag("production")
