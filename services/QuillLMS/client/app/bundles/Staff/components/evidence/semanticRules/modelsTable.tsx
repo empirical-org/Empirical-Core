@@ -97,7 +97,7 @@ const ModelsTable = ({ activityId, prompt }) => {
 
   const addModelLink = (
     <Link
-      className="quill-button fun primary contained"
+      className="quill-button-archived fun primary contained"
       to={{
         pathname: `/activities/${activityId}/semantic-labels/${prompt.id}/add-model`,
         state: { conjunction: prompt.conjunction }

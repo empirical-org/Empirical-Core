@@ -640,7 +640,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     const { action, } = this.props
 
     if (action === EDIT) {
-      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleSaveAndPreviewClick} type="button" value="Save and Preview" />
+      return <input className="quill-button-archived large outlined secondary focus-on-light" onClick={this.handleSaveAndPreviewClick} type="button" value="Save and Preview" />
     }
   }
 
@@ -648,7 +648,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     const { action, } = this.props
     const { draft, } = this.state
     if (action === NEW || draft) {
-      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleSaveDraftClick} type="button" value="Save Draft" />
+      return <input className="quill-button-archived large outlined secondary focus-on-light" onClick={this.handleSaveDraftClick} type="button" value="Save Draft" />
     }
   }
 
@@ -656,7 +656,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     const { action, } = this.props
     const { draft, } = this.state
     if (action === EDIT && !draft) {
-      return <input className="quill-button large outlined secondary focus-on-light" onClick={this.handleUnpublishClick} type="button" value="Unpublish & Save Draft" />
+      return <input className="quill-button-archived large outlined secondary focus-on-light" onClick={this.handleUnpublishClick} type="button" value="Unpublish & Save Draft" />
     }
   }
 
@@ -715,7 +715,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     const allTopics = topics.concat(studentTopics)
     return (
       <div>
-        <a className='quill-button fun outlined secondary focus-on-light' href='/cms/blog_posts'><i className='fas fa-chevron-left' />&nbsp;Back to All Blog Posts</a>
+        <a className='quill-button-archived fun outlined secondary focus-on-light' href='/cms/blog_posts'><i className='fas fa-chevron-left' />&nbsp;Back to All Blog Posts</a>
         <form>
           <div className="left-column">
             <label>Title:</label>
@@ -734,7 +734,7 @@ export default class CreateOrEditBlogPost extends React.Component {
               <div>
                 <label>Author:</label>
                 <ItemDropdown callback={this.changeAuthor} className="blog-dropdown" items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />
-                <a className="quill-button fun outlined secondary focus-on-light" href="/cms/authors/new" target="_blank">Create New Author</a>
+                <a className="quill-button-archived fun outlined secondary focus-on-light" href="/cms/authors/new" target="_blank">Create New Author</a>
               </div>
               <div>
                 <label>Topic:</label>
@@ -757,7 +757,7 @@ export default class CreateOrEditBlogPost extends React.Component {
               <div className="dropzone-container"><Dropzone onDrop={this.handleDrop} /></div>
               <label style={{marginTop: '10px'}}>Here is the link to your uploaded image or video:</label>
               <input readOnly value={uploadedMediaLink || ''} />
-              <a className="quill-button fun secondary outlined focus-on-light" href="/cms/images" target="_blank">All Uploaded Media</a>
+              <a className="quill-button-archived fun secondary outlined focus-on-light" href="/cms/images" target="_blank">All Uploaded Media</a>
             </div>
 
             {this.renderCenterImagesCheckbox()}
@@ -772,7 +772,7 @@ export default class CreateOrEditBlogPost extends React.Component {
             <div>
               <div className="article-content-header-container">
                 <label>Article Content</label>
-                <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+                <a className='quill-button-archived fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
               </div>
               {this.renderArticleMarkdownOrPreview()}
             </div>
@@ -780,7 +780,7 @@ export default class CreateOrEditBlogPost extends React.Component {
             <div>
               <div className="article-content-header-container">
                 <label>Recommended Article Footer Content</label>
-                <a className='quill-button fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+                <a className='quill-button-archived fun outlined secondary focus-on-light' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
               </div>
               <p className="footer-content-disclaimer">(Please note that recommended article footers are currently hardcoded for particular pages so there is no need to fill this out unless this article will be displayed as a recommended article on one of the teacher dashboard pages. If left blank, the preview card content will be used for the footer. <strong>This should also be written with Markdown syntax.</strong>)</p>
               <Textarea
@@ -798,7 +798,7 @@ export default class CreateOrEditBlogPost extends React.Component {
               {this.renderUnpublishButton()}
               {this.renderSaveAndPreviewButton()}
 
-              <input className="quill-button contained large primary focus-on-light" onClick={this.handlePublishClick} type="button" value="Publish" />
+              <input className="quill-button-archived contained large primary focus-on-light" onClick={this.handlePublishClick} type="button" value="Publish" />
             </div>
           </div>
 

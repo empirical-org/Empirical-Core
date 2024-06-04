@@ -297,21 +297,21 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     const buttonText = isLastQuestion ? 'Next' : 'Next question'
     const disabledStatus = this.getDisabledStatus();
     const disabledStyle = disabledStatus ? 'disabled' : '';
-    return (<button className={`quill-button focus-on-light primary contained large ${disabledStyle}`} disabled={disabledStatus} onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>);
+    return (<button className={`quill-button-archived focus-on-light primary contained large ${disabledStyle}`} disabled={disabledStatus} onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>);
   }
 
   renderFinishedQuestionButton = () => {
     const nextF = () => {
       this.setState({ finished: true, });
     };
-    return (<button className="quill-button focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button-archived focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
   }
 
   renderMultipleChoiceButton = () => {
     const nextF = () => {
       this.setState({ multipleChoice: true, });
     };
-    return (<button className="quill-button focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button-archived focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
   }
 
   finishQuestion = () => {

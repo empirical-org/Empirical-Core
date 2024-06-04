@@ -191,9 +191,9 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
     return(
       <Modal>
         <div className="buttons-container">
-          <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddExistingLockerSectionModal}>Select existing locker</button>
-          <button className="quill-button focus-on-light fun primary outlined" onClick={handleAddLocker}>Add custom locker</button>
-          <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddLockerSectionModal}>{CANCEL}</button>
+          <button className="quill-button-archived focus-on-light fun primary outlined" onClick={toggleAddExistingLockerSectionModal}>Select existing locker</button>
+          <button className="quill-button-archived focus-on-light fun primary outlined" onClick={handleAddLocker}>Add custom locker</button>
+          <button className="quill-button-archived focus-on-light fun primary outlined" onClick={toggleAddLockerSectionModal}>{CANCEL}</button>
         </div>
       </Modal>
     );
@@ -204,8 +204,8 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
       <Modal>
         <div className="existing-locker-selection-container">
           <div className="buttons-container">
-            <button className="quill-button focus-on-light fun primary outlined" onClick={handleAddExistingLocker}>Add</button>
-            <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddExistingLockerSectionModal}>{CANCEL}</button>
+            <button className="quill-button-archived focus-on-light fun primary outlined" onClick={handleAddExistingLocker}>Add</button>
+            <button className="quill-button-archived focus-on-light fun primary outlined" onClick={toggleAddExistingLockerSectionModal}>{CANCEL}</button>
           </div>
           <DropdownInput
             className="existing-locker-options"
@@ -237,8 +237,8 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
               value={label}
             />
             <div className="buttons-container">
-              <button className="quill-button focus-on-light fun primary outlined" onClick={toggleAddLockerSectionModal} value={sectionKey}>Add locker</button>
-              <button className="quill-button focus-on-light fun primary outlined" onClick={toggleDeleteLockerSectionModal} value={sectionKey}>Delete section</button>
+              <button className="quill-button-archived focus-on-light fun primary outlined" onClick={toggleAddLockerSectionModal} value={sectionKey}>Add locker</button>
+              <button className="quill-button-archived focus-on-light fun primary outlined" onClick={toggleDeleteLockerSectionModal} value={sectionKey}>Delete section</button>
             </div>
           </div>
           <div className="lockers-container">
@@ -287,7 +287,7 @@ export const OrganizeLocker = ({ history, personalLocker, userId }) => {
           value={lockerLabel}
         />
         {lockerPreferences && renderPersonalLockerSections()}
-        <button className="quill-button focus-on-light fun primary outlined" onClick={handleAddSection} >Add Section</button>
+        <button className="quill-button-archived focus-on-light fun primary outlined" onClick={handleAddSection} >Add Section</button>
       </div>
     </div>
   )

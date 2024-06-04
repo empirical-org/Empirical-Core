@@ -118,7 +118,7 @@ exports[`CreateAClassForm component on initial load should render 1`] = `
     className="create-a-class-modal-footer"
   >
     <button
-      className="quill-button contained primary medium disabled"
+      className="quill-button-archived contained primary medium disabled"
       onClick={[Function]}
     >
       Create class, next

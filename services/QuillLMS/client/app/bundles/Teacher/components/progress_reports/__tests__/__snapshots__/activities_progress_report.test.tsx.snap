@@ -43,7 +43,7 @@ exports[`ActivitiesProgressReport it should render 1`] = `
         class="csv-and-how-we-grade"
       >
         <button
-          class="quill-button medium primary contained focus-on-light"
+          class="quill-button-archived medium primary contained focus-on-light"
           style="display: block;"
         >
           Download Report

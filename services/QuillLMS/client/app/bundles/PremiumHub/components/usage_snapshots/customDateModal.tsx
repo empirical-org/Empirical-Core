@@ -33,7 +33,7 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
 
   function isOutsideRange() { return false }
 
-  let applyClassName = "quill-button medium primary contained focus-on-light"
+  let applyClassName = "quill-button-archived medium primary contained focus-on-light"
 
   applyClassName += startDate && endDate ? '' : ' disabled'
 
@@ -58,7 +58,7 @@ const CustomDateModal = ({ close, passedStartDate, setCustomDates, passedEndDate
           startDateId="start-date"
         />
         <div className="button-section">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={close} type="button">Cancel</button>
           <button className={applyClassName} disabled={!(startDate && endDate)} onClick={handleClickApply} type="button">Apply</button>
         </div>
       </div>

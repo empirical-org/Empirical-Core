@@ -158,7 +158,7 @@ export default class BlogPosts extends React.Component {
       <div className="cms-blog-posts">
         <header>
           <h1>Teacher Center</h1>
-          <a className="quill-button fun primary contained focus-on-light" href="/cms/blog_posts/new">Add a post</a>
+          <a className="quill-button-archived fun primary contained focus-on-light" href="/cms/blog_posts/new">Add a post</a>
         </header>
         <FeaturedBlogPosts
           featuredBlogPosts={this.featuredBlogPosts()}

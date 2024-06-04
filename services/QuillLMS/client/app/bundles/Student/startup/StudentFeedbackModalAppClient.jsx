@@ -30,7 +30,7 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
     })
   }
 
-  let saveButtonClass = 'quill-button contained primary medium focus-on-light';
+  let saveButtonClass = 'quill-button-archived contained primary medium focus-on-light';
   if (!response.length || submitting) {
     saveButtonClass += ' disabled';
   }
@@ -50,7 +50,7 @@ const StudentFeedbackModal = ({ question, gradeLevels, }) => {
             value={response}
           />
           <div className="buttons">
-            <button className="quill-button medium secondary outlined focus-on-light" onClick={cancel} type="button">Cancel</button>
+            <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={cancel} type="button">Cancel</button>
             <button className={saveButtonClass} onClick={handleClickSave} type="button">Submit</button>
           </div>
         </form>

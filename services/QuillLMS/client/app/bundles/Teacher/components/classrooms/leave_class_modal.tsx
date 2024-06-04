@@ -38,8 +38,8 @@ export default class LeaveClassModal extends React.Component<LeaveClassModalProp
             <p>You won't be able to view or manage this class unless you're re-invited.</p>
           </div>
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-            <button className="quill-button contained primary medium" onClick={this.leaveClass}>Leave class</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived contained primary medium" onClick={this.leaveClass}>Leave class</button>
           </div>
         </div>
       </div>

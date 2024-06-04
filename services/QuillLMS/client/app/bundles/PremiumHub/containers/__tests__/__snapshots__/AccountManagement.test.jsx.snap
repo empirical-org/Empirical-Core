@@ -18,7 +18,7 @@ exports[`AccountManagement container should render with a full access type 1`] =
           Account Management
         </h1>
         <button
-          class="quill-button contained medium focus-on-light primary"
+          class="quill-button-archived contained medium focus-on-light primary"
           type="button"
         >
           Create and link accounts
@@ -206,7 +206,7 @@ exports[`AccountManagement container should render with a limited access type 1`
           Account Management
         </h1>
         <button
-          class="quill-button contained medium focus-on-light primary"
+          class="quill-button-archived contained medium focus-on-light primary"
           type="button"
         >
           Create and link accounts
@@ -394,7 +394,7 @@ exports[`AccountManagement container should render with a restricted access type
           Account Management
         </h1>
         <button
-          class="quill-button contained medium focus-on-light primary"
+          class="quill-button-archived contained medium focus-on-light primary"
           type="button"
         >
           Create and link accounts

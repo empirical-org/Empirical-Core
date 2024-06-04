@@ -84,14 +84,14 @@ exports[`UnassignWarningModal should render  1`] = `
             className="buttons"
           >
             <button
-              className="quill-button secondary outlined fun focus-on-light"
+              className="quill-button-archived secondary outlined fun focus-on-light"
               onClick={[MockFunction]}
               type="button"
             >
               Cancel
             </button>
             <button
-              className="quill-button contained primary fun focus-on-light"
+              className="quill-button-archived contained primary fun focus-on-light"
               onClick={[MockFunction]}
               type="button"
             >

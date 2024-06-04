@@ -82,7 +82,7 @@ const ArchivedRecordBox = ({ originalRecord, saveContentPartnerChanges, closeRec
   function renderSaveButton() {
     return (
       <input
-        className="quill-button contained primary medium"
+        className="quill-button-archived contained primary medium"
         type="submit"
         value="Unarchive, set live"
       />

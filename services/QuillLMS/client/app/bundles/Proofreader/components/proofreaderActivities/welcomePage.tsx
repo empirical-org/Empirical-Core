@@ -31,7 +31,7 @@ const WelcomePage = ({onNextClick}) => {
         </div>
       </div>
       <div id="button-container" tabIndex={-1}>
-        <button className="quill-button large contained primary focus-on-light" onClick={onNextClick} type="button">Next</button>
+        <button className="quill-button-archived large contained primary focus-on-light" onClick={onNextClick} type="button">Next</button>
       </div>
     </div>
   )

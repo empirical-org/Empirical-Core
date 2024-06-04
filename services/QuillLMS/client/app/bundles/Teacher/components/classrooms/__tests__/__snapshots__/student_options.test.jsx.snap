@@ -33,7 +33,7 @@ exports[`StudentOptions component should render StudentOptions 1`] = `
     className="create-a-class-modal-footer"
   >
     <button
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
       onClick={[Function]}
     >
       Skip

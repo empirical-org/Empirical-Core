@@ -7,7 +7,7 @@ const PlayTitleCard = ({ data, handleContinueClick, isLastQuestion, previewMode 
   return(
     <div className="landing-page">
       <div className="landing-page-html" dangerouslySetInnerHTML={{__html: data.content}} />
-      <button className={`quill-button focus-on-light large primary contained ${disabledClass}`} disabled={disabled} onClick={handleContinueClick} type="button">
+      <button className={`quill-button-archived focus-on-light large primary contained ${disabledClass}`} disabled={disabled} onClick={handleContinueClick} type="button">
         {buttonText}
       </button>
     </div>

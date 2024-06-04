@@ -33,14 +33,14 @@ exports[`CopyModal component renders 1`] = `
         className="button-section"
       >
         <button
-          className="quill-button medium secondary outlined focus-on-light"
+          className="quill-button-archived medium secondary outlined focus-on-light"
           onClick={[Function]}
           type="button"
         >
           Cancel
         </button>
         <button
-          className="quill-button medium primary contained focus-on-light"
+          className="quill-button-archived medium primary contained focus-on-light"
           onClick={[Function]}
           type="button"
         >

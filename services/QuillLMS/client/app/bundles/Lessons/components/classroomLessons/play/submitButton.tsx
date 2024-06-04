@@ -4,7 +4,7 @@ const SubmitButton = ({ disabled, onClick, }: {disabled: Boolean, onClick: ((eve
   const disabledClassName = disabled ? 'disabled' : ''
   return (
     <div className="question-button-group">
-      <button className={`quill-button primary contained large focus-on-light ${disabledClassName}`} disabled={disabled} onClick={onClick} type="button">Submit</button>
+      <button className={`quill-button-archived primary contained large focus-on-light ${disabledClassName}`} disabled={disabled} onClick={onClick} type="button">Submit</button>
     </div>
   );
 }

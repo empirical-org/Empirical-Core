@@ -126,13 +126,13 @@ exports[`CreateAClassInlineForm component should render 1`] = `
       className="buttons"
     >
       <button
-        className="quill-button medium secondary outlined"
+        className="quill-button-archived medium secondary outlined"
         onClick={[Function]}
       >
         Cancel
       </button>
       <button
-        className="quill-button contained primary medium disabled"
+        className="quill-button-archived contained primary medium disabled"
         onClick={[Function]}
       >
         Create

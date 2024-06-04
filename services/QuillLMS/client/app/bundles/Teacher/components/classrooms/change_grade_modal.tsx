@@ -52,7 +52,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
   submitButtonClass() {
     const { classroom } = this.props
     const { grade } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (grade && classroom.grade === grade.value) {
       buttonClass += ' disabled';
     }
@@ -80,7 +80,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
             value={grade}
           />
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
             <button className={this.submitButtonClass()} onClick={this.changeGrade}>Save</button>
           </div>
         </div>

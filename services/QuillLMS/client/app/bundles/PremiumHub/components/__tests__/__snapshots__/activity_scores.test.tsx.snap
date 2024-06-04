@@ -43,7 +43,7 @@ exports[`ActivityScores it should render 1`] = `
         class="csv-and-how-we-grade"
       >
         <button
-          class="quill-button focus-on-light small primary contained"
+          class="quill-button-archived focus-on-light small primary contained"
           style="display: block;"
         >
           Download report

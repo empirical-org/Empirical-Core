@@ -182,17 +182,17 @@ const RegexRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ ma
   return(
     <div className="rules-container">
       {renderHeader(activityData, 'Regex Rules')}
-      <a className="quill-button fun secondary outlined focus-on-light play-activity-button" href={`/evidence/#/play?uid=${activityId}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>
+      <a className="quill-button-archived fun secondary outlined focus-on-light play-activity-button" href={`/evidence/#/play?uid=${activityId}&skipToPrompts=true`} rel="noopener noreferrer" target="_blank">Play Test Activity</a>
       <section className="rules-based-section">
-        <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
+        <button className="quill-button-archived fun primary contained add-rule-button" type="submit">{addRulesBased1Link}</button>
         {renderTable(rulesBased1Rows, 'Sentence Structure', RULES_BASED_1)}
       </section>
       <section className="rules-based-section">
-        <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased2Link}</button>
+        <button className="quill-button-archived fun primary contained add-rule-button" type="submit">{addRulesBased2Link}</button>
         {renderTable(rulesBased2Rows, 'Post-Topic', RULES_BASED_2)}
       </section>
       <section className="rules-based-section">
-        <button className="quill-button fun primary contained add-rule-button" type="submit">{addRulesBased3Link}</button>
+        <button className="quill-button-archived fun primary contained add-rule-button" type="submit">{addRulesBased3Link}</button>
         {renderTable(rulesBased3Rows, 'Typo', RULES_BASED_3)}
       </section>
     </div>

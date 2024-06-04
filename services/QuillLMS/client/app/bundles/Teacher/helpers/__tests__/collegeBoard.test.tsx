@@ -21,7 +21,7 @@ describe('College Board helper functions', () => {
       expect(getStartedButton(true)).toEqual(null);
     });
     it('should return null if isPartOfAssignmentFlow is false', () => {
-      const button = <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>;
+      const button = <a className="quill-button-archived large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>;
       expect(getStartedButton(false)).toEqual(button);
     });
   });

@@ -31,7 +31,7 @@ exports[`DataExportTableAndFields component should match snapshot 1`] = `
       className="header-buttons"
     >
       <button
-        className="quill-button download-report-button contained primary medium focus-on-light"
+        className="quill-button-archived download-report-button contained primary medium focus-on-light"
         onClick={[Function]}
         type="button"
       >

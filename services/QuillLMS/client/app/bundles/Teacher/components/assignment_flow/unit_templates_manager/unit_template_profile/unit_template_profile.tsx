@@ -112,7 +112,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
   }
 
   renderAssignButton = () => {
-    return <button className="quill-button contained primary medium" onClick={this.handleGoToEditStudents} type="submit">Select pack</button>
+    return <button className="quill-button-archived contained primary medium" onClick={this.handleGoToEditStudents} type="submit">Select pack</button>
   }
 
   renderMobileActivitiesList = ({ activities }) => {

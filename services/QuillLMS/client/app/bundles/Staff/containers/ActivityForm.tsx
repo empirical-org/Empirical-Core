@@ -35,7 +35,7 @@ const ActivityForm = ({ activity, activityClassification, contentPartnerOptions,
   }, [editedActivity.minimum_grade_level])
 
   function submitClassName() {
-    let className = "quill-button primary contained large"
+    let className = "quill-button-archived primary contained large"
 
     if (!editedActivity.name?.length) {
       className+= ' disabled'

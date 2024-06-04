@@ -27,7 +27,7 @@ exports[`SetupInstructions component if there are no students should render Setu
       />
     </a>
     <a
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
       download={true}
       href="undefined/documents/setup_instructions_pdfs/class_code_links.pdf"
       target="_blank"
@@ -39,13 +39,13 @@ exports[`SetupInstructions component if there are no students should render Setu
     className="create-a-class-modal-footer with-back-button"
   >
     <button
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
       type="button"
     >
       Back
     </button>
     <button
-      className="quill-button primary contained medium"
+      className="quill-button-archived primary contained medium"
       onClick={[Function]}
       type="button"
     >
@@ -82,7 +82,7 @@ exports[`SetupInstructions component if there are students should render SetupIn
       />
     </a>
     <a
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
       download={false}
       href="/teachers/classrooms/285383/student_logins"
       target="_blank"
@@ -94,13 +94,13 @@ exports[`SetupInstructions component if there are students should render SetupIn
     className="create-a-class-modal-footer with-back-button"
   >
     <button
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
       type="button"
     >
       Back
     </button>
     <button
-      className="quill-button primary contained medium"
+      className="quill-button-archived primary contained medium"
       onClick={[Function]}
       type="button"
     >

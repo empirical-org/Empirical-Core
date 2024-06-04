@@ -288,7 +288,7 @@ export default class CurrentSubscription extends React.Component {
     if (authorityLevel && subscriptionStatus.payment_method === CREDIT_CARD) {
       return (
         <button
-          className="quill-button medium primary contained focus-on-light"
+          className="quill-button-archived medium primary contained focus-on-light"
           onClick={this.handleClickShowAutomaticRenewalModal}
           type="button"
         >
@@ -327,8 +327,8 @@ export default class CurrentSubscription extends React.Component {
           </div>
           <p>{body}</p>
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleClickHideAutomaticRenewalModal} type="button">Cancel</button>
-            <button className="quill-button contained primary medium focus-on-light" onClick={this.handleUpdateRecurringClick} type="button">{buttonText}</button>
+            <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={this.handleClickHideAutomaticRenewalModal} type="button">Cancel</button>
+            <button className="quill-button-archived contained primary medium focus-on-light" onClick={this.handleUpdateRecurringClick} type="button">{buttonText}</button>
           </div>
         </div>
       </div>

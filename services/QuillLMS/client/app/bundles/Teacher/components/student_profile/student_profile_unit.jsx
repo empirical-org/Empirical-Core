@@ -158,7 +158,7 @@ export default class StudentProfileUnit extends React.Component {
     return (
       <a
         aria-label={`View results for ${name}`}
-        className="quill-button medium focus-on-light secondary outlined"
+        className="quill-button-archived medium focus-on-light secondary outlined"
         href={`/activity_sessions/${activity_session_id}/student_activity_report`}
       >
         View results
@@ -192,7 +192,7 @@ export default class StudentProfileUnit extends React.Component {
         <Tooltip
           tooltipText="Sorry, you can't replay this activity. Your teacher closed this activity pack."
           tooltipTriggerText="Replay"
-          tooltipTriggerTextClass="quill-button disabled medium secondary outlined"
+          tooltipTriggerTextClass="quill-button-archived disabled medium secondary outlined"
         />
       )
     }
@@ -212,7 +212,7 @@ export default class StudentProfileUnit extends React.Component {
       return (
         <button
           aria-label={`${linkText} ${name}`}
-          className={`quill-button medium focus-on-light ${buttonStyle}`}
+          className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
           onClick={onClick}
           type="button"
         >
@@ -224,7 +224,7 @@ export default class StudentProfileUnit extends React.Component {
     return (
       <a
         aria-label={`${linkText} ${name}`}
-        className={`quill-button medium focus-on-light ${buttonStyle}`}
+        className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
         href={activityLaunchLink(classroom_unit_id, activity_id)}
       >
         {linkText}

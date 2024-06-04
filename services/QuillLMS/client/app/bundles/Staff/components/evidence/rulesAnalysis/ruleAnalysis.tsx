@@ -348,7 +348,7 @@ const RuleAnalysis = ({ match }) => {
   }
 
   const massMarkButtonDisabled = !selectedIds.length
-  const massMarkButtonClassName = massMarkButtonDisabled ? "quill-button secondary fun outlined disabled" : "quill-button secondary fun outlined"
+  const massMarkButtonClassName = massMarkButtonDisabled ? "quill-button-archived secondary fun outlined disabled" : "quill-button-archived secondary fun outlined"
 
   const isLowConfidenceRule = ruleData.rule.rule_type === LOW_CONFIDENCE
 
@@ -361,8 +361,8 @@ const RuleAnalysis = ({ match }) => {
         rows={ruleRows(ruleData)}
       />
       <div className="button-wrapper">
-        <Link className="quill-button medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Notes/Properties</Link>
-        <Link className="quill-button medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>
+        <Link className="quill-button-archived medium contained primary" to={`/activities/${activityId}/rules/${ruleData.rule.id}`}>Edit Rule Notes/Properties</Link>
+        <Link className="quill-button-archived medium secondary outlined" rel="noopener noreferrer" target="_blank" to={`/activities/${activityId}/semantic-labels/${prompt.id}/semantic-rules-cheat-sheet`} >Semantic Rules Cheat Sheet</Link>
       </div>
       <FilterWidget
         endDate={endDate}

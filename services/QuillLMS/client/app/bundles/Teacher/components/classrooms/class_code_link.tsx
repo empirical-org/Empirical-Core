@@ -39,7 +39,7 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
             value={this.classCodeLink()}
           />
           <CopyToClipboard onCopy={this.showSnackbar} text={this.classCodeLink()}>
-            <button className="quill-button secondary outlined small">Copy</button>
+            <button className="quill-button-archived secondary outlined small">Copy</button>
           </CopyToClipboard>
         </div>
       </div>
@@ -50,8 +50,8 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
     const { back, next, } = this.props
     return (
       <div className="create-a-class-modal-footer with-back-button">
-        <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-        <button className="quill-button primary contained medium" onClick={next}>Next</button>
+        <button className="quill-button-archived secondary outlined medium" onClick={back}>Back</button>
+        <button className="quill-button-archived primary contained medium" onClick={next}>Next</button>
       </div>
     )
   }

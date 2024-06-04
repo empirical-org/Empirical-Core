@@ -291,7 +291,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
         <div className="container">
           <div className="header">
             <h1>Account Management</h1>
-            <button className="quill-button contained medium focus-on-light primary" type="button">Create and link accounts</button>
+            <button className="quill-button-archived contained medium focus-on-light primary" type="button">Create and link accounts</button>
           </div>
           <Spinner />
         </div>
@@ -371,7 +371,7 @@ export const AccountManagement: React.SFC<AccountManagementProps> = ({
         )}
         <div className="header">
           <h1>Account Management</h1>
-          <button className="quill-button contained medium focus-on-light primary" onClick={handleClickCreateAndLinkAccountsButton} type="button">Create and link accounts</button>
+          <button className="quill-button-archived contained medium focus-on-light primary" onClick={handleClickCreateAndLinkAccountsButton} type="button">Create and link accounts</button>
         </div>
         {accountManagementContent}
       </div>

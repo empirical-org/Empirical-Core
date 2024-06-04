@@ -26,7 +26,7 @@ interface HeaderProps {
 
 const AssignButton = ({ selectedActivities, handleClickContinue, saveButtonEnabled, isStaff, }: AssignButtonProps) => {
   let action = handleClickContinue
-  let buttonClass = 'quill-button contained primary medium focus-on-light';
+  let buttonClass = 'quill-button-archived contained primary medium focus-on-light';
   const buttonCopy = isStaff ? 'Save' : 'Assign'
   if (isStaff) {
     if (!saveButtonEnabled) {
@@ -75,7 +75,7 @@ const Header = ({ handleClickContinue, selectedActivities, setSelectedActivities
     const numberOfActivitiesForMobile = showActivities ? '' : <span className="number-of-activities">({selectedActivities.length})</span>
     headerContent = (<div>
       <h1>{text}</h1>
-      <button className="focus-on-light quill-button medium secondary outlined" onClick={toggleShowActivities} type="button">{buttonCopy}{numberOfActivitiesForMobile}</button>
+      <button className="focus-on-light quill-button-archived medium secondary outlined" onClick={toggleShowActivities} type="button">{buttonCopy}{numberOfActivitiesForMobile}</button>
     </div>)
   }
 

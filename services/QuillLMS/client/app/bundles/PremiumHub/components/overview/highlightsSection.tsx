@@ -47,7 +47,7 @@ const HighlightsSection = ({ pusherChannel, schools, }) => {
           {renderHighlights()}
         </div>
       </div>
-      <Link className="quill-button outlined secondary medium focus-on-light view-all-usage-button" to="/teachers/premium_hub/usage_snapshot_report">View all usage</Link>
+      <Link className="quill-button-archived outlined secondary medium focus-on-light view-all-usage-button" to="/teachers/premium_hub/usage_snapshot_report">View all usage</Link>
     </section>
   )
 }

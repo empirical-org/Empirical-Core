@@ -19,8 +19,8 @@ const ArchiveModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
           <p>If you no longer want students to see an activity pack and wish to retain access to it in your student reports, we suggest using the “Close activity pack” option instead.</p>
         </div>
         <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={closeModal} type="button">Cancel</button>
-          <button className="quill-button contained primary medium" onClick={handleArchiveUnitButtonClick} type="button">Delete</button>
+          <button className="quill-button-archived outlined secondary medium" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button-archived contained primary medium" onClick={handleArchiveUnitButtonClick} type="button">Delete</button>
         </div>
       </div>
     </div>

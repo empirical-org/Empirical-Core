@@ -278,7 +278,7 @@
     }
   }
 
-  .quill-button:focus, .quill-button:hover {
+  .quill-button-archived:focus, .quill-button-archived:hover {
     text-decoration: none;
   }
 
@@ -326,7 +326,7 @@
     }
   }
 
-  .quill-button.primary.outlined {
+  .quill-button-archived.primary.outlined {
     &:hover, &:focus {
       font-weight: 600;
     }
@@ -416,7 +416,7 @@
   }
   .class-settings-buttons {
     display: flex;
-    .quill-button {
+    .quill-button-archived {
       margin-right: 16px;
     }
   }
@@ -436,13 +436,13 @@
     span {
       margin-top: 8px;
     }
-    .quill-button {
+    .quill-button-archived {
       width: 255px;
     }
   }
   .invite-quill-classroom-students {
     margin-bottom: 40px;
-    .quill-button {
+    .quill-button-archived {
       width: 128px;
     }
   }
@@ -467,7 +467,7 @@
   }
   .teacher-section-header {
     margin-bottom: 26px;
-    .quill-button {
+    .quill-button-archived {
       width: 148px;
     }
   }
@@ -484,7 +484,7 @@
         display: flex;
       }
       .login-pdf-and-view-as-student {
-        .quill-button {
+        .quill-button-archived {
           margin-right: 16px;
         }
       }

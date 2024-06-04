@@ -77,7 +77,7 @@ export const SalesForm = ({ type }) => {
   }
   const schoolIsSelected = schoolOrDistrict === SCHOOL;
   const districtIsSelected = schoolOrDistrict === DISTRICT;
-  const buttonClass = "submit-button quill-button contained primary medium focus-on-light";
+  const buttonClass = "submit-button quill-button-archived contained primary medium focus-on-light";
 
   function handleUpdateField(e: InputEvent | React.ChangeEvent<HTMLTextAreaElement>) {
     const { target } = e;

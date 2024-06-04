@@ -121,7 +121,7 @@ describe("<QuestionComponent />", () => {
       mountWrapper.setState({ responses })
 
       it("the check answer button says 'Get feedback'", () => {
-        expect(mountWrapper.find('.quill-button').text()).toEqual('Get feedback')
+        expect(mountWrapper.find('.quill-button-archived').text()).toEqual('Get feedback')
       })
     })
 
@@ -140,7 +140,7 @@ describe("<QuestionComponent />", () => {
       wrapperWithOneIncorrectAttempt.setState({questionStatus: 'incorrectly answered', responses })
 
       it("the check answer button says 'Get feedback'", () => {
-        expect(wrapperWithOneIncorrectAttempt.find('.quill-button').text()).toEqual('Get feedback')
+        expect(wrapperWithOneIncorrectAttempt.find('.quill-button-archived').text()).toEqual('Get feedback')
       })
 
       it("there is feedback with a revise class", () => {
@@ -163,7 +163,7 @@ describe("<QuestionComponent />", () => {
       wrapperWithFiveIncorrectAttempts.setState({questionStatus: 'final attempt', responses })
 
       it("the check answer button says 'Next question'", () => {
-        expect(wrapperWithFiveIncorrectAttempts.find('.quill-button').text()).toEqual('Next question')
+        expect(wrapperWithFiveIncorrectAttempts.find('.quill-button-archived').text()).toEqual('Next question')
       })
 
       it("there is feedback with a revise class", () => {
@@ -186,8 +186,8 @@ describe("<QuestionComponent />", () => {
       wrapperWithOneCorrectAttempt.setState({questionStatus: 'correctly answered', responses })
 
       it("the check answer button says 'Next question'", () => {
-        expect(wrapperWithOneCorrectAttempt.find('.quill-button')).toHaveLength(1)
-        expect(wrapperWithOneCorrectAttempt.find('.quill-button').text()).toEqual('Next question')
+        expect(wrapperWithOneCorrectAttempt.find('.quill-button-archived')).toHaveLength(1)
+        expect(wrapperWithOneCorrectAttempt.find('.quill-button-archived').text()).toEqual('Next question')
       })
 
       it("there is feedback with a success class", () => {

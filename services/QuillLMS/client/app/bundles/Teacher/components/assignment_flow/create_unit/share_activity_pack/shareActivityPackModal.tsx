@@ -229,9 +229,9 @@ export const ShareActivityPackModal = ({ activityPackData, closeModal, selectabl
         {renderActivityAndClassData(showActivityLink)}
         <div className={`form-buttons ${showContainerStyle}`}>
           <CopyToClipboard onCopy={handleCopyLink} text={link}>
-            <button className="quill-button outlined secondary medium focus-on-light" type="button">Copy link</button>
+            <button className="quill-button-archived outlined secondary medium focus-on-light" type="button">Copy link</button>
           </CopyToClipboard>
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={handleShareToGoogleClassroomClick} type="button">
+          <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={handleShareToGoogleClassroomClick} type="button">
             <div className="button-text-container">
               <img alt="close-icon" src={shareToGoogleIconSrc} />
               <p className="button-text">Share to Google Classroom</p>

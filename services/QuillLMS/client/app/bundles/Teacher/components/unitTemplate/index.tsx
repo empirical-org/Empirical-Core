@@ -280,7 +280,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
         value={activityPackImageLink}
       />
       <div className="error-message-and-button-container">
-        <button className="quill-button primary contained medium focus-on-light" onClick={handleSaveUnitTemplate}>Save</button>
+        <button className="quill-button-archived primary contained medium focus-on-light" onClick={handleSaveUnitTemplate}>Save</button>
         {errors && <p className="all-errors-message">Please fix the form errors and try submitting again.</p>}
       </div>
       <section className="activity-selector-container padded-element">

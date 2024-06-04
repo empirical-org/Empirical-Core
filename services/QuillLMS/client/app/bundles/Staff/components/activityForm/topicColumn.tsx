@@ -40,7 +40,7 @@ const TopicColumn = ({ createNewTopic, levelNumber, selectTopic, getFilteredOpti
   }
 
   if (levelNumber === 1) {
-    let buttonClassName = "quill-button secondary small outlined"
+    let buttonClassName = "quill-button-archived secondary small outlined"
     if (!newTopicName.length) {
       buttonClassName+= ' disabled'
     }

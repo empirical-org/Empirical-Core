@@ -32,8 +32,8 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
     /* eslint-disable react/jsx-no-target-blank */
     const button = buttonText && buttonLink ? <a className="interactive-wrapper focus-on-light" href={buttonLink} onClick={this.handleAnchorClick} target="_blank"><img alt={previewIcon.alt} src={previewIcon.src} /><span>{buttonText}</span></a> : null;
     /* eslint-enable react/jsx-no-target-blank */
-    const selectButton = <button className="quill-button fun contained primary focus-on-light" onClick={selectCard} type="button">Select</button>
-    const lockedButton = <Tooltip tooltipText={lockedText} tooltipTriggerText={<button className="quill-button small disabled contained" type="button"><img alt={lockedIcon.alt} src={lockedIcon.src} /> Locked</button>} />
+    const selectButton = <button className="quill-button-archived fun contained primary focus-on-light" onClick={selectCard} type="button">Select</button>
+    const lockedButton = <Tooltip tooltipText={lockedText} tooltipTriggerText={<button className="quill-button-archived small disabled contained" type="button"><img alt={lockedIcon.alt} src={lockedIcon.src} /> Locked</button>} />
     if (button) {
       return (
         <div className="button-container">

@@ -22,8 +22,8 @@ export const UnitTemplateAuthenticationButtons = ({ name }) => {
     <div className="login-or-signup-container light-gray-bordered-box">
       <strong>Log in or sign-up to assign</strong>
       <div className="login-or-signup-buttons">
-        <button className="quill-button medium secondary outlined" onClick={handleClickLogIn}>Log in</button>
-        <button className="quill-button medium primary contained" onClick={handleClickSignUp}>Sign up</button>
+        <button className="quill-button-archived medium secondary outlined" onClick={handleClickLogIn}>Log in</button>
+        <button className="quill-button-archived medium primary contained" onClick={handleClickSignUp}>Sign up</button>
       </div>
     </div>
   )

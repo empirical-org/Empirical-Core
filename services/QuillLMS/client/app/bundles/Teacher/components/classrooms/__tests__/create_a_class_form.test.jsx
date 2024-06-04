@@ -16,7 +16,7 @@ describe('CreateAClassForm component', () => {
     })
 
     it('should have a disabled button', () => {
-      expect(wrapper.find('.quill-button').hasClass('disabled')).toBe(true)
+      expect(wrapper.find('.quill-button-archived').hasClass('disabled')).toBe(true)
     })
   })
 
@@ -28,7 +28,7 @@ describe('CreateAClassForm component', () => {
     wrapper.setState({ name: 'Classroom', code: 'happy-day', grade: 7 })
 
     it('should not have a disabled button', () => {
-      expect(wrapper.find('.quill-button').hasClass('disabled')).toBe(false)
+      expect(wrapper.find('.quill-button-archived').hasClass('disabled')).toBe(false)
     })
   })
 

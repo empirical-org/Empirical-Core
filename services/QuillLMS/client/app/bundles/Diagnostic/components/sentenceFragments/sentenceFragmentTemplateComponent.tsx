@@ -207,19 +207,19 @@ class PlaySentenceFragment extends React.Component<any, any> {
       const disabled = isLastQuestion && previewMode;
       const disabledStyle = disabled ? 'disabled' : '';
       return (
-        <button className={`quill-button focus-on-light large primary contained ${disabledStyle}`} disabled={disabled} onClick={nextQuestion} type="button">Next</button>
+        <button className={`quill-button-archived focus-on-light large primary contained ${disabledStyle}`} disabled={disabled} onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if(previewMode && question.attempts.length > 0) {
-        return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+        return <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">Submit</button>;
       } else if (!previewMode && question.attempts.length) {
-        const buttonClass = editing ? "quill-button focus-on-light large primary contained" : "quill-button focus-on-light large primary contained disabled" ;
+        const buttonClass = editing ? "quill-button-archived focus-on-light large primary contained" : "quill-button-archived focus-on-light large primary contained disabled" ;
         return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck work</button>;
       } else {
-        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
+        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+      <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
   }
 

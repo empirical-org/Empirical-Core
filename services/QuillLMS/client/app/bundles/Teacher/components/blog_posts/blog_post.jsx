@@ -97,7 +97,7 @@ export default class BlogPost extends React.Component {
           <div className="container" id='similar-post-container'>
             <h2>
               <span>Teacher Center Articles</span>
-              <a className="quill-button contained primary fun focus-on-light" href={`/${TEACHER_CENTER_SLUG}`}>Show more</a>
+              <a className="quill-button-archived contained primary fun focus-on-light" href={`/${TEACHER_CENTER_SLUG}`}>Show more</a>
             </h2>
             <div id='preview-card-container'>
               {this.renderRelatedPosts()}

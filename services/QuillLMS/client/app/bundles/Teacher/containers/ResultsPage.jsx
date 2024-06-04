@@ -105,7 +105,7 @@ const ResultsPage = ({
   }
 
   const headerButtons = () => {
-    const primaryButtonClassName = 'quill-button primary contained large focus-on-light'
+    const primaryButtonClassName = 'quill-button-archived primary contained large focus-on-light'
     if (integrationPartnerName && integrationPartnerSessionId) {
       const link = `/${integrationPartnerName}?session_id=${integrationPartnerSessionId}`;
       return (<a className={primaryButtonClassName} href={link}>Back to activity list</a>)
@@ -118,8 +118,8 @@ const ResultsPage = ({
     return (
       <div className="header-buttons">
         <a className={primaryButtonClassName} href={dashboardLink}>Return to dashboard</a>
-        {!isDiagnostic && <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/${activitySessionId}/student_activity_report`}>View results</a>}
-        {!isDiagnostic && <a className='quill-button secondary outlined large focus-on-light' href={`/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`}>Replay activity</a>}
+        {!isDiagnostic && <a className='quill-button-archived secondary outlined large focus-on-light' href={`/activity_sessions/${activitySessionId}/student_activity_report`}>View results</a>}
+        {!isDiagnostic && <a className='quill-button-archived secondary outlined large focus-on-light' href={`/activity_sessions/classroom_units/${classroomUnitId}/activities/${activityId}`}>Replay activity</a>}
       </div>
     )
   }

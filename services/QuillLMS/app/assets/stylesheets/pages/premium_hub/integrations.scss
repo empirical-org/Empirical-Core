@@ -112,12 +112,12 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-      .quill-button.red {
+      .quill-button-archived.red {
         background-color: $quill-red;
       }
       div {
         display: flex;
-        .quill-button {
+        .quill-button-archived {
           margin-left: 16px;
         }
       }

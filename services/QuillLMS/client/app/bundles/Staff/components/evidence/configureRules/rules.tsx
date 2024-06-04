@@ -180,7 +180,7 @@ const Rules = ({ activityId, history, prompt }: RulesProps) => {
     <div className="rules-container">
       {showAddRuleModal && renderRuleForm(blankRule, handleCreateRule, toggleAddRuleModal)}
       {showEditRuleModal && renderRuleForm(ruleToEdit, handleUpdateRule, toggleEditRuleModal)}
-      <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
+      <button className="quill-button-archived fun primary contained" id="add-rule-button" onClick={toggleAddRuleModal} type="submit">
         Add Rule
       </button>
       <DataTable

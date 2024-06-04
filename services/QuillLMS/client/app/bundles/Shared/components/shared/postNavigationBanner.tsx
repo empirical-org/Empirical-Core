@@ -34,7 +34,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
         <div className="buttons-container">
           {buttons.map((button, i) => {
             const { onClick, href, standardButtonStyle, text, target } = button
-            const buttonClass = standardButtonStyle ? "quill-button fun primary contained" : "nonstandard-banner-button"
+            const buttonClass = standardButtonStyle ? "quill-button-archived fun primary contained" : "nonstandard-banner-button"
             if(button.onClick) {
               return <button className={`${buttonClass} focus-on-light`} key={`button-${i}`} onClick={onClick}>{text}</button>
             } else {
