@@ -1,0 +1,34 @@
+<h1>New Activity</h1>
+
+<%= form_for @activity do |f| %>
+  <%= render 'errors', object: @activity %>
+
+  <div class="field-spacing">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, size: 100, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :text %><br>
+    <%= f.text_area :text, cols: 100, rows: 50, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :because_evidence %><br>
+    <%= f.text_area :because_evidence, cols: 100, rows: 25, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :but_evidence %><br>
+    <%= f.text_area :but_evidence, cols: 100, rows: 25, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :so_evidence %><br>
+    <%= f.text_area :so_evidence, cols: 100, rows: 25, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

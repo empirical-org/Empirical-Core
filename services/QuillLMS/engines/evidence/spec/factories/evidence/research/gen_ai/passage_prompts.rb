@@ -11,7 +11,7 @@
 #  relevant_passage :text             not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  passage_id       :integer          not null
+#  activity_id      :integer          not null
 #
 
 module Evidence
@@ -20,7 +20,7 @@ module Evidence
       FactoryBot.define do
         factory :evidence_research_gen_ai_passage_prompt, class: 'Evidence::Research::GenAI::PassagePrompt' do
           prompt { "This is the prompt #{conjunction}" }
-          passage { association :evidence_research_gen_ai_passage }
+          activity { association :evidence_research_gen_ai_activity }
           conjunction { PassagePrompt::CONJUNCTIONS.sample }
           instructions { 'These are the instructions' }
           relevant_passage { 'This is the relevant passage' }

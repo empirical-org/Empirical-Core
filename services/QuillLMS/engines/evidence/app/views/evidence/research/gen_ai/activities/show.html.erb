@@ -1,0 +1,18 @@
+<div>
+  <h2>Activity</h2>
+
+  <h3>Name</h3>
+  <p><%= @activity.name %></p>
+
+  <h3>Text</h3>
+  <p><%= simple_format(@activity.contents) %></p>
+
+  <h3>Relevant Evidence</h3>
+  <p><%= simple_format(@activity.relevant_evidence) %></p>
+</div>
+
+<br>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= link_to 'Trials', research_gen_ai_trials_path %>

@@ -11,7 +11,7 @@
 #  relevant_passage :text             not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  passage_id       :integer          not null
+#  activity_id      :integer          not null
 #
 module Evidence
   module Research
@@ -23,7 +23,7 @@ module Evidence
           SO = 'so'
         ].freeze
 
-        belongs_to :passage, class_name: 'Evidence::Research::GenAI::Passage'
+        belongs_to :activity, class_name: 'Evidence::Research::GenAI::Activity'
 
         has_many :trials, dependent: :destroy
         has_many :passage_prompt_responses, class_name: 'Evidence::Research::GenAI::PassagePromptResponse', dependent: :destroy
@@ -33,11 +33,11 @@ module Evidence
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
         validates :instructions, presence: true
         validates :relevant_passage, presence: true
-        validates :passage_id, presence: true
+        validates :activity_id, presence: true
 
-        attr_readonly :prompt, :conjunction, :instructions, :passage_id, :relevant_passage
+        attr_readonly :prompt, :conjunction, :instructions, :activity_id, :relevant_passage
 
-        delegate :name, to: :passage
+        delegate :name, to: :activity
 
         def to_s = "#{name} - #{conjunction}"
       end

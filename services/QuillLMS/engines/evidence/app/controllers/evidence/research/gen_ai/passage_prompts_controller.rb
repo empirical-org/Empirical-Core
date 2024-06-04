@@ -6,7 +6,7 @@ module Evidence
       class PassagePromptsController < ApplicationController
         def new
           @passage_prompt = PassagePrompt.new
-          @passages = Passage.all
+          @activities = Activity.all
           @conjunctions = PassagePrompt::CONJUNCTIONS
         end
 
@@ -25,7 +25,7 @@ module Evidence
         private def passage_prompt_params
           params
             .require(:research_gen_ai_passage_prompt)
-            .permit(:conjunction, :instructions, :prompt, :passage_id, :relevant_passage)
+            .permit(:conjunction, :instructions, :prompt, :activity_id, :relevant_passage)
         end
       end
     end
