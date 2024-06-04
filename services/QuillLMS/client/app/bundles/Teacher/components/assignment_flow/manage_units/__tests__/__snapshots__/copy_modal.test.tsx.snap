@@ -21,7 +21,7 @@ exports[`CopyModal component renders 1`] = `
         className="top-section"
       >
         <h1>
-          Copy
+          Copy 
           publish date
            to all activities?
         </h1>

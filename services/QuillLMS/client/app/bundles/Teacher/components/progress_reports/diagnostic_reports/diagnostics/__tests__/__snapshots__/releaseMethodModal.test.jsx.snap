@@ -192,7 +192,7 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>
@@ -422,7 +422,7 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>
@@ -652,7 +652,7 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>
@@ -882,7 +882,7 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>
@@ -1110,7 +1110,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>
@@ -1337,7 +1337,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>
@@ -1564,7 +1564,7 @@ exports[`ReleaseMethodModal component with no original release method should ren
             <p
               className="description"
             >
-              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date.
+              Students will see all of the activity packs you have assigned to them at once. You can choose to assign all of the recommendations at once, or you can select some of the packs to assign now and then come back to this page to assign additional packs at a later date. 
             </p>
           </div>
         </ReleaseMethodOption>

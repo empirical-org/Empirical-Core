@@ -17,7 +17,7 @@ exports[`Overview container should render with a full access type 1`] = `
       <p
         class="subheader"
       >
-        Thanks for being an admin of
+        Thanks for being an admin of 
         <b>
           A Real Middle School
         </b>
@@ -605,7 +605,7 @@ exports[`Overview container should render with a limited access type 1`] = `
       <p
         class="subheader"
       >
-        Thanks for being an admin of
+        Thanks for being an admin of 
         <b>
           A Real Middle School
         </b>
@@ -1222,7 +1222,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
       <p
         class="subheader"
       >
-        Thanks for being an admin of
+        Thanks for being an admin of 
         <b>
           A Real Middle School
         </b>

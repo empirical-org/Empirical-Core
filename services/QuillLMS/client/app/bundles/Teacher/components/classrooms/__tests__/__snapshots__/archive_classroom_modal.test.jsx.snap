@@ -21,7 +21,7 @@ exports[`ArchiveClassroomModal component should render ArchiveClassroomModal 1`]
       className="archive-class-modal-text"
     >
       <p>
-        If you archive the class
+        If you archive the class 
         Quill Classroom
         , students in this class will no longer be able to access activities. You can view this class in "Archived Classes" under the "Classes" tab.
       </p>

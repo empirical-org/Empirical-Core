@@ -18,7 +18,7 @@ exports[`ChangeGradeModal component should render ChangeGradeModal 1`] = `
       </h3>
     </div>
     <p>
-      Update the grade level for
+      Update the grade level for 
       Quill Classroom
       .
     </p>

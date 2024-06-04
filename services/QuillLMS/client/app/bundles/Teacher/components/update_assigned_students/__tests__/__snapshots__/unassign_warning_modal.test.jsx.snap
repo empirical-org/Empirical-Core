@@ -25,7 +25,7 @@ exports[`UnassignWarningModal should render  1`] = `
             alt=""
             src="undefined/images/icons/warning-icon.svg"
           />
-
+           
           <span>
             2
              Student
@@ -37,7 +37,7 @@ exports[`UnassignWarningModal should render  1`] = `
           className="unassign-warning-modal-text"
         >
           <p>
-            The students will no longer see this activity pack --
+            The students will no longer see this activity pack -- 
             <b>
               they will no longer see their previously completed assignments and their not yet completed assignments.
             </b>
@@ -45,14 +45,14 @@ exports[`UnassignWarningModal should render  1`] = `
             <br />
             You can restore the pack at any point in the future if you would like these students to be able to see their assignments again.
             <br />
-            If you do not want these students to lose access to this activity pack, click the
+            If you do not want these students to lose access to this activity pack, click the 
             <b>
               Cancel
             </b>
              button and re-check these students’ names.
             <br />
             <br />
-            If you would like to remove the activity pack for these students, click the
+            If you would like to remove the activity pack for these students, click the 
             <b>
               Update Students
             </b>

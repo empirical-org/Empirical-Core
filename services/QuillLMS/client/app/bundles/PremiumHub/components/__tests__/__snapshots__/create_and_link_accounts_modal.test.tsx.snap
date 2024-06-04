@@ -256,13 +256,13 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
               How does this work for existing accounts?
             </span>
             <p>
-              They will receive an email asking them to link their account to the selected school. They can also link to their school from the
+              They will receive an email asking them to link their account to the selected school. They can also link to their school from the 
               <a
                 href="/teachers/my_account"
               >
                 My Account
               </a>
-               page.
+               page. 
               <a
                 href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school"
                 rel="noopener noreferrer"

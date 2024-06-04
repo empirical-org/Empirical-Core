@@ -3637,7 +3637,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                       }
                     >
                       <TableCellContentWrapper>
-                        Quill's ELL Implementation Guide
+                        Quill's ELL Implementation Guide 
                       </TableCellContentWrapper>
                     </td>
                     <td
@@ -5642,7 +5642,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                                     }
                                     tabIndex={0}
                                   >
-                                    📋 PDF | Introducing Quill Reading for Evidence: One-Pager
+                                    📋 PDF | Introducing Quill Reading for Evidence: One-Pager 
                                   </span>
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -10354,7 +10354,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                             }
                           >
                             <TableCellContentWrapper>
-                              Quill's ELL Implementation Guide
+                              Quill's ELL Implementation Guide 
                             </TableCellContentWrapper>
                           </td>
                           <td
@@ -10563,7 +10563,7 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                             }
                           >
                             <TableCellContentWrapper>
-                              Quill's ELL Implementation Guide
+                              Quill's ELL Implementation Guide 
                             </TableCellContentWrapper>
                           </td>
                           <td
@@ -11189,11 +11189,11 @@ exports[`FeaturedBlogPosts component renders 1`] = `
                       }
                     }
                   >
-
+                    
     To pick up a draggable item, press the space bar.
     While dragging, use the arrow keys to move the item.
     Press space again to drop the item in its new position, or press escape to cancel.
-
+  
                   </div>
                 </HiddenText>
                 <LiveRegion

@@ -16,7 +16,7 @@ exports[`ImportProviderClassroomsModal component initial load should render 1`] 
       <h3
         className="title"
       >
-        Import classes from
+        Import classes from 
         Google Classroom
       </h3>
     </div>

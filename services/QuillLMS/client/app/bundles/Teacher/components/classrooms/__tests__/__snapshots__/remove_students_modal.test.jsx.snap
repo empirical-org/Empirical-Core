@@ -14,9 +14,9 @@ exports[`RemoveStudentsModal component should render RemoveStudentsModal 1`] = `
       <h3
         className="title"
       >
-        Remove
+        Remove 
         2
-
+         
         students
          from your class?
       </h3>

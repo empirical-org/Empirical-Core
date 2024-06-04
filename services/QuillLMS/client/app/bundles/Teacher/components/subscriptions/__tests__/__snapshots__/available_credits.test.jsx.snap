@@ -12,9 +12,9 @@ exports[`AvailableCredits container should render when there are no premium cred
     <div
       className="credit-quantity"
     >
-      You have
+      You have 
       <span>
-        0 weeks
+        0 weeks 
       </span>
        of Teacher Premium Credit available.
     </div>
@@ -40,9 +40,9 @@ exports[`AvailableCredits container should render when there are premium credits
     <div
       className="credit-quantity"
     >
-      You have
+      You have 
       <span>
-        4 weeks
+        4 weeks 
       </span>
        of Teacher Premium Credit available.
     </div>

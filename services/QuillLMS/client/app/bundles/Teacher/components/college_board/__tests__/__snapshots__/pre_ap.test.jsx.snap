@@ -426,7 +426,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -476,7 +476,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -526,7 +526,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -594,7 +594,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="info-blurb-text"
             >
-              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
+              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process. 
             </p>
           </div>
           <img
@@ -785,7 +785,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -835,7 +835,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -949,7 +949,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -1104,7 +1104,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -1186,7 +1186,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -1268,7 +1268,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -1423,7 +1423,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -1505,7 +1505,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -1587,7 +1587,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -1742,7 +1742,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -1824,7 +1824,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -1906,7 +1906,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -1998,7 +1998,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="info-blurb-text"
             >
-              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills.
+              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills. 
             </p>
           </div>
           <img
@@ -2257,7 +2257,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -2318,7 +2318,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -2368,7 +2368,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content.
+                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
                     <a
                       href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                       rel="noopener noreferrer"
@@ -2421,7 +2421,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
                     </p>
                     <p>
-                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
+                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
                     </p>
                     <p>
                       <a
@@ -2431,7 +2431,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       >
                         This article
                       </a>
-                       explains how you can use deadlines to help students pace themselves.
+                       explains how you can use deadlines to help students pace themselves. 
                     </p>
                   </div>,
                   "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
@@ -2474,7 +2474,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the
+                    Quill has a variety of reports to help you track your students' performance and progress. In the 
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -2482,7 +2482,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -2490,7 +2490,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and
+                     shows you which report to go to for particular information, and 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -2593,7 +2593,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
                           <strong>
                             Note
                           </strong>
@@ -2642,7 +2642,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -2731,7 +2731,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email
+                       Having a technical issue? Email 
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -3208,7 +3208,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3258,7 +3258,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3308,7 +3308,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3376,7 +3376,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="info-blurb-text"
             >
-              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
+              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process. 
             </p>
           </div>
           <img
@@ -3568,7 +3568,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -3618,7 +3618,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -3732,7 +3732,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -3888,7 +3888,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -3970,7 +3970,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -4052,7 +4052,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -4208,7 +4208,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -4290,7 +4290,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -4372,7 +4372,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -4528,7 +4528,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       1
                     </p>
                     <div
@@ -4610,7 +4610,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       2
                     </p>
                     <div
@@ -4692,7 +4692,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle
+                      Learning Cycle 
                       3
                     </p>
                     <div
@@ -4784,7 +4784,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="info-blurb-text"
             >
-              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills.
+              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills. 
             </p>
           </div>
           <img
@@ -5043,7 +5043,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -5104,7 +5104,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -5154,7 +5154,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content.
+                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
                     <a
                       href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                       rel="noopener noreferrer"
@@ -5207,7 +5207,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
                     </p>
                     <p>
-                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
+                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
                     </p>
                     <p>
                       <a
@@ -5217,7 +5217,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       >
                         This article
                       </a>
-                       explains how you can use deadlines to help students pace themselves.
+                       explains how you can use deadlines to help students pace themselves. 
                     </p>
                   </div>,
                   "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
@@ -5260,7 +5260,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the
+                    Quill has a variety of reports to help you track your students' performance and progress. In the 
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -5268,7 +5268,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -5276,7 +5276,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and
+                     shows you which report to go to for particular information, and 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -5379,7 +5379,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
                           <strong>
                             Note
                           </strong>
@@ -5428,7 +5428,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -5517,7 +5517,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email
+                       Having a technical issue? Email 
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -5803,7 +5803,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -5853,7 +5853,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -5903,7 +5903,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -5971,7 +5971,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="info-blurb-text"
             >
-              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
+              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process. 
             </p>
           </div>
           <img
@@ -6098,7 +6098,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="info-blurb-text"
             >
-              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills.
+              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills. 
             </p>
           </div>
           <img
@@ -6357,7 +6357,7 @@ exports[`PreAp component should render with no units 1`] = `
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -6418,7 +6418,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -6468,7 +6468,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content.
+                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
                     <a
                       href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                       rel="noopener noreferrer"
@@ -6521,7 +6521,7 @@ exports[`PreAp component should render with no units 1`] = `
                       You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
                     </p>
                     <p>
-                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
+                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
                     </p>
                     <p>
                       <a
@@ -6531,7 +6531,7 @@ exports[`PreAp component should render with no units 1`] = `
                       >
                         This article
                       </a>
-                       explains how you can use deadlines to help students pace themselves.
+                       explains how you can use deadlines to help students pace themselves. 
                     </p>
                   </div>,
                   "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
@@ -6574,7 +6574,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the
+                    Quill has a variety of reports to help you track your students' performance and progress. In the 
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -6582,7 +6582,7 @@ exports[`PreAp component should render with no units 1`] = `
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -6590,7 +6590,7 @@ exports[`PreAp component should render with no units 1`] = `
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and
+                     shows you which report to go to for particular information, and 
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -6693,7 +6693,7 @@ exports[`PreAp component should render with no units 1`] = `
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
                           <strong>
                             Note
                           </strong>
@@ -6742,7 +6742,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -6831,7 +6831,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email
+                       Having a technical issue? Email 
                       <a
                         href="mailto:support@quill.org"
                       >

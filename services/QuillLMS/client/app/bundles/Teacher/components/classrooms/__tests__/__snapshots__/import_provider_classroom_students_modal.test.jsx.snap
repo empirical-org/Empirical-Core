@@ -14,12 +14,12 @@ exports[`ImportProviderClassroomStudentsModal component should render ImportProv
       <h3
         className="title"
       >
-        Import students from
+        Import students from 
         Google Classroom
       </h3>
     </div>
     <p>
-      You are about to import students from the class
+      You are about to import students from the class 
       Quill Classroom
       .
     </p>

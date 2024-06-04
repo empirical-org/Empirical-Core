@@ -20,8 +20,8 @@ exports[`AssignANewActivity component default should render 1`] = `
         <p
           className="previously-assigned-activities"
         >
-          You have
-
+          You have 
+           
           activities
            assigned. 
         </p>
@@ -1038,7 +1038,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               <a
                 href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Is%20Romeo%20and%20Juliet%20a%20Love%20Story%20or%20a%20Tragedy?%20"
               >
-                Is Romeo and Juliet a Love Story or a Tragedy?
+                Is Romeo and Juliet a Love Story or a Tragedy? 
               </a>
             </td>
             <td>

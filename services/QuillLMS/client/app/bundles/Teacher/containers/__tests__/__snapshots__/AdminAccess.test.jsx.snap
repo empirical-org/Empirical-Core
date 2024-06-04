@@ -39,7 +39,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
            currently has no admins.
         </p>
         <p>
-          Admins
+          Admins 
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -137,7 +137,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="text"
       >
         <p>
-          Admins
+          Admins 
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -310,7 +310,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
            currently has no admins.
         </p>
         <p>
-          Admins
+          Admins 
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -407,7 +407,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="text"
       >
         <p>
-          Admins
+          Admins 
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -579,7 +579,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
            currently has no admins.
         </p>
         <p>
-          Admins
+          Admins 
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -662,7 +662,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="text"
       >
         <p>
-          Admins
+          Admins 
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -766,7 +766,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
            currently has no admins.
         </p>
         <p>
-          Admins
+          Admins 
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -848,7 +848,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="text"
       >
         <p>
-          Admins
+          Admins 
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a

@@ -507,7 +507,7 @@ exports[`UpdateAssignedStudents will render  1`] = `
                 <span
                   className="description"
                 >
-                  Pack
+                  Pack 
                   <em>
                     assigned
                   </em>
@@ -752,7 +752,7 @@ exports[`UpdateAssignedStudents will render  1`] = `
                 <span
                   className="description"
                 >
-                  Pack will be
+                  Pack will be 
                   <em>
                     removed
                   </em>
@@ -844,7 +844,7 @@ exports[`UpdateAssignedStudents will render  1`] = `
                 <span
                   className="description"
                 >
-                  Pack will be
+                  Pack will be 
                   <em>
                     assigned
                   </em>

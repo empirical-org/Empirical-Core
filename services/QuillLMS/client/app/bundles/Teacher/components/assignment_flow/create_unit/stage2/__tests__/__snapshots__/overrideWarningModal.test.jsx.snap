@@ -66,9 +66,9 @@ exports[`OverrideWarningModal component should render 1`] = `
               </span>
             </span>
           </Tooltip>
-
+           
           has
-           already completed the
+           already completed the 
           Activity Name
           . If you assign the diagnostic to them, they can take it again, but it will override their scores.
         </p>

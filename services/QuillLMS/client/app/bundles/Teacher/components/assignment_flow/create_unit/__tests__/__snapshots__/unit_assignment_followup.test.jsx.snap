@@ -67,7 +67,7 @@ exports[`Unit assignment followup component When there are only empty classes as
           <p
             className="share-text"
           >
-            More ways to share:
+            More ways to share: 
           </p>
           <div
             className="share-links"
@@ -187,7 +187,7 @@ exports[`Unit assignment followup component When there are students assigned on 
           <p
             className="share-text"
           >
-            More ways to share:
+            More ways to share: 
           </p>
           <div
             className="share-links"

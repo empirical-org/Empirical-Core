@@ -82,7 +82,7 @@ exports[`NoClassroomsToImportModal component it should render when there is an a
         <p>
           You have 
           <b>
-            1 synced Google Classroom
+            1 synced Google Classroom 
             <a
               href="/teachers/classrooms/archived"
             >
@@ -250,7 +250,7 @@ exports[`NoClassroomsToImportModal component it should render when there is both
         <p>
           You have 
           <b>
-            1 synced Google Classroom
+            1 synced Google Classroom 
             <a
               href="/teachers/classrooms/archived"
             >

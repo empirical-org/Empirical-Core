@@ -45,7 +45,7 @@ exports[`DemoAccountBanner component expanded should render 1`] = `
       >
         <span>
           <b>
-            1.
+            1. 
           </b>
           <a
             href=""
@@ -56,7 +56,7 @@ exports[`DemoAccountBanner component expanded should render 1`] = `
         </span>
         <span>
           <b>
-            2.
+            2. 
           </b>
           <a
             href="/teachers/classrooms/scorebook"
@@ -67,7 +67,7 @@ exports[`DemoAccountBanner component expanded should render 1`] = `
         </span>
         <span>
           <b>
-            3.
+            3. 
           </b>
           <a
             href=""

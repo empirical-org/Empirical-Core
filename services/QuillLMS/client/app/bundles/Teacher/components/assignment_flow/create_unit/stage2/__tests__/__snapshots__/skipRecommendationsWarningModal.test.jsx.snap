@@ -66,9 +66,9 @@ exports[`SkipRecommendationsWarningModal component should render 1`] = `
               </span>
             </span>
           </Tooltip>
-
+           
           has
-           not yet completed the
+           not yet completed the 
           Intermediate Baseline Diagnostic (Pre)
           . Usually, students complete a Pre diagnostic and its practice activities first. Then, they move on to the Post diagnostic. If you assign the Post diagnostic now, students who haven't finished their practice activities yet will be able to take it, so we recommend waiting.
         </p>

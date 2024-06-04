@@ -184,7 +184,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     }
                   }
                 >
-
+                  
                 </span>,
                 <input
                   aria-label="Choose which one of the following options fits best in the blank  or leave it empty: a, an, the."
@@ -208,7 +208,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     }
                   }
                 >
-
+                  
                 </span>,
                 <span
                   style={
@@ -262,7 +262,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     }
                   }
                 >
-
+                  
                 </span>,
                 <input
                   aria-label="Choose which one of the following options fits best in the blank  or leave it empty: a, an, the."
@@ -286,7 +286,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                     }
                   }
                 >
-
+                  
                 </span>,
                 <span
                   style={

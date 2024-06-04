@@ -36,7 +36,7 @@ exports[`PostNavigationBanner it should render 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Learn more
+          Learn more 
         </a>
         <button
           class="quill-button-archived fun primary contained focus-on-light"
@@ -49,7 +49,7 @@ exports[`PostNavigationBanner it should render 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          See tool demo
+          See tool demo 
           <img
             alt="Arrow pointing right icon"
             src="undefined/images/icons/icons-arrow-back.svg"
@@ -61,7 +61,7 @@ exports[`PostNavigationBanner it should render 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Get the Teacher Handbook
+          Get the Teacher Handbook 
           <img
             alt="Arrow pointing right icon"
             src="undefined/images/icons/icons-arrow-back.svg"
@@ -114,7 +114,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Learn more
+          Learn more 
         </a>
         <button
           class="quill-button-archived fun primary contained focus-on-light"
@@ -127,7 +127,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          See tool demo
+          See tool demo 
           <img
             alt="Arrow pointing right icon"
             src="undefined/images/icons/icons-arrow-back.svg"
@@ -139,7 +139,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Get the Teacher Handbook
+          Get the Teacher Handbook 
           <img
             alt="Arrow pointing right icon"
             src="undefined/images/icons/icons-arrow-back.svg"

@@ -4318,7 +4318,7 @@ exports[`StudentProfileUnits component should render only completed activities i
             className="pinned-activity-modal-text"
           >
             <p>
-              Your teacher,
+              Your teacher, 
               Emilia F
               , has launched a live Quill Lesson.
             </p>
@@ -5327,7 +5327,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             className="pinned-activity-modal-text"
           >
             <p>
-              Your teacher,
+              Your teacher, 
               Emilia F
               , has launched a live Quill Lesson.
             </p>
@@ -7509,7 +7509,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             className="pinned-activity-modal-text"
           >
             <p>
-              Your teacher,
+              Your teacher, 
               Emilia F
               , has launched a live Quill Lesson.
             </p>
@@ -9691,7 +9691,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             className="pinned-activity-modal-text"
           >
             <p>
-              Your teacher,
+              Your teacher, 
               Emilia F
               , has launched a live Quill Lesson.
             </p>

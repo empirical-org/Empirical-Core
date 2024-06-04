@@ -27,7 +27,7 @@ exports[`PinnedActivityModal component should render 1`] = `
         className="pinned-activity-modal-text"
       >
         <p>
-          Your teacher,
+          Your teacher, 
           Mr. Teacherman
           , has launched a live Quill Lesson.
         </p>

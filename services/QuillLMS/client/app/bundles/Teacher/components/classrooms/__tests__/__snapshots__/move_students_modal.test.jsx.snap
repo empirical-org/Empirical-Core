@@ -14,15 +14,15 @@ exports[`MoveStudentsModal component should render MoveStudentsModal 1`] = `
       <h3
         className="title"
       >
-        Move
+        Move 
         2
-
+         
         students
          to a new class
       </h3>
     </div>
     <p>
-      All of the data from the activities that your
+      All of the data from the activities that your 
       students have
        started or completed will be moved.
     </p>
@@ -71,7 +71,7 @@ exports[`MoveStudentsModal component should render MoveStudentsModal 1`] = `
         className="quill-button-archived contained primary medium disabled"
         onClick={[Function]}
       >
-        Move
+        Move 
         students
       </button>
     </div>

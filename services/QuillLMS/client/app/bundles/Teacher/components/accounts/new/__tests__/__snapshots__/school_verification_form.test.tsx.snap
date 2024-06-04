@@ -61,7 +61,7 @@ exports[`SchoolVerificationForm component should render 1`] = `
       </div>
     </Input>
     <h3>
-      Why do you want to be an admin for
+      Why do you want to be an admin for 
       School Name
       ?
     </h3>
