@@ -198,7 +198,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, 
       ),
       dateReleased: <div className="date-released">{dateReleased}{newTag}</div>,
       previewLink: <a className="preview-link" href={`/activity_sessions/anonymous?activity_id=${activity.id}`} rel="noopener noreferrer" target="_blank">Preview</a>,
-      select: <a className="quill-button secondary fun focus-on-light outlined select-suggested" href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(activity.name)}`}>Select</a>
+      select: <a className="quill-button-archived secondary fun focus-on-light outlined select-suggested" href={`/assign/activity-library?activityClassificationFilters[]=evidence&search=${encodeURI(activity.name)}`}>Select</a>
     }
   })
 
@@ -209,7 +209,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, 
         headers={headers}
         rows={rows}
       />
-      {showAllSuggestedActivities ? null : <button className="quill-button outlined small secondary focus-on-light show-all-button" onClick={handleClickShowAll} type="button">Show all {activitiesToSuggest.length} Reading for Evidence activities</button>}
+      {showAllSuggestedActivities ? null : <button className="quill-button-archived outlined small secondary focus-on-light show-all-button" onClick={handleClickShowAll} type="button">Show all {activitiesToSuggest.length} Reading for Evidence activities</button>}
     </React.Fragment>
   ) : null
 
@@ -223,7 +223,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned, showDiagnosticBanner, 
             <p className="previously-assigned-activities">
               You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
             </p>
-            <a className="quill-button view-assigned-activities secondary outlined small focus-on-light" href="/teachers/classrooms/activity_planner">View assigned activities</a>
+            <a className="quill-button-archived view-assigned-activities secondary outlined small focus-on-light" href="/teachers/classrooms/activity_planner">View assigned activities</a>
           </div>
           {diagnosticBanner}
           <div className="minis">{minis(diagnosticBannerShowing)}</div>

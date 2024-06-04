@@ -65,7 +65,7 @@ export const PostActivitySlide = ({ handleClick, previewMode, prompts, responses
       </section>
     );
   }
-  let buttonClass = "quill-button large secondary outlined focus-on-dark"
+  let buttonClass = "quill-button-archived large secondary outlined focus-on-dark"
   if(previewMode) {
     buttonClass += " disabled"
   }

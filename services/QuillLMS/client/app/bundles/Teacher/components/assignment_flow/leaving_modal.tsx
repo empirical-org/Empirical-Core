@@ -41,8 +41,8 @@ export default class LeavingModal extends React.Component<LeavingModalProps, Lea
             <p>If you exit the assigning process now, you will not be able to resume your current progress. However, you can assign new content at any time.</p>
           </div>
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.cancel}>Cancel</button>
-            <button className="quill-button contained primary medium" onClick={this.leave}>Go to dashboard</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.cancel}>Cancel</button>
+            <button className="quill-button-archived contained primary medium" onClick={this.leave}>Go to dashboard</button>
           </div>
         </div>
       </div>

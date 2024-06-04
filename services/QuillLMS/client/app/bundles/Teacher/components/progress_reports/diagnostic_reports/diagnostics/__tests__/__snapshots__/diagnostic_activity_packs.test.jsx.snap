@@ -4240,7 +4240,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </div>
                     <div>
                       <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                        className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                         href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/6/summary?unit=110"
                       >
                         View results and recommendations
@@ -4501,7 +4501,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </div>
                     <div>
                       <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                        className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                         href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/992/classroom/1/summary?unit=110"
                       >
                         View results and recommendations
@@ -4628,7 +4628,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </div>
                     <div>
                       <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                        className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                         href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1678/classroom/1/summary"
                       >
                         View results and recommendations
@@ -4700,7 +4700,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </div>
                       <div>
                         <a
-                          className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                          className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                           href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1680/classroom/1/growth_summary"
                         >
                           View results and recommendations
@@ -4828,7 +4828,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </div>
                     <div>
                       <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                        className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                         href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1668/classroom/1/summary"
                       >
                         View results and recommendations
@@ -4900,7 +4900,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </div>
                       <div>
                         <a
-                          className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                          className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                           href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1669/classroom/1/growth_summary"
                         >
                           View results and recommendations
@@ -5028,7 +5028,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                     </div>
                     <div>
                       <a
-                        className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                        className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                         href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1663/classroom/1/summary"
                       >
                         View results and recommendations
@@ -5100,7 +5100,7 @@ exports[`DiagnosticActivityPacks component should render when there are classroo
                       </div>
                       <div>
                         <a
-                          className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light"
+                          className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light"
                           href="/teachers/progress_reports/diagnostic_reports/#/diagnostics/1664/classroom/1/growth_summary"
                         >
                           View results and recommendations
@@ -5170,7 +5170,7 @@ exports[`DiagnosticActivityPacks component should render when there are no class
         Nothing to see here yet! Once you assign a diagnostic your students’ reports will show up here.
       </p>
       <a
-        className="quill-button medium primary contained"
+        className="quill-button-archived medium primary contained"
         href="/assign/diagnostic"
       >
         Assign a diagnostic

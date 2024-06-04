@@ -19,7 +19,7 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined"
+      className="add-highlight quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
       value="0"

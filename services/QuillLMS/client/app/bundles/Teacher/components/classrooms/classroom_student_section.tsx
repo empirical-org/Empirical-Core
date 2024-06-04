@@ -563,7 +563,7 @@ const ClassroomStudentSection = ({
     /* eslint-disable react/jsx-no-target-blank */
     const loginPdfLink = (
       <a
-        className="quill-button secondary outlined small"
+        className="quill-button-archived secondary outlined small"
         download={download}
         href={loginPdfHref}
         rel="noopener noreferrer"
@@ -578,7 +578,7 @@ const ClassroomStudentSection = ({
       <div className="students-section-header-buttons">
         <div className="login-pdf-and-view-as-student top-buttons-container">
           {loginPdfLink}
-          <button className="quill-button secondary outlined small" onClick={handleClickViewAsStudentButton} type="button">
+          <button className="quill-button-archived secondary outlined small" onClick={handleClickViewAsStudentButton} type="button">
             View as student
           </button>
         </div>
@@ -598,7 +598,7 @@ const ClassroomStudentSection = ({
       return (
         <div className="invite-provider-classroom-students">
           <button
-            className={`quill-button primary outlined small ${isDisabled ? 'disabled' : ''}`}
+            className={`quill-button-archived primary outlined small ${isDisabled ? 'disabled' : ''}`}
             disabled={isDisabled}
             onClick={importProviderClassroomStudents}
             type="button"
@@ -612,7 +612,7 @@ const ClassroomStudentSection = ({
 
     return (
       <div className="invite-quill-classroom-students">
-        <button className="quill-button primary outlined small" onClick={inviteStudents} type="button">
+        <button className="quill-button-archived primary outlined small" onClick={inviteStudents} type="button">
           Invite students
         </button>
       </div>

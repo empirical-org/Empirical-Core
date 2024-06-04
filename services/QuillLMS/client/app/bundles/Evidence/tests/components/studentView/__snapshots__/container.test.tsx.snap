@@ -164,7 +164,7 @@ But how can democracies have representative governments unless all or most of th
         >
           <span />
           <button
-            className="quill-button large secondary outlined focus-on-dark"
+            className="quill-button-archived large secondary outlined focus-on-dark"
             onClick={[Function]}
             type="submit"
           >

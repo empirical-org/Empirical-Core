@@ -107,8 +107,8 @@ const GradeLevelWarningModal = ({ handleClickAssign, handleCloseModal, selectedA
         <div className="grade-level-warning-modal-footer">
           <div className="checkbox-wrapper">{checkbox} <span>Don&#39;t show this warning again</span></div>
           <div className="buttons">
-            <button className="quill-button outlined secondary medium focus-on-light" onClick={handleClickGoBackToEdit} type="button">Go back to edit assignment</button>
-            <button className="quill-button contained primary medium focus-on-light" onClick={handleClickAssignToClasses} type="button">Assign pack to class</button>
+            <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={handleClickGoBackToEdit} type="button">Go back to edit assignment</button>
+            <button className="quill-button-archived contained primary medium focus-on-light" onClick={handleClickAssignToClasses} type="button">Assign pack to class</button>
           </div>
         </div>
 

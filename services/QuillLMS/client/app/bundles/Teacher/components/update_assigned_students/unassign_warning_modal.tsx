@@ -28,8 +28,8 @@ const UnassignWarningModal = ({ removedStudentCount, toggleCheckbox, closeModal,
               <span>Don&#39;t show this message again</span>
             </div>
             <div className="buttons">
-              <button className="quill-button secondary outlined fun focus-on-light" onClick={closeModal} type="button">Cancel</button>
-              <button className="quill-button contained primary fun focus-on-light" onClick={handleClickUpdate} type="button">Update students</button>
+              <button className="quill-button-archived secondary outlined fun focus-on-light" onClick={closeModal} type="button">Cancel</button>
+              <button className="quill-button-archived contained primary fun focus-on-light" onClick={handleClickUpdate} type="button">Update students</button>
             </div>
           </div>
         </div>

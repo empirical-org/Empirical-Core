@@ -67,9 +67,9 @@ export const blogPostRows = (blogPosts, handleClickStar, featuredBlogPostLimitRe
       views: read_count,
       actions: (
         <React.Fragment>
-          <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/edit`}>Edit</a>
-          <a className="quill-button fun outlined secondary focus-on-light" href={external_link || `/teacher-center/${slug}`}>Preview</a>
-          <a className="quill-button fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/delete`}>Delete</a>
+          <a className="quill-button-archived fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/edit`}>Edit</a>
+          <a className="quill-button-archived fun outlined secondary focus-on-light" href={external_link || `/teacher-center/${slug}`}>Preview</a>
+          <a className="quill-button-archived fun outlined secondary focus-on-light" href={`/cms/blog_posts/${id}/delete`}>Delete</a>
         </React.Fragment>
       ),
       featured: featuredCellContent({ featuredOrderNumber: featured_order_number, featuredBlogPostLimitReached, handleClickStar: onClickStar, draft, })
@@ -79,10 +79,10 @@ export const blogPostRows = (blogPosts, handleClickStar, featuredBlogPostLimitRe
 }
 
 export const saveOrderButton = (orderHasChanged, saveOrder) => {
-  let button = (<button className="quill-button fun contained primary focus-on-light disabled" disabled type="button">Save Order</button>)
+  let button = (<button className="quill-button-archived fun contained primary focus-on-light disabled" disabled type="button">Save Order</button>)
 
   if (orderHasChanged) {
-    button = (<button className="quill-button fun contained primary focus-on-light" onClick={saveOrder} type="button">Save Order</button>)
+    button = (<button className="quill-button-archived fun contained primary focus-on-light" onClick={saveOrder} type="button">Save Order</button>)
   }
 
   return button

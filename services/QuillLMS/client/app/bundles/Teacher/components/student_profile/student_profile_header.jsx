@@ -6,7 +6,7 @@ const StudentProfileHeader = ({ classroomName, teacherName, onClickAllClasses, }
   return (
     <div className="student-profile-header">
       <div className="container">
-        <button className="quill-button secondary outlined medium focus-on-light" onClick={onClickAllClasses} type="button">
+        <button className="quill-button-archived secondary outlined medium focus-on-light" onClick={onClickAllClasses} type="button">
           <img alt="Back arrow icon" src={arrowBackSrc} />
           All classes
         </button>

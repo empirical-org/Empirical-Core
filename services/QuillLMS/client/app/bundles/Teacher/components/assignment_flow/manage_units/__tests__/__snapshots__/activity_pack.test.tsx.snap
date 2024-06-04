@@ -553,7 +553,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
             className="individual-classroom-info small-screen"
           />
           <a
-            className="quill-button secondary outlined medium focus-on-light"
+            className="quill-button-archived secondary outlined medium focus-on-light"
             href="/teachers/classrooms/activity_planner/units/826300/students/edit"
           >
             Add/remove students assigned
@@ -10983,7 +10983,7 @@ exports[`ActivityPack component renders if the current user created the unit 1`]
       </DataTable>
     </ActivityTable>
     <a
-      className="quill-button secondary medium focus-on-light outlined add-activities-button"
+      className="quill-button-archived secondary medium focus-on-light outlined add-activities-button"
       href="/teachers/classrooms/activity_planner/units/826300/activities/edit/Adverbs%20of%20Manner%20Practice"
     >
       Add activities

@@ -27,17 +27,17 @@ const ReauthorizeModal = ({ close, link, provider }: ReauthorizeProviderModalPro
           Clicking reauthorize will re-direct you to {provider}.
         </p>
         <div className='form-buttons'>
-          <button className='quill-button focus-on-light outlined secondary medium' onClick={close} type='button'>
+          <button className='quill-button-archived focus-on-light outlined secondary medium' onClick={close} type='button'>
             Cancel
           </button>
           {provider === 'Google' ?
             <AuthGoogleAccessForm
-              buttonClass='quill-button focus-on-light contained primary medium'
+              buttonClass='quill-button-archived focus-on-light contained primary medium'
               text='Reauthorize'
             />
             :
             <button
-              className='quill-button focus-on-light contained primary medium'
+              className='quill-button-archived focus-on-light contained primary medium'
               onClick={handleReauthorizeClick}
               type='button'
             >

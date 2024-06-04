@@ -67,7 +67,7 @@
       }
       .buttons {
         display: flex;
-        .quill-button:first-of-type {
+        .quill-button-archived:first-of-type {
           margin-right: 8px;
         }
       }
@@ -94,7 +94,7 @@
       }
       .buttons {
         flex-direction: column;
-        .quill-button:first-of-type {
+        .quill-button-archived:first-of-type {
           margin-bottom: 16px;
         }
       }

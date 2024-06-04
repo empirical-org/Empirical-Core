@@ -34,7 +34,7 @@ export default class TeacherDangerZone extends React.Component {
       <div className="teacher-account-danger-zone user-account-section">
         {this.renderModal()}
         <h1>Danger zone</h1>
-        <div className="quill-button outlined secondary medium" onClick={this.showDeleteAccountModal}>Delete my account</div>
+        <div className="quill-button-archived outlined secondary medium" onClick={this.showDeleteAccountModal}>Delete my account</div>
         <p className="danger-zone-description">This will delete your user account, including all classes and reports.</p>
       </div>
     )

@@ -33,7 +33,7 @@ const TeacherSubjectAreas = ({ activateSection, active, deactivateSection, passe
   function renderButtonSection() {
     if (!active) { return }
 
-    const submitButtonClassName = "quill-button primary contained medium focus-on-light"
+    const submitButtonClassName = "quill-button-archived primary contained medium focus-on-light"
 
     let submitButton = <input aria-label="Save changes" className={`${submitButtonClassName} disabled`} disabled type="submit" value="Save changes" />
 
@@ -43,7 +43,7 @@ const TeacherSubjectAreas = ({ activateSection, active, deactivateSection, passe
 
     return (
       <div className="button-section">
-        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={resetAndDeactivateSection} type="button">Cancel</button>
+        <button className="quill-button-archived outlined secondary medium focus-on-light" id="cancel" onClick={resetAndDeactivateSection} type="button">Cancel</button>
         {submitButton}
       </div>
     )

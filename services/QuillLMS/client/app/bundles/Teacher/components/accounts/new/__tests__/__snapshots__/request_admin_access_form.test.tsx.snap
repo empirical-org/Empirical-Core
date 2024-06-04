@@ -120,7 +120,7 @@ exports[`RequestAdminAccessForm component should render 1`] = `
     className="button-wrapper"
   >
     <button
-      className="quill-button primary contained medium focus-on-light disabled"
+      className="quill-button-archived primary contained medium focus-on-light disabled"
       disabled={true}
       type="button"
     >

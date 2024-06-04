@@ -177,9 +177,9 @@ const RuleViewForm = ({
   function renderCancelButton() {
     const cancelLink = (<Link to={`/activities/${activityId}/${returnLinkRuleType}`}>Cancel</Link>);
     if(isRulesIndex) {
-      return <button className="quill-button fun primary contained" id="rule-cancel-button" onClick={closeModal} type="submit">Cancel</button>
+      return <button className="quill-button-archived fun primary contained" id="rule-cancel-button" onClick={closeModal} type="submit">Cancel</button>
     } else {
-      return <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
+      return <button className="quill-button-archived fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
     }
   }
 
@@ -207,12 +207,12 @@ const RuleViewForm = ({
     <div className="rule-form-container">
       {showDeleteRuleModal && renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModal)}
       {isRulesIndex && <div className="close-button-container">
-        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
+        <button className="quill-button-archived fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
       </div>}
       {renderHeader({activity: activityData}, header)}
       <section className="semantic-rule-form-header">
         {!isRulesIndex && <Link className="return-link" to={`/activities/${activityId}/${returnLinkRuleType}`}>{returnLinkLabel}</Link>}
-        <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
+        <button className="quill-button-archived fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
       </section>
@@ -283,7 +283,7 @@ const RuleViewForm = ({
         />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
-          <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
+          <button className="quill-button-archived fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>
           {renderCancelButton()}

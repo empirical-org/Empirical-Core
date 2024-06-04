@@ -281,7 +281,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   renderCheckAnswerButton(): JSX.Element | void {
     const { questionStatus, responses, response } = this.state
     const { unansweredQuestions, previewMode } = this.props;
-    const buttonClassName = "quill-button primary contained large focus-on-light"
+    const buttonClassName = "quill-button-archived primary contained large focus-on-light"
 
     if (!Object.keys(responses).length) { return }
 

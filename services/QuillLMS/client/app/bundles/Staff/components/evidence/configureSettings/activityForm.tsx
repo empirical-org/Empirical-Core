@@ -125,7 +125,7 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <React.Fragment>
       <p className={`text-editor-label ${passageLabelStyle}`}>
         <span>Passage</span>
-        <button className="quill-button fun primary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
+        <button className="quill-button-archived fun primary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
       </p>
       <div className={showHighlights ? '' : 'hide-highlights'}>
         <TextEditor

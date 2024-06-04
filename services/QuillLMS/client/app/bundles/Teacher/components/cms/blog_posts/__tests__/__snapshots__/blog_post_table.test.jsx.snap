@@ -388,7 +388,7 @@ exports[`BlogPostTable component renders 1`] = `
         What's new?
       </h2>
       <button
-        className="quill-button fun contained primary focus-on-light disabled"
+        className="quill-button-archived fun contained primary focus-on-light disabled"
         disabled={true}
         type="button"
       >
@@ -449,19 +449,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/480/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/webinars"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/480/delete"
               >
                 Delete
@@ -486,19 +486,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/835/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/835/delete"
               >
                 Delete
@@ -523,19 +523,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/62/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/michele-ellis-teacher-story"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/62/delete"
               >
                 Delete
@@ -560,19 +560,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/115/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/115/delete"
               >
                 Delete
@@ -597,19 +597,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/633/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/633/delete"
               >
                 Delete
@@ -634,19 +634,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/399/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/399/delete"
               >
                 Delete
@@ -671,19 +671,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/133/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/using-quill-as-a-homeschool-educator"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/133/delete"
               >
                 Delete
@@ -708,19 +708,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/462/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/462/delete"
               >
                 Delete
@@ -745,19 +745,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/720/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/720/delete"
               >
                 Delete
@@ -782,19 +782,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/450/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/quill-and-masterybased-learning"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/450/delete"
               >
                 Delete
@@ -819,19 +819,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/100/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/4-ways-to-use-quill-lessons"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/100/delete"
               >
                 Delete
@@ -856,19 +856,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/727/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/student-center-video---why-is-writing-important"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/727/delete"
               >
                 Delete
@@ -893,19 +893,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/475/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/475/delete"
               >
                 Delete
@@ -930,19 +930,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/353/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/353/delete"
               >
                 Delete
@@ -967,19 +967,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/768/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/768/delete"
               >
                 Delete
@@ -1004,19 +1004,19 @@ exports[`BlogPostTable component renders 1`] = `
           Object {
             "actions": <React.Fragment>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/726/edit"
               >
                 Edit
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/teacher-center/quills-ell-implementation-guide-"
               >
                 Preview
               </a>
               <a
-                className="quill-button fun outlined secondary focus-on-light"
+                className="quill-button-archived fun outlined secondary focus-on-light"
                 href="/cms/blog_posts/726/delete"
               >
                 Delete
@@ -1320,19 +1320,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/480/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/webinars"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/480/delete"
                           >
                             Delete
@@ -1488,19 +1488,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/835/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/835/delete"
                           >
                             Delete
@@ -1664,19 +1664,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/62/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/michele-ellis-teacher-story"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/62/delete"
                           >
                             Delete
@@ -1832,19 +1832,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/115/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/115/delete"
                           >
                             Delete
@@ -2008,19 +2008,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/633/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/633/delete"
                           >
                             Delete
@@ -2184,19 +2184,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/399/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/399/delete"
                           >
                             Delete
@@ -2352,19 +2352,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/133/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/using-quill-as-a-homeschool-educator"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/133/delete"
                           >
                             Delete
@@ -2520,19 +2520,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/462/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/462/delete"
                           >
                             Delete
@@ -2688,19 +2688,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/720/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/720/delete"
                           >
                             Delete
@@ -2864,19 +2864,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/450/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/quill-and-masterybased-learning"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/450/delete"
                           >
                             Delete
@@ -3032,19 +3032,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/100/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/4-ways-to-use-quill-lessons"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/100/delete"
                           >
                             Delete
@@ -3200,19 +3200,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/727/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/student-center-video---why-is-writing-important"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/727/delete"
                           >
                             Delete
@@ -3376,19 +3376,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/475/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/475/delete"
                           >
                             Delete
@@ -3544,19 +3544,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/353/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/353/delete"
                           >
                             Delete
@@ -3712,19 +3712,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/768/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/768/delete"
                           >
                             Delete
@@ -3880,19 +3880,19 @@ exports[`BlogPostTable component renders 1`] = `
                       <TableCellContentWrapper>
                         <React.Fragment>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/726/edit"
                           >
                             Edit
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/teacher-center/quills-ell-implementation-guide-"
                           >
                             Preview
                           </a>
                           <a
-                            className="quill-button fun outlined secondary focus-on-light"
+                            className="quill-button-archived fun outlined secondary focus-on-light"
                             href="/cms/blog_posts/726/delete"
                           >
                             Delete
@@ -4109,19 +4109,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/480/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/webinars"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/480/delete"
                                 >
                                   Delete
@@ -4364,19 +4364,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/480/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/webinars"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/480/delete"
                               >
                                 Delete
@@ -4539,19 +4539,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/835/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/835/delete"
                                 >
                                   Delete
@@ -4794,19 +4794,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/835/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/835/delete"
                               >
                                 Delete
@@ -4977,19 +4977,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/62/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/michele-ellis-teacher-story"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/62/delete"
                                 >
                                   Delete
@@ -5284,19 +5284,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/62/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/michele-ellis-teacher-story"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/62/delete"
                               >
                                 Delete
@@ -5459,19 +5459,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/115/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/115/delete"
                                 >
                                   Delete
@@ -5714,19 +5714,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/115/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/115/delete"
                               >
                                 Delete
@@ -5897,19 +5897,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/633/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/633/delete"
                                 >
                                   Delete
@@ -6204,19 +6204,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/633/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/633/delete"
                               >
                                 Delete
@@ -6387,19 +6387,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/399/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/399/delete"
                                 >
                                   Delete
@@ -6694,19 +6694,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/399/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/399/delete"
                               >
                                 Delete
@@ -6869,19 +6869,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/133/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/using-quill-as-a-homeschool-educator"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/133/delete"
                                 >
                                   Delete
@@ -7124,19 +7124,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/133/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/using-quill-as-a-homeschool-educator"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/133/delete"
                               >
                                 Delete
@@ -7299,19 +7299,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/462/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/462/delete"
                                 >
                                   Delete
@@ -7554,19 +7554,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/462/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/462/delete"
                               >
                                 Delete
@@ -7729,19 +7729,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/720/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/720/delete"
                                 >
                                   Delete
@@ -7984,19 +7984,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/720/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/720/delete"
                               >
                                 Delete
@@ -8167,19 +8167,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/450/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/quill-and-masterybased-learning"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/450/delete"
                                 >
                                   Delete
@@ -8474,19 +8474,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/450/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/quill-and-masterybased-learning"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/450/delete"
                               >
                                 Delete
@@ -8649,19 +8649,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/100/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/4-ways-to-use-quill-lessons"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/100/delete"
                                 >
                                   Delete
@@ -8904,19 +8904,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/100/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/4-ways-to-use-quill-lessons"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/100/delete"
                               >
                                 Delete
@@ -9079,19 +9079,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/727/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/student-center-video---why-is-writing-important"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/727/delete"
                                 >
                                   Delete
@@ -9334,19 +9334,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/727/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/student-center-video---why-is-writing-important"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/727/delete"
                               >
                                 Delete
@@ -9517,19 +9517,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/475/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/475/delete"
                                 >
                                   Delete
@@ -9824,19 +9824,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/475/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/475/delete"
                               >
                                 Delete
@@ -9999,19 +9999,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/353/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/353/delete"
                                 >
                                   Delete
@@ -10254,19 +10254,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/353/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/353/delete"
                               >
                                 Delete
@@ -10429,19 +10429,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/768/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/768/delete"
                                 >
                                   Delete
@@ -10684,19 +10684,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/768/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/768/delete"
                               >
                                 Delete
@@ -10859,19 +10859,19 @@ exports[`BlogPostTable component renders 1`] = `
                             <TableCellContentWrapper>
                               <React.Fragment>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/726/edit"
                                 >
                                   Edit
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/teacher-center/quills-ell-implementation-guide-"
                                 >
                                   Preview
                                 </a>
                                 <a
-                                  className="quill-button fun outlined secondary focus-on-light"
+                                  className="quill-button-archived fun outlined secondary focus-on-light"
                                   href="/cms/blog_posts/726/delete"
                                 >
                                   Delete
@@ -11114,19 +11114,19 @@ exports[`BlogPostTable component renders 1`] = `
                           >
                             <TableCellContentWrapper>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/726/edit"
                               >
                                 Edit
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/teacher-center/quills-ell-implementation-guide-"
                               >
                                 Preview
                               </a>
                               <a
-                                className="quill-button fun outlined secondary focus-on-light"
+                                className="quill-button-archived fun outlined secondary focus-on-light"
                                 href="/cms/blog_posts/726/delete"
                               >
                                 Delete

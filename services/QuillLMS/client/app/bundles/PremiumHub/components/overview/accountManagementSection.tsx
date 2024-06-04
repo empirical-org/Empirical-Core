@@ -30,10 +30,10 @@ export const accountManagementTiles = [
 ]
 
 const AccountManagementSection = ({ handleClickLogInAsATeacher, loading, }) => {
-  let logInAsTeacherButton = <button className="quill-button focus-on-light outlined secondary medium" onClick={handleClickLogInAsATeacher} type="button">Log in as a teacher</button>
+  let logInAsTeacherButton = <button className="quill-button-archived focus-on-light outlined secondary medium" onClick={handleClickLogInAsATeacher} type="button">Log in as a teacher</button>
 
   if (loading) {
-    logInAsTeacherButton = <button className="quill-button focus-on-light outlined secondary medium disabled" disabled={true} type="button">Log in as a teacher <DarkButtonLoadingSpinner /></button>
+    logInAsTeacherButton = <button className="quill-button-archived focus-on-light outlined secondary medium disabled" disabled={true} type="button">Log in as a teacher <DarkButtonLoadingSpinner /></button>
   }
 
   const tiles = accountManagementTiles.map(tile => {
@@ -44,7 +44,7 @@ const AccountManagementSection = ({ handleClickLogInAsATeacher, loading, }) => {
           <p>{tile.description}</p>
         </div>
         <div className="link-and-image">
-          {tile.name === LOG_IN_AS_A_TEACHER ? logInAsTeacherButton : <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>{tile.linkText}</Link>}
+          {tile.name === LOG_IN_AS_A_TEACHER ? logInAsTeacherButton : <Link className="quill-button-archived focus-on-light outlined secondary medium" to={tile.link}>{tile.linkText}</Link>}
           <img alt="" src={tile.icon} />
         </div>
       </div>

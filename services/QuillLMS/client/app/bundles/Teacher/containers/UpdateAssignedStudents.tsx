@@ -162,8 +162,8 @@ const UpdateAssignedStudents = ({ match, unassignWarningHidden, skipLoading, pas
             <span>{numberOfStudentsToAssign}/{classroom.students.length} student{numberOfStudentsToAssign === 1 ? '' : 's'} will be assigned</span>
           </div>
           <div className="buttons">
-            <button className="quill-button secondary outlined fun focus-on-dark" onClick={unselectAll} type="button">Unselect all</button>
-            <button className="quill-button contained primary fun focus-on-dark" onClick={selectAll} type="button">Select all</button>
+            <button className="quill-button-archived secondary outlined fun focus-on-dark" onClick={unselectAll} type="button">Unselect all</button>
+            <button className="quill-button-archived contained primary fun focus-on-dark" onClick={selectAll} type="button">Select all</button>
           </div>
         </div>
         <div className="students">
@@ -192,8 +192,8 @@ const UpdateAssignedStudents = ({ match, unassignWarningHidden, skipLoading, pas
               <h2>{unitName}</h2>
             </div>
             <div className="buttons">
-              <a className={`quill-button outlined secondary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} href="/teachers/classrooms/activity_planner">Cancel</a>
-              <button className={`quill-button contained primary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} disabled={!assignedStudentsHaveChanged()} onClick={handleClickUpdate} type="button">{assignedStudentsHaveChanged() ? 'Update students assigned to pack' : 'Edit students before saving'}</button>
+              <a className={`quill-button-archived outlined secondary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} href="/teachers/classrooms/activity_planner">Cancel</a>
+              <button className={`quill-button-archived contained primary medium focus-on-light ${assignedStudentsHaveChanged() ? '' : 'disabled'}`} disabled={!assignedStudentsHaveChanged()} onClick={handleClickUpdate} type="button">{assignedStudentsHaveChanged() ? 'Update students assigned to pack' : 'Edit students before saving'}</button>
             </div>
           </section>
           {classrooms}

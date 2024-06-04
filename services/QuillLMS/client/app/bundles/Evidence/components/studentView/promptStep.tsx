@@ -359,7 +359,7 @@ export class PromptStep extends React.Component<PromptStepProps, PromptStepState
     const awaitingFeedback = (numberOfSubmissions !== submittedResponses.length) && !failedToLoadFeedback
     const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = 'Get feedback'
-    let className = 'quill-button focus-on-light'
+    let className = 'quill-button-archived focus-on-light'
     let onClick = (e) => this.handleGetFeedbackClick(e, entry, id, text)
     let disabled = false
     let ariaLabel = buttonCopy

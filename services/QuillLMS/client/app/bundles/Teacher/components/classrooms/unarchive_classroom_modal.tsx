@@ -37,8 +37,8 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
             <p>You and your students will have access to this class again. This class will move to the "Active Classes" tab.</p>
           </div>
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-            <button className="quill-button contained primary medium" onClick={this.unarchive}>Un-archive</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived contained primary medium" onClick={this.unarchive}>Un-archive</button>
           </div>
         </div>
       </div>

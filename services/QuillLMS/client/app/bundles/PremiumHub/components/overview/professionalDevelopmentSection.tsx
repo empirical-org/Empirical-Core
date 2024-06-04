@@ -69,8 +69,8 @@ const ProfessionalDevelopmentSection = ({ adminId, administersSchoolWithPremium,
               <p className="section-subheader">{blackBulb}Premium Schools complete three times as many activities as free schools.</p>
               <p>With personalized learning, interactive activities, and immediate feedback, Quill Premium helps teachers foster literacy skills and critical thinking. If you’re interested in Quill Premium for your teachers, our sales team would love to connect with you.</p>
               <div className="buttons">
-                <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
-                <a className="quill-button contained primary medium focus-on-light" href="https://www.quill.org/premium/request-school-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
+                <a className="quill-button-archived contained primary medium focus-on-light" href="https://calendly.com/alex-quill" rel="noopener noreferrer" target="_blank">Schedule a call</a>
+                <a className="quill-button-archived contained primary medium focus-on-light" href="https://www.quill.org/premium/request-school-quote" rel="noopener noreferrer" target="_blank">Request a quote</a>
               </div>
             </div>
             {alexAndCharlieImg}
@@ -103,8 +103,8 @@ const ProfessionalDevelopmentSection = ({ adminId, administersSchoolWithPremium,
                 <p>I am {name}, your main point of contact for Quill implementation questions and scheduling of virtual professional learning opportunities. Please feel free to contact me to discuss how I can best support your district’s Quill journey this year.</p>
               </div>
               <div className="buttons">
-                <a className="quill-button contained primary medium focus-on-light" href={`mailto:${email}`} rel="noopener noreferrer" target="_blank">Email me</a>
-                <a className="quill-button contained primary medium focus-on-light" href={EMAIL_TO_SCHEDULE_LINK[email.toLowerCase()]} rel="noopener noreferrer" target="_blank">Schedule a call</a>
+                <a className="quill-button-archived contained primary medium focus-on-light" href={`mailto:${email}`} rel="noopener noreferrer" target="_blank">Email me</a>
+                <a className="quill-button-archived contained primary medium focus-on-light" href={EMAIL_TO_SCHEDULE_LINK[email.toLowerCase()]} rel="noopener noreferrer" target="_blank">Schedule a call</a>
               </div>
             </div>
             {EMAIL_TO_IMG[email.toLowerCase()]}
@@ -121,8 +121,8 @@ const ProfessionalDevelopmentSection = ({ adminId, administersSchoolWithPremium,
             <h3>Meet your Quill Implementation Team</h3>
             <p>We are your main point of contact for Quill questions, onboarding needs, and scheduling of virtual training opportunities. Please feel free to contact us to discuss how we can best support your school’s Quill journey this year.</p>
             <div className="buttons">
-              <a className="quill-button contained primary medium focus-on-light" href="mailto:schools@quill.org" rel="noopener noreferrer" target="_blank">Email us</a>
-              <a className="quill-button contained primary medium focus-on-light" href="https://calendly.com/schoolsatquill" rel="noopener noreferrer" target="_blank">Schedule training</a>
+              <a className="quill-button-archived contained primary medium focus-on-light" href="mailto:schools@quill.org" rel="noopener noreferrer" target="_blank">Email us</a>
+              <a className="quill-button-archived contained primary medium focus-on-light" href="https://calendly.com/schoolsatquill" rel="noopener noreferrer" target="_blank">Schedule training</a>
             </div>
           </div>
           {scarletAndNattalieImg}

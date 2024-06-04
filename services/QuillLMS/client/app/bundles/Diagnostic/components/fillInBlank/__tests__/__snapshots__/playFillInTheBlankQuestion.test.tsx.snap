@@ -417,7 +417,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
       }
     >
       <button
-        className="quill-button focus-on-light large primary contained disabled"
+        className="quill-button-archived focus-on-light large primary contained disabled"
         type="button"
       >
         Submit

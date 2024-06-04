@@ -749,14 +749,14 @@ exports[`GradeLevelWarningModal component should render 1`] = `
           className="buttons"
         >
           <button
-            className="quill-button outlined secondary medium focus-on-light"
+            className="quill-button-archived outlined secondary medium focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Go back to edit assignment
           </button>
           <button
-            className="quill-button contained primary medium focus-on-light"
+            className="quill-button-archived contained primary medium focus-on-light"
             onClick={[Function]}
             type="button"
           >

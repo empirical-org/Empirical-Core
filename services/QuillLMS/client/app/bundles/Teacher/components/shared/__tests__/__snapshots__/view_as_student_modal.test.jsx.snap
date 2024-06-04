@@ -5053,7 +5053,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 "name": "Bleep Bloop",
                 "username": undefined,
                 "viewButton": <button
-                  className="quill-button outlined fun secondary"
+                  className="quill-button-archived outlined fun secondary"
                   onClick={[Function]}
                   type="button"
                 >
@@ -5172,7 +5172,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 >
                   <TableCellContentWrapper>
                     <button
-                      className="quill-button outlined fun secondary"
+                      className="quill-button-archived outlined fun secondary"
                       onClick={[Function]}
                       type="button"
                     >
@@ -5189,7 +5189,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
         className="bottom-section"
       >
         <button
-          className="quill-button medium secondary outlined"
+          className="quill-button-archived medium secondary outlined"
           onClick={[Function]}
           type="button"
         >
@@ -10422,7 +10422,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 "name": "Maya Angelou",
                 "username": undefined,
                 "viewButton": <button
-                  className="quill-button outlined fun secondary"
+                  className="quill-button-archived outlined fun secondary"
                   onClick={[Function]}
                   type="button"
                 >
@@ -10434,7 +10434,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 "name": "James Joyce",
                 "username": undefined,
                 "viewButton": <button
-                  className="quill-button outlined fun secondary"
+                  className="quill-button-archived outlined fun secondary"
                   onClick={[Function]}
                   type="button"
                 >
@@ -10446,7 +10446,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 "name": "Harper Lee",
                 "username": undefined,
                 "viewButton": <button
-                  className="quill-button outlined fun secondary"
+                  className="quill-button-archived outlined fun secondary"
                   onClick={[Function]}
                   type="button"
                 >
@@ -10458,7 +10458,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 "name": "William Shakespeare",
                 "username": undefined,
                 "viewButton": <button
-                  className="quill-button outlined fun secondary"
+                  className="quill-button-archived outlined fun secondary"
                   onClick={[Function]}
                   type="button"
                 >
@@ -10577,7 +10577,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 >
                   <TableCellContentWrapper>
                     <button
-                      className="quill-button outlined fun secondary"
+                      className="quill-button-archived outlined fun secondary"
                       onClick={[Function]}
                       type="button"
                     >
@@ -10637,7 +10637,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 >
                   <TableCellContentWrapper>
                     <button
-                      className="quill-button outlined fun secondary"
+                      className="quill-button-archived outlined fun secondary"
                       onClick={[Function]}
                       type="button"
                     >
@@ -10697,7 +10697,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 >
                   <TableCellContentWrapper>
                     <button
-                      className="quill-button outlined fun secondary"
+                      className="quill-button-archived outlined fun secondary"
                       onClick={[Function]}
                       type="button"
                     >
@@ -10757,7 +10757,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
                 >
                   <TableCellContentWrapper>
                     <button
-                      className="quill-button outlined fun secondary"
+                      className="quill-button-archived outlined fun secondary"
                       onClick={[Function]}
                       type="button"
                     >
@@ -10774,7 +10774,7 @@ exports[`ViewAsStudentModal component without a defaultClassroomId should render
         className="bottom-section"
       >
         <button
-          className="quill-button medium secondary outlined"
+          className="quill-button-archived medium secondary outlined"
           onClick={[Function]}
           type="button"
         >

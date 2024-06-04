@@ -21,8 +21,8 @@ export default class ResetModal extends React.Component<ResetModalProps> {
             <p>This will undo all the edits you made and reset the passage to its original state.</p>
           </div>
           <div className="button-section">
-            <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-            <button className="quill-button medium primary contained focus-on-light" onClick={reset} type="button">Reset passage</button>
+            <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
+            <button className="quill-button-archived medium primary contained focus-on-light" onClick={reset} type="button">Reset passage</button>
           </div>
         </div>
       </div>

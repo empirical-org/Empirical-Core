@@ -46,7 +46,7 @@ const ExpandableUnit = ({ title, isFirst, learningCycles, isPartOfAssignmentFlow
         <div className={`cycle-activity-container ${additionalStyle}`} id={cb_anchor_tag} key={i}>
           <div className="top-content">
             <a className="activity-title" href={link} rel="noopener noreferrer" tabIndex={-1} target={target}>{title}</a>
-            <a className="quill-button medium primary outlined focus-on-light" href={link} rel="noopener noreferrer" target={target}>View</a>
+            <a className="quill-button-archived medium primary outlined focus-on-light" href={link} rel="noopener noreferrer" target={target}>View</a>
           </div>
           <p className="description">{description}</p>
         </div>

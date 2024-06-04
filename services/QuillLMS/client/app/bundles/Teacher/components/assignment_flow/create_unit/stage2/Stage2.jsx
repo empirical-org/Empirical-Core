@@ -32,7 +32,7 @@ export class Stage2 extends React.Component {
   }
 
   determineAssignButtonClass() {
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!this.buttonEnabled()) {
       buttonClass += ' disabled';
     }

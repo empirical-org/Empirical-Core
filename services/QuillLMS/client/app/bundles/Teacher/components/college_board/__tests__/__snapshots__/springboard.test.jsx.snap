@@ -232,7 +232,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               Free SpringBoard® English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.
             </p>
             <a
-              className="quill-button large primary contained focus-on-light"
+              className="quill-button-archived large primary contained focus-on-light"
               href="https://www.quill.org/account/new"
               rel="noopener noreferrer"
               target="_blank"
@@ -300,7 +300,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/253"
               rel="noopener noreferrer"
               target="_blank"
@@ -357,7 +357,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/194"
               rel="noopener noreferrer"
               target="_blank"
@@ -407,7 +407,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/195"
               rel="noopener noreferrer"
               target="_blank"
@@ -457,7 +457,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/193"
               rel="noopener noreferrer"
               target="_blank"
@@ -509,7 +509,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/154"
               rel="noopener noreferrer"
               target="_blank"
@@ -559,7 +559,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/299"
               rel="noopener noreferrer"
               target="_blank"
@@ -609,7 +609,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/300"
               rel="noopener noreferrer"
               target="_blank"
@@ -908,7 +908,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/216"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -958,7 +958,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/218"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -990,7 +990,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/219"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1022,7 +1022,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/220"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1072,7 +1072,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/221"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1239,7 +1239,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/222"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1271,7 +1271,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/223"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1321,7 +1321,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/224"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1353,7 +1353,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/225"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1403,7 +1403,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/226"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1570,7 +1570,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/227"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1602,7 +1602,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/228"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1652,7 +1652,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/229"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1684,7 +1684,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/230"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1734,7 +1734,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/231"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1901,7 +1901,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/232"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1933,7 +1933,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/233"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1983,7 +1983,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/234"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -2015,7 +2015,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/235"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -2065,7 +2065,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/236"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -3104,7 +3104,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/253?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3161,7 +3161,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3211,7 +3211,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3261,7 +3261,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/193?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3313,7 +3313,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3363,7 +3363,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3413,7 +3413,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3713,7 +3713,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/216?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3763,7 +3763,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/218?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3795,7 +3795,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/219?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3827,7 +3827,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/220?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3877,7 +3877,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/221?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4045,7 +4045,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/222?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4077,7 +4077,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/223?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4127,7 +4127,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/224?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4159,7 +4159,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/225?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4209,7 +4209,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/226?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4377,7 +4377,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/227?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4409,7 +4409,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/228?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4459,7 +4459,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/229?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4491,7 +4491,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/230?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4541,7 +4541,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/231?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4709,7 +4709,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/232?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4741,7 +4741,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/233?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4791,7 +4791,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/234?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4823,7 +4823,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/235?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4873,7 +4873,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/236?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""

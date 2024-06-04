@@ -592,7 +592,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -795,7 +795,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
             rel="noopener noreferrer"
             target="_blank"
@@ -1032,7 +1032,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -1789,7 +1789,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -1992,7 +1992,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
             rel="noopener noreferrer"
             target="_blank"
@@ -2218,7 +2218,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -2894,7 +2894,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -3097,7 +3097,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -3332,7 +3332,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -4008,7 +4008,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -4211,7 +4211,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -4446,7 +4446,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -5137,7 +5137,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -5340,14 +5340,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -5584,7 +5584,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -6341,7 +6341,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -6544,14 +6544,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -6777,7 +6777,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -7462,7 +7462,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -8159,7 +8159,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -8362,14 +8362,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -8606,7 +8606,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -9018,7 +9018,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -9304,7 +9304,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -9716,7 +9716,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -10023,7 +10023,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -10226,14 +10226,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -10459,7 +10459,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -11135,7 +11135,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -11338,7 +11338,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -11573,7 +11573,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -11985,7 +11985,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -12271,7 +12271,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -12683,7 +12683,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -12990,7 +12990,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -13193,14 +13193,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -13437,7 +13437,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -14113,7 +14113,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -14316,7 +14316,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -14551,7 +14551,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits

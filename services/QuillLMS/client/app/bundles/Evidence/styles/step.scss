@@ -88,7 +88,7 @@
       font-weight: bold;
     }
   }
-  .quill-button {
+  .quill-button-archived {
     border-radius: 4px;
     background-color: #009a80;
     font-size: 18px;
@@ -334,10 +334,10 @@
     .step-header {
       margin-bottom: 8px;
     }
-    .quill-button, .feedback-section {
+    .quill-button-archived, .feedback-section {
       margin-left: 0px;
     }
-    .quill-button {
+    .quill-button-archived {
       width: 100%;
     }
     &.active {

@@ -300,7 +300,7 @@ export default createReactClass({
     return (
       <div className='teacher-report-container progress-reports-2018 data-export'>
         <ReportHeader
-          downloadReportButton={<button className='quill-button medium primary contained focus-on-light' onClick={this.downloadReport} style={{ display: 'block' }}>Download Report</button>}
+          downloadReportButton={<button className='quill-button-archived medium primary contained focus-on-light' onClick={this.downloadReport} style={{ display: 'block' }}>Download Report</button>}
           headerText="Data Export"
           tooltipText='You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."'
         />

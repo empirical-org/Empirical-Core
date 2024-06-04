@@ -370,16 +370,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       const buttonText = isLastQuestion ? 'Next' : 'Next question';
       const disabledStyle = previewMode && isLastQuestion ? 'disabled' : '';
       return (
-        <button className={`quill-button focus-on-light large primary contained ${disabledStyle}`} onClick={nextQuestion} type="button">{buttonText}</button>
+        <button className={`quill-button-archived focus-on-light large primary contained ${disabledStyle}`} onClick={nextQuestion} type="button">{buttonText}</button>
       );
     } else if (responses) {
       if (showRecheckWorkButton) {
-        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
+        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
       } else {
-        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
+        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+      <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
   }
 

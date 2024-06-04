@@ -88,12 +88,12 @@
       margin-right: 24px;
     }
     .selection-buttons {
-      .quill-button {
+      .quill-button-archived {
         margin-right: 8px;
       }
     }
     .release-method-and-assign-buttons {
-      .quill-button, .interactive-wrapper {
+      .quill-button-archived, .interactive-wrapper {
         margin-left: 16px;
       }
       .interactive-wrapper {
@@ -507,7 +507,7 @@
       max-width: calc(100vw - 32px);
       .selection-buttons {
         flex-direction: column;
-        .quill-button {
+        .quill-button-archived {
           margin-top: 8px;
           margin-right: 0px;
         }

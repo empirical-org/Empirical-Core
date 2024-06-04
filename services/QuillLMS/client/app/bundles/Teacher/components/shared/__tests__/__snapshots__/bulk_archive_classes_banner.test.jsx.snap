@@ -276,7 +276,7 @@ exports[`BulkArchiveClassesBanner when it is July-September should render when n
     </span>
     <span>
       <button
-        className="quill-button medium outlined secondary"
+        className="quill-button-archived medium outlined secondary"
         onClick={[Function]}
         type="button"
       >
