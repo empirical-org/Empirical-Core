@@ -35,6 +35,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -42,6 +43,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -49,6 +51,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -69,6 +72,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 <span
                   class="text"
@@ -89,6 +93,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 <span
                   class="text"
@@ -109,6 +114,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 <span
                   class="text"
@@ -230,6 +236,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -237,6 +244,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -244,6 +252,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -264,6 +273,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -271,6 +281,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
@@ -278,6 +289,7 @@ exports[`Lists it should render 1`] = `
             <li>
               <button
                 class="interactive-wrapper"
+                type="button"
               >
                 List Item
               </button>
