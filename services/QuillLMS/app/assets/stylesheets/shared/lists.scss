@@ -19,8 +19,8 @@
         flex-direction: column;
       }
       .secondary-text {
-        font-size: 14px;
-        color: #888888;
+        font-size: 12px;
+        color: $quill-grey-35;
         margin-top: 8px;
       }
       .metadata {
@@ -31,7 +31,7 @@
   li {
     font-size: 16px;
     &:hover, &:focus {
-      background-color: #f2f2f2;
+      background-color: $quill-grey-2;
     }
   }
 }

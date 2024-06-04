@@ -2,9 +2,12 @@
   list-style: none;
   padding-left: 0px;
   margin-bottom: 0px;
+  background-color: $quill-white;
   &.single-line {
     li {
       padding: 16px;
+      font-size: 13px;
+      font-weight: 500;
     }
   }
   &.double-line {
@@ -14,13 +17,21 @@
       justify-content: space-between;
       align-items: flex-start;
       line-height: 1;
+      button {
+        text-align: left;
+      }
       .text {
         display: flex;
         flex-direction: column;
       }
+      .primary-text {
+        font-size: 13px;
+        font-weight: 500;
+      }
       .secondary-text {
-        font-size: 14px;
-        color: #888888;
+        font-size: 12px;
+        font-weight: 400;
+        color: $quill-grey-35;
         margin-top: 8px;
       }
       .metadata {
@@ -29,9 +40,14 @@
     }
   }
   li {
+    cursor: pointer;
     font-size: 16px;
-    &:hover, &:focus {
-      background-color: #f2f2f2;
+    &:hover {
+      background-color: $quill-grey-2;
     }
+  }
+  li:focus-within {
+    background-color: $quill-green-5 !important;
+    outline: dashed 2px $quill-green;
   }
 }
