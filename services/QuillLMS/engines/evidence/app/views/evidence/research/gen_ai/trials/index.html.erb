@@ -9,6 +9,7 @@
     <thead>
       <tr>
         <th>ID</th>
+        <th>Date</th>
         <th>LLM Config</th>
         <th>Passage</th>
         <th>Conjunction</th>
@@ -22,6 +23,7 @@
       <% @trials.each do |trial| %>
         <tr>
           <td><%= trial.id %></td>
+          <td><%= trial.created_at.strftime("%m/%d/%y, %H:%M") %></td>
           <td><%= trial.llm %></td>
           <td><%= trial.passage_prompt.name %></td>
           <td><%= trial.conjunction %></td>
