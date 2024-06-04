@@ -48,5 +48,6 @@
   }
   li:focus-within {
     background-color: $quill-green-5 !important;
+    outline: dashed 2px $quill-green;
   }
 }

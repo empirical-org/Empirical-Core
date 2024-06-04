@@ -15,27 +15,45 @@ export const List = ({ items, style }: ListProps) => {
   if(style === PRIMARY) {
     return(
       <ul className="list quill-list single-line">
-        {items.map(({ label, onClick }) => (
-          <li>
-            <button className="interactive-wrapper" onClick={onClick}>{label}</button>
-          </li>
-        ))}
+        {items.map(({ label, onClick }) => {
+          if(onClick) {
+            return(
+              <li>
+                <button className="interactive-wrapper" onClick={onClick} type="button">{label}</button>
+              </li>
+            )
+          }
+          return <li>{label}</li>
+        })}
       </ul>
     )
   }
   if(style === SECONDARY) {
     return (
       <ul className="list quill-list double-line">
-        {items.map(({ primaryText, secondaryText, onClick }) => (
-          <li>
-            <button className="interactive-wrapper" onClick={onClick}>
+        {items.map(({ primaryText, secondaryText, onClick }) => {
+          const innerElement = (
+            <span className="text">
+              <p className="primary-text">{primaryText}</p>
+              <p className='secondary-text'>{secondaryText}</p>
+            </span>
+          )
+          if(onClick) {
+            return(
+              <li>
+                <button className="interactive-wrapper" onClick={onClick} type="button">{innerElement}</button>
+              </li>
+            )
+          }
+          return(
+            <li>
               <span className="text">
                 <p className="primary-text">{primaryText}</p>
                 <p className='secondary-text'>{secondaryText}</p>
               </span>
-            </button>
-          </li>
-        ))}
+            </li>
+          )
+        })}
       </ul>
     )
   }

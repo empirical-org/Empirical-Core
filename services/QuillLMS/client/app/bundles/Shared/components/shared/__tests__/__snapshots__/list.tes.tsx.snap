@@ -51,6 +51,7 @@ exports[`List it should render primary style as expected 1`] = `
     <li>
       <button
         class="interactive-wrapper"
+        type="button"
       >
         List Item 1
       </button>
@@ -58,6 +59,7 @@ exports[`List it should render primary style as expected 1`] = `
     <li>
       <button
         class="interactive-wrapper"
+        type="button"
       >
         List Item 2
       </button>
@@ -65,9 +67,28 @@ exports[`List it should render primary style as expected 1`] = `
     <li>
       <button
         class="interactive-wrapper"
+        type="button"
       >
         List Item 3
       </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`List it should render primary style without buttons as expected 1`] = `
+<DocumentFragment>
+  <ul
+    class="list quill-list single-line"
+  >
+    <li>
+      List Item 1
+    </li>
+    <li>
+      List Item 2
+    </li>
+    <li>
+      List Item 3
     </li>
   </ul>
 </DocumentFragment>
@@ -81,6 +102,7 @@ exports[`List it should render secondary style as expected 1`] = `
     <li>
       <button
         class="interactive-wrapper"
+        type="button"
       >
         <span
           class="text"
@@ -101,6 +123,7 @@ exports[`List it should render secondary style as expected 1`] = `
     <li>
       <button
         class="interactive-wrapper"
+        type="button"
       >
         <span
           class="text"

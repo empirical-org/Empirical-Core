@@ -18,6 +18,11 @@ const mockProps3 = {
   style: 'checkbox'
 }
 
+const mockProps4 = {
+  items: [{ label: 'List Item 1' }, { label: 'List Item 2' }, { label: 'List Item 3' }],
+  style: 'primary'
+}
+
 describe('List', () => {
   test('it should render primary style as expected', () => {
     const { asFragment } = render(<List {...mockProps1} />);
@@ -25,6 +30,7 @@ describe('List', () => {
     expect(screen.getByText(/list item 1/i)).toBeTruthy()
     expect(screen.getByText(/list item 2/i)).toBeTruthy()
     expect(screen.getByText(/list item 3/i)).toBeTruthy()
+    expect(screen.getAllByRole('button')).toHaveLength(mockProps1.items.length)
   })
   test('it should render secondary style as expected', () => {
     const { asFragment } = render(<List {...mockProps2} />);
@@ -33,11 +39,20 @@ describe('List', () => {
     expect(screen.getByText(/text 1/i)).toBeTruthy()
     expect(screen.getByText(/title 2/i)).toBeTruthy()
     expect(screen.getByText(/text 2/i)).toBeTruthy()
+    expect(screen.getAllByRole('button')).toHaveLength(mockProps2.items.length)
   })
   test('it should render checkbox style as expected', () => {
     const { asFragment } = render(<List {...mockProps3} />);
     expect(asFragment()).toMatchSnapshot();
     expect(screen.getByText(/checkbox 1/i)).toBeTruthy()
     expect(screen.getByText(/checkbox 2/i)).toBeTruthy()
+  })
+  test('it should render primary style without buttons as expected', () => {
+    const { asFragment } = render(<List {...mockProps4} />);
+    expect(asFragment()).toMatchSnapshot();
+    expect(screen.getByText(/list item 1/i)).toBeTruthy()
+    expect(screen.getByText(/list item 2/i)).toBeTruthy()
+    expect(screen.getByText(/list item 3/i)).toBeTruthy()
+    expect(screen.queryByRole('button')).not.toBeInTheDocument()
   })
 })
