@@ -61430,3 +61430,532 @@
     value_before_type_cast: 2024-06-04 13:58:51.148793000 Z
   new_record: false
   active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005578
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"I want to visit Berlin."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "acf821cc-72f9-4b43-8d5a-4d6b640a02a9",
+      "question_concept_uid": "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 10
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 110888
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.123621000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005577
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"My friend lives in New York City."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 524
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-KohrQSMi--pYlZPLU3H", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 9
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 78504
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.103157000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005576
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"The Pacific Ocean is the largest ocean in the world."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8p", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 8
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 31019
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.069718000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005575
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"The Silk Road passes through the Gobi Desert."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8q", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 7
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 31807
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.068714000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005574
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Every year, I visit my cousins in Idaho."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8t", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 6
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 31922
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.051419000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005573
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Some scientists live in Antarctica."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8s", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 3
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 31018
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.005407000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005572
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Russia is a big country."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8n", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 4
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 31938
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.004439000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005571
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"The Mariana Trench is deep."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8m", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 5
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 31020
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:39.000258000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005570
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"I want to visit Florida."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8w", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+    value_before_type_cast: 60320
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 78680
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:38.953270000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005569
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"I want to viit Florida."'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 529
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: false
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8w", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 2
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 78680
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:38.952093000 Z
+  new_record: false
+  active_record_yaml_version: 2
+- !ruby/object:ConceptResult
+  concise_attributes:
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: id
+    value_before_type_cast: 3479005568
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: activity_session_id
+    value_before_type_cast: 243220743
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: answer
+    value_before_type_cast: '"Have you ever been to London before?"'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: attempt_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_id
+    value_before_type_cast: 38
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: correct
+    value_before_type_cast: true
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: extra_metadata
+    value_before_type_cast: '{"question_uid": "-Jzw0qjK-hugkBcgfA8v", "question_concept_uid":
+      "YkA1YFe-dUvXqkEXxbNgQw"}'
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_number
+    value_before_type_cast: 1
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: question_score
+    value_before_type_cast: 1.0
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_directions_id
+    value_before_type_cast: 29790
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_instructions_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_previous_feedback_id
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_prompt_id
+    value_before_type_cast: 78658
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: concept_result_question_type_id
+    value_before_type_cast: 3156
+  - !ruby/object:ActiveModel::Attribute::FromDatabase
+    name: created_at
+    value_before_type_cast: 2024-06-04 15:16:38.940496000 Z
+  new_record: false
+  active_record_yaml_version: 2
