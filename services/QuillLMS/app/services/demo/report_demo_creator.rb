@@ -3,8 +3,6 @@
 module Demo::ReportDemoCreator
   EMAIL = 'hello+demoteacher@quill.org'
   STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
-  REPLAYED_ACTIVITY_ID = 434
-  REPLAYED_SAMPLE_USER_ID = 312664
 
   STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
 
@@ -197,7 +195,6 @@ module Demo::ReportDemoCreator
     session_data = Demo::SessionData.new
 
     create_activity_sessions(students, classroom, session_data, is_teacher_demo)
-    create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
@@ -362,26 +359,25 @@ module Demo::ReportDemoCreator
     end
   end
 
-  def self.create_replayed_activity_session(student, classroom_unit, session_data)
-    clone_activity_session(student.id, classroom_unit.id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
-  end
-
   def self.clone_activity_session(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
-    session_to_clone = session_data.activity_sessions
-      .find {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+    sessions_to_clone = session_data.activity_sessions
+      .filter {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
 
-    return unless session_to_clone
+    return unless sessions_to_clone.length
 
-    act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
-    concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
-    concept_results.each do |cr|
-      question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
-      SaveActivitySessionConceptResultsWorker.perform_async({
-        activity_session_id: act_session.id,
-        concept_id: cr.concept_id,
-        metadata: session_data.concept_result_legacy_metadata[cr.id],
-        question_type: question_type&.text
-      })
+    sessions_to_clone.each do |session_to_clone|
+      act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
+      concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
+      concept_results.each do |cr|
+        question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
+        SaveActivitySessionConceptResultsWorker.perform_async({
+          activity_session_id: act_session.id,
+          concept_id: cr.concept_id,
+          metadata: session_data.concept_result_legacy_metadata[cr.id],
+          question_type: question_type&.text
+        })
+      end
+
     end
   end
 
