@@ -37,14 +37,14 @@ exports[`ReopenUnitModal component renders 1`] = `
         className="form-buttons"
       >
         <button
-          className="quill-button outlined secondary medium focus-on-light"
+          className="quill-button-archived outlined secondary medium focus-on-light"
           onClick={[MockFunction]}
           type="button"
         >
           Cancel
         </button>
         <button
-          className="quill-button contained primary medium focus-on-light"
+          className="quill-button-archived contained primary medium focus-on-light"
           onClick={[Function]}
           type="button"
         >

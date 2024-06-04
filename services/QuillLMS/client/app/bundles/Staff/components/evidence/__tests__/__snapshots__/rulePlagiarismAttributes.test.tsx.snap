@@ -18,14 +18,14 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined"
+      className="add-highlight quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
     >
       Add Text String
     </button>
     <button
-      className="remove-highlight quill-button small primary outlined"
+      className="remove-highlight quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
     >
@@ -49,7 +49,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined"
+      className="add-highlight quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
       value="0"
@@ -74,7 +74,7 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined"
+      className="add-highlight quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
       value="1"

@@ -19,8 +19,8 @@ const ReopenUnitModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
           <p>Activities that students have not completed will be added to their “To-do activities” list.</p>
         </div>
         <div className="form-buttons">
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
-          <button className="quill-button contained primary medium focus-on-light" onClick={handleReopenUnitButtonClick} type="button">Reopen pack</button>
+          <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button-archived contained primary medium focus-on-light" onClick={handleReopenUnitButtonClick} type="button">Reopen pack</button>
         </div>
       </div>
     </div>

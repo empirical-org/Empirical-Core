@@ -10,8 +10,8 @@ const CopyModal = ({ attributeName, closeFunction, copyFunction, }) => {
           <p>Copying will overwrite the settings you previously entered. Please confirm that you want to continue.</p>
         </div>
         <div className="button-section">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeFunction} type="button">Cancel</button>
-          <button className="quill-button medium primary contained focus-on-light" onClick={copyFunction} type="button">Yes, copy</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeFunction} type="button">Cancel</button>
+          <button className="quill-button-archived medium primary contained focus-on-light" onClick={copyFunction} type="button">Yes, copy</button>
         </div>
       </div>
     </div>

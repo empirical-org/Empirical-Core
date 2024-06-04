@@ -70,7 +70,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
 
   submitButtonClass() {
     const { newClassroomId, checkboxOne, } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!(newClassroomId && checkboxOne)) {
       buttonClass += ' disabled';
     }
@@ -133,7 +133,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
           />
           {this.renderCheckboxes()}
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={close}>Cancel</button>
             {this.renderSubmitButton()}
           </div>
         </div>

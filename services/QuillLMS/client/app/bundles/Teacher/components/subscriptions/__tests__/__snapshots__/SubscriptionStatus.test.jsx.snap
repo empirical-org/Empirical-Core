@@ -50,14 +50,14 @@ exports[`SubscriptionStatus container should render when the subscription is exp
         </h2>
       </div>
       <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="quill-button medium contained primary focus-on-light"
+        buttonClassName="quill-button-archived medium contained primary focus-on-light"
         buttonText="Renew subscription"
         cancelPath="subscriptions"
         userIsEligibleForNewSubscription={true}
         userIsSignedIn={true}
       >
         <button
-          className="quill-button medium contained primary focus-on-light"
+          className="quill-button-archived medium contained primary focus-on-light"
           onClick={[Function]}
           type="button"
         >
@@ -70,11 +70,11 @@ exports[`SubscriptionStatus container should render when the subscription is exp
     >
       <span>
         <strong>
-          Your 
+          Your
           Teacher Premium
            subscription (
           02/15/22
-           - 
+           -
           02/15/22
           ) has expired and you are back to Quill Basic.
         </strong>
@@ -118,7 +118,7 @@ exports[`SubscriptionStatus container should render when there is no subscriptio
         </h2>
       </div>
       <a
-        className="quill-button medium contained primary focus-on-light"
+        className="quill-button-archived medium contained primary focus-on-light"
         href="/premium"
       >
         Learn more about Quill Premium

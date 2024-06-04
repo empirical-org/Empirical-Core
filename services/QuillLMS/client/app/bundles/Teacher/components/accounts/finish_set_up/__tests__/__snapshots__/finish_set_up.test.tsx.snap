@@ -16,7 +16,7 @@ exports[`FinishSetUp component should render 1`] = `
     <p
       className="sub-header"
     >
-      A Quill 
+      A Quill
       account
        was created for you
       . To complete your account setup, please set a password.
@@ -217,7 +217,7 @@ exports[`FinishSetUp component should render 1`] = `
               </PasswordWrapper>
               <input
                 aria-label="Sign up"
-                className="quill-button contained primary medium focus-on-light disabled"
+                className="quill-button-archived contained primary medium focus-on-light disabled"
                 name="commit"
                 type="submit"
                 value="Log in"
@@ -231,13 +231,13 @@ exports[`FinishSetUp component should render 1`] = `
       <p
         className="agreements"
       >
-        By signing up, you agree to our 
+        By signing up, you agree to our
         <a
           href="/tos"
         >
           Terms of Service
         </a>
-         and 
+         and
         <a
           href="/privacy"
         >

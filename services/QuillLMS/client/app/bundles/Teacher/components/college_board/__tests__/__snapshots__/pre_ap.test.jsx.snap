@@ -232,7 +232,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Free Pre-AP® English writing practice aligned to the Pre-AP English High School Course Framework for the English 1 and English 2 courses with immediate feedback for students and progress reports for you.
             </p>
             <a
-              className="quill-button large primary contained focus-on-light"
+              className="quill-button-archived large primary contained focus-on-light"
               href="https://www.quill.org/account/new"
               rel="noopener noreferrer"
               target="_blank"
@@ -305,7 +305,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/194"
               rel="noopener noreferrer"
               target="_blank"
@@ -360,7 +360,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/195"
               rel="noopener noreferrer"
               target="_blank"
@@ -412,7 +412,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/154"
               rel="noopener noreferrer"
               target="_blank"
@@ -426,7 +426,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -462,7 +462,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/299"
               rel="noopener noreferrer"
               target="_blank"
@@ -476,7 +476,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -512,7 +512,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/300"
               rel="noopener noreferrer"
               target="_blank"
@@ -526,7 +526,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -594,7 +594,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="info-blurb-text"
             >
-              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process. 
+              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
             </p>
           </div>
           <img
@@ -785,7 +785,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -812,7 +812,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/216"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -835,7 +835,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -862,7 +862,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/218"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -894,7 +894,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/219"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -926,7 +926,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/220"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -949,7 +949,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -976,7 +976,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/221"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1104,7 +1104,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -1131,7 +1131,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/222"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1163,7 +1163,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/223"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1186,7 +1186,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -1213,7 +1213,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/224"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1245,7 +1245,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/225"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1268,7 +1268,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -1295,7 +1295,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/226"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1423,7 +1423,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -1450,7 +1450,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/227"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1482,7 +1482,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/228"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1505,7 +1505,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -1532,7 +1532,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/229"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1564,7 +1564,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/230"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1587,7 +1587,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -1614,7 +1614,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/231"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1742,7 +1742,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -1769,7 +1769,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/232"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1801,7 +1801,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/233"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1824,7 +1824,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -1851,7 +1851,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/234"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1883,7 +1883,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/235"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1906,7 +1906,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -1933,7 +1933,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/236"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1998,7 +1998,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
             <p
               className="info-blurb-text"
             >
-              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills. 
+              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills.
             </p>
           </div>
           <img
@@ -2257,7 +2257,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -2318,7 +2318,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -2368,7 +2368,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
+                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content.
                     <a
                       href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                       rel="noopener noreferrer"
@@ -2421,7 +2421,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
                     </p>
                     <p>
-                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
+                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
                     </p>
                     <p>
                       <a
@@ -2431,7 +2431,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       >
                         This article
                       </a>
-                       explains how you can use deadlines to help students pace themselves. 
+                       explains how you can use deadlines to help students pace themselves.
                     </p>
                   </div>,
                   "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
@@ -2474,7 +2474,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -2482,7 +2482,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -2490,7 +2490,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -2593,7 +2593,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
                           <strong>
                             Note
                           </strong>
@@ -2642,7 +2642,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -2731,7 +2731,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -3087,7 +3087,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3142,7 +3142,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3194,7 +3194,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3208,7 +3208,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3244,7 +3244,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3258,7 +3258,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3294,7 +3294,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3308,7 +3308,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3376,7 +3376,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="info-blurb-text"
             >
-              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process. 
+              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
             </p>
           </div>
           <img
@@ -3568,7 +3568,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -3595,7 +3595,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/216?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3618,7 +3618,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -3645,7 +3645,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/218?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3677,7 +3677,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/219?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3709,7 +3709,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/220?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3732,7 +3732,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -3759,7 +3759,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/221?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3888,7 +3888,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -3915,7 +3915,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/222?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3947,7 +3947,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/223?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3970,7 +3970,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -3997,7 +3997,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/224?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4029,7 +4029,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/225?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4052,7 +4052,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -4079,7 +4079,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/226?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4208,7 +4208,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -4235,7 +4235,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/227?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4267,7 +4267,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/228?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4290,7 +4290,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -4317,7 +4317,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/229?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4349,7 +4349,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/230?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4372,7 +4372,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -4399,7 +4399,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/231?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4528,7 +4528,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -4555,7 +4555,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/232?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4587,7 +4587,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/233?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4610,7 +4610,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -4637,7 +4637,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/234?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4669,7 +4669,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/235?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4692,7 +4692,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -4719,7 +4719,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/236?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4784,7 +4784,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
             <p
               className="info-blurb-text"
             >
-              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills. 
+              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills.
             </p>
           </div>
           <img
@@ -5043,7 +5043,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -5104,7 +5104,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -5154,7 +5154,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
+                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content.
                     <a
                       href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                       rel="noopener noreferrer"
@@ -5207,7 +5207,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
                     </p>
                     <p>
-                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
+                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
                     </p>
                     <p>
                       <a
@@ -5217,7 +5217,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       >
                         This article
                       </a>
-                       explains how you can use deadlines to help students pace themselves. 
+                       explains how you can use deadlines to help students pace themselves.
                     </p>
                   </div>,
                   "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
@@ -5260,7 +5260,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -5268,7 +5268,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -5276,7 +5276,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -5379,7 +5379,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
                           <strong>
                             Note
                           </strong>
@@ -5428,7 +5428,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -5517,7 +5517,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -5682,7 +5682,7 @@ exports[`PreAp component should render with no units 1`] = `
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5737,7 +5737,7 @@ exports[`PreAp component should render with no units 1`] = `
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5789,7 +5789,7 @@ exports[`PreAp component should render with no units 1`] = `
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5803,7 +5803,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -5839,7 +5839,7 @@ exports[`PreAp component should render with no units 1`] = `
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5853,7 +5853,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -5889,7 +5889,7 @@ exports[`PreAp component should render with no units 1`] = `
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5903,7 +5903,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -5971,7 +5971,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="info-blurb-text"
             >
-              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process. 
+              After your students complete a Pre-AP Writing Skills Survey, Quill will use the results to recommend a set of independent practice activities. You can choose to assign all the practice at once, or you can pick and choose the activities that best fit your instructional and students’ needs. As students complete the practice, they’ll receive instant feedback on their writing that guides them through the revising and editing process.
             </p>
           </div>
           <img
@@ -6098,7 +6098,7 @@ exports[`PreAp component should render with no units 1`] = `
             <p
               className="info-blurb-text"
             >
-              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills. 
+              In these sentence-combining items, students are free to use any grammatically correct method of combining the sentences they choose. However, each item is written to provide opportunities for students to practice the skills from the course framework. No matter which method students choose to use, they will receive instant, targeted feedback on up to five revisions to help them strengthen their sentence and build their writing skills.
             </p>
           </div>
           <img
@@ -6357,7 +6357,7 @@ exports[`PreAp component should render with no units 1`] = `
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -6418,7 +6418,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, an AP teacher would likely assign the AP Writing Skills Survey in lieu of the Advanced Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard courses to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -6468,7 +6468,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content. 
+                    Each Pre-AP recommended pack contains between 4 and 7 activities, each of which are designed to take between 10 and 15 minutes each. There are also additional practice packs for students who finish the Pre-AP recommended packs: same skills, new content.
                     <a
                       href="https://support.quill.org/en/articles/4579893-how-do-i-assign-additional-practice-packs-for-pre-ap-skills-surveys"
                       rel="noopener noreferrer"
@@ -6521,7 +6521,7 @@ exports[`PreAp component should render with no units 1`] = `
                       You can assign all the recommended packs in one click, or you can pick and choose, revisiting the recommendations report to assign more packs as needed.
                     </p>
                     <p>
-                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency. 
+                      In general, we've found that students make progress when they are completing 2-4 activities on Quill per week. Since each Pre-AP recommended pack contains between 4 and 7 activities, teachers generally expect a recommended pack to be completed in 1-2 weeks. Of course, students may need more or less time depending on the amount of activities in the pack, their level of difficulty, and students' level of proficiency.
                     </p>
                     <p>
                       <a
@@ -6531,7 +6531,7 @@ exports[`PreAp component should render with no units 1`] = `
                       >
                         This article
                       </a>
-                       explains how you can use deadlines to help students pace themselves. 
+                       explains how you can use deadlines to help students pace themselves.
                     </p>
                   </div>,
                   "question": "How many Pre-AP Writing Practice packs should I assign to my students and how long will it take them to complete a pack?",
@@ -6574,7 +6574,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -6582,7 +6582,7 @@ exports[`PreAp component should render with no units 1`] = `
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -6590,7 +6590,7 @@ exports[`PreAp component should render with no units 1`] = `
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -6693,7 +6693,7 @@ exports[`PreAp component should render with no units 1`] = `
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
                           <strong>
                             Note
                           </strong>
@@ -6742,7 +6742,7 @@ exports[`PreAp component should render with no units 1`] = `
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in Pre-AP courses other than English I. If you would like to see activities like these for another course, please us know
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -6831,7 +6831,7 @@ exports[`PreAp component should render with no units 1`] = `
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >

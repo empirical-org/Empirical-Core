@@ -125,8 +125,8 @@ const PostDiagnosticCard = ({ activityId, activityName, unitTemplateId, }) => {
       {chartGrowthIllustration}
       <p>Measure growth by assigning a <b>{activityName}</b></p>
       <div>
-        <a className="quill-button fun outlined secondary focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
-        <button className="quill-button fun contained primary focus-on-light" onClick={handleAssignClick} type="button">Assign</button>
+        <a className="quill-button-archived fun outlined secondary focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
+        <button className="quill-button-archived fun contained primary focus-on-light" onClick={handleAssignClick} type="button">Assign</button>
       </div>
     </section>
   )

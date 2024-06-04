@@ -38,7 +38,7 @@
   .buttons {
     display: flex;
     margin: 40px 0px 0px;
-    .quill-button {
+    .quill-button-archived {
       margin-right: 16px;
     }
   }
@@ -103,7 +103,7 @@
   .button-section {
     display: flex;
     justify-content: flex-end;
-    .quill-button {
+    .quill-button-archived {
       margin-left: 16px;
     }
   }

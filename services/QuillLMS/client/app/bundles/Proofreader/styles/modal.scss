@@ -15,7 +15,7 @@
     max-width: 560px;
     width: 100%;
     min-height: 184px;
-    .quill-button {
+    .quill-button-archived {
       margin-top: 48px;
       float: right;
     }
@@ -60,7 +60,7 @@
     .button-section {
       display: flex;
       justify-content: flex-end;
-      .quill-button {
+      .quill-button-archived {
         margin-left: 24px;
       }
     }

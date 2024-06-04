@@ -188,9 +188,9 @@ Sentences flow easily when all the actions in a list have the same ending. This 
           />
           <p>
             1
-             of 
+             of
             9
-             
+
             questions
           </p>
         </div>
@@ -316,7 +316,7 @@ Sentences flow easily when all the actions in a list have the same ending. This 
         className="flex-end"
       >
         <button
-          className="quill-button primary contained large focus-on-light disabled"
+          className="quill-button-archived primary contained large focus-on-light disabled"
           type="submit"
         >
           Get feedback

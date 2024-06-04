@@ -27,7 +27,7 @@ exports[`PinnedActivityModal component should render 1`] = `
         className="pinned-activity-modal-text"
       >
         <p>
-          Your teacher, 
+          Your teacher,
           Mr. Teacherman
           , has launched a live Quill Lesson.
         </p>
@@ -36,13 +36,13 @@ exports[`PinnedActivityModal component should render 1`] = `
         className="form-buttons"
       >
         <button
-          className="quill-button outlined secondary medium focus-on-light"
+          className="quill-button-archived outlined secondary medium focus-on-light"
           type="button"
         >
           Not now
         </button>
         <a
-          className="quill-button contained primary medium focus-on-light"
+          className="quill-button-archived contained primary medium focus-on-light"
           href="/activity_sessions/classroom_units/2/activities/1"
         >
           Join the lesson

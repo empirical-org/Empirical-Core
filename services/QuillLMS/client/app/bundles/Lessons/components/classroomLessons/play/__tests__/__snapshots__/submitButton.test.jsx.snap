@@ -9,7 +9,7 @@ exports[`SubmitButton component renders when disabled 1`] = `
     className="question-button-group"
   >
     <button
-      className="quill-button primary contained large focus-on-light disabled"
+      className="quill-button-archived primary contained large focus-on-light disabled"
       disabled={true}
       onClick={[Function]}
       type="button"
@@ -29,7 +29,7 @@ exports[`SubmitButton component renders when not disabled 1`] = `
     className="question-button-group"
   >
     <button
-      className="quill-button primary contained large focus-on-light "
+      className="quill-button-archived primary contained large focus-on-light "
       disabled={false}
       onClick={[Function]}
       type="button"

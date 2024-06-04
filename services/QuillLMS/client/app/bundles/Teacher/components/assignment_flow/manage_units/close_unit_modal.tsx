@@ -20,8 +20,8 @@ const CloseUnitModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
           <p>If you change your mind and wish to reopen this activity pack, you can do so from the &#34;My Closed Activity Packs&#34; tab.</p>
         </div>
         <div className="form-buttons">
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
-          <button className="quill-button contained primary medium focus-on-light" onClick={handleCloseUnitButtonClick} type="button">Close pack</button>
+          <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button-archived contained primary medium focus-on-light" onClick={handleCloseUnitButtonClick} type="button">Close pack</button>
         </div>
       </div>
     </div>

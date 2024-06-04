@@ -232,7 +232,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               Free SpringBoard® English writing practice aligned to a variety of skills addressed through SpringBoard Grades 6-8, with immediate feedback for students and progress reports for you. Additional tools for SpringBoard Grades 9-10 and Grades 11-12 as well! Find out more below.
             </p>
             <a
-              className="quill-button large primary contained focus-on-light"
+              className="quill-button-archived large primary contained focus-on-light"
               href="https://www.quill.org/account/new"
               rel="noopener noreferrer"
               target="_blank"
@@ -300,7 +300,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/253"
               rel="noopener noreferrer"
               target="_blank"
@@ -314,7 +314,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
+              Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components.
             </p>
             <p
               className="activity-sub-header"
@@ -357,7 +357,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/194"
               rel="noopener noreferrer"
               target="_blank"
@@ -371,7 +371,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. 
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.
             </p>
             <p
               className="activity-sub-header"
@@ -407,7 +407,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/195"
               rel="noopener noreferrer"
               target="_blank"
@@ -457,7 +457,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/193"
               rel="noopener noreferrer"
               target="_blank"
@@ -509,7 +509,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/154"
               rel="noopener noreferrer"
               target="_blank"
@@ -523,7 +523,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -559,7 +559,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/299"
               rel="noopener noreferrer"
               target="_blank"
@@ -573,7 +573,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -609,7 +609,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/300"
               rel="noopener noreferrer"
               target="_blank"
@@ -623,7 +623,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -881,7 +881,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -908,7 +908,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/216"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -931,7 +931,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -958,7 +958,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/218"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -990,7 +990,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/219"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1022,7 +1022,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/220"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1045,7 +1045,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -1072,7 +1072,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/221"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1212,7 +1212,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -1239,7 +1239,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/222"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1271,7 +1271,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/223"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1294,7 +1294,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -1321,7 +1321,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/224"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1353,7 +1353,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/225"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1376,7 +1376,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -1403,7 +1403,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/226"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1543,7 +1543,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -1570,7 +1570,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/227"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1602,7 +1602,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/228"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1625,7 +1625,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -1652,7 +1652,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/229"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1684,7 +1684,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/230"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1707,7 +1707,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -1734,7 +1734,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/231"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1874,7 +1874,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -1901,7 +1901,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/232"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1933,7 +1933,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/233"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1956,7 +1956,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -1983,7 +1983,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/234"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -2015,7 +2015,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/235"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -2038,7 +2038,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -2065,7 +2065,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/236"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -2217,7 +2217,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are 
+                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are
                       <a
                         href="https://www.quill.org/tools/lessons"
                         rel="noopener noreferrer"
@@ -2276,7 +2276,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -2334,7 +2334,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -2491,7 +2491,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -2499,7 +2499,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -2507,7 +2507,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -2610,7 +2610,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
                           <strong>
                             Note
                           </strong>
@@ -2659,7 +2659,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -2748,7 +2748,7 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >
@@ -3104,7 +3104,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/253?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3118,7 +3118,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components. 
+              Students complete a 25 item survey to gauge their understanding of key writing skills, fundamental grammatical elements, common editing mistakes, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the grammar instruction featured in the SpringBoard Language and Writer’s Craft and Language Checkpoint lesson components.
             </p>
             <p
               className="activity-sub-header"
@@ -3161,7 +3161,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3175,7 +3175,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2. 
+              Students complete a 12 item survey their understanding of key writing skills, fundamental grammatical elements, and compound/complex sentence constructions. The skills addressed in this survey are aligned to the Pre-AP English High School Course Framework for English 1 and English 2.
             </p>
             <p
               className="activity-sub-header"
@@ -3211,7 +3211,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3261,7 +3261,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/193?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3313,7 +3313,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3327,7 +3327,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging 
+              ELL students complete a 22 item survey to gauge their mastery of foundational English grammar. This survey is most appropriate for students who are in the Entering or Emerging
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3363,7 +3363,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3377,7 +3377,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar. This survey is most appropriate for students who are in the Emerging or Developing
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3413,7 +3413,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=springboard"
               rel="noopener noreferrer"
               target=""
@@ -3427,7 +3427,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
             <p
               className="activity-sub-text"
             >
-              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding 
+              ELL students complete a 23 item survey to gauge their mastery of English grammar, specifically in areas that are challenging for non-native English speakers. This survey is most appropriate for students who are in the Developing or Expanding
               <a
                 className="underlined_link"
                 href="https://wida.wisc.edu/sites/default/files/resource/CanDo-KeyUses-Gr-9-12.pdf"
@@ -3686,7 +3686,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -3713,7 +3713,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/216?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3736,7 +3736,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -3763,7 +3763,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/218?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3795,7 +3795,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/219?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3827,7 +3827,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/220?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -3850,7 +3850,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -3877,7 +3877,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/221?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4018,7 +4018,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -4045,7 +4045,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/222?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4077,7 +4077,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/223?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4100,7 +4100,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -4127,7 +4127,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/224?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4159,7 +4159,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/225?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4182,7 +4182,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -4209,7 +4209,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/226?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4350,7 +4350,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -4377,7 +4377,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/227?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4409,7 +4409,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/228?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4432,7 +4432,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -4459,7 +4459,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/229?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4491,7 +4491,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/230?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4514,7 +4514,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -4541,7 +4541,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/231?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4682,7 +4682,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       1
                     </p>
                     <div
@@ -4709,7 +4709,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/232?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4741,7 +4741,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/233?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4764,7 +4764,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       2
                     </p>
                     <div
@@ -4791,7 +4791,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/234?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4823,7 +4823,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/235?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -4846,7 +4846,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="learning-cycle-header"
                     >
-                      Learning Cycle 
+                      Learning Cycle
                       3
                     </p>
                     <div
@@ -4873,7 +4873,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/236?college-board=springboard"
                             rel="noopener noreferrer"
                             target=""
@@ -5025,7 +5025,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are 
+                      Teachers generally begin by having students complete a writing skills survey during class time. The practice that is recommended once students complete a survey can be completed by students independently and at their own pace, or can also be completed during class time. Some teachers ask students to complete recommended activities during a “Do Now,” during another portion of class time, or as homework. Since SpringBoard’s Language and Writer’s Craft elements of activities feature focused practice on specific grammatical skills, you may also find that there are
                       <a
                         href="https://www.quill.org/tools/lessons"
                         rel="noopener noreferrer"
@@ -5084,7 +5084,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     <p
                       className="college-board-q-and-a-text"
                     >
-                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill 
+                      It is recommended that you and your students create free accounts on Quill.org. Creating an account will give you access to the two skills surveys and recommended practice; creating an account also allows you to track your students’ progress and view data reports. You can create an account by visiting the Quill
                       <a
                         href="https://www.quill.org/sign-up/teacher"
                         rel="noopener noreferrer"
@@ -5142,7 +5142,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey. 
+                    Quill's writing skills surveys can be used in lieu of Quill's general diagnostics. For example, a 7th grade SpringBoard ELA teacher would likely assign the SpringBoard Writing Skills Survey in lieu of the Starter or Intermediate Diagnostic. Keep in mind, however, that teachers may want ELL students in Pre-AP, AP, or SpringBoard classes to begin with one of the ELL Diagnostics instead of a writing skills survey.
                     <a
                       href="https://support.quill.org/en/articles/2554430-what-are-the-differences-between-the-various-diagnostic-assessments"
                       rel="noopener noreferrer"
@@ -5299,7 +5299,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                   "answer": <p
                     className="college-board-q-and-a-text"
                   >
-                    Quill has a variety of reports to help you track your students' performance and progress. In the 
+                    Quill has a variety of reports to help you track your students' performance and progress. In the
                     <a
                       href="https://support.quill.org/en/articles/1140159-how-does-the-activity-summary-work"
                       rel="noopener noreferrer"
@@ -5307,7 +5307,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     >
                       Activity Summary report
                     </a>
-                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well. 
+                    , you can quickly see which activities your students have completed, along with color-coded icons indicating proficiency. Quill has several other reports as well.
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                       rel="noopener noreferrer"
@@ -5315,7 +5315,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                     >
                       This cheat sheet
                     </a>
-                     shows you which report to go to for particular information, and 
+                     shows you which report to go to for particular information, and
                     <a
                       href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Getting_Started_-_Student_Data_Reports__Basic_.mp4"
                       rel="noopener noreferrer"
@@ -5418,7 +5418,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                         <p
                           className="college-board-q-and-a-text"
                         >
-                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results. 
+                          Students complete an activity designed to help teachers determine which skills students need to work on. After students complete a Quill Diagnostic activity, Quill recommends writing activities for students based on their results.
                           <strong>
                             Note
                           </strong>
@@ -5467,7 +5467,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
               qa={
                 Object {
                   "answer": <p>
-                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know 
+                    Unfortunately, at this time, there are no sentence combining activities aligned to texts in SpringBoard ELA courses other than SpringBoard ELA Grade 9. If you would like to see activities like these for another course, please us know
                     <a
                       href="https://quillorg.canny.io/content-feedback"
                       rel="noopener noreferrer"
@@ -5556,7 +5556,7 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <strong>
                         Support:
                       </strong>
-                       Having a technical issue? Email 
+                       Having a technical issue? Email
                       <a
                         href="mailto:support@quill.org"
                       >

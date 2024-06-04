@@ -162,9 +162,9 @@ const LowConfidenceRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>>
   const becauseDisabled = getButtonClass(BECAUSE);
   const butDisabled = getButtonClass(BUT);
   const soDisabled = getButtonClass(SO);
-  const becauseRuleLink = getAddRuleLink(BECAUSE, `quill-button fun primary contained add-rule-button ${becauseDisabled}`);
-  const butRuleLink = getAddRuleLink(BUT, `quill-button fun primary contained add-rule-button ${butDisabled}`);
-  const soRuleLink = getAddRuleLink(SO, `quill-button fun primary contained add-rule-button ${soDisabled}`);
+  const becauseRuleLink = getAddRuleLink(BECAUSE, `quill-button-archived fun primary contained add-rule-button ${becauseDisabled}`);
+  const butRuleLink = getAddRuleLink(BUT, `quill-button-archived fun primary contained add-rule-button ${butDisabled}`);
+  const soRuleLink = getAddRuleLink(SO, `quill-button-archived fun primary contained add-rule-button ${soDisabled}`);
   const oneRuleWarning = 'There can only be one low confidence rule per conjunction. Please click "View" below if you would like to update the feedback.'
 
   return(

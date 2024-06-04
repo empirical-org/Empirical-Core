@@ -75,9 +75,9 @@ exports[`<Edit /> correct edit should render when active 1`] = `
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             lose
-            . 
+            .
           </p>
           <div
             aria-hidden={true}
@@ -123,11 +123,11 @@ exports[`<Edit /> correct edit should render when active 1`] = `
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -249,9 +249,9 @@ exports[`<Edit /> incorrect edit should render when active 1`] = `
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             then
-            . 
+            .
             You submitted than.
           </p>
           <div
@@ -298,11 +298,11 @@ exports[`<Edit /> incorrect edit should render when active 1`] = `
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -405,9 +405,9 @@ exports[`<Edit /> multiple unnecessary addition edit should render when active 1
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             crew
-            . 
+            .
             You submitted the crew was.
           </p>
           <div
@@ -439,11 +439,11 @@ exports[`<Edit /> multiple unnecessary addition edit should render when active 1
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -495,7 +495,7 @@ exports[`<Edit /> multiple unnecessary deletion edit should render when active 1
     <span
       className="displayed-text"
     >
-       
+
     </span>
     <EditTooltip
       displayText="crew was"
@@ -534,9 +534,9 @@ exports[`<Edit /> multiple unnecessary deletion edit should render when active 1
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             crew was
-            . 
+            .
             You submitted An empty space..
           </p>
           <div
@@ -568,11 +568,11 @@ exports[`<Edit /> multiple unnecessary deletion edit should render when active 1
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -601,7 +601,7 @@ exports[`<Edit /> multiple unnecessary deletion edit should render when inactive
     <span
       className="displayed-text"
     >
-       
+
     </span>
   </div>
 </Edit>
@@ -663,9 +663,9 @@ exports[`<Edit /> single unnecessary addition edit should render when active 1`]
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             crew
-            . 
+            .
             You submitted the crew.
           </p>
           <div
@@ -697,11 +697,11 @@ exports[`<Edit /> single unnecessary addition edit should render when active 1`]
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -753,7 +753,7 @@ exports[`<Edit /> single unnecessary deletion edit should render when active 1`]
     <span
       className="displayed-text"
     >
-       
+
     </span>
     <EditTooltip
       displayText="crew"
@@ -792,9 +792,9 @@ exports[`<Edit /> single unnecessary deletion edit should render when active 1`]
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             crew
-            . 
+            .
             You submitted An empty space..
           </p>
           <div
@@ -826,11 +826,11 @@ exports[`<Edit /> single unnecessary deletion edit should render when active 1`]
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -859,7 +859,7 @@ exports[`<Edit /> single unnecessary deletion edit should render when inactive 1
     <span
       className="displayed-text"
     >
-       
+
     </span>
   </div>
 </Edit>
@@ -923,9 +923,9 @@ exports[`<Edit /> unnecessary change edit should render when active 1`] = `
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             1914,
-            . 
+            .
             You submitted 1914.
           </p>
           <div
@@ -957,11 +957,11 @@ exports[`<Edit /> unnecessary change edit should render when active 1`] = `
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -1053,9 +1053,9 @@ exports[`<Edit /> unnecessary space edit should render when active 1`] = `
           <p
             className="sr-only"
           >
-            The correct text was 
+            The correct text was
             crew
-            . 
+            .
             You submitted cr ew.
           </p>
           <div
@@ -1087,11 +1087,11 @@ exports[`<Edit /> unnecessary space edit should render when active 1`] = `
             className="counter"
           >
             2
-             of 
+             of
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next

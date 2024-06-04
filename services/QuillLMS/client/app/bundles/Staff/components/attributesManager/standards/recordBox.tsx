@@ -177,7 +177,7 @@ const RecordBox = ({ originalRecord, saveRecordChanges, closeRecordBox, recordTy
     if (!_.isEqual(record, originalRecord)) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Save"
         />

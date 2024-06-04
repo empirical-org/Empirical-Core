@@ -14,18 +14,18 @@ exports[`ReauthorizeProviderModal component should render ReauthorizeProviderMod
       <h3
         className="title"
       >
-        Reauthorize 
+        Reauthorize
         Google
       </h3>
     </div>
     <p>
-      To import a new 
+      To import a new
       Google
-       classroom, you need to reauthorize 
+       classroom, you need to reauthorize
       Google
        access.
       <br />
-      Clicking reauthorize will re-direct you to 
+      Clicking reauthorize will re-direct you to
       Google
       .
     </p>
@@ -33,14 +33,14 @@ exports[`ReauthorizeProviderModal component should render ReauthorizeProviderMod
       className="form-buttons"
     >
       <button
-        className="quill-button focus-on-light outlined secondary medium"
+        className="quill-button-archived focus-on-light outlined secondary medium"
         onClick={[Function]}
         type="button"
       >
         Cancel
       </button>
       <AuthGoogleAccessForm
-        buttonClass="quill-button focus-on-light contained primary medium"
+        buttonClass="quill-button-archived focus-on-light contained primary medium"
         text="Reauthorize"
       />
     </div>

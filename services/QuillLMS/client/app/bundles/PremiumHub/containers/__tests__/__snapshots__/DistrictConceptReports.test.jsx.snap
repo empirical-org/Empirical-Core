@@ -97,7 +97,7 @@ exports[`DistrictConceptReports when the access type is limited renders 1`] = `
                 className="buttons"
               >
                 <a
-                  className="quill-button contained primary large focus-on-light"
+                  className="quill-button-archived contained primary large focus-on-light"
                   href="https://calendly.com/alex-quill"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -105,7 +105,7 @@ exports[`DistrictConceptReports when the access type is limited renders 1`] = `
                   Talk to Sales
                 </a>
                 <a
-                  className="quill-button contained primary large focus-on-light"
+                  className="quill-button-archived contained primary large focus-on-light"
                   href="/premium"
                   target="_blank"
                 >
@@ -223,7 +223,7 @@ exports[`DistrictConceptReports when the access type is restricted renders 1`] =
                 className="buttons"
               >
                 <a
-                  className="quill-button contained primary large focus-on-light"
+                  className="quill-button-archived contained primary large focus-on-light"
                   href="https://calendly.com/alex-quill"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -231,7 +231,7 @@ exports[`DistrictConceptReports when the access type is restricted renders 1`] =
                   Talk to Sales
                 </a>
                 <a
-                  className="quill-button contained primary large focus-on-light"
+                  className="quill-button-archived contained primary large focus-on-light"
                   href="/premium"
                   target="_blank"
                 >

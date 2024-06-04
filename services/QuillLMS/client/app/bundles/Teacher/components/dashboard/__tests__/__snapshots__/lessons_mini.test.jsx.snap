@@ -262,7 +262,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
     <header>
       <h2>
         <span>
-          Present a live 
+          Present a live
         </span>
         <span
           className="no-break"
@@ -792,7 +792,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -875,7 +875,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -958,7 +958,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -1093,7 +1093,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -1176,7 +1176,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -1223,7 +1223,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
       onClick={[Function]}
       type="button"
     >
-      Show more 
+      Show more
       <img
         alt="Expand icon"
         src="undefined/images/icons/expand.svg"
@@ -1504,7 +1504,7 @@ exports[`LessonsMini component on mobile should render when there are lessons 1`
     <header>
       <h2>
         <span>
-          Present a live 
+          Present a live
         </span>
         <span
           className="no-break"
@@ -1971,7 +1971,7 @@ exports[`LessonsMini component on mobile should render when there are lessons 1`
       onClick={[Function]}
       type="button"
     >
-      Show more 
+      Show more
       <img
         alt="Expand icon"
         src="undefined/images/icons/expand.svg"

@@ -9389,7 +9389,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </div>
             <p>
               31
-               of 
+               of
               31
                activities
             </p>
@@ -16902,7 +16902,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="grade-level-slider"
                       >
-                        Grade Level Range: 
+                        Grade Level Range:
                         All Grades
                       </label>
                       <div
@@ -16984,7 +16984,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="grade-level-slider"
                         >
-                          Grade Level Range: 
+                          Grade Level Range:
                           All Grades
                         </label>
                         <div
@@ -17397,9 +17397,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="readability-grade-level-slider"
                       >
-                        Grade Level: 
+                        Grade Level:
                         2
-                         - 
+                         -
                         12
                          Grade Text
                       </label>
@@ -17474,9 +17474,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="readability-grade-level-slider"
                         >
-                          Grade Level: 
+                          Grade Level:
                           2
-                           - 
+                           -
                           12
                            Grade Text
                         </label>
@@ -17988,9 +17988,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="ccss-grade-level-slider"
                       >
-                        Standard: 
+                        Standard:
                         1
-                         - 
+                         -
                         11
                          Grade Level
                       </label>
@@ -18071,9 +18071,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="ccss-grade-level-slider"
                         >
-                          Standard: 
+                          Standard:
                           1
-                           - 
+                           -
                           11
                            Grade Level
                         </label>
@@ -42774,7 +42774,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
       </div>
     </FilterColumn>
     <button
-      className="quill-button primary contained medium focus-on-light"
+      className="quill-button-archived primary contained medium focus-on-light"
       onClick={[Function]}
       type="button"
     >

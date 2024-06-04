@@ -110,7 +110,7 @@ exports[`ActivityPacks it should render EmptyProgressReport for no activities at
           In order to access our different reports, you need to assign activities to your students.
         </p>
         <button
-          class="quill-button fun primary contained create-unit featured-button"
+          class="quill-button-archived fun primary contained create-unit featured-button"
           type="button"
         >
           Assign an Activity
@@ -237,7 +237,7 @@ exports[`ActivityPacks it should render EmptyProgressReport for no activities fo
           In order to access our different reports, you need to assign activities to your students.
         </p>
         <button
-          class="quill-button fun primary contained create-unit featured-button"
+          class="quill-button-archived fun primary contained create-unit featured-button"
           type="button"
         >
           Assign an Activity
@@ -364,7 +364,7 @@ exports[`ActivityPacks it should render EmptyProgressReport when there are no cl
           In order to access our different reports, you need to create a class and assign activities to your students.
         </p>
         <button
-          class="quill-button fun primary contained create-unit featured-button"
+          class="quill-button-archived fun primary contained create-unit featured-button"
           type="button"
         >
           Create a Class
@@ -517,7 +517,7 @@ exports[`ActivityPacks it should render once loading is finished 1`] = `
                   </span>
                   <ul>
                     <li>
-                      Quill Classroom 
+                      Quill Classroom
                       <span>
                         (5/5 students)
                       </span>
@@ -627,7 +627,7 @@ exports[`ActivityPacks it should render once loading is finished 1`] = `
                   </span>
                   <ul>
                     <li>
-                      Quill Classroom 
+                      Quill Classroom
                       <span>
                         (5/5 students)
                       </span>
@@ -1067,7 +1067,7 @@ exports[`ActivityPacks it should render once loading is finished 1`] = `
                   </span>
                   <ul>
                     <li>
-                      Quill Classroom 
+                      Quill Classroom
                       <span>
                         (5/5 students)
                       </span>
@@ -1452,7 +1452,7 @@ exports[`ActivityPacks it should render once loading is finished 1`] = `
                   </span>
                   <ul>
                     <li>
-                      Quill Classroom 
+                      Quill Classroom
                       <span>
                         (5/5 students)
                       </span>
@@ -1782,7 +1782,7 @@ exports[`ActivityPacks it should render once loading is finished 1`] = `
                   </span>
                   <ul>
                     <li>
-                      Quill Classroom 
+                      Quill Classroom
                       <span>
                         (5/5 students)
                       </span>
@@ -1892,7 +1892,7 @@ exports[`ActivityPacks it should render once loading is finished 1`] = `
                   </span>
                   <ul>
                     <li>
-                      Quill Classroom 
+                      Quill Classroom
                       <span>
                         (5/5 students)
                       </span>

@@ -337,7 +337,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     if (!_.isEqual(concept, originalConcept)) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Save"
         />

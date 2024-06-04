@@ -20,7 +20,7 @@
   }
   .buttons {
     display: flex;
-    .quill-button {
+    .quill-button-archived {
       margin-left: 16px;
     }
   }
@@ -145,7 +145,7 @@
       flex-direction: column;
       .buttons {
         margin-top: 16px;
-        .quill-button:first-of-type {
+        .quill-button-archived:first-of-type {
           margin-left: 0px;
         }
       }

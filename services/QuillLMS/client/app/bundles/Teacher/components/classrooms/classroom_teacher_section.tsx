@@ -266,7 +266,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     if (!classroom.visible) {
       return null
     } else {
-      return <button className="quill-button primary outlined small" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
+      return <button className="quill-button-archived primary outlined small" onClick={() => this.inviteCoteachers()}>Invite co-teachers</button>
     }
   }
 

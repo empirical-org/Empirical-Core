@@ -171,8 +171,8 @@ const NewAdminOrDistrictUser = ({ type, returnUrl, schoolId, districtId, schools
         />
         {type !== ADMIN && attachSchools()}
         <section className="buttons-container">
-          <button className="quill-button small primary contained" onClick={handleSubmitClick}>{innerSubmitButtonElement}</button>
-          <button className="quill-button small secondary outlined" onClick={handleCancelClick}>Cancel</button>
+          <button className="quill-button-archived small primary contained" onClick={handleSubmitClick}>{innerSubmitButtonElement}</button>
+          <button className="quill-button-archived small secondary outlined" onClick={handleCancelClick}>Cancel</button>
         </section>
         {error && <p className="error-message">{error}</p>}
       </section>

@@ -154,20 +154,20 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           class="button-wrapper"
         >
           <button
-            class="quill-button contained primary medium focus-on-light red"
+            class="quill-button-archived contained primary medium focus-on-light red"
             type="button"
           >
             Delete
           </button>
           <div>
             <button
-              class="quill-button medium outlined secondary focus-on-light"
+              class="quill-button-archived medium outlined secondary focus-on-light"
               type="button"
             >
               Cancel
             </button>
             <button
-              class="quill-button medium primary contained focus-on-light "
+              class="quill-button-archived medium primary contained focus-on-light "
               type="submit"
             >
               Submit
@@ -324,13 +324,13 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           <span />
           <div>
             <button
-              class="quill-button medium outlined secondary focus-on-light"
+              class="quill-button-archived medium outlined secondary focus-on-light"
               type="button"
             >
               Cancel
             </button>
             <button
-              class="quill-button medium primary contained focus-on-light disabled"
+              class="quill-button-archived medium primary contained focus-on-light disabled"
               disabled=""
               type="submit"
             >

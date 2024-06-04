@@ -598,7 +598,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { reviewing, edits, } = this.state
       if (reviewing) { return }
 
-      let className = "quill-button large primary contained focus-on-light"
+      let className = "quill-button-archived large primary contained focus-on-light"
       if (edits) {
         return <button className={className} onClick={this.handleCheckWorkClick} type="button">Get feedback</button>
       }
@@ -611,7 +611,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { reviewing, edits, } = this.state
       if (reviewing) { return }
 
-      let className = "quill-button large secondary outlined focus-on-light"
+      let className = "quill-button-archived large secondary outlined focus-on-light"
       if (edits) {
         return <button className={className} onClick={this.handleResetClick} type="button">Undo edits</button>
       }

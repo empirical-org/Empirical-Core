@@ -720,14 +720,14 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
     class="load-more-button-container"
   >
     <p>
-      Displaying 
+      Displaying
       <strong>
         50 of 2
       </strong>
        students
     </p>
     <button
-      class="quill-button small secondary focus-on-light outlined"
+      class="quill-button-archived small secondary focus-on-light outlined"
     >
       Load more
     </button>
@@ -1335,14 +1335,14 @@ exports[`StudentSection loaded state it should render the expected data when dat
       class="load-more-button-container"
     >
       <p>
-        Displaying 
+        Displaying
         <strong>
           50 of 2
         </strong>
          students
       </p>
       <button
-        class="quill-button small secondary focus-on-light outlined"
+        class="quill-button-archived small secondary focus-on-light outlined"
       >
         Load more
       </button>
@@ -1793,14 +1793,14 @@ exports[`StudentSection loaded state it should render the expected empty state m
       class="load-more-button-container"
     >
       <p>
-        Displaying 
+        Displaying
         <strong>
           50 of 0
         </strong>
          students
       </p>
       <button
-        class="quill-button small secondary focus-on-light outlined"
+        class="quill-button-archived small secondary focus-on-light outlined"
       >
         Load more
       </button>
@@ -2251,14 +2251,14 @@ exports[`StudentSection loaded state it should render the expected header compon
       class="load-more-button-container"
     >
       <p>
-        Displaying 
+        Displaying
         <strong>
           50 of 0
         </strong>
          students
       </p>
       <button
-        class="quill-button small secondary focus-on-light outlined"
+        class="quill-button-archived small secondary focus-on-light outlined"
       >
         Load more
       </button>

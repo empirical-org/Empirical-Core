@@ -97,7 +97,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               }
             />
             <h2>
-              You have a 
+              You have a
               District Premium
                subscription
               <img
@@ -112,14 +112,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -128,16 +128,16 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             District Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             District Premium
              features.
           </span>
@@ -397,13 +397,13 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     />
                     <span>
                       Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact the purchaser at 
+                       To renew your subscription for next year, contact the purchaser at
                       <a
                         href="mailto:emilia+3@quill.org"
                       >
                         emilia+3@quill.org
                       </a>
-                       or 
+                       or
                       <a
                         href="mailto:sales@quill.org"
                       >
@@ -585,14 +585,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -642,7 +642,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -795,7 +795,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
             rel="noopener noreferrer"
             target="_blank"
@@ -808,11 +808,11 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         >
           <span>
             <strong>
-              Your 
+              Your
               District Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -821,7 +821,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -1025,14 +1025,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -1082,7 +1082,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -1228,7 +1228,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
               }
             />
             <h2>
-              You have a 
+              You have a
               District Premium
                subscription
               <img
@@ -1243,14 +1243,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -1259,16 +1259,16 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             District Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             District Premium
              features.
           </span>
@@ -1598,7 +1598,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                     />
                     <span>
                       Once your current District Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, 
+                       To renew your subscription for next year,
                       <a
                         href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
                         rel="noopener noreferrer"
@@ -1782,14 +1782,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -1839,7 +1839,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -1992,7 +1992,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
             rel="noopener noreferrer"
             target="_blank"
@@ -2005,11 +2005,11 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         >
           <span>
             <strong>
-              Your 
+              Your
               District Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -2211,14 +2211,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -2268,7 +2268,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -2414,7 +2414,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
               }
             />
             <h2>
-              You have a 
+              You have a
               Teacher Premium Credit
                subscription
               <img
@@ -2429,14 +2429,14 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -2445,7 +2445,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             Teacher Premium Credit
             , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
@@ -2454,7 +2454,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             >
                Here’s more information
             </a>
-             about your 
+             about your
             Teacher Premium Credit
              features.
           </span>
@@ -2887,14 +2887,14 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -2944,7 +2944,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -3097,7 +3097,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -3108,11 +3108,11 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         >
           <span>
             <strong>
-              Your 
+              Your
               Teacher Premium Credit
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -3121,7 +3121,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -3325,14 +3325,14 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -3382,7 +3382,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -3528,7 +3528,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -3543,14 +3543,14 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -3559,16 +3559,16 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium (Scholarship)
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium (Scholarship)
              features.
           </span>
@@ -4001,14 +4001,14 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -4058,7 +4058,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -4211,7 +4211,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -4222,11 +4222,11 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         >
           <span>
             <strong>
-              Your 
+              Your
               School Premium (Scholarship)
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -4235,7 +4235,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -4439,14 +4439,14 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -4496,7 +4496,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -4642,7 +4642,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -4657,14 +4657,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -4673,16 +4673,16 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium
              features.
           </span>
@@ -4942,13 +4942,13 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     />
                     <span>
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, contact the purchaser at 
+                       To renew your subscription for next year, contact the purchaser at
                       <a
                         href="mailto:emilia+3@quill.org"
                       >
                         emilia+3@quill.org
                       </a>
-                       or 
+                       or
                       <a
                         href="mailto:sales@quill.org"
                       >
@@ -5130,14 +5130,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -5187,7 +5187,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -5340,14 +5340,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -5360,11 +5360,11 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         >
           <span>
             <strong>
-              Your 
+              Your
               School Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -5373,7 +5373,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -5577,14 +5577,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -5634,7 +5634,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -5780,7 +5780,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -5795,14 +5795,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -5811,16 +5811,16 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium
              features.
           </span>
@@ -6150,7 +6150,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                     />
                     <span>
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
-                       To renew your subscription for next year, 
+                       To renew your subscription for next year,
                       <a
                         href="https://webforms.salesmate.io/webforms/#/cdc44d13-84f9-45e9-84c4-2136e1bdb5ca"
                         rel="noopener noreferrer"
@@ -6334,14 +6334,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -6391,7 +6391,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -6544,14 +6544,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -6564,11 +6564,11 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         >
           <span>
             <strong>
-              Your 
+              Your
               School Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -6770,14 +6770,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -6827,7 +6827,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -6973,7 +6973,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -6988,14 +6988,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -7004,16 +7004,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium
              features.
           </span>
@@ -7273,7 +7273,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                     />
                     <span>
                       Once your current School Premium subscription expires, you will be downgraded to Quill Basic.
-                       To prevent your subscription from expiring, contact the purchaser at 
+                       To prevent your subscription from expiring, contact the purchaser at
                       <a
                         href="mailto:emilia+3@quill.org"
                       >
@@ -7455,14 +7455,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -7512,7 +7512,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -7658,7 +7658,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -7673,14 +7673,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -7689,16 +7689,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium
              features.
           </span>
@@ -8152,14 +8152,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -8209,7 +8209,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -8362,14 +8362,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -8382,11 +8382,11 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         >
           <span>
             <strong>
-              Your 
+              Your
               School Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -8395,7 +8395,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -8599,14 +8599,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -8656,7 +8656,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -8802,7 +8802,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -8817,14 +8817,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -8833,16 +8833,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium
              features.
           </span>
@@ -9018,7 +9018,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -9297,14 +9297,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -9354,7 +9354,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -9500,7 +9500,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
               }
             />
             <h2>
-              You have a 
+              You have a
               School Premium
                subscription
               <img
@@ -9515,14 +9515,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -9531,16 +9531,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             School Premium
-            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis. 
+            , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
               className="green-link"
               href="https://support.quill.org/quill-premium"
             >
               Here’s more information
             </a>
-             about your 
+             about your
             School Premium
              features.
           </span>
@@ -9716,7 +9716,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -10016,14 +10016,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -10073,7 +10073,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -10226,14 +10226,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -10246,11 +10246,11 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         >
           <span>
             <strong>
-              Your 
+              Your
               School Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -10452,14 +10452,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -10509,7 +10509,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -10655,7 +10655,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
               }
             />
             <h2>
-              You have a 
+              You have a
               Teacher Premium
                subscription
               <img
@@ -10670,14 +10670,14 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -10686,7 +10686,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             Teacher Premium (Scholarship)
             , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
@@ -10695,7 +10695,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             >
                Here’s more information
             </a>
-             about your 
+             about your
             Teacher Premium (Scholarship)
              features.
           </span>
@@ -11128,14 +11128,14 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -11185,7 +11185,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -11338,7 +11338,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -11349,11 +11349,11 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         >
           <span>
             <strong>
-              Your 
+              Your
               Teacher Premium (Scholarship)
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -11362,7 +11362,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -11566,14 +11566,14 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -11623,7 +11623,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -11769,7 +11769,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               }
             />
             <h2>
-              You have a 
+              You have a
               Teacher Premium
                subscription
               <img
@@ -11784,14 +11784,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -11800,7 +11800,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             Teacher Premium
             , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
@@ -11809,7 +11809,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             >
                Here’s more information
             </a>
-             about your 
+             about your
             Teacher Premium
              features.
           </span>
@@ -11985,7 +11985,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -12264,14 +12264,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -12321,7 +12321,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -12467,7 +12467,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
               }
             />
             <h2>
-              You have a 
+              You have a
               Teacher Premium
                subscription
               <img
@@ -12482,14 +12482,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -12498,7 +12498,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             Teacher Premium
             , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
@@ -12507,7 +12507,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             >
                Here’s more information
             </a>
-             about your 
+             about your
             Teacher Premium
              features.
           </span>
@@ -12683,7 +12683,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                       </div>
                     </_default>
                     <button
-                      className="quill-button medium primary contained focus-on-light"
+                      className="quill-button-archived medium primary contained focus-on-light"
                       onClick={[Function]}
                       type="button"
                     >
@@ -12983,14 +12983,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -13040,7 +13040,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -13193,14 +13193,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             </h2>
           </div>
           <StripeSubscriptionCheckoutSessionButton
-            buttonClassName="quill-button medium contained primary focus-on-light"
+            buttonClassName="quill-button-archived medium contained primary focus-on-light"
             buttonText="Renew subscription"
             cancelPath="subscriptions"
             userIsEligibleForNewSubscription={true}
             userIsSignedIn={true}
           >
             <button
-              className="quill-button medium contained primary focus-on-light"
+              className="quill-button-archived medium contained primary focus-on-light"
               onClick={[Function]}
               type="button"
             >
@@ -13213,11 +13213,11 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         >
           <span>
             <strong>
-              Your 
+              Your
               Teacher Premium
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -13226,7 +13226,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -13430,14 +13430,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -13487,7 +13487,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -13633,7 +13633,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
               }
             />
             <h2>
-              You have a 
+              You have a
               Teacher Premium Trial
                subscription
               <img
@@ -13648,14 +13648,14 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
             <span>
               Valid Until:
             </span>
-             
+
             <span>
               January 1st, 2070
             </span>
             <span
               className="time-left-in-days"
             >
-               | 
+               |
               17386 days
             </span>
           </span>
@@ -13664,7 +13664,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           className="premium-subscription-copy"
         >
           <span>
-            With 
+            With
             Teacher Premium Trial
             , you will have access to all of Quill’s free reports as well as additional advanced reporting. You will also be able to view and print reports of your students’ progress. Our advanced reports support concept, Common Core, and overall progress analysis.
             <a
@@ -13673,7 +13673,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
             >
                Here’s more information
             </a>
-             about your 
+             about your
             Teacher Premium Trial
              features.
           </span>
@@ -14106,14 +14106,14 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -14163,7 +14163,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>
@@ -14316,7 +14316,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             </h2>
           </div>
           <a
-            className="quill-button medium contained primary focus-on-light"
+            className="quill-button-archived medium contained primary focus-on-light"
             href="/premium"
           >
             Subscribe to premium
@@ -14327,11 +14327,11 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
         >
           <span>
             <strong>
-              Your 
+              Your
               Teacher Premium Trial
                subscription (
               02/16/22
-               - 
+               -
               01/01/22
               ) has expired and you are back to Quill Basic.
             </strong>
@@ -14340,7 +14340,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             </span>
             <br />
             <br />
-            The billing contact for your subscription is 
+            The billing contact for your subscription is
             <strong>
               <a
                 href="mailto:emilia+3@quill.org"
@@ -14544,14 +14544,14 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
         <div
           className="credit-quantity"
         >
-          You have 
+          You have
           <span>
-            0 weeks 
+            0 weeks
           </span>
            of Teacher Premium Credit available.
         </div>
         <a
-          className="quill-button medium primary outlined focus-on-light"
+          className="quill-button-archived medium primary outlined focus-on-light"
           href="/referrals"
         >
           Earn premium credits
@@ -14601,7 +14601,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
           >
             Total Premium Credits Earned:
           </span>
-           
+
           0 weeks
         </span>
       </section>

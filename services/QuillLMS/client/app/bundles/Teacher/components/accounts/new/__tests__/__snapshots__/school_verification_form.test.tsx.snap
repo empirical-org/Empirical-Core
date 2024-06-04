@@ -61,7 +61,7 @@ exports[`SchoolVerificationForm component should render 1`] = `
       </div>
     </Input>
     <h3>
-      Why do you want to be an admin for 
+      Why do you want to be an admin for
       School Name
       ?
     </h3>
@@ -95,7 +95,7 @@ exports[`SchoolVerificationForm component should render 1`] = `
     className="button-wrapper"
   >
     <button
-      className="quill-button primary contained medium focus-on-light disabled"
+      className="quill-button-archived primary contained medium focus-on-light disabled"
       disabled={true}
       type="button"
     >

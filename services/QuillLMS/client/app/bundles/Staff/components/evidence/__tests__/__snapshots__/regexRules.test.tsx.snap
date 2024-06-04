@@ -69,7 +69,7 @@ exports[`RegexRules component should render RegexRules 1`] = `
       </div>
     </div>
     <button
-      className="quill-button fun primary outlined delete-regex-button"
+      className="quill-button-archived fun primary outlined delete-regex-button"
       id="remove-regex-button"
       onClick={[MockFunction]}
       type="button"
@@ -143,7 +143,7 @@ exports[`RegexRules component should render RegexRules 1`] = `
       </div>
     </div>
     <button
-      className="quill-button fun primary outlined delete-regex-button"
+      className="quill-button-archived fun primary outlined delete-regex-button"
       id="remove-regex-button"
       onClick={[MockFunction]}
       type="button"
@@ -217,7 +217,7 @@ exports[`RegexRules component should render RegexRules 1`] = `
       </div>
     </div>
     <button
-      className="quill-button fun primary outlined delete-regex-button"
+      className="quill-button-archived fun primary outlined delete-regex-button"
       id="remove-regex-button"
       onClick={[MockFunction]}
       type="button"
@@ -227,7 +227,7 @@ exports[`RegexRules component should render RegexRules 1`] = `
     </button>
   </div>
   <button
-    className="quill-button fun primary outlined add-regex-button"
+    className="quill-button-archived fun primary outlined add-regex-button"
     id="add-regex-button"
     onClick={[MockFunction]}
     type="button"

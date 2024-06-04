@@ -17,7 +17,7 @@ exports[`Overview container should render with a full access type 1`] = `
       <p
         class="subheader"
       >
-        Thanks for being an admin of 
+        Thanks for being an admin of
         <b>
           A Real Middle School
         </b>
@@ -104,7 +104,7 @@ exports[`Overview container should render with a full access type 1`] = `
           </div>
         </div>
         <a
-          class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+          class="quill-button-archived outlined secondary medium focus-on-light view-all-usage-button"
           href="/teachers/premium_hub/usage_snapshot_report"
         >
           View all usage
@@ -226,7 +226,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/account_management"
                 >
                   Manage accounts
@@ -252,7 +252,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <button
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   type="button"
                 >
                   Log in as a teacher
@@ -278,7 +278,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/school_subscriptions"
                 >
                   Manage subscriptions
@@ -330,7 +330,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/usage_snapshot_report"
                 >
                   View report
@@ -361,7 +361,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/diagnostic_growth_report"
                 >
                   View report
@@ -392,7 +392,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/data_export"
                 >
                   View report
@@ -418,7 +418,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_concept_reports"
                 >
                   View report
@@ -444,7 +444,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_activity_scores"
                 >
                   View report
@@ -470,7 +470,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_standards_reports"
                 >
                   View report
@@ -517,7 +517,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/canvas"
                 >
                   Learn more
@@ -543,7 +543,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/google"
                 >
                   Learn more
@@ -569,7 +569,7 @@ exports[`Overview container should render with a full access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/clever"
                 >
                   Learn more
@@ -605,7 +605,7 @@ exports[`Overview container should render with a limited access type 1`] = `
       <p
         class="subheader"
       >
-        Thanks for being an admin of 
+        Thanks for being an admin of
         <b>
           A Real Middle School
         </b>
@@ -692,7 +692,7 @@ exports[`Overview container should render with a limited access type 1`] = `
           </div>
         </div>
         <a
-          class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+          class="quill-button-archived outlined secondary medium focus-on-light view-all-usage-button"
           href="/teachers/premium_hub/usage_snapshot_report"
         >
           View all usage
@@ -736,7 +736,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="buttons"
               >
                 <a
-                  class="quill-button contained primary medium focus-on-light"
+                  class="quill-button-archived contained primary medium focus-on-light"
                   href="https://calendly.com/alex-quill"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -744,7 +744,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                   Schedule a call
                 </a>
                 <a
-                  class="quill-button contained primary medium focus-on-light"
+                  class="quill-button-archived contained primary medium focus-on-light"
                   href="https://www.quill.org/premium/request-school-quote"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -843,7 +843,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/account_management"
                 >
                   Manage accounts
@@ -869,7 +869,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <button
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   type="button"
                 >
                   Log in as a teacher
@@ -895,7 +895,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/school_subscriptions"
                 >
                   Manage subscriptions
@@ -947,7 +947,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/usage_snapshot_report"
                 >
                   View report
@@ -978,7 +978,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/diagnostic_growth_report"
                 >
                   View report
@@ -1009,7 +1009,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/data_export"
                 >
                   View report
@@ -1035,7 +1035,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_concept_reports"
                 >
                   View report
@@ -1061,7 +1061,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_activity_scores"
                 >
                   View report
@@ -1087,7 +1087,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_standards_reports"
                 >
                   View report
@@ -1134,7 +1134,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/canvas"
                 >
                   Learn more
@@ -1160,7 +1160,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/google"
                 >
                   Learn more
@@ -1186,7 +1186,7 @@ exports[`Overview container should render with a limited access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/clever"
                 >
                   Learn more
@@ -1222,7 +1222,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
       <p
         class="subheader"
       >
-        Thanks for being an admin of 
+        Thanks for being an admin of
         <b>
           A Real Middle School
         </b>
@@ -1309,7 +1309,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
           </div>
         </div>
         <a
-          class="quill-button outlined secondary medium focus-on-light view-all-usage-button"
+          class="quill-button-archived outlined secondary medium focus-on-light view-all-usage-button"
           href="/teachers/premium_hub/usage_snapshot_report"
         >
           View all usage
@@ -1431,7 +1431,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/account_management"
                 >
                   Manage accounts
@@ -1457,7 +1457,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <button
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   type="button"
                 >
                   Log in as a teacher
@@ -1483,7 +1483,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/school_subscriptions"
                 >
                   Manage subscriptions
@@ -1535,7 +1535,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/usage_snapshot_report"
                 >
                   View report
@@ -1566,7 +1566,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/diagnostic_growth_report"
                 >
                   View report
@@ -1597,7 +1597,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/data_export"
                 >
                   View report
@@ -1623,7 +1623,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_concept_reports"
                 >
                   View report
@@ -1649,7 +1649,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_activity_scores"
                 >
                   View report
@@ -1675,7 +1675,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/district_standards_reports"
                 >
                   View report
@@ -1722,7 +1722,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/canvas"
                 >
                   Learn more
@@ -1748,7 +1748,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/google"
                 >
                   Learn more
@@ -1774,7 +1774,7 @@ exports[`Overview container should render with a restricted access type 1`] = `
                 class="link-and-image"
               >
                 <a
-                  class="quill-button focus-on-light outlined secondary medium"
+                  class="quill-button-archived focus-on-light outlined secondary medium"
                   href="/teachers/premium_hub/integrations/clever"
                 >
                   Learn more

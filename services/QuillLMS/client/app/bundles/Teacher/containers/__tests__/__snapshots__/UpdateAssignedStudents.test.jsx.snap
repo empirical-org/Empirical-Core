@@ -365,13 +365,13 @@ exports[`UpdateAssignedStudents will render  1`] = `
             className="buttons"
           >
             <a
-              className="quill-button outlined secondary medium focus-on-light "
+              className="quill-button-archived outlined secondary medium focus-on-light "
               href="/teachers/classrooms/activity_planner"
             >
               Cancel
             </a>
             <button
-              className="quill-button contained primary medium focus-on-light "
+              className="quill-button-archived contained primary medium focus-on-light "
               disabled={false}
               onClick={[Function]}
               type="button"
@@ -404,14 +404,14 @@ exports[`UpdateAssignedStudents will render  1`] = `
               className="buttons"
             >
               <button
-                className="quill-button secondary outlined fun focus-on-dark"
+                className="quill-button-archived secondary outlined fun focus-on-dark"
                 onClick={[Function]}
                 type="button"
               >
                 Unselect all
               </button>
               <button
-                className="quill-button contained primary fun focus-on-dark"
+                className="quill-button-archived contained primary fun focus-on-dark"
                 onClick={[Function]}
                 type="button"
               >
@@ -507,7 +507,7 @@ exports[`UpdateAssignedStudents will render  1`] = `
                 <span
                   className="description"
                 >
-                  Pack 
+                  Pack
                   <em>
                     assigned
                   </em>
@@ -752,7 +752,7 @@ exports[`UpdateAssignedStudents will render  1`] = `
                 <span
                   className="description"
                 >
-                  Pack will be 
+                  Pack will be
                   <em>
                     removed
                   </em>
@@ -844,7 +844,7 @@ exports[`UpdateAssignedStudents will render  1`] = `
                 <span
                   className="description"
                 >
-                  Pack will be 
+                  Pack will be
                   <em>
                     assigned
                   </em>

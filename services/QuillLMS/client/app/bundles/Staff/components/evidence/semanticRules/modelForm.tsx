@@ -105,7 +105,7 @@ const ModelForm = ({ location, history, match }) => {
         timesSubmitted={0}
         value={notes}
       />
-      <button className="quill-button fun primary contained" id="add-model-button" onClick={submitModel} type="submit">Submit</button>
+      <button className="quill-button-archived fun primary contained" id="add-model-button" onClick={submitModel} type="submit">Submit</button>
       {errors['Model Submission Error'] && <p className="error-message">{errors['Model Submission Error']}</p>}
     </div >
   );

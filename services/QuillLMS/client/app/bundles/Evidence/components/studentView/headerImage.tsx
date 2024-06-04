@@ -36,10 +36,10 @@ export const HeaderImage = ({ headerImage, passage }) => {
           <p className="leave-activity-warning-header">Wait! Are you sure you want to leave?</p>
           <p className="leave-activity-warning-text">You are about to leave the activity. You will be taken to a different website.</p>
           <div className="button-container">
-            <button className="stay-on-quill quill-button small secondary outlined focus-on-light" id="close-modal-button" onClick={handleLeaveClick} type="button">
+            <button className="stay-on-quill quill-button-archived small secondary outlined focus-on-light" id="close-modal-button" onClick={handleLeaveClick} type="button">
               Yes, leave Quill
             </button>
-            <button className="quill-button small primary contained focus-on-light" id="leave-activity-button" onClick={handleStayClick} type="button">
+            <button className="quill-button-archived small primary contained focus-on-light" id="leave-activity-button" onClick={handleStayClick} type="button">
               Stay on Quill
             </button>
           </div>

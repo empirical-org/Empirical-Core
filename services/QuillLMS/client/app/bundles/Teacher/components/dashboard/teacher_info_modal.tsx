@@ -35,7 +35,7 @@ const TeacherInfoModal = ({ close, subjectAreas, }) => {
     )
   }
 
-  const saveButtonClassName = "quill-button primary contained medium focus-on-light"
+  const saveButtonClassName = "quill-button-archived primary contained medium focus-on-light"
   let saveButton = <button className={`${saveButtonClassName} disabled`} disabled type="button">Save</button>
 
   if (selectedSubjectAreaIds.length && minimumGradeLevel && maximumGradeLevel) {

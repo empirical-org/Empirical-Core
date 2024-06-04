@@ -112,8 +112,8 @@ const RuleRegexAttributes = ({
       />}
       {regexFeedback[0] && regexFeedback[0].highlights_attributes && renderHighlights(regexFeedback[0].highlights_attributes, 0, onHandleSetRegexFeedback)}
       {regexFeedback[0] && (<div className="button-wrapper">
-        <button className="add-highlight quill-button small primary outlined" onClick={onHandleAddFeedbackHighlight} type="button" value="0">Add Highlight</button>
-        {regexFeedback[0].highlights_attributes && regexFeedback[0].highlights_attributes.filter(h => !h._destroy) && regexFeedback[0].highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="0">Remove Highlight</button> : null}
+        <button className="add-highlight quill-button-archived small primary outlined" onClick={onHandleAddFeedbackHighlight} type="button" value="0">Add Highlight</button>
+        {regexFeedback[0].highlights_attributes && regexFeedback[0].highlights_attributes.filter(h => !h._destroy) && regexFeedback[0].highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button-archived small secondary outlined" onClick={onHandleRemoveFeedbackHighlight} type="button" value="0">Remove Highlight</button> : null}
       </div>)}
       {errors['Regex Feedback'] && <p className="error-message">{errors['Regex Feedback']}</p>}
       <label aria-label="conditional-sequence-label" className="conditional-label" htmlFor="conditional-label">

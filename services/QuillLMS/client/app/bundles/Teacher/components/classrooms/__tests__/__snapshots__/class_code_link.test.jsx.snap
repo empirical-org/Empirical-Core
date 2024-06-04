@@ -26,7 +26,7 @@ exports[`ClassCodeLink component should render ClassCodeLink 1`] = `
         text="quill.org/join/happy-day"
       >
         <button
-          className="quill-button secondary outlined small"
+          className="quill-button-archived secondary outlined small"
         >
           Copy
         </button>
@@ -37,12 +37,12 @@ exports[`ClassCodeLink component should render ClassCodeLink 1`] = `
     className="create-a-class-modal-footer with-back-button"
   >
     <button
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
     >
       Back
     </button>
     <button
-      className="quill-button primary contained medium"
+      className="quill-button-archived primary contained medium"
       onClick={[Function]}
     >
       Next

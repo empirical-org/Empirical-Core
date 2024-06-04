@@ -111,13 +111,13 @@ exports[`MergeStudentAccountsModal component should render MergeStudentAccountsM
       className="form-buttons"
     >
       <button
-        className="quill-button outlined secondary medium"
+        className="quill-button-archived outlined secondary medium"
         onClick={[Function]}
       >
         Cancel
       </button>
       <button
-        className="quill-button contained primary medium disabled"
+        className="quill-button-archived contained primary medium disabled"
         onClick={[Function]}
       >
         Merge accounts

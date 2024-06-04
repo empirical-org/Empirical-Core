@@ -13,7 +13,7 @@ exports[`PromptStep component active state before any responses have been submit
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -103,7 +103,7 @@ exports[`PromptStep component active state before any responses have been submit
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light disabled"
+              className="quill-button-archived focus-on-light disabled"
               disabled={true}
               onClick={[Function]}
               type="submit"
@@ -140,7 +140,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -239,7 +239,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             <span />
             <button
               aria-label="You already submitted this response. You must edit it before you can submit it again."
-              className="quill-button focus-on-light disabled"
+              className="quill-button-archived focus-on-light disabled"
               disabled={true}
               onClick={[Function]}
               type="submit"
@@ -265,7 +265,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -387,7 +387,7 @@ exports[`PromptStep component active state when an optimal response has been sub
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -486,7 +486,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light"
+              className="quill-button-archived focus-on-light"
               disabled={false}
               onClick={[Function]}
               type="submit"
@@ -512,7 +512,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -634,7 +634,7 @@ exports[`PromptStep component active state when the max attempts have been reach
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -757,7 +757,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light"
+              className="quill-button-archived focus-on-light"
               disabled={false}
               onClick={[Function]}
               type="submit"
@@ -783,7 +783,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -879,7 +879,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                           className="feedback-text"
                           dangerouslySetInnerHTML={
                             Object {
-                              "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                              "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
                             }
@@ -953,7 +953,7 @@ exports[`PromptStep component active state when the max attempts have been reach
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1052,7 +1052,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light"
+              className="quill-button-archived focus-on-light"
               disabled={false}
               type="submit"
             >
@@ -1077,7 +1077,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             Object {
               "conjunction": "because",
               "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
               "prompt_id": 1,
@@ -1198,7 +1198,7 @@ exports[`PromptStep component inactive state renders 1`] = `
     Object {
       "conjunction": "because",
       "max_attempts": 5,
-      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+      "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response?
 
  Governments should make voting compulsory because otherwise not everyone will vote.",
       "prompt_id": 1,
@@ -1288,7 +1288,7 @@ exports[`PromptStep component inactive state renders 1`] = `
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light disabled"
+              className="quill-button-archived focus-on-light disabled"
               disabled={true}
               onClick={[Function]}
               type="submit"

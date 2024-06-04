@@ -352,9 +352,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const latestAttempt = getLatestAttempt(question.attempts);
 
     if((previewMode && latestAttempt) || !responses) {
-      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
+      return <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
     }
-    return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>
+    return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>
   }
 
   render() {

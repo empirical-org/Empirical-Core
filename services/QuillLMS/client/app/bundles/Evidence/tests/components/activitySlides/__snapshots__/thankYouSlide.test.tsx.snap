@@ -14,7 +14,7 @@ exports[`ThankYouSlide Component should match snapshot 1`] = `
           Your feedback was sent
         </p>
         <h1>
-          Thanks for sharing your feedback! 
+          Thanks for sharing your feedback!
         </h1>
       </section>
       <img
@@ -26,7 +26,7 @@ exports[`ThankYouSlide Component should match snapshot 1`] = `
       className="button-section"
     >
       <a
-        className="quill-button large secondary outlined focus-on-dark"
+        className="quill-button-archived large secondary outlined focus-on-dark"
         onClick={[Function]}
       >
         Back to my dashboard

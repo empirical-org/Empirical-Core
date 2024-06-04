@@ -88,7 +88,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   footerButtonClass() {
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!this.allStudents().length) {
       buttonClass += ' disabled';
     }
@@ -96,7 +96,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   submitClass() {
-    let buttonClass = 'quill-button outlined secondary medium submit-button';
+    let buttonClass = 'quill-button-archived outlined secondary medium submit-button';
     if (!this.state.firstName.length || !this.state.lastName.length) {
       buttonClass += ' disabled';
     }
@@ -207,7 +207,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     }
     return (
       <div className="create-a-class-modal-footer with-back-button">
-        <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
+        <button className="quill-button-archived secondary outlined medium" onClick={back}>Back</button>
         {nextButton}
       </div>
     )

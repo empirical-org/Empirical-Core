@@ -39,7 +39,7 @@ const DemoAccountBanner = ({ signedInOutsideDemo, recommendationsLink, growthSum
             <button aria-label="Toggle expand link menu" className="interactive-wrapper" onClick={toggleExpansion} type="button"><img alt="" src={disclosureIcon.src} /></button>
             <span>You’re in a demo account to explore sample student data. Changes will not be saved.</span>
           </div>
-          <a className="quill-button primary contained medium focus-on-light" href={exitHref}>Exit demo account</a>
+          <a className="quill-button-archived primary contained medium focus-on-light" href={exitHref}>Exit demo account</a>
         </div>
         {expandedContent}
       </div>

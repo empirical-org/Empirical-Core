@@ -24,7 +24,7 @@ const RequestAdminAccessForm = ({ schoolName, admins, }) => {
     })
   }
 
-  const submitButtonClassName = "quill-button primary contained medium focus-on-light"
+  const submitButtonClassName = "quill-button-archived primary contained medium focus-on-light"
   let submitButton = <button className={`${submitButtonClassName} disabled`} disabled type="button">Submit</button>
 
   if (selectedAdminIds.length) {

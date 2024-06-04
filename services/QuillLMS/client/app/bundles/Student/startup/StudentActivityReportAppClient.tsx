@@ -128,7 +128,7 @@ const StudentActivityReportApp = ({ activity, showExactScore, reportData, classr
     <div className="student-activity-report">
       <div className="student-profile-header">
         <div className="container">
-          <a className="quill-button secondary outlined medium focus-on-light" href={classroomId ? `/classrooms/${classroomId}` : '/'}>
+          <a className="quill-button-archived secondary outlined medium focus-on-light" href={classroomId ? `/classrooms/${classroomId}` : '/'}>
             <img alt="Back arrow icon" src={arrowBackSrc} />
             All activities
           </a>

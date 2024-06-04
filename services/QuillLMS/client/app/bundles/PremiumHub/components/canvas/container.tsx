@@ -130,7 +130,7 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
           </ul>
           <div className="links">
             <button
-              className="quill-button contained medium primary focus-on-light"
+              className="quill-button-archived contained medium primary focus-on-light"
               onClick={handleClickAddNewCanvasIntegration}
               type="button"
             >
@@ -161,7 +161,7 @@ const CanvasIntegrationContainer = ({ passedSchools, passedCanvasIntegrations, a
       {renderModal()}
       {canvasIntegrationElements}
       <button
-        className="quill-button contained medium primary focus-on-light add-new-canvas-integration-button"
+        className="quill-button-archived contained medium primary focus-on-light add-new-canvas-integration-button"
         onClick={handleClickAddNewCanvasIntegration}
         type="button"
       >

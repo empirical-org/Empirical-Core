@@ -34,7 +34,7 @@ exports[`UpperFormSection component should render UpperFormSection 1`] = `
       </p>
     </section>
     <button
-      className="quill-button fun primary contained focus-on-light"
+      className="quill-button-archived fun primary contained focus-on-light"
       id="activity-submit-button"
       onClick={[MockFunction]}
       type="submit"

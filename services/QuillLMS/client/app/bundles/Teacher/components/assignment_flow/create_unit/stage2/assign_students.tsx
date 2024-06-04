@@ -236,7 +236,7 @@ const AssignStudents = ({
           <div className="import-or-create-classroom-buttons">
             {provider ? renderImportFromProviderButton(provider) : renderImportClassesDropdown()}
             <button
-              className="quill-button medium secondary outlined create-a-class-button"
+              className="quill-button-archived medium secondary outlined create-a-class-button"
               onClick={() => openModal(createAClassForm)}
               type="button"
             >

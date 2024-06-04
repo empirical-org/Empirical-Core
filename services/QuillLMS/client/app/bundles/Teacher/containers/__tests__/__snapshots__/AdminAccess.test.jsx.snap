@@ -39,7 +39,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
            currently has no admins.
         </p>
         <p>
-          Admins 
+          Admins
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -55,7 +55,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium disabled"
+          className="quill-button-archived focus-on-light outlined secondary medium disabled"
           disabled={true}
           onClick={[Function]}
           type="button"
@@ -63,7 +63,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
           Invite an admin
         </button>
         <button
-          className="quill-button focus-on-light outlined secondary medium disabled"
+          className="quill-button-archived focus-on-light outlined secondary medium disabled"
           disabled={true}
           onClick={[Function]}
           type="button"
@@ -137,7 +137,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="text"
       >
         <p>
-          Admins 
+          Admins
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -243,7 +243,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium disabled"
+          className="quill-button-archived focus-on-light outlined secondary medium disabled"
           disabled={true}
           onClick={[Function]}
           type="button"
@@ -310,7 +310,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
            currently has no admins.
         </p>
         <p>
-          Admins 
+          Admins
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -325,7 +325,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium disabled"
+          className="quill-button-archived focus-on-light outlined secondary medium disabled"
           disabled={true}
           onClick={[Function]}
           type="button"
@@ -333,7 +333,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
           Invite an admin
         </button>
         <button
-          className="quill-button focus-on-light outlined secondary medium disabled"
+          className="quill-button-archived focus-on-light outlined secondary medium disabled"
           disabled={true}
           onClick={[Function]}
           type="button"
@@ -407,7 +407,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="text"
       >
         <p>
-          Admins 
+          Admins
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -512,7 +512,7 @@ exports[`AdminAccounts container when the user does not have a verified email an
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium disabled"
+          className="quill-button-archived focus-on-light outlined secondary medium disabled"
           disabled={true}
           onClick={[Function]}
           type="button"
@@ -579,7 +579,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
            currently has no admins.
         </p>
         <p>
-          Admins 
+          Admins
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -595,7 +595,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium"
+          className="quill-button-archived focus-on-light outlined secondary medium"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -603,7 +603,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
           Invite an admin
         </button>
         <button
-          className="quill-button focus-on-light outlined secondary medium"
+          className="quill-button-archived focus-on-light outlined secondary medium"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -662,7 +662,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="text"
       >
         <p>
-          Admins 
+          Admins
           at schools with Quill Premium
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
@@ -714,7 +714,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium"
+          className="quill-button-archived focus-on-light outlined secondary medium"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -766,7 +766,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
            currently has no admins.
         </p>
         <p>
-          Admins 
+          Admins
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -781,7 +781,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium"
+          className="quill-button-archived focus-on-light outlined secondary medium"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -789,7 +789,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
           Invite an admin
         </button>
         <button
-          className="quill-button focus-on-light outlined secondary medium"
+          className="quill-button-archived focus-on-light outlined secondary medium"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -848,7 +848,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="text"
       >
         <p>
-          Admins 
+          Admins
            can manage teacher accounts, access teacher reports, and view school-wide student data.
         </p>
         <a
@@ -899,7 +899,7 @@ exports[`AdminAccounts container when the user has a verified email and the scho
         className="buttons"
       >
         <button
-          className="quill-button focus-on-light outlined secondary medium"
+          className="quill-button-archived focus-on-light outlined secondary medium"
           disabled={false}
           onClick={[Function]}
           type="button"

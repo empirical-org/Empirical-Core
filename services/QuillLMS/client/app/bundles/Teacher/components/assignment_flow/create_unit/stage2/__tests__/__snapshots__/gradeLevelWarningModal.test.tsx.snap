@@ -528,7 +528,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                     src="undefined/images/icons/warning-icon.svg"
                   />
                   <span>
-                    Grade 
+                    Grade
                     4
                   </span>
                 </span>,
@@ -669,7 +669,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
                         src="undefined/images/icons/warning-icon.svg"
                       />
                       <span>
-                        Grade 
+                        Grade
                         4
                       </span>
                     </span>
@@ -740,7 +740,7 @@ exports[`GradeLevelWarningModal component should render 1`] = `
               src="undefined/images/shared/check-small-white.svg"
             />
           </button>
-           
+
           <span>
             Don't show this warning again
           </span>
@@ -749,14 +749,14 @@ exports[`GradeLevelWarningModal component should render 1`] = `
           className="buttons"
         >
           <button
-            className="quill-button outlined secondary medium focus-on-light"
+            className="quill-button-archived outlined secondary medium focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Go back to edit assignment
           </button>
           <button
-            className="quill-button contained primary medium focus-on-light"
+            className="quill-button-archived contained primary medium focus-on-light"
             onClick={[Function]}
             type="button"
           >

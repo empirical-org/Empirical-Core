@@ -18,7 +18,7 @@ exports[`ChangeGradeModal component should render ChangeGradeModal 1`] = `
       </h3>
     </div>
     <p>
-      Update the grade level for 
+      Update the grade level for
       Quill Classroom
       .
     </p>
@@ -98,13 +98,13 @@ exports[`ChangeGradeModal component should render ChangeGradeModal 1`] = `
       className="form-buttons"
     >
       <button
-        className="quill-button outlined secondary medium"
+        className="quill-button-archived outlined secondary medium"
         onClick={[Function]}
       >
         Cancel
       </button>
       <button
-        className="quill-button contained primary medium"
+        className="quill-button-archived contained primary medium"
         onClick={[Function]}
       >
         Save

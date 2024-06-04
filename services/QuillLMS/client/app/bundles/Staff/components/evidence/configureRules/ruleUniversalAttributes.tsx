@@ -99,8 +99,8 @@ const RuleAttributesSection = ({
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}
           {feedback.highlights_attributes && renderHighlights(feedback.highlights_attributes, i, onHandleSetUniversalFeedback)}
           <div className="button-wrapper">
-            <button className={`add-highlight quill-button small primary outlined ${disabledStatus}`} disabled={!!disabledStatus} onClick={onHandleAddHighlight} type="button" value={`${i}`}>Add Highlight</button>
-            {feedback.highlights_attributes && feedback.highlights_attributes.filter(h => !h._destroy) && feedback.highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button small secondary outlined" onClick={(e) => onHandleRemoveHighlight(e, i)} type="button" value={`${i}`}>Remove Highlight</button> : null}
+            <button className={`add-highlight quill-button-archived small primary outlined ${disabledStatus}`} disabled={!!disabledStatus} onClick={onHandleAddHighlight} type="button" value={`${i}`}>Add Highlight</button>
+            {feedback.highlights_attributes && feedback.highlights_attributes.filter(h => !h._destroy) && feedback.highlights_attributes.filter(h => !h._destroy).length ? <button className="remove-highlight quill-button-archived small secondary outlined" onClick={(e) => onHandleRemoveHighlight(e, i)} type="button" value={`${i}`}>Remove Highlight</button> : null}
           </div>
         </React.Fragment>
       );
@@ -112,8 +112,8 @@ const RuleAttributesSection = ({
     <React.Fragment>
       {universalFeedback && renderFeedbacks(universalFeedback)}
       <div className="button-wrapper">
-        <button className="add-feedback-layer quill-button small primary outlined" onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
-        <button className="remove-highlight quill-button small secondary outlined" onClick={onHandleRemoveFeedbackLayer} type="button">Remove Feedback Layer</button>
+        <button className="add-feedback-layer quill-button-archived small primary outlined" onClick={onHandleAddFeedbackLayer} type="button">Add Feedback Layer</button>
+        <button className="remove-highlight quill-button-archived small secondary outlined" onClick={onHandleRemoveFeedbackLayer} type="button">Remove Feedback Layer</button>
       </div>
     </React.Fragment>
   );

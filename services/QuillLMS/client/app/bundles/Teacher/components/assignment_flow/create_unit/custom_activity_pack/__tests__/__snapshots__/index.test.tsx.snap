@@ -7281,7 +7281,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             </div>
             <p>
               31
-               of 
+               of
               31
                activities
             </p>
@@ -14794,7 +14794,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="grade-level-slider"
                       >
-                        Grade Level Range: 
+                        Grade Level Range:
                         All Grades
                       </label>
                       <div
@@ -14876,7 +14876,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="grade-level-slider"
                         >
-                          Grade Level Range: 
+                          Grade Level Range:
                           All Grades
                         </label>
                         <div
@@ -15289,9 +15289,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="readability-grade-level-slider"
                       >
-                        Grade Level: 
+                        Grade Level:
                         2
-                         - 
+                         -
                         12
                          Grade Text
                       </label>
@@ -15366,9 +15366,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="readability-grade-level-slider"
                         >
-                          Grade Level: 
+                          Grade Level:
                           2
-                           - 
+                           -
                           12
                            Grade Text
                         </label>
@@ -15880,9 +15880,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                       <label
                         htmlFor="ccss-grade-level-slider"
                       >
-                        Standard: 
+                        Standard:
                         1
-                         - 
+                         -
                         11
                          Grade Level
                       </label>
@@ -15963,9 +15963,9 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         <label
                           htmlFor="ccss-grade-level-slider"
                         >
-                          Standard: 
+                          Standard:
                           1
-                           - 
+                           -
                           11
                            Grade Level
                         </label>
@@ -34667,7 +34667,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               selectedActivities={Array []}
             >
               <button
-                className="quill-button contained primary medium focus-on-light disabled"
+                className="quill-button-archived contained primary medium focus-on-light disabled"
                 onClick={null}
                 type="button"
               >
@@ -36188,11 +36188,11 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                     onClick={[Function]}
                     type="button"
                   >
-                    Sort by: 
+                    Sort by:
                     <span>
                       Default
                     </span>
-                     
+
                     <img
                       alt=""
                       className="dropdown-icon false"
@@ -36558,7 +36558,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -37027,7 +37027,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -37487,7 +37487,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -37956,7 +37956,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -38416,7 +38416,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -38885,7 +38885,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -39327,7 +39327,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -39769,7 +39769,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -40229,7 +40229,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -40716,7 +40716,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -41203,7 +41203,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -41672,7 +41672,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -42114,7 +42114,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -42556,7 +42556,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -43016,7 +43016,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -43485,7 +43485,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -43927,7 +43927,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -44369,7 +44369,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -44829,7 +44829,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -45316,7 +45316,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                         src="undefined/images/icons/description-readability.svg"
                       />
                       <span>
-                        Grades: 
+                        Grades:
                         <span
                           className="grade-level filtered"
                           key="4 - 5"
@@ -46977,7 +46977,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
                 1
                 -
                 20
-                 of 
+                 of
                 31
                  activities
               </p>

@@ -34,7 +34,7 @@ function renderViewButton(handleViewClick: (id: string|number) => void, id: stri
     return handleViewClick(id)
   }
 
-  return <button className="quill-button outlined fun secondary" onClick={onClickView} type="button">View</button>
+  return <button className="quill-button-archived outlined fun secondary" onClick={onClickView} type="button">View</button>
 }
 
 function renderDataTable(selectedClassroom: any, handleViewClick: (id: string|number) => void) {
@@ -92,7 +92,7 @@ export default function ViewAsStudentModal({classrooms, close, defaultClassroomI
           {renderDataTable(selectedClassroom, handleViewClick)}
         </div>
         <div className="bottom-section">
-          <button className="quill-button medium secondary outlined" onClick={close} type="button">Cancel</button>
+          <button className="quill-button-archived medium secondary outlined" onClick={close} type="button">Cancel</button>
         </div>
       </div>
     </div>
