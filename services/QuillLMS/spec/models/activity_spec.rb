@@ -771,38 +771,32 @@ describe Activity, type: :model, redis: true do
   end
 
   describe "#update_questions_flag_status_if_necessary!" do
-    context "the activity's flag is production" do
-      it "updates the flag status to production on all the associated questions" do
-        q1 = build(:question)
-        q1.data["flag"] = "beta"
-        q1.save
-        q2 = build(:question)
-        q2.data["flag"] = "beta"
-        q2.save
-        activity = create(:grammar_activity,
-        flags: ["production"],
-        data: {questions: [
-          {"key" => q1.uid, "question_type" => "questions"},
-          {"key" => q2.uid, "question_type" => "questions"}
-        ]}
-        )
-        activity.update_questions_flag_status_if_necessary!
-        expect(q1.reload.data["flag"]).to eq("production")
-        expect(q2.reload.data["flag"]).to eq("production")
+    let(:q1) { create(:question, data: {flag: "beta"}) }
+    let(:q2) { create(:question, data: {flag: "beta"}) }
+    let(:questions) { [{"key" => q1.uid, "question_type" => "questions"}, {"key" => q2.uid, "question_type" => "questions"}] }
+    let(:data) { {questions: } } # NOTE: that the unmatched `x:` syntax in Ruby will try to set the value by finding a variable with the name of the key, so in this case "questions"
+
+
+    context 'activity flag set to production' do
+      let(:flags) { ["production"] }
+      let(:activity) { create(:grammar_activity, flags:, data:) }
+
+      it do
+        expect do
+          activity.update_questions_flag_status_if_necessary!
+        end.to change{ q1.reload.data["flag"] }.to("production")
+          .and change{ q2.reload.data["flag"] }.to("production")
       end
     end
 
-    context "the activity's flag is not production" do
-      it "does not update the flag status" do
-        question = build(:question)
-        question.data["flag"] = "beta"
-        question.save
-        activity = create(:grammar_activity,
-        flags: ["alpha"],
-        data: {questions: [{"key" => question.uid, "question_type" => "questions"}]}
-        )
-        activity.update_questions_flag_status_if_necessary!
-        expect(question.reload.data["flag"]).to eq("beta")
+    context 'activity flag is not set to production' do
+      let(:flags) { ["alpha"] }
+      let(:activity) { create(:grammar_activity, flags:, data:) }
+
+      it do
+        expect do
+          activity.update_questions_flag_status_if_necessary!
+        end.not_to change{ q1.reload.data["flag"] }
       end
     end
   end
