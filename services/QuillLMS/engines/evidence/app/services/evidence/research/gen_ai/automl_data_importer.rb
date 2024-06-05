@@ -37,7 +37,7 @@ module Evidence
                 passage_prompt
                   .passage_prompt_responses
                   .find_or_create_by!(response:)
-                  .example_feedbacks
+                  .quill_feedbacks
                   .find_or_create_by!(label:, text:, paraphrase:)
               end
             end

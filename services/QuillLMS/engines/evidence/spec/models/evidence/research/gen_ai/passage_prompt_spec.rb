@@ -20,6 +20,10 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe PassagePrompt, type: :model do
+        let(:factory) { described_class.model_name.singular.to_sym }
+
+        it { expect(build(factory)).to be_valid }
+
         it { should validate_presence_of(:prompt) }
         it { should validate_presence_of(:conjunction) }
         it { should validate_presence_of(:instructions) }
@@ -34,11 +38,9 @@ module Evidence
         it { belong_to(:passage).class_name('Evidence::Research::GenAI::Passage') }
 
         it { have_many(:passage_prompt_responses).dependent(:destroy) }
-        it { have_many(:example_feedbacks).through(:passage_prompt_responses) }
+        it { have_many(:quill_feedbacks).through(:passage_prompt_responses) }
         it { have_many(:llm_feedbacks).through(:passage_prompt_responses) }
         it { have_many(:trials).dependent(:destroy) }
-
-        it { expect(build(:evidence_research_gen_ai_passage_prompt)).to be_valid }
       end
     end
   end

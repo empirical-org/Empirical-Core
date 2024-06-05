@@ -29,9 +29,9 @@ module Evidence
 
         attr_readonly :trial_id, :label, :passage_prompt_response_id, :raw_text, :text
 
-        delegate :example_optimal?, :example_feedback, to: :passage_prompt_response
+        delegate :example_optimal?, :quill_feedback, to: :passage_prompt_response
 
-        def identical_feedback? = example_feedback.text.strip == text.strip
+        def identical_feedback? = quill_feedback.text.strip == text.strip
 
         def optimal_or_sub_optimal_match? = example_optimal? ? optimal? : sub_optimal?
 

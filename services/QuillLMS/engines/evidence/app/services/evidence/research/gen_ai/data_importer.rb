@@ -23,7 +23,7 @@ module Evidence
             passage_prompt
               .passage_prompt_responses
               .find_or_create_by!(response:)
-              .create_example_feedback!(label:, text:, data_partition:)
+              .create_quill_feedback!(label:, text:, data_partition:)
           end
         end
 

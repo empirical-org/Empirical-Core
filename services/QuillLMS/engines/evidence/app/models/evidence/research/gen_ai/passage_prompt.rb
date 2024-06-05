@@ -27,7 +27,7 @@ module Evidence
 
         has_many :trials, dependent: :destroy
         has_many :passage_prompt_responses, class_name: 'Evidence::Research::GenAI::PassagePromptResponse', dependent: :destroy
-        has_many :example_feedbacks, class_name: 'Evidence::Research::GenAI::ExampleFeedback', through: :passage_prompt_responses
+        has_many :quill_feedbacks, class_name: 'Evidence::Research::GenAI::QuillFeedback', through: :passage_prompt_responses
 
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }

@@ -19,6 +19,10 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLMFeedback, type: :model do
+        let(:factory) { described_class.model_name.singular.to_sym }
+
+        it { expect(build(factory)).to be_valid }
+
         it { should validate_presence_of(:raw_text) }
         it { should validate_presence_of(:text) }
         it { should validate_presence_of(:passage_prompt_response_id)}
@@ -33,16 +37,14 @@ module Evidence
         it { should belong_to(:passage_prompt_response) }
         it { should belong_to(:trial) }
 
-        it { expect(build(:evidence_research_gen_ai_llm_feedback)).to be_valid }
-
         it_behaves_like 'a class with optimal and sub-optimal'
 
         describe '#optimal_or_sub_optimal_match?' do
           subject { llm_feedback.optimal_or_sub_optimal_match? }
 
-          let(:llm_feedback) { create(:evidence_research_gen_ai_llm_feedback) }
+          let(:llm_feedback) { create(factory) }
           let(:passage_prompt_response) { llm_feedback.passage_prompt_response }
-          let(:example_feedback) { create(:evidence_research_gen_ai_example_feedback, passage_prompt_response:) }
+          let(:quill_feedback) { create(:evidence_research_gen_ai_quill_feedback, passage_prompt_response:) }
 
           before do
             allow(passage_prompt_response).to receive(:example_optimal?).and_return(example_optimal)
@@ -85,10 +87,10 @@ module Evidence
         describe '#identical_feedback?' do
           subject { llm_feedback.identical_feedback? }
 
-          let(:llm_feedback) { create(:evidence_research_gen_ai_llm_feedback) }
+          let(:llm_feedback) { create(factory) }
           let(:passage_prompt_response) { llm_feedback.passage_prompt_response }
 
-          before { create(:evidence_research_gen_ai_example_feedback, passage_prompt_response:, text:) }
+          before { create(:evidence_research_gen_ai_quill_feedback, passage_prompt_response:, text:) }
 
           context 'when the feedback is identical to the example feedback' do
             let(:text) { llm_feedback.text }

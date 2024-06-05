@@ -23,7 +23,7 @@ module Evidence
 
         private def passage_prompt = llm_feedback.passage_prompt_response.passage_prompt.prompt
 
-        private def ideal_feedback = llm_feedback.example_feedback.text
+        private def ideal_feedback = llm_feedback.quill_feedback.text
 
         private def prompt
           "

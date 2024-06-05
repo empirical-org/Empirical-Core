@@ -1,6 +1,6 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Activity`, `PassagePrompt`, `PassagePromptResponse` and `ExampleFeedback` records are imported with the following structure
+`Activity`, `PassagePrompt`, `PassagePromptResponse` and `QuillFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -17,18 +17,18 @@ classDiagram
     class PassagePromptResponse {
          response
     }
-    class ExampleFeedback {
+    class QuillFeedback {
          text
          evaluation
          label
     }
     Activity --|> PassagePrompt
     PassagePrompt --|> PassagePromptResponse
-    PassagePromptResponse --|> ExampleFeedback
+    PassagePromptResponse --|> QuillFeedback
 ```
 
 ## 2. Trial Configuration
-Within the create `Trial` UI, `LLM`, `LLMPromptTemplate0` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
+Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
 
 ```mermaid
 classDiagram
@@ -56,19 +56,19 @@ classDiagram
 ```
 
 ## 3. Trial Ouptut
-As the `Trial` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `ExampleFeedback` and evaluated.
+As the `Trial` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
 
 ```mermaid
 classDiagram
     class PassagePromptResponse {
     }
-    class ExampleFeedback {
+    class QuillFeedback {
     }
     class LLMFeedback {
         feedback
         label
     }
-    PassagePromptResponse --|> ExampleFeedback
+    PassagePromptResponse --|> QuillFeedback
     PassagePromptResponse --|> LLMFeedback
     Trial --|> LLMFeedback
 ```

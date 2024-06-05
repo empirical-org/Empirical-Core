@@ -34,7 +34,7 @@ module Evidence
 
         has_many :llm_feedbacks, -> { order(:id) }
         has_many :passage_prompt_responses, -> { order(:id) }, through: :passage_prompt
-        has_many :example_feedbacks, -> { order(:id) }, through: :passage_prompt_responses
+        has_many :quill_feedbacks, -> { order(:id) }, through: :passage_prompt_responses
 
         validates :llm_id, :llm_prompt_id, :passage_prompt_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }

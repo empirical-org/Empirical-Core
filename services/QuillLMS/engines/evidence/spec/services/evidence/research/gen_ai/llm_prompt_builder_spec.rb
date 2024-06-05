@@ -58,9 +58,9 @@ module Evidence
           context 'examples' do
             let(:num_of_examples) { 5 }
 
-            let!(:example_feedbacks) do
+            let!(:quill_feedbacks) do
               create_list(
-                :evidence_research_gen_ai_example_feedback,
+                :evidence_research_gen_ai_quill_feedback,
                 num_of_examples,
                 :prompt_engineering,
                 passage_prompt_response: create(:evidence_research_gen_ai_passage_prompt_response, passage_prompt:)
@@ -70,7 +70,7 @@ module Evidence
             let(:limit) { 3 }
             let(:contents) { delimit("examples,#{limit}") }
 
-            it { is_expected.to eq example_feedbacks.first(limit).map(&:response_and_feedback).join("\n") }
+            it { is_expected.to eq quill_feedbacks.first(limit).map(&:response_and_feedback).join("\n") }
           end
 
           context 'multiple substitutions' do

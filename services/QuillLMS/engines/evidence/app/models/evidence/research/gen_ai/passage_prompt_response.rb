@@ -16,7 +16,7 @@ module Evidence
       class PassagePromptResponse < ApplicationRecord
         belongs_to :passage_prompt, class_name: 'Evidence::Research::GenAI::PassagePrompt'
 
-        has_one :example_feedback, class_name: 'Evidence::Research::GenAI::ExampleFeedback', dependent: :destroy
+        has_one :quill_feedback, class_name: 'Evidence::Research::GenAI::QuillFeedback', dependent: :destroy
         has_many :llm_feedbacks, class_name: 'Evidence::Research::GenAI::LLMFeedback', dependent: :destroy
 
         validates :response, presence: true
@@ -24,11 +24,11 @@ module Evidence
 
         attr_readonly :response, :passage_prompt_id
 
-        def self.testing_data = joins(:example_feedback).merge(ExampleFeedback.testing_data)
-        def self.fine_tuning_data = joins(:example_feedback).merge(ExampleFeedback.fine_tuning_data)
-        def self.prompt_engineering_data = joins(:example_feedback).merge(ExampleFeedback.prompt_engineering_data)
+        def self.testing_data = joins(:quill_feedback).merge(QuillFeedback.testing_data)
+        def self.fine_tuning_data = joins(:quill_feedback).merge(QuillFeedback.fine_tuning_data)
+        def self.prompt_engineering_data = joins(:quill_feedback).merge(QuillFeedback.prompt_engineering_data)
 
-        def example_optimal? = example_feedback.optimal?
+        def example_optimal? = quill_feedback.optimal?
 
         def to_s = response
       end

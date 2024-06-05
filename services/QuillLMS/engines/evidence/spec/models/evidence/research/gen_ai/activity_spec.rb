@@ -19,6 +19,10 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe Activity, type: :model do
+        let(:factory) { described_class.model_name.singular.to_sym }
+
+        it { expect(build(factory)).to be_valid }
+
         it { should validate_presence_of(:name) }
         it { should validate_presence_of(:text) }
         it { should have_readonly_attribute(:name) }
@@ -28,8 +32,6 @@ module Evidence
         it { should have_readonly_attribute(:so_evidence) }
 
         it { should have_many(:passage_prompts).class_name('Evidence::Research::GenAI::PassagePrompt').dependent(:destroy) }
-
-        it { expect(build(:evidence_research_gen_ai_activity)).to be_valid }
       end
     end
   end

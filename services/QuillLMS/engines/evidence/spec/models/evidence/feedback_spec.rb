@@ -18,7 +18,7 @@ module Evidence
   RSpec.describe(Feedback, :type => :model) do
 
     context 'should validations' do
-      subject { FactoryBot.build(:evidence_feedback) }
+      subject { build(:evidence_feedback) }
 
       it { should validate_presence_of(:text) }
 

@@ -74,7 +74,7 @@
       <tbody>
         <% @trial.llm_feedbacks.each.with_index do |llm_feedback, index| %>
           <tr>
-            <% example_feedback = llm_feedback.example_feedback %>
+            <% quill_feedback = llm_feedback.quill_feedback %>
             <td class="<%= llm_feedback.identical_feedback? ? 'green' : 'red' %>"></td>
             <td class="<%= llm_feedback.optimal_or_sub_optimal_match? ? 'green' : 'red' %>"></td>
             <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
@@ -84,7 +84,7 @@
               <% end %>
             <% end %>
             <td><%= llm_feedback.passage_prompt_response %></td>
-            <td><%= llm_feedback.example_feedback %></td>
+            <td><%= llm_feedback.quill_feedback %></td>
             <td><%= llm_feedback  %></td>
           </tr>
         <% end %>

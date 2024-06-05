@@ -23,6 +23,10 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe Trial, type: :model do
+        let(:factory) { described_class.model_name.singular.to_sym }
+
+        it { expect(build(factory)).to be_valid }
+
         it { should validate_presence_of(:status) }
         it { should validate_presence_of(:llm_id) }
         it { should validate_presence_of(:llm_prompt_id) }
@@ -38,14 +42,12 @@ module Evidence
 
         it { have_many(:llm_feedbacks) }
         it { have_many(:passage_prompt_responses).through(:passage_prompt) }
-        it { have_many(:example_feedbacks).through(:passage_prompt_responses) }
-
-        it { expect(build(:evidence_research_gen_ai_trial)).to be_valid }
+        it { have_many(:quill_feedbacks).through(:passage_prompt_responses) }
 
         describe '#run' do
           subject { trial.run }
 
-          let(:trial) { create(:evidence_research_gen_ai_trial, num_examples:) }
+          let(:trial) { create(factory, num_examples:) }
           let(:num_examples) { 3 }
           let(:passage_prompt) { trial.passage_prompt }
           let(:llm) { trial.llm }
@@ -67,7 +69,7 @@ module Evidence
             allow(CalculateResultsWorker).to receive(:perform_async).with(trial.id)
 
             passage_prompt_responses.each do |passage_prompt_response|
-              create(:evidence_research_gen_ai_example_feedback, :testing, passage_prompt_response:)
+              create(:evidence_research_gen_ai_quill_feedback, :testing, passage_prompt_response:)
             end
           end
 

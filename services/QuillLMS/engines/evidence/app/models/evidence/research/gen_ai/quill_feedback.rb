@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_example_feedbacks
+# Table name: evidence_research_gen_ai_quill_feedbacks
 #
 #  id                         :bigint           not null, primary key
 #  data_partition             :string
@@ -16,7 +16,7 @@
 module Evidence
   module Research
     module GenAI
-      class ExampleFeedback < ApplicationRecord
+      class QuillFeedback < ApplicationRecord
         include HasOptimalAndSubOptimal
 
         DATA_PARTITIONS = [

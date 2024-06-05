@@ -51,7 +51,7 @@ module Evidence
 
         def examples(limit)
           passage_prompt
-            .example_feedbacks
+            .quill_feedbacks
             .prompt_engineering_data
             .limit(limit)
             .map(&:response_and_feedback)
