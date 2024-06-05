@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import questionActions from '../../actions/questions.ts';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
+import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm';
 import { hashToCollection, } from '../../../Shared/index'
 
 class EditIncorrectSequencesContainer extends Component {
