@@ -182,7 +182,7 @@
     }
     .options-container {
       display: flex;
-      &:first-of-type {
+      &:not(:last-of-type) {
         margin-bottom: 48px;
       }
       .option-container {
@@ -250,13 +250,60 @@
 }
 
 #buttons .variations-container .options-container .option-container .quill-button-container {
-  &.states {
+  &.states, &.variants, &.colors {
     display: flex;
     flex-direction: column;
     gap: 36px;
     margin: 60px 0px 60px 0px;
+  }
+  &.states, &.colors {
     .quill-button {
       &.contained {
+        &.gold {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-gold-dark-50;
+          }
+        }
+        &.maroon {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-maroon;
+          }
+        }
+        &.blue {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-blue;
+          }
+        }
+        &.teal {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-teal;
+          }
+        }
+        &.viridian {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-viridian;
+          }
+        }
+        &.purple {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-purple;
+          }
+        }
+        &.violet {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-violet;
+          }
+        }
+        &.red {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-red;
+          }
+        }
+        &.grey {
+          &.hover {
+            background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-grey-80;
+          }
+        }
         &.hover {
           background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-green;
         }

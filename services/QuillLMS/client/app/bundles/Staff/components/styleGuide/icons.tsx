@@ -245,6 +245,8 @@ const iconGroups = [
       { path: "premium-icon.svg" },
       { path: "remove.svg" },
       { path: "revise-gold.svg" },
+      { path: "star-white.svg" },
+      { path: "star-green.svg" },
       { path: "swap-vertical.svg" },
       { path: "triangle-up-green.svg" },
       { path: "triangle-up-light-green.svg" },

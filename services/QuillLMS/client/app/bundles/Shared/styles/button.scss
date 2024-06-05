@@ -16,9 +16,63 @@
     color: $quill-white;
     font-weight: 700;
     &.disabled {
-      background-color: $quill-grey-5;
-      color: $quill-grey-30;
-      border: 1px solid $quill-grey-15;
+      background-color: $quill-grey-5 !important;;
+      color: $quill-grey-30 !important;;
+      border: 1px solid $quill-grey-15 !important;;
+    }
+    &.gold {
+      background-color: $quill-gold-dark-50;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-gold-dark-50;
+      }
+    }
+    &.maroon {
+      background-color: $quill-maroon;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-maroon;
+      }
+    }
+    &.blue {
+      background-color: $quill-blue;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-blue;
+      }
+    }
+    &.teal {
+      background-color: $quill-teal;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-teal;
+      }
+    }
+    &.viridian {
+      background-color: $quill-viridian;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-viridian;
+      }
+    }
+    &.purple {
+      background-color: $quill-purple;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-purple;
+      }
+    }
+    &.violet {
+      background-color: $quill-violet;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-violet;
+      }
+    }
+    &.red {
+      background-color: $quill-red;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-red;
+      }
+    }
+    &.grey {
+      background-color: $quill-grey-80;
+      &:hover {
+        background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-grey-80;
+      }
     }
   }
   &.outlined {
@@ -32,6 +86,62 @@
     }
     &:hover {
       background-color: $quill-green-1;
+    }
+    &.gold {
+      color: $quill-gold-dark;
+      border: 1px solid $quill-gold-dark-10;
+      &:hover {
+        background-color: $quill-gold-dark-1;
+      }
+    }
+    &.maroon {
+      color: $quill-maroon;
+      border: 1px solid $quill-maroon-10;
+      &:hover {
+        background-color: $quill-maroon-1;
+      }
+    }
+    &.blue {
+      color: $quill-blue;
+      border: 1px solid $quill-blue-10;
+      &:hover {
+        background-color: $quill-blue-1;
+      }
+    }
+    &.teal {
+      color: $quill-teal;
+      border: 1px solid $quill-teal-10;
+      &:hover {
+        background-color: $quill-teal-1;
+      }
+    }
+    &.viridian {
+      color: $quill-viridian;
+      border: 1px solid $quill-viridian-10;
+      &:hover {
+        background-color: $quill-viridian-1;
+      }
+    }
+    &.purple {
+      color: $quill-purple;
+      border: 1px solid $quill-purple-10;
+      &:hover {
+        background-color: $quill-purple-1;
+      }
+    }
+    &.violet {
+      color: $quill-violet;
+      border: 1px solid $quill-violet-10;
+      &:hover {
+        background-color: $quill-violet-1;
+      }
+    }
+    &.violet {
+      color: $quill-red;
+      border: 1px solid $quill-red-10;
+      &:hover {
+        background-color: $quill-red-1;
+      }
     }
     &.grey {
       color: $quill-grey-90;
@@ -54,8 +164,5 @@
   &.large {
     height: 44px;
     min-width: 89px;
-  }
-  &.grey {
-
   }
 }
