@@ -111,7 +111,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined "
+      className="add-highlight quill-button-archived small primary outlined "
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -120,7 +120,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       Add Highlight
     </button>
     <button
-      className="remove-highlight quill-button small secondary outlined"
+      className="remove-highlight quill-button-archived small secondary outlined"
       onClick={[Function]}
       type="button"
       value="0"
@@ -145,7 +145,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined "
+      className="add-highlight quill-button-archived small primary outlined "
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -158,14 +158,14 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     className="button-wrapper"
   >
     <button
-      className="add-feedback-layer quill-button small primary outlined"
+      className="add-feedback-layer quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
     >
       Add Feedback Layer
     </button>
     <button
-      className="remove-highlight quill-button small secondary outlined"
+      className="remove-highlight quill-button-archived small secondary outlined"
       onClick={[Function]}
       type="button"
     >

@@ -15,6 +15,7 @@ import TextFields from '../components/styleGuide/textFields'
 import Tooltips from '../components/styleGuide/tooltips'
 import Checkboxes from '../components/styleGuide/checkBoxes'
 import RadioButtons from '../components/styleGuide/radioButtons'
+import Lists from '../components/styleGuide/lists'
 
 export default class BackpackIndex extends React.Component {
   renderLink(href, text) {
@@ -54,6 +55,7 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#textFields', 'Text Fields (Inputs)')}
             {this.renderLink('#checkboxes', 'Checkboxes')}
             {this.renderLink('#radio-buttons', 'Radio Buttons')}
+            {this.renderLink('#lists', 'Lists')}
             {this.renderLink('#snackbars', 'Snackbars')}
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
@@ -75,6 +77,7 @@ export default class BackpackIndex extends React.Component {
           <TextFields />
           <Checkboxes />
           <RadioButtons />
+          <Lists />
           <Snackbars />
           <Tooltips />
           <DataTables />

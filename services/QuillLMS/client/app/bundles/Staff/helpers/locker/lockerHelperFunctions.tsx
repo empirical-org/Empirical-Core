@@ -43,8 +43,8 @@ export function renderConfirmationModal({ confirmationText, leftClickHandler, ri
     <Modal>
       <p>{confirmationText}</p>
       <div className="buttons-container">
-        <button className="quill-button focus-on-light fun primary outlined" onClick={leftClickHandler} value={buttonValue}>{leftButtonText}</button>
-        <button className="quill-button focus-on-light fun primary outlined" onClick={rightClickHandler}>{rightButtonText}</button>
+        <button className="quill-button-archived focus-on-light fun primary outlined" onClick={leftClickHandler} value={buttonValue}>{leftButtonText}</button>
+        <button className="quill-button-archived focus-on-light fun primary outlined" onClick={rightClickHandler}>{rightButtonText}</button>
       </div>
     </Modal>
   );

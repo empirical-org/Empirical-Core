@@ -49,7 +49,7 @@ export const premiumReportTiles = [
 
 const PremiumReportsSection = () => {
   const tiles = premiumReportTiles.map(tile => {
-    const buttonClassName = "quill-button focus-on-light outlined secondary medium"
+    const buttonClassName = "quill-button-archived focus-on-light outlined secondary medium"
     const button = <Link className={buttonClassName} to={tile.link}>View report</Link>
     return (
       <div className={`tile ${tile.new ? 'new' : ''}`} key={tile.name}>

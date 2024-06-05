@@ -78,7 +78,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
 
   submitButtonClass() {
     const { primaryAccountId, secondaryAccountId, checkboxOne, checkboxTwo, checkboxThree } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!(primaryAccountId && secondaryAccountId && checkboxOne && checkboxTwo && checkboxThree)) {
       buttonClass += ' disabled';
     }
@@ -151,7 +151,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           />
           {this.renderCheckboxes()}
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
             <button className={this.submitButtonClass()} onClick={this.mergeStudentAccounts}>Merge accounts</button>
           </div>
         </div>

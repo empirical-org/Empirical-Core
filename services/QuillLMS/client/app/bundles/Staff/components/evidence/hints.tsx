@@ -124,13 +124,13 @@ const Hints = ({ location, match }) => {
 
   const saveButton = () => {
     const buttonText = hint.id === NO_VALUE ? 'Create Hint' : 'Update Hint'
-    return (<button className="quill-button medium primary outlined save-hint" onClick={handleSaveHint} type="button">{buttonText}</button>)
+    return (<button className="quill-button-archived medium primary outlined save-hint" onClick={handleSaveHint} type="button">{buttonText}</button>)
   }
 
   const deleteButton = () => {
     if (hint.id === NO_VALUE) return;
 
-    return (<button className="quill-button medium primary outlined delete-hint" onClick={handleDeleteHint} type="button">Delete Hint</button>)
+    return (<button className="quill-button-archived medium primary outlined delete-hint" onClick={handleDeleteHint} type="button">Delete Hint</button>)
   }
 
   return(

@@ -82,8 +82,8 @@ const ReleaseMethodModal = ({ visible, handleClickAssign, handleClickCancel, set
         <div className="footer">
           <p className="footer-note">{originalReleaseMethod ? 'Note: Your selection will be applied to the entire class' : ''}</p>
           <div className="buttons-wrapper">
-            <button className="quill-button large outlined secondary focus-on-light" onClick={handleClickCancel} type="button">Cancel</button>
-            <button className={`quill-button large contained primary focus-on-light ${releaseMethod ? '' : 'disabled'}`} disabled={!releaseMethod} onClick={handleClickAssign} type="button">{originalReleaseMethod ? 'Save' : 'Assign'}</button>
+            <button className="quill-button-archived large outlined secondary focus-on-light" onClick={handleClickCancel} type="button">Cancel</button>
+            <button className={`quill-button-archived large contained primary focus-on-light ${releaseMethod ? '' : 'disabled'}`} disabled={!releaseMethod} onClick={handleClickAssign} type="button">{originalReleaseMethod ? 'Save' : 'Assign'}</button>
           </div>
         </div>
       </div>

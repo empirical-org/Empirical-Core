@@ -61,7 +61,7 @@ export default class UpdatePassword extends Component {
 
   submitClass = () => {
     const { currentPassword, newPassword, } = this.state
-    let buttonClass = 'quill-button contained primary medium focus-on-light';
+    let buttonClass = 'quill-button-archived contained primary medium focus-on-light';
     if (!(currentPassword.length && newPassword.length)) {
       buttonClass += ' disabled';
     }
@@ -73,7 +73,7 @@ export default class UpdatePassword extends Component {
     if (showButtonSection) {
       return (
         <div className="button-section">
-          <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleClickCancel} type="button">Cancel</button>
+          <button className="quill-button-archived outlined secondary medium focus-on-light" id="cancel" onClick={this.handleClickCancel} type="button">Cancel</button>
           <input aria-label="Change password" className={this.submitClass()} name="commit" type="submit" value="Change password" />
         </div>
       )

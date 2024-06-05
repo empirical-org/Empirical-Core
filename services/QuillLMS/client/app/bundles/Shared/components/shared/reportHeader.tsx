@@ -47,7 +47,7 @@ export const ReportHeader = ({ headerText, subHeaderElement, tooltipText, csvDat
 
   function renderRightSection() {
     if(isFreemiumView) { return }
-    const button = downloadReportButton || <CSVDownloadForProgressReport className="quill-button focus-on-light small primary contained" data={csvData} key={key} keysToOmit={keysToOmit} valuesToChange={valuesToChange} />
+    const button = downloadReportButton || <CSVDownloadForProgressReport className="quill-button-archived focus-on-light small primary contained" data={csvData} key={key} keysToOmit={keysToOmit} valuesToChange={valuesToChange} />
 
     return(
       <div className="csv-and-how-we-grade">

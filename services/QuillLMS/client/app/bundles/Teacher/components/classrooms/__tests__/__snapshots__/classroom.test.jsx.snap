@@ -177,7 +177,7 @@ exports[`Classroom component selected should render as an open card 1`] = `
         className="class-settings-buttons"
       >
         <button
-          className="quill-button secondary outlined small"
+          className="quill-button-archived secondary outlined small"
           key="leave-class-285383"
           onClick={[Function]}
           type="button"

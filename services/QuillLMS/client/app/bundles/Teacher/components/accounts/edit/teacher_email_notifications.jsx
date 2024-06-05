@@ -135,8 +135,8 @@ const TeacherEmailNotifications = ({ activateSection, active, deactivateSection,
 
     return (
       <div className="button-section">
-        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={resetAndDeactivateSection} type="button">Cancel</button>
-        <input aria-label="Save changes" className="quill-button primary contained medium focus-on-light" type="submit" value="Save changes" />
+        <button className="quill-button-archived outlined secondary medium focus-on-light" id="cancel" onClick={resetAndDeactivateSection} type="button">Cancel</button>
+        <input aria-label="Save changes" className="quill-button-archived primary contained medium focus-on-light" type="submit" value="Save changes" />
       </div>
     )
   }

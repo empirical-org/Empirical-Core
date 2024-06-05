@@ -234,7 +234,7 @@ const ActivateModelForm = ({ match }) => {
         <section className="activate-model-section">
           <section className="missing-labels-header">
             <h4>Missing Labels</h4>
-            <button className="quill-button fun primary contained" id="add-rule-button" type="submit">{labelLink}</button>
+            <button className="quill-button-archived fun primary contained" id="add-rule-button" type="submit">{labelLink}</button>
           </section>
           {showMissingLabelsTable && <section>
             <DataTable
@@ -258,7 +258,7 @@ const ActivateModelForm = ({ match }) => {
         {error && <div className="error-message-container">
           <p className="all-errors-message">{error}</p>
         </div>}
-        <button className={`quill-button fun primary contained ${buttonStyle}`} disabled={!modelReady} onClick={handleModelActivation} type="submit">Activate Model</button>
+        <button className={`quill-button-archived fun primary contained ${buttonStyle}`} disabled={!modelReady} onClick={handleModelActivation} type="submit">Activate Model</button>
       </section>
     </div>
   );

@@ -8,7 +8,7 @@ exports[`ShareToStudents component should render 1`] = `
   <AssignmentFlowNavigation
     button={
       <button
-        className="quill-button medium contained primary"
+        className="quill-button-archived medium contained primary"
         onClick={[Function]}
         type="button"
       >

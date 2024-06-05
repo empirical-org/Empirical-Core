@@ -145,7 +145,7 @@ const Model = ({ match }) => {
         {errorsPresent && <div className="error-message-container">
           <p className="all-errors-message">Failed to update model notes.</p>
         </div>}
-        <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleUpdateModel} type="button">
+        <button className="quill-button-archived fun primary contained" id="rule-submit-button" onClick={onHandleUpdateModel} type="button">
           Submit
         </button>
       </div>

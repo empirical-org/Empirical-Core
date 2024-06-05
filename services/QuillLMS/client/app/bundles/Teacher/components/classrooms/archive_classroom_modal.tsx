@@ -34,8 +34,8 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
             {supportLink}
           </div>
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
-            <button className="quill-button contained primary medium" onClick={this.handleArchiveClassButtonClick} type="button">Archive</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={close} type="button">Cancel</button>
+            <button className="quill-button-archived contained primary medium" onClick={this.handleArchiveClassButtonClick} type="button">Archive</button>
           </div>
         </div>
       </div>

@@ -165,7 +165,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -177,7 +177,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
@@ -253,7 +253,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -265,7 +265,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/885"
               >
                 Replay
@@ -341,7 +341,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -353,7 +353,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/804"
               >
                 Replay
@@ -429,7 +429,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -441,7 +441,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/887"
               >
                 Replay
@@ -517,7 +517,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -529,7 +529,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/801"
               >
                 Replay
@@ -605,7 +605,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -617,7 +617,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/802"
               >
                 Replay
@@ -693,7 +693,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -705,7 +705,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/181"
               >
                 Replay
@@ -888,7 +888,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -900,7 +900,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
@@ -980,7 +980,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -992,7 +992,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/885"
               >
                 Replay
@@ -1072,7 +1072,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1084,7 +1084,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/804"
               >
                 Replay
@@ -1164,7 +1164,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1176,7 +1176,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/887"
               >
                 Replay
@@ -1256,7 +1256,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1268,7 +1268,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/801"
               >
                 Replay
@@ -1348,7 +1348,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1360,7 +1360,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/802"
               >
                 Replay
@@ -1440,7 +1440,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1452,7 +1452,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/181"
               >
                 Replay
@@ -1624,7 +1624,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1636,7 +1636,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
@@ -1705,7 +1705,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1717,7 +1717,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/885"
               >
                 Replay
@@ -1786,7 +1786,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1798,7 +1798,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/804"
               >
                 Replay
@@ -1867,7 +1867,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1879,7 +1879,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/887"
               >
                 Replay
@@ -1948,7 +1948,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1960,7 +1960,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/801"
               >
                 Replay
@@ -2029,7 +2029,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -2041,7 +2041,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/802"
               >
                 Replay
@@ -2110,7 +2110,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -2122,7 +2122,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/181"
               >
                 Replay
@@ -2232,7 +2232,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start The Travels of Marco Polo"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/608"
               >
                 Start
@@ -2264,7 +2264,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Christopher Columbus"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/607"
               >
                 Start
@@ -2296,7 +2296,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start A, An, The"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/140"
               >
                 Start
@@ -2328,7 +2328,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Magellan"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/605"
               >
                 Start
@@ -2360,7 +2360,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Jamestown"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/606"
               >
                 Start
@@ -2392,7 +2392,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Age of Exploration: Sailing with the Stars"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/503"
               >
                 Start
@@ -2424,7 +2424,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Age of Exploration: The Cape of Good Hope"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/504"
               >
                 Start
@@ -2456,7 +2456,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Age of Exploration: Roanoke"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/517"
               >
                 Start

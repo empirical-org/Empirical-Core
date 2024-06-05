@@ -167,7 +167,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
     if (!hasStandardCategoryAndLevelIfStandard) {
       return (
         <input
-          className="quill-button contained disabled primary medium"
+          className="quill-button-archived contained disabled primary medium"
           type="submit"
           value="Unarchive, set live"
         />
@@ -176,7 +176,7 @@ const ArchivedRecordBox = ({ originalRecord, recordType, standardLevels, standar
 
     return (
       <input
-        className="quill-button contained primary medium"
+        className="quill-button-archived contained primary medium"
         type="submit"
         value="Unarchive, set live"
       />

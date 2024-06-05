@@ -65,6 +65,10 @@ export {
 } from './input'
 
 export {
+  List
+} from './list'
+
+export {
   Passthrough
 } from './passthrough'
 

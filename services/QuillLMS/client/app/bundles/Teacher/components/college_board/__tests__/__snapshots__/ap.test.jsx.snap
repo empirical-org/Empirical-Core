@@ -39,7 +39,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               Free AP® writing practice with comprehensive progress reports for you and immediate feedback for students that guides them towards mastery of sentence-level skills.
             </p>
             <a
-              className="quill-button large primary contained focus-on-light"
+              className="quill-button-archived large primary contained focus-on-light"
               href="https://www.quill.org/account/new"
               rel="noopener noreferrer"
               target="_blank"
@@ -98,7 +98,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               AP Writing Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/193"
               rel="noopener noreferrer"
               target="_blank"
@@ -150,7 +150,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/154"
               rel="noopener noreferrer"
               target="_blank"
@@ -200,7 +200,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/299"
               rel="noopener noreferrer"
               target="_blank"
@@ -250,7 +250,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/300"
               rel="noopener noreferrer"
               target="_blank"
@@ -1561,7 +1561,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               AP Writing Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/193?college-board=ap"
               rel="noopener noreferrer"
               target=""
@@ -1613,7 +1613,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=ap"
               rel="noopener noreferrer"
               target=""
@@ -1663,7 +1663,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=ap"
               rel="noopener noreferrer"
               target=""
@@ -1713,7 +1713,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=ap"
               rel="noopener noreferrer"
               target=""

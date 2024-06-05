@@ -67,7 +67,7 @@ const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handle
             </div>
           </div>
           <button
-            className="quill-button fun primary outlined delete-regex-button"
+            className="quill-button-archived fun primary outlined delete-regex-button"
             id="remove-regex-button"
             onClick={handleDeleteRegexRule}
             type="button"
@@ -83,7 +83,7 @@ const RegexRules = ({ errors, handleAddRegexInput, handleDeleteRegexRule, handle
     <div className="regex-rules-container">
       {renderRegexRules()}
       <button
-        className="quill-button fun primary outlined add-regex-button"
+        className="quill-button-archived fun primary outlined add-regex-button"
         id="add-regex-button"
         onClick={handleAddRegexInput}
         type="button"

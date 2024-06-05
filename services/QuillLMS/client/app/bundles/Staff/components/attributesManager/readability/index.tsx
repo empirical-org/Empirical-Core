@@ -36,7 +36,7 @@ const RawScoreTableRow = ({ rawScore, saveRawScoreChanges, }) => {
       <div className="raw-score-table-row">
         <Input handleCancel={undoChange} handleChange={onNameChange} value={newName} />
         <button className="interactive-wrapper" onClick={toggleEditing}>Cancel</button>
-        <button className="quill-button fun contained primary" onClick={handleSave}>Save</button>
+        <button className="quill-button-archived fun contained primary" onClick={handleSave}>Save</button>
       </div>
     )
   }
@@ -110,7 +110,7 @@ const Readability = ({ match, location, }) => {
           {rawScoreTableRows}
           <div className="new-raw-score-container">
             <Input handleChange={onChangeNewRawScoreName} label="Add Raw Score" value={newRawScoreName} />
-            <button className="quill-button primary contained fun" onClick={createNewRawScore}>Add</button>
+            <button className="quill-button-archived primary contained fun" onClick={createNewRawScore}>Add</button>
           </div>
         </div>
       </div>

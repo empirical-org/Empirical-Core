@@ -40,7 +40,7 @@ exports[`PremiumReportsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/usage_snapshot_report"
             >
               View report
@@ -71,7 +71,7 @@ exports[`PremiumReportsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/diagnostic_growth_report"
             >
               View report
@@ -102,7 +102,7 @@ exports[`PremiumReportsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/data_export"
             >
               View report
@@ -128,7 +128,7 @@ exports[`PremiumReportsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/district_concept_reports"
             >
               View report
@@ -154,7 +154,7 @@ exports[`PremiumReportsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/district_activity_scores"
             >
               View report
@@ -180,7 +180,7 @@ exports[`PremiumReportsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/district_standards_reports"
             >
               View report

@@ -42,7 +42,7 @@ const FilterWidget = ({
           />
         </div>
       </div>
-      <button className="quill-button fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
+      <button className="quill-button-archived fun primary contained" onClick={handleFilterClick} type="submit">Filter</button>
     </div>
   );
 }

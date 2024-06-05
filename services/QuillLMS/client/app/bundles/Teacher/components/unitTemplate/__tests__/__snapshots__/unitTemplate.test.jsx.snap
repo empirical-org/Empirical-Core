@@ -391,7 +391,7 @@ exports[`<UnitTemplate /> matches the component snapshot 1`] = `
       class="error-message-and-button-container"
     >
       <button
-        class="quill-button primary contained medium focus-on-light"
+        class="quill-button-archived primary contained medium focus-on-light"
       >
         Save
       </button>

@@ -50,7 +50,7 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
             Play around with a fully loaded demo to see sample student data and reports.
           </p>
           <a
-            className="quill-button contained primary medium focus-on-light"
+            className="quill-button-archived contained primary medium focus-on-light"
             href="undefined/teachers/view_demo"
           >
             Start exploring
@@ -66,7 +66,7 @@ exports[`WelcomeModal component should render WelcomeModal 1`] = `
             Ready to set up your own classes? Jump right into your account.
           </p>
           <button
-            className="quill-button outlined secondary medium focus-on-light"
+            className="quill-button-archived outlined secondary medium focus-on-light"
             type="button"
           >
             Let's go!

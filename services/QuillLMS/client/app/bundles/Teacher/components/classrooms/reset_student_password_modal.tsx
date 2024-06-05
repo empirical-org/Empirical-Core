@@ -45,8 +45,8 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
             value={student.name.split(' ')[1]}
           />
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-            <button className="quill-button primary contained medium" onClick={this.resetPassword}>Reset Password</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived primary contained medium" onClick={this.resetPassword}>Reset Password</button>
           </div>
         </div>
       </div>

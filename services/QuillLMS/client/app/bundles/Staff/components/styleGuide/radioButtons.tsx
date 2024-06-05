@@ -8,7 +8,7 @@ const RadioButtons= () => {
   return (
     <div id="radio-buttons">
       <h2 className="style-guide-h2">Radio Buttons</h2>
-      <div className="states-and-modes-container">
+      <div className="variations-container">
         <h4 className="style-guide-h4">States</h4>
         <div className="options-container">
           {STATES.map(state => {

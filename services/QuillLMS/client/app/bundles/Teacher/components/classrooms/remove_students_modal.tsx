@@ -46,7 +46,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
 
   submitButtonClass() {
     const { checkboxOne, } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!checkboxOne) {
       buttonClass += ' disabled';
     }
@@ -91,7 +91,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
           <p>Students' Quill accounts will remain active. If you bring students back into the class, the data from their completed activities will be restored.</p>
           {this.renderCheckboxes()}
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={close}>Cancel</button>
             <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
           </div>
         </div>

@@ -107,7 +107,7 @@ const Filters = ({
   function renderFilterButtons() {
     if (!hasAdjustedFiltersFromDefault && !hasAdjustedFiltersSinceLastSubmission) { return null }
 
-    let applyClassName = "quill-button small contained primary focus-on-light"
+    let applyClassName = "quill-button-archived small contained primary focus-on-light"
 
     applyClassName += hasAdjustedFiltersSinceLastSubmission ? '' : ' disabled'
 
@@ -115,7 +115,7 @@ const Filters = ({
       <div className={`filter-buttons-container fixed ${applyFilterButtonClicked ? 'with-count ' : ''}`}>
         {renderFilterScope()}
         <div className="filter-buttons">
-          <button className="quill-button small outlined secondary focus-on-light" onClick={handleClearFilters} type="button">Clear filters</button>
+          <button className="quill-button-archived small outlined secondary focus-on-light" onClick={handleClearFilters} type="button">Clear filters</button>
           <button className={applyClassName} onClick={handleApplyFilters} type="button">Apply filters</button>
         </div>
       </div>

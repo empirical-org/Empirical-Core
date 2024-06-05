@@ -60,7 +60,7 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessa
           />
         </div>
         <div className="submit-button-container">
-          <button className="quill-button fun primary contained" id="edit-turk-submit-button" onClick={handleEditTurkSession} type="submit">
+          <button className="quill-button-archived fun primary contained" id="edit-turk-submit-button" onClick={handleEditTurkSession} type="submit">
             Submit
           </button>
         </div>
@@ -73,7 +73,7 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessa
       <React.Fragment>
         <p className="delete-message">Are you sure you want to delete this session?</p>
         <div className="submit-button-container">
-          <button className="quill-button fun primary contained" id="delete-turk-submit-button" onClick={handleDeleteTurkSession} type="submit">
+          <button className="quill-button-archived fun primary contained" id="delete-turk-submit-button" onClick={handleDeleteTurkSession} type="submit">
             Delete
           </button>
         </div>

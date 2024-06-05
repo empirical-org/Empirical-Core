@@ -5,7 +5,7 @@ exports[`Unit assignment followup component When there are only empty classes as
   <AssignmentFlowNavigation
     button={
       <button
-        className="quill-button medium contained primary"
+        className="quill-button-archived medium contained primary"
         onClick={[Function]}
         type="button"
       >
@@ -57,7 +57,7 @@ exports[`Unit assignment followup component When there are only empty classes as
               text="undefined/?referral_code=code"
             >
               <button
-                className="quill-button secondary outlined small"
+                className="quill-button-archived secondary outlined small"
                 type="button"
               >
                 Copy link
@@ -125,7 +125,7 @@ exports[`Unit assignment followup component When there are students assigned on 
   <AssignmentFlowNavigation
     button={
       <button
-        className="quill-button medium contained primary"
+        className="quill-button-archived medium contained primary"
         onClick={[Function]}
         type="button"
       >
@@ -177,7 +177,7 @@ exports[`Unit assignment followup component When there are students assigned on 
               text="undefined/?referral_code=code"
             >
               <button
-                className="quill-button secondary outlined small"
+                className="quill-button-archived secondary outlined small"
                 type="button"
               >
                 Copy link
@@ -245,7 +245,7 @@ exports[`Unit assignment followup component When there are students assigned on 
   <AssignmentFlowNavigation
     button={
       <button
-        className="quill-button medium contained primary"
+        className="quill-button-archived medium contained primary"
         onClick={[Function]}
         type="button"
       >

@@ -109,10 +109,10 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
         <div className="delete-rule-container">
           <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
           <div className="delete-rule-button-container">
-            <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+            <button className="quill-button-archived fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
               Delete
             </button>
-            <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+            <button className="quill-button-archived fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
               Cancel
             </button>
           </div>
@@ -189,7 +189,7 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
       {renderHeader(activityData, header)}
       <section className="semantic-rule-form-header">
         <Link className="return-link" to={`/activities/${activityId}/semantic-labels`}>← Return to Semantic Rules Index</Link>
-        <button className="quill-button fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
+        <button className="quill-button-archived fun primary contained" id="rule-delete-button" onClick={toggleShowDeleteRuleModal} type="button">
           Delete
         </button>
       </section>
@@ -258,10 +258,10 @@ const SemanticLabelForm = ({ activityId, isSemantic, isUniversal, requestErrors,
         />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
-          <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
+          <button className="quill-button-archived fun primary contained" id="rule-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>
-          <button className="quill-button fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
+          <button className="quill-button-archived fun primary contained" id="rule-cancel-button" type="submit">{cancelLink}</button>
         </div>
       </form>
     </div>

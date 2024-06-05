@@ -50,7 +50,7 @@ export const renderReadPassageStep = (activeStep, activities, handleDoneReadingC
   return (
     <div className='read-passage-step-container'>
       <h2>Read the text.</h2>
-      <button className='quill-button large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
+      <button className='quill-button-archived large primary contained done-reading-button' onClick={handleDoneReadingClick} type="button">Done reading</button>
     </div>
   )
 }

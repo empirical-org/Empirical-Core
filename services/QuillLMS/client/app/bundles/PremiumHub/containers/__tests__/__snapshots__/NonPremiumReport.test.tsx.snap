@@ -26,7 +26,7 @@ exports[`NonPremiumReport it should render if all optional props are passed in 1
           class="buttons"
         >
           <a
-            class="quill-button contained primary large focus-on-light"
+            class="quill-button-archived contained primary large focus-on-light"
             href="https://calendly.com/alex-quill"
             rel="noopener noreferrer"
             target="_blank"
@@ -34,7 +34,7 @@ exports[`NonPremiumReport it should render if all optional props are passed in 1
             Talk to Sales
           </a>
           <a
-            class="quill-button contained primary large focus-on-light"
+            class="quill-button-archived contained primary large focus-on-light"
             href="/premium"
             target="_blank"
           >
@@ -138,7 +138,7 @@ exports[`NonPremiumReport it should render if only required props are passed in 
           class="buttons"
         >
           <a
-            class="quill-button contained primary large focus-on-light"
+            class="quill-button-archived contained primary large focus-on-light"
             href="https://calendly.com/alex-quill"
             rel="noopener noreferrer"
             target="_blank"
@@ -146,7 +146,7 @@ exports[`NonPremiumReport it should render if only required props are passed in 
             Talk to Sales
           </a>
           <a
-            class="quill-button contained primary large focus-on-light"
+            class="quill-button-archived contained primary large focus-on-light"
             href="/premium"
             target="_blank"
           >

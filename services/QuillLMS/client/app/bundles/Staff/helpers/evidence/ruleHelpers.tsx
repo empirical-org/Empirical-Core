@@ -507,10 +507,10 @@ export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModa
       <div className="delete-rule-container">
         <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
         <div className="delete-rule-button-container">
-          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+          <button className="quill-button-archived fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
             Delete
           </button>
-          <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+          <button className="quill-button-archived fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
             Cancel
           </button>
         </div>
