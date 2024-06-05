@@ -28,11 +28,6 @@ class Api::V1::QuestionsController < Api::ApiController
     render(plain: 'OK')
   end
 
-  def update_flag
-    @question.update_flag(valid_params[:flag])
-    render_question
-  end
-
   def update_model_concept
     @question.update_model_concept(valid_params[:modelConcept])
     render_question

@@ -71,21 +71,6 @@ describe Api::V1::QuestionsController, type: :controller do
     end
   end
 
-  describe "#update_flag" do
-    it "should update the flag attribute in the data" do
-      new_flag = 'newflag'
-      put :update_flag, params: { id: question.uid, question: { flag: new_flag } }, as: :json
-      question.reload
-      expect(question.data["flag"]).to eq(new_flag)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      put :update_flag, params: { id: 'doesnotexist', question: { flag: nil } }, as: :json
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
   describe "#update_model_concept" do
     it "should update the model concept uid attribute in the data" do
       new_model_concept = SecureRandom.uuid

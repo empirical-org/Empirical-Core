@@ -30,6 +30,7 @@ class Api::V1::LessonsController < Api::ApiController
   def update
     name = valid_params[:name] || valid_params[:title]
     @lesson.update!({data: valid_params, name: name, flag: valid_params[:flag]})
+    @lesson.update_questions_flag_status_if_necessary!
     render(json: @lesson.data_as_json)
   end
 
