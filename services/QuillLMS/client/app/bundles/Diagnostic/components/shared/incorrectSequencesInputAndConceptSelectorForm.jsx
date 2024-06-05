@@ -69,20 +69,21 @@ export default class extends React.Component {
   };
 
   submit = (incorrectSequence) => {
-    const { name } = this.state
-    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
-    if (incorrectSequences.every(is => isValidRegex(is))) {
+    const { name, itemText, itemFeedback, itemConcepts, caseInsensitive, } = this.state
+
+    const incorrectSequences = itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    if (incorrectSequences.every(is => isValidFocusPointOrIncorrectSequence(is))) {
       const incorrectSequenceString = incorrectSequences.join('|||')
       const data = {
         name: name,
         text: incorrectSequenceString,
-        feedback: this.state.itemFeedback,
-        conceptResults: this.state.itemConcepts,
-        caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false
+        feedback: itemFeedback,
+        conceptResults: itemConcepts,
+        caseInsensitive: caseInsensitive || false
       };
       this.props.onSubmit(data, incorrectSequence);
     } else {
-      window.alert('Your regex syntax is invalid. Try again!')
+      window.alert('Your incorrect sequence is invalid. Check your regex syntax and try again!')
     }
   };
 

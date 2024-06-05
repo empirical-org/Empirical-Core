@@ -1,7 +1,7 @@
 import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import _ from 'underscore';
-import { TextEditor, isValidRegex } from '../../../Shared/index';
+import { TextEditor, isValidFocusPointOrIncorrectSequence } from '../../../Shared/index';
 
 import { requestPost, } from '../../../../modules/request/index';
 import ResponseComponent from '../questions/responseComponent';
@@ -88,7 +88,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   submit = (focusPoint) => {
     const { name } = this.state
     const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
-    if (focusPoints.every(fp => isValidRegex(fp))) {
+    if (focusPoints.every(fp => isValidFocusPointOrIncorrectSequence(fp))) {
       const focusPointString = focusPoints.join('|||')
       const data = {
         name: name,
@@ -98,7 +98,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       };
       this.props.onSubmit(data, focusPoint);
     } else {
-      window.alert('Your regex syntax is invalid. Try again!')
+      window.alert('Your focus point is invalid. Check your regex syntax and try again!')
     }
   }
 

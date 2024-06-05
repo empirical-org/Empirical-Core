@@ -6,7 +6,7 @@ import ResponseComponent from '../questions/responseComponent';
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
 
 import { requestPost, } from '../../../../modules/request/index';
-import { isValidRegex, TextEditor, } from '../../../Shared/index';
+import { isValidFocusPointOrIncorrectSequence, TextEditor, } from '../../../Shared/index';
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {
@@ -75,7 +75,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   submit(focusPoint) {
     const { name } = this.state
     const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
-    if (focusPoints.every(fp => isValidRegex(fp))) {
+    if (focusPoints.every(fp => isValidFocusPointOrIncorrectSequence(fp))) {
       const incorrectSequenceString = focusPoints.join('|||')
       const data = {
         name: name,
@@ -85,7 +85,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       };
       this.props.onSubmit(data, focusPoint);
     } else {
-      window.alert('Your regex syntax is invalid. Try again!')
+      window.alert('Your focus point is invalid. Check your regex syntax and try again!')
     }
   }
 

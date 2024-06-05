@@ -101,6 +101,7 @@ export {
   hashToCollection,
   isValidRegex,
   isValidAndNotEmptyRegex,
+  isValidFocusPointOrIncorrectSequence,
   momentFormatConstants,
   copyToClipboard,
   getLatestAttempt,
