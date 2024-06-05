@@ -3,8 +3,7 @@
 class AdminDiagnosticReportsController < ApplicationController
   CACHE_REPORT_NAME = 'admin-diagnostic-overview'
   WORKERS_FOR_ACTIONS = {
-    "report" => AdminDiagnosticReports::DiagnosticOverviewWorker,
-    "download" => AdminDiagnosticReports::EnqueueCsvEmailWorker
+    "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
   }
 
   before_action :set_query, only: [:report]
@@ -16,7 +15,7 @@ class AdminDiagnosticReportsController < ApplicationController
   end
 
   def download
-    WORKERS_FOR_ACTIONS[action_name].perform_async(current_user.id)
+    AdminDiagnosticReports::EnqueueCsvEmailWorker.perform_async(current_user.id)
     render json: {}, status: :ok
   end
 
