@@ -57,18 +57,6 @@ describe('QuestionApi calls', () => {
     })
   })
 
-  describe('updateFlag', () => {
-    it('should call requestPut', () => {
-      const MOCK_ID = 1
-      const MOCK_FLAG = 'FLAG'
-      const url = `${questionApiBaseUrl}/${MOCK_ID}/update_flag.json`
-      QuestionApi.updateFlag(MOCK_ID, MOCK_FLAG)
-      expect(mockRequestPut).toHaveBeenLastCalledWith(url, {question: {
-        flag: MOCK_FLAG
-      }}, null, expect.anything())
-    })
-  })
-
   describe('updateModelConcept', () => {
     it('should call requestPut', () => {
       const MOCK_ID = 1

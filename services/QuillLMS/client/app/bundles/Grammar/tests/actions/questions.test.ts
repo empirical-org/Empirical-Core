@@ -25,7 +25,6 @@ import {
   submitNewIncorrectSequence,
   submitNewQuestion,
   submitQuestionEdit,
-  updateFlag,
   updateIncorrectSequences,
 } from '../../actions/questions'
 
@@ -42,15 +41,6 @@ describe('Questions actions', () => {
       const MOCK_ID = 1
       dispatch(getQuestion(MOCK_ID))
       expect(mockQuestionApi.get).toHaveBeenLastCalledWith(MOCK_ID)
-    })
-  })
-
-  describe('updateFlag', () => {
-    it('should call QuestionApi.updateFlag()', () => {
-      const MOCK_ID = 1
-      const MOCK_FLAG = 'FLAG'
-      dispatch(updateFlag(MOCK_ID, MOCK_FLAG))
-      expect(mockQuestionApi.updateFlag).toHaveBeenLastCalledWith(MOCK_ID, MOCK_FLAG)
     })
   })
 
