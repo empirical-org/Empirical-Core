@@ -9,6 +9,7 @@ module LearnWorldsIntegration
 
     def run
       raise NilUserError if user.nil?
+
       HTTParty.put(endpoint, body: body, headers: headers)
     end
 
@@ -17,7 +18,7 @@ module LearnWorldsIntegration
     def data = { tags: tags }
 
     def string_to_subject_area_tag(raw_str)
-      "subject_area_#{raw_str.downcase.gsub(/[\s\/]+/, '_')}"
+      "subject_area_#{raw_str.downcase.gsub(%r{[\s/]+}, '_')}"
     end
 
     def tags

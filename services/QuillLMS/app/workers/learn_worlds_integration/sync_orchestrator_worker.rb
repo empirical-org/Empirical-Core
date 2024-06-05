@@ -4,7 +4,7 @@ module LearnWorldsIntegration
   class SyncOrchestratorWorker
     include Sidekiq::Worker
 
-    # Note: this worker 'smears' API calls over time to avoid hitting
+    # NOTE: this worker 'smears' API calls over time to avoid hitting
     # the LearnWorlds 30 requests / 10 seconds rate limit.
     SMEAR_RATE_IN_SECONDS = 1
 
