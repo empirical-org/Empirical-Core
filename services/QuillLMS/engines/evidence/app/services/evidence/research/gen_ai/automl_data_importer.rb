@@ -20,7 +20,7 @@ module Evidence
             validation_file_name = data['files'][conjunction]['validation']
 
             # Training and validation files are artifacts from a previous classification model
-            # Here there are both drawn from to populate example feedbacks
+            # Here there are both drawn from to populate quill feedbacks
             [training_file_name, validation_file_name].each do |examples_file_name|
               break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
 

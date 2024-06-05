@@ -47,12 +47,12 @@ module Evidence
           let(:quill_feedback) { create(:evidence_research_gen_ai_quill_feedback, passage_prompt_response:) }
 
           before do
-            allow(passage_prompt_response).to receive(:example_optimal?).and_return(example_optimal)
+            allow(passage_prompt_response).to receive(:quill_optimal?).and_return(quill_optimal)
             allow(llm_feedback).to receive(:optimal?).and_return(llm_optimal)
           end
 
-          context 'when the example feedback is optimal' do
-            let(:example_optimal) { true }
+          context 'when the quill feedback is optimal' do
+            let(:quill_optimal) { true }
 
             context 'when the llm feedback is optimal' do
               let(:llm_optimal) { true }
@@ -67,8 +67,8 @@ module Evidence
             end
           end
 
-          context 'when the example feedback is sub-optimal' do
-            let(:example_optimal) { false }
+          context 'when the quill feedback is sub-optimal' do
+            let(:quill_optimal) { false }
 
             context 'when the llm feedback is optimal' do
               let(:llm_optimal) { true }
@@ -92,13 +92,13 @@ module Evidence
 
           before { create(:evidence_research_gen_ai_quill_feedback, passage_prompt_response:, text:) }
 
-          context 'when the feedback is identical to the example feedback' do
+          context 'when the feedback is identical to the quill feedback' do
             let(:text) { llm_feedback.text }
 
             it { expect(subject).to be true }
           end
 
-          context 'when the feedback is not identical to the example feedback' do
+          context 'when the feedback is not identical to the quill feedback' do
             let(:text) { 'different feedback' }
 
             it { is_expected.to be false }

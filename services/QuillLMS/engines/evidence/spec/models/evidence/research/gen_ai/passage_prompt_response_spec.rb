@@ -40,21 +40,21 @@ module Evidence
           it { expect(described_class.prompt_engineering_data).to eq [prompt_engineering_feedback.passage_prompt_response] }
         end
 
-        describe '#example_optimal?' do
-          subject { passage_prompt_response.example_optimal? }
+        describe '#quill_optimal?' do
+          subject { passage_prompt_response.quill_optimal? }
 
           let(:quill_feedback) { create(:evidence_research_gen_ai_quill_feedback) }
           let(:passage_prompt_response) { quill_feedback.passage_prompt_response }
 
           before { allow(quill_feedback).to receive(:optimal?).and_return(is_optimal) }
 
-          context 'when example feedback is optimal' do
+          context 'when quill feedback is optimal' do
             let(:is_optimal) { true }
 
             it { is_expected.to eq true }
           end
 
-          context 'when example feedback is not optimal' do
+          context 'when quill feedback is not optimal' do
             let(:is_optimal) { false }
 
             it { is_expected.to eq false }

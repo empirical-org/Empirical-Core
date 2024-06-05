@@ -28,7 +28,7 @@ module Evidence
         def self.fine_tuning_data = joins(:quill_feedback).merge(QuillFeedback.fine_tuning_data)
         def self.prompt_engineering_data = joins(:quill_feedback).merge(QuillFeedback.prompt_engineering_data)
 
-        def example_optimal? = quill_feedback.optimal?
+        def quill_optimal? = quill_feedback.optimal?
 
         def to_s = response
       end
