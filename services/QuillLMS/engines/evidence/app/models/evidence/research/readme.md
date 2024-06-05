@@ -1,12 +1,12 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Passage`, `PassagePrompt`, `PassagePromptResponse` and `ExampleFeedback` records are imported with the following structure
+`Activity`, `PassagePrompt`, `PassagePromptResponse` and `ExampleFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
-    class Passage {
-         contents
+    class Activity {
          name
+         text
     }
     class PassagePrompt {
          conjunction
@@ -22,7 +22,7 @@ classDiagram
          evaluation
          label
     }
-    Passage --|> PassagePrompt
+    Activity --|> PassagePrompt
     PassagePrompt --|> PassagePromptResponse
     PassagePromptResponse --|> ExampleFeedback
 ```
