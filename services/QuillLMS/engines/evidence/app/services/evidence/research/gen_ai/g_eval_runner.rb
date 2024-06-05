@@ -21,7 +21,7 @@ module Evidence
 
         private def student_response = llm_feedback.student_response.text
 
-        private def passage_prompt = llm_feedback.student_response.passage_prompt.prompt
+        private def activity_prompt = llm_feedback.student_response.activity_prompt_config.prompt
 
         private def ideal_feedback = llm_feedback.quill_feedback.text
 
@@ -37,7 +37,7 @@ module Evidence
           #{g_eval.evaluation_steps}
 
           Example:
-          Passage Prompt: #{passage_prompt}
+          Activity Prompt: #{activity_prompt}
           Student Response: #{student_response}
           LLM Feedback: #{llm_feedback.text}
           Ideal Feedback: #{ideal_feedback}

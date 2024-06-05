@@ -1,7 +1,7 @@
-<h1>New Passage Prompt</h1>
+<h1>New <%= @activity_prompt_config.model_name.human.titleize %></h1>
 
-<%= form_for @passage_prompt do |f| %>
-  <%= render 'errors', object: @passage_prompt %>
+<%= form_for @activity_prompt_config do |f| %>
+  <%= render 'errors', object: @activity_prompt_config %>
 
   <div class="field-spacing">
     <%= f.label :activity_id, "Activity:" %>

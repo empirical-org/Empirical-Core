@@ -31,7 +31,7 @@ module Evidence
         it { should have_readonly_attribute(:but_evidence) }
         it { should have_readonly_attribute(:so_evidence) }
 
-        it { should have_many(:passage_prompts).class_name('Evidence::Research::GenAI::PassagePrompt').dependent(:destroy) }
+        it { should have_many(:activity_prompt_configs).class_name('Evidence::Research::GenAI::ActivityPromptConfig').dependent(:destroy) }
       end
     end
   end

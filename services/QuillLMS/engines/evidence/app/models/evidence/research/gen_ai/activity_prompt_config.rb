@@ -2,21 +2,21 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_passage_prompts
+# Table name: evidence_research_gen_ai_activity_prompt_configs
 #
-#  id               :bigint           not null, primary key
-#  conjunction      :string           not null
-#  instructions     :text             not null
-#  prompt           :text             not null
-#  relevant_passage :text             not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  activity_id      :integer          not null
+#  id                :bigint           not null, primary key
+#  conjunction       :string           not null
+#  optimal_rules     :text             not null
+#  prompt            :text             not null
+#  sub_optimal_rules :text             not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  activity_id       :integer          not null
 #
 module Evidence
   module Research
     module GenAI
-      class PassagePrompt < ApplicationRecord
+      class ActivityPromptConfig < ApplicationRecord
         CONJUNCTIONS = [
           BECAUSE = 'because',
           BUT = 'but',
@@ -31,11 +31,11 @@ module Evidence
 
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
-        validates :instructions, presence: true
-        validates :relevant_passage, presence: true
+        validates :optimal_rules, presence: true
+        validates :sub_optimal_rules, presence: true
         validates :activity_id, presence: true
 
-        attr_readonly :prompt, :conjunction, :instructions, :activity_id, :relevant_passage
+        attr_readonly :prompt, :conjunction, :optimal_rules, :sub_optimal_rules, :activity_id
 
         delegate :name, to: :activity
 

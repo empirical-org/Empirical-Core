@@ -1,6 +1,6 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Activity`, `PassagePrompt`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
+`Activity`, `ActivityPromptConfig`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -8,7 +8,7 @@ classDiagram
          name
          text
     }
-    class PassagePrompt {
+    class ActivityPromptConfig {
          conjunction
          instructions
          prompt
@@ -22,13 +22,13 @@ classDiagram
          evaluation
          label
     }
-    Activity --|> PassagePrompt
-    PassagePrompt --|> StudentResponse
+    Activity --|> ActivityPromptConfig
+    ActivityPromptConfig --|> StudentResponse
     StudentResponse --|> QuillFeedback
 ```
 
 ## 2. Trial Configuration
-Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
+Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `ActivityPromptConfig` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
 
 ```mermaid
 classDiagram
@@ -43,13 +43,13 @@ classDiagram
          contents
          description
     }
-    class PassagePrompt {
+    class ActivityPromptConfig {
     }
     class Trial {
          status
     }
 
-    PassagePrompt --|> Trial
+    ActivityPromptConfig --|> Trial
     LLM --|> Trial
     LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial

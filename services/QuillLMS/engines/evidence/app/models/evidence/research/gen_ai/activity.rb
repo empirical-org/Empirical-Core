@@ -17,8 +17,8 @@ module Evidence
   module Research
     module GenAI
       class Activity < ApplicationRecord
-        has_many :passage_prompts,
-          class_name: 'Evidence::Research::GenAI::PassagePrompt',
+        has_many :activity_prompt_configs,
+          class_name: 'Evidence::Research::GenAI::ActivityPromptConfig',
           dependent: :destroy
 
         validates :name, presence: true
