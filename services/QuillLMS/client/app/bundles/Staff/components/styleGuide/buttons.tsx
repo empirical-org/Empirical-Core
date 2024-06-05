@@ -7,6 +7,7 @@ const BUTTON = 'Button'
 const SIZES = [{ label: 'Extra Small (XS)', value: 'extra-small' }, { label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }]
 const STATES = [DEFAULT, HOVER, DISABLED]
 const COLORS = ['green', 'gold', 'maroon', 'blue', 'teal', 'viridian', 'purple', 'violet', 'red', 'grey']
+const ICON_SRC = 'https://assets.quill.org/images/icons/s/star.svg'
 
 const Buttons = () => {
   return (
@@ -43,6 +44,29 @@ const Buttons = () => {
               </div>
             )
           })}
+        </div>
+        <h4 className="style-guide-h4">Icon</h4>
+        <div className="options-container">
+          <div className="option-container">
+            <p className="option-label">With Icon</p>
+            <div className="quill-button-container states">
+              <button className="quill-button focus-on-light small contained icon">
+                <img alt="" src={ICON_SRC} />
+                {BUTTON}
+              </button>
+              <button className="quill-button focus-on-light small outlined icon">
+                <img alt="" src={ICON_SRC} />
+                {BUTTON}
+              </button>
+            </div>
+          </div>
+          <div className="option-container">
+            <p className="option-label">Without Icon</p>
+            <div className="quill-button-container states">
+              <button className="quill-button focus-on-light small contained">{BUTTON}</button>
+              <button className="quill-button focus-on-light small outlined">{BUTTON}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
