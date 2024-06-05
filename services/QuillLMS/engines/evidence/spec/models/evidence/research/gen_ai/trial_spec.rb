@@ -41,8 +41,8 @@ module Evidence
         it { belong_to(:passage_prompt) }
 
         it { have_many(:llm_feedbacks) }
-        it { have_many(:passage_prompt_responses).through(:passage_prompt) }
-        it { have_many(:quill_feedbacks).through(:passage_prompt_responses) }
+        it { have_many(:student_responses).through(:passage_prompt) }
+        it { have_many(:quill_feedbacks).through(:student_responses) }
 
         describe '#run' do
           subject { trial.run }
@@ -54,8 +54,8 @@ module Evidence
           let(:llm_prompt) { trial.llm_prompt }
           let(:llm_feedback_text) { { 'feedback' => 'This is feedback' }.to_json }
 
-          let(:passage_prompt_responses) do
-            create_list(:evidence_research_gen_ai_passage_prompt_response, num_examples, passage_prompt:)
+          let(:student_responses) do
+            create_list(:evidence_research_gen_ai_student_response, num_examples, passage_prompt:)
           end
 
           before do
@@ -68,8 +68,8 @@ module Evidence
 
             allow(CalculateResultsWorker).to receive(:perform_async).with(trial.id)
 
-            passage_prompt_responses.each do |passage_prompt_response|
-              create(:evidence_research_gen_ai_quill_feedback, :testing, passage_prompt_response:)
+            student_responses.each do |student_response|
+              create(:evidence_research_gen_ai_quill_feedback, :testing, student_response:)
             end
           end
 

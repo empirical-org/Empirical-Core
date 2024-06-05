@@ -1,6 +1,6 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Activity`, `PassagePrompt`, `PassagePromptResponse` and `QuillFeedback` records are imported with the following structure
+`Activity`, `PassagePrompt`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -14,7 +14,7 @@ classDiagram
          prompt
          relevant_passage
     }
-    class PassagePromptResponse {
+    class StudentResponse {
          response
     }
     class QuillFeedback {
@@ -23,8 +23,8 @@ classDiagram
          label
     }
     Activity --|> PassagePrompt
-    PassagePrompt --|> PassagePromptResponse
-    PassagePromptResponse --|> QuillFeedback
+    PassagePrompt --|> StudentResponse
+    StudentResponse --|> QuillFeedback
 ```
 
 ## 2. Trial Configuration
@@ -56,11 +56,11 @@ classDiagram
 ```
 
 ## 3. Trial Ouptut
-As the `Trial` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
+As the `Trial` is run, the LLM returns feedback relevant to the `StudentResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
 
 ```mermaid
 classDiagram
-    class PassagePromptResponse {
+    class StudentResponse {
     }
     class QuillFeedback {
     }
@@ -68,7 +68,7 @@ classDiagram
         feedback
         label
     }
-    PassagePromptResponse --|> QuillFeedback
-    PassagePromptResponse --|> LLMFeedback
+    StudentResponse --|> QuillFeedback
+    StudentResponse --|> LLMFeedback
     Trial --|> LLMFeedback
 ```

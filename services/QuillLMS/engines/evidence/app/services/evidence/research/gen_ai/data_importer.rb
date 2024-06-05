@@ -21,7 +21,7 @@ module Evidence
             text = row['Proposed Feedback']
 
             passage_prompt
-              .passage_prompt_responses
+              .student_responses
               .find_or_create_by!(response:)
               .create_quill_feedback!(label:, text:, data_partition:)
           end

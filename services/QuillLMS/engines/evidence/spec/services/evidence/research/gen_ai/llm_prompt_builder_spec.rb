@@ -63,7 +63,7 @@ module Evidence
                 :evidence_research_gen_ai_quill_feedback,
                 num_of_examples,
                 :prompt_engineering,
-                passage_prompt_response: create(:evidence_research_gen_ai_passage_prompt_response, passage_prompt:)
+                student_response: create(:evidence_research_gen_ai_student_response, passage_prompt:)
               )
             end
 

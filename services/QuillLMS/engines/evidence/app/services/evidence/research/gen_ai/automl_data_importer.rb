@@ -22,10 +22,10 @@ module Evidence
             # Training and validation files are artifacts from a previous classification model
             # Here there are both drawn from to populate quill feedbacks
             [training_file_name, validation_file_name].each do |examples_file_name|
-              break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
+              break if passage_prompt.student_responses.count >= TARGET_NUM_EXAMPLES
 
               get_file(key: examples_file_name).each_line do |line|
-                break if passage_prompt.passage_prompt_responses.count >= TARGET_NUM_EXAMPLES
+                break if passage_prompt.student_responses.count >= TARGET_NUM_EXAMPLES
 
                 example = JSON.parse(line)
                 response = example['text']
@@ -35,7 +35,7 @@ module Evidence
                 paraphrase = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
 
                 passage_prompt
-                  .passage_prompt_responses
+                  .student_responses
                   .find_or_create_by!(response:)
                   .quill_feedbacks
                   .find_or_create_by!(label:, text:, paraphrase:)

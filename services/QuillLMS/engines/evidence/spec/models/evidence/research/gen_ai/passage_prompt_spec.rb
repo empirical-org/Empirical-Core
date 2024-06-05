@@ -37,9 +37,9 @@ module Evidence
 
         it { belong_to(:passage).class_name('Evidence::Research::GenAI::Passage') }
 
-        it { have_many(:passage_prompt_responses).dependent(:destroy) }
-        it { have_many(:quill_feedbacks).through(:passage_prompt_responses) }
-        it { have_many(:llm_feedbacks).through(:passage_prompt_responses) }
+        it { have_many(:student_responses).dependent(:destroy) }
+        it { have_many(:quill_feedbacks).through(:student_responses) }
+        it { have_many(:llm_feedbacks).through(:student_responses) }
         it { have_many(:trials).dependent(:destroy) }
       end
     end

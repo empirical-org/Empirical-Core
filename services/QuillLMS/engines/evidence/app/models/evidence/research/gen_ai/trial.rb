@@ -33,8 +33,8 @@ module Evidence
         belongs_to :passage_prompt
 
         has_many :llm_feedbacks, -> { order(:id) }
-        has_many :passage_prompt_responses, -> { order(:id) }, through: :passage_prompt
-        has_many :quill_feedbacks, -> { order(:id) }, through: :passage_prompt_responses
+        has_many :student_responses, -> { order(:id) }, through: :passage_prompt
+        has_many :quill_feedbacks, -> { order(:id) }, through: :student_responses
 
         validates :llm_id, :llm_prompt_id, :passage_prompt_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
@@ -88,15 +88,15 @@ module Evidence
 
         private def create_llm_prompt_responses_feedbacks
           [].tap do |api_call_times|
-            passage_prompt_responses.testing_data.limit(num_examples).each do |passage_prompt_response|
+            student_responses.testing_data.limit(num_examples).each do |student_response|
               api_call_start_time = Time.zone.now
-              raw_text = llm.completion(prompt: llm_prompt.feedback_prompt(passage_prompt_response.response))
+              raw_text = llm.completion(prompt: llm_prompt.feedback_prompt(student_response.text))
               api_call_times << (Time.zone.now - api_call_start_time).round(2)
 
               text = Resolver.run(raw_text:)
-              LLMFeedback.create!(trial: self, raw_text:, text:, passage_prompt_response:)
+              LLMFeedback.create!(trial: self, raw_text:, text:, student_response:)
             rescue => e
-              trial_errors << { error: e.message, passage_prompt_response_id: passage_prompt_response.id, raw_text: }.to_json
+              trial_errors << { error: e.message, student_response_id: student_response.id, raw_text: }.to_json
               next
             end
             update_results(api_call_times:)

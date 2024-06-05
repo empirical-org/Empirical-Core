@@ -90,7 +90,7 @@ module Evidence
         private def g_eval_ids = trial_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []
 
         private def num_examples(passage_prompt_id)
-          max_num_examples = PassagePrompt.find(passage_prompt_id).passage_prompt_responses.testing_data.count
+          max_num_examples = PassagePrompt.find(passage_prompt_id).student_responses.testing_data.count
 
           return max_num_examples if trial_params[:num_examples].blank?
 

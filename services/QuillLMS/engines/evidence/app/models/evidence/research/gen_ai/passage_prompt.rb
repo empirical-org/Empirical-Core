@@ -26,8 +26,8 @@ module Evidence
         belongs_to :activity, class_name: 'Evidence::Research::GenAI::Activity'
 
         has_many :trials, dependent: :destroy
-        has_many :passage_prompt_responses, class_name: 'Evidence::Research::GenAI::PassagePromptResponse', dependent: :destroy
-        has_many :quill_feedbacks, class_name: 'Evidence::Research::GenAI::QuillFeedback', through: :passage_prompt_responses
+        has_many :student_responses, class_name: 'Evidence::Research::GenAI::StudentResponse', dependent: :destroy
+        has_many :quill_feedbacks, class_name: 'Evidence::Research::GenAI::QuillFeedback', through: :student_responses
 
         validates :prompt, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }

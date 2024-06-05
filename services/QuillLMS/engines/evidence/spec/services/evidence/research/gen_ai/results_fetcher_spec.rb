@@ -15,7 +15,7 @@ module Evidence
         let(:llm_feedback_identical) do
           create(
            :evidence_research_gen_ai_llm_feedback,
-           passage_prompt_response: quill_feedback1.passage_prompt_response,
+           student_response: quill_feedback1.student_response,
            text: quill_feedback1.text
           )
         end
@@ -25,7 +25,7 @@ module Evidence
         let(:llm_feedback_non_identical) do
           create(
             :evidence_research_gen_ai_llm_feedback,
-            passage_prompt_response: quill_feedback2.passage_prompt_response,
+            student_response: quill_feedback2.student_response,
             text: 'this is different feedback'
           )
         end

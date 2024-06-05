@@ -19,9 +19,9 @@ module Evidence
 
         private def g_eval = @g_eval ||= GEval.find(g_eval_id)
 
-        private def student_response = llm_feedback.passage_prompt_response.response
+        private def student_response = llm_feedback.student_response.text
 
-        private def passage_prompt = llm_feedback.passage_prompt_response.passage_prompt.prompt
+        private def passage_prompt = llm_feedback.student_response.passage_prompt.prompt
 
         private def ideal_feedback = llm_feedback.quill_feedback.text
 
