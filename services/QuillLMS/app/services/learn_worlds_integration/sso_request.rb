@@ -2,7 +2,6 @@
 
 module LearnWorldsIntegration
   class SSORequest < UserRequest
-    class NilEmailError < StandardError; end
 
     def endpoint = SSO_ENDPOINT
 

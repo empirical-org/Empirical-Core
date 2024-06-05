@@ -25,7 +25,7 @@ module LearnWorldsIntegration
 
     def body = raise NotImplementedError
 
-    private def headers
+    def headers
       {
         "Lw-Client" => CLIENT_ID,
         "Authorization" => "Bearer #{ACCESS_TOKEN}"
