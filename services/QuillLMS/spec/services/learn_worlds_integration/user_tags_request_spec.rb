@@ -52,6 +52,13 @@ RSpec.describe LearnWorldsIntegration::UserTagsRequest do
       it 'includes the admin tag' do
         expect(request.tags).to include('admin')
       end
+
+      it 'ignores nil values' do
+        teacher_info_mock = double
+        allow(teacher_info_mock).to receive(:subject_areas).and_return [nil, 'math', nil]
+        allow(user).to receive(:teacher_info).and_return(teacher_info_mock)
+        expect(request.tags).to match_array(['subject_area_math', 'admin'])
+      end
     end
 
     context 'when the user is not an admin' do

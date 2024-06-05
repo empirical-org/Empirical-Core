@@ -23,7 +23,7 @@ module LearnWorldsIntegration
     def tags
       subjects_taught = user&.teacher_info&.subject_areas || []
       user_account_type = user.admin? ? 'admin' : 'teacher'
-      (subjects_taught.map{ |x| string_to_subject_area_tag(x)} << user_account_type).compact
+      (subjects_taught.compact.map{ |x| string_to_subject_area_tag(x)} << user_account_type)
     end
 
   end
