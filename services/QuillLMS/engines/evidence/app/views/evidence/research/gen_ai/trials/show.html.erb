@@ -51,17 +51,19 @@
   </div>
 </div>
 
+<hr>
+
 <div>
   <% if @trial.api_call_times %>
     <table>
       <thead>
         <tr>
-          <th>Identical feedback match</th>
-          <th>Optimal match</th>
-          <th>BertScore (F1)</th>
+          <th class='match-column'>Identical feedback match</th>
+          <th class='match-column'>Optimal match</th>
+          <th class='g-eval-column'>BertScore (F1)</th>
           <% if @trial.g_evals %>
             <% @g_evals.each do |g_eval| %>
-              <th>G-Eval (<%= g_eval %>)</th>
+              <th class='g-eval-column'>G-Eval (<%= g_eval %>)</th>
             <% end %>
           <% end %>
           <th>Student Response</th>

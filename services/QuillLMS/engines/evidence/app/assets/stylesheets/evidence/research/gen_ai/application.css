@@ -40,6 +40,14 @@ tr:nth-child(even) {
   width: 20%;
 }
 
+.match-column {
+  width: 5%;
+}
+
+.g-eval-column {
+  width: 5%;
+}
+
 .actions-link {
   padding: 4px 8px;
   background-color: #007bff; /* Blue background */
