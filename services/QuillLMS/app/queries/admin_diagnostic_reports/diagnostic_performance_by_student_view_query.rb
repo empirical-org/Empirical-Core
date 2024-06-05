@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class DiagnosticPerformanceByStudentViewQuery < DiagnosticAggregateViewQuery
     class InvalidDiagnosticIdError < StandardError; end
 
-    attr_reader :diagnostic_id
+    attr_reader :diagnostic_id, :limited
 
     AGGREGATE_COLUMN = :student_id
     MAX_STUDENTS_TO_RETURN = 500
@@ -82,7 +82,7 @@ module AdminDiagnosticReports
     end
 
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name"
-    def limit_clause = " LIMIT 5000" if @limited
+    def limit_clause = (" LIMIT 5000" if limited)
 
     def relevant_date_column = "performance.pre_assigned_at"
 
@@ -98,7 +98,7 @@ module AdminDiagnosticReports
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
 
-      return result.slice(0, MAX_STUDENTS_TO_RETURN) if @limited
+      return result.slice(0, MAX_STUDENTS_TO_RETURN) if limited
 
       result
     end
