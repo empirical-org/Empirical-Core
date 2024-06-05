@@ -9,11 +9,11 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
     let(:user) { create(:user) }
     let(:user_id) { user.id }
     let(:stub_timeframe) { Snapshots::Timeframes.calculate_timeframes('this-school-year') }
-    let(:processed_timeframe) { {'timeframe_start' => stub_timeframe[0].to_s, 'timeframe_end' => stub_timeframe[1].to_s} }
+    let(:processed_timeframe) { {timeframe_start: stub_timeframe[0].to_s, timeframe_end: stub_timeframe[1].to_s} }
     let(:schools) { create_list(:school, 3) }
     let!(:school_admins) { schools.map { |school| create(:schools_admins, user: user, school: school) } }
     let(:school_ids) { schools.pluck(:id) }
-    let(:shared_filters) { {} }
+    let(:shared_filters) { {grades: nil, teacher_ids: nil, classroom_ids: nil} }
     let(:overview_filters) { {aggregation: described_class::DEFAULT_AGGREGATION} }
     let(:skills_filters) { {aggregation: described_class::DEFAULT_AGGREGATION, diagnostic_id: described_class::DEFAULT_DIAGNOSTIC_ID} }
     let(:students_filters) { {diagnostic_id: described_class::DEFAULT_DIAGNOSTIC_ID} }
@@ -46,7 +46,7 @@ describe AdminDiagnosticReports::EnqueueCsvEmailWorker do
 
     context 'saved shared filters' do
       let(:shared_filter_selections) { {'grades' => [{'value' => 1}], 'teachers'=> [{'value' => 2}] } }
-      let(:shared_filters) { {'grades' => [1], 'teacher_ids' => [2]} }
+      let(:shared_filters) { {grades: [1], teacher_ids: [2], classroom_ids: nil} }
 
       before do
         create(:admin_report_filter_selection, user: user, report: described_class::BASE_REPORT_NAME, filter_selections: shared_filter_selections)

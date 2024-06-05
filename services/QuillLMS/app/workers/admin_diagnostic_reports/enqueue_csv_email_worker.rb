@@ -19,52 +19,54 @@ module AdminDiagnosticReports
       SendCsvEmailWorker.perform_async(user_id, timeframe, school_ids, shared_filters, overview_filters, skills_filters, students_filters)
     end
 
-    private def base_filters = @base_filters ||= rename_base_filter_keys(extract_filter_selection(BASE_REPORT_NAME) || {})
+    private def stored_base_filters = @stored_base_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: BASE_REPORT_NAME)
+    private def stored_overview_filters = @stored_overview_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: OVERVIEW_REPORT_NAME)
+    private def stored_skills_filters = @stored_skills_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: SKILL_REPORT_NAME)
+    private def stored_students_filters = @stored_students_filters ||= AdminReportFilterSelection.find_by(user_id: @user.id, report: STUDENT_REPORT_NAME)
 
-    private def rename_base_filter_keys(processed_filters)
-      processed_filters['teacher_ids'] = processed_filters.delete('teachers') if processed_filters['teachers']
-      processed_filters['classroom_ids'] = processed_filters.delete('classrooms') if processed_filters['classrooms']
-
-      processed_filters
+    private def shared_filters
+      {
+        grades:,
+        teacher_ids:,
+        classroom_ids:
+      }
     end
 
     private def overview_filters
-      @overview_filters ||= {
-        aggregation: extract_filter_selection(OVERVIEW_REPORT_NAME)&.fetch('group_by_value', nil) || DEFAULT_AGGREGATION
+      {
+        aggregation: overview_aggregation
       }
     end
 
     private def skills_filters
-      filter = extract_filter_selection(SKILL_REPORT_NAME)
-      @skills_filters ||= {
-        aggregation: filter&.fetch('group_by_value', nil) || DEFAULT_AGGREGATION,
-        diagnostic_id: filter&.fetch('diagnostic_type_value', nil) || DEFAULT_DIAGNOSTIC_ID
+      {
+        aggregation: skills_aggregation,
+        diagnostic_id: skills_diagnostic_id
       }
     end
 
     private def students_filters
-      @students_filters ||= {
-        diagnostic_id: extract_filter_selection(STUDENT_REPORT_NAME)&.fetch('diagnostic_type_value', nil) || DEFAULT_DIAGNOSTIC_ID
+      {
+        diagnostic_id: students_diagnostic_id
       }
     end
 
-    private def extract_filter_selection(report_name)
-      AdminReportFilterSelection.find_by(user_id: @user.id, report: report_name)
-        &.filter_selections
-        &.transform_values do |value|
-          next value.map{|selection| selection.fetch('value', nil)}.compact if value.is_a? Array
-
-          value&.fetch('value', nil)
-        end
-    end
-
     private def timeframe
-      timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(base_filters&.fetch('timeframe', nil) || DEFAULT_TIMEFRAME)
+      timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(stored_base_filters&.timeframe_name || DEFAULT_TIMEFRAME)
         .map(&:to_s)
-      {timeframe_start:, timeframe_end:}.stringify_keys
+      {timeframe_start:, timeframe_end:}
     end
 
-    private def school_ids = base_filters&.fetch('school_ids', nil) || @user.administered_premium_schools.pluck(:id)
-    private def shared_filters = base_filters&.slice('grades', 'teacher_ids', 'classroom_ids')
+    private def overview_aggregation = stored_overview_filters&.aggregation || DEFAULT_AGGREGATION
+
+    private def skills_aggregation = stored_skills_filters&.aggregation || DEFAULT_AGGREGATION
+    private def skills_diagnostic_id = stored_skills_filters&.diagnostic_id || DEFAULT_DIAGNOSTIC_ID
+
+    private def students_diagnostic_id = stored_students_filters&.diagnostic_id || DEFAULT_DIAGNOSTIC_ID
+
+    private def classroom_ids = stored_base_filters&.classroom_ids
+    private def grades = stored_base_filters&.grade_values
+    private def school_ids = stored_base_filters&.school_ids || @user.administered_premium_schools.pluck(:id)
+    private def teacher_ids = stored_base_filters&.teacher_ids
   end
 end
