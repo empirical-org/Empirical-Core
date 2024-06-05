@@ -26,7 +26,7 @@
     .element-row {
       display: flex;
       &:last-child {
-        border-bottom: 1px solid #d6d5d6;
+        border-bottom: 1px solid $quill-grey-10;
       }
     }
     .element {
@@ -36,7 +36,7 @@
       width: 174px;
       align-items: center;
       height: 174px;
-      border: 1px solid #d6d5d6;
+      border: 1px solid $quill-grey-10;
       border-spacing: 0px;
       border-bottom: none;
       &:not(:last-child) {
@@ -161,7 +161,7 @@
     flex-direction: column;
     align-items: center;
     padding: 8px 4px 4px;
-    border: 1px solid #d6d5d6;
+    border: 1px solid $quill-grey-10;
     code {
       background-color: white;
       color: #8b8b8b;
@@ -171,7 +171,7 @@
   }
 }
 
-#checkboxes, #radio-buttons, #lists {
+#checkboxes, #radio-buttons, #lists, #buttons {
   h2 {
     font-weight: 700;
   }
@@ -190,9 +190,9 @@
         flex-direction: column;
         align-items: center;
         width: 380px;
-        height: 267px;
+        min-height: 267px;
         padding: 16px;
-        border: 1px solid #D6D5D6;
+        border: 1px solid $quill-grey-10;
         &:not(:first-of-type) {
           border-left-width: 0;
         }
@@ -206,7 +206,7 @@
           color: #8B8B8B;
           align-self: flex-start;
         }
-        .checkbox-container, .checkboxes, .radio-buttons {
+        .checkbox-container, .checkboxes, .radio-buttons, .quill-button-container {
           margin: auto;
           padding-bottom: 24px;
         }
@@ -246,6 +246,34 @@
   }
   .checkbox-container {
     padding-bottom: 0px;
+  }
+}
+
+#buttons .variations-container .options-container .option-container .quill-button-container {
+  &.states {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    margin: 60px 0px 60px 0px;
+    .quill-button {
+      &.contained {
+        &.hover {
+          background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-green;
+        }
+      }
+    }
+    .quill-button {
+      &.outlined {
+        &.hover {
+          background-color: $quill-green-1;
+        }
+        &.grey {
+          &.hover {
+            background-color: $quill-grey-1;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -325,8 +353,8 @@
   .element {
     padding: 10px;
     max-width: 16%;
-    border-bottom: 1px solid #d6d5d6;
-    border-right: 1px solid #d6d5d6;
+    border-bottom: 1px solid $quill-grey-10;
+    border-right: 1px solid $quill-grey-10;
     position: relative;
     div {
       width: 40px;

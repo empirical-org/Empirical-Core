@@ -1,89 +1,61 @@
-.quill-button-archived {
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: center;
-  display: flex;
+.quill-button {
+  display: inline-flex;
+  padding: 4px 16px;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  width: min-content;
-  min-width: 88px;
-  padding: 0px 16px;
-  white-space: nowrap;
-  cursor: pointer;
-  font-family: adelle-sans, "Arial", sans-serif;
-  &:focus, &:hover {
-    outline: none;
-    text-decoration: none;
+  gap: 4px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+  &:hover {
+    background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-green;
   }
-  &.fun {
-    height: 32px;
-    font-size: 13px;
-  }
-  &.small {
-    height: 36px;
-    font-size: 14px;
-  }
-  &.medium {
-    height: 40px;
-    font-size: 15px;
-    &.icon {
-      width: 112px;
-    }
-  }
-  &.large {
-    height: 48px;
-    font-size: 18px;
-    &.icon {
-      width: 121px;
+  &.contained {
+    background-color: $quill-green;
+    color: $quill-white;
+    font-weight: 700;
+    &.disabled {
+      background-color: $quill-grey-5;
+      color: $quill-grey-30;
+      border: 1px solid $quill-grey-15;
     }
   }
   &.outlined {
-    border: solid 1px #bdbdbd;
-    background-color: white;
-    font-weight: 600;
-  }
-  &.contained {
-    font-weight: bold;
-    border: none;
-  }
-  &.primary {
-    &.contained {
-      color: $quill-white;
-      background-color: $quill-green;
-      &:not(.disabled) {
-        &:hover, &:focus {
-          background-color: #08907b;
-        }
-      }
+    background-color: $quill-white;
+    border: 1px solid $quill-green-20;
+    color: $quill-green;
+    font-weight: 500;
+    &.disabled {
+      color: $quill-grey-30 !important;
+      border: 1px solid $quill-grey-15 !important;
     }
-    &.outlined {
-      background-color: $quill-white;
-      color: #009a80;
-      &:hover, &:focus {
-        background-color: #f6fcfa;
+    &:hover {
+      background-color: $quill-green-1;
+    }
+    &.grey {
+      color: $quill-grey-90;
+      border: 1px solid $quill-grey-15;
+      &:hover {
+        background-color: $quill-grey-1;
       }
     }
   }
-  &.secondary {
-    &.outlined {
-      color: $quill-black;
-      &:hover, &:focus {
-        background-color: #f5f5f5;
-      }
-    }
+  &.extra-small {
+    height: 26px;
   }
-  &.disabled {
-    color: $quill-grey-30 !important;
-    &.contained {
-      background-color: #cccccc;
-    }
+  &.small {
+    height: 32px;
   }
-  &.unbolded {
-    font-weight: 400 !important;
+  &.medium {
+    height: 38px;
+    min-width: 73px;
   }
-}
+  &.large {
+    height: 44px;
+    min-width: 89px;
+  }
+  &.grey {
 
-#teacher-preview-menu-button {
-  cursor: pointer;
+  }
 }
