@@ -17,7 +17,7 @@ module LearnWorldsIntegration
     def data = { tags: tags }
 
     def string_to_subject_area_tag(raw_str)
-      "subject_area_#{raw_str.downcase.gsub(/\s\/*\s*/, '_')}"
+      "subject_area_#{raw_str.downcase.gsub(/[\s\/]+/, '_')}"
     end
 
     def tags
