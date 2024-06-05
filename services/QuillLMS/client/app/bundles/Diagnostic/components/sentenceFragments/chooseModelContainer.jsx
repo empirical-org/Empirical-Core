@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ConceptExplanation } from '../../../Shared/index';
+import { ConceptExplanation, ConceptSelector, } from '../../../Shared/index';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 
 class ChooseModelContainer extends Component {
 

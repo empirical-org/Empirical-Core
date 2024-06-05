@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import ConceptSelector from './conceptSelector';
-
-import { ConceptExplanation } from '../../../Shared/index';
+import { ConceptExplanation, ConceptSelector, } from '../../../Shared/index';
 
 interface ConceptSelectorWithCheckboxProps {
   handleSelectorChange: Function;

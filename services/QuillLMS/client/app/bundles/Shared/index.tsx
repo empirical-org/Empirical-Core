@@ -98,6 +98,10 @@ export {
 } from './components/titleCards/index'
 
 export {
+  ConceptSelector
+} from './components/conceptSelector/index'
+
+export {
   hashToCollection,
   isValidRegex,
   isValidAndNotEmptyRegex,

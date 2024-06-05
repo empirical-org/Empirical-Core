@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ConceptSelector from './conceptSelector.jsx';
+import { ConceptSelector, } from '../../../Shared/index'
 
 const ConceptSelectorWithCheckbox = (
   {

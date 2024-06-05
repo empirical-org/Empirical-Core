@@ -2,9 +2,9 @@ import { ContentState, EditorState } from 'draft-js'
 import React from 'react'
 import {
   FlagDropdown,
-  TextEditor
+  TextEditor,
+  ConceptSelector,
 } from '../../../Shared/index'
-import ConceptSelector from '../shared/conceptSelector.jsx'
 
 export default class extends React.Component {
   state = {
