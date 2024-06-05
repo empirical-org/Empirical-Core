@@ -1,18 +1,76 @@
+<% delimiter = Evidence::Research::GenAI::LLMPromptBuilder::DELIMITER %>
+
+<h1>New <%= @llm_prompt_template.model_name.human.titleize %></h1>
+
 <%= form_for @llm_prompt_template do |f| %>
   <%= render 'errors', object: @llm_prompt_template %>
 
-  <h1>New LLM Prompt Template</h1>
-  <div class="field-spacing">
-    <%= f.label :description %><br>
-    <%= f.text_field :description, size: 100, required: true %>
-  </div>
+  <div class="form-container">
+    <div class="form-column">
+      <div class="field-spacing">
+        <%= f.label :description %><br>
+        <%= f.text_field :description, size: 100, required: true %>
+      </div>
 
-  <div class="field-spacing">
-    <%= f.label :contents %><br>
-    <%= f.text_area :contents, cols: 100, rows: 50, required: true %>
-  </div>
+      <div class="field-spacing">
+        <%= f.label :contents %><br>
+        <%= f.text_area :contents, cols: 100, rows: 50, required: true %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Create" %>
+      <div class="actions">
+        <%= f.submit "Create" %>
+      </div>
+    </div>
+
+    <div class="substitutions-column">
+      <h2>Activity Substitutions</h2>
+      <ul class='no-bullets'>
+        <% Evidence::Research::GenAI::LLMPromptBuilder::ACTIVITY_SUBSTITUTIONS.keys.each do |substitution| %>
+          <% substitution = 'examples,n' if substitution == 'examples' %>
+          <li><%= delimiter %><%= substitution %><%= delimiter %></li>
+        <% end %>
+      </ul>
+
+      <h2>
+        General Substitutions
+        <%= link_to 'new', new_research_gen_ai_prompt_template_variable_path, class: 'new-link', target: '_blank' %>
+      </h2>
+      <ul class='no-bullets'>
+        <% @prompt_template_variables.each do |variable| %>
+          <li>
+            <%= variable.substitution %>
+            <%= link_to 'view', variable, target: '_blank' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 <% end %>
+
+<style>
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-column {
+    flex: 1;
+    margin-right: 20px;
+  }
+
+  .substitutions-column {
+    flex: 1;
+  }
+
+  .field-spacing {
+    margin-bottom: 20px;
+  }
+  .no-bullets {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .no-bullets li {
+    margin-bottom: 10px;
+  }
+</style>

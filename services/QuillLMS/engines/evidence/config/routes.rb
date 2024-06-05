@@ -54,6 +54,7 @@ Evidence::Engine.routes.draw do
       resources :activities, only: [:new, :create, :show]
       resources :auto_chain_of_thoughts, only: [:new, :create]
       resources :g_evals, only: [:new, :create, :show]
+      resources :prompt_template_variables, only: [:new, :create, :show, :index]
     end
   end
 end

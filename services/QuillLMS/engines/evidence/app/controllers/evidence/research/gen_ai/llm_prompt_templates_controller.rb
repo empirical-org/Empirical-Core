@@ -6,6 +6,7 @@ module Evidence
       class LLMPromptTemplatesController < ApplicationController
         def new
           @llm_prompt_template = LLMPromptTemplate.new
+          @prompt_template_variables = PromptTemplateVariable.all.order(:name)
         end
 
         def create

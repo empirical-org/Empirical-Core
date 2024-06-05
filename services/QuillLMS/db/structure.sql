@@ -3179,6 +3179,38 @@ ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq OWNED BY p
 
 
 --
+-- Name: evidence_research_gen_ai_prompt_template_variables; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_prompt_template_variables (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    value text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq OWNED BY public.evidence_research_gen_ai_prompt_template_variables.id;
+
+
+--
 -- Name: evidence_research_gen_ai_quill_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6516,6 +6548,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts ALTER COLUMN id
 
 
 --
+-- Name: evidence_research_gen_ai_prompt_template_variables id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_prompt_template_variables_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_quill_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7730,6 +7769,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llms
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts
     ADD CONSTRAINT evidence_research_gen_ai_passage_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables evidence_research_gen_ai_prompt_template_variables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables
+    ADD CONSTRAINT evidence_research_gen_ai_prompt_template_variables_pkey PRIMARY KEY (id);
 
 
 --
@@ -11422,6 +11469,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240603162552'),
 ('20240604232659'),
 ('20240605120147'),
-('20240605132805');
+('20240605132805'),
+('20240605170803');
 
 

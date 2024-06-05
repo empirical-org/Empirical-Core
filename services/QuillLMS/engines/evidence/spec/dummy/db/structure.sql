@@ -684,6 +684,38 @@ ALTER SEQUENCE public.evidence_automl_models_id_seq OWNED BY public.evidence_aut
 
 
 --
+-- Name: evidence_evidence_research_gen_ai_prompt_template_variables; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_evidence_research_gen_ai_prompt_template_variables (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    value text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_evidence_research_gen_ai_prompt_template_variab_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_evidence_research_gen_ai_prompt_template_variab_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_evidence_research_gen_ai_prompt_template_variab_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_evidence_research_gen_ai_prompt_template_variab_id_seq OWNED BY public.evidence_evidence_research_gen_ai_prompt_template_variables.id;
+
+
+--
 -- Name: evidence_hints; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1137,6 +1169,38 @@ ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq OWNED BY p
 
 
 --
+-- Name: evidence_research_gen_ai_prompt_template_variables; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_prompt_template_variables (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    value text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq OWNED BY public.evidence_research_gen_ai_prompt_template_variables.id;
+
+
+--
 -- Name: evidence_research_gen_ai_quill_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1440,6 +1504,13 @@ ALTER TABLE ONLY public.evidence_automl_models ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: evidence_evidence_research_gen_ai_prompt_template_variables id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_evidence_research_gen_ai_prompt_template_variables ALTER COLUMN id SET DEFAULT nextval('public.evidence_evidence_research_gen_ai_prompt_template_variab_id_seq'::regclass);
+
+
+--
 -- Name: evidence_hints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1528,6 +1599,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llms ALTER COLUMN id SET DEFAUL
 --
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passage_prompts_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_prompt_template_variables_id_seq'::regclass);
 
 
 --
@@ -1718,6 +1796,14 @@ ALTER TABLE ONLY public.evidence_automl_models
 
 
 --
+-- Name: evidence_evidence_research_gen_ai_prompt_template_variables evidence_evidence_research_gen_ai_prompt_template_variable_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_evidence_research_gen_ai_prompt_template_variables
+    ADD CONSTRAINT evidence_evidence_research_gen_ai_prompt_template_variable_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_hints evidence_hints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1819,6 +1905,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llms
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts
     ADD CONSTRAINT evidence_research_gen_ai_passage_prompts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_prompt_template_variables evidence_research_gen_ai_prompt_template_variables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables
+    ADD CONSTRAINT evidence_research_gen_ai_prompt_template_variables_pkey PRIMARY KEY (id);
 
 
 --
@@ -2140,6 +2234,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240603162245'),
 ('20240604230733'),
 ('20240605004535'),
-('20240605132531');
+('20240605132531'),
+('20240605164556'),
+('20240605170721');
 
 

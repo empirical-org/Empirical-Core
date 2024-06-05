@@ -20,12 +20,18 @@ module Evidence
         DELIMITER = "~~~"
         OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
 
-        SUBSTITUTIONS = {
+        ACTIVITY_SUBSTITUTIONS = {
           "prompt" => ->(builder, _) { builder.passage_prompt.prompt },
           "instructions" => ->(builder, _) { builder.passage_prompt.instructions },
           "relevant_passage" => ->(builder, _) { builder.passage_prompt.relevant_passage },
           "examples" => ->(builder, limit) { builder.examples(limit) },
         }.freeze
+
+        GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
+          ->(builder) { builder.prompt_template_variable(name) }
+        end
+
+        SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
         attr_reader :llm_prompt_template_id, :passage_prompt_id
 
@@ -57,6 +63,8 @@ module Evidence
             .map(&:response_and_feedback)
             .join("\n")
         end
+
+        def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 
         def passage_prompt = @passage_prompt ||= PassagePrompt.find(passage_prompt_id)
 
