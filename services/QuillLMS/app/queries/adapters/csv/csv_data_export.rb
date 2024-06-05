@@ -9,8 +9,6 @@ module Adapters
       class BigQueryResultMissingRequestedColumnError < StandardError; end
 
       def self.ordered_columns = raise NotImplementedError
-      def self.second_row_tooltips = raise NotImplementedError
-      def self.format_lambdas = raise NotImplementedError
 
       def self.to_csv_string(bigquery_result, columns = ordered_columns.keys)
         sym_columns = columns.map(&:to_sym)
@@ -18,8 +16,8 @@ module Adapters
         validate_input!(processed_result, sym_columns)
 
         CSV.generate do |csv|
-          csv << human_displayable_csv_headers(sym_columns)
-          csv << human_displayable_csv_tooltips(sym_columns)
+          csv << csv_headers(sym_columns)
+          csv << csv_tooltips(sym_columns)
           processed_result.each { |row| add_aggregate_record_to_csv(csv, row, sym_columns) }
         end
       end
@@ -36,14 +34,9 @@ module Adapters
         end
       end
 
-      def self.human_displayable_csv_headers(sym_columns) = sym_columns.map{|col| ordered_columns[col][0] }
-      def self.human_displayable_csv_tooltips(sym_columns) = sym_columns.map{|col| ordered_columns[col][1] }
-
-      def self.format_cell(sym_column, value)
-        return (format_lambdas[sym_column].call(value)) if format_lambdas.include?(sym_column)
-
-        value
-      end
+      def self.csv_headers(sym_columns) = sym_columns.map{|col| ordered_columns[col][:csv_header] }
+      def self.csv_tooltips(sym_columns) = sym_columns.map{|col| ordered_columns[col][:csv_tooltip] }
+      def self.format_cell(sym_column, value) = Formatter.run(ordered_columns[sym_column][:formatter], value)
 
       def self.row_contains_requested_columns?(row, requested_columns)
         (row.keys & requested_columns).length == requested_columns.length

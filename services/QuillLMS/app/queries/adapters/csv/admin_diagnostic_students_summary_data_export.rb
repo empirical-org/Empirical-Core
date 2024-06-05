@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-require 'csv'
-
 module Adapters
   module Csv
     class AdminDiagnosticStudentsSummaryDataExport < CsvDataExport
-      class UnhandledColumnError < StandardError; end
-      class BigQueryResultMissingRequestedColumnError < StandardError; end
-
       def self.add_aggregate_record_to_csv(csv, row, sym_columns)
         processed_row = pre_process_row(row)
         csv << sym_columns.map { |key| format_cell(key, processed_row[key]) }
@@ -37,96 +32,88 @@ module Adapters
 
       def self.ordered_columns
         {
-          student_name: [
-            'Student Name',
-            "" # Intentionally empty
-          ],
-          pre_questions_ratio: [
-            'Pre: Questions Correct (Ratio)',
-            "The ratio of questions the student answered correctly on the Pre diagnostic."
-          ],
-          pre_questions_percentage: [
-            'Pre: Questions Correct (Percentage)',
-            "The percentage of questions the student answered correctly on the Pre diagnostic."
-          ],
-          pre_skills_proficient_ratio: [
-            'Pre: Skills Proficient (Ratio)',
-            "The ratio of skills the student demonstrated proficiency in on the Pre diagnostic."
-          ],
-          pre_skills_proficient_list: [
-            'Pre: Skills Proficient (List)',
-            "A list of skills the student demonstrated proficiency in on the Pre diagnostic."
-          ],
-          pre_skills_to_practice_list: [
-            'Pre: Skills to Practice (List)',
-            "A list of skills the student did not demonstrate proficiency in on the Pre diagnostic."
-          ],
-          completed_activities: [
-            'Total Activities',
-            "The total number of activities the student completed that are linked to this particular diagnostic."
-          ],
-          time_spent_seconds: [
-            'Total Time Spent',
-            "The total time spent by the student on activities that are linked to this particular diagnostic."
-          ],
-          post_questions_ratio: [
-            'Post: Questions Correct (Ratio)',
-            "The ratio of questions the student answered correctly on the Post diagnostic."
-          ],
-          post_questions_percentage: [
-            'Post: Questions Correct (Percentage)',
-            "The percentage of questions the student answered correctly on the Post diagnostic."
-          ],
-          post_skills_improved_or_maintained_ratio: [
-            'Post: Skills Improved or Maintained (Ratio)',
-            "The ratio of skills the student improved or maintained proficiency in on the Post diagnostic."
-          ],
-          post_skills_improved: [
-            'Post: Skills Improved (Count)',
-            "The number of skills the student improved proficiency in on the Post diagnostic."
-          ],
-          post_skills_maintained: [
-            'Post: Skills Maintained (Count)',
-            "The number of skills the student maintained proficiency in on the Post diagnostic."
-          ],
-          post_skills_improved_list: [
-            'Post: Skills Improved (List)',
-            "A list of skills the student improved on the Post diagnostic."
-          ],
-          post_skills_maintained_list: [
-            'Post: Skills Maintained (List)',
-            "A list of skills the student maintained proficiency in on the Post diagnostic."
-          ],
-          post_skills_to_practice_list: [
-            'Post: Skills with No Growth (List)',
-            "A list of skills the student demonstrated no growth in on the Post diagnostic."
-          ]
+          student_name: {
+            csv_header: 'Student Name',
+            csv_tooltip: "", # Intentionally empty
+            formatter: Formatter::DEFAULT
+          },
+          pre_questions_ratio: {
+            csv_header: 'Pre: Questions Correct (Ratio)',
+            csv_tooltip: "The ratio of questions the student answered correctly on the Pre diagnostic.",
+            formatter: Formatter::AS_RATIO
+          },
+          pre_questions_percentage: {
+            csv_header: 'Pre: Questions Correct (Percentage)',
+            csv_tooltip: "The percentage of questions the student answered correctly on the Pre diagnostic.",
+            formatter: Formatter::PERCENT_AS_INTEGER
+          },
+          pre_skills_proficient_ratio: {
+            csv_header: 'Pre: Skills Proficient (Ratio)',
+            csv_tooltip: "The ratio of skills the student demonstrated proficiency in on the Pre diagnostic.",
+            formatter: Formatter::AS_RATIO
+          },
+          pre_skills_proficient_list: {
+            csv_header: 'Pre: Skills Proficient (List)',
+            csv_tooltip: "A list of skills the student demonstrated proficiency in on the Pre diagnostic.",
+            formatter: Formatter::AS_LIST
+          },
+          pre_skills_to_practice_list: {
+            csv_header: 'Pre: Skills to Practice (List)',
+            csv_tooltip: "A list of skills the student did not demonstrate proficiency in on the Pre diagnostic.",
+            formatter: Formatter::AS_LIST
+          },
+          completed_activities: {
+            csv_header: 'Total Activities',
+            csv_tooltip: "The total number of activities the student completed that are linked to this particular diagnostic.",
+            formatter: Formatter::DEFAULT
+          },
+          time_spent_seconds: {
+            csv_header: 'Total Time Spent',
+            csv_tooltip: "The total time spent by the student on activities that are linked to this particular diagnostic.",
+            formatter: Formatter::AS_MINUTES_STRING
+          },
+          post_questions_ratio: {
+            csv_header: 'Post: Questions Correct (Ratio)',
+            csv_tooltip: "The ratio of questions the student answered correctly on the Post diagnostic.",
+            formatter: Formatter::AS_RATIO
+          },
+          post_questions_percentage: {
+            csv_header: 'Post: Questions Correct (Percentage)',
+            csv_tooltip: "The percentage of questions the student answered correctly on the Post diagnostic.",
+            formatter: Formatter::PERCENT_AS_INTEGER
+          },
+          post_skills_improved_or_maintained_ratio: {
+            csv_header: 'Post: Skills Improved or Maintained (Ratio)',
+            csv_tooltip: "The ratio of skills the student improved or maintained proficiency in on the Post diagnostic.",
+            formatter: Formatter::AS_RATIO
+          },
+          post_skills_improved: {
+            csv_header: 'Post: Skills Improved (Count)',
+            csv_tooltip: "The number of skills the student improved proficiency in on the Post diagnostic.",
+            formatter: Formatter::DEFAULT
+          },
+          post_skills_maintained: {
+            csv_header: 'Post: Skills Maintained (Count)',
+            csv_tooltip: "The number of skills the student maintained proficiency in on the Post diagnostic.",
+            formatter: Formatter::DEFAULT
+          },
+          post_skills_improved_list: {
+            csv_header: 'Post: Skills Improved (List)',
+            csv_tooltip: "A list of skills the student improved on the Post diagnostic.",
+            formatter: Formatter::AS_LIST
+          },
+          post_skills_maintained_list: {
+            csv_header: 'Post: Skills Maintained (List)',
+            csv_tooltip: "A list of skills the student maintained proficiency in on the Post diagnostic.",
+            formatter: Formatter::AS_LIST
+          },
+          post_skills_to_practice_list: {
+            csv_header: 'Post: Skills with No Growth (List)',
+            csv_tooltip: "A list of skills the student demonstrated no growth in on the Post diagnostic.",
+            formatter: Formatter::AS_LIST
+          }
         }
       end
-
-      def self.format_lambdas
-        {
-          pre_questions_ratio: format_as_ratio,
-          pre_skills_proficient_ratio: format_as_ratio,
-          pre_questions_percentage: format_percent_as_integer,
-          pre_skills_proficient_list: format_as_list,
-          pre_skills_to_practice_list: format_as_list,
-          post_questions_ratio: format_as_ratio,
-          post_skills_improved_or_maintained_ratio: format_as_ratio,
-          post_questions_percentage: format_percent_as_integer,
-          post_skills_improved_list: format_as_list,
-          post_skills_maintained_list: format_as_list,
-          post_skills_to_practice_list: format_as_list,
-          time_spent_seconds: format_as_minutes_string
-        }
-      end
-
-      def self.format_as_list = ->(x) { x.join(', ') }
-      def self.format_as_ratio = ->(x) { x.map{ |value| format_blank_as_zero.call(value) }.join(' of ') }
-      def self.format_as_minutes_string = ->(x) { x.present? ? "#{x.round / 60}:#{(x.round % 60).to_s.rjust(2, '0')}" : format_blank_as_zero.call(x) }
-      def self.format_as_rounded_integer = ->(x) { x.present? ? x.round : format_blank_as_zero.call(x) }
-      def self.format_percent_as_integer = ->(x) { x.present? ? format_as_rounded_integer.call(x * 100) : format_blank_as_zero.call(x) }
-      def self.format_blank_as_zero = ->(x) { x.presence || 0 }
     end
   end
 end
