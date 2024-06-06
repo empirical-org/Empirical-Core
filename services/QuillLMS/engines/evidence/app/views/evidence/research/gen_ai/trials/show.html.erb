@@ -11,7 +11,16 @@
 
 <div class="container">
   <div class="column">
-    <h2>Trial</h2>
+    <h2>
+      Trial
+      <% if @trial.failed? %>
+        <%= button_to 'Retry',
+              retry_research_gen_ai_trial_path(@trial),
+              method: :post,
+              data: { confirm: 'Are you sure you want to retry this trial?' }
+        %>
+      <% end %>
+    </h2>
     <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
     <h3>Activity + Conjunction</h3>

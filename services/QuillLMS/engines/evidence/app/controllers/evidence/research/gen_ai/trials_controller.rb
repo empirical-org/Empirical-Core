@@ -7,21 +7,10 @@ module Evidence
         include TrialsHelper
 
         def index
-          completed_trials =
-            Trial
-              .completed
-              .pluck(:llm_id, :llm_prompt_id, :activity_prompt_config_id, :num_examples)
-              .map { |llm_id, llm_prompt_id, activity_prompt_config_id, num_examples| { llm_id:, llm_prompt_id:, activity_prompt_config_id:, num_examples: } }
-              .to_set
-
-          @trials = Trial.all.reject do |trial|
-            trial.failed? && completed_trials.include?(
-              llm_id: trial.llm_id,
-              llm_prompt_id: trial.llm_prompt_id,
-              activity_prompt_config_id: trial.activity_prompt_config_id,
-              num_examples: trial.num_examples
-            )
-          end.sort_by(&:id).reverse
+          @page = params[:page].to_i > 0 ? params[:page].to_i : 1
+          @per_page = 50
+          @num_trials = Trial.count
+          @trials = Trial.all.order(id: :desc).offset((@page - 1) * @per_page).limit(@per_page)
         end
 
         def new
