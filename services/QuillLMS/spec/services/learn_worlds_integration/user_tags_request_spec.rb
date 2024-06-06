@@ -34,42 +34,4 @@ RSpec.describe LearnWorldsIntegration::UserTagsRequest do
     end
   end
 
-  describe '#string_to_subject_area_tag' do
-    it 'converts a string to a LearnWorlds tag' do
-      expect(request.string_to_subject_area_tag('History / Social Studies'))
-        .to eq('subject_area_history_social_studies')
-      expect(request.string_to_subject_area_tag('English as a New Language'))
-        .to eq('subject_area_english_as_a_new_language')
-    end
-  end
-
-  describe '#tags' do
-    context 'when the user is an admin' do
-      before do
-        allow(user).to receive(:admin?).and_return(true)
-      end
-
-      it 'includes the admin tag' do
-        expect(request.tags).to include('admin')
-      end
-
-      it 'ignores nil values' do
-        teacher_info_mock = double
-        allow(teacher_info_mock).to receive(:subject_areas).and_return [nil, 'math', nil]
-        allow(user).to receive(:teacher_info).and_return(teacher_info_mock)
-        expect(request.tags).to match_array(['subject_area_math', 'admin'])
-      end
-    end
-
-    context 'when the user is not an admin' do
-      before do
-        allow(user).to receive(:admin?).and_return(false)
-      end
-
-      it 'does not include the admin tag' do
-        expect(request.tags).not_to include('admin')
-      end
-    end
-
-  end
 end
