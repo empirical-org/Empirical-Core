@@ -50,10 +50,11 @@ Evidence::Engine.routes.draw do
       resources :llms, only: [:new, :create, :show, :index]
       resources :llm_prompts, only: [:show]
       resources :llm_prompt_templates, only: [:new, :create, :show, :index]
-      resources :passage_prompts, only: [:new, :create, :show, :index]
-      resources :passages, only: [:new, :create, :show]
+      resources :activity_prompt_configs, only: [:new, :create, :show, :index]
+      resources :activities, only: [:new, :create, :show]
       resources :auto_chain_of_thoughts, only: [:new, :create]
       resources :g_evals, only: [:new, :create, :show]
+      resources :prompt_template_variables, only: [:new, :create, :show, :index]
     end
   end
 end

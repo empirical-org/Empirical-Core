@@ -3,26 +3,26 @@
 module Evidence
   module Research
     module GenAI
-      class PassagesController < ApplicationController
+      class ActivitiesController < ApplicationController
         def new
-          @passage = Passage.new
+          @activity = Activity.new
         end
 
         def create
-          @passage = Passage.new(passage_params)
+          @activity = Activity.new(activity_params)
 
-          if @passage.save
+          if @activity.save
             redirect_to new_research_gen_ai_trial_path
           else
             render :new
           end
         end
 
-        def show = @passage = Passage.find(params[:id])
+        def show = @activity = Activity.find(params[:id])
 
-        private def passage_params
+        private def activity_params
           params
-            .require(:research_gen_ai_passage)
+            .require(:research_gen_ai_activity)
             .permit(:name, :contents)
         end
       end

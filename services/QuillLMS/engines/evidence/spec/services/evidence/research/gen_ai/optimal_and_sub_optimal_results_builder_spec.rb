@@ -14,26 +14,26 @@ module Evidence
           it { is_expected.to eq(confusion_matrix: [[0, 0], [0, 0]], accuracy: nil) }
         end
 
-        context 'with example_optimal, optimal only' do
-          let(:llm_feedbacks) { [double(example_optimal?: true, optimal?: true)] }
+        context 'with quill_optimal, optimal only' do
+          let(:llm_feedbacks) { [double(quill_optimal?: true, optimal?: true)] }
 
           it { is_expected.to eq(confusion_matrix: [[1, 0], [0, 0]], accuracy: 1) }
         end
 
-        context 'with example_sub-optimal, optimal only' do
-          let(:llm_feedbacks) { [double(example_optimal?: true, optimal?: false)] }
+        context 'with quill_sub-optimal, optimal only' do
+          let(:llm_feedbacks) { [double(quill_optimal?: true, optimal?: false)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 1], [0, 0]], accuracy: 0) }
         end
 
-        context 'with example_optimal, sub-optimal only' do
-          let(:llm_feedbacks) { [double(example_optimal?: false, optimal?: true)] }
+        context 'with quill_optimal, sub-optimal only' do
+          let(:llm_feedbacks) { [double(quill_optimal?: false, optimal?: true)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [1, 0]], accuracy: 0) }
         end
 
-        context 'with example_sub-optimal, sub-optimal only' do
-          let(:llm_feedbacks) { [double(example_optimal?: false, optimal?: false)] }
+        context 'with quill_sub-optimal, sub-optimal only' do
+          let(:llm_feedbacks) { [double(quill_optimal?: false, optimal?: false)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [0, 1]], accuracy: 1) }
         end
@@ -41,10 +41,10 @@ module Evidence
         context 'with mixed feedbacks' do
           let(:llm_feedbacks) do
             [
-              double(example_optimal?: true, optimal?: true),
-              double(example_optimal?: true, optimal?: false),
-              double(example_optimal?: false, optimal?: true),
-              double(example_optimal?: false, optimal?: false)
+              double(quill_optimal?: true, optimal?: true),
+              double(quill_optimal?: true, optimal?: false),
+              double(quill_optimal?: false, optimal?: true),
+              double(quill_optimal?: false, optimal?: false)
             ]
           end
 

@@ -1,0 +1,30 @@
+<header>
+  <h2>Prompt Template Variables</h2>
+</header>
+
+<%= link_to 'New Prompt Template Variable', new_research_gen_ai_prompt_template_variable_path %>
+
+<% if @prompt_template_variables.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @prompt_template_variables.each do |prompt_template_variable| %>
+        <tr>
+          <td><%= prompt_template_variable.id %></td>
+          <td><%= prompt_template_variable.name  %></td>
+          <td><p><%= simple_format(prompt_template_variable.value) %></p></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No prompt_template_variables found.</p>
+<% end %>
+
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>

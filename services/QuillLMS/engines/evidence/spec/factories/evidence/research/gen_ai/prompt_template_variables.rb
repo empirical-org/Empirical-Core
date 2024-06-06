@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+#
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_passages
+# Table name: evidence_research_gen_ai_prompt_template_variables
 #
 #  id         :bigint           not null, primary key
-#  contents   :text             not null
 #  name       :string           not null
+#  value      :text             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,9 +16,9 @@ module Evidence
   module Research
     module GenAI
       FactoryBot.define do
-        factory :evidence_research_gen_ai_passage, class: 'Evidence::Research::GenAI::Passage' do
-          name { 'Passage 1' }
-          contents { 'This is the contents' }
+        factory :evidence_research_gen_ai_prompt_template_variable, class: 'Evidence::Research::GenAI::PromptTemplateVariable' do
+          name { PromptTemplateVariable::NAMES.sample }
+          value { Faker::Lorem.sentence }
         end
       end
     end
