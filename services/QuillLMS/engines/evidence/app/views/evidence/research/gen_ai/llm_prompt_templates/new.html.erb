@@ -1,4 +1,5 @@
 <% delimiter = Evidence::Research::GenAI::LLMPromptBuilder::DELIMITER %>
+<% examples_substitution = Evidence::Research::GenAI::LLMPromptBuilder::EXAMPLES_SUBSTITUTION %>
 
 <h1>New <%= @llm_prompt_template.model_name.human.titleize %></h1>
 
@@ -26,7 +27,7 @@
       <h2>Activity Substitutions</h2>
       <ul class='no-bullets'>
         <% Evidence::Research::GenAI::LLMPromptBuilder::ACTIVITY_SUBSTITUTIONS.keys.each do |substitution| %>
-          <% substitution = 'examples,n' if substitution == 'examples' %>
+          <% substitution = "#{examples_substitution},n" if substitution == examples_substitution %>
           <li><%= delimiter %><%= substitution %><%= delimiter %></li>
         <% end %>
       </ul>

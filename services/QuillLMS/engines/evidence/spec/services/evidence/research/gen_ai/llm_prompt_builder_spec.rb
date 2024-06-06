@@ -15,6 +15,12 @@ module Evidence
         let(:optimal_rules) { activity_prompt_config.optimal_rules }
         let(:sub_optimal_rules) { activity_prompt_config.sub_optimal_rules}
         let(:activity_prompt_config_id) { activity_prompt_config.id }
+        let(:conjunction) { activity_prompt_config.conjunction }
+        let(:because_evidence) { activity_prompt_config.because_evidence }
+        let(:but_evidence) { activity_prompt_config.but_evidence }
+        let(:so_evidence) { activity_prompt_config.so_evidence }
+        let(:full_text) { activity_prompt_config.full_text }
+        let(:examples_substitution) { described_class::EXAMPLES_SUBSTITUTION }
 
         def delimit(placeholder) = "#{described_class::DELIMITER}#{placeholder}#{described_class::DELIMITER}"
 
@@ -41,6 +47,36 @@ module Evidence
             it { is_expected.to eq stem }
           end
 
+          context 'conjunction' do
+            let(:contents)  { delimit('conjunction') }
+
+            it { is_expected.to eq conjunction }
+          end
+
+          context 'because_evidence' do
+            let(:contents)  { delimit('because_evidence') }
+
+            it { is_expected.to eq because_evidence }
+          end
+
+          context 'but_evidence' do
+            let(:contents)  { delimit('but_evidence') }
+
+            it { is_expected.to eq but_evidence }
+          end
+
+          context 'so_evidence' do
+            let(:contents)  { delimit('so_evidence') }
+
+            it { is_expected.to eq so_evidence }
+          end
+
+          context 'full_text' do
+            let(:contents)  { delimit('full_text') }
+
+            it { is_expected.to eq full_text }
+          end
+
           context 'sub_optimal_rules' do
             let(:contents)  { delimit('sub_optimal_rules') }
 
@@ -53,7 +89,7 @@ module Evidence
             it { is_expected.to eq optimal_rules }
           end
 
-          context 'examples' do
+          context 'examples_substitution' do
             let(:num_of_examples) { 5 }
 
             let!(:quill_feedbacks) do
@@ -67,7 +103,7 @@ module Evidence
 
             let(:limit) { 3 }
 
-            let(:contents) { delimit("prompt_engineering_response_feedback_pairs,#{limit}") }
+            let(:contents) { delimit("#{examples_substitution},#{limit}") }
 
             it { is_expected.to eq quill_feedbacks.first(limit).map(&:response_and_feedback).join("\n") }
           end

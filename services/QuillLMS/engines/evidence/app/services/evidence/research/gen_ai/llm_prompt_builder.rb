@@ -19,13 +19,18 @@ module Evidence
 
         DELIMITER = "~~~"
         OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
+        EXAMPLES_SUBSTITUTION = 'prompt_engineering_response_feedback_pairs'
 
         ACTIVITY_SUBSTITUTIONS = {
           "stem" => ->(builder, _) { builder.activity_prompt_config.stem },
+          "conjunction" => ->(builder, _) { builder.activity_prompt_config.conjunction },
+          "because_evidence" => ->(builder, _) { builder.activity_prompt_config.because_evidence },
+          "but_evidence" => ->(builder, _) { builder.activity_prompt_config.but_evidence },
+          "so_evidence" => ->(builder, _) { builder.activity_prompt_config.so_evidence },
           "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
           "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
-          "full_text" => ->(builder, _) { builder.activity_prompt_config.activity.text },
-          "prompt_engineering_response_feedback_pairs" => ->(builder, limit) { builder.examples(limit) },
+          "full_text" => ->(builder, _) { builder.activity_prompt_config.full_text },
+          EXAMPLES_SUBSTITUTION => ->(builder, limit) { builder.examples(limit) },
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
