@@ -68,7 +68,6 @@ module Evidence
       private def highlight_key = chat_response[KEY_HIGHLIGHT]
       private def optimal = chat_response[KEY_OPTIMAL]
       private def feedback = chat_response[KEY_FEEDBACK]
-
     end
   end
 end
