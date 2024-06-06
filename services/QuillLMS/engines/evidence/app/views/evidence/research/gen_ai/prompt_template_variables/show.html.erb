@@ -1,0 +1,15 @@
+<div>
+  <h2><%= @prompt_template_variable.model_name.human.titleize %></h2>
+
+  <h3>Name</h3>
+  <p><%= @prompt_template_variable.name %></p>
+
+  <h3>Version</h3>
+  <p><%= @prompt_template_variable.value %></p>
+</div>
+
+<br>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= link_to 'Trials', research_gen_ai_trials_path %>

@@ -10,22 +10,22 @@ module Evidence
 
         let(:trial) { create(:evidence_research_gen_ai_trial, results: '{}') }
 
-        let(:example_feedback1) { create(:evidence_research_gen_ai_example_feedback) }
+        let(:quill_feedback1) { create(:evidence_research_gen_ai_quill_feedback) }
 
         let(:llm_feedback_identical) do
           create(
            :evidence_research_gen_ai_llm_feedback,
-           passage_prompt_response: example_feedback1.passage_prompt_response,
-           text: example_feedback1.text
+           student_response: quill_feedback1.student_response,
+           text: quill_feedback1.text
           )
         end
 
-        let(:example_feedback2) { create(:evidence_research_gen_ai_example_feedback) }
+        let(:quill_feedback2) { create(:evidence_research_gen_ai_quill_feedback) }
 
         let(:llm_feedback_non_identical) do
           create(
             :evidence_research_gen_ai_llm_feedback,
-            passage_prompt_response: example_feedback2.passage_prompt_response,
+            student_response: quill_feedback2.student_response,
             text: 'this is different feedback'
           )
         end

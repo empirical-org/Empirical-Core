@@ -19,7 +19,7 @@ module Evidence
     it { is_expected.to validate_presence_of(:embedding) }
 
     context 'with stubbed embedding' do
-      subject { FactoryBot.build(:evidence_prompt_response, response_text:, embedding: initial_embedding) }
+      subject { build(:evidence_prompt_response, response_text:, embedding: initial_embedding) }
 
       let(:response_text) { 'sample text' }
       let(:initial_embedding) { nil }

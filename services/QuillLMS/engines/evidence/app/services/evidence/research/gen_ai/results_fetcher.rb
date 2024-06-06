@@ -18,7 +18,7 @@ module Evidence
           @trial = trial
           @llm_feedbacks = trial.llm_feedbacks
           @predictions = llm_feedbacks.map(&:text)
-          @references = llm_feedbacks.map(&:example_feedback).map(&:text)
+          @references = llm_feedbacks.map(&:quill_feedback).map(&:text)
         end
 
         def run

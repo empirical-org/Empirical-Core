@@ -17,17 +17,19 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLM, type: :model do
+        let(:factory) { described_class.model_name.singular.to_sym }
+
+        it { expect(build(factory)).to be_valid }
+
         it { should validate_presence_of(:vendor) }
         it { should validate_presence_of(:version) }
         it { should have_readonly_attribute(:vendor) }
         it { should have_readonly_attribute(:version) }
 
-        it { expect(FactoryBot.build(:evidence_research_gen_ai_llm)).to be_valid }
-
         describe '#request_body_customizations' do
           subject { llm.request_body_customizations }
 
-          let(:llm) { build(:evidence_research_gen_ai_llm, vendor:, version:) }
+          let(:llm) { build(factory, vendor:, version:) }
 
           context 'when vendor is not GOOGLE or OPEN_AI' do
             let(:vendor) { 'any_vendor' }
