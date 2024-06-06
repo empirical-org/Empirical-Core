@@ -17,7 +17,7 @@ module Evidence
         let(:llm_feedback) do
           create(
            :evidence_research_gen_ai_llm_feedback,
-           passage_prompt_response: quill_feedback.passage_prompt_response,
+           student_response: quill_feedback.student_response,
            text: quill_feedback.text
           )
         end

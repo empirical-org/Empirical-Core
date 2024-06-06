@@ -1,6 +1,6 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Activity`, `PassagePrompt`, `PassagePromptResponse` and `QuillFeedback` records are imported with the following structure
+`Activity`, `ActivityPromptConfig`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -8,13 +8,13 @@ classDiagram
          name
          text
     }
-    class PassagePrompt {
+    class ActivityPromptConfig {
          conjunction
          instructions
          prompt
          relevant_passage
     }
-    class PassagePromptResponse {
+    class StudentResponse {
          response
     }
     class QuillFeedback {
@@ -22,13 +22,13 @@ classDiagram
          evaluation
          label
     }
-    Activity --|> PassagePrompt
-    PassagePrompt --|> PassagePromptResponse
-    PassagePromptResponse --|> QuillFeedback
+    Activity --|> ActivityPromptConfig
+    ActivityPromptConfig --|> StudentResponse
+    StudentResponse --|> QuillFeedback
 ```
 
 ## 2. Trial Configuration
-Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `PassagePrompt` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
+Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `ActivityPromptConfig` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
 
 ```mermaid
 classDiagram
@@ -43,24 +43,24 @@ classDiagram
          contents
          description
     }
-    class PassagePrompt {
+    class ActivityPromptConfig {
     }
     class Trial {
          status
     }
 
-    PassagePrompt --|> Trial
+    ActivityPromptConfig --|> Trial
     LLM --|> Trial
     LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial
 ```
 
 ## 3. Trial Ouptut
-As the `Trial` is run, the LLM returns feedback relevant to the `PassagePromptResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
+As the `Trial` is run, the LLM returns feedback relevant to the `StudentResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
 
 ```mermaid
 classDiagram
-    class PassagePromptResponse {
+    class StudentResponse {
     }
     class QuillFeedback {
     }
@@ -68,7 +68,7 @@ classDiagram
         feedback
         label
     }
-    PassagePromptResponse --|> QuillFeedback
-    PassagePromptResponse --|> LLMFeedback
+    StudentResponse --|> QuillFeedback
+    StudentResponse --|> LLMFeedback
     Trial --|> LLMFeedback
 ```

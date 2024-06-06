@@ -11,11 +11,20 @@
 
 <div class="container">
   <div class="column">
-    <h2>Trial</h2>
+    <h2>
+      Trial
+      <% if @trial.failed? %>
+        <%= button_to 'Retry',
+              retry_research_gen_ai_trial_path(@trial),
+              method: :post,
+              data: { confirm: 'Are you sure you want to retry this trial?' }
+        %>
+      <% end %>
+    </h2>
     <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
     <h3>Activity + Conjunction</h3>
-    <p><%= link_to @trial.passage_prompt, @trial.passage_prompt %></p>
+    <p><%= link_to @trial.activity_prompt_config, @trial.activity_prompt_config %></p>
 
     <h3>LLM</h3>
     <p><%= @trial.llm %></p>
@@ -46,7 +55,7 @@
         <%= render 'histogram', histogram: @histogram %>
       <% end %>
 
-      <%= render 'matrix', matrix: @trial.confusion_matrix, title: 'Confusion Matrix' %>
+      <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
     <% end %>
   </div>
 </div>
@@ -83,7 +92,7 @@
                 <td><%= @trial.g_evals[g_eval_id][index] %></td>
               <% end %>
             <% end %>
-            <td><%= llm_feedback.passage_prompt_response %></td>
+            <td><%= llm_feedback.student_response %></td>
             <td><%= llm_feedback.quill_feedback %></td>
             <td><%= llm_feedback  %></td>
           </tr>

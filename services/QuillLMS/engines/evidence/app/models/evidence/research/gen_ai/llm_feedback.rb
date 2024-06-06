@@ -4,14 +4,14 @@
 #
 # Table name: evidence_research_gen_ai_llm_feedbacks
 #
-#  id                         :bigint           not null, primary key
-#  label                      :string
-#  raw_text                   :text             not null
-#  text                       :text             not null
-#  created_at                 :datetime         not null
-#  updated_at                 :datetime         not null
-#  passage_prompt_response_id :integer          not null
-#  trial_id                   :integer          not null
+#  id                  :bigint           not null, primary key
+#  label               :string
+#  raw_text            :text             not null
+#  text                :text             not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  student_response_id :integer          not null
+#  trial_id            :integer          not null
 #
 module Evidence
   module Research
@@ -20,22 +20,22 @@ module Evidence
         include HasOptimalAndSubOptimal
 
         belongs_to :trial, class_name: 'Evidence::Research::GenAI::Trial'
-        belongs_to :passage_prompt_response, class_name: 'Evidence::Research::GenAI::PassagePromptResponse'
+        belongs_to :student_response, class_name: 'Evidence::Research::GenAI::StudentResponse'
 
         validates :raw_text, presence: true
         validates :text, presence: true
-        validates :passage_prompt_response_id, presence: true
+        validates :student_response_id, presence: true
         validates :trial_id, presence: true
 
-        attr_readonly :trial_id, :label, :passage_prompt_response_id, :raw_text, :text
+        attr_readonly :trial_id, :label, :student_response_id, :raw_text, :text
 
-        delegate :quill_optimal?, :quill_feedback, to: :passage_prompt_response
+        delegate :quill_optimal?, :quill_feedback, to: :student_response
 
         def identical_feedback? = quill_feedback.text.strip == text.strip
 
         def optimal_or_sub_optimal_match? = quill_optimal? ? optimal? : sub_optimal?
 
-        def response_and_feedback = "Response: #{passage_prompt_response.response}\nFeedback: #{text}"
+        def response_and_feedback = "Response: #{student_response.text}\nFeedback: #{text}"
 
         def to_s = text
       end

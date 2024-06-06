@@ -2949,9 +2949,9 @@ CREATE TABLE public.evidence_research_gen_ai_activities (
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    because_evidence text DEFAULT ''::text NOT NULL,
-    but_evidence text DEFAULT ''::text NOT NULL,
-    so_evidence text DEFAULT ''::text NOT NULL
+    because_text text DEFAULT ''::text NOT NULL,
+    but_text text DEFAULT ''::text NOT NULL,
+    so_text text DEFAULT ''::text NOT NULL
 );
 
 
@@ -2972,6 +2972,41 @@ CREATE SEQUENCE public.evidence_research_gen_ai_activities_id_seq
 --
 
 ALTER SEQUENCE public.evidence_research_gen_ai_activities_id_seq OWNED BY public.evidence_research_gen_ai_activities.id;
+
+
+--
+-- Name: evidence_research_gen_ai_activity_prompt_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_activity_prompt_configs (
+    id bigint NOT NULL,
+    activity_id integer NOT NULL,
+    stem text NOT NULL,
+    optimal_rules text NOT NULL,
+    conjunction character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    sub_optimal_rules text NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_activity_prompt_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_activity_prompt_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_activity_prompt_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_activity_prompt_configs_id_seq OWNED BY public.evidence_research_gen_ai_activity_prompt_configs.id;
 
 
 --
@@ -3018,7 +3053,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 CREATE TABLE public.evidence_research_gen_ai_llm_feedbacks (
     id bigint NOT NULL,
-    passage_prompt_response_id integer NOT NULL,
+    student_response_id integer NOT NULL,
     text text NOT NULL,
     label character varying,
     created_at timestamp(6) without time zone NOT NULL,
@@ -3144,23 +3179,23 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llms_id_seq OWNED BY public.evide
 
 
 --
--- Name: evidence_research_gen_ai_passage_prompt_responses; Type: TABLE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_prompt_template_variables; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.evidence_research_gen_ai_passage_prompt_responses (
+CREATE TABLE public.evidence_research_gen_ai_prompt_template_variables (
     id bigint NOT NULL,
-    passage_prompt_id integer NOT NULL,
-    response text NOT NULL,
+    name character varying NOT NULL,
+    value text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
 
 
 --
--- Name: evidence_research_gen_ai_passage_prompt_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_prompt_template_variables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq
+CREATE SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3169,45 +3204,10 @@ CREATE SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq
 
 
 --
--- Name: evidence_research_gen_ai_passage_prompt_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_prompt_template_variables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompt_responses_id_seq OWNED BY public.evidence_research_gen_ai_passage_prompt_responses.id;
-
-
---
--- Name: evidence_research_gen_ai_passage_prompts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_research_gen_ai_passage_prompts (
-    id bigint NOT NULL,
-    activity_id integer NOT NULL,
-    prompt text NOT NULL,
-    instructions text NOT NULL,
-    conjunction character varying NOT NULL,
-    relevant_passage text NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: evidence_research_gen_ai_passage_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_research_gen_ai_passage_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq OWNED BY public.evidence_research_gen_ai_passage_prompts.id;
+ALTER SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq OWNED BY public.evidence_research_gen_ai_prompt_template_variables.id;
 
 
 --
@@ -3216,7 +3216,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_passage_prompts_id_seq OWNED BY p
 
 CREATE TABLE public.evidence_research_gen_ai_quill_feedbacks (
     id bigint NOT NULL,
-    passage_prompt_response_id integer NOT NULL,
+    student_response_id integer NOT NULL,
     text text NOT NULL,
     label character varying NOT NULL,
     paraphrase text,
@@ -3246,12 +3246,44 @@ ALTER SEQUENCE public.evidence_research_gen_ai_quill_feedbacks_id_seq OWNED BY p
 
 
 --
+-- Name: evidence_research_gen_ai_student_responses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_student_responses (
+    id bigint NOT NULL,
+    activity_prompt_config_id integer NOT NULL,
+    text text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_student_responses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_student_responses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_student_responses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_student_responses_id_seq OWNED BY public.evidence_research_gen_ai_student_responses.id;
+
+
+--
 -- Name: evidence_research_gen_ai_trials; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.evidence_research_gen_ai_trials (
     id bigint NOT NULL,
-    passage_prompt_id integer NOT NULL,
+    activity_prompt_config_id integer NOT NULL,
     llm_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
@@ -6474,6 +6506,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities ALTER COLUMN id SET 
 
 
 --
+-- Name: evidence_research_gen_ai_activity_prompt_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_activity_prompt_configs ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_activity_prompt_configs_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_g_evals id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6509,17 +6548,10 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llms ALTER COLUMN id SET DEFAUL
 
 
 --
--- Name: evidence_research_gen_ai_passage_prompt_responses id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_prompt_template_variables id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompt_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passage_prompt_responses_id_seq'::regclass);
-
-
---
--- Name: evidence_research_gen_ai_passage_prompts id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_passage_prompts_id_seq'::regclass);
+ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_prompt_template_variables_id_seq'::regclass);
 
 
 --
@@ -6527,6 +6559,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts ALTER COLUMN id
 --
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_quill_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_student_responses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_student_responses ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_student_responses_id_seq'::regclass);
 
 
 --
@@ -7685,6 +7724,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities
 
 
 --
+-- Name: evidence_research_gen_ai_activity_prompt_configs evidence_research_gen_ai_activity_prompt_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_activity_prompt_configs
+    ADD CONSTRAINT evidence_research_gen_ai_activity_prompt_configs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_research_gen_ai_g_evals evidence_research_gen_ai_g_evals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7725,19 +7772,11 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llms
 
 
 --
--- Name: evidence_research_gen_ai_passage_prompt_responses evidence_research_gen_ai_passage_prompt_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_prompt_template_variables evidence_research_gen_ai_prompt_template_variables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompt_responses
-    ADD CONSTRAINT evidence_research_gen_ai_passage_prompt_responses_pkey PRIMARY KEY (id);
-
-
---
--- Name: evidence_research_gen_ai_passage_prompts evidence_research_gen_ai_passage_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts
-    ADD CONSTRAINT evidence_research_gen_ai_passage_prompts_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables
+    ADD CONSTRAINT evidence_research_gen_ai_prompt_template_variables_pkey PRIMARY KEY (id);
 
 
 --
@@ -7746,6 +7785,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_passage_prompts
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks
     ADD CONSTRAINT evidence_research_gen_ai_quill_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_student_responses evidence_research_gen_ai_student_responses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_student_responses
+    ADD CONSTRAINT evidence_research_gen_ai_student_responses_pkey PRIMARY KEY (id);
 
 
 --
@@ -11421,6 +11468,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240531184027'),
 ('20240603162552'),
 ('20240604232659'),
-('20240605120147');
+('20240605120147'),
+('20240605132805'),
+('20240605170803'),
+('20240605185824');
 
 
