@@ -9,6 +9,9 @@ class RenamePassagePromptToActivityPromptConfig < ActiveRecord::Migration[7.0]
     add_column :evidence_research_gen_ai_activity_prompt_configs, :sub_optimal_rules, :text
     rename_column :evidence_research_gen_ai_student_responses, :passage_prompt_id, :activity_prompt_config_id
     rename_column :evidence_research_gen_ai_trials, :passage_prompt_id, :activity_prompt_config_id
+    rename_column :evidence_research_gen_ai_activities, :because_evidence, :because_text
+    rename_column :evidence_research_gen_ai_activities, :but_evidence, :but_text
+    rename_column :evidence_research_gen_ai_activities, :so_evidence, :so_text
 
     Evidence::Research::GenAI::ActivityPromptConfig
       .where(sub_optimal_rules: nil)

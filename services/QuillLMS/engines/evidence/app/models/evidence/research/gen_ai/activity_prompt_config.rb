@@ -37,7 +37,7 @@ module Evidence
 
         attr_readonly :stem, :conjunction, :optimal_rules, :sub_optimal_rules, :activity_id
 
-        delegate :name, :because_evidence, :but_evidence, :so_evidence, to: :activity
+        delegate :name, :because_text, :but_text, :so_text, to: :activity
 
         def full_text = activity.text
 

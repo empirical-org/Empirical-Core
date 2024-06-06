@@ -939,9 +939,9 @@ CREATE TABLE public.evidence_research_gen_ai_activities (
     name character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    because_evidence text DEFAULT ''::text NOT NULL,
-    but_evidence text DEFAULT ''::text NOT NULL,
-    so_evidence text DEFAULT ''::text NOT NULL
+    because_text text DEFAULT ''::text NOT NULL,
+    but_text text DEFAULT ''::text NOT NULL,
+    so_text text DEFAULT ''::text NOT NULL
 );
 
 

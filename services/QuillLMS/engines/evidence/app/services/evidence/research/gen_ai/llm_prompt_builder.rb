@@ -24,9 +24,9 @@ module Evidence
         ACTIVITY_SUBSTITUTIONS = {
           "stem" => ->(builder, _) { builder.activity_prompt_config.stem },
           "conjunction" => ->(builder, _) { builder.activity_prompt_config.conjunction },
-          "because_evidence" => ->(builder, _) { builder.activity_prompt_config.because_evidence },
-          "but_evidence" => ->(builder, _) { builder.activity_prompt_config.but_evidence },
-          "so_evidence" => ->(builder, _) { builder.activity_prompt_config.so_evidence },
+          "because_text" => ->(builder, _) { builder.activity_prompt_config.because_text },
+          "but_text" => ->(builder, _) { builder.activity_prompt_config.but_text },
+          "so_text" => ->(builder, _) { builder.activity_prompt_config.so_text },
           "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
           "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
           "full_text" => ->(builder, _) { builder.activity_prompt_config.full_text },

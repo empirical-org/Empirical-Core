@@ -16,9 +16,9 @@ module Evidence
         let(:sub_optimal_rules) { activity_prompt_config.sub_optimal_rules}
         let(:activity_prompt_config_id) { activity_prompt_config.id }
         let(:conjunction) { activity_prompt_config.conjunction }
-        let(:because_evidence) { activity_prompt_config.because_evidence }
-        let(:but_evidence) { activity_prompt_config.but_evidence }
-        let(:so_evidence) { activity_prompt_config.so_evidence }
+        let(:because_text) { activity_prompt_config.because_text }
+        let(:but_text) { activity_prompt_config.but_text }
+        let(:so_text) { activity_prompt_config.so_text }
         let(:full_text) { activity_prompt_config.full_text }
         let(:examples_substitution) { described_class::EXAMPLES_SUBSTITUTION }
 
@@ -53,22 +53,22 @@ module Evidence
             it { is_expected.to eq conjunction }
           end
 
-          context 'because_evidence' do
-            let(:contents)  { delimit('because_evidence') }
+          context 'because_text' do
+            let(:contents)  { delimit('because_text') }
 
-            it { is_expected.to eq because_evidence }
+            it { is_expected.to eq because_text }
           end
 
-          context 'but_evidence' do
-            let(:contents)  { delimit('but_evidence') }
+          context 'but_text' do
+            let(:contents)  { delimit('but_text') }
 
-            it { is_expected.to eq but_evidence }
+            it { is_expected.to eq but_text }
           end
 
-          context 'so_evidence' do
-            let(:contents)  { delimit('so_evidence') }
+          context 'so_text' do
+            let(:contents)  { delimit('so_text') }
 
-            it { is_expected.to eq so_evidence }
+            it { is_expected.to eq so_text }
           end
 
           context 'full_text' do
