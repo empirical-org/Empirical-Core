@@ -28,7 +28,9 @@ RSpec.describe Evidence::OpenAI::Chat, type: :service do
 
   describe '#run' do
     let!(:result) {subject.run}
+
     it 'returns cleaned results' do
+      result = subject.run
       expect(result['answer']).to eq('The capital of France is Paris.')
     end
 
