@@ -11,8 +11,29 @@ module LearnWorldsIntegration
     def perform
       userwise_subject_areas_relation = LearnWorldsAccount.all.includes(user: { teacher_info: [:subject_areas] } )
       userwise_subject_areas_relation.find_each.with_index do |row, idx|
-        SyncUserTagsWorker.perform_in((idx * SMEAR_RATE_IN_SECONDS).seconds, row)
+        next unless row&.user
+
+        SyncUserTagsWorker.perform_in((idx * SMEAR_RATE_IN_SECONDS).seconds, *marshal(row))
       end
+    end
+
+    def marshal(user_subject_area_relation)
+      [
+        user_subject_area_relation.external_id,
+        tags(user_subject_area_relation.user)
+      ]
+    end
+
+    def string_to_subject_area_tag(str)
+      "subject_area_#{str.downcase.gsub(%r{[\s/]+}, '_')}"
+    end
+
+    def tags(user)
+      subjects_taught = user&.teacher_info&.subject_areas || []
+
+      user_account_type = user.admin? ? 'admin' : 'teacher'
+
+      (subjects_taught.compact.map{ |x| string_to_subject_area_tag(x.name)} << user_account_type)
     end
 
   end

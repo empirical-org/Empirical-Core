@@ -3,29 +3,25 @@
 module LearnWorldsIntegration
   class UserTagsRequest < UserRequest
 
+    attr_reader :external_id, :tags
+
     def endpoint
-      "#{USER_TAGS_ENDPOINT}/#{learn_worlds_account.external_id}"
+      "#{USER_TAGS_ENDPOINT}/#{external_id}"
     end
 
-    def run
-      raise NilUserError if user.nil?
+    def initialize(external_id, tags)
+      raise ArgumentError, "Nil external_id" unless external_id
+      raise ArgumentError, "Invalid tags: #{tags}" unless tags.respond_to?(:each)
 
-      HTTParty.put(endpoint, body: body, headers: headers)
+      @external_id = external_id
+      @tags = tags
     end
+
+    def run = HTTParty.put(endpoint, body: body, headers: headers)
 
     def body = data.to_json
 
     def data = { tags: tags }
-
-    def string_to_subject_area_tag(raw_str)
-      "subject_area_#{raw_str.downcase.gsub(%r{[\s/]+}, '_')}"
-    end
-
-    def tags
-      subjects_taught = user&.teacher_info&.subject_areas || []
-      user_account_type = user.admin? ? 'admin' : 'teacher'
-      (subjects_taught.compact.map{ |x| string_to_subject_area_tag(x)} << user_account_type)
-    end
 
   end
 end

@@ -6,8 +6,8 @@ module LearnWorldsIntegration
 
     sidekiq_options queue: SidekiqQueue::EXPERIMENT
 
-    def perform(user_with_subject_areas)
-      LearnWorldsIntegration::UserTagsRequest.run(user_with_subject_areas)
+    def perform(external_id, tags)
+      LearnWorldsIntegration::UserTagsRequest.run(external_id, tags)
     end
 
   end
