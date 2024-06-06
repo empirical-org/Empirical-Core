@@ -2,10 +2,9 @@ import * as React from 'react';
 import * as _ from 'underscore';
 
 import ResponseComponent from '../questions/responseComponent';
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox';
 
 import { requestPost, } from '../../../../modules/request/index';
-import { isValidFocusPointOrIncorrectSequence, TextEditor, } from '../../../Shared/index';
+import { isValidFocusPointOrIncorrectSequence, TextEditor, ConceptSelectorWithCheckbox, } from '../../../Shared/index';
 
 export default class FocusPointsInputAndConceptResultSelectorForm extends React.Component {
   constructor(props) {

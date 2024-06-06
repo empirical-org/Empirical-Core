@@ -5,7 +5,10 @@ import _ from 'underscore'
 
 import {
   Modal,
-  TextEditor
+  TextEditor,
+  ConceptSelectorWithCheckbox,
+  getStatusForResponse,
+  extractConceptResultsFromResponse,
 } from '../../../Shared/index'
 import massEdit from '../../actions/massEdit'
 import questionActions from '../../actions/questions'
@@ -17,9 +20,6 @@ import {
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import C from '../../constants'
 import { rematchOne } from '../../libs/grading/rematching'
-import { getStatusForResponse, extractConceptResultsFromResponse } from '../../../Shared/index'
-
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx'
 
 import ResponseList from './responseList'
 import { Question, Response } from '../../libs/grading/rematching'

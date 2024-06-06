@@ -99,7 +99,8 @@ export {
 } from './components/titleCards/index'
 
 export {
-  ConceptSelector
+  ConceptSelector,
+  ConceptSelectorWithCheckbox,
 } from './components/conceptSelector/index'
 
 export {

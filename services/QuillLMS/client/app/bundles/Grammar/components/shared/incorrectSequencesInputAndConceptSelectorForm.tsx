@@ -1,11 +1,9 @@
 import * as _ from 'underscore';
 import * as React from 'react';
 
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-
 import { requestPost, } from '../../../../modules/request/index';
 import ResponseComponent from '../questions/responseComponent';
-import { TextEditor, isValidFocusPointOrIncorrectSequence } from '../../../Shared/index';
+import { TextEditor, isValidFocusPointOrIncorrectSequence, ConceptSelectorWithCheckbox, } from '../../../Shared/index';
 
 export default class IncorrectSequencesInputAndConceptSelectorForm extends React.Component {
   constructor(props) {

@@ -1,11 +1,9 @@
 import React from 'react';
 import _ from 'underscore';
 
-import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
-
 import { requestPost, } from '../../../../modules/request/index';
 import ResponseComponent from '../questions/responseComponent';
-import { TextEditor, isValidFocusPointOrIncorrectSequence } from '../../../Shared/index';
+import { TextEditor, isValidFocusPointOrIncorrectSequence, ConceptSelectorWithCheckbox, } from '../../../Shared/index';
 
 export default class extends React.Component {
   constructor(props) {
