@@ -15,6 +15,8 @@ module Evidence
 
       private def current_entry = entry
 
+      # TODO: This is a relative inefficient query. We'd likely want to update the Feedback#create API
+      # to save the user entry and feedback history (instead of just feedback history)
       private def history
         session = Evidence.feedback_session_class.find_by(activity_session_uid: session_uid)
 
