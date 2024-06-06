@@ -23,6 +23,12 @@ module Evidence
           SO = 'so'
         ].freeze
 
+        RELEVANT_TEXTS = {
+          BECAUSE => :because_text,
+          BUT => :but_text,
+          SO => :so_text
+        }.freeze
+
         belongs_to :activity, class_name: 'Evidence::Research::GenAI::Activity'
 
         has_many :trials, dependent: :destroy
@@ -40,6 +46,8 @@ module Evidence
         delegate :name, :because_text, :but_text, :so_text, to: :activity
 
         def full_text = activity.text
+
+        def relevant_text = send(RELEVANT_TEXTS[conjunction])
 
         def to_s = "#{name} - #{conjunction}"
       end

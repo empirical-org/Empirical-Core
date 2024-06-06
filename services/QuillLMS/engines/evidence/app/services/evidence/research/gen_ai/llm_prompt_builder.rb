@@ -27,6 +27,7 @@ module Evidence
           "because_text" => ->(builder, _) { builder.activity_prompt_config.because_text },
           "but_text" => ->(builder, _) { builder.activity_prompt_config.but_text },
           "so_text" => ->(builder, _) { builder.activity_prompt_config.so_text },
+          "relevant_text" => ->(builder, _) { builder.activity_prompt_config.relevant_text },
           "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
           "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
           "full_text" => ->(builder, _) { builder.activity_prompt_config.full_text },

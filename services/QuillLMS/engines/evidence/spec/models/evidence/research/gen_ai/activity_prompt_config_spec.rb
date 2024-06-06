@@ -41,6 +41,30 @@ module Evidence
         it { have_many(:quill_feedbacks).through(:student_responses) }
         it { have_many(:llm_feedbacks).through(:student_responses) }
         it { have_many(:trials).dependent(:destroy) }
+
+        describe '#relevant_text' do
+          subject { activity_prompt_config.relevant_text }
+
+          let(:activity_prompt_config) { create(factory, conjunction:) }
+
+          context 'when conjunction is because' do
+            let(:conjunction) { described_class::BECAUSE }
+
+            it { is_expected.to eq activity_prompt_config.because_text }
+          end
+
+          context 'when conjunction is but' do
+            let(:conjunction) { described_class::BUT }
+
+            it { is_expected.to eq activity_prompt_config.but_text }
+          end
+
+          context 'when conjunction is so' do
+            let(:conjunction) { described_class::SO }
+
+            it { is_expected.to eq activity_prompt_config.so_text }
+          end
+        end
       end
     end
   end
