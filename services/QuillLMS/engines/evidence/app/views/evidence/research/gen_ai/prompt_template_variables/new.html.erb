@@ -1,0 +1,26 @@
+<h1>New <%= @prompt_template_variable.model_name.human.titleize %></h1>
+
+<%= form_for @prompt_template_variable do |f| %>
+  <%= render 'errors', object: @prompt_template_variable %>
+
+  <div class="field-spacing">
+    <%= f.label :name, "Name:" %>
+    <%= f.select :name, options_for_select(@names), { required: true } %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :value %><br>
+    <%= f.text_area :value, cols: 100, rows: 20, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
+
+<%= %>
+<br>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= link_to 'Trials', research_gen_ai_trials_path %>
