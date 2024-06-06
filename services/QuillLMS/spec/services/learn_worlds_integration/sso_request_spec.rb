@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Auth::LearnWorlds::SSORequest do
+RSpec.describe LearnWorldsIntegration::SSORequest do
   subject { described_class.run(user) }
 
   context 'nil user' do
@@ -19,7 +19,7 @@ RSpec.describe Auth::LearnWorlds::SSORequest do
 
   context 'user exists with email' do
     let(:user) { create(:user) }
-    let(:url) { Auth::LearnWorlds::BASE_URI + "/login?code=#{SecureRandom.hex(32)}" }
+    let(:url) { LearnWorldsIntegration::BASE_URI + "/login?code=#{SecureRandom.hex(32)}" }
 
     let(:sso_response) do
       {
@@ -37,7 +37,7 @@ RSpec.describe Auth::LearnWorlds::SSORequest do
       let(:data) do
         {
           email: user.email,
-          redirectURL: Auth::LearnWorlds::COURSES_ENDPOINT,
+          redirectURL: LearnWorldsIntegration::COURSES_ENDPOINT,
           username: username
         }
       end
@@ -82,7 +82,7 @@ RSpec.describe Auth::LearnWorlds::SSORequest do
 
       let(:data) do
         {
-          redirectURL: Auth::LearnWorlds::COURSES_ENDPOINT,
+          redirectURL: LearnWorldsIntegration::COURSES_ENDPOINT,
           user_id: user_id
         }
       end

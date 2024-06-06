@@ -2,8 +2,6 @@
 
 module LearnWorldsIntegration
   class UserRequest < ::ApplicationService
-    class NilUserError < StandardError; end
-
     def run = raise NotImplementedError
 
     def headers

@@ -2,6 +2,8 @@
 
 module LearnWorldsIntegration
   class SSORequest < UserRequest
+    class NilUserError < StandardError; end
+    class NilEmailError < StandardError; end
 
     attr_reader :user
 
