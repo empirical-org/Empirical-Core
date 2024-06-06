@@ -137,10 +137,7 @@ exports[`Activity Form component should render Activities 1`] = `
                     className=""
                   >
                     <TextEditor
-                      ContentState={[Function]}
-                      EditorState={[Function]}
                       handleTextChange={[Function]}
-                      shouldCheckSpelling={true}
                       text="..."
                     />
                   </div>
@@ -327,10 +324,7 @@ exports[`Activity Form component should render Activities 1`] = `
                     Building Essential Knowledge Text
                   </p>
                   <TextEditor
-                    ContentState={[Function]}
-                    EditorState={[Function]}
                     handleTextChange={[Function]}
-                    shouldCheckSpelling={true}
                   />
                 </React.Fragment>,
               ]

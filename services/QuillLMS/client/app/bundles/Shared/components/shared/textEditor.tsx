@@ -2,6 +2,7 @@ import Editor from '@draft-js-plugins/editor';
 import { convertFromHTML, convertToHTML } from 'draft-convert';
 import * as Draft from 'draft-js';
 import {
+  ContentState,
   EditorState,
   RichUtils,
 } from 'draft-js';
@@ -43,14 +44,14 @@ class TextEditor extends React.Component <any, any> {
     const addLinkPlugin = addLinkPluginPlugin
 
     this.state = {
-      text: props.EditorState.createWithContent(this.contentState(props.text || '')),
+      text: EditorState.createWithContent(this.contentState(props.text || '')),
       richButtonsPlugin: richButtonsPlugin(),
       addLinkPlugin: addLinkPlugin,
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: any) {
-    const { boilerplate, EditorState, handleTextChange, ContentState, } = this.props
+    const { boilerplate, handleTextChange } = this.props
     if (nextProps.boilerplate !== boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(this.contentState(nextProps.boilerplate)))},
         () => {
@@ -192,7 +193,7 @@ class TextEditor extends React.Component <any, any> {
               keyBindingFn={this.keyBindingFn}
               onChange={this.handleTextChange}
               plugins={[richButtonsPlugin, addLinkPlugin]}
-              spellCheck={!!shouldCheckSpelling}
+              spellCheck={true}
             />
           </div>
         </div>

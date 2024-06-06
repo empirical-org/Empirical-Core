@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { FlagDropdown, TextEditor } from '../../../Shared/index';
 import C from '../../constants.js';
@@ -154,8 +153,6 @@ class FillInBlankForm extends Component {
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handlePromptChange}
           text={this.state.prompt}
         />
