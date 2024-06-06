@@ -10,7 +10,6 @@ module LearnWorldsIntegration
     end
 
     def initialize(external_id, tags)
-      raise ArgumentError, "Nil external_id" unless external_id
       raise ArgumentError, "Invalid tags: #{tags}" unless tags.respond_to?(:each)
 
       @external_id = external_id
