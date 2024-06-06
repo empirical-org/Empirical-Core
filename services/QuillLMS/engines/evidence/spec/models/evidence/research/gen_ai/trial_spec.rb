@@ -4,18 +4,18 @@
 #
 # Table name: evidence_research_gen_ai_trials
 #
-#  id                  :bigint           not null, primary key
-#  evaluation_duration :float
-#  num_examples        :integer          default(0), not null
-#  results             :jsonb
-#  status              :string           default("pending"), not null
-#  trial_duration      :float
-#  trial_errors        :text             default([]), not null, is an Array
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  llm_id              :integer          not null
-#  llm_prompt_id       :integer          not null
-#  passage_prompt_id   :integer          not null
+#  id                        :bigint           not null, primary key
+#  evaluation_duration       :float
+#  num_examples              :integer          default(0), not null
+#  results                   :jsonb
+#  status                    :string           default("pending"), not null
+#  trial_duration            :float
+#  trial_errors              :text             default([]), not null, is an Array
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  activity_prompt_config_id :integer          not null
+#  llm_id                    :integer          not null
+#  llm_prompt_id             :integer          not null
 #
 require 'rails_helper'
 
@@ -30,18 +30,18 @@ module Evidence
         it { should validate_presence_of(:status) }
         it { should validate_presence_of(:llm_id) }
         it { should validate_presence_of(:llm_prompt_id) }
-        it { should validate_presence_of(:passage_prompt_id) }
+        it { should validate_presence_of(:activity_prompt_config_id) }
         it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
         it { should have_readonly_attribute(:llm_id) }
         it { should have_readonly_attribute(:llm_prompt_id) }
-        it { should have_readonly_attribute(:passage_prompt_id) }
+        it { should have_readonly_attribute(:activity_prompt_config_id) }
 
         it { belong_to(:llm) }
         it { belong_to(:llm_prompt) }
-        it { belong_to(:passage_prompt) }
+        it { belong_to(:activity_prompt_config) }
 
         it { have_many(:llm_feedbacks) }
-        it { have_many(:student_responses).through(:passage_prompt) }
+        it { have_many(:student_responses).through(:activity_prompt_config) }
         it { have_many(:quill_feedbacks).through(:student_responses) }
 
         describe '#run' do
@@ -49,13 +49,13 @@ module Evidence
 
           let(:trial) { create(factory, num_examples:) }
           let(:num_examples) { 3 }
-          let(:passage_prompt) { trial.passage_prompt }
+          let(:activity_prompt_config) { trial.activity_prompt_config }
           let(:llm) { trial.llm }
           let(:llm_prompt) { trial.llm_prompt }
           let(:llm_feedback_text) { { 'feedback' => 'This is feedback' }.to_json }
 
           let(:student_responses) do
-            create_list(:evidence_research_gen_ai_student_response, num_examples, passage_prompt:)
+            create_list(:evidence_research_gen_ai_student_response, num_examples, activity_prompt_config:)
           end
 
           before do

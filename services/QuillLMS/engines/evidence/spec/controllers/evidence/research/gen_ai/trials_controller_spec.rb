@@ -22,9 +22,9 @@ module Evidence
           let(:llm_prompt_template_ids) { llm_prompt_templates.map(&:id) }
           let(:num_llm_prompt_templates) { rand(1..3) }
 
-          let(:passage_prompts) { create_list(:evidence_research_gen_ai_passage_prompt, num_passage_prompts) }
-          let(:passage_prompt_ids) { passage_prompts.map(&:id) }
-          let(:num_passage_prompts) { rand(1..3) }
+          let(:activity_prompt_configs) { create_list(:evidence_research_gen_ai_activity_prompt_config, num_activity_prompt_configs) }
+          let(:activity_prompt_config_ids) { activity_prompt_configs.map(&:id) }
+          let(:num_activity_prompt_configs) { rand(1..3) }
 
           let(:num_examples) { rand(1..3) }
 
@@ -35,7 +35,7 @@ module Evidence
               research_gen_ai_trial: {
                 llm_ids:,
                 llm_prompt_template_ids:,
-                passage_prompt_ids:,
+                activity_prompt_config_ids:,
                 num_examples:
               }
             }
@@ -54,7 +54,7 @@ module Evidence
             before { allow(LLMPromptBuilder).to receive(:run).and_return(llm_prompt) }
 
             context 'with valid parameters' do
-              let(:total_combinations) { num_llms * num_llm_prompt_templates * num_passage_prompts }
+              let(:total_combinations) { num_llms * num_llm_prompt_templates * num_activity_prompt_configs }
 
               before { allow(RunTrialWorker).to receive(:perform_async) }
 

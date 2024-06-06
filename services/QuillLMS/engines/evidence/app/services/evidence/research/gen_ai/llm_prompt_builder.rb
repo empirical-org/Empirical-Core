@@ -19,30 +19,37 @@ module Evidence
 
         DELIMITER = "~~~"
         OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
+        EXAMPLES_SUBSTITUTION = 'prompt_engineering_response_feedback_pairs'
 
         ACTIVITY_SUBSTITUTIONS = {
-          "prompt" => ->(builder, _) { builder.passage_prompt.prompt },
-          "instructions" => ->(builder, _) { builder.passage_prompt.instructions },
-          "relevant_passage" => ->(builder, _) { builder.passage_prompt.relevant_passage },
-          "examples" => ->(builder, limit) { builder.examples(limit) },
+          "stem" => ->(builder, _) { builder.activity_prompt_config.stem },
+          "conjunction" => ->(builder, _) { builder.activity_prompt_config.conjunction },
+          "because_text" => ->(builder, _) { builder.activity_prompt_config.because_text },
+          "but_text" => ->(builder, _) { builder.activity_prompt_config.but_text },
+          "so_text" => ->(builder, _) { builder.activity_prompt_config.so_text },
+          "relevant_text" => ->(builder, _) { builder.activity_prompt_config.relevant_text },
+          "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
+          "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
+          "full_text" => ->(builder, _) { builder.activity_prompt_config.full_text },
+          EXAMPLES_SUBSTITUTION => ->(builder, limit) { builder.examples(limit) },
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
-          ->(builder) { builder.prompt_template_variable(name) }
+          ->(builder, id) { builder.prompt_template_variable(id) }
         end
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :llm_prompt_template_id, :passage_prompt_id
+        attr_reader :llm_prompt_template_id, :activity_prompt_config_id
 
         validates :llm_prompt_template_id, presence: true
-        validates :passage_prompt_id, presence: true
+        validates :activity_prompt_config_id, presence: true
 
         delegate :contents, to: :llm_prompt_template
 
-        def initialize(llm_prompt_template_id:, passage_prompt_id:)
+        def initialize(llm_prompt_template_id:, activity_prompt_config_id:)
           @llm_prompt_template_id = llm_prompt_template_id
-          @passage_prompt_id = passage_prompt_id
+          @activity_prompt_config_id = activity_prompt_config_id
 
           validate!
         end
@@ -56,7 +63,7 @@ module Evidence
         end
 
         def examples(limit)
-          passage_prompt
+          activity_prompt_config
             .quill_feedbacks
             .prompt_engineering_data
             .limit(limit)
@@ -66,7 +73,7 @@ module Evidence
 
         def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 
-        def passage_prompt = @passage_prompt ||= PassagePrompt.find(passage_prompt_id)
+        def activity_prompt_config = @activity_prompt_config ||= ActivityPromptConfig.find(activity_prompt_config_id)
 
         def llm_prompt_template = @llm_prompt_template ||= LLMPromptTemplate.find(llm_prompt_template_id)
       end

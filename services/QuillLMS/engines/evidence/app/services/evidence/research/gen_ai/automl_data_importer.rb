@@ -14,18 +14,18 @@ module Evidence
         end
 
         def run
-          passage_prompts.each do |passage_prompt|
-            conjunction = passage_prompt.conjunction
+          activity_prompt_configs.each do |activity_prompt_config|
+            conjunction = activity_prompt_config.conjunction
             training_file_name = data['files'][conjunction]['train']
             validation_file_name = data['files'][conjunction]['validation']
 
             # Training and validation files are artifacts from a previous classification model
             # Here there are both drawn from to populate quill feedbacks
             [training_file_name, validation_file_name].each do |examples_file_name|
-              break if passage_prompt.student_responses.count >= TARGET_NUM_EXAMPLES
+              break if activity_prompt_config.student_responses.count >= TARGET_NUM_EXAMPLES
 
               get_file(key: examples_file_name).each_line do |line|
-                break if passage_prompt.student_responses.count >= TARGET_NUM_EXAMPLES
+                break if activity_prompt_config.student_responses.count >= TARGET_NUM_EXAMPLES
 
                 example = JSON.parse(line)
                 response = example['text']
@@ -34,7 +34,7 @@ module Evidence
                 example_index = data['examples'][conjunction][label]&.index(response)
                 paraphrase = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
 
-                passage_prompt
+                activity_prompt_config
                   .student_responses
                   .find_or_create_by!(response:)
                   .quill_feedbacks
@@ -54,10 +54,10 @@ module Evidence
 
         private def passage = @passage ||= Passage.find_or_create_by!(contents: data['text'], name:)
 
-        private def passage_prompts
-          @passage_prompts ||= data['prompts'].map do |conjunction, prompt|
+        private def activity_prompt_configs
+          @activity_prompt_configs ||= data['prompts'].map do |conjunction, prompt|
             passage
-              .passage_prompts
+              .activity_prompt_configs
               .find_or_create_by!(
                 conjunction:,
                 instructions: data['instructions'][conjunction],

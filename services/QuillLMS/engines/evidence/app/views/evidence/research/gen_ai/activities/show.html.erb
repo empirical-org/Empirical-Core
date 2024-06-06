@@ -5,10 +5,16 @@
   <p><%= @activity.name %></p>
 
   <h3>Text</h3>
-  <p><%= simple_format(@activity.contents) %></p>
+  <p><%= simple_format(@activity.text) %></p>
 
-  <h3>Relevant Evidence</h3>
-  <p><%= simple_format(@activity.relevant_evidence) %></p>
+  <h3>Because Evidence</h3>
+  <p><%= simple_format(@activity.because_text) %></p>
+
+  <h3>But Evidence</h3>
+  <p><%= simple_format(@activity.but_text) %></p>
+
+  <h3>So Evidence</h3>
+  <p><%= simple_format(@activity.so_text) %></p>
 </div>
 
 <br>

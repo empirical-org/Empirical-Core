@@ -60,8 +60,8 @@ tr:nth-child(even) {
   background-color: #0056b3; /* Darker blue on hover */
 }
 
-.red { background-color: red; }
-.green { background-color: green; }
+.red { background-color: lightcoral; }
+.green { background-color: lightgreen; }
 
 .link-button {
     background: none!important;
