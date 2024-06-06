@@ -8,13 +8,13 @@ RSpec.describe Evidence::OpenAI::Chat, type: :service do
   let(:history) { [described_class::HistoryItem.new(user: 'Tell me a joke.', assistant: 'Why did the chicken cross the road?')] }
   let(:temperature) { 0.7 }
   let(:json_response) { '{"answer" : "The capital of France is Paris."}' }
-  let(:response_body) { { 'choices' => [{ 'message' => { 'content' => json_response } }] } }
-  let(:response) { double('HTTParty::Response', parsed_response: response_body) }
+  let(:body) { { 'choices' => [{ 'message' => { 'content' => json_response } }] }.to_json }
+  let(:headers) { { content_type: 'application/json' } }
 
   subject { described_class.new(system_prompt: system_prompt, entry: entry, history: history, temperature: temperature) }
 
   before do
-    allow(subject).to receive(:post_request).and_return(response)
+    stub_request(:post, "https://api.openai.com/v1/chat/completions").to_return(body:, headers:)
   end
 
   describe '#initialize' do
@@ -27,14 +27,13 @@ RSpec.describe Evidence::OpenAI::Chat, type: :service do
   end
 
   describe '#run' do
+    let!(:result) {subject.run}
     it 'returns cleaned results' do
-      result = subject.run
       expect(result['answer']).to eq('The capital of France is Paris.')
     end
 
     it 'caches the response' do
-      subject.run
-      expect(subject.response).to eq(response)
+      expect(subject.cleaned_results).to eq(JSON.parse(json_response))
     end
   end
 

@@ -42,7 +42,7 @@ module Evidence
       end
 
       def cleaned_results
-        return nil if response.nil?
+        return nil if response&.body&.nil?
 
         @cleaned_results ||= JSON.parse(result_json_string)
       end
