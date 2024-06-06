@@ -21,9 +21,7 @@ module Evidence
         return [] unless session
 
         session
-          .feedback_history
-          .select(:entry,:feedback_text)
-          .order(attempt: :asc)
+          .history_texts
           .map {|fh| Evidence::OpenAI::Chat::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
       end
     end
