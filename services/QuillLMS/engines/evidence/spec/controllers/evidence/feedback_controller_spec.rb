@@ -37,7 +37,7 @@ module Evidence
       let(:attempt) { 3 }
 
       it "should call Check.run_all, save history, and return feedback.response" do
-        expect(Check).to receive(:get_feedback).with(entry, prompt, [], nil).and_return(feedback.response)
+        expect(Check).to receive(:get_feedback).with(entry, prompt, [], session_id, nil).and_return(feedback.response)
         expect(Evidence.feedback_history_class).to receive(:save_feedback).with(
           feedback_hash_raw: feedback.response.except(:api),
           entry: entry,
@@ -83,7 +83,7 @@ module Evidence
         let(:fallback_feedback) { Check::FALLBACK_RESPONSE }
 
         it "should return an empty json response if check_all returns nil" do
-          expect(Check).to receive(:get_feedback).with(entry, prompt, [], nil).and_return(fallback_feedback)
+          expect(Check).to receive(:get_feedback).with(entry, prompt, [], session_id, nil).and_return(fallback_feedback)
 
           post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 

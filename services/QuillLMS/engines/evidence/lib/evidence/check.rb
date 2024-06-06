@@ -9,7 +9,7 @@ module Evidence
       RegexSentence,
       Opinion,
       Plagiarism,
-      GenAI,
+      AutoML,
       RegexPostTopic,
       Grammar,
       Spelling,

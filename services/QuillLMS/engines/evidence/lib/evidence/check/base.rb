@@ -18,7 +18,7 @@ module Evidence
       raise NotImplementedError
     end
 
-    def self.run(entry, prompt, previous_feedback, session_uid)
+    def self.run(entry, prompt, previous_feedback, session_uid = nil)
       new(entry, prompt, previous_feedback, session_uid).tap do |check|
         begin
           check.run
