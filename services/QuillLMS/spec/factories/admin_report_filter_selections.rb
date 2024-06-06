@@ -43,7 +43,7 @@ FactoryBot.define do
             label: "Intermediate Diagnostic",
             value: 1668
           }
-        }.as_json 
+        }.as_json
       end
     end
 

@@ -6,7 +6,7 @@ module Adapters
       ORDERED_COLUMNS = {
         diagnostic_name: {
           csv_header: 'Diagnostic Name',
-          csv_tooltip:'', # Intentionally blank
+          csv_tooltip: '', # Intentionally blank
           formatter: Formatter::ALL_CAPS
         },
         pre_students_assigned: {
