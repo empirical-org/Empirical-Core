@@ -1,4 +1,4 @@
-# spec/services/evidence/gen_ai/system_prompt_builder_spec.rb
+# frozen_string_literal: true
 
 require 'rails_helper'
 
@@ -31,7 +31,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
     let(:filled_template) {"Template with passage: #{passage_text}, plagiarism: #{plagiarism_text}, stem: #{stem}, example one: #{example_one}, example two: #{example_two}"}
 
     before do
-      allow(File).to receive(:read).and_return('Template with passage: %{passage}, plagiarism: %{plagiarism_text}, stem: %{stem}, example one: %{example_one}, example two: %{example_two}')
+      allow(File).to receive(:read).and_return('Template with passage: %<passage>s, plagiarism: %<plagiarism_text>s, stem: %<stem>s, example one: %<example_one>s, example two: %<example_two>s')
     end
 
     it 'returns the formatted template with the correct variables' do
