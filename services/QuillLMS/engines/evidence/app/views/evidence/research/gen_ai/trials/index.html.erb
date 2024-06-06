@@ -3,17 +3,21 @@
 </header>
 
 <%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= render 'pagination' %>
 
 <% if @trials.any? %>
   <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>LLM Config</th>
-        <th>Passage</th>
+        <th>Date</th>
+        <th>LLM</th>
+        <th>Activity</th>
         <th>Conjunction</th>
         <th>LLM Prompt Description</th>
-        <th># of Examples</th>
+        <th># of Test Results</th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
@@ -22,24 +26,14 @@
       <% @trials.each do |trial| %>
         <tr>
           <td><%= trial.id %></td>
-          <td><%= trial.llm_config %></td>
-          <td><%= trial.passage_prompt.name %></td>
+          <td><%= trial.created_at.strftime("%m/%d/%y, %H:%M") %></td>
+          <td><%= trial.llm %></td>
+          <td><%= trial.activity_prompt_config.name %></td>
           <td><%= trial.conjunction %></td>
           <td><%= trial.llm_prompt.description %></td>
           <td><%= trial.num_examples %></td>
           <td><%= trial.status %></td>
-          <td>
-            <div class=link-container">
-              <%= link_to "View", trial %>
-              <% if trial.failed? %>
-                <%= button_to 'Retry',
-                      retry_research_gen_ai_trial_path(trial),
-                      method: :post,
-                      data: { confirm: 'Are you sure you want to retry this trial?' },
-                      class: 'link-button'
-                %>
-              <% end %>
-            </div>
+          <td><%= link_to "View", trial %><td>
           </td>
         </tr>
       <% end %>
@@ -49,4 +43,4 @@
   <p>No trials found.</p>
 <% end %>
 
-<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<%= render 'pagination' %>

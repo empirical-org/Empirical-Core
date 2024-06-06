@@ -28,7 +28,7 @@ module Evidence
           @confusion_matrix ||= begin
             [[0, 0], [0, 0]].tap do |matrix|
               llm_feedbacks.each do |llm_feedback|
-                if llm_feedback.example_optimal?
+                if llm_feedback.quill_optimal?
                   if llm_feedback.optimal?
                     matrix[OPTIMAL][OPTIMAL] += 1
                   else

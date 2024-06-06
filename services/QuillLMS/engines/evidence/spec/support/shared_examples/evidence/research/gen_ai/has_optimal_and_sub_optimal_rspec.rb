@@ -7,9 +7,9 @@ module Evidence
     module GenAI
       RSpec.shared_examples "a class with optimal and sub-optimal" do
         describe '#optimal?' do
-          subject { example_feedback.optimal? }
+          subject { quill_feedback.optimal? }
 
-          let(:example_feedback) { build(:evidence_research_gen_ai_llm_feedback, text:) }
+          let(:quill_feedback) { build(:evidence_research_gen_ai_llm_feedback, text:) }
 
           described_class::OPTIMAL_PREFIXES.each do |prefix|
             let(:text) { "#{prefix} #{Faker::Lorem.sentence}" }
@@ -43,11 +43,11 @@ module Evidence
         end
 
         describe '#sub_optimal?' do
-          subject { example_feedback.sub_optimal? }
+          subject { quill_feedback.sub_optimal? }
 
-          let(:example_feedback) { build(:evidence_research_gen_ai_llm_feedback) }
+          let(:quill_feedback) { build(:evidence_research_gen_ai_llm_feedback) }
 
-          before { allow(example_feedback).to receive(:optimal?).and_return(optimal) }
+          before { allow(quill_feedback).to receive(:optimal?).and_return(optimal) }
 
           context 'when the feedback is optimal' do
             let(:optimal) { true }

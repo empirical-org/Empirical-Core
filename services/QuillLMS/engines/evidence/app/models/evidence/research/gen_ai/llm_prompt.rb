@@ -27,10 +27,10 @@ module Evidence
 
         delegate :description, to: :llm_prompt_template
 
-        def self.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
+        def self.create_from_template!(llm_prompt_template_id:, activity_prompt_config_id:)
           create!(
             llm_prompt_template_id:,
-            prompt: LLMPromptBuilder.run(llm_prompt_template_id:, passage_prompt_id:)
+            prompt: LLMPromptBuilder.run(llm_prompt_template_id:, activity_prompt_config_id:)
            )
         end
 

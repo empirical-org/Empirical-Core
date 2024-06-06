@@ -12,21 +12,21 @@ module Evidence
         let(:g_eval_id) { g_eval.id }
         let(:metric) { g_eval.metric }
 
-        let(:example_feedback) { create(:evidence_research_gen_ai_example_feedback) }
+        let(:quill_feedback) { create(:evidence_research_gen_ai_quill_feedback) }
 
         let(:llm_feedback) do
           create(
            :evidence_research_gen_ai_llm_feedback,
-           passage_prompt_response: example_feedback.passage_prompt_response,
-           text: example_feedback.text
+           student_response: quill_feedback.student_response,
+           text: quill_feedback.text
           )
         end
 
-        let(:llm_config) { instance_double('LLMConfig', completion: llm_response) }
+        let(:llm) { instance_double('LLM', completion: llm_response) }
         let(:llm_response) { { metric => score }.to_json }
         let(:score) { rand(1..g_eval.max_score) }
 
-        before { allow(LLMConfig).to receive(:g_eval).and_return(llm_config) }
+        before { allow(LLM).to receive(:g_eval).and_return(llm) }
 
         it { is_expected.to eq score }
       end
