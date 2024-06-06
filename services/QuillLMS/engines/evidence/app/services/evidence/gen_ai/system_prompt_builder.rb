@@ -31,8 +31,6 @@ module Evidence
           stem:,
           example_one:,
           example_two:
-          # feedback_history:,
-          # highlight_texts:,
         }
       end
 
@@ -42,6 +40,7 @@ module Evidence
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
 
+      # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
       private def highlight_texts
         prompt

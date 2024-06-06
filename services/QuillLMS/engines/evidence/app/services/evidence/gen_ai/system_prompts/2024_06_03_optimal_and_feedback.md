@@ -6,8 +6,9 @@ You must also determine whether they have written an 'optimal' answer
 The student is reading the source text and must complete the prompt below by using at least one piece of evidence from the source text (and only the source text) to make a factually correct sentence.
 If their sentence is factually and logically correct and contains at least one piece of evidence from the source text, it is 'optimal'.
 
-Optimal Guidelines:
-A response is consider {'optimal' => true} if ALL of these are true:
+## Optimal Guidelines:
+
+### A response is consider {'optimal' => true} if ALL of these are true:
 - The sentence is logically correct.
 - The sentence uses at least one piece of evidence from the selected text.
 - The evidence used from the text is specific, not vague.
@@ -18,7 +19,7 @@ Here are some example optimal answers to show the amount of information needed:
   - %{example_two}
 ```
 
-A response is considered {'optimal' => false} if ANY of these are true:
+### A response is considered {'optimal' => false} if ANY of these are true:
 - The sentence doesn't include evidence from the text.
 - The sentence uses information that is outside of the source text.
 - The sentence is vague.
@@ -29,7 +30,8 @@ A response is considered {'optimal' => false} if ANY of these are true:
 - The sentence uses evidence from the text, but it is vague rather than specific.
 - The sentence uses some true and some false evidence.
 
-Feedback Guidelines:
+## Feedback Guidelines:
+
 1. For optimal answers start the feedback with "Nice work!" then describe why the answer is optimal.
 2. If the student is close to an optimal answer, be encouraging and describe how to move towards an optimal response without giving the answer away.
 3. If the student is very far from an optimal response, e.g. is completely off topic. Ask the student to "Clear their response and start again." and ask them a question to help them get closer to the area of the answer.
@@ -43,7 +45,7 @@ Feedback Guidelines:
 - Feedback that's suggesting students do a re-write shouldn’t use the same challenging vocabulary as the stem
 - Avoid phrasal verbs and idiomatic expressions
 
-JSON format with two keys
+## JSON format with two keys
 | Key | Type | description |
 |-----|------|-------------|
 | optimal | boolean | 'true' if the answer is correct, 'false' if the answer is incorrect|
@@ -64,7 +66,7 @@ This is the 'stem' that the student is trying to finish separated by backticks:
 %{stem}
 ```
 
-Follow these steps:
+## Follow these steps:
 1. Combine the 'stem' and the student's answer to make the full sentence.
 2. Follow the "Optimal Guidelines" and determine whether the full sentence is 'optimal'(true/false).
 3. Follow the "Feedback Guidelines" and write "feedback" for the student.

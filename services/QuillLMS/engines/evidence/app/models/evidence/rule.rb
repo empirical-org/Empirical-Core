@@ -94,7 +94,6 @@ module Evidence
     scope :optimal, -> {where(optimal: true)}
     scope :suboptimal, -> {where(optimal: false)}
 
-
     def serializable_hash(options = nil)
       options ||= {}
 
