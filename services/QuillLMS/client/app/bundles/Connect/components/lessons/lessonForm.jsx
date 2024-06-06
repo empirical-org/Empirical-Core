@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import SelectSearch from 'react-select-search';
@@ -145,8 +144,6 @@ class LessonForm extends React.Component {
           <label className="label">Landing Page Content</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleLPChange}
           text={this.state.landingPageHtml || ''}
         />

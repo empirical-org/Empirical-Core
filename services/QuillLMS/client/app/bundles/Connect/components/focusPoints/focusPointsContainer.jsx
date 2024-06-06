@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -194,11 +193,8 @@ export class FocusPointsContainer extends Component {
           <div className="card-content">
             <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
               key="feedback"
-              shouldCheckSpelling={true}
               text={fp.feedback}
             />
             {this.renderConceptResults(fp.conceptResults, fp.key)}

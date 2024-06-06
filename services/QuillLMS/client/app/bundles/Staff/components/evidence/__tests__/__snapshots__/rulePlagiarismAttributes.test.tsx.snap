@@ -38,11 +38,8 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     First Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="first-plagiarism-feedback"
-    shouldCheckSpelling={true}
     text="do not plagiarize."
   />
   <div
@@ -63,11 +60,8 @@ exports[`RulePlagiarismAttributes component should render RulePlagiarismAttribut
     Second Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="second-plagiarism-feedback"
-    shouldCheckSpelling={true}
     text="seriously... do not plagiarize!"
   />
   <div

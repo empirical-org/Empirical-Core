@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
@@ -186,8 +185,6 @@ class MassEditContainer extends React.Component {
               <h3>FEEDBACK</h3>
               <TextEditor
                 boilerplate={selectedMassEditBoilerplate}
-                ContentState={ContentState}
-                EditorState={EditorState}
                 handleTextChange={this.handleMassEditFeedbackTextChange}
                 text={massEditFeedback || ''}
               />

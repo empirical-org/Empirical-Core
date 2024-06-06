@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
 import { Link, useHistory, withRouter } from 'react-router-dom';
@@ -127,12 +126,9 @@ const Model = ({ match }) => {
         />
         <p className={`text-editor-label ${modelNotesStyle}`}>Model Notes</p>
         <TextEditor
-          ContentState={ContentState}
           disabled={true}
-          EditorState={EditorState}
           handleTextChange={handleSetModelNotes}
           key="model-notes"
-          shouldCheckSpelling={true}
           text={initialNoteValue}
         />
         <DataTable

@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import * as _ from 'underscore';
 import { isValidRegex } from '../../../Shared/index';
@@ -160,8 +159,6 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key="feedback"
               text={this.state.itemFeedback || ""}

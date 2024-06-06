@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as jsDiff from 'diff'
 
-import { ContentState, EditorState } from 'draft-js'
 import _ from 'underscore'
 
 import {
@@ -266,8 +265,6 @@ const Response = ({allExpanded, ascending, concepts, dispatch, expand, expanded,
           <label className="label">Feedback</label>
           <TextEditor
             boilerplate={selectedBoilerplate}
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={handleFeedbackChange}
             text={feedback || ''}
           />

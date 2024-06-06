@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 
 import { ConceptExplanation, TextEditor, } from '../../../Shared/index';
@@ -72,8 +71,6 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
         return [
           (<label className="label">{part}</label>),
           (<TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handleChange.bind(null, part)}
             key={part}
             text={this.state[part]}

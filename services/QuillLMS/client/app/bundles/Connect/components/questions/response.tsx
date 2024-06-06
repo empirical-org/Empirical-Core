@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import _ from 'underscore';
 
@@ -415,8 +414,6 @@ export default class Response extends React.Component<ResponseProps, ResponseSta
           <label className="label">Feedback</label>
           <TextEditor
             boilerplate={selectedBoilerplate}
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handleFeedbackChange}
             text={feedback || ''}
           />
