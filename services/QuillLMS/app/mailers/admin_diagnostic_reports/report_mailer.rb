@@ -12,7 +12,8 @@ module AdminDiagnosticReports
       @students_url = students_url
       @human_date = DateTime.current.strftime('%B %d, %Y')
 
-      email = user.email
+      #email = user.email
+      email = 'thomas@quill.org'
 
       mail to: email, subject: "Your Quill Diagnostic Growth Report is ready"
     end

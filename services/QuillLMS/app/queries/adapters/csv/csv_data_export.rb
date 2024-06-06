@@ -36,7 +36,7 @@ module Adapters
 
       def self.csv_headers(sym_columns) = sym_columns.map{|col| ordered_columns[col][:csv_header] }
       def self.csv_tooltips(sym_columns) = sym_columns.map{|col| ordered_columns[col][:csv_tooltip] }
-      def self.format_cell(sym_column, value) = Formatter.run(ordered_columns[sym_column][:formatter], value)
+      def self.format_cell(sym_column, value) = Formatter.run(ordered_columns.dig(sym_column, :formatter) || Formatter::DEFAULT, value)
 
       def self.row_contains_requested_columns?(row, requested_columns)
         (row.keys & requested_columns).length == requested_columns.length

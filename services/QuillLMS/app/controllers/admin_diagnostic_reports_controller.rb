@@ -6,6 +6,11 @@ class AdminDiagnosticReportsController < ApplicationController
     "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
   }
 
+  BASE_REPORT_FILTER_NAME = 'diagnostic_growth_report'
+  OVERVIEW_REPORT_FILTER_NAME = 'diagnostic_growth_report_overview'
+  SKILL_REPORT_FILTER_NAME = 'diagnostic_growth_report_skill'
+  STUDENT_REPORT_FILTER_NAME = 'diagnostic_growth_report_student'
+
   before_action :set_query, only: [:report]
   before_action :validate_request, only: [:report]
   before_action :authorize_request, only: [:report]
@@ -15,7 +20,7 @@ class AdminDiagnosticReportsController < ApplicationController
   end
 
   def download
-    AdminDiagnosticReports::EnqueueCsvEmailWorker.perform_async(current_user.id)
+    AdminDiagnosticReports::SendCsvEmailWorker.perform_async(current_user.id, BASE_REPORT_FILTER_NAME, OVERVIEW_REPORT_FILTER_NAME, SKILL_REPORT_FILTER_NAME, STUDENT_REPORT_FILTER_NAME)
     render json: {}, status: :ok
   end
 
