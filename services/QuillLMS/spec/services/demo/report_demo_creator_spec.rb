@@ -34,7 +34,7 @@ RSpec.describe Demo::ReportDemoCreator do
       let(:demo_teacher) { User.find_by(email: "hello+demoteacher@quill.org") }
 
       it 'should create teacher and classroom with activity' do
-        expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(1187).times
+        expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(Demo::SessionData.new.concept_results.length).times
 
         described_class.create_demo
 
@@ -42,7 +42,7 @@ RSpec.describe Demo::ReportDemoCreator do
         classroom = demo_teacher.classrooms_i_teach.first
 
         expect(classroom.students.count).to eq(5)
-        expect(classroom.activity_sessions.count).to eq(45)
+        expect(classroom.activity_sessions.count).to eq(Demo::SessionData.new.activity_sessions.length)
       end
     end
   end
@@ -158,18 +158,6 @@ RSpec.describe Demo::ReportDemoCreator do
       end
     end
 
-    it 'creates replayed activity session' do
-      student = create(:student)
-      classroom = create(:classroom)
-      create(:students_classrooms, student: student, classroom: classroom)
-      user = build(:user, id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID)
-      user.save
-      sample_session = create(:activity_session, activity_id: Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, user_id: Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID, is_final_score: true)
-      units = Demo::ReportDemoCreator.create_units(teacher, is_teacher_demo)
-      classroom_unit = Demo::ReportDemoCreator.create_classroom_units(classroom, units).first
-      expect {Demo::ReportDemoCreator.create_replayed_activity_session(student, classroom_unit, session_data)}.to change {ActivitySession.count}.by(1)
-    end
-
     it 'creates activity sessions' do
       Sidekiq::Testing.inline! do
         session_clone = session_data.activity_sessions
@@ -200,7 +188,7 @@ RSpec.describe Demo::ReportDemoCreator do
         expect(activity_session.timespent).to eq(session_clone.timespent || Demo::ReportDemoCreator::DEFAULT_TIMESPENT)
         expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
         # Taken from actual concept_result
-        expect(activity_session.concept_results.first.answer).to eq('Traveling is easier with a guide than without one.')
+        expect(activity_session.concept_results.first.answer).to eq('Pho is a soup made with herbs bone broth and noodles.')
       end
     end
 

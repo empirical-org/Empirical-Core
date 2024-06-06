@@ -1,0 +1,89 @@
+.quill-button-archived {
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  width: min-content;
+  min-width: 88px;
+  padding: 0px 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: adelle-sans, "Arial", sans-serif;
+  &:focus, &:hover {
+    outline: none;
+    text-decoration: none;
+  }
+  &.fun {
+    height: 32px;
+    font-size: 13px;
+  }
+  &.small {
+    height: 36px;
+    font-size: 14px;
+  }
+  &.medium {
+    height: 40px;
+    font-size: 15px;
+    &.icon {
+      width: 112px;
+    }
+  }
+  &.large {
+    height: 48px;
+    font-size: 18px;
+    &.icon {
+      width: 121px;
+    }
+  }
+  &.outlined {
+    border: solid 1px #bdbdbd;
+    background-color: white;
+    font-weight: 600;
+  }
+  &.contained {
+    font-weight: bold;
+    border: none;
+  }
+  &.primary {
+    &.contained {
+      color: $quill-white;
+      background-color: $quill-green;
+      &:not(.disabled) {
+        &:hover, &:focus {
+          background-color: #08907b;
+        }
+      }
+    }
+    &.outlined {
+      background-color: $quill-white;
+      color: #009a80;
+      &:hover, &:focus {
+        background-color: #f6fcfa;
+      }
+    }
+  }
+  &.secondary {
+    &.outlined {
+      color: $quill-black;
+      &:hover, &:focus {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+  &.disabled {
+    color: $quill-grey-30 !important;
+    &.contained {
+      background-color: #cccccc;
+    }
+  }
+  &.unbolded {
+    font-weight: 400 !important;
+  }
+}
+
+#teacher-preview-menu-button {
+  cursor: pointer;
+}
