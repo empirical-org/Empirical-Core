@@ -24,7 +24,7 @@ module Evidence
   RSpec.describe(Rule, :type => :model) do
 
     context 'should validations' do
-      subject { FactoryBot.build(:evidence_rule) }
+      subject { build(:evidence_rule) }
 
       it { should validate_uniqueness_of(:uid) }
       it { should validate_presence_of(:name) }

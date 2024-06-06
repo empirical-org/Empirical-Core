@@ -7,42 +7,31 @@ module Evidence
         include TrialsHelper
 
         def index
-          completed_trials =
-            Trial
-              .completed
-              .pluck(:llm_config_id, :llm_prompt_id, :passage_prompt_id, :num_examples)
-              .map { |llm_config_id, llm_prompt_id, passage_prompt_id, num_examples| { llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples: } }
-              .to_set
-
-          @trials = Trial.all.reject do |trial|
-            trial.failed? && completed_trials.include?(
-              llm_config_id: trial.llm_config_id,
-              llm_prompt_id: trial.llm_prompt_id,
-              passage_prompt_id: trial.passage_prompt_id,
-              num_examples: trial.num_examples
-            )
-          end.sort_by(&:id).reverse
+          @page = params[:page].to_i > 0 ? params[:page].to_i : 1
+          @per_page = 50
+          @num_trials = Trial.count
+          @trials = Trial.all.order(id: :desc).offset((@page - 1) * @per_page).limit(@per_page)
         end
 
         def new
           @trial = Trial.new
-          @llm_configs = LLMConfig.all
-          @passage_prompts = PassagePrompt.all
+          @llms = LLM.all
+          @activity_prompt_configs = ActivityPromptConfig.all
           @llm_prompt_templates = LLMPromptTemplate.all
           @g_evals = GEval.selectable
         end
 
         def create
-          llm_config_ids.each do |llm_config_id|
+          llm_ids.each do |llm_id|
             llm_prompt_template_ids.each do |llm_prompt_template_id|
-              passage_prompt_ids.each do |passage_prompt_id|
-                llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, passage_prompt_id:)
+              activity_prompt_config_ids.each do |activity_prompt_config_id|
+                llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, activity_prompt_config_id:)
 
                 run_trial(
-                  llm_config_id:,
+                  llm_id:,
                   llm_prompt_id: llm_prompt.id,
-                  passage_prompt_id:,
-                  num_examples: num_examples(passage_prompt_id)
+                  activity_prompt_config_id:,
+                  num_examples: num_examples(activity_prompt_config_id)
                 )
               end
             end
@@ -65,8 +54,8 @@ module Evidence
           redirect_to research_gen_ai_trials_path
         end
 
-        private def run_trial(llm_config_id:, llm_prompt_id:, passage_prompt_id:, num_examples:)
-          trial = Trial.new(llm_config_id:, passage_prompt_id:, llm_prompt_id:, num_examples:)
+        private def run_trial(llm_id:, llm_prompt_id:, activity_prompt_config_id:, num_examples:)
+          trial = Trial.new(llm_id:, activity_prompt_config_id:, llm_prompt_id:, num_examples:)
           trial.results = { g_eval_ids: }
 
           RunTrialWorker.perform_async(trial.id) if trial.save
@@ -77,20 +66,20 @@ module Evidence
             .require(:research_gen_ai_trial)
             .permit(
               :num_examples,
-              llm_config_ids: [],
+              llm_ids: [],
               llm_prompt_template_ids: [],
-              passage_prompt_ids: [],
+              activity_prompt_config_ids: [],
               g_eval_ids: []
             )
         end
 
-        private def llm_config_ids = trial_params[:llm_config_ids].reject(&:blank?).map(&:to_i)
+        private def llm_ids = trial_params[:llm_ids].reject(&:blank?).map(&:to_i)
         private def llm_prompt_template_ids = trial_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
-        private def passage_prompt_ids = trial_params[:passage_prompt_ids].reject(&:blank?).map(&:to_i)
+        private def activity_prompt_config_ids = trial_params[:activity_prompt_config_ids].reject(&:blank?).map(&:to_i)
         private def g_eval_ids = trial_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []
 
-        private def num_examples(passage_prompt_id)
-          max_num_examples = PassagePrompt.find(passage_prompt_id).passage_prompt_responses.testing_data.count
+        private def num_examples(activity_prompt_config_id)
+          max_num_examples = ActivityPromptConfig.find(activity_prompt_config_id).student_responses.testing_data.count
 
           return max_num_examples if trial_params[:num_examples].blank?
 

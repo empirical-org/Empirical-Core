@@ -1,0 +1,19 @@
+<h1>New LLM</h1>
+
+<%= form_for @llm do |f| %>
+  <%= render 'errors', object: @llm %>
+
+  <div class="field-spacing">
+    <%= f.label :vendor %><br>
+    <%= f.text_field :vendor, size: 50, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :version %><br>
+    <%= f.text_field :version, size: 50, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
