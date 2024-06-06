@@ -11,7 +11,7 @@ module Evidence
         let(:contents) { 'This is contents' }
         let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
         let(:activity_prompt_config) { create(:evidence_research_gen_ai_activity_prompt_config) }
-        let(:stem_and_conjunction) { activity_prompt_config.stem_and_conjunction }
+        let(:stem) { activity_prompt_config.stem }
         let(:optimal_rules) { activity_prompt_config.optimal_rules }
         let(:sub_optimal_rules) { activity_prompt_config.sub_optimal_rules}
         let(:activity_prompt_config_id) { activity_prompt_config.id }
@@ -35,10 +35,10 @@ module Evidence
         end
 
         context 'contents with substitutions' do
-          context 'stem_and_conjunction' do
-            let(:contents)  { delimit('stem_and_conjunction') }
+          context 'stem' do
+            let(:contents)  { delimit('stem') }
 
-            it { is_expected.to eq stem_and_conjunction }
+            it { is_expected.to eq stem }
           end
 
           context 'sub_optimal_rules' do
@@ -74,9 +74,9 @@ module Evidence
 
           context 'multiple substitutions' do
             let(:filler) { '...some filler here...'}
-            let(:contents) { "#{delimit('stem_and_conjunction')} #{filler} #{delimit('optimal_rules')}" }
+            let(:contents) { "#{delimit('stem')} #{filler} #{delimit('optimal_rules')}" }
 
-            it { is_expected.to eq "#{stem_and_conjunction} #{filler} #{optimal_rules}" }
+            it { is_expected.to eq "#{stem} #{filler} #{optimal_rules}" }
           end
         end
 

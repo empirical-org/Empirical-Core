@@ -39,8 +39,6 @@ module Evidence
 
         delegate :name, to: :activity
 
-        def stem_and_conjunction = "#{stem} #{conjunction}"
-
         def to_s = "#{name} - #{conjunction}"
       end
     end

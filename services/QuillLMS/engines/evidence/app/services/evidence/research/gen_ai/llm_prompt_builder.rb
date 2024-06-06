@@ -21,7 +21,7 @@ module Evidence
         OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
 
         ACTIVITY_SUBSTITUTIONS = {
-          "stem_and_conjunction" => ->(builder, _) { builder.activity_prompt_config.stem_and_conjunction },
+          "stem" => ->(builder, _) { builder.activity_prompt_config.stem },
           "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
           "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
           "full_text" => ->(builder, _) { builder.activity_prompt_config.activity.text },

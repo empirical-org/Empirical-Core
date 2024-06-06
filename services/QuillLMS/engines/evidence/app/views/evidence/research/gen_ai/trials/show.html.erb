@@ -46,7 +46,7 @@
         <%= render 'histogram', histogram: @histogram %>
       <% end %>
 
-      <%= render 'matrix', matrix: @trial.confusion_matrix, title: 'Confusion Matrix' %>
+      <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
     <% end %>
   </div>
 </div>
