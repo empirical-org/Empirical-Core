@@ -4,8 +4,6 @@ module LearnWorldsIntegration
   class SyncUserTagsWorker
     include Sidekiq::Worker
 
-    sidekiq_options queue: SidekiqQueue::EXPERIMENT
-
     def perform(external_id, tags)
       LearnWorldsIntegration::UserTagsRequest.run(external_id, tags)
     end
