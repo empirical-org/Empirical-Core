@@ -36,7 +36,7 @@ module Evidence
         history.map do |h|
           [
             {KEY_ROLE => ROLE_USER, KEY_CONTENT => h.user },
-            {KEY_ROLE => ROLE_ASSISTANT, KEY_CONTENT => h.assistant},
+            {KEY_ROLE => ROLE_ASSISTANT, KEY_CONTENT => h.assistant}
           ]
         end.flatten
       end
