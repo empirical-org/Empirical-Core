@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 
 import { FEEDBACK, FEEDBACK_LAYER_ADDITION, FEEDBACK_LAYER_REMOVAL, HIGHLIGHT_ADDITION, HIGHLIGHT_REMOVAL, numericalWordOptions } from '../../../../../constants/evidence';
@@ -88,12 +87,9 @@ const RuleAttributesSection = ({
         <React.Fragment key={i}>
           <p className="form-subsection-label">{`${numericalWordOptions[i]} Layer Feedback`}</p>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             // eslint-disable-next-line
             handleTextChange={(text) => onHandleSetUniversalFeedback(text, i, null, FEEDBACK)}
             key="universal-feedback"
-            shouldCheckSpelling={true}
             text={universalFeedback[i].text}
           />
           {errors['Universal Feedback'] && errors['Universal Feedback'].length && <p className="error-message">{errors['Universal Feedback'][i]}</p>}

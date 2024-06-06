@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { TextEditor, } from '../../../Shared/index';
@@ -101,8 +100,6 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
           <br />
           <label className="label">Content</label>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handleContentChange}
             text={content || ""}
           />

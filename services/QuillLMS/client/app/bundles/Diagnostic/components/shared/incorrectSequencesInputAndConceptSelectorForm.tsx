@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import _ from 'underscore';
 
@@ -164,8 +163,6 @@ export default class extends React.Component {
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key="feedback"
               text={this.state.itemFeedback || ""}

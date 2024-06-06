@@ -1,0 +1,633 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Buttons it should render 1`] = `
+<DocumentFragment>
+  <div
+    id="buttons"
+  >
+    <h2
+      class="style-guide-h2"
+    >
+      Buttons (New)
+    </h2>
+    <div
+      class="variations-container"
+    >
+      <h4
+        class="style-guide-h4"
+      >
+        Sizes
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Extra Small (XS)
+          </p>
+          <div
+            class="quill-button-container"
+          >
+            <button
+              class="quill-button focus-on-light contained extra-small"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Small
+          </p>
+          <div
+            class="quill-button-container"
+          >
+            <button
+              class="quill-button focus-on-light contained small"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Medium
+          </p>
+          <div
+            class="quill-button-container"
+          >
+            <button
+              class="quill-button focus-on-light contained medium"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Large
+          </p>
+          <div
+            class="quill-button-container"
+          >
+            <button
+              class="quill-button focus-on-light contained large"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+      </div>
+      <h4
+        class="style-guide-h4"
+      >
+        States
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Default
+          </p>
+          <div
+            class="quill-button-container states"
+          >
+            <button
+              class="quill-button focus-on-light small contained "
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined "
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined grey "
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Hover
+          </p>
+          <div
+            class="quill-button-container states"
+          >
+            <button
+              class="quill-button focus-on-light small contained hover"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined hover"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined grey hover"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Disabled
+          </p>
+          <div
+            class="quill-button-container states"
+          >
+            <button
+              class="quill-button focus-on-light small contained disabled"
+              disabled=""
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined disabled"
+              disabled=""
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined grey disabled"
+              disabled=""
+            >
+              Button
+            </button>
+          </div>
+        </div>
+      </div>
+      <h4
+        class="style-guide-h4"
+      >
+        Icon
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            With Icon
+          </p>
+          <div
+            class="quill-button-container states"
+          >
+            <button
+              class="quill-button focus-on-light small contained icon"
+            >
+              <img
+                alt=""
+                src="https://assets.quill.org/images/icons/xs/star-white.svg"
+              />
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined icon"
+            >
+              <img
+                alt=""
+                src="https://assets.quill.org/images/icons/xs/star-green.svg"
+              />
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Without Icon
+          </p>
+          <div
+            class="quill-button-container states"
+          >
+            <button
+              class="quill-button focus-on-light small contained"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+      </div>
+      <h4
+        class="style-guide-h4"
+      >
+        Variants
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Contained
+          </p>
+          <div
+            class="quill-button-container variants"
+          >
+            <button
+              class="quill-button focus-on-light small contained green"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained gold"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained maroon"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained blue"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained teal"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained viridian"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained purple"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained violet"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained red"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained grey"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Outlined
+          </p>
+          <div
+            class="quill-button-container variants"
+          >
+            <button
+              class="quill-button focus-on-light small outlined green"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined gold"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined maroon"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined blue"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined teal"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined viridian"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined purple"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined violet"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined red"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small outlined grey"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+      </div>
+      <h4
+        class="style-guide-h4"
+      >
+        Colors
+      </h4>
+      <div
+        class="options-container"
+      >
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Default (Green)
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained green"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover green"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Gold
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained gold"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover gold"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Maroon
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained maroon"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover maroon"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Blue
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained blue"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover blue"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Teal
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained teal"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover teal"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Viridian
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained viridian"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover viridian"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Purple
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained purple"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover purple"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Violet
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained violet"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover violet"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Red
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained red"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover red"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Grey
+          </p>
+          <div
+            class="quill-button-container colors"
+          >
+            <button
+              class="quill-button focus-on-light small contained grey"
+            >
+              Button
+            </button>
+            <button
+              class="quill-button focus-on-light small contained hover grey"
+            >
+              Button
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

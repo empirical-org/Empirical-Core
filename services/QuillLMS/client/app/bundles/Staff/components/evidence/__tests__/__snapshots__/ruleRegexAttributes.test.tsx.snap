@@ -8,11 +8,8 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="regex-feedback"
-    shouldCheckSpelling={true}
     text="test regex feedback"
   />
   <div

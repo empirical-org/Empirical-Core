@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -210,8 +209,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Description</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleDescriptionChange}
           text={description || ''}
         />
@@ -220,8 +217,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Landing Page HTML</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleLandingPageHTMLChange}
           text={landingPageHtml || ''}
         />

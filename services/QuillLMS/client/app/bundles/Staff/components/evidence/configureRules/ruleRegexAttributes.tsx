@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 
 import RegexRules from './regexRules';
@@ -102,12 +101,9 @@ const RuleRegexAttributes = ({
     <React.Fragment>
       <p className="form-subsection-label">Feedback</p>
       {regexFeedback[0] && <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         // eslint-disable-next-line
         handleTextChange={(text) => onHandleSetRegexFeedback(text, 0, null, FEEDBACK)}
         key="regex-feedback"
-        shouldCheckSpelling={true}
         text={regexFeedback[0].text}
       />}
       {regexFeedback[0] && regexFeedback[0].highlights_attributes && renderHighlights(regexFeedback[0].highlights_attributes, 0, onHandleSetRegexFeedback)}

@@ -1,6 +1,5 @@
-import { ContentState, EditorState } from 'draft-js';
-import React from 'react';
-import _ from 'underscore';
+import * as _ from 'underscore';
+import * as React from 'react';
 
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 
@@ -159,8 +158,6 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key="feedback"
               text={this.state.itemFeedback || ""}
