@@ -21,11 +21,11 @@ module Evidence
         OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
 
         ACTIVITY_SUBSTITUTIONS = {
-          "prompt" => ->(builder, _) { builder.activity_prompt_config.prompt },
+          "stem_and_conjunction" => ->(builder, _) { builder.activity_prompt_config.stem_and_conjunction },
           "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
           "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
           "full_text" => ->(builder, _) { builder.activity_prompt_config.activity.text },
-          "examples" => ->(builder, limit) { builder.examples(limit) },
+          "prompt_engineering_response_feedback_pairs" => ->(builder, limit) { builder.examples(limit) },
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|

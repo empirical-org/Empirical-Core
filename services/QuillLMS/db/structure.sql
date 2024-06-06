@@ -2981,7 +2981,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_activities_id_seq OWNED BY public
 CREATE TABLE public.evidence_research_gen_ai_activity_prompt_configs (
     id bigint NOT NULL,
     activity_id integer NOT NULL,
-    prompt text NOT NULL,
+    stem text NOT NULL,
     optimal_rules text NOT NULL,
     conjunction character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,

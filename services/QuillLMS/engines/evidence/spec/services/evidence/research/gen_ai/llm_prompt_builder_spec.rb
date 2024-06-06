@@ -10,8 +10,8 @@ module Evidence
 
         let(:contents) { 'This is contents' }
         let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
-        let(:prompt) { 'this is a prompt because' }
-        let(:activity_prompt_config) { create(:evidence_research_gen_ai_activity_prompt_config, prompt:) }
+        let(:activity_prompt_config) { create(:evidence_research_gen_ai_activity_prompt_config) }
+        let(:stem_and_conjunction) { activity_prompt_config.stem_and_conjunction }
         let(:optimal_rules) { activity_prompt_config.optimal_rules }
         let(:sub_optimal_rules) { activity_prompt_config.sub_optimal_rules}
         let(:activity_prompt_config_id) { activity_prompt_config.id }
@@ -35,10 +35,10 @@ module Evidence
         end
 
         context 'contents with substitutions' do
-          context 'prompt' do
-            let(:contents)  { delimit('prompt') }
+          context 'stem_and_conjunction' do
+            let(:contents)  { delimit('stem_and_conjunction') }
 
-            it { is_expected.to eq prompt }
+            it { is_expected.to eq stem_and_conjunction }
           end
 
           context 'sub_optimal_rules' do
@@ -66,16 +66,17 @@ module Evidence
             end
 
             let(:limit) { 3 }
-            let(:contents) { delimit("examples,#{limit}") }
+
+            let(:contents) { delimit("prompt_engineering_response_feedback_pairs,#{limit}") }
 
             it { is_expected.to eq quill_feedbacks.first(limit).map(&:response_and_feedback).join("\n") }
           end
 
           context 'multiple substitutions' do
             let(:filler) { '...some filler here...'}
-            let(:contents) { "#{delimit('prompt')} #{filler} #{delimit('optimal_rules')}" }
+            let(:contents) { "#{delimit('stem_and_conjunction')} #{filler} #{delimit('optimal_rules')}" }
 
-            it { is_expected.to eq "#{prompt} #{filler} #{optimal_rules}" }
+            it { is_expected.to eq "#{stem_and_conjunction} #{filler} #{optimal_rules}" }
           end
         end
 

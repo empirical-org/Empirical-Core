@@ -7,7 +7,7 @@
 #  id                :bigint           not null, primary key
 #  conjunction       :string           not null
 #  optimal_rules     :text             not null
-#  prompt            :text             not null
+#  stem              :text             not null
 #  sub_optimal_rules :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -18,7 +18,7 @@ module Evidence
     module GenAI
       FactoryBot.define do
         factory :evidence_research_gen_ai_activity_prompt_config, class: 'Evidence::Research::GenAI::ActivityPromptConfig' do
-          prompt { 'This is the prompt' }
+          stem { 'This is the stem' }
           activity { association :evidence_research_gen_ai_activity }
           conjunction { ActivityPromptConfig::CONJUNCTIONS.sample }
           optimal_rules { 'These are the optimal rules' }

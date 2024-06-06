@@ -7,7 +7,7 @@
 #  id                :bigint           not null, primary key
 #  conjunction       :string           not null
 #  optimal_rules     :text             not null
-#  prompt            :text             not null
+#  stem              :text             not null
 #  sub_optimal_rules :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -29,15 +29,17 @@ module Evidence
         has_many :student_responses, class_name: 'Evidence::Research::GenAI::StudentResponse', dependent: :destroy
         has_many :quill_feedbacks, class_name: 'Evidence::Research::GenAI::QuillFeedback', through: :student_responses
 
-        validates :prompt, presence: true
+        validates :stem, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
         validates :optimal_rules, presence: true
         validates :sub_optimal_rules, presence: true
         validates :activity_id, presence: true
 
-        attr_readonly :prompt, :conjunction, :optimal_rules, :sub_optimal_rules, :activity_id
+        attr_readonly :stem, :conjunction, :optimal_rules, :sub_optimal_rules, :activity_id
 
         delegate :name, to: :activity
+
+        def stem_and_conjunction = "#{stem} #{conjunction}"
 
         def to_s = "#{name} - #{conjunction}"
       end
