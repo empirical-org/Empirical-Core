@@ -360,12 +360,10 @@ module Demo::ReportDemoCreator
   end
 
   def self.clone_activity_sessions(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
-    sessions_to_clone = session_data.activity_sessions
+    session_data
+      .activity_sessions
       .filter {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
-
-    return unless sessions_to_clone.length
-
-    sessions_to_clone.each { |session_to_clone| clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data) }
+      .each { |session| clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session, session_data) }
   end
 
   def self.clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data)

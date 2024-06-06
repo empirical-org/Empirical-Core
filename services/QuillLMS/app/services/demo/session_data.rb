@@ -85,11 +85,9 @@ module Demo
         activity_id, user_id = id_pair
 
         # we only want to find the first one if it's a diagnostic because there should be no replays
-        if Activity.diagnostic_activity_ids.include?(activity_id)
-          ActivitySession.unscoped.find_by(activity_id: activity_id, user_id: user_id, state: ActivitySession::STATE_FINISHED)
-        else
-          ActivitySession.unscoped.where(activity_id: activity_id, user_id: user_id, state: ActivitySession::STATE_FINISHED)
-        end
+        next ActivitySession.unscoped.find_by(activity_id: activity_id, user_id: user_id, state: ActivitySession::STATE_FINISHED) if Activity.diagnostic_activity_ids.include?(activity_id)
+
+        ActivitySession.unscoped.where(activity_id: activity_id, user_id: user_id, state: ActivitySession::STATE_FINISHED)
       end.flatten.compact
     end
 
