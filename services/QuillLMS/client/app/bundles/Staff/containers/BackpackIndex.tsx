@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import PostNavigationBanners from '../components/styleGuide/postNavigationBanners'
+import ArchivedButtons from '../components/styleGuide/archivedButtons'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import ColorPalette from '../components/styleGuide/colorPalette'
@@ -36,7 +37,8 @@ export default class BackpackIndex extends React.Component {
           <ul className="menu-list">
             {this.renderLink('#color-palette', 'Color Palette')}
             {this.renderLink('#typography', 'Typography')}
-            {this.renderLink('#buttons', 'Buttons')}
+            {this.renderLink('#buttons-archived', 'Buttons (Archived)')}
+            {this.renderLink('#buttons', 'Buttons (New)')}
             {this.renderLink('#icons', 'Icons')}
           </ul>
           <p className="menu-label">
@@ -69,6 +71,7 @@ export default class BackpackIndex extends React.Component {
           <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles or the variable used for the color. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the `Shared/index` folder.</p>
           <ColorPalette />
           <Typography />
+          <ArchivedButtons />
           <Buttons />
           <Icons />
           <Cards />
