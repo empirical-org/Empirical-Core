@@ -48,6 +48,7 @@ class Cron
 
     # third party analytics
     SyncVitallyWorker.perform_async
+    LearnWorldsIntegration::SyncOrchestratorWorker.perform_async
     CalculateAndCacheSchoolsDataForSegmentWorker.perform_async
     SendSegmentIdentifyCallForAllAdminsWorker.perform_async
 
@@ -86,7 +87,6 @@ class Cron
   # 4/5PM depending on daylight savings
   def self.run_at_21_hour_mark
     AdminDiagnosticReports::PerformanceBenchmarkWorker.perform_async
-    LearnWorldsIntegration::SyncOrchestratorWorker.perform_async
   end
 
   def self.run_weekday
