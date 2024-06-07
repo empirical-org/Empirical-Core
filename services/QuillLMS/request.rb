@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LearnWorldsIntegration
-  class UserRequest < ::ApplicationService
+  class Request < ::ApplicationService
     def run = raise NotImplementedError
 
     def headers

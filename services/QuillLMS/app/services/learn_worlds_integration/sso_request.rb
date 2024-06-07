@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LearnWorldsIntegration
-  class SSORequest < UserRequest
+  class SSORequest < Request
     class NilUserError < StandardError; end
     class NilEmailError < StandardError; end
 

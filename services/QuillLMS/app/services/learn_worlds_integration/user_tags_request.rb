@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LearnWorldsIntegration
-  class UserTagsRequest < UserRequest
+  class UserTagsRequest < Request
 
     attr_reader :external_id, :tags
 

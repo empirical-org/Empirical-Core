@@ -10,6 +10,16 @@ module LearnWorldsIntegration
 
     def perform
       userwise_subject_areas_relation = LearnWorldsAccount.all.includes(user: { teacher_info: [:subject_areas] } )
+      suspended_in_learnworlds =
+
+      # unsuspend users that should be unsuspended
+      should_unsuspend =
+
+      # suspend users that should be suspended
+      should_suspend = userwise_subject_areas_relation.filter {|x| !x.learn_worlds_access? } || not in suspend list
+
+      # sync tags of all LearnWorldsAccount holders
+      userwise_subject_areas_relation = LearnWorldsAccount.all.includes(user: { teacher_info: [:subject_areas] } )
       userwise_subject_areas_relation.find_each.with_index do |row, idx|
         next unless row&.user
 
