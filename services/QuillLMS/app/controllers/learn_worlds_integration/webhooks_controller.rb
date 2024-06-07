@@ -42,7 +42,7 @@ module LearnWorldsIntegration
     end
 
     private def valid_signature?
-      signature_header.split('=').last == Auth::LearnWorlds::WEBHOOK_SIGNATURE
+      signature_header.split('=').last == LearnWorldsIntegration::WEBHOOK_SIGNATURE
     end
 
     private def verify_signature
