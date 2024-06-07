@@ -101,7 +101,8 @@ export {
 export {
   ConceptSelector,
   ConceptSelectorWithCheckbox,
-} from './components/conceptSelector/index'
+  IncorrectSequencesInputAndConceptSelectorForm,
+} from './components/internalTools/index'
 
 export {
   hashToCollection,
