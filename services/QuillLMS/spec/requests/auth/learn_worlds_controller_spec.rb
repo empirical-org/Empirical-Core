@@ -41,7 +41,7 @@ RSpec.describe Auth::LearnWorldsController do
         }.stringify_keys
       end
 
-      before { allow(Auth::LearnWorlds::SSORequest).to receive(:run).with(user).and_return(sso_response) }
+      before { allow(LearnWorldsIntegration::SSORequest).to receive(:run).with(user).and_return(sso_response) }
 
       context 'sso_success? is false' do
         let(:success) { false }
