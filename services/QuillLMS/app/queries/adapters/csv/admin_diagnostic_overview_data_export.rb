@@ -49,7 +49,7 @@ module Adapters
           csv_tooltip: "The average increase in growth scores across all of the skills.\n\nThe Performance by Skill report shows the average increase in questions answered correctly for each skill, and the overall growth is the average increase across all skills.\n\nThe growth score is based on only the students who have completed both the Pre and Post diagnostic. The growth score does not include students who only did the Pre.",
           formatter: Formatter::PERCENT_AS_INTEGER
         }
-      }
+      }.freeze
 
       def self.ordered_columns = ORDERED_COLUMNS
     end

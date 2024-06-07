@@ -84,7 +84,7 @@ module Adapters
           csv_tooltip: "A list of skills the student demonstrated no growth in on the Post diagnostic.",
           formatter: Formatter::AS_LIST
         }
-      }
+      }.freeze
 
       def self.add_aggregate_record_to_csv(csv, row, sym_columns)
         processed_row = pre_process_row(row)

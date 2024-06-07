@@ -44,7 +44,7 @@ module Adapters
           csv_tooltip: "The total number of students who answered all questions for this skill correctly on both the Pre and the Post diagnostic.\n\nThis total count(”of __ students”) includes all students who completed both the Pre and the Post diagnostic and are selected in the filters.",
           formatter: Formatter::DEFAULT
         }
-      }
+      }.freeze
 
       def self.ordered_columns = ORDERED_COLUMNS
     end
