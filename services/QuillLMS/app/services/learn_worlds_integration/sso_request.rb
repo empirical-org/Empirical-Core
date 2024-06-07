@@ -17,7 +17,7 @@ module LearnWorldsIntegration
       raise NilUserError if user.nil?
       raise NilEmailError if email.nil?
 
-      HTTParty.post(endpoint, body: body, headers: headers)
+      HTTParty.post(endpoint, body:, headers:)
     end
 
     def endpoint = SSO_ENDPOINT

@@ -16,7 +16,9 @@ module LearnWorldsIntegration
       @tags = tags
     end
 
-    def run = HTTParty.put(endpoint, body: data.to_json, headers: headers)
+    def run = HTTParty.put(endpoint, body:, headers:)
+
+    def body = data.to_json
 
     def data = { tags: tags }
 
