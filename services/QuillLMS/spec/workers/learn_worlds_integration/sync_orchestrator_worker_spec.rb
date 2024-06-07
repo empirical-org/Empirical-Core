@@ -15,6 +15,8 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestratorWorker do
   end
 
   describe '#tags' do
+    subject { worker.tags(user) }
+
     let(:user) { create(:user) }
 
     context 'when the user is an admin' do
@@ -23,7 +25,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestratorWorker do
       end
 
       it 'includes the admin tag' do
-        expect(worker.tags(user)).to include('admin')
+        expect(subject).to include('admin')
       end
 
       it 'ignores nil values' do
@@ -32,7 +34,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestratorWorker do
 
         allow(teacher_info_mock).to receive(:subject_areas).and_return mock_subject_areas
         allow(user).to receive(:teacher_info).and_return(teacher_info_mock)
-        expect(worker.tags(user)).to match_array(
+        expect(subject).to match_array(
           ['subject_area_math', 'admin', 'subject_area_poly_sci']
         )
       end
@@ -44,7 +46,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestratorWorker do
       end
 
       it 'does not include the admin tag' do
-        expect(worker.tags(user)).not_to include('admin')
+        expect(subject).not_to include('admin')
       end
     end
 
