@@ -33,7 +33,10 @@ module LearnWorldsIntegration
 
       user_account_type = user.admin? ? 'admin' : 'teacher'
 
-      (subjects_taught.compact.map{ |x| string_to_subject_area_tag(x.name)} << user_account_type)
+      subjects_taught
+        .compact
+        .map{ |x| string_to_subject_area_tag(x.name) }
+        .append(user_account_type)
     end
 
   end
