@@ -66,7 +66,7 @@ describe Adapters::Csv::AdminPremiumDataExport do
         let(:invalid_column_selection) { [:student_name, :weird_column] }
 
         it do
-          expect { subject.to_csv_string(valid_input, invalid_column_selection) }.to raise_error(described_class::UnhandledColumnError)
+          expect { subject.to_csv_string(valid_input, invalid_column_selection) }.to raise_error(Adapters::Csv::CsvDataExport::UnhandledColumnError)
         end
       end
 
@@ -74,7 +74,7 @@ describe Adapters::Csv::AdminPremiumDataExport do
         let(:payload_missing_columns) { [valid_input.first.except(:activity_name)] }
 
         it do
-          expect { subject.to_csv_string(payload_missing_columns) }.to raise_error(described_class::BigQueryResultMissingRequestedColumnError)
+          expect { subject.to_csv_string(payload_missing_columns) }.to raise_error(Adapters::Csv::CsvDataExport::BigQueryResultMissingRequestedColumnError)
         end
 
       end
