@@ -78,10 +78,61 @@ describe Formatter do
     end
   end
 
+  context 'date' do
+    let(:format) { described_class::DATE }
+    let(:value) { DateTime.current }
+
+    it { is_expected.to eq("#{value.year}-#{"%02d" % value.month}-#{"%02d" % value.day}") }
+  end
+
   context 'percent_as_integer' do
     let(:format) { described_class::PERCENT_AS_INTEGER }
     let(:value) { 0.5672 }
 
     it { expect(subject).to eq((value * 100).round) }
+  end
+
+  context 'score_or_completed' do
+    let(:format) { described_class::SCORE_OR_COMPLETED }
+
+    context 'nil score' do
+      let(:value) { nil }
+
+      it { is_expected.to eq('Completed') }
+    end
+
+    context '-1 score' do
+      let(:value) { -1 }
+
+      it { is_expected.to eq('Completed') }
+    end
+
+    context 'decimal score' do
+      let(:value) { 0.555 }
+
+      it { is_expected.to eq("#{(value * 100).round}%") }
+    end
+  end
+
+  context 'seconds_to_minutes' do
+    let(:format) { described_class::SECONDS_TO_MINUTES }
+
+    context 'nil' do
+      let(:value) { nil }
+
+      it { is_expected.to eq('') }
+    end
+
+    context '< 60' do
+      let(:value) { 50 }
+
+      it { is_expected.to eq("< 1") }
+    end
+
+    context '>= 60' do
+      let(:value) { 75 }
+
+      it { is_expected.to eq(value / 60) }
+    end
   end
 end
