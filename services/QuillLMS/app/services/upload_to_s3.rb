@@ -13,19 +13,19 @@ class UploadToS3 < ApplicationService
   end
 
   def run
-    local_tempfile << @payload
+    local_tempfile << payload
 
     upload_csv
   end
 
   private def local_tempfile = @csv_tempfile ||= Tempfile.new(TEMPFILE_NAME)
-  private def uploader = @uploader ||= AdminReportCsvUploader.new(admin_id: @user.id)
+  private def uploader = @uploader ||= AdminReportCsvUploader.new(admin_id: user.id)
 
   private def upload_csv
     # store! returns nil on failure, rather than raising an exception.
     # We address this gotcha by manually raising an exception.
     upload_status = uploader.store!(local_tempfile)
-    raise CloudUploadError, "Unable to upload CSV for user #{@user.id}" unless upload_status
+    raise CloudUploadError, "Unable to upload CSV for user #{user.id}" unless upload_status
 
     # The response-content-disposition param triggers browser file download instead of screen rendering
     uploader.url(query: {"response-content-disposition" => "attachment;"})
