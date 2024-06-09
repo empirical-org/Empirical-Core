@@ -41,7 +41,7 @@ class Cms::ActivityCategoriesController < Cms::CmsController
   private def format_activity_category(ac_record)
     activity_category = ac_record.attributes
     unarchived_activities = ac_record.activity_category_activities.select {|a| a.activity.flag != :archived }
-    activity_category['activity_ids'] = unarchived_activities.sort_by(&:order_number).map(&:activity_id)
+    activity_category['activity_ids'] = unarchived_activities.sort_by { |a| [a.order_number.nil? ? 1 : 0, a.order_number] }.map(&:activity_id)
     activity_category
   end
 
