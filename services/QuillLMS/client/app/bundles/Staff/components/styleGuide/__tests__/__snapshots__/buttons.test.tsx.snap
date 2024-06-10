@@ -33,11 +33,16 @@ exports[`Buttons it should render 1`] = `
             class="quill-button-container"
           >
             <button
-              class="quill-button focus-on-light contained extra-small"
+              class="quill-button focus-on-light extra-small contained"
             >
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button extra-small contained
+          </p>
         </div>
         <div
           class="option-container"
@@ -51,11 +56,16 @@ exports[`Buttons it should render 1`] = `
             class="quill-button-container"
           >
             <button
-              class="quill-button focus-on-light contained small"
+              class="quill-button focus-on-light small contained"
             >
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained
+          </p>
         </div>
         <div
           class="option-container"
@@ -69,11 +79,16 @@ exports[`Buttons it should render 1`] = `
             class="quill-button-container"
           >
             <button
-              class="quill-button focus-on-light contained medium"
+              class="quill-button focus-on-light medium contained"
             >
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button medium contained
+          </p>
         </div>
         <div
           class="option-container"
@@ -87,11 +102,16 @@ exports[`Buttons it should render 1`] = `
             class="quill-button-container"
           >
             <button
-              class="quill-button focus-on-light contained large"
+              class="quill-button focus-on-light large contained"
             >
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button large contained
+          </p>
         </div>
       </div>
       <h4
@@ -188,6 +208,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained disabled
+          </p>
         </div>
       </div>
       <h4
@@ -228,6 +253,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained icon
+          </p>
         </div>
         <div
           class="option-container"
@@ -323,6 +353,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained {color}
+          </p>
         </div>
         <div
           class="option-container"
@@ -386,6 +421,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small outlined {color}
+          </p>
         </div>
       </div>
       <h4
@@ -418,6 +458,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained green
+          </p>
         </div>
         <div
           class="option-container"
@@ -441,6 +486,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained gold
+          </p>
         </div>
         <div
           class="option-container"
@@ -464,6 +514,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained maroon
+          </p>
         </div>
         <div
           class="option-container"
@@ -487,6 +542,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained blue
+          </p>
         </div>
         <div
           class="option-container"
@@ -510,6 +570,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained teal
+          </p>
         </div>
         <div
           class="option-container"
@@ -533,6 +598,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained viridian
+          </p>
         </div>
         <div
           class="option-container"
@@ -556,6 +626,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained purple
+          </p>
         </div>
         <div
           class="option-container"
@@ -579,6 +654,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained violet
+          </p>
         </div>
         <div
           class="option-container"
@@ -602,6 +682,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained red
+          </p>
         </div>
         <div
           class="option-container"
@@ -625,6 +710,11 @@ exports[`Buttons it should render 1`] = `
               Button
             </button>
           </div>
+          <p
+            class="option-label"
+          >
+            quill-button small contained grey
+          </p>
         </div>
       </div>
     </div>
