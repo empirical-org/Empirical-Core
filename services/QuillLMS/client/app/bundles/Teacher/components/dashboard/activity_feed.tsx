@@ -90,7 +90,7 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
     return (
       <section className="activity-feed empty">
         <img alt="Document with a bulleted list illustration" src={listIllustrationSrc} />
-        <h2>Activity feed</h2>
+        <h2>Activity Feed</h2>
         <p>Once your students complete activities, you’ll be able to see them here.</p>
       </section>
     )
@@ -101,7 +101,7 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
   return (
     <section className="activity-feed populated">
       <header>
-        <h2>Activity feed</h2>
+        <h2>Activity Feed</h2>
       </header>
       {dataDisplay}
     </section>

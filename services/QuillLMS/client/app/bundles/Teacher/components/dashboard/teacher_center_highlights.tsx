@@ -15,7 +15,7 @@ const Highlight = ({ blogPost, }) => {
 const TeacherCenterHighlights = ({ featuredBlogPosts, }) => {
   return (
     <section className="teacher-center-highlights">
-      <h2>Teacher center highlights</h2>
+      <h2>Teacher Center Highlights</h2>
       {featuredBlogPosts.map(bp => <Highlight blogPost={bp} key={bp.id} />)}
       <div className="see-all-resources-container">
         <a className="quill-button focus-on-light outlined extra-small grey" href={`/${TEACHER_CENTER_SLUG}`} rel="noopener noreferrer" target="_blank">See all resources</a>

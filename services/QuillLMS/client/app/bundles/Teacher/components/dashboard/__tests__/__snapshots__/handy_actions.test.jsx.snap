@@ -8,7 +8,7 @@ exports[`HandyActions component should render when the user is linked to Clever 
     className="handy-actions"
   >
     <h2>
-      Handy actions
+      Handy Actions
     </h2>
     <HandyAction
       icon={
@@ -175,7 +175,7 @@ exports[`HandyActions component should render when the user is not linked to Cle
     className="handy-actions"
   >
     <h2>
-      Handy actions
+      Handy Actions
     </h2>
     <HandyAction
       icon={
