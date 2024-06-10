@@ -19,7 +19,7 @@ class DualGoogleIdAndCleverIdResolver < ApplicationService
   end
 
   private def last_classroom
-    @last_classroom ||= user&.classrooms_i_teach&.sort_by(&:updated_at)&.last
+    @last_classroom ||= user&.classrooms_i_teach&.max_by(&:updated_at)
   end
 
   private def log_account_type_change(changed_attribute, previous_value, action)
