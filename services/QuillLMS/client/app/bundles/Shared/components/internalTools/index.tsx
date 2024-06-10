@@ -1,5 +1,5 @@
 import ConceptSelector from './conceptSelector'
-import ConceptSelectorWithCheckbox from './ConceptSelectorWithCheckbox'
+import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox'
 
 export { ConceptSelector, ConceptSelectorWithCheckbox, }
 export { IncorrectSequencesInputAndConceptSelectorForm, } from './incorrectSequencesInputAndConceptSelectorForm'

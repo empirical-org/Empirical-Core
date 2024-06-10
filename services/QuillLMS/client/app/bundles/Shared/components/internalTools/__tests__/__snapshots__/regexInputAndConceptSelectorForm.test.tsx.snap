@@ -1,0 +1,528 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegexInputAndConceptSelectorForm renders correctly with given props 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="box add-incorrect-sequence"
+    >
+      <h4
+        class="title"
+      >
+        Edit Sample Label
+      </h4>
+      <div
+        style="margin-bottom: 10px;"
+      >
+        <p>
+          Focus points can contain regular expressions. See 
+          <a
+            href="https://www.regextester.com/"
+          >
+            this page
+          </a>
+           to test regular expressions, and access the cheat sheet on the right. 
+          <b>
+            Note:
+          </b>
+           any periods need to be prefaced with a backslash ("\\") in order to be evaluated correctly. Example: "walked\\."
+        </p>
+        <br />
+        <p>
+          In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".
+        </p>
+      </div>
+      <div
+        class="control"
+      >
+        <label
+          class="label"
+        >
+          Name
+        </label>
+        <input
+          class="input"
+          type="text"
+          value="Test Item"
+        />
+        <label
+          class="label"
+        >
+          Sample Label Text
+        </label>
+        <input
+          class="input focus-point-text"
+          style="margin-bottom: 5px;"
+          type="text"
+          value="sample text|||"
+        />
+        <input
+          class="input focus-point-text"
+          style="margin-bottom: 5px;"
+          type="text"
+          value=""
+        />
+        <label
+          class="label"
+          style="margin-top: 10px;"
+        >
+          Feedback
+        </label>
+        <div
+          class="text-editor card is-fullwidth"
+        >
+          <header
+            class="card-header"
+          >
+            <div
+              class="myToolbar"
+              style="margin: 1em;"
+            >
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                H3
+              </span>
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                Bold
+              </span>
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                Italic
+              </span>
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                Underline
+              </span>
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                Blockquote
+              </span>
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                UL
+              </span>
+              <span
+                style="color: rgb(153, 153, 153); cursor: pointer; display: inline-block; margin-right: 1em;"
+              >
+                Highlight
+              </span>
+              <button
+                class="interactive-wrapper add-link"
+                id="link-url"
+                type="button"
+              >
+                <span>
+                  Link
+                </span>
+              </button>
+            </div>
+          </header>
+          <div
+            class="card-content"
+          >
+            <div
+              class="content landing-page-html-editor"
+            >
+              <div
+                class="DraftEditor-root"
+              >
+                <div
+                  class="DraftEditor-editorContainer"
+                >
+                  <div
+                    class="notranslate public-DraftEditor-content"
+                    contenteditable="true"
+                    role="textbox"
+                    spellcheck="true"
+                    style="outline: none; user-select: text; white-space: pre-wrap; word-wrap: break-word;"
+                  >
+                    <div
+                      data-contents="true"
+                    >
+                      <div
+                        class=""
+                        data-block="true"
+                        data-editor="7pb9f"
+                        data-offset-key="9dkrd-0-0"
+                      >
+                        <div
+                          class="public-DraftStyleDefault-block public-DraftStyleDefault-ltr"
+                          data-offset-key="9dkrd-0-0"
+                        >
+                          <span
+                            data-offset-key="9dkrd-0-0"
+                          >
+                            <span
+                              data-text="true"
+                            >
+                              sample feedback
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <label
+          class="label"
+          style="margin-top: 10px;"
+        >
+          Concepts
+        </label>
+        <div
+          style="margin-bottom: 5px; width: 80%;"
+        >
+          <div
+            style="display: flex;"
+          >
+            <div
+              style="flex-grow: 1;"
+            >
+              <div
+                class="concepts-container css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-2-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class=" css-13cymwt-control"
+                >
+                  <div
+                    class=" css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class=" css-1jqq78o-placeholder"
+                      id="react-select-2-placeholder"
+                    >
+                      Please select a concept.
+                    </div>
+                    <div
+                      class=" css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-describedby="react-select-2-placeholder"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class=""
+                        id="react-select-2-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class=" css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label
+              class="checkbox"
+              style="line-height: 32px; margin-left: 5px;"
+            >
+              <h3>
+                <input
+                  aria-label="Correct?"
+                  checked=""
+                  type="checkbox"
+                />
+                 Correct?
+              </h3>
+            </label>
+            <button
+              class="interactive-wrapper focus-on-light"
+              style="padding-left: 10px; padding-top: 6px; cursor: pointer;"
+              type="button"
+            >
+              X
+            </button>
+          </div>
+        </div>
+        <div
+          style="margin-bottom: 5px; width: 80%;"
+        >
+          <div
+            style="display: flex;"
+          >
+            <div
+              style="flex-grow: 1;"
+            >
+              <div
+                class="concepts-container css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-3-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class=" css-13cymwt-control"
+                >
+                  <div
+                    class=" css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class=" css-1jqq78o-placeholder"
+                      id="react-select-3-placeholder"
+                    >
+                      Please select a concept.
+                    </div>
+                    <div
+                      class=" css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-describedby="react-select-3-placeholder"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class=""
+                        id="react-select-3-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class=" css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label
+              class="checkbox"
+              style="line-height: 32px; margin-left: 5px;"
+            >
+              <h3>
+                <input
+                  aria-label="Correct?"
+                  type="checkbox"
+                />
+                 Correct?
+              </h3>
+            </label>
+            <button
+              class="interactive-wrapper focus-on-light"
+              style="padding-left: 10px; padding-top: 6px; cursor: pointer;"
+              type="button"
+            >
+              X
+            </button>
+          </div>
+        </div>
+        <div
+          style="margin-bottom: 5px; width: 80%;"
+        >
+          <div
+            style="display: flex;"
+          >
+            <div
+              style="flex-grow: 1;"
+            >
+              <div
+                class="concepts-container css-b62m3t-container"
+              >
+                <span
+                  class="css-1f43avz-a11yText-A11yText"
+                  id="react-select-4-live-region"
+                />
+                <span
+                  aria-atomic="false"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                  class="css-1f43avz-a11yText-A11yText"
+                />
+                <div
+                  class=" css-13cymwt-control"
+                >
+                  <div
+                    class=" css-1fdsijx-ValueContainer"
+                  >
+                    <div
+                      class=" css-1jqq78o-placeholder"
+                      id="react-select-4-placeholder"
+                    >
+                      Please select a concept.
+                    </div>
+                    <div
+                      class=" css-qbdosj-Input"
+                      data-value=""
+                    >
+                      <input
+                        aria-autocomplete="list"
+                        aria-describedby="react-select-4-placeholder"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class=""
+                        id="react-select-4-input"
+                        role="combobox"
+                        spellcheck="false"
+                        style="opacity: 1; width: 100%; grid-area: 1 / 2; min-width: 2px; border: 0px; margin: 0px; outline: 0; padding: 0px;"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class=" css-1hb7zxy-IndicatorsContainer"
+                  >
+                    <span
+                      class=" css-1u9des2-indicatorSeparator"
+                    />
+                    <div
+                      aria-hidden="true"
+                      class=" css-1xc3v61-indicatorContainer"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="css-tj5bde-Svg"
+                        focusable="false"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <path
+                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label
+              class="checkbox"
+              style="line-height: 32px; margin-left: 5px;"
+            >
+              <h3>
+                <input
+                  aria-label="Correct?"
+                  type="checkbox"
+                />
+                 Correct?
+              </h3>
+            </label>
+            <button
+              class="interactive-wrapper focus-on-light"
+              style="padding-left: 10px; padding-top: 6px; cursor: pointer;"
+              type="button"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      </div>
+      <p
+        class="control"
+      >
+        <button
+          class="button is-primary "
+        >
+          Submit
+        </button>
+        <button
+          class="button is-outlined is-info"
+          style="margin-left: 5px;"
+        >
+          Cancel
+        </button>
+      </p>
+    </div>
+    <div>
+      <label
+        class="label"
+      >
+        0 sequences affected
+      </label>
+      <div>
+        Response Component
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
