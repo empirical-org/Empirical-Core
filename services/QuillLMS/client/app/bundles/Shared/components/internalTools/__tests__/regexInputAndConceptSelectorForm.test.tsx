@@ -1,9 +1,16 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import { RegexInputAndConceptSelectorForm, FOCUS_POINT, INCORRECT_SEQUENCE } from '../regexInputAndConceptSelectorForm';
+
+import * as shared from '../../../../Shared/index';
+
+// this has to get mocked because otherwise its internal props change every time
+jest.spyOn(shared, 'TextEditor').mockImplementation(() => {
+  return jest.fn()
+})
 
 function mockConceptsReducer(initialState, action) {
   return {
