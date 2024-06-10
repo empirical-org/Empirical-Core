@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from evidence (originally 20240603162245)
 class RenameLLMConfigToLLM < ActiveRecord::Migration[7.0]
   def change
