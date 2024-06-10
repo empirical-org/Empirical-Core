@@ -173,7 +173,7 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
           className="no-break"
         >
           <span>
-            results
+            Results
           </span>
           <a
             className="focus-on-light"
@@ -1111,7 +1111,7 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           className="no-break"
         >
           <span>
-            results
+            Results
           </span>
           <a
             className="focus-on-light"
