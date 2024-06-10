@@ -10,6 +10,7 @@
     font-weight: bold;
     line-height: 1.5;
     margin-bottom: 38px;
+    color: black;
   }
 
   h2 {
@@ -26,7 +27,8 @@
   }
 
   .press-highlight-container {
-    padding-left: 16px;
+    padding-bottom: 68px;
+    border-bottom: 1px solid $quill-grey-15;
   }
 
   .press-highlights {
@@ -34,7 +36,7 @@
     justify-content: space-between;
     margin-bottom: 56px;
     .press-highlight {
-      max-width: 295px;
+      max-width: 378px;
       width: 100%;
       border-top: black 4px solid;
       p {
@@ -49,18 +51,15 @@
     margin-top: 32px;
     display: flex;
     justify-content: space-between;
+    width: 960px;
   }
 
   .in-the-news, .press-releases {
-    margin-top: 120px;
-    h1 {
-      padding-left: 16px;
-    }
+    margin-top: 68px;
     .articles {
       max-width: 640px;
       .quill-button-archived {
         margin-top: 16px;
-        margin-left: 16px;
       }
     }
     .article {
@@ -74,10 +73,27 @@
 
     .in-the-news-content {
       display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $quill-grey-15;
+      padding-bottom: 68px;
+      .video {
+        width: 452px;
+        h1 {
+          padding: 0px;
+        }
+        iframe {
+          width: 452px;
+          height: 253px;
+        }
+      }
       .press-kit-container {
-        max-width: 295px;
-        width: 100%;
-        margin-left: 32px;
+        width: 453px;
+        margin-top: 28px;
+        margin-left: 0px;
+        background-color: $quill-grey-1;
+        padding: 20px;
+        border: 1px solid $quill-grey-10;
+        border-radius: 8px;
         p {
           font-size: 16px;
           line-height: 1.5;

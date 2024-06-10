@@ -50,9 +50,11 @@
     </div>
 
     <div class="in-the-news">
-      <h1>In the news</h1>
+
       <div class="in-the-news-content">
+
         <div class="articles">
+          <h1>In the news</h1>
           <% @in_the_news.each_with_index do |article, i| %>
             <% hidden = i >= 5 ? 'hidden' : '' %>
             <% class_name = "#{hidden} article" %>
@@ -67,11 +69,16 @@
           <button id="show-all-press-articles" onclick="showAllPressArticles()" class="quill-button-archived medium outlined secondary">Show all press articles</button>
         </div>
 
-        <div class="press-kit-container">
-          <p>Member of the press? We're happy to answer your questions.</p>
-          <div class="press-kit-links">
-            <a rel="noopener noreferrer" target="_blank" href="https://drive.google.com/a/quill.org/file/d/1LCo1T0rERUR98OU1rwIGVz3JapFhgeiO/view?usp=sharing">View our press kit</a>
-            <a href="mailto:hello@quill.org">hello@quill.org</a>
+        <div class="video">
+          <h1>Video spotlight</h1>
+          <iframe src="https://www.youtube.com/embed/_ZK1xIIoMCg?si=8kRX-BnjNoQlGhYu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+          <div class="press-kit-container">
+            <p>Member of the press? We're happy to answer your questions.</p>
+            <div class="press-kit-links">
+              <a rel="noopener noreferrer" target="_blank" href="https://drive.google.com/a/quill.org/file/d/1LCo1T0rERUR98OU1rwIGVz3JapFhgeiO/view?usp=sharing">View our press kit</a>
+              <a href="mailto:hello@quill.org">hello@quill.org</a>
+            </div>
           </div>
         </div>
       </div>
