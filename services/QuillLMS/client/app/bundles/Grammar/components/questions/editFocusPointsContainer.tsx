@@ -29,9 +29,9 @@ class EditFocusPointsContainer extends React.Component {
           item={Object.assign(this.getFocusPoint(), { id: this.props.match.params.focusPointID, })}
           itemLabel='Focus Point'
           onSubmit={this.submitForm}
-          ResponseComponent={ResponseComponent}
           questionID={this.props.match.params.questionID}
           questions={this.props.questions}
+          ResponseComponent={ResponseComponent}
         />
         {this.props.children}
       </div>
