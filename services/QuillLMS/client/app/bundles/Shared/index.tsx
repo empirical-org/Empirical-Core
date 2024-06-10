@@ -102,6 +102,7 @@ export {
   ConceptSelector,
   ConceptSelectorWithCheckbox,
   IncorrectSequencesInputAndConceptSelectorForm,
+  FocusPointsInputAndConceptSelectorForm,
 } from './components/internalTools/index'
 
 export {
