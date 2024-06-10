@@ -33,11 +33,11 @@ module LessonsRecommendations
             students_needing_instruction.push(activity_session[:user_name])
             break
           end
-          if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
-            fail_count += 1
-            students_needing_instruction.push(activity_session[:user_name])
-            break
-          end
+          next unless activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
+
+          fail_count += 1
+          students_needing_instruction.push(activity_session[:user_name])
+          break
         end
       end
       students_needing_instruction = students_needing_instruction.sort_by { |name| name.split[-1] }
