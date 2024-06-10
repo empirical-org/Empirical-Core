@@ -5,7 +5,6 @@ import useWindowSize from '../../Shared/hooks/useWindowSize';
 import useSnackbarMonitor from '../../Shared/hooks/useSnackbarMonitor';
 import { Spinner, Snackbar, defaultSnackbarTimeout, } from '../../Shared/index';
 import ActivityFeed from '../components/dashboard/activity_feed';
-import CollegeBoard from '../components/dashboard/college_board';
 import DailyTinyTip from '../components/dashboard/daily_tiny_tip';
 import DemoModal from '../components/dashboard/demo_modal';
 import DiagnosticMini from '../components/dashboard/diagnostic_mini';
@@ -142,7 +141,6 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
             <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
             <DailyTinyTip />
             <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
-            <CollegeBoard />
           </aside>
         </div>
       </div>

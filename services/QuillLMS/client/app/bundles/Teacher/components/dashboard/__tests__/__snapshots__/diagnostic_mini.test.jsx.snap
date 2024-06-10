@@ -212,10 +212,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
           Object {
             "attribute": "results",
             "headerClassName": "last-header",
-            "name": "Results",
+            "name": "Reports",
             "noTooltip": true,
             "rowSectionClassName": "last-row-section",
-            "width": "62px",
+            "width": "59px",
           },
         ]
       }
@@ -227,16 +227,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "diagnostic": "ELL Diagnostic",
             "id": "447-484134-826269",
             "results": <a
-              className="focus-on-light"
+              className="quill-button outlined extra-small grey focus-on-light"
               href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
             >
-              <img
-                alt="File with a chart icon"
-                src="undefined/images/icons/icons-file-chart.svg"
-              />
-              <span>
-                View
-              </span>
+              View
             </a>,
             "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269",
           },
@@ -246,16 +240,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "diagnostic": "ELL Diagnostic",
             "id": "447-484135-826269",
             "results": <a
-              className="focus-on-light"
+              className="quill-button outlined extra-small grey focus-on-light"
               href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
             >
-              <img
-                alt="File with a chart icon"
-                src="undefined/images/icons/icons-file-chart.svg"
-              />
-              <span>
-                View
-              </span>
+              View
             </a>,
             "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269",
           },
@@ -265,16 +253,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "diagnostic": "Starter Diagnostic",
             "id": "849-484134-826268",
             "results": <a
-              className="focus-on-light"
+              className="quill-button outlined extra-small grey focus-on-light"
               href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
             >
-              <img
-                alt="File with a chart icon"
-                src="undefined/images/icons/icons-file-chart.svg"
-              />
-              <span>
-                View
-              </span>
+              View
             </a>,
             "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268",
           },
@@ -284,16 +266,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "diagnostic": "Starter Diagnostic",
             "id": "849-484134-826269",
             "results": <a
-              className="focus-on-light"
+              className="quill-button outlined extra-small grey focus-on-light"
               href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
             >
-              <img
-                alt="File with a chart icon"
-                src="undefined/images/icons/icons-file-chart.svg"
-              />
-              <span>
-                View
-              </span>
+              View
             </a>,
             "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269",
           },
@@ -303,16 +279,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
             "diagnostic": "Starter Diagnostic",
             "id": "849-484135-826269",
             "results": <a
-              className="focus-on-light"
+              className="quill-button outlined extra-small grey focus-on-light"
               href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
             >
-              <img
-                alt="File with a chart icon"
-                src="undefined/images/icons/icons-file-chart.svg"
-              />
-              <span>
-                View
-              </span>
+              View
             </a>,
             "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269",
           },
@@ -380,14 +350,14 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               scope="col"
               style={
                 Object {
-                  "minWidth": "62px",
+                  "minWidth": "59px",
                   "textAlign": "left",
-                  "width": "62px",
+                  "width": "59px",
                 }
               }
             >
               <span>
-                Results
+                Reports
               </span>
             </th>
           </tr>
@@ -509,24 +479,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "62px",
+                  "minWidth": "59px",
                   "textAlign": "left",
-                  "width": "62px",
+                  "width": "59px",
                 }
               }
             >
               <TableCellContentWrapper>
                 <a
-                  className="focus-on-light"
+                  className="quill-button outlined extra-small grey focus-on-light"
                   href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
                 >
-                  <img
-                    alt="File with a chart icon"
-                    src="undefined/images/icons/icons-file-chart.svg"
-                  />
-                  <span>
-                    View
-                  </span>
+                  View
                 </a>
               </TableCellContentWrapper>
             </td>
@@ -593,24 +557,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "62px",
+                  "minWidth": "59px",
                   "textAlign": "left",
-                  "width": "62px",
+                  "width": "59px",
                 }
               }
             >
               <TableCellContentWrapper>
                 <a
-                  className="focus-on-light"
+                  className="quill-button outlined extra-small grey focus-on-light"
                   href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
                 >
-                  <img
-                    alt="File with a chart icon"
-                    src="undefined/images/icons/icons-file-chart.svg"
-                  />
-                  <span>
-                    View
-                  </span>
+                  View
                 </a>
               </TableCellContentWrapper>
             </td>
@@ -729,24 +687,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "62px",
+                  "minWidth": "59px",
                   "textAlign": "left",
-                  "width": "62px",
+                  "width": "59px",
                 }
               }
             >
               <TableCellContentWrapper>
                 <a
-                  className="focus-on-light"
+                  className="quill-button outlined extra-small grey focus-on-light"
                   href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
                 >
-                  <img
-                    alt="File with a chart icon"
-                    src="undefined/images/icons/icons-file-chart.svg"
-                  />
-                  <span>
-                    View
-                  </span>
+                  View
                 </a>
               </TableCellContentWrapper>
             </td>
@@ -865,24 +817,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "62px",
+                  "minWidth": "59px",
                   "textAlign": "left",
-                  "width": "62px",
+                  "width": "59px",
                 }
               }
             >
               <TableCellContentWrapper>
                 <a
-                  className="focus-on-light"
+                  className="quill-button outlined extra-small grey focus-on-light"
                   href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
                 >
-                  <img
-                    alt="File with a chart icon"
-                    src="undefined/images/icons/icons-file-chart.svg"
-                  />
-                  <span>
-                    View
-                  </span>
+                  View
                 </a>
               </TableCellContentWrapper>
             </td>
@@ -949,24 +895,18 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "62px",
+                  "minWidth": "59px",
                   "textAlign": "left",
-                  "width": "62px",
+                  "width": "59px",
                 }
               }
             >
               <TableCellContentWrapper>
                 <a
-                  className="focus-on-light"
+                  className="quill-button outlined extra-small grey focus-on-light"
                   href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
                 >
-                  <img
-                    alt="File with a chart icon"
-                    src="undefined/images/icons/icons-file-chart.svg"
-                  />
-                  <span>
-                    View
-                  </span>
+                  View
                 </a>
               </TableCellContentWrapper>
             </td>
@@ -1196,16 +1136,10 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "diagnostic": "ELL Diagnostic",
           "id": "447-484134-826269",
           "results": <a
-            className="focus-on-light"
+            className="quill-button outlined extra-small grey focus-on-light"
             href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269"
           >
-            <img
-              alt="File with a chart icon"
-              src="undefined/images/icons/icons-file-chart.svg"
-            />
-            <span>
-              View
-            </span>
+            View
           </a>,
           "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484134/summary?unit=826269",
         }
@@ -1241,16 +1175,10 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "diagnostic": "ELL Diagnostic",
           "id": "447-484135-826269",
           "results": <a
-            className="focus-on-light"
+            className="quill-button outlined extra-small grey focus-on-light"
             href="/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269"
           >
-            <img
-              alt="File with a chart icon"
-              src="undefined/images/icons/icons-file-chart.svg"
-            />
-            <span>
-              View
-            </span>
+            View
           </a>,
           "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/447/classroom/484135/summary?unit=826269",
         }
@@ -1286,16 +1214,10 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "diagnostic": "Starter Diagnostic",
           "id": "849-484134-826268",
           "results": <a
-            className="focus-on-light"
+            className="quill-button outlined extra-small grey focus-on-light"
             href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268"
           >
-            <img
-              alt="File with a chart icon"
-              src="undefined/images/icons/icons-file-chart.svg"
-            />
-            <span>
-              View
-            </span>
+            View
           </a>,
           "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826268",
         }
@@ -1331,16 +1253,10 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "diagnostic": "Starter Diagnostic",
           "id": "849-484134-826269",
           "results": <a
-            className="focus-on-light"
+            className="quill-button outlined extra-small grey focus-on-light"
             href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269"
           >
-            <img
-              alt="File with a chart icon"
-              src="undefined/images/icons/icons-file-chart.svg"
-            />
-            <span>
-              View
-            </span>
+            View
           </a>,
           "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484134/summary?unit=826269",
         }
@@ -1376,16 +1292,10 @@ exports[`DiagnosticMini component on mobile should render when there are diagnos
           "diagnostic": "Starter Diagnostic",
           "id": "849-484135-826269",
           "results": <a
-            className="focus-on-light"
+            className="quill-button outlined extra-small grey focus-on-light"
             href="/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269"
           >
-            <img
-              alt="File with a chart icon"
-              src="undefined/images/icons/icons-file-chart.svg"
-            />
-            <span>
-              View
-            </span>
+            View
           </a>,
           "summaryHref": "/teachers/progress_reports/diagnostic_reports#diagnostics/849/classroom/484135/summary?unit=826269",
         }

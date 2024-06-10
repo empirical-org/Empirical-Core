@@ -38,9 +38,9 @@ const headers = [
     rowSectionClassName: "completed-row-section"
   },
   {
-    name: 'Results',
+    name: 'Reports',
     attribute: 'results',
-    width: '62px',
+    width: '59px',
     noTooltip: true,
     rowSectionClassName: "last-row-section",
     headerClassName: 'last-header'
@@ -91,7 +91,7 @@ const DiagnosticMini = ({diagnostics, onMobile, }) => {
       classroom: classroom_name,
       diagnostic: activity_name,
       completed: `${completed_count} of ${assigned_count}`,
-      results: <a className="focus-on-light" href={summaryHref}><img alt={fileChartIcon.alt} src={fileChartIcon.src} /><span>View</span></a>,
+      results: <a className="quill-button outlined extra-small grey focus-on-light" href={summaryHref}>View</a>,
       summaryHref,
     }
   })

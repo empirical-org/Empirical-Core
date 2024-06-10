@@ -13,32 +13,41 @@
     }
   }
   &.populated {
-    h2 {
-      padding: 20px 20px 8px;
-      font-size: 20px;
-      line-height: 1.3;
-      width: 100%;
-    }
     .completed-section {
       margin-right: 0px;
       text-overflow: initial;
       overflow: visible;
     }
   }
+  .data-table-row-section:has(.score-tag) {
+    overflow: visible;
+  }
   .score-tag {
-    border-radius: 4px;
-    padding: 0 6px;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
     &.frequently-demonstrated-skill {
-      background-color: #dcedcc;
+      border: 1px solid $quill-green-vibrant-50;
+      background: $quill-green-vibrant-20;
+      color: $quill-green-vibrant;
     }
     &.sometimes-demonstrated-skill {
-      background-color: #ffeccc;
+      border: 1px solid $quill-gold-dark-20;
+      background: $quill-gold-10;
+      color: $quill-gold-dark;
     }
     &.rarely-demonstrated-skill {
-      background-color: #ffe0e3;
+      border: 1px solid $quill-red-20;
+      background: $quill-red-5;
+      color: $quill-maroon;
     }
     &.completed {
-      background-color: $quill-grey-3;
+      border: 1px solid $quill-blue;
+      background: $quill-blue;
+      color: $quill-white;
     }
   }
   @media (max-width: 1210px) {

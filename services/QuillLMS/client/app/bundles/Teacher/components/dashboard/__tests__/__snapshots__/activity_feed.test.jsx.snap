@@ -132,9 +132,11 @@ exports[`ActivityFeed component not on mobile should render when there are activ
   <section
     className="activity-feed populated"
   >
-    <h2>
-      Activity feed
-    </h2>
+    <header>
+      <h2>
+        Activity feed
+      </h2>
+    </header>
     <DataTable
       averageFontWidth={7}
       headers={
@@ -147,7 +149,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
           Object {
             "attribute": "activityName",
             "name": "Activity",
-            "width": "296px",
+            "width": "284px",
           },
           Object {
             "attribute": "scoreTag",
@@ -544,9 +546,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               scope="col"
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -626,9 +628,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -792,18 +794,18 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     tooltipText="Capitalize Names of People and the Pronoun \\"I\\""
                     tooltipTriggerStyle={
                       Object {
-                        "minWidth": "296px",
+                        "minWidth": "284px",
                         "textAlign": "left",
-                        "width": "296px",
+                        "width": "284px",
                       }
                     }
                     tooltipTriggerText="Capitalize Names of People and the Pronoun \\"I\\""
                     tooltipTriggerTextClass="data-table-row-section undefined"
                     tooltipTriggerTextStyle={
                       Object {
-                        "minWidth": "296px",
+                        "minWidth": "284px",
                         "textAlign": "left",
-                        "width": "296px",
+                        "width": "284px",
                       }
                     }
                   >
@@ -813,9 +815,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                       role="tooltip"
                       style={
                         Object {
-                          "minWidth": "296px",
+                          "minWidth": "284px",
                           "textAlign": "left",
-                          "width": "296px",
+                          "width": "284px",
                         }
                       }
                     >
@@ -830,9 +832,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         role="button"
                         style={
                           Object {
-                            "minWidth": "296px",
+                            "minWidth": "284px",
                             "textAlign": "left",
-                            "width": "296px",
+                            "width": "284px",
                           }
                         }
                         tabIndex={0}
@@ -992,9 +994,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -1149,9 +1151,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -1306,9 +1308,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -1463,9 +1465,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -1620,9 +1622,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -1777,9 +1779,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -1935,9 +1937,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -2093,9 +2095,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -2251,9 +2253,9 @@ exports[`ActivityFeed component not on mobile should render when there are activ
               onMouseLeave={[Function]}
               style={
                 Object {
-                  "minWidth": "296px",
+                  "minWidth": "284px",
                   "textAlign": "left",
-                  "width": "296px",
+                  "width": "284px",
                 }
               }
             >
@@ -2535,9 +2537,11 @@ exports[`ActivityFeed component on mobile should render when there are activitie
   <section
     className="activity-feed populated"
   >
-    <h2>
-      Activity feed
-    </h2>
+    <header>
+      <h2>
+        Activity feed
+      </h2>
+    </header>
     <MobileActivityRow
       key="33"
       row={

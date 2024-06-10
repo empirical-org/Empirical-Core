@@ -590,7 +590,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             type="button"
           >
             <span>
-              Archive classes
+              Archive Classes
             </span>
             <img
               alt="Arrow pointing right icon"
@@ -1042,7 +1042,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
             type="button"
           >
             <span>
-              Archive classes
+              Archive Classes
             </span>
             <img
               alt="Arrow pointing right icon"
