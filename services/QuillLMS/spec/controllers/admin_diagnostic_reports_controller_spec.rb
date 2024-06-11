@@ -39,7 +39,12 @@ describe AdminDiagnosticReportsController, type: :controller do
 
     context 'download action' do
       it do
-        expect(AdminDiagnosticReports::EnqueueCsvEmailWorker).to receive(:perform_async).with(user.id)
+        expect(AdminDiagnosticReports::SendCsvEmailWorker).to receive(:perform_async)
+          .with(user.id,
+            described_class::BASE_REPORT_FILTER_NAME,
+            described_class::OVERVIEW_REPORT_FILTER_NAME,
+            described_class::SKILL_REPORT_FILTER_NAME,
+            described_class::STUDENT_REPORT_FILTER_NAME)
 
         post :download
       end
