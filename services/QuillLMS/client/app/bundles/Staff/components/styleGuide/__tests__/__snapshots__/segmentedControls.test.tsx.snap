@@ -19,7 +19,6 @@ exports[`SegmentedControls it should render 1`] = `
       <pre>
           &lt;SegmentedControl
     activeTab="Option One"
-    size="small"
     buttons={[
       {
         label: "Option One",
@@ -34,6 +33,7 @@ exports[`SegmentedControls it should render 1`] = `
         onClick: handleTabChange
       },
     ]}
+    size="small"
   /&gt;
             
       </pre>
@@ -156,7 +156,6 @@ exports[`SegmentedControls it should render 1`] = `
       <pre>
           &lt;SegmentedControl
     activeTab="Option One"
-    size="small"
     buttons={[
       {
         activeIconSrc: WHITE_STAR_ICON_SRC,
@@ -189,6 +188,7 @@ exports[`SegmentedControls it should render 1`] = `
         onClick: handleTabChange
       }
     ]}
+    size="small"
   /&gt;
             
       </pre>
@@ -266,7 +266,6 @@ exports[`SegmentedControls it should render 1`] = `
       <pre>
           &lt;SegmentedControl
     activeTab="Option One"
-    size="small"
     buttons={[
       {
         label: "Option One",
@@ -282,6 +281,7 @@ exports[`SegmentedControls it should render 1`] = `
         disabled: true
       },
     ]}
+    size="small"
   /&gt;
             
       </pre>

@@ -33,7 +33,6 @@ const SegmentedControls = () => {
             `
   <SegmentedControl
     activeTab="${activeTab}"
-    size="${sizeOption.value}"
     buttons={[
       {
         label: "Option One",
@@ -48,6 +47,7 @@ const SegmentedControls = () => {
         onClick: handleTabChange
       },
     ]}
+    size="${sizeOption.value}"
   />
             `
           }
@@ -62,7 +62,6 @@ const SegmentedControls = () => {
         />
         <SegmentedControl
           activeTab={activeTab}
-          size={sizeOption.value}
           buttons={[
             {
               label: "Option One",
@@ -77,6 +76,7 @@ const SegmentedControls = () => {
               onClick: handleTabChange
             },
           ]}
+          size={sizeOption.value}
         />
       </div>
       <div className="element-container">
@@ -86,7 +86,6 @@ const SegmentedControls = () => {
             `
   <SegmentedControl
     activeTab="${activeTab}"
-    size="${sizeOption.value}"
     buttons={[
       {
         activeIconSrc: WHITE_STAR_ICON_SRC,
@@ -119,13 +118,13 @@ const SegmentedControls = () => {
         onClick: handleTabChange
       }
     ]}
+    size="${sizeOption.value}"
   />
             `
           }
         </pre>
         <SegmentedControl
           activeTab={activeTab}
-          size={sizeOption.value}
           buttons={[
             {
               activeIconSrc: WHITE_STAR_ICON_SRC,
@@ -158,6 +157,7 @@ const SegmentedControls = () => {
               onClick: handleTabChange
             }
           ]}
+          size={sizeOption.value}
         />
       </div>
       <div className="element-container">
@@ -167,7 +167,6 @@ const SegmentedControls = () => {
             `
   <SegmentedControl
     activeTab="${activeTab}"
-    size="${sizeOption.value}"
     buttons={[
       {
         label: "Option One",
@@ -183,13 +182,13 @@ const SegmentedControls = () => {
         disabled: true
       },
     ]}
+    size="${sizeOption.value}"
   />
             `
           }
         </pre>
         <SegmentedControl
           activeTab={activeTab}
-          size={sizeOption.value}
           buttons={[
             {
               label: "Option One",
@@ -205,6 +204,7 @@ const SegmentedControls = () => {
               onClick: handleTabChange
             },
           ]}
+          size={sizeOption.value}
         />
       </div>
     </div>
