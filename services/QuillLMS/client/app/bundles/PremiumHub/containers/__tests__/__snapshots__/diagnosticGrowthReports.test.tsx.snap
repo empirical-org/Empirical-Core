@@ -33,7 +33,7 @@ exports[`DiagnosticGrowthReports full state it should render expected messaging 
         class="header-buttons"
       >
         <button
-          class="quill-button download-report-button contained primary medium focus-on-light"
+          class="quill-button-archived download-report-button contained primary medium focus-on-light"
           type="button"
         >
           <img
@@ -104,7 +104,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
         class="header-buttons"
       >
         <button
-          class="quill-button download-report-button contained primary medium focus-on-light"
+          class="quill-button-archived download-report-button contained primary medium focus-on-light"
           type="button"
         >
           <img
