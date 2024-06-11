@@ -3,7 +3,7 @@ import { DropdownInput, SegmentedControl } from '../../../Shared';
 import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
 
 const WHITE_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-white.svg'
-const BLACK_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-green.svg'
+const BLACK_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star.svg'
 
 const SIZE_OPTIONS = [
   { label: 'Small', value: 'small' },

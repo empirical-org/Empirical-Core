@@ -1,6 +1,18 @@
 import * as React from 'react'
 
-export const SegmentedControl = ({ activeTab, size, buttons }) => {
+interface SegmentedControlProps {
+  activeTab: string,
+  size: string,
+  buttons: {
+    activeIconSrc?: string,
+    disabled?: boolean,
+    inactiveIconSrc?: string,
+    label: string,
+    onClick: (e: React.SyntheticEvent) => void
+  }[]
+}
+
+export const SegmentedControl = ({ activeTab, size, buttons }: SegmentedControlProps) => {
   return(
     <div className="segmented-control-container">
       {buttons.map((button, i) => {
