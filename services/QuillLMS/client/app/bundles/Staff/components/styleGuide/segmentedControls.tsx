@@ -2,27 +2,8 @@ import * as React from 'react';
 import { DropdownInput, SegmentedControl } from '../../../Shared';
 import { DropdownObjectInterface } from '../../interfaces/evidenceInterfaces';
 
-// export const SegmentedControl = ({ activeTab, size, buttons }) => {
-//   return (
-//     <div className="segmented-control-container">
-//       {buttons.map((button, i) => {
-//         const { activeIconSrc, inactiveIconSrc, label, onClick } = button
-//         let style = size
-//         if (i === 0) {
-//           style += ' left'
-//         } else if (i === buttons.length - 1) {
-//           style += ' right'
-//         }
-//         return (
-//           <button className={`interactive-wrapper segmented-control-button ${style} ${label === activeTab ? 'active' : ''}`} key={`${label}-${i}`} onClick={onClick} value={label}>
-//             {activeIconSrc && inactiveIconSrc && <img alt="" src={label === activeTab ? activeIconSrc : inactiveIconSrc} />}
-//             <span>{label}</span>
-//           </button>
-//         )
-//       })}
-//     </div>
-//   )
-// }
+const WHITE_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-white.svg'
+const BLACK_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-green.svg'
 
 const SIZE_OPTIONS = [
   { label: 'Small', value: 'small' },
@@ -43,7 +24,7 @@ const SegmentedControls = () => {
   }
 
   return (
-    <div id="post-navigation-banners">
+    <div id="segmented-controls">
       <h2 className="style-guide-h2">Segmented Controls</h2>
       <div className="element-container">
         <h3>Standard Segmented Control</h3>
@@ -93,6 +74,134 @@ const SegmentedControls = () => {
             },
             {
               label: "Option Three",
+              onClick: handleTabChange
+            },
+          ]}
+        />
+      </div>
+      <div className="element-container">
+        <h3>Segmented Control with icons</h3>
+        <pre>
+          {
+            `
+  <SegmentedControl
+    activeTab="${activeTab}"
+    size="${sizeOption.value}"
+    buttons={[
+      {
+        activeIconSrc: WHITE_STAR_ICON_SRC,
+        inactiveIconSrc: BLACK_STAR_ICON_SRC,
+        label: "Option One",
+        onClick: handleTabChange
+      },
+      {
+        activeIconSrc: WHITE_STAR_ICON_SRC,
+        inactiveIconSrc: BLACK_STAR_ICON_SRC,
+        label: "Option Two",
+        onClick: handleTabChange
+      },
+      {
+        activeIconSrc: WHITE_STAR_ICON_SRC,
+        inactiveIconSrc: BLACK_STAR_ICON_SRC,
+        label: "Option Three",
+        onClick: handleTabChange
+      },
+      {
+        activeIconSrc: WHITE_STAR_ICON_SRC,
+        inactiveIconSrc: BLACK_STAR_ICON_SRC,
+        label: "Option Four",
+        onClick: handleTabChange
+      },
+      {
+        activeIconSrc: WHITE_STAR_ICON_SRC,
+        inactiveIconSrc: BLACK_STAR_ICON_SRC,
+        label: "Option Five",
+        onClick: handleTabChange
+      }
+    ]}
+  />
+            `
+          }
+        </pre>
+        <SegmentedControl
+          activeTab={activeTab}
+          size={sizeOption.value}
+          buttons={[
+            {
+              activeIconSrc: WHITE_STAR_ICON_SRC,
+              inactiveIconSrc: BLACK_STAR_ICON_SRC,
+              label: "Option One",
+              onClick: handleTabChange
+            },
+            {
+              activeIconSrc: WHITE_STAR_ICON_SRC,
+              inactiveIconSrc: BLACK_STAR_ICON_SRC,
+              label: "Option Two",
+              onClick: handleTabChange
+            },
+            {
+              activeIconSrc: WHITE_STAR_ICON_SRC,
+              inactiveIconSrc: BLACK_STAR_ICON_SRC,
+              label: "Option Three",
+              onClick: handleTabChange
+            },
+            {
+              activeIconSrc: WHITE_STAR_ICON_SRC,
+              inactiveIconSrc: BLACK_STAR_ICON_SRC,
+              label: "Option Four",
+              onClick: handleTabChange
+            },
+            {
+              activeIconSrc: WHITE_STAR_ICON_SRC,
+              inactiveIconSrc: BLACK_STAR_ICON_SRC,
+              label: "Option Five",
+              onClick: handleTabChange
+            }
+          ]}
+        />
+      </div>
+      <div className="element-container">
+        <h3>Segmented Control with disabled option</h3>
+        <pre>
+          {
+            `
+  <SegmentedControl
+    activeTab="${activeTab}"
+    size="${sizeOption.value}"
+    buttons={[
+      {
+        label: "Option One",
+        onClick: handleTabChange
+      },
+      {
+        label: "Option Two",
+        onClick: handleTabChange
+      },
+      {
+        label: "Option Three",
+        onClick: handleTabChange
+        disabled: true
+      },
+    ]}
+  />
+            `
+          }
+        </pre>
+        <SegmentedControl
+          activeTab={activeTab}
+          size={sizeOption.value}
+          buttons={[
+            {
+              label: "Option One",
+              onClick: handleTabChange
+            },
+            {
+              label: "Option Two",
+              onClick: handleTabChange
+            },
+            {
+              label: "Option Three",
+              disabled: true,
               onClick: handleTabChange
             },
           ]}

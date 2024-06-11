@@ -1,6 +1,5 @@
   .segmented-control-container {
     display: flex;
-    margin-top: 32px;
 
     .segmented-control-button {
       display: flex;
@@ -45,6 +44,10 @@
         &.active {
           border-left: 1px solid $quill-green;
         }
+        &.disabled {
+          background-color: $quill-grey-15;
+          border-left: 1px solid $quill-grey-10;
+        }
       }
 
       &.right {
@@ -55,6 +58,9 @@
         &.active {
           border-right: 1px solid $quill-green;
         }
+        &.disabled {
+          border-right: 1px solid $quill-grey-10;
+        }
       }
 
       &.active {
@@ -64,6 +70,14 @@
         border-bottom: 1px solid $quill-green;
         span {
           font-weight: 700;
+        }
+      }
+      &.disabled {
+        background-color: $quill-grey-15;
+        border-top: 1px solid $quill-grey-10;
+        border-bottom: 1px solid $quill-grey-10;
+        span {
+          color: $quill-grey-30;
         }
       }
     }
