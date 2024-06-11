@@ -22,6 +22,10 @@ module AdminDiagnosticReports
       raise NotImplementedError
     end
 
+    private def default_timeframe = DEFAULT_TIMEFRAME
+    private def default_aggregation = DEFAULT_AGGREGATION
+    private def default_diagnostic_id = DEFAULT_DIAGNOSTIC_ID
+
     private def shared_filters = @shared_filters ||= AdminReportFilterSelection.find_by(user_id:, report: shared_filters_name)
     private def specific_filters = @specific_filters ||= AdminReportFilterSelection.find_by(user_id:, report: specific_filters_name)
     private def user = @user ||= User.find(user_id)
@@ -35,13 +39,12 @@ module AdminDiagnosticReports
     private def payload
       timeframe.merge(filters).merge(report_specific_filters).merge({
         school_ids:,
-        user: @user
+        user:
       })
     end
 
     private def timeframe
-      puts timeframe_name
-      timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(timeframe_name || DEFAULT_TIMEFRAME)
+      timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(timeframe_name || default_timeframe)
       {timeframe_start:, timeframe_end:}
     end
 

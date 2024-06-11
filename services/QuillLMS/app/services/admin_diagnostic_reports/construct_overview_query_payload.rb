@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class ConstructOverviewQueryPayload < ConstructQueryPayload
     private def report_specific_filters
       {
-        aggregation: specific_filters&.aggregation || DEFAULT_AGGREGATION
+        aggregation: specific_filters&.aggregation || default_aggregation
       }
     end
   end

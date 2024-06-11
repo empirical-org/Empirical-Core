@@ -37,7 +37,7 @@ FactoryBot.define do
         {
           group_by_value: {
             label: "Teacher",
-             value: "teacher"
+            value: "teacher"
           },
           diagnostic_type_value: {
             label: "Intermediate Diagnostic",
