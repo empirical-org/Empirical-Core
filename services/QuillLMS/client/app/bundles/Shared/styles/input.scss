@@ -56,10 +56,10 @@
   &.dropdown-container:focus {
     outline: none;
     label {
-      color: #009a80 !important;
+      color: $quill-green !important;
     }
     .dropdown__control {
-      border: 2px #009a80 !important;
+      border: 1px $quill-green !important;
       border-style: none none solid !important;
     }
   }
@@ -82,11 +82,11 @@
   input, input:focus, textarea, textarea:focus {
     outline: none;
     margin-bottom: 8px;
-    border: 2px #009a80;
+    border: 1px $quill-green;
     border-style: none none solid none;
     border-radius: 0px;
     width: 100%;
-    font-size: 16px;
+    @include text-s;
     color: $quill-black;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
@@ -114,9 +114,8 @@
   }
 
   label {
-    font-size: 12px;
-    font-weight: 600;
-    color: #009a80;
+    @include display-xs;
+    color: $quill-green;
     display: flex;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
@@ -125,9 +124,8 @@
   }
 
   .helper-text {
-    font-size: 12px;
-    font-weight: 600;
-    color: #7f7f7f;
+    @include text-2xs;
+    color: $quill-grey-50;
     margin-top: -2px;
     line-height: 1;
   }
@@ -175,7 +173,7 @@
       height: 20px;
     }
     .dropdown__value {
-      border: solid 2px #009a80;
+      border: solid 2px $quill-green;
       border-style: none none solid none;
       border-radius: 0px;
       padding-left: 0px;
@@ -230,12 +228,12 @@
       }
     }
     .dropdown__option {
-      background-color: white;
-      color: black;
+      background-color: $quill-white;
+      color: $quill-black;
       padding: 12px;
       font-size: 16px;
       &:active, &:hover, &:focus {
-        background-color: #f2f2f2 !important;
+        background-color: $quill-white !important;
         outline: none;
       }
     }
@@ -306,9 +304,8 @@
         padding: 0px 0px 4px;
       }
       label {
-        font-size: 12px;
-        font-weight: 600;
-        color: #7f7f7f;
+        @include display-xs;
+        color: $quill-grey-90;
         display: flex;
         margin-bottom: 5px;
       }
@@ -339,10 +336,9 @@
       border-style: none none solid none;
     }
     label {
-      color: #7f7f7f;
-      font-size: 16px;
+      color: $quill-grey-90;
+      @include display-xs;
       margin-bottom: 4px;
-      font-weight: normal;
     }
     .dropdown {
       border-bottom: none;
@@ -361,7 +357,7 @@
   }
   &.active {
     .dropdown__control {
-      border: 2px #009a80;
+      border: 2px $quill-green;
       border-style: none none solid;
     }
     .dropdown__dropdown-indicator {
@@ -388,34 +384,33 @@
   }
   &.error {
     input, textarea {
-      border: 2px #ff0000;
+      border: 1px $quill-red;
       border-style: none none solid none;
       padding: 0px 0px 3px !important;
     }
     .error-text {
-      font-size: 12px;
-      font-weight: 600;
+      @include display-2xs;
       line-height: 1.33;
       letter-spacing: normal;
-      color: #ff0000;
+      color: $quill-red;
       display: flex;
       margin-bottom: 10px;
       text-align: left;
     }
     &.active {
       label {
-        color: #ff0000;
+        color: $quill-red;
       }
     }
-    &.inactive {
+    &.inactive, .unacknowledged {
       label {
-        color: #7f7f7f;
+        color: $quill-red;
       }
     }
-    &.unacknowledged {
-      label {
-        color: #7f7f7f;
-      }
+  }
+  &.with-helper {
+    .cancel {
+      bottom: 24px;
     }
   }
   .cancel {
