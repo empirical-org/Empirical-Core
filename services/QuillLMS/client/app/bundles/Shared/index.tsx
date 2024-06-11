@@ -46,6 +46,7 @@ export {
   ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
+  SegmentedControl,
   SmartSpinner,
   Snackbar,
   defaultSnackbarTimeout,

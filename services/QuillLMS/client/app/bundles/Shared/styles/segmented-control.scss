@@ -1,0 +1,70 @@
+  .segmented-control-container {
+    display: flex;
+    margin-top: 32px;
+
+    .segmented-control-button {
+      display: flex;
+      align-items: center;
+      padding: 13px 32px;
+      background-color: $quill-grey-1;
+      border-top: 1px solid $quill-grey-10;
+      border-bottom: 1px solid $quill-grey-10;
+      color: $quill-grey-90;
+      font-size: 13px;
+
+      span {
+        font-weight: 500;
+      }
+
+      img {
+        margin-right: 4px;
+        height: 16px;
+        width: 16px;
+      }
+
+      &.small {
+        height: 32px;
+        span {
+          font-size: 12px;
+        }
+      }
+
+      &.medium {
+        height: 38px;
+      }
+
+      &.large {
+        height: 44px;
+      }
+
+      &.left {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border: 1px solid $quill-grey-10;
+
+        &.active {
+          border-left: 1px solid $quill-green;
+        }
+      }
+
+      &.right {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border: 1px solid $quill-grey-10;
+
+        &.active {
+          border-right: 1px solid $quill-green;
+        }
+      }
+
+      &.active {
+        background-color: $quill-green;
+        color: $quill-white;
+        border-top: 1px solid $quill-green;
+        border-bottom: 1px solid $quill-green;
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+  }
