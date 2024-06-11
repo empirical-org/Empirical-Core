@@ -7,6 +7,60 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
     allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1,2]
   end
 
+  context 'suspend and unsuspending users' do
+    let(:orchestrator) { LearnWorldsIntegration::SyncOrchestrator.new }
+
+    before do
+      allow(orchestrator).to receive(:userwise_subject_areas_relation).and_return([
+        double('User', learn_worlds_access?: false, external_id: 1),
+        double('User', learn_worlds_access?: true, external_id: 2),
+        double('User', learn_worlds_access?: false, external_id: 3),
+        double('User', learn_worlds_access?: true, external_id: 4)
+      ])
+      allow(orchestrator).to receive(:learnworlds_suspended_ids).and_return([3, 4])
+    end
+
+    describe '#users_to_suspend' do
+      it do
+        expect(orchestrator.users_to_suspend.count).to eq 1
+        expect(orchestrator.users_to_suspend.first.external_id).to eq 1
+      end
+    end
+
+    describe '#users_to_unsuspend' do
+      it do
+        expect(orchestrator.users_to_unsuspend.count).to eq 1
+        expect(orchestrator.users_to_unsuspend.first.external_id).to eq 4
+      end
+    end
+  end
+
+  describe '#enqueue_jobs' do
+    let(:mock_worker) { double }
+    let(:mock_user) { double }
+
+    before { allow(mock_user).to receive(:external_id).and_return 1 }
+
+    it 'should increment counter' do
+      allow(mock_worker).to receive(:perform_in)
+
+      expect do
+        subject.enqueue_jobs([mock_user], mock_worker) {|u| [u.external_id]}
+      end.to change(subject, :counter).by 1
+    end
+
+    it 'should schedule jobs sequentially according to smear rate' do
+      expect(mock_worker).to receive(:perform_in).with(0, 1)
+      expect(mock_worker).to receive(:perform_in).with(1, 1)
+      expect(mock_worker).to receive(:perform_in).with(2, 1)
+      expect(mock_worker).to receive(:perform_in).with(3, 1)
+
+      subject.enqueue_jobs([mock_user, mock_user], mock_worker) {|u| [u.external_id]}
+
+      subject.enqueue_jobs([mock_user, mock_user], mock_worker) {|u| [u.external_id]}
+    end
+  end
+
   describe '#self.string_to_subject_area_tag' do
     it 'converts a string to a LearnWorlds tag' do
       expect(described_class.string_to_subject_area_tag('History / Social Studies'))

@@ -16,29 +16,30 @@ module LearnWorldsIntegration
     end
 
     def run
-      enqueue_jobs(users_to_unsuspend, UnsuspendUserWorker) {|u| [u]}
-      enqueue_jobs(users_to_suspend, SuspendUserWorker) {|u| [u]}
+      enqueue_jobs(users_to_unsuspend, UnsuspendUserWorker) {|u| [u.external_id]}
+      enqueue_jobs(users_to_suspend, SuspendUserWorker) {|u| [u.external_id]}
       enqueue_jobs(userwise_subject_areas_relation, SyncUserTagsWorker) {|u| marshal(u) }
     end
 
     def users_to_suspend
-      should_suspend = userwise_subject_areas_relation.filter do |row|
-        !row.learn_worlds_access? && !learnworlds_suspended_ids.includes(row.external_id)
+      userwise_subject_areas_relation.filter do |row|
+        !row.learn_worlds_access? && !learnworlds_suspended_ids.include?(row.external_id)
       end
     end
 
     def users_to_unsuspend
       userwise_subject_areas_relation.filter do |row|
-        learnworlds_suspended_ids.includes(row.external_id) && row.learn_worlds_access?
+        row.learn_worlds_access? && learnworlds_suspended_ids.include?(row.external_id)
       end
     end
 
     def enqueue_jobs(users, worker, &block)
-      counter += users.count * SMEAR_RATE_IN_SECONDS
 
       users.each_with_index do |user, idx|
         worker.perform_in((counter + (idx * SMEAR_RATE_IN_SECONDS)).seconds, *yield(user) )
       end
+
+      self.counter += users.count * SMEAR_RATE_IN_SECONDS
     end
 
     def userwise_subject_areas_relation
