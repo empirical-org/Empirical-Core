@@ -10,6 +10,7 @@ module AdminDiagnosticReports
   
     def run
       # This query needs no assembly, everything is available from one query
+      # Still putting it in a service for the sake of consistency and potential future expansion
       DiagnosticPerformanceBySkillViewQuery.run(**payload)
     end
   end

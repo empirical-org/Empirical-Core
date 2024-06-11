@@ -59,7 +59,7 @@ module AdminDiagnosticReports
     end
 
     private def extract_unique_ids(base_data, supplemental_data, key)
-      ((base_data&.map{|row| row[key]} || []) + (supplemental_data&.map{|row| row[key]} || [])).uniq
+      ((base_data&.map{|row| row[key]} || []) + (supplemental_data&.map{|row| row[key]} || [])).compact.uniq
     end
 
     private def generate_fallback_hashes(base_data, supplemental_data, ensure_base_keys = [], ensure_supplemental_keys = [])
