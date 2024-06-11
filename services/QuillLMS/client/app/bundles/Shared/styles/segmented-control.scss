@@ -9,6 +9,8 @@
       background-color: $quill-grey-1;
       border-top: 1px solid $quill-grey-10;
       border-bottom: 1px solid $quill-grey-10;
+      border-left: 0.5px solid $quill-grey-10;
+      border-right: 0.5px solid $quill-grey-10;
       color: $quill-grey-90;
       font-size: 13px;
 
@@ -41,27 +43,43 @@
       &.left {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
-        border: 1px solid $quill-grey-10;
-
-        &.active {
-          border-left: 1px solid $quill-green;
-        }
+        border-top: 1px solid $quill-grey-10;
+        border-bottom: 1px solid $quill-grey-10;
+        border-left: 1px solid $quill-grey-10;
+        border-right: 0.5px solid $quill-grey-10;
         &.disabled {
           background-color: $quill-grey-15;
-          border-left: 1px solid $quill-grey-10;
+          border-top: 1px solid $quill-grey-10;
+          border-bottom: 1px solid $quill-grey-10;
+          border-left: 1px solid $quill-grey-10 !important;
+          border-right: 0.5px solid $quill-grey-10 !important;
+        }
+        &.active {
+          border-top: 1px solid $quill-green;
+          border-bottom: 1px solid $quill-green;
+          border-left: 1px solid $quill-green;
+          border-right: 0.5px solid $quill-green;
         }
       }
 
       &.right {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
-        border: 1px solid $quill-grey-10;
-
-        &.active {
-          border-right: 1px solid $quill-green;
-        }
+        border-top: 1px solid $quill-grey-10;
+        border-bottom: 1px solid $quill-grey-10;
+        border-left: 0.5px solid $quill-grey-10 !important;
+        border-right: 1px solid $quill-grey-10 !important;
         &.disabled {
+          border-top: 1px solid $quill-grey-10;
+          border-bottom: 1px solid $quill-grey-10;
+          border-left: 0.5px solid $quill-grey-10;
           border-right: 1px solid $quill-grey-10;
+        }
+        &.active {
+          border-top: 1px solid $quill-green;
+          border-bottom: 1px solid $quill-green;
+          border-left: 0.5px solid $quill-green;
+          border-right: 1px solid $quill-green;
         }
       }
 
@@ -70,14 +88,16 @@
         color: $quill-white;
         border-top: 1px solid $quill-green;
         border-bottom: 1px solid $quill-green;
+        border-left: 0.5px solid $quill-green;
+        border-right: 0.5px solid $quill-green;
         span {
           font-weight: 700;
         }
       }
       &.disabled {
         background-color: $quill-grey-15;
-        border-top: 1px solid $quill-grey-10;
-        border-bottom: 1px solid $quill-grey-10;
+        border-top: 1px solid $quill-grey-10 !important;
+        border-bottom: 1px solid $quill-grey-10 !important;
         span {
           color: $quill-grey-30;
         }
