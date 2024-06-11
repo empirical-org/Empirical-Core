@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LearnWorldsIntegration
-  class SyncOrchestrator
+  class SyncOrchestrator < ApplicationService
 
     # NOTE: this worker 'smears' API calls over time to avoid hitting
     # the LearnWorlds 30 requests / 10 seconds rate limit.
@@ -13,7 +13,9 @@ module LearnWorldsIntegration
     def initialize
       @counter = 0
       @learnworlds_suspended_ids = SuspendedUsersRequest.run
+    end
 
+    def run
       enqueue_jobs(users_to_unsuspend, UnsuspendUserWorker) {|u| [u]}
       enqueue_jobs(users_to_suspend, SuspendUserWorker) {|u| [u]}
       enqueue_jobs(userwise_subject_areas_relation, SyncUserTagsWorker) {|u| marshal(u) }
@@ -45,18 +47,18 @@ module LearnWorldsIntegration
         .filter {|row| r&.user }
     end
 
-    def marshal(user_subject_area_relation)
+    def self.marshal(user_subject_area_relation)
       [
         user_subject_area_relation.external_id,
         tags(user_subject_area_relation.user)
       ]
     end
 
-    def string_to_subject_area_tag(str)
+    def self.string_to_subject_area_tag(str)
       "subject_area_#{str.downcase.gsub(%r{[\s/]+}, '_')}"
     end
 
-    def tags(user)
+    def self.tags(user)
       subjects_taught = user&.teacher_info&.subject_areas || []
 
       user_account_type = user.admin? ? 'admin' : 'teacher'

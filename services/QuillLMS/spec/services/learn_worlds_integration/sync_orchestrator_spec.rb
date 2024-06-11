@@ -3,21 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
-  let(:worker) { described_class.new }
+  before do
+    allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1,2]
+  end
 
-  describe '#string_to_subject_area_tag' do
+  describe '#self.string_to_subject_area_tag' do
     it 'converts a string to a LearnWorlds tag' do
-      expect(worker.string_to_subject_area_tag('History / Social Studies'))
+      expect(described_class.string_to_subject_area_tag('History / Social Studies'))
         .to eq('subject_area_history_social_studies')
-      expect(worker.string_to_subject_area_tag('English as a New Language'))
+
+      expect(described_class.string_to_subject_area_tag('English as a New Language'))
         .to eq('subject_area_english_as_a_new_language')
     end
   end
 
-  describe '#tags' do
-    subject { worker.tags(user) }
-
+  describe '#self.tags' do
     let(:user) { create(:user) }
+
+    subject { described_class.tags(user) }
 
     context 'when the user is an admin' do
       before do
@@ -55,9 +58,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
   describe '#initialize' do
     it 'should populate learnworlds_suspended_ids via SuspenedUsersRequest' do
       allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1,2]
-      allow(worker).to receive(:enqueue_jobs)
-      worker
-      expect(worker.learnworlds_suspended_ids).to eq [1,2]
+      expect(subject.learnworlds_suspended_ids).to eq [1,2]
     end
   end
 end
