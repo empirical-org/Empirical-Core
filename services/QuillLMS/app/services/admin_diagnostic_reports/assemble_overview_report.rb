@@ -7,7 +7,7 @@ module AdminDiagnosticReports
     def initialize(payload)
       @payload = payload
     end
-  
+
     def run
       combine_query_parts
     end

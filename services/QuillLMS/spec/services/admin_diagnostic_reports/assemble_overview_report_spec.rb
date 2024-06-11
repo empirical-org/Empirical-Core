@@ -189,7 +189,7 @@ module AdminDiagnosticReports
 
         context 'multiple aggregate rows' do
           let(:aggregate_id2) { 2 }
-  
+
           let(:pre_assigned_aggregate_row2) { {aggregate_id: aggregate_id2, pre_students_assigned: 1} }
           let(:pre_assigned_aggregate_rows) { [pre_assigned_aggregate_row1, pre_assigned_aggregate_row2] }
 
@@ -205,12 +205,11 @@ module AdminDiagnosticReports
           let(:post_completed_aggregate_row2) { {aggregate_id: aggregate_id2, post_students_completed: 1, overall_skill_growth: 0} }
           let(:post_completed_aggregate_rows) { [post_completed_aggregate_row1, post_completed_aggregate_row2] }
 
-  
           it { expect(subject.map { |row| row[:aggregate_rows].length }).to eq([2, 2]) }
-  
+
           context 'component queries not all in the same order' do
             let(:pre_assigned_aggregate_rows) { [pre_assigned_aggregate_row2, pre_assigned_aggregate_row1] }
-  
+
             it do
               expect(subject.select { |row| row[:diagnostic_id] == pre_assigned_result1[:diagnostic_id] }
                 .first[:aggregate_rows]

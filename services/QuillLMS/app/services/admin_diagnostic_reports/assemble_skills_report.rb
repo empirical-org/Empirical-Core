@@ -7,7 +7,7 @@ module AdminDiagnosticReports
     def initialize(payload)
       @payload = payload
     end
-  
+
     def run
       # This query needs no assembly, everything is available from one query
       # Still putting it in a service for the sake of consistency and potential future expansion

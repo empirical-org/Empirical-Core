@@ -30,7 +30,7 @@ class Formatter < ApplicationService
     DATE => ->(x) { x.strftime("%F") },
     PERCENT_AS_INTEGER => ->(x) { x.present? ? LAMBDAS[AS_ROUNDED_INTEGER].call(x * 100) : LAMBDAS[BLANK_AS_ZERO].call(x) },
     SCORE_OR_COMPLETED => ->(x) { (x.is_a?(Numeric) && x != -1) ? "#{LAMBDAS[PERCENT_AS_INTEGER].call(x)}%" : "Completed" },
-    SECONDS_TO_MINUTES => ->(x) { x.is_a?(Numeric) ? (x >= 60 ? (x / 60) : '< 1') : '' }
+    SECONDS_TO_MINUTES => ->(x) { x.is_a?(Numeric) ? (x.to_i / 60).nonzero? || '< 1' : '' }
   }.freeze
 
   def initialize(format, value)

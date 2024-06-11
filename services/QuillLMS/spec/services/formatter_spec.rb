@@ -82,7 +82,7 @@ describe Formatter do
     let(:format) { described_class::DATE }
     let(:value) { DateTime.current }
 
-    it { is_expected.to eq("#{value.year}-#{"%02d" % value.month}-#{"%02d" % value.day}") }
+    it { is_expected.to eq("#{value.year}-#{sprintf('%02d', value.month)}-#{sprintf('%02d', value.day)}") }
   end
 
   context 'percent_as_integer' do

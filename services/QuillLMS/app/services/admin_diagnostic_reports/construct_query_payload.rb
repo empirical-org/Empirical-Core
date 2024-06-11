@@ -13,7 +13,7 @@ module AdminDiagnosticReports
       @shared_filters_name = shared_filters_name
       @specific_filters_name = specific_filters_name
     end
-  
+
     def run
       payload
     end

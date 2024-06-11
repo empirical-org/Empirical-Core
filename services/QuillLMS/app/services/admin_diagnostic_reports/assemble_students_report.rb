@@ -12,7 +12,7 @@ module AdminDiagnosticReports
     def initialize(payload)
       @payload = payload
     end
-  
+
     def run
       base_results.map do |row|
         row.merge(recommendation_results.fetch(row[:student_id], DEFAULT_RECOMMENDATION))
