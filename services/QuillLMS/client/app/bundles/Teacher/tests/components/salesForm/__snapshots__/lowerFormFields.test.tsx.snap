@@ -19,7 +19,7 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
     value={1}
   >
     <div
-      className="input-container  inactive has-text form-input estimate "
+      className="input-container  inactive has-text form-input estimate  "
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
@@ -50,7 +50,7 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
     value={20}
   >
     <div
-      className="input-container  inactive has-text form-input estimate "
+      className="input-container  inactive has-text form-input estimate  "
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"
@@ -81,7 +81,7 @@ exports[`LowerFormFields Component should match snapshot 1`] = `
     value={400}
   >
     <div
-      className="input-container  inactive has-text form-input estimate "
+      className="input-container  inactive has-text form-input estimate  "
       onClick={[Function]}
       onKeyDown={[Function]}
       role="button"

@@ -124,7 +124,7 @@ exports[`AdminRequestModal container should render 1`] = `
         value=""
       >
         <div
-          className="input-container  inactive  reason "
+          className="input-container  inactive  reason  "
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"

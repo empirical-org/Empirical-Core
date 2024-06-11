@@ -20,7 +20,7 @@ exports[`SchoolSelector component should render when the dismiss reminder checkb
       value=""
     >
       <div
-        className="input-container  inactive  search "
+        className="input-container  inactive  search  "
         onClick={[Function]}
         onKeyDown={[Function]}
         role="button"
@@ -100,7 +100,7 @@ exports[`SchoolSelector component should render when the dismiss reminder checkb
       value=""
     >
       <div
-        className="input-container  inactive  search "
+        className="input-container  inactive  search  "
         onClick={[Function]}
         onKeyDown={[Function]}
         role="button"

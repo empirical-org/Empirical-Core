@@ -217,6 +217,7 @@ const iconGroups = [
       { path: "dash-black.svg" },
       { path: "dash-white.svg" },
       { path: "clear-enabled.svg" },
+      { path: "clear-enabled-black.svg" },
       { path: "description-ccss.svg" },
       { path: "description-concept.svg" },
       { path: "description-copyright.svg" },

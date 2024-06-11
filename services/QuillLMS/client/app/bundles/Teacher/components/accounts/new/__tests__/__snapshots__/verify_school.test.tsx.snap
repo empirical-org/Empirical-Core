@@ -116,7 +116,7 @@ exports[`VerifySchool component should render if there are admins 1`] = `
             value=""
           >
             <div
-              className="input-container  inactive  reason "
+              className="input-container  inactive  reason  "
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"
@@ -209,7 +209,7 @@ exports[`VerifySchool component should render if there are no admins 1`] = `
             value=""
           >
             <div
-              className="input-container  inactive  undefined "
+              className="input-container  inactive  undefined  with-helper"
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"
@@ -244,7 +244,7 @@ exports[`VerifySchool component should render if there are no admins 1`] = `
             value=""
           >
             <div
-              className="input-container  inactive  undefined "
+              className="input-container  inactive  undefined  "
               onClick={[Function]}
               onKeyDown={[Function]}
               role="button"

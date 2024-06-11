@@ -40,7 +40,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input first-name "
+            className="input-container  inactive  form-input first-name  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -71,7 +71,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input last-name "
+            className="input-container  inactive  form-input last-name  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -103,7 +103,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input email "
+            className="input-container  inactive  form-input email  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -137,7 +137,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input phone has-character-limit"
+            className="input-container  inactive  form-input phone has-character-limit "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -179,7 +179,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input zipcode has-character-limit"
+            className="input-container  inactive  form-input zipcode has-character-limit "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -306,7 +306,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input estimate "
+            className="input-container  inactive  form-input estimate  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -337,7 +337,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input estimate "
+            className="input-container  inactive  form-input estimate  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
@@ -368,7 +368,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
           value=""
         >
           <div
-            className="input-container  inactive  form-input estimate "
+            className="input-container  inactive  form-input estimate  "
             onClick={[Function]}
             onKeyDown={[Function]}
             role="button"
