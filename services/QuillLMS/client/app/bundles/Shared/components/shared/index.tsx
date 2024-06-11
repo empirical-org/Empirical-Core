@@ -89,6 +89,10 @@ export {
 } from './screenreaderInstructions'
 
 export {
+  SegmentedControl
+} from './segmentedControl'
+
+export {
   OneThumbSlider,
   TwoThumbSlider,
 } from './slider'
