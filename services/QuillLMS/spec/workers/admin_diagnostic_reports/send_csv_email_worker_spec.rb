@@ -11,7 +11,7 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
     let(:shared_filter_report_name) { AdminDiagnosticReportsController::BASE_REPORT_FILTER_NAME }
     let(:overview_filter_report_name) { AdminDiagnosticReportsController::OVERVIEW_REPORT_FILTER_NAME }
     let(:skills_filter_report_name) { AdminDiagnosticReportsController::SKILL_REPORT_FILTER_NAME }
-    let(:students_filter_report_name) { AdminDiagnosticReportsController::STUDENT_REPORT_FILTER_NAME } 
+    let(:students_filter_report_name) { AdminDiagnosticReportsController::STUDENT_REPORT_FILTER_NAME }
     let(:default_params) do
       [
         user_id,
