@@ -6,26 +6,26 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe ResultsFetcher, type: :service do
-        subject { described_class.run(experiment) }
+        subject { described_class.run(trial) }
 
-        let(:experiment) { create(:evidence_research_gen_ai_experiment, results: '{}') }
+        let(:trial) { create(:evidence_research_gen_ai_trial, results: '{}') }
 
-        let(:example_feedback1) { create(:evidence_research_gen_ai_example_feedback) }
+        let(:quill_feedback1) { create(:evidence_research_gen_ai_quill_feedback) }
 
         let(:llm_feedback_identical) do
           create(
            :evidence_research_gen_ai_llm_feedback,
-           passage_prompt_response: example_feedback1.passage_prompt_response,
-           text: example_feedback1.text
+           student_response: quill_feedback1.student_response,
+           text: quill_feedback1.text
           )
         end
 
-        let(:example_feedback2) { create(:evidence_research_gen_ai_example_feedback) }
+        let(:quill_feedback2) { create(:evidence_research_gen_ai_quill_feedback) }
 
         let(:llm_feedback_non_identical) do
           create(
             :evidence_research_gen_ai_llm_feedback,
-            passage_prompt_response: example_feedback2.passage_prompt_response,
+            student_response: quill_feedback2.student_response,
             text: 'this is different feedback'
           )
         end
@@ -33,7 +33,7 @@ module Evidence
         before do
           stub_const("Evidence::Research::GenAI::ResultsFetcher::ENDPOINT", 'http://example.com/metrics')
           stub_request(:post, described_class::ENDPOINT).to_return(misc_metrics)
-          allow(experiment).to receive(:llm_feedbacks).and_return(llm_feedbacks)
+          allow(trial).to receive(:llm_feedbacks).and_return(llm_feedbacks)
         end
 
         context 'accuracy_identical results' do
@@ -70,7 +70,7 @@ module Evidence
           let(:misc_metrics) { {} }
           let(:llm_feedbacks) { [llm_feedback_identical, llm_feedback_non_identical] }
 
-          before { experiment.update!(results: { g_eval_ids: [1, 2, 3] }) }
+          before { trial.update!(results: { g_eval_ids: [1, 2, 3] }) }
 
           it 'runs GEvalRunner for each g_eval id' do
             expect(GEvalRunner).to receive(:run).exactly(6).times

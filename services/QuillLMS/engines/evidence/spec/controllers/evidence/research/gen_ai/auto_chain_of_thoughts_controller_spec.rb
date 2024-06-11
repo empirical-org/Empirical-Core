@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 module Evidence
@@ -26,9 +28,9 @@ module Evidence
           let(:llm_response) { { 'steps' => steps }.to_json }
 
           let(:evaluation_steps) { steps.join("\n").strip }
-          let(:llm_config) { double('LLMConfig', completion: llm_response) }
+          let(:llm) { double('LLM', completion: llm_response) }
 
-          before { allow(LLMConfig).to receive(:auto_cot).and_return(llm_config) }
+          before { allow(LLM).to receive(:auto_cot).and_return(llm) }
 
           context 'valid params' do
             let(:params) { { task_introduction:, evaluation_criteria:, metric: } }

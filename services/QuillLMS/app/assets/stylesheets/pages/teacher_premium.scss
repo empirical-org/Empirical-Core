@@ -86,7 +86,7 @@
       color: $quill-grey-90;
     }
 
-    .quill-button {
+    .quill-button-archived {
       margin: 16px 0px 32px;
       background-color: $quill-gold;
       &:hover, &:focus {
@@ -94,7 +94,7 @@
       }
     }
 
-    a:not(.quill-button) {
+    a:not(.quill-button-archived) {
       font-weight: 700;
       line-height: 14px;
       color: $quill-gold-dark-50;

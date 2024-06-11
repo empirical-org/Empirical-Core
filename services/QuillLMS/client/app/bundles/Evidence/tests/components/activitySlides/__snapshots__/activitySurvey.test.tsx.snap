@@ -131,7 +131,7 @@ exports[`ActivitySurvey Component should match snapshot 1`] = `
         Skip
       </a>
       <button
-        className="quill-button large disabled contained focus-on-dark"
+        className="quill-button-archived large disabled contained focus-on-dark"
         onClick={[Function]}
         type="button"
       >

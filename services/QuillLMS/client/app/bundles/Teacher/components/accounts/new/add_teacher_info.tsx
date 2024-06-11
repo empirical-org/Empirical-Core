@@ -27,7 +27,7 @@ const AddTeacherInfo = ({ subjectAreas, }) => {
     )
   }
 
-  const nextButtonClassName = "quill-button primary contained medium focus-on-light"
+  const nextButtonClassName = "quill-button-archived primary contained medium focus-on-light"
   let nextButton = <button className={`${nextButtonClassName} disabled`} disabled type="button">Next</button>
 
   if (selectedSubjectAreaIds.length && minimumGradeLevel && maximumGradeLevel) {

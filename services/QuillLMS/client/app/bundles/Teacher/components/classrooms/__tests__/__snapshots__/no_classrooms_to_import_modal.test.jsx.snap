@@ -33,7 +33,7 @@ exports[`NoClassroomsToImportModal component it should render when there are no 
         class="form-buttons"
       >
         <button
-          class="quill-button contained primary medium"
+          class="quill-button-archived contained primary medium"
           type="button"
         >
           Close
@@ -119,7 +119,7 @@ exports[`NoClassroomsToImportModal component it should render when there is an a
         class="form-buttons"
       >
         <button
-          class="quill-button contained primary medium"
+          class="quill-button-archived contained primary medium"
           type="button"
         >
           Close
@@ -201,7 +201,7 @@ exports[`NoClassroomsToImportModal component it should render when there is an u
         class="form-buttons"
       >
         <button
-          class="quill-button contained primary medium"
+          class="quill-button-archived contained primary medium"
           type="button"
         >
           Close
@@ -318,7 +318,7 @@ exports[`NoClassroomsToImportModal component it should render when there is both
         class="form-buttons"
       >
         <button
-          class="quill-button contained primary medium"
+          class="quill-button-archived contained primary medium"
           type="button"
         >
           Close

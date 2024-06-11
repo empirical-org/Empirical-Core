@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -89,7 +88,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     return (
       <div className="box">
         <div className="button-container">
-          <button className="quill-button fun primary contained" onClick={returnToView} type="button">{buttonText}</button>
+          <button className="quill-button-archived fun primary contained" onClick={returnToView} type="button">{buttonText}</button>
         </div>
         <h4 className="title">{addOrEdit} Activity</h4>
         <p className="control">
@@ -121,8 +120,6 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         </p>
         <TextEditor
           aria-labelledby="description-label"
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.onHandleDescriptionChange}
           id="description"
           text={description || ''}

@@ -33,14 +33,14 @@ exports[`ReauthorizeProviderModal component should render ReauthorizeProviderMod
       className="form-buttons"
     >
       <button
-        className="quill-button focus-on-light outlined secondary medium"
+        className="quill-button-archived focus-on-light outlined secondary medium"
         onClick={[Function]}
         type="button"
       >
         Cancel
       </button>
       <AuthGoogleAccessForm
-        buttonClass="quill-button focus-on-light contained primary medium"
+        buttonClass="quill-button-archived focus-on-light contained primary medium"
         text="Reauthorize"
       />
     </div>

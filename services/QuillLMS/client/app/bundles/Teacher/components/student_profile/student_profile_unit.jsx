@@ -40,7 +40,7 @@ const incompleteHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section'
   }, {
-    width: '874px',
+    width: '866px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: onMobile(), // On mobile we don't want a tooltip wrapper since they basically don't work there
@@ -72,7 +72,7 @@ const completeHeaders = [
     headerClassName: 'tool-icon-section',
     rowSectionClassName: 'tool-icon-section tooltip-section'
   }, {
-    width: '440px',
+    width: '432px',
     name: 'Activity',
     attribute: 'name',
     noTooltip: true,
@@ -158,7 +158,7 @@ export default class StudentProfileUnit extends React.Component {
     return (
       <a
         aria-label={`View results for ${name}`}
-        className="quill-button medium focus-on-light secondary outlined"
+        className="quill-button-archived medium focus-on-light secondary outlined"
         href={`/activity_sessions/${activity_session_id}/student_activity_report`}
       >
         View results
@@ -192,7 +192,7 @@ export default class StudentProfileUnit extends React.Component {
         <Tooltip
           tooltipText="Sorry, you can't replay this activity. Your teacher closed this activity pack."
           tooltipTriggerText="Replay"
-          tooltipTriggerTextClass="quill-button disabled medium secondary outlined"
+          tooltipTriggerTextClass="quill-button-archived disabled medium secondary outlined"
         />
       )
     }
@@ -212,7 +212,7 @@ export default class StudentProfileUnit extends React.Component {
       return (
         <button
           aria-label={`${linkText} ${name}`}
-          className={`quill-button medium focus-on-light ${buttonStyle}`}
+          className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
           onClick={onClick}
           type="button"
         >
@@ -224,7 +224,7 @@ export default class StudentProfileUnit extends React.Component {
     return (
       <a
         aria-label={`${linkText} ${name}`}
-        className={`quill-button medium focus-on-light ${buttonStyle}`}
+        className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
         href={activityLaunchLink(classroom_unit_id, activity_id)}
       >
         {linkText}
@@ -389,7 +389,7 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   render() {
-    const { unitName, id, isSelectedUnit, staggeredReleaseStatus, } = this.props
+    const { unitName, id, isSelectedUnit, staggeredReleaseStatus, data, } = this.props
     const className = isSelectedUnit ? `student-profile-unit selected-unit ${staggeredReleaseStatus}` : `student-profile-unit ${staggeredReleaseStatus}`
 
     let activityContent = (
@@ -423,6 +423,9 @@ export default class StudentProfileUnit extends React.Component {
         <div className="unit-name-and-staggered-release-status">
           <h2 className="unit-name">{unitName}</h2>
           {staggeredReleaseElement}
+        </div>
+        <div className="subheader">
+          <h3>{data.complete?.length ? 'Completed activities' : 'To-do activities'}</h3>
         </div>
         {activityContent}
       </div>

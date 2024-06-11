@@ -26,7 +26,7 @@ const RenameModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
     )
   }
 
-  let saveButtonClass = 'quill-button contained primary medium';
+  let saveButtonClass = 'quill-button-archived contained primary medium';
   if (!name.length || unitName === name) {
     saveButtonClass += ' disabled';
   }
@@ -48,7 +48,7 @@ const RenameModal = ({ onSuccess, closeModal, unitId, unitName, }) => {
           value={name}
         />
         <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button-archived outlined secondary medium" onClick={closeModal} type="button">Cancel</button>
           <button className={saveButtonClass} onClick={renameActivityPack} type="button">Save</button>
         </div>
       </div>

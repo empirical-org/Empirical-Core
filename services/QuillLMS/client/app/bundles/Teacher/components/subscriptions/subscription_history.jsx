@@ -100,7 +100,7 @@ export default class SubscriptionHistory extends React.Component {
             tds.push(
               <td key={`${sub.id}-7-row`}>
                 <button
-                  className="quill-button secondary outlined small-button"
+                  className="quill-button-archived secondary outlined small-button"
                   onClick={() => requestPost(href, params, onSuccess, onFailure)}
                 >
                   Turn off auto-renewal

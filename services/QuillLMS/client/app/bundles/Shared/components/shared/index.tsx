@@ -65,6 +65,10 @@ export {
 } from './input'
 
 export {
+  List
+} from './list'
+
+export {
   Passthrough
 } from './passthrough'
 
@@ -83,6 +87,10 @@ export {
 export {
   ScreenreaderInstructions
 } from './screenreaderInstructions'
+
+export {
+  SegmentedControl
+} from './segmentedControl'
 
 export {
   OneThumbSlider,

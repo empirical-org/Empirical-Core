@@ -2,7 +2,7 @@
   .add-and-remove-plagiarism-buttons {
     margin-top: 16px;
     display: flex;
-    .quill-button {
+    .quill-button-archived {
       margin-right: 16px;
     }
   }
@@ -38,7 +38,7 @@
         font-size: 12px;
         font-weight: 600;
       }
-      .quill-button {
+      .quill-button-archived {
         margin-left: 8px;
       }
     }

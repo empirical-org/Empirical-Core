@@ -23,9 +23,9 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe GEval, type: :model do
-        let(:factory) { :evidence_research_gen_ai_g_eval }
+        let(:factory) { described_class.model_name.singular.to_sym }
 
-        it { expect(FactoryBot.build(factory)).to be_valid }
+        it { expect(build(factory)).to be_valid }
 
         it { should validate_presence_of(:task_introduction) }
         it { should validate_presence_of(:evaluation_criteria) }

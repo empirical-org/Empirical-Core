@@ -42,7 +42,7 @@ const AlreadyHasPremiumModal = ({ type, close, }) => (
       </div>
       <p>Please visit the <a className="focus-on-light" href="/subscriptions">My Subscriptions</a> page  to learn more.</p>
       <div className="form-buttons">
-        <button className="quill-button medium contained primary focus-on-light" onClick={close} type="button">OK</button>
+        <button className="quill-button-archived medium contained primary focus-on-light" onClick={close} type="button">OK</button>
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@ const LoginToPurchaseModal = ({ close }) => (
       </div>
       <p>Please <a className="focus-on-light" href="/session/new">log in to your Quill account</a> to purchase Teacher Premium.</p>
       <div className="form-buttons">
-        <button className="quill-button medium contained primary focus-on-light" onClick={close} type="button">OK</button>
+        <button className="quill-button-archived medium contained primary focus-on-light" onClick={close} type="button">OK</button>
       </div>
     </div>
   </div>
@@ -121,13 +121,13 @@ export const PremiumPricingGuide = ({
 
   const teacherBuyNowButton = () => {
     if(!customerEmail) {
-      return <button className="quill-button contained medium primary focus-on-light" onClick={toggleLoginToPurchaseModal} type="button">Buy now</button>
+      return <button className="quill-button-archived contained medium primary focus-on-light" onClick={toggleLoginToPurchaseModal} type="button">Buy now</button>
     } else if (!userIsEligibleForNewSubscription) {
-      return <button className="quill-button contained medium primary focus-on-light" onClick={openAlreadyHasTeacherPremiumModal} type="button">Buy now</button>
+      return <button className="quill-button-archived contained medium primary focus-on-light" onClick={openAlreadyHasTeacherPremiumModal} type="button">Buy now</button>
     }
     return (
       <StripeSubscriptionCheckoutSessionButton
-        buttonClassName="quill-button contained medium primary focus-on-light"
+        buttonClassName="quill-button-archived contained medium primary focus-on-light"
         buttonId="purchase-btn"
         buttonText='Buy now'
         cancelPath='premium'

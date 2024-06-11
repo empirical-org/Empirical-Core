@@ -171,7 +171,7 @@ const SeedDataForm = ({ history, match }) => {
     return (
       <div className="seed-label-form" key={index}>
         <button
-          className='right quill-button fun secondary outlined'
+          className='right quill-button-archived fun secondary outlined'
           id={index}
           onClick={onRemoveLabelConfig}
           value={conjunction}
@@ -188,7 +188,7 @@ const SeedDataForm = ({ history, match }) => {
         </div>
         {labelConfig.examples.map((example, exampleIndex) => renderExample(example, index, conjunction, exampleIndex))}
         <button
-          className='quill-button fun secondary outlined'
+          className='quill-button-archived fun secondary outlined'
           id={index}
           onClick={onAddExample}
           value={conjunction}
@@ -211,7 +211,7 @@ const SeedDataForm = ({ history, match }) => {
         </h4>
         {labelConfigs[conjunction].map((labelConfig, index) => renderLabelConfig(labelConfig, index, conjunction))}
         <button
-          className='quill-button small primary outlined'
+          className='quill-button-archived small primary outlined'
           onClick={onAddLabelConfigs}
           value={conjunction}
         >
@@ -235,7 +235,7 @@ const SeedDataForm = ({ history, match }) => {
         {activity && activity.prompts.map((prompt, i) => <li key={i}>{prompt.text}</li>)}
       </ul>
       <details>
-        <summary className="quill-button fun primary outlined focus-on-light">Toggle Passage</summary>
+        <summary className="quill-button-archived fun primary outlined focus-on-light">Toggle Passage</summary>
         <br />
         <div className="passage">{ReactHtmlParser(activity && activity.passages[0].text)}</div>
       </details>
@@ -262,7 +262,7 @@ const SeedDataForm = ({ history, match }) => {
       </div>
       <br />
       <div className="button-and-id-container">
-        <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
+        <button className="quill-button-archived fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleCreateSeedData} type="submit">
           <span aria-label="robot" role="img">🤖</span>
           <span aria-label="sunflower" role="img">🌻</span>
 

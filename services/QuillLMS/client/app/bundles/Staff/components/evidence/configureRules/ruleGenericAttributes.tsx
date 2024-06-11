@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 
 import { ruleOptimalOptions, ruleTypeOptions, universalRuleTypeOptions } from '../../../../../constants/evidence';
@@ -113,11 +112,8 @@ const RuleGenericAttributes = ({
       {ruleUID && renderIDorUID(ruleUID, 'Rule UID')}
       <p className="form-subsection-label">{noteLabel}</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={onHandleSetRuleNote}
         key="rule-note"
-        shouldCheckSpelling={true}
         text={ruleNote}
       />
     </React.Fragment>

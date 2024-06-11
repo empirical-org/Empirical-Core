@@ -33,7 +33,7 @@ const IntegrationsSection = () => {
           <p>{tile.description}</p>
         </div>
         <div className="link-and-image">
-          <Link className="quill-button focus-on-light outlined secondary medium" to={tile.link}>Learn more</Link>
+          <Link className="quill-button-archived focus-on-light outlined secondary medium" to={tile.link}>Learn more</Link>
           <img alt="" src={tile.icon} />
         </div>
       </div>

@@ -57,6 +57,12 @@ describe Api::V1::LessonsController, type: :controller do
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
+
+    it "should update the feature flags on the related questions" do
+      data = {"foo" => "bar", "flag" => "alpha", "name" => "new name"}
+      expect_any_instance_of(Activity).to receive(:update_questions_flag_status_if_necessary!)
+      put :update, params: { id: activity.uid, lesson: data }, as: :json
+    end
   end
 
   describe "#destroy" do

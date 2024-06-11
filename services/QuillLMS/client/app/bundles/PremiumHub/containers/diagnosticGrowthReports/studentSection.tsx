@@ -301,7 +301,7 @@ export const StudentSection = ({
           <p>Displaying <strong>{`${rowsToShow} of ${totalStudents}`}</strong> students</p>
           {showDownloadLink && <p> • Please <button className="interactive-wrapper" onClick={createCsvReportDownload}>download this report</button> to view more than 500 results.</p>}
         </div>
-        <button className={`quill-button small secondary focus-on-light ${disabledClass}`} disabled={disabled} onClick={loadMoreRows}>Load more</button>
+        <button className={`quill-button-archived small secondary focus-on-light ${disabledClass}`} disabled={disabled} onClick={loadMoreRows}>Load more</button>
       </div>
     )
   }

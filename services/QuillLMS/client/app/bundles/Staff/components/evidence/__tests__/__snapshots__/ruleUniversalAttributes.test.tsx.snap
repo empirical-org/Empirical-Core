@@ -8,11 +8,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     First Layer Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="universal-feedback"
-    shouldCheckSpelling={true}
     text="test universal feedback"
   />
   <section
@@ -53,11 +50,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       }
     />
     <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
       handleTextChange={[Function]}
       key="universal-feedback-highlight"
-      shouldCheckSpelling={true}
       text="prompt highlight"
     />
   </section>
@@ -99,11 +93,8 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       }
     />
     <TextEditor
-      ContentState={[Function]}
-      EditorState={[Function]}
       handleTextChange={[Function]}
       key="universal-feedback-highlight"
-      shouldCheckSpelling={true}
       text="passage highlight"
     />
   </section>
@@ -111,7 +102,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined "
+      className="add-highlight quill-button-archived small primary outlined "
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -120,7 +111,7 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
       Add Highlight
     </button>
     <button
-      className="remove-highlight quill-button small secondary outlined"
+      className="remove-highlight quill-button-archived small secondary outlined"
       onClick={[Function]}
       type="button"
       value="0"
@@ -134,18 +125,15 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     Second Layer Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="universal-feedback"
-    shouldCheckSpelling={true}
     text="test universal feedback"
   />
   <div
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined "
+      className="add-highlight quill-button-archived small primary outlined "
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -158,14 +146,14 @@ exports[`RuleUniversalAttributes component should render RuleUniversalAttributes
     className="button-wrapper"
   >
     <button
-      className="add-feedback-layer quill-button small primary outlined"
+      className="add-feedback-layer quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
     >
       Add Feedback Layer
     </button>
     <button
-      className="remove-highlight quill-button small secondary outlined"
+      className="remove-highlight quill-button-archived small secondary outlined"
       onClick={[Function]}
       type="button"
     >

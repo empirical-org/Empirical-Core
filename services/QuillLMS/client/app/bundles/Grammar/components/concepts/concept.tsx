@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -133,8 +132,6 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
             <h6 className="control subtitle">Create a new question</h6>
             <label className="label">Prompt</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handlePromptChange}
             />
             <label className="label">Instructions for student</label>
@@ -145,8 +142,6 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
             <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
             <p className="control">
               <TextEditor
-                ContentState={ContentState}
-                EditorState={EditorState}
                 handleTextChange={this.handleRuleDescriptionChange}
               />
             </p>

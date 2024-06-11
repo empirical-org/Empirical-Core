@@ -196,7 +196,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
                 value={referralLink}
               />
               <CopyToClipboard onCopy={this.handleCopyLink} text={referralLink}>
-                <button className="quill-button secondary outlined small" type="button">Copy link</button>
+                <button className="quill-button-archived secondary outlined small" type="button">Copy link</button>
               </CopyToClipboard>
             </div>
             <p className="share-text">More ways to share: </p>
@@ -243,9 +243,9 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   render() {
     const { showNextOptions, } = this.state
-    let button = <button className="quill-button medium contained primary" onClick={this.handleClickToDashboard} type="button">Take me to my dashboard</button>
+    let button = <button className="quill-button-archived medium contained primary" onClick={this.handleClickToDashboard} type="button">Take me to my dashboard</button>
     if (!(showNextOptions || this.allAssignedClassroomsAreEmpty())) {
-      button = <button className="quill-button medium contained primary" onClick={this.handleClickNext} type="button">Next</button>
+      button = <button className="quill-button-archived medium contained primary" onClick={this.handleClickNext} type="button">Next</button>
     }
     return (
       <div>

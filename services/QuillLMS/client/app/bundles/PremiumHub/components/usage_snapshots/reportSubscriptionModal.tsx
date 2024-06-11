@@ -91,14 +91,14 @@ const ReportSubscriptionModal = ({ cancel, currentPdfSubscription, isOpen, save 
     return (
       <div className="save-and-cancel-buttons">
         <button
-          className="quill-button medium secondary outlined focus-on-light"
+          className="quill-button-archived medium secondary outlined focus-on-light"
           onClick={cancel}
           type="button"
         >
           Cancel
         </button>
         <button
-          className="quill-button medium primary contained focus-on-light"
+          className="quill-button-archived medium primary contained focus-on-light"
           onClick={handleSaveClick}
           type="button"
         >

@@ -539,7 +539,6 @@ EmpiricalGrammar::Application.routes.draw do
           put :update_all, on: :collection
         end
         member do
-          put 'update_flag'
           put 'update_model_concept'
         end
       end

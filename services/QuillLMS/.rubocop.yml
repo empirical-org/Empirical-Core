@@ -96,6 +96,12 @@ Rails/TimeZone:
   Exclude:
     - spec/models/firebase_app_spec.rb
 
+Rails/HttpStatus:
+  Enabled: false
+
+RSpec/Rails/HttpStatus:
+  Enabled: false
+
 Style/ClassEqualityComparison:
   Enabled: true
   Exclude:

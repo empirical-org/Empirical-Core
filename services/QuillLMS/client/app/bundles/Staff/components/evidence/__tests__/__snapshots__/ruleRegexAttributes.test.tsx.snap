@@ -8,18 +8,15 @@ exports[`RuleRegexAttributes component should render RuleRegexAttributes 1`] = `
     Feedback
   </p>
   <TextEditor
-    ContentState={[Function]}
-    EditorState={[Function]}
     handleTextChange={[Function]}
     key="regex-feedback"
-    shouldCheckSpelling={true}
     text="test regex feedback"
   />
   <div
     className="button-wrapper"
   >
     <button
-      className="add-highlight quill-button small primary outlined"
+      className="add-highlight quill-button-archived small primary outlined"
       onClick={[Function]}
       type="button"
       value="0"

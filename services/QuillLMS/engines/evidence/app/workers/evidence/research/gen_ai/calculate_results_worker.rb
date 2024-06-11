@@ -8,14 +8,14 @@ module Evidence
 
         sidekiq_options retry: 3, queue: 'gen_ai_eval'
 
-        def perform(experiment_id)
+        def perform(trial_id)
           start_time = Time.zone.now
 
           return if ENV.fetch('STOP_ALL_GEN_AI_EXPERIMENTS', 'false') == 'true'
 
-          experiment = Experiment.find(experiment_id)
-          experiment.update_results(ResultsFetcher.run(experiment))
-          experiment&.update!(evaluation_duration: Time.zone.now - start_time)
+          trial = Trial.find(trial_id)
+          trial.update_results(ResultsFetcher.run(trial))
+          trial&.update!(evaluation_duration: Time.zone.now - start_time)
         end
       end
     end

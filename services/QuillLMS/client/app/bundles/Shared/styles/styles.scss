@@ -1,6 +1,7 @@
 @import '../../../../../app/assets/stylesheets/variables.scss';
 @import './banner.scss';
 @import './button.scss';
+@import './button-archived.scss';
 @import './spinner.scss';
 @import './input.scss';
 @import './cards.scss';
@@ -30,6 +31,7 @@
 @import './internal_tool';
 @import "react-select-search/style.css";
 @import './helpful_tips.scss';
+@import './segmented-control.scss';
 
 #main-content {
   outline: none;

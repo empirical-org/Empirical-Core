@@ -1,0 +1,128 @@
+<%= link_to 'Trials', research_gen_ai_trials_path, class: 'new-link' %>
+<h1>Trial Runner</h1>
+
+<%= form_for @trial, html: { id: 'new_trial_form' } do |f| %>
+  <%= render 'errors', object: @trial %>
+
+  <div id="llms-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">LLM:</label>
+      <%= link_to 'new', new_research_gen_ai_llm_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+
+    <%= check_box_tag 'select_all_llm', '', false, id: 'select_all_llm', class: 'check-all' %> Select all
+    <br/>
+
+    <% @llms.each do |llm| %>
+      <div class="llm-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_trial[llm_ids][]', llm.id, false, id: dom_id(llm), class: 'llm-checkbox' %>
+        <%= label_tag dom_id(llm), llm.to_s %><br/>
+        <%= link_to 'view', llm, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="llm-prompt-templates-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">LLM Prompt Template:</label>
+      <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+
+    <%= check_box_tag 'select_all_llm_prompt_template', '', false, id: 'select_all_llm_prompt_template', class: 'check-all' %> Select all
+    <br/>
+
+    <% @llm_prompt_templates.each do |llm_prompt_template| %>
+      <div class="llm-prompt-template-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_trial[llm_prompt_template_ids][]', llm_prompt_template.id, false, id: dom_id(llm_prompt_template), class: 'llm-prompt-template-checkbox' %>
+        <%= label_tag dom_id(llm_prompt_template), llm_prompt_template.to_s %><br/>
+        <%= link_to 'view', llm_prompt_template, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="activity-prompt-configs-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">Activity Prompt Config:</label>
+      <%= link_to 'new', new_research_gen_ai_activity_prompt_config_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+
+    <%= check_box_tag 'select_all_activity_prompt_config', '', false, id: 'select_all_activity_prompt_config', class: 'check-all' %> Select all
+    <br/>
+
+    <% @activity_prompt_configs.each do |activity_prompt_config| %>
+      <div class="activity-prompt-config-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_trial[activity_prompt_config_ids][]', activity_prompt_config.id, false, id: dom_id(activity_prompt_config), class: 'activity-prompt-config-checkbox' %>
+        <%= label_tag dom_id(activity_prompt_config), activity_prompt_config.to_s %>
+        <%= link_to 'view', activity_prompt_config, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="g-evals-container" class="field-spacing">
+    <div style="display: flex; align-items: baseline;">
+      <label style="margin-right: 10px;">G-Eval:</label>
+      <%= link_to 'new', new_research_gen_ai_auto_chain_of_thought_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    </div>
+
+    <%= check_box_tag 'select_all_g_eval', '', false, id: 'select_all_g_eval', class: 'check-all' %> Select all
+    <br/>
+
+    <% @g_evals.each do |g_eval| %>
+      <div class="g-eval-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_trial[g_eval_ids][]', g_eval.id, false, id: dom_id(g_eval), class: 'g-eval-checkbox' %>
+        <%= label_tag dom_id(g_eval), g_eval.to_s %>
+        <%= link_to 'view', g_eval, class: 'new-link', style: 'margin-left: 10px;' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.number_field :num_examples, min: 1, value: nil, class: 'number-input', required: false, style: "width: 75px;" %>
+    <%= f.label :num_examples, "# of examples (leave blank for all):" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "run" %>
+  </div>
+<% end %>
+
+<%= link_to 'Trials', research_gen_ai_trials_path, class: 'new-link' %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.check-all').forEach(checkAllBox => {
+      checkAllBox.addEventListener('change', function() {
+        const classSelector = '.' + this.id.replace('select_all_', '').replace(/_/g, '-') + '-checkbox';
+
+        console.log(classSelector);
+        let checkboxes = document.querySelectorAll(classSelector);
+        checkboxes.forEach(checkbox => { checkbox.checked = this.checked; })
+      });
+    });
+  });
+
+  document.getElementById('new_trial_form').onsubmit = function(event) {
+    const containers = [
+      {selector: '#llms-container', name: 'LLM'},
+      {selector: '#llm-prompt-templates-container', name: 'LLM Prompt Template'},
+      {selector: '#activity-prompt-configs-container', name: 'Activity Prompt Config'},
+      {selector: '#g-evals-container', name: 'G-Eval'}
+    ];
+
+    const messages = [];
+
+    containers.forEach(container => {
+      const isChecked = Array.from(document.querySelectorAll(container.selector + ' input[type="checkbox"]')).some(el => el.checked);
+      console.log(container.selector, isChecked);
+      if (!isChecked) { messages.push(`- Please select at least one ${container.name}.`); }
+    });
+
+    if (messages.length > 0) {
+      alert(`Please correct the following errors:\n${messages.join('\n')}`);
+      event.preventDefault();
+      return false;
+    }
+
+    return true;
+  };
+</script>

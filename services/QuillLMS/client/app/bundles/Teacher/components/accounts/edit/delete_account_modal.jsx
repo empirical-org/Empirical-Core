@@ -14,7 +14,7 @@ export default class DeleteAccountModal extends React.Component {
 
   submitClass() {
     const { checkboxOne, checkboxTwo, checkboxThree, } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!(checkboxOne && checkboxTwo && checkboxThree)) {
       buttonClass += ' disabled';
     }
@@ -66,7 +66,7 @@ export default class DeleteAccountModal extends React.Component {
           </p>
           {this.renderCheckboxes()}
           <div className="button-section">
-            <div className="quill-button outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
+            <div className="quill-button-archived outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
             <input className={this.submitClass()} name="commit" onClick={deleteAccount} type="submit" value="Delete account" />
           </div>
         </div>

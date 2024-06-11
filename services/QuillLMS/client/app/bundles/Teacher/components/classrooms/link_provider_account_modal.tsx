@@ -18,7 +18,7 @@ const LinkProviderAccountModal = ({ link, close, provider, user }: LinkProviderA
 
   const renderLinkAccountButton = () => {
     const buttonText = 'Link Account'
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
 
     if (termsAccepted) {
       if (provider === 'Google') { return <AuthGoogleAccessForm buttonClass={buttonClass} offlineAccess={true} showIcon={false} text={buttonText} /> }
@@ -66,7 +66,7 @@ const LinkProviderAccountModal = ({ link, close, provider, user }: LinkProviderA
         {renderCheckboxes()}
         <div className="form-buttons">
           <button
-            className="quill-button outlined secondary medium"
+            className="quill-button-archived outlined secondary medium"
             onClick={close}
             type="button"
           >

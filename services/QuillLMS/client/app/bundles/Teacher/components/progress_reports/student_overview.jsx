@@ -143,7 +143,7 @@ export default class extends React.Component {
         newRow['Average Score'] = countAndAverage.average;
         csvReportData.push(newRow);
       });
-      downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport className="quill-button focus-on-light small primary contained" data={csvReportData} preserveCasing={true} />;
+      downloadReportOrLoadingIndicator = <CSVDownloadForProgressReport className="quill-button-archived focus-on-light small primary contained" data={csvReportData} preserveCasing={true} />;
     } else {
       downloadReportOrLoadingIndicator = <LoadingSpinner />;
     }

@@ -124,7 +124,7 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
   return(
     <div className="rule-form-container">
       <div className="close-button-container">
-        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
+        <button className="quill-button-archived fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
       </div>
       <form className="rule-form">
         <RuleGenericAttributes
@@ -183,10 +183,10 @@ const RuleForm = ({ activityData, activityId, closeModal, isUniversal, requestEr
         />
         <div className="submit-button-container">
           {showErrorsContainer && renderErrorsContainer(formErrorsPresent, requestErrors)}
-          <button className="quill-button fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
+          <button className="quill-button-archived fun primary contained" id="activity-submit-button" onClick={onHandleSubmitRule} type="button">
             Submit
           </button>
-          <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="submit">
+          <button className="quill-button-archived fun primary contained" id="activity-cancel-button" onClick={closeModal} type="submit">
             Cancel
           </button>
         </div>

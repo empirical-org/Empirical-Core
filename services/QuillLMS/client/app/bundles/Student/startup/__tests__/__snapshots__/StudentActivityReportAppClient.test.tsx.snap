@@ -12,7 +12,7 @@ exports[`StudentActivityReportApp renders as expected when showExactScore is tru
         class="container"
       >
         <a
-          class="quill-button secondary outlined medium focus-on-light"
+          class="quill-button-archived secondary outlined medium focus-on-light"
           href="/classrooms/1582402"
         >
           <img

@@ -109,7 +109,7 @@ const NewTopicBox = ({ levelNumber, levelThreeTopics, levelTwoTopics, createNewT
     if (name.length && hasParentIfLevelTwo) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Save"
         />

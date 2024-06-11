@@ -22,14 +22,6 @@ class QuestionApi {
     return requestPut(`${questionApiBaseUrl}/${uid}.json`, {question: data}, null, (error) => {throw(error)});
   }
 
-  static updateFlag(uid: string, flag: string): Promise<Question> {
-    return requestPut(`${questionApiBaseUrl}/${uid}/update_flag.json`, {
-      question: {
-        flag: flag
-      }
-    }, null, (error) => {throw(error)});
-  }
-
   static updateModelConcept(uid: string, modelConceptUid: string): Promise<Question> {
     return requestPut(`${questionApiBaseUrl}/${uid}/update_model_concept.json`, {
       question: {

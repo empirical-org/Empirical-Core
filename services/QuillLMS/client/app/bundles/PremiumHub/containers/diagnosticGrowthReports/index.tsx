@@ -245,7 +245,7 @@ export const DiagnosticGrowthReportsContainer = ({
           </a>
         </h1>
         <div className="header-buttons">
-          <button className="quill-button download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
+          <button className="quill-button-archived download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
             {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
             <span>Download</span>
           </button>

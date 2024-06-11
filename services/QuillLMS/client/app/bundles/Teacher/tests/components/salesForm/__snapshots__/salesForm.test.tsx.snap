@@ -417,7 +417,7 @@ exports[`SalesForm Component should match snapshot 1`] = `
         </TextArea>
       </LowerFormFields>
       <button
-        className="submit-button quill-button contained primary medium focus-on-light"
+        className="submit-button quill-button-archived contained primary medium focus-on-light"
         onClick={[Function]}
       >
         Submit

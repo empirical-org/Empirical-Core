@@ -11,7 +11,7 @@ exports[`Checkboxes it should render 1`] = `
       Checkboxes
     </h2>
     <div
-      class="states-and-modes-container"
+      class="variations-container"
     >
       <h4
         class="style-guide-h4"

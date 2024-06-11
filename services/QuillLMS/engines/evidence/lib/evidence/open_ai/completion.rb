@@ -7,11 +7,11 @@ module Evidence
 
       ENDPOINT = '/chat/completions'
 
-      attr_reader :prompt, :llm_config
+      attr_reader :prompt, :llm
 
-      def initialize(prompt:, llm_config:)
+      def initialize(prompt:, llm:)
         @prompt = prompt
-        @llm_config = llm_config
+        @llm = llm
       end
 
       def endpoint = ENDPOINT
@@ -25,11 +25,11 @@ module Evidence
 
       def request_body
         {
-          model: llm_config.version,
+          model: llm.version,
           messages: [
             { role: 'user', content: prompt }
           ],
-        }.merge(llm_config.request_body_customizations)
+        }.merge(llm.request_body_customizations)
       end
     end
   end

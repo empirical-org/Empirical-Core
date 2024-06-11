@@ -238,12 +238,12 @@ class ELLSentenceCombining extends React.Component {
     const buttonText = language ? translate('buttons^submit') : 'Submit';
 
     if((previewMode && latestAttempt) || !responses) {
-      return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+      return <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
     if (question.attempts && question.attempts.length > 0) {
-      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>;
+      return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>;
     } else {
-      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>;
+      return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>;
     }
   }
 

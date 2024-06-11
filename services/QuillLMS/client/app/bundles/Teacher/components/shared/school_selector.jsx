@@ -115,7 +115,7 @@ const SchoolSelector = ({ selectSchool, showDismissSchoolSelectionReminderCheckb
             value={unlistedSchoolZipcode}
           />
           <div className="form-buttons">
-            <button className="quill-button primary contained medium focus-on-light" onClick={submitSchoolNotListedInformation} type="button">Done</button>
+            <button className="quill-button-archived primary contained medium focus-on-light" onClick={submitSchoolNotListedInformation} type="button">Done</button>
           </div>
         </div>
       </div>

@@ -467,7 +467,7 @@ export function getCSVData(sessionsCSVData) {
 }
 
 export function renderCSVDownloadButton(handleLoadCSVDataClick) {
-  return <button className="quill-button fun primary contained csv-download-button" onClick={handleLoadCSVDataClick}>Email Me CSV Data</button>
+  return <button className="quill-button-archived fun primary contained csv-download-button" onClick={handleLoadCSVDataClick}>Email Me CSV Data</button>
 }
 
 

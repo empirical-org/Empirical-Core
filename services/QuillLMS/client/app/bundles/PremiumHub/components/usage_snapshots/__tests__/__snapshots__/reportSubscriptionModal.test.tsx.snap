@@ -152,13 +152,13 @@ exports[`<ReportSubscriptionModal /> matches the component snapshot 1`] = `
           class="save-and-cancel-buttons"
         >
           <button
-            class="quill-button medium secondary outlined focus-on-light"
+            class="quill-button-archived medium secondary outlined focus-on-light"
             type="button"
           >
             Cancel
           </button>
           <button
-            class="quill-button medium primary contained focus-on-light"
+            class="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Save

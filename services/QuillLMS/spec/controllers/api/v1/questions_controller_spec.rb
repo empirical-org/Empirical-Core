@@ -16,6 +16,16 @@ describe Api::V1::QuestionsController, type: :controller do
       expect(JSON.parse(response.body).keys.length).to eq(1)
       expect(JSON.parse(response.body).keys.first).to eq(question.uid)
     end
+
+    context 'invalid arguments' do
+      it 'should return early without exception on nil question_type' do
+        get :index, as: :json
+        expect(JSON.parse(response.body)).to eq(
+          {"error"=>"Bad Request", "message"=>"question_type is a required param"}
+        )
+        expect(response.status).to eq 400
+      end
+    end
   end
 
   describe "#show" do
@@ -66,21 +76,6 @@ describe Api::V1::QuestionsController, type: :controller do
 
     it "should return a 404 if the requested Question is not found" do
       get :update, params: { id: 'doesnotexist' }, as: :json
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
-  describe "#update_flag" do
-    it "should update the flag attribute in the data" do
-      new_flag = 'newflag'
-      put :update_flag, params: { id: question.uid, question: { flag: new_flag } }, as: :json
-      question.reload
-      expect(question.data["flag"]).to eq(new_flag)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      put :update_flag, params: { id: 'doesnotexist', question: { flag: nil } }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end

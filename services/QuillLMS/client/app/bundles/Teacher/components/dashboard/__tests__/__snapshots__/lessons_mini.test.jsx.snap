@@ -792,7 +792,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -875,7 +875,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -958,7 +958,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -1093,7 +1093,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -1176,7 +1176,7 @@ exports[`LessonsMini component not on mobile should render when there are lesson
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >

@@ -13,17 +13,17 @@ module Evidence
 
         def run = JSON.parse(g_eval_output)[g_eval.metric]
 
-        private def g_eval_output = llm_config.completion(prompt:).strip
+        private def g_eval_output = llm.completion(prompt:).strip
 
-        private def llm_config = LLMConfig.g_eval
+        private def llm = LLM.g_eval
 
         private def g_eval = @g_eval ||= GEval.find(g_eval_id)
 
-        private def student_response = llm_feedback.passage_prompt_response.response
+        private def student_response = llm_feedback.student_response.text
 
-        private def passage_prompt = llm_feedback.passage_prompt_response.passage_prompt.prompt
+        private def stem = llm_feedback.student_response.activity_prompt_config.stem
 
-        private def ideal_feedback = llm_feedback.example_feedback.text
+        private def ideal_feedback = llm_feedback.quill_feedback.text
 
         private def prompt
           "
@@ -37,7 +37,7 @@ module Evidence
           #{g_eval.evaluation_steps}
 
           Example:
-          Passage Prompt: #{passage_prompt}
+          Stem: #{stem}
           Student Response: #{student_response}
           LLM Feedback: #{llm_feedback.text}
           Ideal Feedback: #{ideal_feedback}

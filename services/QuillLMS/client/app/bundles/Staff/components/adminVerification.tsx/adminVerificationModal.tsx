@@ -9,8 +9,8 @@ const AdminVerificationModal = ({ confirmFunction, headerText, bodyText, closeMo
         <p>{bodyText}</p>
       </div>
       <div className="button-section">
-        <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
-        <button className="quill-button medium primary contained focus-on-light" onClick={confirmFunction} type="button">Confirm</button>
+        <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
+        <button className="quill-button-archived medium primary contained focus-on-light" onClick={confirmFunction} type="button">Confirm</button>
       </div>
     </div>
   </div>

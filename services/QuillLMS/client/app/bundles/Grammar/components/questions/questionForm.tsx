@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js'
 import * as React from 'react'
 
 import { FlagDropdown, TextEditor, } from '../../../Shared/index'
@@ -81,8 +80,6 @@ export default class QuestionForm extends React.Component {
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handlePromptChange}
             text={prompt || ""}
           />
@@ -109,8 +106,6 @@ export default class QuestionForm extends React.Component {
           <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
           <p className="control">
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={this.handleRuleDescriptionChange}
               text={rule_description}
             />

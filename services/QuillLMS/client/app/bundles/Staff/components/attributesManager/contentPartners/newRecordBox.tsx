@@ -62,7 +62,7 @@ const NewRecordBox = ({ createNewContentPartner, closeRecordBox, }: NewRecordBox
     if (name.length) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Save"
         />

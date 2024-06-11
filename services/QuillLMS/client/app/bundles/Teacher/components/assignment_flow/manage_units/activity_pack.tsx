@@ -171,7 +171,7 @@ const ActivityPack = ({
               </button>
             </p>
             <div className="individual-classroom-info small-screen">{individualClassroomInfo}</div>
-            {isOwner && <a className="quill-button secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
+            {isOwner && <a className="quill-button-archived secondary outlined medium focus-on-light" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/students/edit`}>Add/remove students assigned</a>}
           </div>
         </div>
         <div className="individual-classroom-info big-screen">{individualClassroomInfo}</div>
@@ -183,7 +183,7 @@ const ActivityPack = ({
         isOwner={isOwner}
         onSuccess={onSuccess}
       />
-      {isOwner && <a className="quill-button secondary medium focus-on-light outlined add-activities-button" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/activities/edit/${encodeURIComponent(data.unitName)}`}>Add activities</a>}
+      {isOwner && <a className="quill-button-archived secondary medium focus-on-light outlined add-activities-button" href={`/teachers/classrooms/activity_planner/units/${data.unitId}/activities/edit/${encodeURIComponent(data.unitName)}`}>Add activities</a>}
     </section>
   )
 }

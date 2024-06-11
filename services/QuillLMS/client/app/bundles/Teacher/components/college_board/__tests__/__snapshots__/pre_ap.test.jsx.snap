@@ -232,7 +232,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               Free Pre-AP® English writing practice aligned to the Pre-AP English High School Course Framework for the English 1 and English 2 courses with immediate feedback for students and progress reports for you.
             </p>
             <a
-              className="quill-button large primary contained focus-on-light"
+              className="quill-button-archived large primary contained focus-on-light"
               href="https://www.quill.org/account/new"
               rel="noopener noreferrer"
               target="_blank"
@@ -305,7 +305,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/194"
               rel="noopener noreferrer"
               target="_blank"
@@ -360,7 +360,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/195"
               rel="noopener noreferrer"
               target="_blank"
@@ -412,7 +412,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/154"
               rel="noopener noreferrer"
               target="_blank"
@@ -462,7 +462,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/299"
               rel="noopener noreferrer"
               target="_blank"
@@ -512,7 +512,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/activities/packs/300"
               rel="noopener noreferrer"
               target="_blank"
@@ -812,7 +812,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/216"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -862,7 +862,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/218"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -894,7 +894,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/219"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -926,7 +926,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/220"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -976,7 +976,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/221"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1131,7 +1131,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/222"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1163,7 +1163,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/223"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1213,7 +1213,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/224"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1245,7 +1245,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/225"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1295,7 +1295,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/226"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1450,7 +1450,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/227"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1482,7 +1482,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/228"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1532,7 +1532,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/229"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1564,7 +1564,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/230"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1614,7 +1614,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/231"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1769,7 +1769,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/232"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1801,7 +1801,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/233"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1851,7 +1851,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/234"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1883,7 +1883,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/235"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -1933,7 +1933,7 @@ exports[`PreAp component should render when it is not part of the assignment flo
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/activities/packs/236"
                             rel="noopener noreferrer"
                             target="_blank"
@@ -3087,7 +3087,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3142,7 +3142,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3194,7 +3194,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3244,7 +3244,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3294,7 +3294,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -3595,7 +3595,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The First Day” by Edward P. Jones
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/216?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3645,7 +3645,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “What Happened During the Ice Storm” by Jim Heynen
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/218?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3677,7 +3677,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Red Fox Fur Coat” by Teolinda Gersão
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/219?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3709,7 +3709,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Lamb to the Slaughter” by Roald Dahl
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/220?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3759,7 +3759,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “An Occurrence at Owl Creek Bridge” by Ambrose Bierce
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/221?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3915,7 +3915,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Lottery” by Rasma Haidri
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/222?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3947,7 +3947,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Fight” by John Montague
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/223?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -3997,7 +3997,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Tamara’s Opus” by Joshua Bennett
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/224?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4029,7 +4029,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Hamilton Mixtape” by Lin-Manuel Miranda
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/225?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4079,7 +4079,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from Romeo and Juliet by William Shakespeare
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/226?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4235,7 +4235,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Work You Do, the Person You Are” by Toni Morrison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/227?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4267,7 +4267,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/228?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4317,7 +4317,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “What to Do with the Kids This Summer? Put ’Em to Work” by Ben Sasse
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/229?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4349,7 +4349,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “The Decline of the American Teenager’s Summer Job” by Lexington
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/230?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4399,7 +4399,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: “Teenagers Have Stopped Getting Summer Jobs—Why?” by Derek Thompson
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/231?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4555,7 +4555,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from 1984 by George Orwell
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/232?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4587,7 +4587,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from The Night Circus by Erin Morgenstern
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/233?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4637,7 +4637,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from Out of My Mind by Sharon M. Draper
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/234?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4669,7 +4669,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from All the Light We Cannot See by Anthony Doerr
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/235?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -4719,7 +4719,7 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
                             Sentence Combining: Excerpt from The Girl Who Fell from the Sky by Heidi W. Durrow
                           </a>
                           <a
-                            className="quill-button medium primary outlined focus-on-light"
+                            className="quill-button-archived medium primary outlined focus-on-light"
                             href="/assign/featured-activity-packs/236?college-board=pre-ap"
                             rel="noopener noreferrer"
                             target=""
@@ -5682,7 +5682,7 @@ exports[`PreAp component should render with no units 1`] = `
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/194?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5737,7 +5737,7 @@ exports[`PreAp component should render with no units 1`] = `
               </div>
             </div>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/195?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5789,7 +5789,7 @@ exports[`PreAp component should render with no units 1`] = `
               ELL Starter Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/154?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5839,7 +5839,7 @@ exports[`PreAp component should render with no units 1`] = `
               ELL Intermediate Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/299?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""
@@ -5889,7 +5889,7 @@ exports[`PreAp component should render with no units 1`] = `
               ELL Advanced Skills Survey
             </p>
             <a
-              className="quill-button medium primary outlined view-button focus-on-light"
+              className="quill-button-archived medium primary outlined view-button focus-on-light"
               href="/assign/featured-activity-packs/300?college-board=pre-ap"
               rel="noopener noreferrer"
               target=""

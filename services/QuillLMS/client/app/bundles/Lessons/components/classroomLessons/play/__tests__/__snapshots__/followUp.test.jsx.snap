@@ -19,7 +19,7 @@ exports[`FollowUp component when followUpOption is NO_PRACTICE renders 1`] = `
         You have completed the lesson!
       </h1>
       <a
-        className="quill-button large outlined secondary focus-on-dark"
+        className="quill-button-archived large outlined secondary focus-on-dark"
         href="undefined"
       >
         Exit lesson
@@ -51,7 +51,7 @@ exports[`FollowUp component when followUpOption is PRACTICE_LATER renders 1`] = 
         Your teacher has assigned some practice for later. You'll see it on your dashboard when you exit this lesson.
       </h2>
       <a
-        className="quill-button large outlined secondary focus-on-dark"
+        className="quill-button-archived large outlined secondary focus-on-dark"
         href="undefined"
       >
         Exit lesson
@@ -83,7 +83,7 @@ exports[`FollowUp component when followUpOption is PRACTICE_NOW renders 1`] = `
         Now it's time to practice what you learned.
       </h2>
       <a
-        className="quill-button large outlined secondary focus-on-dark"
+        className="quill-button-archived large outlined secondary focus-on-dark"
         href=""
       >
         Begin
@@ -143,7 +143,7 @@ exports[`FollowUp component when followUpOption is SMALL_GROUP_AND_INDEPENDENT w
         Now it's time to practice what you learned.
       </h2>
       <a
-        className="quill-button large outlined secondary focus-on-dark"
+        className="quill-button-archived large outlined secondary focus-on-dark"
         href=""
       >
         Begin
