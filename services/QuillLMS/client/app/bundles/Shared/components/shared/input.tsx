@@ -27,7 +27,7 @@ interface InputState {
 const MOUSEDOWN = 'mousedown'
 const ENTER = 'Enter'
 const TAB = 'Tab'
-const CLEAR_BUTTON_SRC = 'https://assets.quill.org/images/icons/xs/clear-enabled.svg'
+const CLEAR_BUTTON_SRC = 'https://assets.quill.org/images/icons/xs/clear-enabled-black.svg'
 
 export class Input extends React.Component<InputProps, InputState> {
   // disabling the react/sort-comp rule for the following lines because as of 2/5/20, the linter incorrectly insists that static and private instance variables be placed under the constructor, when in fact doing so causes errors in compilation
