@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module LearnWorldsIntegration
-  class SyncOrchestratorWorker
+  class SuspendUserWorker
     include Sidekiq::Worker
-
-    def perform = SyncOrchestrator.run
   end
+
+  def perform; end
 end

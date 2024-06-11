@@ -2,6 +2,8 @@
 
 module LearnWorldsIntegration
   class Request < ::ApplicationService
+    class UnexpectedApiResponse < StandardError; end
+
     def run = raise NotImplementedError
 
     def headers
