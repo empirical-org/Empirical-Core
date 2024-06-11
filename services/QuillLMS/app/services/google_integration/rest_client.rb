@@ -56,7 +56,7 @@ module GoogleIntegration
       api
         .list_courses(student_id: ME, course_states: [ACTIVE_STATE, ARCHIVED_STATE])
         &.courses
-        &.select { |course_data| course_data.owner_id != user_external_id } || []
+        &.reject { |course_data| course_data.owner_id == user_external_id } || []
     end
 
     private def teacher_courses_data

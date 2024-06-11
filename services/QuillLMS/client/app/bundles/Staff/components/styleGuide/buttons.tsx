@@ -22,8 +22,9 @@ const Buttons = () => {
               <div className="option-container">
                 <p className="option-label">{label}</p>
                 <div className="quill-button-container">
-                  <button className={`quill-button focus-on-light contained ${value}`}>{BUTTON}</button>
+                  <button className={`quill-button focus-on-light ${value} contained`}>{BUTTON}</button>
                 </div>
+                <p className="option-label">{`quill-button ${value} contained`}</p>
               </div>
             )
           })}
@@ -42,6 +43,7 @@ const Buttons = () => {
                   <button className={`quill-button focus-on-light small outlined ${style}`} disabled={state === DISABLED}>{BUTTON}</button>
                   <button className={`quill-button focus-on-light small outlined grey ${style}`} disabled={state === DISABLED}>{BUTTON}</button>
                 </div>
+                {state === DISABLED && <p className="option-label">{`quill-button small contained ${style}`}</p>}
               </div>
             )
           })}
@@ -60,6 +62,7 @@ const Buttons = () => {
                 {BUTTON}
               </button>
             </div>
+            <p className="option-label">quill-button small contained icon</p>
           </div>
           <div className="option-container">
             <p className="option-label">Without Icon</p>
@@ -78,6 +81,7 @@ const Buttons = () => {
                 <button className={`quill-button focus-on-light small contained ${color}`}>{BUTTON}</button>
               ))}
             </div>
+            <p className="option-label">{'quill-button small contained {color}'}</p>
           </div>
           <div className="option-container">
             <p className="option-label">Outlined</p>
@@ -86,6 +90,7 @@ const Buttons = () => {
                 <button className={`quill-button focus-on-light small outlined ${color}`}>{BUTTON}</button>
               ))}
             </div>
+            <p className="option-label">{'quill-button small outlined {color}'}</p>
           </div>
         </div>
         <h4 className="style-guide-h4">Colors</h4>
@@ -99,6 +104,7 @@ const Buttons = () => {
                   <button className={`quill-button focus-on-light small contained ${color}`}>{BUTTON}</button>
                   <button className={`quill-button focus-on-light small contained hover ${color}`}>{BUTTON}</button>
                 </div>
+                <p className="option-label">{`quill-button small contained ${color}`}</p>
               </div>
             )
           })}

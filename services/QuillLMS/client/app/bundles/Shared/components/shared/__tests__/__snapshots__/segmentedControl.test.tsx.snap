@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentedControl it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="segmented-control-container"
+  >
+    <button
+      class="interactive-wrapper segmented-control-button small left active"
+      value="Option One"
+    >
+      <span>
+        Option One
+      </span>
+    </button>
+    <button
+      class="interactive-wrapper segmented-control-button small "
+      value="Option Two"
+    >
+      <span>
+        Option Two
+      </span>
+    </button>
+    <button
+      class="interactive-wrapper segmented-control-button small right "
+      value="Option Three"
+    >
+      <span>
+        Option Three
+      </span>
+    </button>
+  </div>
+</DocumentFragment>
+`;
