@@ -27,15 +27,15 @@ describe Cms::ActivityCategoriesController, type: :controller do
     end
 
     it 'should not include archived activities in the activity id array' do
-      # archived_activity = create(:activity, flag: :archived)
-      # unarchived_activity = create(:activity, flag: :production)
-      # archived_activity_category = create(:activity_category_activity, activity: archived_activity, activity_category: category1)
-      # unarchived_activity_category = create(:activity_category_activity, activity: unarchived_activity, activity_category: category1)
+      archived_activity = create(:activity, flag: :archived)
+      unarchived_activity = create(:activity, flag: :production)
+      archived_activity_category = create(:activity_category_activity, activity: archived_activity, activity_category: category1)
+      unarchived_activity_category = create(:activity_category_activity, activity: unarchived_activity, activity_category: category1)
 
-      # get :index
+      get :index
 
-      # expect(assigns(:activity_categories)[0]["activity_ids"]).to include(unarchived_activity.id)
-      # expect(assigns(:activity_categories)[0]["activity_ids"]).not_to include(archived_activity.id)
+      expect(assigns(:activity_categories)[0]["activity_ids"]).to include(unarchived_activity.id)
+      expect(assigns(:activity_categories)[0]["activity_ids"]).not_to include(archived_activity.id)
     end
   end
 
