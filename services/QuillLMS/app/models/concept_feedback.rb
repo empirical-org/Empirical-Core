@@ -29,12 +29,38 @@ class ConceptFeedback < ApplicationRecord
   validates :activity_type, presence: true, inclusion: {in: TYPES}
   validate :data_must_be_hash
 
+  has_many :translation_mappings, as: :source
+
   after_commit :clear_concept_feedbacks_cache
 
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
   def as_json(options=nil)
     data
+  end
+
+  def queue_translation
+    return unless translation_mappings.empty?
+
+    english = matching_english_text
+    return create_english_text_and_return_payload unless english.present?
+
+    translation_mappings.create(english_text: english)
+    nil
+  end
+
+  private def create_english_text_and_return_payload
+    english = EnglishText.create(text: desc)
+    translation_mappings.create(english_text: english)
+    english.gengo_payload
+  end
+
+  private def matching_english_text
+    EnglishText.find_by(text: desc)
+  end
+
+  private def desc
+    data["description"]
   end
 
   private def data_must_be_hash
@@ -45,4 +71,3 @@ class ConceptFeedback < ApplicationRecord
     $redis.del(cache_key)
   end
 end
-
