@@ -28,7 +28,7 @@ const ExploreDemoAction = ({setShowDemoModal}) => (
 const HandyActions = ({ linkedToClever, setShowDemoModal}) => {
   return(
     <section className="handy-actions">
-      <h2>Handy actions</h2>
+      <h2>Handy Actions</h2>
       <HandyAction icon={searchMapIcon} link="/assign/activity-library" text="Explore activity library" />
       <HandyAction icon={clipboardCheckIcon} link="/assign/diagnostic" text="Assign a diagnostic" />
       <HandyAction icon={tableCheckIcon} link="/teachers/classrooms/scorebook" text="View activity summary report" />

@@ -13,7 +13,7 @@ const headers = [
     name: 'Student',
     attribute: 'studentName',
   }, {
-    width: '296px',
+    width: '284px',
     name: 'Activity',
     attribute: 'activityName',
   }, {
@@ -90,24 +90,20 @@ const ActivityFeed = ({ onMobile, activityFeed, }) => {
     return (
       <section className="activity-feed empty">
         <img alt="Document with a bulleted list illustration" src={listIllustrationSrc} />
-        <h2>Activity feed</h2>
+        <h2>Activity Feed</h2>
         <p>Once your students complete activities, you’ll be able to see them here.</p>
       </section>
     )
-  }
-
-  let bottomButton
-  if (activityFeed.length > INITIAL_MAX) {
-    bottomButton = showAll ? <a className="bottom-button focus-on-light interactive-wrapper" href="/teachers/classrooms/scorebook">See all activities</a> : <button className="bottom-button focus-on-light interactive-wrapper" onClick={handleShowMoreClick} type="button">Show more <img alt={expandIcon.alt} src={expandIcon.src} /></button>
   }
 
   const dataDisplay = onMobile ? rows.map(r => <MobileActivityRow key={r.id} row={r} />) : <DataTable headers={headers} rows={rows} />
 
   return (
     <section className="activity-feed populated">
-      <h2>Activity feed</h2>
+      <header>
+        <h2>Activity Feed</h2>
+      </header>
       {dataDisplay}
-      {bottomButton}
     </section>
   )
 
