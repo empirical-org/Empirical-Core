@@ -1,18 +1,30 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 
-import ConceptSelector from './conceptSelector.jsx';
+import ConceptSelector from './conceptSelector';
 
-import { ConceptExplanation } from '../../../Shared/index';
+import  {ConceptExplanation, } from '../feedback/conceptExplanation'
 
-class ConceptSelectorWithCheckbox extends React.Component {
+interface ConceptSelectorWithCheckboxProps {
+  handleSelectorChange: Function;
+  currentConceptUID: string;
+  selectorDisabled: boolean;
+  checked: boolean;
+  onCheckboxChange: Function;
+  deleteConceptResult: Function;
+  conceptsFeedback: any;
+  concepts: any;
+}
 
-  currentConcept () {
+class ConceptSelectorWithCheckbox extends React.Component<ConceptSelectorWithCheckboxProps, {}> {
+
+  currentConcept = () => {
     const { concepts, currentConceptUID } = this.props
+    if (!concepts.data["0"]) { return }
     return concepts.data["0"].find(concept => concept.uid === currentConceptUID)
   }
 
-  renderConceptFeedback() {
+  renderConceptFeedback = () => {
     const { currentConceptUID, conceptsFeedback } = this.props
     if (currentConceptUID && currentConceptUID.length > 0 && this.currentConcept()) {
       return (<ConceptExplanation {...conceptsFeedback.data[currentConceptUID]} />)
@@ -35,13 +47,12 @@ class ConceptSelectorWithCheckbox extends React.Component {
             <h3><input aria-label="Correct?" checked={checked} onClick={onCheckboxChange} type="checkbox" /> Correct?</h3>
           </label>
 
-          <button className="interactive-wrapper focus-on-light" onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor:'pointer'}} type="button">X</button>
+          <button className="interactive-wrapper focus-on-light" onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor: 'pointer'}} type="button">X</button>
         </div>
         {this.renderConceptFeedback()}
       </div>
-    );
+    )
   }
-
 }
 
 function select(props) {

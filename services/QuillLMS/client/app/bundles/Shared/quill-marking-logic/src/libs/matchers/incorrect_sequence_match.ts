@@ -4,11 +4,11 @@ import {stringNormalize} from 'quill-string-normalizer'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
+import { generateRegexMatchList, } from '../generateRegexMatchList'
 
 export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string, caseInsensitive:boolean):boolean {
-  const matchList = incorrectSequenceParticle.split('&&');
   const flags = caseInsensitive ? 'i' : ''
-  return matchList.every(m => new RegExp(m, flags).test(responseString));
+  return generateRegexMatchList(incorrectSequenceParticle).every(m => new RegExp(m, flags).test(responseString));
 }
 
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { ConceptExplanation } from '../../../Shared/index';
-import ConceptSelector from '../shared/conceptSelector.jsx';
+import { ConceptExplanation, ConceptSelector, } from '../../../Shared/index';
 
 export interface ChooseModelProps {
   children?: any,

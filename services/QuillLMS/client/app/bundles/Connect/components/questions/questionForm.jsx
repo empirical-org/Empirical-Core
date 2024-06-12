@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   FlagDropdown,
-  TextEditor
+  TextEditor,
+  ConceptSelector,
 } from '../../../Shared/index';
 import C from '../../constants.js';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 
 export default class extends React.Component {
   state = {

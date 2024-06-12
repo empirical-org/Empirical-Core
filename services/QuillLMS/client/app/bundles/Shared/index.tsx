@@ -100,9 +100,17 @@ export {
 } from './components/titleCards/index'
 
 export {
+  ConceptSelector,
+  ConceptSelectorWithCheckbox,
+  IncorrectSequencesInputAndConceptSelectorForm,
+  FocusPointsInputAndConceptSelectorForm,
+} from './components/internalTools/index'
+
+export {
   hashToCollection,
   isValidRegex,
   isValidAndNotEmptyRegex,
+  isValidFocusPointOrIncorrectSequence,
   momentFormatConstants,
   copyToClipboard,
   getLatestAttempt,

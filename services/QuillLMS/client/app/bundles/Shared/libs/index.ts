@@ -1,5 +1,9 @@
 export { hashToCollection } from './hashToCollection'
-export { isValidRegex, isValidAndNotEmptyRegex } from './isValidRegex'
+export {
+  isValidRegex,
+  isValidAndNotEmptyRegex,
+  isValidFocusPointOrIncorrectSequence,
+} from './isValidRegex'
 export { momentFormatConstants } from './momentFormatConstants'
 export { copyToClipboard } from './copyToClipboard'
 export { getLatestAttempt } from './getLatestAttempt'

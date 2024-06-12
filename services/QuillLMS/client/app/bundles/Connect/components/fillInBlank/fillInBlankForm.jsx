@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { FlagDropdown, TextEditor } from '../../../Shared/index';
+import { FlagDropdown, TextEditor, ConceptSelector, } from '../../../Shared/index';
 import C from '../../constants.js';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 
 class FillInBlankForm extends Component {
   constructor(props) {
