@@ -61,6 +61,7 @@ value={inputTwo}
 handleCancel={() => handleClearInput(INPUT_TWO)}
 handleChange={(e) => {changeSavedValues('inputTwo', e)}}
 helperText="Helper text"
+showPlaceholderWhenInactive={true}
 placeholder="Placeholder"
 />`}
             </pre>
@@ -70,6 +71,7 @@ placeholder="Placeholder"
               helperText="Helper text"
               label="Label"
               placeholder="Placeholder"
+              showPlaceholderWhenInactive={true}
               value={inputTwo}
             />
           </div>

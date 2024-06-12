@@ -62,6 +62,7 @@ value={inputTwo}
 handleCancel={() =&gt; handleClearInput(INPUT_TWO)}
 handleChange={(e) =&gt; {changeSavedValues('inputTwo', e)}}
 helperText="Helper text"
+showPlaceholderWhenInactive={true}
 placeholder="Placeholder"
 /&gt;
           </pre>
@@ -76,6 +77,7 @@ placeholder="Placeholder"
             <input
               autocomplete="on"
               maxlength="10000"
+              placeholder="Placeholder"
               value=""
             />
             <span
