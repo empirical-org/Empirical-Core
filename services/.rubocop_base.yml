@@ -30,6 +30,7 @@ FactoryBot/AttributeDefinedStatically:
 
 FactoryBot/CreateList:
   Enabled: true
+  AutoCorrect: true
 
 FactoryBot/FactoryClassName:
   Enabled: true
