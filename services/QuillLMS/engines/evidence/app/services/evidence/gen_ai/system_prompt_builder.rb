@@ -4,14 +4,14 @@ module Evidence
   module GenAI
     class SystemPromptBuilder < ApplicationService
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
-      DEFAULT_TEMPLATE = '2024_06_03_optimal_and_feedback.md'
+      DEFAULT_TEMPLATE = '2024_06_07_more_examples.md'
 
       attr_reader :prompt, :history, :template_file
 
-      def initialize(prompt:, history: [], template_file: DEFAULT_TEMPLATE)
+      def initialize(prompt:, history: [], template_file: nil)
         @prompt = prompt
         @history = history
-        @template_file = template_file
+        @template_file = template_file || DEFAULT_TEMPLATE
       end
 
       def run = template % template_variables
@@ -43,8 +43,8 @@ module Evidence
       private def optimal_examples = optimal_examples_raw.map {|e| "- #{e}"}.join("\n")
       private def optimal_examples_raw
         [
-          example_one,
-          example_two,
+          # example_one,
+          # example_two,
           prompt.optimal_samples
         ].flatten.uniq
       end

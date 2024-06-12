@@ -1,0 +1,65 @@
+# frozen_string_literal: true
+
+require_relative '../../config/environment'
+
+class GenAITasks < Thor
+  # user_id 9874030 is a test user
+  # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
+  desc "optimal_test 'because'", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def optimal_test(conjunction, limit = 10, template_file = nil)
+
+    optimal_count = 0
+    total = 0
+    suboptimals = []
+
+    all_live_prompts(conjunction, limit).each do |prompt|
+      system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
+
+      [prompt.first_strong_example, prompt.second_strong_example].each do |entry|
+        response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+
+        total += 1
+        if response[KEY_OPTIMAL]
+          print '.'
+          optimal_count += 1
+        else
+          print 'F'
+          suboptimals.append([prompt, entry, response[KEY_FEEDBACK]])
+        end
+      end
+    end
+
+    print_results(optimal_count, total, suboptimals)
+  end
+
+  # put helper methods in this block
+  no_commands do
+    KEY_OPTIMAL = 'optimal'
+    KEY_FEEDBACK = 'feedback'
+
+    private def live_activity_ids
+      Activity.evidence_live_flags.evidence.pluck(:id)
+    end
+
+    private def all_live_prompts(conjunction, limit = 10)
+      Evidence::Prompt
+        .parent_activity_ids(live_activity_ids)
+        .conjunction(conjunction)
+        .limit(limit)
+    end
+
+    private def print_results(optimal_count, total, suboptimals)
+      puts '---------------'
+      puts "Correct Optimal Percentage: #{((optimal_count.to_f / total.to_f) * 100).round(2)}"
+      puts "Optimal Correct: #{optimal_count}"
+      puts "Total: #{total}"
+      puts '---------------'
+      puts 'Suboptimals'
+      suboptimals.each do |suboptimal|
+        prompt, entry, feedback = suboptimal
+        puts "Prompt: #{prompt.id}, Entry: #{entry}, Feedback: #{feedback}"
+      end
+      puts '---------------'
+    end
+  end
+end
