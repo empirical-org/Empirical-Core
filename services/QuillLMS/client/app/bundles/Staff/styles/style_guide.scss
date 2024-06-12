@@ -341,26 +341,44 @@
   .display-2xl {
     @include display-2xl;
   }
+  .display-2xl-semibold {
+    @include display-2xl-semibold;
+  }
   .display-xl {
     @include display-xl;
+  }
+  .display-xl-semibold {
+    @include display-xl-semibold;
   }
   .display-l {
     @include display-l;
   }
-  .display-l-alt {
-    @include display-l-alt;
+  .display-l-semibold {
+    @include display-l-semibold;
   }
   .display-m {
     @include display-m;
   }
+  .display-m-semibold {
+    @include display-m-semibold;
+  }
   .display-s {
     @include display-s;
+  }
+  .display-s-semibold {
+    @include display-s-semibold;
   }
   .display-xs {
     @include display-xs;
   }
+  .display-xs-semibold {
+    @include display-xs-semibold;
+  }
   .display-2xs {
     @include display-2xs;
+  }
+  .display-2xs-semibold {
+    @include display-2xs-semibold;
   }
   .text-2xl {
     @include text-2xl;
@@ -394,12 +412,13 @@
     margin: 16px 0px 20px;
     span {
       display: inline-block;
+      white-space: nowrap;
     }
     div {
       margin-bottom: 4px;
     }
     div span:first-of-type {
-      width: 250px;
+      width: 350px;
     }
   }
 }
