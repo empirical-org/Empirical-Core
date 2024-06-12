@@ -11,6 +11,7 @@ module LearnWorldsIntegration
     def fetch_page(page_number)
       response = HTTParty.get("#{endpoint}&page=#{page_number}", headers:)
       raise UnexpectedApiResponse unless response&.response&.message == "OK"
+
       response
     end
 
