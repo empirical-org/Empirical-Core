@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module LearnWorldsIntegration
-  class UserRequest < ::ApplicationService
+  class Request < ::ApplicationService
+    class UnexpectedApiResponse < StandardError; end
+
     def run = raise NotImplementedError
 
     def headers
