@@ -20,7 +20,7 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           Edit Canvas Integration
         </h2>
         <div
-          class="input-container  inactive has-text undefined "
+          class="input-container  inactive has-text undefined  "
           role="button"
           tabindex="-1"
         >
@@ -38,7 +38,7 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           />
         </div>
         <div
-          class="input-container  inactive has-text undefined "
+          class="input-container  inactive has-text undefined  "
           role="button"
           tabindex="-1"
         >
@@ -55,7 +55,7 @@ exports[`CanvasIntegrationModal it should render when there is an existing integ
           />
         </div>
         <div
-          class="input-container  inactive has-text undefined "
+          class="input-container  inactive has-text undefined  "
           role="button"
           tabindex="-1"
         >
@@ -200,7 +200,7 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           New Canvas Integration
         </h2>
         <div
-          class="input-container  inactive  undefined "
+          class="input-container  inactive  undefined  "
           role="button"
           tabindex="-1"
         >
@@ -218,7 +218,7 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           />
         </div>
         <div
-          class="input-container  inactive  undefined "
+          class="input-container  inactive  undefined  "
           role="button"
           tabindex="-1"
         >
@@ -235,7 +235,7 @@ exports[`CanvasIntegrationModal it should render when there is not an existing i
           />
         </div>
         <div
-          class="input-container  inactive  undefined "
+          class="input-container  inactive  undefined  "
           role="button"
           tabindex="-1"
         >

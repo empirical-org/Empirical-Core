@@ -200,8 +200,18 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   font-size: 32px;
 }
 
+@mixin display-2xl-semibold {
+  font-weight: semibold;
+  font-size: 32px;
+}
+
 @mixin display-xl {
   font-weight: bold;
+  font-size: 24px;
+}
+
+@mixin display-xl-semibold {
+  font-weight: semibold;
   font-size: 24px;
 }
 
@@ -210,7 +220,7 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   font-size: 20px;
 }
 
-@mixin display-l-alt {
+@mixin display-l-semibold {
   font-weight: semibold;
   font-size: 20px;
 }
@@ -220,8 +230,18 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   font-size: 18px;
 }
 
+@mixin display-m-semibold {
+  font-weight: semibold;
+  font-size: 18px;
+}
+
 @mixin display-s {
   font-weight: bold;
+  font-size: 16px;
+}
+
+@mixin display-s-semibold {
+  font-weight: semibold;
   font-size: 16px;
 }
 
@@ -230,8 +250,18 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   font-size: 13px;
 }
 
+@mixin display-xs-semibold {
+  font-weight: semibold;
+  font-size: 13px;
+}
+
 @mixin display-2xs {
   font-weight: bold;
+  font-size: 12px;
+}
+
+@mixin display-2xs-semibold {
+  font-weight: semibold;
   font-size: 12px;
 }
 

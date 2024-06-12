@@ -11,7 +11,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       Edit Canvas Integration
     </h2>
     <div
-      class="input-container  inactive has-text undefined "
+      class="input-container  inactive has-text undefined  "
       role="button"
       tabindex="-1"
     >
@@ -29,7 +29,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       />
     </div>
     <div
-      class="input-container  inactive has-text undefined "
+      class="input-container  inactive has-text undefined  "
       role="button"
       tabindex="-1"
     >
@@ -46,7 +46,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       />
     </div>
     <div
-      class="input-container  inactive has-text undefined "
+      class="input-container  inactive has-text undefined  "
       role="button"
       tabindex="-1"
     >
@@ -180,7 +180,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       New Canvas Integration
     </h2>
     <div
-      class="input-container  inactive  undefined "
+      class="input-container  inactive  undefined  "
       role="button"
       tabindex="-1"
     >
@@ -198,7 +198,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       />
     </div>
     <div
-      class="input-container  inactive  undefined "
+      class="input-container  inactive  undefined  "
       role="button"
       tabindex="-1"
     >
@@ -215,7 +215,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       />
     </div>
     <div
-      class="input-container  inactive  undefined "
+      class="input-container  inactive  undefined  "
       role="button"
       tabindex="-1"
     >
