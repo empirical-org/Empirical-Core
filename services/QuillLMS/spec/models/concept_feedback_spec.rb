@@ -173,7 +173,4 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  describe "#translate!" do
-
-  end
 end

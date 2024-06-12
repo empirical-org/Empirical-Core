@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: english_texts
@@ -17,7 +19,6 @@ class EnglishText < ApplicationRecord
 
   def self.translate!(jobs_list:)
     resp = GengoAPI.postTranslationJobs(jobs: create_payload(jobs_list:))
-    puts resp
     sleep(5) # Until we make a worker (fast follower)
     save_translated_text!(order_id: resp.dig("response", "order_id")) # FIXME: Make a worker for this, currently doesn't return anything because it's too soon
   end
@@ -46,7 +47,7 @@ class EnglishText < ApplicationRecord
 
   private_class_method def self.create_payload(jobs_list:)
     jobs_list.reduce({}) do |hash, job|
-      hash.merge({"#{job[:slug]}" => job })
+      hash.merge({(job[:slug]).to_s => job })
     end
   end
 
