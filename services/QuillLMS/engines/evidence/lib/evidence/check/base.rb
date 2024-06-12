@@ -3,12 +3,13 @@
 module Evidence
   class Check::Base
 
-    attr_reader :entry, :prompt, :previous_feedback, :error, :response
+    attr_reader :entry, :prompt, :previous_feedback, :session_uid, :error, :response
 
-    def initialize(entry, prompt, previous_feedback)
+    def initialize(entry, prompt, previous_feedback, session_uid = nil)
       @entry = entry
       @prompt = prompt
       @previous_feedback = previous_feedback
+      @session_uid = session_uid
     end
 
     # run method of subclass should populate @response with the API response
@@ -17,8 +18,8 @@ module Evidence
       raise NotImplementedError
     end
 
-    def self.run(entry, prompt, previous_feedback)
-      new(entry, prompt, previous_feedback).tap do |check|
+    def self.run(entry, prompt, previous_feedback, session_uid = nil)
+      new(entry, prompt, previous_feedback, session_uid).tap do |check|
         begin
           check.run
         rescue => e
@@ -36,9 +37,7 @@ module Evidence
       response.stringify_keys['optimal']
     end
 
-    def auto_ml?
-      false
-    end
+    def use_for_optimal_feedback? = false
 
     def success?
       error.nil?

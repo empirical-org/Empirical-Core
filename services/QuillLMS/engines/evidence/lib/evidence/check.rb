@@ -22,28 +22,28 @@ module Evidence
       optimal: true,
     }
 
-    def self.get_feedback(entry, prompt, previous_feedback, feedback_types=nil)
+    def self.get_feedback(entry, prompt, previous_feedback, session_uid=nil, feedback_types=nil)
       normalized_entry = StringNormalizer.new(entry).run
 
-      triggered_check = find_triggered_check(normalized_entry, prompt, previous_feedback, feedback_types)
+      triggered_check = find_triggered_check(normalized_entry, prompt, previous_feedback, session_uid, feedback_types)
 
       triggered_check || fallback_feedback
     end
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
-    def self.find_triggered_check(entry, prompt, previous_feedback, feedback_types=nil)
-      auto_ml_check = nil
+    def self.find_triggered_check(entry, prompt, previous_feedback, session_uid=nil, feedback_types=nil)
+      optimal_feedback_check = nil
 
       checks_to_run(feedback_types).reduce(nil) do |response, check_to_run|
-        check = check_to_run.run(entry, prompt, previous_feedback)
+        check = check_to_run.run(entry, prompt, previous_feedback, session_uid)
 
         next response unless check.success?
 
         break check&.response unless check.optimal?
 
-        auto_ml_check = check&.response if check.auto_ml?
+        optimal_feedback_check = check&.response if check.use_for_optimal_feedback?
 
-        auto_ml_check
+        optimal_feedback_check
       end
     rescue => e
       Evidence.error_notifier.report(e)
