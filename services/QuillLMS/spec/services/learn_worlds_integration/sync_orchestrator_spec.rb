@@ -48,6 +48,24 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
     end
   end
 
+  describe '#run' do
+    let(:orchestrator) { LearnWorldsIntegration::SyncOrchestrator.new }
+
+    it 'should call enqueue_jobs with correct args' do
+      user_relation1 = double('UserRelation', external_id: 1)
+      allow(user_relation1).to receive(:user).and_return(double('User', learn_worlds_access?: false))
+
+      allow(orchestrator).to receive(:users_to_suspend).and_return []
+      allow(orchestrator).to receive(:users_to_suspend).and_return []
+      allow(orchestrator).to receive(:userwise_subject_areas_relation).and_return [user_relation1]
+
+      allow(LearnWorldsIntegration::SyncUserTagsWorker).to receive(:perform_in)
+      expect(LearnWorldsIntegration::SyncOrchestrator).to receive(:marshal)
+
+      orchestrator.run
+    end
+  end
+
   describe '#enqueue_jobs' do
     let(:mock_worker) { double }
     let(:mock_user) { double }

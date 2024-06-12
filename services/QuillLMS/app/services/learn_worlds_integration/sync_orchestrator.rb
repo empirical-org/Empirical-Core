@@ -18,7 +18,7 @@ module LearnWorldsIntegration
     def run
       enqueue_jobs(users_to_unsuspend, UnsuspendUserWorker) {|u| [u.external_id]}
       enqueue_jobs(users_to_suspend, SuspendUserWorker) {|u| [u.external_id]}
-      enqueue_jobs(userwise_subject_areas_relation, SyncUserTagsWorker) {|u| marshal(u) }
+      enqueue_jobs(userwise_subject_areas_relation, SyncUserTagsWorker) {|u| SyncOrchestrator.marshal(u) }
     end
 
     def users_to_suspend
