@@ -99,6 +99,10 @@
     padding-left: 0px;
   }
 
+  input::placeholder {
+    color: $quill-grey-20;
+  }
+
   textarea, textarea:focus {
     resize: none;
     height: 75px;
@@ -117,6 +121,7 @@
     @include display-xs;
     color: $quill-green;
     display: flex;
+    margin-bottom: 4px;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
@@ -307,7 +312,6 @@
         @include display-xs;
         color: $quill-grey-90;
         display: flex;
-        margin-bottom: 5px;
       }
     }
     &:not(.has-text) {
