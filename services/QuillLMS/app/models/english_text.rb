@@ -17,21 +17,25 @@ class EnglishText < ApplicationRecord
 
   def self.translate!(jobs_list:)
     resp = GengoAPI.postTranslationJobs(jobs: create_payload(jobs_list:))
-    save_translated_text!(order_id: resp.dig("response", "order_id")) # FIXME: Make a worker for this
+    puts resp
+    sleep(5) # Until we make a worker (fast follower)
+    save_translated_text!(order_id: resp.dig("response", "order_id")) # FIXME: Make a worker for this, currently doesn't return anything because it's too soon
   end
 
   def self.save_translated_text!(order_id:)
-    response = GengoAPI.getTranslationJobs(order_id:)
+    response = GengoAPI.getTranslationJobs({order_id:})
     response&.dig("response")&.each do |job|
-      create_translated_text_for_job_id!(job_id: job["job_id"])
+      create_translated_text!(job_id: job["job_id"])
     end
   end
 
-  def self.create_translated_text_for_job_id!(job_id:)
-    response = GengoAPI.getTranslationJob(job_id:)
+  def self.create_translated_text!(job_id:)
+    response = GengoAPI.getTranslationJob({id: job_id})
     return unless response
 
     job = response.dig("response", "job")
+    return if ["deleted", "canceled"].include? job["status"]
+
     TranslatedText.create(
       english_text_id: job["slug"],
       translation_job_id: job["job_id"],
@@ -46,24 +50,18 @@ class EnglishText < ApplicationRecord
     end
   end
 
-  def gengo_payload(excluded_tags: [])
+  def gengo_payload
     {
       type: "text",
-      body_src: clean_src(excluded_tags),
+      body_src: text,
       lc_src: "en",
       lc_tgt: "es-la",
       tier: "standard",
       slug: id,
       group: true,
+      auto_approve: true,
       comment: STANDARD_COMMENT
     }
   end
 
-  private def clean_src(excluded_tags)
-    clean = text
-    excluded_tags.each do |tag|
-      clean.gsub!(%r{<#{tag}>(.*?)</#{tag}>}, "<#{tag}>[[[\\1]]]</#{tag}>")
-    end
-    clean
-  end
 end

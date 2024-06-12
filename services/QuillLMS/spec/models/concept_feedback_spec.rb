@@ -63,14 +63,14 @@ RSpec.describe ConceptFeedback, type: :model do
     let!(:concept_feedback) { create(:concept_feedback) }
 
     context 'after update' do
-      it 'calls redis cache delete on concept feedback with activity type' do
+      it 'calls redis cache delete on concept concept_feedback with activity type' do
         expect($redis).to receive(:del).with(concept_feedback.cache_key)
         concept_feedback.update(data: {test: 'test'})
       end
     end
 
     context 'after create' do
-      it 'calls redis cache delete on concept feedback with activity type' do
+      it 'calls redis cache delete on concept concept_feedback with activity type' do
         activity_type = "grammar"
         expect($redis).to receive(:del).with("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}")
         ConceptFeedback.create(activity_type: activity_type, data: {test: 'test'}, uid: SecureRandom.uuid)
@@ -78,77 +78,64 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  # describe '#translation_mapping' do
-  #   context 'there is a mapping' do
-  #     let(:english_text) { create(:english_text) }
-  #     let(:feedback) { create(:concept_feedback) }
-  #     let!(:mapping) { create(:translation_mapping, english_text: english_text, source: feedback)}
-  #     it 'returns the mapping' do
-
-  #     end
-  #   end
-  # end
-
   describe '#queue_translation' do
-    context 'has a description in the data field' do
-      let(:feedback) {create(:concept_feedback)}
+    subject {concept_feedback.queue_translation}
 
+    context 'has a description in the data field' do
       context 'a translation mapping exists for the description' do
         let(:english_text) {create(:english_text)}
-        let!(:mapping) { create(:translation_mapping, english_text: english_text, source: feedback, source_key: "description")}
+        let!(:mapping) { create(:translation_mapping, english_text: english_text, source: concept_feedback, source_key: "description")}
 
         it 'does not create a translation mapping' do
-          expect(feedback.translation_mappings).to include(mapping)
+          expect(concept_feedback.translation_mappings).to include(mapping)
           expect {
-            feedback.queue_translation
-          }.not_to change{TranslationMapping.count}
+            subject
+          }.not_to change(TranslationMapping, :count)
         end
 
         it 'does not create an english text' do
-          expect(feedback.translation_mappings).to include(mapping)
-          expect {
-            feedback.queue_translation
-          }.not_to change{EnglishText.count}
+          expect(concept_feedback.translation_mappings).to include(mapping)
+          expect { subject }.not_to change(EnglishText, :count)
         end
 
         it 'returns nil' do
-          expect(feedback.translation_mappings).to include(mapping)
-          expect(feedback.queue_translation).to be_nil
+          expect(concept_feedback.translation_mappings).to include(mapping)
+          expect(subject).to be_nil
         end
       end
 
       context 'a translation mapping does not exist for the description' do
         context 'an english text already exists for the description' do
-          let!(:english_text) {create(:english_text, text: feedback.data['description'])}
+          let!(:english_text) {create(:english_text, text: concept_feedback.data['description'])}
 
           it 'creates a mapping between the english text and the concept_feedback' do
-            expect(feedback.translation_mappings).to be_empty
-            feedback.queue_translation
-            mapping = feedback.translation_mappings.first
+            expect(concept_feedback.translation_mappings).to be_empty
+            subject
+            mapping = concept_feedback.translation_mappings.first
             expect(mapping&.english_text).to eq(english_text)
           end
 
           it 'returns nil' do
-            expect(feedback.queue_translation).to be_nil
+            expect(subject).to be_nil
           end
         end
 
         context 'an english text does not yet exist for the description' do
           it 'makes an english text for the description' do
-            expect(EnglishText.find_by(text: feedback.data["description"])).to be_nil
-            feedback.queue_translation
-            expect(EnglishText.find_by(text: feedback.data["description"])).to be_present
+            expect(EnglishText.find_by(text: concept_feedback.data["description"])).to be_nil
+            subject
+            expect(EnglishText.find_by(text: concept_feedback.data["description"])).to be_present
           end
 
-          it 'makes a translation mapping between the english text and the concept feedback' do
-            expect(feedback.translation_mappings).to be_empty
-            feedback.queue_translation
-            expect(feedback.translation_mappings).to be_present
+          it 'makes a translation mapping between the english text and the concept concept_feedback' do
+            expect(concept_feedback.translation_mappings).to be_empty
+            subject
+            expect(concept_feedback.translation_mappings).to be_present
           end
 
           it 'returns the gengo payload for the english text' do
-            resp = feedback.queue_translation
-            english = EnglishText.find_by(text: feedback.data["description"])
+            resp = subject
+            english = EnglishText.find_by(text: concept_feedback.data["description"])
             expect(resp).to eq(english.gengo_payload)
           end
 
@@ -157,13 +144,36 @@ RSpec.describe ConceptFeedback, type: :model do
     end
 
     context 'no description in the data field' do
-      it 'does not create an english_text' do
+      before do
+        concept_feedback.update_attribute(:data, {})
+      end
 
+      it 'does not create an english_text' do
+        expect { subject }.not_to change(EnglishText, :count)
       end
 
       it 'returns nil' do
-
+        expect(subject).to be_nil
       end
     end
+  end
+
+  describe "#fetch_translation!" do
+    context "there is a translated_text associated" do
+      let(:t1) { create(:translated_text)}
+      let(:t2) { create(:translated_text)}
+
+      it "calls fetch_translation! on each of the translated_text" do
+        allow(concept_feedback).to receive(:translated_texts)
+        .and_return([t1, t2])
+        expect(t1).to receive(:fetch_translation!)
+        expect(t2).to receive(:fetch_translation!)
+        concept_feedback.fetch_translation!
+      end
+    end
+  end
+
+  describe "#translate!" do
+
   end
 end

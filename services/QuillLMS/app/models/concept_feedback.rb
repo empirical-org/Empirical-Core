@@ -30,6 +30,8 @@ class ConceptFeedback < ApplicationRecord
   validate :data_must_be_hash
 
   has_many :translation_mappings, as: :source
+  has_many :english_texts, through: :translation_mappings
+  has_many :translated_texts, through: :english_texts
 
   after_commit :clear_concept_feedbacks_cache
 
@@ -40,6 +42,7 @@ class ConceptFeedback < ApplicationRecord
   end
 
   def queue_translation
+    return if data["description"].nil?
     return unless translation_mappings.empty?
 
     english = matching_english_text
@@ -47,6 +50,10 @@ class ConceptFeedback < ApplicationRecord
 
     translation_mappings.create(english_text: english)
     nil
+  end
+
+  def fetch_translation!
+    translated_texts.each(&:fetch_translation!)
   end
 
   private def create_english_text_and_return_payload

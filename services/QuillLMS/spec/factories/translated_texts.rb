@@ -11,7 +11,9 @@
 #  translation_job_id :string           not null
 #
 FactoryBot.define do
-  factory :translated_texts do
-
+  factory :translated_text do
+    locale { "es-la" }
+    english_text_id { 1 }
+    translation_job_id { 33 }
   end
 end
