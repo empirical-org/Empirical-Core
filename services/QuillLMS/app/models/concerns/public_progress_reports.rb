@@ -68,7 +68,7 @@ module PublicProgressReports
       curr_quest[:total] += 1
       curr_quest[:prompt] ||= answer.concept_result_prompt&.text
       curr_quest[:question_number] ||= answer.question_number
-      curr_quest[:question_uid] ||= answer.extra_metadata['question_uid']
+      curr_quest[:question_uid] ||= answer.extra_metadata && answer.extra_metadata['question_uid']
       if answer.attempt_number == 1 || !curr_quest[:instructions]
         direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ""
         curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
