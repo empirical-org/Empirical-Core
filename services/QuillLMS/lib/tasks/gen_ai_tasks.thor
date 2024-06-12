@@ -3,9 +3,9 @@
 require_relative '../../config/environment'
 
 class GenAITasks < Thor
-  # user_id 9874030 is a test user
-  # e.g. bundle exec thor queries:generate_snapshot_sqls 9874030
-  desc "optimal_test 'because'", 'Run to see if examplar optimals are labeled optimal by the prompt'
+
+  # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
+  desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
   def optimal_test(conjunction, limit = 10, template_file = nil)
 
     optimal_count = 0
@@ -32,6 +32,17 @@ class GenAITasks < Thor
     print_results(optimal_count, total, suboptimals)
   end
 
+  desc "prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
+  def prompt_entry(prompt_id, entry, template_file: nil)
+    prompt = Evidence::Prompt.find(prompt_id)
+    system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
+
+    puts system_prompt
+    print_line
+    print_line
+    puts Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
@@ -48,18 +59,24 @@ class GenAITasks < Thor
         .limit(limit)
     end
 
-    private def print_results(optimal_count, total, suboptimals)
+    private def print_line
       puts '---------------'
+    end
+
+    private def print_results(optimal_count, total, suboptimals)
+      print_line
       puts "Correct Optimal Percentage: #{((optimal_count.to_f / total.to_f) * 100).round(2)}"
       puts "Optimal Correct: #{optimal_count}"
       puts "Total: #{total}"
-      puts '---------------'
+      print_line
       puts 'Suboptimals'
       suboptimals.each do |suboptimal|
         prompt, entry, feedback = suboptimal
         puts "Prompt: #{prompt.id}, Entry: #{entry}, Feedback: #{feedback}"
+        print_line
+        puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt.id} '#{entry}'"
+        print_line
       end
-      puts '---------------'
     end
   end
 end

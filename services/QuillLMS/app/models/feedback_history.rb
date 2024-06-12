@@ -104,7 +104,7 @@ class FeedbackHistory < ApplicationRecord
     !new_record?
   end
 
-  def self.optimal_sample(prompt_id:,confidence_limit: 0.75, limit: 20)
+  def self.optimal_sample(prompt_id:, confidence_limit: 0.99, limit: 20)
     optimal
       .select('DISTINCT(entry)')
       .autoML
