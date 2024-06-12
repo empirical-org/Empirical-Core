@@ -511,10 +511,8 @@ class PagesController < ApplicationController
 
   private def determine_layout
     case action_name
-    when 'home'
-      'home'
     when 'home', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
-      'twenty_seventeen_home'
+      'home'
     when ApplicationController::EVIDENCE, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
       'activity'
     end
