@@ -38,7 +38,7 @@ export const ArticleSpotlight = ({ blogPostId } : ArticleSpotlightProps ) => {
           <ReactMarkdown className="preview-card" source={footer_content} />
           <section className="footer-section">
             {blogPostAuthor && <p className="author">{`By ${blogPostAuthor}`}</p>}
-            <a className="quill-button contained primary fun" href={`${teacherCenterBaseUrl}/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
+            <a className="quill-button-archived contained primary fun" href={`${teacherCenterBaseUrl}/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
           </section>
         </section>
       )
@@ -65,7 +65,7 @@ export const ArticleSpotlight = ({ blogPostId } : ArticleSpotlightProps ) => {
             <h3>Helpful Article</h3>
             <p>Want more guidance with your implementation of Quill? Check out these articles written by Quill&apos;s instructional coaches and curriculum team.</p>
           </section>
-          <a className="quill-button contained primary fun focus-on-light" href={teacherCenterBaseUrl} rel="noopener noreferrer" target="_blank">Show more</a>
+          <a className="quill-button-archived contained primary fun focus-on-light" href={teacherCenterBaseUrl} rel="noopener noreferrer" target="_blank">Show more</a>
         </div>
         {renderPreviewContent(blogPost)}
       </div>

@@ -32,7 +32,7 @@ const GrowthSummarySection = ({ showGrowthSummary, skillsGrowth, name, growthSum
           {skillsGrowth !== null && <p>{barGraphIncreasingIcon}<span>Skills growth: {growth}</span></p>}
         </div>
         <div>
-          <a className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" href={growthSummaryLink}>View growth</a>
+          <a className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light" href={growthSummaryLink}>View growth</a>
         </div>
       </section>
     )

@@ -7,10 +7,10 @@ module Evidence
 
       GENERATE_CONTENT = 'generateContent'
 
-      attr_accessor :llm_config, :prompt
+      attr_accessor :llm, :prompt
 
-      def initialize(llm_config:, prompt:)
-        @llm_config = llm_config
+      def initialize(llm:, prompt:)
+        @llm = llm
         @prompt = prompt
       end
 
@@ -23,10 +23,10 @@ module Evidence
               ]
             }
           ]
-        }.merge(llm_config.request_body_customizations)
+        }.merge(llm.request_body_customizations)
       end
 
-      private def model_version = llm_config.version
+      private def model_version = llm.version
 
       private def instruction = GENERATE_CONTENT
 

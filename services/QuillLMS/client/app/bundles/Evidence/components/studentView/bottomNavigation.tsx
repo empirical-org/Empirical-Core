@@ -12,14 +12,14 @@ const ReadAndHighlightTracker = ({
   showReadTheDirectionsButton
 }) => {
   const minimumMet = studentHighlights.length >= MINIMUM_STUDENT_HIGHLIGHT_COUNT
-  let doneButton = <button className="quill-button contained primary large focus-on-light disabled" onClick={handleClickDoneHighlighting} type="button">Done</button>
+  let doneButton = <button className="quill-button-archived contained primary large focus-on-light disabled" onClick={handleClickDoneHighlighting} type="button">Done</button>
   if (scrolledToEndOfPassage && minimumMet) {
-    doneButton = <button className="quill-button contained primary large focus-on-light" onClick={handleClickDoneHighlighting} type="button">Done</button>
+    doneButton = <button className="quill-button-archived contained primary large focus-on-light" onClick={handleClickDoneHighlighting} type="button">Done</button>
   }
   if(showReadTheDirectionsButton) {
     return(
       <div className="read-and-highlight-tracker bottom-navigation read-instructions">
-        <button aria-label="Next" className="quill-button contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick} type="button">Got it</button>
+        <button aria-label="Next" className="quill-button-archived contained primary large focus-on-light" onClick={handleReadTheDirectionsButtonClick} type="button">Got it</button>
       </div>
     )
   }
@@ -60,7 +60,7 @@ const BottomNavigation = ({
   if (!hasStartedReadPassageStep) {
     return (
       <div className="bottom-navigation">
-        <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
+        <button className="quill-button-archived outlined secondary large focus-on-dark" onClick={handleStartReadingPassageClick} type="button">Start</button>
       </div>
     )
   }
@@ -80,7 +80,7 @@ const BottomNavigation = ({
   if (inReflection) {
     return (
       <div className="bottom-navigation">
-        <button className="quill-button contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
+        <button className="quill-button-archived contained primary large focus-on-light" onClick={handleDoneReadingClick} type="button">Next</button>
       </div>
     )
   }
@@ -88,7 +88,7 @@ const BottomNavigation = ({
   if (!hasStartedPromptSteps) {
     return (
       <div className="bottom-navigation">
-        <button className="quill-button outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
+        <button className="quill-button-archived outlined secondary large focus-on-dark" onClick={handleStartPromptStepsClick} type="button">Next</button>
       </div>
     )
   }
@@ -96,7 +96,7 @@ const BottomNavigation = ({
   if (showStepsSummary) {
     return (
       <div className="bottom-navigation">
-        <button className="quill-button outlined secondary large focus-on-dark" onClick={toggleShowStepsSummary} type="button">Next</button>
+        <button className="quill-button-archived outlined secondary large focus-on-dark" onClick={toggleShowStepsSummary} type="button">Next</button>
       </div>
     )
   }

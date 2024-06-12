@@ -242,7 +242,7 @@ exports[`ListBlanks component projector view inactive renders 1`] = `
           className="question-button-group"
         >
           <button
-            className="quill-button primary contained large focus-on-light disabled"
+            className="quill-button-archived primary contained large focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"
@@ -528,7 +528,7 @@ exports[`ListBlanks component projector view when an answer is being displayed r
           className="question-button-group"
         >
           <button
-            className="quill-button primary contained large focus-on-light disabled"
+            className="quill-button-archived primary contained large focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"
@@ -740,7 +740,7 @@ exports[`ListBlanks component student view inactive renders 1`] = `
           className="question-button-group"
         >
           <button
-            className="quill-button primary contained large focus-on-light disabled"
+            className="quill-button-archived primary contained large focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"
@@ -971,7 +971,7 @@ exports[`ListBlanks component student view when an answer is being displayed ren
           className="question-button-group"
         >
           <button
-            className="quill-button primary contained large focus-on-light disabled"
+            className="quill-button-archived primary contained large focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"
@@ -1194,7 +1194,7 @@ exports[`ListBlanks component student view when the student has submitted an ans
           className="question-button-group"
         >
           <button
-            className="quill-button primary contained large focus-on-light disabled"
+            className="quill-button-archived primary contained large focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"
@@ -1417,7 +1417,7 @@ exports[`ListBlanks component student view when the student has submitted an ans
           className="question-button-group"
         >
           <button
-            className="quill-button primary contained large focus-on-light disabled"
+            className="quill-button-archived primary contained large focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"

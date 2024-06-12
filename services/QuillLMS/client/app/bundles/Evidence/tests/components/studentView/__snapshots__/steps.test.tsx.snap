@@ -16,7 +16,7 @@ exports[`Steps component should render Steps 1`] = `
         Read the text.
       </h2>
       <button
-        className="quill-button large primary contained done-reading-button"
+        className="quill-button-archived large primary contained done-reading-button"
         onClick={[MockFunction]}
         type="button"
       >

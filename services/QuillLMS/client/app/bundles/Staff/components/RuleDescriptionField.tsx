@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import { TextEditor } from '../../Shared/index';
 
@@ -44,8 +43,6 @@ export default class RuleDescriptionField extends React.Component<any, any> {
             {isNew ? '' : <button className="interactive-wrapper focus-on-light remove-concept-attribute-field" onClick={this.cancel} type="button"><i className="fas fa-archive" /><span>Remove</span></button>}
           </div>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={handleChange}
             key="rule-description"
             text={ruleDescription}

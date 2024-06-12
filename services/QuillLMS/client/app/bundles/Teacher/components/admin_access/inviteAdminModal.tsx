@@ -25,10 +25,10 @@ const InviteAdminModal = ({ onSuccess, closeModal, }) => {
     })
   }
 
-  let sendInviteButton = <button className="quill-button medium primary contained focus-on-light" onClick={handleClickSendRequest} type="button">Send invite</button>
+  let sendInviteButton = <button className="quill-button-archived medium primary contained focus-on-light" onClick={handleClickSendRequest} type="button">Send invite</button>
 
   if (adminEmail.length === 0 || adminName.length === 0 || !(validEmailRegex.test(adminEmail))) {
-    sendInviteButton = <button className="quill-button medium primary contained focus-on-light disabled" disabled type="button">Send invite</button>
+    sendInviteButton = <button className="quill-button-archived medium primary contained focus-on-light disabled" disabled type="button">Send invite</button>
   }
 
   return (
@@ -56,7 +56,7 @@ const InviteAdminModal = ({ onSuccess, closeModal, }) => {
           value={note}
         />
         <div className="button-section">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
           {sendInviteButton}
         </div>
       </div>

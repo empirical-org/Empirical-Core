@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import Dropzone from 'react-dropzone';
 
@@ -238,12 +237,9 @@ export const UnitTemplate = ({ unitTemplate }) => {
       <section className="activity-pack-description-container padded-element">
         <label htmlFor="activity-pack-description">Activity Pack Description</label>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={handlePackDescriptionChange}
           id="activity-pack-description"
           key="activity-pack-description"
-          shouldCheckSpelling={true}
           text={activityPackInfo}
         />
       </section>
@@ -280,7 +276,7 @@ export const UnitTemplate = ({ unitTemplate }) => {
         value={activityPackImageLink}
       />
       <div className="error-message-and-button-container">
-        <button className="quill-button primary contained medium focus-on-light" onClick={handleSaveUnitTemplate}>Save</button>
+        <button className="quill-button-archived primary contained medium focus-on-light" onClick={handleSaveUnitTemplate}>Save</button>
         {errors && <p className="all-errors-message">Please fix the form errors and try submitting again.</p>}
       </div>
       <section className="activity-selector-container padded-element">

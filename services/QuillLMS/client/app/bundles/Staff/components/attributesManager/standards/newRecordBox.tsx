@@ -132,7 +132,7 @@ const NewRecordBox = ({ recordType, createNewRecord, closeRecordBox, standardCat
     if (name.length && hasStandardCategoryAndLevelIfStandard) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Save"
         />

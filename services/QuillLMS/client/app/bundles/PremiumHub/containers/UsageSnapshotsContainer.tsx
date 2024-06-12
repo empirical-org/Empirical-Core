@@ -177,7 +177,7 @@ export const UsageSnapshotsContainer = ({
         </h1>
         <div className="header-buttons">
           <button
-            className="quill-button manage-subscription-button contained primary medium focus-on-light"
+            className="quill-button-archived manage-subscription-button contained primary medium focus-on-light"
             onClick={handleClickSubscribe}
             type="button"
           >
@@ -185,7 +185,7 @@ export const UsageSnapshotsContainer = ({
             <span>Subscribe</span>
           </button>
           <button
-            className="quill-button download-report-button contained primary medium focus-on-light"
+            className="quill-button-archived download-report-button contained primary medium focus-on-light"
             onClick={handleClickDownloadReport}
             type="button"
           >

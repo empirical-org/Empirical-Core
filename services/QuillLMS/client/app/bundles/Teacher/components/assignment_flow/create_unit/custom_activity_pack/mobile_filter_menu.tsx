@@ -128,7 +128,7 @@ const MobileFilterMenu = ({
       <FilterColumn
         {...filterColumnProps}
       />
-      <button className="quill-button primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
+      <button className="quill-button-archived primary contained medium focus-on-light" onClick={closeMobileFilterMenu} type="button">
       Apply
       </button>
     </section>

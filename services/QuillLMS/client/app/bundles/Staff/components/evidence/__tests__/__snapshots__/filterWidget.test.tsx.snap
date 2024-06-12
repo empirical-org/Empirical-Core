@@ -82,7 +82,7 @@ exports[`FilterWidget component should render FilterWidget 1`] = `
     </div>
   </div>
   <button
-    className="quill-button fun primary contained"
+    className="quill-button-archived fun primary contained"
     onClick={[MockFunction]}
     type="submit"
   >

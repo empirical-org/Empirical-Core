@@ -103,7 +103,7 @@ exports[`PromptStep component active state before any responses have been submit
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light disabled"
+              className="quill-button-archived focus-on-light disabled"
               disabled={true}
               onClick={[Function]}
               type="submit"
@@ -239,7 +239,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
             <span />
             <button
               aria-label="You already submitted this response. You must edit it before you can submit it again."
-              className="quill-button focus-on-light disabled"
+              className="quill-button-archived focus-on-light disabled"
               disabled={true}
               onClick={[Function]}
               type="submit"
@@ -486,7 +486,7 @@ exports[`PromptStep component active state when an optimal response has been sub
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light"
+              className="quill-button-archived focus-on-light"
               disabled={false}
               onClick={[Function]}
               type="submit"
@@ -757,7 +757,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light"
+              className="quill-button-archived focus-on-light"
               disabled={false}
               onClick={[Function]}
               type="submit"
@@ -1052,7 +1052,7 @@ exports[`PromptStep component active state when the max attempts have been reach
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light"
+              className="quill-button-archived focus-on-light"
               disabled={false}
               type="submit"
             >
@@ -1288,7 +1288,7 @@ exports[`PromptStep component inactive state renders 1`] = `
             <span />
             <button
               aria-label="Get feedback"
-              className="quill-button focus-on-light disabled"
+              className="quill-button-archived focus-on-light disabled"
               disabled={true}
               onClick={[Function]}
               type="submit"

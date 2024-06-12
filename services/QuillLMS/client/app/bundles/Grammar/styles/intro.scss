@@ -23,17 +23,17 @@
     display: block;
     content: ' ';
   }
-  .quill-button {
+  .quill-button-archived {
     margin-top: 40px;
   }
   &.welcome-page {
-    .quill-button {
+    .quill-button-archived {
       margin-top: 40px;
     }
   }
   &.landing-page {
     white-space: pre-wrap;
-    .quill-button {
+    .quill-button-archived {
       margin-top: 40px;
     }
   }

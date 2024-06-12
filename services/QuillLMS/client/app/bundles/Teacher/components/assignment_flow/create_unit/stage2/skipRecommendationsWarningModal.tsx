@@ -24,8 +24,8 @@ const SkipRecommendationsWarningModal = ({ handleClickAssign, handleCloseModal, 
 
         <div className="skip-recommendations-warning-modal-footer">
           <div className="buttons">
-            <button className="quill-button outlined secondary medium focus-on-light" onClick={handleCloseModal} type="button">Cancel</button>
-            <button className="quill-button contained primary medium focus-on-light" onClick={handleClickAssign} type="button">Assign now</button>
+            <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={handleCloseModal} type="button">Cancel</button>
+            <button className="quill-button-archived contained primary medium focus-on-light" onClick={handleClickAssign} type="button">Assign now</button>
           </div>
         </div>
 

@@ -11,7 +11,7 @@ RSpec.describe LearnWorldsIntegration::WebhooksController, type: :controller do
 
   let(:webhook_signature) { SecureRandom.hex(12) }
 
-  before { stub_const("Auth::LearnWorlds::WEBHOOK_SIGNATURE", webhook_signature) }
+  before { stub_const("LearnWorldsIntegration::WEBHOOK_SIGNATURE", webhook_signature) }
 
   context '#create' do
     before { allow(request).to receive(:env).and_return({described_class::SIGNATURE_HEADER_KEY => signature_header}) }

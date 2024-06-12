@@ -47,13 +47,13 @@ describe('StudentGeneralAccountInfo component', () => {
     expect(component.state().userName).toEqual('pabllo-vittar');
   });
   it('submitClass should show button when state differs from props and hide it when they match', () => {
-    expect(component.instance().submitClass()).toEqual('quill-button contained primary medium focus-on-light');
+    expect(component.instance().submitClass()).toEqual('quill-button-archived contained primary medium focus-on-light');
     component.setState({ email: 'test@email.com', userName: 'test-username' });
-    expect(component.instance().submitClass()).toEqual('quill-button contained primary medium focus-on-light disabled');
+    expect(component.instance().submitClass()).toEqual('quill-button-archived contained primary medium focus-on-light disabled');
   });
   it('renderButtonSection should render button section if showButtonSection piece of state is true', () => {
     const button = (<div className="button-section">
-      <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={component.instance().handleCancel} type="button">Cancel</button>
+      <button className="quill-button-archived outlined secondary medium focus-on-light" id="cancel" onClick={component.instance().handleCancel} type="button">Cancel</button>
       <input aria-label="Save changes" className={component.instance().submitClass()} name="commit" type="submit" value="Save changes" />
     </div>);
     component.setState({ showButtonSection: true });

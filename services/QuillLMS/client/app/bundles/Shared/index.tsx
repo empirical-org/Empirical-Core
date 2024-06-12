@@ -39,11 +39,14 @@ export {
   FlagDropdown,
   HelpfulTips,
   Input,
+  List,
   OneThumbSlider,
   Passthrough,
+  RadioButton,
   ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
+  SegmentedControl,
   SmartSpinner,
   Snackbar,
   defaultSnackbarTimeout,
@@ -240,7 +243,9 @@ export {
   ACTIVE,
   INACTIVE,
   INDETERMINATE,
-  DISABLED
+  DISABLED,
+  DEFAULT,
+  HOVER
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

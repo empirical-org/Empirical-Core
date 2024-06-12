@@ -19,7 +19,7 @@ export const TurkCompleted = ({ code }) => {
       {/* Logical shortcut for only displaying the button if the copy command exists */}
       {document.queryCommandSupported('copy') &&
         <div className="button-container">
-          <button className="quill-button fun primary outlined focus-on-light copy-button" onClick={handleCopyToClipboard} type="button" value={code}>Copy</button>
+          <button className="quill-button-archived fun primary outlined focus-on-light copy-button" onClick={handleCopyToClipboard} type="button" value={code}>Copy</button>
           <Snackbar text="Copied!" visible={snackBarVisible} />
         </div>}
     </div>

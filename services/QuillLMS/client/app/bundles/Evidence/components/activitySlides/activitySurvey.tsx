@@ -158,7 +158,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
     />)
   )
 
-  const sendButtonClassName = selectedMultipleChoiceOptions.length ? 'quill-button large secondary outlined focus-on-dark' : 'quill-button large disabled contained focus-on-dark'
+  const sendButtonClassName = selectedMultipleChoiceOptions.length ? 'quill-button-archived large secondary outlined focus-on-dark' : 'quill-button-archived large disabled contained focus-on-dark'
 
   return (
     <div className="activity-follow-up-container activity-survey-container no-focus-outline" ref={containerRef} tabIndex={-1}>

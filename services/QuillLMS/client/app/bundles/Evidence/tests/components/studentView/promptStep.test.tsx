@@ -140,8 +140,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a button with a disabled class and the text "Get feedback"', () => {
-        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
-        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
+        expect(wrapper.find('.quill-button-archived.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button-archived.disabled').text()).toEqual("Get feedback")
       })
 
     })
@@ -166,8 +166,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Next"', () => {
-        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Next")
+        expect(wrapper.find('.quill-button-archived.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button-archived').text()).toEqual("Next")
       })
 
     })
@@ -192,8 +192,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a disabled button with the text "Get feedback"', () => {
-        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
-        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
+        expect(wrapper.find('.quill-button-archived.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button-archived.disabled').text()).toEqual("Get feedback")
       })
     })
 
@@ -215,8 +215,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Next"', () => {
-        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Next")
+        expect(wrapper.find('.quill-button-archived.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button-archived').text()).toEqual("Next")
       })
     })
 
@@ -240,8 +240,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Done"', () => {
-        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
-        expect(wrapper.find('.quill-button').text()).toEqual("Done")
+        expect(wrapper.find('.quill-button-archived.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button-archived').text()).toEqual("Done")
       })
     })
 

@@ -56,7 +56,7 @@ exports[`Assign students component should render 1`] = `
           }
         />
         <button
-          className="quill-button medium secondary outlined create-a-class-button"
+          className="quill-button-archived medium secondary outlined create-a-class-button"
           onClick={[Function]}
           type="button"
         >

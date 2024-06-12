@@ -76,7 +76,7 @@ module Evidence
       false
     end
 
-    def classify_text(text) = VertexAI::TextClassifier.run(endpoint_external_id, text)
+    def classify_text(text) = VertexAI::TextClassifier.run(endpoint_external_id:, project:, text:)
 
     def older_models
       @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
@@ -87,6 +87,8 @@ module Evidence
     def url = "evidence/#/activities/#{prompt.activity.id}/semantic-labels/model/#{id}"
 
     def evidence_name = name
+
+    def project_id = VertexAI::ClientFetcher.project_id(project)
 
     private def prompt_automl_rules = prompt.rules.where(rule_type: Rule::TYPE_AUTOML)
 

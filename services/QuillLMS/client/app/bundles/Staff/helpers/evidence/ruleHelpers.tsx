@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import { stripHtml } from "string-strip-html";
 
@@ -208,12 +207,9 @@ export function renderHighlights(highlights, i, changeHandler) {
           value={highlightTypeValue}
         />
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           // eslint-disable-next-line
           handleTextChange={(text) => changeHandler(text, i, j, 'highlight text')}
           key="universal-feedback-highlight"
-          shouldCheckSpelling={true}
           text={highlight.text}
         />
         {passageMismatch && <p className="all-errors-message">The text of this highlight does not match with the associated activity text. This means that it will not highlight the text as intended. Please update the text above.</p>}
@@ -507,10 +503,10 @@ export function renderDeleteRuleModal(handleDeleteRule, toggleShowDeleteRuleModa
       <div className="delete-rule-container">
         <p className="delete-rule-text">Are you sure that you want to delete this rule?</p>
         <div className="delete-rule-button-container">
-          <button className="quill-button fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
+          <button className="quill-button-archived fun primary contained" id="delete-rule-button" onClick={handleDeleteRule} type="button">
             Delete
           </button>
-          <button className="quill-button fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
+          <button className="quill-button-archived fun primary contained" id="close-rule-modal-button" onClick={toggleShowDeleteRuleModal} type="button">
             Cancel
           </button>
         </div>

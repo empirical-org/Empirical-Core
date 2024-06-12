@@ -21,15 +21,6 @@ describe('Questions actions', () => {
     })
   })
 
-  describe('updateFlag', () => {
-    it('should call QuestionApi.updateFlag()', () => {
-      const MOCK_ID = 'id'
-      const MOCK_FLAG = 'FLAG'
-      dispatch(questionActions.updateFlag(MOCK_ID, MOCK_FLAG))
-      expect(mockQuestionApi.updateFlag).toHaveBeenLastCalledWith(MOCK_ID, MOCK_FLAG)
-    })
-  })
-
   describe('submitNewQuestion', () => {
     it('should call QuestionApi.getAll()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }

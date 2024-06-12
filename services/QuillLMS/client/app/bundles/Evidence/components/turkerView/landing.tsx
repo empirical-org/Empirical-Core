@@ -36,7 +36,7 @@ export const TurkLanding = ({ handleStartActivity}) => {
       </section>
       <section className="button-container">
         <button
-          className="quill-button small primary contained focus-on-light"
+          className="quill-button-archived small primary contained focus-on-light"
           onClick={handleStartActivity}
           type="button"
         >Start Activity</button>

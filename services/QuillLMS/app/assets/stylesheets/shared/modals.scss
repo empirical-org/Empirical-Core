@@ -465,7 +465,7 @@
   .form-buttons {
     display: flex;
     justify-content: flex-end;
-    .quill-button {
+    .quill-button-archived {
       margin-left: 24px;
     }
   }
@@ -594,7 +594,7 @@
     }
   }
   .form-buttons {
-    .quill-button {
+    .quill-button-archived {
       .button-text-container {
         display: flex;
         align-items: flex-start;
@@ -644,7 +644,7 @@
   .buttons {
     display: flex;
     justify-content: flex-end;
-    .quill-button {
+    .quill-button-archived {
       margin-left: 16px;
     }
   }
@@ -1014,7 +1014,7 @@
   }
   .invite-coteachers-modal-footer {
     justify-content: flex-end;
-    .quill-button {
+    .quill-button-archived {
       .loading-spinner {
         .spinner {
           height: 24px;
@@ -1050,7 +1050,7 @@
   align-items: center;
   border-top: 1px solid $quill-grey-5;
   padding: 0px 32px;
-  .quill-button {
+  .quill-button-archived {
     margin-left: 24px;
   }
 }
@@ -1345,7 +1345,7 @@
     }
     .view-button-section {
       margin-right: 0px;
-      .quill-button {
+      .quill-button-archived {
         width: 88px;
       }
     }
@@ -1397,7 +1397,7 @@
   }
   .bulk-archive-classes-modal-footer {
     justify-content: flex-end;
-    .quill-button {
+    .quill-button-archived {
       width: min-content !important;
     }
     .secondary {
@@ -1464,7 +1464,7 @@
     p {
       color: #646464;
     }
-    .quill-button {
+    .quill-button-archived {
       min-width: 150px;
     }
     .skip-for-now {

@@ -17,10 +17,10 @@ export default class PinnedActivityBar extends React.Component<PinnedActivityBar
 
   render() {
     const { isBeingPreviewed, classroomUnitId, activityId, name, } = this.props
-    let link = <a aria-label={`Join ${name}`} className="quill-button medium primary contained focus-on-dark" href={activityLaunchLink(classroomUnitId, activityId)}>Join</a>
+    let link = <a aria-label={`Join ${name}`} className="quill-button-archived medium primary contained focus-on-dark" href={activityLaunchLink(classroomUnitId, activityId)}>Join</a>
 
     if (isBeingPreviewed) {
-      link = <button aria-label={`Join ${name}`} className="quill-button medium primary contained focus-on-dark" onClick={this.handleClickDuringPreview} type="button">Join</button>
+      link = <button aria-label={`Join ${name}`} className="quill-button-archived medium primary contained focus-on-dark" onClick={this.handleClickDuringPreview} type="button">Join</button>
     }
 
     return (

@@ -15,7 +15,7 @@ describe('LandingPage component', () => {
           translate={jest.fn()}
         />
       );
-      expect(wrapper.find('.quill-button').text()).toBe('');
+      expect(wrapper.find('.quill-button-archived').text()).toBe('');
     });
 
     it('should pass begin prop to onClick', () => {
@@ -28,7 +28,7 @@ describe('LandingPage component', () => {
           translate={jest.fn()}
         />
       );
-      wrapper.find('.quill-button').simulate('click');
+      wrapper.find('.quill-button-archived').simulate('click');
       expect(mockBegin.mock.calls.length).toBe(1);
     });
   });
@@ -43,7 +43,7 @@ describe('LandingPage component', () => {
           translate={jest.fn()}
         />
       );
-      expect(wrapper.find('.quill-button').text()).toBe('');
+      expect(wrapper.find('.quill-button-archived').text()).toBe('');
     });
 
     it('should pass resumeActivity prop to onClick with session argument', () => {
@@ -57,7 +57,7 @@ describe('LandingPage component', () => {
           translate={jest.fn()}
         />
       );
-      wrapper.find('.quill-button').simulate('click');
+      wrapper.find('.quill-button-archived').simulate('click');
       expect(mockResumeActivity.mock.calls.length).toBe(1);
       expect(mockResumeActivity.mock.calls[0][0]).toBe('anything');
     });

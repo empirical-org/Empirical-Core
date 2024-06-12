@@ -14,7 +14,7 @@ exports[`ClassroomStudentSection component classroom without students should ren
       className="invite-quill-classroom-students"
     >
       <button
-        className="quill-button primary outlined small"
+        className="quill-button-archived primary outlined small"
         onClick={[Function]}
         type="button"
       >
@@ -448,7 +448,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           className="login-pdf-and-view-as-student top-buttons-container"
         >
           <a
-            className="quill-button secondary outlined small"
+            className="quill-button-archived secondary outlined small"
             href="/teachers/classrooms/285383/student_logins"
             rel="noopener noreferrer"
             target="_blank"
@@ -456,7 +456,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             Download student log-in instructions
           </a>
           <button
-            className="quill-button secondary outlined small"
+            className="quill-button-archived secondary outlined small"
             onClick={[Function]}
             type="button"
           >
@@ -467,7 +467,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           className="invite-quill-classroom-students"
         >
           <button
-            className="quill-button primary outlined small"
+            className="quill-button-archived primary outlined small"
             onClick={[Function]}
             type="button"
           >
@@ -4981,7 +4981,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >
@@ -5093,7 +5093,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             >
               <button
                 aria-label="Actions"
-                className="quill-button actions-button focus-on-light"
+                className="quill-button-archived actions-button focus-on-light"
                 onClick={[Function]}
                 type="button"
               >

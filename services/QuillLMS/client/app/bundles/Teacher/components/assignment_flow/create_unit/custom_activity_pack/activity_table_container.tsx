@@ -86,8 +86,8 @@ const EmptyState = ({ undoLastFilter, resetAllFilters, }) => {
       <h3>No results</h3>
       <p>Undo your last filter to see activities. Or clear all filters.</p>
       <div className="empty-state-button-wrapper">
-        <button className="focus-on-light quill-button medium outlined secondary" onClick={resetAllFilters} type="button">Clear all filters</button>
-        <button className="focus-on-light quill-button medium contained primary" onClick={undoLastFilter} type="button">Undo</button>
+        <button className="focus-on-light quill-button-archived medium outlined secondary" onClick={resetAllFilters} type="button">Clear all filters</button>
+        <button className="focus-on-light quill-button-archived medium contained primary" onClick={undoLastFilter} type="button">Undo</button>
       </div>
     </div>
   )

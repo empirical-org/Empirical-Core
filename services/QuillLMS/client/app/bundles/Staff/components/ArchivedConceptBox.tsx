@@ -339,7 +339,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     if (levelNumber === 2) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Unarchive, set live"
         />
@@ -347,7 +347,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     } else if (levelNumber === 1 && concept.parent.visible) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Unarchive, set live"
         />
@@ -355,7 +355,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Unarchive, set live"
         />
@@ -363,7 +363,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     } else {
       return (
         <input
-          className="quill-button contained disabled primary medium"
+          className="quill-button-archived contained disabled primary medium"
           type="submit"
           value="Unarchive, set live"
         />

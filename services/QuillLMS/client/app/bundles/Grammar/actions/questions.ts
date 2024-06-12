@@ -16,7 +16,7 @@ import {
   QuestionApi
 } from '../libs/questions_api';
 
-export const startListeningToQuestions = (sessionID) => {
+export const startListeningToQuestions = (sessionID?) => {
   return (dispatch: Function) => {
     QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions: Questions) => {
       if (questions) {
@@ -63,16 +63,6 @@ export const getGradedResponsesWithCallback = (questionID: string, callback: Fun
     });
     callback(bodyToObj);
   });
-}
-
-export const updateFlag = (qid: string, flag: string) => {
-  return (dispatch: Function) => {
-    QuestionApi.updateFlag(qid, flag).then(() => {
-      dispatch(getQuestion(qid))
-    }).catch((error: string) => {
-      alert(`Flag update failed! ${error}`);
-    });
-  }
 }
 
 export const incrementRequestCount = () => {

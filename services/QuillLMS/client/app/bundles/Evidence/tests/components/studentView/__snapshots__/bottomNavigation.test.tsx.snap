@@ -33,7 +33,7 @@ exports[`BottomNavigation component when the student has made at least two highl
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light"
+        className="quill-button-archived contained primary large focus-on-light"
         onClick={[Function]}
         type="button"
       >
@@ -106,7 +106,7 @@ exports[`BottomNavigation component when the student has made at least two highl
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light"
+        className="quill-button-archived contained primary large focus-on-light"
         onClick={[Function]}
         type="button"
       >
@@ -164,7 +164,7 @@ exports[`BottomNavigation component when the student has not started the read pa
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-dark"
+      className="quill-button-archived outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -192,7 +192,7 @@ exports[`BottomNavigation component when the student has not started the read pa
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-dark"
+      className="quill-button-archived outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -225,7 +225,7 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light disabled"
+        className="quill-button-archived contained primary large focus-on-light disabled"
         onClick={[Function]}
         type="button"
       >
@@ -286,7 +286,7 @@ exports[`BottomNavigation component when the student has scrolled to the end of 
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light disabled"
+        className="quill-button-archived contained primary large focus-on-light disabled"
         onClick={[Function]}
         type="button"
       >
@@ -355,7 +355,7 @@ exports[`BottomNavigation component when the student has started highlighting re
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light disabled"
+        className="quill-button-archived contained primary large focus-on-light disabled"
         onClick={[Function]}
         type="button"
       >
@@ -424,7 +424,7 @@ exports[`BottomNavigation component when the student has started highlighting re
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light disabled"
+        className="quill-button-archived contained primary large focus-on-light disabled"
         onClick={[Function]}
         type="button"
       >
@@ -485,7 +485,7 @@ exports[`BottomNavigation component when the student has started the read passag
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light disabled"
+        className="quill-button-archived contained primary large focus-on-light disabled"
         onClick={[Function]}
         type="button"
       >
@@ -546,7 +546,7 @@ exports[`BottomNavigation component when the student has started the read passag
       className="read-and-highlight-tracker bottom-navigation"
     >
       <button
-        className="quill-button contained primary large focus-on-light disabled"
+        className="quill-button-archived contained primary large focus-on-light disabled"
         onClick={[Function]}
         type="button"
       >
@@ -607,7 +607,7 @@ exports[`BottomNavigation component when the student is done reflecting renders 
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-dark"
+      className="quill-button-archived outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -640,7 +640,7 @@ exports[`BottomNavigation component when the student is done reflecting renders 
     className="bottom-navigation"
   >
     <button
-      className="quill-button outlined secondary large focus-on-dark"
+      className="quill-button-archived outlined secondary large focus-on-dark"
       onClick={[Function]}
       type="button"
     >
@@ -673,7 +673,7 @@ exports[`BottomNavigation component when the student is in reflection renders on
     className="bottom-navigation"
   >
     <button
-      className="quill-button contained primary large focus-on-light"
+      className="quill-button-archived contained primary large focus-on-light"
       onClick={[Function]}
       type="button"
     >
@@ -706,7 +706,7 @@ exports[`BottomNavigation component when the student is in reflection renders on
     className="bottom-navigation"
   >
     <button
-      className="quill-button contained primary large focus-on-light"
+      className="quill-button-archived contained primary large focus-on-light"
       onClick={[Function]}
       type="button"
     >

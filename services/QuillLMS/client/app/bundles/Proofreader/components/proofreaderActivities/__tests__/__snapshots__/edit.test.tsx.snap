@@ -127,7 +127,7 @@ exports[`<Edit /> correct edit should render when active 1`] = `
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -302,7 +302,7 @@ exports[`<Edit /> incorrect edit should render when active 1`] = `
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -443,7 +443,7 @@ exports[`<Edit /> multiple unnecessary addition edit should render when active 1
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -572,7 +572,7 @@ exports[`<Edit /> multiple unnecessary deletion edit should render when active 1
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -701,7 +701,7 @@ exports[`<Edit /> single unnecessary addition edit should render when active 1`]
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -830,7 +830,7 @@ exports[`<Edit /> single unnecessary deletion edit should render when active 1`]
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -961,7 +961,7 @@ exports[`<Edit /> unnecessary change edit should render when active 1`] = `
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next
@@ -1091,7 +1091,7 @@ exports[`<Edit /> unnecessary space edit should render when active 1`] = `
             10
           </div>
           <button
-            className="quill-button medium primary contained focus-on-light"
+            className="quill-button-archived medium primary contained focus-on-light"
             type="button"
           >
             Next

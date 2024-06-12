@@ -282,13 +282,13 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
           class="buttons"
         >
           <button
-            class="quill-button outlined secondary medium focus-on-light"
+            class="quill-button-archived outlined secondary medium focus-on-light"
             type="button"
           >
             Cancel
           </button>
           <button
-            class="quill-button contained primary medium focus-on-light"
+            class="quill-button-archived contained primary medium focus-on-light"
             type="submit"
           >
             Submit

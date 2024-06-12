@@ -236,7 +236,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     if (levelNumber === 2 && concept.name) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value={`Add New Level ${this.props.levelNumber}`}
         />
@@ -244,7 +244,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     } else if ((levelNumber === 1 || levelNumber === 0) && concept.parent.id) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value={`Add New Level ${this.props.levelNumber}`}
         />

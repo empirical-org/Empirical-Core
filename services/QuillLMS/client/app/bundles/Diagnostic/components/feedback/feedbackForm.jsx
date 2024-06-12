@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js'
 import * as React from 'react'
 import {
   ConceptExplanation,
@@ -58,8 +57,6 @@ export default class FeedbackForm extends React.Component {
           <React.Fragment>
             <label className="label">{part}</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={(e) => this.handleChange(part, e)}
               key={part}
               text={this.state[part]}

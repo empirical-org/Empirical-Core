@@ -18,7 +18,7 @@ export const getStartedButton = (isPartOfAssignmentFlow: boolean) => {
   if(isPartOfAssignmentFlow) {
     return null;
   }
-  return <a className="quill-button large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>;
+  return <a className="quill-button-archived large primary contained focus-on-light" href="https://www.quill.org/account/new" rel="noopener noreferrer" target="_blank">Get started</a>;
 }
 
 export const handleSetActiveSection = (section: string, setActiveSection: Function) => {

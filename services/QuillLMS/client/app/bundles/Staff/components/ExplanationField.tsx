@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import { TextEditor } from '../../Shared/index';
 
@@ -43,8 +42,6 @@ export default class ExplanationField extends React.Component<any, any> {
           </div>
           <p className="concept-attribute-field-editor-subheader">Displays in Proofreader</p>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={handleChange}
             key="concept-explanation"
             text={explanation}

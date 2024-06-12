@@ -175,7 +175,7 @@ module Evidence
       params.require(:note)
     end
 
-    private def label_configs_param = seed_data_params[:label_configs]&.to_h || {}
+    private def label_configs_param = seed_data_params[:label_configs]&.to_h || {} # rubocop:disable Lint/RedundantSafeNavigation
 
     private def seed_data_params
       params.permit(:id, :nouns, :use_passage, label_configs: {}, activity: {})

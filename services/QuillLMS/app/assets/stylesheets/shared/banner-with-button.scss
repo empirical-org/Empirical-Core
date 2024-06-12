@@ -11,7 +11,7 @@
     @media (max-width: 410px) {
       flex-direction: column;
       align-items: flex-start;
-      .quill-button {
+      .quill-button-archived {
         margin-top: 8px;
       }
       span {
@@ -45,7 +45,7 @@
     @media (max-width: 410px) {
       flex-direction: column;
       align-items: flex-start;
-      .quill-button {
+      .quill-button-archived {
         margin-top: 8px;
       }
       span {
@@ -131,7 +131,7 @@
       margin-right: 8px;
     }
   }
-  .quill-button.primary.contained {
+  .quill-button-archived.primary.contained {
     color: #975E07;
     background-color: #EECE87;
     min-width: min-content;

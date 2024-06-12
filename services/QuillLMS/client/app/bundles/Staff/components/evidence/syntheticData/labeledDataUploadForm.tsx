@@ -136,7 +136,7 @@ const LabeledDataUploadForm = ({ history, match }) => {
       {[BECAUSE, BUT, SO].map((conjunction) => renderConjunctionUploader(conjunction))}
 
       <div className="button-and-id-container">
-        <button className="quill-button fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleSubmit} type="submit">
+        <button className="quill-button-archived fun large primary contained focus-on-light" id="activity-submit-button" onClick={handleSubmit} type="submit">
           <span aria-label="robot" role="img">🤖</span>
           <span aria-label="label" role="img">🏷</span>
 

@@ -2,7 +2,7 @@
 
 module ImpactMetrics
   class ActiveTeachersAllTimeCountQuery < ::QuillBigQuery::Query
-    ACTIVITY_SESSION_MINIMUM = 9
+    ACTIVITY_SESSION_MINIMUM = 1
 
     def run
       run_query

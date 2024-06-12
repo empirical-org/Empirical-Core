@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import { shallow } from 'enzyme';
 import React from 'react';
 import {
@@ -116,8 +115,6 @@ describe('LessonForm component', () => {
     expect(chooseModel.length).toEqual(1);
     expect(nameInput.props().name).toEqual('Awesome Diagnostic');
     expect(nameInput.props().onChange).toEqual(handleStateChange);
-    expect(textEditor.props().ContentState).toEqual(ContentState);
-    expect(textEditor.props().EditorState).toEqual(EditorState);
     expect(textEditor.props().handleTextChange).toEqual(onLandingPageChange);
     expect(textEditor.props().text).toEqual('<p>Test content</p>');
     expect(chooseModel.props().conceptsFeedback).toEqual(mockProps.conceptsFeedback);

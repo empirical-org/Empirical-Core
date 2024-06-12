@@ -67,7 +67,7 @@ const NoClassroomsToImportModal = ({ close, provider, allProviderClassrooms }: N
         </div>
         {notSeeingClassesSection}
         <div className="form-buttons">
-          <button className="quill-button contained primary medium" onClick={close} type="button">Close</button>
+          <button className="quill-button-archived contained primary medium" onClick={close} type="button">Close</button>
         </div>
       </div>
     </div>

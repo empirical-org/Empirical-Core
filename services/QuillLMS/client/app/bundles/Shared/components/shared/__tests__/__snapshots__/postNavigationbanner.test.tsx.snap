@@ -31,7 +31,7 @@ exports[`PostNavigationBanner it should render 1`] = `
         class="buttons-container"
       >
         <a
-          class="quill-button fun primary contained focus-on-light"
+          class="quill-button-archived fun primary contained focus-on-light"
           href="www.test1.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -39,7 +39,7 @@ exports[`PostNavigationBanner it should render 1`] = `
           Learn more 
         </a>
         <button
-          class="quill-button fun primary contained focus-on-light"
+          class="quill-button-archived fun primary contained focus-on-light"
         >
           View activities
         </button>
@@ -109,7 +109,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
         class="buttons-container"
       >
         <a
-          class="quill-button fun primary contained focus-on-light"
+          class="quill-button-archived fun primary contained focus-on-light"
           href="www.test1.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -117,7 +117,7 @@ exports[`PostNavigationBanner should render the buttons as expected 1`] = `
           Learn more 
         </a>
         <button
-          class="quill-button fun primary contained focus-on-light"
+          class="quill-button-archived fun primary contained focus-on-light"
         >
           View activities
         </button>

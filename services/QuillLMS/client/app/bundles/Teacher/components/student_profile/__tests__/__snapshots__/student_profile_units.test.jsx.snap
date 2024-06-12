@@ -392,6 +392,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -412,7 +419,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -517,9 +524,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -588,9 +595,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -701,9 +708,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -814,9 +821,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1111,6 +1118,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -1131,7 +1145,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -1156,7 +1170,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start The Travels of Marco Polo"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -1169,7 +1183,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Christopher Columbus"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/607"
                   >
                     Start
@@ -1182,7 +1196,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start A, An, The"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/140"
                   >
                     Start
@@ -1195,7 +1209,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Magellan"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/605"
                   >
                     Start
@@ -1208,7 +1222,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Jamestown"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/606"
                   >
                     Start
@@ -1221,7 +1235,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Sailing with the Stars"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/503"
                   >
                     Start
@@ -1234,7 +1248,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: The Cape of Good Hope"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/504"
                   >
                     Start
@@ -1247,7 +1261,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Roanoke"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/517"
                   >
                     Start
@@ -1289,9 +1303,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1360,9 +1374,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1403,7 +1417,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start The Travels of Marco Polo"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -1437,9 +1451,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1480,7 +1494,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Christopher Columbus"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/607"
                       >
                         Start
@@ -1514,9 +1528,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1557,7 +1571,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start A, An, The"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/140"
                       >
                         Start
@@ -1591,9 +1605,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1634,7 +1648,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Magellan"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/605"
                       >
                         Start
@@ -1668,9 +1682,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1711,7 +1725,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Jamestown"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/606"
                       >
                         Start
@@ -1745,9 +1759,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1788,7 +1802,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Sailing with the Stars"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/503"
                       >
                         Start
@@ -1822,9 +1836,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1865,7 +1879,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: The Cape of Good Hope"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/504"
                       >
                         Start
@@ -1899,9 +1913,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -1942,7 +1956,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Roanoke"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/517"
                       >
                         Start
@@ -2352,6 +2366,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -2372,7 +2393,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -2477,9 +2498,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -2548,9 +2569,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -2661,9 +2682,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -2774,9 +2795,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3071,6 +3092,13 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -3091,7 +3119,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -3116,7 +3144,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start The Travels of Marco Polo"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -3129,7 +3157,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Christopher Columbus"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/607"
                   >
                     Start
@@ -3142,7 +3170,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start A, An, The"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/140"
                   >
                     Start
@@ -3155,7 +3183,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Magellan"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/605"
                   >
                     Start
@@ -3168,7 +3196,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Jamestown"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/606"
                   >
                     Start
@@ -3181,7 +3209,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Sailing with the Stars"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/503"
                   >
                     Start
@@ -3194,7 +3222,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: The Cape of Good Hope"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/504"
                   >
                     Start
@@ -3207,7 +3235,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Roanoke"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/517"
                   >
                     Start
@@ -3249,9 +3277,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3320,9 +3348,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3363,7 +3391,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start The Travels of Marco Polo"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -3397,9 +3425,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3440,7 +3468,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Christopher Columbus"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/607"
                       >
                         Start
@@ -3474,9 +3502,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3517,7 +3545,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start A, An, The"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/140"
                       >
                         Start
@@ -3551,9 +3579,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3594,7 +3622,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Magellan"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/605"
                       >
                         Start
@@ -3628,9 +3656,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3671,7 +3699,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Jamestown"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/606"
                       >
                         Start
@@ -3705,9 +3733,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3748,7 +3776,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Sailing with the Stars"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/503"
                       >
                         Start
@@ -3782,9 +3810,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3825,7 +3853,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: The Cape of Good Hope"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/504"
                       >
                         Start
@@ -3859,9 +3887,9 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -3902,7 +3930,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Roanoke"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/517"
                       >
                         Start
@@ -4256,7 +4284,7 @@ exports[`StudentProfileUnits component should render only completed activities i
         </span>
         <a
           aria-label="Join Lesson 1: Missing Subject or Verb Fragments"
-          className="quill-button medium primary contained focus-on-dark"
+          className="quill-button-archived medium primary contained focus-on-dark"
           href="/activity_sessions/classroom_units/10/activities/560"
         >
           Join
@@ -4299,14 +4327,14 @@ exports[`StudentProfileUnits component should render only completed activities i
             className="form-buttons"
           >
             <button
-              className="quill-button outlined secondary medium focus-on-light"
+              className="quill-button-archived outlined secondary medium focus-on-light"
               onClick={[Function]}
               type="button"
             >
               Not now
             </button>
             <a
-              className="quill-button contained primary medium focus-on-light"
+              className="quill-button-archived contained primary medium focus-on-light"
               href="/activity_sessions/classroom_units/10/activities/560"
             >
               Join the lesson
@@ -4388,6 +4416,13 @@ exports[`StudentProfileUnits component should render only completed activities i
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            Completed activities
+          </h3>
+        </div>
+        <div
           className="activities-container completed-activities"
         >
           <DataTable
@@ -4408,7 +4443,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section tooltip-section",
-                  "width": "440px",
+                  "width": "432px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -4457,7 +4492,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                 Object {
                   "actionButton": <a
                     aria-label="Replay A, An"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/138"
                   >
                     Replay
@@ -4477,7 +4512,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "tool": undefined,
                   "viewResultsButton": <a
                     aria-label="View results for A, An"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/undefined/student_activity_report"
                   >
                     View results
@@ -4486,7 +4521,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                 Object {
                   "actionButton": <a
                     aria-label="Replay Age of Exploration: Spices"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/516"
                   >
                     Replay
@@ -4506,7 +4541,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                   "tool": undefined,
                   "viewResultsButton": <a
                     aria-label="View results for Age of Exploration: Spices"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/undefined/student_activity_report"
                   >
                     View results
@@ -4544,9 +4579,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "440px",
+                        "minWidth": "432px",
                         "textAlign": "left",
-                        "width": "440px",
+                        "width": "432px",
                       }
                     }
                   >
@@ -4661,9 +4696,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "440px",
+                        "minWidth": "432px",
                         "textAlign": "left",
-                        "width": "440px",
+                        "width": "432px",
                       }
                     }
                   >
@@ -4743,7 +4778,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper>
                       <a
                         aria-label="View results for A, An"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/undefined/student_activity_report"
                       >
                         View results
@@ -4766,7 +4801,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Replay A, An"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/138"
                       >
                         Replay
@@ -4800,9 +4835,9 @@ exports[`StudentProfileUnits component should render only completed activities i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "440px",
+                        "minWidth": "432px",
                         "textAlign": "left",
-                        "width": "440px",
+                        "width": "432px",
                       }
                     }
                   >
@@ -4882,7 +4917,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper>
                       <a
                         aria-label="View results for Age of Exploration: Spices"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/undefined/student_activity_report"
                       >
                         View results
@@ -4905,7 +4940,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Replay Age of Exploration: Spices"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/516"
                       >
                         Replay
@@ -5258,7 +5293,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         </span>
         <a
           aria-label="Join Lesson 1: Missing Subject or Verb Fragments"
-          className="quill-button medium primary contained focus-on-dark"
+          className="quill-button-archived medium primary contained focus-on-dark"
           href="/activity_sessions/classroom_units/10/activities/560"
         >
           Join
@@ -5301,14 +5336,14 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             className="form-buttons"
           >
             <button
-              className="quill-button outlined secondary medium focus-on-light"
+              className="quill-button-archived outlined secondary medium focus-on-light"
               onClick={[Function]}
               type="button"
             >
               Not now
             </button>
             <a
-              className="quill-button contained primary medium focus-on-light"
+              className="quill-button-archived contained primary medium focus-on-light"
               href="/activity_sessions/classroom_units/10/activities/560"
             >
               Join the lesson
@@ -5433,6 +5468,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -5453,7 +5495,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -5478,7 +5520,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -5571,9 +5613,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -5642,9 +5684,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -5685,7 +5727,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -5719,9 +5761,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -5832,9 +5874,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -5945,9 +5987,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6242,6 +6284,13 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -6262,7 +6311,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -6287,7 +6336,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start The Travels of Marco Polo"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -6300,7 +6349,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start Christopher Columbus"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/607"
                   >
                     Start
@@ -6313,7 +6362,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start A, An, The"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/140"
                   >
                     Start
@@ -6326,7 +6375,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start Magellan"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/605"
                   >
                     Start
@@ -6339,7 +6388,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start Jamestown"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/606"
                   >
                     Start
@@ -6352,7 +6401,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Sailing with the Stars"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/503"
                   >
                     Start
@@ -6365,7 +6414,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: The Cape of Good Hope"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/504"
                   >
                     Start
@@ -6378,7 +6427,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Roanoke"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/517"
                   >
                     Start
@@ -6420,9 +6469,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6491,9 +6540,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6534,7 +6583,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start The Travels of Marco Polo"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -6568,9 +6617,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6611,7 +6660,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Christopher Columbus"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/607"
                       >
                         Start
@@ -6645,9 +6694,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6688,7 +6737,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start A, An, The"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/140"
                       >
                         Start
@@ -6722,9 +6771,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6765,7 +6814,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Magellan"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/605"
                       >
                         Start
@@ -6799,9 +6848,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6842,7 +6891,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Jamestown"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/606"
                       >
                         Start
@@ -6876,9 +6925,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6919,7 +6968,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Sailing with the Stars"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/503"
                       >
                         Start
@@ -6953,9 +7002,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -6996,7 +7045,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: The Cape of Good Hope"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/504"
                       >
                         Start
@@ -7030,9 +7079,9 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -7073,7 +7122,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Roanoke"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/517"
                       >
                         Start
@@ -7426,7 +7475,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         </span>
         <a
           aria-label="Join Lesson 1: Missing Subject or Verb Fragments"
-          className="quill-button medium primary contained focus-on-dark"
+          className="quill-button-archived medium primary contained focus-on-dark"
           href="/activity_sessions/classroom_units/10/activities/560"
         >
           Join
@@ -7469,14 +7518,14 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             className="form-buttons"
           >
             <button
-              className="quill-button outlined secondary medium focus-on-light"
+              className="quill-button-archived outlined secondary medium focus-on-light"
               onClick={[Function]}
               type="button"
             >
               Not now
             </button>
             <a
-              className="quill-button contained primary medium focus-on-light"
+              className="quill-button-archived contained primary medium focus-on-light"
               href="/activity_sessions/classroom_units/10/activities/560"
             >
               Join the lesson
@@ -7601,6 +7650,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -7621,7 +7677,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -7646,7 +7702,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -7739,9 +7795,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -7810,9 +7866,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -7853,7 +7909,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -7887,9 +7943,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8000,9 +8056,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8113,9 +8169,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8410,6 +8466,13 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -8430,7 +8493,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -8455,7 +8518,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start The Travels of Marco Polo"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -8468,7 +8531,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start Christopher Columbus"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/607"
                   >
                     Start
@@ -8481,7 +8544,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start A, An, The"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/140"
                   >
                     Start
@@ -8494,7 +8557,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start Magellan"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/605"
                   >
                     Start
@@ -8507,7 +8570,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start Jamestown"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/606"
                   >
                     Start
@@ -8520,7 +8583,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Sailing with the Stars"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/503"
                   >
                     Start
@@ -8533,7 +8596,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: The Cape of Good Hope"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/504"
                   >
                     Start
@@ -8546,7 +8609,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Roanoke"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/517"
                   >
                     Start
@@ -8588,9 +8651,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8659,9 +8722,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8702,7 +8765,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start The Travels of Marco Polo"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -8736,9 +8799,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8779,7 +8842,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Christopher Columbus"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/607"
                       >
                         Start
@@ -8813,9 +8876,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8856,7 +8919,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start A, An, The"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/140"
                       >
                         Start
@@ -8890,9 +8953,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -8933,7 +8996,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Magellan"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/605"
                       >
                         Start
@@ -8967,9 +9030,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -9010,7 +9073,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Jamestown"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/606"
                       >
                         Start
@@ -9044,9 +9107,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -9087,7 +9150,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Sailing with the Stars"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/503"
                       >
                         Start
@@ -9121,9 +9184,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -9164,7 +9227,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: The Cape of Good Hope"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/504"
                       >
                         Start
@@ -9198,9 +9261,9 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -9241,7 +9304,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Roanoke"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/517"
                       >
                         Start
@@ -9594,7 +9657,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         </span>
         <a
           aria-label="Join Lesson 1: Missing Subject or Verb Fragments"
-          className="quill-button medium primary contained focus-on-dark"
+          className="quill-button-archived medium primary contained focus-on-dark"
           href="/activity_sessions/classroom_units/10/activities/560"
         >
           Join
@@ -9637,14 +9700,14 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             className="form-buttons"
           >
             <button
-              className="quill-button outlined secondary medium focus-on-light"
+              className="quill-button-archived outlined secondary medium focus-on-light"
               onClick={[Function]}
               type="button"
             >
               Not now
             </button>
             <a
-              className="quill-button contained primary medium focus-on-light"
+              className="quill-button-archived contained primary medium focus-on-light"
               href="/activity_sessions/classroom_units/10/activities/560"
             >
               Join the lesson
@@ -9769,6 +9832,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -9789,7 +9859,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -9814,7 +9884,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -9907,9 +9977,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -9978,9 +10048,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10021,7 +10091,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Resume Lesson 1: Missing Subject or Verb Fragments"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -10055,9 +10125,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10168,9 +10238,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10281,9 +10351,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10578,6 +10648,13 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           <span />
         </div>
         <div
+          className="subheader"
+        >
+          <h3>
+            To-do activities
+          </h3>
+        </div>
+        <div
           className="activities-container incomplete-activities"
         >
           <DataTable
@@ -10598,7 +10675,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   "name": "Activity",
                   "noTooltip": true,
                   "rowSectionClassName": "name-section",
-                  "width": "874px",
+                  "width": "866px",
                 },
                 Object {
                   "attribute": "dueDate",
@@ -10623,7 +10700,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start The Travels of Marco Polo"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -10636,7 +10713,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start Christopher Columbus"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/607"
                   >
                     Start
@@ -10649,7 +10726,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start A, An, The"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/140"
                   >
                     Start
@@ -10662,7 +10739,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start Magellan"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/605"
                   >
                     Start
@@ -10675,7 +10752,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start Jamestown"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/606"
                   >
                     Start
@@ -10688,7 +10765,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Sailing with the Stars"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/503"
                   >
                     Start
@@ -10701,7 +10778,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: The Cape of Good Hope"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/504"
                   >
                     Start
@@ -10714,7 +10791,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 Object {
                   "actionButton": <a
                     aria-label="Start Age of Exploration: Roanoke"
-                    className="quill-button medium focus-on-light secondary outlined"
+                    className="quill-button-archived medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/517"
                   >
                     Start
@@ -10756,9 +10833,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     scope="col"
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10827,9 +10904,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10870,7 +10947,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start The Travels of Marco Polo"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -10904,9 +10981,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -10947,7 +11024,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Christopher Columbus"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/607"
                       >
                         Start
@@ -10981,9 +11058,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -11024,7 +11101,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start A, An, The"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/140"
                       >
                         Start
@@ -11058,9 +11135,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -11101,7 +11178,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Magellan"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/605"
                       >
                         Start
@@ -11135,9 +11212,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -11178,7 +11255,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Jamestown"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/606"
                       >
                         Start
@@ -11212,9 +11289,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -11255,7 +11332,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Sailing with the Stars"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/503"
                       >
                         Start
@@ -11289,9 +11366,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -11332,7 +11409,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: The Cape of Good Hope"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/504"
                       >
                         Start
@@ -11366,9 +11443,9 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     onMouseLeave={[Function]}
                     style={
                       Object {
-                        "minWidth": "874px",
+                        "minWidth": "866px",
                         "textAlign": "left",
-                        "width": "874px",
+                        "width": "866px",
                       }
                     }
                   >
@@ -11409,7 +11486,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     <TableCellContentWrapper>
                       <a
                         aria-label="Start Age of Exploration: Roanoke"
-                        className="quill-button medium focus-on-light secondary outlined"
+                        className="quill-button-archived medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/517"
                       >
                         Start

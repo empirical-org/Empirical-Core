@@ -315,7 +315,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
   function renderIndividualResponsesLink({total_correct_questions_count, id}) {
     if (total_correct_questions_count === undefined) { return null }
 
-    return <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link>
+    return <Link className="quill-button-archived fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link>
   }
 
   const responsesLink = (studentId: number) => unitId ? `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}?unit=${unitId}` : `/diagnostics/${activityId}/classroom/${classroomId}/responses/${studentId}`
@@ -355,7 +355,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       alphabeticalName: alphabeticalName(name),
       totalCorrectSkillsCount: total_correct_questions_count,
       skillsCorrectElement: total_correct_questions_count !== undefined ? <div className="skills-correct-element">{total_correct_questions_count} of {total_possible_questions_count} ({calculateSkillsPercentage(total_correct_questions_count, total_possible_questions_count)}%)</div> : null,
-      individualResponsesLink: total_correct_questions_count !== undefined ? <Link className="quill-button fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
+      individualResponsesLink: total_correct_questions_count !== undefined ? <Link className="quill-button-archived fun secondary outlined focus-on-light" to={responsesLink(id)}>View</Link> : <span className="name-section-subheader">Diagnostic not completed</span>
     }
   })
 

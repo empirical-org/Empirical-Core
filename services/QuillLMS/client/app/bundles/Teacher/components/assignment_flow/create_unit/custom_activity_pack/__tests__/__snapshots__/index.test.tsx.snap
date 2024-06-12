@@ -34667,7 +34667,7 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
               selectedActivities={Array []}
             >
               <button
-                className="quill-button contained primary medium focus-on-light disabled"
+                className="quill-button-archived contained primary medium focus-on-light disabled"
                 onClick={null}
                 type="button"
               >

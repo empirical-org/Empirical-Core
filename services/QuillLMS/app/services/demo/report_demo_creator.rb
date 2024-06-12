@@ -3,8 +3,6 @@
 module Demo::ReportDemoCreator
   EMAIL = 'hello+demoteacher@quill.org'
   STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
-  REPLAYED_ACTIVITY_ID = 434
-  REPLAYED_SAMPLE_USER_ID = 312664
 
   STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
 
@@ -197,7 +195,6 @@ module Demo::ReportDemoCreator
     session_data = Demo::SessionData.new
 
     create_activity_sessions(students, classroom, session_data, is_teacher_demo)
-    create_replayed_activity_session(students.first, classroom_units.first, session_data)
 
     TeacherActivityFeedRefillWorker.perform_async(teacher.id)
   end
@@ -362,16 +359,14 @@ module Demo::ReportDemoCreator
     end
   end
 
-  def self.create_replayed_activity_session(student, classroom_unit, session_data)
-    clone_activity_session(student.id, classroom_unit.id, REPLAYED_SAMPLE_USER_ID, REPLAYED_ACTIVITY_ID, session_data)
+  def self.clone_activity_sessions(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
+    session_data
+      .activity_sessions
+      .filter {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+      .each { |session| clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session, session_data) }
   end
 
-  def self.clone_activity_session(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
-    session_to_clone = session_data.activity_sessions
-      .find {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
-
-    return unless session_to_clone
-
+  def self.clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data)
     act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
     concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
@@ -383,6 +378,7 @@ module Demo::ReportDemoCreator
         question_type: question_type&.text
       })
     end
+
   end
 
   def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
@@ -409,7 +405,7 @@ module Demo::ReportDemoCreator
 
         activity_sessions = activity_pack[:activity_sessions]
         activity_sessions[activity_sessions_index].each do |clone_activity_id, clone_user_id|
-          clone_activity_session(
+          clone_activity_sessions(
             student.id,
             classroom_unit.id,
             clone_user_id,

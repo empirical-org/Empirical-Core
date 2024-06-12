@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 
 import ImageSection from "./imageSection";
@@ -125,15 +124,12 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <React.Fragment>
       <p className={`text-editor-label ${passageLabelStyle}`}>
         <span>Passage</span>
-        <button className="quill-button fun primary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
+        <button className="quill-button-archived fun primary outlined focus-on-light" onClick={toggleShowHighlights} type="button">{showHighlights ? 'Hide highlights' : 'Show highlights'}</button>
       </p>
       <div className={showHighlights ? '' : 'hide-highlights'}>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={handleSetPassageText}
           key="passage-description"
-          shouldCheckSpelling={true}
           text={activityPassages[0].text}
         />
       </div>
@@ -145,11 +141,8 @@ const ActivityForm = ({ activity, requestErrors, submitActivity }: ActivityFormP
     <React.Fragment>
       <p className={`text-editor-label ${essentialKnowledgeStyle}`}>Building Essential Knowledge Text</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={handleSetPassageEssentialKnowledgeText}
         key="essential-knowledge-text"
-        shouldCheckSpelling={true}
         text={activityPassages[0].essential_knowledge_text}
       />
     </React.Fragment>

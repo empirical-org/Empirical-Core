@@ -16,14 +16,16 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLMPromptTemplate, type: :model do
+        let(:factory) { described_class.model_name.singular.to_sym }
+
+        it { expect(build(factory)).to be_valid }
+
         it { should validate_presence_of(:description) }
         it { should validate_presence_of(:contents) }
         it { should have_readonly_attribute(:description) }
         it { should have_readonly_attribute(:contents) }
 
         it { should have_many(:llm_prompts).dependent(:destroy) }
-
-        it { expect(FactoryBot.build(:evidence_research_gen_ai_llm_prompt_template)).to be_valid }
       end
     end
   end

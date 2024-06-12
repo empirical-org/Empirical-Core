@@ -21,10 +21,10 @@ const AdminRequestModal = ({ onSuccess, schoolAdmins, closeModal, }) => {
     })
   }
 
-  let sendRequestButton = <button className="quill-button medium primary contained focus-on-light" onClick={handleClickSendRequest} type="button">Send request</button>
+  let sendRequestButton = <button className="quill-button-archived medium primary contained focus-on-light" onClick={handleClickSendRequest} type="button">Send request</button>
 
   if (selectedAdminIds.length === 0) {
-    sendRequestButton = <button className="quill-button medium primary contained focus-on-light disabled" disabled type="button">Send request</button>
+    sendRequestButton = <button className="quill-button-archived medium primary contained focus-on-light disabled" disabled type="button">Send request</button>
   }
 
   return (
@@ -41,7 +41,7 @@ const AdminRequestModal = ({ onSuccess, schoolAdmins, closeModal, }) => {
           value={reason}
         />
         <div className="button-section">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeModal} type="button">Cancel</button>
           {sendRequestButton}
         </div>
       </div>

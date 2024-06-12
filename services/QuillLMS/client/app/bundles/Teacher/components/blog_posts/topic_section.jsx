@@ -46,7 +46,7 @@ export default class TopicSection extends React.Component {
           <h1>{this.displayTitle()}</h1>
           <div>
             <h2>{articleCount} {pluralize('article', articleCount)}</h2>
-            {!onSearchPage && <a className="quill-button focus-on-light fun contained primary" href={`/${this.sectionLink()}/topic/${slug}`}>Show all</a>}
+            {!onSearchPage && <a className="quill-button-archived focus-on-light fun contained primary" href={`/${this.sectionLink()}/topic/${slug}`}>Show all</a>}
           </div>
         </div>
         <div id="preview-card-container">

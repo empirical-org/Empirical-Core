@@ -5,6 +5,13 @@ class Api::V1::QuestionsController < Api::ApiController
   before_action :get_question_by_uid, except: [:index, :create, :show]
 
   def index
+    if @question_type.nil?
+      return render json: {
+        error: 'Bad Request',
+        message: 'question_type is a required param'
+      }, status: 400
+    end
+
     render json: Question.all_questions_json_cached(@question_type)
   end
 
@@ -26,11 +33,6 @@ class Api::V1::QuestionsController < Api::ApiController
   def destroy
     @question.destroy
     render(plain: 'OK')
-  end
-
-  def update_flag
-    @question.update_flag(valid_params[:flag])
-    render_question
   end
 
   def update_model_concept

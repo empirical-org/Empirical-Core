@@ -217,7 +217,7 @@ exports[`FinishSetUp component should render 1`] = `
               </PasswordWrapper>
               <input
                 aria-label="Sign up"
-                className="quill-button contained primary medium focus-on-light disabled"
+                className="quill-button-archived contained primary medium focus-on-light disabled"
                 name="commit"
                 type="submit"
                 value="Log in"

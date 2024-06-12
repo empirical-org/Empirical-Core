@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as _ from 'lodash';
 import * as React from 'react';
 
@@ -22,11 +21,8 @@ export const MaxAttemptsEditor = ({ conjunction, prompt, handleSetPrompt }: MaxA
     <div>
       <p className={`text-editor-label ${maxAttemptStyle}`}>{_.capitalize(conjunction)} - Max Attempts Feedback - Student Did Not Reach Optimal AutoML Label</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={handleSetActivityMaxFeedback}
         key="but-max-attempt-feedback"
-        shouldCheckSpelling={true}
         text={prompt.max_attempts_feedback || ''}
       />
     </div>

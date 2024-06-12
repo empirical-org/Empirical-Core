@@ -1,0 +1,15 @@
+<div>
+  <h2><%= @llm.model_name.human.titleize %></h2>
+
+  <h3>Vendor</h3>
+  <p><%= @llm.vendor %></p>
+
+  <h3>Version</h3>
+  <p><%= @llm.version %></p>
+</div>
+
+<br>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= link_to 'Trials', research_gen_ai_trials_path %>

@@ -100,8 +100,8 @@ const EditTooltip = ({ state, id, tooltipHeight, back, numberOfEdits, next, inde
   }
   const parentElement = document.getElementById(id)
   const style = parentElement ? { top: `${parentElement.offsetTop + 5}px`, height: tooltipHeight } : {}
-  const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back} type="button">Back</button> : <div className="placeholder" />
-  const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next} type="button">{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
+  const backButton = back ? <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={back} type="button">Back</button> : <div className="placeholder" />
+  const nextButton = <button className="quill-button-archived medium primary contained focus-on-light" onClick={next} type="button">{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
   return (
     <div aria-live="polite" className="edit-tooltip" ref={containerRef} style={style} tabIndex={-1}>
       <div className="top-section">

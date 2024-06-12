@@ -25,7 +25,7 @@ const ThankYouSlide = () => {
         <img alt="Two hands clapping together" src={applaudingSrc} />
       </div>
       <div className="button-section">
-        <a className='quill-button large secondary outlined focus-on-dark' href={process.env.DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
+        <a className='quill-button-archived large secondary outlined focus-on-dark' href={process.env.DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
       </div>
     </div>
   )

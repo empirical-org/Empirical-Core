@@ -35,7 +35,7 @@ export default class extends React.Component {
       <div className="empty-progress-report">
         <h2>{title}</h2>
         <p>{content}</p>
-        <button className="quill-button fun primary contained create-unit featured-button" onClick={onButtonClick} type="button">{buttonText}</button>
+        <button className="quill-button-archived fun primary contained create-unit featured-button" onClick={onButtonClick} type="button">{buttonText}</button>
         <a href="/teacher-center">Teacher Center</a>
       </div>
     );

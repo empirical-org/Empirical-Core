@@ -9,7 +9,7 @@ import {
 
 const FollowUpIllustration = `${process.env.CDN_URL}/images/illustrations/celebrating-activity-completion.svg`
 
-const buttonClassName = "quill-button large outlined secondary focus-on-dark"
+const buttonClassName = "quill-button-archived large outlined secondary focus-on-dark"
 
 const generic = <a className={buttonClassName} href={`${process.env.DEFAULT_URL}`}>Exit lesson</a>
 
