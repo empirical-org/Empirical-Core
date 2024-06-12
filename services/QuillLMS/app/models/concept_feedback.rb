@@ -45,7 +45,7 @@ class ConceptFeedback < ApplicationRecord
     return if data["description"].nil?
     return unless translation_mappings.empty?
 
-    english = matching_english_text
+    english = EnglishText.find_by(text: desc)
     return create_english_text_and_return_payload unless english.present?
 
     translation_mappings.create(english_text: english)
@@ -60,10 +60,6 @@ class ConceptFeedback < ApplicationRecord
     english = EnglishText.create(text: desc)
     translation_mappings.create(english_text: english)
     english.gengo_payload
-  end
-
-  private def matching_english_text
-    EnglishText.find_by(text: desc)
   end
 
   private def desc
