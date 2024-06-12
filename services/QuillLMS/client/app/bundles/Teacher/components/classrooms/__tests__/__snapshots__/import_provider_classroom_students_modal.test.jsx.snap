@@ -42,14 +42,14 @@ exports[`ImportProviderClassroomStudentsModal component should render ImportProv
       className="form-buttons"
     >
       <button
-        className="quill-button outlined secondary medium"
+        className="quill-button-archived outlined secondary medium"
         onClick={[Function]}
         type="button"
       >
         Cancel
       </button>
       <button
-        className="quill-button contained primary medium disabled"
+        className="quill-button-archived contained primary medium disabled"
         onClick={[Function]}
         type="button"
       >

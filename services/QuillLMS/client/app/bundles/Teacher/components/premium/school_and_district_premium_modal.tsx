@@ -14,7 +14,7 @@ const requestDistrictQuoteLink = `${process.env.DEFAULT_URL}/premium/request-dis
 const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithSelectedSchool, setSelectedSchool, closeModal, selectSchool, }) => {
   if (eligibleSchools.length) {
     const schoolOptions = eligibleSchools.map(school => ({ value: school.id, label: school.name, }))
-    const continueButton = selectedSchool ? <button className="quill-button medium contained primary focus-on-light" onClick={goToStripeWithSelectedSchool} type="button">Continue</button> : <button className="quill-button medium contained primary focus-on-light disabled" disabled type="button">Continue</button>
+    const continueButton = selectedSchool ? <button className="quill-button-archived medium contained primary focus-on-light" onClick={goToStripeWithSelectedSchool} type="button">Continue</button> : <button className="quill-button-archived medium contained primary focus-on-light disabled" disabled type="button">Continue</button>
     return (
       <div className="modal-container school-and-district-premium-modal-container">
         <div className="modal-background" />
@@ -30,7 +30,7 @@ const SchoolSelectionStage = ({ eligibleSchools, selectedSchool, goToStripeWithS
           />
           <p>Your account is linked to multiple schools. To purchase multiple school subscriptions, please complete the purchase checkout for each school, or contact us at sales@quill.org for one invoice for multiple schools.</p>
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
+            <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={closeModal} type="button">Cancel</button>
             {continueButton}
           </div>
         </div>
@@ -124,12 +124,12 @@ const SchoolAndDistrictPremiumModal = ({ stripeSchoolPlan, eligibleSchools, hand
   }
 
   if (stage === PLAN_SELECTION_STAGE_NUMBER) {
-    const requestSchoolQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href={requestSchoolQuoteLink}>Request a quote</a>
-    const requestDistrictQuoteButton = <a className="quill-button outlined medium secondary focus-on-light" href={requestDistrictQuoteLink}>Request a quote</a>
-    let schoolBuyNowButton = <button className="quill-button contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy now</button>
+    const requestSchoolQuoteButton = <a className="quill-button-archived outlined medium secondary focus-on-light" href={requestSchoolQuoteLink}>Request a quote</a>
+    const requestDistrictQuoteButton = <a className="quill-button-archived outlined medium secondary focus-on-light" href={requestDistrictQuoteLink}>Request a quote</a>
+    let schoolBuyNowButton = <button className="quill-button-archived contained medium primary focus-on-light" onClick={goToSchoolSelectionStage} type="button">Buy now</button>
 
     if (!userIsSignedIn) {
-      schoolBuyNowButton = <a className="quill-button contained medium primary focus-on-light" href={`/session/new?redirect=/premium?${SCHOOL_SELECTION_STAGE}=true`}>Buy now</a>
+      schoolBuyNowButton = <a className="quill-button-archived contained medium primary focus-on-light" href={`/session/new?redirect=/premium?${SCHOOL_SELECTION_STAGE}=true`}>Buy now</a>
     }
 
     return (

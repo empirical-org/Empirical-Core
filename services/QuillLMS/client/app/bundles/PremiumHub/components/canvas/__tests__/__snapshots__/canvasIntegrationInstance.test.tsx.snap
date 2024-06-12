@@ -12,7 +12,7 @@ exports[`CanvasIntegrationInstance it should render 1`] = `
         https://quill.instructure.com
       </h3>
       <button
-        class="quill-button medium secondary outlined focus-on-light"
+        class="quill-button-archived medium secondary outlined focus-on-light"
         type="button"
       >
         Edit

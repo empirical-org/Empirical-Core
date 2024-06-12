@@ -74,7 +74,7 @@ const ModalContent = ({ classes, selectedClassroomIds, setSelectedClassroomIds, 
 const BulkArchiveClassesModal = ({ classes, onCloseModal, onSuccess, }) => {
   const [selectedClassroomIds, setSelectedClassroomIds] = React.useState([])
 
-  let footerButtonClass = 'quill-button contained primary medium'
+  let footerButtonClass = 'quill-button-archived contained primary medium'
   footerButtonClass+= selectedClassroomIds.length ? '' : ' disabled'
 
   const handleClickArchiveClasses = () => {
@@ -102,7 +102,7 @@ const BulkArchiveClassesModal = ({ classes, onCloseModal, onSuccess, }) => {
 
         <div className="bulk-archive-classes-modal-footer">
           <div className="buttons">
-            <button className="quill-button outlined secondary medium" onClick={onCloseModal} type="button">Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={onCloseModal} type="button">Cancel</button>
             <button className={footerButtonClass} onClick={handleClickArchiveClasses} type="button">Archive</button>
           </div>
         </div>

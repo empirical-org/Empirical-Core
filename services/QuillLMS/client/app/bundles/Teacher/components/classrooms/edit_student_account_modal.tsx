@@ -67,7 +67,7 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
   submitButtonClass() {
     const { student } = this.props
     const { firstName, lastName, username } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     const originalSplitName = student.name.split(' ')
     const nothingHasChanged = originalSplitName[0] === firstName && originalSplitName[1] === lastName && student.username === username
     if (!firstName.length || !lastName.length || !username.length || nothingHasChanged) {
@@ -115,7 +115,7 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
             value={username}
           />
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
             <button className={this.submitButtonClass()} onClick={this.editStudentAccount}>Save</button>
           </div>
         </div>

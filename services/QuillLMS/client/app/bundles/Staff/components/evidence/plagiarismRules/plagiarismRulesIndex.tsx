@@ -189,17 +189,17 @@ const PlagiarismRulesIndex: React.FC<RouteComponentProps<ActivityRouteProps>> = 
     <div className="rules-container">
       {renderHeader(activityData, 'Plagiarism Rules')}
       <section className="plagiarism-section" id="first-plagiarism-section">
-        <button className={`quill-button fun primary contained add-rule-button ${becauseDisabled}`} type="submit">{becauseRuleLink}</button>
+        <button className={`quill-button-archived fun primary contained add-rule-button ${becauseDisabled}`} type="submit">{becauseRuleLink}</button>
         {becauseDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
         {renderTable(becausePlagiarismRule)}
       </section>
       <section className="plagiarism-section">
-        <button className={`quill-button fun primary contained add-rule-button ${butDisabled}`} type="submit">{butRuleLink}</button>
+        <button className={`quill-button-archived fun primary contained add-rule-button ${butDisabled}`} type="submit">{butRuleLink}</button>
         {butDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
         {renderTable(butPlagiarismRule)}
       </section>
       <section className="plagiarism-section">
-        <button className={`quill-button fun primary contained add-rule-button ${soDisabled}`} type="submit">{soRuleLink}</button>
+        <button className={`quill-button-archived fun primary contained add-rule-button ${soDisabled}`} type="submit">{soRuleLink}</button>
         {soDisabled && <p className="one-rule-warning">{oneRuleWarning}</p>}
         {renderTable(soPlagiarismRule)}
       </section>

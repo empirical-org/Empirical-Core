@@ -90,7 +90,7 @@ export const UploadRosters = () => {
         />
         <label className="overwrite-passwords-label" htmlFor="overwrite-passwords">Overwrite existing students&apos; passwords?</label>
       </div>
-      <button className="quill-button primary medium upload-rosters-button" onClick={submitRosters} type="button">Upload Rosters</button>
+      <button className="quill-button-archived primary medium upload-rosters-button" onClick={submitRosters} type="button">Upload Rosters</button>
     </div>
   )
 

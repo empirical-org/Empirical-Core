@@ -35,7 +35,7 @@ exports[`CreateStudentAccounts component on initial load should render 1`] = `
         value=""
       />
       <input
-        className="quill-button outlined secondary medium submit-button disabled"
+        className="quill-button-archived outlined secondary medium submit-button disabled"
         name="commit"
         type="submit"
         value="Add"
@@ -46,12 +46,12 @@ exports[`CreateStudentAccounts component on initial load should render 1`] = `
     className="create-a-class-modal-footer with-back-button"
   >
     <button
-      className="quill-button secondary outlined medium"
+      className="quill-button-archived secondary outlined medium"
     >
       Back
     </button>
     <button
-      className="quill-button contained primary medium disabled"
+      className="quill-button-archived contained primary medium disabled"
       onClick={[Function]}
     >
       Next

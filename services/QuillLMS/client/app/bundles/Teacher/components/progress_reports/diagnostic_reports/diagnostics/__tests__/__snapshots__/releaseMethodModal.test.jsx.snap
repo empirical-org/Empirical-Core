@@ -209,14 +209,14 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light "
+            className="quill-button-archived large contained primary focus-on-light "
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -439,14 +439,14 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light "
+            className="quill-button-archived large contained primary focus-on-light "
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -669,14 +669,14 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light "
+            className="quill-button-archived large contained primary focus-on-light "
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -899,14 +899,14 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light "
+            className="quill-button-archived large contained primary focus-on-light "
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -1125,14 +1125,14 @@ exports[`ReleaseMethodModal component with no original release method should ren
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light disabled"
+            className="quill-button-archived large contained primary focus-on-light disabled"
             disabled={true}
             onClick={[Function]}
             type="button"
@@ -1352,14 +1352,14 @@ exports[`ReleaseMethodModal component with no original release method should ren
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light "
+            className="quill-button-archived large contained primary focus-on-light "
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -1579,14 +1579,14 @@ exports[`ReleaseMethodModal component with no original release method should ren
           className="buttons-wrapper"
         >
           <button
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
           >
             Cancel
           </button>
           <button
-            className="quill-button large contained primary focus-on-light "
+            className="quill-button-archived large contained primary focus-on-light "
             disabled={false}
             onClick={[Function]}
             type="button"

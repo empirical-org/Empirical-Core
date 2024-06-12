@@ -294,7 +294,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return (
       <button
         aria-label="Actions"
-        className="quill-button actions-button focus-on-light"
+        className="quill-button-archived actions-button focus-on-light"
         onClick={() => this.setState({ rowWithActionsOpen: row.id })}
         type="button"
       >

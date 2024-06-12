@@ -727,7 +727,7 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
        students
     </p>
     <button
-      class="quill-button small secondary focus-on-light outlined"
+      class="quill-button-archived small secondary focus-on-light outlined"
     >
       Load more
     </button>
@@ -1342,7 +1342,7 @@ exports[`StudentSection loaded state it should render the expected data when dat
          students
       </p>
       <button
-        class="quill-button small secondary focus-on-light outlined"
+        class="quill-button-archived small secondary focus-on-light outlined"
       >
         Load more
       </button>
@@ -1800,7 +1800,7 @@ exports[`StudentSection loaded state it should render the expected empty state m
          students
       </p>
       <button
-        class="quill-button small secondary focus-on-light outlined"
+        class="quill-button-archived small secondary focus-on-light outlined"
       >
         Load more
       </button>
@@ -2258,7 +2258,7 @@ exports[`StudentSection loaded state it should render the expected header compon
          students
       </p>
       <button
-        class="quill-button small secondary focus-on-light outlined"
+        class="quill-button-archived small secondary focus-on-light outlined"
       >
         Load more
       </button>

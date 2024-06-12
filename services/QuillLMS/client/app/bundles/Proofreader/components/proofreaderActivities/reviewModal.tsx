@@ -20,7 +20,7 @@ export default class ReviewModal extends React.Component<ReviewModalProps> {
         <div className="review-modal">
           <div className="top-section">
             <h1>{highScoreMessage} You found {numberOfCorrectChanges} of {numberOfErrors} errors. Let&#39;s review your edits.</h1>
-            <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} type="button">Review</button>
+            <button className="quill-button-archived medium primary contained focus-on-light" onClick={closeModal} type="button">Review</button>
           </div>
         </div>
       </div>

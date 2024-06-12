@@ -5,11 +5,11 @@ require 'rails_helper'
 module Evidence
   module OpenAI
     RSpec.describe Completion do
-      Evidence::Research::GenAI::LLMConfig::OPEN_AI_VERSIONS.each do |version|
-        subject { described_class.new(prompt:, llm_config:) }
+      Evidence::Research::GenAI::LLM::OPEN_AI_VERSIONS.each do |version|
+        subject { described_class.new(prompt:, llm:) }
 
         let(:prompt) { 'some prompt' }
-        let(:llm_config) { create(:evidence_research_gen_ai_llm_config, :open_ai, version:) }
+        let(:llm) { create(:evidence_research_gen_ai_llm, :open_ai, version:) }
 
         context 'test endpoint', external_api: true do
           it { expect { subject.run }.not_to raise_error }

@@ -1,0 +1,17 @@
+<div class="pagination">
+  <% if @page > 1 %>
+    <%= link_to 'Previous', research_gen_ai_trials_path(page: @page - 1) %>
+  <% end %>
+
+  <% (1..(@num_trials.to_f / @per_page).ceil).each do |page_number| %>
+    <% if page_number == @page %>
+      <span><%= page_number %></span>
+    <% else %>
+      <%= link_to page_number, research_gen_ai_trials_path(page: page_number) %>
+    <% end %>
+  <% end %>
+
+  <% if @page * @per_page < @num_trials %>
+    <%= link_to 'Next', research_gen_ai_trials_path(page: @page + 1) %>
+  <% end %>
+</div>

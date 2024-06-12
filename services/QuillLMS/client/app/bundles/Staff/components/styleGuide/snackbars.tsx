@@ -43,14 +43,14 @@ triggerSnackbar() {
 
 render() {
   return <div>
-    <button className="quill-button medium primary contained" onClick={this.triggerSnackbar}>Click Me</button>
+    <button className="quill-button-archived medium primary contained" onClick={this.triggerSnackbar}>Click Me</button>
     <Snackbar text="I am a snackbar!" visible={this.state.visible} />
   </div>
 }
 
 `}
           </pre>
-          <button className="quill-button medium primary contained" onClick={this.triggerSnackbar}>Click Me</button>
+          <button className="quill-button-archived medium primary contained" onClick={this.triggerSnackbar}>Click Me</button>
         </div>
         <Snackbar text="I am a snackbar!" visible={this.state.visible} />
       </div>

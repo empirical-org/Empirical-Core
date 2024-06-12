@@ -11,7 +11,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       Edit Canvas Integration
     </h2>
     <div
-      class="input-container  inactive has-text undefined "
+      class="input-container  inactive has-text undefined  "
       role="button"
       tabindex="-1"
     >
@@ -29,7 +29,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       />
     </div>
     <div
-      class="input-container  inactive has-text undefined "
+      class="input-container  inactive has-text undefined  "
       role="button"
       tabindex="-1"
     >
@@ -46,7 +46,7 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       />
     </div>
     <div
-      class="input-container  inactive has-text undefined "
+      class="input-container  inactive has-text undefined  "
       role="button"
       tabindex="-1"
     >
@@ -145,20 +145,20 @@ exports[`CanvasIntegrationForm when there is an existing integration it should r
       class="button-wrapper"
     >
       <button
-        class="quill-button contained primary medium focus-on-light red"
+        class="quill-button-archived contained primary medium focus-on-light red"
         type="button"
       >
         Delete
       </button>
       <div>
         <button
-          class="quill-button medium outlined secondary focus-on-light"
+          class="quill-button-archived medium outlined secondary focus-on-light"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="quill-button medium primary contained focus-on-light "
+          class="quill-button-archived medium primary contained focus-on-light "
           type="submit"
         >
           Submit
@@ -180,7 +180,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       New Canvas Integration
     </h2>
     <div
-      class="input-container  inactive  undefined "
+      class="input-container  inactive  undefined  "
       role="button"
       tabindex="-1"
     >
@@ -198,7 +198,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       />
     </div>
     <div
-      class="input-container  inactive  undefined "
+      class="input-container  inactive  undefined  "
       role="button"
       tabindex="-1"
     >
@@ -215,7 +215,7 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       />
     </div>
     <div
-      class="input-container  inactive  undefined "
+      class="input-container  inactive  undefined  "
       role="button"
       tabindex="-1"
     >
@@ -304,13 +304,13 @@ exports[`CanvasIntegrationForm when there is not an existing integration it shou
       <span />
       <div>
         <button
-          class="quill-button medium outlined secondary focus-on-light"
+          class="quill-button-archived medium outlined secondary focus-on-light"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="quill-button medium primary contained focus-on-light disabled"
+          class="quill-button-archived medium primary contained focus-on-light disabled"
           disabled=""
           type="submit"
         >

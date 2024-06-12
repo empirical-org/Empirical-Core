@@ -58,7 +58,7 @@ const AdminAccess = ({ school, hasVerifiedEmail, schoolAdmins, hasSchoolPremium,
     </p>
   )
 
-  let buttonClassName = "quill-button focus-on-light outlined secondary medium"
+  let buttonClassName = "quill-button-archived focus-on-light outlined secondary medium"
 
   buttonClassName += hasVerifiedEmail ? '' : ' disabled'
 

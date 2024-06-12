@@ -92,7 +92,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
 >
   <div>
     <a
-      className="quill-button fun outlined secondary focus-on-light"
+      className="quill-button-archived fun outlined secondary focus-on-light"
       href="/cms/blog_posts"
     >
       <i
@@ -4601,7 +4601,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
               </DropdownInput>
             </ItemDropdown>
             <a
-              className="quill-button fun outlined secondary focus-on-light"
+              className="quill-button-archived fun outlined secondary focus-on-light"
               href="/cms/authors/new"
               target="_blank"
             >
@@ -16502,7 +16502,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
             value=""
           />
           <a
-            className="quill-button fun secondary outlined focus-on-light"
+            className="quill-button-archived fun secondary outlined focus-on-light"
             href="/cms/images"
             target="_blank"
           >
@@ -16553,7 +16553,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
               Article Content
             </label>
             <a
-              className="quill-button fun outlined secondary focus-on-light"
+              className="quill-button-archived fun outlined secondary focus-on-light"
               href="http://commonmark.org/help/"
               rel="noopener noreferrer"
               target="_blank"
@@ -16666,7 +16666,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
               Recommended Article Footer Content
             </label>
             <a
-              className="quill-button fun outlined secondary focus-on-light"
+              className="quill-button-archived fun outlined secondary focus-on-light"
               href="http://commonmark.org/help/"
               rel="noopener noreferrer"
               target="_blank"
@@ -16704,13 +16704,13 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
           className="save-buttons"
         >
           <input
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
             value="Save Draft"
           />
           <input
-            className="quill-button contained large primary focus-on-light"
+            className="quill-button-archived contained large primary focus-on-light"
             onClick={[Function]}
             type="button"
             value="Publish"
@@ -16789,7 +16789,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                 </div>
               </ReactMarkdown>
               <a
-                className="quill-button fun contained primary focus-on-light"
+                className="quill-button-archived fun contained primary focus-on-light"
                 rel="noopener noreferrer"
                 target="_self"
               >
@@ -16932,7 +16932,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
 >
   <div>
     <a
-      className="quill-button fun outlined secondary focus-on-light"
+      className="quill-button-archived fun outlined secondary focus-on-light"
       href="/cms/blog_posts"
     >
       <i
@@ -21456,7 +21456,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
               </DropdownInput>
             </ItemDropdown>
             <a
-              className="quill-button fun outlined secondary focus-on-light"
+              className="quill-button-archived fun outlined secondary focus-on-light"
               href="/cms/authors/new"
               target="_blank"
             >
@@ -33357,7 +33357,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
             value=""
           />
           <a
-            className="quill-button fun secondary outlined focus-on-light"
+            className="quill-button-archived fun secondary outlined focus-on-light"
             href="/cms/images"
             target="_blank"
           >
@@ -33408,7 +33408,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
               Article Content
             </label>
             <a
-              className="quill-button fun outlined secondary focus-on-light"
+              className="quill-button-archived fun outlined secondary focus-on-light"
               href="http://commonmark.org/help/"
               rel="noopener noreferrer"
               target="_blank"
@@ -33521,7 +33521,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
               Recommended Article Footer Content
             </label>
             <a
-              className="quill-button fun outlined secondary focus-on-light"
+              className="quill-button-archived fun outlined secondary focus-on-light"
               href="http://commonmark.org/help/"
               rel="noopener noreferrer"
               target="_blank"
@@ -33559,19 +33559,19 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
           className="save-buttons"
         >
           <input
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
             value="Unpublish & Save Draft"
           />
           <input
-            className="quill-button large outlined secondary focus-on-light"
+            className="quill-button-archived large outlined secondary focus-on-light"
             onClick={[Function]}
             type="button"
             value="Save and Preview"
           />
           <input
-            className="quill-button contained large primary focus-on-light"
+            className="quill-button-archived contained large primary focus-on-light"
             onClick={[Function]}
             type="button"
             value="Publish"
@@ -33604,7 +33604,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                 />
               </ReactMarkdown>
               <a
-                className="quill-button fun contained primary focus-on-light"
+                className="quill-button-archived fun contained primary focus-on-light"
                 rel="noopener noreferrer"
                 target="_self"
               >

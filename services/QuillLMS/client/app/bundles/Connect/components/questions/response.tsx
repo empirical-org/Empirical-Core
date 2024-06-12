@@ -1,10 +1,10 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import _ from 'underscore';
 
 import {
   Modal,
-  TextEditor
+  TextEditor,
+  ConceptSelectorWithCheckbox,
 } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
@@ -15,7 +15,6 @@ import {
 } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import C from '../../constants';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ResponseList from './responseList.jsx';
 
@@ -415,8 +414,6 @@ export default class Response extends React.Component<ResponseProps, ResponseSta
           <label className="label">Feedback</label>
           <TextEditor
             boilerplate={selectedBoilerplate}
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handleFeedbackChange}
             text={feedback || ''}
           />

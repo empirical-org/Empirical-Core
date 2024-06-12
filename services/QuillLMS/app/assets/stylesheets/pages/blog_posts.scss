@@ -37,7 +37,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 }
 
 .topic-section, .preview-card-link {
-  .quill-button:hover, .quill-button:focus {
+  .quill-button-archived:hover, .quill-button-archived:focus {
     filter: brightness(110%) !important;
   }
   &.green {
@@ -47,13 +47,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightgreen;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostgreen;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostgreen;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostgreen;
     }
   }
@@ -64,13 +64,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightpurple;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostpurple;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostpurple !important;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostpurple;
     }
   }
@@ -81,13 +81,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightblue;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostblue;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostblue !important;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostblue;
     }
   }
@@ -98,13 +98,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightgold;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostgold;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostgold !important;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostgold;
     }
   }
@@ -115,13 +115,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightred;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostred;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostred !important;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostred;
     }
   }
@@ -132,13 +132,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightviolet;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostviolet;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostviolet !important;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostviolet;
     }
   }
@@ -149,13 +149,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightteal;
     }
-    .quill-button {
+    .quill-button-archived {
       background-color: $blogpostteal;
     }
-    .quill-button:hover, .quill-button:focus {
+    .quill-button-archived:hover, .quill-button-archived:focus {
       background-color: $blogpostteal !important;
     }
-    .quill-button:focus {
+    .quill-button-archived:focus {
       outline: dashed 2px $blogpostteal;
     }
   }
@@ -209,7 +209,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 .preview-card-link {
   position: relative;
   height: 326px;
-  .quill-button {
+  .quill-button-archived {
     position: absolute;
     bottom: 16px;
     right: 16px;

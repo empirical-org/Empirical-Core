@@ -51,7 +51,7 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
   submitButtonClass() {
     const { classroom } = this.props
     const { name } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!name.length || classroom.name === name) {
       buttonClass += ' disabled';
     }
@@ -78,7 +78,7 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
             value={name}
           />
           <div className="form-buttons">
-            <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={this.props.close}>Cancel</button>
             <button className={this.submitButtonClass()} onClick={this.renameClass}>Save</button>
           </div>
         </div>

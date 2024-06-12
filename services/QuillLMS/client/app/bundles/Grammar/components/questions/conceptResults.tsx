@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as React from 'react';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox';
+
+import { ConceptSelectorWithCheckbox, } from '../../../Shared/index';
 
 export default class ConceptResults extends React.Component<any, any> {
   constructor(props) {

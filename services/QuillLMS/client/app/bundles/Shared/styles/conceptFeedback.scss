@@ -3,6 +3,7 @@
   padding: 16px;
   border-radius: 2px;
   background-color: #e5e5e5;
+  width: 100%;
   .concept-explanation-title {
     font-weight: bold;
     display: flex;
@@ -31,6 +32,10 @@
       border-radius: 2px;
       background-color: $quill-white;
       border-left: 2px solid #a5a5a5;
+      ul {
+        list-style: revert !important;
+        padding-left: 32px;
+      }
     }
   }
   @media (max-width: 650px) {

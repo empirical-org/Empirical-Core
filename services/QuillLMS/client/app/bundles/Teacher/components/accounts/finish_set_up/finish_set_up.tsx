@@ -57,7 +57,7 @@ const FinishSetUp = ({ email, passedFirstName, passedLastName, token, }) => {
   function onChangePassword(e) { setPassword(e.target.value) }
 
   function submitClass() {
-    let buttonClass = "quill-button contained primary medium focus-on-light"
+    let buttonClass = "quill-button-archived contained primary medium focus-on-light"
     if (!password.length || !firstName.length || !lastName.length || !email.length) {
       buttonClass += ' disabled'
     }

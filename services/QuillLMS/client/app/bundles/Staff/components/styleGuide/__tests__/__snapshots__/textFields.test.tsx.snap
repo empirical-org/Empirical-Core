@@ -1,0 +1,174 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextFields it should render 1`] = `
+<DocumentFragment>
+  <div
+    id="textFields"
+  >
+    <h2
+      class="style-guide-h2"
+    >
+      Text Fields
+    </h2>
+    <div
+      class="element-container"
+    >
+      <div
+        class="element-row"
+      >
+        <div
+          class="big-element"
+        >
+          <h4
+            class="style-guide-h4"
+          >
+            Input
+          </h4>
+          <pre>
+            &lt;Input
+label="Label"
+handleCancel={() =&gt; handleClearInput(INPUT_ONE)}
+handleChange={(e) =&gt; {changeSavedValues('inputOne', e)}}
+value={inputOne}
+/&gt;
+          </pre>
+          <div
+            class="input-container  inactive  undefined  "
+            role="button"
+            tabindex="-1"
+          >
+            <label>
+              Label
+            </label>
+            <input
+              autocomplete="on"
+              maxlength="10000"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="big-element"
+        >
+          <h4
+            class="style-guide-h4"
+          >
+            Input with helper text and placeholder
+          </h4>
+          <pre>
+            &lt;Input
+label="Label"
+value={inputTwo}
+handleCancel={() =&gt; handleClearInput(INPUT_TWO)}
+handleChange={(e) =&gt; {changeSavedValues('inputTwo', e)}}
+helperText="Helper text"
+showPlaceholderWhenInactive={true}
+placeholder="Placeholder"
+/&gt;
+          </pre>
+          <div
+            class="input-container  inactive  undefined  with-helper"
+            role="button"
+            tabindex="-1"
+          >
+            <label>
+              Label
+            </label>
+            <input
+              autocomplete="on"
+              maxlength="10000"
+              placeholder="Placeholder"
+              value=""
+            />
+            <span
+              class="helper-text"
+            >
+              Helper text
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="element-row"
+      >
+        <div
+          class="big-element"
+        >
+          <h4
+            class="style-guide-h4"
+          >
+            Single-line error
+          </h4>
+          <pre>
+            &lt;Input
+label="Label"
+handleCancel={() =&gt; handleClearInput(INPUT_THREE)}
+handleChange={(e) =&gt; {changeSavedValues('inputThree', e)}}
+value={inputThree}
+error="Short error message"
+/&gt;
+          </pre>
+          <div
+            class="input-container  inactive has-text undefined   error unacknowledged"
+            role="button"
+            tabindex="0"
+          >
+            <label>
+              Label
+            </label>
+            <input
+              autocomplete="on"
+              maxlength="10000"
+              value="Bad input"
+            />
+            <span
+              class="error-text"
+              role="alert"
+            >
+              Short error message
+            </span>
+          </div>
+        </div>
+        <div
+          class="big-element"
+        >
+          <h4
+            class="style-guide-h4"
+          >
+            Multi-line error
+          </h4>
+          <pre>
+            &lt;Input
+label="Label"
+value={inputFour}
+handleCancel={(e) =&gt; handleClearInput(INPUT_FOUR, e)}
+handleChange={(e) =&gt; {changeSavedValues('inputFour', e)}}
+error="Error message
+/&gt;
+          </pre>
+          <div
+            class="input-container  inactive has-text undefined   error unacknowledged"
+            role="button"
+            tabindex="0"
+          >
+            <label>
+              Label
+            </label>
+            <input
+              autocomplete="on"
+              maxlength="10000"
+              value="Even worse input"
+            />
+            <span
+              class="error-text"
+              role="alert"
+            >
+              Error mesage duis mollis, est non commodo luctus, nisi erat porttitor
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

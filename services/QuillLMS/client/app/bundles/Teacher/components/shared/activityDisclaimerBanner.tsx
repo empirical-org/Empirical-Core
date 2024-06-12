@@ -21,7 +21,7 @@ const ActivityDisclaimerBanner = ({ closeBanner, activityType }) => {
         {headerOptions[activityType]}
         {bodyOptions[activityType]}
       </div>
-      <button className="quill-button outlined secondary medium focus-on-light" onClick={closeBanner} type="button">
+      <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={closeBanner} type="button">
         Got it
       </button>
     </section>

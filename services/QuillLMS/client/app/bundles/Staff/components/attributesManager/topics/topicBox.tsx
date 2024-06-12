@@ -147,7 +147,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, levelTwoTopics, saveTopicCh
     if (!_.isEqual(topic, originalTopic)) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Save"
         />

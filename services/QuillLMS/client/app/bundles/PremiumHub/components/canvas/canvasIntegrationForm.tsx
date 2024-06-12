@@ -112,7 +112,7 @@ const CanvasIntegrationForm = ({ schools, existingIntegration=null, close=null, 
   if (existingIntegration) {
     deleteButtonOrEmptySpan = (
       <button
-        className="quill-button contained primary medium focus-on-light red"
+        className="quill-button-archived contained primary medium focus-on-light red"
         onClick={handleDelete}
         type="button"
       >
@@ -154,14 +154,14 @@ const CanvasIntegrationForm = ({ schools, existingIntegration=null, close=null, 
         {deleteButtonOrEmptySpan}
         <div>
           <button
-            className="quill-button medium outlined secondary focus-on-light"
+            className="quill-button-archived medium outlined secondary focus-on-light"
             onClick={closeOrReset}
             type="button"
           >
             Cancel
           </button>
           <button
-            className={`quill-button medium primary contained focus-on-light ${validInput() ? '' : 'disabled'}`}
+            className={`quill-button-archived medium primary contained focus-on-light ${validInput() ? '' : 'disabled'}`}
             disabled={!validInput()}
             onClick={handleSubmit}
             type="submit"

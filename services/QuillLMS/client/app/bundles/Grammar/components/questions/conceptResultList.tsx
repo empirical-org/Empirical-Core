@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as _ from 'underscore'
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox'
+
+import { ConceptSelectorWithCheckbox, } from '../../../Shared/index'
 
 interface ConceptResultListProps {
   updateConceptResults: Function

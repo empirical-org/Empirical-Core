@@ -45,7 +45,7 @@ export default class UnlinkModal extends React.Component {
     const { googleOrClever, } = this.props
     const { email, password, checkboxOne, checkboxTwo, checkboxThree, } = this.state
     const googleOrCleverCheckboxesChecked = googleOrClever === 'Clever' ? (checkboxOne && checkboxTwo && checkboxThree) : checkboxOne
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!(email.length && password.length && googleOrCleverCheckboxesChecked)) {
       buttonClass += ' disabled';
     }
@@ -128,7 +128,7 @@ export default class UnlinkModal extends React.Component {
           />
           {this.renderCheckboxes()}
           <div className="button-section">
-            <div className="quill-button outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
+            <div className="quill-button-archived outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
             <input
               className={this.submitClass()}
               name="commit"

@@ -16,8 +16,6 @@ module Demo
     FILE_CONCEPT_RESULT_LEGACY_METADATA = 'concept_result_legacy_metadata.yml'
     FILE_ADMIN_DEMO_DATA = 'admin_demo_data.yml'
 
-    REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
-
     SAFE_LOAD_CLASSES = [
       ActiveModel::Attribute.const_get(:FromDatabase),
       Symbol,
@@ -30,7 +28,6 @@ module Demo
     ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
       .map {|hash| hash[:activity_sessions].map(&:to_a)}
       .flatten(2)
-      .push(REPLAYED_PAIR)
 
     def activity_sessions
       @activity_sessions ||= load_file(FILE_ACTIVITY_SESSION)
@@ -87,8 +84,11 @@ module Demo
       ACTIVITY_USER_PAIRS.map do |id_pair|
         activity_id, user_id = id_pair
 
-        ActivitySession.unscoped.find_by(activity_id: activity_id, user_id: user_id, is_final_score: true)
-      end.compact
+        # we only want to find the first one if it's a diagnostic because there should be no replays
+        next ActivitySession.unscoped.find_by(activity_id: activity_id, user_id: user_id, state: ActivitySession::STATE_FINISHED) if Activity.diagnostic_activity_ids.include?(activity_id)
+
+        ActivitySession.unscoped.where(activity_id: activity_id, user_id: user_id, state: ActivitySession::STATE_FINISHED)
+      end.flatten.compact
     end
 
     private def write_to_file(data, file)

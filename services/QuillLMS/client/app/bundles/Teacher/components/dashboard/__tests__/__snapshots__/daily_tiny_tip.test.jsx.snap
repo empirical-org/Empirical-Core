@@ -6,7 +6,7 @@ exports[`DailyTinyTip component should render 1`] = `
     className="daily-tiny-tip"
   >
     <h2>
-      Daily tiny tip
+      Daily Tiny Tip
     </h2>
     <a
       className="focus-on-light"

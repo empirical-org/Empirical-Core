@@ -4912,7 +4912,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
           </div>
         </DropdownInput>
         <button
-          className="quill-button medium primary contained create-a-class-button"
+          className="quill-button-archived medium primary contained create-a-class-button"
           onClick={[Function]}
           type="button"
         >
@@ -4961,13 +4961,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5014,13 +5014,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5067,13 +5067,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5120,13 +5120,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5173,13 +5173,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5226,13 +5226,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5279,13 +5279,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5332,13 +5332,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -5385,13 +5385,13 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
               className="accept-or-decline"
             >
               <button
-                className="quill-button secondary outlined small focus-on-light"
+                className="quill-button-archived secondary outlined small focus-on-light"
                 onClick={[Function]}
               >
                 Decline
               </button>
               <button
-                className="quill-button primary contained small focus-on-light"
+                className="quill-button-archived primary contained small focus-on-light"
                 onClick={[Function]}
               >
                 Accept
@@ -7455,7 +7455,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                               className="class-settings-buttons"
                             >
                               <button
-                                className="quill-button secondary outlined small"
+                                className="quill-button-archived secondary outlined small"
                                 key="rename-class-285401"
                                 onClick={[Function]}
                                 type="button"
@@ -7463,7 +7463,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                 Rename class
                               </button>
                               <button
-                                className="quill-button secondary outlined small"
+                                className="quill-button-archived secondary outlined small"
                                 key="change-grade-285401"
                                 onClick={[Function]}
                                 type="button"
@@ -7471,7 +7471,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                 Change grade
                               </button>
                               <button
-                                className="quill-button secondary outlined small"
+                                className="quill-button-archived secondary outlined small"
                                 key="archive-class-285401"
                                 onClick={[Function]}
                                 type="button"
@@ -7836,7 +7836,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                   className="invite-quill-classroom-students"
                                 >
                                   <button
-                                    className="quill-button primary outlined small"
+                                    className="quill-button-archived primary outlined small"
                                     onClick={[Function]}
                                     type="button"
                                   >
@@ -8208,7 +8208,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
                                   Teachers
                                 </h3>
                                 <button
-                                  className="quill-button primary outlined small"
+                                  className="quill-button-archived primary outlined small"
                                   onClick={[Function]}
                                 >
                                   Invite co-teachers
@@ -14665,7 +14665,7 @@ exports[`ActiveClassrooms component with no classrooms or coteacher invitations 
           </div>
         </DropdownInput>
         <button
-          className="quill-button medium primary contained create-a-class-button"
+          className="quill-button-archived medium primary contained create-a-class-button"
           onClick={[Function]}
           type="button"
         >

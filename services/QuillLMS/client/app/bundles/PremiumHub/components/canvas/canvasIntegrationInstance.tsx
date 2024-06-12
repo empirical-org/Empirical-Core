@@ -32,7 +32,7 @@ const CanvasIntegrationInstance = ({ schools, getCanvasIntegrations, canvasInteg
       <section className="canvas-integration-instance">
         <div className="section-header">
           <h3>{canvasIntegration.url}</h3>
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={openModal} type="button">Edit</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={openModal} type="button">Edit</button>
         </div>
         {
           canvasIntegration.school_names.map((schoolName, schoolIndex) => (

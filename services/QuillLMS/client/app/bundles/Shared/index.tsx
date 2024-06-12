@@ -28,6 +28,7 @@ export {
   LightButtonLoadingSpinner,
   Card,
   CarouselAnimation,
+  Checkbox,
   DataTable,
   ProgressBar,
   DragHandle,
@@ -38,11 +39,14 @@ export {
   FlagDropdown,
   HelpfulTips,
   Input,
+  List,
   OneThumbSlider,
   Passthrough,
+  RadioButton,
   ReportHeader,
   ResumeOrBeginButton,
   ScreenreaderInstructions,
+  SegmentedControl,
   SmartSpinner,
   Snackbar,
   defaultSnackbarTimeout,
@@ -96,9 +100,17 @@ export {
 } from './components/titleCards/index'
 
 export {
+  ConceptSelector,
+  ConceptSelectorWithCheckbox,
+  IncorrectSequencesInputAndConceptSelectorForm,
+  FocusPointsInputAndConceptSelectorForm,
+} from './components/internalTools/index'
+
+export {
   hashToCollection,
   isValidRegex,
   isValidAndNotEmptyRegex,
+  isValidFocusPointOrIncorrectSequence,
   momentFormatConstants,
   copyToClipboard,
   getLatestAttempt,
@@ -235,7 +247,13 @@ export {
   INTRODUCTION,
   CHECKLIST,
   READ_AND_HIGHLIGHT,
-  ALLOWED_ATTEMPTS
+  ALLOWED_ATTEMPTS,
+  ACTIVE,
+  INACTIVE,
+  INDETERMINATE,
+  DISABLED,
+  DEFAULT,
+  HOVER
 } from './utils/constants'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

@@ -35,7 +35,7 @@ exports[`IntegrationsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/integrations/canvas"
             >
               Learn more
@@ -61,7 +61,7 @@ exports[`IntegrationsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/integrations/google"
             >
               Learn more
@@ -87,7 +87,7 @@ exports[`IntegrationsSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/integrations/clever"
             >
               Learn more

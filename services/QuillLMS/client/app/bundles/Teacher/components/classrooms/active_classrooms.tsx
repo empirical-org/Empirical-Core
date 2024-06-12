@@ -348,7 +348,7 @@ const ActiveClassrooms = ({
   const renderCreateAClassButton = () => {
     return (
       <button
-        className="quill-button medium primary contained create-a-class-button"
+        className="quill-button-archived medium primary contained create-a-class-button"
         onClick={() => openModal(createAClassModal)}
         type="button"
       >

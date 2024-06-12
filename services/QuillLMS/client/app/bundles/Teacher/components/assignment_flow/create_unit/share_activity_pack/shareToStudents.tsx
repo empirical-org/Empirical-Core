@@ -157,7 +157,7 @@ export const ShareToStudents = ({ activityPackData, moveToStage4 }) => {
   }
 
   const allClassroomsAreEmpty = classrooms.every(c => c.classroom.emptyClassroomSelected);
-  const button = <button className="quill-button medium contained primary" onClick={handleClick} type="button">Next</button>
+  const button = <button className="quill-button-archived medium contained primary" onClick={handleClick} type="button">Next</button>
   return (
     <div className="assignment-flow-container">
       {modalOpen &&

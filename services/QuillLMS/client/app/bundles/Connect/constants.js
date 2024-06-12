@@ -331,7 +331,8 @@ export default {
     "Fill in the blank with the correct word.",
     "Fill in the blank with the correct pronoun.",
     "Fill in the blank with the correct action word.",
-    "Fill in the blank with the correct set of words."
+    "Fill in the blank with the correct set of words.",
+    "Fill in the blank with the correct option."
   ],
 
   // flags

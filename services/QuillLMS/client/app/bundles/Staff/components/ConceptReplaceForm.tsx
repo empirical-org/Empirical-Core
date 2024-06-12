@@ -96,7 +96,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     if (replacementId && replacedId) {
       return (
         <input
-          className="quill-button contained primary medium"
+          className="quill-button-archived contained primary medium"
           type="submit"
           value="Replace"
         />

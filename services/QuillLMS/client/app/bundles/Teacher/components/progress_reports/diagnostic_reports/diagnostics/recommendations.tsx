@@ -117,14 +117,14 @@ const LessonsRecommendations = ({ assigningLessonsBanner, previouslyAssignedReco
 }
 
 const RecommendationsButtons = ({ className, parentClassName, numberSelected, assigning, assigned, handleClickAssignActivityPacks, deselectAll, selectAll, selectAllRecommended, releaseMethod, handleClickEditReleaseMethod }) => {
-  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
+  let assignButton = <button className="quill-button-archived primary contained small disabled focus-on-light" type="button">Assign activity packs</button>
 
   if (assigning) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
+    assignButton = <button className="quill-button-archived primary contained small disabled focus-on-light" type="button">Assigning...</button>
   } else if (assigned) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
+    assignButton = <button className="quill-button-archived primary contained small disabled focus-on-light" type="button">Assigned</button>
   } else if (numberSelected) {
-    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={handleClickAssignActivityPacks} type="button">Assign activity packs</button>
+    assignButton = <button className="quill-button-archived primary contained small focus-on-light" onClick={handleClickAssignActivityPacks} type="button">Assign activity packs</button>
   }
 
   let releaseMethodText
@@ -142,9 +142,9 @@ const RecommendationsButtons = ({ className, parentClassName, numberSelected, as
     <div className={`recommendations-buttons-container ${parentClassName}`}>
       <div className={`recommendations-buttons ${className}`}>
         <div className="selection-buttons">
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
-          <button className="quill-button fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
+          <button className="quill-button-archived fun secondary outlined focus-on-light" onClick={selectAll} type="button">Select all</button>
+          <button className="quill-button-archived fun secondary outlined focus-on-light" onClick={selectAllRecommended} type="button">Select all recommended</button>
+          <button className="quill-button-archived fun secondary outlined focus-on-light" onClick={deselectAll} type="button">Deselect all</button>
         </div>
         <div className="release-method-and-assign-buttons">
           <div className="release-method-text-and-edit-button">
@@ -164,14 +164,14 @@ const PostTestAssignmentButton = ({ assigningPostTest, assignedPostTest, assignP
     assignDivClass = "larger-assign"
   }
 
-  let assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assign test</button>
+  let assignButton = <button className="quill-button-archived primary contained small disabled focus-on-light" type="button">Assign test</button>
 
   if (assigningPostTest) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigning...</button>
+    assignButton = <button className="quill-button-archived primary contained small disabled focus-on-light" type="button">Assigning...</button>
   } else if (assignedPostTest) {
-    assignButton = <button className="quill-button primary contained small disabled focus-on-light" type="button">Assigned</button>
+    assignButton = <button className="quill-button-archived primary contained small disabled focus-on-light" type="button">Assigned</button>
   } else if (numberSelectedForPostTest) {
-    assignButton = <button className="quill-button primary contained small focus-on-light" onClick={assignPostTest} type="button">Assign test</button>
+    assignButton = <button className="quill-button-archived primary contained small focus-on-light" onClick={assignPostTest} type="button">Assign test</button>
   }
 
   return (

@@ -350,7 +350,6 @@ class ActivitySession < ApplicationRecord
         end
       end&.id
       concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
-      concept_result[:metadata] = concept_result[:metadata]
       concept_result[:concept_id] = concept.id
       concept_result[:activity_session_id] = activity_session_id
       concept_result.delete(:activity_session_uid)
@@ -381,7 +380,6 @@ class ActivitySession < ApplicationRecord
     activity_sessions.each do |as|
       time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
       as.data['time_tracking'] = time_tracking&.transform_values{ |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
-      as.timespent = as.timespent
       as.save
     end
   end

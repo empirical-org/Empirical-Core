@@ -45,7 +45,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
 
   footerButtonClass() {
     const { name, grade, code } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!name.length || !code.length || !grade) {
       buttonClass += ' disabled';
     }

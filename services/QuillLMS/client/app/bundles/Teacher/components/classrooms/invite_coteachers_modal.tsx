@@ -30,7 +30,7 @@ export const InviteCoteachersModal = ({ close, onSuccess, classrooms, classroom,
   const [loading, setLoading] = React.useState<boolean>(false);
 
   function footerButtonClass() {
-    let buttonClass = 'quill-button contained primary medium focus-on-light';
+    let buttonClass = 'quill-button-archived contained primary medium focus-on-light';
     if (!selectedClassroomIds.length || !email) {
       buttonClass += ' disabled';
     }
@@ -146,8 +146,8 @@ export const InviteCoteachersModal = ({ close, onSuccess, classrooms, classroom,
     if(loading) {
       return(
         <div className="buttons">
-          <button className="quill-button outlined secondary medium disabled" disabled={true} onClick={close}>Cancel</button>
-          <button className="quill-button contained primary medium disabled" disabled={true} onClick={inviteCoteachers}>
+          <button className="quill-button-archived outlined secondary medium disabled" disabled={true} onClick={close}>Cancel</button>
+          <button className="quill-button-archived contained primary medium disabled" disabled={true} onClick={inviteCoteachers}>
             <Spinner />
           </button>
         </div>
@@ -155,7 +155,7 @@ export const InviteCoteachersModal = ({ close, onSuccess, classrooms, classroom,
     }
     return(
       <div className="buttons">
-        <button className="quill-button outlined secondary medium focus-on-light" onClick={close}>Cancel</button>
+        <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={close}>Cancel</button>
         <button className={footerButtonClass()} onClick={inviteCoteachers}>Invite</button>
       </div>
     )

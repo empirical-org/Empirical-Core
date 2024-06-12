@@ -193,19 +193,19 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     let coteacherNote
     let classSettingsClassName = "class-settings"
     let settings = [
-      <button className="quill-button secondary outlined small" key={`rename-class-${classroom.id}`} onClick={renameClass} type="button">Rename class</button>,
-      <button className="quill-button secondary outlined small" key={`change-grade-${classroom.id}`} onClick={changeGrade} type="button">Change grade</button>,
-      <button className="quill-button secondary outlined small" key={`archive-class-${classroom.id}`} onClick={archiveClass} type="button">Archive</button>
+      <button className="quill-button-archived secondary outlined small" key={`rename-class-${classroom.id}`} onClick={renameClass} type="button">Rename class</button>,
+      <button className="quill-button-archived secondary outlined small" key={`change-grade-${classroom.id}`} onClick={changeGrade} type="button">Change grade</button>,
+      <button className="quill-button-archived secondary outlined small" key={`archive-class-${classroom.id}`} onClick={archiveClass} type="button">Archive</button>
     ]
 
     if (!isOwnedByCurrentUser) {
       const owner = classroom.teachers.find(t => t.classroom_relation === 'owner')
       coteacherNote = <p className="coteacher-note">Looking for more class settings? Ask {owner.name}, the class owner.</p>
-      settings = [<button className="quill-button secondary outlined small" key={`leave-class-${classroom.id}`} onClick={this.leaveClass} type="button">Leave class</button>]
+      settings = [<button className="quill-button-archived secondary outlined small" key={`leave-class-${classroom.id}`} onClick={this.leaveClass} type="button">Leave class</button>]
       classSettingsClassName+= ' coteacher-class-settings'
     } else if (!classroom.visible) {
       settings = [
-        <button className="quill-button secondary outlined small" key={`unarchive-class-${classroom.id}`} onClick={unarchiveClass} type="button">Un-archive</button>
+        <button className="quill-button-archived secondary outlined small" key={`unarchive-class-${classroom.id}`} onClick={unarchiveClass} type="button">Un-archive</button>
       ]
     }
     return (

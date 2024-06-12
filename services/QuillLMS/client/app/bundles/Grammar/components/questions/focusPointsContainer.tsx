@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
@@ -155,8 +154,6 @@ export class FocusPointsContainer extends React.Component {
           <div className="card-content">
             <label className="label" htmlFor="feedback" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              ContentState={ContentState}
-              EditorState={EditorState}
               handleTextChange={(e) => this.handleFeedbackChange(e, fp.key)}
               key="feedback"
               text={fp.feedback}

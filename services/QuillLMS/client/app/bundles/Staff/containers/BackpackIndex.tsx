@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import PostNavigationBanners from '../components/styleGuide/postNavigationBanners'
+import ArchivedButtons from '../components/styleGuide/archivedButtons'
 import Buttons from '../components/styleGuide/buttons'
 import Cards from '../components/styleGuide/cards'
 import ColorPalette from '../components/styleGuide/colorPalette'
@@ -10,9 +11,13 @@ import DataTables from '../components/styleGuide/dataTables'
 import DropdownInputsWithSearchTokens from '../components/styleGuide/dropdownInputsWithSearchTokens'
 import Menus from '../components/styleGuide/menus'
 import Sliders from '../components/styleGuide/sliders'
+import SegmentedControls from '../components/styleGuide/segmentedControls'
 import Snackbars from '../components/styleGuide/snackbars'
 import TextFields from '../components/styleGuide/textFields'
 import Tooltips from '../components/styleGuide/tooltips'
+import Checkboxes from '../components/styleGuide/checkBoxes'
+import RadioButtons from '../components/styleGuide/radioButtons'
+import Lists from '../components/styleGuide/lists'
 
 export default class BackpackIndex extends React.Component {
   renderLink(href, text) {
@@ -33,7 +38,8 @@ export default class BackpackIndex extends React.Component {
           <ul className="menu-list">
             {this.renderLink('#color-palette', 'Color Palette')}
             {this.renderLink('#typography', 'Typography')}
-            {this.renderLink('#buttons', 'Buttons')}
+            {this.renderLink('#buttons-archived', 'Buttons (Archived)')}
+            {this.renderLink('#buttons', 'Buttons (New)')}
             {this.renderLink('#icons', 'Icons')}
           </ul>
           <p className="menu-label">
@@ -50,10 +56,14 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#menus', 'Menus (DropdownInputs)')}
             {this.renderLink('#menus-with-search-tokens', 'Menus (DropdownInputs) with Search Tokens')}
             {this.renderLink('#textFields', 'Text Fields (Inputs)')}
+            {this.renderLink('#checkboxes', 'Checkboxes')}
+            {this.renderLink('#radio-buttons', 'Radio Buttons')}
+            {this.renderLink('#lists', 'Lists')}
             {this.renderLink('#snackbars', 'Snackbars')}
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
             {this.renderLink('#sliders', 'Sliders')}
+            {this.renderLink('#segmented-controls', 'Segmented Controls')}
             {this.renderLink('#post-navigation-banners', 'Post Navigation Banners')}
           </ul>
         </aside>
@@ -63,16 +73,21 @@ export default class BackpackIndex extends React.Component {
           <p>For CSS elements, the text above the element is a list of class names necessary to apply the styles or the variable used for the color. For React components, the text is the code for rendering the component. All React components in Backpack are exportable from the `Shared/index` folder.</p>
           <ColorPalette />
           <Typography />
+          <ArchivedButtons />
           <Buttons />
           <Icons />
           <Cards />
           <Menus />
           <DropdownInputsWithSearchTokens />
           <TextFields />
+          <Checkboxes />
+          <RadioButtons />
+          <Lists />
           <Snackbars />
           <Tooltips />
           <DataTables />
           <Sliders />
+          <SegmentedControls />
           <PostNavigationBanners />
         </div>
       </div>

@@ -1,11 +1,10 @@
-import { ContentState, EditorState } from 'draft-js';
 import React from 'react';
 import {
   FlagDropdown,
-  TextEditor
+  TextEditor,
+  ConceptSelector,
 } from '../../../Shared/index';
 import C from '../../constants.js';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 
 export default class extends React.Component {
   state = {
@@ -139,8 +138,6 @@ export default class extends React.Component {
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
           <TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
             handleTextChange={this.handlePromptChange}
             text={this.props.question.prompt || ""}
           />

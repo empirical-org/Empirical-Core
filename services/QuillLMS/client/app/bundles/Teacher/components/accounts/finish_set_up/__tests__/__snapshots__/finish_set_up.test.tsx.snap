@@ -75,7 +75,7 @@ exports[`FinishSetUp component should render 1`] = `
                   type="text"
                 >
                   <div
-                    className="input-container  inactive  first-name "
+                    className="input-container  inactive  first-name  "
                     onClick={[Function]}
                     onKeyDown={[Function]}
                     role="button"
@@ -106,7 +106,7 @@ exports[`FinishSetUp component should render 1`] = `
                   type="text"
                 >
                   <div
-                    className="input-container  inactive  last-name "
+                    className="input-container  inactive  last-name  "
                     onClick={[Function]}
                     onKeyDown={[Function]}
                     role="button"
@@ -137,7 +137,7 @@ exports[`FinishSetUp component should render 1`] = `
                 value="emilia@quill.org"
               >
                 <div
-                  className="input-container  inactive has-text email disabled "
+                  className="input-container  inactive has-text email disabled  "
                   onClick={[Function]}
                   onKeyDown={[Function]}
                   role="button"
@@ -180,7 +180,7 @@ exports[`FinishSetUp component should render 1`] = `
                     value=""
                   >
                     <div
-                      className="input-container  inactive  password inspectletIgnore "
+                      className="input-container  inactive  password inspectletIgnore  "
                       onClick={[Function]}
                       onKeyDown={[Function]}
                       role="button"
@@ -217,7 +217,7 @@ exports[`FinishSetUp component should render 1`] = `
               </PasswordWrapper>
               <input
                 aria-label="Sign up"
-                className="quill-button contained primary medium focus-on-light disabled"
+                className="quill-button-archived contained primary medium focus-on-light disabled"
                 name="commit"
                 type="submit"
                 value="Log in"

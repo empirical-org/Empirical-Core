@@ -46,7 +46,7 @@ const BulkArchiveClassesBanner = ({ classes, onSuccess, userId, }) => {
       <section className="bulk-archive-classes-banner">
         <span><strong>Start of a new school year?</strong>&nbsp;Quickly archive last year’s classes.</span>
         <span>
-          <button className="quill-button medium outlined secondary" onClick={handleOpenModal} type="button">Archive classes</button>
+          <button className="quill-button-archived medium outlined secondary" onClick={handleOpenModal} type="button">Archive classes</button>
           <button className="pass-through-button" onClick={handleCloseBanner} type="button"><img alt="X icon" src={closeIconSrc} /></button>
         </span>
       </section>

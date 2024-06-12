@@ -27,6 +27,7 @@ interface InputState {
 const MOUSEDOWN = 'mousedown'
 const ENTER = 'Enter'
 const TAB = 'Tab'
+const CLEAR_BUTTON_SRC = 'https://assets.quill.org/images/icons/xs/clear-enabled-black.svg'
 
 export class Input extends React.Component<InputProps, InputState> {
   // disabling the react/sort-comp rule for the following lines because as of 2/5/20, the linter incorrectly insists that static and private instance variables be placed under the constructor, when in fact doing so causes errors in compilation
@@ -122,9 +123,9 @@ export class Input extends React.Component<InputProps, InputState> {
 
   renderCancelSymbol = () => {
     const { inactive } = this.state
-    const { handleCancel } = this.props
-    if (!inactive && handleCancel) {
-      return <button aria-label="X" className="cancel" onClick={handleCancel} type="button"><i className="fas fa-times" /></button>
+    const { handleCancel, value } = this.props
+    if (!inactive && handleCancel && value) {
+      return <button aria-label="X" className="interactive-wrapper cancel" onClick={handleCancel} type="button"><img alt="" src={CLEAR_BUTTON_SRC} /></button>
     }
   }
 
@@ -141,7 +142,9 @@ export class Input extends React.Component<InputProps, InputState> {
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const hasText = value ? 'has-text' : ''
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
-    const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className} ${hasCharacterLimit}`
+    const helperText = this.renderHelperText()
+    const helperStyle = helperText ? 'with-helper' : ''
+    const sharedClassNames = `input-container  ${inactiveOrActive} ${hasText} ${className} ${hasCharacterLimit} ${helperStyle}`
     const commonProps = {
       id,
       ref: (input) => { this.input = input; },
@@ -166,7 +169,7 @@ export class Input extends React.Component<InputProps, InputState> {
           >
             <label htmlFor={id}>{label}</label>
             <input {...commonProps} />
-            {this.renderHelperText()}
+            {helperText}
             {this.renderCancelSymbol()}
             {this.renderCharacterLimit()}
           </div>
@@ -200,7 +203,7 @@ export class Input extends React.Component<InputProps, InputState> {
         >
           <label htmlFor={id}>{label}</label>
           <input {...commonProps} onFocus={this.handleInputContainerClick} />
-          {this.renderHelperText()}
+          {helperText}
           {this.renderCharacterLimit()}
         </div>
       )
@@ -212,7 +215,7 @@ export class Input extends React.Component<InputProps, InputState> {
         >
           <label htmlFor={id}>{label}</label>
           <input {...commonProps} onKeyDown={this.handleTab} />
-          {this.renderHelperText()}
+          {helperText}
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
         </div>

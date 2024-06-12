@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import { useQuery, useQueryClient, } from 'react-query';
 import { Link, useHistory, withRouter } from 'react-router-dom';
@@ -127,12 +126,9 @@ const Model = ({ match }) => {
         />
         <p className={`text-editor-label ${modelNotesStyle}`}>Model Notes</p>
         <TextEditor
-          ContentState={ContentState}
           disabled={true}
-          EditorState={EditorState}
           handleTextChange={handleSetModelNotes}
           key="model-notes"
-          shouldCheckSpelling={true}
           text={initialNoteValue}
         />
         <DataTable
@@ -145,7 +141,7 @@ const Model = ({ match }) => {
         {errorsPresent && <div className="error-message-container">
           <p className="all-errors-message">Failed to update model notes.</p>
         </div>}
-        <button className="quill-button fun primary contained" id="rule-submit-button" onClick={onHandleUpdateModel} type="button">
+        <button className="quill-button-archived fun primary contained" id="rule-submit-button" onClick={onHandleUpdateModel} type="button">
           Submit
         </button>
       </div>

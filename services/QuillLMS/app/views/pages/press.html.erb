@@ -5,7 +5,7 @@
 
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab, title: @title %>
 <div class="white-background">
-  <div class="container press-page">
+  <div class="container press-page about-the-org-page">
     <div class="press-highlight-container">
       <h1>Press highlights</h1>
 
@@ -64,7 +64,7 @@
               <h2><%="#{article[:title]}"%></h2>
             </a>
           <% end %>
-          <button id="show-all-press-articles" onclick="showAllPressArticles()" class="quill-button medium outlined secondary">Show all press articles</button>
+          <button id="show-all-press-articles" onclick="showAllPressArticles()" class="quill-button-archived medium outlined secondary">Show all press articles</button>
         </div>
 
         <div class="press-kit-container">

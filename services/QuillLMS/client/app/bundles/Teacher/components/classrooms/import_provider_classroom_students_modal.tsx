@@ -34,7 +34,7 @@ const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, pro
   }
 
   const submitButtonClass = () => {
-    const buttonClass = 'quill-button contained primary medium';
+    const buttonClass = 'quill-button-archived contained primary medium';
 
     if (termsAccepted) { return buttonClass }
 
@@ -92,7 +92,7 @@ const ImportProviderClassroomStudentsModal = ({ close, classroom, onSuccess, pro
         <p>You are about to import students from the class {classroom.name}.</p>
         {renderCheckboxes()}
         <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={close} type="button">
+          <button className="quill-button-archived outlined secondary medium" onClick={close} type="button">
           Cancel
           </button>
           {renderImportButton()}

@@ -31,7 +31,7 @@ export const HeaderSection = ({ title, subtitle, showCancelSearchButton, query }
           <section className="information-section">
             <h2>Quill Reading for Evidence Teacher Handbook</h2>
             <p>Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!</p>
-            <a className="quill-button focus-on-light small primary contained" href={EVIDENCE_HANDBOOK_LINK} rel='noopener noreferrer' target="_blank">Get the Teacher Handbook <i className="fas fa-arrow-right" /></a>
+            <a className="quill-button-archived focus-on-light small primary contained" href={EVIDENCE_HANDBOOK_LINK} rel='noopener noreferrer' target="_blank">Get the Teacher Handbook <i className="fas fa-arrow-right" /></a>
           </section>
           <img alt={evidenceHandbookIcon.alt} src={evidenceHandbookIcon.src} />
         </section>

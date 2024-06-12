@@ -51,7 +51,7 @@ const AssignedSection = ({ activity, sectionTitle, isPostDiagnostic, }) => {
         <p>{multipleUsersIcon}<span>Completed: {completed_count} of {assigned_count}</span></p>
       </div>
       <div>
-        <a className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
+        <a className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light" href={summaryLink(isPostDiagnostic, activity_id, classroom_id, unit_id)}>View results and recommendations</a>
       </div>
     </section>
   )
@@ -84,8 +84,8 @@ const PostSection = ({ post, activityId, unitTemplateId, name, }) => {
         <p>{calendarDateIcon}<span>Not assigned</span></p>
       </div>
       <div className="post-buttons-container">
-        <a className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
-        <button className="diagnostic-reports-button quill-button fun secondary outlined unbolded focus-on-light" onClick={handleAssignClick} type="button">Assign</button>
+        <a className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light" href={`/activity_sessions/anonymous?activity_id=${activityId}`} rel="noopener noreferrer" target="_blank">Preview</a>
+        <button className="diagnostic-reports-button quill-button-archived fun secondary outlined unbolded focus-on-light" onClick={handleAssignClick} type="button">Assign</button>
       </div>
     </section>
   )

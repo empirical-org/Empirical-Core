@@ -769,4 +769,35 @@ describe Activity, type: :model, redis: true do
       expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%m/%d/%Y"))
     end
   end
+
+  describe "#update_questions_flag_status_if_necessary!" do
+    let(:q1) { create(:question, data: {flag: "beta"}) }
+    let(:q2) { create(:question, data: {flag: "beta"}) }
+    let(:questions) { [{"key" => q1.uid, "question_type" => "questions"}, {"key" => q2.uid, "question_type" => "questions"}] }
+    let(:data) { {questions: } } # NOTE: that the unmatched `x:` syntax in Ruby will try to set the value by finding a variable with the name of the key, so in this case "questions"
+
+
+    context 'activity flag set to production' do
+      let(:flags) { ["production"] }
+      let(:activity) { create(:grammar_activity, flags:, data:) }
+
+      it do
+        expect do
+          activity.update_questions_flag_status_if_necessary!
+        end.to change{ q1.reload.data["flag"] }.to("production")
+          .and change{ q2.reload.data["flag"] }.to("production")
+      end
+    end
+
+    context 'activity flag is not set to production' do
+      let(:flags) { ["alpha"] }
+      let(:activity) { create(:grammar_activity, flags:, data:) }
+
+      it do
+        expect do
+          activity.update_questions_flag_status_if_necessary!
+        end.not_to change{ q1.reload.data["flag"] }
+      end
+    end
+  end
 end

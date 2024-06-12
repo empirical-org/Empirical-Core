@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ConceptExplanation } from '../../../Shared/index';
-import ConceptSelector from '../shared/conceptSelector.jsx';
+import { ConceptExplanation, ConceptSelector, } from '../../../Shared/index';
 
 class ChooseModelContainer extends Component {
   removeModelConcept = () => {

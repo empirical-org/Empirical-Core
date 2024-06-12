@@ -1,4 +1,3 @@
-import { ContentState, EditorState } from 'draft-js';
 import * as React from "react";
 import Dropzone from 'react-dropzone';
 
@@ -48,11 +47,8 @@ const RuleHint = ({
       <input className="name-input" onChange={onHintNameChange} type="text" value={hint.name || ''} />
       <p className="form-subsection-label">Hint Explanation</p>
       <TextEditor
-        ContentState={ContentState}
-        EditorState={EditorState}
         handleTextChange={onHintExplanationChange}
         key={`hint-explanation-${hint.id}`}
-        shouldCheckSpelling={true}
         text={hint.explanation}
       />
       <p className="form-subsection-label">Hint Annotated Example</p>

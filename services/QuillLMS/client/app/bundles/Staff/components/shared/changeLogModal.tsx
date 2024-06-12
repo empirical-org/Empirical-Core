@@ -83,14 +83,14 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
 
   renderButtons() {
     const { cancel, } = this.props
-    let saveButtonClass = 'quill-button contained primary medium';
+    let saveButtonClass = 'quill-button-archived contained primary medium';
     const allChangesEntered = Object.keys(this.state).every(key => this.state[key].explanation.length > 9)
     if (!allChangesEntered) {
       saveButtonClass += ' disabled';
     }
     return (
       <div className="buttons">
-        <button className="quill-button medium secondary outlined" onClick={cancel}>Cancel</button>
+        <button className="quill-button-archived medium secondary outlined" onClick={cancel}>Cancel</button>
         <button className={saveButtonClass} onClick={this.handleClickSave}>Save</button>
       </div>
     )
