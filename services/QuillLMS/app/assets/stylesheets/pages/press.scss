@@ -58,12 +58,13 @@
     margin-top: 68px;
     .articles {
       max-width: 640px;
+      margin-bottom: 200px;
       .quill-button-archived {
         margin-top: 16px;
       }
     }
     .article {
-      padding: 16px;
+      padding: 16px 16px 16px 0px;
       display: block;
       &:hover {
         background-color: #f2f2f2;
