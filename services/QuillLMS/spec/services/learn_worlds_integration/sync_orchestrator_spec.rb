@@ -11,12 +11,25 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
     let(:orchestrator) { LearnWorldsIntegration::SyncOrchestrator.new }
 
     before do
+      user1 = double('User', learn_worlds_access?: false)
+      user2 = double('User', learn_worlds_access?: true)
+      user3 = double('User', learn_worlds_access?: false)
+      user4 = double('User', learn_worlds_access?: true)
+
+      user_relation1 = double('UserRelation', external_id: 1)
+      user_relation2 = double('UserRelation', external_id: 2)
+      user_relation3 = double('UserRelation', external_id: 3)
+      user_relation4 = double('UserRelation', external_id: 4)
+
+      allow(user_relation1).to receive(:user).and_return(user1)
+      allow(user_relation2).to receive(:user).and_return(user2)
+      allow(user_relation3).to receive(:user).and_return(user3)
+      allow(user_relation4).to receive(:user).and_return(user4)
+
       allow(orchestrator).to receive(:userwise_subject_areas_relation).and_return([
-        double('User', learn_worlds_access?: false, external_id: 1),
-        double('User', learn_worlds_access?: true, external_id: 2),
-        double('User', learn_worlds_access?: false, external_id: 3),
-        double('User', learn_worlds_access?: true, external_id: 4)
+        user_relation1, user_relation2, user_relation3, user_relation4
       ])
+
       allow(orchestrator).to receive(:learnworlds_suspended_ids).and_return([3, 4])
     end
 

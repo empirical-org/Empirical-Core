@@ -23,13 +23,13 @@ module LearnWorldsIntegration
 
     def users_to_suspend
       userwise_subject_areas_relation.filter do |row|
-        !row.learn_worlds_access? && !learnworlds_suspended_ids.include?(row.external_id)
+        !row.user.learn_worlds_access? && !learnworlds_suspended_ids.include?(row.external_id)
       end
     end
 
     def users_to_unsuspend
       userwise_subject_areas_relation.filter do |row|
-        row.learn_worlds_access? && learnworlds_suspended_ids.include?(row.external_id)
+        row.user.learn_worlds_access? && learnworlds_suspended_ids.include?(row.external_id)
       end
     end
 
