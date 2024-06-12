@@ -8,17 +8,17 @@ module LearnWorldsIntegration
 
     def run = fetch_ids_to_suspend
 
-    def fetch_page(page_number)
+    def self.fetch_page(page_number)
       HTTParty.get("#{endpoint}&page=#{page_number}", headers:)
     end
 
-    def fetch_ids_to_suspend
+    def self.fetch_ids_to_suspend
       initial_page = fetch_page(1)
       total_pages = initial_page.dig('meta', 'totalPages')
-      raise UnexpectedApiResponse, "No totalPages value" unless total_pages
+      raise UnexpectedApiResponse, "No totalPages value" unless total_pages&.to_i
 
       2.upto(total_pages)
-        .reduce([]) {|memo, n| memo << fetch_page(n)['data'] }
+        .reduce([]) {|memo, n| memo.concat fetch_page(n)['data'] }
         .concat(initial_page['data'])
         .compact
         .map {|user| user['id']}
