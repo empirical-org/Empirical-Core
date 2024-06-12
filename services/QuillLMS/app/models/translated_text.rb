@@ -7,7 +7,7 @@
 #  translation        :text
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  english_text_id    :integer
+#  english_text_id    :integer          not null
 #  translation_job_id :string           not null
 #
 class TranslatedText < ApplicationRecord
