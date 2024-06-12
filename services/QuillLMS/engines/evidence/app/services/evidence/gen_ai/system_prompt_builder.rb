@@ -44,7 +44,7 @@ module Evidence
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
       private def highlight_texts
         prompt
-          .distinct_highlight_texts
+          .distinct_automl_highlight_texts
           .map.with_index {|text,i| "#{i+1}. #{text}" }
           .join("\n")
       end

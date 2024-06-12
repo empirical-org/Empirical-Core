@@ -78,8 +78,8 @@ module Evidence
       rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
     end
 
-    def distinct_highlight_texts
-      @distinct_highlight_texts ||= rules
+    def distinct_automl_highlight_texts
+      @distinct_automl_highlight_texts ||= rules
         .includes(feedbacks: :highlights)
         .active
         .auto_ml
