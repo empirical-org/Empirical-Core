@@ -32,7 +32,7 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
           class="name-inputs-container"
         >
           <div
-            class="input-container  inactive  first-name "
+            class="input-container  inactive  first-name  "
             role="button"
             tabindex="-1"
           >
@@ -46,7 +46,7 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
             />
           </div>
           <div
-            class="input-container  inactive  last-name "
+            class="input-container  inactive  last-name  "
             role="button"
             tabindex="-1"
           >
@@ -61,7 +61,7 @@ exports[`CreateAndLinkAccountsModal it should render 1`] = `
           </div>
         </section>
         <div
-          class="input-container  inactive  email "
+          class="input-container  inactive  email  "
           role="button"
           tabindex="-1"
         >

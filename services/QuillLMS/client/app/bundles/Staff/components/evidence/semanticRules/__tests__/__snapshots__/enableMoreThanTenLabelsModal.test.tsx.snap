@@ -22,7 +22,7 @@ exports[`EnableMoreThanLabelsModal matches the snapshot when modal is open 1`] =
           </p>
         </div>
         <div
-          class="input-container  inactive  undefined "
+          class="input-container  inactive  undefined  "
           role="button"
           tabindex="-1"
         >

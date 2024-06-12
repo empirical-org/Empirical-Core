@@ -102,7 +102,7 @@ exports[`LoginForm it should render 1`] = `
                 value=""
               />
               <div
-                class="input-container  inactive  email "
+                class="input-container  inactive  email  "
                 role="button"
                 tabindex="-1"
               >
@@ -123,7 +123,7 @@ exports[`LoginForm it should render 1`] = `
                 class="password-wrapper"
               >
                 <div
-                  class="input-container  inactive  password inspectletIgnore "
+                  class="input-container  inactive  password inspectletIgnore  "
                   role="button"
                   tabindex="-1"
                 >

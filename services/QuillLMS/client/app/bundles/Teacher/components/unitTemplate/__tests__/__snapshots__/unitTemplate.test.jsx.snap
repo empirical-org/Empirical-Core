@@ -103,7 +103,7 @@ exports[`<UnitTemplate /> matches the component snapshot 1`] = `
       </a>
     </div>
     <div
-      class="input-container  inactive has-text name-input "
+      class="input-container  inactive has-text name-input  "
       role="button"
       tabindex="-1"
     >
@@ -374,7 +374,7 @@ exports[`<UnitTemplate /> matches the component snapshot 1`] = `
       </p>
     </div>
     <div
-      class="input-container  inactive  image-link-input "
+      class="input-container  inactive  image-link-input  "
       role="button"
       tabindex="-1"
     >

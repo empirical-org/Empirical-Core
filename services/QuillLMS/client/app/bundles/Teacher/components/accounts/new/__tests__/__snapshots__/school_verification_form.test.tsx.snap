@@ -38,7 +38,7 @@ exports[`SchoolVerificationForm component should render 1`] = `
       value=""
     >
       <div
-        className="input-container  inactive  undefined "
+        className="input-container  inactive  undefined  with-helper"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="button"
@@ -73,7 +73,7 @@ exports[`SchoolVerificationForm component should render 1`] = `
       value=""
     >
       <div
-        className="input-container  inactive  undefined "
+        className="input-container  inactive  undefined  "
         onClick={[Function]}
         onKeyDown={[Function]}
         role="button"
