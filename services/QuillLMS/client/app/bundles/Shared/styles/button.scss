@@ -7,9 +7,37 @@
   flex-shrink: 0;
   border-radius: 8px;
   min-width: 70px;
-  font-size: 12px;
   &:hover {
     background: linear-gradient(0deg, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 0%, $quill-white-transparent-10, rgba(255, 255, 255, 0.10) 100%), $quill-green;
+  }
+  &:focus {
+    &.gold {
+      outline: dashed 2px $quill-gold-dark-50;
+    }
+    &.maroon {
+      outline: dashed 2px $quill-maroon;
+    }
+    &.blue {
+      outline: dashed 2px $quill-blue;
+    }
+    &.teal {
+      outline: dashed 2px $quill-teal;
+    }
+    &.viridian {
+      outline: dashed 2px $quill-viridian;
+    }
+    &.purple {
+      outline: dashed 2px $quill-purple;
+    }
+    &.violet {
+      outline: dashed 2px $quill-violet;
+    }
+    &.red {
+      outline: dashed 2px $quill-red;
+    }
+    &.grey {
+      outline: dashed 2px $quill-grey-80;
+    }
   }
   &.contained {
     background-color: $quill-green;
@@ -79,7 +107,7 @@
     background-color: $quill-white;
     border: 1px solid $quill-green-20;
     color: $quill-green;
-    font-weight: 500;
+    font-weight: 500 !important;
     &.disabled {
       color: $quill-grey-30 !important;
       border: 1px solid $quill-grey-15 !important;
@@ -136,7 +164,7 @@
         background-color: $quill-violet-1;
       }
     }
-    &.violet {
+    &.red {
       color: $quill-red;
       border: 1px solid $quill-red-10;
       &:hover {
@@ -152,16 +180,20 @@
     }
   }
   &.extra-small {
+    @include display-2xs;
     height: 26px;
   }
   &.small {
+    @include display-2xs;
     height: 32px;
   }
   &.medium {
+    @include display-xs;
     height: 38px;
     min-width: 73px;
   }
   &.large {
+    @include display-xs;
     height: 44px;
     min-width: 89px;
   }

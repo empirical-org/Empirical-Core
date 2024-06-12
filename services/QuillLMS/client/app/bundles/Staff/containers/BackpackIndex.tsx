@@ -11,6 +11,7 @@ import DataTables from '../components/styleGuide/dataTables'
 import DropdownInputsWithSearchTokens from '../components/styleGuide/dropdownInputsWithSearchTokens'
 import Menus from '../components/styleGuide/menus'
 import Sliders from '../components/styleGuide/sliders'
+import SegmentedControls from '../components/styleGuide/segmentedControls'
 import Snackbars from '../components/styleGuide/snackbars'
 import TextFields from '../components/styleGuide/textFields'
 import Tooltips from '../components/styleGuide/tooltips'
@@ -62,6 +63,7 @@ export default class BackpackIndex extends React.Component {
             {this.renderLink('#tooltips', 'Tooltips')}
             {this.renderLink('#data-tables', 'Data Tables')}
             {this.renderLink('#sliders', 'Sliders')}
+            {this.renderLink('#segmented-controls', 'Segmented Controls')}
             {this.renderLink('#post-navigation-banners', 'Post Navigation Banners')}
           </ul>
         </aside>
@@ -85,6 +87,7 @@ export default class BackpackIndex extends React.Component {
           <Tooltips />
           <DataTables />
           <Sliders />
+          <SegmentedControls />
           <PostNavigationBanners />
         </div>
       </div>

@@ -16,6 +16,16 @@ describe Api::V1::QuestionsController, type: :controller do
       expect(JSON.parse(response.body).keys.length).to eq(1)
       expect(JSON.parse(response.body).keys.first).to eq(question.uid)
     end
+
+    context 'invalid arguments' do
+      it 'should return early without exception on nil question_type' do
+        get :index, as: :json
+        expect(JSON.parse(response.body)).to eq(
+          {"error"=>"Bad Request", "message"=>"question_type is a required param"}
+        )
+        expect(response.status).to eq 400
+      end
+    end
   end
 
   describe "#show" do

@@ -126,7 +126,7 @@
   height: 200px;
 }
 
-#post-navigation-banners {
+#post-navigation-banners, #segmented-controls {
   .element-container {
     .color-options-dropdown {
       max-width: 200px;
@@ -143,6 +143,18 @@
         }
       }
     }
+  }
+}
+
+#segmented-controls {
+  .style-guide-h2 {
+    padding-bottom: 0;
+  }
+  .style-guide-h2, h3 {
+    margin-top: 40px;
+  }
+  .segmented-control-container {
+    margin-top: 20px;
   }
 }
 

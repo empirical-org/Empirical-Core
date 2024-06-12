@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 
 gem_names = %w[rubocop rubocop-rspec rubocop-rails]
