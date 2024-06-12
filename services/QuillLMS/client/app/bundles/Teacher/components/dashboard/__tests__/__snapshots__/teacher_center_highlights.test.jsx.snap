@@ -32,7 +32,7 @@ exports[`TeacherCenterHighlights component should render 1`] = `
     className="teacher-center-highlights"
   >
     <h2>
-      Teacher center highlights
+      Teacher Center Highlights
     </h2>
     <Highlight
       blogPost={
@@ -112,14 +112,18 @@ exports[`TeacherCenterHighlights component should render 1`] = `
         </span>
       </a>
     </Highlight>
-    <a
-      className="see-all-resources focus-on-light"
-      href="/teacher-center"
-      rel="noopener noreferrer"
-      target="_blank"
+    <div
+      className="see-all-resources-container"
     >
-      See all resources
-    </a>
+      <a
+        className="quill-button focus-on-light outlined extra-small grey"
+        href="/teacher-center"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        See all resources
+      </a>
+    </div>
   </section>
 </TeacherCenterHighlights>
 `;

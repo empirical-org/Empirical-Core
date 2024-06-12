@@ -34,7 +34,7 @@ const BulkArchiveClassesCard = ({ classrooms, onSuccess, handleCloseCard, }) => 
           <h2>Start of a new school year?</h2>
           <p>Quickly archive last year&#39;s classes.</p>
           <div className="link-section">
-            <button className="interactive-wrapper" onClick={handleOpenModal} type="button"><span>Archive classes</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></button>
+            <button className="interactive-wrapper" onClick={handleOpenModal} type="button"><span>Archive Classes</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></button>
           </div>
         </div>
         <button aria-label="Hide card until next school year" className="interactive-wrapper close-button" onClick={handleCloseCard} type="button"><img alt="" src={closeIconSrc} /></button>

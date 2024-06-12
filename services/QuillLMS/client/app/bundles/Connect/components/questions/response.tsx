@@ -3,7 +3,8 @@ import _ from 'underscore';
 
 import {
   Modal,
-  TextEditor
+  TextEditor,
+  ConceptSelectorWithCheckbox,
 } from '../../../Shared/index';
 import massEdit from '../../actions/massEdit';
 import questionActions from '../../actions/questions';
@@ -14,7 +15,6 @@ import {
 } from '../../actions/responses';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import C from '../../constants';
-import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import ResponseList from './responseList.jsx';
 

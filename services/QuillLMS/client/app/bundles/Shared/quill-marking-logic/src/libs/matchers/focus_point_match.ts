@@ -1,14 +1,14 @@
 import * as _ from 'underscore'
-import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {stringNormalize} from 'quill-string-normalizer'
+
+import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {Response, FocusPoint, PartialResponse} from '../../interfaces'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
-
+import { generateRegexMatchList, } from '../generateRegexMatchList'
 
 export function focusPointMatchHelper(responseString:string, focusPointParticle:string):boolean {
   // Given a focus point and a response string, return
-  const matchList = focusPointParticle.split('&&'); // => "Dog&&Cat" => ['Dog', 'Cat']
-  return matchList.every(m => new RegExp(m, 'i').test(responseString));
+  return generateRegexMatchList(focusPointParticle).every(m => new RegExp(m, 'i').test(responseString));
 }
 
 

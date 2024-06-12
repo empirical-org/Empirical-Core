@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
   FlagDropdown,
-  TextEditor
+  TextEditor,
+  ConceptSelector,
 } from '../../../Shared/index';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 
 class FillInBlankForm extends Component {
   constructor() {

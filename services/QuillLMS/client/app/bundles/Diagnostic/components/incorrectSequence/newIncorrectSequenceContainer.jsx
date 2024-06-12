@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
+
+import ResponseComponent from '../questions/responseComponent'
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
+import { IncorrectSequencesInputAndConceptSelectorForm, } from '../../../Shared/index';
 
 class NewIncorrectSequencesContainer extends Component {
   constructor() {
@@ -43,7 +45,7 @@ class NewIncorrectSequencesContainer extends Component {
   }
 
   render() {
-    const { fillInBlank, generatedIncorrectSequences, match, sentenceFragments, questions } = this.props;
+    const { fillInBlank, generatedIncorrectSequences, match, sentenceFragments, questions, } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { questionID } = params;
@@ -55,6 +57,7 @@ class NewIncorrectSequencesContainer extends Component {
           onSubmit={this.submitSequenceForm}
           questionID={questionID}
           questions={questions}
+          ResponseComponent={ResponseComponent}
           sentenceFragments={sentenceFragments}
           states
           usedSequences={used[questionID]}

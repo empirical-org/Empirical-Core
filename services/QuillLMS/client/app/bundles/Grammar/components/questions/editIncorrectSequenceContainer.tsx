@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+
+import ResponseComponent from '../questions/responseComponent'
 import * as questionActions from '../../actions/questions';
-import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm';
+import { IncorrectSequencesInputAndConceptSelectorForm, } from '../../../Shared/index';
 
 class EditIncorrectSequencesContainer extends React.Component {
   UNSAFE_componentWillMount() {
@@ -31,6 +33,8 @@ class EditIncorrectSequencesContainer extends React.Component {
           onSubmit={this.submitForm}
           questionID={match.params.questionID}
           questions={questions}
+          ResponseComponent={ResponseComponent}
+          states={questions.states}
           usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
         />
         {this.props.children}

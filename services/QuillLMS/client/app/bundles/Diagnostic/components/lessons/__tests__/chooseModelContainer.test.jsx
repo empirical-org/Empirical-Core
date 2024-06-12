@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { ConceptExplanation } from '../../../../Shared/index';
-import ConceptSelector from '../../shared/conceptSelector.jsx';
+import { ConceptExplanation, ConceptSelector, } from '../../../../Shared/index';
 import { ChooseModel } from '../chooseModel.tsx';
 
 describe('ChooseModel component', () => {
