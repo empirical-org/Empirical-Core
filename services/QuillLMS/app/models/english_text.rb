@@ -17,8 +17,27 @@ class EnglishText < ApplicationRecord
 
   def self.translate!(jobs_list:)
     resp = GengoAPI.postTranslationJobs(jobs: create_payload(jobs_list:))
-    jobs = GengoAPI.getTranslationJobs(order_id: resp["order_id"])
-    puts jobs
+    save_translated_text!(order_id: resp.dig("response", "order_id")) # FIXME: Make a worker for this
+  end
+
+  def self.save_translated_text!(order_id:)
+    response = GengoAPI.getTranslationJobs(order_id:)
+    response&.dig("response")&.each do |job|
+      create_translated_text_for_job_id!(job_id: job["job_id"])
+    end
+  end
+
+  def self.create_translated_text_for_job_id!(job_id:)
+    response = GengoAPI.getTranslationJob(job_id:)
+    return unless response
+
+    job = response.dig("response", "job")
+    TranslatedText.create(
+      english_text_id: job["slug"],
+      translation_job_id: job["job_id"],
+      locale: job["lc_tgt"]
+    )
+
   end
 
   private_class_method def self.create_payload(jobs_list:)
