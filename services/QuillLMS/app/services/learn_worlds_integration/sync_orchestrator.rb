@@ -44,7 +44,7 @@ module LearnWorldsIntegration
     def userwise_subject_areas_relation
       @users_memo ||= LearnWorldsAccount.all
         .includes(user: { teacher_info: [:subject_areas] } )
-        .filter {|row| r&.user }
+        .filter {|row| row&.user }
     end
 
     def self.marshal(user_subject_area_relation)
