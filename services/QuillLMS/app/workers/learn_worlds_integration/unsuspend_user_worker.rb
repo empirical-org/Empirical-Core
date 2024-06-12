@@ -5,5 +5,5 @@ module LearnWorldsIntegration
     include Sidekiq::Worker
   end
 
-  def perform; end
+  def perform(external_id) = UnsuspendUserRequest.run(external_id)
 end
