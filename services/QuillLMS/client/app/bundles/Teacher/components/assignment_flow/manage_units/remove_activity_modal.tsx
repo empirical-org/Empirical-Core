@@ -10,8 +10,8 @@ const RemoveActivityModal = ({ activityName, closeFunction, removeFunction, }) =
           <p>Are you sure you want to remove {activityName} from this activity pack? </p>
         </div>
         <div className="button-section">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeFunction} type="button">Cancel</button>
-          <button className="quill-button medium primary contained focus-on-light" onClick={removeFunction} type="button">Yes, remove</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeFunction} type="button">Cancel</button>
+          <button className="quill-button-archived medium primary contained focus-on-light" onClick={removeFunction} type="button">Yes, remove</button>
         </div>
       </div>
     </div>

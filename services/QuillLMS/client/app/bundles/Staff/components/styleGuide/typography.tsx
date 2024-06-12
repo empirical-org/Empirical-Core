@@ -6,15 +6,23 @@ const displayScale = [
     displayText: 'Adelle Sans - Bold 32pt'
   },
   {
+    mixinName: 'display-2xl-semibold',
+    displayText: 'Adelle Sans - Semibold 32pt'
+  },
+  {
     mixinName: 'display-xl',
     displayText: 'Adelle Sans - Bold 24pt'
+  },
+  {
+    mixinName: 'display-xl-semibold',
+    displayText: 'Adelle Sans - Semibold 24pt'
   },
   {
     mixinName: 'display-l',
     displayText: 'Adelle Sans - Bold 20pt'
   },
   {
-    mixinName: 'display-l-alt',
+    mixinName: 'display-l-semibold',
     displayText: 'Adelle Sans - Semibold 20pt'
   },
   {
@@ -22,16 +30,32 @@ const displayScale = [
     displayText: 'Adelle Sans - Bold 18pt'
   },
   {
+    mixinName: 'display-m-semibold',
+    displayText: 'Adelle Sans - Semibold 18pt'
+  },
+  {
     mixinName: 'display-s',
     displayText: 'Adelle Sans - Bold 16pt'
+  },
+  {
+    mixinName: 'display-s-semibold',
+    displayText: 'Adelle Sans - Semibold 16pt'
   },
   {
     mixinName: 'display-xs',
     displayText: 'Adelle Sans - Bold 13pt'
   },
   {
+    mixinName: 'display-xs-semibold',
+    displayText: 'Adelle Sans - Semibold 13pt'
+  },
+  {
     mixinName: 'display-2xs',
     displayText: 'Adelle Sans - Bold 12pt'
+  },
+  {
+    mixinName: 'display-2xs-semibold',
+    displayText: 'Adelle Sans - Semibold 12pt'
   },
 ]
 

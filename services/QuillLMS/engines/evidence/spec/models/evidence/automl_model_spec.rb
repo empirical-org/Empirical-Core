@@ -2,17 +2,27 @@
 
 # == Schema Information
 #
-# Table name: comprehension_automl_models
+# Table name: evidence_automl_models
 #
-#  id              :integer          not null, primary key
-#  automl_model_id :string           not null
-#  name            :string           not null
-#  labels          :string           default([]), is an Array
-#  prompt_id       :integer
-#  state           :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  notes           :text             default("")
+#  id                   :bigint           not null, primary key
+#  labels               :string           default([]), is an Array
+#  name                 :string           not null
+#  notes                :text             default("")
+#  project              :string           not null
+#  state                :string           not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  endpoint_external_id :string           not null
+#  model_external_id    :string           not null
+#  prompt_id            :bigint
+#
+# Indexes
+#
+#  index_evidence_automl_models_on_prompt_id  (prompt_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (prompt_id => comprehension_prompts.id)
 #
 require 'rails_helper'
 
@@ -66,7 +76,7 @@ module Evidence
       context 'state is active' do
         let(:automl_model) { create(:evidence_automl_model) }
 
-        before { automl_model.state = Evidence::AutomlModel::STATE_ACTIVE}
+        before { automl_model.state = described_class::STATE_ACTIVE}
 
         it 'should not validate state = active if labels_have_associated_rules is false' do
           allow(automl_model).to receive(:labels_have_associated_rules?).and_return(false)
@@ -87,7 +97,7 @@ module Evidence
       it 'should be true if there are matching labels tied to the same prompt as the automl_model' do
         prompt = create(:evidence_prompt)
         rule = create(:evidence_rule, :type_automl, prompts: [prompt])
-        label = create(:evidence_label, name: automl_model.labels[0], rule: rule)
+        create(:evidence_label, name: automl_model.labels[0], rule:)
         automl_model.state = described_class::STATE_ACTIVE
         expect(automl_model.send(:prompt_labels)).to(be_truthy)
         expect(automl_model.errors).to(be_truthy)
@@ -133,7 +143,7 @@ module Evidence
       before do
         allow(VertexAI::TextClassifier)
          .to receive(:run)
-         .with(automl_model.endpoint_external_id, text)
+         .with(endpoint_external_id: automl_model.endpoint_external_id, project: automl_model.project, text:)
          .and_return([label, score])
       end
 
@@ -159,7 +169,7 @@ module Evidence
         model = create(:evidence_automl_model, :inactive, prompt: prompt, labels: [label1, label2])
         model.activate
         expect(model).to be_valid
-        expect(model.state).to eq AutomlModel::STATE_ACTIVE
+        expect(model.state).to eq described_class::STATE_ACTIVE
         expect(rule1.reload.state).to eq Rule::STATE_ACTIVE
         expect(rule2.reload.state).to eq Rule::STATE_ACTIVE
       end
@@ -171,7 +181,7 @@ module Evidence
         new_model = create(:evidence_automl_model, :inactive, prompt: prompt, labels: [label2, label3])
         expect(old_model).to be_valid
         new_model.activate
-        expect(old_model.reload.state).to eq AutomlModel::STATE_INACTIVE
+        expect(old_model.reload.state).to eq described_class::STATE_INACTIVE
         expect(rule1.reload.state).to eq Rule::STATE_INACTIVE
         expect(rule2.reload.state).to eq Rule::STATE_ACTIVE
       end
@@ -180,7 +190,7 @@ module Evidence
         model = create(:evidence_automl_model, :inactive, prompt: prompt, labels: ['no_rule_for_label'])
         response = model.activate
         expect(response).to eq false
-        expect(model.reload.state).to eq AutomlModel::STATE_INACTIVE
+        expect(model.reload.state).to eq described_class::STATE_INACTIVE
       end
 
       it 'should not change state of anything if activate fails' do
@@ -198,10 +208,10 @@ module Evidence
       it 'should return self and be valid with state active if this item is already the active model' do
         model = create(:evidence_automl_model, :active, prompt: prompt, labels: [label1, label2])
         expect(model).to be_valid
-        expect(AutomlModel::STATE_ACTIVE).to eq model.state
+        expect(described_class::STATE_ACTIVE).to eq model.state
         result = model.activate
         expect(model).to be_valid
-        expect(AutomlModel::STATE_ACTIVE).to eq model.state
+        expect(described_class::STATE_ACTIVE).to eq model.state
         expect(model).to eq result
       end
     end

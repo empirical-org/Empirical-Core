@@ -145,16 +145,6 @@ function deleteFocusPoint(qid, fpid) {
   };
 }
 
-function updateFlag(qid, flag) {
-  return dispatch => {
-    QuestionApi.updateFlag(qid, flag).then(() => {
-      dispatch(loadQuestion(qid));
-    }).catch((error) => {
-      alert(`Flag update failed! ${error}`);
-    });
-  }
-}
-
 function updateModelConceptUID(qid, modelConceptUID) {
   return dispatch => {
     QuestionApi.get(qid).then((question) => {
@@ -394,7 +384,6 @@ export default {
   setPageNumber,
   setStringFilter,
   incrementRequestCount,
-  updateFlag,
   getUsedSequences,
   updateModelConceptUID
 };

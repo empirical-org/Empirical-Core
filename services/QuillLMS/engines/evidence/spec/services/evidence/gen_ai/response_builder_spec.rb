@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
   let(:chat_response) { { 'feedback' => 'Sample feedback', 'optimal' => true, 'highlight' => '1' } }
   let(:entry) { double('Entry') }
-  let(:prompt) { double('Prompt', conjunction: 'because', distinct_highlight_texts: ['Highlight text 1']) }
+  let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_texts: ['Highlight text 1']) }
   let(:rule) { double('Rule', concept_uid: 'sample_concept_uid') }
 
   before do

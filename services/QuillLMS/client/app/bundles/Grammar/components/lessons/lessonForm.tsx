@@ -1,13 +1,11 @@
-import { ContentState, EditorState } from 'draft-js';
 import _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import SelectSearch from 'react-select-search';
-import { SortableList, TextEditor, hashToCollection, } from '../../../Shared/index';
+import { SortableList, TextEditor, hashToCollection, ConceptSelector, } from '../../../Shared/index';
 import { Concept, Concepts } from '../../interfaces/grammarActivities';
 import { Question } from '../../interfaces/questions';
 import { ConceptReducerState } from '../../reducers/conceptsReducer';
-import ConceptSelector from '../shared/conceptSelector';
 
 interface LessonFormState {
   title: string;
@@ -211,8 +209,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Description</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleDescriptionChange}
           text={description || ''}
         />
@@ -221,8 +217,6 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Landing Page HTML</label>
         </p>
         <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
           handleTextChange={this.handleLandingPageHTMLChange}
           text={landingPageHtml || ''}
         />

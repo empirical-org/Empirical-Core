@@ -49,7 +49,7 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
   const gradeOptions = GradeOptions
 
   const footerButtonClass = () => {
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     const noClassroomsChecked = classrooms.every(classroom => !classroom.checked)
     if (noClassroomsChecked) {
       buttonClass += ' disabled';
@@ -202,7 +202,7 @@ const ImportProviderClassroomsModal = ({classrooms: initialClassrooms, close, on
 
         <div className="import-provider-classrooms-modal-footer">
           <div className="buttons">
-            <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
+            <button className="quill-button-archived outlined secondary medium" onClick={close} type="button">Cancel</button>
             {renderImportButton()}
           </div>
         </div>

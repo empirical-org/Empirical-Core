@@ -103,7 +103,7 @@ exports[`CanvasIntegrationContainer when there are existing Canvas integrations 
           https://quill.instructure.com
         </h3>
         <button
-          class="quill-button medium secondary outlined focus-on-light"
+          class="quill-button-archived medium secondary outlined focus-on-light"
           type="button"
         >
           Edit
@@ -133,7 +133,7 @@ exports[`CanvasIntegrationContainer when there are existing Canvas integrations 
       </div>
     </section>
     <button
-      class="quill-button contained medium primary focus-on-light add-new-canvas-integration-button"
+      class="quill-button-archived contained medium primary focus-on-light add-new-canvas-integration-button"
       type="button"
     >
       Add New Canvas Integration
@@ -189,7 +189,7 @@ exports[`CanvasIntegrationContainer when there are not existing Canvas integrati
         class="links"
       >
         <button
-          class="quill-button contained medium primary focus-on-light"
+          class="quill-button-archived contained medium primary focus-on-light"
           type="button"
         >
           Add New Canvas Integration

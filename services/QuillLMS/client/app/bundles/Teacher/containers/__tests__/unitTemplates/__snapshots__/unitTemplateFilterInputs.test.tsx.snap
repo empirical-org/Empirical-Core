@@ -67,7 +67,7 @@ exports[`UnitTemplateFilterInputs component should match snapshot 1`] = `
     selectedItem={Object {}}
   />
   <a
-    className="new-unit-template-button quill-button primary contained small focus-on-light"
+    className="new-unit-template-button quill-button-archived primary contained small focus-on-light"
     href="undefined/cms/unit_templates/new"
     rel="noopener noreferrer"
     target="_blank"

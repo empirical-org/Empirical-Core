@@ -124,7 +124,7 @@ exports[`AdminRequestModal container should render 1`] = `
         value=""
       >
         <div
-          className="input-container  inactive  reason "
+          className="input-container  inactive  reason  "
           onClick={[Function]}
           onKeyDown={[Function]}
           role="button"
@@ -146,14 +146,14 @@ exports[`AdminRequestModal container should render 1`] = `
         className="button-section"
       >
         <button
-          className="quill-button medium secondary outlined focus-on-light"
+          className="quill-button-archived medium secondary outlined focus-on-light"
           onClick={[MockFunction]}
           type="button"
         >
           Cancel
         </button>
         <button
-          className="quill-button medium primary contained focus-on-light disabled"
+          className="quill-button-archived medium primary contained focus-on-light disabled"
           disabled={true}
           type="button"
         >

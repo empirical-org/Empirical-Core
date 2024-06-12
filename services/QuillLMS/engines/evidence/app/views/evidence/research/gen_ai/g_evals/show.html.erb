@@ -1,0 +1,24 @@
+<div>
+  <h2>G-Eval</h2>
+
+  <h3>Metric</h3>
+  <p><%= @g_eval.metric %></p>
+
+  <h3>Version</h3>
+  <p><%= @g_eval.version %></p>
+
+  <h3>Task Introduction</h3>
+  <p><%= simple_format(@g_eval.task_introduction) %></p>
+
+  <h3>Evaluation Criteria</h3>
+  <p><%= simple_format(@g_eval.evaluation_criteria) %></p>
+
+  <h3>Evaluation Steps</h3>
+  <p><%= simple_format(@g_eval.evaluation_steps) %></p>
+</div>
+
+<br>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= link_to 'Trials', research_gen_ai_trials_path %>

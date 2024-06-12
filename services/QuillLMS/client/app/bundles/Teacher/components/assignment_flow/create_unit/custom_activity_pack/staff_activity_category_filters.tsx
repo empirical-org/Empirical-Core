@@ -185,7 +185,7 @@ const StaffActivityCategoryFilters = ({ activityCategoryEditor, filterActivities
 
   const activityCategoryList = <SortableList data={activityCategoryRows} helperClass="sortable-filter-row" sortCallback={sortCallback} useDragHandle={true} />
 
-  let createNewActivityCategoryButtonClassName = "quill-button primary contained fun"
+  let createNewActivityCategoryButtonClassName = "quill-button-archived primary contained fun"
   if (!newActivityCategoryName.length) { createNewActivityCategoryButtonClassName += ' disabled' }
 
   return (

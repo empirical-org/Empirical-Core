@@ -35,7 +35,7 @@ exports[`AccountManagementSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/account_management"
             >
               Manage accounts
@@ -61,7 +61,7 @@ exports[`AccountManagementSection it should render 1`] = `
             class="link-and-image"
           >
             <button
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               type="button"
             >
               Log in as a teacher
@@ -87,7 +87,7 @@ exports[`AccountManagementSection it should render 1`] = `
             class="link-and-image"
           >
             <a
-              class="quill-button focus-on-light outlined secondary medium"
+              class="quill-button-archived focus-on-light outlined secondary medium"
               href="/teachers/premium_hub/school_subscriptions"
             >
               Manage subscriptions

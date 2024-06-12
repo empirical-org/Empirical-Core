@@ -15,7 +15,7 @@ const ADMIN_LACKS_RELEVANT_PREMIUM = 'adminLacksRelevantPremium' // state E/E1 f
 const ADMIN_LACKS_SCHOOL_CANVAS = 'adminLacksSchoolCanvas' // state F from spec
 const ADMIN_LACKS_INDIVIDUAL_CANVAS = 'adminLacksIndividualCanvas' // state G from spec
 
-const PRIMARY_BUTTON_STYLE = "quill-button contained primary medium focus-on-light"
+const PRIMARY_BUTTON_STYLE = "quill-button-archived contained primary medium focus-on-light"
 
 // copy
 const ONE_STEP_AWAY_FROM_USING_CANVAS = 'You’re one step away from using Canvas'
@@ -158,7 +158,7 @@ const CanvasModal = ({ close, user }: CanvasModalProps) => {
         </ul>
         <div className="form-buttons">
           <button
-            className="quill-button outlined secondary medium focus-on-light"
+            className="quill-button-archived outlined secondary medium focus-on-light"
             onClick={close}
             type="button"
           >

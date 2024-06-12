@@ -3,6 +3,8 @@ import { push } from 'react-router-redux';
 import { GrammarActivity } from '../interfaces/grammarActivities';
 import { GrammarActivityApi, } from '../libs/grammar_activities_api';
 import { ActionTypes } from './actionTypes';
+import { reloadQuestionsIfNecessary } from '../../Shared/actions/questions';
+import { GRAMMAR } from '../../Shared';
 
 export const startListeningToActivities = () => {
   return (dispatch: Function) => {
@@ -61,11 +63,13 @@ export const cancelLessonEdit = (cid: string) => {
 export const submitLessonEdit = (cid: string, content: GrammarActivity) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
+
     const cleanedContent = pickBy(content)
     GrammarActivityApi.update(cid, content).then(() => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
       dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       dispatch(startListeningToActivities());
+      dispatch(reloadQuestionsIfNecessary(content.flag, GRAMMAR));
     }).catch((error) => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
       dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });

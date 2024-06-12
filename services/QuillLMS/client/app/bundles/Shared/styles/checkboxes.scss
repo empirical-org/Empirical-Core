@@ -5,26 +5,59 @@
   border-radius: 1px;
   cursor: pointer;
   padding: 0px;
+  border-radius: 4px;
 }
 
 .quill-checkbox.selected {
   background-color: $quill-green !important;
-  color: white;
+  color: $quill-white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border: 2px solid transparent;
+  &.dark {
+    background-color: $quill-white !important;
+  }
 }
 
 .quill-checkbox.unselected {
-  border: solid 2px #646464 !important;
+  border: solid 2px $quill-grey-40 !important;
   cursor: pointer;
   background-color: transparent;
+  &.dark {
+    border: solid 2px $quill-white !important;
+  }
+}
+
+.quill-checkbox.indeterminate {
+  cursor: pointer;
+  background-color: $quill-grey-40;
+  &.dark {
+    border: solid 2px $quill-white !important;
+  }
 }
 
 .quill-checkbox.disabled {
   cursor: not-allowed;
-  border: solid 2px #9E9E9E;
+  border: solid 2px $quill-grey-15;
   background-color: transparent;
+}
+
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  .quill-checkbox:focus {
+    outline-offset: 3px;
+  }
+  span:last-of-type {
+    margin-left: 8px;
+    &.disabled {
+      color: $quill-grey-30;
+    }
+    &.dark {
+      color: $quill-white;
+    }
+  }
 }

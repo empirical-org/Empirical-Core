@@ -80,7 +80,7 @@
       border-radius: 0px 6px 6px 0px;
       margin: 0px;
       border-left: none;
-      .quill-button {
+      .quill-button-archived {
         margin-top: 46px;
       }
       .newsletter-row {
@@ -138,7 +138,7 @@
 .account-form.student-sign-up {
   .account-container {
     margin: 40px auto 32px;
-    .quill-button {
+    .quill-button-archived {
       margin-top: 32px;
     }
   }
@@ -166,7 +166,7 @@
     font-size: 16px;
     line-height: 26px;
   }
-  .quill-button {
+  .quill-button-archived {
     margin-top: 8px;
   }
   .input-container.inactive .dropdown__placeholder {

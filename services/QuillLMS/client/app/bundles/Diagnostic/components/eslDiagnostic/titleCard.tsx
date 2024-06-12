@@ -43,7 +43,7 @@ class TitleCard extends Component<ComponentProps, any> {
     return (
       <div className="landing-page">
         {this.renderContent()}
-        <button className={`quill-button focus-on-light large contained primary ${disabled}`} onClick={handleContinueClick} type="button">
+        <button className={`quill-button-archived focus-on-light large contained primary ${disabled}`} onClick={handleContinueClick} type="button">
           {buttonText}
         </button>
       </div>

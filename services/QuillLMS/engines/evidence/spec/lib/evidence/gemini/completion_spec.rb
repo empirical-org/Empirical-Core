@@ -5,14 +5,14 @@ require 'rails_helper'
 module Evidence
   module Gemini
     RSpec.describe Completion, external_api: true do
-      Evidence::Research::GenAI::LLMConfig::GOOGLE_VERSIONS.each do |version|
-        subject { described_class.new(llm_config:, prompt:) }
+      Evidence::Research::GenAI::LLM::GOOGLE_VERSIONS.each do |version|
+        subject { described_class.new(llm:, prompt:) }
 
-        let(:llm_config) { create(:evidence_research_gen_ai_llm_config, version:) }
+        let(:llm) { create(:evidence_research_gen_ai_llm, version:) }
         let(:prompt) { "Write the next word after this sentence: #{Faker::Quote.mitch_hedberg}" }
 
         describe 'rate limit error handling' do
-          subject { described_class.new(llm_config:, prompt:) }
+          subject { described_class.new(llm:, prompt:) }
 
           let(:endpoint) { subject.send(:endpoint) }
           let(:code) { 429 }

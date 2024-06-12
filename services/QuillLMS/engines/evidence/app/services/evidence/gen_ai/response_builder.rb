@@ -52,7 +52,7 @@ module Evidence
       private def highlight_text
         return nil if highlight_key.nil?
 
-        prompt.distinct_highlight_texts[highlight_key.to_i - 1]
+        prompt.distinct_automl_highlight_texts[highlight_key.to_i - 1]
       end
 
       private def highlight

@@ -4,7 +4,7 @@ module Evidence
   module GenAI
     class SystemPromptBuilder < ApplicationService
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
-      DEFAULT_TEMPLATE = '2024_06_07_more_examples.md'
+      DEFAULT_TEMPLATE = '2024_06_03_optimal_and_feedback.md'
 
       attr_reader :prompt, :history, :template_file
 
@@ -55,7 +55,7 @@ module Evidence
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
       private def highlight_texts
         prompt
-          .distinct_highlight_texts
+          .distinct_automl_highlight_texts
           .map.with_index {|text,i| "#{i+1}. #{text}" }
           .join("\n")
       end

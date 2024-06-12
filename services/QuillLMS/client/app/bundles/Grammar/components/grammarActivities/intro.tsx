@@ -51,7 +51,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
 
   renderButton = () => {
     return (
-      <button className="quill-button focus-on-light primary contained large" onClick={this.handleNextClick} type="button">Begin</button>
+      <button className="quill-button-archived focus-on-light primary contained large" onClick={this.handleNextClick} type="button">Begin</button>
     );
   }
 
@@ -62,7 +62,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
       return (
         <div className="intro landing-page">
           <div dangerouslySetInnerHTML={{ __html: activity.landingPageHtml, }} />
-          <button className="quill-button focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
+          <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
         </div>
       );
     }

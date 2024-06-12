@@ -169,9 +169,9 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     let button
     if(!responses || (previewMode && latestAttempt)) {
-      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+      button = <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">Submit</button>;
     } else {
-      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button>;
+      button = <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button>;
     }
 
     if (!this.choosingSentenceOrFragment()) {

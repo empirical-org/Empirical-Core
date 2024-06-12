@@ -30,7 +30,7 @@ const SemanticRulesCheatSheet = ({ match, }) => {
     const formattedRows = rulesData.rules.map(rule => {
       const { name, id, feedbacks, note, } = rule;
       const ruleLink = (
-        <Link className="quill-button fun contained primary" rel="noopener noreferrer" target="_blank" to={{ pathname: `/activities/${activityId}/semantic-labels/${promptId}/${id}`, state: { rule: rule } }}>Edit Rule</Link>
+        <Link className="quill-button-archived fun contained primary" rel="noopener noreferrer" target="_blank" to={{ pathname: `/activities/${activityId}/semantic-labels/${promptId}/${id}`, state: { rule: rule } }}>Edit Rule</Link>
       );
       return {
         id: id,

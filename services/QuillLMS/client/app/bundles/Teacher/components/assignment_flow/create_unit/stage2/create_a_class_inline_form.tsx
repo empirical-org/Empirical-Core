@@ -48,7 +48,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
 
   submitButtonClass() {
     const { name, grade, code, } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (!name.length || !code.length || !grade) {
       buttonClass += ' disabled';
     }
@@ -124,7 +124,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
           <span>You’ll invite students after you assign.</span>
         </div>
         <div className="buttons">
-          <button className="quill-button medium secondary outlined" onClick={this.props.cancel}>Cancel</button>
+          <button className="quill-button-archived medium secondary outlined" onClick={this.props.cancel}>Cancel</button>
           <button className={this.submitButtonClass()} onClick={this.createClass}>Create</button>
         </div>
       </div>

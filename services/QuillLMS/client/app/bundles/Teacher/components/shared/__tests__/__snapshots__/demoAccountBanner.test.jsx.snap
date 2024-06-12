@@ -34,7 +34,7 @@ exports[`DemoAccountBanner component expanded should render 1`] = `
           </span>
         </div>
         <a
-          className="quill-button primary contained medium focus-on-light"
+          className="quill-button-archived primary contained medium focus-on-light"
           href="/teachers/unset_view_demo"
         >
           Exit demo account
@@ -115,7 +115,7 @@ exports[`DemoAccountBanner component not expanded should render 1`] = `
           </span>
         </div>
         <a
-          className="quill-button primary contained medium focus-on-light"
+          className="quill-button-archived primary contained medium focus-on-light"
           href="/teachers/unset_view_demo"
         >
           Exit demo account

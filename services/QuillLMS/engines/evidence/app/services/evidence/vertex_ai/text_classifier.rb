@@ -5,7 +5,6 @@ module Evidence
     class TextClassifier < ApplicationService
       CONFIDENCES = 'confidences'
       DISPLAY_NAMES = 'displayNames'
-      PREDICT_API_TIMEOUT = 5.0
 
       PREDICTION_EXCEPTION_CLASSES = [
         Google::Cloud::InternalError,
@@ -16,16 +15,15 @@ module Evidence
 
       PREDICTION_NUM_RETRIES = 1
 
-      attr_reader :endpoint_external_id, :text
+      attr_reader :endpoint_external_id, :project, :text
 
-      def initialize(endpoint_external_id, text)
+      def initialize(endpoint_external_id:, project:, text:)
         @endpoint_external_id = endpoint_external_id
+        @project = project
         @text = text
       end
 
-      def run
-        [top_score_label, top_score]
-      end
+      def run = [top_score_label, top_score]
 
       private def confidences
         prediction[CONFIDENCES]
@@ -34,37 +32,23 @@ module Evidence
           .map(&:number_value)
       end
 
-      private def client
-        ::Google::Cloud::AIPlatform::V1::PredictionService::Client.new do |config|
-          config.timeout = PREDICT_API_TIMEOUT
-        end
-      end
-
-      private def endpoint
-        "projects/#{VERTEX_AI_PROJECT_ID}/locations/#{VERTEX_AI_LOCATION}/endpoints/#{endpoint_external_id}"
-      end
-
-      private def instances
-        [::Google::Protobuf::Value.new(struct_value: { fields: { content: { string_value: text } } })]
-      end
 
       private def prediction
-        prediction_response
-          .predictions
-          .first
-          .struct_value
-          .fields
+        @prediction ||=
+          prediction_response
+            .predictions
+            .first
+            .struct_value
+            .fields
       end
 
       private def prediction_response
         retry_with_exceptions(PREDICTION_NUM_RETRIES, PREDICTION_EXCEPTION_CLASSES) do
-          client.predict(endpoint: endpoint, instances: instances)
+          PredictionClient.new(project:).predict_label_and_score(endpoint_external_id:, text:)
         end
       end
 
-      private def top_score
-        confidences.max
-      end
+      private def top_score = confidences.max
 
       private def top_score_label
         prediction[DISPLAY_NAMES]

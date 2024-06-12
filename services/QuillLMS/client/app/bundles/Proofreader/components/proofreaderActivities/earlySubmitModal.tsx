@@ -18,7 +18,7 @@ export default class EarlySubmitModal extends React.Component<EarlySubmitModalPr
         <div className="early-submit-modal">
           <div className="top-section">
             <h1>Keep looking! You must make at least {requiredEditCount} edits.</h1>
-            <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} type="button">Close</button>
+            <button className="quill-button-archived medium primary contained focus-on-light" onClick={closeModal} type="button">Close</button>
           </div>
         </div>
       </div>

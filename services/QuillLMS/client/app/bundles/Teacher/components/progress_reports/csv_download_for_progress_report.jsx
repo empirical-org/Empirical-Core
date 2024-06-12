@@ -11,7 +11,7 @@ function formatData(data) {
 }
 
 const unclickedDownloadBtnClass = "btn button-green"
-const clickedDownloadBtnClass = "quill-button medium primary contained focus-on-light"
+const clickedDownloadBtnClass = "quill-button-archived medium primary contained focus-on-light"
 const printBtnClass = "print-button"
 const printImgClass = "print-img"
 

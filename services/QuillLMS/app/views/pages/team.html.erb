@@ -5,12 +5,12 @@
 <% base_image_url = "#{ENV['CDN_URL']}/images/team/webp/" %>
 
 <div class="white-background">
-  <div class="container pages-container team-page about-us-page">
+  <div class="container pages-container team-page about-us-page about-the-org-page">
 
     <div class="header">
       <h1>Meet our team</h1>
       <p>Learn more about the dedicated educators, visionary designers, and innovative engineers behind Quill's tools.</p>
-      <a class="quill-button medium secondary outlined hide-mobile" href="https://angel.co/company/quill-org/jobs" rel="noopener noreferrer" target="_blank">Join our team</a>
+      <a class="quill-button-archived medium secondary outlined hide-mobile" href="https://angel.co/company/quill-org/jobs" rel="noopener noreferrer" target="_blank">Join our team</a>
     </div>
 
     <% team_info.each do |team_type| %>
@@ -34,7 +34,7 @@
     <% if @open_positions%>
       <div class="hiring-blurb">
         <h3>We're hiring. Join the team!</h3>
-        <a href="/careers" class="quill-button medium outlined secondary">See careers</a>
+        <a href="/careers" class="quill-button-archived medium outlined secondary">See careers</a>
       </div>
     <% end %>
 

@@ -73,8 +73,8 @@ export default class SelectAClassroom extends React.Component<any, { showJoinCla
             <p>If you would like to add this student to another class, you can go back to your dashboard and invite them from the Classes page.</p>
           </div>
           <div className="form-buttons">
-            <a className="quill-button outlined secondary medium focus-on-light" href="/teachers/unset_preview_as_student?redirect=/teachers/classrooms">Classes page</a>
-            <button className="quill-button contained primary medium focus-on-light" onClick={this.handleCloseJoinClassModalClick} type="button">Continue viewing</button>
+            <a className="quill-button-archived outlined secondary medium focus-on-light" href="/teachers/unset_preview_as_student?redirect=/teachers/classrooms">Classes page</a>
+            <button className="quill-button-archived contained primary medium focus-on-light" onClick={this.handleCloseJoinClassModalClick} type="button">Continue viewing</button>
           </div>
         </div>
       </div>

@@ -16,6 +16,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        Completed activities
+      </h3>
+    </div>
+    <div
       class="activities-container completed-activities"
     >
       <table
@@ -37,7 +44,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <span>
                 Activity
@@ -107,7 +114,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -158,7 +165,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -170,7 +177,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
@@ -195,7 +202,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -246,7 +253,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -258,7 +265,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/885"
               >
                 Replay
@@ -283,7 +290,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -334,7 +341,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -346,7 +353,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/804"
               >
                 Replay
@@ -371,7 +378,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -422,7 +429,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -434,7 +441,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/887"
               >
                 Replay
@@ -459,7 +466,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -510,7 +517,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -522,7 +529,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/801"
               >
                 Replay
@@ -547,7 +554,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -598,7 +605,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -610,7 +617,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/802"
               >
                 Replay
@@ -635,7 +642,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -686,7 +693,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -698,7 +705,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/181"
               >
                 Replay
@@ -728,6 +735,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        Completed activities
+      </h3>
+    </div>
+    <div
       class="activities-container completed-activities"
     >
       <table
@@ -749,7 +763,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <span>
                 Activity
@@ -819,7 +833,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -874,7 +888,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -886,7 +900,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
@@ -911,7 +925,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -966,7 +980,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -978,7 +992,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/885"
               >
                 Replay
@@ -1003,7 +1017,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1058,7 +1072,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1070,7 +1084,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/804"
               >
                 Replay
@@ -1095,7 +1109,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1150,7 +1164,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1162,7 +1176,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/887"
               >
                 Replay
@@ -1187,7 +1201,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1242,7 +1256,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1254,7 +1268,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/801"
               >
                 Replay
@@ -1279,7 +1293,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1334,7 +1348,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1346,7 +1360,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/802"
               >
                 Replay
@@ -1371,7 +1385,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <div
                 class="score-tooltip-activator"
@@ -1426,7 +1440,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1438,7 +1452,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/181"
               >
                 Replay
@@ -1468,6 +1482,13 @@ exports[`StudentProfileUnit component should render completed activities when sh
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        Completed activities
+      </h3>
+    </div>
+    <div
       class="activities-container completed-activities"
     >
       <table
@@ -1489,7 +1510,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               <span>
                 Activity
@@ -1555,7 +1576,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing People, Places, & the Pronoun - Mixed Topics
             </td>
@@ -1603,7 +1624,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1615,7 +1636,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing People, Places, & the Pronoun - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/886"
               >
                 Replay
@@ -1636,7 +1657,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Names of People & the Pronoun  - Mixed Topics
             </td>
@@ -1684,7 +1705,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1696,7 +1717,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People & the Pronoun  - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/885"
               >
                 Replay
@@ -1717,7 +1738,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Names of People - Mixed Topics 1
             </td>
@@ -1765,7 +1786,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1777,7 +1798,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Names of People - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/804"
               >
                 Replay
@@ -1798,7 +1819,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Holidays, People, & Places - Mixed Topics
             </td>
@@ -1846,7 +1867,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1858,7 +1879,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Holidays, People, & Places - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/887"
               >
                 Replay
@@ -1879,7 +1900,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Dates & Holidays - Mixed Topics 1
             </td>
@@ -1927,7 +1948,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -1939,7 +1960,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Dates & Holidays - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/801"
               >
                 Replay
@@ -1960,7 +1981,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Geographic Names - Mixed Topics 1
             </td>
@@ -2008,7 +2029,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -2020,7 +2041,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names - Mixed Topics 1"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/802"
               >
                 Replay
@@ -2041,7 +2062,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             </td>
             <td
               class="data-table-row-section name-section tooltip-section"
-              style="width: 440px; min-width: 440px; text-align: left;"
+              style="width: 432px; min-width: 432px; text-align: left;"
             >
               Capitalizing Geographic Names & Holidays - Mixed Topics
             </td>
@@ -2089,7 +2110,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="View results for Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/undefined/student_activity_report"
               >
                 View results
@@ -2101,7 +2122,7 @@ exports[`StudentProfileUnit component should render completed activities when sh
             >
               <a
                 aria-label="Replay Capitalizing Geographic Names & Holidays - Mixed Topics"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/8392402/activities/181"
               >
                 Replay
@@ -2131,6 +2152,13 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
       <span />
     </div>
     <div
+      class="subheader"
+    >
+      <h3>
+        To-do activities
+      </h3>
+    </div>
+    <div
       class="activities-container incomplete-activities"
     >
       <table
@@ -2152,7 +2180,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             <th
               class="data-table-header name-section"
               scope="col"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               <span>
                 Activity
@@ -2188,7 +2216,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               The Travels of Marco Polo
             </td>
@@ -2204,7 +2232,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start The Travels of Marco Polo"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/608"
               >
                 Start
@@ -2220,7 +2248,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Christopher Columbus
             </td>
@@ -2236,7 +2264,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Christopher Columbus"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/607"
               >
                 Start
@@ -2252,7 +2280,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               A, An, The
             </td>
@@ -2268,7 +2296,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start A, An, The"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/140"
               >
                 Start
@@ -2284,7 +2312,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Magellan
             </td>
@@ -2300,7 +2328,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Magellan"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/605"
               >
                 Start
@@ -2316,7 +2344,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Jamestown
             </td>
@@ -2332,7 +2360,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Jamestown"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/606"
               >
                 Start
@@ -2348,7 +2376,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Age of Exploration: Sailing with the Stars
             </td>
@@ -2364,7 +2392,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Age of Exploration: Sailing with the Stars"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/503"
               >
                 Start
@@ -2380,7 +2408,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Age of Exploration: The Cape of Good Hope
             </td>
@@ -2396,7 +2424,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Age of Exploration: The Cape of Good Hope"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/504"
               >
                 Start
@@ -2412,7 +2440,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             />
             <td
               class="data-table-row-section name-section"
-              style="width: 874px; min-width: 874px; text-align: left;"
+              style="width: 866px; min-width: 866px; text-align: left;"
             >
               Age of Exploration: Roanoke
             </td>
@@ -2428,7 +2456,7 @@ exports[`StudentProfileUnit component should render incomplete activities 1`] = 
             >
               <a
                 aria-label="Start Age of Exploration: Roanoke"
-                class="quill-button medium focus-on-light secondary outlined"
+                class="quill-button-archived medium focus-on-light secondary outlined"
                 href="/activity_sessions/classroom_units/1/activities/517"
               >
                 Start

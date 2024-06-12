@@ -77,7 +77,7 @@ exports[`<WelcomePage /> should render 1`] = `
     tabIndex={-1}
   >
     <button
-      className="quill-button large contained primary focus-on-light"
+      className="quill-button-archived large contained primary focus-on-light"
       onClick={[Function]}
       type="button"
     >

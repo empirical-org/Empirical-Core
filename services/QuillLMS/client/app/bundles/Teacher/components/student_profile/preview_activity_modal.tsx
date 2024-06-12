@@ -15,8 +15,8 @@ const PreviewActivityModal = ({ onClosePreviewActivityModalClick, previewActivit
       <p>None of your responses will be saved, and the activity will not be marked as complete.</p>
     </div>
     <div className="form-buttons">
-      <button className="quill-button outlined secondary medium focus-on-light" onClick={onClosePreviewActivityModalClick} type="button">Cancel</button>
-      <a className="quill-button contained primary medium focus-on-light" href={`/activity_sessions/anonymous?activity_id=${previewActivityId}`} onClick={onClosePreviewActivityModalClick} rel="noopener noreferrer" target="_blank">Preview activity</a>
+      <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={onClosePreviewActivityModalClick} type="button">Cancel</button>
+      <a className="quill-button-archived contained primary medium focus-on-light" href={`/activity_sessions/anonymous?activity_id=${previewActivityId}`} onClick={onClosePreviewActivityModalClick} rel="noopener noreferrer" target="_blank">Preview activity</a>
     </div>
   </div>
 </div>)

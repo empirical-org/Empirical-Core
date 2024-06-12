@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { FlagDropdown } from '../../../Shared/index';
-import ConceptSelector from '../shared/conceptSelector.jsx';
+import { FlagDropdown, ConceptSelector, } from '../../../Shared/index';
 
 class sentenceFragmentForm extends React.Component {
   constructor(props) {

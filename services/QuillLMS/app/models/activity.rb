@@ -313,6 +313,18 @@ class Activity < ApplicationRecord
     serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
   end
 
+  def update_questions_flag_status_if_necessary!
+    return unless flags.include?(:production)
+
+    question_uids = data["questions"]&.map{|q| q["key"]}
+    questions = Question.where("uid in (?)", question_uids)
+
+    questions.each do |question|
+      question.update_flag("production")
+    end
+  end
+
+
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
   end

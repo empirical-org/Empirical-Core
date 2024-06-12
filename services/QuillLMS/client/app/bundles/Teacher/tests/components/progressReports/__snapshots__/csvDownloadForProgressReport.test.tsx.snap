@@ -29,7 +29,7 @@ exports[`ActivitySurvey Component should match snapshot 1`] = `
     className="download-button-wrapper"
   >
     <button
-      className="quill-button medium primary contained focus-on-light"
+      className="quill-button-archived medium primary contained focus-on-light"
       onClick={[Function]}
     >
       Download Report

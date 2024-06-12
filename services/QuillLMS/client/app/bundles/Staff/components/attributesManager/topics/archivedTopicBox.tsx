@@ -133,7 +133,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
     if (topic.level === 2 && !levelThreeTopics.find(t => t.id === topic.parent_id).visible) {
       return (
         <input
-          className="quill-button contained disabled primary medium"
+          className="quill-button-archived contained disabled primary medium"
           type="submit"
           value="Unarchive, set live"
         />
@@ -142,7 +142,7 @@ const TopicBox = ({ originalTopic, levelThreeTopics, saveTopicChanges, closeTopi
 
     return (
       <input
-        className="quill-button contained primary medium"
+        className="quill-button-archived contained primary medium"
         type="submit"
         value="Unarchive, set live"
       />

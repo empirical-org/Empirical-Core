@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Typography it should render 1`] = `
+<DocumentFragment>
+  <div
+    id="typography"
+  >
+    <h2
+      class="style-guide-h2"
+    >
+      Typography
+    </h2>
+    <p>
+      In order to use these styles, include the mixin name (on the left) inside a CSS rule, ex: 
+      <code>
+        @include display-m
+      </code>
+    </p>
+    <div
+      class="element-container"
+    >
+      <div
+        class="display-2xl"
+      >
+        <span>
+          display-2xl
+        </span>
+        <span>
+          Adelle Sans - Bold 32pt
+        </span>
+      </div>
+      <div
+        class="display-2xl-semibold"
+      >
+        <span>
+          display-2xl-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 32pt
+        </span>
+      </div>
+      <div
+        class="display-xl"
+      >
+        <span>
+          display-xl
+        </span>
+        <span>
+          Adelle Sans - Bold 24pt
+        </span>
+      </div>
+      <div
+        class="display-xl-semibold"
+      >
+        <span>
+          display-xl-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 24pt
+        </span>
+      </div>
+      <div
+        class="display-l"
+      >
+        <span>
+          display-l
+        </span>
+        <span>
+          Adelle Sans - Bold 20pt
+        </span>
+      </div>
+      <div
+        class="display-l-semibold"
+      >
+        <span>
+          display-l-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 20pt
+        </span>
+      </div>
+      <div
+        class="display-m"
+      >
+        <span>
+          display-m
+        </span>
+        <span>
+          Adelle Sans - Bold 18pt
+        </span>
+      </div>
+      <div
+        class="display-m-semibold"
+      >
+        <span>
+          display-m-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 18pt
+        </span>
+      </div>
+      <div
+        class="display-s"
+      >
+        <span>
+          display-s
+        </span>
+        <span>
+          Adelle Sans - Bold 16pt
+        </span>
+      </div>
+      <div
+        class="display-s-semibold"
+      >
+        <span>
+          display-s-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 16pt
+        </span>
+      </div>
+      <div
+        class="display-xs"
+      >
+        <span>
+          display-xs
+        </span>
+        <span>
+          Adelle Sans - Bold 13pt
+        </span>
+      </div>
+      <div
+        class="display-xs-semibold"
+      >
+        <span>
+          display-xs-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 13pt
+        </span>
+      </div>
+      <div
+        class="display-2xs"
+      >
+        <span>
+          display-2xs
+        </span>
+        <span>
+          Adelle Sans - Bold 12pt
+        </span>
+      </div>
+      <div
+        class="display-2xs-semibold"
+      >
+        <span>
+          display-2xs-semibold
+        </span>
+        <span>
+          Adelle Sans - Semibold 12pt
+        </span>
+      </div>
+    </div>
+    <div
+      class="element-container"
+    >
+      <div
+        class="text-2xl"
+      >
+        <span>
+          text-2xl
+        </span>
+        <span>
+          Adelle Sans - Regular 24pt
+        </span>
+      </div>
+      <div
+        class="text-xl"
+      >
+        <span>
+          text-xl
+        </span>
+        <span>
+          Adelle Sans - Regular 20pt
+        </span>
+      </div>
+      <div
+        class="text-l"
+      >
+        <span>
+          text-l
+        </span>
+        <span>
+          Adelle Sans - Regular 18pt
+        </span>
+      </div>
+      <div
+        class="text-m"
+      >
+        <span>
+          text-m
+        </span>
+        <span>
+          Adelle Sans - Regular 16pt
+        </span>
+      </div>
+      <div
+        class="text-s"
+      >
+        <span>
+          text-s
+        </span>
+        <span>
+          Adelle Sans - Regular 14pt
+        </span>
+      </div>
+      <div
+        class="text-xs"
+      >
+        <span>
+          text-xs
+        </span>
+        <span>
+          Adelle Sans - Regular 13pt
+        </span>
+      </div>
+      <div
+        class="text-2xs"
+      >
+        <span>
+          text-2xs
+        </span>
+        <span>
+          Adelle Sans - Regular 12pt
+        </span>
+      </div>
+    </div>
+    <div
+      class="element-container"
+    >
+      <div
+        class="navigation-l"
+      >
+        <span>
+          navigation-l
+        </span>
+        <span>
+          Adelle Sans - Semibold 14pt
+        </span>
+      </div>
+      <div
+        class="navigation-m"
+      >
+        <span>
+          navigation-m
+        </span>
+        <span>
+          Adelle Sans - Semibold 13pt
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

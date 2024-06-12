@@ -20,8 +20,8 @@ const PinnedActivityModal = ({ name, teacherName, classroomUnitId, activityId, o
       <p>Your teacher, {teacherName}, has launched a live Quill Lesson.</p>
     </div>
     <div className="form-buttons">
-      <button className="quill-button outlined secondary medium focus-on-light" onClick={onClosePinnedActivityModalClick} type="button">Not now</button>
-      <a className="quill-button contained primary medium focus-on-light" href={activityLaunchLink(classroomUnitId, activityId)}>Join the lesson</a>
+      <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={onClosePinnedActivityModalClick} type="button">Not now</button>
+      <a className="quill-button-archived contained primary medium focus-on-light" href={activityLaunchLink(classroomUnitId, activityId)}>Join the lesson</a>
     </div>
   </div>
 </div>)

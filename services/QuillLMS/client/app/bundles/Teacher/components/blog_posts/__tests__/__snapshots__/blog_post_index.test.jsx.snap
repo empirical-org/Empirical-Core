@@ -577,7 +577,7 @@ exports[`BlogPostIndex component renders 1`] = `
               Looking for support integrating Quill Reading for Evidence into your instruction? Our handbook for teachers using our newest literacy tool is packed with best practices and strategies--and it's FREE!
             </p>
             <a
-              className="quill-button focus-on-light small primary contained"
+              className="quill-button-archived focus-on-light small primary contained"
               href="https://docsend.com/view/29vcfdqa5aupkmfp"
               rel="noopener noreferrer"
               target="_blank"
@@ -670,7 +670,7 @@ exports[`BlogPostIndex component renders 1`] = `
                 articles
               </h2>
               <a
-                className="quill-button focus-on-light fun contained primary"
+                className="quill-button-archived focus-on-light fun contained primary"
                 href="/teacher-center/topic/writing-for-learning"
               >
                 Show all
@@ -922,7 +922,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
                   rel="noopener noreferrer"
                   target="_self"
@@ -1173,7 +1173,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
                   rel="noopener noreferrer"
                   target="_self"
@@ -1282,7 +1282,7 @@ exports[`BlogPostIndex component renders 1`] = `
                 articles
               </h2>
               <a
-                className="quill-button focus-on-light fun contained primary"
+                className="quill-button-archived focus-on-light fun contained primary"
                 href="/teacher-center/topic/getting-started"
               >
                 Show all
@@ -1535,7 +1535,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/webinars"
                   rel="noopener noreferrer"
                   target="_self"
@@ -1787,7 +1787,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
                   rel="noopener noreferrer"
                   target="_self"
@@ -2039,7 +2039,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -2194,7 +2194,7 @@ exports[`BlogPostIndex component renders 1`] = `
                 articles
               </h2>
               <a
-                className="quill-button focus-on-light fun contained primary"
+                className="quill-button-archived focus-on-light fun contained primary"
                 href="/teacher-center/topic/best-practices"
               >
                 Show all
@@ -2447,7 +2447,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/using-quill-as-a-homeschool-educator"
                   rel="noopener noreferrer"
                   target="_self"
@@ -2699,7 +2699,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/quill-and-masterybased-learning"
                   rel="noopener noreferrer"
                   target="_self"
@@ -2933,7 +2933,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/4-ways-to-use-quill-lessons"
                   rel="noopener noreferrer"
                   target="_self"
@@ -3042,7 +3042,7 @@ exports[`BlogPostIndex component renders 1`] = `
                 articles
               </h2>
               <a
-                className="quill-button focus-on-light fun contained primary"
+                className="quill-button-archived focus-on-light fun contained primary"
                 href="/teacher-center/topic/video-tutorials"
               >
                 Show all
@@ -3295,7 +3295,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -3547,7 +3547,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
                   rel="noopener noreferrer"
                   target="_self"
@@ -3799,7 +3799,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/student-center-video---why-is-writing-important"
                   rel="noopener noreferrer"
                   target="_self"
@@ -3885,7 +3885,7 @@ exports[`BlogPostIndex component renders 1`] = `
                 articles
               </h2>
               <a
-                className="quill-button focus-on-light fun contained primary"
+                className="quill-button-archived focus-on-light fun contained primary"
                 href="/teacher-center/topic/teacher-materials"
               >
                 Show all
@@ -4138,7 +4138,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4390,7 +4390,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4453,7 +4453,7 @@ exports[`BlogPostIndex component renders 1`] = `
                 article
               </h2>
               <a
-                className="quill-button focus-on-light fun contained primary"
+                className="quill-button-archived focus-on-light fun contained primary"
                 href="/teacher-center/topic/teacher-stories"
               >
                 Show all
@@ -4706,7 +4706,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <a
-                  className="quill-button fun contained primary focus-on-light"
+                  className="quill-button-archived fun contained primary focus-on-light"
                   href="/teacher-center/michele-ellis-teacher-story"
                   rel="noopener noreferrer"
                   target="_self"

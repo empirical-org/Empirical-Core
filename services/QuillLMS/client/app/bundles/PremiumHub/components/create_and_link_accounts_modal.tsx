@@ -85,8 +85,8 @@ const CreateAndLinkAccountsModal = ({ addTeacherAccount, handleCloseModal, schoo
         </div>
         <div className="admin-action-modal-footer">
           <div className="buttons">
-            <button className="quill-button outlined secondary medium focus-on-light" onClick={handleCloseModal} type="button">Cancel</button>
-            <button className="quill-button contained primary medium focus-on-light" onClick={handleSubmitClick} type="submit">Submit</button>
+            <button className="quill-button-archived outlined secondary medium focus-on-light" onClick={handleCloseModal} type="button">Cancel</button>
+            <button className="quill-button-archived contained primary medium focus-on-light" onClick={handleSubmitClick} type="submit">Submit</button>
           </div>
         </div>
       </div>

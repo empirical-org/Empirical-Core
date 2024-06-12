@@ -272,7 +272,7 @@ export default class ManageUnits extends React.Component {
             <div className="container">
               <div className="top-line">
                 <h1>My {open ? 'Open' : 'Closed'} Activity Packs</h1>
-                <a className="quill-button contained primary medium focus-on-light" href="/assign">Assign activities</a>
+                <a className="quill-button-archived contained primary medium focus-on-light" href="/assign">Assign activities</a>
               </div>
               <DropdownInput
                 handleChange={this.switchClassrooms}

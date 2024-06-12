@@ -28,7 +28,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
         class="header-buttons"
       >
         <button
-          class="quill-button manage-subscription-button contained primary medium focus-on-light"
+          class="quill-button-archived manage-subscription-button contained primary medium focus-on-light"
           type="button"
         >
           <img
@@ -40,7 +40,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
           </span>
         </button>
         <button
-          class="quill-button download-report-button contained primary medium focus-on-light"
+          class="quill-button-archived download-report-button contained primary medium focus-on-light"
           type="button"
         >
           <img

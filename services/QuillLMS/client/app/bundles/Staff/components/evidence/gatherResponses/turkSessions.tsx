@@ -83,7 +83,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     return(
       <Modal>
         <div className="close-button-container">
-          <button className="quill-button fun primary contained" id="turk-edit-close-button" onClick={toggleEditTurkSessionModal} type="submit">x</button>
+          <button className="quill-button-archived fun primary contained" id="turk-edit-close-button" onClick={toggleEditTurkSessionModal} type="submit">x</button>
         </div>
         <EditOrDeleteTurkSession
           activityId={activityId}
@@ -168,7 +168,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
           />
         </div>
         <button
-          className="generate-session-button quill-button fun primary contained"
+          className="generate-session-button quill-button-archived fun primary contained"
           onClick={handleGenerateNewTurkSession}
           type="submit"
         >

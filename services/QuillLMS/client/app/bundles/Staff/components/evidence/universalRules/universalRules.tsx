@@ -177,8 +177,8 @@ const UniversalRulesIndex = ({ location, match }) => {
               options={universalRuleTypeOptions}
               value={ruleType}
             />
-            <button className={`quill-button small primary contained ${disabledStatus}`} disabled={!!disabledStatus} onClick={handleUpdateRuleOrder} type="button">Update Rule Order</button>
-            <button className="quill-button small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
+            <button className={`quill-button-archived small primary contained ${disabledStatus}`} disabled={!!disabledStatus} onClick={handleUpdateRuleOrder} type="button">Update Rule Order</button>
+            <button className="quill-button-archived small primary contained" onClick={toggleAddRuleModal} type="button">{`Create New ${ruleType.label} Rule (Danger Zone!)`}</button>
           </section>
         </section>
         <p className="sortable-instructions">Change the rule order note by drag and drop</p>

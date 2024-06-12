@@ -145,7 +145,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   };
 
   submitClass() {
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button-archived contained primary medium';
     if (this.state.name === this.props.name
       && this.state.email === this.props.email
       && this.state.timeZone === this.props.timeZone
@@ -161,7 +161,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     if (this.state.showButtonSection) {
       return (
         <div className="button-section">
-          <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
+          <div className="quill-button-archived outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
           <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
         </div>
       )

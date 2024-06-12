@@ -16,7 +16,7 @@ exports[`AbsentTeacher component renders 1`] = `
         Your teacher has left this lesson.
       </h1>
       <a
-        className="quill-button focus-on-dark outlined secondary large"
+        className="quill-button-archived focus-on-dark outlined secondary large"
         href="undefined"
       >
         Exit lesson

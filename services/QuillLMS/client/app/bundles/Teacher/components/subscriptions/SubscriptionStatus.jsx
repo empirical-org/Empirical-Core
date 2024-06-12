@@ -15,7 +15,7 @@ import {
 
 import StripeSubscriptionCheckoutSessionButton from '../shared/StripeSubscriptionCheckoutSessionButton';
 
-const CTA_BUTTON_CLASSNAME = "quill-button medium contained primary focus-on-light"
+const CTA_BUTTON_CLASSNAME = "quill-button-archived medium contained primary focus-on-light"
 
 const quillBasicCopy = (
   <span>

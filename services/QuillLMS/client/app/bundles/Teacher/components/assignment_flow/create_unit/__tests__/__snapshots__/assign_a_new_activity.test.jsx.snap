@@ -26,7 +26,7 @@ exports[`AssignANewActivity component default should render 1`] = `
            assigned. 
         </p>
         <a
-          className="quill-button view-assigned-activities secondary outlined small focus-on-light"
+          className="quill-button-archived view-assigned-activities secondary outlined small focus-on-light"
           href="/teachers/classrooms/activity_planner"
         >
           View assigned activities
@@ -383,7 +383,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
           You have  activities assigned. 
         </p>
         <a
-          class="quill-button view-assigned-activities secondary outlined small focus-on-light"
+          class="quill-button-archived view-assigned-activities secondary outlined small focus-on-light"
           href="/teachers/classrooms/activity_planner"
         >
           View assigned activities
@@ -796,7 +796,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               style="width: 70px; min-width: 70px; text-align: left;"
             >
               <a
-                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                class="quill-button-archived secondary fun focus-on-light outlined select-suggested"
                 href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Who%20Owns%20the%20Parthenon%20Sculptures?%20%5BBeta%5D"
               >
                 Select
@@ -918,7 +918,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               style="width: 70px; min-width: 70px; text-align: left;"
             >
               <a
-                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                class="quill-button-archived secondary fun focus-on-light outlined select-suggested"
                 href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Will%20Ancient%20Pompeii%20Survive%20for%20Another%202,000%20Years?%20%5BBeta%5D"
               >
                 Select
@@ -1012,7 +1012,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               style="width: 70px; min-width: 70px; text-align: left;"
             >
               <a
-                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                class="quill-button-archived secondary fun focus-on-light outlined select-suggested"
                 href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Should%20Public%20College%20Be%20Free?%20%5BBeta%5D"
               >
                 Select
@@ -1120,7 +1120,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               style="width: 70px; min-width: 70px; text-align: left;"
             >
               <a
-                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                class="quill-button-archived secondary fun focus-on-light outlined select-suggested"
                 href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Is%20Romeo%20and%20Juliet%20a%20Love%20Story%20or%20a%20Tragedy?%20"
               >
                 Select
@@ -1214,7 +1214,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
               style="width: 70px; min-width: 70px; text-align: left;"
             >
               <a
-                class="quill-button secondary fun focus-on-light outlined select-suggested"
+                class="quill-button-archived secondary fun focus-on-light outlined select-suggested"
                 href="/assign/activity-library?activityClassificationFilters[]=evidence&search=Should%20College%20Applications%20Require%20Personal%20Essays?%20%5BBeta%5D"
               >
                 Select
@@ -1224,7 +1224,7 @@ exports[`AssignANewActivity component with suggested activities should render 1`
         </tbody>
       </table>
       <button
-        class="quill-button outlined small secondary focus-on-light show-all-button"
+        class="quill-button-archived outlined small secondary focus-on-light show-all-button"
         type="button"
       >
         Show all 10 Reading for Evidence activities

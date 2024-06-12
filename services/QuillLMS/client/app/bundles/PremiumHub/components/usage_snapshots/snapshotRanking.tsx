@@ -36,7 +36,7 @@ const RankingModal = ({ label, closeModal, headers, data, }) => {
           numberOfRows={10}
         />
         <div className="button-section">
-          <button className="quill-button medium secondary outlined focus-on-light" onClick={closeModal} type="button">Close</button>
+          <button className="quill-button-archived medium secondary outlined focus-on-light" onClick={closeModal} type="button">Close</button>
         </div>
       </div>
     </div>
