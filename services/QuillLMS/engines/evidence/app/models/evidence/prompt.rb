@@ -68,6 +68,27 @@ module Evidence
       [conjunction]
     end
 
+    def first_passage = activity.passages.first
+
+    def plagiarism_text
+      plagiarism_rule&.plagiarism_texts&.first&.text || ""
+    end
+
+    private def plagiarism_rule
+      rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
+    end
+
+    def distinct_automl_highlight_texts
+      @distinct_automl_highlight_texts ||= rules
+        .includes(feedbacks: :highlights)
+        .active
+        .auto_ml
+        .suboptimal
+        .map {|r| r.feedbacks.map {|f| f.highlights.map(&:text)}}
+        .flatten
+        .uniq
+    end
+
     def optimal_label_feedback
       # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt
       rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins("JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id").first&.feedbacks&.first&.text

@@ -8,9 +8,7 @@ module Evidence
       @response = automl_check.feedback_object
     end
 
-    def auto_ml?
-      true
-    end
+    def use_for_optimal_feedback? = true
 
   end
 end

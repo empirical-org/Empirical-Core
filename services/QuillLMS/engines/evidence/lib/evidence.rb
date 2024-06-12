@@ -11,6 +11,7 @@ module Evidence
   mattr_accessor :change_log_class
   mattr_accessor :user_class
   mattr_accessor :feedback_history_class
+  mattr_accessor :feedback_session_class
   mattr_accessor :error_notifier
   mattr_accessor :sidekiq_module
   mattr_accessor :file_mailer
@@ -39,6 +40,10 @@ module Evidence
 
   def self.feedback_history_class
     @@feedback_history_class.constantize
+  end
+
+  def self.feedback_session_class
+    @@feedback_session_class.constantize
   end
 
   def self.error_notifier
