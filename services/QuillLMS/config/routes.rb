@@ -797,7 +797,7 @@ EmpiricalGrammar::Application.routes.draw do
     media_kit
     play
     news
-    home_new
+    home
     map
     referrals_toc
     announcements
@@ -967,7 +967,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/404' => 'errors#error404'
   get '/500' => 'errors#error500'
 
-  root to: 'pages#home_new'
+  root to: 'pages#home'
 
   # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
   get '/lib/mailer_previews' => "rails/mailers#index"
