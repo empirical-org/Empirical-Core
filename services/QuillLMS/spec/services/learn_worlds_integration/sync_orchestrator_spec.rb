@@ -61,7 +61,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
     end
   end
 
-  describe '#self.string_to_subject_area_tag' do
+  describe '.string_to_subject_area_tag' do
     it 'converts a string to a LearnWorlds tag' do
       expect(described_class.string_to_subject_area_tag('History / Social Studies'))
         .to eq('subject_area_history_social_studies')
@@ -71,7 +71,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
     end
   end
 
-  describe '#self.tags' do
+  describe '.tags' do
     let(:user) { create(:user) }
 
     subject { described_class.tags(user) }

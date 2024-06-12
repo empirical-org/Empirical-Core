@@ -21,10 +21,10 @@ module LearnWorldsIntegration
       raise UnexpectedApiResponse, "No totalPages value" unless total_pages&.to_i
 
       2.upto(total_pages)
-        .reduce([]) {|memo, n| memo.concat fetch_page(n)['data'] }
+        .reduce([]) {|memo, n| memo.concat(fetch_page(n)['data']) }
         .concat(initial_page['data'])
         .compact
-        .map {|user| user['id']}
+        .pluck('id')
     end
   end
 end
