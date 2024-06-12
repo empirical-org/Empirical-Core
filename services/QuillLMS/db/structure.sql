@@ -5577,7 +5577,7 @@ ALTER SEQUENCE public.topics_id_seq OWNED BY public.topics.id;
 
 CREATE TABLE public.translated_texts (
     id bigint NOT NULL,
-    english_text_id integer,
+    english_text_id integer NOT NULL,
     translation text,
     locale character varying NOT NULL,
     translation_job_id character varying NOT NULL,
