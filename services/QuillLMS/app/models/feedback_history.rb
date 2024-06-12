@@ -94,9 +94,34 @@ class FeedbackHistory < ApplicationRecord
   validates :used, inclusion: { in: [true, false] }
 
   scope :used,  -> { where(used: true) }
+  scope :optimal,  -> { where(optimal: true) }
+  scope :suboptimal,  -> { where(optimal: false) }
+  scope :autoML, -> { where(feedback_type: AUTO_ML)}
+  scope :confidence_greater_than, -> (lower_limit) {where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit)}
+  scope :for_prompt, -> (prompt_id) { where(prompt_id: prompt_id) }
 
   def readonly?
     !new_record?
+  end
+
+  def self.optimal_sample(prompt_id:,confidence_limit: 0.75, limit: 20)
+    optimal
+      .select('DISTINCT(entry)')
+      .autoML
+      .for_prompt(prompt_id)
+      .confidence_greater_than(confidence_limit)
+      .limit(limit)
+      .map(&:entry)
+  end
+
+  def self.suboptimal_sample(prompt_id:,confidence_limit: 0.75, limit: 20)
+    suboptimal
+      .select('DISTINCT(entry)')
+      .autoML
+      .for_prompt(prompt_id)
+      .confidence_greater_than(confidence_limit)
+      .limit(limit)
+      .map(&:entry)
   end
 
   def concept_results_hash

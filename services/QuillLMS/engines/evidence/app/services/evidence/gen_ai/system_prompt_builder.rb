@@ -4,7 +4,7 @@ module Evidence
   module GenAI
     class SystemPromptBuilder < ApplicationService
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
-      DEFAULT_TEMPLATE = '2024_06_03_optimal_and_feedback.md'
+      DEFAULT_TEMPLATE = '2024_06_07_more_examples.md'
 
       attr_reader :prompt, :history, :template_file
 
@@ -29,8 +29,8 @@ module Evidence
           passage:,
           plagiarism_text:,
           stem:,
-          example_one:,
-          example_two:
+          optimal_examples:,
+          suboptimal_examples:
         }
       end
 
@@ -39,6 +39,17 @@ module Evidence
       private def stem = prompt.text
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
+
+      private def optimal_examples = optimal_examples_raw.map {|e| "- #{e}"}.join("\n")
+      private def optimal_examples_raw
+        [
+          example_one,
+          example_two,
+          prompt.optimal_samples
+        ].flatten.uniq
+      end
+
+      private def suboptimal_examples = prompt.suboptimal_samples.map {|e| "- #{e}"}.join("\n")
 
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")

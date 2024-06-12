@@ -89,6 +89,16 @@ module Evidence
         .uniq
     end
 
+    def optimal_samples(limit: 20)
+      Evidence.feedback_history_class
+        .optimal_sample(prompt_id: id, limit: limit)
+    end
+
+    def suboptimal_samples(limit: 20)
+      Evidence.feedback_history_class
+        .suboptimal_sample(prompt_id: id, limit: limit)
+    end
+
     def optimal_label_feedback
       # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt
       rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins("JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id").first&.feedbacks&.first&.text
