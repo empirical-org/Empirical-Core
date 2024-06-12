@@ -8,15 +8,15 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
     let(:second_page) { { 'data' => [{ 'id' => 2 }] } }
 
     before do
-      allow(described_class).to receive(:fetch_page).with(1).and_return(initial_page)
-      allow(described_class).to receive(:fetch_page).with(2).and_return(second_page)
+      allow(subject).to receive(:fetch_page).with(1).and_return(initial_page)
+      allow(subject).to receive(:fetch_page).with(2).and_return(second_page)
     end
 
     it 'raises an error if totalPages is missing' do
-      allow(described_class).to receive(:fetch_page).with(1).and_return({ 'meta' => {} })
+      allow(subject).to receive(:fetch_page).with(1).and_return({ 'meta' => {} })
 
       expect do
-        described_class.fetch_ids_to_suspend
+        subject.fetch_ids_to_suspend
       end.to raise_error(
         LearnWorldsIntegration::Request::UnexpectedApiResponse,
         "No totalPages value"
@@ -24,7 +24,7 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
     end
 
     it 'fetches and combines user IDs from all pages' do
-      result = described_class.fetch_ids_to_suspend
+      result = subject.fetch_ids_to_suspend
 
       expect(result).to match_array([1, 2])
     end

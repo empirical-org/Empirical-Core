@@ -8,11 +8,13 @@ module LearnWorldsIntegration
 
     def run = fetch_ids_to_suspend
 
-    def self.fetch_page(page_number)
-      HTTParty.get("#{endpoint}&page=#{page_number}", headers:)
+    def fetch_page(page_number)
+      response = HTTParty.get("#{endpoint}&page=#{page_number}", headers:)
+      raise UnexpectedApiResponse unless response&.response&.message == "OK"
+      response
     end
 
-    def self.fetch_ids_to_suspend
+    def fetch_ids_to_suspend
       initial_page = fetch_page(1)
       total_pages = initial_page.dig('meta', 'totalPages')
       raise UnexpectedApiResponse, "No totalPages value" unless total_pages&.to_i

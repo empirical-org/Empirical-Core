@@ -34,7 +34,6 @@ module LearnWorldsIntegration
     end
 
     def enqueue_jobs(users, worker, &block)
-
       users.each_with_index do |user, idx|
         worker.perform_in((counter + (idx * SMEAR_RATE_IN_SECONDS)).seconds, *yield(user) )
       end
