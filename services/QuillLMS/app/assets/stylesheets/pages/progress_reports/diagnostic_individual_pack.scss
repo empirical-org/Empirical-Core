@@ -144,6 +144,14 @@
     }
   }
 
+  .no-data-yet-tbody, .no-data-yet-tbody tr {
+    height: 86px;
+    td {
+      border-left: 1px solid $quill-grey-5;
+      border-right: 1px solid $quill-grey-5;
+      border-radius: 0px 0px 8px 8px !important;
+    }
+  }
   .no-data-yet {
     text-align: center;
     h5 {

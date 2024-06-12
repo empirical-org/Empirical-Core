@@ -271,7 +271,6 @@ const RecommendationsTable = ({ postTestSelections, previouslyAssignedPostTestSt
   if (isPostTest) { recommendationsTableClassName += ' post-test-table'}
 
   const renderRecommendationsTableHeader = () => {
-
     return (
       <thead>
         <tr>
@@ -286,10 +285,11 @@ const RecommendationsTable = ({ postTestSelections, previouslyAssignedPostTestSt
     <div>
       <table className={recommendationsTableClassName} id="demo-onboarding-tour-spotlight-element" ref={recommendationsTableRef} style={tableHasContent ? { paddingLeft: TABLE_LEFT_PADDING } : { marginLeft: paddingLeft() }}>
         {renderRecommendationsTableHeader()}
-        {(tableHasContent || isPostTest) ? null : noDataYet}
+        {(tableHasContent || isPostTest) ? null : <tbody className="no-data-yet-tbody"><tr><td colSpan={isPostTest ? 1 : tableHeaders.length + 1}>{noDataYet}</td></tr></tbody>}
         <tbody>
           {recommendationStudentRows}
         </tbody>
+
       </table>
     </div>
   )

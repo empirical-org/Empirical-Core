@@ -932,16 +932,26 @@ exports[`RecommendationsTable component should render when no students have comp
               </ActivityPackHeader>
             </tr>
           </thead>
-          <div
-            className="no-data-yet"
+          <tbody
+            className="no-data-yet-tbody"
           >
-            <h5>
-              No data yet
-            </h5>
-            <p>
-              Data will appear in this report shortly after your students complete the diagnostic.
-            </p>
-          </div>
+            <tr>
+              <td
+                colSpan={7}
+              >
+                <div
+                  className="no-data-yet"
+                >
+                  <h5>
+                    No data yet
+                  </h5>
+                  <p>
+                    Data will appear in this report shortly after your students complete the diagnostic.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
           <tbody>
             <StudentRow
               key="Ja'shonda Abbott"
@@ -12786,16 +12796,26 @@ exports[`RecommendationsTable component should render when there are recommendat
               </ActivityPackHeader>
             </tr>
           </thead>
-          <div
-            className="no-data-yet"
+          <tbody
+            className="no-data-yet-tbody"
           >
-            <h5>
-              No data yet
-            </h5>
-            <p>
-              Data will appear in this report shortly after your students complete the diagnostic.
-            </p>
-          </div>
+            <tr>
+              <td
+                colSpan={7}
+              >
+                <div
+                  className="no-data-yet"
+                >
+                  <h5>
+                    No data yet
+                  </h5>
+                  <p>
+                    Data will appear in this report shortly after your students complete the diagnostic.
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
           <tbody>
             <StudentRow
               key="Ja'shonda Abbott"

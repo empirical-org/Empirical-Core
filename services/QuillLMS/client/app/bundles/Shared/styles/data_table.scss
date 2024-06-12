@@ -90,6 +90,10 @@ table.data-table {
     }
     .multi-line-header {
       text-align: left;
+      display: inline-block;
+      span {
+        display: block;
+      }
     }
   }
 

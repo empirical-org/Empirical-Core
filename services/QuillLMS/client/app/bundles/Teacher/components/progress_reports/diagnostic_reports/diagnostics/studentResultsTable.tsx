@@ -289,10 +289,7 @@ const StudentResultsTable = ({ isPreTest, skillGroupSummaries, studentResults, o
       )}
       <table className={tableClassName} ref={tableRef} style={completedStudentCount ? { paddingLeft: paddingLeft() } : { marginLeft: paddingLeft() }}>
         {renderHeader(false)}
-        {completedStudentCount ? null : noDataYet}
-        <tbody>
-          {studentRows}
-        </tbody>
+        {completedStudentCount ? null : <tbody className="no-data-yet-tbody"><tr><td colSpan={skillGroupSummaries.length + 1}>{noDataYet}</td></tr></tbody>}
       </table>
     </div>
   )
