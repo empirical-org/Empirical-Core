@@ -63,11 +63,15 @@ RSpec.describe EnglishText, type: :model do
     end
 
     it "calls save_translated_text!" do
-      allow(GengoAPI).to receive(:postTranslationJobs)
-      .with(full_payload)
-      .and_return(resp)
-      expect(EnglishText).to receive(:save_translated_text!)
-      subject
+      Sidekiq::Testing.inline! do
+        allow(GengoAPI).to receive(:postTranslationJobs)
+        .with(full_payload)
+        .and_return(resp)
+
+
+        expect(EnglishText).to receive(:save_translated_text!)
+        subject
+      end
     end
   end
 

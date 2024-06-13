@@ -19,8 +19,10 @@ class EnglishText < ApplicationRecord
 
   def self.translate!(jobs_list:)
     resp = GengoAPI.postTranslationJobs(jobs: create_payload(jobs_list:))
-    sleep(5) # Until we make a worker for the next line(fast follower)
-    save_translated_text!(order_id: resp.dig("response", "order_id"))
+    return unless resp.present?
+
+    SaveTranslatedTextWorker
+    .perform_in(1.minute, resp.dig("response", "order_id"))
   end
 
   def self.save_translated_text!(order_id:)
