@@ -127,6 +127,43 @@
   height: 200px;
 }
 
+#menus {
+  .element-row {
+    &.first {
+      flex-direction: column;
+    }
+    .upper-container {
+      display: flex;
+      align-items: center;
+      pre {
+        max-width: 400px;
+      }
+      .customization-options-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin-left: 24px;
+        .left-side-container, .right-side-container {
+          width: 100%;
+        }
+        .right-side-container {
+          margin-left: 24px;
+        }
+        .dropdown-container {
+          width: 100%;
+          max-width: 250px;
+        }
+      }
+    }
+    .customizable-menu-container {
+      .customizable-menu {
+        max-width: 400px;
+        margin-top: 24px;
+      }
+    }
+  }
+}
+
 #post-navigation-banners, #segmented-controls {
   .element-container {
     .color-options-dropdown {
