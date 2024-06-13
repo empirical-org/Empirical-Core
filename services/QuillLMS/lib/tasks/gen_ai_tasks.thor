@@ -28,6 +28,7 @@ class GenAITasks < Thor
         end
       end
     end
+    puts '' # new line after prints
 
     print_results(optimal_count, total, suboptimals)
   end
@@ -39,6 +40,7 @@ class GenAITasks < Thor
 
     puts system_prompt
     print_line
+    puts "#{prompt.text}: #{entry}"
     print_line
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry:)
   end
@@ -73,7 +75,7 @@ class GenAITasks < Thor
       suboptimals.each do |suboptimal|
         prompt, entry, feedback = suboptimal
         puts "Prompt: #{prompt.id}, Entry: #{entry}, Feedback: #{feedback}"
-        print_line
+        puts " "
         puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt.id} '#{entry}'"
         print_line
       end

@@ -92,11 +92,9 @@ module Evidence
         .uniq
     end
 
-    def optimal_samples(limit: 20)
+    def optimal_samples(limit: 40)
       Evidence.feedback_history_class
         .optimal_sample(prompt_id: id, limit: limit)
-        .sort_by(&:length)
-        .first((limit / 2.to_f).to_i)
     end
 
     def suboptimal_samples(limit: 20)

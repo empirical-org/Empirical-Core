@@ -104,14 +104,16 @@ class FeedbackHistory < ApplicationRecord
     !new_record?
   end
 
-  def self.optimal_sample(prompt_id:, confidence_limit: 0.99, limit: 20)
+  def self.optimal_sample(prompt_id:, confidence_limit: 0.95, limit: 20)
     optimal
-      .select('DISTINCT(entry)')
       .autoML
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
+      .where('LENGTH(entry) < 60')
+      .order("id DESC")
       .limit(limit)
-      .map(&:entry)
+      .pluck(:entry)
+      .uniq
   end
 
   def self.suboptimal_sample(prompt_id:,confidence_limit: 0.75, limit: 20)
