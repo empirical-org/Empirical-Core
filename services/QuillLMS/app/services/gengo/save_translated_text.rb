@@ -10,13 +10,23 @@ module Gengo
     end
 
     def run
-      response = GengoAPI.getTranslationJob({id: job_id})
       raise FetchTranslationJobError unless response.present?
 
-      job = response.dig("response", "job")
-      return if ["deleted", "canceled"].include? job["status"]
+      return unless active_job?
 
-      TranslatedText.find_or_create_by(
+      return if translated_text.translation == new_translation
+      return unless new_translation.present?
+
+      translated_text.update(translation: new_translation)
+    end
+
+    private def response = @response ||= GengoAPI.getTranslationJob({id: job_id})
+    private def job = response.dig("response", "job")
+    private def active_job? = !["deleted", "canceled"].include?(job["status"])
+    private def new_translation = job["body_tgt"]
+
+    private def translated_text
+      @translated_text ||= TranslatedText.find_or_create_by(
         english_text_id: job["slug"],
         translation_job_id: job["job_id"],
         locale: job["lc_tgt"]

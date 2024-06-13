@@ -7,15 +7,12 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
 
     let(:order_id) { "123" }
     let(:job_id) { "124" }
-    let(:english_word_id) { "1493" }
+    let(:english_text_id) { "1493" }
     let(:locale) { "es-la" }
-    let(:response ) do
-      {"opstat"=>"ok",
-        "response"=>
-          {"job"=>
-            {"job_id"=> job_id,
+    let(:job_payload) do
+      {"job_id"=> job_id,
             "order_id"=> order_id,
-            "slug"=> english_word_id,
+            "slug"=> english_text_id,
             "body_src"=>
               "<p>Use to + an action word (<em>to go</em>, <em>to eat</em>, <em>to love</em>) before a group of words to tell more about something. </p><br/><p>In this example, <em>to go on a trip</em> tells more about why I saved up money. </p>",
             "lc_src"=>"en",
@@ -32,7 +29,14 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
             "auto_approve"=>"0",
             "position"=>0,
             "file_download_ready"=>false,
-            "translator_ids"=>["1"]}}}
+            "translator_ids"=>["1"]}
+    end
+
+    let(:response_job) { job_payload }
+    let(:response ) do
+      {"opstat"=>"ok",
+        "response"=>
+          {"job"=> response_job } }
     end
 
     before do
@@ -50,20 +54,68 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
 
       it do
         expect { subject }
-          .to change { TranslatedText.where(english_text_id: english_word_id).count }
-          .by(1)
+          .to change {
+                TranslatedText
+                .where(english_text_id: english_text_id)
+                .count
+              }.by(1)
       end
 
       it do
         expect { subject }
-          .to change { TranslatedText.where(locale:).count }
-          .by(1)
+          .to change {
+                TranslatedText
+                .where(locale:)
+                .count
+              }.by(1)
       end
 
       it do
         expect { subject }
-          .to change { TranslatedText.where(translation_job_id: job_id).count }
-          .by(1)
+          .to change {
+                TranslatedText
+                .where(translation_job_id: job_id)
+                .count
+              }.by(1)
+      end
+
+      it "doesn't update if the translated_text" do
+        translated_text = create(:translated_text,
+        translation_job_id: job_id,
+        english_text_id: english_text_id,
+        translation: "Foo",
+        locale:)
+        expect {subject}.not_to change {translated_text.reload.translation}
+      end
+
+      context 'gengo payload contains translated text' do
+        let(:translated_text) { "test translation" }
+        let(:response_job) do
+          job_payload.merge({"body_tgt" => translated_text })
+        end
+
+        it do
+          expect { subject }
+            .to change {
+                  TranslatedText
+                  .find_by(translation_job_id: job_id)
+                  &.translation
+                }.to(translated_text)
+        end
+
+        context 'gengo payload has the same translation as the db model' do
+          let(:translation_text) { create(:translated_text, translation: translated_text)}
+
+          before do
+            allow(TranslatedText).to receive(:find_or_create_by)
+            .and_return(translation_text)
+          end
+
+          it do
+            expect(translation_text).not_to receive(:update)
+            subject
+          end
+        end
       end
     end
 

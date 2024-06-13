@@ -21,11 +21,6 @@ class TranslatedText < ApplicationRecord
   end
 
   def fetch_translation!
-    return unless translation.nil?
-
-    response = GengoAPI.getTranslationJob({id: translation_job_id})
-    return unless response
-
-    update_attribute(:translation, response.dig("response", "job", "body_tgt"))
+    Gengo::SaveTranslatedText.run(translation_job_id)
   end
 end
