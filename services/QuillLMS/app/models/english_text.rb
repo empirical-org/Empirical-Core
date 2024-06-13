@@ -15,7 +15,9 @@ class EnglishText < ApplicationRecord
 
   STANDARD_COMMENT = "
   We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, please leave words that sound like they are part of the activity in the original english. Often they will between an HTML tag such as in <em>english word</em> or <ul>english  word</ul>.
-"
+  "
+  SPANISH_LOCALE = "es-la"
+
 
   def self.translate!(jobs_list:)
     resp = GengoAPI.postTranslationJobs(jobs: create_payload(jobs_list:))
@@ -58,7 +60,7 @@ class EnglishText < ApplicationRecord
       type: "text",
       body_src: text,
       lc_src: "en",
-      lc_tgt: "es-la",
+      lc_tgt: SPANISH_LOCALE,
       tier: "standard",
       slug: id,
       group: true,

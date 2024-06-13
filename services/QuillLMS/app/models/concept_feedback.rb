@@ -41,30 +41,17 @@ class ConceptFeedback < ApplicationRecord
     data
   end
 
-  def queue_translation
-    return if data["description"].nil?
+  def create_translation_mappings
+    return if desc.nil?
     return unless translation_mappings.empty?
 
-    english = EnglishText.find_by(text: desc)
-    return create_english_text_and_return_payload unless english.present?
-
-    translation_mappings.create(english_text: english)
-    nil
+    english_text = EnglishText.find_or_create_by(text: desc)
+    translation_mappings.create(english_text: )
   end
 
-  def fetch_translation!
-    translated_texts.each(&:fetch_translation!)
-  end
+  def fetch_translations! = translated_texts.each(&:fetch_translation!)
 
-  private def create_english_text_and_return_payload
-    english = EnglishText.create(text: desc)
-    translation_mappings.create(english_text: english)
-    english.gengo_payload
-  end
-
-  private def desc
-    data["description"]
-  end
+  private def desc = data["description"]
 
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)

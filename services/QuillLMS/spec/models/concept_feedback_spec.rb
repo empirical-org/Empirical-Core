@@ -78,8 +78,8 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  describe '#queue_translation' do
-    subject {concept_feedback.queue_translation}
+  describe '#create_translation_mappings' do
+    subject {concept_feedback.create_translation_mappings}
 
     context 'has a description in the data field' do
       context 'a translation mapping exists for the description' do
@@ -97,11 +97,6 @@ RSpec.describe ConceptFeedback, type: :model do
           expect(concept_feedback.translation_mappings).to include(mapping)
           expect { subject }.not_to change(EnglishText, :count)
         end
-
-        it 'returns nil' do
-          expect(concept_feedback.translation_mappings).to include(mapping)
-          expect(subject).to be_nil
-        end
       end
 
       context 'a translation mapping does not exist for the description' do
@@ -113,10 +108,6 @@ RSpec.describe ConceptFeedback, type: :model do
             subject
             mapping = concept_feedback.translation_mappings.first
             expect(mapping&.english_text).to eq(english_text)
-          end
-
-          it 'returns nil' do
-            expect(subject).to be_nil
           end
         end
 
@@ -158,7 +149,7 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  describe "#fetch_translation!" do
+  describe "#fetch_translations!" do
     context "there is a translated_text associated" do
       let(:t1) { create(:translated_text)}
       let(:t2) { create(:translated_text)}
@@ -168,7 +159,7 @@ RSpec.describe ConceptFeedback, type: :model do
         .and_return([t1, t2])
         expect(t1).to receive(:fetch_translation!)
         expect(t2).to receive(:fetch_translation!)
-        concept_feedback.fetch_translation!
+        concept_feedback.fetch_translations!
       end
     end
   end
