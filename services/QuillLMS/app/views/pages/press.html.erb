@@ -7,7 +7,7 @@
 <div class="white-background">
   <div class="container press-page about-the-org-page">
     <div class="press-highlight-container">
-      <h1>Press highlights</h1>
+      <h1>Press Highlights</h1>
 
       <div class="press-highlights">
         <div class="press-highlight">
@@ -54,7 +54,7 @@
       <div class="in-the-news-content">
 
         <div class="articles">
-          <h1>In the news</h1>
+          <h1>In the News</h1>
           <% @in_the_news.each_with_index do |article, i| %>
             <% hidden = i >= 5 ? 'hidden' : '' %>
             <% class_name = "#{hidden} article" %>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="video">
-          <h1>Video spotlight</h1>
+          <h1>Video Spotlight</h1>
           <iframe src="https://www.youtube.com/embed/_ZK1xIIoMCg?si=8kRX-BnjNoQlGhYu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
           <div class="press-kit-container">
@@ -84,7 +84,7 @@
     </div>
 
     <div class="press-releases">
-      <h1>Press releases</h1>
+      <h1>Press Releases</h1>
       <div class="articles">
         <% @press_releases.each do |article| %>
           <% class_name = "article" %>
