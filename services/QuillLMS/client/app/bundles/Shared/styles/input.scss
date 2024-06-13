@@ -5,6 +5,60 @@
   flex-direction: column;
   position: relative;
 
+  &.dropdown-container {
+    .dropdown {
+      .dropdown__input-container {
+        display: none;
+      }
+      .dropdown__control {
+        display: flex;
+        align-items: center;
+        padding-bottom: 8px;
+      }
+      .dropdown__menu {
+        .dropdown__option:hover {
+          background-color: $quill-grey-2 !important;
+        }
+      }
+    }
+    &.small {
+      &.icon.bordered .dropdown__control .dropdown__indicators {
+        margin-bottom: 0px;
+      }
+      &.bordered .dropdown__control {
+        min-height: auto;
+        height: 32px;
+        .html-dropdown-option {
+          .dropdown__single-value {
+            margin-bottom: 0px;
+          }
+        }
+        .dropdown__single-value, .dropdown__indicators {
+          margin-bottom: 8px;
+        }
+      }
+      .dropdown__single-value, .dropdown__option {
+        @include text-2xs;
+      }
+    }
+    &.medium {
+      &.bordered .dropdown__control {
+        height: 38px;
+      }
+      .dropdown__single-value, .dropdown__option {
+        @include text-xs;
+      }
+    }
+    &.large {
+      &.bordered .dropdown__control {
+        height: 44px;
+      }
+      .dropdown__single-value, .dropdown__option {
+        @include text-xs;
+      }
+    }
+  }
+
   &.dropdown-container.bordered {
     input {
       font-size: 14px !important;
@@ -18,6 +72,12 @@
       margin-top: 8px;
     }
 
+    &.active {
+      .dropdown__control {
+        border: 1px solid $quill-green !important;
+      }
+    }
+
     .dropdown__control {
       border: 1px $quill-grey-15 !important;
       border-style: solid !important;
@@ -25,6 +85,9 @@
       border-radius: 4px !important;
       margin-bottom: 0px;
       min-height: 38px;
+      .html-dropdown-option {
+        margin-bottom: 0px;
+      }
     }
 
     .dropdown__menu {
@@ -402,7 +465,7 @@
   }
   &.active {
     .dropdown__control {
-      border: 2px $quill-green;
+      border: 1px $quill-green;
       border-style: none none solid;
     }
     .dropdown__dropdown-indicator {
