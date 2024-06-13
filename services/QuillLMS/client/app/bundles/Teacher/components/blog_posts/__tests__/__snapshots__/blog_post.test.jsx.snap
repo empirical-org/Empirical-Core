@@ -566,6 +566,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link blue"
               href="/teacher-center/webinars"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -798,14 +799,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/webinars"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -817,6 +815,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link green"
               href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -1049,14 +1048,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/list-of-available-quill-reading-for-evidence-activities"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -1069,6 +1065,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link purple"
               href="/teacher-center/michele-ellis-teacher-story"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -1301,14 +1298,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/michele-ellis-teacher-story"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -1321,6 +1315,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link purple"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <ReactMarkdown
@@ -1553,14 +1548,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Reports_Cheat_Sheet_Updated04_08_20.pdf"
-                rel="noopener noreferrer"
-                target="_blank"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -1572,6 +1564,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link green"
               href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -1804,14 +1797,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/-pdf--introducing-quill-evidence-onepager-"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -1824,6 +1814,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link purple"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <ReactMarkdown
@@ -2056,14 +2047,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill___Beyond__1_.pdf"
-                rel="noopener noreferrer"
-                target="_blank"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -2076,6 +2064,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link gold"
               href="/teacher-center/using-quill-as-a-homeschool-educator"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -2308,14 +2297,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/using-quill-as-a-homeschool-educator"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -2328,6 +2314,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link violet"
               href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <ReactMarkdown
@@ -2560,14 +2547,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="http://s3.amazonaws.com/quill-image-uploads/uploads/files/Introduction_to_Quill_Lessons.mp4"
-                rel="noopener noreferrer"
-                target="_blank"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -2580,6 +2564,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link violet"
               href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -2812,14 +2797,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/getting-started-video-assigning-a-growth-diagnostic"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -2832,6 +2814,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link gold"
               href="/teacher-center/quill-and-masterybased-learning"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -3064,14 +3047,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/quill-and-masterybased-learning"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -3084,6 +3064,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link gold"
               href="/teacher-center/4-ways-to-use-quill-lessons"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -3298,14 +3279,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/4-ways-to-use-quill-lessons"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -3318,6 +3296,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link violet"
               href="/teacher-center/student-center-video---why-is-writing-important"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -3550,14 +3529,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/student-center-video---why-is-writing-important"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -3570,6 +3546,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link blue"
               href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -3802,14 +3779,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/what-activities-should-i-assign-to-my-students-after-they-take-one-of-the-preap-writing-skills-surveys"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -3822,6 +3796,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link gold"
               href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -4054,14 +4029,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/family-toolbox-start-a-quill-classroom-at-home"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -4074,6 +4046,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link blue"
               href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <ReactMarkdown
@@ -4306,14 +4279,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="https://s3.amazonaws.com/quill-image-uploads/uploads/files/Quill_Premium_A_Guide_to_Our_Informational_Resources__3__2276.pdf"
-                rel="noopener noreferrer"
-                target="_blank"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
           <PreviewCard
@@ -4326,6 +4296,7 @@ exports[`BlogPost component renders 1`] = `
             <a
               className="preview-card-link gold"
               href="/teacher-center/quills-ell-implementation-guide-"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -4558,14 +4529,11 @@ exports[`BlogPost component renders 1`] = `
                   </p>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                href="/teacher-center/quills-ell-implementation-guide-"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
         </div>

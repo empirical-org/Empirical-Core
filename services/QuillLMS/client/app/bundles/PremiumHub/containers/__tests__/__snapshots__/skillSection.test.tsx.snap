@@ -204,12 +204,12 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Pre
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Score
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -253,12 +253,12 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Post
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Score
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -344,12 +344,12 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students
-              </p>
-              <p>
+              </span>
+              <span>
                 Improved Skill
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -393,12 +393,12 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students Without
-              </p>
-              <p>
+              </span>
+              <span>
                 Improvement
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -442,12 +442,12 @@ exports[`SkillSection loaded state clicking toggle button should expand aggregat
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students Maintained
-              </p>
-              <p>
+              </span>
+              <span>
                 Proficiency
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -907,12 +907,12 @@ exports[`SkillSection loaded state it should render the expected data when data 
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Pre
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Score
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -956,12 +956,12 @@ exports[`SkillSection loaded state it should render the expected data when data 
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Post
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Score
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1047,12 +1047,12 @@ exports[`SkillSection loaded state it should render the expected data when data 
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students
-              </p>
-              <p>
+              </span>
+              <span>
                 Improved Skill
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1096,12 +1096,12 @@ exports[`SkillSection loaded state it should render the expected data when data 
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students Without
-              </p>
-              <p>
+              </span>
+              <span>
                 Improvement
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1145,12 +1145,12 @@ exports[`SkillSection loaded state it should render the expected data when data 
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students Maintained
-              </p>
-              <p>
+              </span>
+              <span>
                 Proficiency
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1574,11 +1574,6 @@ exports[`SkillSection loaded state it should render the expected header componen
       </div>
     </div>
   </div>
-  <p
-    class="empty-state-message"
-  >
-    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
-  </p>
   <table
     class="data-table growth-diagnostic-reports-by-skill-table reporting-format"
   >
@@ -1615,12 +1610,12 @@ exports[`SkillSection loaded state it should render the expected header componen
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Pre
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Score
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1664,12 +1659,12 @@ exports[`SkillSection loaded state it should render the expected header componen
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Post
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Score
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1755,12 +1750,12 @@ exports[`SkillSection loaded state it should render the expected header componen
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students
-              </p>
-              <p>
+              </span>
+              <span>
                 Improved Skill
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1804,12 +1799,12 @@ exports[`SkillSection loaded state it should render the expected header componen
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students Without
-              </p>
-              <p>
+              </span>
+              <span>
                 Improvement
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1853,12 +1848,12 @@ exports[`SkillSection loaded state it should render the expected header componen
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Students Maintained
-              </p>
-              <p>
+              </span>
+              <span>
                 Proficiency
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1895,6 +1890,17 @@ exports[`SkillSection loaded state it should render the expected header componen
     <tbody
       class="data-table-body"
     />
+    <tbody>
+      <tr
+        colspan="7"
+      >
+        <td
+          class="empty-state-message"
+        >
+          There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+        </td>
+      </tr>
+    </tbody>
   </table>
 </DocumentFragment>
 `;

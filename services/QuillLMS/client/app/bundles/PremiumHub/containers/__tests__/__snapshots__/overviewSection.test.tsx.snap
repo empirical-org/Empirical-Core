@@ -144,12 +144,12 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Pre Diagnostic
-              </p>
-              <p>
+              </span>
+              <span>
                 Completed
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -235,12 +235,12 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Average Activities &
-              </p>
-              <p>
+              </span>
+              <span>
                 Time Spent
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -284,12 +284,12 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Post Diagnostic
-              </p>
-              <p>
+              </span>
+              <span>
                 Completed
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -333,12 +333,12 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Overall
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Growth
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -730,12 +730,12 @@ exports[`OverviewSection loaded state it should render the expected data when da
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Pre Diagnostic
-              </p>
-              <p>
+              </span>
+              <span>
                 Completed
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -821,12 +821,12 @@ exports[`OverviewSection loaded state it should render the expected data when da
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Average Activities &
-              </p>
-              <p>
+              </span>
+              <span>
                 Time Spent
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -870,12 +870,12 @@ exports[`OverviewSection loaded state it should render the expected data when da
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Post Diagnostic
-              </p>
-              <p>
+              </span>
+              <span>
                 Completed
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -919,12 +919,12 @@ exports[`OverviewSection loaded state it should render the expected data when da
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Overall
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Growth
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1255,11 +1255,6 @@ exports[`OverviewSection loaded state it should render the expected header compo
       </div>
     </div>
   </div>
-  <p
-    class="empty-state-message"
-  >
-    There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
-  </p>
   <table
     class="data-table growth-diagnostic-reports-overview-table reporting-format"
   >
@@ -1321,12 +1316,12 @@ exports[`OverviewSection loaded state it should render the expected header compo
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Pre Diagnostic
-              </p>
-              <p>
+              </span>
+              <span>
                 Completed
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1412,12 +1407,12 @@ exports[`OverviewSection loaded state it should render the expected header compo
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Average Activities &
-              </p>
-              <p>
+              </span>
+              <span>
                 Time Spent
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1461,12 +1456,12 @@ exports[`OverviewSection loaded state it should render the expected header compo
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Post Diagnostic
-              </p>
-              <p>
+              </span>
+              <span>
                 Completed
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1510,12 +1505,12 @@ exports[`OverviewSection loaded state it should render the expected header compo
             <div
               class="multi-line-header"
             >
-              <p>
+              <span>
                 Overall
-              </p>
-              <p>
+              </span>
+              <span>
                 Skill Growth
-              </p>
+              </span>
             </div>
             <div
               class="sort-tooltip-container"
@@ -1552,6 +1547,17 @@ exports[`OverviewSection loaded state it should render the expected header compo
     <tbody
       class="data-table-body"
     />
+    <tbody>
+      <tr
+        colspan="6"
+      >
+        <td
+          class="empty-state-message"
+        >
+          There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+        </td>
+      </tr>
+    </tbody>
   </table>
 </DocumentFragment>
 `;
