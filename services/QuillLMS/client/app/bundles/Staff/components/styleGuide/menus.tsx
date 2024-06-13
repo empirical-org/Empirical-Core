@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DropdownInput } from '../../../Shared/index';
+import { DropdownInput, Tooltip, informationIcon } from '../../../Shared/index';
 
 const DROPDOWN_ONE = 'dropdownOne'
 const DROPDOWN_TWO = 'dropdownTwo'
@@ -13,6 +13,7 @@ const SEARCHABLE = 'searchable'
 const ICON = 'icon'
 const LABEL = 'label'
 
+const BORDERLESS = 'borderless'
 const WITH_LABEL = 'with label'
 const WITHOUT_LABEL = 'without label'
 const WITH_LABEL_AND_HELPER_TEXT = 'with label and helper text'
@@ -25,6 +26,13 @@ const menuOptions = [
   {value: 4, label: 'Four'}
 ]
 
+const menuOptionsWithIcons = [
+  { value: 1, label: ('<p><img alt="" src="https://assets.quill.org/images/icons/xs/description-lessons.svg" /><span>One</span></p>') },
+  { value: 2, label: ('<p><img alt="" src="https://assets.quill.org/images/icons/xs/description-lessons.svg" /><span>Two</span></p>') },
+  { value: 3, label: ('<p><img alt="" src="https://assets.quill.org/images/icons/xs/description-lessons.svg" /><span>Three</span></p>') },
+  { value: 4, label: ('<p><img alt="" src="https://assets.quill.org/images/icons/xs/description-lessons.svg" /><span>Four</span></p>') },
+]
+
 const sizeOptions = [
   {value: 'small', label: 'Small'},
   {value: 'medium', label: 'Medium'},
@@ -34,7 +42,7 @@ const sizeOptions = [
 const styleOptions = [
   {value: 'bordered', label: 'Bordered'},
   {value: '', label: 'Underlined'},
-  {value: 'borderless', label: 'Borderless'}
+  {value: BORDERLESS, label: 'Borderless'}
 ]
 
 const disabledOptions = [
@@ -73,6 +81,22 @@ export const Menus = () => {
   const [iconOption, setIconOption] = React.useState<any>(iconOptions[0]);
   const [labelOption, setLabelOption] = React.useState<any>(labelOptions[0]);
 
+  React.useEffect(() => {
+    if(styleOption.value === BORDERLESS) {
+      setLabelOption(labelOptions[0])
+    }
+  }, [styleOption])
+
+  React.useEffect(() => {
+    if(iconOption.value) {
+      const option = menuOptionsWithIcons.filter(option => option.value === dropdownOne.value)[0]
+      setDropdownOne(option)
+    } else {
+      const option = menuOptions.filter(option => option.value === dropdownOne.value)[0]
+      setDropdownOne(option)
+    }
+  }, [iconOption])
+
   const setterFunctions = {
     [DROPDOWN_ONE]: setDropdownOne,
     [DROPDOWN_TWO]: setDropdownTwo,
@@ -92,8 +116,10 @@ export const Menus = () => {
     setterFunction(option)
   }
 
+  const dropdownOptions = iconOption.value ? menuOptionsWithIcons : menuOptions
   const customizableMenuStyle = `${sizeOption.value} ${styleOption.value} ${disabledOption.value} ${iconOption.value}`
   const showHelperText = labelOption.value === WITH_LABEL_AND_HELPER_TEXT || labelOption.value === WITH_LABEL_HELPER_TEXT_AND_CHARACTER_COUNT
+  const labelDropdownStyle = styleOption.value === BORDERLESS ? 'disabled' : ''
 
   return (
     <div id="menus">
@@ -153,24 +179,34 @@ export const Menus = () => {
                   options={iconOptions}
                   value={iconOption}
                 />
-                <DropdownInput
-                  handleChange={(e) => { changeSavedValues(LABEL, e) }}
-                  isSearchable={true}
-                  label="Label"
-                  options={labelOptions}
-                  value={labelOption}
-                />
+                <div className="label-dropdown-container">
+                  <DropdownInput
+                    className={labelDropdownStyle}
+                    disabled={styleOption.value === BORDERLESS}
+                    handleChange={(e) => { changeSavedValues(LABEL, e) }}
+                    isSearchable={true}
+                    label="Label"
+                    options={labelOptions}
+                    value={labelOption}
+                  />
+                  <Tooltip
+                    tooltipText="Note: The borderless variant does not include Labels + Helper Text. Only the Bordered and Underlined variants should be used with Labels + Helper Text."
+                    tooltipTriggerText={<img alt={informationIcon.alt} className="information-icon" src={informationIcon.src} />}
+                  />
+                </div>
               </div>
             </div>
           </div>
           <div className="customizable-menu-container">
             <DropdownInput
               className={`customizable-menu ${customizableMenuStyle}`}
+              disabled={!!disabledOption.value}
               handleChange={(e) => { changeSavedValues(DROPDOWN_ONE, e)}}
               helperText={showHelperText && 'Helper text'}
               isSearchable={!!searchableOption.value}
               label={labelOption.value === WITHOUT_LABEL ? '' : 'Label'}
-              options={menuOptions}
+              options={dropdownOptions}
+              usesCustomOption={!!iconOption.value}
               value={dropdownOne}
             />
           </div>

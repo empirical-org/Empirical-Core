@@ -148,6 +148,15 @@
         }
         .right-side-container {
           margin-left: 24px;
+          .label-dropdown-container {
+            display: flex;
+            align-items: center;
+            .quill-tooltip-trigger {
+              img {
+                margin: 0px 0px 16px 8px;
+              }
+            }
+          }
         }
         .dropdown-container {
           width: 100%;
