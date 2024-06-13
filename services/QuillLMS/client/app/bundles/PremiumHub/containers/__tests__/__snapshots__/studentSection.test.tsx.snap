@@ -149,12 +149,12 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre to Post:
-                </p>
-                <p>
+                </span>
+                <span>
                   Improved Skills
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -198,12 +198,12 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -247,12 +247,12 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Skills
-                </p>
-                <p>
+                </span>
+                <span>
                   Proficient
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -296,12 +296,12 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Total Activities
-                </p>
-                <p>
+                </span>
+                <span>
                   & Time Spent
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -345,12 +345,12 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -394,12 +394,12 @@ exports[`StudentSection loaded state clicking toggle button should expand aggreg
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Skills Improved
-                </p>
-                <p>
+                </span>
+                <span>
                   Or Maintained
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -880,12 +880,12 @@ exports[`StudentSection loaded state it should render the expected data when dat
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre to Post:
-                </p>
-                <p>
+                </span>
+                <span>
                   Improved Skills
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -929,12 +929,12 @@ exports[`StudentSection loaded state it should render the expected data when dat
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -978,12 +978,12 @@ exports[`StudentSection loaded state it should render the expected data when dat
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Skills
-                </p>
-                <p>
+                </span>
+                <span>
                   Proficient
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1027,12 +1027,12 @@ exports[`StudentSection loaded state it should render the expected data when dat
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Total Activities
-                </p>
-                <p>
+                </span>
+                <span>
                   & Time Spent
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1076,12 +1076,12 @@ exports[`StudentSection loaded state it should render the expected data when dat
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1125,12 +1125,12 @@ exports[`StudentSection loaded state it should render the expected data when dat
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Skills Improved
-                </p>
-                <p>
+                </span>
+                <span>
                   Or Maintained
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1435,11 +1435,6 @@ exports[`StudentSection loaded state it should render the expected empty state m
     </div>
   </div>
   <div>
-    <p
-      class="empty-state-message"
-    >
-      There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
-    </p>
     <table
       class="data-table growth-diagnostic-reports-by-student-table reporting-format"
     >
@@ -1501,12 +1496,12 @@ exports[`StudentSection loaded state it should render the expected empty state m
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre to Post:
-                </p>
-                <p>
+                </span>
+                <span>
                   Improved Skills
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1550,12 +1545,12 @@ exports[`StudentSection loaded state it should render the expected empty state m
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1599,12 +1594,12 @@ exports[`StudentSection loaded state it should render the expected empty state m
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Skills
-                </p>
-                <p>
+                </span>
+                <span>
                   Proficient
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1648,12 +1643,12 @@ exports[`StudentSection loaded state it should render the expected empty state m
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Total Activities
-                </p>
-                <p>
+                </span>
+                <span>
                   & Time Spent
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1697,12 +1692,12 @@ exports[`StudentSection loaded state it should render the expected empty state m
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1746,12 +1741,12 @@ exports[`StudentSection loaded state it should render the expected empty state m
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Skills Improved
-                </p>
-                <p>
+                </span>
+                <span>
                   Or Maintained
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -1788,6 +1783,17 @@ exports[`StudentSection loaded state it should render the expected empty state m
       <tbody
         class="data-table-body"
       />
+      <tbody>
+        <tr
+          colspan="7"
+        >
+          <td
+            class="empty-state-message"
+          >
+            There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+          </td>
+        </tr>
+      </tbody>
     </table>
     <div
       class="load-more-button-container"
@@ -1893,11 +1899,6 @@ exports[`StudentSection loaded state it should render the expected header compon
     </div>
   </div>
   <div>
-    <p
-      class="empty-state-message"
-    >
-      There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
-    </p>
     <table
       class="data-table growth-diagnostic-reports-by-student-table reporting-format"
     >
@@ -1959,12 +1960,12 @@ exports[`StudentSection loaded state it should render the expected header compon
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre to Post:
-                </p>
-                <p>
+                </span>
+                <span>
                   Improved Skills
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -2008,12 +2009,12 @@ exports[`StudentSection loaded state it should render the expected header compon
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -2057,12 +2058,12 @@ exports[`StudentSection loaded state it should render the expected header compon
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Pre: Skills
-                </p>
-                <p>
+                </span>
+                <span>
                   Proficient
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -2106,12 +2107,12 @@ exports[`StudentSection loaded state it should render the expected header compon
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Total Activities
-                </p>
-                <p>
+                </span>
+                <span>
                   & Time Spent
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -2155,12 +2156,12 @@ exports[`StudentSection loaded state it should render the expected header compon
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Questions
-                </p>
-                <p>
+                </span>
+                <span>
                   Correct
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -2204,12 +2205,12 @@ exports[`StudentSection loaded state it should render the expected header compon
               <div
                 class="multi-line-header"
               >
-                <p>
+                <span>
                   Post: Skills Improved
-                </p>
-                <p>
+                </span>
+                <span>
                   Or Maintained
-                </p>
+                </span>
               </div>
               <div
                 class="sort-tooltip-container"
@@ -2246,6 +2247,17 @@ exports[`StudentSection loaded state it should render the expected header compon
       <tbody
         class="data-table-body"
       />
+      <tbody>
+        <tr
+          colspan="7"
+        >
+          <td
+            class="empty-state-message"
+          >
+            There is no diagnostic data available for the filters selected. Try modifying or removing a filter to see results.
+          </td>
+        </tr>
+      </tbody>
     </table>
     <div
       class="load-more-button-container"

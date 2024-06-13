@@ -61,9 +61,11 @@ const DataTable = ({ headers, data, numberOfRows, }) => {
 
   return (
     <table className="table">
-      <tr className="header-row">
-        {headerElements}
-      </tr>
+      <thead>
+        <tr className="header-row">
+          {headerElements}
+        </tr>
+      </thead>
       <tbody>
         {rowElements}
       </tbody>

@@ -81,20 +81,22 @@ exports[`SnapshotRanking component when it is coming soon should match snapshot 
         <table
           className="table"
         >
-          <tr
-            className="header-row"
-          >
-            <th
-              key="Teacher"
+          <thead>
+            <tr
+              className="header-row"
             >
-              Teacher
-            </th>
-            <th
-              key="Activities completed"
-            >
-              Activities completed
-            </th>
-          </tr>
+              <th
+                key="Teacher"
+              >
+                Teacher
+              </th>
+              <th
+                key="Activities completed"
+              >
+                Activities completed
+              </th>
+            </tr>
+          </thead>
           <tbody>
             <tr
               className="data-row"
@@ -316,20 +318,22 @@ exports[`SnapshotRanking component when there is data  should match snapshot 1`]
         <table
           className="table"
         >
-          <tr
-            className="header-row"
-          >
-            <th
-              key="Teacher"
+          <thead>
+            <tr
+              className="header-row"
             >
-              Teacher
-            </th>
-            <th
-              key="Activities completed"
-            >
-              Activities completed
-            </th>
-          </tr>
+              <th
+                key="Teacher"
+              >
+                Teacher
+              </th>
+              <th
+                key="Activities completed"
+              >
+                Activities completed
+              </th>
+            </tr>
+          </thead>
           <tbody>
             <tr
               className="data-row"
@@ -453,20 +457,22 @@ exports[`SnapshotRanking component when there is no data  should match snapshot 
         <table
           className="table"
         >
-          <tr
-            className="header-row"
-          >
-            <th
-              key="Teacher"
+          <thead>
+            <tr
+              className="header-row"
             >
-              Teacher
-            </th>
-            <th
-              key="Activities completed"
-            >
-              Activities completed
-            </th>
-          </tr>
+              <th
+                key="Teacher"
+              >
+                Teacher
+              </th>
+              <th
+                key="Activities completed"
+              >
+                Activities completed
+              </th>
+            </tr>
+          </thead>
           <tbody>
             <tr
               className="data-row"

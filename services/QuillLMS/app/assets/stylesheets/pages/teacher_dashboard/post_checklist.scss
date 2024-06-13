@@ -85,6 +85,10 @@
           padding: 0px 24px;
           margin: 0px;
         }
+
+        .data-table-row:last-of-type:hover {
+          border-radius: 0px 0px 8px 8px;
+        }
       }
 
       .data-table .data-table-header {

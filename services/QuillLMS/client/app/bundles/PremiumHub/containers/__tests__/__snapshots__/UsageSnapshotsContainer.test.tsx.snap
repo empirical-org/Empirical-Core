@@ -349,7 +349,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -360,7 +360,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"
@@ -531,7 +531,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -542,7 +542,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities assigned
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"
@@ -592,7 +592,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -603,7 +603,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"
@@ -798,7 +798,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -809,7 +809,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"
@@ -859,7 +859,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -870,7 +870,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"
@@ -1041,7 +1041,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -1052,7 +1052,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"
@@ -1127,7 +1127,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                   <table
                     class="table"
                   >
-                    <tbody>
+                    <thead>
                       <tr
                         class="header-row"
                       >
@@ -1138,7 +1138,7 @@ exports[`UsageSnapshotsContainer full state it should render 1`] = `
                           Activities completed
                         </th>
                       </tr>
-                    </tbody>
+                    </thead>
                     <tbody>
                       <tr
                         class="data-row"

@@ -98,7 +98,6 @@ const headers = [
   },
 ]
 
-
 export const StudentSection = ({
   searchCount,
   selectedGrades,

@@ -6,7 +6,7 @@ describe PagesController do
   it { should use_before_action :determine_js_file }
   it { should use_before_action :determine_flag }
 
-  describe '#home_new' do
+  describe '#home' do
     context 'when user is signed in' do
       before do
         allow(controller).to receive(:signed_in?) { true }
@@ -14,14 +14,14 @@ describe PagesController do
       end
 
       it 'should redirect to profile path' do
-        get :home_new
+        get :home
         expect(response).to redirect_to profile_path
       end
     end
 
     context 'when user is not signed in' do
       it 'should set the title and description' do
-        get :home_new
+        get :home
         expect(assigns(:title)).to eq 'Quill.org | Interactive Writing and Grammar'
         expect(assigns(:description)).to eq 'Quill provides free writing and grammar activities for middle and high school students.'
         expect(assigns(:logging_user_out)).to eq nil
@@ -34,7 +34,7 @@ describe PagesController do
       end
 
       it 'should set the @logging_user_out flag' do
-        get :home_new
+        get :home
         expect(assigns(:logging_user_out)).to eq true
       end
     end

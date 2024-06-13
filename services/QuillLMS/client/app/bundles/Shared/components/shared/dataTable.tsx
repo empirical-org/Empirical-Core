@@ -318,15 +318,15 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if (header.isSortable && isMultilineHeader) {
       headerTitle = (
         <div className="multi-line-header">
-          <p>{header.primaryTitle}</p>
-          <p>{header.secondaryTitle}</p>
+          <span>{header.primaryTitle}</span>
+          <span>{header.secondaryTitle}</span>
         </div>
       )
     } else if(isMultilineHeader) {
       headerContent = (
         <div className="multi-line-header">
-          <p>{header.primaryTitle}</p>
-          <p>{header.secondaryTitle}</p>
+          <span>{header.primaryTitle}</span>
+          <span>{header.secondaryTitle}</span>
         </div>
       )
     }
@@ -334,7 +334,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     if(header.tooltipText || (header.tooltipName && header.tooltipDescription)) {
       headerTooltip = (
         <Tooltip
-          tooltipText={header.tooltipText ? header.tooltipText : `<p>${header.tooltipName}<br/><br/>${header.tooltipDescription}</p>`}
+          tooltipText={header.tooltipText ? header.tooltipText : `<span>${header.tooltipName}<br/><br/>${header.tooltipDescription}</span>`}
           tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
         />
       )
@@ -512,9 +512,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderRows() {
-    const { isReorderable, reorderCallback, emptyStateMessage } = this.props
+    const { isReorderable, reorderCallback, emptyStateMessage, headers, } = this.props
     const rows = this.sortRows().map(row => this.renderRow(row))
-    const contentToDisplay = emptyStateMessage && !rows.length ? <p className="empty-state-message">{emptyStateMessage}</p> : rows
+    const contentToDisplay = emptyStateMessage && !rows.length ? <tbody><tr colSpan={headers.length}><td className="empty-state-message">{emptyStateMessage}</td></tr></tbody> : rows
     if (isReorderable) {
       return <tbody className="data-table-body reorderable"><SortableList data={rows} helperClass="sortable-data-table-row" sortCallback={reorderCallback} useDragHandle={true} /></tbody>
     }

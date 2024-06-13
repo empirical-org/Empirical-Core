@@ -16737,6 +16737,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
           >
             <a
               className="preview-card-link red"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -16788,13 +16789,11 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                   </HtmlRenderer>
                 </div>
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
         </div>
@@ -33591,6 +33590,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
           >
             <a
               className="preview-card-link purple"
+              rel="noopener noreferrer"
               target="_self"
             >
               <ReactMarkdown
@@ -33603,13 +33603,11 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                   className="preview-card"
                 />
               </ReactMarkdown>
-              <a
+              <span
                 className="quill-button-archived fun contained primary focus-on-light"
-                rel="noopener noreferrer"
-                target="_self"
               >
                 Read
-              </a>
+              </span>
             </a>
           </PreviewCard>
         </div>

@@ -25,17 +25,8 @@ class PagesController < ApplicationController
   DEFAULT_NUMBER_OF_STUDENTS = 9000000
   OPEN_POSITIONS = Configs[:careers][:open_positions]
 
-  def home
-    if signed_in?
-      redirect_to(profile_path) && return
-    end
-
-    @body_class = 'home-page'
-    @activity = Activity.with_classification.find_by_uid(ENVr.fetch('HOMEPAGE_ACTIVITY_UID', ''))
-  end
-
   # rubocop:disable Metrics/CyclomaticComplexity
-  def home_new
+  def home
     redirect_to(locker_path) && return if current_user && signed_in? && staff?
     redirect_to(profile_path) && return if current_user && signed_in?
 
@@ -520,10 +511,8 @@ class PagesController < ApplicationController
 
   private def determine_layout
     case action_name
-    when 'home'
+    when 'home', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
       'home'
-    when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool', 'evidence_tool'
-      'twenty_seventeen_home'
     when ApplicationController::EVIDENCE, ApplicationController::PROOFREADER, ApplicationController::GRAMMAR, ApplicationController::LESSONS, ApplicationController::DIAGNOSTIC, ApplicationController::CONNECT
       'activity'
     end
@@ -534,7 +523,7 @@ class PagesController < ApplicationController
     case action_name
     when 'about', 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities', 'pathways', 'careers', 'press'
       @js_file = 'shared'
-    when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home_new', 'evidence_tool', 'lessons_tool', 'ap', 'preap', 'springboard'
+    when 'connect_tool', 'grammar_tool', 'diagnostic_tool', 'proofreader_tool', 'home', 'evidence_tool', 'lessons_tool', 'ap', 'preap', 'springboard'
       @js_file = 'home'
     when 'premium'
       @js_file = current_user ? 'application' : 'public'

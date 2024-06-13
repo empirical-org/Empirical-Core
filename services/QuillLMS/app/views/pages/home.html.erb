@@ -1,348 +1,475 @@
-</div>
+<!-- <%= render partial: 'application/notification_bar' %> -->
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
+<% end %>
+<% @device = device %>
+<% @is_mobile = device == "mobile" %>
 
-<div class="home-hero">
-<div id="home-slider">
+<section class="q-hero bg-quillgreen flex-column space-between">
+  <%= render partial: 'application/header' %>
+  <div class="q-hero-text header">
+    <section class="header-section">
+      <h1 class="q-h1 text-white">Free tools to make your students better <u>writers</u> and <u>readers</u>.</h1>
+      <p class="evidence-new-tag">NEW</p>
+    </section>
+    <p class="text-white main-text">Quill.org, a non-profit, provides free literacy activities that build reading comprehension, writing, and language skills for elementary, middle, and high school students.</p>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/student">Student</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Teacher</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/administrator">Administrator</a>
+    <a class="q-button cta-button cta-home  bg-white" href="/sign-up/teacher">Guardian</a>
+    <p class="text-white" id="mission"><strong>Writing Across the Curriculum:</strong> Quill's nonprofit mission is to now build both ﻿reading and writing skills through free, OER content across the curriculum.  Over the coming years, we will be building a library of free ELA, social studies, and science activities that engage students in deeper thinking through writing prompts that provide immediate feedback.</p>
+  </div>
+  <div class="q-hero-footer">
+    <p class="text-white">
+      <span class="hero-footer-underline"><%= ActiveSupport::NumberHelper.number_to_human(@number_of_students, precision: 2).downcase %></span> students have written <span class="hero-footer-underline"><%= ActiveSupport::NumberHelper.number_to_human(@number_of_sentences, precision: 1).downcase %></span> sentences on Quill.
+    </p>
+  </div>
+</section>
 
-  <div>
-    <div class="container proofreader one-slide">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
-          <div class="animation-taglines">
-            <h1>Free tools to make your</h1>
-            <h1>students better writers.</h1>
-          </div>
-          <div class="buttons">
-            <%= link_to "Play It Now", play_path, class: "filled" %>
-            <%= link_to "Sign Up", new_account_path %>
-          </div>
+<%= render partial: 'evidence/home_section' %>
+
+<% if @is_mobile %>
+  <section class="bg-quill-teal tool-carousel" id="walkthrough">
+    <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <%= render partial: 'evidence/first_topic' %>
         </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
-          <%= image_tag 'proofreader.gif', class: 'gif' %>
+        <div class="item">
+          <%= render partial: 'evidence/second_topic' %>
         </div>
+        <div class="item">
+          <%= render partial: 'evidence/third_topic' %>
+        </div>
+      </div>
+      <ol class="carousel-indicators">
+        <li data-target="#diagnosticCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#diagnosticCarousel" data-slide-to="1"></li>
+        <li data-target="#diagnosticCarousel" data-slide-to="2"></li>
+      </ol>
+    </div>
+  </section>
+<% else %>
+  <section class="bg-quill-teal tool-hero topics-section">
+    <section class="inner-section">
+      <%= render partial: 'evidence/first_topic' %>
+      <%= render partial: 'evidence/second_topic' %>
+      <%= render partial: 'evidence/third_topic' %>
+    </section>
+  </section>
+<% end %>
+
+<section class='tool-section bg-tool-orange'>
+  <div class="tool connect-tool">
+    <div class='info-section'>
+      <a href="/tools/connect/"><h2 class='q-h2'><img class="icon-white lazyload" loading="lazy" data-src='https://assets.quill.org/images/shared/quill_connect_white.svg' src='https://assets.quill.org/images/shared/quill_connect_white.svg' alt=''>Quill Connect</h2></a>
+      <p class='blurb'>Help your students advance from fragmented and run-on sentences to complex and well structured ones.</p>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile','https://assets.quill.org/videos/tools/connect.mp4') %>
+      <p class='summary'>
+        Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve their clarity and precision.
+      </p>
+      <div>
+        <a href="/activity_sessions/anonymous?activity_id=430" target="_blank" class="q-button icon-button bg-white text-orange">Try a sample activity</a>
+        <a href="/tools/connect/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
+      </div>
+    </div>
+    <%= render_video_content(@device, 'desktop','https://assets.quill.org/videos/tools/connect.mp4') %>
+  </div>
+</section>
+
+<section class='tool-section bg-tool-magenta'>
+  <div class="tool lessons-tool">
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/lessons.mp4') %>
+    <div class='info-section right'>
+      <a href="/tools/lessons/"><h2 class='q-h2'><img class="icon-white lazyload" loading="lazy" data-src='https://assets.quill.org/images/shared/icon_lessons_white.svg' src='https://assets.quill.org/images/shared/icon_lessons_white.svg' alt=''>Quill Lessons</h2></a>
+      <p class='blurb'>The Quill Lessons tool enables teachers to lead whole-class and small-group writing instruction.</p>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/lessons.mp4') %>
+      <p class='summary'>
+        Teachers control interactive slides that contain writing prompts, and the entire class responds to each prompt. Each Quill Lessons activity provides a lesson plan, writing prompts, discussion topics, and a follow up independent practice activity.
+      </p>
+      <div>
+        <a href=<%= "#{ENV['QUILL_LESSONS_URL']}/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview" %> target="_blank" class="q-button icon-button bg-white text-lessonspurple">Try a sample activity</a>
+        <a href="/tools/lessons/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
       </div>
     </div>
   </div>
+</section>
 
-  <div style="opacity: 0">
-    <div class="container writer one-slide">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
-          <div class="animation-taglines">
-            <h1>Free tools to make your</h1>
-            <h1>students better writers.</h1>
-          </div>
-          <div class="buttons">
-            <a class="filled" href="https://quillwriter.org/#/beta">Play It Now</a>
-            <%= link_to "Sign Up", new_account_path %>
-          </div>
+<section class='tool-section bg-tool-red'>
+  <div class="tool diagnostic-tool">
+    <div class='info-section'>
+      <a href="/tools/diagnostic/"><h2 class='q-h2'><img class="icon-white lazyload" loading="lazy" data-src='https://assets.quill.org/images/shared/quill_diagnostic_white.svg' src='https://assets.quill.org/images/shared/quill_diagnostic_white.svg' alt=''>Quill Diagnostic</h2></a>
+      <p class='blurb'>
+        Quickly determine which skills your students need to work on with our diagnostics.
+      </p>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/diagnostic.mp4') %>
+      <p class='summary'>
+        The diagnostics cover vital sentence construction skills and generate personalized learning plans based on the student’s performance.
+      </p>
+      <div>
+        <a href="/activity_sessions/anonymous?activity_id=-LKbzH_Er916zGjgHk5U" target="_blank" class="q-button icon-button bg-white text-red">Try a sample activity</a>
+        <a href="/tools/diagnostic/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
+      </div>
+      <div class="ell-section">
+        <div class="header">Quill's ELL Diagnostics include translations in:</div>
+        <div class="flags">
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/spain.png" src="https://assets.quill.org/images/flags/spain.png" alt="Flag of Spain"/>
+              <p class="flag-label">Spanish</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/china.png" src="https://assets.quill.org/images/flags/china.png" alt="Flag of China"/>
+              <p class="flag-label">Mandarin</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/france.png" src="https://assets.quill.org/images/flags/france.png" alt="Flag of France"/>
+              <p class="flag-label">French</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/vietnam.png" src="https://assets.quill.org/images/flags/vietnam.png" alt="Flag of Vietnam"/>
+              <p class="flag-label">Vietnamese</p>
+            </span>
+          </span>
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/egypt.png" src="https://assets.quill.org/images/flags/egypt.png" alt="Flag of Egypt">
+              <p class="flag-label">Arabic</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/india.png" src="https://assets.quill.org/images/flags/india.png" alt="Flag of India">
+              <p class="flag-label">Hindi</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/russia.png" src="https://assets.quill.org/images/flags/russia.png" alt="Flag of Russia">
+              <p class="flag-label">Russian</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/ukraine.png" src="https://assets.quill.org/images/flags/ukraine.png" alt="Flag of Ukraine">
+              <p class="flag-label">Ukrainian</p>
+            </span>
+          </span>
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/pakistan.png" src="https://assets.quill.org/images/flags/pakistan.png" alt="Flag of Pakistan">
+              <p class="flag-label">Urdu</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/germany.png" src="https://assets.quill.org/images/flags/germany.png" alt="Flag of Germany">
+              <p class="flag-label">German</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/philippines.png" src="https://assets.quill.org/images/flags/philippines.png" alt="Flag of the Philippines">
+              <p class="flag-label">Tagalog</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/brazil.png" src="https://assets.quill.org/images/flags/brazil.png" alt="Flag of Brazil">
+              <p class="flag-label">Portuguese</p>
+            </span>
+          </span>
+          <span class="flags-row">
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/thailand.png" src="https://assets.quill.org/images/flags/thailand.png" alt="Flag of Thailand">
+              <p class="flag-label">Thai</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/afghanistan.png" src="https://assets.quill.org/images/flags/afghanistan.png" alt="Flag of Afghanistan">
+              <p class="flag-label">Dari</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/japan.png" src="https://assets.quill.org/images/flags/japan.png" alt="Flag of Japan">
+              <p class="flag-label">Japanese</p>
+            </span>
+            <span class="flag-container">
+              <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/flags/south_korea.png" src="https://assets.quill.org/images/flags/south_korea.png" alt="Flag of South Korea">
+              <p class="flag-label">Korean</p>
+            </span>
+          </span>
         </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
-          <%= image_tag 'writer.gif', class: 'gif' %>
-        </div>
-
       </div>
     </div>
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/diagnostic.mp4') %>
   </div>
 
-  <div style="opacity: 0">
-    <div class="container dashboard one-slide">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-xl-4 cta">
-          <div class="animation-taglines">
-            <h1>Free tools to make your</h1>
-            <h1>students better writers.</h1>
-          </div>
-          <div class="buttons">
-            <%= link_to "Play It Now", play_path, class: "filled" %>
-            <%= link_to "Sign Up", new_account_path %>
-          </div>
-        </div>
+</section>
 
-        <div class="col-xs-12 col-sm-12 col-md-8 col-xl-8 graphics">
-          <%= image_tag 'dashboard.gif', class: 'gif' %>
-        </div>
-
+<section class='tool-section bg-tool-blue'>
+  <div class="tool proofreader-tool">
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/proofreader.mp4') %>
+    <div class='info-section right'>
+      <a href="/tools/proofreader/"><h2 class='q-h2'><img class="icon-white lazyload" loading="lazy" data-src='https://assets.quill.org/images/shared/quill_proofreader_white.svg' src='https://assets.quill.org/images/shared/quill_proofreader_white.svg' alt=''>Quill Proofreader</h2></a>
+      <p class='blurb'>Proofreader teaches your students editing skills by having them proofread passages.</p>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/proofreader.mp4') %>
+      <p class='summary'>
+        Students edit passages and receive personalized exercises based on their results. With over 100 expository passages, Proofreader gives students the practice they need to spot common grammatical errors.
+      </p>
+      <div>
+        <a href="/play" target="_blank" class="q-button icon-button bg-white text-blue">Try a sample activity</a>
+        <a href="/tools/proofreader/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
       </div>
     </div>
-  </div>
-
-</div>
-</div>
-
-<div class="home-page-new">
-<section class="teacher-stories">
-  <div class="container">
-    <h2 class="subheader bold" id="teacher-subheader"><%=BlogPost::TEACHER_STORIES%></h2>
-    <h1 class="header">Quill in the Classroom</h1>
-  </div>
-
-  <div class="tabs tabs-testimonials tabs-teacher-stories">
-    <div class="tab-content" id="tab-1">
-      <div class="container">
-        "I started using Quill because it fit right into my daily curriculum."
-
-        <p class="quote-author">ROXANNA BUTKUS, RANGEVIEW ELEMENTARY</p>
-
-        <%=button_to "View My Story", "/activities/packs/2", method: :get, class: "button-white big"%>
-
-      </div>
-    </div>
-    <div class="tab-content" id="tab-2">
-      <div class="container">
-        "With interesting passages and immediate feedback, my students really feel like they’re learning."
-
-        <p class="quote-author">SARA ANGEL, KIPP LA</p>
-
-        <%=button_to "View My Story", "activities/packs/5", method: :get, class: "button-white big"%>
-
-      </div>
-    </div>
-    <div class="tab-content" id="tab-3">
-      <div class="container">
-        "Using Quill has opened up more conversations between me and my students, in terms of how to write better and what the student needs to practice."
-
-        <p class="quote-author">COLETTE KANG, EAST BAY INNOVATION ACADEMY</p>
-
-        <%=button_to "View My Story", "activities/packs/8", method: :get, class: "button-white big"%>
-
-      </div>
-    </div>
-    <div class="tab-content" id="tab-4">
-      <div class="container">
-        "I've seen tremendous improvement in the proficiency of my students and the quality of their writing."
-
-        <p class="quote-author">DANIEL SCIBIENSKI, PRINCETON PUBLIC SCHOOLS</p>
-
-        <%=button_to "View My Story", "activities/packs/6", method: :get, class: "button-white big"%>
-
-      </div>
-    </div>
-    <div class="tab-content" id="tab-5">
-      <div class="container">
-        “Quill allowed me to reinforce concepts and to track their progress through the program.”
-
-        <p class="quote-author">Michael Giovacchini, Emma Lazarus High School</p>
-
-        <%=button_to "View My Story", "activities/packs/10", method: :get, class: "button-white big"%>
-      </div>
-    </div>
-
-    <ul class='inline teacher-list'>
-      <li>
-        <a href="#tab-1"><%= image_tag 'Roxanna_Butkus_90.png'%><br>
-          <p class="teacher-description">
-            3rd Grade<br>
-            ELA
-          </p>
-        </a>
-      </li>
-      <li>
-        <a href="#tab-2"><%= image_tag 'Sara_Angel_90.png' %><br>
-          <p class="teacher-description">
-            5th Grade<br>
-            ELA
-          </p>
-        </a>
-      </li>
-      <li>
-        <a href="#tab-3"><%= image_tag 'Colette_Kang_90.png' %><br>
-          <p class="teacher-description">
-            6th Grade<br>
-            ELA
-          </p>
-        </a>
-      </li>
-      <li>
-        <a href="#tab-4"><%= image_tag 'daniel_90.png' %><br>
-          <p class="teacher-description">
-            8th Grade<br>
-            ELA & ELL
-          </p>
-        </a>
-      </li>
-      <li>
-        <a href="#tab-5"><%= image_tag 'Michael_Giovacchini_90.png' %><br>
-          <p class="teacher-description">
-            11th Grade<br>
-            ELL
-          </p>
-        </a>
-      </li>
-    </ul>
 
   </div>
 
 </section>
-</div>
 
-<div class="home-page-new">
-<section class="purpose">
-  <div class="container">
+<section class='tool-section bg-tool-purple'>
+  <div class="tool grammar-tool">
+    <div class='info-section'>
+      <a href="/tools/grammar/"><h2 class='q-h2'><img class="icon-white lazyload" loading="lazy" data-src='https://assets.quill.org/images/shared/quill_grammar_white.svg' src='https://assets.quill.org/images/shared/quill_grammar_white.svg' alt=''>Quill Grammar</h2></a>
+      <p class='blurb'>Students practice basic grammar skills, from comma placement to parallel structure.</p>
+      <%= render_dash(@is_mobile) %>
+      <%= render_video_content(@device, 'mobile', 'https://assets.quill.org/videos/tools/grammar.mp4') %>
+      <p class='summary'>
+Quill Grammar has over 150 sentence writing activities to help your students. Our activities are designed to be completed in 10 minutes so you have the freedom to use them in the way that works best for your classroom.
+      </p>
+      <div>
+        <a href="/activity_sessions/anonymous?activity_id=110" target="_blank" class="q-button icon-button bg-white text-purple">Try a sample activity</a>
+        <a href="/tools/grammar/" target="_blank" class="q-button text-white learn-more-button">Learn more</a>
+      </div>
+    </div>
+    <%= render_video_content(@device, 'desktop', 'https://assets.quill.org/videos/tools/grammar.mp4') %>
+  </div>
+</section>
 
-    <h2 class="subheader black">Our Purpose</h2>
+<section class="how-section">
+  <h3>How Quill Works</h3>
+  <div class="how-setup">
+    <div class="how-img-container">
+      <img class="setup-img lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/setup_icon.svg" src="https://assets.quill.org/images/homepage/setup_icon.svg" alt="Open book"/>
+      <img class="line lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/line_1.svg" src="https://assets.quill.org/images/homepage/line_1.svg" alt=''/>
+    </div>
+    <div class="how-text-container">
+      <h5>Set up your classroom, without IT</h5>
+      <p>
+        You can quickly and easily set up your classroom in Quill by inputting student names or providing students with a unique code. If you use Google Classroom or Clever, you can automatically set up your classroom with one click.
+      </p>
+    </div>
+  </div>
+  <div class="how-step-2-3">
+    <div class="how-choose">
+      <div class="how-img-container">
+        <img class="setup-img lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/activities_icon.svg" src="https://assets.quill.org/images/homepage/activities_icon.svg" alt="Paper in an inbox"/>
+      </div>
+      <div class="how-text-container">
+      <h5>Choose activities</h5>
+      <p>
+        Decide if you want your students to proofread passages, combine sentences, or complete a diagnostic. Use our ten minute activities as building blocks during your classroom instruction.
+      </p>
+    </div>
+    </div>
+    <div class="how-reporting">
+      <div class="how-img-container">
+        <img class="line-2 lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/line_2.svg" src="https://assets.quill.org/images/homepage/line_2.svg" alt=''/>
+        <img class="setup-img lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/reporting_icon.svg" src="https://assets.quill.org/images/homepage/reporting_icon.svg" alt="graph on a computer screen"/>
+      </div>
+      <div class="how-text-container">
+      <h5>Use easy-to-consume reporting</h5>
+      <p>
+        Use our reporting to spot trends and identify growth opportunities. Monitor comprehension on specific writing standards.
+      </p>
+    </div>
+    </div>
+  </div>
+</section>
 
-    <h1 class="header black">Write Your Own Stories</h1>
+<section class="features-section">
+  <div class="features">
+    <div class="feature">
+      <div class="feature-img-container">
+        <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/feedback_icon.svg" src="https://assets.quill.org/images/homepage/feedback_icon.svg" alt="Paper with incorrect and correct marks"/>
+      </div>
+      <p class="feature-heading">Get immediate feedback for your students</p>
+      <p class="feature-sub-heading">Save time grading and watch your students correct their mistakes instantly.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-img-container">
+        <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/intervene_icon.svg" src="https://assets.quill.org/images/homepage/intervene_icon.svg" alt="line graph"/>
+      </div>
+      <p class="feature-heading">Intervene where students struggle</p>
+      <p class="feature-sub-heading">See exactly where your students need intervention with our comprehensive reports.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-img-container">
+        <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/differentiate_icon.svg" src="https://assets.quill.org/images/homepage/differentiate_icon.svg" alt="Globe"/>
+      </div>
+      <p class="feature-heading">Differentiate learning to meet the <br/>needs of all students</p>
+      <p class="feature-sub-heading">Assign specific activities for ELLs and students with learning differences.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-img-container">
+        <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/adaptive_icon.svg" src="https://assets.quill.org/images/homepage/adaptive_icon.svg" alt="Criss-crossed lines"/>
+      </div>
+      <p class="feature-heading">Engage students with adaptive activities</p>
+      <p class="feature-sub-heading">Challenge students with questions that automatically adapt based on their previous responses.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-img-container">
+        <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/common_core_icon.svg" src="https://assets.quill.org/images/homepage/common_core_icon.svg" alt="Common Core logo"/>
+      </div>
+      <p class="feature-heading">Align with the Common Core Standards</p>
+      <p class="feature-sub-heading">Easily meet Common Core language standards with our aligned activities.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-img-container">
+        <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/classroom_icon.svg" src="https://assets.quill.org/images/homepage/classroom_icon.svg" alt="Online classroom"/>
+      </div>
+      <p class="feature-heading">Easily sign up with Google Classroom</p>
+      <p class="feature-sub-heading">With one click all of your students and classes will be imported.</p>
+    </div>
+  </div>
+</section>
 
-    <p class="description black">Quill provides free writing, grammar, and vocabulary<br>
-      activities to middle and high school students.</p>
+<section class="curriculum-section">
+  <p>Over 100 concepts totaling 50 hours of quality curriculum.</p>
+  <div class="concepts">
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=299">Parallel Structure</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=178">Capitalization</a>
+    <a class="concept-link" target="_blank" href="/connect/#/play/lesson/-KQX-YEGiFW71KKpep2X">Subordinating Conjunctions</a>
+    <a class="concept-link" target="_blank" href="/connect/#/play/lesson/-KS7QDRfWsPhAZF27hfL">Coordinating Conjunctions</a>
+    <a class="concept-link" target="_blank" href="/connect/#/play/lesson/-KRizUHvbl3hLJH6eey3">Commas</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=291">Prepositions</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=298">Pronoun Reference</a>
+    <a class="concept-link" target="_blank" href="/connect/#/play/lesson/-KXHxOiPXAMZmQOGGer9">Run-ons</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=297">Subject-Verb Agreement</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=154">Verb Tense</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=111">Commonly Confused Words</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=123">Progressives</a>
+    <a class="concept-link" target="_blank" href="/activity_sessions/anonymous?activity_id=283">Irregular Plurals</a>
+    <a class="concept-link" target="_blank" href="/activities/packs/">+ 100 More!</a>
+  </div>
+</section>
 
-    <div class="home-page">
-      <div class="row apps">
-        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-          <div class="app-inner">
-            <div class="icon-top icon-big-proofreader"></div>
-            <h1 class="app-header">Quill Proofreader</h1>
-            <p class="app-description">Quill Proofreader gives<br>
-              students passages that<br>
-              have grammatical errors<br>
-              placed in them.
+<section class="teachers-section">
+  <section class="teacher-stories">
+    <div class="container">
+      <h2 class="subheader bold" id="teacher-subheader"><%=BlogPost::TEACHER_STORIES%></h2>
+      <h1 class="header">Quill in the Classroom</h1>
+    </div>
+
+    <div class="tabs tabs-testimonials tabs-teacher-stories" data-toggle="tabslet" data-animation="true">
+      <div class="tab-content" id="tab-1">
+        <div class="container">
+          "I started using Quill because it fit right into my daily curriculum."
+
+          <p class="quote-author">ROXANNA BUTKUS, RANGEVIEW ELEMENTARY</p>
+
+        </div>
+      </div>
+      <div class="tab-content" id="tab-2">
+        <div class="container">
+          "With interesting passages and immediate feedback, my students really feel like they’re learning."
+
+          <p class="quote-author">SARA ANGEL, KIPP LA</p>
+
+        </div>
+      </div>
+      <div class="tab-content" id="tab-3">
+        <div class="container">
+          "Using Quill has opened up more conversations between me and my students, in terms of how to write better and what the student needs to practice."
+
+          <p class="quote-author">COLETTE KANG, EAST BAY INNOVATION ACADEMY</p>
+
+        </div>
+      </div>
+      <div class="tab-content" id="tab-4">
+        <div class="container">
+          "I've seen tremendous improvement in the proficiency of my students and the quality of their writing."
+
+          <p class="quote-author">DANIEL SCIBIENSKI, PRINCETON PUBLIC SCHOOLS</p>
+
+        </div>
+      </div>
+      <ul class='inline teacher-list'>
+        <li>
+          <a href="#tab-1"><img class="lazyload" loading="lazy" data-src=<%="#{ENV['CDN_URL']}/images/shared/Roxanna_Butkus_90.png"%> src=<%="#{ENV['CDN_URL']}/images/shared/Roxanna_Butkus_90.png"%> alt="Picture of a teacher"></img><br>
+            <p class="teacher-description">
+              3rd Grade<br>
+              ELA
             </p>
-          </div>
-          <%= link_to "Play It Now", play_path, class: "button-blue" %>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-          <div class="app-inner">
-            <div class="icon-top icon-big-grammar"></div>
-            <h1 class="app-header">Quill Grammar</h1>
-            <p class="app-description">Quill Grammar teaches<br>
-              grammatical concepts<br>
-              through sentence<br>
-              writing exercises.
+          </a>
+        </li>
+        <li>
+          <a href="#tab-2"><img class="lazyload" loading="lazy" data-src=<%="#{ENV['CDN_URL']}/images/shared/Sara_Angel_90.png"%> src=<%="#{ENV['CDN_URL']}/images/shared/Sara_Angel_90.png"%> alt="Picture of a teacher"></img><br>
+            <p class="teacher-description">
+              5th Grade<br>
+              ELA
             </p>
-
-          </div>
-          <a class="button-marine" href="https://www.quill.org/activity_sessions/anonymous?activity_id=110">Play It Now</a>
-
-        </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-          <div class="app-inner">
-            <div class="icon-top icon-big-writer"></div>
-            <h1 class="app-header">Quill Writer</h1>
-            <p class="app-description">Quill Writer is a two-player<br>
-              activity where students take<br>
-              turns writing a passage<br>
-              together from a shared<br>
-              list of words.
+          </a>
+        </li>
+        <li>
+          <a href="#tab-3"><img class="lazyload" loading="lazy" data-src=<%="#{ENV['CDN_URL']}/images/shared/Colette_Kang_90.png"%> src=<%="#{ENV['CDN_URL']}/images/shared/Colette_Kang_90.png"%> alt="Picture of a teacher"><br>
+            <p class="teacher-description">
+              6th Grade<br>
+              ELA
             </p>
-          </div>
-          <a class="button-yellow" href="https://quillwriter.org/#/beta">Play It Now</a>
-
-        </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-3 col-xl-3 app">
-          <div class="app-inner">
-            <div class="icon-top icon-big-shuffle"></div>
-            <h1 class="app-header">Sentence Shuffle</h1>
-            <p class="app-description">Sentence Shuffle takes a<br>
-              text and shuffles it up.<br>
-              Students rearrange the<br>
-              sentences into the<br>
-              correct order.</p>
-            <div class="coming-soon">Coming in Fall 2016</div>
-          </div>
-        </div>
-      </div>
+          </a>
+        </li>
+        <li>
+          <a href="#tab-4"><img class="lazyload" loading="lazy" data-src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> src=<%="#{ENV['CDN_URL']}/images/shared/daniel_90.png"%> alt="Picture of a teacher"></img><br>
+            <p class="teacher-description">
+              8th Grade<br>
+              ELA & ELL
+            </p>
+          </a>
+        </li>
+      </ul>
     </div>
+  </section>
+</section>
 
+<section class="schools-section">
+  <p>Join over 2,000 schools using Quill to advance student writing.</p>
+  <div class="schools">
+    <div class="schools-img-container">
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/boston_logo.png" src="https://assets.quill.org/images/homepage/boston_logo.png" alt='Boston Public Schools Logo'/>
+    </div>
+    <div class="schools-img-container">
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/kipp_logo.png" src="https://assets.quill.org/images/homepage/kipp_logo.png" alt='KIPP: Bay Area Schools Logo'/>
+    </div>
+    <div class="schools-img-container">
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/houston_logo.png" src="https://assets.quill.org/images/homepage/houston_logo.png" alt='Houston Independent School District Logo'/>
+    </div>
+    <div class="schools-img-container">
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/orange_county_logo.png" src="https://assets.quill.org/images/homepage/orange_county_logo.png" alt='Orange County Public Schools Logo'/>
+    </div>
+    <div class="schools-img-container">
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/rocketship_logo.png" src="https://assets.quill.org/images/homepage/rocketship_logo.png" alt='Rocketship Schools Logo' />
+    </div>
   </div>
 </section>
-</div>
 
-<div class="home-page-new">
-<section class="common-core">
-  <div class="container">
-    <h2 class="subheader dark-yellow bold">Following Standards</h2>
-
-    <h1 class="header">Built from the Common Core</h1>
-
-    <p class="description">We’ve created 154 activities starting from 42 Common Core language standards.<br>
-      We’ve translated these Common Core directives into purposeful activities.</p>
-  </div>
-
-  <%= image_tag 'icons/common-core.png' %>
-</section>
-</div>
-
-<div class="home-page-new">
-<section class="testimonials">
-  <div class="container">
-    <h2 class="subheader dark-red bold">Testimonials</h2>
-    <h1 class="header">School Success</h1>
-  </div>
-
-  <div class="tabs tabs-testimonials">
-    <div class="tab-content" id="tab-1">
-      <div class="container">
-        “Over the past two years, I have used Quill to teach my 7th and 8th grade special education English classes. Students are eager to use the program and are quick to celebrate getting a ‘green square,’ denoting that they have passed an assigned skill.”
-
-        <p class="quote-author">Stephanie Wieland, KIPP DC Key Academy</p>
-      </div>
+<section class="premium-section">
+  <div class="premium-text-container">
+    <p class="premium-header">Quill Premium</p>
+    <p class="premium-text">Quill Premium's advanced reporting features are the best way to support teachers at the school or district level.</p>
+    <div class="premium-button-container">
+      <a class="quill-button-archived medium primary contained sales-button" href=<%= request_quote_path %> rel="noopener noreferrer" target="_blank">Contact sales</a>
+      <a class="quill-button-archived medium secondary outlined" href=<%= premium_path %> target="_blank">Learn more</a>
     </div>
-    <div class="tab-content" id="tab-2">
-      <div class="container">
-        “The website is wonderful. My students enjoy it and I like knowing they are getting some additional grammar practice, while improving their keyboarding skills.”
-
-        <p class="quote-author">Cheryl Green, Ahlf Junior High School</p>
-      </div>
-    </div>
-    <div class="tab-content" id="tab-3">
-      <div class="container">
-        “QuilI is the best grammar tool for my students, and it teaches them how to closely read information. I appreciate the fact that students are required to check spelling and punctuation to score “green.’”
-
-        <p class="quote-author">Randall Carswell, Charlotte Mecklenburg Schools</p>
-      </div>
-    </div>
-
-    <ul>
-      <li>
-        <a href="#tab-1"><%= image_tag 'testimonials/tab1.png', class: 'kipp' %></a>
-      </li>
-      <li>
-        <a href="#tab-2"><%= image_tag 'testimonials/tab2.png' %></a>
-      </li>
-      <li>
-        <a href="#tab-3"><%= image_tag 'testimonials/tab3.png' %></a>
-      </li>
-    </ul>
-
   </div>
-
+  <img loading="lazy" data-src=<%="#{ENV['CDN_URL']}/images/homepage/quill-premium-user-interfaces.svg"%> src=<%="#{ENV['CDN_URL']}/images/homepage/quill-premium-user-interfaces.svg"%>
+  class="quill-premium-user-interfaces lazyload" alt="Screenshot of Premium Report">
 </section>
-</div>
 
-<div class="home-page-new">
-<section class="get-started">
-  <a href=<%=new_account_path%>
-    class="anchor-block button-marine big">Get Started</a>
+<section class="press-section">
+  <img class="lazyload background-img" loading="lazy" data-src="https://assets.quill.org/images/homepage/quill_laptop.jpg" src="https://assets.quill.org/images/homepage/quill_laptop.jpg" alt='student viewing Quill.org on a laptop'/>
+  <a class="press-link-container" href="/press">
+    <div class="press-links">
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/nyt_logo.svg" src="https://assets.quill.org/images/homepage/nyt_logo.svg" alt='New York Times logo'/>
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/edsurge_logo.svg" src="https://assets.quill.org/images/homepage/edsurge_logo.svg" alt='EdSurge logo'/>
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/iste_logo.svg" src="https://assets.quill.org/images/homepage/iste_logo.svg" alt='ISTE logo'/>
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/freetech_logo.svg" src="https://assets.quill.org/images/homepage/freetech_logo.svg" alt='Free Technology for Teachers'/>
+      <img class="lazyload" loading="lazy" data-src="https://assets.quill.org/images/homepage/fast_company_logo.svg" src="https://assets.quill.org/images/homepage/fast_company_logo.svg" alt='Fast Company Logo'/>
+    </div>
+  </a>
+  <div class="press-cta">
+    <a class="get-started-link quill-button-archived large primary contained" href="/account/new">Get Started</a>
+  </div>
 </section>
-</div>
 
-<div class='container' id="partners">
-<p id='partner-text'>A non-profit helping every student succeed thanks to our partners.</p>
-<div class="row">
-  <div class="col-md-4">
-    <div class="partner-logo gates"></div>
-  </div>
-  <div class="col-md-4">
-    <div class="partner-logo google"></div>
-  </div>
-  <div class="col-md-4">
-    <div class="partner-logo aspire"></div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <div class="partner-logo fastforward bottom"></div>
-  </div>
-  <div class="col-md-4 ">
-    <div class="partner-logo gould bottom"></div>
-  </div>
-  <div class="col-md-4 ">
-    <div class="partner-logo blackrock bottom"></div>
-  </div>
-</div>
-</div>
-</div>
+<%= render partial: 'pages/shared/footer' %>
