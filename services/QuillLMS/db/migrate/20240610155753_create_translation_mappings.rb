@@ -6,7 +6,6 @@ class CreateTranslationMappings < ActiveRecord::Migration[7.0]
       t.integer :english_text_id, null: false
       t.string :source_type, null: false
       t.integer :source_id, null: false
-      t.string :source_key
       t.timestamps
     end
   end

@@ -5614,7 +5614,6 @@ CREATE TABLE public.translation_mappings (
     english_text_id integer NOT NULL,
     source_type character varying NOT NULL,
     source_id integer NOT NULL,
-    source_key character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

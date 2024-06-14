@@ -32,6 +32,7 @@ class ConceptFeedback < ApplicationRecord
   has_many :translation_mappings, as: :source
   has_many :english_texts, through: :translation_mappings
   has_many :translated_texts, through: :english_texts
+  store_accessor :data, :description
 
   after_commit :clear_concept_feedbacks_cache
 
@@ -42,16 +43,14 @@ class ConceptFeedback < ApplicationRecord
   end
 
   def create_translation_mappings
-    return if desc.nil?
+    return if description.nil?
     return unless translation_mappings.empty?
 
-    english_text = EnglishText.find_or_create_by(text: desc)
+    english_text = EnglishText.find_or_create_by(text: description)
     translation_mappings.create(english_text: )
   end
 
   def fetch_translations! = translated_texts.each(&:fetch_translation!)
-
-  private def desc = data["description"]
 
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)
