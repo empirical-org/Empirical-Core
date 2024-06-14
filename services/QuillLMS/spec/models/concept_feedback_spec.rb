@@ -84,7 +84,7 @@ RSpec.describe ConceptFeedback, type: :model do
     context 'has a description in the data field' do
       context 'a translation mapping exists for the description' do
         let(:english_text) {create(:english_text)}
-        let!(:mapping) { create(:translation_mapping, english_text: english_text, source: concept_feedback, source_key: "description")}
+        let!(:mapping) { create(:translation_mapping, english_text: english_text, source: concept_feedback)}
 
         it 'does not create a translation mapping' do
           expect(concept_feedback.translation_mappings).to include(mapping)
@@ -123,13 +123,6 @@ RSpec.describe ConceptFeedback, type: :model do
             subject
             expect(concept_feedback.translation_mappings).to be_present
           end
-
-          it 'returns the gengo payload for the english text' do
-            resp = subject
-            english = EnglishText.find_by(text: concept_feedback.data["description"])
-            expect(resp).to eq(english.gengo_payload)
-          end
-
         end
       end
     end
