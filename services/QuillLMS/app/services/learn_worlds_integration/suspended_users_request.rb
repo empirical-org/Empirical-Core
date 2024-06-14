@@ -11,10 +11,10 @@ module LearnWorldsIntegration
     def fetch_page(page_number)
       response = HTTParty.get("#{endpoint}&page=#{page_number}", headers:)
 
-      case response&.response&.message
-      when "Not Found"
+      case response.code
+      when 404
         :no_users
-      when "OK"
+      when 200
         response
       else
         raise UnexpectedApiResponse, response.to_s

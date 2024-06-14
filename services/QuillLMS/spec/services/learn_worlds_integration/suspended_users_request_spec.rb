@@ -7,8 +7,8 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
   describe '#fetch_page' do
     let(:page_number) { 1 }
 
-    context 'when the response is OK' do
-      let(:response) { instance_double(HTTParty::Response, response: double(message: 'OK')) }
+    context 'when the response is 200' do
+      let(:response) { double(code: 200) }
 
       it 'returns the response' do
         allow(HTTParty).to receive(:get).and_return(response)
@@ -17,8 +17,8 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
       end
     end
 
-    context 'when the response is Not Found' do
-      let(:response) { instance_double(HTTParty::Response, response: double(message: 'Not Found')) }
+    context 'when the response is 404' do
+      let(:response) { double(code: 404) }
 
       it 'returns :no_users' do
         allow(HTTParty).to receive(:get).and_return(response)
@@ -28,9 +28,7 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
     end
 
     context 'when the response is unexpected' do
-      let(:response) do
-        instance_double(HTTParty::Response, response: double(message: 'Internal Server Error'), to_s: 'Error details')
-      end
+      let(:response) { double(code: 500, to_s: 'Error details') }
 
       it 'raises an UnexpectedApiResponse error' do
         allow(HTTParty).to receive(:get).and_return(response)
