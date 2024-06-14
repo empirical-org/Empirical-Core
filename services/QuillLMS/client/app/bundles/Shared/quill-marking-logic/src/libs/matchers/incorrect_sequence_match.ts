@@ -12,7 +12,7 @@ export function incorrectSequenceMatchHelper(responseString:string, incorrectSeq
 }
 
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {
-  const sortedIncorrectSequences = incorrectSequences.sort((a, b) => (a.order || 0) - (b.order || 0));
+  const sortedIncorrectSequences = incorrectSequences?.sort((a, b) => (a.order || 0) - (b.order || 0));
 
   return _.find(sortedIncorrectSequences, (incSeq) => {
     const options = incSeq.text.split('|||');
