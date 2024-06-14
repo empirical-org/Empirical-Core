@@ -1,4 +1,3 @@
-import * as expect from 'expect';
 import {
   MULTIPLE_UNNECESSARY_ADDITION,
   MULTIPLE_UNNECESSARY_DELETION,
