@@ -3,11 +3,14 @@
 require 'rails_helper'
 
 describe SnapshotsController, type: :controller do
+  let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
   let(:school) { create(:school) }
   let(:user) { create(:user, administered_schools: [school]) }
 
   before do
     allow(controller).to receive(:current_user).and_return(user)
+
+    create(:school_subscription, school:, subscription:)
   end
 
   context "#actions" do
@@ -368,6 +371,8 @@ describe SnapshotsController, type: :controller do
       let(:other_teacher) { create(:teacher, school: other_school) }
       let(:other_classroom) { create(:classroom, grade: target_grade) }
       let!(:other_classrooms_teacher) { create(:classrooms_teacher, user: other_teacher, classroom: other_classroom, role: 'owner') }
+
+      before { create(:school_subscription, subscription:, school: other_school) }
 
       it 'should include all schools when initial load is true, regardless of any filters applied' do
         get :options, params: { is_initial_load: initial_load, school_ids: [school.id] }

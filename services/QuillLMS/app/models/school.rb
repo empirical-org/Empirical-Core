@@ -72,6 +72,15 @@ class School < ApplicationRecord
            :lower_grade_greater_than_upper_grade
   validates :zipcode, length: { minimum: 5 }, allow_blank: true
 
+  # This is slightly magical:
+  scope :premium, -> do
+    joins(:subscriptions)
+      .joins(district: :subscriptions)
+      .where(subscriptions: {expiration: DateTime.current..})
+      # Below is a slightly weird construction, but Rails magic doesn't work so we had to get explicit
+      .or(District.where('subscriptions_districts.expiration >= ?', DateTime.current))
+  end
+
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',
     US_HIGHER_ED_SCHOOL_NAME = 'us higher ed',
