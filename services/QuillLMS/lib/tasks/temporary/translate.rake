@@ -5,7 +5,7 @@ namespace :translate do
   task hints: :environment do
     hints = ConceptFeedback.limit(3)
     hints.map(&:create_translation_mappings)
-    english_texts = hints.map(&:english_text)
+    english_texts = hints.map(&:english_texts).flatten
     Gengo::RequestTranslations.run(english_texts)
   end
 end
