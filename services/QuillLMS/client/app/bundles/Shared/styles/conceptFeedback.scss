@@ -1,3 +1,10 @@
+.control {
+  margin-top: 10px;
+}
+
+.control button {
+  margin-right: 10px;
+}
 .concept-explanation {
   font-size: 20px;
   padding: 16px;
@@ -12,7 +19,7 @@
       margin-right: 8px;
     }
   }
-  .concept-explanation-description {
+  .concept-explanation-description, .concept-explanation-translation {
     padding-left: 33px;
     margin-bottom: 16px;
   }

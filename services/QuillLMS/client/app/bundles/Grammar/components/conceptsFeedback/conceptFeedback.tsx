@@ -23,9 +23,12 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
 
     this.deleteConceptsFeedback = this.deleteConceptsFeedback.bind(this)
     this.toggleEdit = this.toggleEdit.bind(this)
+    this.toggleTranslation = this.toggleTranslation.bind(this)
     this.submitNewFeedback = this.submitNewFeedback.bind(this)
     this.cancelEdit = this.cancelEdit.bind(this)
     this.concept = this.concept.bind(this)
+
+    this.state = {translated: false}
   }
 
   deleteConceptsFeedback() {
@@ -41,6 +44,16 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
     const conceptFeedbackID = this.props.match.params.conceptFeedbackID
     if (conceptFeedbackID) {
       this.props.dispatch(actions.startConceptsFeedbackEdit(conceptFeedbackID))
+    }
+  }
+
+  toggleTranslation() {
+    const translated = !this.state.translated
+    this.setState({...this.state, ...{translated: translated}})
+    if (translated) {
+      document.getElementById('toggle-translation').innerHTML = "Hide translation"
+    } else {
+      document.getElementById('toggle-translation').innerHTML = "Show translation"
     }
   }
 
@@ -75,9 +88,11 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
         return (
           <div key={conceptFeedbackID}>
             {conceptName}
-            <ConceptExplanation {...data[conceptFeedbackID]} />
+            <ConceptExplanation {...data[conceptFeedbackID]} translated={this.state.translated} />
             <p className="control">
-              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
+              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button>
+              <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
+              <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>Show Translation</button>
             </p>
           </div>
         )
