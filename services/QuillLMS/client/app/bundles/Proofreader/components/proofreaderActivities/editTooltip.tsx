@@ -29,7 +29,7 @@ const renderCorrectAnswers = (displayText) => {
 
   const correctAnswerArray = displayText ? displayText.split('~') : []
   const correctAnswers = correctAnswerArray.map(ca => <span className="correct-answer" key={ca}>{ca}</span>)
-  const correctAnswerHTML = <p>{correctAnswers}</p>
+  const correctAnswerHTML = <p className="correct-answers">{correctAnswers}</p>
   return (
     <div aria-hidden={true}>
       <p className="label">Correct</p>
