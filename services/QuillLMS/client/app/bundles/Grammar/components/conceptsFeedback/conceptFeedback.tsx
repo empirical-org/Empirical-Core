@@ -92,7 +92,8 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button>
               <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
-              <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>Show Translation</button>
+
+              {data[conceptFeedbackID].translationDescription && <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>Show Translation</button> }
             </p>
           </div>
         )
