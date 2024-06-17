@@ -34,14 +34,14 @@ class GenAITasks < Thor
   end
 
 
-  # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
+  # bundle exec thor gen_a_i_tasks:full_test 'because' 2
   desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
   def full_test(conjunction, limit = 10, template_file = nil)
     sample_test(conjunction, limit, true, template_file)
     sample_test(conjunction, limit, false, template_file)
   end
 
- # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
+  # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
   desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
   def optimal_test(conjunction, limit = 10, template_file = nil)
     sample_test(conjunction, limit, true, template_file)
@@ -87,7 +87,7 @@ class GenAITasks < Thor
 
     private def print_results(name, correct_count, total, incorrect_examples)
       print_line
-      puts "Correct #{name} Percentage: #{((correct_count.to_f / total.to_f) * 100).round(2)}"
+      puts "Correct #{name} Percentage: #{((correct_count.to_f / total) * 100).round(2)}"
       puts "#{name} Correct: #{correct_count}"
       puts "Total: #{total}"
       print_line

@@ -97,8 +97,8 @@ class FeedbackHistory < ApplicationRecord
   scope :optimal,  -> { where(optimal: true) }
   scope :suboptimal,  -> { where(optimal: false) }
   scope :autoML, -> { where(feedback_type: AUTO_ML)}
-  scope :confidence_greater_than, -> (lower_limit) {where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit)}
-  scope :for_prompt, -> (prompt_id) { where(prompt_id: prompt_id) }
+  scope :confidence_greater_than, ->(lower_limit) {where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit)}
+  scope :for_prompt, ->(prompt_id) { where(prompt_id: prompt_id) }
 
   def readonly?
     !new_record?
