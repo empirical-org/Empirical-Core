@@ -26,8 +26,8 @@ RSpec.describe TranslatedText, type: :model do
 
   end
 
-  describe "fetch_pending!" do
-    subject { TranslatedText.fetch_pending! }
+  describe "fetch_and_save_pending!" do
+    subject { TranslatedText.fetch_and_save_pending! }
 
     let(:untranslated) { create(:translated_text) }
     let(:complete) { create(:translated_text, translation: "foo") }

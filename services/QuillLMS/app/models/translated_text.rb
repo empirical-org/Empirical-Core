@@ -16,11 +16,7 @@ class TranslatedText < ApplicationRecord
   belongs_to :english_text
   scope :pending_translation, -> { where(translation: nil) }
 
-  def self.fetch_pending!
-    pending_translation.each(&:fetch_translation!)
-  end
+  def self.fetch_and_save_pending! = pending_translation.each(&:fetch_translation!)
 
-  def fetch_translation!
-    Gengo::SaveTranslatedText.run(translation_job_id)
-  end
+  def fetch_translation! = Gengo::SaveTranslatedText.run(translation_job_id)
 end
