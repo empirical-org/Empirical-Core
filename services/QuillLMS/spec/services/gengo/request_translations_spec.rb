@@ -68,7 +68,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
     end
 
     it "starts a SaveTranslatedTextWorker" do
-      expect(Gengo::SaveTranslatedTextWorker).to receive(:perform_in)
+      expect(Gengo::SaveJobsFromOrderWorker).to receive(:perform_in)
       .with(1.minute, order_id)
       subject
     end

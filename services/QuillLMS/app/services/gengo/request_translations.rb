@@ -20,7 +20,7 @@ module Gengo
       response = GengoAPI.postTranslationJobs(jobs: gengo_payload)
       raise RequestTranslationError unless response.present?
 
-      SaveTranslatedTextWorker
+      SaveJobsFromOrderWorker
         .perform_in(1.minute, response.dig(RESPONSE, ORDER_ID))
     end
 
