@@ -493,20 +493,22 @@ exports[`SnapshotSection component when the section is Classrooms should match s
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="Grade"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        Grade
-                      </th>
-                      <th
-                        key="Activities completed"
-                      >
-                        Activities completed
-                      </th>
-                    </tr>
+                        <th
+                          key="Grade"
+                        >
+                          Grade
+                        </th>
+                        <th
+                          key="Activities completed"
+                        >
+                          Activities completed
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"
@@ -1371,20 +1373,22 @@ exports[`SnapshotSection component when the section is Practice should match sna
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="Concept"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        Concept
-                      </th>
-                      <th
-                        key="Activities assigned"
-                      >
-                        Activities assigned
-                      </th>
-                    </tr>
+                        <th
+                          key="Concept"
+                        >
+                          Concept
+                        </th>
+                        <th
+                          key="Activities assigned"
+                        >
+                          Activities assigned
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"
@@ -1504,20 +1508,22 @@ exports[`SnapshotSection component when the section is Practice should match sna
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="Concept"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        Concept
-                      </th>
-                      <th
-                        key="Activities completed"
-                      >
-                        Activities completed
-                      </th>
-                    </tr>
+                        <th
+                          key="Concept"
+                        >
+                          Concept
+                        </th>
+                        <th
+                          key="Activities completed"
+                        >
+                          Activities completed
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"
@@ -2037,20 +2043,22 @@ exports[`SnapshotSection component when the section is Practice should match sna
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="Activity"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        Activity
-                      </th>
-                      <th
-                        key="Activities completed"
-                      >
-                        Activities completed
-                      </th>
-                    </tr>
+                        <th
+                          key="Activity"
+                        >
+                          Activity
+                        </th>
+                        <th
+                          key="Activities completed"
+                        >
+                          Activities completed
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"
@@ -2170,20 +2178,22 @@ exports[`SnapshotSection component when the section is Practice should match sna
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="Activity"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        Activity
-                      </th>
-                      <th
-                        key="Activities completed"
-                      >
-                        Activities completed
-                      </th>
-                    </tr>
+                        <th
+                          key="Activity"
+                        >
+                          Activity
+                        </th>
+                        <th
+                          key="Activities completed"
+                        >
+                          Activities completed
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"
@@ -2398,20 +2408,22 @@ exports[`SnapshotSection component when the section is Schools should match snap
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="School"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        School
-                      </th>
-                      <th
-                        key="Activities completed"
-                      >
-                        Activities completed
-                      </th>
-                    </tr>
+                        <th
+                          key="School"
+                        >
+                          School
+                        </th>
+                        <th
+                          key="Activities completed"
+                        >
+                          Activities completed
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"
@@ -2956,20 +2968,22 @@ exports[`SnapshotSection component when the section is Users should match snapsh
                   <table
                     className="table"
                   >
-                    <tr
-                      className="header-row"
-                    >
-                      <th
-                        key="Teacher"
+                    <thead>
+                      <tr
+                        className="header-row"
                       >
-                        Teacher
-                      </th>
-                      <th
-                        key="Activities completed"
-                      >
-                        Activities completed
-                      </th>
-                    </tr>
+                        <th
+                          key="Teacher"
+                        >
+                          Teacher
+                        </th>
+                        <th
+                          key="Activities completed"
+                        >
+                          Activities completed
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr
                         className="data-row"

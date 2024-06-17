@@ -7,7 +7,7 @@
 <div class="white-background">
   <div class="container press-page about-the-org-page">
     <div class="press-highlight-container">
-      <h1>Press highlights</h1>
+      <h1>Press Highlights</h1>
 
       <div class="press-highlights">
         <div class="press-highlight">
@@ -50,9 +50,11 @@
     </div>
 
     <div class="in-the-news">
-      <h1>In the news</h1>
+
       <div class="in-the-news-content">
+
         <div class="articles">
+          <h1>In the News</h1>
           <% @in_the_news.each_with_index do |article, i| %>
             <% hidden = i >= 5 ? 'hidden' : '' %>
             <% class_name = "#{hidden} article" %>
@@ -60,33 +62,37 @@
             <% press_name = article[:press_name] ? "#{article[:press_name]} | " : '' %>
             <% date = article[:published_at].strftime("%B %d, %Y") %>
             <a class=<%="#{class_name}"%> href=<%="#{link}"%> target="_blank">
-              <h3><%="#{press_name}#{date}"%></h3>
               <h2><%="#{article[:title]}"%></h2>
+              <h3><%="#{press_name}#{date}"%></h3>
             </a>
           <% end %>
           <button id="show-all-press-articles" onclick="showAllPressArticles()" class="quill-button-archived medium outlined secondary">Show all press articles</button>
         </div>
 
-        <div class="press-kit-container">
-          <p>Member of the press? We're happy to answer your questions.</p>
-          <div class="press-kit-links">
-            <a rel="noopener noreferrer" target="_blank" href="https://drive.google.com/a/quill.org/file/d/1LCo1T0rERUR98OU1rwIGVz3JapFhgeiO/view?usp=sharing">View our press kit</a>
-            <a href="mailto:hello@quill.org">hello@quill.org</a>
+        <div class="video">
+          <h1>Video Spotlight</h1>
+          <iframe src="https://www.youtube.com/embed/_ZK1xIIoMCg?si=8kRX-BnjNoQlGhYu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+          <div class="press-kit-container">
+            <p>Member of the press? We're happy to answer your questions.</p>
+            <div class="press-kit-links">
+              <a href="mailto:hello@quill.org">hello@quill.org</a>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="press-releases">
-      <h1>Press releases</h1>
+      <h1>Press Releases</h1>
       <div class="articles">
         <% @press_releases.each do |article| %>
           <% class_name = "article" %>
           <% link = "#{teacher_center_link}/#{article[:slug]}/" %>
           <% date = article[:published_at].strftime("%B %d, %Y") %>
           <a href=<%="#{link}"%> class=<%="#{class_name}"%> target="_blank">
-            <h3><%="#{date}"%></h3>
             <h2><%="#{article[:title]}"%></h2>
+            <h3><%="#{date}"%></h3>
           </a>
         <% end %>
       </div>

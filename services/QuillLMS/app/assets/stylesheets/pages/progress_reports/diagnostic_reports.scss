@@ -72,6 +72,7 @@ $lightgray: #cecece;
 #individual-activity-classroom-view {
   max-width: 950px;
   margin: auto;
+  margin-top: 48px;
     th:first-of-type,
     tr td:first-of-type {
         width: 110px;
@@ -362,6 +363,12 @@ $lightgray: #cecece;
     background-color: #FADDE2;
   }
 }
+.blue-score-color {
+  background-color: $quill-blue-1;
+  &:hover {
+    background-color: $quill-blue-5;
+  }
+}
 .yellow-score-color, .orange-score-color {
   background-color: #FFF6E2;
   &:hover {
@@ -378,12 +385,18 @@ $lightgray: #cecece;
 
 /* for class reports*/
 
+#student-groupings-wrapper {
+  margin: 48px 0px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .student-groupings {
   @include gray-border;
   display: inline-block;
-  margin-top: 15px;
-  margin-right: 15px;
   width: min-content;
+  min-width: 242px;
   padding: 10px;
   h3 {
     font-size: 20px;

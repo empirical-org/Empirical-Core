@@ -1,6 +1,6 @@
 <% units.map.with_index do |unit, i| %>
   <% learning_cycle = unit[:learning_cycles] %>
-  <% content_tag = "<div class='college-board-activity-tag'>For SpringBoard 9</div>".html_safe %>
+  <% content_tag = "<span class='college-board-activity-tag'>For SpringBoard 9</span>".html_safe %>
   <% expand_element = "<img alt='arrow icon' class='expand-arrow' src='https://assets.quill.org/images/icons/expand.svg' />".html_safe %>
   <% top_section_id = "college-board-toggle-top-section-" + "#{i}" %>
   <% bottom_section_id = "college-board-toggle-bottom-section-" + "#{i}" %>
@@ -47,4 +47,3 @@
     </div>
   </div>
 <% end %>
-
