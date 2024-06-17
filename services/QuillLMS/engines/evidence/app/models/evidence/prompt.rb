@@ -94,12 +94,16 @@ module Evidence
 
     def optimal_samples(limit: 40)
       Evidence.feedback_history_class
-        .optimal_sample(prompt_id: id, limit: limit)
+        .optimal_sample(prompt_id: id, limit:)
     end
 
-    def suboptimal_samples(limit: 20)
+    def suboptimal_samples(limit: 20, offset: 0)
       Evidence.feedback_history_class
-        .suboptimal_sample(prompt_id: id, limit: limit)
+        .suboptimal_sample(prompt_id: id, limit:, offset:)
+    end
+
+    def example_sets(optimal: true, limit: 2, offset: 20)
+      optimal ? [first_strong_example, second_strong_example] : suboptimal_samples(limit:, offset:)
     end
 
     def optimal_label_feedback

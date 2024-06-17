@@ -104,26 +104,29 @@ class FeedbackHistory < ApplicationRecord
     !new_record?
   end
 
-  def self.optimal_sample(prompt_id:, confidence_limit: 0.95, limit: 20)
+  def self.optimal_sample(prompt_id:, confidence_limit: 0.95, max_length: 60, limit: 20)
     optimal
       .autoML
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
-      .where('LENGTH(entry) < 60')
+      .where("LENGTH(entry) < ?", max_length)
       .order("id DESC")
       .limit(limit)
       .pluck(:entry)
       .uniq
   end
 
-  def self.suboptimal_sample(prompt_id:,confidence_limit: 0.75, limit: 20)
+  def self.suboptimal_sample(prompt_id:, confidence_limit: 0.90, max_length: 100, limit: 20, offset: 0)
     suboptimal
-      .select('DISTINCT(entry)')
       .autoML
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
+      .where("LENGTH(entry) < ?", max_length)
+      .order("id DESC")
       .limit(limit)
-      .map(&:entry)
+      .offset(offset)
+      .pluck(:entry)
+      .uniq
   end
 
   def concept_results_hash

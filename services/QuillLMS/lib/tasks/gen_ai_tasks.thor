@@ -5,32 +5,52 @@ require_relative '../../config/environment'
 class GenAITasks < Thor
 
   # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
-  desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
-  def optimal_test(conjunction, limit = 10, template_file = nil)
-
-    optimal_count = 0
+  desc "sample_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def sample_test(conjunction, limit = 10, optimal = true, template_file = nil)
+    correct_count = 0
     total = 0
-    suboptimals = []
+    incorrect_examples = []
+    name = optimal ? 'Optimal' : 'Suboptimal'
 
     all_live_prompts(conjunction, limit).each do |prompt|
       system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
 
-      [prompt.first_strong_example, prompt.second_strong_example].each do |entry|
+      prompt.example_sets(optimal:).each do |entry|
         response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
 
         total += 1
-        if response[KEY_OPTIMAL]
+        if response[KEY_OPTIMAL] == optimal
           print '.'
-          optimal_count += 1
+          correct_count += 1
         else
           print 'F'
-          suboptimals.append([prompt, entry, response[KEY_FEEDBACK]])
+          incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
         end
       end
     end
     puts '' # new line after prints
 
-    print_results(optimal_count, total, suboptimals)
+    print_results(name, correct_count, total, incorrect_examples)
+  end
+
+
+  # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
+  desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def full_test(conjunction, limit = 10, template_file = nil)
+    sample_test(conjunction, limit, true, template_file)
+    sample_test(conjunction, limit, false, template_file)
+  end
+
+ # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
+  desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def optimal_test(conjunction, limit = 10, template_file = nil)
+    sample_test(conjunction, limit, true, template_file)
+  end
+
+  # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
+  desc "suboptimal_test 'because' 2", 'Run to see if examplar suboptimals are labeled suboptimal by the prompt'
+  def suboptimal_test(conjunction, limit = 10, template_file = nil)
+    sample_test(conjunction, limit, false, template_file)
   end
 
   desc "prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
@@ -65,15 +85,15 @@ class GenAITasks < Thor
       puts '---------------'
     end
 
-    private def print_results(optimal_count, total, suboptimals)
+    private def print_results(name, correct_count, total, incorrect_examples)
       print_line
-      puts "Correct Optimal Percentage: #{((optimal_count.to_f / total.to_f) * 100).round(2)}"
-      puts "Optimal Correct: #{optimal_count}"
+      puts "Correct #{name} Percentage: #{((correct_count.to_f / total.to_f) * 100).round(2)}"
+      puts "#{name} Correct: #{correct_count}"
       puts "Total: #{total}"
       print_line
-      puts 'Suboptimals'
-      suboptimals.each do |suboptimal|
-        prompt, entry, feedback = suboptimal
+      puts 'Incorrect'
+      incorrect_examples.each do |incorrect|
+        prompt, entry, feedback = incorrect
         puts "Prompt: #{prompt.id}, Entry: #{entry}, Feedback: #{feedback}"
         puts " "
         puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt.id} '#{entry}'"
