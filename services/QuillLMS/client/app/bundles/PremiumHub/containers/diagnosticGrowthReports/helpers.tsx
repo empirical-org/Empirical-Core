@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { getTimeInMinutesAndSeconds } from "../../shared"
 import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 import moment from 'moment'
 import { Tooltip, helpIcon } from '../../../Shared'
@@ -81,7 +80,7 @@ function studentsCompletedPracticeValue(studentsCompletedPractice) {
 }
 
 function averageActivitiesAndTimeSpentValue(averageActivitiesCount, averageTimespent) {
-  return averageActivitiesCount ? `${Math.round(averageActivitiesCount) || 0} Activities (${getTimeInMinutesAndSeconds(averageTimespent)})` : noDataToShow
+  return averageActivitiesCount ? `${Math.round(averageActivitiesCount) || 0} (${getTimeSpent(averageTimespent)})` : noDataToShow
 }
 
 function postDiagnosticCompleted(postStudentsAssigned, postStudentsCompleted) {
