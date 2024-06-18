@@ -66,7 +66,7 @@ export default class ResponseList extends React.Component {
         readOnly={this.props.admin}
         response={resp}
         responses={this.props.responses}
-        state={this.props.states[this.props.questionID]}
+        state={this.props.states ? this.props.states[this.props.questionID] : {}}
         states={this.props.states}
       />
     )
