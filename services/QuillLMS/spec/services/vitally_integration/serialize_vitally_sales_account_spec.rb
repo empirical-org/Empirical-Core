@@ -22,11 +22,15 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
   let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
 
   before do
+    create(:activity_classification, key: 'evidence')
     previous_year_data = {
       total_students: 2,
       active_students: 1,
       activities_finished: 1,
-      activities_per_student: 1.0
+      activities_per_student: 1.0,
+      evidence_activities_assigned: 2,
+      evidence_activities_completed: 1,
+      completed_evidence_activities_per_student: 1
     }
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
@@ -260,5 +264,87 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
 
       it { expect(results[:traits][:active_students]).to eq(2) }
     end
+  end
+
+  it 'generates evidence activities data' do
+    teacher = create(:user, role: 'teacher')
+    teacher_two = create(:user, role: 'teacher')
+    create(:schools_users, school: school, user: teacher)
+    create(:schools_users, school: school, user: teacher_two)
+    student = create(:user, role: 'student')
+    student_two = create(:user, role: 'student')
+    student_three = create(:user, role: 'student')
+
+    classroom = create(:classroom)
+    classroom_two = create(:classroom)
+    create(:classrooms_teacher, user: teacher, classroom: classroom)
+    create(:classrooms_teacher, user: teacher_two, classroom: classroom_two)
+    create(:students_classrooms, student: student, classroom: classroom)
+    create(:students_classrooms, student: student_three, classroom: classroom_two)
+    unit = create(:unit, user_id: teacher.id)
+    unit_two = create(:unit, user_id: teacher_two.id)
+    classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id, student_two.id])
+    classroom_unit_two = create(:classroom_unit, classroom: classroom_two, unit: unit_two, assigned_student_ids: [student_three.id])
+
+    evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
+    evidence_unit_activity_two = create(:unit_activity, :evidence_unit_activity, unit: unit_two)
+    middle_of_school_year = School.school_year_start(Time.now) + 6.months
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: middle_of_school_year - 10.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit_two,
+      activity: evidence_unit_activity_two.activity,
+      user: student_three,
+      state: 'finished',
+      completed_at: middle_of_school_year - 10.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: middle_of_school_year - 3.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student,
+      state: 'finished',
+      completed_at: middle_of_school_year - 5.days
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student_two,
+      state: 'finished',
+      created_at: middle_of_school_year - 1.year,
+      completed_at: middle_of_school_year - 1.year
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: student_two,
+      state: 'started',
+      created_at: middle_of_school_year - 1.year,
+      completed_at: middle_of_school_year - 1.year
+    )
+
+    school_data = described_class.new(school).data
+
+    expect(school_data[:traits]).to include(
+      evidence_activities_assigned_all_time: 3,
+      evidence_activities_assigned_this_year: 3,
+      evidence_activities_assigned_last_year: 2,
+      evidence_activities_completed_all_time: 5,
+      evidence_activities_completed_this_year: 4,
+      evidence_activities_completed_last_year: 1,
+      evidence_activities_completed_per_student_this_year: 2,
+      evidence_activities_completed_per_student_last_year: 1
+    )
   end
 end
