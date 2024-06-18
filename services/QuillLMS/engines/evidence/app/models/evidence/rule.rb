@@ -39,7 +39,8 @@ module Evidence
     ]
     TYPES = [
       TYPE_AUTOML       = 'autoML',
-      TYPE_ERROR	= 'error',
+      TYPE_GEN_AI       = 'genAI',
+      TYPE_ERROR        = 'error',
       TYPE_GRAMMAR      = 'grammar',
       TYPE_OPINION      = 'opinion',
       TYPE_PLAGIARISM   = 'plagiarism',
@@ -87,6 +88,11 @@ module Evidence
     validates :rule_type, inclusion: {in: TYPES}
     validates :state, inclusion: {in: STATES}
     validates :suborder, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to: 0}
+
+    scope :active, -> {where(state: STATE_ACTIVE)}
+    scope :auto_ml, -> {where(rule_type: TYPE_AUTOML)}
+    scope :optimal, -> {where(optimal: true)}
+    scope :suboptimal, -> {where(optimal: false)}
 
     def serializable_hash(options = nil)
       options ||= {}

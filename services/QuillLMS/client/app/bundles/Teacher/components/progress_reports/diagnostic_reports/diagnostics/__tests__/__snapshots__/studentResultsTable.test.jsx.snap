@@ -589,16 +589,26 @@ exports[`StudentResultsTable component should render when there is no student da
           </th>
         </tr>
       </thead>
-      <div
-        className="no-data-yet"
+      <tbody
+        className="no-data-yet-tbody"
       >
-        <h5>
-          No data yet
-        </h5>
-        <p>
-          Data will appear in this report shortly after your students complete the diagnostic.
-        </p>
-      </div>
+        <tr>
+          <td
+            colSpan={9}
+          >
+            <div
+              className="no-data-yet"
+            >
+              <h5>
+                No data yet
+              </h5>
+              <p>
+                Data will appear in this report shortly after your students complete the diagnostic.
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
       <tbody>
         <StudentRow
           key="Ken Liu"

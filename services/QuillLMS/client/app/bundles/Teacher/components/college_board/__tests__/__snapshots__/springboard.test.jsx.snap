@@ -811,11 +811,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 1: Telling Details"
             >
@@ -834,11 +834,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <span>
                         Unit 1: Telling Details
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -1142,11 +1142,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 2: Pivotal Words and Phrases"
             >
@@ -1165,11 +1165,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <span>
                         Unit 2: Pivotal Words and Phrases
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -1473,11 +1473,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 3: Compelling Evidence"
             >
@@ -1496,11 +1496,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <span>
                         Unit 3: Compelling Evidence
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -1804,11 +1804,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 4: Powerful Openings"
             >
@@ -1827,11 +1827,11 @@ exports[`SpringBoard component should render when it is not part of the assignme
                       <span>
                         Unit 4: Powerful Openings
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -3616,11 +3616,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 1: Telling Details"
             >
@@ -3639,11 +3639,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <span>
                         Unit 1: Telling Details
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -3948,11 +3948,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 2: Pivotal Words and Phrases"
             >
@@ -3971,11 +3971,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <span>
                         Unit 2: Pivotal Words and Phrases
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -4280,11 +4280,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 3: Compelling Evidence"
             >
@@ -4303,11 +4303,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <span>
                         Unit 3: Compelling Evidence
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"
@@ -4612,11 +4612,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
               }
               slug="springboard"
               tag={
-                <div
+                <span
                   className="college-board-activity-tag"
                 >
                   For SpringBoard 9
-                </div>
+                </span>
               }
               title="Unit 4: Powerful Openings"
             >
@@ -4635,11 +4635,11 @@ exports[`SpringBoard component should render when it is part of the assignment f
                       <span>
                         Unit 4: Powerful Openings
                       </span>
-                      <div
+                      <span
                         className="college-board-activity-tag"
                       >
                         For SpringBoard 9
-                      </div>
+                      </span>
                     </p>
                     <div
                       className="unit-sub-header-container"

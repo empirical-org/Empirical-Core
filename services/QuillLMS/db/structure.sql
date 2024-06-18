@@ -2647,6 +2647,37 @@ CREATE TABLE public.districts_users (
 
 
 --
+-- Name: english_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.english_texts (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: english_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.english_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: english_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.english_texts_id_seq OWNED BY public.english_texts.id;
+
+
+--
 -- Name: evidence_activity_healths; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5541,6 +5572,73 @@ ALTER SEQUENCE public.topics_id_seq OWNED BY public.topics.id;
 
 
 --
+-- Name: translated_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.translated_texts (
+    id bigint NOT NULL,
+    english_text_id integer NOT NULL,
+    translation text,
+    locale character varying NOT NULL,
+    translation_job_id character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: translated_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.translated_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: translated_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.translated_texts_id_seq OWNED BY public.translated_texts.id;
+
+
+--
+-- Name: translation_mappings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.translation_mappings (
+    id bigint NOT NULL,
+    english_text_id integer NOT NULL,
+    source_type character varying NOT NULL,
+    source_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: translation_mappings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.translation_mappings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: translation_mappings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.translation_mappings_id_seq OWNED BY public.translation_mappings.id;
+
+
+--
 -- Name: unit_activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6443,6 +6541,13 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: english_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.english_texts ALTER COLUMN id SET DEFAULT nextval('public.english_texts_id_seq'::regclass);
+
+
+--
 -- Name: evidence_activity_healths id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7021,6 +7126,20 @@ ALTER TABLE ONLY public.title_cards ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.topics ALTER COLUMN id SET DEFAULT nextval('public.topics_id_seq'::regclass);
+
+
+--
+-- Name: translated_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.translated_texts ALTER COLUMN id SET DEFAULT nextval('public.translated_texts_id_seq'::regclass);
+
+
+--
+-- Name: translation_mappings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.translation_mappings ALTER COLUMN id SET DEFAULT nextval('public.translation_mappings_id_seq'::regclass);
 
 
 --
@@ -7649,6 +7768,14 @@ ALTER TABLE ONLY public.district_subscriptions
 
 ALTER TABLE ONLY public.districts
     ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: english_texts english_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.english_texts
+    ADD CONSTRAINT english_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -8329,6 +8456,22 @@ ALTER TABLE ONLY public.title_cards
 
 ALTER TABLE ONLY public.topics
     ADD CONSTRAINT topics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: translated_texts translated_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.translated_texts
+    ADD CONSTRAINT translated_texts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: translation_mappings translation_mappings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.translation_mappings
+    ADD CONSTRAINT translation_mappings_pkey PRIMARY KEY (id);
 
 
 --
@@ -11471,6 +11614,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240605120147'),
 ('20240605132805'),
 ('20240605170803'),
-('20240605185824');
+('20240605185824'),
+('20240610145220'),
+('20240610145308'),
+('20240610155753');
 
 

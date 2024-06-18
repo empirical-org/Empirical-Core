@@ -1,14 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%= render partial: 'head' %>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0FB3VEGYR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <body id="new-home-page">
+      gtag('config', 'G-C0FB3VEGYR');
+    </script>
 
-    <%= render partial: 'home_nav' %>
+    <!-- Vite shim -->
+    <script type="text/javascript">
+      window.global ||= window;
+      var process = process || { env: {} }
+    </script>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <% if Rails.env.development? %>
+      <title>[DEV] <%= @title %></title>
+      <%= favicon_link_tag 'favicon-dev.ico' %>
+    <% else %>
+      <title><%= @title %></title>
+      <%= favicon_link_tag 'favicon.ico' %>
+    <% end %>
+
+    <meta name="description" content="<%= @description %>">
+
+    <meta property="og:type"        content="website" />
+    <meta property="og:title"       content="<%= @title %>" />
+    <meta property="og:description" content="<%= @description %>" />
+    <meta property="og:image"       content="https:<%= image_url('share/facebook.png') %>" />
+    <meta property="twitter:image"  content="https:<%= image_url('share/facebook.png') %>" />
+    <link rel="apple-touch-icon" href="<%= ENV['CDN_URL'].gsub(/[‘’]/, '') + "/images/logos/apple-touch-icon.png" %>">
+    <link rel="canonical" href="https://www.quill.org<%= request.path %>">
+
+    <script defer src="<%= ENV['FONT_AWESOME_KIT_LINK'] %>" crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
+    <%= render partial: 'typekit' unless Rails.env.test? %>
+    <%= render partial: 'application/lazyload' %>
+    <%= vite_typescript_tag((@js_file || 'home'), defer: true, 'crossorigin': 'anonymous') %>
+    <%= vite_stylesheet_tag 'home.scss' %>
+    <%= vite_stylesheet_tag 'shared.scss' %>
+
+    <%= csrf_meta_tags %>
+    <%= render partial: 'application/head_embed_codes' %>
+  </head>
+  <body>
+    <%= render partial: 'application/webinar_banner' %>
+    <%= render partial: 'application/demo_account_banner' %>
     <%= yield %>
-
-    <%= render partial: 'pages/shared/footer' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   </body>
 </html>

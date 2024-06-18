@@ -1,5 +1,6 @@
 import Pluralize from 'pluralize';
 import React from 'react';
+
 import ScoreColor from '../../modules/score_color.js';
 
 export default class OverviewBoxes extends React.Component {
@@ -8,9 +9,11 @@ export default class OverviewBoxes extends React.Component {
   }
 
   countBoxType = () => {
+    const { data, } = this.props
     let count = {};
     let scoreColor;
-    this.props.data.forEach(student => {
+
+    data.forEach(student => {
       scoreColor = ScoreColor(student.score);
       count[scoreColor] = count[scoreColor] || 0;
       count[scoreColor] += 1;
@@ -34,7 +37,7 @@ export default class OverviewBoxes extends React.Component {
     return (
       <div className={'student-groupings ' + group} key={group}>
         <h3>{(count || 0) + ' ' + Pluralize('Student', count)}</h3>
-        <span>{range + '  |  ' + proficiency}</span>
+        <span>{group === 'blue-score-color' ? 'Completed' : `${range} | ${proficiency}`}</span>
       </div>
     )
   };
@@ -43,7 +46,7 @@ export default class OverviewBoxes extends React.Component {
     // need to list the keys in an array instead of just using a for in
     // loop as we want them in this particular order
     let groupCounts = this.countBoxType();
-    let groups = ['red', 'yellow', 'green'];
+    let groups = ['red', 'yellow', 'green', 'blue'];
     return groups.map(group => {
       group += '-score-color'
       return this.boxCreator(group, groupCounts[group])
