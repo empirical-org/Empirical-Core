@@ -22,10 +22,10 @@ class UploadToS3 < ApplicationService
   def run
     local_tempfile << payload
 
-    upload_csv
+    upload_file
   end
 
-  private def local_tempfile = @csv_tempfile ||= Tempfile.new(tempfile_name)
+  private def local_tempfile = @tempfile ||= Tempfile.new(tempfile_name)
   private def tempfile_name = "#{TEMPFILE_NAME}.#{extension}"
   private def uploader = @uploader ||= uploader_class.new(admin_id: user.id)
 
@@ -35,11 +35,11 @@ class UploadToS3 < ApplicationService
     raise UndefinedExtensionError, "'#{extension}' is not a defined extension for the uploader"
   end
 
-  private def upload_csv
+  private def upload_file
     # store! returns nil on failure, rather than raising an exception.
     # We address this gotcha by manually raising an exception.
     upload_status = uploader.store!(local_tempfile)
-    raise CloudUploadError, "Unable to upload CSV for user #{user.id}" unless upload_status
+    raise CloudUploadError, "Unable to upload #{extension} file for user #{user.id}" unless upload_status
 
     # The response-content-disposition param triggers browser file download instead of screen rendering
     uploader.url(query: {"response-content-disposition" => "attachment;"})
