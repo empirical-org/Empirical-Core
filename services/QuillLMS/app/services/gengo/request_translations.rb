@@ -16,6 +16,7 @@ module Gengo
     end
 
     def run
+      return if gengo_payload.empty?
       response = GengoAPI.postTranslationJobs(jobs: gengo_payload)
       raise RequestTranslationError unless response.present?
 
@@ -24,7 +25,9 @@ module Gengo
     end
 
     def gengo_payload
-      english_texts.reduce({}) do |hash, english_text|
+      @gengo_payload ||= english_texts
+      .filter(&:needs_translation)
+      .reduce({}) do |hash, english_text|
         hash.merge( { english_text.id.to_s => {
           type: "text",
           body_src: english_text.text,
