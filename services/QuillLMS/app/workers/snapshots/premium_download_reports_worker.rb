@@ -14,7 +14,7 @@ module Snapshots
 
       data = Adapters::Csv::AdminPremiumDataExport.to_csv_string(payload, headers_to_display)
 
-      uploaded_file_url = UploadToS3.run(user, data)
+      uploaded_file_url = UploadToS3.run(user, data, UploadToS3::CSV_FORMAT)
 
       email = ENV.fetch('TEST_EMAIL_ADDRESS', user.email) # TODO: remove after integration testing
       PremiumHubUserMailer.admin_premium_download_report_email(user.first_name, uploaded_file_url, email).deliver_now!

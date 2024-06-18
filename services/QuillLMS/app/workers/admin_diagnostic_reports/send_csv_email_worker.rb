@@ -22,21 +22,21 @@ module AdminDiagnosticReports
       overview_payload = ConstructOverviewQueryPayload.run(user_id, shared_filter_report_name, overview_filter_report_name)
       overview_report = AssembleOverviewReport.run(overview_payload)
       overview_csv = Adapters::Csv::AdminDiagnosticOverviewDataExport.to_csv_string(overview_report)
-      UploadToS3.run(user, overview_csv)
+      UploadToS3.run(user, overview_csv, UploadToS3::CSV_FORMAT)
     end
 
     private def generate_skills_link(user_id, shared_filter_report_name, skills_filter_report_name)
       skills_payload = ConstructSkillsQueryPayload.run(user_id, shared_filter_report_name, skills_filter_report_name)
       skills_report = AssembleSkillsReport.run(skills_payload)
       skills_csv = Adapters::Csv::AdminDiagnosticSkillsSummaryDataExport.to_csv_string(skills_report)
-      UploadToS3.run(user, skills_csv)
+      UploadToS3.run(user, skills_csv, UploadToS3::CSV_FORMAT)
     end
 
     private def generate_students_link(user_id, shared_filter_report_name, students_filter_report_name)
       students_payload = ConstructStudentsQueryPayload.run(user_id, shared_filter_report_name, students_filter_report_name)
       students_report = AssembleStudentsReport.run(students_payload)
       students_csv = Adapters::Csv::AdminDiagnosticStudentsSummaryDataExport.to_csv_string(students_report)
-      UploadToS3.run(user, students_csv)
+      UploadToS3.run(user, students_csv, UploadToS3::CSV_FORMAT)
     end
   end
 end
