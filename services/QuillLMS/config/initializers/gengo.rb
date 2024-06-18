@@ -5,3 +5,5 @@ GengoAPI = Gengo::API.new({
   public_key: ENV["GENGO_PUBLIC_KEY"],
   sandbox: !Rails.env.production?
 })
+
+Gengo::SPANISH_LOCALE = "es-la"
