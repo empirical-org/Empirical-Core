@@ -288,7 +288,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
 
     evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
     evidence_unit_activity_two = create(:unit_activity, :evidence_unit_activity, unit: unit_two)
-    middle_of_school_year = School.school_year_start(Time.now) + 6.months
+    middle_of_school_year = School.school_year_start(Time.current) + 6.months
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,

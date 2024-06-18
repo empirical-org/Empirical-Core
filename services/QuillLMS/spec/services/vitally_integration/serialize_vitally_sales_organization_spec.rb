@@ -206,7 +206,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
         evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
         evidence_unit_activity_two = create(:unit_activity, :evidence_unit_activity, unit: unit_two)
-        middle_of_school_year = School.school_year_start(Time.now) + 6.months
+        middle_of_school_year = School.school_year_start(Time.current) + 6.months
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
@@ -257,7 +257,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         expect(described_class.new(district).data[:traits]).to include(
           evidence_activities_assigned_all_time: 3,
           evidence_activities_assigned_this_year: 3,
-          evidence_activities_assigned_last_year: 0,
+          evidence_activities_assigned_last_year: 0
         )
       end
 
@@ -265,7 +265,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         expect(described_class.new(district).data[:traits]).to include(
           evidence_activities_completed_all_time: 5,
           evidence_activities_completed_this_year: 4,
-          evidence_activities_completed_last_year: 1,
+          evidence_activities_completed_last_year: 1
         )
       end
 
