@@ -80,15 +80,3 @@ export function hashPayload(payloadArray: Array<any>) {
   const joinedPayload = payloadArray.join('-')
   return md5(joinedPayload)
 }
-
-export function getTimeInMinutesAndSeconds(seconds) {
-  if(!seconds) return NOT_APPLICABLE
-
-  let numminutes = Math.floor(seconds / 60).toString();
-  let numseconds = Math.floor(seconds % 60).toString();
-
-  if (numminutes.length === 1) numminutes = "0" + numminutes
-  if (numseconds.length === 1) numseconds = "0" + numseconds
-
-  return `${numminutes}:${numseconds}`
-}

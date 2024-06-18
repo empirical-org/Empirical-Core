@@ -7,6 +7,10 @@ import FeedbackForm from './feedbackForm.jsx'
 
 class ConceptFeedback extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {translated: false}
+  }
   cancelEdit = (feedbackID) => {
     const { dispatch } = this.props
     dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
@@ -32,6 +36,21 @@ class ConceptFeedback extends React.Component {
     const { conceptFeedbackID } = params
     dispatch(actions.startConceptsFeedbackEdit(conceptFeedbackID))
   }
+
+  toggleTranslation = () => {
+    this.setState(prevState => (
+      {translated: !prevState.translated}
+    ))
+  }
+
+  renderTranslationButton(data) {
+    const { translated } = this.state
+    if(data.translatedDescription) {
+      const buttonText = translated ? "Hide translation" : "Show translation"
+      return <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>{buttonText}</button>
+    }
+  }
+
 
   concept = () => {
     const { match, concepts } = this.props
@@ -64,9 +83,11 @@ class ConceptFeedback extends React.Component {
         return (
           <div className="admin-container" key={conceptFeedbackID}>
             {conceptName}
-            <ConceptExplanation {...data[conceptFeedbackID]} />
-            <p className="control">
-              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
+            <ConceptExplanation {...data[conceptFeedbackID]} translated={this.state.translated} />
+            <p className="concept-feedback-control">
+              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button>
+              <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
+              { this.renderTranslationButton(data[conceptFeedbackID]) }
             </p>
           </div>
         )
