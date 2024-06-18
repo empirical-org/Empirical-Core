@@ -17,6 +17,7 @@ module Gengo
 
     def run
       return if gengo_payload.empty?
+
       response = GengoAPI.postTranslationJobs(jobs: gengo_payload)
       raise RequestTranslationError unless response.present?
 

@@ -92,7 +92,11 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
 
     context "the payload returns an empty hash" do
       subject { described_class.run([])}
-      it { subject; expect(GengoAPI).not_to receive(:postTranslationJobs) }
+
+      it {
+        subject
+        expect(GengoAPI).not_to receive(:postTranslationJobs)
+      }
     end
   end
 end
