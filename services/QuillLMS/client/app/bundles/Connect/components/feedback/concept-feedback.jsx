@@ -38,8 +38,9 @@ class ConceptFeedback extends React.Component {
   }
 
   toggleTranslation = () => {
-    const { translated } = this.state
-    this.setState({ translated: !translated })
+    this.setState(prevState => (
+      {translated: !prevState.translated}
+    ))
   }
 
   renderTranslationButton(data) {
