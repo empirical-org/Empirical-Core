@@ -14,9 +14,7 @@ module AdminDiagnosticReports
       @specific_filters_name = specific_filters_name
     end
 
-    def run
-      payload
-    end
+    def run = payload
 
     private def report_specific_filters
       raise NotImplementedError

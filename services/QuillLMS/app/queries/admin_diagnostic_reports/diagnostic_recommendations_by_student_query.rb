@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class DiagnosticRecommendationsByStudentQuery < DiagnosticAggregateViewQuery
     class InvalidDiagnosticIdError < StandardError; end
 
-    attr_reader :diagnostic_id
+    attr_reader :diagnostic_id, :limited
 
     def initialize(diagnostic_id:, limited: true, **options)
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
@@ -52,7 +52,7 @@ module AdminDiagnosticReports
 
     def group_by_clause = ""
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))"
-    def limit_clause = "LIMIT 500" if @limited
+    def limit_clause = ("LIMIT 500" if limited)
 
     def relevant_date_column = "pre_diagnostic_completed_at"
 

@@ -19,7 +19,7 @@ module AdminDiagnosticReports
     context 'no saved specific filters' do
       let(:specific_cilters) { nil }
 
-      it { expect(described_class::DEFAULT_AGGREGATION).to eq(subject[:aggregation]) }
+      it { expect(subject[:aggregation]).to eq(described_class::DEFAULT_AGGREGATION) }
     end
   end
 end

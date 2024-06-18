@@ -9,21 +9,21 @@ describe Formatter do
     let(:selected_format) { described_class::DEFAULT }
     let(:value) { 'Should not be modified' }
 
-    it { expect(subject).to eq(value) }
+    it { is_expected.to eq(value) }
   end
 
   context 'all_caps' do
     let(:selected_format) { described_class::ALL_CAPS }
     let(:value) { 'lowercase' }
 
-    it { expect(subject).to eq(value.upcase) }
+    it { is_expected.to eq(value.upcase) }
   end
 
   context 'as_list' do
     let(:selected_format) { described_class::AS_LIST }
     let(:value) { [1,2,3] }
 
-    it { expect(subject).to eq(value.join(", ")) }
+    it { is_expected.to eq(value.join(", ")) }
   end
 
   context 'as_minutes_string' do
@@ -32,13 +32,13 @@ describe Formatter do
     context "less than one minute" do
       let(:value) { 34 }
 
-      it { expect(subject).to eq("0:34") }
+      it { is_expected.to eq("0:34") }
     end
 
     context "more than one minute" do
       let(:value) { 64 }
 
-      it { expect(subject).to eq("1:04") }
+      it { is_expected.to eq("1:04") }
     end
   end
 
@@ -46,14 +46,14 @@ describe Formatter do
     let(:selected_format) { described_class::AS_RATIO }
     let(:value) { [1,4] }
 
-    it { expect(subject).to eq("#{value[0]} of #{value[1]}") }
+    it { is_expected.to eq("#{value[0]} of #{value[1]}") }
   end
 
   context 'as_rounded_integer' do
     let(:selected_format) { described_class::AS_ROUNDED_INTEGER }
     let(:value) { 45.67 }
 
-    it { expect(subject).to eq(value.round) }
+    it { is_expected.to eq(value.round) }
   end
 
   context 'blank_as_zero' do
@@ -62,19 +62,19 @@ describe Formatter do
     context 'nil value' do
       let(:value) { nil }
 
-      it { expect(subject).to eq(0) }
+      it { is_expected.to eq(0) }
     end
 
     context 'empty string' do
       let(:value) { "" }
 
-      it { expect(subject).to eq(0) }
+      it { is_expected.to eq(0) }
     end
 
     context 'non-blank value' do
       let(:value) { 'Test' }
 
-      it { expect(subject).to eq(value) }
+      it { is_expected.to eq(value) }
     end
   end
 
@@ -89,7 +89,7 @@ describe Formatter do
     let(:selected_format) { described_class::PERCENT_AS_INTEGER }
     let(:value) { 0.5672 }
 
-    it { expect(subject).to eq((value * 100).round) }
+    it { is_expected.to eq((value * 100).round) }
   end
 
   context 'score_or_completed' do
