@@ -38,14 +38,18 @@ class ConceptFeedback extends React.Component {
   }
 
   toggleTranslation = () => {
-    const translated = !this.state.translated
-    this.setState({...this.state, ...{translated: translated}})
-    if (translated) {
-      document.getElementById('toggle-translation').innerHTML = "Hide translation"
-    } else {
-      document.getElementById('toggle-translation').innerHTML = "Show translation"
+    const { translated } = this.state
+    this.setState({ translated: !translated })
+  }
+
+  renderTranslationButton(data) {
+    const { translated } = this.state
+    if(data.translatedDescription) {
+      const buttonText = translated ? "Hide translation" : "Show translation"
+      return <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>{buttonText}</button>
     }
   }
+
 
   concept = () => {
     const { match, concepts } = this.props
@@ -82,7 +86,7 @@ class ConceptFeedback extends React.Component {
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button>
               <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
-              {data[conceptFeedbackID].translatedDescription && <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>Show Translation</button> }
+              { this.renderTranslationButton(data[conceptFeedbackID]) }
             </p>
           </div>
         )
