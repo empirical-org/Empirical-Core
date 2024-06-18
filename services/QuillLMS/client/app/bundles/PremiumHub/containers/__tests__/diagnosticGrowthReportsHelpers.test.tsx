@@ -170,7 +170,7 @@ const mockRecommendationsData = [{
 const mockCombinedData = [{
   aggregate_rows: [
     {
-      averageActivitiesAndTimeSpent: "22 Activities (206:56)",
+      averageActivitiesAndTimeSpent: "22 (3 hrs 26 mins)",
       id: "5",
       name: "Grade 5",
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+12%</button>,
@@ -179,7 +179,7 @@ const mockCombinedData = [{
       studentsCompletedPractice: "113 Students"
     },
     {
-      averageActivitiesAndTimeSpent: "12 Activities (85:57)",
+      averageActivitiesAndTimeSpent: "12 (1 hr 25 mins)",
       id: "7",
       name: "Grade 7",
       overallSkillGrowth: <button className="interactive-wrapper emphasized-content" onClick={mockArgs.handleGrowthChipClick} value={1663}>+10%</button>,
@@ -188,7 +188,7 @@ const mockCombinedData = [{
       studentsCompletedPractice: "46 Students"
     }
   ],
-  averageActivitiesAndTimeSpent: "19 Activities (171:56)",
+  averageActivitiesAndTimeSpent: "19 (2 hrs 51 mins)",
   averageActivitiesCount: 19.40880503144654,
   completedPracticeCount: 159,
   id: 1663,
