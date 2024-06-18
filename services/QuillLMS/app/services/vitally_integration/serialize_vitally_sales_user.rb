@@ -26,7 +26,9 @@ module VitallyIntegration
       diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
       diagnostics_finished = diagnostics_finished(@user).count
       diagnostics_finished_this_year = diagnostics_finished(@user).where("activity_sessions.completed_at >=?", school_year_start).count
+      evidence_activities_assigned_all_time = evidence_assigned_count(@user)
       evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@user, school_year_start, school_year_end)
+      evidence_activities_completed_all_time = evidence_finished(@user).count
       evidence_activities_completed_this_year = evidence_completed_in_year_count(@user, school_year_start, school_year_end)
       date_of_last_completed_evidence_activity = evidence_finished(@user).order("activity_sessions.completed_at DESC").select("activity_sessions.completed_at").first&.completed_at&.strftime("%F") || 'N/A'
       learn_worlds_account = @user.learn_worlds_account
@@ -92,7 +94,9 @@ module VitallyIntegration
           diagnostics_finished_last_year: get_from_cache("diagnostics_finished"),
           percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
           percent_completed_diagnostics_last_year: get_from_cache("percent_completed_diagnostics"),
+          evidence_activities_assigned_all_time: evidence_activities_assigned_all_time,
           evidence_activities_assigned_this_year: evidence_activities_assigned_this_year,
+          evidence_activities_completed_all_time: evidence_activities_completed_all_time,
           evidence_activities_completed_this_year: evidence_activities_completed_this_year,
           evidence_activities_assigned_last_year: get_from_cache('evidence_activities_assigned'),
           evidence_activities_completed_last_year: get_from_cache('evidence_activities_completed'),

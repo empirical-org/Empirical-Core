@@ -335,6 +335,14 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: new_student,
+      state: 'finished',
+      created_at: middle_of_school_year - 1.year,
+      completed_at: middle_of_school_year - 1.year
+    )
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: evidence_unit_activity.activity,
+      user: new_student,
       state: 'started',
       created_at: middle_of_school_year - 1.year,
       completed_at: middle_of_school_year - 1.year
@@ -343,8 +351,10 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
+      evidence_activities_assigned_all_time: 2,
       evidence_activities_assigned_this_year: 2,
       evidence_activities_completed_this_year: 2,
+      evidence_activities_completed_all_time: 3,
       completed_evidence_activities_per_student_this_year: 2.0,
       date_of_last_completed_evidence_activity: (middle_of_school_year - 3.days).strftime("%F")
     )

@@ -82,12 +82,12 @@ module VitallyTeacherStats
     sum_students(filter_evidence(in_school_year(activities_assigned_query(user), school_year_start, school_year_end)))
   end
 
-  private def evidence_assigned_count(user)
-    sum_students(filter_evidence(activities_assigned_query(user)))
+  def evidence_finished(user)
+    activities_finished_query(user).where("activities.activity_classification_id=?", evidence_id)
   end
 
-  private def evidence_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=?", evidence_id)
+  private def evidence_assigned_count(user)
+    sum_students(filter_evidence(activities_assigned_query(user)))
   end
 
   private def evidence_completed_in_year_count(user, school_year_start, school_year_end)
