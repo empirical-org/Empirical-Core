@@ -30,17 +30,17 @@ module Gengo
         english_texts
           .select(&:needs_translation?)
           .each_with_object({}) do |english_text, hash|
-            hash[english_text.id.to_s] = {
-              type: "text",
-              body_src: english_text.text,
-              lc_src: "en",
-              lc_tgt: Gengo::SPANISH_LOCALE,
-              tier: "standard",
-              slug: english_text.id,
-              group: true,
-              auto_approve: true,
-              comment: STANDARD_COMMENT
-            }
+          hash[english_text.id.to_s] = {
+            type: "text",
+            body_src: english_text.text,
+            lc_src: "en",
+            lc_tgt: Gengo::SPANISH_LOCALE,
+            tier: "standard",
+            slug: english_text.id,
+            group: true,
+            auto_approve: true,
+            comment: STANDARD_COMMENT
+          }
         end
       end
     end
