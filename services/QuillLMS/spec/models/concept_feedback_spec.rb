@@ -54,8 +54,58 @@ RSpec.describe ConceptFeedback, type: :model do
   end
 
   describe '#as_json' do
-    it 'should just be the data attribute' do
-      expect(concept_feedback.as_json).to eq(concept_feedback.data)
+    subject { concept_feedback.as_json }
+
+    let(:data) { concept_feedback.data }
+
+    context 'there are no translations' do
+      it { expect(subject).to eq(data) }
+    end
+
+    context 'there are translations available' do
+      let(:translation) { "test translation" }
+      let(:translated_text) { create(:translated_text, translation: translation)}
+
+      before do
+        concept_feedback.create_translation_mappings
+        concept_feedback.english_texts.first.translated_texts << translated_text
+      end
+
+      it 'adds the translations to the data' do
+        expect(subject["translatedDescription"]).to eq(translation)
+      end
+    end
+  end
+
+  describe '#translation(locale:)' do
+    let(:locale) {"es-la"}
+
+    subject { concept_feedback.translation(locale: locale)}
+
+    context 'a translation exists' do
+      let(:translation) { "test translation" }
+      let(:translated_text) { create(:translated_text, translation: translation, locale: translation_locale)}
+
+      before do
+        concept_feedback.create_translation_mappings
+        concept_feedback.english_texts.first.translated_texts << translated_text
+      end
+
+      context 'there is a translation for the locale' do
+        let(:translation_locale) { locale }
+
+        it {expect(subject).to eq(translation)}
+      end
+
+      context 'there are only translations for different locales' do
+        let(:translation_locale) { "jp" }
+
+        it {expect(subject).to be_nil}
+      end
+    end
+
+    context 'there are no translations' do
+      it {expect(subject).to be_nil}
     end
   end
 
