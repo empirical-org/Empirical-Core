@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe CsvGenerator do
   subject { test_subclass.run(data, specified_columns:) }
+
   let(:object) { test_subclass.new(data, specified_columns:) }
   let(:rows) { CSV.parse(subject).map { |row| row.join(',') } }
 

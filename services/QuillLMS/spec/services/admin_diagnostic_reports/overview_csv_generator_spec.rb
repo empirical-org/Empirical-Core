@@ -6,7 +6,7 @@ module AdminDiagnosticReports
   describe OverviewCsvGenerator do
     subject { described_class.run(data, specified_columns:) }
     let(:rows) { CSV.parse(subject).map { |row| row.join(',') } }
-  
+
     let(:specified_columns) { data.first.except(:aggregate_rows).keys }
     let(:diagnostic_name1) { 'Starter Diagnostic' }
     let(:diagnostic_name2) { 'Intermediate Diagnotic' }

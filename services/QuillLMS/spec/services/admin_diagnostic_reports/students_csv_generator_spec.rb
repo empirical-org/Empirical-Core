@@ -16,8 +16,8 @@ module AdminDiagnosticReports
         :post_skills_to_practice_list
       ]
     end
- 
-    let(:student_name) { 'Student Name' } 
+
+    let(:student_name) { 'Student Name' }
     let(:data) do
       [
         {
@@ -27,11 +27,6 @@ module AdminDiagnosticReports
         }
       ]
     end
-    let(:pre_skills_proficient) {  }
-    let(:pre_skills_to_practice) {  }
-    let(:post_skills_improved) {  }
-    let(:post_skills_maintained) {  }
-    let(:post_skills_to_practice) {  }
     let(:aggregate_rows) do
       [
         {

@@ -42,17 +42,17 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
     it do
       expect(AdminDiagnosticReports::ConstructOverviewQueryPayload).to receive(:run).with(user_id, shared_filter_report_name, overview_filter_report_name).and_return(overview_payload)
       expect(AdminDiagnosticReports::AssembleOverviewReport).to receive(:run).with(overview_payload).and_return(overview_report)
-      expect(Adapters::Csv::AdminDiagnosticOverviewDataExport).to receive(:to_csv_string).with(overview_report).and_return(overview_csv)
+      expect(AdminDiagnosticReports::OverviewCsvGenerator).to receive(:run).with(overview_report).and_return(overview_csv)
       expect(UploadToS3).to receive(:run).with(user, overview_csv, UploadToS3::CSV_FORMAT).and_return(overview_url)
 
       expect(AdminDiagnosticReports::ConstructSkillsQueryPayload).to receive(:run).with(user_id, shared_filter_report_name, skills_filter_report_name).and_return(skills_payload)
       expect(AdminDiagnosticReports::AssembleSkillsReport).to receive(:run).with(skills_payload).and_return(skills_report)
-      expect(Adapters::Csv::AdminDiagnosticSkillsSummaryDataExport).to receive(:to_csv_string).with(skills_report).and_return(skills_csv)
+      expect(AdminDiagnosticReports::SkillsCsvGenerator).to receive(:run).with(skills_report).and_return(skills_csv)
       expect(UploadToS3).to receive(:run).with(user, skills_csv, UploadToS3::CSV_FORMAT).and_return(skills_url)
 
       expect(AdminDiagnosticReports::ConstructStudentsQueryPayload).to receive(:run).with(user_id, shared_filter_report_name, students_filter_report_name).and_return(students_payload)
       expect(AdminDiagnosticReports::AssembleStudentsReport).to receive(:run).with(students_payload).and_return(students_report)
-      expect(Adapters::Csv::AdminDiagnosticStudentsSummaryDataExport).to receive(:to_csv_string).with(students_report).and_return(students_csv)
+      expect(AdminDiagnosticReports::StudentsCsvGenerator).to receive(:run).with(students_report).and_return(students_csv)
       expect(UploadToS3).to receive(:run).with(user, students_csv, UploadToS3::CSV_FORMAT).and_return(students_url)
 
       expect(AdminDiagnosticReports::ReportMailer).to receive(:csv_download_email).with(user_id, overview_url, skills_url, students_url).and_return(mailer_double)
