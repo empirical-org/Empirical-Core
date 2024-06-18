@@ -3,6 +3,7 @@
 module VitallyIntegration
   class PreviousYearSchoolDatum
     include VitallySchoolStats
+    include VitallySharedFunctions
 
     def initialize(school, year)
       @year = year

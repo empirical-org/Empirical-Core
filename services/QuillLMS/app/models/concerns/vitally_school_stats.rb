@@ -27,31 +27,6 @@ module VitallySchoolStats
       .where('activity_sessions.state = ?', 'finished')
   end
 
-  def activities_per_student(active_students, activities_finished)
-    if active_students > 0
-      (activities_finished.to_f / active_students).round(2)
-    else
-      0
-    end
-  end
-
-  def sum_students(activities)
-    activities.map { |r| r&.assigned_student_ids&.count || 0 }.sum
-  end
-
-  def filter_evidence(activities)
-    evidence_ids = Activity.where(activity_classification_id: evidence_id).pluck(:id)
-    activities.select {|r| evidence_ids.include?(r.id) }
-  end
-
-  def evidence_id
-    ActivityClassification.evidence.id
-  end
-
-  def in_school_year(activities, school_year_start, school_year_end)
-    activities.select {|r| r.created_at >= school_year_start && r.created_at < school_year_end }
-  end
-
   def activities_assigned_query(school)
     ClassroomUnit.joins("JOIN unit_activities ON classroom_units.unit_id=unit_activities.unit_id")
     .joins("JOIN activities ON activities.id = unit_activities.activity_id")
@@ -61,22 +36,6 @@ module VitallySchoolStats
     .joins("JOIN schools ON schools_users.school_id=schools.id")
     .where("schools.id = ?", school.id)
     .select("assigned_student_ids, activities.id, unit_activities.created_at")
-  end
-
-  def evidence_assigned_in_year_count(school, school_year_start, school_year_end)
-    sum_students(filter_evidence(in_school_year(activities_assigned_query(school), school_year_start, school_year_end)))
-  end
-
-  private def evidence_assigned_count(school)
-    sum_students(filter_evidence(activities_assigned_query(school)))
-  end
-
-  private def evidence_finished(school)
-    activities_finished_query(school).where("activities.activity_classification_id=?", evidence_id)
-  end
-
-  private def evidence_completed_in_year_count(school, school_year_start, school_year_end)
-    evidence_finished(school).where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
   end
 
 end

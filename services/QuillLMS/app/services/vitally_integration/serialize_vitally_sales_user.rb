@@ -3,6 +3,7 @@
 module VitallyIntegration
   class SerializeVitallySalesUser
     include VitallyTeacherStats
+    include VitallySharedFunctions
 
     BASE_USER_URL = "https://www.quill.org/cms/users"
 
