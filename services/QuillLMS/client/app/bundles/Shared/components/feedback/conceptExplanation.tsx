@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function getClassName(description, leftBox, rightBox, translatedDescription) {
+function getClassName(description, leftBox, rightBox) {
   if (description && leftBox && rightBox) {
     return "concept-explanation"
   }
