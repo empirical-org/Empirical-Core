@@ -39,7 +39,10 @@ class ConceptFeedback < ApplicationRecord
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
   def as_json(options=nil)
-    data
+    translation = translation(locale: "es-la")
+    return data unless translation.present?
+
+    data.merge({"translatedDescription" => translation(locale: "es-la")})
   end
 
   def create_translation_mappings
@@ -50,6 +53,9 @@ class ConceptFeedback < ApplicationRecord
     translation_mappings.create(english_text: )
   end
 
+  def translation(locale:) = translated_texts.find_by(locale:)&.translation
+
+  def translate! = Gengo::RequestTranslations.run(english_texts)
   def fetch_translations! = translated_texts.each(&:fetch_translation!)
 
   private def data_must_be_hash

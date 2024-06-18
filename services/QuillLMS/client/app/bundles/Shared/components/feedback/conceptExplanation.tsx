@@ -7,10 +7,11 @@ function getClassName(description, leftBox, rightBox) {
   return "concept-explanation empty"
 }
 
-const ConceptExplanation = ({ description, leftBox, rightBox, }) => (
+const ConceptExplanation = ({ description, leftBox, rightBox, translatedDescription, translated}) => (
   <div className={getClassName(description, leftBox, rightBox)}>
     <div className="concept-explanation-title"><img alt="Light Bulb Icon" src="https://assets.quill.org/images/icons/hint.svg" /><span>Hint</span></div>
     <div className="concept-explanation-description" dangerouslySetInnerHTML={{__html: description}} />
+    { translated && translatedDescription && <div className="concept-explanation-translation" dangerouslySetInnerHTML={{__html: translatedDescription}} /> }
     <div className="concept-explanation-see-write">
       <div className="concept-explanation-see" dangerouslySetInnerHTML={{__html: leftBox}} />
       <div className="concept-explanation-write" dangerouslySetInnerHTML={{__html: rightBox}} />
