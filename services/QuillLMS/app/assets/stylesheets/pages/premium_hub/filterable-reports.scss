@@ -125,7 +125,6 @@
       margin-top: 24px;
     }
     .dropdown-container {
-      min-height: 50px;
       justify-content: flex-start;
     }
     .dropdown__menu {
@@ -237,7 +236,7 @@
       }
       .dropdown-container {
         width: 100%;
-        min-height: 58px;
+        // min-height: 58px;
         justify-content: flex-start;
       }
     }

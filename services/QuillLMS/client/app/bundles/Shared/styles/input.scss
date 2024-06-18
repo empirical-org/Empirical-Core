@@ -6,10 +6,10 @@
   position: relative;
 
   &.dropdown-container {
+    &.active {
+      min-height: 58px;
+    }
     .dropdown {
-      .dropdown__input-container {
-        display: none;
-      }
       .dropdown__control {
         display: flex;
         align-items: center;
@@ -34,7 +34,7 @@
           }
         }
         .dropdown__single-value, .dropdown__indicators {
-          margin-bottom: 8px;
+          margin-bottom: 4px;
         }
       }
       .dropdown__single-value, .dropdown__option {
@@ -151,7 +151,6 @@
   }
   &.dropdown-container {
     justify-content: flex-start;
-    min-height: 66px
   }
 
   &.not-editable input {
@@ -481,9 +480,6 @@
       }
       label, .dropdown__control {
         display: none;
-      }
-      .input-container {
-        min-height: 0px;
       }
     }
     &:focus {

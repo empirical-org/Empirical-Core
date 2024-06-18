@@ -17,7 +17,6 @@ const BORDERLESS = 'borderless'
 const WITH_LABEL = 'with label'
 const WITHOUT_LABEL = 'without label'
 const WITH_LABEL_AND_HELPER_TEXT = 'with label and helper text'
-const WITH_LABEL_HELPER_TEXT_AND_CHARACTER_COUNT = 'with label, helper text and character count'
 
 const menuOptions = [
   {value: 1, label: 'One'},
@@ -63,8 +62,7 @@ const iconOptions = [
 const labelOptions = [
   {value: WITHOUT_LABEL, label: 'Without label'},
   {value: WITH_LABEL, label: 'With label'},
-  {value: WITH_LABEL_AND_HELPER_TEXT, label: 'Label + helper text'},
-  {value: WITH_LABEL_HELPER_TEXT_AND_CHARACTER_COUNT, label: 'Label + helper text + character count'}
+  {value: WITH_LABEL_AND_HELPER_TEXT, label: 'Label + helper text'}
 ]
 
 export const Menus = () => {
@@ -91,11 +89,23 @@ export const Menus = () => {
     if(iconOption.value) {
       const option = menuOptionsWithIcons.filter(option => option.value === dropdownOne.value)[0]
       setDropdownOne(option)
+      setSearchableOption(searchableOptions[0])
     } else {
       const option = menuOptions.filter(option => option.value === dropdownOne.value)[0]
       setDropdownOne(option)
     }
   }, [iconOption])
+
+  // TODO: fix styling issue where input with icon that is also searchable causes weird formatting (just a note, we don't current have any searchable DropdownInput instances that also have icon options)
+  // this issue is being mitigated by the input { display: none } rule under &.icon in services/QuillLMS/client/app/bundles/Shared/styles/input.scss
+  React.useEffect(() => {
+    if(iconOption.value && searchableOption.value) {
+      const option = menuOptions.filter(option => option.value === dropdownOne.value)[0]
+      setDropdownOne(option)
+      setIconOption(iconOptions[0])
+      setSearchableOption(searchableOptions[0])
+    }
+  }, [iconOption, searchableOption])
 
   const setterFunctions = {
     [DROPDOWN_ONE]: setDropdownOne,
@@ -117,8 +127,8 @@ export const Menus = () => {
   }
 
   const dropdownOptions = iconOption.value ? menuOptionsWithIcons : menuOptions
-  const customizableMenuStyle = `${sizeOption.value} ${styleOption.value} ${disabledOption.value} ${iconOption.value}`
-  const showHelperText = labelOption.value === WITH_LABEL_AND_HELPER_TEXT || labelOption.value === WITH_LABEL_HELPER_TEXT_AND_CHARACTER_COUNT
+  const customizableMenuStyle = `${sizeOption.value} ${styleOption.value} ${disabledOption.value} ${iconOption.value}`.trim().replace(/\s+/g, ' ')
+  const showHelperText = labelOption.value === WITH_LABEL_AND_HELPER_TEXT
   const labelDropdownStyle = styleOption.value === BORDERLESS ? 'disabled' : ''
 
   return (
