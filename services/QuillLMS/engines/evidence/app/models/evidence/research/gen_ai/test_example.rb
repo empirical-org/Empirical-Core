@@ -20,7 +20,7 @@ module Evidence
   module Research
     module GenAI
       class TestExample < ApplicationRecord
-        HUMAN_STATUSES = [
+        STAFF_ASSIGNED_STATUSES = [
           OPTIMAL = 'optimal',
           SUBOPTIMAL = 'suboptimal'
         ].freeze
