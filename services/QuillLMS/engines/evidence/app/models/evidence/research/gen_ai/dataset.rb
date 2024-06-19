@@ -16,6 +16,8 @@ module Evidence
   module Research
     module GenAI
       class Dataset < ApplicationRecord
+        has_many :test_examples, dependent: :destroy
+
         belongs_to :stem_vault
 
         validates :optimal_count, presence: true
@@ -23,8 +25,6 @@ module Evidence
         validates :stem_vault, presence: true
 
         attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count
-
-        delegate :locked?, to: :locked
       end
     end
   end
