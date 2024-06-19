@@ -87,20 +87,22 @@ module VitallyIntegration
 
       evidence_activities_assigned_all_time = evidence_assigned_count(@district)
       evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@district, school_year_start, school_year_end)
+      evidence_activities_assigned_last_year = evidence_assigned_in_year_count(@district, last_school_year_start, school_year_start)
       evidence_activities_completed_all_time = evidence_finished(@district).count
       evidence_activities_completed_this_year = evidence_completed_in_year_count(@district, school_year_start, school_year_end)
       evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
       evidence_activities_completed_last_year = evidence_completed_in_year_count(@district, last_school_year_start, school_year_start)
+      evidence_activities_completed_per_student_last_year = activities_per_student(active_students_last_year, evidence_activities_completed_last_year)
 
       {
-        evidence_activities_assigned_all_time: evidence_activities_assigned_all_time,
-        evidence_activities_assigned_this_year: evidence_activities_assigned_this_year,
-        evidence_activities_assigned_last_year: evidence_assigned_in_year_count(@district, last_school_year_start, school_year_start),
-        evidence_activities_completed_all_time: evidence_activities_completed_all_time,
-        evidence_activities_completed_this_year: evidence_activities_completed_this_year,
-        evidence_activities_completed_last_year: evidence_activities_completed_last_year,
-        evidence_activities_completed_per_student_this_year: evidence_activities_completed_per_student_this_year,
-        evidence_activities_completed_per_student_last_year: activities_per_student(active_students_last_year, evidence_activities_completed_last_year),
+        evidence_activities_assigned_all_time: ,
+        evidence_activities_assigned_this_year: ,
+        evidence_activities_assigned_last_year: ,
+        evidence_activities_completed_all_time: ,
+        evidence_activities_completed_this_year: ,
+        evidence_activities_completed_last_year: ,
+        evidence_activities_completed_per_student_this_year: ,
+        evidence_activities_completed_per_student_last_year: ,
       }
     end
 
@@ -194,26 +196,13 @@ module VitallyIntegration
     end
 
     def activities_assigned_query(district)
-      ClassroomUnit.joins("JOIN unit_activities ON classroom_units.unit_id=unit_activities.unit_id")
-      .joins("JOIN activities ON activities.id = unit_activities.activity_id")
-      .joins("JOIN classrooms ON classrooms.id = classroom_units.classroom_id")
-      .joins("JOIN classrooms_teachers ON classrooms.id=classrooms_teachers.classroom_id")
-      .joins("JOIN schools_users ON schools_users.user_id = classrooms_teachers.user_id")
-      .joins("JOIN schools ON schools_users.school_id=schools.id")
-      .joins("JOIN districts ON schools.district_id = districts.id")
-      .where("districts.id = ?", district.id)
-      .select("assigned_student_ids, activities.id, unit_activities.created_at")
+      ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
+        .where("districts.id = ?", district.id)
+        .select("assigned_student_ids", "activities.id", "unit_activities.created_at")
     end
 
     def activities_finished_query(district)
-      ClassroomsTeacher.joins("JOIN users ON users.id=classrooms_teachers.user_id")
-        .joins("JOIN schools_users ON schools_users.user_id=users.id")
-        .joins("JOIN schools ON schools.id=schools_users.school_id")
-        .joins("JOIN classrooms ON classrooms.id=classrooms_teachers.classroom_id")
-        .joins("JOIN classroom_units ON classroom_units.classroom_id=classrooms.id")
-        .joins("JOIN activity_sessions ON activity_sessions.classroom_unit_id=classroom_units.id")
-        .joins("JOIN activities ON activity_sessions.activity_id = activities.id")
-        .joins("JOIN districts ON schools.district_id = districts.id")
+      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
         .where("districts.id = ?", district.id)
         .where('activity_sessions.state = ?', 'finished')
     end

@@ -82,13 +82,13 @@ module VitallyIntegration
       evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
 
       {
-        evidence_activities_assigned_all_time: evidence_activities_assigned_all_time,
-        evidence_activities_assigned_this_year: evidence_activities_assigned_this_year,
+        evidence_activities_assigned_all_time: ,
+        evidence_activities_assigned_this_year: ,
         evidence_activities_assigned_last_year: get_from_cache('evidence_activities_assigned'),
-        evidence_activities_completed_all_time: evidence_activities_completed_all_time,
-        evidence_activities_completed_this_year: evidence_activities_completed_this_year,
+        evidence_activities_completed_all_time: ,
+        evidence_activities_completed_this_year: ,
         evidence_activities_completed_last_year: get_from_cache('evidence_activities_completed'),
-        evidence_activities_completed_per_student_this_year: evidence_activities_completed_per_student_this_year,
+        evidence_activities_completed_per_student_this_year: ,
         evidence_activities_completed_per_student_last_year: get_from_cache("completed_evidence_activities_per_student"),
       }
     end

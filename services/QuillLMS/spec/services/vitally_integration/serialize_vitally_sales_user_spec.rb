@@ -24,7 +24,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
 
   before do
     create(:activity_classification, key: 'diagnostic')
-    create(:activity_classification, key: 'evidence')
+    create(:evidence)
 
     previous_year_data = {
       total_students: 3,

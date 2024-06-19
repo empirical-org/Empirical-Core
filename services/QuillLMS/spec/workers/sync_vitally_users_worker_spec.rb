@@ -10,7 +10,7 @@ describe SyncVitallyUsersWorker do
 
   before do
     create(:activity_classification, key: 'diagnostic')
-    create(:activity_classification, key: 'evidence')
+    create(:evidence)
   end
 
   describe '#perform' do

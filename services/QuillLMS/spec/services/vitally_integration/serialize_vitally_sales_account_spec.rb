@@ -22,7 +22,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
   let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
 
   before do
-    create(:activity_classification, key: 'evidence')
+    create(:evidence)
     previous_year_data = {
       total_students: 2,
       active_students: 1,

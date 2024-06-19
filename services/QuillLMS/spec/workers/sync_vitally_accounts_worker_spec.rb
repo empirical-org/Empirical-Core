@@ -6,6 +6,9 @@ describe SyncVitallyAccountsWorker do
   subject { described_class.new }
 
   let(:school) { create(:school) }
+  before do
+    create(:evidence)
+  end
 
   describe '#perform' do
     it 'build payloads from school objects and batch send them to Vitally' do
