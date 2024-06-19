@@ -17,9 +17,7 @@ module Evidence
   module Research
     module GenAI
       class Activity < ApplicationRecord
-        has_many :stem_vaults,
-          class_name: 'Evidence::Research::GenAI::StemVault',
-          dependent: :destroy
+        has_many :stem_vaults, dependent: :destroy
 
         validates :name, presence: true
         validates :text, presence: true
