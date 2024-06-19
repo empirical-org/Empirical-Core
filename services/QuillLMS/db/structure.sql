@@ -145,7 +145,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -160,11 +160,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -188,11 +188,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -207,7 +207,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -3371,6 +3371,44 @@ CREATE SEQUENCE public.evidence_research_gen_ai_student_responses_id_seq
 --
 
 ALTER SEQUENCE public.evidence_research_gen_ai_student_responses_id_seq OWNED BY public.evidence_research_gen_ai_student_responses.id;
+
+
+--
+-- Name: evidence_research_gen_ai_test_examples; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_test_examples (
+    id bigint NOT NULL,
+    dataset_id integer NOT NULL,
+    student_response text NOT NULL,
+    staff_assigned_status character varying NOT NULL,
+    staff_feedback text,
+    highlight text,
+    automl_feedback text,
+    automl_status character varying,
+    topic_tag character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_test_examples_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_test_examples_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_test_examples_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_test_examples_id_seq OWNED BY public.evidence_research_gen_ai_test_examples.id;
 
 
 --
@@ -6755,6 +6793,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_student_responses ALTER COLUMN 
 
 
 --
+-- Name: evidence_research_gen_ai_test_examples id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_test_examples ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_test_examples_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_trials id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8017,6 +8062,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_stem_vaults
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_student_responses
     ADD CONSTRAINT evidence_research_gen_ai_student_responses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_test_examples evidence_research_gen_ai_test_examples_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_test_examples
+    ADD CONSTRAINT evidence_research_gen_ai_test_examples_pkey PRIMARY KEY (id);
 
 
 --
@@ -11718,4 +11771,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240619161542'),
 ('20240619174539'),
 ('20240619191903'),
+('20240619220045'),
 ('20240620152448');
+
+

@@ -31,6 +31,7 @@ module Evidence
         it { should have_readonly_attribute(:optimal_count) }
         it { should have_readonly_attribute(:suboptimal_count) }
 
+        it { have_many(:test_examples).dependent(:destroy)}
         it { belong_to(:stem_vault) }
       end
     end
