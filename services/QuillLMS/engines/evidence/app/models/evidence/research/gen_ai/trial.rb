@@ -49,7 +49,7 @@ module Evidence
         store_accessor :results,
           :api_call_times,
           :accuracy_identical,
-          :accuracy_optimal_sub_optimal,
+          :accuracy_optimal_suboptimal,
           :confusion_matrix,
           :g_eval_ids,
           :g_evals

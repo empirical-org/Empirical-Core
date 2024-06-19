@@ -17,11 +17,11 @@ module Evidence
       class Guideline < ApplicationRecord
         CATEGORIES = [
           OPTIMAL = 'optimal',
-          SUB_OPTIMAL = 'sub_optimal'
+          SUBOPTIMAL = 'suboptimal'
         ].freeze
 
         scope :optimal, -> { where(category: OPTIMAL) }
-        scope :sub_optimal, -> { where(category: SUB_OPTIMAL) }
+        scope :suboptimal, -> { where(category: SUBOPTIMAL) }
 
         belongs_to :stem_vault, class_name: 'Evidence::Research::GenAI::StemVault'
 

@@ -3,7 +3,7 @@
 module Evidence
   module Research
     module GenAI
-      module HasOptimalAndSubOptimal
+      module HasOptimalAndSuboptimal
         extend ActiveSupport::Concern
 
         OPTIMAL_PREFIXES = [
@@ -15,7 +15,7 @@ module Evidence
 
         def optimal? = OPTIMAL_PREFIXES.any? { |prefix| text.downcase.strip.start_with?(prefix.downcase.strip) }
 
-        def sub_optimal? = !optimal?
+        def suboptimal? = !optimal?
       end
     end
   end

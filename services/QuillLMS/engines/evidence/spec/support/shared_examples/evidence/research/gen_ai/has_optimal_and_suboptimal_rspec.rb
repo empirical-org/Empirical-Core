@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.shared_examples "a class with optimal and sub-optimal" do
+      RSpec.shared_examples "a class with optimal and suboptimal" do
         describe '#optimal?' do
           subject { quill_feedback.optimal? }
 
@@ -42,8 +42,8 @@ module Evidence
           end
         end
 
-        describe '#sub_optimal?' do
-          subject { quill_feedback.sub_optimal? }
+        describe '#suboptimal?' do
+          subject { quill_feedback.suboptimal? }
 
           let(:quill_feedback) { build(:evidence_research_gen_ai_llm_feedback) }
 
