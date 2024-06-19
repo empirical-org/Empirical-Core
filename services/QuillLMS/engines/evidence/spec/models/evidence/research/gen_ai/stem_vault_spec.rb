@@ -35,6 +35,7 @@ module Evidence
         it { have_many(:quill_feedbacks).through(:student_responses) }
         it { have_many(:llm_feedbacks).through(:student_responses) }
         it { have_many(:trials).dependent(:destroy) }
+        it { have_many(:guidelines).dependent(:destroy) }
 
         describe '#relevant_text' do
           subject { stem_vault.relevant_text }
