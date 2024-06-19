@@ -144,7 +144,10 @@
         width: 100%;
         margin-left: 24px;
         .left-side-container, .right-side-container {
+          display: flex;
+          flex-direction: column;
           width: 100%;
+          gap: 8px;
         }
         .right-side-container {
           margin-left: 24px;

@@ -13,6 +13,8 @@ const SEARCHABLE = 'searchable'
 const ICON = 'icon'
 const LABEL = 'label'
 
+const UNDERLINED = 'underlined'
+const BORDERED = 'bordered'
 const BORDERLESS = 'borderless'
 const WITH_LABEL = 'with label'
 const WITHOUT_LABEL = 'without label'
@@ -39,8 +41,8 @@ const sizeOptions = [
 ]
 
 const styleOptions = [
-  {value: 'bordered', label: 'Bordered'},
-  {value: '', label: 'Underlined'},
+  {value: BORDERED, label: 'Bordered'},
+  {value: UNDERLINED, label: 'Underlined'},
   {value: BORDERLESS, label: 'Borderless'}
 ]
 
