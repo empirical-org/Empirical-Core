@@ -9,6 +9,25 @@
 
   <h3>Stem</h3>
   <p><%= simple_format(@stem_vault.stem) %></p>
+
+  <h3>Optimal Guidelines</h3>
+  <ul>
+    <% @stem_vault.guidelines.optimal.each do |guideline| %>
+      <li><%= guideline %></li>
+    <% end %>
+  </ul>
+
+  <h3>Sub-Optimal Guidelines</h3>
+  <ul>
+    <% @stem_vault.guidelines.sub_optimal.each do |guideline| %>
+      <li><%= guideline %></li>
+    <% end %>
+  </ul>
+</div>
+
+
+<div class="field-spacing">
+  <%= link_to 'New Guideline', new_research_gen_ai_stem_vault_guideline_path(@stem_vault), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
 </div>
 
 <br>

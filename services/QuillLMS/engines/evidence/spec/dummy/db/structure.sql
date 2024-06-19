@@ -1003,6 +1003,39 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 
 --
+-- Name: evidence_research_gen_ai_guidelines; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_guidelines (
+    id bigint NOT NULL,
+    category character varying NOT NULL,
+    text text NOT NULL,
+    stem_vault_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_guidelines_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_guidelines_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_guidelines_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_guidelines_id_seq OWNED BY public.evidence_research_gen_ai_guidelines.id;
+
+
+--
 -- Name: evidence_research_gen_ai_llm_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1565,6 +1598,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_g_evals ALTER COLUMN id SET DEF
 
 
 --
+-- Name: evidence_research_gen_ai_guidelines id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_guidelines ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_guidelines_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_llm_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1863,6 +1903,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_g_evals
     ADD CONSTRAINT evidence_research_gen_ai_g_evals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_guidelines evidence_research_gen_ai_guidelines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_guidelines
+    ADD CONSTRAINT evidence_research_gen_ai_guidelines_pkey PRIMARY KEY (id);
 
 
 --
@@ -2235,6 +2283,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240605132531'),
 ('20240605170721'),
 ('20240605185440'),
-('20240619161005');
+('20240619161005'),
+('20240619171521');
 
 
