@@ -1,0 +1,18 @@
+<div>
+  <h2><%= @stem_vault.model_name.human.titleize %></h2>
+
+  <h3>Activity</h3>
+  <p><%= link_to @stem_vault.name, @stem_vault.activity %></p>
+
+  <h3>Conjunction</h3>
+  <p><%= @stem_vault.conjunction %></p>
+
+  <h3>Stem</h3>
+  <p><%= simple_format(@stem_vault.stem) %></p>
+</div>
+
+<br>
+<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<br>
+<br>
+<%= link_to 'Trials', research_gen_ai_trials_path %>

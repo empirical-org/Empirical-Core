@@ -32,7 +32,7 @@ module Evidence
         it { should have_readonly_attribute(:but_text) }
         it { should have_readonly_attribute(:so_text) }
 
-        it { should have_many(:activity_prompt_configs).class_name('Evidence::Research::GenAI::ActivityPromptConfig').dependent(:destroy) }
+        it { should have_many(:stem_vaults).class_name('Evidence::Research::GenAI::StemVault').dependent(:destroy) }
       end
     end
   end

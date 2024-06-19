@@ -2,21 +2,19 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_activity_prompt_configs
+# Table name: evidence_research_gen_ai_stem_vaults
 #
-#  id                :bigint           not null, primary key
-#  conjunction       :string           not null
-#  optimal_rules     :text             not null
-#  stem              :text             not null
-#  sub_optimal_rules :text             not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  activity_id       :integer          not null
+#  id          :bigint           not null, primary key
+#  conjunction :string           not null
+#  stem        :text             not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  activity_id :integer          not null
 #
 module Evidence
   module Research
     module GenAI
-      class ActivityPromptConfig < ApplicationRecord
+      class StemVault < ApplicationRecord
         CONJUNCTIONS = [
           BECAUSE = 'because',
           BUT = 'but',
@@ -37,11 +35,9 @@ module Evidence
 
         validates :stem, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
-        validates :optimal_rules, presence: true
-        validates :sub_optimal_rules, presence: true
         validates :activity_id, presence: true
 
-        attr_readonly :stem, :conjunction, :optimal_rules, :sub_optimal_rules, :activity_id
+        attr_readonly :stem, :conjunction, :activity_id
 
         delegate :name, :because_text, :but_text, :so_text, to: :activity
 

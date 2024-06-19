@@ -2,37 +2,31 @@
 
 # == Schema Information
 #
-# Table name: evidence_research_gen_ai_activity_prompt_configs
+# Table name: evidence_research_gen_ai_stem_vaults
 #
-#  id                :bigint           not null, primary key
-#  conjunction       :string           not null
-#  optimal_rules     :text             not null
-#  stem              :text             not null
-#  sub_optimal_rules :text             not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  activity_id       :integer          not null
+#  id          :bigint           not null, primary key
+#  conjunction :string           not null
+#  stem        :text             not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  activity_id :integer          not null
 #
 require 'rails_helper'
 
 module Evidence
   module Research
     module GenAI
-      RSpec.describe ActivityPromptConfig, type: :model do
+      RSpec.describe StemVault, type: :model do
         let(:factory) { described_class.model_name.singular.to_sym }
 
         it { expect(build(factory)).to be_valid }
 
         it { should validate_presence_of(:stem) }
         it { should validate_presence_of(:conjunction) }
-        it { should validate_presence_of(:optimal_rules) }
-        it { should validate_presence_of(:sub_optimal_rules) }
         it { should validate_presence_of(:activity_id) }
         it { should validate_inclusion_of(:conjunction).in_array(described_class::CONJUNCTIONS)}
         it { should have_readonly_attribute(:stem) }
         it { should have_readonly_attribute(:conjunction) }
-        it { should have_readonly_attribute(:optimal_rules) }
-        it { should have_readonly_attribute(:sub_optimal_rules) }
         it { should have_readonly_attribute(:activity_id) }
 
         it { belong_to(:activity).class_name('Evidence::Research::GenAI::Activity') }
@@ -43,26 +37,26 @@ module Evidence
         it { have_many(:trials).dependent(:destroy) }
 
         describe '#relevant_text' do
-          subject { activity_prompt_config.relevant_text }
+          subject { stem_vault.relevant_text }
 
-          let(:activity_prompt_config) { create(factory, conjunction:) }
+          let(:stem_vault) { create(factory, conjunction:) }
 
           context 'when conjunction is because' do
             let(:conjunction) { described_class::BECAUSE }
 
-            it { is_expected.to eq activity_prompt_config.because_text }
+            it { is_expected.to eq stem_vault.because_text }
           end
 
           context 'when conjunction is but' do
             let(:conjunction) { described_class::BUT }
 
-            it { is_expected.to eq activity_prompt_config.but_text }
+            it { is_expected.to eq stem_vault.but_text }
           end
 
           context 'when conjunction is so' do
             let(:conjunction) { described_class::SO }
 
-            it { is_expected.to eq activity_prompt_config.so_text }
+            it { is_expected.to eq stem_vault.so_text }
           end
         end
       end

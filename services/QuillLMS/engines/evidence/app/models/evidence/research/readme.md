@@ -1,6 +1,6 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Activity`, `ActivityPromptConfig`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
+`Activity`, `StemVault`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -8,7 +8,7 @@ classDiagram
          name
          text
     }
-    class ActivityPromptConfig {
+    class StemVault {
          conjunction
          instructions
          prompt
@@ -22,13 +22,13 @@ classDiagram
          evaluation
          label
     }
-    Activity --|> ActivityPromptConfig
-    ActivityPromptConfig --|> StudentResponse
+    Activity --|> StemVault
+    StemVault --|> StudentResponse
     StudentResponse --|> QuillFeedback
 ```
 
 ## 2. Trial Configuration
-Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `ActivityPromptConfig` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
+Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `StemVault` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
 
 ```mermaid
 classDiagram
@@ -43,13 +43,13 @@ classDiagram
          contents
          description
     }
-    class ActivityPromptConfig {
+    class StemVault {
     }
     class Trial {
          status
     }
 
-    ActivityPromptConfig --|> Trial
+    StemVault --|> Trial
     LLM --|> Trial
     LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial

@@ -660,7 +660,7 @@ CREATE TABLE public.evidence_automl_models (
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    project character varying NOT NULL
+    project character varying
 );
 
 
@@ -965,41 +965,6 @@ ALTER SEQUENCE public.evidence_research_gen_ai_activities_id_seq OWNED BY public
 
 
 --
--- Name: evidence_research_gen_ai_activity_prompt_configs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_research_gen_ai_activity_prompt_configs (
-    id bigint NOT NULL,
-    activity_id integer NOT NULL,
-    stem text NOT NULL,
-    optimal_rules text NOT NULL,
-    conjunction character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    sub_optimal_rules text NOT NULL
-);
-
-
---
--- Name: evidence_research_gen_ai_activity_prompt_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_research_gen_ai_activity_prompt_configs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_research_gen_ai_activity_prompt_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_research_gen_ai_activity_prompt_configs_id_seq OWNED BY public.evidence_research_gen_ai_activity_prompt_configs.id;
-
-
---
 -- Name: evidence_research_gen_ai_g_evals; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1236,12 +1201,45 @@ ALTER SEQUENCE public.evidence_research_gen_ai_quill_feedbacks_id_seq OWNED BY p
 
 
 --
+-- Name: evidence_research_gen_ai_stem_vaults; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_stem_vaults (
+    id bigint NOT NULL,
+    activity_id integer NOT NULL,
+    stem text NOT NULL,
+    conjunction character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_stem_vaults_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_stem_vaults_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_stem_vaults_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_stem_vaults_id_seq OWNED BY public.evidence_research_gen_ai_stem_vaults.id;
+
+
+--
 -- Name: evidence_research_gen_ai_student_responses; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.evidence_research_gen_ai_student_responses (
     id bigint NOT NULL,
-    activity_prompt_config_id integer NOT NULL,
+    stem_vault_id integer NOT NULL,
     text text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -1273,7 +1271,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_student_responses_id_seq OWNED BY
 
 CREATE TABLE public.evidence_research_gen_ai_trials (
     id bigint NOT NULL,
-    activity_prompt_config_id integer NOT NULL,
+    stem_vault_id integer NOT NULL,
     llm_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
@@ -1281,9 +1279,9 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     results jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    num_examples integer DEFAULT 0 NOT NULL,
     trial_duration double precision,
-    evaluation_duration double precision
+    evaluation_duration double precision,
+    num_examples integer
 );
 
 
@@ -1560,13 +1558,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities ALTER COLUMN id SET 
 
 
 --
--- Name: evidence_research_gen_ai_activity_prompt_configs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_activity_prompt_configs ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_activity_prompt_configs_id_seq'::regclass);
-
-
---
 -- Name: evidence_research_gen_ai_g_evals id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1613,6 +1604,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables ALTER
 --
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_quill_feedbacks_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_stem_vaults id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_stem_vaults ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_stem_vaults_id_seq'::regclass);
 
 
 --
@@ -1860,14 +1858,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities
 
 
 --
--- Name: evidence_research_gen_ai_activity_prompt_configs evidence_research_gen_ai_activity_prompt_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_activity_prompt_configs
-    ADD CONSTRAINT evidence_research_gen_ai_activity_prompt_configs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: evidence_research_gen_ai_g_evals evidence_research_gen_ai_g_evals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1921,6 +1911,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks
     ADD CONSTRAINT evidence_research_gen_ai_quill_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_stem_vaults evidence_research_gen_ai_stem_vaults_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_stem_vaults
+    ADD CONSTRAINT evidence_research_gen_ai_stem_vaults_pkey PRIMARY KEY (id);
 
 
 --
@@ -2236,6 +2234,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240605004535'),
 ('20240605132531'),
 ('20240605170721'),
-('20240605185440');
+('20240605185440'),
+('20240619161005');
 
 
