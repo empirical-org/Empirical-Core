@@ -33,6 +33,7 @@ module Evidence
         has_many :student_responses, dependent: :destroy
         has_many :quill_feedbacks, through: :student_responses
         has_many :guidelines, dependent: :destroy
+        has_many :datasets, dependent: :destroy
 
         validates :stem, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }

@@ -4,9 +4,9 @@ module Evidence
   module Research
     module GenAI
       class ActivitiesController < ApplicationController
-        def new
-          @activity = Activity.new
-        end
+        def index = @activities = Activity.all
+
+        def new = @activity = Activity.new
 
         def create
           @activity = Activity.new(activity_params)

@@ -44,7 +44,7 @@ module Evidence
           it { expect(described_class.prompt_engineering_data).to eq [prompt_engineering_feedback] }
         end
 
-        it_behaves_like 'a class with optimal and sub-optimal'
+        it_behaves_like 'a class with optimal and suboptimal'
       end
     end
   end

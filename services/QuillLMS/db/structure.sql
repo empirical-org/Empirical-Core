@@ -3006,6 +3006,40 @@ ALTER SEQUENCE public.evidence_research_gen_ai_activities_id_seq OWNED BY public
 
 
 --
+-- Name: evidence_research_gen_ai_datasets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_datasets (
+    id bigint NOT NULL,
+    stem_vault_id integer NOT NULL,
+    optimal_count integer NOT NULL,
+    suboptimal_count integer NOT NULL,
+    locked boolean NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_datasets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_datasets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_datasets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_datasets_id_seq OWNED BY public.evidence_research_gen_ai_datasets.id;
+
+
+--
 -- Name: evidence_research_gen_ai_g_evals; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6644,6 +6678,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities ALTER COLUMN id SET 
 
 
 --
+-- Name: evidence_research_gen_ai_datasets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_datasets ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_datasets_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_g_evals id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -7888,6 +7929,14 @@ ALTER TABLE ONLY public.evidence_prompt_texts
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_activities
     ADD CONSTRAINT evidence_research_gen_ai_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_datasets evidence_research_gen_ai_datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_datasets
+    ADD CONSTRAINT evidence_research_gen_ai_datasets_pkey PRIMARY KEY (id);
 
 
 --
@@ -11668,6 +11717,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240610155753'),
 ('20240619161542'),
 ('20240619174539'),
+('20240619191903'),
 ('20240620152448');
-
-

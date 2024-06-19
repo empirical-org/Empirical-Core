@@ -17,7 +17,7 @@ module Evidence
   module Research
     module GenAI
       class QuillFeedback < ApplicationRecord
-        include HasOptimalAndSubOptimal
+        include HasOptimalAndSuboptimal
 
         DATA_PARTITIONS = [
           PROMPT_ENGINEERING_DATA = 'prompt_engineering',
