@@ -1,3 +1,0 @@
-name = "timesheet"
-main = "src/index.ts"
-compatibility_date = "2024-06-17"
