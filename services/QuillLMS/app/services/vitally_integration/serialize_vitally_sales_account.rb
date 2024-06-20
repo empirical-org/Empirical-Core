@@ -34,6 +34,7 @@ module VitallyIntegration
           phone: @school.phone,
           charter: @school.charter,
           frl: @school.free_lunches,
+          direct_certification_snap: @school.direct_certification_snap,
           ppin: @school.ppin,
           nces_id: @school.nces_id,
           school_subscription: school_subscription,
