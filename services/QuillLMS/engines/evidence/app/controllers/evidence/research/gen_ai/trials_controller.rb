@@ -9,35 +9,31 @@ module Evidence
         def index
           @page = params[:page].to_i > 0 ? params[:page].to_i : 1
           @per_page = 50
-          @num_trials = Trial.count
-          @trials = Trial.all.order(id: :desc).offset((@page - 1) * @per_page).limit(@per_page)
+          @num_trials = dataset.trials.count
+          @trials = dataset.trials.all.order(id: :desc).offset((@page - 1) * @per_page).limit(@per_page)
         end
 
         def new
-          @trial = Trial.new
+          @trial = dataset.trials.new
           @llms = LLM.all
-          @stem_vaults = StemVault.all
           @llm_prompt_templates = LLMPromptTemplate.all
           @g_evals = GEval.selectable
+          @guidelines = dataset.stem_vault.guidelines
+          @prompt_examples = dataset.prompt_examples
         end
 
         def create
-          llm_ids.each do |llm_id|
-            llm_prompt_template_ids.each do |llm_prompt_template_id|
-              stem_vault_ids.each do |stem_vault_id|
-                llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, stem_vault_id:)
+          llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, stem_vault_id:)
 
-                run_trial(
-                  llm_id:,
-                  llm_prompt_id: llm_prompt.id,
-                  stem_vault_id:,
-                  num_examples: num_examples(stem_vault_id)
-                )
-              end
-            end
+          trial = dataset.trials.new(llm_id:, llm_prompt_id: llm_prompt.id)
+          trial.results = { g_eval_id: }
+
+          if trial.save
+            RunTrialWorker.perform_async(trial.id)
+            redirect_to research_gen_ai_trials_path
+          else
+            render :new
           end
-
-          redirect_to research_gen_ai_trials_path
         end
 
         def show
@@ -54,37 +50,13 @@ module Evidence
           redirect_to research_gen_ai_trials_path
         end
 
-        private def run_trial(llm_id:, llm_prompt_id:, stem_vault_id:, num_examples:)
-          trial = Trial.new(llm_id:, stem_vault_id:, llm_prompt_id:, num_examples:)
-          trial.results = { g_eval_ids: }
-
-          RunTrialWorker.perform_async(trial.id) if trial.save
-        end
-
         private def trial_params
           params
             .require(:research_gen_ai_trial)
-            .permit(
-              :num_examples,
-              llm_ids: [],
-              llm_prompt_template_ids: [],
-              stem_vault_ids: [],
-              g_eval_ids: []
-            )
+            .permit(:llm_id, :llm_prompt_template_id, :llm_ids, :g_eval_id)
         end
 
-        private def llm_ids = trial_params[:llm_ids].reject(&:blank?).map(&:to_i)
-        private def llm_prompt_template_ids = trial_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
-        private def stem_vault_ids = trial_params[:stem_vault_ids].reject(&:blank?).map(&:to_i)
-        private def g_eval_ids = trial_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []
-
-        private def num_examples(stem_vault_id)
-          max_num_examples = StemVault.find(stem_vault_id).student_responses.testing_data.count
-
-          return max_num_examples if trial_params[:num_examples].blank?
-
-          [max_num_examples, trial_params[:num_examples].to_i].min
-        end
+        private def dataset = @dataset ||= Dataset.find(params[:dataset_id])
       end
     end
   end

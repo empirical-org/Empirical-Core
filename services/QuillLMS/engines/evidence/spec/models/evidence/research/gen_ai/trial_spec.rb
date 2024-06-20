@@ -6,16 +6,15 @@
 #
 #  id                  :bigint           not null, primary key
 #  evaluation_duration :float
-#  num_examples        :integer
 #  results             :jsonb
 #  status              :string           default("pending"), not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  dataset_id          :integer          not null
 #  llm_id              :integer          not null
 #  llm_prompt_id       :integer          not null
-#  stem_vault_id       :integer          not null
 #
 require 'rails_helper'
 
@@ -30,32 +29,34 @@ module Evidence
         it { should validate_presence_of(:status) }
         it { should validate_presence_of(:llm_id) }
         it { should validate_presence_of(:llm_prompt_id) }
-        it { should validate_presence_of(:stem_vault_id) }
+        it { should validate_presence_of(:dataset_id) }
+
         it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
+
         it { should have_readonly_attribute(:llm_id) }
         it { should have_readonly_attribute(:llm_prompt_id) }
-        it { should have_readonly_attribute(:stem_vault_id) }
+        it { should have_readonly_attribute(:dataset_id) }
 
         it { should belong_to(:llm) }
         it { should belong_to(:llm_prompt) }
-        it { should belong_to(:stem_vault) }
+        it { should belong_to(:dataset) }
 
         it { have_many(:llm_feedbacks) }
-        it { have_many(:student_responses).through(:stem_vault) }
+        it { have_many(:student_responses).through(:dataset) }
         it { have_many(:quill_feedbacks).through(:student_responses) }
 
         describe '#run' do
           subject { trial.run }
 
-          let(:trial) { create(factory, num_examples:) }
-          let(:num_examples) { 3 }
-          let(:stem_vault) { trial.stem_vault }
+          let(:trial) { create(factory, num_test_examples:) }
+          let(:num_test_examples) { 3 }
+          let(:dataset) { trial.dataset }
           let(:llm) { trial.llm }
           let(:llm_prompt) { trial.llm_prompt }
           let(:llm_feedback_text) { { 'feedback' => 'This is feedback' }.to_json }
 
           let(:student_responses) do
-            create_list(:evidence_research_gen_ai_student_response, num_examples, stem_vault:)
+            create_list(:evidence_research_gen_ai_student_response, num_test_examples, dataset:)
           end
 
           before do
@@ -74,22 +75,22 @@ module Evidence
           end
 
           it { expect { subject }.to change { trial.reload.status }.to(described_class::COMPLETED) }
-          it { expect { subject }.to change(LLMFeedback, :count).by(num_examples) }
+          it { expect { subject }.to change(LLMFeedback, :count).by(num_test_examples) }
 
           context 'when creating LLM prompt responses feedbacks' do
             it 'only processes testing data responses' do
-              expect(llm).to receive(:completion).exactly(num_examples).times
+              expect(llm).to receive(:completion).exactly(num_test_examples).times
 
               subject
             end
 
             it 'measures and records API call times' do
               # 2 calls for each example: one for the API call and one for the trial_duration
-              expect(Time.zone).to receive(:now).exactly((num_examples * 2) + 2).times.and_call_original
+              expect(Time.zone).to receive(:now).exactly((num_test_examples * 2) + 2).times.and_call_original
 
               subject
 
-              expect(trial.reload.api_call_times.size).to eq(num_examples)
+              expect(trial.reload.api_call_times.size).to eq(num_test_examples)
             end
           end
 

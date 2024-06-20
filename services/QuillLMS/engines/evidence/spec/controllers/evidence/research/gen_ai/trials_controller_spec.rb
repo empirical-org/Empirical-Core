@@ -28,7 +28,7 @@ module Evidence
           let(:stem_vault_ids) { stem_vaults.map(&:id) }
           let(:num_stem_vaults) { rand(1..3) }
 
-          let(:num_examples) { rand(1..3) }
+          let(:num_test_examples) { rand(1..3) }
 
           let(:llm_prompt) { create(:evidence_research_gen_ai_llm_prompt) }
 
@@ -38,7 +38,7 @@ module Evidence
                 llm_ids:,
                 llm_prompt_template_ids:,
                 stem_vault_ids:,
-                num_examples:
+                num_test_examples:
               }
             }
           end

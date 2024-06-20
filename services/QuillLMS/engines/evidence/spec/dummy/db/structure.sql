@@ -1209,7 +1209,12 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompts (
     prompt text NOT NULL,
     llm_prompt_template_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    optimal_guidelines_count integer NOT NULL,
+    suboptimal_guidelines_count integer NOT NULL,
+    optimal_examples_count integer NOT NULL,
+    suboptimal_examples_count integer NOT NULL,
+    locked boolean NOT NULL
 );
 
 
@@ -1474,7 +1479,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_test_examples_id_seq OWNED BY pub
 
 CREATE TABLE public.evidence_research_gen_ai_trials (
     id bigint NOT NULL,
-    stem_vault_id integer NOT NULL,
+    dataset_id integer NOT NULL,
     llm_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
@@ -1483,8 +1488,7 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     trial_duration double precision,
-    evaluation_duration double precision,
-    num_examples integer
+    evaluation_duration double precision
 );
 
 
@@ -2534,6 +2538,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240619215433'),
 ('20240619224707'),
 ('20240620113244'),
-('20240620115506');
+('20240620115506'),
+('20240620122344');
 
 

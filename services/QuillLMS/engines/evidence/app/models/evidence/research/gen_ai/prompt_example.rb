@@ -28,6 +28,9 @@ module Evidence
         validates :dataset_id, presence: true
 
         attr_readonly :staff_assigned_status, :dataset_id, :student_response
+
+        scope :optimal, -> { where(human_status: OPTIMAL) }
+        scope :suboptimal, -> { where(human_status: SUBOPTIMAL) }
       end
     end
   end

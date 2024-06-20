@@ -1,0 +1,22 @@
+<div>
+  <h2><%= @dataset.model_name.human.titleize %></h2>
+
+  <h3>
+    Trials
+    <%= link_to 'new', new_research_gen_ai_dataset_trial_path(@dataset), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+  </h3>
+  <ul>
+    <% @dataset.trials.each do |trial| %>
+      <li><%= link_to 'fred', research_gen_ai_dataset_trial_path(@dataset, @trial) %></li>
+    <% end %>
+  </ul>
+  <h3>Optimal Count</h3>
+  <p><%= @dataset.optimal_count %></p>
+
+  <h3>Suboptimal Count</h3>
+  <p><%= @dataset.suboptimal_count %></p>
+
+
+</div>
+
+<br>

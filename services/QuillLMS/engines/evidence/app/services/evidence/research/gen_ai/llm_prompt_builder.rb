@@ -12,14 +12,13 @@ module Evidence
         #
         # Regexp.last_match(1)&.to_i will be nil in this case
 
-        # Insert 20 examples:
-        # ~~~examples,20~~~
+        # Insert prompt examples:
+        # ~~~prompt_examples~~~
         #
         # Regexp.last_match(1)&.to_i will be 20 in this case
 
         DELIMITER = "~~~"
-        OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
-        EXAMPLES_SUBSTITUTION = 'prompt_engineering_response_feedback_pairs'
+        EXAMPLES_SUBSTITUTION = 'prompt_examples'
 
         ACTIVITY_SUBSTITUTIONS = {
           "stem" => ->(builder, _) { builder.stem_vault.stem },
@@ -38,16 +37,16 @@ module Evidence
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :llm_prompt_template_id, :stem_vault_id
+        attr_reader :llm_prompt_template_id, :dataset_id
 
         validates :llm_prompt_template_id, presence: true
-        validates :stem_vault_id, presence: true
+        validates :dataset_id, presence: true
 
         delegate :contents, to: :llm_prompt_template
 
-        def initialize(llm_prompt_template_id:, stem_vault_id:)
+        def initialize(llm_prompt_template_id:, dataset_id:)
           @llm_prompt_template_id = llm_prompt_template_id
-          @stem_vault_id = stem_vault_id
+          @dataset_id = dataset_id
 
           validate!
         end
@@ -61,7 +60,7 @@ module Evidence
         end
 
         def examples(limit)
-          stem_vault
+          dataset
             .quill_feedbacks
             .prompt_engineering_data
             .limit(limit)
@@ -71,7 +70,7 @@ module Evidence
 
         def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 
-        def stem_vault = @stem_vault ||= StemVault.find(stem_vault_id)
+        def stem_vault = @stem_vault ||= StemVault.find(dataset_id)
 
         def llm_prompt_template = @llm_prompt_template ||= LLMPromptTemplate.find(llm_prompt_template_id)
       end

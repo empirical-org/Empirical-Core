@@ -145,7 +145,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -160,11 +160,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -188,11 +188,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -207,7 +207,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -3250,7 +3250,12 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompts (
     prompt text NOT NULL,
     llm_prompt_template_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    optimal_guidelines_count integer NOT NULL,
+    suboptimal_guidelines_count integer NOT NULL,
+    optimal_examples_count integer NOT NULL,
+    suboptimal_examples_count integer NOT NULL,
+    locked boolean NOT NULL
 );
 
 
@@ -3515,7 +3520,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_test_examples_id_seq OWNED BY pub
 
 CREATE TABLE public.evidence_research_gen_ai_trials (
     id bigint NOT NULL,
-    stem_vault_id integer NOT NULL,
+    dataset_id integer NOT NULL,
     llm_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
@@ -11920,6 +11925,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240620113751'),
 ('20240620115611'),
 ('20240620123025'),
+('20240620123600'),
 ('20240620152448');
 
 

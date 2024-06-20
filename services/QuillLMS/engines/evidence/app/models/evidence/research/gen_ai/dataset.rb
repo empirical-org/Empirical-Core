@@ -18,6 +18,7 @@ module Evidence
       class Dataset < ApplicationRecord
         has_many :test_examples, dependent: :destroy
         has_many :prompt_examples, dependent: :destroy
+        has_many :trials, dependent: :destroy
 
         belongs_to :stem_vault
 

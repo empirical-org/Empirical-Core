@@ -25,7 +25,7 @@ module Evidence
           SUBOPTIMAL = 'suboptimal'
         ].freeze
 
-        IS_LOCKED = 'is locked'
+        LOCKED = 'locked'
 
         belongs_to :dataset
 
@@ -38,7 +38,7 @@ module Evidence
         attr_readonly :staff_assigned_status, :dataset_id, :student_response
 
         private def dataset_unlocked
-          errors.add(:dataset, IS_LOCKED) if dataset&.locked
+          errors.add(:dataset, LOCKED) if dataset&.locked
         end
       end
     end

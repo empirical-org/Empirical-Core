@@ -43,9 +43,6 @@ Evidence::Engine.routes.draw do
 
   namespace :research do
     namespace :gen_ai do
-      resources :trials, only: [:new, :create, :show, :index] do
-        post :retry, on: :member
-      end
 
       resources :llms, only: [:new, :create, :show, :index]
       resources :llm_prompts, only: [:show]
@@ -54,6 +51,12 @@ Evidence::Engine.routes.draw do
       resources :stem_vaults, only: [:new, :create, :show, :index] do
         resources :guidelines, only: [:new, :create]
         resources :datasets, only: [:new, :create, :show], shallow: true
+      end
+
+      resources :datasets, only: [] do
+        resources :trials, only: [:new, :create, :show, :index] do
+          post :retry, on: :member
+        end
       end
 
       resources :activities, only: [:new, :create, :show, :index]
