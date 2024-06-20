@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import { ConceptExplanation, TextEditor, } from '../../../Shared/index';
+import { ConceptExplanation } from './conceptExplanation';
+import { TextEditor } from '../shared';
 
 interface FeedbackFormProps {
   submitNewFeedback: Function;
@@ -18,7 +19,7 @@ interface FeedbackFormState {
   editing: string;
 }
 
-export default class FeedbackForm extends React.Component<FeedbackFormProps, FeedbackFormState> {
+class FeedbackForm extends React.Component<FeedbackFormProps, FeedbackFormState> {
   constructor(props: FeedbackFormProps) {
     super(props)
 
@@ -68,20 +69,25 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
     const parts = ["description", "leftBox", "rightBox"];
     return parts.map((part) => {
       if (part === this.state.editing) {
-        return [
-          (<label className="label">{part}</label>),
-          (<TextEditor
-            handleTextChange={this.handleChange.bind(null, part)}
-            key={part}
-            text={this.state[part]}
-          />)
-        ]
+        return (
+          <React.Fragment key={part}>
+            <label className="label">{part}</label>
+            <TextEditor
+              handleTextChange={this.handleChange.bind(null, part)}
+              key={part}
+              text={this.state[part]}
+            />
+          </React.Fragment>
+        )
+
       } else {
-        return [
-          (<label className="label">{part}</label>),
-          (<div>{this.state[part]}</div>),
-          (<a onClick={this.setEditor.bind(null, part)}>Edit</a>)
-        ]
+        return (
+          <React.Fragment key={part}>
+            <label className="label">{part}</label>
+            <div>{this.state[part]}</div>
+            <a onClick={this.setEditor.bind(null, part)}>Edit</a>
+          </React.Fragment>
+        )
       }
 
     })
@@ -103,3 +109,5 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
   }
 
 }
+
+export { FeedbackForm }
