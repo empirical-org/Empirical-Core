@@ -1,29 +1,11 @@
-export const ENGLISH = 'english';
-export const CHINESE = 'chinese';
-export const HINDI = 'hindi';
-export const SPANISH = 'spanish';
-export const FRENCH = 'french';
-export const ARABIC = 'arabic';
-export const RUSSIAN = 'russian';
-export const PORTUGUESE = 'portuguese';
-export const URDU = 'urdu';
-export const GERMAN = 'german';
-export const JAPANESE = 'japanese';
-export const KOREAN = 'korean';
-export const VIETNAMESE = 'vietnamese';
-export const THAI = 'thai';
-export const UKRAINIAN = 'ukrainian';
-export const TAGALOG = 'tagalog';
-export const DARI = 'dari';
-export const languages = [ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI];
-export const rightToLeftLanguages = [ARABIC, URDU, DARI];
-
 /*
     ELL Starter: -LyFRZvbHAmooTTIIVE2
     ELL Intermediate Diagnostic: 125c9458-beb7-4176-9ae0-02bec65624a2
     ELL Advanced Diagnostic: 4e848241-ca31-4eb5-90e2-0ecba6304521
 */
 
+// import * from "../../../Shared/utils/languageList"
+import * as Language from "../../../Shared/utils/languageList"
 const ELL_STARTER_PRE = '-LyFRZvbHAmooTTIIVE2'
 const ELL_INTERMEDIATE_PRE = '125c9458-beb7-4176-9ae0-02bec65624a2'
 const ELL_ADVANCED_PRE = '4e848241-ca31-4eb5-90e2-0ecba6304521'
@@ -32,10 +14,8 @@ const ELL_INTERMEDIATE_POST = 'a6af4777-faa4-4673-ab40-20732642ddc4'
 const ELL_ADVANCED_POST = '319c308a-64d5-45a3-bef1-0be1e3e3fa07'
 
 export const languageData = {
-  [ENGLISH]: {
-    flag: 'https://assets.quill.org/images/flags/usa.png',
-    label: 'English',
-    intro: {
+  [Language.ENGLISH]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Placement Activity',
         firstLine: 'You’re about to answer 22 questions on writing sentences.',
@@ -74,10 +54,8 @@ export const languageData = {
       }
     }
   },
-  [CHINESE]: {
-    flag: 'https://assets.quill.org/images/flags/china.png',
-    label: '中文',
-    intro: {
+  [Language.CHINESE]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill安置活动',
         firstLine: '你将要回答22个关于编写句子的问题',
@@ -116,10 +94,8 @@ export const languageData = {
       }
     }
   },
-  [HINDI]: {
-    flag: 'https://assets.quill.org/images/flags/india.png',
-    label: 'हिंदी',
-    intro: {
+  [Language.HINDI]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill स्थापन गतिविधि',
         firstLine: 'आप वाक्य लिखने से संबंधित 22 प्रश्नों के उत्तर देने जा रहे हैं।',
@@ -158,10 +134,8 @@ export const languageData = {
       }
     }
   },
-  [SPANISH]: {
-    flag: 'https://assets.quill.org/images/flags/spain.png',
-    label: 'Español',
-    intro: {
+  [Language.SPANISH]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Actividad de emplazamiento de Quill',
         firstLine: 'Vas a responder 22 preguntas sobre cómo escribir oraciones.',
@@ -200,10 +174,8 @@ export const languageData = {
       },
     }
   },
-  [FRENCH]: {
-    flag: 'https://assets.quill.org/images/flags/france.png',
-    label: 'Français',
-    intro: {
+  [Language.FRENCH]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Activité de placement Quill',
         firstLine: 'Vous allez répondre à 22 questions sur l’écriture des phrases.',
@@ -242,10 +214,8 @@ export const languageData = {
       },
     }
   },
-  [ARABIC]: {
-    flag: 'https://assets.quill.org/images/flags/egypt.png',
-    label: 'العربية',
-    intro: {
+  [Language.ARABIC]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'نشاط تحديد المستوى في Quill',
         firstLine: 'أنت على وشك الإجابة على 22 سؤالًا حول كتابة جمل. قد تكون بعض الأسئلة حول أشياء لم تتعلمها بعد – لا بأس! فقط أجب بأفضل طريقة ممكنة. لا تنس قراءة التعليمات بعناية لكل سؤال! بمجرد الانتهاء، ستقوم Quill بإنشاء خطة تعليمية لك فقط.',
@@ -272,10 +242,8 @@ export const languageData = {
       },
     }
   },
-  [RUSSIAN]: {
-    flag: 'https://assets.quill.org/images/flags/russia.png',
-    label: 'Русский',
-    intro: {
+  [Language.RUSSIAN]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Задание по размещению Quill',
         firstLine: 'Вам потребуется ответить на 22 вопроса о написании предложений.',
@@ -314,10 +282,8 @@ export const languageData = {
       },
     }
   },
-  [PORTUGUESE]: {
-    flag: 'https://assets.quill.org/images/flags/brazil.png',
-    label: 'Português',
-    intro: {
+  [Language.PORTUGUESE]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Atividade de Colocação da Quill',
         firstLine: 'Você agora deverá responder 22 perguntas sobre como escrever frases.',
@@ -356,10 +322,8 @@ export const languageData = {
       },
     }
   },
-  [URDU]: {
-    flag: 'https://assets.quill.org/images/flags/pakistan.png',
-    label: 'اردو',
-    intro: {
+  [Language.URDU]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'پلیسمنٹ کی سرگرمی Quill',
         firstLine: 'آپ جملے لکھنے کے متعلق 22 سوالوں کے جواب دینے ہی والے ہیں۔ کچھ سوالات ان چیزوں کے بارے میں ہوسکتے ہیں جن کے بارے میں آپ نے ابھی تک نہیں سیکھا ہے - یہ ٹھیک ہے! جتنا ہو سکے ان کا جواب دیں۔ ہر سوال کے لئے ہدایات احتیاط سے پڑھنا نہ بھولیں! ایک بار جب آپ فارغ ہوجائیں تو ، کوئل آپ کے لئے سیکھنے کا منصوبہ بنائے گی۔',
@@ -386,10 +350,8 @@ export const languageData = {
       },
     }
   },
-  [GERMAN]: {
-    flag: 'https://assets.quill.org/images/flags/germany.png',
-    label: 'Deutsch',
-    intro: {
+  [Language.GERMAN]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Platzdeckchen-Methode (Placemat)',
         firstLine: 'Du stehst kurz davor, 22 Fragen über das Schreiben von Sätzen zu beantworten.',
@@ -428,10 +390,8 @@ export const languageData = {
       },
     }
   },
-  [JAPANESE]: {
-    flag: 'https://assets.quill.org/images/flags/japan.png',
-    label: '日本語',
-    intro: {
+  [Language.JAPANESE]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quillクラス分けアクティビティ',
         firstLine: '作文についての22問の質問に答えます。',
@@ -470,10 +430,8 @@ export const languageData = {
       },
     }
   },
-  [KOREAN]: {
-    flag: 'https://assets.quill.org/images/flags/south_korea.png',
-    label: '한국어',
-    intro: {
+  [Language.KOREAN]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill 배치 활동',
         firstLine: '이제부터 문장 작성에 관한 22 가지 문항에 답해야 합니다.',
@@ -512,10 +470,8 @@ export const languageData = {
       },
     }
   },
-  [VIETNAMESE]: {
-    flag: 'https://assets.quill.org/images/flags/vietnam.png',
-    label: 'Tiếng Việt',
-    intro: {
+  [Language.VIETNAMESE]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Hoạt động Sắp xếp Quill',
         firstLine: 'Bạn sắp trả lời 22 câu hỏi về việc viết câu.',
@@ -554,10 +510,8 @@ export const languageData = {
       },
     }
   },
-  [THAI]: {
-    flag: 'https://assets.quill.org/images/flags/thailand.png',
-    label: 'ไทย',
-    intro: {
+  [Language.THAI]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'กิจกรรมการทดสอบวัดระดับภาษาของ Quill',
         firstLine: 'คุณกำลังจะตอบคำถาม 22 ข้อเกี่ยวกับการเขียนประโยค',
@@ -596,10 +550,8 @@ export const languageData = {
       },
     }
   },
-  [UKRAINIAN]: {
-    flag: 'https://assets.quill.org/images/flags/ukraine.png',
-    label: 'Українська',
-    intro: {
+  [Language.UKRAINIAN]: {
+       intro: {
       [ELL_STARTER_PRE]: {
         header: 'Розподільний тест Quill',
         firstLine: 'Вам потрібно буде відповісти на 22 письмових запитання.',
@@ -638,10 +590,8 @@ export const languageData = {
       },
     }
   },
-  [TAGALOG]: {
-    flag: 'https://assets.quill.org/images/flags/philippines.png',
-    label: 'Tagalog',
-    intro: {
+  [Language.TAGALOG]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'Placement Activity ng Quill',
         firstLine: 'May sasagutin ka ngayon na 22 tanong sa pagsusulat ng pangungusap.',
@@ -680,10 +630,8 @@ export const languageData = {
       },
     }
   },
-  [DARI]: {
-    flag: 'https://assets.quill.org/images/flags/afghanistan.png',
-    label: 'درى',
-    intro: {
+  [Language.DARI]: {
+      intro: {
       [ELL_STARTER_PRE]: {
         header: 'فعالیت قرارگیری درکویل Quill',
         firstLine: 'شمادارین 22 سوال راجواب بدهید با نوشتن جملات. بعضی جملات درباره چیزهای است که شاید شما تا هنوزیادنداشته باشید-درست است! تامیتوانید جواب درست بدهید. ازیادتان نرود که هدایت هرسوال رادرست بخوانید!که خلاص شد,کویل به شما پلان یادگرفتن ایجاد میکند.',

@@ -45,7 +45,7 @@ import {
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
-import { ENGLISH } from '../../modules/translation/languagePageInfo';
+import { ENGLISH } from '../../../Shared/utils/languageList';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
