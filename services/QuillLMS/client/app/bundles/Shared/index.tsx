@@ -14,6 +14,10 @@ export {
 } from './components/feedback/conceptExplanation'
 
 export {
+  FeedbackForm,
+} from './components/feedback/feedbackForm'
+
+export {
   ReactTable,
   TextFilter,
   expanderColumn,

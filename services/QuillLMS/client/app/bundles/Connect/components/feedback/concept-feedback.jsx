@@ -1,9 +1,9 @@
 import React from 'react'
+
 import { connect } from 'react-redux'
-import { ConceptExplanation } from '../../../Shared/index'
+import { ConceptExplanation, FeedbackForm } from '../../../Shared/index'
 import { default as actions, default as feedbackActions } from '../../actions/concepts-feedback'
 import C from '../../constants'
-import FeedbackForm from './feedbackForm.jsx'
 
 class ConceptFeedback extends React.Component {
 
@@ -76,7 +76,7 @@ class ConceptFeedback extends React.Component {
         return (
           <div className="admin-container" key={conceptFeedbackID}>
             {conceptName}
-            <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
+            <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} conceptFeedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
           </div>
         )
       } else {
@@ -99,7 +99,11 @@ class ConceptFeedback extends React.Component {
       return (
         <div className="admin-container" key={conceptFeedbackID}>
           {conceptName}
-          <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
+          <FeedbackForm
+            cancelEdit={this.cancelEdit}
+            conceptFeedbackID={conceptFeedbackID}
+            submitNewFeedback={this.submitNewFeedback}
+          />
         </div>
       )
     }

@@ -7,7 +7,6 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { CompatRouter } from "react-router-dom-v5-compat";
 
 import conceptActions from './actions/concepts';
-import conceptsFeedbackActions from './actions/concepts-feedback';
 import fillInBlankActions from './actions/fillInBlank';
 import lessonActions from './actions/lessons.ts';
 import questionActions from './actions/questions';
@@ -54,14 +53,12 @@ const lessonUid = extractLessonUIDFromLocation();
 if (lessonUid) {
   setTimeout(() => {
     store.dispatch(conceptActions.startListeningToConcepts());
-    store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
     store.dispatch(lessonActions.loadLessonWithQuestions(lessonUid));
   });
 } else {
   setTimeout(() => {
     store.dispatch(titleCardActions.loadTitleCards());
     store.dispatch(conceptActions.startListeningToConcepts());
-    store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
     store.dispatch(questionActions.loadQuestions());
     store.dispatch(fillInBlankActions.loadQuestions());
     store.dispatch(sentenceFragmentActions.loadSentenceFragments());
