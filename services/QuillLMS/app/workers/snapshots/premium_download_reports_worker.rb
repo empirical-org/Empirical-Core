@@ -12,7 +12,7 @@ module Snapshots
       user = User.find(user_id)
       payload = generate_payload(query, timeframe, school_ids, user, filters)
 
-      data = PremiumDataCsvGenerator.run(payload, headers_to_display)
+      data = PremiumDataCsvGenerator.run(payload, specified_columns: headers_to_display)
 
       uploaded_file_url = UploadToS3.run(user, data, UploadToS3::CSV_FORMAT)
 

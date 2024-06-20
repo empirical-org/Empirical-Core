@@ -34,7 +34,7 @@ describe Snapshots::PremiumDownloadReportsWorker do
 
     it do
       expect(Snapshots::UntruncatedDataExportQuery).to receive(:run).with(**query_params).and_return(mock_payload)
-      expect(Snapshots::PremiumDataCsvGenerator).to receive(:run).with(mock_payload, headers_to_display).and_return(mock_csv)
+      expect(Snapshots::PremiumDataCsvGenerator).to receive(:run).with(mock_payload, specified_columns: headers_to_display).and_return(mock_csv)
       expect(UploadToS3).to receive(:run).with(user, mock_csv, UploadToS3::CSV_FORMAT).and_return(s3_url)
       expect(PremiumHubUserMailer).to receive(:admin_premium_download_report_email).with(user.first_name, s3_url, user.email).and_return(mock_mailer)
       expect(mock_mailer).to receive(:deliver_now!)
