@@ -41,6 +41,7 @@ class Cms::SchoolsController < Cms::CmsController
       'ZIP' => @school.zipcode || @school.mail_zipcode,
       'District' => @school.district&.name,
       'Free and Reduced Price Lunch' => "#{@school.free_lunches}%",
+      'Direct Certification - SNAP' => "#{@school.direct_certification}%",
       'NCES ID' => @school.nces_id,
       'PPIN' => @school.ppin,
       'Clever ID' => @school.clever_id
@@ -353,6 +354,7 @@ class Cms::SchoolsController < Cms::CmsController
       'School State' => :state,
       'School ZIP' => :zipcode,
       'FRP Lunch' => :free_lunches,
+      'Direct Certification - SNAP' => :direct_certification,
       'NCES ID' => :nces_id,
       'Clever ID' => :clever_id
     }
