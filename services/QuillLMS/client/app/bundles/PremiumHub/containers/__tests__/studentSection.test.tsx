@@ -15,6 +15,7 @@ const props = {
   selectedClassroomIds: [],
   selectedTimeframe: "This school year",
   diagnosticTypeValue: diagnosticTypeDropdownOptions[0],
+  selectedDiagnosticId: 1663,
   pusherChannel: null,
   handleSetDiagnosticIdForStudentCount: jest.fn(),
   handleSetSelectedDiagnosticType: jest.fn(),
