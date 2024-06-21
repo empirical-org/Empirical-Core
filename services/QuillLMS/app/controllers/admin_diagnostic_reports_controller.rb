@@ -6,12 +6,22 @@ class AdminDiagnosticReportsController < ApplicationController
     "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
   }
 
-  before_action :set_query
-  before_action :validate_request
-  before_action :authorize_request
+  BASE_REPORT_FILTER_NAME = 'diagnostic_growth_report'
+  OVERVIEW_REPORT_FILTER_NAME = 'diagnostic_growth_report_overview'
+  SKILL_REPORT_FILTER_NAME = 'diagnostic_growth_report_skill'
+  STUDENT_REPORT_FILTER_NAME = 'diagnostic_growth_report_student'
+
+  before_action :set_query, only: [:report]
+  before_action :validate_request, only: [:report]
+  before_action :authorize_request, only: [:report]
 
   def report
     render json: retrieve_cache_or_enqueue_worker(WORKERS_FOR_ACTIONS[action_name])
+  end
+
+  def download
+    AdminDiagnosticReports::SendCsvEmailWorker.perform_async(current_user.id, BASE_REPORT_FILTER_NAME, OVERVIEW_REPORT_FILTER_NAME, SKILL_REPORT_FILTER_NAME, STUDENT_REPORT_FILTER_NAME)
+    render json: {}, status: :ok
   end
 
   private def set_query

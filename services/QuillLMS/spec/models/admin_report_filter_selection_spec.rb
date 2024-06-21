@@ -61,6 +61,22 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
     let(:admin_report_filter_selection) { build(:admin_report_filter_selection, :with_default_filters) }
     let(:filter_selections) { admin_report_filter_selection.filter_selections }
 
+    describe '#aggregation' do
+      subject { admin_report_filter_selection.aggregation }
+
+      context 'admin diagnostic report overview page' do
+        let(:admin_report_filter_selection) { build(:diagnostic_report_overview_selection) }
+
+        it { is_expected.to eq filter_selections.dig('group_by_value', 'value') }
+      end
+
+      context 'admin diagnostic report skills page' do
+        let(:admin_report_filter_selection) { build(:diagnostic_report_skill_selection) }
+
+        it { is_expected.to eq filter_selections.dig('group_by_value', 'value') }
+      end
+    end
+
     describe '#classrooms' do
       subject { admin_report_filter_selection.classrooms }
 
@@ -83,6 +99,22 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
       subject { admin_report_filter_selection.custom_start }
 
       it { is_expected.to eq filter_selections['custom_start_date'].to_s }
+    end
+
+    describe '#diagnostic_id' do
+      subject { admin_report_filter_selection.diagnostic_id }
+
+      context 'admin diagnostic report skills page' do
+        let(:admin_report_filter_selection) { build(:diagnostic_report_skill_selection) }
+
+        it { is_expected.to eq filter_selections.dig('diagnostic_type_value', 'value') }
+      end
+
+      context 'admin diagnostic report students page' do
+        let(:admin_report_filter_selection) { build(:diagnostic_report_student_selection) }
+
+        it { is_expected.to eq filter_selections.dig('diagnostic_type_value', 'value') }
+      end
     end
 
     describe '#grades' do

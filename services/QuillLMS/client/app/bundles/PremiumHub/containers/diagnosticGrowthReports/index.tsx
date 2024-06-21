@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, diagnosticTypeDropdownOptions } from '../../shared'
-import { Spinner, whiteArrowPointingDownIcon, filterIcon, documentFileIcon } from '../../../Shared/index'
+import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
+import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
@@ -52,7 +53,6 @@ export const DiagnosticGrowthReportsContainer = ({
   selectedSchools,
   selectedTeachers,
   availableTeachers,
-  handleClickDownloadReport,
   openMobileFilterMenu,
   hasAdjustedFiltersFromDefault,
   handleSetDiagnosticIdForStudentCount,
@@ -63,6 +63,10 @@ export const DiagnosticGrowthReportsContainer = ({
   const [selectedDiagnosticType, setSelectedDiagnosticType] = React.useState<DropdownObjectInterface>(null)
   const [selectedGroupByValue, setSelectedGroupByValue] = React.useState<DropdownObjectInterface>(null)
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
+  const [downloadButtonBusy, setDownloadButtonBusy] = React.useState<boolean>(false)
+  const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
+
+  useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
   React.useEffect(() => {
     // this is for testing purposes; this value will always be null in a non-testing environment
@@ -109,6 +113,7 @@ export const DiagnosticGrowthReportsContainer = ({
 
   const studentSectionProps = {
     ...sharedProps,
+    createCsvReportDownload: createCsvReportDownload,
     diagnosticTypeValue: selectedDiagnosticType,
     handleSetSelectedDiagnosticType,
     passedStudentData: null,
@@ -167,6 +172,16 @@ export const DiagnosticGrowthReportsContainer = ({
     setSelectedGroupByValue(value)
   }
 
+  function createCsvReportDownload() {
+    const buttonDisableTime = 2000
+    setDownloadButtonBusy(true)
+
+    requestPost('/admin_diagnostic_reports/download', {}, (body) => {
+      setShowSnackbar(true)
+      setTimeout(() => { setDownloadButtonBusy(false) }, buttonDisableTime);
+    })
+  }
+
   function renderButtons() {
     return(
       <div className="tabs-for-pages-container">
@@ -218,10 +233,10 @@ export const DiagnosticGrowthReportsContainer = ({
     return restrictedPage
   }
 
-  // TODO: uncomment button code once CSV download feature is ready
   return (
     <main>
       <div className="header">
+        <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
         <h1>
           <span>Diagnostic Growth Report</span>
           <a href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub" rel="noopener noreferrer" target="_blank">
@@ -229,12 +244,12 @@ export const DiagnosticGrowthReportsContainer = ({
             <span>Guide</span>
           </a>
         </h1>
-        {/* <div className="buttons-container">
-          <button className="quill-button-archived download-report-button contained primary medium focus-on-light" onClick={handleClickDownloadReport} type="button">
-            <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />
+        <div className="header-buttons">
+          <button className="quill-button-archived download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
+            {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
             <span>Download</span>
           </button>
-        </div> */}
+        </div>
       </div>
       {renderContent()}
     </main>

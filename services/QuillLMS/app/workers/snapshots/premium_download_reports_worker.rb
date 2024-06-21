@@ -7,24 +7,14 @@ module Snapshots
     class CloudUploadError < StandardError; end
 
     QUERIES = ::Snapshots::PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING
-    TEMPFILE_NAME = 'temp.csv'
 
     def perform(query, user_id, timeframe, school_ids, headers_to_display, filters)
       user = User.find(user_id)
       payload = generate_payload(query, timeframe, school_ids, user, filters)
-      uploader = AdminReportCsvUploader.new(admin_id: user_id)
 
+      data = PremiumDataCsvGenerator.run(payload, specified_columns: headers_to_display)
 
-      csv_tempfile = Tempfile.new(TEMPFILE_NAME)
-      csv_tempfile << Adapters::Csv::AdminPremiumDataExport.to_csv_string(payload, headers_to_display)
-
-      # store! returns nil on failure, rather than raising an exception.
-      # We address this gotcha by manually raising an exception.
-      upload_status = uploader.store!(csv_tempfile)
-      raise CloudUploadError, "Unable to upload CSV for user #{user_id}" unless upload_status
-
-      # The response-content-disposition param triggers browser file download instead of screen rendering
-      uploaded_file_url = uploader.url(query: {"response-content-disposition" => "attachment;"})
+      uploaded_file_url = UploadToS3.run(user, data, UploadToS3::CSV_FORMAT)
 
       email = ENV.fetch('TEST_EMAIL_ADDRESS', user.email) # TODO: remove after integration testing
       PremiumHubUserMailer.admin_premium_download_report_email(user.first_name, uploaded_file_url, email).deliver_now!

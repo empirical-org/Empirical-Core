@@ -4,15 +4,16 @@ module AdminDiagnosticReports
   class DiagnosticPerformanceByStudentViewQuery < DiagnosticAggregateViewQuery
     class InvalidDiagnosticIdError < StandardError; end
 
-    attr_reader :diagnostic_id
+    attr_reader :diagnostic_id, :limited
 
     AGGREGATE_COLUMN = :student_id
     MAX_STUDENTS_TO_RETURN = 500
 
-    def initialize(diagnostic_id:, **options)
+    def initialize(diagnostic_id:, limited: true, **options)
       raise InvalidDiagnosticIdError, "#{diagnostic_id} is not a valid diagnostic_id value." unless DIAGNOSTIC_ORDER_BY_ID.include?(diagnostic_id.to_i)
 
       @diagnostic_id = diagnostic_id
+      @limited = limited
 
       super(aggregation: 'student', **options)
     end
@@ -81,7 +82,7 @@ module AdminDiagnosticReports
     end
 
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name"
-    def limit_clause = " LIMIT 5000"
+    def limit_clause = (" LIMIT 5000" if limited)
 
     def relevant_date_column = "performance.pre_assigned_at"
 
@@ -93,10 +94,13 @@ module AdminDiagnosticReports
       # sorting call at the end since we're using ORDER BY in the SQL
       return [] if result.empty?
 
-      result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
+      result = result.group_by { |row| "#{row[:classroom_id]}:#{row[self.class::AGGREGATE_COLUMN]}" }
         .values
         .map { |group_rows| build_diagnostic_aggregates(group_rows) }
-        .slice(0, MAX_STUDENTS_TO_RETURN)
+
+      return result.slice(0, MAX_STUDENTS_TO_RETURN) if limited
+
+      result
     end
 
     private def valid_aggregation_options = ['student']
@@ -107,10 +111,10 @@ module AdminDiagnosticReports
         pre_to_post_improved_skill_count: sum_aggregate,
         pre_questions_correct: sum_aggregate,
         pre_questions_total: sum_aggregate,
-        pre_questions_percentage: naive_average_aggregate,
+        pre_questions_percentage: average_aggregate(:pre_questions_total),
         post_questions_correct: sum_aggregate,
         post_questions_total: sum_aggregate,
-        post_questions_percentage: naive_average_aggregate,
+        post_questions_percentage: average_aggregate(:post_questions_total),
         total_skills: sum_aggregate,
         pre_skills_proficient: sum_aggregate,
         pre_skills_to_practice: sum_aggregate,
