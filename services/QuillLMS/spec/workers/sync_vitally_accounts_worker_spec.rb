@@ -6,6 +6,7 @@ describe SyncVitallyAccountsWorker do
   subject { described_class.new }
 
   let(:school) { create(:school) }
+
   before do
     create(:evidence)
   end

@@ -95,14 +95,14 @@ module VitallyIntegration
       evidence_activities_completed_per_student_last_year = activities_per_student(active_students_last_year, evidence_activities_completed_last_year)
 
       {
-        evidence_activities_assigned_all_time: ,
-        evidence_activities_assigned_this_year: ,
-        evidence_activities_assigned_last_year: ,
-        evidence_activities_completed_all_time: ,
-        evidence_activities_completed_this_year: ,
-        evidence_activities_completed_last_year: ,
-        evidence_activities_completed_per_student_this_year: ,
-        evidence_activities_completed_per_student_last_year: ,
+        evidence_activities_assigned_all_time:,
+        evidence_activities_assigned_this_year:,
+        evidence_activities_assigned_last_year:,
+        evidence_activities_completed_all_time:,
+        evidence_activities_completed_this_year:,
+        evidence_activities_completed_last_year:,
+        evidence_activities_completed_per_student_this_year:,
+        evidence_activities_completed_per_student_last_year:,
       }
     end
 
