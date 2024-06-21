@@ -41,6 +41,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
   context '#create_school_or_district_if_none_exist' do
     it 'should create a Vitally district if none exists' do
       district = create(:district)
+      create(:evidence)
+
       sales_form_submission.update(collection_type: SalesFormSubmission::DISTRICT_COLLECTION_TYPE, district_name: district.name)
 
       expect(stub_api)
