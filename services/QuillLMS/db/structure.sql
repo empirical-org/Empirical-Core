@@ -4742,7 +4742,8 @@ CREATE TABLE public.schools (
     ppin character varying,
     authorizer_id integer,
     coordinator_id integer,
-    district_id bigint
+    district_id bigint,
+    direct_certification integer
 );
 
 
@@ -11620,6 +11621,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240610145220'),
 ('20240610145308'),
 ('20240610155753'),
+('20240620123025'),
 ('20240620152448');
 
 
