@@ -3,18 +3,16 @@
 namespace :translate do
   desc 'translate hints (concept feedback)'
   task hints: :environment do
-    hints = ConceptFeedback.limit(50)
-    CSV.open('open_ai_spanish_translate.csv', 'wb') do |csv|
-
-      csv << ["english", "spanish"]
-      hints.each_with_index do |hint, index|
-        puts "translating #{index}/50..."
-        res = Evidence::OpenAI::Translate.run(english_text: hint.description)
-        csv << [hint.description, res]
-      end
+    hints = ConceptFeedback.all
+    count = hints.count
+    hints.each_with_index do |hint, index|
+      puts "translating #{index + 1}/#{count}..."
+      res = Evidence::OpenAI::Translate.run(english_text: hint.description)
+      hint.create_translation_mappings
+      hint.english_texts.first.openai_translated_texts.create(
+        translation: res,
+        locale: Gengo::SPANISH_LOCALE)
     end
-
-
 
   end
 

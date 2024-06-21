@@ -32,7 +32,7 @@ class ConceptFeedback < ApplicationRecord
   has_many :translation_mappings, as: :source
   has_many :english_texts, through: :translation_mappings
   has_many :translated_texts, through: :english_texts
-  has_many :openat_translated_texts, through: :english_texts
+  has_many :openai_translated_texts, through: :english_texts
   store_accessor :data, :description
 
   after_commit :clear_concept_feedbacks_cache

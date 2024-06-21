@@ -10,4 +10,5 @@
 #  english_text_id :integer          not null
 #
 class OpenaiTranslatedText < ApplicationRecord
+  belongs_to :english_text
 end
