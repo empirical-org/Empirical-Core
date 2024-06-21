@@ -11,6 +11,7 @@
 #
 class EnglishText < ApplicationRecord
   has_many :translated_texts
+  has_many :openai_translated_texts
   has_many :translation_mappings
 
   def needs_translation?(locale: Gengo::SPANISH_LOCALE)

@@ -4007,6 +4007,39 @@ ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
 
 
 --
+-- Name: openai_translated_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.openai_translated_texts (
+    id bigint NOT NULL,
+    english_text_id integer NOT NULL,
+    translation text NOT NULL,
+    locale character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: openai_translated_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.openai_translated_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: openai_translated_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.openai_translated_texts_id_seq OWNED BY public.openai_translated_texts.id;
+
+
+--
 -- Name: pack_sequence_items; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -5789,8 +5822,7 @@ CREATE TABLE public.user_activity_classifications (
     user_id bigint,
     activity_classification_id bigint,
     count integer DEFAULT 0,
-    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -6813,6 +6845,13 @@ ALTER TABLE ONLY public.oauth_applications ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.objectives_id_seq'::regclass);
+
+
+--
+-- Name: openai_translated_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.openai_translated_texts ALTER COLUMN id SET DEFAULT nextval('public.openai_translated_texts_id_seq'::regclass);
 
 
 --
@@ -8098,6 +8137,14 @@ ALTER TABLE ONLY public.oauth_applications
 
 ALTER TABLE ONLY public.objectives
     ADD CONSTRAINT objectives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: openai_translated_texts openai_translated_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.openai_translated_texts
+    ADD CONSTRAINT openai_translated_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -11620,6 +11667,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240610145220'),
 ('20240610145308'),
 ('20240610155753'),
-('20240620152448');
+('20240620152448'),
+('20240621215153');
 
 
