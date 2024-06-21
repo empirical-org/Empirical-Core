@@ -5788,7 +5788,9 @@ CREATE TABLE public.user_activity_classifications (
     id bigint NOT NULL,
     user_id bigint,
     activity_classification_id bigint,
-    count integer DEFAULT 0
+    count integer DEFAULT 0,
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -11617,6 +11619,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240605185824'),
 ('20240610145220'),
 ('20240610145308'),
-('20240610155753');
+('20240610155753'),
+('20240620152448');
 
 

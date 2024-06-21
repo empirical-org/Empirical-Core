@@ -3,6 +3,7 @@
 module VitallyIntegration
   class SerializeVitallySalesAccount
     include VitallySchoolStats
+    include VitallySharedFunctions
 
     NOT_APPLICABLE = 'N/A'
 
@@ -13,10 +14,13 @@ module VitallyIntegration
     def data
       current_time = Time.current
       school_year_start = School.school_year_start(current_time)
+      school_year_end = school_year_start + 1.year
+
       active_students = active_students_query(@school).count
       active_students_this_year = active_students_query(@school).where("activity_sessions.completed_at >= ?", school_year_start).count
       activities_finished = activities_finished_query(@school).count("DISTINCT activity_sessions.id")
       activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.completed_at >= ?", school_year_start).count("DISTINCT activity_sessions.id")
+
       {
         accountId: @school.id.to_s,
         organizationId: organization_id,
@@ -53,6 +57,7 @@ module VitallyIntegration
           activities_per_student: activities_per_student(active_students, activities_finished),
           activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
           activities_per_student_last_year: get_from_cache("activities_per_student"),
+          **evidence_rollups,
           school_link: school_link,
           created_at: @school.created_at,
           premium_expiry_date: subscription_expiration_date,
@@ -62,6 +67,30 @@ module VitallyIntegration
           purchase_order_number_current_contract: purchase_order_number_current_contract,
           last_active: last_active
         }
+      }
+    end
+
+    private def evidence_rollups
+      current_time = Time.current
+      school_year_start = School.school_year_start(current_time)
+      school_year_end = school_year_start + 1.year
+      active_students_this_year = active_students_query(@school).where("activity_sessions.completed_at >= ?", school_year_start).count
+
+      evidence_activities_assigned_all_time = evidence_assigned_count(@school)
+      evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@school, school_year_start, school_year_end)
+      evidence_activities_completed_all_time = evidence_finished(@school).count
+      evidence_activities_completed_this_year = evidence_completed_in_year_count(@school, school_year_start, school_year_end)
+      evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
+
+      {
+        evidence_activities_assigned_all_time:,
+        evidence_activities_assigned_this_year:,
+        evidence_activities_assigned_last_year: get_from_cache('evidence_activities_assigned'),
+        evidence_activities_completed_all_time:,
+        evidence_activities_completed_this_year:,
+        evidence_activities_completed_last_year: get_from_cache('evidence_activities_completed'),
+        evidence_activities_completed_per_student_this_year:,
+        evidence_activities_completed_per_student_last_year: get_from_cache("completed_evidence_activities_per_student"),
       }
     end
 

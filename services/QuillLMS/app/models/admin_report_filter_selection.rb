@@ -50,11 +50,15 @@ class AdminReportFilterSelection < ApplicationRecord
       .join(", ")
   end
 
+  def aggregation = filter_selections.dig('group_by_value', 'value')
+
   def classrooms = filter_selections['classrooms']&.pluck('name')
   def classroom_ids = filter_selections['classrooms']&.pluck('value')
 
   def custom_end = filter_selections['custom_end_date'].to_s
   def custom_start = filter_selections['custom_start_date'].to_s
+
+  def diagnostic_id = filter_selections.dig('diagnostic_type_value', 'value')
 
   def grades = all_grades_selected? ? nil : selected_grades
   def grade_values = all_grades_selected? ? nil : selected_grade_values

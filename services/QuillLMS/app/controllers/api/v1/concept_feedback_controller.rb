@@ -53,6 +53,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
 
   private def fetch_all_concept_feedbacks_and_cache
     concept_feedbacks = ConceptFeedback
+      .includes(:translation_mappings, :english_texts, :translated_texts)
       .where(activity_type: params[:activity_type])
       .all
       .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }

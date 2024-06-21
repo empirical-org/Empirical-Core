@@ -12,4 +12,8 @@
 class EnglishText < ApplicationRecord
   has_many :translated_texts
   has_many :translation_mappings
+
+  def needs_translation?(locale: Gengo::SPANISH_LOCALE)
+    translated_texts.where(locale:).empty?
+  end
 end

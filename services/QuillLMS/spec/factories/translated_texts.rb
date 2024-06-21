@@ -14,7 +14,7 @@
 #
 FactoryBot.define do
   factory :translated_text do
-    locale { "es-la" }
+    locale {Gengo::SPANISH_LOCALE}
     english_text_id { 1 }
     translation_job_id { 33 }
   end

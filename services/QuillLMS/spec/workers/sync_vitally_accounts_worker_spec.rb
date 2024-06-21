@@ -7,6 +7,10 @@ describe SyncVitallyAccountsWorker do
 
   let(:school) { create(:school) }
 
+  before do
+    create(:evidence)
+  end
+
   describe '#perform' do
     it 'build payloads from school objects and batch send them to Vitally' do
       vitally_api_double = double
