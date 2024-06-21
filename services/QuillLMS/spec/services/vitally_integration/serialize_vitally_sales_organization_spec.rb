@@ -4,6 +4,10 @@ require 'rails_helper'
 
 describe VitallyIntegration::SerializeVitallySalesOrganization do
 
+  before do
+    create(:evidence)
+  end
+
   context '#data' do
     let!(:district) { create(:district) }
     let!(:school1) { create(:school, district: district) }
@@ -15,7 +19,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:diagnostic) { create(:diagnostic_activity) }
     let!(:unit) { create(:unit, activities: [diagnostic]) }
 
-    it 'should return vitally payload with correct data when no diagnostics have been assigned' do
+    it 'should return vitally payload with correct data when no diagnostics or evidence activities have been assigned' do
       expect(described_class.new(district).data).to eq({
         externalId: district.id.to_s,
         name: district.name,
@@ -33,6 +37,14 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           diagnostics_assigned_last_year: 0,
           diagnostics_completed_this_year: 0,
           diagnostics_completed_last_year: 0,
+          evidence_activities_assigned_all_time: 0,
+          evidence_activities_assigned_this_year: 0,
+          evidence_activities_assigned_last_year: 0,
+          evidence_activities_completed_all_time: 0,
+          evidence_activities_completed_this_year: 0,
+          evidence_activities_completed_last_year: 0,
+          evidence_activities_completed_per_student_this_year: 0,
+          evidence_activities_completed_per_student_last_year: 0,
           percent_diagnostics_completed_this_year: 0.0,
           percent_diagnostics_completed_last_year: 0.0,
           premium_start_date: described_class::VITALLY_NOT_APPLICABLE,
@@ -166,6 +178,101 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       it 'should set the completion rate to 0.0 if no activities were assigned' do
         expect(described_class.new(district).data[:traits]).to include(
           percent_diagnostics_completed_this_year: 0.0
+        )
+      end
+    end
+
+    context 'evidence rollups' do
+      before do
+        teacher = create(:user, role: 'teacher')
+        teacher_two = create(:user, role: 'teacher')
+        create(:schools_users, school: school1, user: teacher)
+        school2 = create(:school, district: district)
+        create(:schools_users, school: school2, user: teacher_two)
+        student = create(:user, role: 'student')
+        student_two = create(:user, role: 'student')
+        student_three = create(:user, role: 'student')
+
+        classroom = create(:classroom)
+        classroom_two = create(:classroom)
+        create(:classrooms_teacher, user: teacher, classroom: classroom)
+        create(:classrooms_teacher, user: teacher_two, classroom: classroom_two)
+        create(:students_classrooms, student: student, classroom: classroom)
+        create(:students_classrooms, student: student_three, classroom: classroom_two)
+        unit = create(:unit, user_id: teacher.id)
+        unit_two = create(:unit, user_id: teacher_two.id)
+        classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id, student_two.id])
+        classroom_unit_two = create(:classroom_unit, classroom: classroom_two, unit: unit_two, assigned_student_ids: [student_three.id])
+
+        evidence_unit_activity = create(:unit_activity, :evidence_unit_activity, unit: unit)
+        evidence_unit_activity_two = create(:unit_activity, :evidence_unit_activity, unit: unit_two)
+        middle_of_school_year = School.school_year_start(Time.current) + 6.months
+        create(:activity_session,
+          classroom_unit: classroom_unit,
+          activity: evidence_unit_activity.activity,
+          user: student,
+          state: 'finished',
+          completed_at: middle_of_school_year - 10.days
+        )
+        create(:activity_session,
+          classroom_unit: classroom_unit_two,
+          activity: evidence_unit_activity_two.activity,
+          user: student_three,
+          state: 'finished',
+          completed_at: middle_of_school_year - 10.days
+        )
+        create(:activity_session,
+          classroom_unit: classroom_unit,
+          activity: evidence_unit_activity.activity,
+          user: student,
+          state: 'finished',
+          completed_at: middle_of_school_year - 3.days
+        )
+        create(:activity_session,
+          classroom_unit: classroom_unit,
+          activity: evidence_unit_activity.activity,
+          user: student,
+          state: 'finished',
+          completed_at: middle_of_school_year - 5.days
+        )
+        create(:activity_session,
+          classroom_unit: classroom_unit,
+          activity: evidence_unit_activity.activity,
+          user: student_two,
+          state: 'finished',
+          created_at: middle_of_school_year - 1.year,
+          completed_at: middle_of_school_year - 1.year
+        )
+        create(:activity_session,
+          classroom_unit: classroom_unit,
+          activity: evidence_unit_activity.activity,
+          user: student_two,
+          state: 'started',
+          created_at: middle_of_school_year - 1.year,
+          completed_at: middle_of_school_year - 1.year
+        )
+      end
+
+      it 'should roll up evidence assignments this year and last year and all time' do
+        expect(described_class.new(district).data[:traits]).to include(
+          evidence_activities_assigned_all_time: 3,
+          evidence_activities_assigned_this_year: 3,
+          evidence_activities_assigned_last_year: 0
+        )
+      end
+
+      it 'should roll up evidence completions this year and last year and all time' do
+        expect(described_class.new(district).data[:traits]).to include(
+          evidence_activities_completed_all_time: 5,
+          evidence_activities_completed_this_year: 4,
+          evidence_activities_completed_last_year: 1
+        )
+      end
+
+      it 'should roll up evidence completions per student this year and last year and all time' do
+        expect(described_class.new(district).data[:traits]).to include(
+          evidence_activities_completed_per_student_this_year: 2,
+          evidence_activities_completed_per_student_last_year: 1
         )
       end
     end

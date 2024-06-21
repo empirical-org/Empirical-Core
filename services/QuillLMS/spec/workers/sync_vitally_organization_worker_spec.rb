@@ -11,6 +11,10 @@ describe SyncVitallyOrganizationWorker do
   let(:response_double) { double(success?: true) }
   let(:vitally_api_double) { double }
 
+  before do
+    create(:evidence)
+  end
+
   describe '#perform' do
     it 'build payload from district object and send them to Vitally' do
       expect(vitally_api_double)

@@ -2,6 +2,7 @@
 
 module VitallyIntegration
   class SerializeVitallySalesOrganization
+    include VitallySharedFunctions
 
     VITALLY_NOT_APPLICABLE = 'N/A'
 
@@ -24,6 +25,7 @@ module VitallyIntegration
           total_students: @district.total_students,
           total_schools: @district.total_schools,
           **diagnostic_rollups,
+          **evidence_rollups,
           **subscription_rollups,
           **activities_and_students_rollups
         }
@@ -73,6 +75,34 @@ module VitallyIntegration
         diagnostics_completed_last_year: diagnostics_completed_last_year,
         percent_diagnostics_completed_this_year: percent_completed_this_year,
         percent_diagnostics_completed_last_year: percent_completed_last_year
+      }
+    end
+
+    private def evidence_rollups
+      school_year_start = School.school_year_start(Time.current)
+      last_school_year_start = school_year_start - 1.year
+      school_year_end = school_year_start + 1.year
+      active_students_this_year = active_students(school_year_start)
+      active_students_last_year = active_students(last_school_year_start, school_year_start)
+
+      evidence_activities_assigned_all_time = evidence_assigned_count(@district)
+      evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@district, school_year_start, school_year_end)
+      evidence_activities_assigned_last_year = evidence_assigned_in_year_count(@district, last_school_year_start, school_year_start)
+      evidence_activities_completed_all_time = evidence_finished(@district).count
+      evidence_activities_completed_this_year = evidence_completed_in_year_count(@district, school_year_start, school_year_end)
+      evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
+      evidence_activities_completed_last_year = evidence_completed_in_year_count(@district, last_school_year_start, school_year_start)
+      evidence_activities_completed_per_student_last_year = activities_per_student(active_students_last_year, evidence_activities_completed_last_year)
+
+      {
+        evidence_activities_assigned_all_time:,
+        evidence_activities_assigned_this_year:,
+        evidence_activities_assigned_last_year:,
+        evidence_activities_completed_all_time:,
+        evidence_activities_completed_this_year:,
+        evidence_activities_completed_last_year:,
+        evidence_activities_completed_per_student_this_year:,
+        evidence_activities_completed_per_student_last_year:,
       }
     end
 
@@ -162,6 +192,18 @@ module VitallyIntegration
         .joins([classroom: [classroom_units: :activity_sessions]])
         .joins("JOIN users students on students.id = activity_sessions.user_id")
         .where('districts.id = ?', @district.id)
+        .where('activity_sessions.state = ?', 'finished')
+    end
+
+    def activities_assigned_query(district)
+      ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
+        .where("districts.id = ?", district.id)
+        .select("assigned_student_ids", "activities.id", "unit_activities.created_at")
+    end
+
+    def activities_finished_query(district)
+      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
+        .where("districts.id = ?", district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
 
