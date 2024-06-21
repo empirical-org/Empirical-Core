@@ -33,7 +33,6 @@ class SyncDistrictDataFromUrlWorker
       else
         District.create!(attributes_hash)
       end
-      
     end
   end
 end
