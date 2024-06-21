@@ -41,7 +41,10 @@ class SyncSchoolDataFromUrlWorker
       district = District.find_by(nces_id: school_data['leaid'].to_i)
       attributes_hash[:district_id] = district&.id
 
-      school = School.find_by(nces_id: attributes_hash[:nces_id])
+      # we have to do this complicated search because historically nces ids, which are largely but not always numerals stored as strings in our database, have sometimes been stored with leading zeroes and sometimes without
+      # this type coercion ensures that we'll find the matching one no matter what
+
+      school = School.find_by(nces_id: attributes_hash[:nces_id]) || School.where("CAST(CASE WHEN nces_id ~ '^[0-9]+$' THEN nces_id ELSE '0' END AS BIGINT) = ?", attributes_hash[:nces_id]).first
       if school.present?
         school.update!(attributes_hash.except(:name))
       else
