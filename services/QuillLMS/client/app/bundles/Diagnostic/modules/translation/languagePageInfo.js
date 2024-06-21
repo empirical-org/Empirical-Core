@@ -15,7 +15,7 @@ const ELL_ADVANCED_POST = '319c308a-64d5-45a3-bef1-0be1e3e3fa07'
 
 export const languageData = {
   [Language.ENGLISH]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Placement Activity',
         firstLine: 'You’re about to answer 22 questions on writing sentences.',
@@ -55,7 +55,7 @@ export const languageData = {
     }
   },
   [Language.CHINESE]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill安置活动',
         firstLine: '你将要回答22个关于编写句子的问题',
@@ -95,7 +95,7 @@ export const languageData = {
     }
   },
   [Language.HINDI]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill स्थापन गतिविधि',
         firstLine: 'आप वाक्य लिखने से संबंधित 22 प्रश्नों के उत्तर देने जा रहे हैं।',
@@ -135,7 +135,7 @@ export const languageData = {
     }
   },
   [Language.SPANISH]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Actividad de emplazamiento de Quill',
         firstLine: 'Vas a responder 22 preguntas sobre cómo escribir oraciones.',
@@ -175,7 +175,7 @@ export const languageData = {
     }
   },
   [Language.FRENCH]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Activité de placement Quill',
         firstLine: 'Vous allez répondre à 22 questions sur l’écriture des phrases.',
@@ -215,7 +215,7 @@ export const languageData = {
     }
   },
   [Language.ARABIC]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'نشاط تحديد المستوى في Quill',
         firstLine: 'أنت على وشك الإجابة على 22 سؤالًا حول كتابة جمل. قد تكون بعض الأسئلة حول أشياء لم تتعلمها بعد – لا بأس! فقط أجب بأفضل طريقة ممكنة. لا تنس قراءة التعليمات بعناية لكل سؤال! بمجرد الانتهاء، ستقوم Quill بإنشاء خطة تعليمية لك فقط.',
@@ -243,7 +243,7 @@ export const languageData = {
     }
   },
   [Language.RUSSIAN]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Задание по размещению Quill',
         firstLine: 'Вам потребуется ответить на 22 вопроса о написании предложений.',
@@ -283,7 +283,7 @@ export const languageData = {
     }
   },
   [Language.PORTUGUESE]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Atividade de Colocação da Quill',
         firstLine: 'Você agora deverá responder 22 perguntas sobre como escrever frases.',
@@ -323,7 +323,7 @@ export const languageData = {
     }
   },
   [Language.URDU]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'پلیسمنٹ کی سرگرمی Quill',
         firstLine: 'آپ جملے لکھنے کے متعلق 22 سوالوں کے جواب دینے ہی والے ہیں۔ کچھ سوالات ان چیزوں کے بارے میں ہوسکتے ہیں جن کے بارے میں آپ نے ابھی تک نہیں سیکھا ہے - یہ ٹھیک ہے! جتنا ہو سکے ان کا جواب دیں۔ ہر سوال کے لئے ہدایات احتیاط سے پڑھنا نہ بھولیں! ایک بار جب آپ فارغ ہوجائیں تو ، کوئل آپ کے لئے سیکھنے کا منصوبہ بنائے گی۔',
@@ -351,7 +351,7 @@ export const languageData = {
     }
   },
   [Language.GERMAN]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Platzdeckchen-Methode (Placemat)',
         firstLine: 'Du stehst kurz davor, 22 Fragen über das Schreiben von Sätzen zu beantworten.',
@@ -391,7 +391,7 @@ export const languageData = {
     }
   },
   [Language.JAPANESE]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quillクラス分けアクティビティ',
         firstLine: '作文についての22問の質問に答えます。',
@@ -431,7 +431,7 @@ export const languageData = {
     }
   },
   [Language.KOREAN]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill 배치 활동',
         firstLine: '이제부터 문장 작성에 관한 22 가지 문항에 답해야 합니다.',
@@ -471,7 +471,7 @@ export const languageData = {
     }
   },
   [Language.VIETNAMESE]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Hoạt động Sắp xếp Quill',
         firstLine: 'Bạn sắp trả lời 22 câu hỏi về việc viết câu.',
@@ -511,7 +511,7 @@ export const languageData = {
     }
   },
   [Language.THAI]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'กิจกรรมการทดสอบวัดระดับภาษาของ Quill',
         firstLine: 'คุณกำลังจะตอบคำถาม 22 ข้อเกี่ยวกับการเขียนประโยค',
@@ -551,7 +551,7 @@ export const languageData = {
     }
   },
   [Language.UKRAINIAN]: {
-       intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Розподільний тест Quill',
         firstLine: 'Вам потрібно буде відповісти на 22 письмових запитання.',
@@ -591,7 +591,7 @@ export const languageData = {
     }
   },
   [Language.TAGALOG]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'Placement Activity ng Quill',
         firstLine: 'May sasagutin ka ngayon na 22 tanong sa pagsusulat ng pangungusap.',
@@ -631,7 +631,7 @@ export const languageData = {
     }
   },
   [Language.DARI]: {
-      intro: {
+    intro: {
       [ELL_STARTER_PRE]: {
         header: 'فعالیت قرارگیری درکویل Quill',
         firstLine: 'شمادارین 22 سوال راجواب بدهید با نوشتن جملات. بعضی جملات درباره چیزهای است که شاید شما تا هنوزیادنداشته باشید-درست است! تامیتوانید جواب درست بدهید. ازیادتان نرود که هدایت هرسوال رادرست بخوانید!که خلاص شد,کویل به شما پلان یادگرفتن ایجاد میکند.',
