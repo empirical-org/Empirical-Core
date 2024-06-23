@@ -1,0 +1,9 @@
+name = "cloudflare_rematch"
+main = "src/index.ts"
+compatibility_date = "2024-06-21"
+
+
+[build]
+command = "npm ls"
+cwd = "."
+watch_dir = "."

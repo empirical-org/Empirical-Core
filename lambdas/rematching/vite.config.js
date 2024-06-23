@@ -18,7 +18,7 @@ export default defineConfig({
     },
     lib: {
       entry: path.resolve(__dirname, 'index.js'), // Your Lambda's entry point
-      formats: ['cjs']
+      formats: ['es']
     },
     minify: false,
   },
