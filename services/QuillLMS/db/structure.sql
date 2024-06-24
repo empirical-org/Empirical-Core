@@ -3146,6 +3146,70 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq OWNED BY pub
 
 
 --
+-- Name: evidence_research_gen_ai_llm_prompt_guidelines; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_prompt_guidelines (
+    id bigint NOT NULL,
+    llm_prompt_id integer NOT NULL,
+    guideline_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_guidelines_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompt_guidelines_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_guidelines_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_guidelines_id_seq OWNED BY public.evidence_research_gen_ai_llm_prompt_guidelines.id;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_prompt_examples; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_llm_prompt_prompt_examples (
+    id bigint NOT NULL,
+    llm_prompt_id integer NOT NULL,
+    prompt_example_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq OWNED BY public.evidence_research_gen_ai_llm_prompt_prompt_examples.id;
+
+
+--
 -- Name: evidence_research_gen_ai_llm_prompt_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6778,6 +6842,20 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks ALTER COLUMN id S
 
 
 --
+-- Name: evidence_research_gen_ai_llm_prompt_guidelines id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_guidelines ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_prompt_guidelines_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_prompt_examples id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_prompt_examples ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_llm_prompt_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8047,6 +8125,22 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_guidelines
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks
     ADD CONSTRAINT evidence_research_gen_ai_llm_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_guidelines evidence_research_gen_ai_llm_prompt_guidelines_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_guidelines
+    ADD CONSTRAINT evidence_research_gen_ai_llm_prompt_guidelines_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_llm_prompt_prompt_examples evidence_research_gen_ai_llm_prompt_prompt_examples_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_prompt_prompt_examples
+    ADD CONSTRAINT evidence_research_gen_ai_llm_prompt_prompt_examples_pkey PRIMARY KEY (id);
 
 
 --
@@ -11822,6 +11916,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240619191903'),
 ('20240619220045'),
 ('20240619230446'),
+('20240620113751'),
+('20240620115611'),
 ('20240620152448');
 
 
