@@ -19,9 +19,7 @@ module Evidence
 
         attr_readonly :description, :contents
 
-        has_many :llm_prompts,
-          class_name: 'Evidence::Research::GenAI::LLMPrompt',
-          dependent: :destroy
+        has_many :llm_prompts,dependent: :destroy
 
         def to_s = description
       end
