@@ -16,7 +16,7 @@ module Evidence
         def new
           @trial = Trial.new
           @llms = LLM.all
-          @activity_prompt_configs = ActivityPromptConfig.all
+          @stem_vaults = StemVault.all
           @llm_prompt_templates = LLMPromptTemplate.all
           @g_evals = GEval.selectable
         end
@@ -24,14 +24,14 @@ module Evidence
         def create
           llm_ids.each do |llm_id|
             llm_prompt_template_ids.each do |llm_prompt_template_id|
-              activity_prompt_config_ids.each do |activity_prompt_config_id|
-                llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, activity_prompt_config_id:)
+              stem_vault_ids.each do |stem_vault_id|
+                llm_prompt = LLMPrompt.create_from_template!(llm_prompt_template_id:, stem_vault_id:)
 
                 run_trial(
                   llm_id:,
                   llm_prompt_id: llm_prompt.id,
-                  activity_prompt_config_id:,
-                  num_examples: num_examples(activity_prompt_config_id)
+                  stem_vault_id:,
+                  num_examples: num_examples(stem_vault_id)
                 )
               end
             end
@@ -54,8 +54,8 @@ module Evidence
           redirect_to research_gen_ai_trials_path
         end
 
-        private def run_trial(llm_id:, llm_prompt_id:, activity_prompt_config_id:, num_examples:)
-          trial = Trial.new(llm_id:, activity_prompt_config_id:, llm_prompt_id:, num_examples:)
+        private def run_trial(llm_id:, llm_prompt_id:, stem_vault_id:, num_examples:)
+          trial = Trial.new(llm_id:, stem_vault_id:, llm_prompt_id:, num_examples:)
           trial.results = { g_eval_ids: }
 
           RunTrialWorker.perform_async(trial.id) if trial.save
@@ -68,18 +68,18 @@ module Evidence
               :num_examples,
               llm_ids: [],
               llm_prompt_template_ids: [],
-              activity_prompt_config_ids: [],
+              stem_vault_ids: [],
               g_eval_ids: []
             )
         end
 
         private def llm_ids = trial_params[:llm_ids].reject(&:blank?).map(&:to_i)
         private def llm_prompt_template_ids = trial_params[:llm_prompt_template_ids].reject(&:blank?).map(&:to_i)
-        private def activity_prompt_config_ids = trial_params[:activity_prompt_config_ids].reject(&:blank?).map(&:to_i)
+        private def stem_vault_ids = trial_params[:stem_vault_ids].reject(&:blank?).map(&:to_i)
         private def g_eval_ids = trial_params[:g_eval_ids]&.reject(&:blank?)&.map(&:to_i)&.sort || []
 
-        private def num_examples(activity_prompt_config_id)
-          max_num_examples = ActivityPromptConfig.find(activity_prompt_config_id).student_responses.testing_data.count
+        private def num_examples(stem_vault_id)
+          max_num_examples = StemVault.find(stem_vault_id).student_responses.testing_data.count
 
           return max_num_examples if trial_params[:num_examples].blank?
 

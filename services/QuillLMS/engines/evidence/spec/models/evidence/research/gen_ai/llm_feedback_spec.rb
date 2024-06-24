@@ -37,10 +37,10 @@ module Evidence
         it { should belong_to(:student_response) }
         it { should belong_to(:trial) }
 
-        it_behaves_like 'a class with optimal and sub-optimal'
+        it_behaves_like 'a class with optimal and suboptimal'
 
-        describe '#optimal_or_sub_optimal_match?' do
-          subject { llm_feedback.optimal_or_sub_optimal_match? }
+        describe '#optimal_or_suboptimal_match?' do
+          subject { llm_feedback.optimal_or_suboptimal_match? }
 
           let(:llm_feedback) { create(factory) }
           let(:student_response) { llm_feedback.student_response }
@@ -60,14 +60,14 @@ module Evidence
               it { is_expected.to be true }
             end
 
-            context 'when the llm feedback is sub-optimal' do
+            context 'when the llm feedback is suboptimal' do
               let(:llm_optimal) { false }
 
               it { is_expected.to be false }
             end
           end
 
-          context 'when the quill feedback is sub-optimal' do
+          context 'when the quill feedback is suboptimal' do
             let(:quill_optimal) { false }
 
             context 'when the llm feedback is optimal' do
@@ -76,7 +76,7 @@ module Evidence
               it { is_expected.to be false }
             end
 
-            context 'when the llm feedback is sub-optimal' do
+            context 'when the llm feedback is suboptimal' do
               let(:llm_optimal) { false }
 
               it { is_expected.to be true }
