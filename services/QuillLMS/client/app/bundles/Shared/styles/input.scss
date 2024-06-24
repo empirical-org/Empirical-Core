@@ -1,14 +1,10 @@
 .input-container {
-  min-height: 58px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
   position: relative;
 
   &.dropdown-container {
-    &.active {
-      min-height: 58px;
-    }
     .dropdown {
       .dropdown__control {
         display: flex;
@@ -79,6 +75,12 @@
     &.active {
       .dropdown__control {
         border: 1px solid $quill-green !important;
+      }
+    }
+
+    &.medium {
+      .dropdown__control .dropdown__value-container .dropdown__single-value {
+        margin-bottom: 2px;
       }
     }
 
@@ -325,7 +327,6 @@
     .dropdown__value-container {
       padding: 0px;
       font-size: 16px;
-      line-height: 1;
       color: $quill-black;
     }
     .dropdown__indicator-separator {
