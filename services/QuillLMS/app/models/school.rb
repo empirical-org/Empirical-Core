@@ -77,9 +77,8 @@ class School < ApplicationRecord
   scope :premium, (lambda do
     left_outer_joins(:subscriptions)
       .left_outer_joins(district: :subscriptions)
-      .where(subscriptions: {expiration: DateTime.current..})
       # Below is a slightly weird construction, but Rails magic doesn't work so we had to get explicit
-      .or(School.where('subscriptions_districts.expiration >= ?', DateTime.current))
+      .where('(subscriptions.expiration >= ? OR subscriptions_districts.expiration >= ?)', DateTime.current, DateTime.current)
   end)
 
   ALTERNATIVE_SCHOOL_NAMES = [
