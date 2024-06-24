@@ -6,11 +6,6 @@ class SyncDistrictDataFromUrlWorker
   def perform(url)
     response = HTTParty.get(url).parsed_response
 
-    if response['next']
-      SyncDistrictDataFromUrlWorker.perform_async(response['next'])
-    end
-
-    response = HTTParty.get(url).parsed_response
     districts_data = response['results']
 
     districts_data.each do |district_data|
@@ -28,11 +23,12 @@ class SyncDistrictDataFromUrlWorker
 
       district = District.find_by(nces_id: attributes_hash[:nces_id])
 
-      if district.present?
-        district.update!(attributes_hash)
-      else
-        District.create!(attributes_hash)
-      end
+      district.present? ? district.update!(attributes_hash) : District.create!(attributes_hash)
+
+    end
+
+    if response['next']
+      SyncDistrictDataFromUrlWorker.perform_async(response['next'])
     end
   end
 end

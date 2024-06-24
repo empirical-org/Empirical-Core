@@ -3,12 +3,10 @@
 class SyncSchoolDataFromUrlWorker
   include Sidekiq::Worker
 
+  NCES_ID_TYPE_COERCION_QUERY = "CAST(CASE WHEN nces_id ~ '^[0-9]+$' THEN nces_id ELSE '0' END AS BIGINT) = ?"
+
   def perform(url)
     response = HTTParty.get(url).parsed_response
-
-    if response['next']
-      SyncSchoolDataFromUrlWorker.perform_async(response['next'])
-    end
 
     schools_data = response['results']
 
@@ -21,12 +19,13 @@ class SyncSchoolDataFromUrlWorker
       # we have to do this complicated search because historically nces ids, which are largely but not always numerals stored as strings in our database, have sometimes been stored with leading zeroes and sometimes without
       # this type coercion ensures that we'll find the matching one no matter what
 
-      school = School.find_by(nces_id: attributes_hash[:nces_id]) || School.where("CAST(CASE WHEN nces_id ~ '^[0-9]+$' THEN nces_id ELSE '0' END AS BIGINT) = ?", attributes_hash[:nces_id]).first
-      if school.present?
-        school.update!(attributes_hash.except(:name))
-      else
-        School.create!(attributes_hash)
-      end
+      nces_id = attributes_hash[:nces_id]
+      school = School.find_by(nces_id:) || School.find_by(NCES_ID_BLAH_QUERY, nces_id)
+      school.present? ? school.update!(attributes_hash.except(:name)) : School.create!(attributes_hash)
+    end
+
+    if response['next']
+      SyncSchoolDataFromUrlWorker.perform_async(response['next'])
     end
   end
 
