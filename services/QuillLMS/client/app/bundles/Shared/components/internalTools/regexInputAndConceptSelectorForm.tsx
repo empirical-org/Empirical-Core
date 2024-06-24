@@ -19,6 +19,7 @@ export class RegexInputAndConceptSelectorForm extends React.Component {
       itemFeedback: item?.feedback || '',
       itemConcepts: item?.conceptResults || {},
       caseInsensitive: item ? (item.caseInsensitive ? item.caseInsensitive : false) : true,
+      order: item ? item.order : null,
       matchedCount: 0
     }
   }
@@ -94,7 +95,7 @@ export class RegexInputAndConceptSelectorForm extends React.Component {
   }
 
   submit = (record) => {
-    const { name, itemText, itemFeedback, itemConcepts, caseInsensitive, } = this.state
+    const { name, itemText, itemFeedback, itemConcepts, caseInsensitive, order, } = this.state
     const { onSubmit, focusPointOrIncorrectSequence, } = this.props
 
     const regexes = itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
@@ -105,6 +106,7 @@ export class RegexInputAndConceptSelectorForm extends React.Component {
         text: regexString,
         feedback: itemFeedback,
         conceptResults: itemConcepts,
+        order: order,
       };
 
       if (focusPointOrIncorrectSequence === INCORRECT_SEQUENCE) {

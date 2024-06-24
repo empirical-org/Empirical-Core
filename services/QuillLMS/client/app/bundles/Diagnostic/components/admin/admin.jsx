@@ -2,15 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import conceptActions from '../../actions/concepts';
-import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import fillInBlankActions from '../../actions/fillInBlank';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import * as titleCardActions from '../../actions/titleCards.ts';
 import Concept from '../concepts/concept.jsx';
 import Concepts from '../concepts/concepts.jsx';
-import ConceptFeedback from '../feedback/concept-feedback.jsx';
-import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
 import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
 import NewFillInBlank from '../fillInBlank/newFillInBlank';
@@ -47,7 +44,6 @@ class Admin extends React.Component {
     const { dispatch } = this.props;
     this.handleAuthCheck();
     dispatch(conceptActions.startListeningToConcepts());
-    dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     dispatch(questionActions.loadQuestions());
     dispatch(fillInBlankActions.startListeningToQuestions());
     dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
@@ -97,7 +93,6 @@ class Admin extends React.Component {
             </p>
             <ul className="menu-list">
               <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to='/admin/concepts-feedback'>Concept Feedback</TabLink>
             </ul>
             <p className="menu-label">
               Title Cards
@@ -109,8 +104,6 @@ class Admin extends React.Component {
         </section>
         <Switch>
           <Redirect component={Lessons} exact from='/admin' to='/admin/lessons' />
-          <Route component={ConceptFeedback} path='/admin/concepts-feedback/:conceptFeedbackID' />
-          <Route component={ConceptsFeedback} path='/admin/concepts-feedback' />
           <Route component={Concept} path='/admin/concepts/:conceptID' />
           <Route component={Concepts} path='/admin/concepts' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />

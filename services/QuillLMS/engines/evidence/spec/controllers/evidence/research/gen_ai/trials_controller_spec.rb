@@ -24,9 +24,9 @@ module Evidence
           let(:llm_prompt_template_ids) { llm_prompt_templates.map(&:id) }
           let(:num_llm_prompt_templates) { rand(1..3) }
 
-          let(:activity_prompt_configs) { create_list(:evidence_research_gen_ai_activity_prompt_config, num_activity_prompt_configs) }
-          let(:activity_prompt_config_ids) { activity_prompt_configs.map(&:id) }
-          let(:num_activity_prompt_configs) { rand(1..3) }
+          let(:stem_vaults) { create_list(:evidence_research_gen_ai_stem_vault, num_stem_vaults) }
+          let(:stem_vault_ids) { stem_vaults.map(&:id) }
+          let(:num_stem_vaults) { rand(1..3) }
 
           let(:num_examples) { rand(1..3) }
 
@@ -37,7 +37,7 @@ module Evidence
               research_gen_ai_trial: {
                 llm_ids:,
                 llm_prompt_template_ids:,
-                activity_prompt_config_ids:,
+                stem_vault_ids:,
                 num_examples:
               }
             }
@@ -56,7 +56,7 @@ module Evidence
             before { allow(LLMPromptBuilder).to receive(:run).and_return(llm_prompt) }
 
             context 'with valid parameters' do
-              let(:total_combinations) { num_llms * num_llm_prompt_templates * num_activity_prompt_configs }
+              let(:total_combinations) { num_llms * num_llm_prompt_templates * num_stem_vaults }
 
               before { allow(RunTrialWorker).to receive(:perform_async) }
 

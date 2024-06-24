@@ -22,15 +22,13 @@ module Evidence
         EXAMPLES_SUBSTITUTION = 'prompt_engineering_response_feedback_pairs'
 
         ACTIVITY_SUBSTITUTIONS = {
-          "stem" => ->(builder, _) { builder.activity_prompt_config.stem },
-          "conjunction" => ->(builder, _) { builder.activity_prompt_config.conjunction },
-          "because_text" => ->(builder, _) { builder.activity_prompt_config.because_text },
-          "but_text" => ->(builder, _) { builder.activity_prompt_config.but_text },
-          "so_text" => ->(builder, _) { builder.activity_prompt_config.so_text },
-          "relevant_text" => ->(builder, _) { builder.activity_prompt_config.relevant_text },
-          "optimal_rules" => ->(builder, _) { builder.activity_prompt_config.optimal_rules},
-          "sub_optimal_rules" => ->(builder, _) { builder.activity_prompt_config.sub_optimal_rules },
-          "full_text" => ->(builder, _) { builder.activity_prompt_config.full_text },
+          "stem" => ->(builder, _) { builder.stem_vault.stem },
+          "conjunction" => ->(builder, _) { builder.stem_vault.conjunction },
+          "because_text" => ->(builder, _) { builder.stem_vault.because_text },
+          "but_text" => ->(builder, _) { builder.stem_vault.but_text },
+          "so_text" => ->(builder, _) { builder.stem_vault.so_text },
+          "relevant_text" => ->(builder, _) { builder.stem_vault.relevant_text },
+          "full_text" => ->(builder, _) { builder.stem_vault.full_text },
           EXAMPLES_SUBSTITUTION => ->(builder, limit) { builder.examples(limit) },
         }.freeze
 
@@ -40,16 +38,16 @@ module Evidence
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :llm_prompt_template_id, :activity_prompt_config_id
+        attr_reader :llm_prompt_template_id, :stem_vault_id
 
         validates :llm_prompt_template_id, presence: true
-        validates :activity_prompt_config_id, presence: true
+        validates :stem_vault_id, presence: true
 
         delegate :contents, to: :llm_prompt_template
 
-        def initialize(llm_prompt_template_id:, activity_prompt_config_id:)
+        def initialize(llm_prompt_template_id:, stem_vault_id:)
           @llm_prompt_template_id = llm_prompt_template_id
-          @activity_prompt_config_id = activity_prompt_config_id
+          @stem_vault_id = stem_vault_id
 
           validate!
         end
@@ -63,7 +61,7 @@ module Evidence
         end
 
         def examples(limit)
-          activity_prompt_config
+          stem_vault
             .quill_feedbacks
             .prompt_engineering_data
             .limit(limit)
@@ -73,7 +71,7 @@ module Evidence
 
         def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 
-        def activity_prompt_config = @activity_prompt_config ||= ActivityPromptConfig.find(activity_prompt_config_id)
+        def stem_vault = @stem_vault ||= StemVault.find(stem_vault_id)
 
         def llm_prompt_template = @llm_prompt_template ||= LLMPromptTemplate.find(llm_prompt_template_id)
       end

@@ -109,7 +109,7 @@ bundle exec rspec spec
 ```
 
 - frontend
-  TBD
+  - ESLint: from the root directory run `npm run eslint`
 
 ## Deployment
 

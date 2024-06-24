@@ -1,5 +1,6 @@
-import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
 import {checkSentenceFragment} from './sentence_fragment'
+
+import { responses, incorrectSequences, focusPoints } from '../../../test/data/batswings'
 import {Response} from '../../interfaces';
 import { feedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
@@ -60,7 +61,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        expect(resp.feedback).toBeTruthy(incorrectSequences[0].feedback);
+        expect(resp.feedback).toEqual(incorrectSequences[0].feedback);
       })
     });
 
@@ -105,7 +106,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        expect(resp.feedback).toEqual(feedbackStrings.punctuationError);
+        expect(resp.feedback).toEqual(feedbackStrings.punctuationEndError);
       })
     });
 
@@ -116,7 +117,7 @@ describe('The checking a sentence fragment', () => {
       };
       const matchedResponse = checkSentenceFragment(fields);
       matchedResponse.then(resp => {
-        expect(resp.feedback).toBeTruthy(spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
+        expect(resp.feedback).toEqual(spacingBeforePunctuation("Bats have wings so they can fly far .").feedback);
       });
     });
 

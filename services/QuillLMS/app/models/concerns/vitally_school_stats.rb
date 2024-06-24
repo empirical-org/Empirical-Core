@@ -22,15 +22,15 @@ module VitallySchoolStats
       .joins("JOIN classrooms ON classrooms.id=classrooms_teachers.classroom_id")
       .joins("JOIN classroom_units ON classroom_units.classroom_id=classrooms.id")
       .joins("JOIN activity_sessions ON activity_sessions.classroom_unit_id=classroom_units.id")
+      .joins("JOIN activities ON activity_sessions.activity_id = activities.id")
       .where('schools.id = ?', school.id)
       .where('activity_sessions.state = ?', 'finished')
   end
 
-  def activities_per_student(active_students, activities_finished)
-    if active_students > 0
-      (activities_finished.to_f / active_students).round(2)
-    else
-      0
-    end
+  def activities_assigned_query(school)
+    ClassroomUnit.joins(classroom: {teachers: :school}, unit: :activities)
+      .where("schools.id = ?", school.id)
+      .select("assigned_student_ids", "activities.id", "unit_activities.created_at")
   end
+
 end

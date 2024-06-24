@@ -16,9 +16,9 @@ module Evidence
       class LLMPrompt < ApplicationRecord
         FEEDBACK_JSON_SCHEMA = { 'optimal': 'boolean', 'feedback': 'string' }.to_json
 
-        belongs_to :llm_prompt_template, class_name: 'Evidence::Research::GenAI::LLMPromptTemplate'
+        belongs_to :llm_prompt_template
 
-        has_many :trials, class_name: 'Evidence::Research::GenAI::Trial', dependent: :destroy
+        has_many :trials, dependent: :destroy
 
         validates :prompt, presence: true
         validates :llm_prompt_template_id, presence: true
@@ -27,10 +27,10 @@ module Evidence
 
         delegate :description, to: :llm_prompt_template
 
-        def self.create_from_template!(llm_prompt_template_id:, activity_prompt_config_id:)
+        def self.create_from_template!(llm_prompt_template_id:, stem_vault_id:)
           create!(
             llm_prompt_template_id:,
-            prompt: LLMPromptBuilder.run(llm_prompt_template_id:, activity_prompt_config_id:)
+            prompt: LLMPromptBuilder.run(llm_prompt_template_id:, stem_vault_id:)
            )
         end
 

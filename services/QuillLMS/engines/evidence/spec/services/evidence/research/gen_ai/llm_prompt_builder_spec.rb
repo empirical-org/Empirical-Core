@@ -6,20 +6,18 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLMPromptBuilder do
-        subject { described_class.run(llm_prompt_template_id:, activity_prompt_config_id:) }
+        subject { described_class.run(llm_prompt_template_id:, stem_vault_id:) }
 
         let(:contents) { 'This is contents' }
         let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
-        let(:activity_prompt_config) { create(:evidence_research_gen_ai_activity_prompt_config) }
-        let(:stem) { activity_prompt_config.stem }
-        let(:optimal_rules) { activity_prompt_config.optimal_rules }
-        let(:sub_optimal_rules) { activity_prompt_config.sub_optimal_rules}
-        let(:activity_prompt_config_id) { activity_prompt_config.id }
-        let(:conjunction) { activity_prompt_config.conjunction }
-        let(:because_text) { activity_prompt_config.because_text }
-        let(:but_text) { activity_prompt_config.but_text }
-        let(:so_text) { activity_prompt_config.so_text }
-        let(:full_text) { activity_prompt_config.full_text }
+        let(:stem_vault) { create(:evidence_research_gen_ai_stem_vault) }
+        let(:stem) { stem_vault.stem }
+        let(:stem_vault_id) { stem_vault.id }
+        let(:conjunction) { stem_vault.conjunction }
+        let(:because_text) { stem_vault.because_text }
+        let(:but_text) { stem_vault.but_text }
+        let(:so_text) { stem_vault.so_text }
+        let(:full_text) { stem_vault.full_text }
         let(:examples_substitution) { described_class::EXAMPLES_SUBSTITUTION }
 
         def delimit(placeholder) = "#{described_class::DELIMITER}#{placeholder}#{described_class::DELIMITER}"
@@ -30,8 +28,8 @@ module Evidence
           it { expect { subject.run }.to raise_error ActiveModel::ValidationError }
         end
 
-        context 'nil activity_prompt_config_id' do
-          let(:activity_prompt_config_id) { nil }
+        context 'nil stem_vault_id' do
+          let(:stem_vault_id) { nil }
 
           it { expect { subject.run }.to raise_error ActiveModel::ValidationError }
         end
@@ -77,18 +75,6 @@ module Evidence
             it { is_expected.to eq full_text }
           end
 
-          context 'sub_optimal_rules' do
-            let(:contents)  { delimit('sub_optimal_rules') }
-
-            it { is_expected.to eq sub_optimal_rules }
-          end
-
-          context 'optimal_rules' do
-            let(:contents)  { delimit('optimal_rules') }
-
-            it { is_expected.to eq optimal_rules }
-          end
-
           context 'examples_substitution' do
             let(:num_of_examples) { 5 }
 
@@ -97,7 +83,7 @@ module Evidence
                 :evidence_research_gen_ai_quill_feedback,
                 num_of_examples,
                 :prompt_engineering,
-                student_response: create(:evidence_research_gen_ai_student_response, activity_prompt_config:)
+                student_response: create(:evidence_research_gen_ai_student_response, stem_vault:)
               )
             end
 
@@ -110,9 +96,9 @@ module Evidence
 
           context 'multiple substitutions' do
             let(:filler) { '...some filler here...'}
-            let(:contents) { "#{delimit('stem')} #{filler} #{delimit('optimal_rules')}" }
+            let(:contents) { "#{delimit('stem')} #{filler} #{delimit('conjunction')}" }
 
-            it { is_expected.to eq "#{stem} #{filler} #{optimal_rules}" }
+            it { is_expected.to eq "#{stem} #{filler} #{conjunction}" }
           end
         end
 

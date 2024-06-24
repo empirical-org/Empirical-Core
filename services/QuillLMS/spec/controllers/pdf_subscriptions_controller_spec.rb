@@ -96,8 +96,8 @@ RSpec.describe PdfSubscriptionsController, type: :controller do
     end
   end
 
-  describe 'DELETE #unsubscribe' do
-    subject { delete :unsubscribe, params: { token: } }
+  describe 'GET #unsubscribe' do
+    subject { get :unsubscribe, params: { token: } }
 
     let(:pdf_subscription) { create(:pdf_subscription) }
 

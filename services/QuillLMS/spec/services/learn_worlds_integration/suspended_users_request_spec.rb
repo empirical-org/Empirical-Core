@@ -3,8 +3,46 @@
 require 'rails_helper'
 
 RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
+
+  describe '#fetch_page' do
+    let(:page_number) { 1 }
+
+    context 'when the response is 200' do
+      let(:response) { double(code: 200) }
+
+      it 'returns the response' do
+        allow(HTTParty).to receive(:get).and_return(response)
+
+        expect(subject.fetch_page(page_number)).to eq(response)
+      end
+    end
+
+    context 'when the response is 404' do
+      let(:response) { double(code: 404) }
+
+      it 'returns :no_users' do
+        allow(HTTParty).to receive(:get).and_return(response)
+
+        expect(subject.fetch_page(page_number)).to eq(:no_users)
+      end
+    end
+
+    context 'when the response is unexpected' do
+      let(:response) { double(code: 500, to_s: 'Error details') }
+
+      it 'raises an UnexpectedApiResponse error' do
+        allow(HTTParty).to receive(:get).and_return(response)
+
+        expect { subject.fetch_page(page_number) }.to raise_error(
+          LearnWorldsIntegration::Request::UnexpectedApiResponse, 'Error details'
+        )
+      end
+    end
+  end
+
   describe '#fetch_ids_to_suspend' do
     let(:request) { described_class.new }
+
     let(:initial_page) { { 'meta' => { 'totalPages' => 2 }, 'data' => [{ 'id' => 1 }] } }
     let(:second_page) { { 'data' => [{ 'id' => 2 }] } }
 
@@ -22,6 +60,13 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
         LearnWorldsIntegration::Request::UnexpectedApiResponse,
         "No totalPages value"
       )
+    end
+
+    context 'initial page fetch is a 404' do
+      it 'should return []' do
+        allow(request).to receive(:fetch_page).with(1).and_return(:no_users)
+        expect(request.fetch_ids_to_suspend).to eq []
+      end
     end
 
     it 'fetches and combines user IDs from all pages' do
