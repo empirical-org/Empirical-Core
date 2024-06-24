@@ -14,10 +14,10 @@ module Evidence
   module Research
     module GenAI
       class StudentResponse < ApplicationRecord
-        belongs_to :stem_vault, class_name: 'Evidence::Research::GenAI::StemVault'
+        belongs_to :stem_vault
 
-        has_one :quill_feedback, class_name: 'Evidence::Research::GenAI::QuillFeedback', dependent: :destroy
-        has_many :llm_feedbacks, class_name: 'Evidence::Research::GenAI::LLMFeedback', dependent: :destroy
+        has_one :quill_feedback, dependent: :destroy
+        has_many :llm_feedbacks, dependent: :destroy
 
         validates :text, presence: true
         validates :stem_vault_id, presence: true

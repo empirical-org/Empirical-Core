@@ -19,8 +19,8 @@ module Evidence
       class LLMFeedback < ApplicationRecord
         include HasOptimalAndSuboptimal
 
-        belongs_to :trial, class_name: 'Evidence::Research::GenAI::Trial'
-        belongs_to :student_response, class_name: 'Evidence::Research::GenAI::StudentResponse'
+        belongs_to :trial
+        belongs_to :student_response
 
         validates :raw_text, presence: true
         validates :text, presence: true

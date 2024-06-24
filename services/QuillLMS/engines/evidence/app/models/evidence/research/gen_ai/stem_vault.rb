@@ -27,7 +27,7 @@ module Evidence
           SO => :so_text
         }.freeze
 
-        belongs_to :activity, class_name: 'Evidence::Research::GenAI::Activity'
+        belongs_to :activity
 
         has_many :trials, dependent: :destroy
         has_many :student_responses, dependent: :destroy
