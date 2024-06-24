@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe SnapshotsController, type: :controller do
-  let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
   let(:school) { create(:school) }
   let(:user) { create(:user, administered_schools: [school]) }
+  let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
 
   before do
     allow(controller).to receive(:current_user).and_return(user)
@@ -525,6 +525,10 @@ describe SnapshotsController, type: :controller do
       let(:teachers) { teacher_names.map { |name| create(:teacher, name: name, school: new_school) } }
       let(:classrooms) { create_list(:classroom, teachers.length, grade: target_grade) }
       let!(:classrooms_teachers) { teachers.map.with_index { |teacher, i| create(:classrooms_teacher, user: teacher, classroom: classrooms[i], role: 'owner') } }
+
+      before do
+        create(:school_subscription, subscription:, school: new_school)
+      end
 
       it 'should sort teachers by name' do
         get :options

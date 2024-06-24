@@ -58,6 +58,28 @@ describe School, type: :model do
 
   it_behaves_like 'a subscriber'
 
+  context 'scopes' do
+    describe 'premium' do
+      subject { School.premium.all }
+
+      let(:non_premium_school) { create(:school) }
+      let(:school_premium_school) { create(:school) }
+      let(:district_premium_school) { create(:school) }
+      let(:district) { create(:district, schools: [district_premium_school]) }
+      let(:school_subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
+      let(:district_subscription) { create(:subscription, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
+
+      before do
+        create(:school_subscription, subscription: school_subscription, school: school_premium_school)
+        create(:district_subscription, subscription: district_subscription, district:)
+      end
+
+      it { is_expected.not_to include(non_premium_school) }
+      it { is_expected.to include(school_premium_school) }
+      it { is_expected.to include(district_premium_school) }
+    end
+  end
+
   let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
   let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
   let!(:bk_teacher) { create(:teacher, school: bk_school) }
