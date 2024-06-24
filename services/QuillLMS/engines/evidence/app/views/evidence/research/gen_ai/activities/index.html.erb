@@ -1,0 +1,32 @@
+<header>
+  <h2>Activities</h2>
+</header>
+
+<%= link_to 'New Activity', new_research_gen_ai_activity_path %>
+<br>
+<br>
+
+<% if @activities.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @activities.each do |activity| %>
+        <tr>
+          <td><%= activity.id %></td>
+          <td><%= activity.created_at.strftime("%m/%d/%y, %H:%M") %></td>
+          <td><%= activity.name %></td>
+          <td><%= link_to "View", activity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No activities found.</p>
+<% end %>

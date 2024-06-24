@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe OptimalAndSubOptimalResultsBuilder, type: :service do
+      RSpec.describe OptimalAndSuboptimalResultsBuilder, type: :service do
         subject { described_class.run(llm_feedbacks) }
 
         context 'when there are no llm feedbacks' do
@@ -20,19 +20,19 @@ module Evidence
           it { is_expected.to eq(confusion_matrix: [[1, 0], [0, 0]], accuracy: 1) }
         end
 
-        context 'with quill_sub-optimal, optimal only' do
+        context 'with quill_suboptimal, optimal only' do
           let(:llm_feedbacks) { [double(quill_optimal?: true, optimal?: false)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 1], [0, 0]], accuracy: 0) }
         end
 
-        context 'with quill_optimal, sub-optimal only' do
+        context 'with quill_optimal, suboptimal only' do
           let(:llm_feedbacks) { [double(quill_optimal?: false, optimal?: true)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [1, 0]], accuracy: 0) }
         end
 
-        context 'with quill_sub-optimal, sub-optimal only' do
+        context 'with quill_suboptimal, suboptimal only' do
           let(:llm_feedbacks) { [double(quill_optimal?: false, optimal?: false)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [0, 1]], accuracy: 1) }
