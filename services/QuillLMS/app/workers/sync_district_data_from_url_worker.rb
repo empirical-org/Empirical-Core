@@ -24,11 +24,8 @@ class SyncDistrictDataFromUrlWorker
       district = District.find_by(nces_id: attributes_hash[:nces_id])
 
       district.present? ? district.update!(attributes_hash) : District.create!(attributes_hash)
-
     end
 
-    if response['next']
-      SyncDistrictDataFromUrlWorker.perform_async(response['next'])
-    end
+    SyncDistrictDataFromUrlWorker.perform_async(response['next']) if response['next']
   end
 end

@@ -20,13 +20,11 @@ class SyncSchoolDataFromUrlWorker
       # this type coercion ensures that we'll find the matching one no matter what
 
       nces_id = attributes_hash[:nces_id]
-      school = School.find_by(nces_id:) || School.find_by(NCES_ID_BLAH_QUERY, nces_id)
+      school = School.find_by(nces_id:) || School.find_by(NCES_ID_TYPE_COERCION_QUERY, nces_id)
       school.present? ? school.update!(attributes_hash.except(:name)) : School.create!(attributes_hash)
     end
 
-    if response['next']
-      SyncSchoolDataFromUrlWorker.perform_async(response['next'])
-    end
+    SyncSchoolDataFromUrlWorker.perform_async(response['next']) if response['next']
   end
 
   def build_attribute_hash(school_data)
