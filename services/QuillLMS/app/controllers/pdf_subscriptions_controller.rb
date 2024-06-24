@@ -47,9 +47,7 @@ class PdfSubscriptionsController < ApplicationController
   def unsubscribe
     @pdf_subscription = PdfSubscription.find_by(token:)
 
-    if @pdf_subscription.nil?
-      redirect_to root_path, flash: { error: 'Subscription not found' }
-    end
+    redirect_to root_path, flash: { error: 'Subscription not found' } if @pdf_subscription.nil?
   end
 
   private def admin_report_filter_selection_id = pdf_subscription_params[:admin_report_filter_selection_id]
