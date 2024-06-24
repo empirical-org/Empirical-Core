@@ -17,10 +17,10 @@ module Evidence
   module Research
     module GenAI
       class LLMFeedback < ApplicationRecord
-        include HasOptimalAndSubOptimal
+        include HasOptimalAndSuboptimal
 
-        belongs_to :trial, class_name: 'Evidence::Research::GenAI::Trial'
-        belongs_to :student_response, class_name: 'Evidence::Research::GenAI::StudentResponse'
+        belongs_to :trial
+        belongs_to :student_response
 
         validates :raw_text, presence: true
         validates :text, presence: true
@@ -33,7 +33,7 @@ module Evidence
 
         def identical_feedback? = quill_feedback.text.strip == text.strip
 
-        def optimal_or_sub_optimal_match? = quill_optimal? ? optimal? : sub_optimal?
+        def optimal_or_suboptimal_match? = quill_optimal? ? optimal? : suboptimal?
 
         def response_and_feedback = "Response: #{student_response.text}\nFeedback: #{text}"
 

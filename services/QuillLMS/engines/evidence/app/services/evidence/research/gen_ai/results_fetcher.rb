@@ -24,8 +24,8 @@ module Evidence
         def run
           {
             accuracy_identical:,
-            accuracy_optimal_sub_optimal: optimal_and_sub_optimal_results[:accuracy],
-            confusion_matrix: optimal_and_sub_optimal_results[:confusion_matrix],
+            accuracy_optimal_suboptimal: optimal_and_suboptimal_results[:accuracy],
+            confusion_matrix: optimal_and_suboptimal_results[:confusion_matrix],
             g_evals:,
             misc_metrics:
           }
@@ -45,8 +45,8 @@ module Evidence
           end
         end
 
-        private def optimal_and_sub_optimal_results
-          @optimal_and_sub_optimal_results ||= OptimalAndSubOptimalResultsBuilder.run(llm_feedbacks)
+        private def optimal_and_suboptimal_results
+          @optimal_and_suboptimal_results ||= OptimalAndSuboptimalResultsBuilder.run(llm_feedbacks)
         end
 
         private def misc_metrics = self.class.post(ENDPOINT, body:, headers:, timeout: TIMEOUT)

@@ -40,20 +40,20 @@
     <% end %>
   </div>
 
-  <div id="activity-prompt-configs-container" class="field-spacing">
+  <div id="stem-vaults-container" class="field-spacing">
     <div style="display: flex; align-items: baseline;">
-      <label style="margin-right: 10px;">Activity Prompt Config:</label>
-      <%= link_to 'new', new_research_gen_ai_activity_prompt_config_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+      <label style="margin-right: 10px;">Stem Vault:</label>
+      <%= link_to 'new', new_research_gen_ai_stem_vault_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
     </div>
 
-    <%= check_box_tag 'select_all_activity_prompt_config', '', false, id: 'select_all_activity_prompt_config', class: 'check-all' %> Select all
+    <%= check_box_tag 'select_all_stem_vault', '', false, id: 'select_all_stem_vault', class: 'check-all' %> Select all
     <br/>
 
-    <% @activity_prompt_configs.each do |activity_prompt_config| %>
-      <div class="activity-prompt-config-item" style="display: flex; align-items: baseline;">
-        <%= check_box_tag 'research_gen_ai_trial[activity_prompt_config_ids][]', activity_prompt_config.id, false, id: dom_id(activity_prompt_config), class: 'activity-prompt-config-checkbox' %>
-        <%= label_tag dom_id(activity_prompt_config), activity_prompt_config.to_s %>
-        <%= link_to 'view', activity_prompt_config, class: 'new-link', style: 'margin-left: 10px;' %>
+    <% @stem_vaults.each do |stem_vault| %>
+      <div class="stem-vault-item" style="display: flex; align-items: baseline;">
+        <%= check_box_tag 'research_gen_ai_trial[stem_vault_ids][]', stem_vault.id, false, id: dom_id(stem_vault), class: 'stem-vault-checkbox' %>
+        <%= label_tag dom_id(stem_vault), stem_vault.to_s %>
+        <%= link_to 'view', stem_vault, class: 'new-link', style: 'margin-left: 10px;' %>
       </div>
     <% end %>
   </div>
@@ -105,7 +105,7 @@
     const containers = [
       {selector: '#llms-container', name: 'LLM'},
       {selector: '#llm-prompt-templates-container', name: 'LLM Prompt Template'},
-      {selector: '#activity-prompt-configs-container', name: 'Activity Prompt Config'},
+      {selector: '#stem-vaults-container', name: 'Stem Vault'},
       {selector: '#g-evals-container', name: 'G-Eval'}
     ];
 
