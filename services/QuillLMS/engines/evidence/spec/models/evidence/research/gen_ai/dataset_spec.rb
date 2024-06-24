@@ -34,7 +34,7 @@ module Evidence
         it { have_many(:test_examples).dependent(:destroy)}
         it { have_many(:prompt_examples).dependent(:destroy)}
 
-        it { belong_to(:stem_vault) }
+        it { should belong_to(:stem_vault) }
       end
     end
   end
