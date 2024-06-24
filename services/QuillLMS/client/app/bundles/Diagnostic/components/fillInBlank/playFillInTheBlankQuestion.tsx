@@ -8,7 +8,7 @@ import {
   Feedback,
   Prompt,
   fillInBlankInputLabel,
-  fillInBlankInputWidth,
+  fillInBlankInputStyle,
   splitPromptForFillInBlank,
   getLatestAttempt,
   hashToCollection,
@@ -197,7 +197,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         id={`input${i}`}
         key={i + 100}
         onChange={this.getChangeHandler(i)}
-        style={fillInBlankInputWidth(value, cues)}
+        style={fillInBlankInputStyle(value, cues)}
         type="text"
         value={value}
       />

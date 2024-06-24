@@ -1,6 +1,6 @@
 const PADDING_WIDTH = 20
 
-export function fillInBlankInputWidth(value: string|null, cues: Array<string>) {
+export function fillInBlankInputStyle(value: string|null, cues: Array<string>) {
   const spanForShortestCue = generateSpan(determineShortestCue(cues))
   const spanForValue = generateSpan(value)
 
@@ -12,7 +12,7 @@ export function fillInBlankInputWidth(value: string|null, cues: Array<string>) {
   document.body.removeChild(spanForShortestCue);
   document.body.removeChild(spanForValue);
 
-  return { width: `${elementWidth}px` };
+  return { width: `${elementWidth}px`, textAlign: shortestCueSpanWidth > valueSpanWidth ? 'center' : 'left' };
 }
 
 export function generateSpan(text) {
