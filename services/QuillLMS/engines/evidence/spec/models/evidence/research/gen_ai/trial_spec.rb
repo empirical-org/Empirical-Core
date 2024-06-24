@@ -36,9 +36,9 @@ module Evidence
         it { should have_readonly_attribute(:llm_prompt_id) }
         it { should have_readonly_attribute(:stem_vault_id) }
 
-        it { belong_to(:llm) }
-        it { belong_to(:llm_prompt) }
-        it { belong_to(:stem_vault) }
+        it { should belong_to(:llm) }
+        it { should belong_to(:llm_prompt) }
+        it { should belong_to(:stem_vault) }
 
         it { have_many(:llm_feedbacks) }
         it { have_many(:student_responses).through(:stem_vault) }

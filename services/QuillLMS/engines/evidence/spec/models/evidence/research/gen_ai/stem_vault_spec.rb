@@ -29,7 +29,7 @@ module Evidence
         it { should have_readonly_attribute(:conjunction) }
         it { should have_readonly_attribute(:activity_id) }
 
-        it { belong_to(:activity) }
+        it { should belong_to(:activity) }
 
         it { have_many(:student_responses).dependent(:destroy) }
         it { have_many(:quill_feedbacks).through(:student_responses) }
