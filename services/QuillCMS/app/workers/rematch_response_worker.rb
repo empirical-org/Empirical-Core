@@ -36,6 +36,7 @@ class RematchResponseWorker
 
   def rematch_response(response, question_type, question_hash, reference_responses)
     lambda_payload = construct_lambda_payload(response, question_type, question_hash, reference_responses)
+    puts "lambda payload: #{lambda_payload}"
     updated_response = call_lambda_http_endpoint(lambda_payload)
     return unless updated_response.present?
 
