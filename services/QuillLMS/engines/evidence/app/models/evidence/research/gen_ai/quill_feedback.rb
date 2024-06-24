@@ -25,7 +25,7 @@ module Evidence
           TESTING_DATA = 'testing'
         ].freeze
 
-        belongs_to :student_response, class_name: 'Evidence::Research::GenAI::StudentResponse'
+        belongs_to :student_response
 
         validates :text, presence: true
         validates :label, presence: true
