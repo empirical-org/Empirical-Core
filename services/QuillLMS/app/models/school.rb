@@ -75,10 +75,11 @@ class School < ApplicationRecord
   # Lambda has to be wrapped in parens to avoid syntax error in this construction.
   # Also, this is slightly magical:
   scope :premium, (lambda do
+    current_time = DateTime.current
     left_outer_joins(:subscriptions)
       .left_outer_joins(district: :subscriptions)
       # Below is a slightly weird construction, but Rails magic doesn't work so we had to get explicit
-      .where('(subscriptions.expiration >= ? OR subscriptions_districts.expiration >= ?)', DateTime.current, DateTime.current)
+      .where('(subscriptions.expiration >= ? OR subscriptions_districts.expiration >= ?)', current_time, current_time)
   end)
 
   ALTERNATIVE_SCHOOL_NAMES = [

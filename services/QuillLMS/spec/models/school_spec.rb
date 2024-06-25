@@ -60,7 +60,7 @@ describe School, type: :model do
 
   context 'scopes' do
     describe 'premium' do
-      subject { School.premium.all }
+      subject { School.premium }
 
       let(:non_premium_school) { create(:school) }
       let(:school_premium_school) { create(:school) }
