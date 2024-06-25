@@ -14,3 +14,4 @@ the `REMATCH_LAMBDA_URL` env var in the CMS app.
 1. export PATH=./node_modules/.bin:$PATH may be necessary to access the wrangler executable
 2. Open the [Cloudflare worker UI](https://dash.cloudflare.com/e8be3394a446f6e1bfb5b7c6f726fd09/workers-and-pages) in a browser.
 3. `cloudflare_rematching$ ENTRY_POINT=index-cloudflare.js ../rematching/build_cloudflare.sh`
+4. `wrangler deploy ../rematching/dist/index.js`
