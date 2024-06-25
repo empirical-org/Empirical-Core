@@ -7,6 +7,7 @@
 #  id                    :integer          not null, primary key
 #  charter               :string(255)
 #  city                  :string(255)
+#  direct_certification  :integer
 #  ethnic_group          :string(255)
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer

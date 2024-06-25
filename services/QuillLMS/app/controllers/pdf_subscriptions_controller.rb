@@ -22,25 +22,32 @@ class PdfSubscriptionsController < ApplicationController
     end
   end
 
-  # This is used in ReportSubscriptionModal when a user turns off a subscription and clicks save
+  # This is used in ReportSubscriptionModal when a user turns off a subscription and clicks save, and from the unsubscribe page when they confirm
   def destroy
     @pdf_subscription = PdfSubscription.find_by(id: params[:id])
 
-    return render json: {}, status: :unauthorized if @pdf_subscription&.user != current_user
+    respond_to do |format|
+      format.html do
+        return redirect_to root_path, flash: { error: 'Subscription not found' } if @pdf_subscription.nil?
 
-    @pdf_subscription.destroy
-    render json: {}, status: :ok
+        @pdf_subscription.destroy!
+        redirect_to root_path, flash: { notice: 'You have been unsubscribed from the Admin Usage Snapshot Report' }
+      end
+
+      format.json do
+        return render json: {}, status: :unauthorized if @pdf_subscription&.user != current_user
+
+        @pdf_subscription.destroy!
+        render json: {}, status: :ok
+      end
+    end
   end
 
   # This is used by the unsubscribe link in the email
   def unsubscribe
     @pdf_subscription = PdfSubscription.find_by(token:)
 
-    if @pdf_subscription&.destroy
-      render json: {}, status: :ok
-    else
-      redirect_to root_path, flash: { error: 'Subscription not found' }
-    end
+    redirect_to root_path, flash: { error: 'Subscription not found' } if @pdf_subscription.nil?
   end
 
   private def admin_report_filter_selection_id = pdf_subscription_params[:admin_report_filter_selection_id]
