@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+# This migration comes from evidence (originally 20240625135430)
+class AddVersionToDataset < ActiveRecord::Migration[7.0]
+  def change
+    add_column :evidence_research_gen_ai_datasets, :version, :integer
+
+    Evidence::Research::GenAI::Dataset.all.each { |dataset| dataset.update!(version: 1) }
+
+    change_column_null :evidence_research_gen_ai_datasets, :version, false
+  end
+end

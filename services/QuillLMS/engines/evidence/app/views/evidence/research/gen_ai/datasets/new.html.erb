@@ -1,0 +1,14 @@
+<h1>New Dataset</h1>
+
+<%= form_for @dataset, url: research_gen_ai_stem_vault_datasets_path(@stem_vault), html: { multipart: true } do |f| %>
+  <%= render 'errors', object: @dataset %>
+
+  <div class="field">
+    <%= f.label :file %>
+    <%= f.file_field :file %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "run" %>
+  </div>
+<% end %>

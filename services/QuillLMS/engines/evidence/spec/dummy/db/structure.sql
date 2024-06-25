@@ -975,7 +975,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     suboptimal_count integer NOT NULL,
     locked boolean NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    version integer NOT NULL
 );
 
 
@@ -2539,6 +2540,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240619224707'),
 ('20240620113244'),
 ('20240620115506'),
-('20240620122344');
+('20240620122344'),
+('20240625135430');
 
 

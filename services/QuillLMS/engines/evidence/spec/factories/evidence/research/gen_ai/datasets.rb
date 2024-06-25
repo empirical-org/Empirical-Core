@@ -8,6 +8,7 @@
 #  locked           :boolean          not null
 #  optimal_count    :integer          not null
 #  suboptimal_count :integer          not null
+#  version          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  stem_vault_id    :integer          not null
