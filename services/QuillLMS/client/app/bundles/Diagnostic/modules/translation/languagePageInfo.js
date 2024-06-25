@@ -4,8 +4,7 @@
     ELL Advanced Diagnostic: 4e848241-ca31-4eb5-90e2-0ecba6304521
 */
 
-// import * from "../../../Shared/utils/languageList"
-import * as Language from "../../../Shared/utils/languageList"
+import {ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI } from "../../../Shared/utils/languageList"
 const ELL_STARTER_PRE = '-LyFRZvbHAmooTTIIVE2'
 const ELL_INTERMEDIATE_PRE = '125c9458-beb7-4176-9ae0-02bec65624a2'
 const ELL_ADVANCED_PRE = '4e848241-ca31-4eb5-90e2-0ecba6304521'
@@ -14,7 +13,7 @@ const ELL_INTERMEDIATE_POST = 'a6af4777-faa4-4673-ab40-20732642ddc4'
 const ELL_ADVANCED_POST = '319c308a-64d5-45a3-bef1-0be1e3e3fa07'
 
 export const languageData = {
-  [Language.ENGLISH]: {
+  [ENGLISH]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Placement Activity',
@@ -54,7 +53,7 @@ export const languageData = {
       }
     }
   },
-  [Language.CHINESE]: {
+  [CHINESE]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill安置活动',
@@ -94,7 +93,7 @@ export const languageData = {
       }
     }
   },
-  [Language.HINDI]: {
+  [HINDI]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill स्थापन गतिविधि',
@@ -134,7 +133,7 @@ export const languageData = {
       }
     }
   },
-  [Language.SPANISH]: {
+  [SPANISH]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Actividad de emplazamiento de Quill',
@@ -174,7 +173,7 @@ export const languageData = {
       },
     }
   },
-  [Language.FRENCH]: {
+  [FRENCH]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Activité de placement Quill',
@@ -214,7 +213,7 @@ export const languageData = {
       },
     }
   },
-  [Language.ARABIC]: {
+  [ARABIC]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'نشاط تحديد المستوى في Quill',
@@ -242,7 +241,7 @@ export const languageData = {
       },
     }
   },
-  [Language.RUSSIAN]: {
+  [RUSSIAN]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Задание по размещению Quill',
@@ -282,7 +281,7 @@ export const languageData = {
       },
     }
   },
-  [Language.PORTUGUESE]: {
+  [PORTUGUESE]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Atividade de Colocação da Quill',
@@ -322,7 +321,7 @@ export const languageData = {
       },
     }
   },
-  [Language.URDU]: {
+  [URDU]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'پلیسمنٹ کی سرگرمی Quill',
@@ -350,7 +349,7 @@ export const languageData = {
       },
     }
   },
-  [Language.GERMAN]: {
+  [GERMAN]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Platzdeckchen-Methode (Placemat)',
@@ -390,7 +389,7 @@ export const languageData = {
       },
     }
   },
-  [Language.JAPANESE]: {
+  [JAPANESE]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quillクラス分けアクティビティ',
@@ -430,7 +429,7 @@ export const languageData = {
       },
     }
   },
-  [Language.KOREAN]: {
+  [KOREAN]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill 배치 활동',
@@ -470,7 +469,7 @@ export const languageData = {
       },
     }
   },
-  [Language.VIETNAMESE]: {
+  [VIETNAMESE]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Hoạt động Sắp xếp Quill',
@@ -510,7 +509,7 @@ export const languageData = {
       },
     }
   },
-  [Language.THAI]: {
+  [THAI]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'กิจกรรมการทดสอบวัดระดับภาษาของ Quill',
@@ -550,7 +549,7 @@ export const languageData = {
       },
     }
   },
-  [Language.UKRAINIAN]: {
+  [UKRAINIAN]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Розподільний тест Quill',
@@ -590,7 +589,7 @@ export const languageData = {
       },
     }
   },
-  [Language.TAGALOG]: {
+  [TAGALOG]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Placement Activity ng Quill',
@@ -630,7 +629,7 @@ export const languageData = {
       },
     }
   },
-  [Language.DARI]: {
+  [DARI]: {
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'فعالیت قرارگیری درکویل Quill',
