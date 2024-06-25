@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig( () => {
   const entryPoint = process.env.ENTRY_POINT || 'index.js';
+  console.log(`using entrypoint ${entryPoint}`)
 
   return {
     build: {

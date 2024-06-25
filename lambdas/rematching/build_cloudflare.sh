@@ -7,7 +7,4 @@
 # Step 1: Build the project with Vite
 npx vite build
 
-# Step 2: Change directory to the build output directory
-cd dist
-
-echo "build completed successfully."
+echo "Build completed successfully."
