@@ -9,28 +9,36 @@ class GenAITasks < Thor
   def sample_test(conjunction, limit = 10, optimal = true, template_file = nil)
     correct_count = 0
     total = 0
+    error_count = 0
     incorrect_examples = []
+    error_examples = []
     name = optimal ? 'Optimal' : 'Suboptimal'
 
     all_live_prompts(conjunction, limit).each do |prompt|
       system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
 
       prompt.example_sets(optimal:).each do |entry|
-        response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
 
-        total += 1
-        if response[KEY_OPTIMAL] == optimal
-          print '.'
-          correct_count += 1
-        else
-          print 'F'
-          incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
+        begin
+          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+          total += 1
+
+          if response[KEY_OPTIMAL] == optimal
+            print '.'
+            correct_count += 1
+          else
+            print 'F'
+            incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
+          end
+        rescue => e
+          error_count += 1
+          error_examples.append([prompt, entry])
         end
       end
     end
     puts '' # new line after prints
 
-    print_results(name, correct_count, total, incorrect_examples)
+    print_results(name, correct_count, total, incorrect_examples, error_count, error_examples)
   end
 
 
@@ -78,6 +86,7 @@ class GenAITasks < Thor
       Evidence::Prompt
         .parent_activity_ids(live_activity_ids)
         .conjunction(conjunction)
+        .order(id: :desc)
         .limit(limit)
     end
 
@@ -85,20 +94,36 @@ class GenAITasks < Thor
       puts '---------------'
     end
 
-    private def print_results(name, correct_count, total, incorrect_examples)
+    private def print_results(name, correct_count, total, incorrect_examples, error_count, error_examples)
       print_line
       puts "Correct #{name} Percentage: #{((correct_count.to_f / total) * 100).round(2)}"
       puts "#{name} Correct: #{correct_count}"
       puts "Total: #{total}"
+      puts "Errors: #{error_count}"
       print_line
+
       puts 'Incorrect'
+      print_line
+      puts "None" if incorrect_examples.empty?
       incorrect_examples.each do |incorrect|
         prompt, entry, feedback = incorrect
-        puts "Prompt: #{prompt.id}, Entry: #{entry}, Feedback: #{feedback}"
-        puts " "
-        puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt.id} '#{entry}'"
-        print_line
+        print_example(prompt.id, entry, feedback)
       end
+
+      puts 'Errors'
+      print_line
+      puts "None" if error_examples.empty?
+      error_examples.each do |error|
+        prompt, entry = error
+        print_example(prompt.id, entry)
+      end
+    end
+
+    private def print_example(prompt_id, entry, feedback = nil)
+      puts "Prompt: #{prompt_id}, Entry: #{entry} #{feedback.nil? ? '' : " Feedback: #{feedback}"}"
+      puts " "
+      puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt_id} '#{entry}'"
+      print_line
     end
   end
 end

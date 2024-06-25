@@ -34,4 +34,12 @@ class FeedbackHistory
     }.reject {|_,v| v.blank? }
   end
 
+  def self.optimal_sample(prompt_id:, limit: 10)
+
+  end
+
+  def self.suboptimal_sample(prompt_id:, limit: 10)
+
+  end
+
 end

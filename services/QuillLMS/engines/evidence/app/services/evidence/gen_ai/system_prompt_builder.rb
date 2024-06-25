@@ -6,6 +6,9 @@ module Evidence
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
       DEFAULT_TEMPLATE = '2024_06_07_more_examples.md'
 
+      OPTIMAL_SAMPLE_COUNT = 100
+      SUBOPTIMAL_SAMPLE_COUNT = 20
+
       attr_reader :prompt, :history, :template_file
 
       def initialize(prompt:, history: [], template_file: nil)
@@ -45,11 +48,11 @@ module Evidence
         [
           # example_one,
           # example_two,
-          prompt.optimal_samples
+          prompt.optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
         ].flatten.uniq
       end
 
-      private def suboptimal_examples = prompt.suboptimal_samples.map {|e| "- #{e}"}.join("\n")
+      private def suboptimal_examples = prompt.suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT).map {|e| "- #{e}"}.join("\n")
 
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")

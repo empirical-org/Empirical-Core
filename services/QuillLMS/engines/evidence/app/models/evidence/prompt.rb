@@ -32,6 +32,9 @@ module Evidence
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6
 
+    OPTIMAL_SAMPLE_COUNT = Evidence::GenAI::SystemPromptBuilder::OPTIMAL_SAMPLE_COUNT
+    SUBOPTIMAL_SAMPLE_COUNT = Evidence::GenAI::SystemPromptBuilder::SUBOPTIMAL_SAMPLE_COUNT
+
     belongs_to :activity, inverse_of: :prompts
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
@@ -92,17 +95,17 @@ module Evidence
         .uniq
     end
 
-    def optimal_samples(limit: 40)
+    def optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
       Evidence.feedback_history_class
         .optimal_sample(prompt_id: id, limit:)
     end
 
-    def suboptimal_samples(limit: 20, offset: 0)
+    def suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT, offset: 0)
       Evidence.feedback_history_class
         .suboptimal_sample(prompt_id: id, limit:, offset:)
     end
 
-    def example_sets(optimal: true, limit: 2, offset: 20)
+    def example_sets(optimal: true, limit: 2, offset: SUBOPTIMAL_SAMPLE_COUNT)
       optimal ? [first_strong_example, second_strong_example] : suboptimal_samples(limit:, offset:)
     end
 

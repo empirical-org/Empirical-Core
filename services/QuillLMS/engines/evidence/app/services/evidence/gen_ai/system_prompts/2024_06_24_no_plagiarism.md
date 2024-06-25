@@ -12,12 +12,10 @@ If their sentence is factually and logically correct and contains at least one p
 - The sentence is logically correct.
 - The sentence uses at least one piece of evidence from the selected text.
 - The sentence ONLY uses evidence from the text (and not outside sources).
-- Here is a list of {'optimal' => true} entries. If the entry has the roughly the same information as one of these, it is {'optimal' => true}:
+- Here is a list of {'optimal' => true} entries. If the entry has the same information as one of these, it is {'optimal' => true}:
 ```
 %{optimal_examples}
 ```
-- Note, if an entry is mostly correct but is slightly vague or slightly off on its fact statement, still consider it 'optimal' => true.
-
 
 #### A response is considered {'optimal' => false} if ANY of these are true:
 - The sentence doesn't include evidence from the text.
@@ -57,11 +55,6 @@ Here are some examples of {'optimal' => false} entries:
 This is the source text separated by backticks:
 ```
 %{passage}
-```
-
-This is the section of the source text that contains the pieces of evidence that can used for an 'optimal' response. An entry only needs ONE piece of evidence from this section to be {'optimal' : true}. The evidence can be re-written or summarized and still be 'optimal'. It does not need to be a direct quote:
-```
-%{plagiarism_text}
 ```
 
 This is the 'stem' that the student is trying to finish separated by backticks:
