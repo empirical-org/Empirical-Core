@@ -6,11 +6,11 @@ module Evidence
       class DataImporter < ApplicationService
         BUCKET_NAME = ENV['AWS_S3_EVIDENCE_RESEARCH_GEN_AI_BUCKET']
 
-        attr_reader :file_name, :activity_prompt_config_id
+        attr_reader :file_name, :stem_vault_id
 
-        def initialize(file_name:, activity_prompt_config_id:)
+        def initialize(file_name:, stem_vault_id:)
           @file_name = file_name
-          @activity_prompt_config_id = activity_prompt_config_id
+          @stem_vault_id = stem_vault_id
         end
 
         def run
@@ -20,7 +20,7 @@ module Evidence
             label = row['Label']
             text = row['Proposed Feedback']
 
-            activity_prompt_config
+            stem_vault
               .student_responses
               .find_or_create_by!(response:)
               .create_quill_feedback!(label:, text:, data_partition:)
@@ -29,7 +29,7 @@ module Evidence
 
         private def get_file(key:) = s3_client.get_object(bucket: BUCKET_NAME, key:).body
 
-        private def activity_prompt_config = @activity_prompt_config ||= ActivityPromptConfig.find(activity_prompt_config_id)
+        private def stem_vault = @stem_vault ||= StemVault.find(stem_vault_id)
 
         private def s3_client
           @s3_client ||= Aws::S3::Client.new(

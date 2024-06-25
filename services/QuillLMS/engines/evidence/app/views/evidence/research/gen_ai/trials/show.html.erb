@@ -24,7 +24,7 @@
     <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
     <h3>Activity + Conjunction</h3>
-    <p><%= link_to @trial.activity_prompt_config, @trial.activity_prompt_config %></p>
+    <p><%= link_to @trial.stem_vault, @trial.stem_vault %></p>
 
     <h3>LLM</h3>
     <p><%= @trial.llm %></p>
@@ -46,7 +46,7 @@
 
     <% if @trial.api_call_times %>
       <p>Feedback match (identical): <%= @trial.accuracy_identical&.round(2) %></p>
-      <p>Optimal match: <%= @trial.accuracy_optimal_sub_optimal&.round(2) %></p>
+      <p>Optimal match: <%= @trial.accuracy_optimal_suboptimal&.round(2) %></p>
       <p>Trial duration: <%= trial_duration(@trial) %></p>
       <p>Evaluation duration: <%= evaluation_duration(@trial) %></p>
 
@@ -85,7 +85,7 @@
           <tr>
             <% quill_feedback = llm_feedback.quill_feedback %>
             <td class="<%= llm_feedback.identical_feedback? ? 'green' : 'red' %>"></td>
-            <td class="<%= llm_feedback.optimal_or_sub_optimal_match? ? 'green' : 'red' %>"></td>
+            <td class="<%= llm_feedback.optimal_or_suboptimal_match? ? 'green' : 'red' %>"></td>
             <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
             <% if @trial.g_evals %>
               <% @trial.g_evals.keys.each do |g_eval_id| %>

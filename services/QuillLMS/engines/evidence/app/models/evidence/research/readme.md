@@ -1,6 +1,6 @@
 # Generative AI Trials
 ## 1. Data Importing
-`Activity`, `ActivityPromptConfig`, `StudentResponse` and `QuillFeedback` records are imported with the following structure
+`Activity`, `StemVault`, `Dataset`, `TestExample`, and `PromptExample` records are imported with the following structure
 
 ```mermaid
 classDiagram
@@ -8,27 +8,40 @@ classDiagram
          name
          text
     }
-    class ActivityPromptConfig {
+    class StemVault {
          conjunction
-         instructions
+         stem
          prompt
-         relevant_passage
     }
-    class StudentResponse {
-         response
+    class Guideline {
+     text
+     category
     }
-    class QuillFeedback {
-         text
-         evaluation
-         label
+    class Dataset {
+          num_optimal
+          num_sub_optimal
+          locked
     }
-    Activity --|> ActivityPromptConfig
-    ActivityPromptConfig --|> StudentResponse
-    StudentResponse --|> QuillFeedback
+    class TestExample {
+          student_response
+          human_status
+          human_feedback
+          highlight
+    }
+    class PromptExample {
+          student_response
+          human_status
+          human_feedback
+    }
+    Activity --|> StemVault
+    StemVault --|> Guideline
+    StemVault --|> Dataset
+    Dataset --|> TestExample
+    Dataset --|> PromptExample
 ```
 
-## 2. Trial Configuration
-Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` and `ActivityPromptConfig` are all selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial
+## 2a. Trial Configuration
+Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` are selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial.
 
 ```mermaid
 classDiagram
@@ -38,37 +51,51 @@ classDiagram
     }
     class LLMPrompt {
          prompt
+         num_optimal_guidelines
+         num_sub_optimal_guidelines
+         num_optimal_examples
+         num_sub_optimal_examples
+         locked
     }
     class LLMPromptTemplate {
          contents
          description
     }
-    class ActivityPromptConfig {
-    }
-    class Trial {
-         status
-    }
 
-    ActivityPromptConfig --|> Trial
+    Dataset --|> Trial
     LLM --|> Trial
-    LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial
 ```
 
-## 3. Trial Ouptut
-As the `Trial` is run, the LLM returns feedback relevant to the `StudentResponse` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
+## 3. LLMPrompt Configuration
+
+Within the UI, the user can select `PromptExample` and `Guideline` records for the `LLMPrompt` which will create `LLMPromptExample` and `LLMPromptGuideline` records respectively.
 
 ```mermaid
 classDiagram
-    class StudentResponse {
-    }
-    class QuillFeedback {
+    StemVault --|> Guideline
+    Guideline --|> LLMPromptGuideline
+    LLMPrompt --|> LLMPromptGuideline
+    LLMPrompt --|> LLMPromptExample
+    Dataset --|> PromptExample
+    PromptExample --|> LLMPromptExample
+    Trial --|> LLMPrompt
+```
+
+## 3. Trial Ouptut
+
+As the `Trial` is run, the LLM returns feedback relevant to each `TestExample` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
+
+```mermaid
+classDiagram
+    class TestExample {
     }
     class LLMFeedback {
         feedback
         label
     }
-    StudentResponse --|> QuillFeedback
-    StudentResponse --|> LLMFeedback
+    class Trial {
+    }
+    TestExample --|> LLMFeedback
     Trial --|> LLMFeedback
 ```

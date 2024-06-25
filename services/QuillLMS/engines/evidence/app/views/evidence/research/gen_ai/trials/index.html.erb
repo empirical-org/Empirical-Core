@@ -28,13 +28,12 @@
           <td><%= trial.id %></td>
           <td><%= trial.created_at.strftime("%m/%d/%y, %H:%M") %></td>
           <td><%= trial.llm %></td>
-          <td><%= trial.activity_prompt_config.name %></td>
+          <td><%= trial.stem_vault.name %></td>
           <td><%= trial.conjunction %></td>
           <td><%= trial.llm_prompt.description %></td>
           <td><%= trial.num_examples %></td>
           <td><%= trial.status %></td>
-          <td><%= link_to "View", trial %><td>
-          </td>
+          <td><%= link_to "View", trial %></td>
         </tr>
       <% end %>
     </tbody>

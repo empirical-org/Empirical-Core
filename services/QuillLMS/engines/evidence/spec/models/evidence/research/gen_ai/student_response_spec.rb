@@ -4,13 +4,12 @@
 #
 # Table name: evidence_research_gen_ai_student_responses
 #
-#  id                        :bigint           not null, primary key
-#  text                      :text             not null
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  activity_prompt_config_id :integer          not null
+#  id            :bigint           not null, primary key
+#  text          :text             not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  stem_vault_id :integer          not null
 #
-
 require 'rails_helper'
 
 module Evidence
@@ -22,10 +21,10 @@ module Evidence
         it { expect(build(factory)).to be_valid }
 
         it { should validate_presence_of(:text) }
-        it { should validate_presence_of(:activity_prompt_config_id)}
-        it { should belong_to(:activity_prompt_config)}
+        it { should validate_presence_of(:stem_vault_id)}
+        it { should belong_to(:stem_vault)}
         it { should have_readonly_attribute(:text) }
-        it { should have_readonly_attribute(:activity_prompt_config_id) }
+        it { should have_readonly_attribute(:stem_vault_id) }
 
         it { have_one(:quill_feedback).dependent(:destroy) }
         it { have_many(:llm_feedbacks).dependent(:destroy) }
