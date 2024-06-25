@@ -101,8 +101,7 @@ class SnapshotsController < ApplicationController
   end
 
   private def school_options
-    School.joins(:schools_admins)
-      .where(schools_admins: {user_id: current_user.id})
+    current_user.administered_premium_schools
   end
 
   private def filtered_schools

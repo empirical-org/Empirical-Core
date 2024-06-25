@@ -847,7 +847,7 @@ class User < ApplicationRecord
   end
 
   def administered_premium_schools
-    administered_schools.filter{|school| school.subscription&.expired? == false}
+    administered_schools.premium
   end
 
   def school_premium?
