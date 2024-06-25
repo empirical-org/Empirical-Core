@@ -1,9 +1,84 @@
 .input-container {
-  min-height: 58px;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
   position: relative;
+
+  &.dropdown-container {
+    .dropdown {
+      .dropdown__control {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        .dropdown__single-value {
+          line-height: 0;
+          margin-top: 2px;
+        }
+        .html-dropdown-option {
+          .dropdown__single-value {
+            margin-top: 0px;
+          }
+        }
+      }
+      .dropdown__indicators {
+        height: auto;
+      }
+      .dropdown__menu {
+        margin-top: 4px;
+        .dropdown__option:hover {
+          background-color: $quill-grey-2 !important;
+        }
+      }
+    }
+    &.small {
+      &.icon.bordered .dropdown__control .dropdown__indicators {
+        margin-bottom: 0px;
+      }
+      &.bordered .dropdown__control {
+        min-height: auto;
+        height: 32px;
+        .html-dropdown-option {
+          .dropdown__single-value {
+            margin-bottom: 0px;
+          }
+        }
+        .dropdown__single-value, .dropdown__indicators {
+          margin-bottom: 8px;
+        }
+        .dropdown__single-value {
+          margin-top: 1px;
+        }
+      }
+      .dropdown__single-value, .dropdown__option {
+        @include text-2xs;
+      }
+    }
+    &.medium {
+      &.bordered .dropdown__control {
+        height: 38px;
+      }
+      .dropdown__single-value, .dropdown__option {
+        @include text-xs;
+      }
+      .dropdown__single-value {
+        margin-top: 1px;
+      }
+    }
+    &.large {
+      &.bordered .dropdown__control {
+        height: 44px;
+      }
+      &.underlined {
+        height: 33px;
+      }
+      .dropdown__single-value, .dropdown__option {
+        @include text-xs;
+      }
+      .dropdown__single-value {
+        margin-top: 2px;
+      }
+    }
+  }
 
   &.dropdown-container.bordered {
     input {
@@ -14,27 +89,106 @@
       margin-bottom: 0px;
     }
 
+    .helper-text {
+      margin-top: 8px;
+    }
+
+    &.active {
+      .dropdown__control {
+        border: 1px solid $quill-green !important;
+      }
+    }
+
+    &.medium {
+      .dropdown__control .dropdown__value-container .dropdown__single-value {
+        margin-bottom: 2px;
+      }
+    }
+
     .dropdown__control {
       border: 1px $quill-grey-15 !important;
       border-style: solid !important;
       padding: 4px 16px;
       border-radius: 4px !important;
       margin-bottom: 0px;
+      min-height: 38px;
+      .html-dropdown-option {
+        margin-bottom: 0px;
+        span {
+          line-height: 0;
+        }
+      }
+      .dropdown__indicators {
+        height: 100%;
+      }
+    }
+
+    .dropdown__menu {
+      .html-dropdown-option {
+        .dropdown__option {
+          padding-left: 16px;
+        }
+      }
     }
 
     .dropdown__single-value {
       display: flex;
     }
 
-    &.inactive.has-text label {
-      margin-bottom: 0px;
+    &.disabled {
+      .dropdown__control {
+        background-color: $quill-grey-5;
+        border: 1px solid $quill-grey-5 !important;
+        .dropdown__single-value {
+          color: $quill-grey-30;
+        }
+      }
     }
 
   }
 
+  &.icon {
+    .dropdown__value-container, .dropdown__menu {
+      input {
+        display: none;
+      }
+      .html-dropdown-option {
+        .dropdown__single-value, .dropdown__option {
+          div {
+            p {
+              display: flex;
+              align-items: center;
+            }
+            img {
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+    }
+    &.underlined {
+      .dropdown__control:has(.html-dropdown-option) {
+          height: 33px;
+        }
+      .dropdown__menu {
+        .html-dropdown-option {
+          .dropdown__option {
+            padding-left: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  &.dropdown-container.borderless {
+    .dropdown__control {
+      border: none !important;
+    }
+  }
+
  &.disabled {
     input, .dropdown .dropdown__single-value {
-      color: #7f7f7f;
+      color: $quill-grey-30;
     }
   }
 
@@ -46,7 +200,6 @@
   }
   &.dropdown-container {
     justify-content: flex-start;
-    min-height: 66px
   }
 
   &.not-editable input {
@@ -136,7 +289,6 @@
   }
 
   .dropdown {
-    margin-bottom: 8px;
     &:focus {
       outline: none;
     }
@@ -150,9 +302,9 @@
     }
     .dropdown__menu {
       z-index: 100;
-      border-radius: 0px 0px 4px 4px;
-      margin-top: 0px;
-      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+      border-radius: 8px;
+      border: 1px solid $quill-grey-5;
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
     }
     .dropdown__menu-list {
       padding: 8px 0px;
@@ -162,7 +314,7 @@
     }
     .dropdown__control {
       min-height: 0px;
-      margin-bottom: 4px;
+      // margin-bottom: 4px;
       margin-top: 0px;
       border: none;
       outline: none !important;
@@ -199,7 +351,6 @@
     .dropdown__value-container {
       padding: 0px;
       font-size: 16px;
-      line-height: 1;
       color: $quill-black;
     }
     .dropdown__indicator-separator {
@@ -317,9 +468,7 @@
     &:not(.has-text) {
       &.dropdown-container {
         label {
-          margin-bottom: -26px;
           z-index: 1;
-          margin-top: 26px;
         }
         .dropdown__indicators {
           padding-top: 4px;
@@ -360,8 +509,35 @@
     }
   }
   &.active {
+    &.dropdown-container {
+      &.underlined {
+        &.small {
+          min-height: 37px;
+        }
+        &.medium {
+          min-height: 37px;
+        }
+        &.large {
+          min-height: 33px;
+        }
+      }
+      &.bordered {
+        &.small {
+          min-height: 36px;
+        }
+        &.medium {
+          min-height: 42px;
+        }
+        &.large {
+          min-height: 48px;
+        }
+      }
+      &.borderless {
+        min-height: 36px;
+      }
+    }
     .dropdown__control {
-      border: 2px $quill-green;
+      border: 1px $quill-green;
       border-style: none none solid;
     }
     .dropdown__dropdown-indicator {
@@ -377,9 +553,7 @@
       }
       label, .dropdown__control {
         display: none;
-      }
-      .input-container {
-        min-height: 0px;
+        height: auto;
       }
     }
     &:focus {

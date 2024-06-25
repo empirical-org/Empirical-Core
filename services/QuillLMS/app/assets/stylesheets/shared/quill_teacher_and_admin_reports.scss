@@ -100,10 +100,11 @@
       vertical-align: top;
     }
     .dropdown__single-value {
+      display: flex;
+      justify-content: flex-start;
       margin-right: 4px;
       align-items: center;
       font-size: 14px;
-      justify-content: flex-end;
     }
   }
   table {

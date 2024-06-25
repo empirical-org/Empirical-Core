@@ -444,6 +444,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             menuIsOpen={active ? menuIsOpen : false}
             onChange={this.handleOptionSelection}
           />
+          {this.renderHelperText()}
         </div>
       )
     } else if (!active) {
