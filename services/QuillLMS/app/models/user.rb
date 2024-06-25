@@ -125,6 +125,8 @@ class User < ApplicationRecord
     :skip_capitalize_names_callback,
     :validate_username
 
+  attribute :role_selected_at_signup, :string
+
   has_secure_password validations: false
   has_one :admin_info, dependent: :destroy
   has_one :auth_credential, dependent: :destroy
@@ -969,7 +971,7 @@ class User < ApplicationRecord
 
   private def generate_default_teacher_info
     # in addition to setting the notification_email_frequency here, show_students_exact_score is also being set to true automatically on creation
-    create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL)
+    create_teacher_info(notification_email_frequency: TeacherInfo::DAILY_EMAIL, role_selected_at_signup: role_selected_at_signup)
   end
 
   private def generate_default_teacher_notification_settings
