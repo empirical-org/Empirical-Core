@@ -73,6 +73,16 @@ class School < ApplicationRecord
            :lower_grade_greater_than_upper_grade
   validates :zipcode, length: { minimum: 5 }, allow_blank: true
 
+  # Lambda has to be wrapped in parens to avoid syntax error in this construction.
+  # Also, this is slightly magical:
+  scope :premium, (lambda do
+    current_time = DateTime.current
+    left_outer_joins(:subscriptions)
+      .left_outer_joins(district: :subscriptions)
+      # Below is a slightly weird construction, but Rails magic doesn't work so we had to get explicit
+      .where('(subscriptions.expiration >= ? OR subscriptions_districts.expiration >= ?)', current_time, current_time)
+  end)
+
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',
     US_HIGHER_ED_SCHOOL_NAME = 'us higher ed',

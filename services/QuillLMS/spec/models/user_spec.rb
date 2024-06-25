@@ -119,6 +119,35 @@ RSpec.describe User, type: :model do
   let(:user) { build(:user) }
   let!(:user_with_original_email) { build(:user, email: 'fake@example.com') }
 
+  describe '#administered_premium_schools' do
+    subject { user.administered_premium_schools }
+
+    let(:school_subscribed_school) { create(:school) }
+    let(:district_subscribed_school) { create(:school) }
+    let(:non_subscribed_school) { create(:school) }
+    let(:un_admined_subscribed_school) { create(:school) }
+
+    let(:district) { create(:district, schools: [district_subscribed_school]) }
+
+    let(:school_subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
+    let(:district_subscription) { create(:subscription, account_type: Subscription::SCHOOL_DISTRICT_PAID) }
+
+    before do
+      create(:school_subscription, subscription: school_subscription, school: school_subscribed_school)
+      create(:school_subscription, subscription: school_subscription, school: un_admined_subscribed_school)
+      create(:district_subscription, subscription: district_subscription, district:)
+
+      create(:schools_admins, user:, school: school_subscribed_school)
+      create(:schools_admins, user:, school: district_subscribed_school)
+      create(:schools_admins, user:, school: non_subscribed_school)
+    end
+
+    it { is_expected.to include(school_subscribed_school) }
+    it { is_expected.to include(district_subscribed_school) }
+    it { is_expected.not_to include(non_subscribed_school) }
+    it { is_expected.not_to include(un_admined_subscribed_school) }
+  end
+
   describe 'flags' do
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
