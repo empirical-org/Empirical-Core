@@ -1,29 +1,10 @@
-export const ENGLISH = 'english';
-export const CHINESE = 'chinese';
-export const HINDI = 'hindi';
-export const SPANISH = 'spanish';
-export const FRENCH = 'french';
-export const ARABIC = 'arabic';
-export const RUSSIAN = 'russian';
-export const PORTUGUESE = 'portuguese';
-export const URDU = 'urdu';
-export const GERMAN = 'german';
-export const JAPANESE = 'japanese';
-export const KOREAN = 'korean';
-export const VIETNAMESE = 'vietnamese';
-export const THAI = 'thai';
-export const UKRAINIAN = 'ukrainian';
-export const TAGALOG = 'tagalog';
-export const DARI = 'dari';
-export const languages = [ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI];
-export const rightToLeftLanguages = [ARABIC, URDU, DARI];
-
 /*
     ELL Starter: -LyFRZvbHAmooTTIIVE2
     ELL Intermediate Diagnostic: 125c9458-beb7-4176-9ae0-02bec65624a2
     ELL Advanced Diagnostic: 4e848241-ca31-4eb5-90e2-0ecba6304521
 */
 
+import {ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI } from "../../../Shared/utils/languageList"
 const ELL_STARTER_PRE = '-LyFRZvbHAmooTTIIVE2'
 const ELL_INTERMEDIATE_PRE = '125c9458-beb7-4176-9ae0-02bec65624a2'
 const ELL_ADVANCED_PRE = '4e848241-ca31-4eb5-90e2-0ecba6304521'
@@ -33,8 +14,6 @@ const ELL_ADVANCED_POST = '319c308a-64d5-45a3-bef1-0be1e3e3fa07'
 
 export const languageData = {
   [ENGLISH]: {
-    flag: 'https://assets.quill.org/images/flags/usa.png',
-    label: 'English',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Placement Activity',
@@ -75,8 +54,6 @@ export const languageData = {
     }
   },
   [CHINESE]: {
-    flag: 'https://assets.quill.org/images/flags/china.png',
-    label: '中文',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill安置活动',
@@ -117,8 +94,6 @@ export const languageData = {
     }
   },
   [HINDI]: {
-    flag: 'https://assets.quill.org/images/flags/india.png',
-    label: 'हिंदी',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill स्थापन गतिविधि',
@@ -159,8 +134,6 @@ export const languageData = {
     }
   },
   [SPANISH]: {
-    flag: 'https://assets.quill.org/images/flags/spain.png',
-    label: 'Español',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Actividad de emplazamiento de Quill',
@@ -201,8 +174,6 @@ export const languageData = {
     }
   },
   [FRENCH]: {
-    flag: 'https://assets.quill.org/images/flags/france.png',
-    label: 'Français',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Activité de placement Quill',
@@ -243,8 +214,6 @@ export const languageData = {
     }
   },
   [ARABIC]: {
-    flag: 'https://assets.quill.org/images/flags/egypt.png',
-    label: 'العربية',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'نشاط تحديد المستوى في Quill',
@@ -273,8 +242,6 @@ export const languageData = {
     }
   },
   [RUSSIAN]: {
-    flag: 'https://assets.quill.org/images/flags/russia.png',
-    label: 'Русский',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Задание по размещению Quill',
@@ -315,8 +282,6 @@ export const languageData = {
     }
   },
   [PORTUGUESE]: {
-    flag: 'https://assets.quill.org/images/flags/brazil.png',
-    label: 'Português',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Atividade de Colocação da Quill',
@@ -357,8 +322,6 @@ export const languageData = {
     }
   },
   [URDU]: {
-    flag: 'https://assets.quill.org/images/flags/pakistan.png',
-    label: 'اردو',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'پلیسمنٹ کی سرگرمی Quill',
@@ -387,8 +350,6 @@ export const languageData = {
     }
   },
   [GERMAN]: {
-    flag: 'https://assets.quill.org/images/flags/germany.png',
-    label: 'Deutsch',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill Platzdeckchen-Methode (Placemat)',
@@ -429,8 +390,6 @@ export const languageData = {
     }
   },
   [JAPANESE]: {
-    flag: 'https://assets.quill.org/images/flags/japan.png',
-    label: '日本語',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quillクラス分けアクティビティ',
@@ -471,8 +430,6 @@ export const languageData = {
     }
   },
   [KOREAN]: {
-    flag: 'https://assets.quill.org/images/flags/south_korea.png',
-    label: '한국어',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Quill 배치 활동',
@@ -513,8 +470,6 @@ export const languageData = {
     }
   },
   [VIETNAMESE]: {
-    flag: 'https://assets.quill.org/images/flags/vietnam.png',
-    label: 'Tiếng Việt',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Hoạt động Sắp xếp Quill',
@@ -555,8 +510,6 @@ export const languageData = {
     }
   },
   [THAI]: {
-    flag: 'https://assets.quill.org/images/flags/thailand.png',
-    label: 'ไทย',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'กิจกรรมการทดสอบวัดระดับภาษาของ Quill',
@@ -597,8 +550,6 @@ export const languageData = {
     }
   },
   [UKRAINIAN]: {
-    flag: 'https://assets.quill.org/images/flags/ukraine.png',
-    label: 'Українська',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Розподільний тест Quill',
@@ -639,8 +590,6 @@ export const languageData = {
     }
   },
   [TAGALOG]: {
-    flag: 'https://assets.quill.org/images/flags/philippines.png',
-    label: 'Tagalog',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'Placement Activity ng Quill',
@@ -681,8 +630,6 @@ export const languageData = {
     }
   },
   [DARI]: {
-    flag: 'https://assets.quill.org/images/flags/afghanistan.png',
-    label: 'درى',
     intro: {
       [ELL_STARTER_PRE]: {
         header: 'فعالیت قرارگیری درکویل Quill',
