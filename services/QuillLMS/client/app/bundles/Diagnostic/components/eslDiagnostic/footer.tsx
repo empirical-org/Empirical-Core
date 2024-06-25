@@ -14,9 +14,7 @@ const MAX_VIEW_WIDTH_FOR_MOBILE = 895
 
 const Footer = ({ language, handleClickOpenMobileLanguageMenu, updateLanguage, }: FooterProps) => {
   const size = useWindowSize();
-  const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
   const footerClassName = () => {
-    const size = useWindowSize();
     if (size.width <= MAX_VIEW_WIDTH_FOR_MOBILE) {
       return "ell-footer mobile"
     } else {
