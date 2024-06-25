@@ -3602,6 +3602,40 @@ ALTER SEQUENCE public.firebase_apps_id_seq OWNED BY public.firebase_apps.id;
 
 
 --
+-- Name: gengo_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.gengo_jobs (
+    id bigint NOT NULL,
+    english_text_id integer NOT NULL,
+    translated_text_id integer,
+    translation_job_id character varying NOT NULL,
+    locale character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: gengo_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.gengo_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: gengo_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.gengo_jobs_id_seq OWNED BY public.gengo_jobs.id;
+
+
+--
 -- Name: images; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4004,39 +4038,6 @@ CREATE SEQUENCE public.objectives_id_seq
 --
 
 ALTER SEQUENCE public.objectives_id_seq OWNED BY public.objectives.id;
-
-
---
--- Name: openai_translated_texts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.openai_translated_texts (
-    id bigint NOT NULL,
-    english_text_id integer NOT NULL,
-    translation text NOT NULL,
-    locale character varying NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: openai_translated_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.openai_translated_texts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: openai_translated_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.openai_translated_texts_id_seq OWNED BY public.openai_translated_texts.id;
 
 
 --
@@ -5611,11 +5612,11 @@ ALTER SEQUENCE public.topics_id_seq OWNED BY public.topics.id;
 CREATE TABLE public.translated_texts (
     id bigint NOT NULL,
     english_text_id integer NOT NULL,
-    translation text,
+    translation text NOT NULL,
     locale character varying NOT NULL,
-    translation_job_id character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    source_api character varying
 );
 
 
@@ -6764,6 +6765,13 @@ ALTER TABLE ONLY public.firebase_apps ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: gengo_jobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.gengo_jobs ALTER COLUMN id SET DEFAULT nextval('public.gengo_jobs_id_seq'::regclass);
+
+
+--
 -- Name: images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6845,13 +6853,6 @@ ALTER TABLE ONLY public.oauth_applications ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.objectives ALTER COLUMN id SET DEFAULT nextval('public.objectives_id_seq'::regclass);
-
-
---
--- Name: openai_translated_texts id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.openai_translated_texts ALTER COLUMN id SET DEFAULT nextval('public.openai_translated_texts_id_seq'::regclass);
 
 
 --
@@ -8028,6 +8029,14 @@ ALTER TABLE ONLY public.firebase_apps
 
 
 --
+-- Name: gengo_jobs gengo_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.gengo_jobs
+    ADD CONSTRAINT gengo_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8137,14 +8146,6 @@ ALTER TABLE ONLY public.oauth_applications
 
 ALTER TABLE ONLY public.objectives
     ADD CONSTRAINT objectives_pkey PRIMARY KEY (id);
-
-
---
--- Name: openai_translated_texts openai_translated_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.openai_translated_texts
-    ADD CONSTRAINT openai_translated_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -11668,6 +11669,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240610145308'),
 ('20240610155753'),
 ('20240620152448'),
-('20240621215153');
+('20240621215153'),
+('20240625131834'),
+('20240625142619');
 
 

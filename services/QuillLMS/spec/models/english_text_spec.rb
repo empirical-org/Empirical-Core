@@ -17,16 +17,19 @@ RSpec.describe EnglishText, type: :model do
     it {should have_many(:translation_mappings) }
   end
 
-  describe "#needs_translation?(locale:)" do
-    subject { english_text.needs_translation?(locale: locale) }
+  describe "#needs_gengo_translation?(locale:)" do
+    subject { english_text.needs_gengo_translation?(locale: locale) }
 
     let(:english_text) { create(:english_text) }
     let(:locale) { Gengo::SPANISH_LOCALE }
-    let!(:translated_text) {
-      create(:translated_text,
-      english_text: english_text,
-      locale: other_locale)
-    }
+    let!(:gengo_job) do
+      create(
+        :gengo_job,
+        english_text: english_text,
+        locale: other_locale
+      )
+    end
+
 
     context 'there is a translated_text record associated with that locale' do
       let(:other_locale) { locale }

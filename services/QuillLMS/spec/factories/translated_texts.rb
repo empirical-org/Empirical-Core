@@ -4,18 +4,24 @@
 #
 # Table name: translated_texts
 #
-#  id                 :bigint           not null, primary key
-#  locale             :string           not null
-#  translation        :text
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  english_text_id    :integer          not null
-#  translation_job_id :string           not null
+#  id              :bigint           not null, primary key
+#  locale          :string           not null
+#  source_api      :string
+#  translation     :text             not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  english_text_id :integer          not null
 #
 FactoryBot.define do
   factory :translated_text do
     locale {Gengo::SPANISH_LOCALE}
     english_text_id { 1 }
-    translation_job_id { 33 }
+    source_api { TranslatedText::OPEN_AI_SOURCE }
+    translation { Faker::Quotes::Shakespeare.as_you_like_it_quote }
+
+    factory :gengo_translated_text, class: TranslatedText do
+      source_api { TranslatedText::GENGO_SOURCE }
+    end
   end
+
 end

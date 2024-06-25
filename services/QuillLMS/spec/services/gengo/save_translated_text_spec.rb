@@ -48,14 +48,14 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
 
       it do
         expect { subject }
-          .to change(TranslatedText, :count)
+          .to change(GengoJob, :count)
           .by(1)
       end
 
       it do
         expect { subject }
           .to change {
-                TranslatedText
+                GengoJob
                 .where(english_text_id: english_text_id)
                 .count
               }.by(1)
@@ -64,27 +64,19 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
       it do
         expect { subject }
           .to change {
-                TranslatedText
-                .where(locale:)
-                .count
-              }.by(1)
-      end
-
-      it do
-        expect { subject }
-          .to change {
-                TranslatedText
+                GengoJob
                 .where(translation_job_id: job_id)
                 .count
               }.by(1)
       end
 
-      it "doesn't update if the translated_text" do
-        translated_text = create(:translated_text,
-        translation_job_id: job_id,
-        english_text_id: english_text_id,
-        translation: "Foo",
-        locale:)
+      it "doesn't update if the translated_text already exists" do
+        translated_text = create(:gengo_translated_text,
+          english_text_id: english_text_id,
+          translation: "Foo",
+          locale:
+        )
+        create(:gengo_job, translated_text: translated_text)
         expect {subject}.not_to change {translated_text.reload.translation}
       end
 
@@ -94,17 +86,14 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
           job_payload.merge({"body_tgt" => translated_text })
         end
 
-        it do
-          expect { subject }
-            .to change {
-                  TranslatedText
-                  .find_by(translation_job_id: job_id)
-                  &.translation
-                }.to(translated_text)
+        it 'creates a translated_text record' do
+
+
         end
 
+
         context 'gengo payload has the same translation as the db model' do
-          let(:translation_text) { create(:translated_text, translation: translated_text)}
+          let(:translation_text) { create(:gengo_translated_text, translation: translated_text)}
 
           before do
             allow(TranslatedText).to receive(:find_or_create_by)

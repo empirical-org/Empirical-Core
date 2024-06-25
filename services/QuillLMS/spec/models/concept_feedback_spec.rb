@@ -54,8 +54,9 @@ RSpec.describe ConceptFeedback, type: :model do
   end
 
   describe '#as_json' do
-    subject { concept_feedback.as_json }
+    subject { concept_feedback.as_json(options) }
 
+    let(:options) { {} }
     let(:data) { concept_feedback.data }
 
     context 'there are no translations' do
@@ -74,39 +75,116 @@ RSpec.describe ConceptFeedback, type: :model do
       it 'adds the translations to the data' do
         expect(subject["translatedDescription"]).to eq(translation)
       end
+
+      context 'there is only a gengo translation' do
+        let(:translated_text) { create(:gengo_translated_text, translation: translation)}
+
+        it 'adds the translations to the data' do
+          expect(subject["translatedDescription"]).to eq(translation)
+        end
+      end
+
+      context 'there is a gengo and open ai translation' do
+        let(:gengo_text) { create(:gengo_translated_text)}
+
+        before do
+          concept_feedback.english_texts.first.translated_texts = [gengo_text, translated_text]
+        end
+
+        it 'defaults to the open_ai translation' do
+          expect(subject["translatedDescription"]).to eq(translation)
+        end
+
+        context 'passed in gengo as an option' do
+          let(:options) { {source_api: TranslatedText::GENGO_SOURCE} }
+
+          it 'returns the gengo translation' do
+            expect(subject["translatedDescription"]).to eq(gengo_text.translation)
+          end
+        end
+
+      end
     end
   end
 
-  describe '#translation(locale:)' do
+  describe '#translation(locale:, source:)' do
     let(:locale) {"es-la"}
+    let(:translation_locale) { locale }
+    let(:source) { TranslatedText::OPEN_AI_SOURCE }
 
-    subject { concept_feedback.translation(locale: locale)}
+    context 'source is not passed in' do
+      subject { concept_feedback.translation(locale: locale)}
 
-    context 'a translation exists' do
-      let(:translation) { "test translation" }
-      let(:translated_text) { create(:translated_text, translation: translation, locale: translation_locale)}
+      context 'a translation exists' do
+        let(:translation) { "test translation" }
+        let(:translated_text) do
+          create(:translated_text,
+           translation: translation,
+           locale: translation_locale,
+           source_api: source
+          )
+        end
 
-      before do
-        concept_feedback.create_translation_mappings
-        concept_feedback.english_texts.first.translated_texts << translated_text
+        before do
+          concept_feedback.create_translation_mappings
+          concept_feedback.english_texts.first.translated_texts << translated_text
+        end
+
+        context 'the translation is from open_ai' do
+          context 'there is a translation for the locale' do
+            it {expect(subject).to eq(translation)}
+          end
+
+          context 'there are only translations for different locales' do
+            let(:translation_locale) { "jp" }
+
+            it {expect(subject).to be_nil}
+          end
+        end
+
+        context 'the translation is from gengo' do
+          let(:source) { TranslatedText::GENGO_SOURCE}
+
+          it { expect(subject).to eq(translation)}
+        end
+
+        context 'there are two translations' do
+          let(:gengo_translation) { create(:gengo_translated_text) }
+
+          before do
+            concept_feedback.english_texts.first.translated_texts << gengo_translation
+          end
+
+          it 'returns the open ai translation' do
+            expect(subject).to eq(translation)
+          end
+        end
       end
 
-      context 'there is a translation for the locale' do
-        let(:translation_locale) { locale }
-
-        it {expect(subject).to eq(translation)}
-      end
-
-      context 'there are only translations for different locales' do
-        let(:translation_locale) { "jp" }
-
+      context 'there are no translations' do
         it {expect(subject).to be_nil}
       end
+
     end
 
-    context 'there are no translations' do
-      it {expect(subject).to be_nil}
+    context 'the source is gengo' do
+      subject { concept_feedback.translation(locale: locale, source_api: TranslatedText::GENGO_SOURCE)}
+
+      context 'there are two translations' do
+        let(:gengo_translated_text) { create(:gengo_translated_text) }
+        let(:open_ai_translated_text) { create(:translated_text) }
+
+        before do
+          concept_feedback.create_translation_mappings
+          concept_feedback.english_texts.first.translated_texts = [open_ai_translated_text, gengo_translated_text]
+        end
+
+        it 'returns the gengo translation' do
+          expect(subject).to eq(gengo_translated_text.translation)
+        end
+      end
     end
+
   end
 
   describe '#callbacks' do
@@ -192,14 +270,28 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  describe "#fetch_translations!" do
-    context "there is a translated_text associated" do
-      let(:t1) { create(:translated_text)}
-      let(:t2) { create(:translated_text)}
+  describe "#gengo_jobs" do
+    subject { concept_feedback.gengo_jobs }
 
-      it "calls fetch_translation! on each of the translated_text" do
-        allow(concept_feedback).to receive(:translated_texts)
+    let(:english_text) { create(:english_text)}
+    let!(:gengo_job) { create(:gengo_job, english_text:)}
+    let(:concept_feedback) { create(:concept_feedback) }
+    let!(:mapping) { create(:translation_mapping, english_text:, source: concept_feedback)}
+
+    it { expect(subject).to include(gengo_job)}
+  end
+
+  describe "#fetch_translations!" do
+    context "there is a gengo_job associated" do
+      let(:t1) { create(:gengo_job)}
+      let(:t2) { create(:gengo_job)}
+
+      before do
+        allow(concept_feedback).to receive(:gengo_jobs)
         .and_return([t1, t2])
+      end
+
+      it "calls fetch_translation! on each of the gengo jobs" do
         expect(t1).to receive(:fetch_translation!)
         expect(t2).to receive(:fetch_translation!)
         concept_feedback.fetch_translations!
@@ -207,4 +299,29 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
+  describe "#translate!(source_api)" do
+    let(:subject) { concept_feedback.translate!(source_api:)}
+    let(:concept_feedback) { create(:concept_feedback)}
+
+    before do
+      concept_feedback.create_translation_mappings
+    end
+
+    context 'open_ai' do
+      let(:source_api) {TranslatedText::OPEN_AI_SOURCE}
+
+      it 'sends a request to the OpenAI api' do
+        expect(OpenAI::SaveTranslatedTexts).to receive(:run).with(concept_feedback.english_texts)
+      end
+    end
+
+    context 'gengo' do
+      let(:source_api) {TranslatedText::GENGO_SOURCE}
+
+      it 'requests translations for the english_texts' do
+        expect(Gengo::RequestTranslations).to receive(:run).with(concept_feedback.english_texts)
+        subject
+      end
+    end
+  end
 end
