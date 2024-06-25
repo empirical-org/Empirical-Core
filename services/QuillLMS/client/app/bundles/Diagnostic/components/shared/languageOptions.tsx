@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { closeLanguageMenu, updateLanguage, } from '../../actions/diagnostics';
 import i18n from '../../i18n';
-import { languageData, languages } from '../../modules/translation/languagePageInfo';
+import { languageOptions, languages } from '../../../Shared/utils/languageList';
 
 interface LanguageOptionsProps {
   dispatch: (action: () => any) => void;
@@ -20,8 +20,8 @@ export const LanguageOptions = ({ dispatch }: LanguageOptionsProps) => {
   return languages.map(language => {
     return(
       <button className="language-button" key={`${language}-button`} onClick={handleClickLanguage} type="button" value={language}>
-        <img alt={`${language} flag`} src={languageData[language].flag} />
-        <span>{languageData[language].label}</span>
+        <img alt={`${language} flag`} src={languageOptions[language].flag} />
+        <span>{languageOptions[language].label}</span>
       </button>
     );
   })

@@ -17,7 +17,7 @@ import {
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import { Question } from '../../interfaces/Question';
-import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../Shared/utils/languageList';
 import Cues from '../renderForQuestions/cues';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
