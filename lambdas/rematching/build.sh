@@ -10,8 +10,4 @@ npx vite build
 # Step 2: Change directory to the build output directory
 cd dist
 
-# Step 3: Zip the build output
-zip -rq deploy_code.zip .
-
-
 echo "build completed successfully."
