@@ -97,6 +97,7 @@ describe Cms::SchoolsController do
        'ZIP' => school.zipcode || school.mail_zipcode,
        'District' => school.district.name,
        'Free and Reduced Price Lunch' => "#{school.free_lunches}%",
+       'Direct Certification - SNAP' => "#{school.direct_certification}%",
        'NCES ID' => school.nces_id,
        'PPIN' => school.ppin,
        'Clever ID' => school.clever_id
@@ -127,6 +128,7 @@ describe Cms::SchoolsController do
           'School ZIP' => :zipcode,
           'FRP Lunch' => :free_lunches,
           'NCES ID' => :nces_id,
+          'Direct Certification - SNAP' => :direct_certification,
           'Clever ID' => :clever_id
       })
     end

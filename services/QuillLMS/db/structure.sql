@@ -2733,7 +2733,7 @@ CREATE TABLE public.evidence_automl_models (
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    project character varying
+    project character varying NOT NULL
 );
 
 
@@ -3523,9 +3523,9 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     results jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
+    num_examples integer DEFAULT 0 NOT NULL,
     trial_duration double precision,
-    evaluation_duration double precision,
-    num_examples integer
+    evaluation_duration double precision
 );
 
 
@@ -4943,7 +4943,8 @@ CREATE TABLE public.schools (
     ppin character varying,
     authorizer_id integer,
     coordinator_id integer,
-    district_id bigint
+    district_id bigint,
+    direct_certification integer
 );
 
 
@@ -11918,6 +11919,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240619230446'),
 ('20240620113751'),
 ('20240620115611'),
+('20240620123025'),
 ('20240620152448');
 
 
