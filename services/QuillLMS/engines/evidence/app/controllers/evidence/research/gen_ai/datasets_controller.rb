@@ -13,7 +13,7 @@ module Evidence
 
           if @dataset.save
             DatasetImporter.run(dataset: @dataset, file: dataset_params[:file])
-            redirect_to @dataset, notice: 'Dataset was successfully created.'
+            redirect_to @dataset
           else
             render :new
           end

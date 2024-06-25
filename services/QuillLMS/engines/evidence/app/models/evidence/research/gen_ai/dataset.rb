@@ -38,6 +38,8 @@ module Evidence
           existing_version = self.class.where(stem_vault: stem_vault).order(version: :desc).first&.version
           self.version = existing_version.is_a?(Integer) ? existing_version + 1 : 1
         end
+
+        def test_examples_count = optimal_count + suboptimal_count
       end
     end
   end

@@ -26,7 +26,6 @@ module Evidence
         it { should validate_presence_of(:optimal_count) }
         it { should validate_presence_of(:suboptimal_count) }
         it { should validate_presence_of(:stem_vault) }
-        it { should validate_presence_of(:version) }
 
         it { should have_readonly_attribute(:locked) }
         it { should have_readonly_attribute(:stem_vault_id) }

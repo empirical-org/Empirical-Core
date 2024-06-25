@@ -2,7 +2,7 @@
   <h2>Trials</h2>
 </header>
 
-<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
+<%# <%= link_to 'New Trial', new_research_gen_ai_trial_path %> %>
 <br>
 <br>
 <%= render 'pagination' %>
@@ -31,9 +31,9 @@
           <td><%= trial.stem_vault.name %></td>
           <td><%= trial.conjunction %></td>
           <td><%= trial.llm_prompt.description %></td>
-          <td><%= trial.num_test_examples %></td>
+          <td><%= trial.dataset.test_examples_count %></td>
           <td><%= trial.status %></td>
-          <td><%= link_to "View", trial %></td>
+          <td><%= link_to "View", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
         </tr>
       <% end %>
     </tbody>
@@ -42,4 +42,4 @@
   <p>No trials found.</p>
 <% end %>
 
-<%= render 'pagination' %>
+<%# <%= render 'pagination' %> %>

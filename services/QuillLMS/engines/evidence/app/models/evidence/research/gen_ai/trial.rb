@@ -31,16 +31,17 @@ module Evidence
         belongs_to :llm_prompt
         belongs_to :dataset
 
-        has_many :llm_feedbacks, -> { order(:id) }
-        has_many :student_responses, -> { order(:id) }, through: :stem_vault
-        has_many :quill_feedbacks, -> { order(:id) }, through: :student_responses
+        has_many :llm_examples, -> { order(:id) }
+        has_many :test_examples, -> { order(:id) }, through: :dataset
 
         validates :llm_id, :llm_prompt_id, :dataset_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
 
+        delegate :stem_vault, to: :dataset
         delegate :conjunction, :name, to: :stem_vault
         delegate :vendor, :version, to: :llm
         delegate :llm_prompt_template_id, to: :llm_prompt
+        delegate :test_examples_count, to: :dataset
 
         scope :completed, -> { where(status: COMPLETED) }
         scope :failed, -> { where(status: FAILED) }
@@ -55,7 +56,7 @@ module Evidence
 
         attr_readonly :llm_id, :llm_prompt_id, :dataset_id
 
-        attr_accessor :guideline_ids, :prompt_example_ids
+        attr_accessor :guideline_ids, :llm_prompt_template_id, :prompt_example_ids
 
         def pending? = status == PENDING
         def failed? = status == FAILED
@@ -67,7 +68,7 @@ module Evidence
           return unless pending?
 
           update!(status: RUNNING)
-          create_llm_prompt_responses_feedbacks
+          query_llm
           CalculateResultsWorker.perform_async(id)
           trial_errors.empty? ? update!(status: COMPLETED) : update!(status: FAILED)
         rescue => e
@@ -85,18 +86,20 @@ module Evidence
 
         def retry_params = { llm_id:, llm_prompt_id:, dataset_id: }
 
-        private def create_llm_prompt_responses_feedbacks
+        private def query_llm
           [].tap do |api_call_times|
-
-            student_responses.testing_data.limit(num_test_examples).each do |student_response|
+            test_examples.each do |test_example|
               api_call_start_time = Time.zone.now
-              raw_text = llm.completion(prompt: llm_prompt.feedback_prompt(student_response.text))
+              prompt = llm_prompt.prompt_with_student_response(test_example.student_response)
+              raw_text = llm.completion(prompt:)
               api_call_times << (Time.zone.now - api_call_start_time).round(2)
 
-              text = Resolver.run(raw_text:)
-              LLMFeedback.create!(trial: self, raw_text:, text:, student_response:)
+              llm_feedback = LLMFeedbackResolver.run(raw_text:)
+              llm_assigned_status = LLMAssignedStatusResolver.run(raw_text:)
+
+              LLMExample.create!(trial: self, raw_text:, llm_feedback:, test_example:, llm_assigned_status:)
             rescue => e
-              trial_errors << { error: e.message, student_response_id: student_response.id, raw_text: }.to_json
+              trial_errors << { error: e.message, test_example_id: test_example.id, raw_text: }.to_json
               next
             end
             update_results(api_call_times:)

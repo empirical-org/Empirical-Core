@@ -12,13 +12,13 @@ module Evidence
         #
         # Regexp.last_match(1)&.to_i will be nil in this case
 
-        # Insert prompt examples:
-        # ~~~prompt_examples~~~
+        # Insert optimal examples:
+        # ~~~optimal_examples~~~
         #
         # Regexp.last_match(1)&.to_i will be 20 in this case
 
         DELIMITER = "~~~"
-        EXAMPLES_SUBSTITUTION = 'prompt_examples'
+        OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
 
         ACTIVITY_SUBSTITUTIONS = {
           "stem" => ->(builder, _) { builder.stem_vault.stem },
@@ -28,7 +28,10 @@ module Evidence
           "so_text" => ->(builder, _) { builder.stem_vault.so_text },
           "relevant_text" => ->(builder, _) { builder.stem_vault.relevant_text },
           "full_text" => ->(builder, _) { builder.stem_vault.full_text },
-          EXAMPLES_SUBSTITUTION => ->(builder, limit) { builder.examples(limit) },
+          "optimal_examples" => ->(builder, _) { builder.optimal_examples },
+          "suboptimal_examples" => ->(builder, _) { builder.suboptimal_examples },
+          "optimal_guidelines" => ->(builder, _) { builder.optimal_guidelines },
+          "suboptimal_guidelines" => ->(builder, _) { builder.suboptimal_guidelines }
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
@@ -37,16 +40,20 @@ module Evidence
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :llm_prompt_template_id, :dataset_id
+        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples
 
-        validates :llm_prompt_template_id, presence: true
         validates :dataset_id, presence: true
+        validates :guidelines, presence: true
+        validates :llm_prompt_template_id, presence: true
+        validates :prompt_examples, presence: true
 
         delegate :contents, to: :llm_prompt_template
 
-        def initialize(llm_prompt_template_id:, dataset_id:)
-          @llm_prompt_template_id = llm_prompt_template_id
+        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:)
           @dataset_id = dataset_id
+          @guidelines = guidelines
+          @llm_prompt_template_id = llm_prompt_template_id
+          @prompt_examples = prompt_examples
 
           validate!
         end
@@ -59,18 +66,15 @@ module Evidence
           end
         end
 
-        def examples(limit)
-          dataset
-            .quill_feedbacks
-            .prompt_engineering_data
-            .limit(limit)
-            .map(&:response_and_feedback)
-            .join("\n")
-        end
+        def optimal_examples = prompt_examples.optimal.map(&:response_feedback_status).join("\n")
+        def suboptimal_examples = prompt_examples.suboptimal.map(&:response_feedback_status).join("\n")
+
+        def optimal_guidelines = guidelines.optimal.map(&:text).join("\n")
+        def suboptimal_guidelines = guidelines.suboptimal.map(&:text).join("\n")
 
         def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 
-        def stem_vault = @stem_vault ||= StemVault.find(dataset_id)
+        def stem_vault = @stem_vault ||= Dataset.find(dataset_id).stem_vault
 
         def llm_prompt_template = @llm_prompt_template ||= LLMPromptTemplate.find(llm_prompt_template_id)
       end

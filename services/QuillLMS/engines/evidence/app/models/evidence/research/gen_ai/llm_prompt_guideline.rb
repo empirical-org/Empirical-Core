@@ -24,7 +24,7 @@ module Evidence
 
         attr_readonly :llm_prompt_id, :guideline_id
 
-        validate :llm_prompt_unlocked, on: :save
+        validate :llm_prompt_unlocked, on: :create
 
         private def llm_prompt_unlocked
           errors.add(:llm_prompt, LOCKED) if llm_prompt&.locked

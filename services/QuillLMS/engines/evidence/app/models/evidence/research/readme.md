@@ -1,5 +1,7 @@
 # Generative AI Trials
+
 ## 1. Data Importing
+
 `Activity`, `StemVault`, `Dataset`, `TestExample`, and `PromptExample` records are imported with the following structure
 
 ```mermaid
@@ -15,7 +17,7 @@ classDiagram
     }
     class Guideline {
         text
-        category
+        staff_assigned_status
     }
     class Dataset {
         optimal_count
@@ -86,18 +88,19 @@ classDiagram
 
 ## 4. Trial Ouptut
 
-As the `Trial` is run, the LLM returns feedback relevant to each `TestExample` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
+As the `Trial` is run, the LLM returns feedback relevant to each `TestExample` which is stored as `LLMExample` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
 
 ```mermaid
 classDiagram
     class TestExample {
     }
-    class LLMFeedback {
-        feedback
+    class LLMExample {
+        llm_assigned_status
+        llm_feedback
         label
     }
     class Trial {
     }
-    TestExample --|> LLMFeedback
-    Trial --|> LLMFeedback
+    TestExample --|> LLMExample
+    Trial --|> LLMExample
 ```

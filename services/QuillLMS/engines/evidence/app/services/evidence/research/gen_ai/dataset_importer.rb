@@ -21,11 +21,11 @@ module Evidence
             student_response = row['Student Response']
             data_partition = row['data_partition']
             topic_tag = row['label']
-            staff_assigned_status = topic_tag == 'Optimal' ? TestExample::OPTIMAL : TestExample::SUBOPTIMAL
+            staff_assigned_status = topic_tag == 'Optimal' ? HasAssignedStatus::OPTIMAL : HasAssignedStatus::SUBOPTIMAL
             staff_feedback = row['Proposed Feedback']
 
             if data_partition == 'test'
-              staff_assigned_status == TestExample::OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
+              staff_assigned_status == HasAssignedStatus::OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
               dataset.test_examples.create!(student_response:, staff_assigned_status:, staff_feedback:, topic_tag:)
             elsif data_partition == 'prompt'
               dataset.prompt_examples.create!(student_response:, staff_assigned_status:, staff_feedback:)

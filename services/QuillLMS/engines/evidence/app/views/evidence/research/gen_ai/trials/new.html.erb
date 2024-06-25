@@ -16,7 +16,7 @@
     <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank' %>
     <br>
 
-    <%= f.collection_select :llm_id, @llm_prompt_templates, :id, :to_s, { required: true } %>
+    <%= f.collection_select :llm_prompt_template_id, @llm_prompt_templates, :id, :to_s, { required: true } %>
   </div>
 
   <div class="field-spacing">

@@ -31,7 +31,7 @@ module Evidence
         it { should validate_presence_of(:llm_prompt_template_id) }
         it { should validate_presence_of(:optimal_guidelines_count) }
         it { should validate_presence_of(:suboptimal_guidelines_count) }
-        it { should validate_presence_of(:num_prompt_examples) }
+        it { should validate_presence_of(:optimal_examples_count) }
         it { should validate_presence_of(:suboptimal_examples_count) }
 
         it { should have_readonly_attribute(:prompt) }
@@ -41,7 +41,11 @@ module Evidence
         it { should have_readonly_attribute(:optimal_examples_count) }
         it { should have_readonly_attribute(:suboptimal_examples_count) }
 
-        it { should have_many(:trials).dependent(:destroy) }
+        it { should have_one(:trial).dependent(:destroy) }
+        it { should have_many(:llm_prompt_prompt_examples).dependent(:destroy) }
+        it { should have_many(:prompt_examples).through(:llm_prompt_prompt_examples) }
+        it { should have_many(:llm_prompt_guidelines).dependent(:destroy) }
+        it { should have_many(:guidelines).through(:llm_prompt_guidelines) }
       end
     end
   end

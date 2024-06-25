@@ -1,13 +1,3 @@
-<%= link_to 'Back to Trials', research_gen_ai_trials_path %>
-<br>
-
-<% if @previous %>
-  <%= link_to "Previous", @previous %>
-<% end %>
-
-<% if @next %>
-  <%= link_to "Next", @next %>
-<% end %>
 
 <div class="container">
   <div class="column">
@@ -15,7 +5,7 @@
       Trial
       <% if @trial.failed? %>
         <%= button_to 'Retry',
-              retry_research_gen_ai_trial_path(@trial),
+              retry_research_gen_ai_dataset_trial_path(dataset: @dataset, trial: @trial),
               method: :post,
               data: { confirm: 'Are you sure you want to retry this trial?' }
         %>
@@ -67,7 +57,6 @@
     <table>
       <thead>
         <tr>
-          <th class='match-column'>Identical feedback match</th>
           <th class='match-column'>Optimal match</th>
           <th class='g-eval-column'>BertScore (F1)</th>
           <% if @trial.g_evals %>
@@ -84,12 +73,10 @@
         <% @trial.llm_feedbacks.each.with_index do |llm_feedback, index| %>
           <tr>
             <% quill_feedback = llm_feedback.quill_feedback %>
-            <td class="<%= llm_feedback.identical_feedback? ? 'green' : 'red' %>"></td>
             <td class="<%= llm_feedback.optimal_or_suboptimal_match? ? 'green' : 'red' %>"></td>
             <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
-            <% if @trial.g_evals %>
-              <% @trial.g_evals.keys.each do |g_eval_id| %>
-                <td><%= @trial.g_evals[g_eval_id][index] %></td>
+            <% if @trial.g_eval_id %>
+              <td><%= @trial.g_evals[g_eval_id][index] %></td>
               <% end %>
             <% end %>
             <td><%= llm_feedback.student_response %></td>
@@ -134,4 +121,4 @@
   .column:nth-child(2) {
     min-width: 300px; /* Adjust as needed */
   }
-</style>
+</div>
