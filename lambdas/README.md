@@ -8,11 +8,10 @@ the `REMATCH_LAMBDA_URL` env var in the CMS app.
 
 `rematching$ ./deploy.sh <staging|prod>`
 
-# Cloudflare Worker
+# Cloudflare Worker - build & deploy
 
 0. [Install wrangler locally](https://www.npmjs.com/package/wrangler)
-1. export PATH=./node_modules/.bin:$PATH may be necessary to access the wrangler executable
-2. Open the [Cloudflare worker UI](https://dash.cloudflare.com/e8be3394a446f6e1bfb5b7c6f726fd09/workers-and-pages) in a browser.
+1. `export PATH=./node_modules/.bin:$PATH` may be necessary to access the wrangler executable
+2. [Optional] Open the [Cloudflare worker UI](https://dash.cloudflare.com/e8be3394a446f6e1bfb5b7c6f726fd09/workers-and-pages) in a browser, for monitoring.
 3. `cloudflare_rematching$ ./deploy.sh <staging|prod>`
-
-Optional: Browse the `lambdas/` directory in Postman, which contains idempotent POST requests with known-working paylods for smoketesting in any environment.
+4. [Optional] Browse the `lambdas/` directory in Postman, which contains idempotent POST requests with known-working paylods for smoketesting in any environment.
