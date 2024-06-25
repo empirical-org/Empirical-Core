@@ -2,6 +2,7 @@
   max-width: 300px;
   width: 100%;
   &.input-container.active.not-editable {
+    min-height: 36px;
     .dropdown__menu {
       margin-top: -20px;
     }
