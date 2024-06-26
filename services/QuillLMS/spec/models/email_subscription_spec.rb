@@ -4,17 +4,14 @@
 #
 # Table name: email_subscriptions
 #
-#  id           :bigint           not null, primary key
-#  cancel_token :string           not null
-#  frequency    :string           not null
-#  params       :jsonb
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  user_id      :integer          not null
-#
-# Indexes
-#
-#  index_email_subscriptions_on_frequency  (frequency)
+#  id                :bigint           not null, primary key
+#  cancel_token      :string           not null
+#  frequency         :string           not null
+#  params            :jsonb
+#  subscription_type :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  user_id           :integer          not null
 #
 require 'rails_helper'
 
@@ -25,6 +22,9 @@ RSpec.describe EmailSubscription, type: :model do
 
   it { should validate_presence_of(:frequency) }
   it { should validate_inclusion_of(:frequency).in_array(described_class::FREQUENCIES) }
+
+  it { should validate_presence_of(:subscription_type) }
+  it { should validate_inclusion_of(:subscription_type).in_array(described_class::SUBSCRIPTION_TYPES) }
 
   context 'scopes' do
     let!(:monthly_subscription) { create(:email_subscription, :monthly) }

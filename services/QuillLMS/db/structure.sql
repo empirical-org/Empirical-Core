@@ -2654,6 +2654,7 @@ CREATE TABLE public.email_subscriptions (
     id bigint NOT NULL,
     user_id integer NOT NULL,
     frequency character varying NOT NULL,
+    subscription_type character varying NOT NULL,
     cancel_token character varying DEFAULT md5((random())::text) NOT NULL,
     params jsonb,
     created_at timestamp(6) without time zone NOT NULL,
@@ -9625,13 +9626,6 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.district
 --
 
 CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
-
-
---
--- Name: index_email_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_email_subscriptions_on_frequency ON public.email_subscriptions USING btree (frequency);
 
 
 --
