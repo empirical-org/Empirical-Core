@@ -5,6 +5,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
   describe "run" do
     subject { described_class.run(job_id)}
 
+    let(:status) { "available" }
     let(:order_id) { "123" }
     let(:job_id) { "124" }
     let(:english_text_id) { "1493" }
@@ -43,104 +44,85 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
       allow(GengoAPI).to receive(:getTranslationJob).and_return(response)
     end
 
-    context 'the response status is available' do
-      let(:status) { "available" }
 
-      it do
-        expect { subject }
-          .to change(TranslatedText, :count)
-          .by(1)
-      end
+    it { expect{subject}.to change{GengoJob.where(english_text_id:, locale:, translation_job_id: job_id).count}.by(1) }
 
-      it do
-        expect { subject }
-          .to change {
-                TranslatedText
-                .where(english_text_id: english_text_id)
-                .count
-              }.by(1)
-      end
+    context 'the gengo_job already exists in our database' do
+      let(:translated_text_id) { nil }
+      let(:gengo_job) { create(:gengo_job, translation_job_id: job_id, translated_text_id:) }
 
-      it do
-        expect { subject }
-          .to change {
-                TranslatedText
-                .where(locale:)
-                .count
-              }.by(1)
-      end
+      before { gengo_job }
 
-      it do
-        expect { subject }
-          .to change {
-                TranslatedText
-                .where(translation_job_id: job_id)
-                .count
-              }.by(1)
-      end
+      it { expect{subject}.to not_change(GengoJob, :count) }
 
-      it "doesn't update if the translated_text" do
-        translated_text = create(:translated_text,
-        translation_job_id: job_id,
-        english_text_id: english_text_id,
-        translation: "Foo",
-        locale:)
-        expect {subject}.not_to change {translated_text.reload.translation}
-      end
+      context 'the gengo_job already has a translation' do
+        let(:translated_text) { create(:gengo_translated_text) }
+        let(:translated_text_id) { translated_text.id }
 
-      context 'gengo payload contains translated text' do
-        let(:translated_text) { "test translation" }
-        let(:response_job) do
-          job_payload.merge({"body_tgt" => translated_text })
+        it do
+          expect(GengoAPI).not_to receive(:getTranslationJob)
+          subject
         end
 
         it do
-          expect { subject }
-            .to change {
-                  TranslatedText
-                  .find_by(translation_job_id: job_id)
-                  &.translation
-                }.to(translated_text)
-        end
-
-        context 'gengo payload has the same translation as the db model' do
-          let(:translation_text) { create(:translated_text, translation: translated_text)}
-
-          before do
-            allow(TranslatedText).to receive(:find_or_create_by)
-            .and_return(translation_text)
-          end
-
-          it do
-            expect(translation_text).not_to receive(:update)
-            subject
-          end
+          expect{subject}.to not_change(TranslatedText, :count)
+            .and not_change(gengo_job, :translated_text_id)
         end
       end
-    end
 
-    context 'the response status is deleted' do
-      let(:status) { "deleted" }
+      context 'the gengo job does not have a translation' do
+        context 'the response status is available' do
+          let(:status) { "available" }
 
-      it 'does not save the translated text' do
-        expect { subject }
-          .not_to change(TranslatedText, :count)
+          it { expect{subject}.to not_change(TranslatedText, :count) }
+
+          context 'gengo payload contains translated text' do
+            let(:translation) { "Usa una letra mayuscula para indicar que es un nombre." }
+            let(:response_job) do
+              job_payload.merge({"body_tgt" => translation })
+            end
+
+            it { expect{subject}.to change(TranslatedText, :count).by(1) }
+
+            it do
+              expect{subject}.to change{TranslatedText.where(translation:, source_api: TranslatedText::GENGO_SOURCE).count}
+                .from(0)
+                .to(1)
+            end
+
+            it do
+              translated_text = create(:gengo_translated_text, translation:)
+              expect(TranslatedText).to receive(:create).and_return(translated_text)
+              expect{subject}.to change{ gengo_job.reload.translated_text_id}.to(translated_text.id)
+            end
+          end
+
+        end
+
+        context 'the response status is deleted' do
+          let(:status) { "deleted" }
+
+          it 'does not save the translated text' do
+            expect { subject }
+              .not_to change(TranslatedText, :count)
+          end
+        end
+
+        context 'the response status is canceled' do
+          let(:status) { "canceled" }
+
+          it 'does not save the translated text' do
+            expect { subject }
+              .not_to change(TranslatedText, :count)
+          end
+        end
+
+        context "the response is nil" do
+          let(:response) { nil }
+
+          it { expect{subject}.to raise_error(described_class::FetchTranslationJobError)}
+        end
       end
-    end
-
-    context 'the response status is canceled' do
-      let(:status) { "canceled" }
-
-      it 'does not save the translated text' do
-        expect { subject }
-          .not_to change(TranslatedText, :count)
-      end
-    end
-
-    context "the response is nil" do
-      let(:response) { nil }
-
-      it { expect{subject}.to raise_error(described_class::FetchTranslationJobError)}
     end
   end
 end

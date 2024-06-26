@@ -4,19 +4,21 @@
 #
 # Table name: translated_texts
 #
-#  id                 :bigint           not null, primary key
-#  locale             :string           not null
-#  translation        :text
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  english_text_id    :integer          not null
-#  translation_job_id :string           not null
+#  id              :bigint           not null, primary key
+#  locale          :string           not null
+#  source_api      :string
+#  translation     :text             not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  english_text_id :integer          not null
 #
 class TranslatedText < ApplicationRecord
+  GENGO_SOURCE = "gengo"
+  OPEN_AI_SOURCE = "open_ai"
   belongs_to :english_text
-  scope :pending_translation, -> { where(translation: nil) }
-
-  def self.fetch_and_save_pending! = pending_translation.each(&:fetch_translation!)
-
-  def fetch_translation! = Gengo::SaveTranslatedText.run(translation_job_id)
+  scope :ordered_by_source_api, lambda { |source_api = OPEN_AI_SOURCE|
+    order(
+      Arel.sql("CASE WHEN source_api = '#{source_api}' THEN 0 ELSE 1 END, source_api ASC")
+    )
+  }
 end
