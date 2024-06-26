@@ -38,7 +38,7 @@ class FeedbackHistory
 
   end
 
-  def self.suboptimal_sample(prompt_id:, limit: 10)
+  def self.suboptimal_sample(prompt_id:, limit: 10, offset: 0)
 
   end
 

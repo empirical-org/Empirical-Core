@@ -40,22 +40,17 @@ module Evidence
       private def passage = prompt.first_passage&.text
       private def plagiarism_text = prompt.plagiarism_text
       private def stem = prompt.text
-      private def example_one = prompt.first_strong_example
-      private def example_two = prompt.second_strong_example
+      private def optimal_examples = markdown_ul(optimal_example_list)
+      private def suboptimal_examples = markdown_ul(suboptimal_example_list)
 
-      private def optimal_examples = optimal_examples_raw.map {|e| "- #{e}"}.join("\n")
-      private def optimal_examples_raw
-        [
-          # example_one,
-          # example_two,
-          prompt.optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
-        ].flatten.uniq
-      end
-
-      private def suboptimal_examples = prompt.suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT).map {|e| "- #{e}"}.join("\n")
+      private def optimal_example_list = prompt.optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
+      private def suboptimal_example_list = prompt.suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT)
+      private def markdown_ul(array) = array.map {|i| "- #{i}"}.join("\n")
 
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
-      private def feedback_history = history.map(&:feedback).map {|f| "- #{f}"}.join("\n")
+      private def example_one = prompt.first_strong_example
+      private def example_two = prompt.second_strong_example
+      private def feedback_history = markdown_ul(history.map(&:feedback))
       private def highlight_texts
         prompt
           .distinct_automl_highlight_texts
