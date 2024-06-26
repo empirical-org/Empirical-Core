@@ -2647,6 +2647,40 @@ CREATE TABLE public.districts_users (
 
 
 --
+-- Name: email_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_subscriptions (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    frequency character varying NOT NULL,
+    cancel_token character varying DEFAULT md5((random())::text) NOT NULL,
+    params jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: email_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_subscriptions_id_seq OWNED BY public.email_subscriptions.id;
+
+
+--
 -- Name: english_texts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6745,6 +6779,13 @@ ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.di
 
 
 --
+-- Name: email_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.email_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: english_texts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8014,6 +8055,14 @@ ALTER TABLE ONLY public.district_subscriptions
 
 ALTER TABLE ONLY public.districts
     ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_subscriptions email_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_subscriptions
+    ADD CONSTRAINT email_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -9576,6 +9625,13 @@ CREATE INDEX index_districts_users_on_district_id_and_user_id ON public.district
 --
 
 CREATE INDEX index_districts_users_on_user_id ON public.districts_users USING btree (user_id);
+
+
+--
+-- Name: index_email_subscriptions_on_frequency; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_email_subscriptions_on_frequency ON public.email_subscriptions USING btree (frequency);
 
 
 --
@@ -11920,6 +11976,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240620113751'),
 ('20240620115611'),
 ('20240620123025'),
-('20240620152448');
+('20240620152448'),
+('20240626193615');
 
 
