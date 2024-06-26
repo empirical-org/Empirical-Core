@@ -60,7 +60,7 @@ class InvitationsController < ApplicationController
 
   private def set_classroom_ids_and_invitee_email
     @classroom_ids = params[:classroom_ids]
-    @invitee_email = params[:invitee_email]&.strip_whitespace&.strip_zero_width_chars
+    @invitee_email = params[:invitee_email]&.strip_whitespace&.strip_zero_width
   end
 
 
