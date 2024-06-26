@@ -12,23 +12,23 @@ If their sentence is factually and logically correct and contains at least one p
 - The sentence is logically correct.
 - The sentence uses at least one piece of evidence from the selected text.
 - The sentence ONLY uses evidence from the text (and not outside sources).
-- Here is a list of {'optimal' => true} entries. If the entry has the roughly the same information as one of these, it is {'optimal' => true}:
+- The sentence doesn't need to be perfect or be specific with every fact. Some vagueness is ok.
+- When in doubt, label an entry {'optimal' => true}
+
+#### Examples of Entries that you should mark {'optimal' => true}
+If an entry contains similar information, you should mark it {'optimal' => true}
 ```
 %{optimal_examples}
 ```
-- Note, if an entry is mostly correct but is slightly vague or slightly off on its fact statement, still consider it 'optimal' => true.
-
 
 #### A response is considered {'optimal' => false} if ANY of these are true:
 - The sentence doesn't include evidence from the text.
 - The sentence uses information that is outside of the source text.
 - The sentence misuses the conjunction.
 - The sentence is factually incorrect.
-- The sentence is logically incorrect.
 - The sentence is an opinion.
-- The sentence uses some true and some false evidence.
 
-Here are some examples of {'optimal' => false} entries:
+#### Examples of Entries that you should mark {'optimal' => false}
 ```
 %{suboptimal_examples}
 ```

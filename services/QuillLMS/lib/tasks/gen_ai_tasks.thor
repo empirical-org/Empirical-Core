@@ -18,7 +18,6 @@ class GenAITasks < Thor
       system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
 
       prompt.example_sets(optimal:).each do |entry|
-
         begin
           response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
           total += 1
