@@ -98,6 +98,7 @@ class FeedbackHistory < ApplicationRecord
   scope :suboptimal,  -> { where(optimal: false) }
   scope :autoML, -> { where(feedback_type: AUTO_ML)}
   scope :confidence_greater_than, ->(lower_limit) {where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit)}
+  scope :entry_shorter_than, -> (length) { where("LENGTH(entry) < ?", length) }
   scope :for_prompt, ->(prompt_id) { where(prompt_id: prompt_id) }
 
   def readonly?
@@ -109,7 +110,7 @@ class FeedbackHistory < ApplicationRecord
       .autoML
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
-      .where("LENGTH(entry) < ?", max_length)
+      .entry_shorter_than(max_length)
       .order("id DESC")
       .limit(limit)
       .pluck(:entry)
@@ -121,7 +122,7 @@ class FeedbackHistory < ApplicationRecord
       .autoML
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
-      .where("LENGTH(entry) < ?", max_length)
+      .entry_shorter_than(max_length)
       .order("id DESC")
       .limit(limit)
       .offset(offset)
