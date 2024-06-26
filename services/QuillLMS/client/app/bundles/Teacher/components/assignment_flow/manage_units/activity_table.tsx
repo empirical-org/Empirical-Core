@@ -179,7 +179,7 @@ const ActivityTable = ({ data, onSuccess, isOwner, handleActivityClicked, handle
       </div>
     )
 
-    const dueDateInMoment = activity.dueDate ? moment.utc(activity.dueDate) : null
+    const dueDateInMoment = activity.dueDate ? moment.utc(activity.dueDate, "YYYY-MM-DDTHH:M:S") : null
     const publishDateInMoment = activity.publishDate ? moment.utc(activity.publishDate) : null
 
     let activityDueDatePicker = dueDateInMoment ? formatDateTimeForDisplay(dueDateInMoment) : DUE_DATE_DEFAULT_TEXT

@@ -2075,7 +2075,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -2176,7 +2176,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -2376,7 +2376,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -2386,7 +2386,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -2789,7 +2789,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -2890,7 +2890,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -3090,7 +3090,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -3100,7 +3100,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -3815,7 +3815,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -3916,7 +3916,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -4116,7 +4116,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -4126,7 +4126,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -4512,7 +4512,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -4613,7 +4613,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -4813,7 +4813,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -4823,7 +4823,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -5521,7 +5521,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -5622,7 +5622,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -5822,7 +5822,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -5832,7 +5832,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -6218,7 +6218,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -6319,7 +6319,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -6519,7 +6519,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -6529,7 +6529,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -7227,7 +7227,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -7328,7 +7328,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -7528,7 +7528,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -7538,7 +7538,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -7924,7 +7924,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -8025,7 +8025,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -8225,7 +8225,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -8235,7 +8235,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -8933,7 +8933,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -9034,7 +9034,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -9234,7 +9234,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -9244,7 +9244,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
@@ -9630,7 +9630,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-10T09:00:00.000Z}
+                                    initialViewDate={2022-11-09T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -9731,7 +9731,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-10T09:00:00.000Z"}
+                                              viewDate={"2022-11-09T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -9931,7 +9931,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -9941,7 +9941,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         9
                                                       </td>
                                                       <td
-                                                        className="rdtDay rdtToday"
+                                                        className="rdtDay"
                                                         data-month={10}
                                                         data-value={10}
                                                         data-year={2022}
