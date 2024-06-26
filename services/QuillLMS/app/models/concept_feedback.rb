@@ -40,7 +40,7 @@ class ConceptFeedback < ApplicationRecord
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
   def as_json(options=nil)
-    source_api = options[:source_api] || TranslatedText::OPEN_AI_SOURCE
+    source_api = options&.dig(:source_api) || TranslatedText::OPEN_AI_SOURCE
     locale = Gengo::SPANISH_LOCALE
     translation = translation(locale:, source_api:)
     return data unless translation.present?

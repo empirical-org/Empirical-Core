@@ -56,7 +56,7 @@ RSpec.describe ConceptFeedback, type: :model do
   describe '#as_json' do
     subject { concept_feedback.as_json(options) }
 
-    let(:options) { {} }
+    let(:options) { nil }
     let(:data) { concept_feedback.data }
 
     context 'there are no translations' do
