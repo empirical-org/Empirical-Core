@@ -74,7 +74,7 @@ class AdminReportFilterSelection < ApplicationRecord
   def timeframe_value = filter_selections.dig('timeframe', 'value')
 
   private def all_grades_selected? = selected_grades&.sort == GRADE_OPTION_NAMES
-  private def all_schools = School.joins(:schools_admins).where(schools_admins: { user: user })
+  private def all_schools = user.administered_premium_schools
   private def selected_grades = filter_selections['grades']&.pluck('name')
   private def selected_grade_values = filter_selections['grades']&.pluck('value')
 end

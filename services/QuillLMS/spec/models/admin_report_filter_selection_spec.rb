@@ -167,8 +167,12 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
       subject { admin_report_filter_selection.school_ids }
 
       let(:school) { create(:school) }
+      let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
 
-      before { create(:schools_admins, user: admin_report_filter_selection.user, school:) }
+      before do
+        create(:schools_admins, user: admin_report_filter_selection.user, school:)
+        create(:school_subscription, school:, subscription:)
+      end
 
       context 'when school ids are present in filter selections' do
         let(:selected_schools) { [{'id'=> school.id, 'name'=> school.name, 'label'=> school.name, 'value'=> school.id}] }
@@ -182,6 +186,14 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
         let(:selected_schools) { nil }
 
         it { is_expected.to eq [school.id] }
+
+        context 'user is admin of non-premium school' do
+          let(:non_premium_school) { create(:school) }
+
+          before { create(:schools_admins, user: admin_report_filter_selection.user, school: non_premium_school) }
+
+          it { is_expected.to_not include(non_premium_school.id) }
+        end
       end
     end
 
