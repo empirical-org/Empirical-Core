@@ -11,4 +11,10 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .activity-navbar-content .language-picker-container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+  }
 }

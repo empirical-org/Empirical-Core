@@ -22,15 +22,18 @@ const options = (): Array<{value: string, label: string}> => {
 }
 
 const LanguagePicker = ({ language, handleClickOpenMobileLanguageMenu, updateLanguage, }: LanguagePickerProps) => {
+  console.log("new language picker", language)
   const size = useWindowSize();
   const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
+  const [lang, setLanguage] = React.useState(language) // TODO
 
   const onChange = (option: { value: string}) => {
     const language = option.value;
     updateLanguage(language)
+    console.log("updating language")
   }
 
-  const value = options().find(opt => language === opt.value)
+  const value = options().find(opt => lang === opt.value)
   if (onMobile()) {
     return (
       <button className="passthrough-button focus-on-light" onClick={handleClickOpenMobileLanguageMenu} type="button">
@@ -41,14 +44,16 @@ const LanguagePicker = ({ language, handleClickOpenMobileLanguageMenu, updateLan
   }
 
   return (
-    <DropdownInput
-      className="ell-language-selector"
-      handleChange={onChange}
-      label="Directions language"
-      options={options()}
-      usesCustomOption
-      value={value}
-    />
+    <div className="language-picker-container">
+      <DropdownInput
+        className="ell-language-selector large borderless"
+        handleChange={onChange}
+        isSearchable={false}
+        options={options()}
+        usesCustomOption
+        value={value}
+      />
+    </div>
   )
 }
 

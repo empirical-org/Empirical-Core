@@ -4,6 +4,7 @@ import { Action } from "redux";
 import { getCurrentQuestion, getFilteredQuestions, getQuestionsWithAttempts } from '../../Shared/index';
 import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions';
+import { LanguageOptions } from '../../Diagnostic/components/shared/languageOptions';
 
 export interface SessionState {
   hasreceiveddata: boolean;
@@ -15,11 +16,22 @@ export interface SessionState {
   proofreaderSession?: any;
   error?: string;
   pending: boolean;
+  language: string;
+  languageMenuOpen: boolean;
 }
 
 type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
 
-const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], questionSet: [], currentQuestion: null, pending: true}
+const initialState = {
+  hasreceiveddata: false,
+  answeredQuestions: [],
+  unansweredQuestions: [],
+  questionSet: [],
+  currentQuestion: null,
+  pending: true,
+  languageMenuOpen: true,
+  language: "English",
+}
 
 export default (
   currentState: SessionState = initialState,
@@ -86,6 +98,12 @@ export default (
       newState.unansweredQuestions = newUnansweredQuestions;
       newState.currentQuestion = newCurrentQuestion;
       return Object.assign({}, newState, action.data);
+    case ActionTypes.UPDATE_LANGUAGE:
+      return Object.assign({}, currentState, {language: action.data})
+    case ActionTypes.OPEN_LANGUAGE_MENU:
+      return Object.assign({}, currentState, {languageMenuOpen: true})
+    case ActionTypes.CLOSE_LANGUAGE_MENU:
+      return Object.assign({}, currentState, {languageMenuOpen: false})
     default:
       return currentState;
   }

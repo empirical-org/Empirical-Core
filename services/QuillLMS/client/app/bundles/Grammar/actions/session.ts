@@ -11,6 +11,7 @@ import { Question } from '../interfaces/questions';
 import { GRAMMAR_QUESTION_TYPE, QuestionApi } from '../libs/questions_api';
 import { SessionApi } from '../libs/sessions_api';
 import { SessionState } from '../reducers/sessionReducer';
+import { Action } from '@dnd-kit/core/dist/store';
 
 export const allQuestions = {};
 let questionsInitialized = false;
@@ -322,4 +323,20 @@ export const setCurrentQuestion = (question: Question) => {
   return dispatch => {
     dispatch({ type: ActionTypes.SET_CURRENT_QUESTION, question })
   }
+}
+
+export const closeLanguageMenu = () => {
+  return { type: ActionTypes.CLOSE_LANGUAGE_MENU };
+}
+
+export const openLanguageMenu = () => {
+  return { type: ActionTypes.OPEN_LANGUAGE_MENU };
+}
+
+export const updateLanguage = (data) =>{
+  return { type: ActionTypes.UPDATE_LANGUAGE, data, };
+}
+
+export const getLanguage = () => {
+  return { type: ActionTypes.GET_LANGUAGE }
 }

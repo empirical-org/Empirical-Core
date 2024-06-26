@@ -368,7 +368,6 @@ export class ELLStudentDiagnostic extends React.Component {
 
   language = () => {
     const { playDiagnostic, } = this.props
-
     return playDiagnostic.language;
   }
 

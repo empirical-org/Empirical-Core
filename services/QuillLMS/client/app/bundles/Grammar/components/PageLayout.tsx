@@ -2,13 +2,14 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { renderRoutes } from "react-router-config";
 
-import { Header } from "./Header";
+import Header from "./Header";
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
 import { routes } from "../routes";
+import * as LanguageList from '../../Shared/utils/languageList';
 
 export const PageLayout = () => {
 
@@ -85,7 +86,12 @@ export const PageLayout = () => {
   let header;
 
   if(isPlaying && isTeacherOrAdmin) {
-    header = <Header isOnMobile={isOnMobile} isTeacher={!studentOrTurkOrProofreader} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />;
+    header = (<Header
+      isOnMobile={isOnMobile}
+      isTeacher={!studentOrTurkOrProofreader}
+      onTogglePreview={handleTogglePreviewMenu}
+      previewShowing={showPreview}
+    />);
   } else if(isPlaying) {
     header = <Header />;
   }
