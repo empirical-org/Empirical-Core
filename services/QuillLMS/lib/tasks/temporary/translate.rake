@@ -24,6 +24,7 @@ namespace :translate do
         puts "translating #{index + 1}/50..."
         html = activity.data["landingPageHtml"]
         next unless html.present?
+
         res = Evidence::OpenAI::Translate.run(english_text: html)
         csv << [html, res]
         puts ""
@@ -39,12 +40,14 @@ namespace :translate do
         puts "translating activity #{index + 1}/50..."
         questions = activity.data["questions"]
         next if questions.empty?
+
         length = questions.length
         questions.each_with_index do |q, q_index|
           puts "translating question #{q_index + 1}/#{length} for activity #{index + 1}"
           question = Question.find_by(uid: q["key"])
           instruction = question.data["instructions"]
           next unless instruction.present?
+
           res = Evidence::OpenAI::Translate.run(english_text: instruction)
           csv << [question.id, question.uid, instruction, res]
         end

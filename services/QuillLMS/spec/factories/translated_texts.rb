@@ -19,7 +19,7 @@ FactoryBot.define do
     source_api { TranslatedText::OPEN_AI_SOURCE }
     translation { Faker::Quotes::Shakespeare.as_you_like_it_quote }
 
-    factory :gengo_translated_text, class: TranslatedText do
+    factory :gengo_translated_text, class: 'TranslatedText' do
       source_api { TranslatedText::GENGO_SOURCE }
     end
   end
