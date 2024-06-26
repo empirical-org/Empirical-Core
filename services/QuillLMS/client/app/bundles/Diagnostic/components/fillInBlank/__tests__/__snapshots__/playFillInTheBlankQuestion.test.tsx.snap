@@ -195,6 +195,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   onChange={[Function]}
                   style={
                     Object {
+                      "paddingRight": "0px",
                       "textAlign": "left",
                       "width": "20px",
                     }
@@ -274,6 +275,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   onChange={[Function]}
                   style={
                     Object {
+                      "paddingRight": "0px",
                       "textAlign": "left",
                       "width": "20px",
                     }
@@ -349,6 +351,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 onChange={[Function]}
                 style={
                   Object {
+                    "paddingRight": "0px",
                     "textAlign": "left",
                     "width": "20px",
                   }
@@ -387,6 +390,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 onChange={[Function]}
                 style={
                   Object {
+                    "paddingRight": "0px",
                     "textAlign": "left",
                     "width": "20px",
                   }
