@@ -1,4 +1,4 @@
-import { fillInBlankInputStyle, determineShortestCue, } from '../fillInBlankInputStyle';
+import { fillInBlankInputStyle, determineShortestCue, generateSpan } from '../fillInBlankInputStyle';
 
 describe('determineShortestCue function', () => {
   it('returns the shortest cue from a list of cues', () => {
@@ -20,41 +20,34 @@ describe('determineShortestCue function', () => {
     const shortest = determineShortestCue(['only']);
     expect(shortest).toBe('only');
   });
-
 });
 
-
 describe('fillInBlankInputStyle function', () => {
-  beforeEach(() => {
-    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
-      configurable: true,
-      value: 500, // arbitrary for tests
-    });
-  });
 
   it('calculates width when there is a value and cues', () => {
-    const { width, } = fillInBlankInputStyle('aaaa', ['a', 'longercue', 'muchlongercue']);
-    expect(width).toBe('520px');
+    const { width } = fillInBlankInputStyle('aaaa', ['a', 'longercue', 'muchlongercue'], true);
+    expect(width).toBe('60px'); // Mocked 40 for 'aaaa' + 20 padding
   });
 
   it('calculates width when value and cues are empty', () => {
-    const { width, } = fillInBlankInputStyle('', []);
-    expect(width).toBe('520px');
+    const { width } = fillInBlankInputStyle('', []);
+    expect(width).toBe('20px'); // Mocked 0 for '' + 20 padding
   });
 
   it('calculates width when value and cues are null', () => {
-    const { width, } = fillInBlankInputStyle(null, null);
-    expect(width).toBe('520px');
+    const { width } = fillInBlankInputStyle(null, null, true);
+    expect(width).toBe('20px'); // Mocked 0 for null + 20 padding
   });
 
-  it('assigns the textAlign value to center when the value is shorter than the shortest cue', () => {
-    const { textAlign, } = fillInBlankInputStyle('a', ['aaaa', 'longercue', 'muchlongercue']);
+  it('assigns the textAlign value to center and paddingRight to 10px when the value is shorter than the shortest cue', () => {
+    const { textAlign, paddingRight, } = fillInBlankInputStyle('a', ['aaaa', 'longercue', 'muchlongercue'], true);
     expect(textAlign).toBe('center');
-  })
+    expect(paddingRight).toBe("10px");
+  });
 
-  it('assigns the textAlign value to left when the valueSpan is longer than the shortest cue', () => {
-    const { textAlign, } = fillInBlankInputStyle('aaaa', ['a', 'longercue', 'muchlongercue']);
+  it('assigns the textAlign value to left and paddingRight to 0px when the valueSpan is longer than the shortest cue', () => {
+    const { textAlign, paddingRight } = fillInBlankInputStyle('aaaa', ['a', 'longercue', 'muchlongercue'], true);
     expect(textAlign).toBe('left');
-  })
-
+    expect(paddingRight).toBe("0px");
+  });
 });
