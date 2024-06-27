@@ -14,16 +14,17 @@ module Evidence
   module Research
     module GenAI
       class Comparison < ApplicationRecord
-        belongs_to :dataset, class_name: 'Evidence::Research::GenAI::Dataset'
+        belongs_to :dataset
+
+        has_many :comparison_trials, dependent: :destroy
+        has_many :trials, through: :comparison_trials
 
         validates :dataset_id, presence: true
 
         scope :llms, -> { where(independent_variable: LLM).order(id: :desc) }
         scope :llm_prompts, -> { where(independent_variable: LLM_PROMPT).order(id: :desc)  }
 
-        store_accessor :results,
-          :accuracy_optimal_sub_optimal,
-          :confusion_matrix
+        store_accessor :results, :accuracy_optimal_sub_optimal, :confusion_matrix
       end
     end
   end

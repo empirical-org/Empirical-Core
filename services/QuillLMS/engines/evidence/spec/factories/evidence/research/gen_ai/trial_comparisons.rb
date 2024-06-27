@@ -9,19 +9,14 @@
 #  updated_at :datetime         not null
 #  dataset_id :integer          not null
 #
-
-require 'rails_helper'
-
 module Evidence
   module Research
     module GenAI
-      RSpec.describe Comparison, type: :model do
-        let(:factory) { described_class.model_name.singular.to_sym }
-
-        it { expect(build(factory)).to be_valid }
-
-        it { have_many(:comparison_trials) }
-        it { have_many(:trials).through(:comparison_trials) }
+      FactoryBot.define do
+        factory :evidence_research_gen_ai_trial_comparison, class: 'Evidence::Research::GenAI::TrialComparison' do
+          trial { association :evidence_research_gen_ai_trial }
+          comparison { association :evidence_research_gen_ai_comparison }
+        end
       end
     end
   end
