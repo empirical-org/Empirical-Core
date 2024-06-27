@@ -33,8 +33,11 @@ module Evidence
         it { should have_readonly_attribute(:suboptimal_count) }
         it { should have_readonly_attribute(:version) }
 
-        it { have_many(:test_examples).dependent(:destroy)}
-        it { have_many(:prompt_examples).dependent(:destroy)}
+        it { have_many(:test_examples).dependent(:destroy) }
+        it { have_many(:prompt_examples).dependent(:destroy) }
+        it { have_many(:trials).dependent(:destroy) }
+        it { have_many(:trial_comparisons).dependent(:destroy) }
+        it { have_many(:comparisons).through(:trial_comparisons) }
 
         it { should belong_to(:stem_vault) }
       end

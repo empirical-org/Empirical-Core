@@ -16,8 +16,8 @@ module Evidence
       class Comparison < ApplicationRecord
         belongs_to :dataset
 
-        has_many :comparison_trials, dependent: :destroy
-        has_many :trials, through: :comparison_trials
+        has_many :trial_comparisons, dependent: :destroy
+        has_many :trials, through: :trial_comparisons
 
         validates :dataset_id, presence: true
 

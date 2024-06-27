@@ -7,10 +7,25 @@ module Evidence
         def show
           @comparison = Comparison.find(params[:id])
           @trials = @comparison.trials.order(id: :asc)
-          @quill_feedbacks = @trials.first.llm_feedbacks.map(&:quill_feedback)
-          @next = Comparison.where("id > ?", @comparison.id).order(id: :asc).first
-          @previous = Comparison.where("id < ?", @comparison.id).order(id: :desc).first
+          @test_examples = @trials.first.dataset.test_examples
         end
+
+        def create
+          @comparison = dataset.comparisons.new
+
+          if @comparison.save
+            @comparison.trial_comparisons.create!(trial_ids.map { |trial_id| { trial_id: } })
+            redirect_to research_gen_ai_dataset_comparison_path(dataset_id: dataset.id, id: @comparison.id)
+          else
+            redirect_to dataset
+          end
+        end
+
+        private def dataset = @dataset ||= Dataset.find(params[:dataset_id])
+
+        private def comparison_params = params.permit(trial_ids: [])
+
+        private def trial_ids = comparison_params[:trial_ids]
       end
     end
   end

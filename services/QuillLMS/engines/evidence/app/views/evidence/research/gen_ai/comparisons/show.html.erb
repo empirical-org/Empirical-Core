@@ -1,6 +1,3 @@
-<%= link_to 'Back to Comparisons', research_gen_ai_comparisons_path %>
-<br>
-
 <div class="container">
   <div class="column">
     <p><%= @comparison.created_at.strftime("%B %d, %Y %H:%M") %></p>
@@ -79,46 +76,30 @@
           </th>
         <% end %>
       </tr>
-      <tr>
-        <th class="dark-border">Student Response</th>
-        <th class="dark-border">Quill Feedback</th>
-        <% @trials.each do |trial| %>
-          <td class='dark-border-top-bottom-left'></td>
-          <th class='dark-border-top-bottom'></th>
-          <th class="dark-border-top-bottom-right">
-            <% if @comparison.llm? %>
-            <%= link_to trial.llm.version, trial %>
-            <% elsif @comparison.llm_prompt? %>
-              <%= link_to trial.llm_prompt.description.truncate(40), trial %>
-            <% end %>
-          </th>
-        <% end %>
-      </tr>
     </thead>
     <tbody>
-      <% @quill_feedbacks.each do |quill_feedback| %>
-        <% student_response_id = quill_feedback.student_response_id %>
+      <% @test_examples.each do |test_example| %>
         <tr>
           <td class='dark-border'>
-            <%= quill_feedback.student_response %>
+            <%= test_example.student_response %>
           </td>
           <td class='dark-border'>
-            <%= quill_feedback.text %>
+            <%= test_example.staff_feedback %>
           </td>
           <% @trials.each do |trial| %>
-            <% llm_feedback = trial.llm_feedbacks.find_by(student_response_id: student_response_id) %>
-            <% if llm_feedback %>
-              <% llm_feedback_index = trial.llm_feedbacks.index(llm_feedback) %>
+            <% llm_example = trial.llm_examples.find_by(test_example:) %>
+            <% if llm_example %>
+              <% llm_example_index = trial.llm_examples.index(llm_example) %>
               <% g_eval_id = trial.g_evals&.keys&.first %>
-              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_feedback_index) || '' %>
-              <td class='dark-border-top-bottom-left' style="background-color: <%= llm_feedback.optimal_or_sub_optimal_match? ? 'lightgreen' : 'lightcoral' %>;">
-                <%= llm_feedback.optimal? ? :O : :S %>
+              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index) || '' %>
+              <td class='dark-border-top-bottom-left' style="background-color: <%= llm_example.optimal_or_suboptimal_match? ? 'lightgreen' : 'lightcoral' %>;">
+                <%= llm_example.optimal? ? :O : :S %>
               </td>
               <td class='dark-border-top-bottom'>
                 <%= g_eval_score %>
               </td>
               <td class='dark-border-top-bottom-right'>
-                <%= llm_feedback&.text %>
+                <%= llm_example&.llm_feedback %>
               </td>
             <% else %>
               <td class='dark-border-top-bottom-left'></td>

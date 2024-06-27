@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This migration comes from evidence (originally 20240620122344)
+# This migration comes from evidence (originally 20240625122344)
 class AddVariousFieldsToTrialAndLLMPrompt < ActiveRecord::Migration[7.0]
   def change
     remove_column :evidence_research_gen_ai_trials, :num_examples, :integer

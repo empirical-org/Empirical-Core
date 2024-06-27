@@ -30,6 +30,7 @@
   <div class="field-spacing">
     <label>Optimal Guidelines</label>
     <input type="checkbox" id="select-all-optimal-guidelines" /> Select all
+    <button type="button" id="randomize-optimal-guidelines">Randomize</button>
     <ul id="optimal-guidelines-list" style="list-style-type: none; padding-left: 0;">
       <% @guidelines.optimal.each do |guideline| %>
         <li>
@@ -43,6 +44,7 @@
   <div class="field-spacing">
     <label>Sub-Optimal Guidelines</label>
     <input type="checkbox" id="select-all-suboptimal-guidelines" /> Select all
+    <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
     <ul id="suboptimal-guidelines-list" style="list-style-type: none; padding-left: 0;">
       <% @guidelines.suboptimal.each do |guideline| %>
         <li>
@@ -56,6 +58,7 @@
   <div class="field-spacing">
     <label>Optimal Examples</label>
     <input type="checkbox" id="select-all-optimal-examples" /> Select all
+    <button type="button" id="randomize-optimal-examples">Randomize</button>
     <ul id="optimal-examples-list" style="list-style-type: none; padding-left: 0;">
       <% @prompt_examples.optimal.each do |prompt_example| %>
         <li>
@@ -69,6 +72,7 @@
   <div class="field-spacing">
     <label>Sub-optimal Responses with Feedback</label>
     <input type="checkbox" id="select-all-suboptimal-responses" /> Select all
+    <button type="button" id="randomize-suboptimal-responses">Randomize</button>
     <ul id="suboptimal-responses-list" style="list-style-type: none; padding-left: 0;">
       <% @prompt_examples.suboptimal.each do |prompt_example| %>
         <li>
@@ -98,9 +102,30 @@
       });
     }
 
+    function handleRandomize(randomizeButtonId, listId) {
+      const randomizeButton = document.getElementById(randomizeButtonId);
+      const list = document.getElementById(listId);
+
+      randomizeButton.addEventListener('click', function() {
+        const checkboxes = Array.from(list.querySelectorAll('input[type="checkbox"]'));
+        const randomCount = Math.floor(Math.random() * checkboxes.length) + 1;
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        for (let i = 0; i < randomCount; i++) {
+          const randomIndex = Math.floor(Math.random() * checkboxes.length);
+          checkboxes[randomIndex].checked = true;
+          checkboxes.splice(randomIndex, 1);
+        }
+      });
+    }
+
     handleSelectAll('select-all-optimal-guidelines', 'optimal-guidelines-list');
     handleSelectAll('select-all-suboptimal-guidelines', 'suboptimal-guidelines-list');
     handleSelectAll('select-all-optimal-examples', 'optimal-examples-list');
     handleSelectAll('select-all-suboptimal-responses', 'suboptimal-responses-list');
+
+    handleRandomize('randomize-optimal-guidelines', 'optimal-guidelines-list');
+    handleRandomize('randomize-suboptimal-guidelines', 'suboptimal-guidelines-list');
+    handleRandomize('randomize-optimal-examples', 'optimal-examples-list');
+    handleRandomize('randomize-suboptimal-responses', 'suboptimal-responses-list');
   });
 </script>

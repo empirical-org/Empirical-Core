@@ -8,9 +8,9 @@ class ChangeLLMFeedbackToLLMExample < ActiveRecord::Migration[7.0]
     add_column :evidence_research_gen_ai_llm_examples, :llm_assigned_status, :string
 
     Evidence::Research::GenAI::LLMExample.reset_column_information
-    Evidence::Research::GenAI::LLMExample.find_each do |llm_example|
-      llm_example.update!(llm_assigned_status: Evidence::Research::GenAI::HasAssignedStatus::SUBOPTIMAL)
-    end
+    Evidence::Research::GenAI::LLMExample
+      .in_batches
+      .update_all(llm_assigned_status: Evidence::Research::GenAI::HasAssignedStatus::SUBOPTIMAL)
 
     change_column_null :evidence_research_gen_ai_llm_examples, :llm_assigned_status, false
   end
