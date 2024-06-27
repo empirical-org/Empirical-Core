@@ -43,9 +43,9 @@ module Evidence
         attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples
 
         validates :dataset_id, presence: true
-        validates :guidelines, presence: true
+        validates :guidelines, presence: true, allow_blank: true
         validates :llm_prompt_template_id, presence: true
-        validates :prompt_examples, presence: true
+        validates :prompt_examples, presence: true, allow_blank: true
 
         delegate :contents, to: :llm_prompt_template
 

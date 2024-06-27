@@ -19,7 +19,10 @@ module Evidence
           end
         end
 
-        def show = @dataset = Dataset.find(params[:id])
+        def show
+          @dataset = Dataset.find(params[:id])
+          @trials = @dataset.trials.order(id: :desc)
+        end
 
         private def dataset_params
           params

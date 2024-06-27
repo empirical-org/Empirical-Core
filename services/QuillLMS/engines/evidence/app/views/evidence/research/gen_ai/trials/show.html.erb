@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="column">
     <h2>
@@ -19,10 +18,15 @@
     <h3>LLM</h3>
     <p><%= @trial.llm %></p>
 
+    <h3>LLM Prompt Templates</h3>
     <%= link_to 'LLMPromptTemplate', @trial.llm_prompt.llm_prompt_template %>
 
     <h3>LLM Prompt</h3>
     <p><%= link_to @trial.llm_prompt.description, @trial.llm_prompt %></p>
+
+    <h3>Dataset</h3>
+    <%= link_to @dataset, research_gen_ai_dataset_path(@dataset) %>
+
 
     <% if @g_evals %>
       <h3>G-eval</h3>
@@ -35,7 +39,6 @@
     <h3>Results</h3>
 
     <% if @trial.api_call_times %>
-      <p>Feedback match (identical): <%= @trial.accuracy_identical&.round(2) %></p>
       <p>Optimal match: <%= @trial.accuracy_optimal_suboptimal&.round(2) %></p>
       <p>Trial duration: <%= trial_duration(@trial) %></p>
       <p>Evaluation duration: <%= evaluation_duration(@trial) %></p>
@@ -65,23 +68,23 @@
             <% end %>
           <% end %>
           <th>Student Response</th>
-          <th class='feedback-column'>Quill Feedback</th>
+          <th class='feedback-column'>Staff Feedback</th>
           <th class='feedback-column'>LLM Feedback</th>
         </tr>
       </thead>
       <tbody>
-        <% @trial.llm_feedbacks.each.with_index do |llm_feedback, index| %>
+        <% @trial.llm_examples.each.with_index do |llm_example, index| %>
           <tr>
-            <% quill_feedback = llm_feedback.quill_feedback %>
-            <td class="<%= llm_feedback.optimal_or_suboptimal_match? ? 'green' : 'red' %>"></td>
+            <td class="<%= llm_example.optimal_or_suboptimal_match? ? 'green' : 'red' %>"></td>
             <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
-            <% if @trial.g_eval_id %>
-              <td><%= @trial.g_evals[g_eval_id][index] %></td>
+            <% if @trial.g_evals %>
+              <% @trial.g_evals.keys.each do |g_eval_id| %>
+                <td><%= @trial.g_evals[g_eval_id][index] %></td>
               <% end %>
             <% end %>
-            <td><%= llm_feedback.student_response %></td>
-            <td><%= llm_feedback.quill_feedback %></td>
-            <td><%= llm_feedback  %></td>
+            <td><%= llm_example.student_response %></td>
+            <td><%= llm_example.staff_feedback %></td>
+            <td><%= llm_example.llm_feedback  %></td>
           </tr>
         <% end %>
       </tbody>
@@ -121,4 +124,4 @@
   .column:nth-child(2) {
     min-width: 300px; /* Adjust as needed */
   }
-</div>
+</style>

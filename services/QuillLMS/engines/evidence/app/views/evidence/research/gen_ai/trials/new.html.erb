@@ -29,7 +29,8 @@
 
   <div class="field-spacing">
     <label>Optimal Guidelines</label>
-    <ul style="list-style-type: none; padding-left: 0;">
+    <input type="checkbox" id="select-all-optimal-guidelines" /> Select all
+    <ul id="optimal-guidelines-list" style="list-style-type: none; padding-left: 0;">
       <% @guidelines.optimal.each do |guideline| %>
         <li>
           <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
@@ -41,7 +42,8 @@
 
   <div class="field-spacing">
     <label>Sub-Optimal Guidelines</label>
-    <ul style="list-style-type: none; padding-left: 0;">
+    <input type="checkbox" id="select-all-suboptimal-guidelines" /> Select all
+    <ul id="suboptimal-guidelines-list" style="list-style-type: none; padding-left: 0;">
       <% @guidelines.suboptimal.each do |guideline| %>
         <li>
           <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
@@ -53,7 +55,8 @@
 
   <div class="field-spacing">
     <label>Optimal Examples</label>
-    <ul style="list-style-type: none; padding-left: 0;">
+    <input type="checkbox" id="select-all-optimal-examples" /> Select all
+    <ul id="optimal-examples-list" style="list-style-type: none; padding-left: 0;">
       <% @prompt_examples.optimal.each do |prompt_example| %>
         <li>
           <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
@@ -65,7 +68,8 @@
 
   <div class="field-spacing">
     <label>Sub-optimal Responses with Feedback</label>
-    <ul style="list-style-type: none; padding-left: 0;">
+    <input type="checkbox" id="select-all-suboptimal-responses" /> Select all
+    <ul id="suboptimal-responses-list" style="list-style-type: none; padding-left: 0;">
       <% @prompt_examples.suboptimal.each do |prompt_example| %>
         <li>
           <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
@@ -79,3 +83,24 @@
     <%= f.submit "run" %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function handleSelectAll(selectAllCheckboxId, listId) {
+      const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
+      const list = document.getElementById(listId);
+
+      selectAllCheckbox.addEventListener('change', function() {
+        const checkboxes = list.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = selectAllCheckbox.checked;
+        });
+      });
+    }
+
+    handleSelectAll('select-all-optimal-guidelines', 'optimal-guidelines-list');
+    handleSelectAll('select-all-suboptimal-guidelines', 'suboptimal-guidelines-list');
+    handleSelectAll('select-all-optimal-examples', 'optimal-examples-list');
+    handleSelectAll('select-all-suboptimal-responses', 'suboptimal-responses-list');
+  });
+</script>

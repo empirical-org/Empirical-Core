@@ -54,7 +54,7 @@ Evidence::Engine.routes.draw do
       end
 
       resources :datasets, only: [] do
-        resources :trials, only: [:new, :create, :show, :index] do
+        resources :trials, only: [:new, :create, :show] do
           post :retry, on: :member
         end
       end

@@ -13,7 +13,7 @@ module Evidence
 
         def run = JSON.parse(g_eval_output)[g_eval.metric]
 
-        private def g_eval_output = llm.completion(prompt:).strip
+        private def g_eval_output = llm.completion(prompt).strip
 
         private def llm = LLM.g_eval
 

@@ -4,12 +4,12 @@ module Evidence
   module Research
     module GenAI
       module TrialsHelper
-        def percent_complete(trial) = (trial.llm_feedbacks.count.to_f / trial.test_examples_count * 100)&.round
+        def percent_complete(trial) = (trial.llm_examples.count.to_f / trial.test_examples_count * 100)&.round
 
         def progress(trial)
-          # return '100%' if trial.test_examples_count.zero?
+          return '100%' if trial.test_examples_count.zero?
 
-          # "#{percent_complete(trial)}% complete (#{trial.llm_feedbacks.count}/#{trial.test_examples_count})"
+          "#{percent_complete(trial)}% complete (#{trial.llm_examples.count}/#{trial.test_examples_count})"
         end
 
         def evaluation_duration(trial)

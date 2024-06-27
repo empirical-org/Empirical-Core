@@ -51,12 +51,12 @@ module Evidence
           :accuracy_identical,
           :accuracy_optimal_suboptimal,
           :confusion_matrix,
-          :g_eval_id,
+          :g_eval_ids,
           :g_evals
 
         attr_readonly :llm_id, :llm_prompt_id, :dataset_id
 
-        attr_accessor :guideline_ids, :llm_prompt_template_id, :prompt_example_ids
+        attr_accessor :guideline_ids, :llm_prompt_template_id, :prompt_example_ids, :g_eval_id
 
         def pending? = status == PENDING
         def failed? = status == FAILED
@@ -91,7 +91,7 @@ module Evidence
             test_examples.each do |test_example|
               api_call_start_time = Time.zone.now
               prompt = llm_prompt.prompt_with_student_response(test_example.student_response)
-              raw_text = llm.completion(prompt:)
+              raw_text = llm.completion(prompt)
               api_call_times << (Time.zone.now - api_call_start_time).round(2)
 
               llm_feedback = LLMFeedbackResolver.run(raw_text:)

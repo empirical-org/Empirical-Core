@@ -6,13 +6,6 @@ module Evidence
       class TrialsController < ApplicationController
         include TrialsHelper
 
-        def index
-          @page = params[:page].to_i > 0 ? params[:page].to_i : 1
-          @per_page = 50
-          @num_trials = dataset.trials.count
-          @trials = dataset.trials.all.order(id: :desc).offset((@page - 1) * @per_page).limit(@per_page)
-        end
-
         def new
           @trial = dataset.trials.new
           @llms = LLM.all
@@ -26,11 +19,11 @@ module Evidence
           llm_prompt = LLMPrompt.create_from_template!(dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:)
 
           trial = dataset.trials.new(llm_id:, llm_prompt:)
-          trial.results = { g_eval_id: }
+          trial.results = { g_eval_ids: [g_eval_id] }
 
           if trial.save
             RunTrialWorker.perform_async(trial.id)
-            redirect_to research_gen_ai_dataset_trials_path(dataset_id:)
+            redirect_to research_gen_ai_dataset_trial_path(dataset_id: @dataset.id, id: trial.id)
           else
             render :new
           end
@@ -41,7 +34,7 @@ module Evidence
           @histogram = @trial.api_call_times.map(&:round).tally if @trial.api_call_times.present?
           @next = Trial.where("id > ?", @trial.id).order(id: :asc).first
           @previous = Trial.where("id < ?", @trial.id).order(id: :desc).first
-          @g_eval = GEval.where(id: @trial.g_eval_id)
+          @g_evals = GEval.where(id: @trial.g_eval_ids)
         end
 
         def retry
@@ -55,10 +48,10 @@ module Evidence
 
         private def dataset_id = params[:dataset_id]
         private def g_eval_id = trial_params[:g_eval_id]
-        private def guideline_ids = trial_params[:guideline_ids].reject(&:blank?).map(&:to_i)
+        private def guideline_ids = trial_params[:guideline_ids]&.reject(&:blank?)&.map(&:to_i) || []
         private def llm_id = trial_params[:llm_id]
         private def llm_prompt_template_id = trial_params[:llm_prompt_template_id]
-        private def prompt_example_ids = trial_params[:prompt_example_ids].reject(&:blank?).map(&:to_i)
+        private def prompt_example_ids = trial_params[:prompt_example_ids]&.reject(&:blank?)&.map(&:to_i) || []
 
         private def trial_params
           params

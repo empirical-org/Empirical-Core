@@ -38,11 +38,11 @@ module Evidence
         validates :suboptimal_examples_count, presence: true
 
         attr_readonly :prompt,
-                      :llm_prompt_template_id,
-                      :optimal_guidelines_count,
-                      :suboptimal_guidelines_count,
-                      :optimal_examples_count,
-                      :suboptimal_examples_count
+          :llm_prompt_template_id,
+          :optimal_guidelines_count,
+          :suboptimal_guidelines_count,
+          :optimal_examples_count,
+          :suboptimal_examples_count
 
         delegate :description, to: :llm_prompt_template
 
