@@ -39,7 +39,7 @@ module Evidence
           let(:misc_metrics) { {} }
           let(:llm_examples) { [llm_example_identical, llm_example_non_identical] }
 
-          before { trial.update!(results: { g_eval_id: 1 }.to_json) }
+          before { trial.update!(results: { g_eval_ids: [1] }) }
 
           it 'runs GEvalRunner for each g_eval id' do
             expect(GEvalRunner).to receive(:run).twice

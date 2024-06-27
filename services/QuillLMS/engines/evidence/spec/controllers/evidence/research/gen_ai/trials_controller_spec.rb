@@ -57,7 +57,7 @@ module Evidence
               it 'enqueues a worker for each combination and redirects' do
                 expect(RunTrialWorker).to receive(:perform_async)
                 subject
-                expect(response).to redirect_to(research_gen_ai_dataset_trials_path(dataset_id:))
+                expect(response).to redirect_to(research_gen_ai_dataset_trial_path(dataset_id:, id: Trial.last.id))
               end
             end
 
