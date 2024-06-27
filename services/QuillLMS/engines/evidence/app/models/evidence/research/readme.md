@@ -104,3 +104,23 @@ classDiagram
     TestExample --|> LLMExample
     Trial --|> LLMExample
 ```
+
+5. Comparisons
+
+After `Trial`s have been run, it's possible to trials that have the same dataset
+
+```mermaid
+classDiagram
+    class Dataset {
+    }
+    class Trial {
+    }
+    class TrialComparison {
+    }
+    class Comparison {
+    }
+    Dataset --|> Trial
+    Trial --|> TrialComparison
+    TrialComparison --|> Comparison
+    Comparison --|> Dataset
+```
