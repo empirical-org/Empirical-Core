@@ -19,7 +19,7 @@ RSpec.describe InvitationsController, type: :controller do
   end
 
   it { should use_before_action :verify_current_user_owns_classrooms }
-  it { should use_before_action :set_classroom_ids_and_inviteee_email }
+  it { should use_before_action :set_classroom_ids_and_invitee_email }
 
   describe '#create_coteacher_invitation' do
     it 'should set the classroom ids' do
@@ -30,6 +30,11 @@ RSpec.describe InvitationsController, type: :controller do
     it 'should give error for invalid email format' do
       post :create_coteacher_invitation, params: { classroom_ids: [classroom.id], invitee_email: "test@testcom" }
       expect(response.body).to eq({error: "Please make sure you've entered a valid email."}.to_json)
+    end
+
+    it 'should autostrip zero width characters' do
+      post :create_coteacher_invitation, params: { classroom_ids: [classroom.id], invitee_email: "test\u200B@test.com " }
+      expect(assigns(:invitee_email)).to eq "test@test.com"
     end
 
     it 'should give error when multiple emails entered' do
