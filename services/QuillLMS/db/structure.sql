@@ -3006,6 +3006,37 @@ ALTER SEQUENCE public.evidence_research_gen_ai_activities_id_seq OWNED BY public
 
 
 --
+-- Name: evidence_research_gen_ai_comparisons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_comparisons (
+    id bigint NOT NULL,
+    dataset_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_comparisons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_comparisons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq OWNED BY public.evidence_research_gen_ai_comparisons.id;
+
+
+--
 -- Name: evidence_research_gen_ai_datasets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6821,6 +6852,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities ALTER COLUMN id SET 
 
 
 --
+-- Name: evidence_research_gen_ai_comparisons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_comparisons_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_datasets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8100,6 +8138,14 @@ ALTER TABLE ONLY public.evidence_prompt_texts
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_activities
     ADD CONSTRAINT evidence_research_gen_ai_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_comparisons evidence_research_gen_ai_comparisons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons
+    ADD CONSTRAINT evidence_research_gen_ai_comparisons_pkey PRIMARY KEY (id);
 
 
 --
@@ -11930,6 +11976,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240620152448'),
 ('20240625135530'),
 ('20240625205613'),
-('20240626142949');
+('20240626142949'),
+('20240627001654');
 
 

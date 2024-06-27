@@ -57,6 +57,7 @@ Evidence::Engine.routes.draw do
         resources :trials, only: [:new, :create, :show] do
           post :retry, on: :member
         end
+        resources :comparisons, only: [:show]
       end
 
       resources :activities, only: [:new, :create, :show, :index]
