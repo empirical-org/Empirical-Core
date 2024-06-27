@@ -61,7 +61,7 @@ module Evidence
 
             allow(llm)
               .to receive(:completion)
-              .with(prompt: instance_of(String))
+              .with(instance_of(String))
               .and_return(raw_text)
 
             allow(CalculateResultsWorker).to receive(:perform_async).with(trial.id)
