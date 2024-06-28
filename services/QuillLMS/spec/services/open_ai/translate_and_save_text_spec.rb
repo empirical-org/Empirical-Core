@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-RSpec.describe OpenAI::SaveTranslatedText, type: :service do
+RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
   describe "run" do
     subject { described_class.run(english_text)}
 

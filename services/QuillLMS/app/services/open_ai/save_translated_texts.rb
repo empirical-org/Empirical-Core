@@ -10,7 +10,7 @@ module OpenAI
     end
 
     def run
-      english_texts.each{|text| SaveTranslatedText.run(text)}
+      english_texts.each{|text| TranslateAndSaveText.run(text)}
     end
 
   end
