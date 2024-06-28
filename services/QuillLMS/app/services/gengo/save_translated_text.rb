@@ -27,7 +27,7 @@ module Gengo
       gengo_job.update(translated_text:)
     end
 
-    private def response = @response ||= GengoAPI.getTranslationJob({id: job_id})
+    private def response = @response ||= GengoAPI.getTranslationJob({id: translation_job_id})
     private def job = response&.dig(RESPONSE, JOB)
     private def active_job? = ![DELETED, CANCELED].include?(job[STATUS])
     private def new_translation = job[BODY_TGT]
