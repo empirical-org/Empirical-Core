@@ -29,7 +29,7 @@ module Gengo
     def gengo_payload
       @gengo_payload ||= begin
         english_texts
-          .reject{|e| e.has_gengo_translation?(locale:)}
+          .reject{|e| e.gengo_translation?(locale:)}
           .each_with_object({}) do |english_text, hash|
             hash[english_text.id.to_s] = {
               type: "text",

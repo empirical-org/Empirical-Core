@@ -17,8 +17,8 @@ RSpec.describe EnglishText, type: :model do
     it {should have_many(:translation_mappings) }
   end
 
-  describe "#has_gengo_translation?(locale:)" do
-    subject { english_text.has_gengo_translation?(locale: locale) }
+  describe "#gengo_translation?(locale:)" do
+    subject { english_text.gengo_translation?(locale: locale) }
 
     let(:english_text) { create(:english_text) }
     let(:locale) { TranslatedText::DEFAULT_LOCALE }
@@ -37,7 +37,7 @@ RSpec.describe EnglishText, type: :model do
       it { is_expected.to be true }
 
       it "defaults to TranslatedText::DEFAULT_LOCALE" do
-        expect(english_text.has_gengo_translation?).to be true
+        expect(english_text.gengo_translation?).to be true
       end
     end
 
