@@ -72,7 +72,7 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry:)
   end
 
-  desc "test_csv 'because' 5", 'Run to see system prompt and feedback for a given prompt / entry'
+  desc "test_csv 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def test_csv(conjunction = 'because', limit = 50)
     CSV.open(output_file(conjunction, limit), "wb") do |csv|
       csv << csv_headers
