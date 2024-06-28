@@ -18,14 +18,13 @@ module OpenAI
     ROLE_USER = "user"
     ROLE_ASSISTANT = "assistant"
     RESPONSE_FORMAT = { "type" => "json_object" }
-    attr_reader :english_text, :system_prompt
+    attr_reader :english_text
 
     def initialize(english_text:)
       @english_text = english_text
-      prompt = PROMPT_START + english_text
-      @system_prompt = prompt
     end
 
+    private def system_prompt = PROMPT_START + english_text
     private def system_message = {KEY_ROLE => ROLE_SYSTEM, KEY_CONTENT => system_prompt}
 
     def cleaned_results
