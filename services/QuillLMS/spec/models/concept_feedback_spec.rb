@@ -313,8 +313,10 @@ RSpec.describe ConceptFeedback, type: :model do
       let(:source_api) {TranslatedText::OPEN_AI_SOURCE}
 
       it 'sends a request to the OpenAI api' do
-        expect(OpenAI::SaveTranslatedTexts).to receive(:run)
-          .with(concept_feedback.english_texts)
+        concept_feedback.english_texts.each do |text|
+          expect(OpenAI::TranslateAndSaveText).to receive(:run)
+            .with(text)
+        end
         subject
       end
     end
