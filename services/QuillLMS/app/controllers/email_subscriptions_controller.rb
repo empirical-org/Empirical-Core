@@ -2,11 +2,11 @@
 
 class EmailSubscriptionsController < ApplicationController
   before_action :set_current_subscription
-  
+
   def current = render json: @current_subscription
 
   def create_or_update
-    subscription = @current_subscription || EmailSubscription.initialize(user_id:, subscription_type:)    
+    subscription = @current_subscription || EmailSubscription.new(user_id:, subscription_type:)
 
     if subscription.update(subscription_params)
       render json: subscription, status: :ok
@@ -26,6 +26,7 @@ class EmailSubscriptionsController < ApplicationController
       end
 
       format.json do
+        return render json: {}, status: :missing if @current_subscription.nil
         return render json: {}, status: :unauthorized if @current_subscription&.user != current_user
 
         @current_subscription.destroy!
@@ -40,7 +41,9 @@ class EmailSubscriptionsController < ApplicationController
   end
 
   private def set_current_subscription
-    @current_subscription = EmailSubscription.find_by(user_id:, subscripton_type:) || EmailSubscription.find_by(cancel_token:)
+    @current_subscription = (EmailSubscription.find_by(cancel_token:) ||
+      EmailSubscription.find_by(user_id:, subscription_type:) ||
+      EmailSubscription.find_by(id:))
   end
 
   private def subscription_params
@@ -48,7 +51,11 @@ class EmailSubscriptionsController < ApplicationController
       .permit(:frequency, :params)
   end
 
+  # This param is set on the route
   private def cancel_token = params[:cancel_token]
-  private def subscription_type = params[:subscription_type]
+  # This param is set on the route
+  private def id = params[:type]
+  # This param is set on the route
+  private def subscription_type = params[:email_subscription_type]
   private def user_id = current_user.id
 end

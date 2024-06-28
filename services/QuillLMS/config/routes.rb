@@ -779,6 +779,14 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :email_subscriptions, param: :type, only: [:destroy] do
+    post :create_or_update
+    get :current
+    collection do
+      get 'unsubscribe/:cancel_token', to: 'email_subscriptions#unsubscribe', as: :unsibscribe
+    end
+  end
+
   other_pages = %w(
     beta
     board
