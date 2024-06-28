@@ -40,7 +40,6 @@ export const UsageSnapshotsContainer = ({
   selectedTeachers,
   availableTeachers,
   selectedTimeframe,
-  handleClickDownloadReport,
   saveFilterSelections,
   openMobileFilterMenu
 }) => {
@@ -65,6 +64,8 @@ export const UsageSnapshotsContainer = ({
     setSnackbarCopy(snackbarCopy)
     setIsSnackbarVisible(true)
   }
+
+  function handleClickDownloadReport() { window.print() }
 
   function handleSetSelectedTabFromDropdown(option) { setSelectedTab(option.value) }
 

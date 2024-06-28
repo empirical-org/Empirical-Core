@@ -6,7 +6,7 @@ import _ from 'underscore';
 import { Feedback, SentenceFragments, getDisplayedText, getLatestAttempt, renderPreviewFeedback } from '../../../Shared/index';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
-import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../Shared/utils/languageList';
 import getResponse from '../renderForQuestions/checkAnswer';
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import RenderFeedback from '../renderForQuestions/feedback';

@@ -7,6 +7,7 @@
 #  id                    :integer          not null, primary key
 #  charter               :string(255)
 #  city                  :string(255)
+#  direct_certification  :integer
 #  ethnic_group          :string(255)
 #  free_lunches          :integer
 #  fte_classroom_teacher :integer
@@ -71,6 +72,16 @@ class School < ApplicationRecord
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
            :lower_grade_greater_than_upper_grade
   validates :zipcode, length: { minimum: 5 }, allow_blank: true
+
+  # Lambda has to be wrapped in parens to avoid syntax error in this construction.
+  # Also, this is slightly magical:
+  scope :premium, (lambda do
+    current_time = DateTime.current
+    left_outer_joins(:subscriptions)
+      .left_outer_joins(district: :subscriptions)
+      # Below is a slightly weird construction, but Rails magic doesn't work so we had to get explicit
+      .where('(subscriptions.expiration >= ? OR subscriptions_districts.expiration >= ?)', current_time, current_time)
+  end)
 
   ALTERNATIVE_SCHOOL_NAMES = [
     HOME_SCHOOL_SCHOOL_NAME = 'home school',

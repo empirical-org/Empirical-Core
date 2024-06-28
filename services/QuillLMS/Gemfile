@@ -148,6 +148,7 @@ gem 'rack-heartbeat'
 
 # INTEGRATIONS
 gem 'commonlit-clever-ruby'
+gem 'gengo', '~> 0.2.1'
 
 # Memory profiling
 gem 'puma_worker_killer'

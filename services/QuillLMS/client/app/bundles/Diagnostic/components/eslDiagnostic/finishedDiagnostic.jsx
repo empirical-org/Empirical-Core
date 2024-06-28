@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spinner } from '../../../Shared/index';
-import { ENGLISH, rightToLeftLanguages } from '../../modules/translation/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../Shared/utils/languageList';
 
 export class FinishedDiagnostic extends React.Component {
 

@@ -76,44 +76,82 @@ RSpec.describe PdfSubscriptionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    subject { delete :destroy, params: { id: pdf_subscription.id } }
-
-    let(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
-
-    before { subject }
-
     context 'when the pdf subscription belongs to the current user' do
       let(:admin_report_filter_selection) { create(:usage_snapshot_report_pdf_filter_selection, user:) }
+      let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
 
-      it { expect(PdfSubscription.count).to eq 0 }
+      context 'HTML format' do
+        subject { delete :destroy, params: { id: pdf_subscription.id }, format: :html }
+
+        it 'deletes the subscription and redirects to root path with notice' do
+          expect { subject }.to change(PdfSubscription, :count).by(-1)
+          expect(response).to redirect_to(root_path)
+          expect(flash[:notice]).to eq('You have been unsubscribed from the Admin Usage Snapshot Report')
+        end
+      end
+
+      context 'JSON format' do
+        subject { delete :destroy, params: { id: pdf_subscription.id }, format: :json }
+
+        it 'deletes the subscription and returns status ok' do
+          expect { subject }.to change(PdfSubscription, :count).by(-1)
+          expect(response).to have_http_status(:ok)
+        end
+      end
     end
 
     context 'when the pdf subscription belongs to a different user' do
       let(:admin_report_filter_selection) { create(:usage_snapshot_report_pdf_filter_selection) }
+      let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
 
-      it { expect(PdfSubscription.all).to eq [pdf_subscription] }
-      it { expect(response).to have_http_status(:unauthorized) }
+      context 'JSON format' do
+        subject { delete :destroy, params: { id: pdf_subscription.id }, format: :json }
+
+        it 'does not delete the subscription and returns status unauthorized' do
+          expect { subject }.not_to change(PdfSubscription, :count)
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
+    end
+
+    context 'when the pdf subscription does not exist' do
+      context 'HTML format' do
+        subject { delete :destroy, params: { id: -1 }, format: :html }
+
+        it 'redirects to root path with error' do
+          expect { subject }.to change(PdfSubscription, :count).by(0)
+          expect(response).to redirect_to(root_path)
+          expect(flash[:error]).to eq('Subscription not found')
+        end
+      end
+
+      context 'JSON format' do
+        subject { delete :destroy, params: { id: -1 }, format: :json }
+
+        it 'returns status unauthorized' do
+          expect { subject }.not_to change(PdfSubscription, :count)
+          expect(response).to have_http_status(:unauthorized)
+        end
+      end
     end
   end
 
-  describe 'DELETE #unsubscribe' do
-    subject { delete :unsubscribe, params: { token: } }
+
+  describe 'GET #unsubscribe' do
+    subject { get :unsubscribe, params: { token: } }
 
     let(:pdf_subscription) { create(:pdf_subscription) }
 
     before { subject }
 
-    context 'when the pdf subscription exists with a given token' do
-      let(:token) { pdf_subscription.token }
-
-      it { expect(response).to have_http_status(:ok) }
-      it { expect(PdfSubscription.count).to eq 0 }
-    end
-
     context 'when no pdf subscription is found with that token' do
       let(:token) { 'invalid-token' }
 
-      it { expect(PdfSubscription.all).to eq [pdf_subscription] }
+      it 'does not change subscription count and redirects to root path with error' do
+        expect { subject }.not_to change(PdfSubscription, :count)
+        expect(response).to redirect_to(root_path)
+        expect(flash[:error]).to eq('Subscription not found')
+      end
     end
   end
 end

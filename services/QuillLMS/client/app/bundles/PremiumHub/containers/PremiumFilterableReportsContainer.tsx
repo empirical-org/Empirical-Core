@@ -302,8 +302,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     applyFilters()
   }
 
-  function handleClickDownloadReport() { window.print() }
-
   function handleSetDiagnosticIdForStudentCount(id) {
     setDiagnosticIdForStudentCount(id)
   }
@@ -383,7 +381,6 @@ export const PremiumFilterableReportsContainer = ({ accessType, adminInfo, }) =>
     selectedTeachers,
     availableTeachers,
     selectedTimeframe,
-    handleClickDownloadReport,
     openMobileFilterMenu,
     hasAdjustedFiltersFromDefault,
     saveFilterSelections,

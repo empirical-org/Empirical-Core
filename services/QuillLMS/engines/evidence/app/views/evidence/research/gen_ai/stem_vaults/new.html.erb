@@ -1,0 +1,25 @@
+<h1>New <%= @stem_vault.model_name.human.titleize %></h1>
+
+<%= form_for @stem_vault do |f| %>
+  <%= render 'errors', object: @stem_vault %>
+
+  <div class="field-spacing">
+    <%= f.label :activity_id, "Activity:" %>
+    <%= f.collection_select :activity_id, @activities, :id, :name, { required: true } %>
+    <%= link_to 'new', new_research_gen_ai_activity_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :conjunction, "Conjunction:" %>
+    <%= f.select :conjunction, options_for_select(@conjunctions), { required: true } %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :stem %><br>
+    <%= f.text_field :stem, size: 100, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>

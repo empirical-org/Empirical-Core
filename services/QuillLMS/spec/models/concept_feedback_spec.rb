@@ -54,8 +54,58 @@ RSpec.describe ConceptFeedback, type: :model do
   end
 
   describe '#as_json' do
-    it 'should just be the data attribute' do
-      expect(concept_feedback.as_json).to eq(concept_feedback.data)
+    subject { concept_feedback.as_json }
+
+    let(:data) { concept_feedback.data }
+
+    context 'there are no translations' do
+      it { expect(subject).to eq(data) }
+    end
+
+    context 'there are translations available' do
+      let(:translation) { "test translation" }
+      let(:translated_text) { create(:translated_text, translation: translation)}
+
+      before do
+        concept_feedback.create_translation_mappings
+        concept_feedback.english_texts.first.translated_texts << translated_text
+      end
+
+      it 'adds the translations to the data' do
+        expect(subject["translatedDescription"]).to eq(translation)
+      end
+    end
+  end
+
+  describe '#translation(locale:)' do
+    let(:locale) {"es-la"}
+
+    subject { concept_feedback.translation(locale: locale)}
+
+    context 'a translation exists' do
+      let(:translation) { "test translation" }
+      let(:translated_text) { create(:translated_text, translation: translation, locale: translation_locale)}
+
+      before do
+        concept_feedback.create_translation_mappings
+        concept_feedback.english_texts.first.translated_texts << translated_text
+      end
+
+      context 'there is a translation for the locale' do
+        let(:translation_locale) { locale }
+
+        it {expect(subject).to eq(translation)}
+      end
+
+      context 'there are only translations for different locales' do
+        let(:translation_locale) { "jp" }
+
+        it {expect(subject).to be_nil}
+      end
+    end
+
+    context 'there are no translations' do
+      it {expect(subject).to be_nil}
     end
   end
 
@@ -77,4 +127,84 @@ RSpec.describe ConceptFeedback, type: :model do
       end
     end
   end
+
+  describe '#create_translation_mappings' do
+    subject {concept_feedback.create_translation_mappings}
+
+    context 'has a description in the data field' do
+      context 'a translation mapping exists for the description' do
+        let(:english_text) {create(:english_text)}
+        let!(:mapping) { create(:translation_mapping, english_text: english_text, source: concept_feedback)}
+
+        it 'does not create a translation mapping' do
+          expect(concept_feedback.translation_mappings).to include(mapping)
+          expect {
+            subject
+          }.not_to change(TranslationMapping, :count)
+        end
+
+        it 'does not create an english text' do
+          expect(concept_feedback.translation_mappings).to include(mapping)
+          expect { subject }.not_to change(EnglishText, :count)
+        end
+      end
+
+      context 'a translation mapping does not exist for the description' do
+        context 'an english text already exists for the description' do
+          let!(:english_text) {create(:english_text, text: concept_feedback.data['description'])}
+
+          it 'creates a mapping between the english text and the concept_feedback' do
+            expect(concept_feedback.translation_mappings).to be_empty
+            subject
+            mapping = concept_feedback.translation_mappings.first
+            expect(mapping&.english_text).to eq(english_text)
+          end
+        end
+
+        context 'an english text does not yet exist for the description' do
+          it 'makes an english text for the description' do
+            expect(EnglishText.find_by(text: concept_feedback.data["description"])).to be_nil
+            subject
+            expect(EnglishText.find_by(text: concept_feedback.data["description"])).to be_present
+          end
+
+          it 'makes a translation mapping between the english text and the concept concept_feedback' do
+            expect(concept_feedback.translation_mappings).to be_empty
+            subject
+            expect(concept_feedback.translation_mappings).to be_present
+          end
+        end
+      end
+    end
+
+    context 'no description in the data field' do
+      before do
+        concept_feedback.update_attribute(:data, {})
+      end
+
+      it 'does not create an english_text' do
+        expect { subject }.not_to change(EnglishText, :count)
+      end
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
+    end
+  end
+
+  describe "#fetch_translations!" do
+    context "there is a translated_text associated" do
+      let(:t1) { create(:translated_text)}
+      let(:t2) { create(:translated_text)}
+
+      it "calls fetch_translation! on each of the translated_text" do
+        allow(concept_feedback).to receive(:translated_texts)
+        .and_return([t1, t2])
+        expect(t1).to receive(:fetch_translation!)
+        expect(t2).to receive(:fetch_translation!)
+        concept_feedback.fetch_translations!
+      end
+    end
+  end
+
 end

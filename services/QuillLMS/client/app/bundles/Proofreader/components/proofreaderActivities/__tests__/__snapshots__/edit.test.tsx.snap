@@ -87,7 +87,9 @@ exports[`<Edit /> correct edit should render when active 1`] = `
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="lose"
@@ -262,7 +264,9 @@ exports[`<Edit /> incorrect edit should render when active 1`] = `
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="then"
@@ -418,7 +422,9 @@ exports[`<Edit /> multiple unnecessary addition edit should render when active 1
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="crew"
@@ -547,7 +553,9 @@ exports[`<Edit /> multiple unnecessary deletion edit should render when active 1
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="crew was"
@@ -676,7 +684,9 @@ exports[`<Edit /> single unnecessary addition edit should render when active 1`]
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="crew"
@@ -805,7 +815,9 @@ exports[`<Edit /> single unnecessary deletion edit should render when active 1`]
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="crew"
@@ -936,7 +948,9 @@ exports[`<Edit /> unnecessary change edit should render when active 1`] = `
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="1914,"
@@ -1066,7 +1080,9 @@ exports[`<Edit /> unnecessary space edit should render when active 1`] = `
             >
               Correct
             </p>
-            <p>
+            <p
+              className="correct-answers"
+            >
               <span
                 className="correct-answer"
                 key="crew"

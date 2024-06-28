@@ -17,9 +17,7 @@ module Evidence
   module Research
     module GenAI
       class Activity < ApplicationRecord
-        has_many :activity_prompt_configs,
-          class_name: 'Evidence::Research::GenAI::ActivityPromptConfig',
-          dependent: :destroy
+        has_many :stem_vaults, dependent: :destroy
 
         validates :name, presence: true
         validates :text, presence: true

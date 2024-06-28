@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
 
-import { languages } from '../../../modules/translation/languagePageInfo';
+import { languages} from '../../../../Shared/utils/languageList';
 import { LanguageOptions } from '../languageOptions';
 
 const mockProps = {

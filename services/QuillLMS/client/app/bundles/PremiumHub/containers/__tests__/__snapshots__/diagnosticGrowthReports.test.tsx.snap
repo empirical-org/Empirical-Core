@@ -6,6 +6,11 @@ exports[`DiagnosticGrowthReports full state it should render expected messaging 
     <div
       class="header"
     >
+      <div
+        class="quill-snackbar "
+      >
+        You will receive an email with a download link shortly.
+      </div>
       <h1>
         <span>
           Diagnostic Growth Report
@@ -24,6 +29,22 @@ exports[`DiagnosticGrowthReports full state it should render expected messaging 
           </span>
         </a>
       </h1>
+      <div
+        class="header-buttons"
+      >
+        <button
+          class="quill-button-archived download-report-button contained primary medium focus-on-light"
+          type="button"
+        >
+          <img
+            alt="White arrow pointing down icon"
+            src="undefined/images/icons/downward-arrow-icon-white.svg"
+          />
+          <span>
+            Download
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="no-diagnostic-data-container"
@@ -56,6 +77,11 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
     <div
       class="header"
     >
+      <div
+        class="quill-snackbar "
+      >
+        You will receive an email with a download link shortly.
+      </div>
       <h1>
         <span>
           Diagnostic Growth Report
@@ -74,6 +100,22 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
           </span>
         </a>
       </h1>
+      <div
+        class="header-buttons"
+      >
+        <button
+          class="quill-button-archived download-report-button contained primary medium focus-on-light"
+          type="button"
+        >
+          <img
+            alt="White arrow pointing down icon"
+            src="undefined/images/icons/downward-arrow-icon-white.svg"
+          />
+          <span>
+            Download
+          </span>
+        </button>
+      </div>
     </div>
     <div
       class="tabs-for-pages-container"

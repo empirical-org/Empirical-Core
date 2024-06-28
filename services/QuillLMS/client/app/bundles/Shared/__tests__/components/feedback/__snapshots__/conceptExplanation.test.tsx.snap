@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConceptExplanation it should render 1`] = `
+<DocumentFragment>
+  <div
+    class="concept-explanation"
+  >
+    <div
+      class="concept-explanation-title"
+    >
+      <img
+        alt="Light Bulb Icon"
+        src="https://assets.quill.org/images/icons/hint.svg"
+      />
+      <span>
+        Hint
+      </span>
+    </div>
+    <div
+      class="concept-explanation-description"
+    >
+      Combine two describing words using and.
+    </div>
+    <div
+      class="concept-explanation-translation"
+    >
+      Combinar dos palabras usando and.
+    </div>
+    <div
+      class="concept-explanation-see-write"
+    >
+      <div
+        class="concept-explanation-see"
+      >
+        The sun was bright. The sun was warm.
+      </div>
+      <div
+        class="concept-explanation-write"
+      >
+        The sun was bright and warm.
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -846,6 +846,10 @@ class User < ApplicationRecord
     admin? && school_or_district_premium?
   end
 
+  def administered_premium_schools
+    administered_schools.premium
+  end
+
   def school_premium?
     school&.subscription&.present?
   end
