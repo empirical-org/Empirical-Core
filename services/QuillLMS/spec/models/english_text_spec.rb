@@ -25,7 +25,7 @@ RSpec.describe EnglishText, type: :model do
     let!(:gengo_job) do
       create(
         :gengo_job,
-        english_text: english_text,
+        english_text:,
         locale: other_locale
       )
     end
