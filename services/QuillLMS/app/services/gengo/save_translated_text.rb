@@ -3,7 +3,7 @@
 module Gengo
   class SaveTranslatedText < ApplicationService
     class FetchTranslationJobError < StandardError; end
-    attr_accessor :job_id
+    attr_reader :translation_job_id
 
     SLUG = "slug"
     RESPONSE = "response"
@@ -15,8 +15,8 @@ module Gengo
     BODY_TGT = "body_tgt"
     LC_TGT = "lc_tgt"
 
-    def initialize(job_id)
-      @job_id = job_id
+    def initialize(translation_job_id)
+      @translation_job_id = translation_job_id
     end
 
     def run
@@ -32,10 +32,11 @@ module Gengo
     private def active_job? = ![DELETED, CANCELED].include?(job[STATUS])
     private def new_translation = job[BODY_TGT]
     private def locale = job[LC_TGT]
+    private def english_text_id = job[SLUG]
 
     private def gengo_job
       # Not using find_or_create_by because the find_by doesn't make an external API request
-      @gengo_job ||= GengoJob.find_by(translation_job_id: job_id) || create_gengo_job
+      @gengo_job ||= GengoJob.find_by(translation_job_id: ) || create_gengo_job
     end
     private def translated_text
       TranslatedText.create(
@@ -48,8 +49,8 @@ module Gengo
 
     private def create_gengo_job
       GengoJob.create(
-        english_text_id: job[SLUG],
-        translation_job_id: job[JOB_ID],
+        english_text_id:,
+        translation_job_id:,
         locale:
       )
     end
