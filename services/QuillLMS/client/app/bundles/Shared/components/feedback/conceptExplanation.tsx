@@ -7,10 +7,11 @@ function getClassName(description, leftBox, rightBox) {
   return "concept-explanation empty"
 }
 
-const ConceptExplanation = ({ description, leftBox, rightBox, translatedDescription, translated}) => {
+const ConceptExplanation = ({ description, leftBox, rightBox, translatedDescription, adminShowTranslation}) => {
   const urlParams = new URLSearchParams(window.location.search)
-  const translatedOverride = urlParams.get('showTranslations')
-  const showsTranslation = translatedDescription && (translated || translatedOverride)
+  // This is a temporary way to show translations until we add a language selector in the top bar.
+  const showTranslationsFromQueryString = urlParams.get('showTranslations') === 'true'
+  const showsTranslation = (translatedDescription != null) && (adminShowTranslation || showTranslationsFromQueryString)
   return (
     <div className={getClassName(description, leftBox, rightBox)}>
       <div className="concept-explanation-title"><img alt="Light Bulb Icon" src="https://assets.quill.org/images/icons/hint.svg" /><span>Hint</span></div>
