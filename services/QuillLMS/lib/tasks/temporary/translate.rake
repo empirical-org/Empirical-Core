@@ -11,7 +11,7 @@ namespace :translate do
       hint.create_translation_mappings
       hint.english_texts.first.openai_translated_texts.create(
         translation: res,
-        locale: Gengo::SPANISH_LOCALE)
+        locale: TranslatedText::DEFAULT_LOCALE)
     end
 
   end

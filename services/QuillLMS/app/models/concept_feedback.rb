@@ -41,7 +41,7 @@ class ConceptFeedback < ApplicationRecord
 
   def as_json(options=nil)
     source_api = options&.dig(:source_api) || TranslatedText::OPEN_AI_SOURCE
-    locale = Gengo::SPANISH_LOCALE
+    locale = TranslatedText::DEFAULT_LOCALE
     translation = translation(locale:, source_api:)
     return data unless translation.present?
 

@@ -21,7 +21,7 @@ RSpec.describe EnglishText, type: :model do
     subject { english_text.has_gengo_translation?(locale: locale) }
 
     let(:english_text) { create(:english_text) }
-    let(:locale) { Gengo::SPANISH_LOCALE }
+    let(:locale) { TranslatedText::DEFAULT_LOCALE }
     let!(:gengo_job) do
       create(
         :gengo_job,
@@ -36,7 +36,7 @@ RSpec.describe EnglishText, type: :model do
 
       it { is_expected.to be true }
 
-      it "defaults to Gengo::SPANISH_LOCALE" do
+      it "defaults to TranslatedText::DEFAULT_LOCALE" do
         expect(english_text.has_gengo_translation?).to be true
       end
     end

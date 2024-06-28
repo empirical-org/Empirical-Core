@@ -14,7 +14,7 @@ class EnglishText < ApplicationRecord
   has_many :translation_mappings
   has_many :gengo_jobs
 
-  def has_gengo_translation?(locale: Gengo::SPANISH_LOCALE)
+  def has_gengo_translation?(locale: TranslatedText::DEFAULT_LOCALE)
     gengo_jobs.where(locale:).present?
   end
 end

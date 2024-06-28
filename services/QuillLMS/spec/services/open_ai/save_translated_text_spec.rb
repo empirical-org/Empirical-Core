@@ -8,7 +8,7 @@ RSpec.describe OpenAI::SaveTranslatedText, type: :service do
     let(:english_text) {create(:english_text)}
     let(:text) { english_text.text}
     let(:response) { "Do not go gentle into that good night" }
-    let(:locale) { Gengo::SPANISH_LOCALE }
+    let(:locale) { TranslatedText::DEFAULT_LOCALE }
 
     before do
       allow(OpenAI::Translate).to receive(:run).with(english_text: text).and_return(response)

@@ -9,7 +9,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
     let(:order_id) { "123" }
     let(:job_id) { "124" }
     let(:english_text_id) { "1493" }
-    let(:locale) { Gengo::SPANISH_LOCALE }
+    let(:locale) { TranslatedText::DEFAULT_LOCALE }
     let(:job_payload) do
       {"job_id"=> job_id,
             "order_id"=> order_id,

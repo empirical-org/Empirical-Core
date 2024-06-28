@@ -15,6 +15,6 @@ FactoryBot.define do
   factory :gengo_job do
     english_text_id { 1 }
     translation_job_id { 23 }
-    locale { Gengo::SPANISH_LOCALE }
+    locale { TranslatedText::DEFAULT_LOCALE }
   end
 end

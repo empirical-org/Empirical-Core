@@ -13,6 +13,8 @@
 #  english_text_id :integer          not null
 #
 class TranslatedText < ApplicationRecord
+  SPANISH_LOCALE = "es-la"
+  DEFAULT_LOCALE = SPANISH_LOCALE
   GENGO_SOURCE = "gengo"
   OPEN_AI_SOURCE = "open_ai"
   SOURCES = [ OPEN_AI_SOURCE, GENGO_SOURCE ]

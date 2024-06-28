@@ -302,7 +302,7 @@ RSpec.describe ConceptFeedback, type: :model do
   describe "#translate!(source_api)" do
     subject { concept_feedback.translate!(locale:, source_api:)}
 
-    let(:locale) { Gengo::SPANISH_LOCALE }
+    let(:locale) { TranslatedText::DEFAULT_LOCALE }
     let(:concept_feedback) { create(:concept_feedback)}
 
     before do

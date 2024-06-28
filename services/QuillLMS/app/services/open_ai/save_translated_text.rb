@@ -6,7 +6,7 @@ module OpenAI
     class OpenAITranslationError < StandardError; end
     attr_reader :english_text, :locale
 
-    def initialize(english_text, locale: Gengo::SPANISH_LOCALE)
+    def initialize(english_text, locale: TranslatedText::DEFAULT_LOCALE)
       @english_text = english_text
       @locale = locale
     end
