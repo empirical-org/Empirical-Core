@@ -21,7 +21,4 @@ class GengoJob < ApplicationRecord
 
   def fetch_translation! = Gengo::SaveTranslatedTextWorker.perform_async(translation_job_id)
 
-  private def update_translated_text!(translation)
-    translated_text.update(translation:)
-  end
 end
