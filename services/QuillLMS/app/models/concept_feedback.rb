@@ -69,7 +69,7 @@ class ConceptFeedback < ApplicationRecord
     when TranslatedText::GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
     when TranslatedText::OPEN_AI_SOURCE
-      OpenAI::SaveTranslatedTexts.run(english_texts)
+      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text) }
     end
   end
   def fetch_translations! = gengo_jobs.each(&:fetch_translation!)
