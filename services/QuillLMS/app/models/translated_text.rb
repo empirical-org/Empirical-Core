@@ -23,7 +23,7 @@ class TranslatedText < ApplicationRecord
 
   scope :ordered_by_source_api, lambda { |source_api = OPEN_AI_SOURCE|
     source_api = OPEN_AI_SOURCE unless SOURCES.include? source_api
-    order (
+    order(
       Arel.sql("CASE WHEN source_api = '#{source_api}' THEN 0 ELSE 1 END, source_api ASC")
     )
   }
