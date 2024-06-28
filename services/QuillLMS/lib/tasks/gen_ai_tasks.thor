@@ -72,10 +72,54 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry:)
   end
 
+  desc "test_csv 'because' 5", 'Run to see system prompt and feedback for a given prompt / entry'
+  def test_csv(conjunction = 'because', limit = 50)
+    CSV.open(output_file(conjunction, limit), "wb") do |csv|
+      csv << csv_headers
+      all_live_prompts(conjunction, limit).each do |prompt|
+        csv << prompt_csv_row(prompt)
+      end
+    end
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
     KEY_FEEDBACK = 'feedback'
+
+    private def output_file(conjunction, limit)
+      Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"
+    end
+
+    private def prompt_csv_row(prompt)
+      [
+        prompt.activity_id,
+        prompt.id,
+        activity_link_string(prompt.activity_id),
+        prompt.conjunction,
+        prompt.plagiarism_text,
+        prompt.text,
+        prompt.example_sets(optimal: true, limit: 2),
+        prompt.example_sets(optimal: false, limit: 2)
+      ].flatten
+    end
+
+    private def csv_headers
+      [
+        'Evidence Activity ID',
+        'Prompt ID',
+        'Link',
+        'Conjunction',
+        'Plagiarism Text',
+        'Stem',
+        'Optimal 1',
+        'Optimal 2',
+        'Suboptimal 1',
+        'Suboptimal 2'
+      ]
+    end
+
+    private def activity_link_string(activity_id) = "https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings" % {activity_id:}
 
     private def live_activity_ids
       Activity.evidence_live_flags.evidence.pluck(:id)
