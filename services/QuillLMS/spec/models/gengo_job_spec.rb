@@ -46,7 +46,7 @@ RSpec.describe GengoJob, type: :model do
     let(:gengo_job) { create(:gengo_job) }
 
     it do
-      expect(Gengo::SaveTranslatedText).to receive(:run)
+      expect(Gengo::SaveTranslatedTextWorker).to receive(:perform_async)
       .with(gengo_job.translation_job_id)
       subject
     end
