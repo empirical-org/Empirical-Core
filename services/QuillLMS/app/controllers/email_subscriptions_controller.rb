@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EmailSubscriptionsController < ApplicationController
-  before_action :set_current_subscription
+  before_action :set_current_subscription, only: [:current, :create_or_update]
 
   def current = render json: @current_subscription
 
@@ -19,6 +19,8 @@ class EmailSubscriptionsController < ApplicationController
   def destroy
     respond_to do |format|
       format.html do
+        @current_subscription = email_subscription_by_id
+
         return redirect_to root_path, flash: { error: 'Subscription not found' } if @current_subscription.nil?
 
         @current_subscription.destroy!
@@ -26,7 +28,9 @@ class EmailSubscriptionsController < ApplicationController
       end
 
       format.json do
-        return render json: {}, status: :missing if @current_subscription.nil
+        @current_subscription = email_subscription_by_type
+
+        return render json: {}, status: :not_found if @current_subscription.nil?
         return render json: {}, status: :unauthorized if @current_subscription&.user != current_user
 
         @current_subscription.destroy!
@@ -37,13 +41,13 @@ class EmailSubscriptionsController < ApplicationController
 
   # This is used by the unsubscribe link in the email
   def unsubscribe
+    @current_subscription = email_subscription_by_cancel_token
+
     redirect_to root_path, flash: { error: 'Subscription not found' } if @current_subscription.nil?
   end
 
   private def set_current_subscription
-    @current_subscription = (EmailSubscription.find_by(cancel_token:) ||
-      EmailSubscription.find_by(user_id:, subscription_type:) ||
-      EmailSubscription.find_by(id:))
+    @current_subscription = email_subscription_by_type
   end
 
   private def subscription_params
@@ -51,11 +55,15 @@ class EmailSubscriptionsController < ApplicationController
       .permit(:frequency, :params)
   end
 
+  private def email_subscription_by_id = EmailSubscription.find_by(id:)
+  private def email_subscription_by_cancel_token = EmailSubscription.find_by(cancel_token:)
+  private def email_subscription_by_type = EmailSubscription.find_by(user_id:, subscription_type:)
+
   # This param is set on the route
   private def cancel_token = params[:cancel_token]
   # This param is set on the route
   private def id = params[:type]
   # This param is set on the route
-  private def subscription_type = params[:email_subscription_type]
+  private def subscription_type = params[:email_subscription_type] || params[:type]
   private def user_id = current_user.id
 end
