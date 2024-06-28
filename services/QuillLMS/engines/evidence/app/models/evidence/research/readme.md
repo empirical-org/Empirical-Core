@@ -105,7 +105,7 @@ classDiagram
     Trial --|> LLMExample
 ```
 
-5. Comparisons
+## 5. Comparisons
 
 After `Trial`s have been run, it's possible to trials that have the same dataset
 
