@@ -43,6 +43,12 @@ RSpec.describe TranslatedText, type: :model do
 
         it { expect(subject.map(&:translation)).to eq([gengo_text, open_ai_text])}
       end
+
+      context 'not in our list' do
+        let(:source_api) { "sql injection attempt" }
+        it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text])}
+
+      end
     end
   end
 end
