@@ -29,6 +29,8 @@ If an entry contains similar information, you should mark it {'optimal' => true}
 - The sentence is an opinion.
 
 #### Examples of Entries that you should mark {'optimal' => false}
+If an entry contains similar information, you should mark it {'optimal' => false}
+
 ```
 %{suboptimal_examples}
 ```
