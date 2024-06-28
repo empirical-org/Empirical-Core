@@ -111,6 +111,7 @@ bundle exec rspec spec
 - frontend
   - ESLint: from the root directory run `npm run eslint`
   - Tests: `npm run jest`
+   - See [test runner here](https://github.com/empirical-org/Empirical-Core/blob/ab24342ffe8064e9eb5154573d5937f9dc54f84c/services/QuillLMS/package.json#L20)
    - For an individual test you can run: `npm run jest [text]` which will just wildcard whatever the text is -- so if I want to run all the tests in Connect I just run npm run jest Connect.
    - `npm run jest [your/file/path]`
 
