@@ -38,6 +38,7 @@ module Gengo
       # Not using find_or_create_by because the find_by doesn't make an external API request
       @gengo_job ||= GengoJob.find_by(translation_job_id: ) || create_gengo_job
     end
+
     private def translated_text
       TranslatedText.create(
         english_text_id: gengo_job.english_text_id,
