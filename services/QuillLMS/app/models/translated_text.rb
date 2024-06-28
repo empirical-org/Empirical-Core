@@ -15,6 +15,8 @@
 class TranslatedText < ApplicationRecord
   GENGO_SOURCE = "gengo"
   OPEN_AI_SOURCE = "open_ai"
+  SOURCES = [ OPEN_AI_SOURCE, GENGO_SOURCE ]
+  validates :source_api, presence: true, inclusion: { in: SOURCES }
   belongs_to :english_text
   scope :ordered_by_source_api, lambda { |source_api = OPEN_AI_SOURCE|
     order(

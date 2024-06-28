@@ -22,7 +22,8 @@ module OpenAI
     private def translated_text
       @translated_text ||= TranslatedText.find_or_initialize_by(
         english_text_id: english_text.id,
-        locale:
+        locale:,
+        source_api: TranslatedText::OPEN_AI_SOURCE
       )
     end
   end
