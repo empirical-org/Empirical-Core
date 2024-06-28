@@ -41,8 +41,7 @@ class ConceptFeedback < ApplicationRecord
 
   def as_json(options=nil)
     source_api = options&.dig(:source_api) || TranslatedText::OPEN_AI_SOURCE
-    locale = TranslatedText::DEFAULT_LOCALE
-    translation = translation(locale:, source_api:)
+    translation = translation(source_api:)
     return data unless translation.present?
 
     data.merge({"translatedDescription" => translation})
@@ -56,7 +55,7 @@ class ConceptFeedback < ApplicationRecord
     translation_mappings.create(english_text: )
   end
 
-  def translation(locale:, source_api: TranslatedText::OPEN_AI_SOURCE)
+  def translation(locale: TranslatedText::DEFAULT_LOCALE, source_api: TranslatedText::OPEN_AI_SOURCE)
     translations(locale:, source_api:)&.first&.translation
   end
 
