@@ -110,7 +110,7 @@ RSpec.describe ConceptFeedback, type: :model do
   describe '#translation(locale:, source:)' do
     let(:locale) {"es-la"}
     let(:translation_locale) { locale }
-    let(:source) { TranslatedText::OPEN_AI_SOURCE }
+    let(:source_api) { TranslatedText::OPEN_AI_SOURCE }
 
     context 'source is not passed in' do
       subject { concept_feedback.translation(locale: locale)}
@@ -121,7 +121,7 @@ RSpec.describe ConceptFeedback, type: :model do
           create(:translated_text,
            translation: translation,
            locale: translation_locale,
-           source_api: source
+           source_api:
           )
         end
 
