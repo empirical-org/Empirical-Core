@@ -119,7 +119,7 @@ class GenAITasks < Thor
       ]
     end
 
-    private def activity_link_string(activity_id) = "https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings" % {activity_id:}
+    private def activity_link_string(activity_id) = format("https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings", activity_id:)
 
     private def live_activity_ids
       Activity.evidence_live_flags.evidence.pluck(:id)
