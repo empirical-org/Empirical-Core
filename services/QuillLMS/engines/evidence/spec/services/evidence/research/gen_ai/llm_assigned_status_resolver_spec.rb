@@ -49,8 +49,21 @@ module Evidence
             it { is_expected.to eq described_class::OPTIMAL }
           end
 
+          context "when optimal is 'true'" do
+            let(:optimal) { 'true' }
+
+            it { is_expected.to eq described_class::OPTIMAL }
+          end
+
+
           context 'when optimal is false' do
             let(:optimal) { false }
+
+            it { is_expected.to eq described_class::SUBOPTIMAL }
+          end
+
+          context "when optimal is 'false'" do
+            let(:optimal) { 'false' }
 
             it { is_expected.to eq described_class::SUBOPTIMAL }
           end

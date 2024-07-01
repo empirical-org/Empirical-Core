@@ -17,7 +17,7 @@ module Evidence
       class Guideline < ApplicationRecord
         include HasAssignedStatus
 
-        belongs_to :stem_vault, class_name: 'Evidence::Research::GenAI::StemVault'
+        belongs_to :stem_vault
 
         attr_readonly :staff_assigned_status, :stem_vault_id, :text
 

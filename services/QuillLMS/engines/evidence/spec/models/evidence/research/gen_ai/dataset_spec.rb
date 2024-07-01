@@ -5,9 +5,9 @@
 # Table name: evidence_research_gen_ai_datasets
 #
 #  id               :bigint           not null, primary key
-#  locked           :boolean          not null
-#  optimal_count    :integer          not null
-#  suboptimal_count :integer          not null
+#  locked           :boolean          default(FALSE), not null
+#  optimal_count    :integer          default(0), not null
+#  suboptimal_count :integer          default(0), not null
 #  version          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -33,8 +33,11 @@ module Evidence
         it { should have_readonly_attribute(:suboptimal_count) }
         it { should have_readonly_attribute(:version) }
 
-        it { have_many(:test_examples).dependent(:destroy)}
-        it { have_many(:prompt_examples).dependent(:destroy)}
+        it { have_many(:test_examples).dependent(:destroy) }
+        it { have_many(:prompt_examples).dependent(:destroy) }
+        it { have_many(:trials).dependent(:destroy) }
+        it { have_many(:trial_comparisons).dependent(:destroy) }
+        it { have_many(:comparisons).through(:trial_comparisons) }
 
         it { should belong_to(:stem_vault) }
       end

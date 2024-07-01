@@ -41,9 +41,11 @@ module Evidence
 
         private def extract_assigned_status
           raise MissingOptimalKeyError unless data.key?('optimal')
-          raise MissingBooleanValueError unless data['optimal'].in?([true, false])
 
-          data['optimal'] ? OPTIMAL : SUBOPTIMAL
+          return OPTIMAL if data['optimal'].in?([true, 'true'])
+          return SUBOPTIMAL if data['optimal'].in?([false, 'false'])
+
+          raise MissingBooleanValueError
         end
       end
     end

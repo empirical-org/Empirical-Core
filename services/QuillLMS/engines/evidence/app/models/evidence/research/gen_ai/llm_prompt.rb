@@ -72,6 +72,8 @@ module Evidence
         def prompt_with_student_response(student_response)
           "#{prompt}\n\n{student_response: #{student_response}}\nProvide feedback in the following JSON format: #{FEEDBACK_JSON_SCHEMA}"
         end
+
+        def to_s = description.truncate(40)
       end
     end
   end

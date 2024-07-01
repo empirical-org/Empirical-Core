@@ -24,12 +24,7 @@ module Evidence
           @trials = @dataset.trials.order(id: :desc)
         end
 
-        private def dataset_params
-          params
-            .require(:research_gen_ai_dataset)
-            .permit(:file)
-            .merge(optimal_count: 0, suboptimal_count: 0, locked: false)
-        end
+        private def dataset_params = params.require(:research_gen_ai_dataset).permit(:file)
 
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
       end

@@ -19,37 +19,56 @@
   <br>
 
   <% if @trials.any? %>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>LLM</th>
-          <th>Activity</th>
-          <th>Conjunction</th>
-          <th>LLM Prompt Description</th>
-          <th># of Test Results</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @trials.each do |trial| %>
+    <%= form_with url: research_gen_ai_dataset_comparisons_path(@dataset), method: :post do %>
+      <table>
+        <thead>
           <tr>
-            <td><%= trial.id %></td>
-            <td><%= trial.created_at.strftime("%m/%d/%y, %H:%M") %></td>
-            <td><%= trial.llm %></td>
-            <td><%= trial.stem_vault.name %></td>
-            <td><%= trial.conjunction %></td>
-            <td><%= trial.llm_prompt.description %></td>
-            <td><%= trial.dataset.test_examples_count %></td>
-            <td><%= trial.status %></td>
-            <td><%= link_to "View", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
+            <th>ID</th>
+            <th>Date</th>
+            <th>LLM</th>
+            <th>Activity</th>
+            <th>Conjunction</th>
+            <th>LLM Prompt Description</th>
+            <th># of Test Results</th>
+            <th>Status</th>
+            <th>Actions</th>
+            <th>Compare</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @trials.each do |trial| %>
+            <tr>
+              <td><%= trial.id %></td>
+              <td><%= trial.created_at.strftime("%m/%d/%y, %H:%M") %></td>
+              <td><%= trial.llm %></td>
+              <td><%= trial.stem_vault.name %></td>
+              <td><%= trial.conjunction %></td>
+              <td><%= trial.llm_prompt.description %></td>
+              <td><%= trial.dataset.test_examples_count %></td>
+              <td><%= trial.status %></td>
+              <td><%= link_to "View", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
+              <td><%= check_box_tag 'trial_ids[]', trial.id, false, class: 'compare-checkbox' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= submit_tag 'Compare', id: 'compare-button', disabled: true, class: 'compare-button' %>
+    <% end %>
   <% else %>
     <p>No trials found.</p>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkboxes = document.querySelectorAll('.compare-checkbox');
+    const compareButton = document.getElementById('compare-button');
+
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+        const selectedCheckboxes = document.querySelectorAll('.compare-checkbox:checked');
+        compareButton.disabled = selectedCheckboxes.length < 2;
+      });
+    });
+  });
+</script>

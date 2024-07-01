@@ -8,7 +8,7 @@ module Evidence
         sidekiq_options retry: 0, queue: 'experiment'
 
         def perform(trial_id)
-          return if ENV.fetch('STOP_ALL_GEN_AI_EXPERIMENTS', 'false') == 'true'
+          return if ENV.fetch('STOP_ALL_GEN_AI_TRIALS', 'false') == 'true'
 
           Trial.find(trial_id).run
         end
