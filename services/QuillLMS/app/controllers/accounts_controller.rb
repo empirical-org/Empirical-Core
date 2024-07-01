@@ -27,6 +27,7 @@ class AccountsController < ApplicationController
     @user.attributes = user_params
     @user.safe_role_assignment(role)
     @user.validate_username = true
+    @user.role_selected_at_signup = session[:role]
     if @user.save
       sign_in @user
       trigger_account_creation_callbacks
