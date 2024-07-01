@@ -17,7 +17,7 @@ FactoryBot.define do
   factory :email_subscription do
     frequency { EmailSubscription::MONTHLY }
     subscription_type { EmailSubscription::ADMIN_DIAGNOSTIC_REPORT }
-    association :user
+    user
 
     trait(:weekly) { frequency { EmailSubscription::WEEKLY } }
     trait(:monthly) { frequency { EmailSubscription::MONTHLY }}

@@ -783,7 +783,7 @@ EmpiricalGrammar::Application.routes.draw do
     post :create_or_update
     get :current
     collection do
-      get 'unsubscribe/:cancel_token', to: 'email_subscriptions#unsubscribe', as: :unsibscribe
+      get 'unsubscribe/:cancel_token', to: 'email_subscriptions#unsubscribe', as: :unsubscribe
     end
   end
 
