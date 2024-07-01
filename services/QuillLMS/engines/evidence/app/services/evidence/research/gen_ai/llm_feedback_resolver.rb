@@ -3,12 +3,10 @@
 module Evidence
   module Research
     module GenAI
-      class Resolver < ApplicationService
-
+      class LLMFeedbackResolver < ApplicationService
         class ResolverError < StandardError; end
-        class NilFeedbackError < ResolverError; end
-        class EmptyFeedbackError < ResolverError; end
-        class BlankTextError < ResolverError; end
+        class NilRawTextError < ResolverError; end
+        class BlankRawTextError < ResolverError; end
         class InvalidJSONError < ResolverError; end
         class UnknownJSONStructureError < ResolverError; end
 
@@ -35,11 +33,9 @@ module Evidence
         end
 
         private def validate_raw_text
-          raise NilFeedbackError if raw_text.nil?
-          raise EmptyFeedbackError if raw_text.blank?
+          raise NilRawTextError if raw_text.nil?
+          raise BlankRawTextError if raw_text.blank?
         end
-
-        private def cleaned_text = MalformedJSONFixer.run(preprocessed_text:)
 
         private def preprocessed_text = RawTextPreprocessor.run(raw_text:)
 

@@ -53,6 +53,8 @@ module Evidence
             it { expect { subject }.not_to raise_error }
           end
         end
+
+        it_behaves_like 'has_assigned_status'
       end
     end
   end

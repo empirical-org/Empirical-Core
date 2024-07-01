@@ -5,19 +5,19 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe Resolver do
+      RSpec.describe LLMFeedbackResolver do
         subject { described_class.run(raw_text:) }
 
         context 'when raw_text is nil' do
           let(:raw_text) { nil }
 
-          it { expect { subject }.to raise_error(described_class::NilFeedbackError) }
+          it { expect { subject }.to raise_error(described_class::NilRawTextError) }
         end
 
-        context 'when raw_text is empty' do
+        context 'when raw_text is blank' do
           let(:raw_text) { '' }
 
-          it { expect { subject }.to raise_error(described_class::EmptyFeedbackError) }
+          it { expect { subject }.to raise_error(described_class::BlankRawTextError) }
         end
 
         context 'when raw_text is invalid JSON' do
