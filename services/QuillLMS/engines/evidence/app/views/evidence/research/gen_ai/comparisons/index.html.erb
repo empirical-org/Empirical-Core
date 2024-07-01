@@ -1,0 +1,59 @@
+<header>
+  <h2>Comparisons</h2>
+</header>
+
+<%= link_to 'New Comparison', new_research_gen_ai_comparison_path %>
+<% if @llm_prompt_comparisons.any? %>
+  <h2>LLM Prompt Comparisons</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Activity + Conjunction</th>
+        <th>LLM Prompt</th>
+        <th># of Test Results</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @llm_prompt_comparisons.each do |comparison| %>
+        <tr>
+          <td><%= comparison.id %></td>
+          <td><%= comparison.created_at.strftime("%m/%d/%y, %H:%M") %></td>
+          <td><%= comparison.activity_prompt_config %></td>
+          <td><%= link_to comparison.llm_prompt, comparison.llm_prompt %></td>
+          <td><%= comparison.num_examples %></td>
+          <td><%= link_to "View", comparison %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<% if @llm_comparisons.any? %>
+  <h2>LLM Comparisons</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Activity + Conjunction</th>
+        <th>LLM </th>
+        <th># of Test Results</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @llm_comparisons.each do |comparison| %>
+        <tr>
+          <td><%= comparison.id %></td>
+          <td><%= comparison.created_at.strftime("%m/%d/%y, %H:%M") %></td>
+          <td><%= comparison.activity_prompt_config %></td>
+          <td><%= comparison.llm %>
+          <td><%= comparison.num_examples %></td>
+          <td><%= link_to "View", comparison %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

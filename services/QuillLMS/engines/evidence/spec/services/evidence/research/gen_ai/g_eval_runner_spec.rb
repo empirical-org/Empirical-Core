@@ -6,19 +6,19 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe GEvalRunner do
-        subject { described_class.run(g_eval_id:, llm_feedback:) }
+        subject { described_class.run(g_eval_id:, llm_example:) }
 
         let(:g_eval) { create(:evidence_research_gen_ai_g_eval) }
         let(:g_eval_id) { g_eval.id }
         let(:metric) { g_eval.metric }
 
-        let(:quill_feedback) { create(:evidence_research_gen_ai_quill_feedback) }
+        let(:test_example) { create(:evidence_research_gen_ai_test_example) }
 
-        let(:llm_feedback) do
+        let(:llm_example) do
           create(
-           :evidence_research_gen_ai_llm_feedback,
-           student_response: quill_feedback.student_response,
-           text: quill_feedback.text
+           :evidence_research_gen_ai_llm_example,
+           test_example: test_example,
+           llm_feedback: test_example.staff_feedback
           )
         end
 

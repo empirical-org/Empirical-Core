@@ -83,7 +83,7 @@ class ConceptFeedback extends React.Component {
         return (
           <div className="admin-container" key={conceptFeedbackID}>
             {conceptName}
-            <ConceptExplanation {...data[conceptFeedbackID]} translated={this.state.translated} />
+            <ConceptExplanation {...data[conceptFeedbackID]} adminShowTranslation={this.state.translated} />
             <p className="concept-feedback-control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button>
               <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>

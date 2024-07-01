@@ -2,7 +2,7 @@
 
 class InvitationsController < ApplicationController
   before_action :verify_current_user_owns_classrooms, only: :create_coteacher_invitation
-  before_action :set_classroom_ids_and_inviteee_email, only: :create_coteacher_invitation
+  before_action :set_classroom_ids_and_invitee_email, only: :create_coteacher_invitation
 
 
   def create_coteacher_invitation
@@ -58,9 +58,9 @@ class InvitationsController < ApplicationController
     raise StandardError, "Please make sure you've entered a valid email."
   end
 
-  private def set_classroom_ids_and_inviteee_email
+  private def set_classroom_ids_and_invitee_email
     @classroom_ids = params[:classroom_ids]
-    @invitee_email = params[:invitee_email]&.gsub(/\s/, '') # strip whitespace
+    @invitee_email = params[:invitee_email]&.strip_whitespace&.strip_zero_width
   end
 
 

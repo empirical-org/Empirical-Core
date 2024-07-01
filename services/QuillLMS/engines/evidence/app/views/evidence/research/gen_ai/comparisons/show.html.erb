@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="column">
+    <p><%= @comparison.created_at.strftime("%B %d, %Y %H:%M") %></p>
+  </div>
+</div>
+<hr>
+
+<div>
+  <table>
+    <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
+      <tr>
+        <th class="dark-border"></th>
+        <th class="dark-border">
+          Feedback key
+          <div style="display: flex; align-items: center;">
+            <div>
+              <table>
+                <tr>
+                  <td class='green feedback-key-font'>O</td>
+                  <td>5</td>
+                  <td class='feedback-key-font' style='border: none;'>
+                    Optimal Match;
+                    <br>
+                    G-eval=5
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <table>
+                <tr>
+                  <td class='red'>O</td>
+                  <td>3</td>
+                  <td class='feedback-key-font' style='border: none;'>
+                    Quill sub-optimal, LLM optimal;
+                    <br>
+                    G-eval=3
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <table>
+                <tr>
+                  <td class='green'>S</td>
+                  <td>4</td>
+                  <td class='feedback-key-font' style='border: none;'>
+                    Sub-Optimal Match
+                    <br>
+                    G-eval=4
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <table>
+                <tr>
+                  <td class='red'>S</td>
+                  <td>2</td>
+                  <td class='feedback-key-font' style='border: none;'>
+                    Quill optimal, LLM sub-optimal;
+                    <br>
+                    G-eval=2
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </th>
+
+        <% @trials.each do |trial| %>
+          <th class='dark-border-top no-border-right'></th>
+          <th class='dark-border-top-bottom'></th>
+          <th class="dark-border-top-bottom-right">
+            <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @test_examples.each do |test_example| %>
+        <tr>
+          <td class='dark-border'>
+            <%= test_example.student_response %>
+          </td>
+          <td class='dark-border'>
+            <%= test_example.staff_feedback %>
+          </td>
+          <% @trials.each do |trial| %>
+            <% llm_example = trial.llm_examples.find_by(test_example:) %>
+            <% if llm_example %>
+              <% llm_example_index = trial.llm_examples.index(llm_example) %>
+              <% g_eval_id = trial.g_evals&.keys&.first %>
+              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index) || '' %>
+              <td class='dark-border-top-bottom-left' style="background-color: <%= llm_example.optimal_or_suboptimal_match? ? 'lightgreen' : 'lightcoral' %>;">
+                <%= llm_example.optimal? ? :O : :S %>
+              </td>
+              <td class='dark-border-top-bottom'>
+                <%= g_eval_score %>
+              </td>
+              <td class='dark-border-top-bottom-right'>
+                <%= llm_example&.llm_feedback %>
+              </td>
+            <% else %>
+              <td class='dark-border-top-bottom-left'></td>
+              <td class='dark-border-top-bottom'></td>
+              <td class='dark-border-top-bottom-right'>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .dark-border {
+    border: 2px solid black;
+  }
+  .dark-border-top {
+    border-top: 2px solid black;
+  }
+  .dark-border-left {
+    border-left: 2px solid black;
+  }
+  .dark-border-right {
+    border-right: 2px solid black;
+  }
+  .dark-border-top-bottom-right {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+  }
+  .dark-border-top-bottom-left {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+  }
+  .dark-border-top-bottom {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+  }
+  .feedback-key-font {
+    font-size: 12px;
+
+</style>

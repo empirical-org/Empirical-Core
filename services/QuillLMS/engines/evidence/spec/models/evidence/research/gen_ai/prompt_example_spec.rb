@@ -31,6 +31,8 @@ module Evidence
         it { should have_readonly_attribute(:staff_assigned_status) }
         it { should have_readonly_attribute(:dataset_id) }
         it { should have_readonly_attribute(:student_response) }
+
+        it_behaves_like 'has_assigned_status'
       end
     end
   end
