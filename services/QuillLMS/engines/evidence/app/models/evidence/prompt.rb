@@ -32,6 +32,9 @@ module Evidence
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6
 
+    OPTIMAL_SAMPLE_COUNT = Evidence::GenAI::SystemPromptBuilder::OPTIMAL_SAMPLE_COUNT
+    SUBOPTIMAL_SAMPLE_COUNT = Evidence::GenAI::SystemPromptBuilder::SUBOPTIMAL_SAMPLE_COUNT
+
     belongs_to :activity, inverse_of: :prompts
     has_many :automl_models, inverse_of: :prompt
     has_many :prompts_rules
@@ -47,6 +50,9 @@ module Evidence
     validates :max_attempts, inclusion: { in: MIN_MAX_ATTEMPTS..MAX_MAX_ATTEMPTS }
 
     validate :validate_prompt_text_length, on: [:create, :update]
+
+    scope :conjunction, ->(conjunction) {where(conjunction:)}
+    scope :parent_activity_ids, ->(parent_activity_ids) {joins(:activity).where(activity: {parent_activity_id: parent_activity_ids})}
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -87,6 +93,20 @@ module Evidence
         .map {|r| r.feedbacks.map {|f| f.highlights.map(&:text)}}
         .flatten
         .uniq
+    end
+
+    def optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
+      Evidence.feedback_history_class
+        .optimal_sample(prompt_id: id, limit:)
+    end
+
+    def suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT, offset: 0)
+      Evidence.feedback_history_class
+        .suboptimal_sample(prompt_id: id, limit:, offset:)
+    end
+
+    def example_sets(optimal: true, limit: 2, offset: SUBOPTIMAL_SAMPLE_COUNT)
+      optimal ? [first_strong_example, second_strong_example] : suboptimal_samples(limit:, offset:)
     end
 
     def optimal_label_feedback
