@@ -427,7 +427,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               <span
                 className="due-date-header"
               >
-                Due date
+                Due date 
                 <span>
                   (optional)
                 </span>
@@ -910,7 +910,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   <span
                     className="due-date-header"
                   >
-                    Due date
+                    Due date 
                     <span>
                       (optional)
                     </span>
@@ -936,7 +936,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     <span
                       className="due-date-header"
                     >
-                      Due date
+                      Due date 
                       <span>
                         (optional)
                       </span>
@@ -2376,7 +2376,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -3090,7 +3090,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -4116,7 +4116,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -4813,7 +4813,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -5822,7 +5822,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -6519,7 +6519,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -7528,7 +7528,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -8225,7 +8225,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -9234,7 +9234,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -9931,7 +9931,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                                         8
                                                       </td>
                                                       <td
-                                                        className="rdtDay"
+                                                        className="rdtDay rdtToday"
                                                         data-month={10}
                                                         data-value={9}
                                                         data-year={2022}
@@ -10378,11 +10378,11 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     }
                   }
                 >
-
+                  
     To pick up a draggable item, press the space bar.
     While dragging, use the arrow keys to move the item.
     Press space again to drop the item in its new position, or press escape to cancel.
-
+  
                 </div>
               </HiddenText>
               <LiveRegion
@@ -10937,7 +10937,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               <span
                 className="due-date-header"
               >
-                Due date
+                Due date 
                 <span>
                   (optional)
                 </span>
@@ -11515,7 +11515,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                   <span
                     className="due-date-header"
                   >
-                    Due date
+                    Due date 
                     <span>
                       (optional)
                     </span>
@@ -11541,7 +11541,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                     <span
                       className="due-date-header"
                     >
-                      Due date
+                      Due date 
                       <span>
                         (optional)
                       </span>
