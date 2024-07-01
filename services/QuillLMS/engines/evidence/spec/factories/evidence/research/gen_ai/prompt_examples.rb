@@ -18,9 +18,12 @@ module Evidence
       FactoryBot.define do
         factory :evidence_research_gen_ai_prompt_example, class: 'Evidence::Research::GenAI::PromptExample' do
           student_response { 'This is the student response' }
-          staff_assigned_status { TestExample::STAFF_ASSIGNED_STATUSES.sample }
+          staff_assigned_status { TestExample::ASSIGNED_STATUSES.sample }
           staff_feedback { 'This is the human feedback' }
           dataset { association :evidence_research_gen_ai_dataset }
+
+          trait(:optimal) { staff_assigned_status { HasAssignedStatus::OPTIMAL } }
+          trait(:suboptimal) { staff_assigned_status { HasAssignedStatus::SUBOPTIMAL } }
         end
       end
     end

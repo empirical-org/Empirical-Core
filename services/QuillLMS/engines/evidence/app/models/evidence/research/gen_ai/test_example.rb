@@ -20,14 +20,13 @@ module Evidence
   module Research
     module GenAI
       class TestExample < ApplicationRecord
-        STAFF_ASSIGNED_STATUSES = [
-          OPTIMAL = 'optimal',
-          SUBOPTIMAL = 'suboptimal'
-        ].freeze
+        include HasAssignedStatus
 
-        IS_LOCKED = 'is locked'
+        LOCKED = 'locked'
 
         belongs_to :dataset
+
+        default_scope { order(created_at: :asc) }
 
         validates :staff_assigned_status, presence: true
         validates :student_response, presence: true
@@ -37,8 +36,10 @@ module Evidence
 
         attr_readonly :staff_assigned_status, :dataset_id, :student_response
 
+        def self.assigned_status_column = :staff_assigned_status
+
         private def dataset_unlocked
-          errors.add(:dataset, IS_LOCKED) if dataset&.locked
+          errors.add(:dataset, LOCKED) if dataset&.locked
         end
       end
     end

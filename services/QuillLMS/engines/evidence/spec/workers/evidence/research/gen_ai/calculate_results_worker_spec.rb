@@ -10,10 +10,10 @@ module Evidence
 
         let(:trial) { create(:evidence_research_gen_ai_trial) }
 
-        before { stub_const('ENV', 'STOP_ALL_GEN_AI_EXPERIMENTS' => stop_all_gen_ai_experiments) }
+        before { stub_const('ENV', 'STOP_ALL_GEN_AI_TRIALS' => stop_all_gen_ai_trials) }
 
-        context 'when STOP_ALL_GEN_AI_EXPERIMENTS is true' do
-          let(:stop_all_gen_ai_experiments) { 'true' }
+        context 'when STOP_ALL_GEN_AI_TRIALS is true' do
+          let(:stop_all_gen_ai_trials) { 'true' }
 
           it 'does not process the trial' do
             expect(Trial).not_to receive(:find)
@@ -21,8 +21,8 @@ module Evidence
           end
         end
 
-        context 'when STOP_ALL_GEN_AI_EXPERIMENTS is false' do
-          let(:stop_all_gen_ai_experiments) { 'false' }
+        context 'when STOP_ALL_GEN_AI_TRIALS is false' do
+          let(:stop_all_gen_ai_trials) { 'false' }
           let(:fetched_results) { { key: 'value' } }
 
           before do

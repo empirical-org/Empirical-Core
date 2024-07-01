@@ -16,29 +16,27 @@ module Evidence
         end
 
         describe 'POST #create' do
-          let(:llms) { create_list(:evidence_research_gen_ai_llm, num_llms) }
-          let(:llm_ids) { llms.map(&:id) }
-          let(:num_llms) { rand(1..3) }
+          let(:llm_id) { create(:evidence_research_gen_ai_llm).id }
+          let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template).id }
+          let(:dataset_id) { create(:evidence_research_gen_ai_dataset).id }
 
-          let(:llm_prompt_templates) { create_list(:evidence_research_gen_ai_llm_prompt_template, num_llm_prompt_templates) }
-          let(:llm_prompt_template_ids) { llm_prompt_templates.map(&:id) }
-          let(:num_llm_prompt_templates) { rand(1..3) }
+          let(:g_eval_id) { create(:evidence_research_gen_ai_g_eval).id }
 
-          let(:stem_vaults) { create_list(:evidence_research_gen_ai_stem_vault, num_stem_vaults) }
-          let(:stem_vault_ids) { stem_vaults.map(&:id) }
-          let(:num_stem_vaults) { rand(1..3) }
+          let(:num_guidelines) { rand(1..3) }
+          let(:guideline_ids) { create_list(:evidence_research_gen_ai_guideline, num_guidelines).map(&:id) }
 
-          let(:num_examples) { rand(1..3) }
-
-          let(:llm_prompt) { create(:evidence_research_gen_ai_llm_prompt) }
+          let(:num_prompt_examples) { rand(1..3) }
+          let(:prompt_example_ids) { create_list(:evidence_research_gen_ai_prompt_example, num_prompt_examples).map(&:id) }
 
           subject do
             post :create, params: {
+              dataset_id:,
               research_gen_ai_trial: {
-                llm_ids:,
-                llm_prompt_template_ids:,
-                stem_vault_ids:,
-                num_examples:
+                g_eval_id:,
+                guideline_ids:,
+                llm_id:,
+                llm_prompt_template_id:,
+                prompt_example_ids:,
               }
             }
           end
@@ -53,24 +51,18 @@ module Evidence
           context 'as staff' do
             let(:is_staff) { true }
 
-            before { allow(LLMPromptBuilder).to receive(:run).and_return(llm_prompt) }
-
             context 'with valid parameters' do
-              let(:total_combinations) { num_llms * num_llm_prompt_templates * num_stem_vaults }
-
               before { allow(RunTrialWorker).to receive(:perform_async) }
 
-              it { expect { subject }.to change(Trial, :count).by(total_combinations) }
-
               it 'enqueues a worker for each combination and redirects' do
-                expect(RunTrialWorker).to receive(:perform_async).exactly(total_combinations).times
+                expect(RunTrialWorker).to receive(:perform_async)
                 subject
-                expect(response).to redirect_to(research_gen_ai_trials_path)
+                expect(response).to redirect_to(research_gen_ai_dataset_trial_path(dataset_id:, id: Trial.last.id))
               end
             end
 
             context 'with invalid parameters' do
-              let(:llm_ids) { [nil] }
+              let(:llm_id) { nil }
 
               it { expect { subject }.not_to change(Trial, :count) }
 
