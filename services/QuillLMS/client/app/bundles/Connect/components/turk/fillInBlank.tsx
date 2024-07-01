@@ -8,7 +8,7 @@ import {
   Feedback,
   Prompt,
   fillInBlankInputLabel,
-  fillInBlankInputWidth,
+  fillInBlankInputStyle,
   splitPromptForFillInBlank,
   hashToCollection,
 } from '../../../Shared/index';
@@ -159,7 +159,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         key={i + 100}
         onBlur={this.getBlurHandler(i)}
         onChange={this.getChangeHandler(i)}
-        style={fillInBlankInputWidth(value, cues)}
+        style={fillInBlankInputStyle(value, cues)}
         type="text"
         value={value}
       />
