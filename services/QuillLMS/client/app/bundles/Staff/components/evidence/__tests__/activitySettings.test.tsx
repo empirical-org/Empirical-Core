@@ -1,9 +1,11 @@
 import { shallow } from 'enzyme';
-import { createLocation, createMemoryHistory } from 'history';
+import { createMemoryHistory } from 'history';
 import * as React from 'react';
 import 'whatwg-fetch';
 
 import ActivitySettings from '../configureSettings/activitySettings';
+
+const history = createMemoryHistory()
 
 const mockProps = {
   match: {
@@ -14,8 +16,8 @@ const mockProps = {
     path: '',
     url:''
   },
-  history: createMemoryHistory(),
-  location: createLocation('')
+  history,
+  location: history.location,
 }
 
 describe('ActivitySettings component', () => {
