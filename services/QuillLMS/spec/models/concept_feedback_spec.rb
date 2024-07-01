@@ -283,17 +283,17 @@ RSpec.describe ConceptFeedback, type: :model do
 
   describe "#fetch_translations!" do
     context "there is a gengo_job associated" do
-      let(:t1) { create(:gengo_job)}
-      let(:t2) { create(:gengo_job)}
+      let(:translation1) { create(:gengo_job)}
+      let(:translation2) { create(:gengo_job)}
 
       before do
         allow(concept_feedback).to receive(:gengo_jobs)
-        .and_return([t1, t2])
+        .and_return([translation1, translation2])
       end
 
       it "calls fetch_translation! on each of the gengo jobs" do
-        expect(t1).to receive(:fetch_translation!)
-        expect(t2).to receive(:fetch_translation!)
+        expect(translation1).to receive(:fetch_translation!)
+        expect(translation2).to receive(:fetch_translation!)
         concept_feedback.fetch_translations!
       end
     end
