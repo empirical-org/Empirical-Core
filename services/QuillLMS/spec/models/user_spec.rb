@@ -2012,14 +2012,14 @@ RSpec.describe User, type: :model do
       it 'should create a record' do
         teacher = build(:teacher)
 
-        expect do
-          teacher.save
-        end.to change(TeacherInfo, :count).by(1)
+        expect{teacher.save}.to change(TeacherInfo, :count).by(1)
       end
 
       it 'should save the role_selected_at_signup attribute to TeacherInfo record' do
-        teacher = create(:teacher, role_selected_at_signup: 'admin')
-        expect(teacher.teacher_info.role_selected_at_signup).to eq(teacher.role_selected_at_signup)
+        role_selected_at_signup = "admin"
+        teacher = create(:teacher, role_selected_at_signup:)
+
+        expect(teacher.teacher_info.role_selected_at_signup).to eq(role_selected_at_signup)
       end
 
     end
