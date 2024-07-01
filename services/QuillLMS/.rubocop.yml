@@ -167,3 +167,6 @@ Style/RedundantInterpolation:
 Style/RescueModifier:
   Exclude:
     - db/migrate/20140916143956_make_username_downcase.rb
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: always
