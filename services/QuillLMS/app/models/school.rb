@@ -81,6 +81,7 @@ class School < ApplicationRecord
       .left_outer_joins(district: :subscriptions)
       # Below is a slightly weird construction, but Rails magic doesn't work so we had to get explicit
       .where('(subscriptions.expiration >= ? OR subscriptions_districts.expiration >= ?)', current_time, current_time)
+      .distinct
   end)
 
   ALTERNATIVE_SCHOOL_NAMES = [

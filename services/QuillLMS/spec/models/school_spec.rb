@@ -78,6 +78,12 @@ describe School, type: :model do
       it { is_expected.not_to include(non_premium_school) }
       it { is_expected.to include(school_premium_school) }
       it { is_expected.to include(district_premium_school) }
+
+      context 'district is connected to the same subscription multiple times' do
+        before { create(:district_subscription, subscription: district_subscription, district:) }
+
+        it { expect(subject.length).to eq(2) }
+      end
     end
   end
 
