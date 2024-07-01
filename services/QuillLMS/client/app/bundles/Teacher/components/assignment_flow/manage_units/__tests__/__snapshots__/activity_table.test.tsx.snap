@@ -427,7 +427,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
               <span
                 className="due-date-header"
               >
-                Due date 
+                Due date
                 <span>
                   (optional)
                 </span>
@@ -910,7 +910,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                   <span
                     className="due-date-header"
                   >
-                    Due date 
+                    Due date
                     <span>
                       (optional)
                     </span>
@@ -936,7 +936,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     <span
                       className="due-date-header"
                     >
-                      Due date 
+                      Due date
                       <span>
                         (optional)
                       </span>
@@ -2075,7 +2075,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -2176,7 +2176,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -2789,7 +2789,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -2890,7 +2890,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -3815,7 +3815,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -3916,7 +3916,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -4512,7 +4512,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -4613,7 +4613,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -5521,7 +5521,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -5622,7 +5622,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -6218,7 +6218,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -6319,7 +6319,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -7227,7 +7227,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -7328,7 +7328,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -7924,7 +7924,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -8025,7 +8025,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -8933,7 +8933,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -9034,7 +9034,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -9630,7 +9630,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                     closeOnTab={true}
                                     dateFormat="MMM D"
                                     initialValue={null}
-                                    initialViewDate={2022-11-09T09:00:00.000Z}
+                                    initialViewDate={2022-11-10T09:00:00.000Z}
                                     input={true}
                                     inputProps={Object {}}
                                     isValidDate={[Function]}
@@ -9731,7 +9731,7 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                                               showView={[Function]}
                                               timeFormat="h:mm a"
                                               updateDate={[Function]}
-                                              viewDate={"2022-11-09T09:00:00.000Z"}
+                                              viewDate={"2022-11-10T09:00:00.000Z"}
                                             >
                                               <div
                                                 className="rdtDays"
@@ -10378,11 +10378,11 @@ exports[`ActivityTable component renders if the current user created the unit 1`
                     }
                   }
                 >
-                  
+
     To pick up a draggable item, press the space bar.
     While dragging, use the arrow keys to move the item.
     Press space again to drop the item in its new position, or press escape to cancel.
-  
+
                 </div>
               </HiddenText>
               <LiveRegion
@@ -10937,7 +10937,7 @@ exports[`ActivityTable component renders if the current user did not create the 
               <span
                 className="due-date-header"
               >
-                Due date 
+                Due date
                 <span>
                   (optional)
                 </span>
@@ -11515,7 +11515,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                   <span
                     className="due-date-header"
                   >
-                    Due date 
+                    Due date
                     <span>
                       (optional)
                     </span>
@@ -11541,7 +11541,7 @@ exports[`ActivityTable component renders if the current user did not create the 
                     <span
                       className="due-date-header"
                     >
-                      Due date 
+                      Due date
                       <span>
                         (optional)
                       </span>
