@@ -6,7 +6,7 @@ module Evidence
       class LLMPromptsController < ApplicationController
         def show
           @llm_prompt = LLMPrompt.find(params[:id])
-          @dataset = @llm_prompt.trial.dataset
+          @dataset = @llm_prompt&.trial&.dataset
         end
       end
     end

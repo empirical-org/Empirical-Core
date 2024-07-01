@@ -3043,9 +3043,9 @@ ALTER SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq OWNED BY publi
 CREATE TABLE public.evidence_research_gen_ai_datasets (
     id bigint NOT NULL,
     stem_vault_id integer NOT NULL,
-    optimal_count integer NOT NULL,
-    suboptimal_count integer NOT NULL,
-    locked boolean NOT NULL,
+    optimal_count integer DEFAULT 0 NOT NULL,
+    suboptimal_count integer DEFAULT 0 NOT NULL,
+    locked boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     version integer NOT NULL
@@ -12025,6 +12025,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240625205613'),
 ('20240626142949'),
 ('20240627001654'),
-('20240627002601');
+('20240627002601'),
+('20240701180742');
 
 
