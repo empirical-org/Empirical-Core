@@ -182,8 +182,6 @@ const Filters = ({
             />
           </label>
           <DropdownInput
-            className={isGrowthDiagnosticReport ? 'timeframe-filter disabled' : ''}
-            disabled={isGrowthDiagnosticReport}
             handleChange={handleSetSelectedTimeframe}
             helperText={timeframeHelperText}
             id="timeframe-filter"
