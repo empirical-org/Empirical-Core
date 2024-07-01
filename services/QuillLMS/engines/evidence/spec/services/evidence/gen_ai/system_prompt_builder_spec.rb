@@ -8,6 +8,10 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   let(:plagiarism_text) { 'plagiarism plagiarism_text'}
   let(:example_one) {'example one'}
   let(:example_two) {'example two'}
+  let(:optimal_example_list) {['some example']}
+  let(:suboptimal_example_list) {['some other example']}
+  let(:optimal_examples) {optimal_example_list.map {|i| "- #{i}"}.join("\n")}
+  let(:suboptimal_examples) {suboptimal_example_list.map {|i| "- #{i}"}.join("\n")}
 
   let(:prompt) { create(:evidence_prompt, text: stem, first_strong_example: example_one, second_strong_example: example_two) }
   let!(:passage) {create(:evidence_passage, text: passage_text, activity: prompt.activity) }
@@ -16,6 +20,11 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   let!(:prompt_rule) {create(:evidence_prompts_rule, prompt: prompt, rule: rule)}
   let(:history) { [double('History', feedback: 'Sample feedback')] }
   let(:template_file) { 'spec/fixtures/files/sample_system_template.md' }
+
+  before do
+    allow(Evidence.feedback_history_class).to receive(:optimal_sample).and_return(optimal_example_list)
+    allow(Evidence.feedback_history_class).to receive(:suboptimal_sample).and_return(suboptimal_example_list)
+  end
 
   subject { described_class.new(prompt: prompt, history: history, template_file: template_file) }
 
@@ -28,10 +37,10 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   end
 
   describe '#run' do
-    let(:filled_template) {"Template with passage: #{passage_text}, plagiarism: #{plagiarism_text}, stem: #{stem}, example one: #{example_one}, example two: #{example_two}"}
+    let(:filled_template) {"Template with passage: #{passage_text}, plagiarism: #{plagiarism_text}, stem: #{stem}, optimal examples: #{optimal_examples}, suboptimal examples: #{suboptimal_examples}"}
 
     before do
-      allow(File).to receive(:read).and_return('Template with passage: %<passage>s, plagiarism: %<plagiarism_text>s, stem: %<stem>s, example one: %<example_one>s, example two: %<example_two>s')
+      allow(File).to receive(:read).and_return('Template with passage: %<passage>s, plagiarism: %<plagiarism_text>s, stem: %<stem>s, optimal examples: %<optimal_examples>s, suboptimal examples: %<suboptimal_examples>s')
     end
 
     it 'returns the formatted template with the correct variables' do
