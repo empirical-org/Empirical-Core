@@ -11396,8 +11396,8 @@ exports[`ActivityPack component renders if the current user did not create the u
           "classroomId": 484154,
           "created_at": "1602619968.73132",
           "cuId": 2898054,
-          "dueDate": "2021-2-10T17:0:0",
-          "dueDatePicker": "Invalid date",
+          "dueDate": "2021-02-10T17:00:00",
+          "dueDatePicker": "Feb 10, 5pm",
           "id": 7543502,
           "name": "Starter Diagnostic",
           "ownedByCurrentUser": false,
@@ -11918,8 +11918,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               "classroomId": 484154,
               "created_at": "1602619968.73132",
               "cuId": 2898054,
-              "dueDate": "2021-2-10T17:0:0",
-              "dueDatePicker": "Invalid date",
+              "dueDate": "2021-02-10T17:00:00",
+              "dueDatePicker": "Feb 10, 5pm",
               "id": 7543502,
               "name": "Starter Diagnostic",
               "ownedByCurrentUser": false,
@@ -12456,8 +12456,8 @@ exports[`ActivityPack component renders if the current user did not create the u
               "classroomId": 484154,
               "created_at": "1602619968.73132",
               "cuId": 2898054,
-              "dueDate": "2021-2-10T17:0:0",
-              "dueDatePicker": "Invalid date",
+              "dueDate": "2021-02-10T17:00:00",
+              "dueDatePicker": "Feb 10, 5pm",
               "id": 7543502,
               "name": "Starter Diagnostic",
               "ownedByCurrentUser": false,
@@ -13571,7 +13571,7 @@ exports[`ActivityPack component renders if the current user did not create the u
                 }
               >
                 <TableCellContentWrapper>
-                  Invalid date
+                  Feb 10, 5pm
                 </TableCellContentWrapper>
               </td>
               <td

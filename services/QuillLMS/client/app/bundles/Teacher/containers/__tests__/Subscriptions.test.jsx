@@ -24,8 +24,8 @@ const sharedProps = {
   subscriptionStatus: {
     "id": 7,
     "expiration": '2070-01-01',
-    "created_at": "2022-02-16T14: 07: 25.976Z",
-    "updated_at": "2022-02-16T14: 07: 25.976Z",
+    "created_at": "2022-02-16T14:07:25",
+    "updated_at": "2022-02-16T14:07:25",
     "account_type": SCHOOL_PAID,
     "lastFour": null,
     "purchaser_email": "emilia+3@quill.org",
@@ -52,7 +52,7 @@ jest.mock('string-strip-html', () => ({
 }));
 
 describe('Subscriptions UI state iterations', () => {
-  const expiredAttributes = { expiration: '2022-01-1', expired: true }
+  const expiredAttributes = { expiration: '2022-01-01T00:00:00', expired: true }
 
   describe('trial', () => {
     it('renders when there is an active trial', () => {
