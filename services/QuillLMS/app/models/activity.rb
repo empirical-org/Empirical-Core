@@ -256,7 +256,7 @@ class Activity < ApplicationRecord
 
   def prompt
     intro = <<~STRING
-      Please return just the translated text preserving (but not translating) the HTML.
+      Please return just the translated text preserving (but not translating) the HTML. Use simple language at a 5th grade reading level.
 
       We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, some words or sentences will not be translated.
 
