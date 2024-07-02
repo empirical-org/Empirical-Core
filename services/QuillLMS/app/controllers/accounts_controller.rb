@@ -67,7 +67,9 @@ class AccountsController < ApplicationController
                                  :school_ids,
                                  :send_newsletter,
                                  :terms_of_service,
-                                 :username)
+                                 :username,
+                                 :role
+                               )
   end
 
   protected def update_user_params
