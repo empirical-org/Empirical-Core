@@ -58,8 +58,14 @@ describe('fillInBlankInputStyle function', () => {
     expect(paddingRight).toBe("10px");
   });
 
-  it('assigns the textAlign value to left and paddingRight to 0px when the valueSpan is longer than the shortest cue', () => {
-    const { textAlign, paddingRight } = fillInBlankInputStyle('aaaa', ['a', 'longercue', 'muchlongercue']);
+  it('assigns the textAlign value to center and paddingRight to 10px when the value is longer than the shortest but the element is shorter than ELEMENT_MIN_WIDTH', () => {
+    const { textAlign, paddingRight } = fillInBlankInputStyle('aaaaa', ['a', 'longercue', 'muchlongercue']);
+    expect(textAlign).toBe('left');
+    expect(paddingRight).toBe("0px");
+  });
+
+  it('assigns the textAlign value to left and paddingRight to 0px when the valueSpan is longer than the shortest cue and the element is longer than ELEMENT_MIN_WIDTH', () => {
+    const { textAlign, paddingRight } = fillInBlankInputStyle('aaaaaa', ['a', 'longercue', 'muchlongercue']);
     expect(textAlign).toBe('left');
     expect(paddingRight).toBe("0px");
   });
