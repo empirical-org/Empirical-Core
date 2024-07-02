@@ -21,7 +21,7 @@ import PreviouslyAssignedTooltip from '../../previouslyAssignedTooltip';
 const PUBLISH_DATE_ATTRIBUTE_KEY = 'publishDates'
 const DUE_DATE_ATTRIBUTE_KEY = 'dueDates'
 
-const activityColumnMaxWidth = '322px';
+const activityColumnMaxWidth = '392px';
 const rowSectionTooltipClassName =  'tooltip-section review-activities-data-table-section';
 
 const tableHeaders = [
@@ -277,6 +277,7 @@ export default class ReviewActivities extends React.Component {
         <div className="assignment-section-body">
           <DataTable
             headers={tableHeaders}
+            removeHeaderText="Remove activities"
             removeRow={this.removeRow}
             rows={this.rows()}
             showRemoveIcon

@@ -39,7 +39,7 @@ exports[`ReviewActivities component should render 1`] = `
             "attribute": "activity",
             "name": "Activity",
             "rowSectionClassName": "tooltip-section review-activities-data-table-section",
-            "width": "322px",
+            "width": "392px",
           },
           Object {
             "attribute": "concept",
@@ -92,6 +92,7 @@ exports[`ReviewActivities component should render 1`] = `
           },
         ]
       }
+      removeHeaderText="Remove activities"
       removeRow={[Function]}
       rows={
         Array [
@@ -103,7 +104,7 @@ exports[`ReviewActivities component should render 1`] = `
               tooltipTriggerTextClass="clipped-content"
               tooltipTriggerTextStyle={
                 Object {
-                  "maxWidth": "322px",
+                  "maxWidth": "392px",
                 }
               }
             />,
@@ -147,7 +148,7 @@ exports[`ReviewActivities component should render 1`] = `
               tooltipTriggerTextClass="clipped-content"
               tooltipTriggerTextStyle={
                 Object {
-                  "maxWidth": "322px",
+                  "maxWidth": "392px",
                 }
               }
             />,

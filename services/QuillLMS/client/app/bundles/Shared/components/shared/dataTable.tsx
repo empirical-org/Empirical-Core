@@ -51,6 +51,7 @@ interface DataTableProps {
   emptyStateMessage?: string;
   showCheckboxes?: boolean;
   showRemoveIcon?: boolean;
+  removeHeaderText?: string;
   showActions?: boolean;
   removeRow?: (event: any) => void;
   checkRow?: (event: any) => void;
@@ -218,10 +219,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderHeaderForRemoval() {
-    const { showRemoveIcon } = this.props
+    const { showRemoveIcon, removeHeaderText, } = this.props
     if (!showRemoveIcon) { return null }
 
-    return <th aria-label="Header for remove column" className={dataTableHeaderClassName} scope="col" />
+    return <th aria-label="Header for remove column" className={dataTableHeaderClassName} scope="col">{removeHeaderText}</th>
   }
 
   renderHeaderForOrder() {

@@ -15,9 +15,9 @@
     Datasets
     <%= link_to 'new', new_research_gen_ai_stem_vault_dataset_path(stem_vault_id: @stem_vault), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </h3>
-  <ul>
-    <% @stem_vault.datasets.each do |dataset| %>
-      <li><%= link_to dataset.id, dataset %></li>
+   <ul>
+    <% @stem_vault.datasets.order(id: :desc).each.with_index(1) do |dataset, index| %>
+      <li><%= link_to [:v, dataset.version].join, dataset %></li>
     <% end %>
   </ul>
 
@@ -44,7 +44,3 @@
 </div>
 
 <br>
-<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
-<br>
-<br>
-<%= link_to 'Trials', research_gen_ai_trials_path %>

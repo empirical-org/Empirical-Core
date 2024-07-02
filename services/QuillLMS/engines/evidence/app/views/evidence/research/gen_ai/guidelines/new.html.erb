@@ -4,11 +4,11 @@
   <%= render 'errors', object: @guideline %>
 
  <div class="field-spacing">
-    <%= f.label :category, "Category:" %>
+    <%= f.label :assigned_status, "Assigned Status:" %>
     <div>
-      <% @categories.each do |category| %>
-        <%= f.radio_button :category, category %>
-        <%= f.label :category, category, value: category %><br>
+      <% @staff_assigned_statuses.each do |staff_assigned_status| %>
+        <%= f.radio_button :staff_assigned_status, staff_assigned_status %>
+        <%= f.label :staff_assigned_status, staff_assigned_status, value: staff_assigned_status %><br>
       <% end %>
     </div>
   </div>
