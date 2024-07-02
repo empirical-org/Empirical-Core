@@ -389,16 +389,19 @@ RSpec.describe User, type: :model do
 
     context 'van is the first name' do
       let(:name) { 'van nieman'}
+
       it { expect { subject }.to change(user, :name).from(name).to('Van Nieman') }
     end
 
     context 'dit is the first name' do
       let(:name) { 'dit ditsy'}
+
       it { expect { subject }.to change(user, :name).from(name).to('Dit Ditsy') }
     end
 
     context 'van is in the middle' do
       let(:name) { 'betsy van foo'}
+
       it { expect { subject }.to change(user, :name).from(name).to('Betsy Van Foo') }
     end
 
