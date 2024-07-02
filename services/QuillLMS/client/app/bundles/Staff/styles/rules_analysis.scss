@@ -1,14 +1,21 @@
 .rules-analysis-container {
   .dropdowns {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     margin: 20px 0px;
     min-height: 58px;
     display: flex;
   }
 
   .dropdown-container {
-    max-width: 600px;
+    max-width: 1000px;
     width: 100%;
     margin-right: 40px;
+    min-height: 72px;
+    .html-dropdown-option {
+      margin-bottom: 16px;
+    }
   }
 
   .date-selection-container {
