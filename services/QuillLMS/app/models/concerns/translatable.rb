@@ -13,11 +13,10 @@ module Translatable
     has_many :english_texts, through: :translation_mappings
     has_many :translated_texts, through: :english_texts
     has_many :gengo_jobs, through: :english_texts
-    store_accessor :data, :description
   end
 
   def translated_json(options = {})
-    source_api = options[:source_api] || TranslatedText::OPEN_AI_SOURCE
+    source_api = options[:source_api] || Translatable::OPEN_AI_SOURCE
     translation_text = translation(source_api: source_api)
     return data unless translation_text.present?
 
@@ -59,7 +58,11 @@ module Translatable
 
   private
 
-  def translatable_text
+  def translatable_attribute
     raise NotImplementedError, "#{self.class} must implement the 'translatable_text' method"
+  end
+
+  def translatable_text
+    data[translatable_attribute]
   end
 end

@@ -10,11 +10,7 @@ RSpec.describe Translatable do
         "Test prompt"
       end
 
-      private
-
-      def translatable_text
-        data["test_text"]
-      end
+      private def translatable_attribute = "test_text"
     end
 
     ActiveRecord::Migration.create_table :translatable_test_models do |t|
@@ -196,7 +192,7 @@ RSpec.describe Translatable do
 
     context 'when using OpenAI as the source' do
       let(:source_api) { Translatable::OPEN_AI_SOURCE }
-      let(:prompt) { described_class.prompt }
+      let(:prompt) { translatable_object.prompt }
 
       it 'calls OpenAI::TranslateAndSaveText for each English text' do
         translatable_object.english_texts.each do |text|
@@ -236,10 +232,6 @@ RSpec.describe Translatable do
     let(:options) { {} }
     let(:data) { translatable_object.data }
 
-    before do
-      allow(translatable_object).to receive(:translatable_attribute).and_return("test_text")
-    end
-
     context 'when there are no translations' do
       it { is_expected.to eq(data) }
     end
@@ -254,20 +246,20 @@ RSpec.describe Translatable do
       end
 
       it 'adds the translations to the data' do
-        expect(subject["translatedTestText"]).to eq(translation)
+        expect(subject["translatedTest_text"]).to eq(translation)
       end
 
       context 'when a specific source_api is provided' do
-        let(:options) { { source_api: TranslatedText::GENGO_SOURCE } }
+        let(:options) { { source_api: Translatable::GENGO_SOURCE } }
         let(:gengo_translation) { "gengo translation" }
-        let(:gengo_translated_text) { create(:translated_text, translation: gengo_translation, source_api: TranslatedText::GENGO_SOURCE) }
+        let(:gengo_translated_text) { create(:translated_text, translation: gengo_translation, source_api: Translatable::GENGO_SOURCE) }
 
         before do
           translatable_object.english_texts.first.translated_texts << gengo_translated_text
         end
 
         it 'uses the specified source_api for translation' do
-          expect(subject["translatedTestText"]).to eq(gengo_translation)
+          expect(subject["translatedTest_text"]).to eq(gengo_translation)
         end
       end
     end

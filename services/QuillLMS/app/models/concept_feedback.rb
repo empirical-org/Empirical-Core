@@ -48,7 +48,7 @@ class ConceptFeedback < ApplicationRecord
     STRING
   end
 
-  private def translatable_text = description
+  private def translatable_attribute = "description"
 
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)

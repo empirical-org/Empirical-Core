@@ -37,6 +37,7 @@
 #
 class Activity < ApplicationRecord
   include Flags
+  include Translatable
   include Uid
 
   validate :data_must_be_hash
@@ -98,6 +99,7 @@ class Activity < ApplicationRecord
   ARCHIVED = 'archived'
 
   FLAGS_ATTRIBUTE = 'flags'
+
 
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -249,8 +251,41 @@ class Activity < ApplicationRecord
   end
 
   def data_as_json
-    data
+    translated_json({})
   end
+
+  def prompt
+    intro = <<~STRING
+      Please return just the translated text preserving (but not translating) the HTML.
+
+      We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, some words or sentences will not be translated.
+
+      Here's a list of things that you should leave in the original english.
+      - example words or sentences that teach you how to do a grammar activity.
+      - The first line (the title) often includes the name of an example that will be between an HTML tag such as in <em>english word</em> or <ul>english word</ul>.
+      - the next tag (or few tags) after a header labeled "Example", "Examples", "You see" or "You write"
+      - the contents of the next tag after a header that ends with ":"
+      - any words that sound like they are part of a grammar activity, often set in their own HTML tag (like and <em> or <ul>).
+      - anything in the first person
+      - any sentences demonstrating the use of a grammar concept.
+      - pronouns (yo, tu, ella, etc) should not be translated if they are part of an example or precede an example word.
+
+      Things that should be translated:
+      - instructions, usually these are in the second person and directed at the
+      reader.
+      - headers, so one or two words that are set off by an HTML tag.
+      - Words like "Example", "Examples", "You see" or "You write"
+
+      Optimal Examples (json):
+    STRING
+    examples = File.read(Rails.root.join("app/models/translation_examples", "activities.json"))
+    request = "\n Text to translate: "
+    intro + examples + request
+  end
+
+
+  private def translatable_attribute = "landingPageHtml"
+
 
   def add_question(question)
     return if !validate_question(question)
