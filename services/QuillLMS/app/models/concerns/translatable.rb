@@ -18,7 +18,7 @@ module Translatable
   end
 
   def translated_json(options = {})
-    source_api = options[:source_api] || Translatable::OPEN_AI_SOURCE
+    source_api = options&.dig(:source_api) || Translatable::OPEN_AI_SOURCE
     translation_text = translation(source_api: source_api)
     return data unless translation_text.present?
 
