@@ -175,15 +175,20 @@ RSpec.describe Translatable do
   describe '#translate!' do
     subject { translatable_object.translate!(locale: locale, source_api: source_api) }
 
-    let(:locale) { "es" }
+    let(:locale) { Translatable::DEFAULT_LOCALE }
+    let(:source_api) { Translatable::GENGO_SOURCE }
 
     before do
+      allow(Gengo::RequestTranslations).to receive(:run)
       translatable_object.create_translation_mappings
     end
 
-    context 'when using Gengo as the source' do
-      let(:source_api) { Translatable::GENGO_SOURCE }
+    it "calls create_translation_mappings first" do
+      expect(translatable_object).to receive(:create_translation_mappings)
+      subject
+    end
 
+    context 'when using Gengo as the source' do
       it 'calls Gengo::RequestTranslations' do
         expect(Gengo::RequestTranslations).to receive(:run).with(translatable_object.english_texts, locale)
         subject

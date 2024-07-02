@@ -40,6 +40,7 @@ module Translatable
   end
 
   def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
+    create_translation_mappings
     case source_api
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
