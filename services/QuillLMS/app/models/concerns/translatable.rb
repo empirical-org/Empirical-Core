@@ -45,12 +45,22 @@ module Translatable
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
-      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt:) }
+      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt:prompt(locale:)) }
     end
+    translation(locale:, source_api:)
   end
 
   def fetch_translations!
     gengo_jobs.each(&:fetch_translation!)
+  end
+
+  def prompt_start(locale:)
+    <<~STRING
+    You are going to do a translation from english to #{locale} using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
+
+    We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
+
+    STRING
   end
 
   def prompt

@@ -254,11 +254,9 @@ class Activity < ApplicationRecord
     translated_json({})
   end
 
-  def prompt
-    intro = <<~STRING
-      Please return just the translated text preserving (but not translating) the HTML. Use simple language at a 5th grade reading level.
-
-      We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, some words or sentences will not be translated.
+  def prompt(locale:)
+    custom = <<~STRING
+      Therefore, some words or sentences will not be translated.
 
       Here's a list of things that you should leave in the original english.
       - example words or sentences that teach you how to do a grammar activity.
@@ -280,7 +278,7 @@ class Activity < ApplicationRecord
     STRING
     examples = File.read(Rails.root.join("app/models/translation_examples", "activities.json"))
     request = "\n Text to translate: "
-    intro + examples + request
+    prompt_start(locale:) + custom + examples + request
   end
 
 

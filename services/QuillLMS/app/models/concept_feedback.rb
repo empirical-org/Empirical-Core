@@ -41,11 +41,12 @@ class ConceptFeedback < ApplicationRecord
     translated_json(options || {})
   end
 
-  def prompt
-    <<~STRING
-      can you translate the following phrase from english into latin american spanish for me? Please return just the translated text preserving (but not translating) the HTML. We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, please leave words that sound like they are part of the activity in the original english. Often they will between an HTML tag such as in <em>english word</em> or <ul>english word</ul>.
+  def prompt(locale:)
+    custom = <<~STRING
+      Therefore, please leave words that sound like they are part of the activity in the original english. Often they will between an HTML tag such as in <em>english word</em> or <ul>english word</ul>.
       Here is what I want translated:
     STRING
+    prompt_start(locale:) + custom
   end
 
   private def translatable_attribute = "description"
