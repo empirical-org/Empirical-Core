@@ -505,6 +505,7 @@ class PagesController < ApplicationController
 
   def translations
     return redirect_to profile_path if !staff?
+
     @translations = TranslationMapping.all.includes(:english_text, :translated_texts).page(params[:page]).per(50)
   end
 
