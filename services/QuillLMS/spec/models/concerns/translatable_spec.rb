@@ -12,18 +12,18 @@ RSpec.describe Translatable do
         "TranslatableTestModel"
       end
 
-      def prompt
+      def custom_prompt
         "Test prompt"
       end
 
-
-      private def translatable_text
-        data["test_text"]
+      private def translatable_attribute
+        "test_text"
       end
+
     end
   end
 
-  let(:translatable_object) { translatable_class.new(data: {"test_text" => "Test text to translate"}) }
+  let(:translatable_object) { translatable_class.create(data: {"test_text" => "Test text to translate"}) }
 
   before do
     stub_const("TranslatableTestModel", translatable_class)
@@ -208,7 +208,7 @@ RSpec.describe Translatable do
 
     context 'when using OpenAI as the source' do
       let(:source_api) { Translatable::OPEN_AI_SOURCE }
-      let(:prompt) { translatable_object.prompt }
+      let(:prompt) { translatable_object.prompt(locale:) }
 
       it 'calls OpenAI::TranslateAndSaveText for each English text' do
         translatable_object.english_texts.each do |text|
@@ -236,9 +236,24 @@ RSpec.describe Translatable do
     end
   end
 
-  describe '#prompt' do
+  describe '#prompt(locale:)' do
+    let(:locale) { Translatable::DEFAULT_LOCALE }
     it 'returns the expected prompt' do
-      expect(translatable_object.prompt).to eq("Test prompt")
+      expected = <<~STRING
+        You are going to do a translation from english to es-la using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
+
+        We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
+      STRING
+      expected += "\nTest prompt\n text to translate: "
+      expect(translatable_object.prompt(locale:)).to eq(expected)
+    end
+
+    it 'adds in the example_json' do
+      filename = "questions.json"
+      allow(translatable_object).to receive(:example_filename).and_return(filename)
+      prompt = translatable_object.prompt(locale:)
+      expect(prompt).to match("Optimal Examples")
+      expect(prompt).to match(File.read(Rails.root.join("app/models/translation_examples", filename)))
     end
   end
 

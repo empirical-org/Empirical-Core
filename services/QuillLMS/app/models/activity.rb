@@ -254,8 +254,8 @@ class Activity < ApplicationRecord
     translated_json({})
   end
 
-  def prompt(locale:)
-    custom = <<~STRING
+  private def custom_prompt
+    <<~STRING
       Therefore, some words or sentences will not be translated.
 
       Here's a list of things that you should leave in the original english.
@@ -274,13 +274,10 @@ class Activity < ApplicationRecord
       - headers, so one or two words that are set off by an HTML tag.
       - Words like "Example", "Examples", "You see" or "You write"
 
-      Optimal Examples (json):
     STRING
-    examples = File.read(Rails.root.join("app/models/translation_examples/activities.json"))
-    request = "\n Text to translate: "
-    prompt_start(locale:) + custom + examples + request
   end
 
+  private def example_filename = "activities.json"
 
   private def translatable_attribute = "landingPageHtml"
 

@@ -166,17 +166,13 @@ class Question < ApplicationRecord
   end
 
   # Translatable
-  def prompt(locale:)
-    custom = <<~STRING
+  private def custom_prompt
+    <<~STRING
       Therefore, please leave words that sound like they are part of the activity in the original english.
-
-      Optimal Examples (json):
     STRING
-
-    examples = File.read(Rails.root.join("app/models/translation_examples/questions.json"))
-    translate = "Here is what I want translated:\n"
-    prompt_start(locale:) + custom + examples + translate
   end
+
+  private def example_filename = "questions.json"
 
   private def translatable_attribute = "instructions"
 

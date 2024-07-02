@@ -56,7 +56,17 @@ module Translatable
     gengo_jobs.each(&:fetch_translation!)
   end
 
-  def prompt_start(locale:)
+  def prompt(locale:)
+    prompt_start(locale:) + custom_prompt + examples + "\n text to translate: "
+  end
+
+  def example_filename = nil
+
+  private def custom_prompt
+    raise NotImplementedError, "#{self.class} must implement the 'custom_prompt' method"
+  end
+
+  private def prompt_start(locale:)
     <<~STRING
       You are going to do a translation from english to #{locale} using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
 
@@ -65,10 +75,11 @@ module Translatable
     STRING
   end
 
-  def prompt
-    raise NotImplementedError, "#{self.class} must implement the 'prompt' method"
+  private def examples
+    return "" unless example_filename.present?
+    examples = File.read(Rails.root.join("app/models/translation_examples", example_filename))
+    "\nOptimal Examples (json): \n" + examples
   end
-
 
   private def translatable_attribute
     raise NotImplementedError, "#{self.class} must implement the 'translatable_text' method"
