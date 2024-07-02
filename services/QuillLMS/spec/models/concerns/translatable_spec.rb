@@ -4,28 +4,37 @@
 require 'rails_helper'
 
 RSpec.describe Translatable do
-  before(:all) do
-    class TranslatableTestModel < ApplicationRecord
+  let(:translatable_class) do
+    Class.new(ApplicationRecord) do
       include Translatable
+
+      def self.name
+        "TranslatableTestModel"
+      end
 
       def prompt
         "Test prompt"
       end
 
-      private def translatable_attribute = "test_text"
-    end
 
-    ActiveRecord::Migration.create_table :translatable_test_models do |t|
+      private def translatable_text
+        data["test_text"]
+      end
+    end
+  end
+
+  let(:translatable_object) { translatable_class.new(data: {"test_text" => "Test text to translate"}) }
+
+  before do
+    stub_const("TranslatableTestModel", translatable_class)
+    ActiveRecord::Base.connection.create_table :translatable_test_models, force: true do |t|
       t.jsonb :data
     end
   end
 
-  after(:all) do
-    ActiveRecord::Migration.drop_table :translatable_test_models
-    Object.send(:remove_const, :TranslatableTestModel)
+  after do
+    ActiveRecord::Base.connection.drop_table :translatable_test_models
   end
-
-  let(:translatable_object) { TranslatableTestModel.create(data: {"test_text" => "Test text to translate"}) }
 
   describe '#create_translation_mappings' do
     subject { translatable_object.create_translation_mappings }
