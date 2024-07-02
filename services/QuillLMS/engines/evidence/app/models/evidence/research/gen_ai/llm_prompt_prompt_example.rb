@@ -14,6 +14,8 @@ module Evidence
   module Research
     module GenAI
       class LLMPromptPromptExample < ApplicationRecord
+        LOCKED = 'locked'
+
         belongs_to :llm_prompt
         belongs_to :prompt_example
 
@@ -21,6 +23,12 @@ module Evidence
         validates :prompt_example_id, presence: true
 
         attr_readonly :llm_prompt_id, :prompt_example_id
+
+        validate :llm_prompt_unlocked, on: :create
+
+        private def llm_prompt_unlocked
+          errors.add(:llm_prompt, LOCKED) if llm_prompt&.locked
+        end
       end
     end
   end

@@ -16,10 +16,9 @@ module Evidence
   module Research
     module GenAI
       class PromptExample < ApplicationRecord
-        STAFF_ASSIGNED_STATUSES = [
-          OPTIMAL = 'optimal',
-          SUBOPTIMAL = 'suboptimal'
-        ].freeze
+        include HasAssignedStatus
+
+        default_scope { order(created_at: :asc) }
 
         belongs_to :dataset
 
@@ -28,6 +27,10 @@ module Evidence
         validates :dataset_id, presence: true
 
         attr_readonly :staff_assigned_status, :dataset_id, :student_response
+
+        def self.assigned_status_column = :staff_assigned_status
+
+        def response_feedback_status = {student_response:, feedback: staff_feedback, optimal: optimal? }
       end
     end
   end

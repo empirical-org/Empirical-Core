@@ -98,7 +98,7 @@ module Snapshots
     it_behaves_like 'snapshots period length', 'last-90-days', 90
     it_behaves_like 'snapshots period length', 'this-month', DateTime.current.yesterday.day
     it_behaves_like 'snapshots period length', 'last-month', Time.days_in_month(DateTime.current.yesterday.prev_month.month)
-    it_behaves_like 'snapshots period length', 'this-school-year', DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current)
+    it_behaves_like 'snapshots period length', 'this-school-year', DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current.yesterday)
     it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(DateTime.current.prev_year.year) ? 366 : 365
     it_behaves_like 'snapshots period length', 'custom', 4, (DateTime.current - 3.days).to_s, DateTime.current.to_s
 

@@ -148,6 +148,11 @@ Style/MixinUsage:
     - spec/controllers/concerns/teacher_fixes_spec.rb
     - spec/workers/fast_assign_worker_spec.rb
 
+Style/OptionalBooleanParameter:
+  Enabled: true
+  # thor doesn't have kwargs support
+  Exclude:
+    - lib/tasks/gen_ai_tasks.thor
 Style/RedundantCapitalW:
   Enabled: true
   Exclude:
@@ -162,3 +167,6 @@ Style/RedundantInterpolation:
 Style/RescueModifier:
   Exclude:
     - db/migrate/20140916143956_make_username_downcase.rb
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: always

@@ -108,6 +108,8 @@ class Activity < ApplicationRecord
   scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
   scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
 
+  scope :evidence_live_flags, -> {where("activities.flags && '{\"#{PRODUCTION}\",\"#{Flags::EVIDENCE_BETA1}\",\"#{Flags::EVIDENCE_BETA2}\",\"#{GAMMA}\"}'") }
+
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]

@@ -4,32 +4,28 @@
 #
 # Table name: evidence_research_gen_ai_guidelines
 #
-#  id            :bigint           not null, primary key
-#  category      :string           not null
-#  text          :text             not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  stem_vault_id :integer          not null
+#  id                    :bigint           not null, primary key
+#  staff_assigned_status :string           not null
+#  text                  :text             not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  stem_vault_id         :integer          not null
 #
 module Evidence
   module Research
     module GenAI
       class Guideline < ApplicationRecord
-        CATEGORIES = [
-          OPTIMAL = 'optimal',
-          SUBOPTIMAL = 'suboptimal'
-        ].freeze
+        include HasAssignedStatus
 
-        scope :optimal, -> { where(category: OPTIMAL) }
-        scope :suboptimal, -> { where(category: SUBOPTIMAL) }
+        belongs_to :stem_vault
 
-        belongs_to :stem_vault, class_name: 'Evidence::Research::GenAI::StemVault'
+        attr_readonly :staff_assigned_status, :stem_vault_id, :text
 
-        attr_readonly :category, :stem_vault_id, :text
-
-        validates :category, presence: true
+        validates :staff_assigned_status, presence: true
         validates :stem_vault_id, presence: true
         validates :text, presence: true
+
+        def self.assigned_status_column = :staff_assigned_status
 
         def to_s = text
       end

@@ -5,7 +5,7 @@ module Evidence
     module GenAI
       class AutomlDataImporter < ApplicationService
         BUCKET_NAME = ENV['AWS_S3_EVIDENCE_RESEARCH_GEN_AI_BUCKET']
-        TARGET_NUM_EXAMPLES = 100
+        TARGET_NUM_TEST_EXAMPLES = 100
 
         attr_reader :file_name
 
@@ -22,10 +22,10 @@ module Evidence
             # Training and validation files are artifacts from a previous classification model
             # Here there are both drawn from to populate quill feedbacks
             [training_file_name, validation_file_name].each do |examples_file_name|
-              break if stem_vault.student_responses.count >= TARGET_NUM_EXAMPLES
+              break if stem_vault.student_responses.count >= TARGET_NUM_TEST_EXAMPLES
 
               get_file(key: examples_file_name).each_line do |line|
-                break if stem_vault.student_responses.count >= TARGET_NUM_EXAMPLES
+                break if stem_vault.student_responses.count >= TARGET_NUM_TEST_EXAMPLES
 
                 example = JSON.parse(line)
                 response = example['text']

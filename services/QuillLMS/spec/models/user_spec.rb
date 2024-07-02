@@ -2036,12 +2036,21 @@ RSpec.describe User, type: :model do
       teacher.save
     end
 
-    it 'should create new TeacherInfo record' do
-      teacher = build(:teacher)
+    context 'should create new TeacherInfo record' do
 
-      expect do
-        teacher.save
-      end.to change(TeacherInfo, :count).by(1)
+      it 'should create a record' do
+        teacher = build(:teacher)
+
+        expect{teacher.save}.to change(TeacherInfo, :count).by(1)
+      end
+
+      it 'should save the role_selected_at_signup attribute to TeacherInfo record' do
+        role_selected_at_signup = "admin"
+        teacher = create(:teacher, role_selected_at_signup:)
+
+        expect(teacher.teacher_info.role_selected_at_signup).to eq(role_selected_at_signup)
+      end
+
     end
 
     it 'should create new TeacherNotificationSetting records based on configured defaults' do

@@ -33,6 +33,7 @@
 
     .dropdown__single-value {
       display: flex;
+      align-items: center;
     }
 
     &.inactive.has-text label {

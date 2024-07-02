@@ -140,6 +140,12 @@ main {
       }
     }
     .data-table-body {
+      &:has(.empty-state-message) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 18px 0px;
+      }
       .data-table-row {
         padding-right: 10px !important;
         border-right: 1px solid $quill-grey-1;
@@ -319,7 +325,7 @@ main {
         color: $quill-green;
       }
     }
-    .quill-button {
+    .quill-button-archived {
       margin-top: 16px;
       padding: 13px 16px;
       border-radius: 8px;
