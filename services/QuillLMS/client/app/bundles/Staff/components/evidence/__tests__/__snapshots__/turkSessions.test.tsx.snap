@@ -738,16 +738,6 @@ exports[`TurkSessions component should render TurkSessions 1`] = `
         "unregisterTransitionHook": [Function],
       }
     }
-    location={
-      Object {
-        "action": "POP",
-        "hash": "",
-        "key": null,
-        "pathname": "/",
-        "search": "",
-        "state": null,
-      }
-    }
     match={
       Object {
         "isExact": true,

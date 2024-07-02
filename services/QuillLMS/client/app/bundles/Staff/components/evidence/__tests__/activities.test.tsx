@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { createLocation, createMemoryHistory } from 'history';
+import { createMemoryHistory } from 'history';
 import * as React from 'react';
 import { QueryClientProvider } from 'react-query';
 import 'whatwg-fetch';
@@ -9,6 +9,8 @@ import Activities from '../activities';
 
 const queryClient = new DefaultReactQueryClient();
 
+const history = createMemoryHistory()
+
 describe('Activities component', () => {
   const mockProps = {
     match: {
@@ -17,8 +19,8 @@ describe('Activities component', () => {
       path: '',
       url:''
     },
-    history: createMemoryHistory(),
-    location: createLocation('')
+    history,
+    location: history.location,
   }
   const container = shallow(
     <QueryClientProvider client={queryClient} contextSharing={true}>
