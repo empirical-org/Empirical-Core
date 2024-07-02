@@ -238,6 +238,7 @@ RSpec.describe Translatable do
 
   describe '#prompt(locale:)' do
     let(:locale) { Translatable::DEFAULT_LOCALE }
+
     it 'returns the expected prompt' do
       expected = <<~STRING
         You are going to do a translation from english to es-la using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.

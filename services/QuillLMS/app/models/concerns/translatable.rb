@@ -57,7 +57,7 @@ module Translatable
   end
 
   def prompt(locale:)
-    prompt_start(locale:) + custom_prompt + examples + "\n text to translate: "
+    "#{prompt_start(locale:)}#{custom_prompt}#{examples}\n text to translate: "
   end
 
   def example_filename = nil
@@ -77,8 +77,9 @@ module Translatable
 
   private def examples
     return "" unless example_filename.present?
+
     examples = File.read(Rails.root.join("app/models/translation_examples", example_filename))
-    "\nOptimal Examples (json): \n" + examples
+    "\nOptimal Examples (json): \n#{examples}"
   end
 
   private def translatable_attribute
