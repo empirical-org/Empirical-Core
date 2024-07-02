@@ -24,109 +24,109 @@
       margin: 4px 0px 20px;
     }
 
-    .ReactTable.unit-template-profile-activities {
-      thead {
-        background-color: $quill-white;
-        padding: 18px 0px 18px 6px;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        tr {
-          th {
-            color:$quill-grey-50;
-            font-size: 12px;
-            background-color: $quill-white;;
-          }
-        }
-      }
-      tbody .rt-tr-group:last-of-type {
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-      }
-      tbody tr {
-        min-height: 46.5px;
-        padding-left: 6px;
-        td {
-          overflow: visible;
-        }
-        td:first-of-type {
-          .quill-tooltip {
-            left: 80px;
-          }
-        }
-        td:nth-of-type(4) {
-          .quill-tooltip {
-            width: 752px;
-            right: 8px;
-          }
-        }
-        .quill-tooltip-wrapper {
-          width: 595px;
-          background-color: $quill-grey-50;
-        }
-        .quill-tooltip-trigger {
-          white-space: normal;
-          width: 100%;
-          display: inline-block;
-          button {
-            width: 100%;
-            text-align: left;
-            height: 100%;
-          }
-        }
-        .quill-tooltip {
-          .horizontal-divider {
-            border-bottom: 1px solid white;
-            padding-top: 16px;
-            margin-bottom: 16px;
-          }
-          p {
-            margin-top: 16px;
-            &:first-of-type {
-              margin-top: 8px;
-            }
-            &:last-of-type {
-              margin-bottom: 8px;
-            }
-          }
-        }
-        @media (max-width: 1100px) {
-          td:first-of-type {
-            .quill-tooltip {
-              left: 300px;
-            }
-          }
-          td:nth-of-type(4) {
-            .quill-tooltip {
-              width: min-content;
-              right: 300px;
-            }
-          }
-        }
-      }
-    }
+    // .ReactTable.unit-template-profile-activities {
+    //   thead {
+    //     background-color: $quill-white;
+    //     padding: 18px 0px 18px 6px;
+    //     border-top-left-radius: 6px;
+    //     border-top-right-radius: 6px;
+    //     tr {
+    //       th {
+    //         color:$quill-grey-50;
+    //         font-size: 12px;
+    //         background-color: $quill-white;;
+    //       }
+    //     }
+    //   }
+    //   tbody .rt-tr-group:last-of-type {
+    //     border-bottom-left-radius: 6px;
+    //     border-bottom-right-radius: 6px;
+    //   }
+    //   tbody tr {
+    //     min-height: 46.5px;
+    //     padding-left: 6px;
+    //     td {
+    //       overflow: visible;
+    //     }
+    //     td:first-of-type {
+    //       .quill-tooltip {
+    //         left: 80px;
+    //       }
+    //     }
+    //     td:nth-of-type(4) {
+    //       .quill-tooltip {
+    //         width: 752px;
+    //         right: 8px;
+    //       }
+    //     }
+    //     .quill-tooltip-wrapper {
+    //       width: 595px;
+    //       background-color: $quill-grey-50;
+    //     }
+    //     .quill-tooltip-trigger {
+    //       white-space: normal;
+    //       width: 100%;
+    //       display: inline-block;
+    //       button {
+    //         width: 100%;
+    //         text-align: left;
+    //         height: 100%;
+    //       }
+    //     }
+    //     .quill-tooltip {
+    //       .horizontal-divider {
+    //         border-bottom: 1px solid white;
+    //         padding-top: 16px;
+    //         margin-bottom: 16px;
+    //       }
+    //       p {
+    //         margin-top: 16px;
+    //         &:first-of-type {
+    //           margin-top: 8px;
+    //         }
+    //         &:last-of-type {
+    //           margin-bottom: 8px;
+    //         }
+    //       }
+    //     }
+    //     @media (max-width: 1100px) {
+    //       td:first-of-type {
+    //         .quill-tooltip {
+    //           left: 300px;
+    //         }
+    //       }
+    //       td:nth-of-type(4) {
+    //         .quill-tooltip {
+    //           width: min-content;
+    //           right: 300px;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
-    .ReactTable.unit-template-profile-activities .rt-table a img {
-      padding: 8px 0px 8px 20px;
-    }
+    // .ReactTable.unit-template-profile-activities .rt-table a img {
+    //   padding: 8px 0px 8px 20px;
+    // }
 
-    .ReactTable .rt-th, .ReactTable .rt-td {
-      padding-top: 2.5px;
-      padding-bottom: 4px;
-      .activity-name, .activity-preview {
-        color: #027360;
-      }
-    }
+    // .ReactTable .rt-th, .ReactTable .rt-td {
+    //   padding-top: 2.5px;
+    //   padding-bottom: 4px;
+    //   .activity-name, .activity-preview {
+    //     color: #027360;
+    //   }
+    // }
 
-    .ReactTable.unit-template-profile-activities .rt-table .rt-tr:hover a.highlight-on-hover {
-      color: #00c2a2;
-      h1 {
-        margin: 5px 0px;
-      }
-    }
+    // .ReactTable.unit-template-profile-activities .rt-table .rt-tr:hover a.highlight-on-hover {
+    //   color: #00c2a2;
+    //   h1 {
+    //     margin: 5px 0px;
+    //   }
+    // }
 
-    .ReactTable .rt-thead {
-      border-bottom: solid 1px rgba(0, 0, 0, 0.05);
-    }
+    // .ReactTable .rt-thead {
+    //   border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+    // }
 
     a:hover {
       text-decoration: none;

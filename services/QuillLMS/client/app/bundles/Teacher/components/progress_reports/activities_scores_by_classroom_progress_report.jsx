@@ -59,7 +59,10 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         resizable: false,
         sortType: sortTableByLastName,
         Cell: ({row}) => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-          {row.original.name}
+          <div className='clickable-chip'>
+            <img alt='' src='https://assets.quill.org/images/icons/s/account.svg' />
+            <p>{row.original.name}</p>
+          </div>
         </a>),
       }, {
         Header: "Activities completed",
