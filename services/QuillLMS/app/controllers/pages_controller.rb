@@ -503,6 +503,11 @@ class PagesController < ApplicationController
     @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
+  def translations
+    return redirect_to profile_path if !staff?
+    @translations = TranslationMapping.all.includes(:english_text, :translated_texts).page(params[:page]).per(50)
+  end
+
   def quill_academy
     redirect_to root_path unless current_user
   end

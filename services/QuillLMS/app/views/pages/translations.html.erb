@@ -1,0 +1,18 @@
+<h1>Translations</h1>
+<table class="table">
+  <tr class="header-row">
+    <th>Module</th>
+    <th>English</th>
+    <th>Spanish</th>
+  </tr>
+    <%@translations.each do |translation|%>
+      <tr class="data-row">
+        <td><%= translation.source.class.name %></td>
+        <td><%= raw(translation.english_text.text)%></td>
+        <td><%= raw(translation.translated_texts.ordered_by_source_api.first.translation) %></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+<p> <%= paginate @translations %> </p>
