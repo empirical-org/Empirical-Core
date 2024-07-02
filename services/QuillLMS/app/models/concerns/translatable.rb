@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/concerns/translatable.rb
 module Translatable
   extend ActiveSupport::Concern
@@ -45,7 +47,7 @@ module Translatable
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
-      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt:prompt(locale:)) }
+      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: prompt(locale:)) }
     end
     translation(locale:, source_api:)
   end
@@ -56,9 +58,9 @@ module Translatable
 
   def prompt_start(locale:)
     <<~STRING
-    You are going to do a translation from english to #{locale} using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
+      You are going to do a translation from english to #{locale} using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
 
-    We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
+      We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
 
     STRING
   end
@@ -67,13 +69,12 @@ module Translatable
     raise NotImplementedError, "#{self.class} must implement the 'prompt' method"
   end
 
-  private
 
-  def translatable_attribute
+  private def translatable_attribute
     raise NotImplementedError, "#{self.class} must implement the 'translatable_text' method"
   end
 
-  def translatable_text
+  private def translatable_text
     data[translatable_attribute]
   end
 end

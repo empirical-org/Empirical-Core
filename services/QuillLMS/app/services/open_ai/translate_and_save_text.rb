@@ -6,7 +6,7 @@ module OpenAI
     class OpenAITranslationError < StandardError; end
     attr_reader :english_text, :locale, :prompt
 
-    def initialize(english_text, locale: Translatable::DEFAULT_LOCALE, prompt:)
+    def initialize(english_text, prompt:, locale: Translatable::DEFAULT_LOCALE)
       @english_text = english_text
       @locale = locale
       @prompt = prompt

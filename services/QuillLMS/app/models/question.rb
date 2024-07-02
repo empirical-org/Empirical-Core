@@ -173,7 +173,7 @@ class Question < ApplicationRecord
       Optimal Examples (json):
     STRING
 
-    examples = File.read(Rails.root.join("app/models/translation_examples", "questions.json"))
+    examples = File.read(Rails.root.join("app/models/translation_examples/questions.json"))
     translate = "Here is what I want translated:\n"
     prompt_start(locale:) + custom + examples + translate
   end

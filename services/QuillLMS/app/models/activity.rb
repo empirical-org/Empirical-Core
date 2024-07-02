@@ -276,7 +276,7 @@ class Activity < ApplicationRecord
 
       Optimal Examples (json):
     STRING
-    examples = File.read(Rails.root.join("app/models/translation_examples", "activities.json"))
+    examples = File.read(Rails.root.join("app/models/translation_examples/activities.json"))
     request = "\n Text to translate: "
     prompt_start(locale:) + custom + examples + request
   end
