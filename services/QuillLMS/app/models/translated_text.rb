@@ -13,16 +13,11 @@
 #  english_text_id :integer          not null
 #
 class TranslatedText < ApplicationRecord
-  SPANISH_LOCALE = "es-la"
-  DEFAULT_LOCALE = SPANISH_LOCALE
-  GENGO_SOURCE = "gengo"
-  OPEN_AI_SOURCE = "open_ai"
-  SOURCES = [OPEN_AI_SOURCE, GENGO_SOURCE]
-  validates :source_api, presence: true, inclusion: { in: SOURCES }
+  validates :source_api, presence: true, inclusion: { in: Translatable::SOURCES }
   belongs_to :english_text
 
-  scope :ordered_by_source_api, lambda { |source_api = OPEN_AI_SOURCE|
-    source_api = OPEN_AI_SOURCE unless SOURCES.include? source_api
+  scope :ordered_by_source_api, lambda { |source_api = Translatable::OPEN_AI_SOURCE|
+    source_api = Translatable::OPEN_AI_SOURCE unless Translatable::SOURCES.include? source_api
     order(
       Arel.sql("CASE WHEN source_api = '#{source_api}' THEN 0 ELSE 1 END, source_api ASC")
     )

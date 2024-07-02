@@ -9,7 +9,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
     let(:order_id) { "123" }
     let(:job_id) { "124" }
     let(:english_text_id) { "1493" }
-    let(:locale) { TranslatedText::DEFAULT_LOCALE }
+    let(:locale) { Translatable::DEFAULT_LOCALE }
     let(:job_payload) do
       {"job_id"=> job_id,
             "order_id"=> order_id,
@@ -85,7 +85,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
             it { expect{subject}.to change(TranslatedText, :count).by(1) }
 
             it do
-              expect{subject}.to change{TranslatedText.where(translation:, source_api: TranslatedText::GENGO_SOURCE).count}
+              expect{subject}.to change{TranslatedText.where(translation:, source_api: Translatable::GENGO_SOURCE).count}
                 .from(0)
                 .to(1)
             end

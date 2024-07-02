@@ -17,6 +17,8 @@
 #  index_concept_feedbacks_on_uid_and_activity_type  (uid,activity_type) UNIQUE
 #
 class ConceptFeedback < ApplicationRecord
+  include Translatable
+
   TYPES = [
     TYPE_CONNECT = 'connect',
     TYPE_GRAMMAR = 'grammar'
@@ -29,49 +31,24 @@ class ConceptFeedback < ApplicationRecord
   validates :activity_type, presence: true, inclusion: {in: TYPES}
   validate :data_must_be_hash
 
-  has_many :translation_mappings, as: :source
-  has_many :english_texts, through: :translation_mappings
-  has_many :translated_texts, through: :english_texts
-  has_many :gengo_jobs, through: :english_texts
   store_accessor :data, :description
 
   after_commit :clear_concept_feedbacks_cache
 
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
-  def as_json(options=nil)
-    source_api = options&.dig(:source_api) || TranslatedText::OPEN_AI_SOURCE
-    translation = translation(source_api:)
-    return data unless translation.present?
-
-    data.merge({"translatedDescription" => translation})
+  def as_json(options = nil)
+    translated_json(options || {})
   end
 
-  def create_translation_mappings
-    return if description.nil?
-    return unless translation_mappings.empty?
-
-    english_text = EnglishText.find_or_create_by(text: description)
-    translation_mappings.create(english_text: )
+  def prompt
+    <<~STRING
+      can you translate the following phrase from english into latin american spanish for me? Please return just the translated text preserving (but not translating) the HTML. We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, please leave words that sound like they are part of the activity in the original english. Often they will between an HTML tag such as in <em>english word</em> or <ul>english word</ul>.
+      Here is what I want translated:
+    STRING
   end
 
-  def translation(locale: TranslatedText::DEFAULT_LOCALE, source_api: TranslatedText::OPEN_AI_SOURCE)
-    translations(locale:, source_api:)&.first&.translation
-  end
-
-  private def translations(locale:, source_api:)
-    translated_texts.where(locale:).ordered_by_source_api(source_api)
-  end
-
-  def translate!(locale:, source_api:)
-    case source_api
-    when TranslatedText::GENGO_SOURCE
-      Gengo::RequestTranslations.run(english_texts, locale)
-    when TranslatedText::OPEN_AI_SOURCE
-      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text) }
-    end
-  end
-  def fetch_translations! = gengo_jobs.each(&:fetch_translation!)
+  private def translatable_text = description
 
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)

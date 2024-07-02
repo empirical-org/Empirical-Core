@@ -17,7 +17,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
         type: "text",
         body_src: text2.text,
         lc_src: "en",
-        lc_tgt: TranslatedText::DEFAULT_LOCALE,
+        lc_tgt: Translatable::DEFAULT_LOCALE,
         tier: "standard",
         auto_approve: true,
         slug: text2.id,
@@ -30,7 +30,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
         type: "text",
         body_src: text1.text,
         lc_src: "en",
-        lc_tgt: TranslatedText::DEFAULT_LOCALE,
+        lc_tgt: Translatable::DEFAULT_LOCALE,
         tier: "standard",
         auto_approve: true,
         slug: text1.id,
@@ -40,7 +40,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
     end
     let(:combined_payload) { { text1.id.to_s => text1_payload, text2.id.to_s => text2_payload }}
 
-    subject { described_class.new([text1, text2], TranslatedText::DEFAULT_LOCALE).gengo_payload}
+    subject { described_class.new([text1, text2], Translatable::DEFAULT_LOCALE).gengo_payload}
 
     context "the english text does not yet have a translation for that language" do
       it "creates a gengo payload for the english text" do
@@ -50,7 +50,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
 
     context "the english text already has a translated_text for that language" do
       it "does not add that text to the payload" do
-        text1.gengo_jobs << create(:gengo_job, locale: TranslatedText::DEFAULT_LOCALE)
+        text1.gengo_jobs << create(:gengo_job, locale: Translatable::DEFAULT_LOCALE)
         expect(subject).to eq({text2.id.to_s => text2_payload})
       end
     end
@@ -58,7 +58,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
 
 
   describe "run" do
-    subject { described_class.run([text1, text2], TranslatedText::DEFAULT_LOCALE)}
+    subject { described_class.run([text1, text2], Translatable::DEFAULT_LOCALE)}
 
     let(:order_id) { "123" }
 
@@ -91,7 +91,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
     end
 
     context "the payload returns an empty hash" do
-      subject { described_class.run([], TranslatedText::DEFAULT_LOCALE)}
+      subject { described_class.run([], Translatable::DEFAULT_LOCALE)}
 
       it {
         subject

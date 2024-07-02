@@ -44,7 +44,7 @@ module Gengo
         english_text_id: gengo_job.english_text_id,
         locale:,
         translation: new_translation,
-        source_api: TranslatedText::GENGO_SOURCE
+        source_api: Translatable::GENGO_SOURCE
       )
     end
 
