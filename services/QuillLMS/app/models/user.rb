@@ -473,7 +473,7 @@ class User < ApplicationRecord
   end
 
   def capitalize_name
-    self.name = ::CapitalizeNames.capitalize(name)
+    self.name = ::CapitalizeNames.capitalize(name, skip_van_space: true, skip_dit_space: true)
   end
 
   def admin?
