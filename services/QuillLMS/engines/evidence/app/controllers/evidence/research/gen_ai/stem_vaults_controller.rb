@@ -5,22 +5,23 @@ module Evidence
     module GenAI
       class StemVaultsController < ApplicationController
         def new
-          @stem_vault = StemVault.new
-          @activities = Activity.all
+          @stem_vault = activity.stem_vaults.new
           @conjunctions = StemVault::CONJUNCTIONS
         end
 
         def create
-          @stem_vault = StemVault.new(stem_vault_params)
+          @stem_vault = activity.stem_vaults.new(stem_vault_params)
 
           if @stem_vault.save
-            redirect_to new_research_gen_ai_trial_path
+            redirect_to @stem_vault
           else
             render :new
           end
         end
 
         def show = @stem_vault = StemVault.find(params[:id])
+
+        private def activity = @activity ||= Activity.find(params[:activity_id])
 
         private def stem_vault_params
           params

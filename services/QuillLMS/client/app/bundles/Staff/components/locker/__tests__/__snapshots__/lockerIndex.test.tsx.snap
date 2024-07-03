@@ -42,6 +42,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "activity packs categories",
               "authors",
               "rails admin",
+              "generative AI",
             ],
             "concept management": Array [
               "concepts",
@@ -176,6 +177,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "activity packs categories",
               "authors",
               "rails admin",
+              "generative AI",
             ],
             "concept management": Array [
               "concepts",
