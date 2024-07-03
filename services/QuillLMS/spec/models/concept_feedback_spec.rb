@@ -19,6 +19,8 @@
 require 'rails_helper'
 
 RSpec.describe ConceptFeedback, type: :model do
+  it { expect(ConceptFeedback.ancestors).to include(Translatable) }
+
   let(:concept_feedback) { create(:concept_feedback) }
 
   describe '#valid?' do
