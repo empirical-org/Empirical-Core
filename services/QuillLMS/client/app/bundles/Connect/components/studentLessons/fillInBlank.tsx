@@ -94,7 +94,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       }
     }
     if (!text) {
-      text = question.answers[0].text.replace(/{|}/gm, '')
+      text = question?.answers?.[0]?.text?.replace(/{|}/gm, '')
     }
     return text
   }
