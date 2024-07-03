@@ -23,7 +23,7 @@ module Evidence
         private def activity_params
           params
             .require(:research_gen_ai_activity)
-            .permit(:name, :contents)
+            .permit(:name, :text)
         end
       end
     end
