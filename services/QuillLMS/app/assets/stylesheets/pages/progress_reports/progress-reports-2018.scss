@@ -36,17 +36,6 @@
     }
   }
 
-  &.standards-all-classrooms {
-    .clickable-chip {
-      max-width: 286px;
-      p {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-      }
-    }
-  }
-
   .dropdown__control {
     background-color: transparent;
   }
@@ -73,36 +62,6 @@
     p {
       color: $quill-grey-40;
       margin-bottom: 8px;
-    }
-  }
-
-  .-sort-asc, .-sort-desc {
-    box-shadow: none !important;
-  }
-
-  .-sort-asc {
-    div::after {
-      position: absolute;
-      top: 12px;
-      font-size: 18px;
-      right: 25px;
-      color: #969696;
-      font-family: "Font Awesome 5 Pro";  /* updated font-family */
-      font-weight: 900; /* regular style/weight */
-      content: "\f0d7";
-    }
-  }
-
-  .-sort-desc {
-    div::after {
-      position: absolute;
-      top: 12px;
-      font-size: 18px;
-      right: 25px;
-      color: #969696;
-      font-family: "Font Awesome 5 Pro";  /* updated font-family */
-      font-weight: 900; /* regular style/weight */
-      content: "\f0d8";
     }
   }
 
@@ -186,20 +145,23 @@
                                  supported by Chrome and Opera */
 }
 
-.proficient-indicator, .not-proficient-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 100px;
-  margin-right: 10px;
-  display: inline-block;
-}
-
-.proficient-indicator {
-  background-color: #82bf3c;
-}
-
-.not-proficient-indicator {
-  background-color: #ff4542;
+.proficiency-chip {
+  padding: 6px 8px;
+  border-radius: 8px;
+  @include display-2xs;
+  img {
+    margin-right: 4px;
+  }
+  &.proficient {
+    background-color: $quill-green-vibrant-10;
+    border: 1px solid $quill-green-vibrant-20;
+    color: $quill-green-vibrant;
+  }
+  &.not-proficient {
+    background-color: $quill-gold-dark-1;
+    border: 1px solid $quill-gold-dark-20;
+    color: $quill-gold-dark;
+  }
 }
 
 @media (max-width: 850px) {

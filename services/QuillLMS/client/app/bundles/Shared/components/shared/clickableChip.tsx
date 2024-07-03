@@ -7,15 +7,23 @@ interface ClickableChipProps {
     src: string
   },
   label: string,
-  link: string
+  link?: string
 }
 
 export const ClickableChip = ({ color, icon, label, link }: ClickableChipProps) => {
-  return(
-    <a className={`clickable-chip ${color}`} href={link}>
+  if(link) {
+    return(
+      <a className={`clickable-chip ${color}`} href={link}>
+        {icon && <img alt={icon.alt} src={icon.src} />}
+        <p>{label}</p>
+      </a>
+    )
+  }
+  return (
+    <div className={`clickable-chip ${color}`}>
       {icon && <img alt={icon.alt} src={icon.src} />}
       <p>{label}</p>
-    </a>
+    </div>
   )
 }
 

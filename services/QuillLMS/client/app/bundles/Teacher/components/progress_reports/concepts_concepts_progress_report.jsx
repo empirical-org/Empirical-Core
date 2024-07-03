@@ -44,29 +44,30 @@ export default class IndividualStudentConceptReport extends React.Component {
         accessor: 'concept_name',
         className: 'show-overflow',
         resizable: false,
+        maxWidth: 400
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
         resizable: false,
-        maxWidth: 120
+        maxWidth: 150
       }, {
         Header: 'Correct',
         accessor: 'correct_result_count',
         resizable: false,
         Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original.correct_result_count}</span>,
-        maxWidth: 105
+        maxWidth: 150
       }, {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
         Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original.incorrect_result_count}</span>,
-        maxWidth: 115
+        maxWidth: 150
       }, {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
         Cell: ({ row }) => <span className={blurIfNotPremium}>{row.original.percentage + '%'}</span>,
-        maxWidth: 120
+        maxWidth: 150
       },
     ])
   }

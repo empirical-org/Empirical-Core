@@ -9,8 +9,8 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 import ProgressReportFilters from './progress_report_filters.jsx';
 
 import { requestGet, } from '../../../../modules/request/index';
-import { ReactTable, ReportHeader, } from '../../../Shared/index';
-import { getTimeSpent } from '../../helpers/studentReports';
+import { ReactTable, ReportHeader, accountGreyIcon, } from '../../../Shared/index';
+import { getTimeSpent, renderTooltipRow } from '../../helpers/studentReports';
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 
@@ -116,7 +116,12 @@ export default createReactClass({
         Header: 'Student',
         accessor: 'student_id',
         resizeable: false,
-        Cell: ({ row }) => <span className={cellClassName}>{studentFilters.find(student => student.value == row.original.student_id)?.name}</span>,
+        Cell: ({ row }) => {
+          const { original } = row
+          const { id, name, link } = original
+          const label = studentFilters.find(student => student.value == row.original.student_id)?.name
+          return renderTooltipRow({ color: 'grey', icon: accountGreyIcon, id, label, link, headerWidth: 200 })
+        },
         maxWidth: 200
       },
       {
