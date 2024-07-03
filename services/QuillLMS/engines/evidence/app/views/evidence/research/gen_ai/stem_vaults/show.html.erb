@@ -1,8 +1,10 @@
+<%= link_to 'Back to Activity', @stem_vault.activity %>
+
 <div>
   <h2><%= @stem_vault.model_name.human.titleize %></h2>
 
   <h3>Activity</h3>
-  <p><%= link_to @stem_vault.name, @stem_vault.activity %></p>
+  <p><%= @stem_vault.name %></p>
 
   <h3>Conjunction</h3>
   <p><%= @stem_vault.conjunction %></p>

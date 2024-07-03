@@ -52,16 +52,6 @@ exports[`PlagiarismRulesIndex component should render PlagiarismRulesIndex 1`] =
           "unregisterTransitionHook": [Function],
         }
       }
-      location={
-        Object {
-          "action": "POP",
-          "hash": "",
-          "key": null,
-          "pathname": "/",
-          "search": "",
-          "state": null,
-        }
-      }
       match={
         Object {
           "isExact": true,

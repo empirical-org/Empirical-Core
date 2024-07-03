@@ -12,7 +12,7 @@ module Evidence
           @activity = Activity.new(activity_params)
 
           if @activity.save
-            redirect_to new_research_gen_ai_trial_path
+            redirect_to @activity
           else
             render :new
           end
@@ -23,7 +23,7 @@ module Evidence
         private def activity_params
           params
             .require(:research_gen_ai_activity)
-            .permit(:name, :contents)
+            .permit(:name, :text)
         end
       end
     end

@@ -94,6 +94,12 @@
     }
 
     .data-table-body {
+      &:has(.empty-state-message) {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 18px 0px;
+      }
       .data-table-row {
         td {
           display: flex;
