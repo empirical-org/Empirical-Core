@@ -20,7 +20,7 @@ RSpec.describe Translatable do
         "test_text"
       end
 
-      private def config_file = Rails.root.join("app/models/translation_config", "concept_feedback.yml")
+      private def config_file = Rails.root.join("app/models/translation_config/concept_feedback.yml")
 
     end
   end

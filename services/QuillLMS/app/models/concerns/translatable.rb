@@ -65,7 +65,7 @@ module Translatable
     config_yaml["custom_prompt"]
   end
 
-  private def config_filename = self.class.name.underscore + ".yml"
+  private def config_filename = "#{self.class.name.underscore}.yml"
   private def config_file = Rails.root.join("app/models/translation_config", config_filename)
   private def config_yaml = YAML.load_file(config_file)
 
