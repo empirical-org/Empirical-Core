@@ -17,6 +17,8 @@
 #  index_questions_on_uid            (uid) UNIQUE
 #
 class Question < ApplicationRecord
+  include Translatable
+
   TYPES = [
     TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
     TYPE_CONNECT_SENTENCE_FRAGMENTS = 'connect_sentence_fragments',
@@ -65,7 +67,7 @@ class Question < ApplicationRecord
   scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
 
   def as_json(options=nil)
-    data
+    translated_json(options)
   end
 
   def self.all_questions_json(question_type)
@@ -162,6 +164,9 @@ class Question < ApplicationRecord
   def connect_sentence_combining?
     question_type == TYPE_CONNECT_SENTENCE_COMBINING
   end
+
+  # Translatable
+  def self.translatable_field_name = "instructions"
 
   private def refresh_caches
     Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)

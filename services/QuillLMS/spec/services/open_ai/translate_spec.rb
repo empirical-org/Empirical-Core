@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe OpenAI::Translate, type: :service do
-  subject { described_class.new(english_text:) }
+  subject { described_class.new(english_text:, prompt:) }
 
+  let(:prompt) { "Translate this please!" }
   let(:english_text) { 'some prompt' }
 
   context 'test endpoint', external_api: true do
@@ -43,5 +44,15 @@ RSpec.describe OpenAI::Translate, type: :service do
     before { stub_request(:post, endpoint).to_return(body:, headers:) }
 
     it { expect(subject.run).to eq content }
+  end
+
+  describe 'system_prompt' do
+    subject { translate.system_prompt }
+
+    let(:translate) { described_class.new(english_text:,prompt:) }
+
+    let(:english_text) { Faker::Quotes::Shakespeare.romeo_and_juliet }
+
+    it { expect(subject).to eq prompt + english_text}
   end
 end
