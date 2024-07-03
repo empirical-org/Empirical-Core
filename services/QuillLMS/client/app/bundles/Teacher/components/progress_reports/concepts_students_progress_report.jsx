@@ -8,7 +8,7 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js';
-import { ReactTable, ReportHeader } from '../../../Shared/index';
+import { ClickableChip, ReactTable, ReportHeader, accountGreenIcon } from '../../../Shared/index';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import userIsPremium from '../modules/user_is_premium';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
@@ -61,9 +61,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         resizable: false,
         sortType: sortTableByLastName,
         width: 174,
-        Cell: ({row}) => (
-          <a href={row.original['concepts_href']}>{row.original['name']}</a>
-        )
+        Cell: ({ row }) => (<ClickableChip icon={accountGreenIcon} label={row.original['name']} link={row.original['concepts_href']} />)
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
@@ -91,17 +89,6 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         resizable: false,
         Cell: ({row}) => (
           <a className={cellClassName} href={row.original['concepts_href']}>{row.original['percentage']}%</a>
-        )
-      }, {
-        Header: "",
-        accessor: 'green_arrow',
-        resizable: false,
-        sortable: false,
-        maxWidth: 80,
-        Cell: ({row}) => (
-          <a className='green-arrow' href={row.original['concepts_href']}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-          </a>
         )
       }
     ])

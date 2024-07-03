@@ -12,10 +12,18 @@
       padding: 4px 8px 4px 6px;
       background-color: $quill-green-1;
       border: 1px solid $quill-green-20;
-        width: min-content;
+      width: min-content;
+      &.grey {
+        background-color: $quill-grey-1;
+        border: 1px solid $quill-grey-20;
+        p {
+          color: $quill-grey-90;
+        }
+      }
       p {
         @include display-xs;
         color: $quill-green;
+        margin-left: 4px;
       }
     }
   }

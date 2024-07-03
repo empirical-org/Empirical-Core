@@ -21,6 +21,10 @@ export {
 } from './checkBox'
 
 export {
+  ClickableChip
+} from './clickableChip'
+
+export {
   DragHandle
 } from './dragHandle'
 

@@ -7,12 +7,13 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../../modules/sortingMethods.js';
-import { ReactTable, Tooltip, ReportHeader } from '../../../Shared/index';
+import { ReactTable, Tooltip, ReportHeader, ClickableChip, accountGreenIcon } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 const showAllClassroomKey = 'All classes'
+const iconUrl = 'https://assets.quill.org/images/icons/xs/account-green.svg'
 
 export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   constructor() {
@@ -59,11 +60,11 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         resizable: false,
         sortType: sortTableByLastName,
         Cell: ({row}) => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-          <div className='clickable-chip'>
-            <img alt='' src='https://assets.quill.org/images/icons/s/account.svg' />
-            <p>{row.original.name}</p>
-          </div>
+          {row.original.name}
         </a>),
+        Cell: ({ row }) => (
+          <ClickableChip icon={accountGreenIcon} label={row.original.name} link={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} />
+        ),
       }, {
         Header: "Activities completed",
         accessor: 'activity_count',

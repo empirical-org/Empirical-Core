@@ -6,7 +6,7 @@ import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js'
-import { ReactTable, ReportHeader, } from '../../../Shared/index'
+import { ClickableChip, ReactTable, ReportHeader, accountGreyIcon, } from '../../../Shared/index'
 import { getTimeSpent } from '../../helpers/studentReports'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
@@ -64,7 +64,7 @@ export default class IndividualStandardsReport extends React.Component {
         resizable: false,
         sortType: sortTableByLastName,
         Cell: ({row}) => (
-          <a href={row.original['student_standards_href']}><span className='row-link-disguise underlined'>{row.original['name']}</span></a>
+          <ClickableChip color="grey" icon={accountGreyIcon} label={row.original['name']} link={row.original['student_standards_href']} />
         )
       }, {
         Header: 'Activities',

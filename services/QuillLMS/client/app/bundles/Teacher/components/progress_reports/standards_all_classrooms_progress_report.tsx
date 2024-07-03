@@ -9,7 +9,7 @@ import { NOT_SCORED_DISPLAY_TEXT } from './constants.js';
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js';
-import { ReactTable, ReportHeader, Tooltip, } from '../../../Shared/index';
+import { ClickableChip, ReactTable, ReportHeader, Tooltip, accountGreenIcon, } from '../../../Shared/index';
 import { getTimeSpent } from '../../helpers/studentReports';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import userIsPremium from '../modules/user_is_premium';
@@ -156,19 +156,20 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     const sectionText = (<a className="row-link-disguise underlined" href={row.original['link']}>
       {row.original['name']}
     </a>)
+    const clickableChip = <ClickableChip label={row.original['name']} link={row.original['link']} />
     if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
       return (
         <Tooltip
           key={key}
           tooltipText={rowDisplayText}
           tooltipTriggerStyle={style}
-          tooltipTriggerText={sectionText}
+          tooltipTriggerText={clickableChip}
           tooltipTriggerTextClass={sectionClass}
           tooltipTriggerTextStyle={style}
         />
       )
     } else {
-      return sectionText
+      return clickableChip
     }
   }
 

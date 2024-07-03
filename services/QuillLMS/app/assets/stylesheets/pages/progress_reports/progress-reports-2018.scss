@@ -26,6 +26,27 @@
     }
   }
 
+  .dropdown-container {
+    margin-top: 32px;
+    .dropdown__control {
+      padding: 4px 14px !important;
+      .dropdown__single-value {
+        font-size: 14px !important;
+      }
+    }
+  }
+
+  &.standards-all-classrooms {
+    .clickable-chip {
+      max-width: 286px;
+      p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+
   .dropdown__control {
     background-color: transparent;
   }
