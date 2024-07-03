@@ -498,9 +498,15 @@ class PagesController < ApplicationController
   end
 
   def locker
-    return redirect_to profile_path if !staff?
+    return redirect_to profile_path unless staff?
 
     @style_file = "#{ApplicationController::STAFF}.scss"
+  end
+
+  def translations
+    return redirect_to profile_path unless staff?
+
+    @translations = TranslationMapping.all.includes(:english_text, :translated_texts).page(params[:page]).per(50)
   end
 
   def quill_academy

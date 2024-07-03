@@ -3,15 +3,16 @@
 require 'rails_helper'
 RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
   describe "run" do
-    subject { described_class.run(english_text)}
+    subject { described_class.run(english_text, prompt:)}
 
     let(:english_text) {create(:english_text)}
+    let(:prompt) { "translate please" }
     let(:text) { english_text.text}
     let(:response) { "Do not go gentle into that good night" }
-    let(:locale) { TranslatedText::DEFAULT_LOCALE }
+    let(:locale) { Translatable::DEFAULT_LOCALE }
 
     before do
-      allow(OpenAI::Translate).to receive(:run).with(english_text: text).and_return(response)
+      allow(OpenAI::Translate).to receive(:run).with(english_text: text, prompt:).and_return(response)
     end
 
     context 'the response is a success' do

@@ -18,6 +18,7 @@ export const CURRICULUM = 'curriculum';
 export const PARTNERSHIPS = 'partnerships';
 export const PRODUCT = 'product';
 export const SUPPORT = 'support';
+export const TRANSLATIONS = 'translations';
 export const TEAMS = [CURRICULUM, PARTNERSHIPS, PRODUCT, SUPPORT];
 
 export const ARCHIVED_FLAG = 'archived'

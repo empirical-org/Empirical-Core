@@ -37,6 +37,7 @@
 #
 class Activity < ApplicationRecord
   include Flags
+  include Translatable
   include Uid
 
   validate :data_must_be_hash
@@ -98,6 +99,7 @@ class Activity < ApplicationRecord
   ARCHIVED = 'archived'
 
   FLAGS_ATTRIBUTE = 'flags'
+
 
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -249,8 +251,10 @@ class Activity < ApplicationRecord
   end
 
   def data_as_json
-    data
+    translated_json({})
   end
+
+  def self.translatable_field_name = "landingPageHtml"
 
   def add_question(question)
     return if !validate_question(question)

@@ -35,7 +35,7 @@ module Gengo
               type: "text",
               body_src: english_text.text,
               lc_src: "en",
-              lc_tgt: TranslatedText::DEFAULT_LOCALE,
+              lc_tgt: Translatable::DEFAULT_LOCALE,
               tier: "standard",
               slug: english_text.id,
               group: true,

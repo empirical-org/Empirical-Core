@@ -7,11 +7,11 @@ namespace :translate do
     count = hints.count
     hints.each_with_index do |hint, index|
       puts "translating #{index + 1}/#{count}..."
-      res = Evidence::OpenAI::Translate.run(english_text: hint.description)
+      res = Evidence::OpenAI::Translate.run(english_text: hint.description, prompt: hint.prompt)
       hint.create_translation_mappings
       hint.english_texts.first.openai_translated_texts.create(
         translation: res,
-        locale: TranslatedText::DEFAULT_LOCALE)
+        locale: Translatable::DEFAULT_LOCALE)
     end
 
   end

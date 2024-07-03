@@ -43,6 +43,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "authors",
               "rails admin",
               "generative AI",
+              "translations",
             ],
             "concept management": Array [
               "concepts",
@@ -178,6 +179,7 @@ exports[`LockerIndex component should render LockerIndex 1`] = `
               "authors",
               "rails admin",
               "generative AI",
+              "translations",
             ],
             "concept management": Array [
               "concepts",
