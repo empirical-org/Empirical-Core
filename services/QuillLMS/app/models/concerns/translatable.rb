@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/concerns/translatable.rb
 module Translatable
   extend ActiveSupport::Concern
 
