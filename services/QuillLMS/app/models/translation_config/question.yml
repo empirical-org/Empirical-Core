@@ -1,0 +1,7 @@
+---
+examples:
+  - english: "Combine the sentences without adding new words. Put the describing phrase in the middle."
+    spanish: "Combina las oraciones sin añadir nuevas palabras. Pon la frase desciptiva en el medio."
+
+custom_prompt: |
+  Therefore, please leave words that sound like they are part of the activity in the original english.

@@ -41,14 +41,8 @@ class ConceptFeedback < ApplicationRecord
     translated_json(options || {})
   end
 
-  private def custom_prompt
-    <<~STRING
-      Therefore, please leave words that sound like they are part of the activity in the original english. Often they will between an HTML tag such as in <em>english word</em> or <ul>english word</ul>.
-      Here is what I want translated:
-    STRING
-  end
 
-  private def translatable_attribute = "description"
+  def self.translatable_field_name = "description"
 
   private def data_must_be_hash
     errors.add(:data, "must be a hash") unless data.is_a?(Hash)

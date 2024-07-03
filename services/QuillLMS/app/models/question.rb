@@ -166,15 +166,7 @@ class Question < ApplicationRecord
   end
 
   # Translatable
-  private def custom_prompt
-    <<~STRING
-      Therefore, please leave words that sound like they are part of the activity in the original english.
-    STRING
-  end
-
-  private def example_filename = "questions.json"
-
-  private def translatable_attribute = "instructions"
+  def self.translatable_field_name = "instructions"
 
   private def refresh_caches
     Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)

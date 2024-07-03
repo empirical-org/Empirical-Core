@@ -254,33 +254,7 @@ class Activity < ApplicationRecord
     translated_json({})
   end
 
-  private def custom_prompt
-    <<~STRING
-      Therefore, some words or sentences will not be translated.
-
-      Here's a list of things that you should leave in the original english.
-      - example words or sentences that teach you how to do a grammar activity.
-      - The first line (the title) often includes the name of an example that will be between an HTML tag such as in <em>english word</em> or <ul>english word</ul>.
-      - the next tag (or few tags) after a header labeled "Example", "Examples", "You see" or "You write"
-      - the contents of the next tag after a header that ends with ":"
-      - any words that sound like they are part of a grammar activity, often set in their own HTML tag (like and <em> or <ul>).
-      - anything in the first person
-      - any sentences demonstrating the use of a grammar concept.
-      - pronouns (yo, tu, ella, etc) should not be translated if they are part of an example or precede an example word.
-
-      Things that should be translated:
-      - instructions, usually these are in the second person and directed at the
-      reader.
-      - headers, so one or two words that are set off by an HTML tag.
-      - Words like "Example", "Examples", "You see" or "You write"
-
-    STRING
-  end
-
-  private def example_filename = "activities.json"
-
-  private def translatable_attribute = "landingPageHtml"
-
+  def self.translatable_field_name = "landingPageHtml"
 
   def add_question(question)
     return if !validate_question(question)

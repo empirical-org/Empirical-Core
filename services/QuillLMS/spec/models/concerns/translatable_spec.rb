@@ -16,9 +16,11 @@ RSpec.describe Translatable do
         "Test prompt"
       end
 
-      private def translatable_attribute
+      def self.translatable_field_name
         "test_text"
       end
+
+      private def config_file = Rails.root.join("app/models/translation_config", "concept_feedback.yml")
 
     end
   end
@@ -250,11 +252,11 @@ RSpec.describe Translatable do
     end
 
     it 'adds in the example_json' do
-      filename = "questions.json"
-      allow(translatable_object).to receive(:example_filename).and_return(filename)
+      filename = "question.yml"
+      allow(translatable_object).to receive(:config_file).and_return(Rails.root.join("app/models/translation_config", filename))
       prompt = translatable_object.prompt(locale:)
-      expect(prompt).to match("Optimal Examples")
-      expect(prompt).to match(File.read(Rails.root.join("app/models/translation_examples", filename)))
+      expect(prompt).to match(translatable_object.send(:examples))
+      expect(translatable_object.send(:examples)).to match("1. English: \"Combine the sentences")
     end
   end
 

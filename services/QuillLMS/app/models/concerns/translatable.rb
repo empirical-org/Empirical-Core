@@ -14,6 +14,8 @@ module Translatable
     has_many :english_texts, through: :translation_mappings
     has_many :translated_texts, through: :english_texts
     has_many :gengo_jobs, through: :english_texts
+
+    class_attribute :translatable_field_name, default: nil
   end
 
   def translated_json(options = {})
@@ -21,7 +23,7 @@ module Translatable
     translation_text = translation(source_api: source_api)
     return data unless translation_text.present?
 
-    data.merge({"translated#{translatable_attribute.capitalize}" => translation_text})
+    data.merge({"translated#{translatable_field_name.capitalize}" => translation_text})
   end
 
   def create_translation_mappings
@@ -59,11 +61,13 @@ module Translatable
     "#{prompt_start(locale:)}#{custom_prompt}#{examples}\n text to translate: "
   end
 
-  def example_filename = nil
-
   private def custom_prompt
-    raise NotImplementedError, "#{self.class} must implement the 'custom_prompt' method"
+    config_yaml["custom_prompt"]
   end
+
+  private def config_filename = self.class.name.underscore + ".yml"
+  private def config_file = Rails.root.join("app/models/translation_config", config_filename)
+  private def config_yaml = YAML.load_file(config_file)
 
   private def prompt_start(locale:)
     <<~STRING
@@ -75,17 +79,18 @@ module Translatable
   end
 
   private def examples
-    return "" unless example_filename.present?
+    examples = config_yaml["examples"]
+    return "" unless examples.present?
 
-    examples = File.read(Rails.root.join("app/models/translation_examples", example_filename))
-    "\nOptimal Examples (json): \n#{examples}"
-  end
-
-  private def translatable_attribute
-    raise NotImplementedError, "#{self.class} must implement the 'translatable_text' method"
+    formatted_examples = "Examples: \n"
+    examples.each_with_index do |example, index|
+      formatted_examples += "#{index + 1}. English: \"#{example['english']}\"\n"
+      formatted_examples += "   Spanish: \"#{example['spanish']}\"\n\n"
+    end
+    formatted_examples
   end
 
   private def translatable_text
-    data[translatable_attribute]
+    data[self.class.translatable_field_name]
   end
 end
