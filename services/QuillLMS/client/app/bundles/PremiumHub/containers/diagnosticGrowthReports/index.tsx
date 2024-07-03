@@ -17,8 +17,6 @@ const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usa
 const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
 
 const FILTER_SELECTIONS_REPORT_BASE = 'diagnostic_growth_report_'
-// these reports only show for the current school year
-const SELECTED_TIMEFRAME = "this-school-year"
 
 const reportButtons = [
   {
@@ -48,6 +46,7 @@ export const DiagnosticGrowthReportsContainer = ({
   searchCount,
   selectedClassrooms,
   availableClassrooms,
+  selectedTimeframe,
   selectedGrades,
   availableGrades,
   selectedSchools,
@@ -87,7 +86,7 @@ export const DiagnosticGrowthReportsContainer = ({
     selectedSchoolIds: selectedSchools.map(school => school.id),
     selectedTeacherIds: mapItemsIfNotAll(selectedTeachers, availableTeachers),
     selectedClassroomIds: mapItemsIfNotAll(selectedClassrooms, availableClassrooms),
-    selectedTimeframe: SELECTED_TIMEFRAME,
+    selectedTimeframe,
     pusherChannel,
     hasAdjustedFiltersFromDefault,
     handleSetNoDiagnosticDataAvailable,
