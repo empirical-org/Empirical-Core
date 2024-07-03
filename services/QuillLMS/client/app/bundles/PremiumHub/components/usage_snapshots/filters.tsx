@@ -182,6 +182,7 @@ const Filters = ({
             />
           </label>
           <DropdownInput
+            className=""
             handleChange={handleSetSelectedTimeframe}
             helperText={timeframeHelperText}
             id="timeframe-filter"

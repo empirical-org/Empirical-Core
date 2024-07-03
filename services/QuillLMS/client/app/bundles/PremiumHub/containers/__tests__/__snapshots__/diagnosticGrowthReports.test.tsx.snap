@@ -122,6 +122,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
     >
       <button
         class="interactive-wrapper performance-type-button overview active"
+        type="button"
         value="overview"
       >
         <img
@@ -134,6 +135,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       </button>
       <button
         class="interactive-wrapper performance-type-button skill "
+        type="button"
         value="skill"
       >
         <img
@@ -146,6 +148,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       </button>
       <button
         class="interactive-wrapper performance-type-button student "
+        type="button"
         value="student"
       >
         <img

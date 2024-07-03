@@ -11,6 +11,7 @@ const props = {
   searchCount: 0,
   selectedClassrooms: [],
   availableClassrooms: [],
+  selectedTimeframe: {value: 'this-school-year'},
   selectedGrades: [],
   availableGrades: [],
   selectedSchools: [],
