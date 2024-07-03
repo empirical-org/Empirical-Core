@@ -264,10 +264,11 @@ export const lockerItems: LockerItemsInterface = {
     emojiLabel: BACKPACK
   },
   [GEN_AI]: {
-    label: GEN_AI,
+    label: 'Generative AI',
     href: `${baseUrl}/api/v1/evidence/research/gen_ai/activities`,
     emoji: '💎',
-    emojiLabel: GEN_AI
+    emojiLabel: 'gem',
+    overrideTitleCase: true
   },
   [CURRICULUM]: {
     label: CURRICULUM,
