@@ -1,13 +1,8 @@
 <h1>New <%= @stem_vault.model_name.human.titleize %></h1>
 
-<%= form_for @stem_vault do |f| %>
-  <%= render 'errors', object: @stem_vault %>
 
-  <div class="field-spacing">
-    <%= f.label :activity_id, "Activity:" %>
-    <%= f.collection_select :activity_id, @activities, :id, :name, { required: true } %>
-    <%= link_to 'new', new_research_gen_ai_activity_path, class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
-  </div>
+<%= form_for @stem_vault, url: research_gen_ai_activity_stem_vaults_path(@activity) do |f| %>
+  <%= render 'errors', object: @stem_vault %>
 
   <div class="field-spacing">
     <%= f.label :conjunction, "Conjunction:" %>

@@ -21,6 +21,7 @@ module Evidence
 
         def show
           @dataset = Dataset.find(params[:id])
+          @stem_vault = @dataset.stem_vault
           @trials = @dataset.trials.order(id: :desc)
         end
 
