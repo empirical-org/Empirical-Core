@@ -19,6 +19,7 @@ class Concepts extends React.Component {
     const { data } = concepts;
     const dataRow = data["0"];
     if (dataRow) {
+      dataRow.sort((a, b) => a.displayName.localeCompare(b.displayName))
       return dataRow.map((concept) => {
         const { uid, displayName } = concept;
         return (

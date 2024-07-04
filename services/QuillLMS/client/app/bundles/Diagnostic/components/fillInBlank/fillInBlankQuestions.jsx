@@ -35,6 +35,7 @@ class FillInBlankQuestions extends Component {
 
   render() {
     const { diagnosticQuestions, showOnlyArchived } = this.state;
+    const sortedDiagnosticQuestions = hashToCollection(diagnosticQuestions).sort((a, b) => a.prompt.localeCompare(b.prompt))
     return (
       <section className="section">
         <div className="admin-container">
