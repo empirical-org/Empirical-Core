@@ -53,7 +53,11 @@ class Lessons extends React.Component {
         })
       })
     }
-    keys.sort((a, b) => data[a].name.localeCompare(data[b].name))
+    keys.sort((a, b) => {
+      const firstName = data[a].name || 'No name'
+      const secondName = data[b].name || 'No name'
+      return firstName.localeCompare(secondName)
+    })
     return keys.map(key => {
       if (!data[key].questions) {
         return ''

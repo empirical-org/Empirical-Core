@@ -46,7 +46,7 @@ class FillInBlankQuestions extends Component {
           <p className="menu-label">Fill In The Blank</p>
           <QuestionList
             basePath="fill-in-the-blanks"
-            questions={hashToCollection(diagnosticQuestions) || []}
+            questions={sortedDiagnosticQuestions}
             showOnlyArchived={showOnlyArchived}
           />
         </div>
