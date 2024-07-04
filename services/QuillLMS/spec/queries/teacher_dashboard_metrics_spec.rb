@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe TeacherDashboardMetrics do
+  subject { described_class.new(teacher).run }
+
   let!(:teacher) { create(:teacher) }
   let!(:classroom1) { create(:classroom_with_one_student, :with_no_teacher) }
   let!(:classroom2) { create(:classroom_with_a_couple_students, :with_no_teacher) }
@@ -12,11 +14,20 @@ describe TeacherDashboardMetrics do
   let!(:unit_activities1) { create_list(:unit_activity, 3, unit: unit1) }
   let!(:unit2) { create(:unit) }
   let!(:unit_activities2) { create_list(:unit_activity, 4, unit: unit2) }
+  let(:today) { Date.current }
+  let(:july_second_of_this_year) { Date.parse("02-07-#{today.year}") }
+
+  let(:last_july_second) do
+    today.month > 7 ?  july_second_of_this_year : july_second_of_this_year - 1.year
+  end
+
+  around do |example|
+    travel_to(1.month.from_now) if Time.current.month == 7
+    example.run
+    travel_back
+  end
 
   before do
-    today = Date.current
-    july_second_of_this_year = Date.parse("02-07-#{today.year}")
-    last_july_second = today.month > 7 ? july_second_of_this_year : july_second_of_this_year - 1.year
     older_classroom_unit1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: last_july_second, unit: unit1)
     older_classroom_unit2 = ClassroomUnit.create(classroom_id: classroom2.id, assigned_student_ids: classroom2.students.ids, created_at: last_july_second, unit: unit1)
     newer_classroom_unit1 = ClassroomUnit.create(classroom_id: classroom1.id, assigned_student_ids: classroom1.students.ids, created_at: today, unit: unit2)
@@ -33,22 +44,18 @@ describe TeacherDashboardMetrics do
   end
 
   describe '#queries' do
-    it 'should return the expected data' do
-      result = TeacherDashboardMetrics.new(teacher).run
-      expect(result[:weekly_assigned_activities_count]).to eq(12)
-      expect(result[:yearly_assigned_activities_count]).to eq(21)
-      expect(result[:weekly_completed_activities_count]).to eq(3)
-      expect(result[:yearly_completed_activities_count]).to eq(9)
-    end
+    it { expect(subject[:weekly_assigned_activities_count]).to eq(12) }
+    it { expect(subject[:weekly_completed_activities_count]).to eq(3) }
+    it { expect(subject[:yearly_assigned_activities_count]).to eq(21) }
+    it { expect(subject[:yearly_completed_activities_count]).to eq(9) }
 
-    it 'should include data from archived units' do
-      unit2.update(visible: false)
-      result = TeacherDashboardMetrics.new(teacher).run
-      expect(result[:weekly_assigned_activities_count]).to eq(12)
-      expect(result[:yearly_assigned_activities_count]).to eq(21)
-      expect(result[:weekly_completed_activities_count]).to eq(3)
-      expect(result[:yearly_completed_activities_count]).to eq(9)
+    context 'when a unit is archived' do
+      before { unit2.update(visible: false) }
+
+      it { expect(subject[:weekly_assigned_activities_count]).to eq(12) }
+      it { expect(subject[:weekly_completed_activities_count]).to eq(3) }
+      it { expect(subject[:yearly_assigned_activities_count]).to eq(21) }
+      it { expect(subject[:yearly_completed_activities_count]).to eq(9) }
     end
   end
-
 end

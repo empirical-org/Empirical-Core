@@ -28,6 +28,24 @@ module Evidence
 
         it { should have_readonly_attribute(:llm_prompt_id) }
         it { should have_readonly_attribute(:guideline_id) }
+
+        describe 'validations' do
+          subject { create(factory, llm_prompt:) }
+
+          let(:llm_prompt) { create(:evidence_research_gen_ai_llm_prompt, locked:) }
+
+          context 'locked dataset' do
+            let(:locked) { true }
+
+            it { expect { subject }.to raise_error(ActiveRecord::RecordInvalid) }
+          end
+
+          context 'unlocked dataset' do
+            let(:locked) { false }
+
+            it { expect { subject }.not_to raise_error }
+          end
+        end
       end
     end
   end

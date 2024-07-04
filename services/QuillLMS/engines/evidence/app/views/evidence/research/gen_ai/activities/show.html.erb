@@ -1,3 +1,6 @@
+<%= link_to 'Back to Activities', research_gen_ai_activities_path %>
+
+
 <% stem_vaults = @activity.stem_vaults %>
 
 <div>
@@ -8,7 +11,7 @@
 
   <h3>
     Stem Vaults
-    <%= link_to 'new', new_research_gen_ai_stem_vault_path(activity_id: @activity), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
+    <%= link_to 'new', new_research_gen_ai_activity_stem_vault_path(activity_id: @activity), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </h3>
   <ul>
     <% @activity.stem_vaults.each do |stem_vault| %>
@@ -32,7 +35,3 @@
 </div>
 
 <br>
-<%= link_to 'New Trial', new_research_gen_ai_trial_path %>
-<br>
-<br>
-<%= link_to 'Trials', research_gen_ai_trials_path %>

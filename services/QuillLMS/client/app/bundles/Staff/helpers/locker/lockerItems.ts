@@ -12,6 +12,7 @@ import {
   CONCEPT_MANAGEMENT,
   DELETE_LAST_ACTIVITY_SESSION,
   DISTRICTS,
+  GEN_AI,
   MERGE_ACTIVITY_PACKS,
   MERGE_STUDENT_ACCOUNTS, MERGE_TEACHER_ACCOUNTS,
   MERGE_TWO_CLASSROOMS,
@@ -34,7 +35,7 @@ import {
   USER_MANAGEMENT
 } from "./lockerConstants";
 
-import { CONNECT, CURRICULUM, DIAGNOSTIC, EVIDENCE, GRAMMAR, LESSONS, PARTNERSHIPS, PRODUCT, PROOFREADER, SUPPORT } from "../../../Shared";
+import { CONNECT, CURRICULUM, DIAGNOSTIC, EVIDENCE, GRAMMAR, LESSONS, PARTNERSHIPS, PRODUCT, PROOFREADER, SUPPORT, TRANSLATIONS } from "../../../Shared";
 import { LockerItemsInterface } from "../../interfaces/interfaces";
 
 const baseUrl = process.env.DEFAULT_URL;
@@ -244,6 +245,12 @@ export const lockerItems: LockerItemsInterface = {
     emoji: '🧩',
     emojiLabel: 'puzzle piece'
   },
+  [TRANSLATIONS] : {
+    label: TRANSLATIONS,
+    href: `${baseUrl}/translations`,
+    emoji: '🌐',
+    emojiLabel: 'globe',
+  },
   [LESSONS]: {
     label: LESSONS,
     href: `${baseUrl}/lessons#/admin/classroom-lessons`,
@@ -262,6 +269,13 @@ export const lockerItems: LockerItemsInterface = {
     emoji: '🎒',
     emojiLabel: BACKPACK
   },
+  [GEN_AI]: {
+    label: 'Generative AI',
+    href: `${baseUrl}/api/v1/evidence/research/gen_ai/activities`,
+    emoji: '💎',
+    emojiLabel: 'gem',
+    overrideTitleCase: true
+  },
   [CURRICULUM]: {
     label: CURRICULUM,
     route: CURRICULUM,
@@ -269,7 +283,7 @@ export const lockerItems: LockerItemsInterface = {
     emojiLabel: 'stack of books',
     lockers: {
       [TOOLS]: [EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER],
-      [ACTIVITY_MANAGEMENT]: [ACTIVITIES, ACTIVITY_PACKS, ACTIVITY_PACKS_CATEGORIES, AUTHORS, RAILS_ADMIN],
+      [ACTIVITY_MANAGEMENT]: [ACTIVITIES, ACTIVITY_PACKS, ACTIVITY_PACKS_CATEGORIES, AUTHORS, RAILS_ADMIN, GEN_AI, TRANSLATIONS],
       [CONCEPT_MANAGEMENT]: [CONCEPTS, ATTRIBUTES_MANAGER]
     }
   },
@@ -323,7 +337,7 @@ export const lockerItems: LockerItemsInterface = {
         MERGE_TWO_SCHOOLS, MERGE_TWO_CLASSROOMS, MERGE_ACTIVITY_PACKS, DELETE_LAST_ACTIVITY_SESSION,
         REMOVE_UNSYNCED_STUDENTS_FROM_CLASSES, RECALCULATE_STAGGERED_RELEASE_LOCKS],
       [TOOLS]: [EVIDENCE, CONNECT, DIAGNOSTIC, GRAMMAR, LESSONS, PROOFREADER],
-      [ACTIVITY_MANAGEMENT]: [ACTIVITIES, ACTIVITY_PACKS, ACTIVITY_PACKS_CATEGORIES, AUTHORS, RAILS_ADMIN],
+      [ACTIVITY_MANAGEMENT]: [ACTIVITIES, ACTIVITY_PACKS, ACTIVITY_PACKS_CATEGORIES, AUTHORS, RAILS_ADMIN, GEN_AI, TRANSLATIONS],
       [CONCEPT_MANAGEMENT]: [CONCEPTS, ATTRIBUTES_MANAGER],
       [PRODUCT]: [BACKPACK]
     }

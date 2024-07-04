@@ -4,26 +4,28 @@ module Evidence
   module Research
     module GenAI
       class GEvalRunner < ApplicationService
-        attr_reader :g_eval_id, :llm_feedback
+        attr_reader :g_eval_id, :llm_example
 
-        def initialize(g_eval_id:, llm_feedback:)
+        def initialize(g_eval_id:, llm_example:)
           @g_eval_id = g_eval_id
-          @llm_feedback = llm_feedback
+          @llm_example = llm_example
         end
 
         def run = JSON.parse(g_eval_output)[g_eval.metric]
 
-        private def g_eval_output = llm.completion(prompt:).strip
+        private def g_eval_output = llm.completion(prompt).strip
 
         private def llm = LLM.g_eval
 
         private def g_eval = @g_eval ||= GEval.find(g_eval_id)
 
-        private def student_response = llm_feedback.student_response.text
+        private def student_response = test_example.student_response
 
-        private def stem = llm_feedback.student_response.stem_vault.stem
+        private def stem = test_example.dataset.stem_vault.stem
 
-        private def ideal_feedback = llm_feedback.quill_feedback.text
+        private def ideal_feedback = test_example.staff_feedback
+
+        private def test_example = @test_example ||= llm_example.test_example
 
         private def prompt
           "
@@ -39,7 +41,7 @@ module Evidence
           Example:
           Stem: #{stem}
           Student Response: #{student_response}
-          LLM Feedback: #{llm_feedback.text}
+          LLM Feedback: #{llm_example.llm_feedback}
           Ideal Feedback: #{ideal_feedback}
 
           Evaluation Form (scores ONLY):

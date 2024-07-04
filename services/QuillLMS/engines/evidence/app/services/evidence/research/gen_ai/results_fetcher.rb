@@ -12,18 +12,17 @@ module Evidence
 
         base_uri BASE_URI
 
-        attr_reader :trial, :llm_feedbacks, :predictions, :references
+        attr_reader :trial, :llm_examples, :predictions, :references
 
         def initialize(trial)
           @trial = trial
-          @llm_feedbacks = trial.llm_feedbacks
-          @predictions = llm_feedbacks.map(&:text)
-          @references = llm_feedbacks.map(&:quill_feedback).map(&:text)
+          @llm_examples = trial.llm_examples
+          @predictions = llm_examples.map(&:llm_feedback)
+          @references = llm_examples.map(&:test_example).map(&:staff_feedback)
         end
 
         def run
           {
-            accuracy_identical:,
             accuracy_optimal_suboptimal: optimal_and_suboptimal_results[:accuracy],
             confusion_matrix: optimal_and_suboptimal_results[:confusion_matrix],
             g_evals:,
@@ -31,22 +30,16 @@ module Evidence
           }
         end
 
-        private def accuracy_identical
-          return nil if llm_feedbacks.empty?
-
-          1.0 * llm_feedbacks.select(&:identical_feedback?).size / llm_feedbacks.size
-        end
-
         private def g_evals
           trial.g_eval_ids&.index_with do |g_eval_id|
-            llm_feedbacks.map do |llm_feedback|
-              GEvalRunner.run(g_eval_id:, llm_feedback:)
+            llm_examples.map do |llm_example|
+              GEvalRunner.run(g_eval_id:, llm_example:)
             end
           end
         end
 
         private def optimal_and_suboptimal_results
-          @optimal_and_suboptimal_results ||= OptimalAndSuboptimalResultsBuilder.run(llm_feedbacks)
+          @optimal_and_suboptimal_results ||= OptimalAndSuboptimalResultsBuilder.run(llm_examples)
         end
 
         private def misc_metrics = self.class.post(ENDPOINT, body:, headers:, timeout: TIMEOUT)

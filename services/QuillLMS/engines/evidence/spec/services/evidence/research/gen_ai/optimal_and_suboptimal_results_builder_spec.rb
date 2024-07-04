@@ -6,45 +6,45 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe OptimalAndSuboptimalResultsBuilder, type: :service do
-        subject { described_class.run(llm_feedbacks) }
+        subject { described_class.run(llm_examples) }
 
         context 'when there are no llm feedbacks' do
-          let(:llm_feedbacks) { [] }
+          let(:llm_examples) { [] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [0, 0]], accuracy: nil) }
         end
 
-        context 'with quill_optimal, optimal only' do
-          let(:llm_feedbacks) { [double(quill_optimal?: true, optimal?: true)] }
+        context 'with test_optimal, llm_optimal' do
+          let(:llm_examples) { [double(test_optimal?: true, optimal?: true)] }
 
           it { is_expected.to eq(confusion_matrix: [[1, 0], [0, 0]], accuracy: 1) }
         end
 
-        context 'with quill_suboptimal, optimal only' do
-          let(:llm_feedbacks) { [double(quill_optimal?: true, optimal?: false)] }
+        context 'with test_suboptimal, llm_optimal only' do
+          let(:llm_examples) { [double(test_optimal?: true, optimal?: false)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 1], [0, 0]], accuracy: 0) }
         end
 
-        context 'with quill_optimal, suboptimal only' do
-          let(:llm_feedbacks) { [double(quill_optimal?: false, optimal?: true)] }
+        context 'with test_optimal, llm_suboptimal only' do
+          let(:llm_examples) { [double(test_optimal?: false, optimal?: true)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [1, 0]], accuracy: 0) }
         end
 
-        context 'with quill_suboptimal, suboptimal only' do
-          let(:llm_feedbacks) { [double(quill_optimal?: false, optimal?: false)] }
+        context 'with test_suboptimal, llm_suboptimal' do
+          let(:llm_examples) { [double(test_optimal?: false, optimal?: false)] }
 
           it { is_expected.to eq(confusion_matrix: [[0, 0], [0, 1]], accuracy: 1) }
         end
 
         context 'with mixed feedbacks' do
-          let(:llm_feedbacks) do
+          let(:llm_examples) do
             [
-              double(quill_optimal?: true, optimal?: true),
-              double(quill_optimal?: true, optimal?: false),
-              double(quill_optimal?: false, optimal?: true),
-              double(quill_optimal?: false, optimal?: false)
+              double(test_optimal?: true, optimal?: true),
+              double(test_optimal?: true, optimal?: false),
+              double(test_optimal?: false, optimal?: true),
+              double(test_optimal?: false, optimal?: false)
             ]
           end
 

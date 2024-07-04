@@ -17,3 +17,15 @@ Rails.application.config.to_prepare do
 
   ::Array.include CoreExtensions::Array
 end
+
+
+String.class_eval do
+  # Source: https://unicode-explorer.com/articles/space-characters
+  def strip_zero_width
+    gsub(/[\u200B\u200C\u200D\uFEFF]/, '')
+  end
+
+  def strip_whitespace
+    gsub(/\s/, '')
+  end
+end

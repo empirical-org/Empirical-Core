@@ -1,5 +1,5 @@
 import { mount } from 'enzyme';
-import { createLocation, createMemoryHistory } from 'history';
+import { createMemoryHistory } from 'history';
 import * as React from 'react';
 import { QueryClientProvider } from 'react-query';
 
@@ -9,6 +9,8 @@ import TurkSessions from '../gatherResponses/turkSessions';
 
 const queryClient = new DefaultReactQueryClient();
 
+const history = createMemoryHistory()
+
 describe('TurkSessions component', () => {
   const mockProps = {
     match: {
@@ -17,8 +19,8 @@ describe('TurkSessions component', () => {
       path: '',
       url:''
     },
-    history: createMemoryHistory(),
-    location: createLocation('')
+    history,
+    location: history.location
   }
   const container = mount(
     <QueryClientProvider client={queryClient} contextSharing={true}>

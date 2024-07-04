@@ -7,7 +7,7 @@ module Gengo
     sidekiq_options queue: SidekiqQueue::LOW
 
     def perform(job_id)
-      SaveTranslatedText.run(job_id)
+      Gengo::SaveTranslatedText.run(job_id)
     end
   end
 end

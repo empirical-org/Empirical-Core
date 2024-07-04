@@ -3,7 +3,7 @@
 module Gengo
   class RequestTranslations < ApplicationService
     class RequestTranslationError < StandardError; end
-    attr_reader :english_texts
+    attr_reader :english_texts, :locale
 
     STANDARD_COMMENT = <<~STRING
       We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated. Therefore, please leave words that sound like they are part of the activity in the original english. Often they will between an HTML tag such as in <em>english word</em> or <ul>english  word</ul>.
@@ -11,8 +11,9 @@ module Gengo
     RESPONSE = "response"
     ORDER_ID = "order_id"
 
-    def initialize(english_texts)
+    def initialize(english_texts, locale)
       @english_texts = english_texts
+      @locale = locale
     end
 
     def run
@@ -28,20 +29,20 @@ module Gengo
     def gengo_payload
       @gengo_payload ||= begin
         english_texts
-          .select(&:needs_translation?)
+          .reject{|e| e.gengo_translation?(locale:)}
           .each_with_object({}) do |english_text, hash|
-          hash[english_text.id.to_s] = {
-            type: "text",
-            body_src: english_text.text,
-            lc_src: "en",
-            lc_tgt: Gengo::SPANISH_LOCALE,
-            tier: "standard",
-            slug: english_text.id,
-            group: true,
-            auto_approve: true,
-            comment: STANDARD_COMMENT
-          }
-        end
+            hash[english_text.id.to_s] = {
+              type: "text",
+              body_src: english_text.text,
+              lc_src: "en",
+              lc_tgt: Translatable::DEFAULT_LOCALE,
+              tier: "standard",
+              slug: english_text.id,
+              group: true,
+              auto_approve: true,
+              comment: STANDARD_COMMENT
+            }
+          end
       end
     end
   end
