@@ -111,7 +111,7 @@ class ActivitiesController < ApplicationController
       selected_activities = selected_activities.or(Activity.evidence.evidence_beta2).or(Activity.evidence.evidence_beta1)
     end
 
-    selected_activities.map(&:serialize_with_topics_and_publication_date).sort_by{|a| Date.strptime(a[:publication_date],"%m/%d/%Y")}.reverse!
+    selected_activities.map(&:serialize_with_topics_and_publication_date).sort_by{|a| Date.strptime(a[:publication_date],"%Y-%m-%dT%H:%M:%S")}.reverse!
   end
 
   private def authorized_activity_access?
