@@ -23,7 +23,7 @@ class ConceptsFeedback extends React.Component {
     const { concepts, conceptsFeedback } = this.props
     const { data } = concepts
     if (data && data["0"]) {
-      return data["0"].map((concept) => {
+      return data["0"].sort((a, b) => a.displayName.localeCompare(b.displayName)).map((concept) => {
         const hasFeedback = !!conceptsFeedback.data[concept.uid];
         return (
           <LinkListItem
