@@ -63,7 +63,8 @@ module VitallyIntegration
           school_link: school_link,
           created_at: @school.created_at,
           premium_expiry_date: subscription_expiration_date,
-          premium_start_date: subscription_start_date,
+          current_premium_start_date: subscription_start_date,
+          earliest_premium_start_date:,
           total_premium_months:,
           annual_revenue_current_contract: annual_revenue_current_contract,
           stripe_invoice_id_current_contract: stripe_invoice_id_current_contract,
@@ -130,6 +131,14 @@ module VitallyIntegration
 
     private def school_link
       "https://www.quill.org/cms/schools/#{@school.id}"
+    end
+
+    private def first_subscription
+      @school&.subscriptions&.order(start_date: :asc)&.first
+    end
+
+    private def earliest_premium_start_date
+      first_subscription&.start_date || NOT_APPLICABLE
     end
 
     private def subscription_start_date
