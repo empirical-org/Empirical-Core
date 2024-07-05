@@ -743,7 +743,7 @@ describe Activity, type: :model, redis: true do
         activity = create(:evidence_lms_activity, created_at: Time.zone.today - 10.days)
         create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
 
-        expect(activity.publication_date).to eq(activity.created_at.strftime("%m/%d/%Y"))
+        expect(activity.publication_date).to eq(activity.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
       end
     end
 
@@ -753,7 +753,7 @@ describe Activity, type: :model, redis: true do
         evidence_activity = create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
         change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
 
-        expect(activity.publication_date).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+        expect(activity.publication_date).to eq(change_log.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
       end
     end
   end
@@ -768,7 +768,7 @@ describe Activity, type: :model, redis: true do
       serialized_hash = activity.serialize_with_topics_and_publication_date
       expect(serialized_hash["id"]).to eq(activity.id)
       expect(serialized_hash[:topics]).to eq([topic.genealogy])
-      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
     end
   end
 
