@@ -108,7 +108,8 @@ module VitallyIntegration
 
     def subscription_rollups
       {
-        premium_start_date: premium_start_date,
+        earliest_premium_start_date: earliest_premium_start_date,
+        current_premium_start_date: current_premium_start_date,
         premium_expiry_date: premium_expiry_date,
         district_subscription: district_subscription,
         annual_revenue_current_contract: annual_revenue_current_contract,
@@ -208,11 +209,19 @@ module VitallyIntegration
         .where('activity_sessions.state = ?', 'finished')
     end
 
+    private def first_subscription
+      @district.subscriptions.order(start_date: :asc).first
+    end
+
     private def latest_subscription
       @district.subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
     end
 
-    private def premium_start_date
+    private def earliest_premium_start_date
+      first_subscription&.start_date || VITALLY_NOT_APPLICABLE
+    end
+
+    private def current_premium_start_date
       @district.subscription&.start_date || VITALLY_NOT_APPLICABLE
     end
 

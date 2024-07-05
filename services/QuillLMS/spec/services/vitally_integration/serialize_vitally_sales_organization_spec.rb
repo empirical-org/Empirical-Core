@@ -47,7 +47,8 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           evidence_activities_completed_per_student_last_year: 0,
           percent_diagnostics_completed_this_year: 0.0,
           percent_diagnostics_completed_last_year: 0.0,
-          premium_start_date: described_class::VITALLY_NOT_APPLICABLE,
+          earliest_premium_start_date: described_class::VITALLY_NOT_APPLICABLE,
+          current_premium_start_date: described_class::VITALLY_NOT_APPLICABLE,
           premium_expiry_date: described_class::VITALLY_NOT_APPLICABLE,
           district_subscription: described_class::VITALLY_NOT_APPLICABLE,
           total_premium_months: 0,
@@ -298,7 +299,8 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
       it 'pulls current subscription data' do
         expect(described_class.new(district).data[:traits]).to include(
-          premium_start_date: subscription.start_date,
+          earliest_premium_start_date: old_subscription.start_date,
+          current_premium_start_date: subscription.start_date,
           premium_expiry_date: subscription.expiration,
           total_premium_months: subscription.length_in_months + old_subscription.length_in_months,
           district_subscription: subscription.account_type,
