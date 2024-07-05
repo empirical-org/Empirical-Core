@@ -21,6 +21,8 @@ module VitallyIntegration
       activities_finished = activities_finished_query(@school).count("DISTINCT activity_sessions.id")
       activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.completed_at >= ?", school_year_start).count("DISTINCT activity_sessions.id")
 
+      total_premium_months = @school.subscriptions.map(&:length_in_months).sum
+
       {
         accountId: @school.id.to_s,
         organizationId: organization_id,
@@ -62,6 +64,7 @@ module VitallyIntegration
           created_at: @school.created_at,
           premium_expiry_date: subscription_expiration_date,
           premium_start_date: subscription_start_date,
+          total_premium_months:,
           annual_revenue_current_contract: annual_revenue_current_contract,
           stripe_invoice_id_current_contract: stripe_invoice_id_current_contract,
           purchase_order_number_current_contract: purchase_order_number_current_contract,

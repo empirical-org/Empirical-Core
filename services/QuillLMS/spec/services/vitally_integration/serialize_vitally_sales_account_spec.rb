@@ -122,12 +122,23 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       school_id: school.id
     )
 
+    old_subscription = create(:subscription,
+      account_type: 'SUPER SAVER PREMIUM',
+      expiration: Date.today - 1.year,
+      start_date: Date.today - 2.years
+    )
+    create(:school_subscription,
+      subscription_id: old_subscription.id,
+      school_id: school.id
+    )
+
     school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       school_subscription: school_subscription.account_type,
       premium_expiry_date: school_subscription.expiration,
       premium_start_date: school_subscription.start_date,
+      total_premium_months: school_subscription.length_in_months + old_subscription.length_in_months,
       annual_revenue_current_contract: school_subscription.payment_amount,
       stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id,
       purchase_order_number_current_contract: school_subscription.purchase_order_number
