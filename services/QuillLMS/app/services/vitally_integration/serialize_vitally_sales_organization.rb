@@ -113,7 +113,8 @@ module VitallyIntegration
         district_subscription: district_subscription,
         annual_revenue_current_contract: annual_revenue_current_contract,
         stripe_invoice_id_current_contract: stripe_invoice_id_current_contract,
-        purchase_order_number_current_contract: purchase_order_number_current_contract
+        purchase_order_number_current_contract: purchase_order_number_current_contract,
+        total_premium_months:,
       }
     end
 
@@ -233,6 +234,10 @@ module VitallyIntegration
 
     private def purchase_order_number_current_contract
       @district.subscription&.purchase_order_number || VITALLY_NOT_APPLICABLE
+    end
+
+    private def total_premium_months
+      @district.subscriptions.map(&:length_in_months).sum
     end
   end
 end

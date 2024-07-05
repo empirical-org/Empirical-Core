@@ -50,6 +50,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           premium_start_date: described_class::VITALLY_NOT_APPLICABLE,
           premium_expiry_date: described_class::VITALLY_NOT_APPLICABLE,
           district_subscription: described_class::VITALLY_NOT_APPLICABLE,
+          total_premium_months: 0,
           annual_revenue_current_contract: described_class::VITALLY_NOT_APPLICABLE,
           stripe_invoice_id_current_contract: described_class::VITALLY_NOT_APPLICABLE,
           purchase_order_number_current_contract: described_class::VITALLY_NOT_APPLICABLE,
@@ -287,10 +288,19 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         )
       }
 
+      let!(:old_subscription) {
+        create(:subscription,
+          districts: [district],
+          expiration: Date.today - 1.year,
+          start_date: Date.today - 2.years
+        )
+      }
+
       it 'pulls current subscription data' do
         expect(described_class.new(district).data[:traits]).to include(
           premium_start_date: subscription.start_date,
           premium_expiry_date: subscription.expiration,
+          total_premium_months: subscription.length_in_months + old_subscription.length_in_months,
           district_subscription: subscription.account_type,
           annual_revenue_current_contract: subscription.payment_amount,
           stripe_invoice_id_current_contract: subscription.stripe_invoice_id,
