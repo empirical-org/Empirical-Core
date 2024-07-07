@@ -125,8 +125,8 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
 
     old_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
-      expiration: Date.today - 1.year,
-      start_date: Date.today - 2.years
+      expiration: Time.zone.today - 1.year,
+      start_date: Time.zone.today - 2.years
     )
     create(:school_subscription,
       subscription_id: old_subscription.id,

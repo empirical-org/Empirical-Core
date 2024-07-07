@@ -328,7 +328,7 @@ class Subscription < ApplicationRecord
   end
 
   def length_in_months
-    (expiration.year - start_date.year) * 12 + (expiration.month - start_date.month)
+    ((expiration.year - start_date.year) * 12) + (expiration.month - start_date.month)
   end
 
   def stripe_subscription
