@@ -12,8 +12,9 @@ namespace :translate do
 
   end
 
-  task activities: :environment do
-    activities = Activity.where("uid in (?)", activity_uids).limit(3)
+  task :translate, [:limit] => :environment do |t, args|
+    limit = args[:limit] ? args[:limit].to_i : nil
+    activities = Activity.where("uid in (?)", activity_uids).limit(limit)
     activity_count = activities.count
     activities.each_with_index do |activity, index|
       puts "translating #{index + 1}/#{activity_count}..."
