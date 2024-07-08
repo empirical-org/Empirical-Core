@@ -7,6 +7,33 @@ RSpec.describe IdentifyStripeInvoicesWithoutSubscriptionsWorker do
 
   subject { described_class.new }
 
+  describe '#relevant_stripe_invoice?' do
+    let(:worker) { described_class.new }
+    let(:invoice) do
+      double(
+        amount_due: 1000,
+        status: 'paid',
+        id: 'inv_123',
+        charge: 'ch_123'
+      )
+    end
+
+    before do
+      allow(worker).to receive(:linked_quill_subscription?).and_return(false)
+      allow(worker).to receive(:invoice_refunded?).and_return(false)
+      allow(worker).to receive(:charge_failed?).and_return(false)
+    end
+
+    it 'returns true when all conditions are met' do
+      expect(worker.send(:relevant_stripe_invoice?, invoice)).to be true
+    end
+
+    it 'returns false when status is not in RELEVANT_INVOICE_STATUSES' do
+      allow(invoice).to receive(:status).and_return('open')
+      expect(worker.send(:relevant_stripe_invoice?, invoice)).to be false
+    end
+  end
+
   describe '#perform' do
     let(:mailer_double) { double(deliver_now!: nil) }
     let(:charge_double) { double(amount: 100, amount_refunded: 0, status: nil) }

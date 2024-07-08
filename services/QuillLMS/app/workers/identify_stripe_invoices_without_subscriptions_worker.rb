@@ -5,7 +5,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
 
   FAILED_CHARGE = 'failed'
   INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i # Date we began using this workflow
-  RELEVANT_INVOICE_STATUSES = ['open', 'paid'].freeze
+  RELEVANT_INVOICE_STATUSES = ['paid'].freeze
 
   def perform
     StripeIntegration::Mailer
