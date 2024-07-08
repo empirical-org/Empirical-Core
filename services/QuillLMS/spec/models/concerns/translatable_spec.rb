@@ -227,8 +227,10 @@ RSpec.describe Translatable do
             create(:translated_text, english_text:, source_api:)
           end
         end
+
         context 'the force parameter is passed through' do
           subject { translatable_object.translate!(locale:, source_api:, force: true) }
+
           it 'calls OpenAI::TranslateAndSaveText for each English text' do
             translatable_object.english_texts.each do |text|
               expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
