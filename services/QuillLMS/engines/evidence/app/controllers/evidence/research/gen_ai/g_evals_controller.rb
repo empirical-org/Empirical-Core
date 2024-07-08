@@ -4,9 +4,7 @@ module Evidence
   module Research
     module GenAI
       class GEvalsController < ApplicationController
-        def new
-          @g_eval = GEval.new(g_eval_params)
-        end
+        def new = @g_eval = GEval.new(g_eval_params)
 
         def create
           @g_eval = GEval.new(g_eval_params)

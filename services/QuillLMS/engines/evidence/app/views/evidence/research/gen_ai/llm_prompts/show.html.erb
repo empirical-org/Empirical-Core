@@ -1,8 +1,8 @@
 <div>
   <h2><%= @llm_prompt.model_name.human.titleize %></h2>
 
-  <h3>Description</h3>
-  <p><%= @llm_prompt.description %></p>
+  <h3>LLM Prompt Template</h3>
+  <p><%= link_to @llm_prompt.description, @llm_prompt.llm_prompt_template %></p>
 
   <h3>Contents</h3>
   <p><%= simple_format(@llm_prompt.prompt) %></p>
