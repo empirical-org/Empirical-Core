@@ -13,9 +13,10 @@ namespace :translate do
   end
 
   desc 'translate activities and their questions'
+  desc 'on zsh use `noglob rake translate:activities[2]`'
   task :activities, [:limit] => :environment do |t, args|
     limit = args[:limit] ? args[:limit].to_i : nil
-    activities = Activity.where("uid in (?)", activity_uids).limit(limit)
+    activities = Activity.where(uid: activity_uids).limit(limit)
     activity_count = activities.count
     activities.each_with_index do |activity, index|
       puts "translating #{index + 1}/#{activity_count}..."
