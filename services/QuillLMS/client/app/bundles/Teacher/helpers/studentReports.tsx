@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ClickableChip, Tooltip } from "../../Shared";
+import { DataTableChip, Tooltip } from "../../Shared";
 
 export function getTimeSpent(seconds: number) {
   if(!seconds) {
@@ -42,18 +42,18 @@ interface renderTooltipRowProps {
 export function renderTooltipRow({ color, icon, id, label, link, headerWidth }: renderTooltipRowProps) {
   const averageFontWidth = 8
   let style: React.CSSProperties = { width: `${headerWidth}px`, minWidth: `${headerWidth}px` }
-  const clickableChip = <ClickableChip color={color} icon={icon} label={label} link={link} />
+  const dataTableChip = <DataTableChip color={color} icon={icon} label={label} link={link} />
   if ((String(label).length * averageFontWidth) >= headerWidth) {
     return (
       <Tooltip
         key={id}
         tooltipText={label}
         tooltipTriggerStyle={style}
-        tooltipTriggerText={clickableChip}
+        tooltipTriggerText={dataTableChip}
         tooltipTriggerTextStyle={style}
       />
     )
   } else {
-    return clickableChip
+    return dataTableChip
   }
 }

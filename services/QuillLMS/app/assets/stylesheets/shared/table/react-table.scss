@@ -8,7 +8,7 @@
     &:has(.quill-tooltip) {
       overflow: visible;
     }
-    .clickable-chip {
+    .data-table-chip {
       display: flex;
       align-items: center;
       border-radius: 4px;
@@ -75,7 +75,7 @@
   }
 
   .rt-tr-group .rt-tr {
-    &:has(.clickable-chip) {
+    &:has(.data-table-chip) {
       align-items: center;
     }
   }

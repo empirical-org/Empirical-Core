@@ -33,7 +33,7 @@ export {
   Card,
   CarouselAnimation,
   Checkbox,
-  ClickableChip,
+  DataTableChip,
   DataTable,
   ProgressBar,
   DragHandle,

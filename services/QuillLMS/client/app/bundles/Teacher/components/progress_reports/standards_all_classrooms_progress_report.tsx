@@ -153,28 +153,6 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
     ])
   }
 
-  // renderTooltipRow(row) {
-  //   const averageFontWidth = 7
-  //   const headerWidthNumber = 300
-  //   const rowDisplayText = row.original['name']
-  //   let style: React.CSSProperties = { width: `300px`, minWidth: `300px` }
-  //   const key = `${row.id}`
-  //   const clickableChip = <ClickableChip label={row.original['name']} link={row.original['link']} />
-  //   if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-  //     return (
-  //       <Tooltip
-  //         key={key}
-  //         tooltipText={rowDisplayText}
-  //         tooltipTriggerStyle={style}
-  //         tooltipTriggerText={clickableChip}
-  //         tooltipTriggerTextStyle={style}
-  //       />
-  //     )
-  //   } else {
-  //     return clickableChip
-  //   }
-  // }
-
   formatDataForCSV() {
     const { standardsData } = this.state;
     const csvData = [

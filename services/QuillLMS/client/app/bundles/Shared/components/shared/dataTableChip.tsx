@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface ClickableChipProps {
+interface DataTableChipProps {
   color?: string,
   icon?: {
     alt: string,
@@ -10,21 +10,21 @@ interface ClickableChipProps {
   link?: string
 }
 
-export const ClickableChip = ({ color, icon, label, link }: ClickableChipProps) => {
+export const DataTableChip = ({ color, icon, label, link }: DataTableChipProps) => {
   if(link) {
     return(
-      <a className={`clickable-chip ${color}`} href={link}>
+      <a className={`data-table-chip ${color}`} href={link}>
         {icon && <img alt={icon.alt} src={icon.src} />}
         <p>{label}</p>
       </a>
     )
   }
   return (
-    <div className={`clickable-chip ${color}`}>
+    <div className={`data-table-chip ${color}`}>
       {icon && <img alt={icon.alt} src={icon.src} />}
       <p>{label}</p>
     </div>
   )
 }
 
-export default ClickableChip
+export default DataTableChip

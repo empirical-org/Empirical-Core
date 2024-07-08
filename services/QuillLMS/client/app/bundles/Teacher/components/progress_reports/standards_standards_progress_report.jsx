@@ -134,28 +134,6 @@ export default class StandardsProgressReport extends React.Component {
     this.setState({selectedClassroom: classroom}, () => this.getData())
   };
 
-  // renderTooltipRow(row) {
-  //   const averageFontWidth = 7
-  //   const headerWidthNumber = 300
-  //   const rowDisplayText = row.original['name']
-  //   let style: React.CSSProperties = { width: `300px`, minWidth: `300px` }
-  //   const key = `${row.id}`
-  //   const clickableChip = <ClickableChip label={row.original['name']} link={row.original['standard_students_href']} />
-  //   if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-  //     return (
-  //       <Tooltip
-  //         key={key}
-  //         tooltipText={rowDisplayText}
-  //         tooltipTriggerStyle={style}
-  //         tooltipTriggerText={clickableChip}
-  //         tooltipTriggerTextStyle={style}
-  //       />
-  //     )
-  //   } else {
-  //     return clickableChip
-  //   }
-  // }
-
   render() {
     const { errors, loading, student, csvData } = this.state;
     if (errors) {

@@ -21,8 +21,8 @@ export {
 } from './checkBox'
 
 export {
-  ClickableChip
-} from './clickableChip'
+  DataTableChip
+} from './dataTableChip'
 
 export {
   DragHandle
