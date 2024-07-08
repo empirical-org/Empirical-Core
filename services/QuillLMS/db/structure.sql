@@ -2733,7 +2733,7 @@ CREATE TABLE public.evidence_automl_models (
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    project character varying NOT NULL
+    project character varying
 );
 
 
@@ -3006,17 +3006,49 @@ ALTER SEQUENCE public.evidence_research_gen_ai_activities_id_seq OWNED BY public
 
 
 --
+-- Name: evidence_research_gen_ai_comparisons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_comparisons (
+    id bigint NOT NULL,
+    dataset_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_comparisons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_comparisons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq OWNED BY public.evidence_research_gen_ai_comparisons.id;
+
+
+--
 -- Name: evidence_research_gen_ai_datasets; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.evidence_research_gen_ai_datasets (
     id bigint NOT NULL,
     stem_vault_id integer NOT NULL,
-    optimal_count integer NOT NULL,
-    suboptimal_count integer NOT NULL,
-    locked boolean NOT NULL,
+    optimal_count integer DEFAULT 0 NOT NULL,
+    suboptimal_count integer DEFAULT 0 NOT NULL,
+    locked boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    version integer NOT NULL
 );
 
 
@@ -3083,7 +3115,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
-    category character varying NOT NULL,
+    staff_assigned_status character varying NOT NULL,
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -3111,26 +3143,27 @@ ALTER SEQUENCE public.evidence_research_gen_ai_guidelines_id_seq OWNED BY public
 
 
 --
--- Name: evidence_research_gen_ai_llm_feedbacks; Type: TABLE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_examples; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.evidence_research_gen_ai_llm_feedbacks (
+CREATE TABLE public.evidence_research_gen_ai_llm_examples (
     id bigint NOT NULL,
-    student_response_id integer NOT NULL,
-    text text NOT NULL,
+    test_example_id integer NOT NULL,
+    llm_feedback text NOT NULL,
     label character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     trial_id integer NOT NULL,
-    raw_text text NOT NULL
+    raw_text text NOT NULL,
+    llm_assigned_status character varying NOT NULL
 );
 
 
 --
--- Name: evidence_research_gen_ai_llm_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_examples_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq
+CREATE SEQUENCE public.evidence_research_gen_ai_llm_examples_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3139,10 +3172,10 @@ CREATE SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq
 
 
 --
--- Name: evidence_research_gen_ai_llm_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_examples_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.evidence_research_gen_ai_llm_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_llm_feedbacks.id;
+ALTER SEQUENCE public.evidence_research_gen_ai_llm_examples_id_seq OWNED BY public.evidence_research_gen_ai_llm_examples.id;
 
 
 --
@@ -3250,7 +3283,12 @@ CREATE TABLE public.evidence_research_gen_ai_llm_prompts (
     prompt text NOT NULL,
     llm_prompt_template_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    optimal_guidelines_count integer NOT NULL,
+    suboptimal_guidelines_count integer NOT NULL,
+    optimal_examples_count integer NOT NULL,
+    suboptimal_examples_count integer NOT NULL,
+    locked boolean NOT NULL
 );
 
 
@@ -3510,12 +3548,44 @@ ALTER SEQUENCE public.evidence_research_gen_ai_test_examples_id_seq OWNED BY pub
 
 
 --
+-- Name: evidence_research_gen_ai_trial_comparisons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_trial_comparisons (
+    id bigint NOT NULL,
+    comparison_id integer NOT NULL,
+    trial_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_trial_comparisons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_trial_comparisons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_trial_comparisons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_trial_comparisons_id_seq OWNED BY public.evidence_research_gen_ai_trial_comparisons.id;
+
+
+--
 -- Name: evidence_research_gen_ai_trials; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.evidence_research_gen_ai_trials (
     id bigint NOT NULL,
-    stem_vault_id integer NOT NULL,
+    dataset_id integer NOT NULL,
     llm_id integer NOT NULL,
     llm_prompt_id integer NOT NULL,
     status character varying DEFAULT 'pending'::character varying NOT NULL,
@@ -3523,7 +3593,6 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     results jsonb,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    num_examples integer DEFAULT 0 NOT NULL,
     trial_duration double precision,
     evaluation_duration double precision
 );
@@ -3800,6 +3869,40 @@ CREATE SEQUENCE public.firebase_apps_id_seq
 --
 
 ALTER SEQUENCE public.firebase_apps_id_seq OWNED BY public.firebase_apps.id;
+
+
+--
+-- Name: gengo_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.gengo_jobs (
+    id bigint NOT NULL,
+    english_text_id integer NOT NULL,
+    translated_text_id integer,
+    translation_job_id character varying NOT NULL,
+    locale character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: gengo_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.gengo_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: gengo_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.gengo_jobs_id_seq OWNED BY public.gengo_jobs.id;
 
 
 --
@@ -5780,11 +5883,11 @@ ALTER SEQUENCE public.topics_id_seq OWNED BY public.topics.id;
 CREATE TABLE public.translated_texts (
     id bigint NOT NULL,
     english_text_id integer NOT NULL,
-    translation text,
+    translation text NOT NULL,
     locale character varying NOT NULL,
-    translation_job_id character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    source_api character varying
 );
 
 
@@ -5991,8 +6094,7 @@ CREATE TABLE public.user_activity_classifications (
     user_id bigint,
     activity_classification_id bigint,
     count integer DEFAULT 0,
-    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    updated_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+    created_at timestamp(6) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 
@@ -6815,6 +6917,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities ALTER COLUMN id SET 
 
 
 --
+-- Name: evidence_research_gen_ai_comparisons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_comparisons_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_datasets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6836,10 +6945,10 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_guidelines ALTER COLUMN id SET 
 
 
 --
--- Name: evidence_research_gen_ai_llm_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_examples id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_feedbacks_id_seq'::regclass);
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_examples ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_llm_examples_id_seq'::regclass);
 
 
 --
@@ -6920,6 +7029,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_test_examples ALTER COLUMN id S
 
 
 --
+-- Name: evidence_research_gen_ai_trial_comparisons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_trial_comparisons ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_trial_comparisons_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_trials id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -6973,6 +7089,13 @@ ALTER TABLE ONLY public.file_uploads ALTER COLUMN id SET DEFAULT nextval('public
 --
 
 ALTER TABLE ONLY public.firebase_apps ALTER COLUMN id SET DEFAULT nextval('public.firebase_apps_id_seq'::regclass);
+
+
+--
+-- Name: gengo_jobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.gengo_jobs ALTER COLUMN id SET DEFAULT nextval('public.gengo_jobs_id_seq'::regclass);
 
 
 --
@@ -8097,6 +8220,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities
 
 
 --
+-- Name: evidence_research_gen_ai_comparisons evidence_research_gen_ai_comparisons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons
+    ADD CONSTRAINT evidence_research_gen_ai_comparisons_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_research_gen_ai_datasets evidence_research_gen_ai_datasets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8121,11 +8252,11 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_guidelines
 
 
 --
--- Name: evidence_research_gen_ai_llm_feedbacks evidence_research_gen_ai_llm_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: evidence_research_gen_ai_llm_examples evidence_research_gen_ai_llm_examples_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.evidence_research_gen_ai_llm_feedbacks
-    ADD CONSTRAINT evidence_research_gen_ai_llm_feedbacks_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.evidence_research_gen_ai_llm_examples
+    ADD CONSTRAINT evidence_research_gen_ai_llm_examples_pkey PRIMARY KEY (id);
 
 
 --
@@ -8217,6 +8348,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_test_examples
 
 
 --
+-- Name: evidence_research_gen_ai_trial_comparisons evidence_research_gen_ai_trial_comparisons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_trial_comparisons
+    ADD CONSTRAINT evidence_research_gen_ai_trial_comparisons_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: evidence_research_gen_ai_trials evidence_research_gen_ai_trials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8278,6 +8417,14 @@ ALTER TABLE ONLY public.file_uploads
 
 ALTER TABLE ONLY public.firebase_apps
     ADD CONSTRAINT firebase_apps_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: gengo_jobs gengo_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.gengo_jobs
+    ADD CONSTRAINT gengo_jobs_pkey PRIMARY KEY (id);
 
 
 --
@@ -11920,6 +12067,16 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240620113751'),
 ('20240620115611'),
 ('20240620123025'),
-('20240620152448');
+('20240620152448'),
+('20240621215153'),
+('20240625123600'),
+('20240625131834'),
+('20240625135530'),
+('20240625142619'),
+('20240625205613'),
+('20240626142949'),
+('20240627001654'),
+('20240627002601'),
+('20240701180742');
 
 

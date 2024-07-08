@@ -2,14 +2,14 @@ import { stringNormalize } from 'quill-string-normalizer';
 import * as React from 'react';
 import { stripHtml } from "string-strip-html";
 import * as _ from 'underscore';
-import { checkFillInTheBlankQuestion, } from '../../../Shared/quill-marking-logic/src/main'
 
+import { checkFillInTheBlankQuestion, } from '../../../Shared/quill-marking-logic/src/main'
 import {
   ConceptExplanation,
   Feedback,
   Prompt,
   fillInBlankInputLabel,
-  fillInBlankInputWidth,
+  fillInBlankInputStyle,
   splitPromptForFillInBlank,
   getLatestAttempt,
   hashToCollection,
@@ -86,7 +86,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { responses } = this.state
     const { question } = this.props
     let text
-    if (Object.keys(responses).length) {
+
+    if (responses && Object.keys(responses).length) {
       const responseArray = hashToCollection(responses).sort((a: Response, b: Response) => b.count - a.count)
       const firstOptimalResponse = responseArray.find((r: Response) => r.optimal)
       if (firstOptimalResponse) {
@@ -94,7 +95,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       }
     }
     if (!text) {
-      text = question.answers[0].text.replace(/{|}/gm, '')
+      text = question?.answers?.[0]?.text?.replace(/{|}/gm, '')
     }
     return text
   }
@@ -224,7 +225,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         id={`input${i}`}
         key={i + 100}
         onChange={this.getChangeHandler(i)}
-        style={fillInBlankInputWidth(value, cues)}
+        style={fillInBlankInputStyle(value, cues)}
         type="text"
         value={value}
       />

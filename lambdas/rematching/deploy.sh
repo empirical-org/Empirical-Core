@@ -1,5 +1,14 @@
 #!/bin/bash
 
+read -r -p "You are attempting to deploy rematch to AWS. Have you read the README and want to proceed? [y]" response
+if [[ "$response" =~ ^([y])$ ]]
+then
+  echo "Great!"
+else
+    echo "Ok, we won't deploy. Have a good day!"
+    exit 1
+fi
+
 # Step 1: Build the project with Vite
 npx vite build
 

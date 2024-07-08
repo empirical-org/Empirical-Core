@@ -25,7 +25,7 @@ export { roundValuesToSeconds, roundMillisecondsToSeconds, } from './timeTrackin
 export { titleCase } from './titleCase'
 export { onMobile } from './onMobile'
 export { fillInBlankInputLabel, } from './fillInBlankInputLabel'
-export { fillInBlankInputWidth, } from './fillInBlankInputWidth'
+export { fillInBlankInputStyle, } from './fillInBlankInputStyle'
 export { findFeedbackForReport, } from './findFeedbackForReport'
 export { formatAnswerStringForReport, } from './formatAnswerStringForReport'
 export { splitPromptForFillInBlank, } from './splitPromptForFillInBlank'

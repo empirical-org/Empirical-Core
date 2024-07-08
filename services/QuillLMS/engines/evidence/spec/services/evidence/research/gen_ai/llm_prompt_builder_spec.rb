@@ -6,19 +6,28 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLMPromptBuilder do
-        subject { described_class.run(llm_prompt_template_id:, stem_vault_id:) }
+        subject { described_class.run(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:) }
 
         let(:contents) { 'This is contents' }
-        let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
-        let(:stem_vault) { create(:evidence_research_gen_ai_stem_vault) }
-        let(:stem) { stem_vault.stem }
+        let(:dataset) { create(:evidence_research_gen_ai_dataset) }
+        let(:dataset_id) { dataset.id }
+        let(:stem_vault) { dataset.stem_vault }
         let(:stem_vault_id) { stem_vault.id }
+        let(:stem) { stem_vault.stem }
         let(:conjunction) { stem_vault.conjunction }
         let(:because_text) { stem_vault.because_text }
         let(:but_text) { stem_vault.but_text }
         let(:so_text) { stem_vault.so_text }
         let(:full_text) { stem_vault.full_text }
-        let(:examples_substitution) { described_class::EXAMPLES_SUBSTITUTION }
+        let(:llm_prompt_template_id) { create(:evidence_research_gen_ai_llm_prompt_template, contents:).id }
+
+        let(:optimal_guidelines) { create_list(:evidence_research_gen_ai_guideline, 3, :optimal, stem_vault:) }
+        let(:suboptimal_guidelines) { create_list(:evidence_research_gen_ai_guideline, 3, :suboptimal, stem_vault:) }
+        let(:guidelines) { Guideline.where(id: (optimal_guidelines.map(&:id) + suboptimal_guidelines.map(&:id))) }
+
+        let(:optimal_examples) { create_list(:evidence_research_gen_ai_prompt_example, 3, :optimal, dataset:) }
+        let(:suboptimal_examples) { create_list(:evidence_research_gen_ai_prompt_example, 3, :suboptimal, dataset:) }
+        let(:prompt_examples) { PromptExample.where(id: (optimal_examples.map(&:id) + suboptimal_examples.map(&:id))) }
 
         def delimit(placeholder) = "#{described_class::DELIMITER}#{placeholder}#{described_class::DELIMITER}"
 
@@ -28,8 +37,8 @@ module Evidence
           it { expect { subject.run }.to raise_error ActiveModel::ValidationError }
         end
 
-        context 'nil stem_vault_id' do
-          let(:stem_vault_id) { nil }
+        context 'nil dataset_id' do
+          let(:dataset_id) { nil }
 
           it { expect { subject.run }.to raise_error ActiveModel::ValidationError }
         end
@@ -75,23 +84,28 @@ module Evidence
             it { is_expected.to eq full_text }
           end
 
-          context 'examples_substitution' do
-            let(:num_of_examples) { 5 }
+          context 'optimal_guidelines' do
+            let(:contents) { delimit('optimal_guidelines') }
 
-            let!(:quill_feedbacks) do
-              create_list(
-                :evidence_research_gen_ai_quill_feedback,
-                num_of_examples,
-                :prompt_engineering,
-                student_response: create(:evidence_research_gen_ai_student_response, stem_vault:)
-              )
-            end
+            it { is_expected.to eq optimal_guidelines.map(&:text).join("\n") }
+          end
 
-            let(:limit) { 3 }
+          context 'suboptimal_guidelines' do
+            let(:contents) { delimit('suboptimal_guidelines') }
 
-            let(:contents) { delimit("#{examples_substitution},#{limit}") }
+            it { is_expected.to eq suboptimal_guidelines.map(&:text).join("\n") }
+          end
 
-            it { is_expected.to eq quill_feedbacks.first(limit).map(&:response_and_feedback).join("\n") }
+          context 'optimal_examples' do
+            let(:contents) { delimit('optimal_examples') }
+
+            it { is_expected.to eq optimal_examples.map(&:response_feedback_status).join("\n") }
+          end
+
+          context 'suboptimal_examples' do
+            let(:contents) { delimit('suboptimal_examples') }
+
+            it { is_expected.to eq suboptimal_examples.map(&:response_feedback_status).join("\n") }
           end
 
           context 'multiple substitutions' do

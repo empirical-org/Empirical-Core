@@ -78,9 +78,9 @@ module PagesHelper
             img: 'team-peter-gault.webp'
           },
           {
-            name: 'Hannah Monk',
-            title: 'VP of Curriculum',
-            img: 'team-hannah-monk.webp'
+            name: 'Rebekah Bergman',
+            title: 'Vice President of Curriculum',
+            img: 'team-rebekah-bergman.webp'
           }
         ]
       },
@@ -117,6 +117,11 @@ module PagesHelper
             name: 'Ellie Dean',
             title: 'Finance & Operations Manager I',
             img: 'team-ellie-dean.webp'
+          },
+          {
+            name: 'Nikki DeMichael',
+            title: 'Partnerships Specialist I',
+            img: 'team-nikki-demichael.webp'
           },
           {
             name: 'Emilia Friedberg',
@@ -283,6 +288,11 @@ module PagesHelper
             name: 'Alexandria Redmon',
             title: 'Senior Director of Product & Technology at Hearst',
             img: 'advisor-alexandria-redmon.webp'
+          },
+          {
+            name: 'Hannah Monk',
+            title: 'Senior Advisor',
+            img: 'team-hannah-monk.webp'
           }
         ]
       },

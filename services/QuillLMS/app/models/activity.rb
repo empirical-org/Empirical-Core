@@ -37,6 +37,7 @@
 #
 class Activity < ApplicationRecord
   include Flags
+  include Translatable
   include Uid
 
   validate :data_must_be_hash
@@ -99,6 +100,7 @@ class Activity < ApplicationRecord
 
   FLAGS_ATTRIBUTE = 'flags'
 
+
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -107,6 +109,8 @@ class Activity < ApplicationRecord
   scope :evidence, -> { where(classification: ActivityClassification.evidence) }
   scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
   scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
+
+  scope :evidence_live_flags, -> {where("activities.flags && '{\"#{PRODUCTION}\",\"#{Flags::EVIDENCE_BETA1}\",\"#{Flags::EVIDENCE_BETA2}\",\"#{GAMMA}\"}'") }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
@@ -247,8 +251,10 @@ class Activity < ApplicationRecord
   end
 
   def data_as_json
-    data
+    translated_json({})
   end
+
+  def self.translatable_field_name = "landingPageHtml"
 
   def add_question(question)
     return if !validate_question(question)

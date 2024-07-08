@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { createLocation, createMemoryHistory } from 'history';
+import { createMemoryHistory } from 'history';
 import * as React from 'react';
 import { QueryClientProvider } from 'react-query';
 import 'whatwg-fetch';
@@ -14,6 +14,8 @@ jest.mock('qs', () => ({
 })
 )
 
+const history = createMemoryHistory()
+
 const mockProps = {
   match: {
     params: {
@@ -23,8 +25,8 @@ const mockProps = {
     path: '',
     url:''
   },
-  history: createMemoryHistory(),
-  location: createLocation('')
+  history,
+  location: history.location
 }
 
 

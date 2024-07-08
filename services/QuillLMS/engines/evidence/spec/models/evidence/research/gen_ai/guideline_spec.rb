@@ -4,12 +4,12 @@
 #
 # Table name: evidence_research_gen_ai_guidelines
 #
-#  id            :bigint           not null, primary key
-#  category      :string           not null
-#  text          :text             not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  stem_vault_id :integer          not null
+#  id                    :bigint           not null, primary key
+#  staff_assigned_status :string           not null
+#  text                  :text             not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  stem_vault_id         :integer          not null
 #
 
 require 'rails_helper'
@@ -22,14 +22,16 @@ module Evidence
 
         it { expect(build(factory)).to be_valid }
 
-        it { should validate_presence_of(:category) }
+        it { should validate_presence_of(:staff_assigned_status) }
         it { should validate_presence_of(:stem_vault_id) }
         it { should validate_presence_of(:text) }
-        it { should have_readonly_attribute(:category) }
+        it { should have_readonly_attribute(:staff_assigned_status) }
         it { should have_readonly_attribute(:stem_vault_id) }
         it { should have_readonly_attribute(:text) }
 
-        it { should belong_to(:stem_vault).class_name('Evidence::Research::GenAI::StemVault') }
+        it { should belong_to(:stem_vault) }
+
+        it_behaves_like 'has_assigned_status'
       end
     end
   end

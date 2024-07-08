@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe StudentDashboardMetrics do
   before do
+    travel_to 1.month.from_now if Time.current.month == 7
+
     now = Time.current
     wednesday_noon = now.beginning_of_week(:wednesday).noon
     first_of_month = now.beginning_of_month

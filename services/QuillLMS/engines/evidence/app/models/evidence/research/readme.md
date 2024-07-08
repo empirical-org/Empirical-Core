@@ -1,5 +1,7 @@
 # Generative AI Trials
+
 ## 1. Data Importing
+
 `Activity`, `StemVault`, `Dataset`, `TestExample`, and `PromptExample` records are imported with the following structure
 
 ```mermaid
@@ -14,24 +16,24 @@ classDiagram
          prompt
     }
     class Guideline {
-     text
-     category
+        text
+        staff_assigned_status
     }
     class Dataset {
-          num_optimal
-          num_sub_optimal
-          locked
+        optimal_count
+        suboptimal_count
+        locked
     }
     class TestExample {
           student_response
-          human_status
-          human_feedback
+          staff_assigned_status
+          staff_feedback
           highlight
     }
     class PromptExample {
           student_response
-          human_status
-          human_feedback
+          staff_assigned_status
+          staff_feedback
     }
     Activity --|> StemVault
     StemVault --|> Guideline
@@ -40,7 +42,8 @@ classDiagram
     Dataset --|> PromptExample
 ```
 
-## 2a. Trial Configuration
+## 2. Trial Configuration
+
 Within the create `Trial` UI, `LLM`, `LLMPromptTemplate` are selected. Before creation, substitutions are made to the `LLMPromptTemplate` contents and yielding an `LLMPrompt` record which is associated with the trial.
 
 ```mermaid
@@ -51,10 +54,10 @@ classDiagram
     }
     class LLMPrompt {
          prompt
-         num_optimal_guidelines
-         num_sub_optimal_guidelines
-         num_optimal_examples
-         num_sub_optimal_examples
+         optimal_guidelines_count
+         suboptimal_guidelines_count
+         optimal_examples_count
+         suboptimal_examples_count
          locked
     }
     class LLMPromptTemplate {
@@ -64,38 +67,60 @@ classDiagram
 
     Dataset --|> Trial
     LLM --|> Trial
+    LLMPromptTemplate --|> LLMPrompt
     LLMPrompt --|> Trial
 ```
 
 ## 3. LLMPrompt Configuration
 
-Within the UI, the user can select `PromptExample` and `Guideline` records for the `LLMPrompt` which will create `LLMPromptExample` and `LLMPromptGuideline` records respectively.
+Within the UI, the user can select `PromptExample` and `Guideline` records for the `LLMPrompt` which will create `LLMPromptPromptExample` and `LLMPromptGuideline` records respectively.
 
 ```mermaid
 classDiagram
     StemVault --|> Guideline
     Guideline --|> LLMPromptGuideline
     LLMPrompt --|> LLMPromptGuideline
-    LLMPrompt --|> LLMPromptExample
+    LLMPrompt --|> LLMPromptPromptExample
     Dataset --|> PromptExample
-    PromptExample --|> LLMPromptExample
+    PromptExample --|> LLMPromptPromptExample
     Trial --|> LLMPrompt
 ```
 
-## 3. Trial Ouptut
+## 4. Trial Ouptut
 
-As the `Trial` is run, the LLM returns feedback relevant to each `TestExample` which is stored as `LLMFeedback` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
+As the `Trial` is run, the LLM returns feedback relevant to each `TestExample` which is stored as `LLMExample` along with the corresponding `trial_id`.   These results are compared with `QuillFeedback` and evaluated.
 
 ```mermaid
 classDiagram
     class TestExample {
     }
-    class LLMFeedback {
-        feedback
+    class LLMExample {
+        llm_assigned_status
+        llm_feedback
         label
     }
     class Trial {
     }
-    TestExample --|> LLMFeedback
-    Trial --|> LLMFeedback
+    TestExample --|> LLMExample
+    Trial --|> LLMExample
+```
+
+## 5. Comparisons
+
+After `Trial`s have been run, it's possible to trials that have the same dataset
+
+```mermaid
+classDiagram
+    class Dataset {
+    }
+    class Trial {
+    }
+    class TrialComparison {
+    }
+    class Comparison {
+    }
+    Dataset --|> Trial
+    Trial --|> TrialComparison
+    TrialComparison --|> Comparison
+    Comparison --|> Dataset
 ```

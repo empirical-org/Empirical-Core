@@ -98,8 +98,10 @@ module Snapshots
     it_behaves_like 'snapshots period length', 'last-90-days', 90
     it_behaves_like 'snapshots period length', 'this-month', DateTime.current.yesterday.day
     it_behaves_like 'snapshots period length', 'last-month', Time.days_in_month(DateTime.current.yesterday.prev_month.month)
-    it_behaves_like 'snapshots period length', 'this-school-year', DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current)
-    it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(DateTime.current.prev_year.year) ? 366 : 365
+    # The snapshots period length uses round(6), over short enough time differences (like the first day of a new school year), failing to round(6) on this expectation fails to match even though it matches without the rounding most of the year
+    it_behaves_like 'snapshots period length', 'this-school-year', (DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current.yesterday)).round(6)
+    # A little complex, but school years start the year before February, so we need to know if the year after the start of the school year is a leap year
+    it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(School.school_year_start(DateTime.current.prev_year).next_year.year) ? 366 : 365
     it_behaves_like 'snapshots period length', 'custom', 4, (DateTime.current - 3.days).to_s, DateTime.current.to_s
 
     it_behaves_like 'snapshots period length matches previous', 'last-30-days'

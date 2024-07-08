@@ -52,16 +52,6 @@ exports[`SessionsIndex component should render SessionsIndex 1`] = `
           "unregisterTransitionHook": [Function],
         }
       }
-      location={
-        Object {
-          "action": "POP",
-          "hash": "",
-          "key": null,
-          "pathname": "/",
-          "search": "",
-          "state": null,
-        }
-      }
       match={
         Object {
           "isExact": true,
