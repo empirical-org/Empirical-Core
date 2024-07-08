@@ -5,7 +5,6 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
 
   FAILED_CHARGE = 'failed'
   INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i # Date we began using this workflow
-  RELEVANT_INVOICE_STATUSES = ['paid'].freeze
 
   def perform
     StripeIntegration::Mailer
@@ -45,7 +44,6 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   # These conditions are ordered least to most expensive to compute
   private def relevant_stripe_invoice?(invoice)
     invoice.amount_due.positive? &&
-    invoice.status.in?(RELEVANT_INVOICE_STATUSES) &&
     !linked_quill_subscription?(invoice.id) &&
     !invoice_refunded?(invoice) &&
     !charge_failed?(invoice)
@@ -53,7 +51,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
 
   private def relevant_stripe_invoices
     @relevant_stripe_invoices ||= [].tap do |invoices|
-      Stripe::Invoice.list(created: { gte: INVOICE_START_EPOCH }, limit: 100).auto_paging_each do |invoice|
+      Stripe::Invoice.list(created: { gte: INVOICE_START_EPOCH }, status: 'paid', limit: 100).auto_paging_each do |invoice|
         invoices << invoice if relevant_stripe_invoice?(invoice)
       end
     end
