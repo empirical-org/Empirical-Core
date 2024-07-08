@@ -20,6 +20,7 @@ namespace :translate do
       activity.translate!
       questions = activity.data["questions"]
       next if questions.empty?
+
       question_count = questions.length
       questions.each_with_index do |q, q_index|
         puts "translating question #{q_index + 1}/#{question_count} for activity #{index + 1}"
