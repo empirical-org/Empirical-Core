@@ -25,7 +25,7 @@ module Evidence
             .strip
         end
 
-        private def llm_response = LLM.auto_cot.completion(prompt:)
+        private def llm_response = LLM.auto_cot.completion(prompt)
 
         private def prompt
           "

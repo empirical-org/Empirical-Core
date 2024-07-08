@@ -1,3 +1,5 @@
+<%= link_to 'Back to Dataset', @dataset %>
+
 <h1>Trial Runner</h1>
 
 <%= form_for @trial, url: research_gen_ai_dataset_trials_path(@dataset) do |f| %>
@@ -21,7 +23,7 @@
 
   <div class="field-spacing">
     <label>G-Eval:</label>
-    <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, class: 'new-link', target: '_blank' %>
+    <%= link_to 'new', new_research_gen_ai_auto_chain_of_thought_path, class: 'new-link', target: '_blank' %>
     <br>
 
     <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, { required: true } %>
