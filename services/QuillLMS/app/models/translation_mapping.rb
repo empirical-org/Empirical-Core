@@ -16,7 +16,7 @@ class TranslationMapping < ApplicationRecord
   belongs_to :source, polymorphic: true
   has_many :translated_texts, through: :english_text
   delegate :text, to: :english_text
-  scope :translated, ->(locale) {
+  scope :translated, lambda { |locale|
     joins(english_text: :translated_texts)
       .where(translated_texts: { locale:})
       .distinct
