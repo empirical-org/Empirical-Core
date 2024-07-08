@@ -42,13 +42,14 @@ module Translatable
     translated_texts.where(locale: locale).ordered_by_source_api(source_api)
   end
 
-  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
+  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE, force: false)
     create_translation_mappings
     case source_api
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
-      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: prompt(locale:)) }
+      texts = force ? english_texts : english_texts.reject {|e| e.translated?(locale:)}
+      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: prompt(locale:)) }
     end
     translation(locale:, source_api:)
   end
