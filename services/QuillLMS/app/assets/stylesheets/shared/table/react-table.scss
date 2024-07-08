@@ -47,30 +47,18 @@
   .-sort-asc {
     div::after {
       position: absolute;
-      top: 12px;
-      font-size: 18px;
-      right: 25px;
-      color: #969696;
-      font-family: "Font Awesome 5 Pro";
-      /* updated font-family */
-      font-weight: 900;
-      /* regular style/weight */
-      content: "\f0d7";
+      top: 8px;
+      right: 4px;
+      content: url('https://assets.quill.org/images/icons/s/collapse.svg');
     }
   }
 
   .-sort-desc {
     div::after {
       position: absolute;
-      top: 12px;
-      font-size: 18px;
-      right: 25px;
-      color: #969696;
-      font-family: "Font Awesome 5 Pro";
-      /* updated font-family */
-      font-weight: 900;
-      /* regular style/weight */
-      content: "\f0d8";
+      top: 8px;
+      right: 4px;
+      content: url('https://assets.quill.org/images/icons/s/expand.svg');
     }
   }
 
