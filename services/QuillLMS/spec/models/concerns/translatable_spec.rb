@@ -186,7 +186,7 @@ RSpec.describe Translatable do
   end
 
   describe '#translate!' do
-    subject { translatable_object.translate!(locale: locale, source_api: source_api) }
+    subject { translatable_object.translate!(locale:, source_api:) }
 
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let(:source_api) { Translatable::GENGO_SOURCE }
@@ -212,11 +212,41 @@ RSpec.describe Translatable do
       let(:source_api) { Translatable::OPEN_AI_SOURCE }
       let(:prompt) { translatable_object.prompt(locale:) }
 
-      it 'calls OpenAI::TranslateAndSaveText for each English text' do
-        translatable_object.english_texts.each do |text|
-          expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+      context 'there is not an existing translation' do
+        it 'calls OpenAI::TranslateAndSaveText for each English text' do
+          translatable_object.english_texts.each do |text|
+            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+          end
+          subject
         end
-        subject
+      end
+
+      context 'a translation exists for OpenAI' do
+        before do
+          translatable_object.english_texts.each do |english_text|
+            create(:translated_text, english_text:, source_api:)
+          end
+        end
+
+        context 'the force parameter is passed through' do
+          subject { translatable_object.translate!(locale:, source_api:, force: true) }
+
+          it 'calls OpenAI::TranslateAndSaveText for each English text' do
+            translatable_object.english_texts.each do |text|
+              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+            end
+            subject
+          end
+        end
+
+        context 'the force parameter is not passed through' do
+          it 'does not call OpenAI::TranslateAndSaveText' do
+            translatable_object.english_texts.each do |text|
+              expect(OpenAI::TranslateAndSaveText).not_to receive(:run).with(text, prompt:)
+            end
+            subject
+          end
+        end
       end
     end
   end
