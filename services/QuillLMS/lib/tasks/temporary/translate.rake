@@ -12,7 +12,8 @@ namespace :translate do
 
   end
 
-  task :translate, [:limit] => :environment do |t, args|
+  desc 'translate activities and their questions'
+  task :activities, [:limit] => :environment do |t, args|
     limit = args[:limit] ? args[:limit].to_i : nil
     activities = Activity.where("uid in (?)", activity_uids).limit(limit)
     activity_count = activities.count
