@@ -5,7 +5,6 @@ import AssignmentCard from './assignment_card';
 import ScrollToTop from '../../shared/scroll_to_top';
 import * as constants from '../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../assignment_flow_navigation';
-import { PostNavigationBanner } from '../../../../Shared';
 import { DisabledDiagnosticsBanner } from '../../../helpers/unitTemplates';
 
 const ALL = 'All'
