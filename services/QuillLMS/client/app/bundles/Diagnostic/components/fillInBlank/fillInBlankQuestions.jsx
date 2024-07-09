@@ -35,6 +35,7 @@ class FillInBlankQuestions extends Component {
 
   render() {
     const { diagnosticQuestions, showOnlyArchived } = this.state;
+    const sortedDiagnosticQuestions = hashToCollection(diagnosticQuestions).sort((a, b) => a.prompt.localeCompare(b.prompt))
     return (
       <section className="section">
         <div className="admin-container">
@@ -45,7 +46,7 @@ class FillInBlankQuestions extends Component {
           <p className="menu-label">Fill In The Blank</p>
           <QuestionList
             basePath="fill-in-the-blanks"
-            questions={hashToCollection(diagnosticQuestions) || []}
+            questions={sortedDiagnosticQuestions}
             showOnlyArchived={showOnlyArchived}
           />
         </div>

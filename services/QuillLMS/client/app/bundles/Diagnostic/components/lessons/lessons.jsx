@@ -45,6 +45,7 @@ class Lessons extends React.Component {
     if (this.state.showOnlyArchived) {
       keys = keys.filter(key => data[key].questions && data[key].questions.some(q => q.flag === 'archived'))
     }
+    keys.sort((a, b) => data[a].name.localeCompare(data[b].name))
     return keys.map(key => (
       <LinkListItem
         activeClassName='is-active'
