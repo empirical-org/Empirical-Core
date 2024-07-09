@@ -4,6 +4,7 @@ module OpenAI
   class TranslateActivityAndQuestions < ApplicationService
 
     attr_reader :activity
+
     def initialize(activity)
       @activity = activity
     end

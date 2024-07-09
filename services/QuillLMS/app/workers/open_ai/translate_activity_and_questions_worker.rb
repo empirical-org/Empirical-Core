@@ -1,5 +1,5 @@
-
 # frozen_string_literal: true
+
 require_dependency '../../services/concerns/open_ai/api'
 
 module OpenAI

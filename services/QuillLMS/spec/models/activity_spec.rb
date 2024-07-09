@@ -804,9 +804,12 @@ describe Activity, type: :model, redis: true do
 
   describe '#questions' do
     subject { activity.questions }
+
     let(:activity) { create(:activity) }
+
     context 'there are questions in the data field' do
-      let(:questions) { [create(:question), create(:question)]}
+      let(:questions) { create_list(:question, 2)}
+
       before do
         activity.data["questions"] = questions.map{|q| {"key" => q.uid}}
         activity.save

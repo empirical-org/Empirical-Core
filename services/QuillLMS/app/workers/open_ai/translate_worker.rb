@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_dependency '../../services/concerns/open_ai/api'
 
 module OpenAI
@@ -18,7 +19,7 @@ module OpenAI
       end
       translatable&.translate!
     rescue ActiveRecord::RecordNotFound
-      puts "record not found"
+      Rails.logger.debug "record not found"
     end
   end
 end

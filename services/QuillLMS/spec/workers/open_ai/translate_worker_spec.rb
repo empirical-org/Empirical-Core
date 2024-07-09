@@ -7,6 +7,7 @@ describe OpenAI::TranslateWorker, type: :worker do
 
   context 'Activity' do
     let(:activity) { create(:activity)}
+
     subject{worker.perform(activity.id, 'Activity')}
 
     it 'should call translate on the activity' do
@@ -18,6 +19,7 @@ describe OpenAI::TranslateWorker, type: :worker do
 
   context 'Question' do
     let(:question) { create(:question)}
+
     subject{worker.perform(question.id, 'Question')}
 
     it 'should call translate on the question' do
@@ -29,6 +31,7 @@ describe OpenAI::TranslateWorker, type: :worker do
 
   context 'ConceptFeedback' do
     let(:concept_feedback) { create(:concept_feedback)}
+
     subject{worker.perform(concept_feedback.id, 'ConceptFeedback')}
 
     it 'should call translate on the concept_feedback' do
