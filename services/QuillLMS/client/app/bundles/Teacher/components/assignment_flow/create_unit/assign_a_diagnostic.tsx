@@ -133,7 +133,7 @@ const AssignADiagnostic = ({ history, assignedPreTests, }) => {
       <ScrollToTop />
       <div className="diagnostic-page container">
         <h1>Which diagnostic covers the skills you want to assess?</h1>
-        <DisabledDiagnosticsBanner className="assignment-flow"/>
+        <DisabledDiagnosticsBanner className="assignment-flow" />
         <section className="filter-tabs">
           <FilterTab activeFilter={filter} filter={ALL} number={16} setFilter={setFilter} />
           <FilterTab activeFilter={filter} filter={GENERAL} number={6} setFilter={setFilter} />
