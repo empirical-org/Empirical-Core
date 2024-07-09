@@ -322,18 +322,16 @@ class Activity < ApplicationRecord
   def update_questions_flag_status_if_necessary!
     return unless flags.include?(:production)
 
-    question_uids = data["questions"]&.map{|q| q["key"]}
-    questions = Question.where("uid in (?)", question_uids)
-
     questions.each do |question|
       question.update_flag("production")
     end
   end
 
   def questions
-    uids = data["questions"].map{|q| q["key"]}
-    Question.where(uid: uids)
+    Question.where(uid: question_uids)
   end
+
+  private def question_uids = data["questions"]&.map{|q| q["key"]}
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?

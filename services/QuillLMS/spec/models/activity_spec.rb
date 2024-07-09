@@ -836,7 +836,7 @@ describe Activity, type: :model, redis: true do
 
     context 'there are no questions in the data field' do
       before do
-        activity.data.delete(:questions)
+        activity.data.delete("questions")
         activity.save
       end
 
