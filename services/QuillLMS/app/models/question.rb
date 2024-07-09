@@ -166,7 +166,7 @@ class Question < ApplicationRecord
   end
 
   # Translatable
-  def self.translatable_field_name = "instructions"
+  def self.translatable_field_name = 'instructions'
 
   private def refresh_caches
     Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
@@ -179,7 +179,7 @@ class Question < ApplicationRecord
   end
 
   private def data_must_be_hash
-    errors.add(:data, "must be a hash") unless data.is_a?(Hash)
+    errors.add(:data, 'must be a hash') unless data.is_a?(Hash)
   end
 
   private def stored_as_array?(key)
@@ -206,7 +206,7 @@ class Question < ApplicationRecord
 
   private def validate_text_and_feedback(value)
     if value['text'].nil? || value['feedback'].nil?
-      errors.add(:data, "Focus Points and Incorrect Sequences must have text and feedback.")
+      errors.add(:data, 'Focus Points and Incorrect Sequences must have text and feedback.')
       return
     end
 

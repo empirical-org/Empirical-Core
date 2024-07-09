@@ -17,7 +17,7 @@ describe CsvExportWorker do
     end
 
     context 'when csv export is not sent' do
-      let(:file) { double(:file, url: "url") }
+      let(:file) { double(:file, url: 'url') }
       let(:export) { double(:export, sent?: false, export!: true, csv_file: file, mark_sent!: true) }
 
       before do
@@ -27,7 +27,7 @@ describe CsvExportWorker do
       it 'should export the csv, run pusher export completed service and mark the csv as sent' do
         expect(export).to receive(:export!)
         expect(export).to receive(:mark_sent!)
-        expect(PusherCSVExportCompleted).to receive(:run).with(1, "url")
+        expect(PusherCSVExportCompleted).to receive(:run).with(1, 'url')
         subject.perform(2, 1)
       end
 

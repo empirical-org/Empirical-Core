@@ -166,7 +166,7 @@ module QuillAuthentication
       session[:attempted_path] = request.fullpath
       redirect_to(new_session_path, status: :see_other)
     else
-      redirect_to(profile_path, notice: "404")
+      redirect_to(profile_path, notice: '404')
     end
   end
 

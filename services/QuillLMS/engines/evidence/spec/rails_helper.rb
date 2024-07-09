@@ -9,7 +9,7 @@ Dotenv.load('.env.test')
 require File.expand_path('../spec/dummy/config/environment', __dir__)
 
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
 require 'shoulda/matchers'
@@ -52,7 +52,7 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
 
 private def with_webmock_disabled
   WebMock.allow_net_connect!

@@ -11,10 +11,10 @@ module Evidence
       let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
 
       before do
-        stub_const("Evidence::Grammar::Client::API_ENDPOINT", mock_endpoint)
+        stub_const('Evidence::Grammar::Client::API_ENDPOINT', mock_endpoint)
       end
 
-      it "should process successfully" do
+      it 'should process successfully' do
         stub_request(:post, mock_endpoint).to_return(sample_response)
 
         expect { client.post }.to_not raise_error
@@ -30,13 +30,13 @@ module Evidence
       it 'should raise error on timeout' do
         stub_request(:post, mock_endpoint).to_timeout
 
-        expect { client.post }.to raise_error(Evidence::Grammar::Client::APITimeoutError, "request took longer than 5 seconds")
+        expect { client.post }.to raise_error(Evidence::Grammar::Client::APITimeoutError, 'request took longer than 5 seconds')
       end
 
       it 'should raise error on Net::ReadTimeout timeout' do
         stub_request(:post, mock_endpoint).to_raise(Net::ReadTimeout)
 
-        expect { client.post }.to raise_error(Evidence::Grammar::Client::APITimeoutError, "request took longer than 5 seconds")
+        expect { client.post }.to raise_error(Evidence::Grammar::Client::APITimeoutError, 'request took longer than 5 seconds')
       end
     end
   end

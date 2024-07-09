@@ -39,17 +39,17 @@ module Analytics
 
     def active_teachers_at_school_this_year
       teachers_at_school
-        .where("last_sign_in > ?", School.school_year_start(Time.current))
+        .where('last_sign_in > ?', School.school_year_start(Time.current))
     end
 
     def active_students_at_school_this_year
       students_at_school
-        .where("last_sign_in > ?", School.school_year_start(Time.current))
+        .where('last_sign_in > ?', School.school_year_start(Time.current))
     end
 
     def activities_completed_by_students_at_school_this_year
       activities_completed_by_students_at_school
-        .where("completed_at > ?", School.school_year_start(Time.current))
+        .where('completed_at > ?', School.school_year_start(Time.current))
     end
 
     def activities_completed_by_students_at_school

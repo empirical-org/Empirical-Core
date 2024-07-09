@@ -11,7 +11,7 @@ describe AdminInfosController do
 
   describe '#update' do
     let(:sub_role) { AdminInfo::SUB_ROLES.sample }
-    let(:verification_reason) { "A reason I should be verified." }
+    let(:verification_reason) { 'A reason I should be verified.' }
     let(:verification_url) { 'quill.org/team' }
 
     describe 'when there already is an admin info record' do

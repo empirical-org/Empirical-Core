@@ -28,12 +28,12 @@ FactoryBot.define do
   factory :district do
     clever_id { (1..24).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever id
     token { (1..40).map{(('a'..'f').to_a + (1..9).to_a).sample}.join } # mock a clever token
-    name { "City School District" }
-    city { "Test City" }
-    grade_range { "9-12" }
-    phone { "(999)999-9999" }
-    state { "NY" }
-    zipcode { "55555" }
+    name { 'City School District' }
+    city { 'Test City' }
+    grade_range { '9-12' }
+    phone { '(999)999-9999' }
+    state { 'NY' }
+    zipcode { '55555' }
     total_schools { 4 }
     total_students { 5 }
     sequence(:nces_id) { |n| "0000000#{n}" }

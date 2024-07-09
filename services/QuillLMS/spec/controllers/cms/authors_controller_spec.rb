@@ -42,10 +42,10 @@ describe Cms::AuthorsController, type: :controller do
     let!(:author) { create(:author) }
 
     it 'should update the author with the params provided' do
-      post :update, params: { id: author.id, author: { name: "test name" } }
+      post :update, params: { id: author.id, author: { name: 'test name' } }
       expect(response).to redirect_to cms_authors_path
-      expect(flash[:success]).to eq "Updated successfully!"
-      expect(author.reload.name).to eq "test name"
+      expect(flash[:success]).to eq 'Updated successfully!'
+      expect(author.reload.name).to eq 'test name'
     end
   end
 end

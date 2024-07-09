@@ -16,16 +16,16 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     # naming - id in app and uid here
     if @activity_session.completed_at
       status = :unprocessable_entity
-      message = "Activity Session Already Completed"
+      message = 'Activity Session Already Completed'
     elsif @activity_session.update(activity_session_params)
       status = :ok
-      message = "Activity Session Updated"
+      message = 'Activity Session Updated'
       handle_concept_results
       send_teacher_notifications
       ActiveActivitySession.find_by_uid(@activity_session.uid)&.destroy if @activity_session.completed_at
     else
       status = :unprocessable_entity
-      message = "Activity Session Update Failed"
+      message = 'Activity Session Update Failed'
       @errors = @activity_session.errors
     end
 
@@ -45,10 +45,10 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     if @activity_session.save
       handle_concept_results if @concept_results
       @status = :success
-      @message = "Activity Session Created"
+      @message = 'Activity Session Created'
     else
       @status = :failed
-      @message = "Activity Session Create Failed"
+      @message = 'Activity Session Create Failed'
     end
 
     render json: @activity_session,
@@ -65,7 +65,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       render json: ActivitySession.new,
         meta: {
           status: 'success',
-          message: "Activity Session Destroy Successful",
+          message: 'Activity Session Destroy Successful',
           errors: nil
         },
         serializer: ActivitySessionSerializer
@@ -73,7 +73,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       render json: @activity_session,
         meta: {
           status: 'failed',
-          message: "Activity Session Destroy Failed",
+          message: 'Activity Session Destroy Failed',
           errors: @activity_session.errors
         },
         serializer: ActivitySessionSerializer

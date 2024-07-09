@@ -59,10 +59,10 @@ EmpiricalGrammar::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
+  config.cache_store = :redis_store, ENV['REDISCLOUD_URL']
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV["CLOUDFRONT_CACHE_URL"]
+  config.action_controller.asset_host = ENV['CLOUDFRONT_CACHE_URL']
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -107,7 +107,7 @@ EmpiricalGrammar::Application.configure do
     params = event.payload[:params].reject do |k|
       ['controller', 'action'].include? k
     end
-    { "params" => params }
+    { 'params' => params }
   end
 
   config.middleware.use Rack::HostRedirect, {

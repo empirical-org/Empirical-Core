@@ -6,12 +6,12 @@ module OpenAI
     ENDPOINT = '/chat/completions'
     MODEL = 'gpt-4-turbo'
 
-    KEY_ROLE = "role"
-    KEY_CONTENT = "content"
-    ROLE_SYSTEM = "system"
-    ROLE_USER = "user"
-    ROLE_ASSISTANT = "assistant"
-    RESPONSE_FORMAT = { "type" => "text" }
+    KEY_ROLE = 'role'
+    KEY_CONTENT = 'content'
+    ROLE_SYSTEM = 'system'
+    ROLE_USER = 'user'
+    ROLE_ASSISTANT = 'assistant'
+    RESPONSE_FORMAT = { 'type' => 'text' }
     attr_reader :system_prompt
 
     def initialize(english_text:, prompt:)

@@ -6,27 +6,27 @@ RSpec.shared_context 'Stripe Account' do
   let(:stripe_account) do
     Stripe::Account.construct_from(
       id: stripe_account_id,
-      object: "account",
+      object: 'account',
       business_profile: {
-        name: "Business Name",
+        name: 'Business Name',
         support_address: {
-          city: "Springfield",
-          country: "US",
-          line1: "123 Fake Street"
+          city: 'Springfield',
+          country: 'US',
+          line1: '123 Fake Street'
         },
-        support_email: "support@example.com",
-        support_phone: "8675309",
-        url: "https://www.example.com"
+        support_email: 'support@example.com',
+        support_phone: '8675309',
+        url: 'https://www.example.com'
       },
       capabilities: {},
       charges_enabled: true,
       controller: {
-        type: "account"
+        type: 'account'
       },
-      country: "US",
-      default_currency: "usd",
+      country: 'US',
+      default_currency: 'usd',
       details_submitted: true,
-      email: "business@example.com",
+      email: 'business@example.com',
       payouts_enabled: true,
       settings: {}
     )

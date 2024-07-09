@@ -58,7 +58,7 @@ module Evidence
       context 'should parent_activity_id' do
         let!(:parent_activity) { ::Activity.create }
         before do
-          ::ActivityClassification.create(:key => "evidence")
+          ::ActivityClassification.create(:key => 'evidence')
           create(:evidence_activity, :parent_activity_id => parent_activity.id)
         end
 
@@ -66,7 +66,7 @@ module Evidence
 
         it 'should not be valid if not unique' do
           expect(activity_with_same_parent.valid?).to(eq(false))
-          expect("has already been taken".in?(activity_with_same_parent.errors.messages[:parent_activity_id])).to(eq(true))
+          expect('has already been taken'.in?(activity_with_same_parent.errors.messages[:parent_activity_id])).to(eq(true))
         end
       end
     end
@@ -80,27 +80,27 @@ module Evidence
     end
 
     context 'should serializable_hash' do
-      let!(:activity) { create(:evidence_activity, :title => "First Activity", :notes => "First Activity - Notes", :target_level => 8, :scored_level => "4th grade") }
-      let!(:passage) { create(:evidence_passage, :activity => (activity), :text => ("Hello" * 20)) }
-      let!(:prompt) { create(:evidence_prompt, :activity => (activity), :text => "it is good.", :conjunction => "because", :max_attempts_feedback => "good work!.") }
+      let!(:activity) { create(:evidence_activity, :title => 'First Activity', :notes => 'First Activity - Notes', :target_level => 8, :scored_level => '4th grade') }
+      let!(:passage) { create(:evidence_passage, :activity => (activity), :text => ('Hello' * 20)) }
+      let!(:prompt) { create(:evidence_prompt, :activity => (activity), :text => 'it is good.', :conjunction => 'because', :max_attempts_feedback => 'good work!.') }
 
       it 'should fill out hash with all fields' do
         json_hash = activity.as_json
-        expect(activity.id).to(eq(json_hash["id"]))
-        expect(activity.parent_activity.id).to(eq(json_hash["parent_activity_id"]))
-        expect(json_hash["title"]).to(eq("First Activity"))
-        expect(json_hash["notes"]).to(eq("First Activity - Notes"))
-        expect(json_hash["target_level"]).to(eq(8))
-        expect(json_hash["scored_level"]).to(eq("4th grade"))
-        passage_hash = json_hash["passages"].first
-        expect(passage.id).to(eq(passage_hash["id"]))
-        expect(("Hello" * 20)).to(eq(passage_hash["text"]))
-        prompt_hash = json_hash["prompts"].first
-        expect(prompt.id).to(eq(prompt_hash["id"]))
-        expect(prompt_hash["conjunction"]).to(eq("because"))
-        expect(prompt_hash["text"]).to(eq("it is good."))
-        expect(prompt_hash["max_attempts"]).to(eq(5))
-        expect(prompt_hash["max_attempts_feedback"]).to(eq("good work!."))
+        expect(activity.id).to(eq(json_hash['id']))
+        expect(activity.parent_activity.id).to(eq(json_hash['parent_activity_id']))
+        expect(json_hash['title']).to(eq('First Activity'))
+        expect(json_hash['notes']).to(eq('First Activity - Notes'))
+        expect(json_hash['target_level']).to(eq(8))
+        expect(json_hash['scored_level']).to(eq('4th grade'))
+        passage_hash = json_hash['passages'].first
+        expect(passage.id).to(eq(passage_hash['id']))
+        expect(('Hello' * 20)).to(eq(passage_hash['text']))
+        prompt_hash = json_hash['prompts'].first
+        expect(prompt.id).to(eq(prompt_hash['id']))
+        expect(prompt_hash['conjunction']).to(eq('because'))
+        expect(prompt_hash['text']).to(eq('it is good.'))
+        expect(prompt_hash['max_attempts']).to(eq(5))
+        expect(prompt_hash['max_attempts_feedback']).to(eq('good work!.'))
       end
     end
 
@@ -112,7 +112,7 @@ module Evidence
       end
 
       it 'should set the parent_activity_id if passed in Activity does exist' do
-        parent_activity = ::Activity.create(:name => "test name")
+        parent_activity = ::Activity.create(:name => 'test name')
         activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
         expect(activity.parent_activity.id).to_not(be_nil)
       end
@@ -130,7 +130,7 @@ module Evidence
 
     context '#flag' do
       it 'should return the parent activity flag' do
-        parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+        parent_activity = ::Activity.create(:name => 'test name', :flag => 'alpha')
         activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
         expect(activity.flag).to be(parent_activity.flag)
       end
@@ -139,7 +139,7 @@ module Evidence
     context '#flag=' do
       describe 'if there is already a parent activity' do
         it 'should update the parent activity flag' do
-          parent_activity = ::Activity.create(:name => "test name", :flag => 'alpha')
+          parent_activity = ::Activity.create(:name => 'test name', :flag => 'alpha')
           activity = create(:evidence_activity, :parent_activity_id => parent_activity.id)
           activity.update(flag: 'beta')
           parent_activity.reload

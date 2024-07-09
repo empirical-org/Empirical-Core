@@ -26,7 +26,7 @@ module AdminDiagnosticReports
         end
 
         def relevant_date_column
-          "classroom_units.created_at"
+          'classroom_units.created_at'
         end
 
         private def rollup_aggregation_hash

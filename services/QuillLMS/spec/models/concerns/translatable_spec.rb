@@ -9,26 +9,26 @@ RSpec.describe Translatable do
       include Translatable
 
       def self.name
-        "TranslatableTestModel"
+        'TranslatableTestModel'
       end
 
       def custom_prompt
-        "Test prompt"
+        'Test prompt'
       end
 
       def self.translatable_field_name
-        "test_text"
+        'test_text'
       end
 
-      private def config_file = Rails.root.join("app/models/translation_config/concept_feedback.yml")
+      private def config_file = Rails.root.join('app/models/translation_config/concept_feedback.yml')
 
     end
   end
 
-  let(:translatable_object) { translatable_class.create(data: {"test_text" => "Test text to translate"}) }
+  let(:translatable_object) { translatable_class.create(data: {'test_text' => 'Test text to translate'}) }
 
   before do
-    stub_const("TranslatableTestModel", translatable_class)
+    stub_const('TranslatableTestModel', translatable_class)
     ActiveRecord::Base.connection.create_table :translatable_test_models, force: true do |t|
       t.jsonb :data
     end
@@ -53,7 +53,7 @@ RSpec.describe Translatable do
 
         it 'associates the english text with the translatable object' do
           subject
-          expect(translatable_object.english_texts.first.text).to eq("Test text to translate")
+          expect(translatable_object.english_texts.first.text).to eq('Test text to translate')
         end
       end
 
@@ -92,7 +92,7 @@ RSpec.describe Translatable do
 
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let(:source_api) { Translatable::OPEN_AI_SOURCE }
-    let(:translation) { "Translated text" }
+    let(:translation) { 'Translated text' }
 
     before do
       translatable_object.create_translation_mappings
@@ -113,10 +113,10 @@ RSpec.describe Translatable do
       end
 
       context 'when there are translations for different locales' do
-        let(:other_locale) { "jp" }
+        let(:other_locale) { 'jp' }
         let!(:other_translated_text) do
           create(:translated_text,
-            translation: "Other translation",
+            translation: 'Other translation',
             locale: other_locale,
             source_api: source_api,
             english_text: translatable_object.english_texts.first
@@ -149,7 +149,7 @@ RSpec.describe Translatable do
     context 'when translations exist' do
       let!(:open_ai_translation) do
         create(:translated_text,
-          translation: "OpenAI translation",
+          translation: 'OpenAI translation',
           locale: locale,
           source_api: Translatable::OPEN_AI_SOURCE,
           english_text: translatable_object.english_texts.first
@@ -158,7 +158,7 @@ RSpec.describe Translatable do
 
       let!(:gengo_translation) do
         create(:translated_text,
-          translation: "Gengo translation",
+          translation: 'Gengo translation',
           locale: locale,
           source_api: Translatable::GENGO_SOURCE,
           english_text: translatable_object.english_texts.first
@@ -166,14 +166,14 @@ RSpec.describe Translatable do
       end
 
       it 'returns translations ordered by source_api' do
-        expect(subject.map(&:translation)).to eq(["OpenAI translation", "Gengo translation"])
+        expect(subject.map(&:translation)).to eq(['OpenAI translation', 'Gengo translation'])
       end
 
       context 'when specifying a different source_api' do
         let(:source_api) { Translatable::GENGO_SOURCE }
 
         it 'returns translations ordered by the specified source_api' do
-          expect(subject.map(&:translation)).to eq(["Gengo translation", "OpenAI translation"])
+          expect(subject.map(&:translation)).to eq(['Gengo translation', 'OpenAI translation'])
         end
       end
     end
@@ -196,7 +196,7 @@ RSpec.describe Translatable do
       translatable_object.create_translation_mappings
     end
 
-    it "calls create_translation_mappings first" do
+    it 'calls create_translation_mappings first' do
       expect(translatable_object).to receive(:create_translation_mappings)
       subject
     end
@@ -282,11 +282,11 @@ RSpec.describe Translatable do
     end
 
     it 'adds in the example_json' do
-      filename = "question.yml"
-      allow(translatable_object).to receive(:config_file).and_return(Rails.root.join("app/models/translation_config", filename))
+      filename = 'question.yml'
+      allow(translatable_object).to receive(:config_file).and_return(Rails.root.join('app/models/translation_config', filename))
       prompt = translatable_object.prompt(locale:)
       expect(prompt).to match(translatable_object.send(:examples))
-      expect(translatable_object.send(:examples)).to match("1. English: \"Combine the sentences")
+      expect(translatable_object.send(:examples)).to match('1. English: "Combine the sentences')
     end
   end
 
@@ -301,7 +301,7 @@ RSpec.describe Translatable do
     end
 
     context 'when there are translations available' do
-      let(:translation) { "test translation" }
+      let(:translation) { 'test translation' }
       let(:translated_text) { create(:translated_text, translation: translation) }
 
       before do
@@ -310,12 +310,12 @@ RSpec.describe Translatable do
       end
 
       it 'adds the translations to the data' do
-        expect(subject["translatedTest_text"]).to eq(translation)
+        expect(subject['translatedTest_text']).to eq(translation)
       end
 
       context 'when a specific source_api is provided' do
         let(:options) { { source_api: Translatable::GENGO_SOURCE } }
-        let(:gengo_translation) { "gengo translation" }
+        let(:gengo_translation) { 'gengo translation' }
         let(:gengo_translated_text) { create(:translated_text, translation: gengo_translation, source_api: Translatable::GENGO_SOURCE) }
 
         before do
@@ -323,7 +323,7 @@ RSpec.describe Translatable do
         end
 
         it 'uses the specified source_api for translation' do
-          expect(subject["translatedTest_text"]).to eq(gengo_translation)
+          expect(subject['translatedTest_text']).to eq(gengo_translation)
         end
       end
     end

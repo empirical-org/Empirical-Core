@@ -96,7 +96,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   private def related_models_flag
-    current_user_testing_flag || "production"
+    current_user_testing_flag || 'production'
   end
 
   private def unit_templates_by_user_testing_flag

@@ -8,7 +8,7 @@ RSpec.describe UnitActivitiesSaver do
   let(:activity1) { create(:activity) }
   let(:activity2) { create(:activity) }
 
-  let(:activity_data1) { { "id" => activity1.id.to_s, "due_date" => due_date } }
+  let(:activity_data1) { { 'id' => activity1.id.to_s, 'due_date' => due_date } }
   let(:activity_data2) { { id: activity2.id, due_date: due_date } }
   let(:activity_data3) { activity_data2 }
   let(:activity_data4) { { id: nil, due_date: due_date }}

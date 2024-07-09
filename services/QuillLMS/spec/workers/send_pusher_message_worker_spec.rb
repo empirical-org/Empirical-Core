@@ -7,8 +7,8 @@ describe SendPusherMessageWorker do
 
   describe '#perform' do
     let(:user_id) { 1 }
-    let(:event_name) { "PusherTestEvent" }
-    let(:payload) { "test payload" }
+    let(:event_name) { 'PusherTestEvent' }
+    let(:payload) { 'test payload' }
     let(:perform) { subject.perform(user_id, event_name, payload) }
 
     it do

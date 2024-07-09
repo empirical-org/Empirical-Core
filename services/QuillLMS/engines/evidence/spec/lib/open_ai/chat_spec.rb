@@ -14,7 +14,7 @@ RSpec.describe Evidence::OpenAI::Chat, type: :service do
   subject { described_class.new(system_prompt: system_prompt, entry: entry, history: history, temperature: temperature) }
 
   before do
-    stub_request(:post, "https://api.openai.com/v1/chat/completions").to_return(body:, headers:)
+    stub_request(:post, 'https://api.openai.com/v1/chat/completions').to_return(body:, headers:)
   end
 
   describe '#initialize' do

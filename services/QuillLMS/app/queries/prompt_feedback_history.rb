@@ -28,9 +28,9 @@ class PromptFeedbackHistory
       .where(used: true)
       .where('comprehension_prompts.activity_id = ?', activity_id)
       .group('feedback_histories.prompt_id, comprehension_prompts.text')
-    query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
-    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
-    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = query.where('feedback_histories.activity_version = ?', activity_version) if activity_version
+    query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query
   end
 
@@ -51,9 +51,9 @@ class PromptFeedbackHistory
       .where('feedback_histories.prompt_id = ?', prompt_id)
       .group('activity_sessions.id, comprehension_prompts.conjunction')
 
-    inner_query = inner_query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
-    inner_query = inner_query.where("feedback_histories.created_at >= ?", start_date) if start_date
-    inner_query = inner_query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    inner_query = inner_query.where('feedback_histories.activity_version = ?', activity_version) if activity_version
+    inner_query = inner_query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    inner_query = inner_query.where('feedback_histories.created_at <= ?', end_date) if end_date
     inner_query = inner_query.to_sql
 
     time_spent = ActivitySession.unscoped.select('avg(time_spent) agg_sessions').from(

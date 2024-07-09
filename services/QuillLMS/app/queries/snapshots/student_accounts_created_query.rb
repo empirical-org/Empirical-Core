@@ -3,7 +3,7 @@
 module Snapshots
   class StudentAccountsCreatedQuery < CountQuery
     def select_clause
-      "SELECT COUNT(DISTINCT users.id) AS count"
+      'SELECT COUNT(DISTINCT users.id) AS count'
     end
 
     def from_and_join_clauses
@@ -16,7 +16,7 @@ module Snapshots
     end
 
     def relevant_date_column
-      "users.created_at"
+      'users.created_at'
     end
   end
 end

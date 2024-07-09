@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_context "Stripe Price" do
+RSpec.shared_context 'Stripe Price' do
   let(:stripe_price_id) { STRIPE_TEACHER_PLAN_PRICE_ID }
   let(:stripe_product_id) { "prod_#{SecureRandom.hex}" }
 

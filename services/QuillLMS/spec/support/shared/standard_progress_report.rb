@@ -11,14 +11,14 @@ shared_context 'Standard Progress Report' do
   # when filtered by empty_unit, nothing displays
   # When filtered by unassigned student, nothing displays
   let!(:standard_level) { create(:standard_level) }
-  let!(:full_classroom) { create(:classroom, name: "full") }
+  let!(:full_classroom) { create(:classroom, name: 'full') }
   let!(:teacher) {full_classroom.owner}
   let!(:alice) { create(:student, name: 'Alice Cool', classrooms: [full_classroom]) }
-  let!(:fred) { create(:student, name: "Fred Kewl", classrooms: [full_classroom]) }
-  let!(:zojirushi) { create(:student, name: "Zojirushi Kewel", classrooms: [full_classroom]) }
+  let!(:fred) { create(:student, name: 'Fred Kewl', classrooms: [full_classroom]) }
+  let!(:zojirushi) { create(:student, name: 'Zojirushi Kewel', classrooms: [full_classroom]) }
   let!(:unassigned_student) { create(:student, classrooms: []) }
-  let!(:second_grade_standard) { create(:standard, standard_level: standard_level, name: "2nd Grade CCSS") }
-  let!(:first_grade_standard) { create(:standard, standard_level: standard_level, name: "1st Grade CCSS") }
+  let!(:second_grade_standard) { create(:standard, standard_level: standard_level, name: '2nd Grade CCSS') }
+  let!(:first_grade_standard) { create(:standard, standard_level: standard_level, name: '1st Grade CCSS') }
   let!(:hidden_standard) { create(:standard, standard_level: standard_level) }
   let!(:empty_classroom) { create(:classroom, :with_no_teacher, visible: false) }
   let!(:empty_classrooms_teacher) {create(:classrooms_teacher, classroom: empty_classroom, user: teacher)}

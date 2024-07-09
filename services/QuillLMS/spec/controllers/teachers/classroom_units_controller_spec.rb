@@ -14,13 +14,13 @@ describe Teachers::ClassroomUnitsController, type: :controller do
   let!(:activity_classification) { create(:lesson_classification) }
   let!(:activity) { create(:activity, activity_classification_id: activity_classification.id ) }
 
-  context "with teacher" do
+  context 'with teacher' do
     before do
       allow(controller).to receive(:current_user) { teacher }
     end
 
     describe '#launch_lesson' do
-      let!(:milestone) { create(:milestone, name: "View Lessons Tutorial") }
+      let!(:milestone) { create(:milestone, name: 'View Lessons Tutorial') }
 
       before do
         # stubbing custom validation on creation of activity session
@@ -37,7 +37,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
         let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}"}
 
         context 'when activity session exists' do
-          let!(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, state: "started") }
+          let!(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, state: 'started') }
           let(:teach_class_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}" }
 
           it 'should redirect to teach class lessons url' do
@@ -65,7 +65,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
         before { allow_any_instance_of(ClassroomUnit).to receive(:update) { false } }
 
         it 'should redirect back to the referrer' do
-          request.env["HTTP_REFERER"] = '/'
+          request.env['HTTP_REFERER'] = '/'
           get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
           expect(response).to redirect_to '/'
         end
@@ -73,7 +73,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
     end
 
     describe '#lessons_activities_cache' do
-      before { allow(teacher).to receive(:set_and_return_lessons_cache_data) { { id: "not 10" } } }
+      before { allow(teacher).to receive(:set_and_return_lessons_cache_data) { { id: 'not 10' } } }
 
       context 'when value is present in the cache' do
         before { $redis.set("user_id:#{teacher.id}_lessons_array", { id: 10 }.to_json) }
@@ -86,26 +86,26 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
       it 'should render the current users lesson cache data' do
         get :lessons_activities_cache, as: :json
-        expect(response.body).to eq({data: { id: "not 10" }}.to_json)
+        expect(response.body).to eq({data: { id: 'not 10' }}.to_json)
       end
     end
 
     describe '#lessons_units_and_activities' do
       before do
         $redis.set("user_id:#{teacher.id}_lessons_array", [
-          { activity_id: 10, activity_name: "some name", completed: false, visible: true },
-          { activity_id: 11, activity_name: "bater papo", completed: false, visible: false }
+          { activity_id: 10, activity_name: 'some name', completed: false, visible: true },
+          { activity_id: 11, activity_name: 'bater papo', completed: false, visible: false }
         ].to_json)
       end
 
       it 'should return the activity id in the cache' do
         get :lessons_units_and_activities
-        expect(response.body).to eq({data: [{ activity_id: 10, name: "some name", completed: false, visible: true }]}.to_json)
+        expect(response.body).to eq({data: [{ activity_id: 10, name: 'some name', completed: false, visible: true }]}.to_json)
       end
     end
   end
 
-  context "without user" do
+  context 'without user' do
     before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#launch_lesson' do

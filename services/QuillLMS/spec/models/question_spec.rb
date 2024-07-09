@@ -148,7 +148,7 @@ RSpec.describe Question, type: :model do
   describe '#set_focus_point' do
     it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_focus_point(uid, {"text"=>"text","feedback"=>"feedback"})
+      response = question.set_focus_point(uid, {'text'=>'text','feedback'=>'feedback'})
       expect(response).to eq(true)
     end
 
@@ -162,7 +162,7 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#update_focus_points' do
-    let(:update_data) { {"foo" => {"text"=>"text", "feedback"=>"bar"} } }
+    let(:update_data) { {'foo' => {'text'=>'text', 'feedback'=>'bar'} } }
 
     it 'should change the contents of focusPoints' do
       question.update_focus_points(update_data)
@@ -189,11 +189,11 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should remove the specified incorrectSequence if stored in an array' do
-      question.update_incorrect_sequences([{"text"=>"text", "feedback"=>"bar"}, {"text"=>"text", "feedback"=>"bar"}, {"text"=>"text", "feedback"=>"bar"}])
-      first_incorrect_sequence_key = "1"
+      question.update_incorrect_sequences([{'text'=>'text', 'feedback'=>'bar'}, {'text'=>'text', 'feedback'=>'bar'}, {'text'=>'text', 'feedback'=>'bar'}])
+      first_incorrect_sequence_key = '1'
       question.delete_incorrect_sequence(first_incorrect_sequence_key)
       question.reload
-      expect(question.data['incorrectSequences']).to contain_exactly({"text"=>"text", "feedback"=>"bar"}, {"text"=>"text", "feedback"=>"bar"})
+      expect(question.data['incorrectSequences']).to contain_exactly({'text'=>'text', 'feedback'=>'bar'}, {'text'=>'text', 'feedback'=>'bar'})
     end
   end
 
@@ -217,21 +217,21 @@ RSpec.describe Question, type: :model do
 
   describe '#get_incorrect_sequence' do
     it 'should retrieve the incorrect sequence if it is a hash' do
-      data = {"foo" => "bar"}
+      data = {'foo' => 'bar'}
       question.update_incorrect_sequences(data)
-      expect(question.get_incorrect_sequence("foo")).to eq("bar")
+      expect(question.get_incorrect_sequence('foo')).to eq('bar')
     end
 
     it 'should retrieve the incorrect sequence if it is an array' do
-      data = ["foo"]
+      data = ['foo']
       question.update_incorrect_sequences(data)
-      expect(question.get_incorrect_sequence(0)).to eq("foo")
+      expect(question.get_incorrect_sequence(0)).to eq('foo')
     end
 
     it 'should retrieve the incorrect sequence if it is an array even if the passed id is a string' do
-      data = [{"text"=>"foo","feedback"=>"bar"}]
+      data = [{'text'=>'foo','feedback'=>'bar'}]
       question.update_incorrect_sequences(data)
-      expect(question.get_incorrect_sequence("0")).to eq({"text"=>"foo","feedback"=>"bar"})
+      expect(question.get_incorrect_sequence('0')).to eq({'text'=>'foo','feedback'=>'bar'})
     end
   end
 
@@ -244,11 +244,11 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should assign an "id" of array length if incorrectSequence is an array' do
-      original_incorrect_sequences = [{"1" => {"text"=>"text", "feedback"=>"bar"}}, {"2" => {"text"=>"text", "feedback"=>"bar"}}, {"3" => {"text"=>"text", "feedback"=>"bar"}}]
+      original_incorrect_sequences = [{'1' => {'text'=>'text', 'feedback'=>'bar'}}, {'2' => {'text'=>'text', 'feedback'=>'bar'}}, {'3' => {'text'=>'text', 'feedback'=>'bar'}}]
       original_length = original_incorrect_sequences.length
       question.update_incorrect_sequences(original_incorrect_sequences)
       question.add_incorrect_sequence(new_incorrect_sequence)
-      expect(question.data["incorrectSequences"][original_length]).to eq(new_incorrect_sequence)
+      expect(question.data['incorrectSequences'][original_length]).to eq(new_incorrect_sequence)
     end
 
     it 'should put the new incorrectSequence in the data attribute' do
@@ -261,7 +261,7 @@ RSpec.describe Question, type: :model do
   describe '#set_incorrect_sequence' do
     it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_incorrect_sequence(uid, {"text"=>"Text","feedback"=>"feedback"})
+      response = question.set_incorrect_sequence(uid, {'text'=>'Text','feedback'=>'feedback'})
       expect(response).to eq(true)
     end
 
@@ -273,7 +273,7 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should set the value of the specified incorrectSequence if in array' do
-      question.update_incorrect_sequences([{"text"=>"text1","feedback"=>"feedback1"},{"text"=>"text2","feedback"=>"feedback2"},{"text"=>"text3","feedback"=>"feedback3"}])
+      question.update_incorrect_sequences([{'text'=>'text1','feedback'=>'feedback1'},{'text'=>'text2','feedback'=>'feedback2'},{'text'=>'text3','feedback'=>'feedback3'}])
       replace_uid = 0
       question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
       question.reload
@@ -282,7 +282,7 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#update_incorrect_sequences' do
-    let(:update_data) { {"foo" => {"text"=>"text", "feedback"=>"bar"} }}
+    let(:update_data) { {'foo' => {'text'=>'text', 'feedback'=>'bar'} }}
 
     it 'should change the contents of incorrectSequences' do
       question.update_incorrect_sequences(update_data)

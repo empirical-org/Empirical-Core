@@ -13,10 +13,10 @@ module VitallyIntegration
     def calculate_data
       school_year_start = Date.new(@year, 7, 1)
       school_year_end = school_year_start + 1.year
-      raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.current
+      raise 'Cannot calculate data for a school year that is still ongoing.' if school_year_end > Time.current
 
-      active_students_this_year = active_students_query(@school).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
-      activities_finished_this_year = activities_finished_query(@school).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+      active_students_this_year = active_students_query(@school).where('activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?', school_year_start, school_year_end).count
+      activities_finished_this_year = activities_finished_query(@school).where('activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?', school_year_start, school_year_end).count
       evidence_activities_completed_this_year = evidence_completed_in_year_count(@school, school_year_start, school_year_end)
       {
         # this will not be accurate if calculated after the last day of the school year

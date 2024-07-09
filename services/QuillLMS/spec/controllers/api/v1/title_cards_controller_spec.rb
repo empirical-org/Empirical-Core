@@ -6,7 +6,7 @@ describe Api::V1::TitleCardsController, type: :controller do
   let(:staff) { create(:staff) }
   let(:title_card) { create(:title_card) }
 
-  describe "#index" do
+  describe '#index' do
     it 'should render TitleCard objects if they exist' do
       # Persist the factory-generated TitleCard so that .all works in the controller
       title_card.save
@@ -25,7 +25,7 @@ describe Api::V1::TitleCardsController, type: :controller do
     end
   end
 
-  describe "#show" do
+  describe '#show' do
     it 'should render the requested TitleCard object if it exists' do
       get :show, params: { title_card_type: 'connect_title_card', id: title_card.uid }, as: :json
       expect(response.status).to eq(200)
@@ -37,11 +37,11 @@ describe Api::V1::TitleCardsController, type: :controller do
     it 'should return a 404 if the requested TitleCard is not found' do
       get :show, params: { title_card_type: 'connect_title_card', id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      expect(response.body).to include('The resource you were looking for does not exist')
     end
   end
 
-  describe "#update" do
+  describe '#update' do
     before { @request.session['user_id'] = staff.id }
 
     it 'should update the specified TitleCard if all data is valid and return it' do
@@ -63,7 +63,7 @@ describe Api::V1::TitleCardsController, type: :controller do
     it 'should 404 NOT FOUND if the provided UID does not match a known TitleCard' do
       put :update, params: { title_card_type: 'connect_title_card', id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      expect(response.body).to include('The resource you were looking for does not exist')
     end
 
     it 'should 422 UNPROCESSABLE ENTITY if the posted data is invalid' do
@@ -109,12 +109,12 @@ describe Api::V1::TitleCardsController, type: :controller do
     #end
   end
 
-  describe "#create" do
+  describe '#create' do
     let(:create_params) do
       {
         uid: SecureRandom.uuid,
-        content: "Newly created content",
-        title: "Newly created title"
+        content: 'Newly created content',
+        title: 'Newly created title'
       }
     end
 

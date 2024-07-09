@@ -3,7 +3,7 @@
 module Snapshots
   class TeacherAccountsCreatedQuery < CountQuery
     def select_clause
-      "SELECT COUNT(DISTINCT users.id) AS count"
+      'SELECT COUNT(DISTINCT users.id) AS count'
     end
 
     def from_and_join_clauses
@@ -14,12 +14,12 @@ module Snapshots
     end
 
     def relevant_date_column
-      "users.created_at"
+      'users.created_at'
     end
 
     # For this query we want to count all teachers, not just classroom owners
     def owner_teachers_only_where_clause
-      ""
+      ''
     end
   end
 end

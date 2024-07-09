@@ -59,10 +59,10 @@ EmpiricalGrammar::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
+  config.cache_store = :redis_store, ENV['REDISCLOUD_URL']
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV["CLOUDFRONT_CACHE_URL"] #'//cdn.quill.org'
+  config.action_controller.asset_host = ENV['CLOUDFRONT_CACHE_URL'] #'//cdn.quill.org'
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -107,7 +107,7 @@ EmpiricalGrammar::Application.configure do
     params = event.payload[:params].reject do |k|
       ['controller', 'action'].include? k
     end
-    { "params" => params }
+    { 'params' => params }
   end
 
   config.middleware.use Rack::HostRedirect, {
@@ -119,7 +119,7 @@ EmpiricalGrammar::Application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV.fetch('RAILS_SERVE_STATIC_FILES', 'false') == 'true'
 
-  if ENV.fetch("RAILS_LOG_TO_STDOUT", 'false') == 'true'
+  if ENV.fetch('RAILS_LOG_TO_STDOUT', 'false') == 'true'
     logger = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)

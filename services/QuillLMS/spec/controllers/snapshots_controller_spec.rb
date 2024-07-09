@@ -13,7 +13,7 @@ describe SnapshotsController, type: :controller do
     create(:school_subscription, school:, subscription:)
   end
 
-  context "#actions" do
+  context '#actions' do
     let(:cache_key) { 'CACHE_KEY' }
     let(:timeframe_name) { 'last-30-days' }
     let(:now) { DateTime.current }
@@ -119,10 +119,10 @@ describe SnapshotsController, type: :controller do
 
       it 'should return the value in the cache assigned to the `results` key if it is available for all actions' do
         cache_payload = {
-          "current" => "CURRENT",
-          "previous" => "PREVIOUS"
+          'current' => 'CURRENT',
+          'previous' => 'PREVIOUS'
         }
-        expected_response = { "results" => cache_payload }
+        expected_response = { 'results' => cache_payload }
 
         expect(Rails.cache).to receive(:read).exactly(controller_actions.length).times.with(cache_key).and_return(cache_payload)
 
@@ -137,7 +137,7 @@ describe SnapshotsController, type: :controller do
 
       it 'should fine if a cached top_x query is "[]"' do
         cache_payload = []
-        expected_response = { "results" => cache_payload }
+        expected_response = { 'results' => cache_payload }
 
         expect(Rails.cache).to receive(:read).once.with(cache_key).and_return(cache_payload)
 
@@ -251,11 +251,11 @@ describe SnapshotsController, type: :controller do
 
           json_response = JSON.parse(response.body)
 
-          expect(json_response).to eq("message" => "Generating snapshot")
+          expect(json_response).to eq('message' => 'Generating snapshot')
         end
 
         context 'previous_timeframe param is true' do
-          let(:previous_timeframe_flag) { "true" }
+          let(:previous_timeframe_flag) { 'true' }
           let(:current_start) { previous_start }
           let(:current_end) { previous_end }
 
@@ -268,7 +268,7 @@ describe SnapshotsController, type: :controller do
 
             json_response = JSON.parse(response.body)
 
-            expect(json_response).to eq("message" => "Generating snapshot")
+            expect(json_response).to eq('message' => 'Generating snapshot')
           end
         end
 
@@ -284,7 +284,7 @@ describe SnapshotsController, type: :controller do
 
             json_response = JSON.parse(response.body)
 
-            expect(json_response).to eq("count" => nil)
+            expect(json_response).to eq('count' => nil)
           end
         end
 
@@ -300,7 +300,7 @@ describe SnapshotsController, type: :controller do
 
             json_response = JSON.parse(response.body)
 
-            expect(json_response).to eq("message" => "Generating snapshot")
+            expect(json_response).to eq('message' => 'Generating snapshot')
           end
         end
 
@@ -316,13 +316,13 @@ describe SnapshotsController, type: :controller do
 
             json_response = JSON.parse(response.body)
 
-            expect(json_response).to eq("message" => "Generating snapshot")
+            expect(json_response).to eq('message' => 'Generating snapshot')
           end
         end
 
         context 'school_ids and grades specified' do
           let(:query) { 'active-classrooms' }
-          let(:grades) { ["Kindergarten", "1", "2"] }
+          let(:grades) { ['Kindergarten', '1', '2'] }
           let(:teacher_ids) { ['3', '4'] }
           let(:classroom_ids) { ['5', '6', '7'] }
 
@@ -356,14 +356,14 @@ describe SnapshotsController, type: :controller do
     end
   end
 
-  context "#options" do
+  context '#options' do
     let(:target_grade) { '1' }
     let(:teacher) { create(:teacher, school: school) }
     let(:classroom) { create(:classroom, grade: target_grade) }
     let(:teacher_role) { ClassroomsTeacher::ROLE_TYPES[:owner] }
     let!(:classrooms_teacher) { create(:classrooms_teacher, user: teacher, classroom: classroom, role: teacher_role) }
 
-    context "#options with initial load" do
+    context '#options with initial load' do
       let(:initial_load) { 'true' }
 
       let(:other_school) { create(:school) }
@@ -379,7 +379,7 @@ describe SnapshotsController, type: :controller do
 
         json_response = JSON.parse(response.body)
 
-        expect(json_response['all_schools'].map { |s| s["id"] }).to include(school.id, other_school.id)
+        expect(json_response['all_schools'].map { |s| s['id'] }).to include(school.id, other_school.id)
       end
 
       it 'should include all teachers when initial load is true, regardless of any filters applied' do
@@ -387,7 +387,7 @@ describe SnapshotsController, type: :controller do
 
         json_response = JSON.parse(response.body)
 
-        expect(json_response['all_teachers'].map { |t| t["id"] }).to include(teacher.id, other_teacher.id)
+        expect(json_response['all_teachers'].map { |t| t['id'] }).to include(teacher.id, other_teacher.id)
       end
 
       it 'should include all classrooms when initial load is true, regardless of any filters applied' do
@@ -395,7 +395,7 @@ describe SnapshotsController, type: :controller do
 
         json_response = JSON.parse(response.body)
 
-        expect(json_response['all_classrooms'].map { |c| c["id"] }).to include(classroom.id, other_classroom.id)
+        expect(json_response['all_classrooms'].map { |c| c['id'] }).to include(classroom.id, other_classroom.id)
       end
     end
 
@@ -413,7 +413,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['schools']).to eq([{"id" => school.id, "name" => school.name}])
+      expect(json_response['schools']).to eq([{'id' => school.id, 'name' => school.name}])
     end
 
     it 'should return a static list of grade options' do
@@ -429,7 +429,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+      expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
     end
 
     context 'teachers with no classrooms' do
@@ -443,7 +443,7 @@ describe SnapshotsController, type: :controller do
 
       it do
         subject
-        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+        expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
       end
     end
 
@@ -468,7 +468,7 @@ describe SnapshotsController, type: :controller do
 
       it do
         subject
-        expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+        expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
       end
     end
 
@@ -477,7 +477,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}])
+      expect(json_response['classrooms']).to eq([{'id' => classroom.id, 'name' => classroom.name}])
     end
 
     context 'classrooms with visible = false' do
@@ -488,8 +488,8 @@ describe SnapshotsController, type: :controller do
         get :options
       end
 
-      it { expect(result['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}]) }
-      it { expect(result['classrooms']).to eq([{"id" => classroom.id, "name" => classroom.name}]) }
+      it { expect(result['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}]) }
+      it { expect(result['classrooms']).to eq([{'id' => classroom.id, 'name' => classroom.name}]) }
     end
 
     context 'teachers in multiple classrooms' do
@@ -575,11 +575,11 @@ describe SnapshotsController, type: :controller do
 
         it 'should match teachers who teach nil grade classrooms' do
 
-          get :options, params: { grades: ["null"] }
+          get :options, params: { grades: ['null'] }
 
           json_response = JSON.parse(response.body)
 
-          expect(json_response['teachers']).to eq([{"id" => teacher.id, "name" => teacher.name}])
+          expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
         end
       end
     end

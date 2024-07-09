@@ -3,7 +3,7 @@
 require 'csv'
 
 namespace :leap do
-  desc "Import LEAP District ID values from a CSV piped to the command"
+  desc 'Import LEAP District ID values from a CSV piped to the command'
   task :import_from_pipe, [:email_domain] => :environment do |_, args|
     include LeapTaskHelpers
     arg_values(args)
@@ -21,7 +21,7 @@ namespace :leap do
     process_data(data)
   end
 
-  desc "Import LEAP District ID values from a CSV"
+  desc 'Import LEAP District ID values from a CSV'
   task :import, [:csv_path, :email_domain] => :environment do |_, args|
     include LeapTaskHelpers
     arg_values(args)
@@ -53,8 +53,8 @@ namespace :leap do
     def arg_values(args)
       @email_domain = args[:email_domain]
       @csv_path = args[:csv_path]
-      @google_id_column_name = "Google ID"
-      @district_id_column_name = "District ID"
+      @google_id_column_name = 'Google ID'
+      @district_id_column_name = 'District ID'
       @id_source = ThirdPartyUserId::SOURCES::LEAP
     end
 

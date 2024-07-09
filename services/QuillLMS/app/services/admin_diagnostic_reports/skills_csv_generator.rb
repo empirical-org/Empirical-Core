@@ -25,7 +25,7 @@ module AdminDiagnosticReports
       },
       post_students_completed: {
         csv_header: 'Students Who Completed Pre and Post Diagnostic',
-        csv_tooltip: "The total number of students who completed the Pre and Post diagnostic.",
+        csv_tooltip: 'The total number of students who completed the Pre and Post diagnostic.',
         formatter: Formatter::DEFAULT
       },
       improved_proficiency: {

@@ -3,7 +3,7 @@
 class SessionsController < ApplicationController
   include CleverAuthable
 
-  CLEAR_ANALYTICS_SESSION_KEY = "clear_analytics_session"
+  CLEAR_ANALYTICS_SESSION_KEY = 'clear_analytics_session'
 
   around_action :force_writer_db_role, only: [:destroy]
 

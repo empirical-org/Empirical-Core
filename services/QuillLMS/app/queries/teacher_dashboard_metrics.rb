@@ -19,7 +19,7 @@ class TeacherDashboardMetrics
   def count_of_assigned_activities(start_date)
     classroom_units = ClassroomUnit
       .where(classroom_id: classroom_ids)
-      .where("created_at >= ?", start_date)
+      .where('created_at >= ?', start_date)
 
     activity_counts_by_unit = UnitActivity
       .where(unit_id: classroom_units.map(&:unit_id))

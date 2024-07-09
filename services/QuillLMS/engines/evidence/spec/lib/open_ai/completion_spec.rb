@@ -20,19 +20,19 @@ module Evidence
           let(:content) { 'a text response' }
           let(:body) do
             {
-              "id": "chatcmpl-123",
-              "object": "chat.completion",
+              "id": 'chatcmpl-123',
+              "object": 'chat.completion',
               "created": 1677652288,
               "model": version,
-              "system_fingerprint": "fp_44709d6fcb",
+              "system_fingerprint": 'fp_44709d6fcb',
               "choices": [{
                 "index": 0,
                 "message": {
-                  "role": "assistant",
+                  "role": 'assistant',
                   "content": content
                 },
                 "logprobs": nil,
-                "finish_reason": "stop"
+                "finish_reason": 'stop'
               }],
               "usage": {
                 "prompt_tokens": 9,

@@ -23,6 +23,6 @@ module QuillBigQuery
 
     private def refresh_params = params.permit(:api_key, :view_key)
     private def api_key = refresh_params[:api_key]
-    private def view_keys = refresh_params[:view_key].split(",")
+    private def view_keys = refresh_params[:view_key].split(',')
   end
 end

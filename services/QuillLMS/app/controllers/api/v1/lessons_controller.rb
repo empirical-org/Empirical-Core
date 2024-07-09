@@ -5,10 +5,10 @@ class Api::V1::LessonsController < Api::ApiController
   before_action :lesson_type, only: [:index, :create]
   before_action :lesson_by_uid, except: [:index, :create]
   LESSON_TYPE_TO_KEY = {
-    "connect_lesson": "connect",
-    "diagnostic_lesson": "diagnostic",
-    "grammar_activity": "sentence",
-    "proofreader_passage": "passage"
+    "connect_lesson": 'connect',
+    "diagnostic_lesson": 'diagnostic',
+    "grammar_activity": 'sentence',
+    "proofreader_passage": 'passage'
   }
 
   def index

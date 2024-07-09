@@ -19,7 +19,7 @@ class ProgressReports::Concepts::Concept
       .joins("JOIN #{filtered_correct_results} ON concepts.id = filtered_correct_results.concept_id")
       .joins('LEFT JOIN concepts AS parent_concepts ON parent_concepts.id = concepts.parent_id')
       .joins('LEFT JOIN concepts AS gp_concepts ON gp_concepts.id = parent_concepts.parent_id')
-      .group("concepts.id, gp_concepts.name")
-      .order("concepts.name asc")
+      .group('concepts.id, gp_concepts.name')
+      .order('concepts.name asc')
   end
 end

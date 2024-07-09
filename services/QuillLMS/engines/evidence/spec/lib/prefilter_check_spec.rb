@@ -11,7 +11,7 @@ module Evidence
     describe '#initialize' do
       it 'should retrieve associated Rules' do
         rule = create(:evidence_rule, rule_type: 'prefilter')
-        prefilter_check = Evidence::PrefilterCheck.new("entry")
+        prefilter_check = Evidence::PrefilterCheck.new('entry')
         expect(prefilter_check.prefilter_rules.first).to eq(rule)
       end
     end
@@ -32,19 +32,19 @@ module Evidence
 
       context 'no profanity' do
         it 'should return []' do
-          prefilter_check = Evidence::PrefilterCheck.new("entry")
+          prefilter_check = Evidence::PrefilterCheck.new('entry')
           expect(prefilter_check.feedback_object[:highlight]).to eq []
         end
       end
 
       context 'profanity detected' do
         it 'should return a profane highlight' do
-          prefilter_check = Evidence::PrefilterCheck.new("nero was an ahole")
+          prefilter_check = Evidence::PrefilterCheck.new('nero was an ahole')
           expect(prefilter_check.feedback_object[:highlight]).to eq(
             [
               {
-                category: "",
-                text: "ahole",
+                category: '',
+                text: 'ahole',
                 type: Evidence::Highlight::TYPE_RESPONSE
               }
             ]

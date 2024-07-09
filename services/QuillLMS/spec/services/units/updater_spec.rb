@@ -29,9 +29,9 @@ describe Units::Updater do
     # and array of student ids.
     # self.run(unit.id, activities_data, classrooms_data)
 
-    describe "assign_unit_template_to_one_class" do
-      context "there are already students assigned to the classroom unit" do
-        describe "concatenate_existing_student_ids is true" do
+    describe 'assign_unit_template_to_one_class' do
+      context 'there are already students assigned to the classroom unit' do
+        describe 'concatenate_existing_student_ids is true' do
 
           it 'should add the new student to the array but also keep the old one' do
             classroom_data = {id: classroom.id, student_ids: [student1.id]}
@@ -57,13 +57,13 @@ describe Units::Updater do
                 update_ca_to_all_assigned
               end
 
-              it "is still assigned to all students if an empty array is passed" do
+              it 'is still assigned to all students if an empty array is passed' do
                 classrooms_data = [{id: classroom.id, student_ids: []}]
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.assigned_student_ids).to eq([])
               end
 
-              it "replaces the old array if some students are passed" do
+              it 'replaces the old array if some students are passed' do
                 classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.assigned_student_ids).to eq([student.id])
@@ -81,19 +81,19 @@ describe Units::Updater do
                 update_cu_to_some_assigned
               end
 
-              it "is assigned to all students if an empty array is passed" do
+              it 'is assigned to all students if an empty array is passed' do
                 classrooms_data = [{id: classroom.id, student_ids: []}]
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.assigned_student_ids).to eq([])
               end
 
-              it "replaces the old array if different students are passed" do
+              it 'replaces the old array if different students are passed' do
                 classrooms_data = [{id: classroom.id, student_ids: [student.id]}]
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.assigned_student_ids).to eq([student.id])
               end
 
-              it "archives the classroom activity if passed false" do
+              it 'archives the classroom activity if passed false' do
                 classrooms_data = [{id: classroom.id, student_ids: false}]
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.visible).to eq(false)
@@ -194,7 +194,7 @@ describe Units::Updater do
           expect(new_assigned_student_ids).to eq([student1.id])
         end
 
-        it "hides all activity sessions when assigned to no students" do
+        it 'hides all activity sessions when assigned to no students' do
           expect(classroom_unit.assigned_student_ids.any?).to eq(true)
           classrooms_data = [{id: classroom.id, student_ids: false}]
           Units::Updater.run(unit.id, activities_data, classrooms_data)
@@ -206,7 +206,7 @@ describe Units::Updater do
 
       context 'when a new activity is added' do
 
-        it "it does not create new activity sessions" do
+        it 'it does not create new activity sessions' do
           # because it used to create new ones
           expect(student.activity_sessions.map(&:activity_id)).to be_empty
           classrooms_data = [{id: classroom.id, student_ids: [student.id]}]

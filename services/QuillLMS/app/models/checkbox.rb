@@ -18,7 +18,7 @@
 class Checkbox < ApplicationRecord
   belongs_to :objective
   belongs_to :user
-  validates :objective_id, uniqueness: { scope: :user_id, message: "should only be checked once per user" }
+  validates :objective_id, uniqueness: { scope: :user_id, message: 'should only be checked once per user' }
   after_create :track_onboarding_checklist_analytics
 
   def track_onboarding_checklist_analytics

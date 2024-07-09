@@ -102,6 +102,10 @@ Rails/HttpStatus:
 RSpec/Rails/HttpStatus:
   Enabled: false
 
+StringLiterals:
+  EnforcedStyle: single_quotes
+  Enabled: true
+
 Style/ClassEqualityComparison:
   Enabled: true
   Exclude:

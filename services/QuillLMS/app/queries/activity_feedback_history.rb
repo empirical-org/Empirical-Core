@@ -10,14 +10,14 @@ class ActivityFeedbackHistory
     inner_query = ActivitySession.unscoped
       .joins(:feedback_sessions)
       .joins(:feedback_histories)
-      .joins("LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
-      .where("comprehension_prompts.activity_id = ?", activity_id)
+      .joins('LEFT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .where('comprehension_prompts.activity_id = ?', activity_id)
 
-    inner_query = inner_query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
-    inner_query = inner_query.select("DISTINCT activity_sessions.timespent AS timespent", "feedback_sessions.uid AS feedback_session_uid", "activity_sessions.state AS state").to_sql
+    inner_query = inner_query.where('feedback_histories.activity_version = ?', activity_version) if activity_version
+    inner_query = inner_query.select('DISTINCT activity_sessions.timespent AS timespent', 'feedback_sessions.uid AS feedback_session_uid', 'activity_sessions.state AS state').to_sql
 
     activity_sessions_agg = ActivitySession.unscoped
-      .select("AVG(timespent) AS average_time_spent", "CAST(COUNT(DISTINCT CASE WHEN state = 'finished' THEN feedback_session_uid END) AS FLOAT) / NULLIF(CAST(COUNT(DISTINCT feedback_session_uid) AS FLOAT), 0) AS average_completion_rate")
+      .select('AVG(timespent) AS average_time_spent', "CAST(COUNT(DISTINCT CASE WHEN state = 'finished' THEN feedback_session_uid END) AS FLOAT) / NULLIF(CAST(COUNT(DISTINCT feedback_session_uid) AS FLOAT), 0) AS average_completion_rate")
       .from("(#{inner_query}) as inner_query")
       .to_a
 

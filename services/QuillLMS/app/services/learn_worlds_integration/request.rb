@@ -8,8 +8,8 @@ module LearnWorldsIntegration
 
     def headers
       {
-        "Lw-Client" => CLIENT_ID,
-        "Authorization" => "Bearer #{ACCESS_TOKEN}"
+        'Lw-Client' => CLIENT_ID,
+        'Authorization' => "Bearer #{ACCESS_TOKEN}"
       }
     end
   end

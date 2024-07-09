@@ -8,13 +8,13 @@ describe QuestionCounter do
   let(:question_list) { [{ key: 'fake_key' }, { key: 'fake_key' }] }
   let(:concept_quantity1) { 2 }
   let(:concept_quantity2) { 5 }
-  let(:concept_list) { {'1232' => {"quantity" => concept_quantity1}, '1235' => {"quantity" => concept_quantity2}} }
-  let(:passage) { "Yuri Gagarin is {+famous-famous,|nb0JW1r5pRB5ouwAzTgMbQ} because he was the first person to travel into outer space and orbit the Earth. He was born on {+March-march|E635Hrr0tuMsBDm7lLfrPg} 9, 1934, in the Soviet Union.<br/><br/><br/>Gagarin first learned to fly a plane when he was young man studying in Saratov. After finishing {+school,-school|m8sKnkzLg1mIAkkXeqHOWw}"}
+  let(:concept_list) { {'1232' => {'quantity' => concept_quantity1}, '1235' => {'quantity' => concept_quantity2}} }
+  let(:passage) { 'Yuri Gagarin is {+famous-famous,|nb0JW1r5pRB5ouwAzTgMbQ} because he was the first person to travel into outer space and orbit the Earth. He was born on {+March-march|E635Hrr0tuMsBDm7lLfrPg} 9, 1934, in the Soviet Union.<br/><br/><br/>Gagarin first learned to fly a plane when he was young man studying in Saratov. After finishing {+school,-school|m8sKnkzLg1mIAkkXeqHOWw}'}
   let(:default_size) {99}
 
   context 'blank activity' do
     before do
-      stub_const("QuestionCounter::DEFAULT", default_size)
+      stub_const('QuestionCounter::DEFAULT', default_size)
     end
 
     let(:activity) { nil }
@@ -30,7 +30,7 @@ describe QuestionCounter do
 
   context 'unknown activity type' do
     before do
-      stub_const("QuestionCounter::DEFAULT", default_size)
+      stub_const('QuestionCounter::DEFAULT', default_size)
     end
 
     let(:classification) {build(:classification, key: 'some-unknown')}

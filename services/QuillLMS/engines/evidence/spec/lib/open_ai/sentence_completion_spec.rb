@@ -13,17 +13,17 @@ module Evidence
 
     let(:sample_response_body) do
       {
-        "id"=>"cmpl-5Yiq2oA2mneJK4GHLRBIYJ3Nm8oa2",
-        "object"=>"text_completion",
-        "created"=>1658957194,
-        "model"=>"text-ada-001",
-        "choices"=> [
-          {"text"=>"a text response",
-          "index"=>0,
-          "logprobs"=>nil,
-          "finish_reason"=>"length"},
-          {"text"=>" they value their privacy and idea of stigmaly manury", "index"=>1, "logprobs"=>nil, "finish_reason"=>"stop"},
-          {"text"=>" they are working too hard and becoming too popular", "index"=>2, "logprobs"=>nil, "finish_reason"=>"stop"}
+        'id'=>'cmpl-5Yiq2oA2mneJK4GHLRBIYJ3Nm8oa2',
+        'object'=>'text_completion',
+        'created'=>1658957194,
+        'model'=>'text-ada-001',
+        'choices'=> [
+          {'text'=>'a text response',
+          'index'=>0,
+          'logprobs'=>nil,
+          'finish_reason'=>'length'},
+          {'text'=>' they value their privacy and idea of stigmaly manury', 'index'=>1, 'logprobs'=>nil, 'finish_reason'=>'stop'},
+          {'text'=>' they are working too hard and becoming too popular', 'index'=>2, 'logprobs'=>nil, 'finish_reason'=>'stop'}
         ]
       }
 
@@ -33,8 +33,8 @@ module Evidence
 
     let(:completion) { described_class.new(prompt:, temperature:, count:, model_key:, options:) }
 
-    describe "#new" do
-      it "should initialize as expected" do
+    describe '#new' do
+      it 'should initialize as expected' do
         expect(completion.prompt).to eq(prompt)
         expect(completion.temperature).to eq(temperature)
         expect(completion.count).to eq(count)
@@ -43,14 +43,14 @@ module Evidence
       end
     end
 
-    describe "#run" do
-      it "should post to OpenAI, populate response, and return a cleaned_response" do
+    describe '#run' do
+      it 'should post to OpenAI, populate response, and return a cleaned_response' do
         stub_request(:post, endpoint).to_return(sample_response)
 
         response = completion.run
         expect(response.count).to be(3)
         expect(response.class).to be(Array)
-        expect(response[0]).to eq("a text response")
+        expect(response[0]).to eq('a text response')
         expect(completion.response.class).to be(HTTParty::Response)
 
         request_body = JSON.parse(completion.response.request.options[:body])
@@ -64,13 +64,13 @@ module Evidence
       end
     end
 
-    describe "#cleaned_results" do
+    describe '#cleaned_results' do
       let(:response_with_chars) {["  -\n\n\n 1) Hello there[] you 2) person = \n other stuff to drop"]}
 
-      it "should strip out special characters and drop after middle newline" do
+      it 'should strip out special characters and drop after middle newline' do
         expect(completion).to receive(:result_texts).and_return(response_with_chars)
 
-        expect(completion.cleaned_results.first).to eq("Hello there you  person")
+        expect(completion.cleaned_results.first).to eq('Hello there you  person')
       end
     end
   end

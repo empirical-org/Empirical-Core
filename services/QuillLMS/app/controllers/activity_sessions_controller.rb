@@ -61,8 +61,8 @@ class ActivitySessionsController < ApplicationController
   end
 
   private def partner_session? = session[:partner_session].present? && partner_name && partner_session_id
-  private def partner_name = session[:partner_session]["partner_name"]
-  private def partner_session_id = session[:partner_session]["session_id"]
+  private def partner_name = session[:partner_session]['partner_name']
+  private def partner_session_id = session[:partner_session]['session_id']
 
   private def run_partner_session_worker
     return unless partner_session?
@@ -95,7 +95,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   private def anonymous_return_url
-    if @activity.classification.key == "lessons"
+    if @activity.classification.key == 'lessons'
       "#{ENV['DEFAULT_URL']}/preview_lesson/#{@activity.uid}"
     else
       @activity.anonymous_module_url.to_s
@@ -136,7 +136,7 @@ class ActivitySessionsController < ApplicationController
 
     return if completed_pre_test_activity_session
 
-    flash[:error] = "You need to complete the Baseline diagnostic before you can complete the Growth diagnostic."
+    flash[:error] = 'You need to complete the Baseline diagnostic before you can complete the Growth diagnostic.'
     flash.keep(:error)
     redirect_to profile_path
   end
@@ -155,11 +155,11 @@ class ActivitySessionsController < ApplicationController
   end
 
   def determine_layout
-    "integrations" if partner_session?
+    'integrations' if partner_session?
   end
 
   private def allow_iframe
-    response.headers.delete "X-Frame-Options"
+    response.headers.delete 'X-Frame-Options'
   end
 
 end

@@ -138,7 +138,7 @@ class Teachers::ClassroomsController < ApplicationController
         # we want to sanitize the classroom name so it works as a file name
         # this will get rid of illegal characters and replace them with underscores
         filename = @classroom.name.gsub(/[^0-9A-Za-z.\-]/, '_')
-        send_data pdf.render, filename: "quill_logins_for_#{filename.downcase}.pdf", type: "application/pdf"
+        send_data pdf.render, filename: "quill_logins_for_#{filename.downcase}.pdf", type: 'application/pdf'
       end
     end
   end

@@ -10,12 +10,12 @@ module AdminDiagnosticReports
       },
       pre_students_assigned: {
         csv_header: 'Students Assigned Pre Diagnostic',
-        csv_tooltip: "The total number of students assigned the Pre diagnostic.",
+        csv_tooltip: 'The total number of students assigned the Pre diagnostic.',
         formatter: Formatter::BLANK_AS_ZERO
       },
       pre_students_completed: {
         csv_header: 'Students Who Completed Pre Diagnostic',
-        csv_tooltip: "The total number of students who completed the Pre diagnostic.",
+        csv_tooltip: 'The total number of students who completed the Pre diagnostic.',
         formatter: Formatter::BLANK_AS_ZERO
       },
       students_completed_practice: {
@@ -35,12 +35,12 @@ module AdminDiagnosticReports
       },
       post_students_assigned: {
         csv_header: 'Students Assigned Post Diagnostic',
-        csv_tooltip: "The total number of students assigned the Post diagnostic.",
+        csv_tooltip: 'The total number of students assigned the Post diagnostic.',
         formatter: Formatter::BLANK_AS_ZERO
       },
       post_students_completed: {
         csv_header: 'Students Who Completed Post Diagnostic',
-        csv_tooltip: "The total number of students who completed the Post diagnostic.",
+        csv_tooltip: 'The total number of students who completed the Post diagnostic.',
         formatter: Formatter::BLANK_AS_ZERO
       },
       overall_skill_growth: {

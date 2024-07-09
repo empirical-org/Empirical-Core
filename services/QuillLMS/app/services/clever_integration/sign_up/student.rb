@@ -7,7 +7,7 @@ module CleverIntegration::SignUp::Student
     if student.present?
       result = {type: 'user_success', data: student}
     else
-      result = {type: 'user_failure', data: "No Student Present"}
+      result = {type: 'user_failure', data: 'No Student Present'}
     end
     result
   end

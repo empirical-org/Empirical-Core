@@ -16,8 +16,8 @@ module Evidence
     context 'should #initialize' do
 
       it 'should should have working accessor methods for all initialized fields' do
-        automl_check = Evidence::AutomlCheck.new("entry", prompt)
-        expect(automl_check.entry).to(eq("entry"))
+        automl_check = Evidence::AutomlCheck.new('entry', prompt)
+        expect(automl_check.entry).to(eq('entry'))
         expect(prompt).to(eq(automl_check.prompt))
       end
     end
@@ -26,34 +26,34 @@ module Evidence
 
       it 'should return nil if there is no matched rule' do
         AutomlModel.stub_any_instance(:classify_text, ["NOT#{label.name}", automl_confidence]) do
-          automl_check = Evidence::AutomlCheck.new("entry", prompt)
+          automl_check = Evidence::AutomlCheck.new('entry', prompt)
           expect(automl_check.feedback_object).to(eq(nil))
         end
       end
 
       it 'should return nil if there is no automl_model associated with the provided prompt' do
         automl_model.destroy
-        automl_check = Evidence::AutomlCheck.new("entry", prompt)
+        automl_check = Evidence::AutomlCheck.new('entry', prompt)
         expect(automl_check.feedback_object).to(eq(nil))
       end
 
       it 'should return the feedback payload when there is a label match' do
         AutomlModel.stub_any_instance(:classify_text, [label.name, automl_confidence]) do
-          entry = "entry"
+          entry = 'entry'
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
-          expect(:feedback => feedback.text, :feedback_type => "autoML", :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or "")), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => {:confidence => automl_confidence}).to(eq(automl_check.feedback_object))
+          expect(:feedback => feedback.text, :feedback_type => 'autoML', :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or '')), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => {:confidence => automl_confidence}).to(eq(automl_check.feedback_object))
         end
       end
 
       it 'should return the low confidence feedback payload when there is a label match but the confidence is below the threshold' do
         AutomlModel.stub_any_instance(:classify_text, [label.name, 0.5]) do
-          entry = "entry"
+          entry = 'entry'
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
           expected_payload = {
             :feedback => low_confidence_feedback.text,
-            :feedback_type => "low-confidence",
+            :feedback_type => 'low-confidence',
             :optimal => low_confidence_rule.optimal,  :entry => entry,
-            :concept_uid => ((low_confidence_rule&.concept_uid or "")),
+            :concept_uid => ((low_confidence_rule&.concept_uid or '')),
             :rule_uid => (low_confidence_rule&.uid),
             :highlight => ([]),
             :hint => nil,
@@ -70,8 +70,8 @@ module Evidence
       it 'should include highlight data when the feedback object has highlights' do
         AutomlModel.stub_any_instance(:classify_text, [label.name, automl_confidence]) do
           highlight = create(:evidence_highlight, :feedback => (feedback))
-          automl_check = Evidence::AutomlCheck.new("whatever", prompt)
-          expect([{ :type => highlight.highlight_type, :text => highlight.text, :category => "" }]).to(eq(automl_check.feedback_object[:highlight]))
+          automl_check = Evidence::AutomlCheck.new('whatever', prompt)
+          expect([{ :type => highlight.highlight_type, :text => highlight.text, :category => '' }]).to(eq(automl_check.feedback_object[:highlight]))
         end
       end
 
@@ -79,7 +79,7 @@ module Evidence
         AutomlModel.stub_any_instance(:classify_text, [label.name, automl_confidence]) do
           hint = create(:evidence_hint)
           rule.update(hint: hint)
-          automl_check = Evidence::AutomlCheck.new("whatever", prompt)
+          automl_check = Evidence::AutomlCheck.new('whatever', prompt)
           expect(hint).to(eq(automl_check.feedback_object[:hint]))
         end
       end

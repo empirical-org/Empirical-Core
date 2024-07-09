@@ -50,12 +50,12 @@ RSpec.describe ConceptResult, type: :model do
       let(:metadata) do
         {
           "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "instructions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
+          "directions": 'Combine the sentences. (And)',
+          "instructions": 'Combine the sentences. (And)',
+          "lastFeedback": 'Proofread your work. Check your spelling.',
+          "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "answer": 'Deserts are very dry, and years go by without rain.',
           "questionNumber": 1,
           "questionScore": 0.8
         }
@@ -63,7 +63,7 @@ RSpec.describe ConceptResult, type: :model do
       let!(:json) do
         {
           "concept_uid": concept.uid,
-          "question_type": "sentence-combining",
+          "question_type": 'sentence-combining',
           "metadata": metadata,
           "concept_id": concept.id,
           "activity_session_id": activity_session.id
@@ -162,11 +162,11 @@ RSpec.describe ConceptResult, type: :model do
       let(:metadata) do
         {
           "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
+          "directions": 'Combine the sentences. (And)',
+          "lastFeedback": 'Proofread your work. Check your spelling.',
+          "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "answer": 'Deserts are very dry, and years go by without rain.',
           "questionNumber": 1,
           "questionScore": 0.8
         }
@@ -174,7 +174,7 @@ RSpec.describe ConceptResult, type: :model do
       let(:json) do
         {
           "concept_uid": concept.uid,
-          "question_type": "sentence-combining",
+          "question_type": 'sentence-combining',
           "metadata": metadata,
           "concept_id": concept.id,
           "activity_session_id": activity_session.id
@@ -200,11 +200,11 @@ RSpec.describe ConceptResult, type: :model do
       let(:metadata) do
         {
           "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
+          "directions": 'Combine the sentences. (And)',
+          "lastFeedback": 'Proofread your work. Check your spelling.',
+          "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "answer": 'Deserts are very dry, and years go by without rain.',
           "questionNumber": 1,
           "questionScore": 0.8
         }
@@ -230,11 +230,11 @@ RSpec.describe ConceptResult, type: :model do
       let(:metadata1) do
         {
           "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
+          "directions": 'Combine the sentences. (And)',
+          "lastFeedback": 'Proofread your work. Check your spelling.',
+          "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "answer": 'Deserts are very dry, and years go by without rain.',
           "questionNumber": 1,
           "questionScore": 0.8
         }
@@ -242,22 +242,22 @@ RSpec.describe ConceptResult, type: :model do
       let(:metadata2) do
         {
           "correct": 1,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
+          "directions": 'Combine the sentences. (And)',
+          "lastFeedback": 'Proofread your work. Check your spelling.',
+          "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "answer": 'Deserts are very dry, and years go by without rain.',
           "questionNumber": 1,
         }
       end
       let(:metadata3) do
         {
           "correct": 0,
-          "directions": "Combine the sentences. (And)",
-          "lastFeedback": "Proofread your work. Check your spelling.",
-          "prompt": "Deserts are very dry. Years go by without rain.",
+          "directions": 'Combine the sentences. (And)',
+          "lastFeedback": 'Proofread your work. Check your spelling.',
+          "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
-          "answer": "Deserts are very dry, and years go by without rain.",
+          "answer": 'Deserts are very dry, and years go by without rain.',
           "questionNumber": 1,
         }
       end

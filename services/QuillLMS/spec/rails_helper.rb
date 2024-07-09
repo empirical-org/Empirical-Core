@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-ENV["RAILS_ENV"] = 'test'
+ENV['RAILS_ENV'] = 'test'
 
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../../config/environment', __FILE__)
 
 require 'rspec/rails'
 require 'capybara/rails'
@@ -42,10 +42,10 @@ RSpec::Matchers.define_negated_matcher :not_change, :change
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
 
 # shared contexts and groups to behave like
-Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/shared/**/*.rb')].each {|f| require f}
 
 # ensure the db is properly migrated
 ActiveRecord::Migration.maintain_test_schema!
@@ -75,7 +75,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  config.order = 'random'
 
   config.before(:suite) { Rails.cache.clear }
   config.before { Analytics::SegmentAnalytics.backend = FakeSegmentBackend.new }

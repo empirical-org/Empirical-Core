@@ -102,7 +102,7 @@ class TeacherInfo < ApplicationRecord
   def subject_areas_string
     return nil if subject_areas.empty?
 
-    subject_areas&.map(&:name)&.join(", ")
+    subject_areas&.map(&:name)&.join(', ')
   end
 
   private def no_grade_levels?

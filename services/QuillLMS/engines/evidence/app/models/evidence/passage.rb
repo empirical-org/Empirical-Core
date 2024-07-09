@@ -41,7 +41,7 @@ module Evidence
     end
 
     def change_log_name
-      "Evidence Passage Text"
+      'Evidence Passage Text'
     end
 
     def url

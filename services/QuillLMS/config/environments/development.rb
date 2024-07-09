@@ -52,7 +52,7 @@ EmpiricalGrammar::Application.configure do
   Rails.application.routes.default_url_options[:host] =  'localhost:3000'
 
   # Image Uploads (see paperclip gem)
-  Paperclip.options[:command_path] = "/usr/local/bin/"
+  Paperclip.options[:command_path] = '/usr/local/bin/'
 
   config.after_initialize do
     Bullet.enable = true
@@ -63,7 +63,7 @@ EmpiricalGrammar::Application.configure do
 
   if ENV['REDISCLOUD_URL']
     config.action_controller.perform_caching = true
-    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
+    config.cache_store = :redis_store, ENV['REDISCLOUD_URL']
   else
     config.action_controller.perform_caching = false
   end
@@ -74,7 +74,7 @@ EmpiricalGrammar::Application.configure do
   config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.hosts << ENV.fetch("NGROK_HOST") if ENV.fetch("NGROK_HOST", false)
+  config.hosts << ENV.fetch('NGROK_HOST') if ENV.fetch('NGROK_HOST', false)
 
   BetterErrors.editor = ENV['BETTER_ERRORS_EDITOR'] if defined?(BetterErrors) && ENV['BETTER_ERRORS_EDITOR']
 end
