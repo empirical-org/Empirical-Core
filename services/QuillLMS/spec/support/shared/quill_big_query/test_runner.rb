@@ -4,6 +4,12 @@ module QuillBigQuery
   class TestRunner
     attr_reader :cte_records
 
+    # This is used as part of a hack-y approach to mirroring some very specific
+    # Airbyte parsing behavior
+    MODEL_ATTRIBUTE_CUSTOM_CONVERSION = {
+      "ClassroomUnit.assigned_student_ids" => ->(v) { "'#{v.to_json}'" }
+    }
+
     def initialize(cte_records)
       @cte_records = cte_records
     end
@@ -56,6 +62,8 @@ module QuillBigQuery
 
       if value.nil?
         "NULL"
+      elsif MODEL_ATTRIBUTE_CUSTOM_CONVERSION.fetch("#{record.class.name}.#{attr}", nil)
+        MODEL_ATTRIBUTE_CUSTOM_CONVERSION.fetch("#{record.class.name}.#{attr}").call(value)
       elsif value.is_a?(Array)
         "ARRAY#{value.map { |v| attr_type_value(attr_type, v) }}"
       # This condition is intended to handle cases where we've used a rails enum in the model, but want to make sure to treat it as an INT in the database

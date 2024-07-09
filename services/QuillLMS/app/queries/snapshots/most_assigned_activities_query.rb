@@ -15,7 +15,7 @@ module Snapshots
 
     def from_and_join_clauses
       super + <<-SQL
-        JOIN (SELECT created_at, classroom_id, unit_id, ARRAY_LENGTH(assigned_student_ids) AS assigned_student_count FROM lms.classroom_units) AS classroom_units
+        JOIN (SELECT created_at, classroom_id, unit_id, ARRAY_LENGTH(JSON_VALUE_ARRAY(assigned_student_ids)) AS assigned_student_count FROM lms.classroom_units) AS classroom_units
           ON classrooms.id = classroom_units.classroom_id
         JOIN lms.unit_activities
           ON classroom_units.unit_id = unit_activities.unit_id
