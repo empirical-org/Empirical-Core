@@ -57,17 +57,18 @@ export default class StudentOveriewTable extends React.Component {
     const { userIsPremium } = this.state;
     const { studentId } = this.props
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
+    const activityNameHeaderWidth = 660
     return ([
       {
         Header: 'Activity',
         accessor: 'name',
         resizable: false,
-        maxWidth: 660,
+        maxWidth: activityNameHeaderWidth,
         Cell: ({ row }) => {
           const { original } = row
           const { id, name, classroom_unit_id, completed_at } = original
           const link = completed_at ? `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${classroom_unit_id}/user/${studentId}/a/${row.activity_id}` : null
-          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: 660 })
+          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: activityNameHeaderWidth })
         },
       }, {
         Header: 'Date Completed',

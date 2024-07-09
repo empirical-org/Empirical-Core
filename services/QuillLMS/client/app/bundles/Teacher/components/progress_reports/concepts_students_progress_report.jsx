@@ -55,17 +55,18 @@ export default class ConceptsStudentsProgressReport extends React.Component {
     const { userIsPremium, } = this.state
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
     const cellClassName = `row-link-disguise ${blurIfNotPremium}`
+    const nameHeaderWidth = 360
     return ([
       {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
         sortType: sortTableByLastName,
-        maxWidth: 360,
+        maxWidth: nameHeaderWidth,
         Cell: ({ row }) => {
           const { original } = row
           const { id, name, concepts_href } = original
-          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link: concepts_href, headerWidth: 360 })
+          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link: concepts_href, headerWidth: nameHeaderWidth })
         },
       }, {
         Header: 'Questions',

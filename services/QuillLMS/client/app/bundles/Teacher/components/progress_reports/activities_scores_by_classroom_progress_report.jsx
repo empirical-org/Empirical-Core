@@ -53,6 +53,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   }
 
   columns() {
+    const studentHeaderWidth = 360
     return ([
       {
         Header: 'Student',
@@ -63,9 +64,9 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
           const { original } = row
           const { id, name } = original
           const link = `/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`
-          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: 360 })
+          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: studentHeaderWidth })
         },
-        maxWidth: 360,
+        maxWidth: studentHeaderWidth,
       }, {
         Header: "Activities completed",
         accessor: 'activity_count',

@@ -58,6 +58,7 @@ export default class IndividualStandardsReport extends React.Component {
   columns() {
     const { userIsPremium } = this.state;
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
+    const nameHeaderWidth = 360
     return ([
       {
         Header: 'Student',
@@ -67,9 +68,9 @@ export default class IndividualStandardsReport extends React.Component {
         Cell: ({ row }) => {
           const { original } = row
           const { id, name, student_standards_href } = original
-          return renderTooltipRow({ color: 'grey', icon: accountGreyIcon, id, label: name, link: student_standards_href, headerWidth: 200 })
+          return renderTooltipRow({ color: 'grey', icon: accountGreyIcon, id, label: name, link: student_standards_href, headerWidth: nameHeaderWidth })
         },
-        minWidth: 360
+        minWidth: nameHeaderWidth
       }, {
         Header: 'Activities',
         accessor: 'total_activity_count',
@@ -82,7 +83,7 @@ export default class IndividualStandardsReport extends React.Component {
         maxWidth: 210,
         Cell: ({ row }) => <span className={blurIfNotPremium}>{getTimeSpent(row.original['timespent'])}</span>
       }, {
-        Header: 'Avgerage score',
+        Header: 'Average score',
         accessor: 'average_score',
         resizable: false,
         maxWidth: 210,

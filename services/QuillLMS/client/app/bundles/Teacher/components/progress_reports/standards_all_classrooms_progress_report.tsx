@@ -85,7 +85,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   columns() {
     const { userIsPremium } = this.state;
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
-
+    const standardNameHeaderWidth = 500
     return ([
       {
         Header: 'Standard level',
@@ -103,11 +103,11 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         accessor: 'standard_name',
         sortType: sortTableByStandardLevel,
         resizable: false,
-        minWidth: 500,
+        minWidth: standardNameHeaderWidth,
         Cell: ({ row }) => {
           const { original } = row
           const { id, name, link } = original
-          return renderTooltipRow({ id, label: name, link, headerWidth: 500 })
+          return renderTooltipRow({ id, label: name, link, headerWidth: standardNameHeaderWidth })
         }
       }, {
         Header: "Students",
