@@ -330,6 +330,10 @@ class Activity < ApplicationRecord
     end
   end
 
+  def questions
+    uids = data["questions"].map{|q| q["key"]}
+    Question.where(uid: uids)
+  end
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
