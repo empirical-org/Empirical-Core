@@ -7,7 +7,7 @@ namespace :translate do
     count = hints.count
     hints.each_with_index do |hint, index|
       puts "translating #{index + 1}/#{count}..."
-      OpenAI::TranslateWorker.perform_async(hint.id, 'Hint')
+      OpenAI::TranslateWorker.perform_async(hint.id, hint.class.name)
     end
 
   end
