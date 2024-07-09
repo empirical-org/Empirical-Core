@@ -11,15 +11,13 @@ module OpenAI
     def perform(translatable_id, translatable_type)
       case translatable_type
       when 'Activity'
-        translatable = Activity.find(translatable_id)
+        translatable = Activity.find_by(id: translatable_id)
       when 'Question'
-        translatable = Question.find(translatable_id)
+        translatable = Question.find_by(id: translatable_id)
       when 'ConceptFeedback'
-        translatable = ConceptFeedback.find(translatable_id)
+        translatable = ConceptFeedback.find_by(id: translatable_id)
       end
       translatable&.translate!
-    rescue ActiveRecord::RecordNotFound
-      Rails.logger.debug "record not found"
     end
   end
 end

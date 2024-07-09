@@ -9,9 +9,10 @@ module OpenAI
     sidekiq_options queue: SidekiqQueue::LOW
 
     def perform(activity_id)
-      activity = Activity.find(activity_id)
+      activity = Activity.find_by(id: activity_id)
+      return unless activity.present?
+
       TranslateActivityAndQuestions.run(activity)
-    rescue ActiveRecord::RecordNotFound
     end
   end
 end
