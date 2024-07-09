@@ -17,9 +17,15 @@
       border: 1px solid $quill-green-20;
       width: min-content;
       max-width: 100%;
+      &:focus {
+        outline-offset: 3px;
+      }
+      &:not(.grey):hover {
+        background-color: $quill-green-5;
+      }
       &.grey {
         background-color: $quill-grey-1;
-        border: 1px solid $quill-grey-20;
+        border: 1px solid $quill-grey-15;
         p {
           color: $quill-grey-90;
         }
@@ -87,7 +93,7 @@
     margin: auto;
 
     .rt-table {
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      border: 1px solid $quill-grey-15;
     }
 
     .pagination-bottom {
@@ -99,7 +105,7 @@
         justify-content: space-between;
         background: #fafafa;
         border-top: none;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 1px solid $quill-grey-15;
         -webkit-box-shadow: none;
                 box-shadow: none;
         padding: 8px;

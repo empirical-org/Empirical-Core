@@ -13,7 +13,7 @@ interface DataTableChipProps {
 export const DataTableChip = ({ color, icon, label, link }: DataTableChipProps) => {
   if(link) {
     return(
-      <a className={`data-table-chip ${color}`} href={link}>
+      <a className={`data-table-chip ${color} focus-on-light`} href={link}>
         {icon && <img alt={icon.alt} src={icon.src} />}
         <p>{label}</p>
       </a>
