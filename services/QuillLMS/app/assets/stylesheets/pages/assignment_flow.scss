@@ -130,6 +130,27 @@
     }
   }
   .diagnostic-page {
+    .disabled-diagnostic-banner {
+      max-width: 600px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      background-color: $quill-yellow-50;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      color: $quill-black;
+      font-size: 14px;
+      a {
+        margin-left: 8px;
+        font-weight: 700;
+        text-decoration: underline;
+        &:focus {
+          outline-offset: 2px;
+        }
+      }
+    }
     .filter-tabs {
       border-bottom: 1px solid $quill-grey-5;
       max-width: 582px;

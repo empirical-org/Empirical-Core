@@ -255,3 +255,18 @@ export const ACTIVITY_PACK_TYPES = [
     id: 'whole-class'
   },
 ]
+
+export const DISABLED_DIAGNOSTICS = [
+  'Starter Baseline Diagnostic (Pre)',
+  'Starter Growth Diagnostic (Post)',
+  'Intermediate Baseline Diagnostic (Pre)',
+  'Intermediate Growth Diagnostic (Post)',
+  'Advanced Baseline Diagnostic (Pre)',
+  'Advanced Growth Diagnostic (Post)',
+  'ELL Starter Baseline Diagnostic (Pre)',
+  'ELL Starter Growth Diagnostic (Post)',
+  'ELL Intermediate Baseline Diagnostic (Pre)',
+  'ELL Intermediate Growth Diagnostic (Post)',
+  'ELL Advanced Baseline Diagnostic (Pre)',
+  'ELL Advanced Growth Diagnostic (Post)'
+]

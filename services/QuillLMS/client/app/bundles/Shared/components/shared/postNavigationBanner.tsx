@@ -6,8 +6,8 @@ interface BannerProps {
   tagText?: string,
   primaryHeaderText: string,
   secondaryHeaderText?: string,
-  bodyText: string,
-  icon: {
+  bodyText?: string,
+  icon?: {
     alt: string,
     src: string
   },
@@ -30,7 +30,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
           {secondaryHeaderText && <p className="secondary-header">{secondaryHeaderText}</p>}
         </div>}
         <p className="primary-header">{primaryHeaderText}</p>
-        <p className="body">{bodyText}</p>
+        {bodyText && <p className="body">{bodyText}</p>}
         <div className="buttons-container">
           {buttons.map((button, i) => {
             const { onClick, href, standardButtonStyle, text, target } = button
@@ -43,7 +43,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
           })}
         </div>
       </div>
-      <img alt={icon.alt} className="banner-icon" src={icon.src} />
+      {icon && <img alt={icon.alt} className="banner-icon" src={icon.src} />}
     </div>
   )
 }
