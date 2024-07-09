@@ -32,6 +32,8 @@ export const PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID = 195
 export const AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 193
 export const SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
 
+export const DISABLED_DIAGNOSTIC_RECOMMENDATIONS_IDS = [1663, 1668, 1678, 1161, 1568, 1590]
+
 export const starterPreTest = {
   activityId: 1663,
   name: 'Starter Baseline Diagnostic (Pre)',

@@ -202,3 +202,10 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
   )
   return renderToString(table)
 }
+
+export const DisabledDiagnosticsBanner = ({ className }) => (
+  <div className={`disabled-diagnostic-banner ${className}`}>
+    <p>New diagnostics for the 2024-2025 school year are coming August 1st.</p>
+    <a className="focus-on-dark" href="https://www.quill.org/teacher-center/important-update-to-diagnostics" target="_blank" rel='noopener noreferrer'>Learn more</a>
+  </div>
+)

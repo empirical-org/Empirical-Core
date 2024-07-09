@@ -6,6 +6,7 @@ import ScrollToTop from '../../shared/scroll_to_top';
 import * as constants from '../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../assignment_flow_navigation';
 import { PostNavigationBanner } from '../../../../Shared';
+import { DisabledDiagnosticsBanner } from '../../../helpers/unitTemplates';
 
 const ALL = 'All'
 const GENERAL = 'General'
@@ -132,10 +133,7 @@ const AssignADiagnostic = ({ history, assignedPreTests, }) => {
       <ScrollToTop />
       <div className="diagnostic-page container">
         <h1>Which diagnostic covers the skills you want to assess?</h1>
-        <div className="disabled-diagnostic-banner">
-          <p>New diagnostics for the 2024-2025 school year are coming August 1st.</p>
-          <a className="focus-on-dark" href="https://www.quill.org/teacher-center/important-update-to-diagnostics" target="_blank" rel='noopener noreferrer'>Learn more</a>
-        </div>
+        <DisabledDiagnosticsBanner className="assignment-flow"/>
         <section className="filter-tabs">
           <FilterTab activeFilter={filter} filter={ALL} number={16} setFilter={setFilter} />
           <FilterTab activeFilter={filter} filter={GENERAL} number={6} setFilter={setFilter} />
