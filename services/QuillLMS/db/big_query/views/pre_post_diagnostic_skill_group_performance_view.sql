@@ -35,7 +35,7 @@ SELECT
       FROM lms.classroom_units
       JOIN lms.unit_activities ON classroom_units.unit_id = unit_activities.unit_id
       JOIN lms.activities ON unit_activities.activity_id = activities.id
-      CROSS JOIN UNNEST(classroom_units.assigned_student_ids) AS assigned_student_id
+      CROSS JOIN UNNEST(JSON_VALUE_ARRAY(classroom_units.assigned_student_ids)) AS assigned_student_id
       LEFT OUTER JOIN (
         /* This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom */
         SELECT activity_sessions.*
@@ -105,7 +105,7 @@ SELECT
       FROM lms.classroom_units
       JOIN lms.unit_activities ON classroom_units.unit_id = unit_activities.unit_id
       JOIN lms.activities ON unit_activities.activity_id = activities.follow_up_activity_id
-      CROSS JOIN UNNEST(classroom_units.assigned_student_ids) AS assigned_student_id
+      CROSS JOIN UNNEST(JSON_VALUE_ARRAY(classroom_units.assigned_student_ids)) AS assigned_student_id
       LEFT OUTER JOIN (
         /* This sub-select is used to ensure that we only count the most recent completion from a student for a given activity in a given classroom */
         SELECT activity_sessions.*
