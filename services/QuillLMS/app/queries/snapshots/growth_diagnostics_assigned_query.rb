@@ -12,7 +12,7 @@ module Snapshots
     end
 
     def select_clause
-      "SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(assigned_student_ids) AS students_assigned"
+      "SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(JSON_VALUE_ARRAY(assigned_student_ids)) AS students_assigned"
     end
 
     def from_and_join_clauses
