@@ -3,7 +3,7 @@
 class Teachers::UnitActivitiesController < ApplicationController
   respond_to :json
 
-  before_action :authorize!, :except => ["update_multiple_dates"]
+  before_action :authorize!, :except => ['update_multiple_dates']
   before_action :teacher!
   before_action :set_unit_activities, only: [:update, :hide]
   before_action :set_activity_sessions, only: :hide

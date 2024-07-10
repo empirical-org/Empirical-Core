@@ -70,18 +70,18 @@ describe Concept, type: :model do
     subject { Concept.all_with_level }
 
     it 'assigns level 2 to level_2_concept' do
-      cor = subject.find{ |c| c.name == "level_2_concept" }
+      cor = subject.find{ |c| c.name == 'level_2_concept' }
       expect(cor['level']).to eq(2)
     end
 
     it 'assigns level 1 to level_1_concept' do
-      root = subject.find{ |c| c.name == "level_1_concept" }
+      root = subject.find{ |c| c.name == 'level_1_concept' }
       expect(root['level']).to eq(1)
     end
   end
 
-  describe ".find" do
-    it "can find by uid string" do
+  describe '.find' do
+    it 'can find by uid string' do
       uid = 'a2423kahfadf32'
       concept = create(:concept, id: '999', uid: uid)
 
@@ -90,7 +90,7 @@ describe Concept, type: :model do
       expect(result).to eq(concept)
     end
 
-    it "can find by numeric id" do
+    it 'can find by numeric id' do
       id = 999
       concept = create(:concept, id: id, uid: 'a2423kahfadf32')
 

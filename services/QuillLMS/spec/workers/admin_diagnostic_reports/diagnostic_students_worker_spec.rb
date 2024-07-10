@@ -51,7 +51,7 @@ module AdminDiagnosticReports
       }
 
       before do
-        stub_const("AdminDiagnosticReports::DiagnosticStudentsWorker::QUERIES", {
+        stub_const('AdminDiagnosticReports::DiagnosticStudentsWorker::QUERIES', {
           query => query_double
         })
       end
@@ -75,7 +75,7 @@ module AdminDiagnosticReports
         end
       end
 
-      context "params with string keys" do
+      context 'params with string keys' do
         it 'should execute a query for the timeframe' do
           expect(query_double).to receive(:run).with(expected_query_args)
           expect(Rails.cache).to receive(:write)

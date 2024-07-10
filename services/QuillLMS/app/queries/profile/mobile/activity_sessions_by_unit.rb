@@ -86,11 +86,11 @@ class Profile::Mobile::ActivitySessionsByUnit
     grouped_sessions.each do |unit_name, activity_sessions|
       updated_act_seshes = activity_sessions.map do |activity_session|
         {
-          uid: activity_session["uid"],
-          name: activity_session["name"],
-          percentage: activity_session["max_percentage"],
-          classroom_unit_id: activity_session["classroom_unit_id"],
-          activity_classification_id: activity_session["activity_classification_id"]
+          uid: activity_session['uid'],
+          name: activity_session['name'],
+          percentage: activity_session['max_percentage'],
+          classroom_unit_id: activity_session['classroom_unit_id'],
+          activity_classification_id: activity_session['activity_classification_id']
         }
       end
       grouped_sessions[unit_name] = updated_act_seshes
@@ -98,6 +98,6 @@ class Profile::Mobile::ActivitySessionsByUnit
   end
 
   private def group_by_unit(all)
-    all.select{|s| s["unit_name"].present?}.group_by{|s| s["unit_name"]}
+    all.select{|s| s['unit_name'].present?}.group_by{|s| s['unit_name']}
   end
 end

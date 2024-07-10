@@ -22,10 +22,10 @@ describe IpLocationWorker do
     context 'successful API response' do
       let(:response_body) {
         {
-          "country_name" => "country",
-          "region_name" => "region",
-          "city_name" => "city",
-          "postcode" => "110011",
+          'country_name' => 'country',
+          'region_name' => 'region',
+          'city_name' => 'city',
+          'postcode' => '110011',
         }.to_json
       }
 
@@ -37,21 +37,21 @@ describe IpLocationWorker do
       it 'should create the ip location unless the location is in the given blacklist' do
         subject.perform(user.id, ip_address, [])
 
-        expect(IpLocation.last.country).to eq "country"
-        expect(IpLocation.last.state).to eq "region"
-        expect(IpLocation.last.city).to eq "city"
+        expect(IpLocation.last.country).to eq 'country'
+        expect(IpLocation.last.state).to eq 'region'
+        expect(IpLocation.last.city).to eq 'city'
         expect(IpLocation.last.zip).to eq 110011
         expect(IpLocation.last.user).to eq user
       end
 
       it 'should not create the ip location if it is in the given blacklist' do
-        subject.perform(user.id, ip_address, ["110011"])
+        subject.perform(user.id, ip_address, ['110011'])
         expect(IpLocation.count).to eq 0
       end
     end
 
     context 'errored API response' do
-      let(:response_body) { {"error"=>"Invalid API key"}.to_json}
+      let(:response_body) { {'error'=>'Invalid API key'}.to_json}
 
       before do
         stub_request(:get, api_url)

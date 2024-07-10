@@ -26,8 +26,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       second_confidence_level = 0.8523
       average_confidence_level = (((first_confidence_level + second_confidence_level) / 2) * 100).round
 
-      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h1 lorem", metadata: {api: {confidence: first_confidence_level}})
-      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: "f_h2 ipsum", metadata: {api: {confidence: second_confidence_level}})
+      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: 'f_h1 lorem', metadata: {api: {confidence: first_confidence_level}})
+      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: 'f_h2 ipsum', metadata: {api: {confidence: second_confidence_level}})
 
       user1 = create(:user)
       user2 = create(:user)
@@ -82,11 +82,11 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       activity_session = create(:activity_session)
 
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def")
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54.814Z", feedback_session_uid: "ghi")
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54.814Z", feedback_session_uid: "abc")
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: '2021-04-07T19:02:54.814Z', feedback_session_uid: 'def')
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: '2021-05-07T19:02:54.814Z', feedback_session_uid: 'ghi')
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: '2021-06-07T19:02:54.814Z', feedback_session_uid: 'abc')
 
-      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z")
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: '2021-03-06T19:02:54.814Z', end_date: '2021-04-10T19:02:54.814Z')
       expect(sql_result.all.length).to eq 1
       expect(sql_result[0].rule_type).to eq 'autoML'
     end
@@ -109,11 +109,11 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       activity_session = create(:activity_session)
 
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "def", activity_version: 2)
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "ghi", activity_version: 2)
-      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-04-07T19:02:54.814Z", feedback_session_uid: "abc", activity_version: 1)
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: '2021-04-07T19:02:54.814Z', feedback_session_uid: 'def', activity_version: 2)
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: '2021-04-07T19:02:54.814Z', feedback_session_uid: 'ghi', activity_version: 2)
+      create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: '2021-04-07T19:02:54.814Z', feedback_session_uid: 'abc', activity_version: 1)
 
-      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: "2021-03-06T19:02:54.814Z", end_date: "2021-04-10T19:02:54.814Z", activity_version: 2)
+      sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: '2021-03-06T19:02:54.814Z', end_date: '2021-04-10T19:02:54.814Z', activity_version: 2)
       expect(sql_result.all.length).to eq 2
       expect(sql_result.select {|rf| rf['rules_uid'] == so_rule4.uid}.empty?).to be
 
@@ -171,17 +171,17 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       activity_session = create(:activity_session)
 
       f_h1 = create(:feedback_history, rule_uid: so_rule1.uid)
-      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-02-07T19:02:54.814Z")
+      f_h2 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: '2021-02-07T19:02:54.814Z')
       f_h3 = create(:feedback_history, rule_uid: unused_rule.uid)
       f_h4 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, used: false)
-      f_h5 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-03-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
-      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: "2021-05-07T19:02:54.814Z", feedback_session_uid: activity_session.uid)
+      f_h5 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: '2021-03-07T19:02:54.814Z', feedback_session_uid: activity_session.uid)
+      f_h6 = create(:feedback_history, rule_uid: so_rule1.uid, prompt_id: 1, created_at: '2021-05-07T19:02:54.814Z', feedback_session_uid: activity_session.uid)
 
       result = RuleFeedbackHistory.generate_rulewise_report(
         rule_uid: so_rule1.uid,
         prompt_id: 1,
-        start_date: "2021-03-07T19:02:54.814Z",
-        end_date: "2021-04-07T19:02:54.814Z")
+        start_date: '2021-03-07T19:02:54.814Z',
+        end_date: '2021-04-07T19:02:54.814Z')
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid

@@ -31,10 +31,10 @@ module VitallySharedFunctions
   end
 
   private def evidence_finished(entity)
-    activities_finished_query(entity).where("activities.activity_classification_id=?", ActivityClassification.evidence.id)
+    activities_finished_query(entity).where('activities.activity_classification_id=?', ActivityClassification.evidence.id)
   end
 
   private def evidence_completed_in_year_count(entity, school_year_start, school_year_end)
-    evidence_finished(entity).where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+    evidence_finished(entity).where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
   end
 end

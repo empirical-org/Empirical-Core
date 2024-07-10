@@ -7,8 +7,8 @@ class ProgressReports::Standards::NewStudent
   end
 
   def results(filters)
-    @standard_id = filters ? filters["standard_id"] : nil
-    @classroom_id = filters ? filters["classroom_id"] : nil
+    @standard_id = filters ? filters['standard_id'] : nil
+    @classroom_id = filters ? filters['classroom_id'] : nil
 
     ::User
       .select(

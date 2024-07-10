@@ -29,7 +29,7 @@ describe CsvExport, type: :model do
     csv_export.filters = filters
   end
 
-  shared_examples_for "CSV Export Type" do
+  shared_examples_for 'CSV Export Type' do
     it 'is valid' do
       expect(csv_export).to be_valid
     end
@@ -46,41 +46,41 @@ describe CsvExport, type: :model do
 
       it 'should add error to the object' do
         expect(csv_export1.save).to eq false
-        expect(csv_export1.errors.messages.to_h).to include(export_type: ["is not included in the list"])
+        expect(csv_export1.errors.messages.to_h).to include(export_type: ['is not included in the list'])
       end
     end
 
     context 'activity sessions' do
       let(:export_type) { 'activity_sessions' }
 
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: all classrooms' do
       let(:export_type) { 'standards_classrooms' }
 
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: students by classroom' do
       let(:filters) { { classroom_id: classroom_one.id } }
       let(:export_type) { 'standards_classroom_students' }
 
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: standards by classroom' do
       let(:filters) { { classroom_id: classroom_one.id } }
       let(:export_type) { 'standards_classroom_standards' }
 
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: standards by student' do
       let(:filters) { { student_id: student_in_classroom_one.id } }
       let(:export_type) { 'standards_student_standards' }
 
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
 
     context 'standards: students by standard' do
@@ -88,7 +88,7 @@ describe CsvExport, type: :model do
       let(:filters) { { standard_id: standard.id } }
       let(:export_type) { 'standards_standard_students' }
 
-      it_behaves_like "CSV Export Type"
+      it_behaves_like 'CSV Export Type'
     end
   end
 

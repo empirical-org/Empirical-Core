@@ -58,9 +58,9 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
       end
 
       classroom = {
-        "name" => record['classroom_name'],
-        "id" => record['classroom_id'],
-        "diagnostics" => [grouped_record]
+        'name' => record['classroom_name'],
+        'id' => record['classroom_id'],
+        'diagnostics' => [grouped_record]
       }
       classrooms.push(classroom)
     end

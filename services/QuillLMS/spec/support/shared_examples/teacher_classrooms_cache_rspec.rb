@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.shared_examples 'a teacher classrooms cache' do
   let(:user_id) { create(:user).id }
-  let(:data) { { "classrooms" => [] }.to_json }
+  let(:data) { { 'classrooms' => [] }.to_json }
   let(:cache) { described_class }
 
   context 'key is not cached' do

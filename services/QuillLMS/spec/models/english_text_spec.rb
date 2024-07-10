@@ -17,7 +17,7 @@ RSpec.describe EnglishText, type: :model do
     it {should have_many(:translation_mappings) }
   end
 
-  describe "#gengo_translation?(locale:)" do
+  describe '#gengo_translation?(locale:)' do
     subject { english_text.gengo_translation?(locale:) }
 
     let(:english_text) { create(:english_text) }
@@ -36,20 +36,20 @@ RSpec.describe EnglishText, type: :model do
 
       it { is_expected.to be true }
 
-      it "defaults to Translatable::DEFAULT_LOCALE" do
+      it 'defaults to Translatable::DEFAULT_LOCALE' do
         expect(english_text.gengo_translation?).to be true
       end
     end
 
     context 'there is not a translated_text record with that locale' do
-      let(:other_locale) { "jp" }
+      let(:other_locale) { 'jp' }
 
       it { is_expected.to be false }
     end
   end
 
 
-  describe "#translated?(locale:)" do
+  describe '#translated?(locale:)' do
     subject { english_text.translated?(locale:) }
 
     let(:english_text) { create(:english_text) }
@@ -68,13 +68,13 @@ RSpec.describe EnglishText, type: :model do
 
       it { is_expected.to be true }
 
-      it "defaults to Translatable::DEFAULT_LOCALE" do
+      it 'defaults to Translatable::DEFAULT_LOCALE' do
         expect(english_text.translated?).to be true
       end
     end
 
     context 'there is not a translated_text record with that locale' do
-      let(:other_locale) { "jp" }
+      let(:other_locale) { 'jp' }
 
       it { is_expected.to be false }
     end

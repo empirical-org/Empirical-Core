@@ -14,11 +14,11 @@ describe Cms::StandardCategoriesController do
     it 'returns a json hash with all the standard_categories and change logs' do
       get :index
       parsed_response = JSON.parse(response.body)
-      standard_results = parsed_response["standard_categories"]
-      change_log_results = parsed_response["change_logs"]
+      standard_results = parsed_response['standard_categories']
+      change_log_results = parsed_response['change_logs']
       standard_categories.each do |t|
-        expect(standard_results.find { |tr| tr["id"] == t.id }).to be
-        expect(change_log_results.find { |cl| cl["id"] == t.change_logs[0].id}).to be
+        expect(standard_results.find { |tr| tr['id'] == t.id }).to be
+        expect(change_log_results.find { |cl| cl['id'] == t.change_logs[0].id}).to be
       end
     end
   end
@@ -38,7 +38,7 @@ describe Cms::StandardCategoriesController do
           ]
         } }
       parsed_response = JSON.parse(response.body)
-      id = parsed_response["standard_category"]["id"]
+      id = parsed_response['standard_category']['id']
       expect(id).to be
       expect(StandardCategory.find_by_id(id)).to be
       expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'StandardCategory', action: 'Created')).to be

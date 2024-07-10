@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Cms::ActivitySerializer do
   it_behaves_like 'serializer' do
     let(:record_instance) { create(:activity) }
-    let(:result_key) { "activity" }
+    let(:result_key) { 'activity' }
 
     let(:expected_serialized_keys) do
       %w{

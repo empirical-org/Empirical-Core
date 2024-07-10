@@ -42,10 +42,10 @@ describe FakeController, type: :controller do
 
     context 'Accept: application/json' do
       it 'should return JSON, status 401' do
-        request.accept = "application/json"
+        request.accept = 'application/json'
         get :example_action
         expect(response.status).to eq 401
-        expect(JSON.parse(response.body)).to eq({ "redirect" => "/session/new" })
+        expect(JSON.parse(response.body)).to eq({ 'redirect' => '/session/new' })
       end
     end
 

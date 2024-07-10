@@ -10,7 +10,7 @@ class Cms::RostersController < Cms::CmsController
   # rubocop:disable Metrics/CyclomaticComplexity
   def upload_teachers_and_students
     school = School.find_by(id: params[:school_id])
-    raise "School not found. Check that the ID is correct and try again." if school.blank?
+    raise 'School not found. Check that the ID is correct and try again.' if school.blank?
 
     ActiveRecord::Base.transaction do
       params[:teachers]&.each do |t|
@@ -39,7 +39,7 @@ class Cms::RostersController < Cms::CmsController
         student ||= User.create!(name: s[:name], email: student_email, password: password, password_confirmation: password, role: 'student')
 
         teacher = User.find_by(email: teacher_email)
-        classroom = Classroom.joins(:classrooms_teachers).where("classrooms_teachers.user_id = ?", teacher.id).where(name: s[:classroom]).first
+        classroom = Classroom.joins(:classrooms_teachers).where('classrooms_teachers.user_id = ?', teacher.id).where(name: s[:classroom]).first
 
         if !classroom
           classroom = Classroom.create!(name: s[:classroom])

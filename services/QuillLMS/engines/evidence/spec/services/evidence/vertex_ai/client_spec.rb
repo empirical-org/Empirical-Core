@@ -13,7 +13,7 @@ module Evidence
 
       before do
         stub_const("VERTEX_AI_CREDENTIALS_#{project.upcase}", credentials)
-        stub_const("ClientSubclass", Class.new(described_class))
+        stub_const('ClientSubclass', Class.new(described_class))
       end
 
       describe '.credentials' do

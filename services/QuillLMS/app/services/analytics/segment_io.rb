@@ -67,25 +67,25 @@ module Analytics
       STAFF_CREATED_DISTRICT_ADMIN_ACCOUNT = 'Quill team member created a district admin account'
       STAFF_MADE_EXISTING_USER_DISTRICT_ADMIN = 'Quill team member made an existing user district admin'
       # teacher requested admin upgrade from existing admins
-      ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER = "Admin received request from teacher to become admin"
-      TEACHER_REQUESTED_TO_BECOME_ADMIN = "Teacher requested to become admin"
-      TEACHER_APPROVED_TO_BECOME_ADMIN = "Teacher’s request to become admin approved"
-      TEACHER_DENIED_TO_BECOME_ADMIN = "Teacher’s request to become admin denied"
+      ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER = 'Admin received request from teacher to become admin'
+      TEACHER_REQUESTED_TO_BECOME_ADMIN = 'Teacher requested to become admin'
+      TEACHER_APPROVED_TO_BECOME_ADMIN = 'Teacher’s request to become admin approved'
+      TEACHER_DENIED_TO_BECOME_ADMIN = 'Teacher’s request to become admin denied'
       # new user requested admin upgrade from existing admins
-      ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_NEW_USER = "Admin received request from new user to become admin"
-      NEW_USER_REQUESTED_TO_BECOME_ADMIN = "New user requested to become admin"
+      ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_NEW_USER = 'Admin received request from new user to become admin'
+      NEW_USER_REQUESTED_TO_BECOME_ADMIN = 'New user requested to become admin'
       NEW_USER_APPROVED_TO_BECOME_ADMIN = "New user's request to become admin approved"
       NEW_USER_DENIED_TO_BECOME_ADMIN = "New user's request to become admin denied"
       # teacher invited admin
-      ADMIN_INVITED_BY_TEACHER = "Admin invited by teacher"
-      TEACHER_INVITED_ADMIN = "Teacher invited admin"
+      ADMIN_INVITED_BY_TEACHER = 'Admin invited by teacher'
+      TEACHER_INVITED_ADMIN = 'Teacher invited admin'
       # Google user has password added
-      GOOGLE_STUDENT_SET_PASSWORD = "Google user set a password | student"
-      GOOGLE_TEACHER_SET_PASSWORD = "Google user set a password | teacher"
+      GOOGLE_STUDENT_SET_PASSWORD = 'Google user set a password | student'
+      GOOGLE_TEACHER_SET_PASSWORD = 'Google user set a password | teacher'
     end
 
     module Properties
-      STAFF_USER = "The Quill Team"
+      STAFF_USER = 'The Quill Team'
     end
 
     module Events

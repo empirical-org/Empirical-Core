@@ -42,15 +42,15 @@ module QuillBigQuery
     end
 
     def group_by_clause
-      ""
+      ''
     end
 
     def order_by_clause
-      ""
+      ''
     end
 
     def limit_clause
-      ""
+      ''
     end
   end
 end

@@ -14,10 +14,10 @@ describe NewRelicAttributable, type: :controller do
   let(:user) { create(:user) }
 
   before do
-    routes.draw { get :index, to: "anonymous#index" }
+    routes.draw { get :index, to: 'anonymous#index' }
   end
 
-  context "with current user" do
+  context 'with current user' do
     it 'should pass user_id to NewRelic' do
       allow(controller).to receive(:current_user) { user }
       expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({user_id: user.id})
@@ -26,7 +26,7 @@ describe NewRelicAttributable, type: :controller do
     end
   end
 
-  context "without current user" do
+  context 'without current user' do
     it 'should pass nil user_id to NewRelic' do
       allow(controller).to receive(:current_user) { nil }
       expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({user_id: nil})

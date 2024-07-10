@@ -81,7 +81,7 @@ module GoogleIntegration
       end
     end
 
-    context "teacher owns another classroom with other_name" do
+    context 'teacher owns another classroom with other_name' do
       let(:other_name) { 'other google_classroom classroom' }
       let(:classroom1) { create(:classroom, :from_google, :with_no_teacher, name: other_name) }
 
@@ -105,7 +105,7 @@ module GoogleIntegration
           end
         end
 
-        it "stops naming duplicates at max and then starts using random values" do
+        it 'stops naming duplicates at max and then starts using random values' do
           expect(subject.name).not_to eq "#{other_name}_11"
           expect(subject.name.starts_with?(other_name)).to be true
         end

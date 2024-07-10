@@ -20,9 +20,9 @@ describe Cms::ActivityCategoriesController, type: :controller do
     it 'should give all the categories' do
       get :index
       category1_attributes = category1.attributes
-      category1_attributes["activity_ids"] = []
+      category1_attributes['activity_ids'] = []
       category2_attributes = category2.attributes
-      category2_attributes["activity_ids"] = []
+      category2_attributes['activity_ids'] = []
       expect(assigns(:activity_categories)).to include(category1_attributes, category2_attributes)
     end
 
@@ -34,8 +34,8 @@ describe Cms::ActivityCategoriesController, type: :controller do
 
       get :index
 
-      expect(assigns(:activity_categories)[0]["activity_ids"]).to include(unarchived_activity.id)
-      expect(assigns(:activity_categories)[0]["activity_ids"]).not_to include(archived_activity.id)
+      expect(assigns(:activity_categories)[0]['activity_ids']).to include(unarchived_activity.id)
+      expect(assigns(:activity_categories)[0]['activity_ids']).not_to include(archived_activity.id)
     end
   end
 
@@ -115,8 +115,8 @@ describe Cms::ActivityCategoriesController, type: :controller do
 
   describe '#create' do
     it 'should create the activity category with the params' do
-      post :create, params: { activity_category: { name: "test", order_number: 2 } }
-      expect(ActivityCategory.last.name).to eq "test"
+      post :create, params: { activity_category: { name: 'test', order_number: 2 } }
+      expect(ActivityCategory.last.name).to eq 'test'
       expect(ActivityCategory.last.order_number).to eq 2
     end
   end

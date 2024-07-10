@@ -22,8 +22,8 @@ FactoryBot.define do
     add_attribute(:start) { 1.day.ago }
     add_attribute(:end) { 1.day.from_now }
 
-    link { "https://www.not-a-url.com/" }
-    text { "Test text with no meaning." }
+    link { 'https://www.not-a-url.com/' }
+    text { 'Test text with no meaning.' }
 
     trait :expired do
       add_attribute(:start) { 2.days.ago }

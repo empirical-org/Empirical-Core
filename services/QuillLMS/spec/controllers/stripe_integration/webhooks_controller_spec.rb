@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::WebhooksController, type: :controller do
-  include_context "Stripe Invoice Paid Event"
+  include_context 'Stripe Invoice Paid Event'
 
   let(:stub_construct_event) { allow(Stripe::Webhook).to receive(:construct_event) }
   let(:handle_event_worker) { StripeIntegration::Webhooks::HandleEventWorker }
@@ -41,7 +41,7 @@ RSpec.describe StripeIntegration::WebhooksController, type: :controller do
 
       before { stub_construct_event.and_raise(error) }
 
-      it "handles the JSON format error and reports to new relic" do
+      it 'handles the JSON format error and reports to new relic' do
         expect(handle_event_worker).not_to receive(:perform_async)
         expect(ErrorNotifier).to receive(:report).with(error)
         post :create

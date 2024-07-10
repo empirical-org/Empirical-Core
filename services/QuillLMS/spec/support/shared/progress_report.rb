@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples_for "Progress Report" do
+shared_examples_for 'Progress Report' do
 
   let(:default_filters) { {} }
 
@@ -63,7 +63,7 @@ shared_examples_for "Progress Report" do
   end
 end
 
-shared_examples_for "filtering progress reports by Unit" do
+shared_examples_for 'filtering progress reports by Unit' do
   let(:filters) { { unit_id: filter_value, xhr: true } }
 
   describe 'GET #index JSON' do
@@ -73,12 +73,12 @@ shared_examples_for "filtering progress reports by Unit" do
 
     let(:json) { JSON.parse(response.body) }
 
-    it "can filter the progress report by unit" do
+    it 'can filter the progress report by unit' do
       subject
       expect(json[result_key].size).to eq(expected_result_count)
     end
 
-    it "renders a list of units for display" do
+    it 'renders a list of units for display' do
       subject
       expect(json['units']).to respond_to(:size)
       expect(json['units'].size).to be > 0
@@ -86,7 +86,7 @@ shared_examples_for "filtering progress reports by Unit" do
   end
 end
 
-shared_examples_for "exporting to CSV" do
+shared_examples_for 'exporting to CSV' do
   before do
     login
     subject
@@ -96,7 +96,7 @@ shared_examples_for "exporting to CSV" do
 
   let(:json) { JSON.parse(response.body) }
 
-  it "includes the teacher data in the JSON response" do
+  it 'includes the teacher data in the JSON response' do
     expect(json).to have_key('teacher')
     expect(json['teacher']['email']).to be_present
   end

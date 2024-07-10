@@ -13,8 +13,8 @@ module VitallyTeacherStats
 
   def active_students_query(user)
     @active_students ||= ActivitySession.unscoped.select(:user_id).distinct
-    .joins("JOIN classroom_units on classroom_units.id = activity_sessions.classroom_unit_id")
-    .joins("JOIN classrooms_teachers on classrooms_teachers.classroom_id=classroom_units.classroom_id")
+    .joins('JOIN classroom_units on classroom_units.id = activity_sessions.classroom_unit_id')
+    .joins('JOIN classrooms_teachers on classrooms_teachers.classroom_id=classroom_units.classroom_id')
     .where(state: 'finished')
     .where('classrooms_teachers.user_id = ?', user.id)
   end
@@ -29,10 +29,10 @@ module VitallyTeacherStats
 
   def activities_finished_query(user)
     @activities_finished ||= ClassroomsTeacher.where(user_id: user.id)
-    .joins("JOIN classrooms ON classrooms.id=classrooms_teachers.classroom_id")
-    .joins("JOIN classroom_units ON classroom_units.classroom_id = classrooms.id")
-    .joins("JOIN activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id")
-    .joins("JOIN activities ON activities.id=activity_sessions.activity_id")
+    .joins('JOIN classrooms ON classrooms.id=classrooms_teachers.classroom_id')
+    .joins('JOIN classroom_units ON classroom_units.classroom_id = classrooms.id')
+    .joins('JOIN activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id')
+    .joins('JOIN activities ON activities.id=activity_sessions.activity_id')
     .where("activity_sessions.state='finished'")
   end
 
@@ -46,7 +46,7 @@ module VitallyTeacherStats
   end
 
   def diagnostics_finished(user)
-    activities_finished_query(user).where("activities.activity_classification_id=?", diagnostic_id)
+    activities_finished_query(user).where('activities.activity_classification_id=?', diagnostic_id)
   end
 
   def diagnostic_id

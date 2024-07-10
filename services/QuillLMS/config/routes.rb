@@ -7,10 +7,10 @@ require 'staff_constraint'
 EmpiricalGrammar::Application.routes.draw do
 
   if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+    mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
   end
 
-  post "/graphql", to: "graphql#execute"
+  post '/graphql', to: 'graphql#execute'
 
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
 
@@ -18,8 +18,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
-  get '/study', to: "students#index"
-  get '/classes', to: "students#index"
+  get '/study', to: 'students#index'
+  get '/classes', to: 'students#index'
 
   get '/school_for_current_user', to: 'schools_users#school_for_current_user'
 
@@ -47,7 +47,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
 
-  get '/sitemap.xml', to: redirect("https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml")
+  get '/sitemap.xml', to: redirect('https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml')
 
   # this blog post needs to be redirected
   get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
@@ -354,12 +354,12 @@ EmpiricalGrammar::Application.routes.draw do
 
       namespace :standards do
         resources :classrooms, only: [:index] do
-          resources :students, controller: "classroom_students", only: [:index] do
-            resources :standards, controller: "student_standards", only: [:index]
+          resources :students, controller: 'classroom_students', only: [:index] do
+            resources :standards, controller: 'student_standards', only: [:index]
           end
 
-          resources :standards, controller: "classroom_standards", only: [:index] do
-            resources :students, controller: "standard_students", only: [:index]
+          resources :standards, controller: 'classroom_standards', only: [:index] do
+            resources :students, controller: 'standard_students', only: [:index]
           end
         end
       end
@@ -373,13 +373,13 @@ EmpiricalGrammar::Application.routes.draw do
         get :archived, action: 'index', as: :archived
         get :classrooms_i_teach
         get :regenerate_code
-        get :archived_classroom_manager_data, controller: "classroom_manager", action: 'archived_classroom_manager_data'
-        get :manage_archived_classrooms, controller: "classroom_manager", action: 'manage_archived_classrooms'
-        get :lesson_planner, controller: "classroom_manager", action: 'lesson_planner', path: 'activity_planner'
+        get :archived_classroom_manager_data, controller: 'classroom_manager', action: 'archived_classroom_manager_data'
+        get :manage_archived_classrooms, controller: 'classroom_manager', action: 'manage_archived_classrooms'
+        get :lesson_planner, controller: 'classroom_manager', action: 'lesson_planner', path: 'activity_planner'
         get 'lesson_planner', to: redirect { |params, request|
           "#{Rails.application.routes.url_helpers.lesson_planner_teachers_classrooms_path}?#{request.params.to_query}"
         }
-        post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
+        post :lesson_planner, controller: 'classroom_manager', action: 'lesson_planner'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
@@ -551,7 +551,7 @@ EmpiricalGrammar::Application.routes.draw do
         post 'bulk_update', on: :collection
       end
 
-      mount Evidence::Engine => "/evidence", as: :evidence
+      mount Evidence::Engine => '/evidence', as: :evidence
     end
   end
 
@@ -843,8 +843,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   tutorials = %w(lessons)
   tutorials.each do |tool|
-    get "tutorials/#{tool}" => "pages#tutorials"
-    get "tutorials/#{tool}/:slide_number" => "pages#tutorials"
+    get "tutorials/#{tool}" => 'pages#tutorials'
+    get "tutorials/#{tool}/:slide_number" => 'pages#tutorials'
   end
 
   get 'premium/request-school-quote' => 'pages#request_school_quote'
@@ -883,7 +883,7 @@ EmpiricalGrammar::Application.routes.draw do
   post 'teacher_fix/recalculate_staggered_release_locks' => 'teacher_fix#recalculate_staggered_release_locks'
 
   get 'activities/section/:section_id', to: redirect('activities/standard_level/%{section_id}')
-  get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: "activities_section"
+  get 'activities/standard_level/:standard_level_id' => 'pages#activities', as: 'activities_section'
   get 'activities/packs' => 'teachers/unit_templates#index'
   get 'activities/packs/diagnostic', to: redirect('/tools/diagnostic')
   get 'activities/packs/:id' => 'teachers/unit_templates#index'
@@ -925,7 +925,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'amplify' => 'integrations#amplify'
   get 'amplify/all' => 'integrations#amplify_all'
   get 'amplify/section/:section_id', to: redirect('amplify/standard_level/%{section_id}')
-  get 'amplify/standard_level/:standard_level_id' => 'integrations#amplify_all', as: "amplify_browse_section"
+  get 'amplify/standard_level/:standard_level_id' => 'integrations#amplify_all', as: 'amplify_browse_section'
 
 
   # Count route to get quantities
@@ -972,10 +972,10 @@ EmpiricalGrammar::Application.routes.draw do
   root to: 'pages#home'
 
   # http://stackoverflow.com/questions/26130130/what-are-the-routes-i-need-to-set-up-to-preview-emails-using-rails-4-1-actionmai
-  get '/lib/mailer_previews' => "rails/mailers#index"
-  get '/lib/mailer_previews/*path' => "rails/mailers#preview"
+  get '/lib/mailer_previews' => 'rails/mailers#index'
+  get '/lib/mailer_previews/*path' => 'rails/mailers#preview'
 
-  get "/donate" => redirect("/about")
+  get '/donate' => redirect('/about')
   # catch-all 404
   get '*path', to: 'application#routing_error'
 end

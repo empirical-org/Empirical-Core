@@ -45,8 +45,8 @@ describe Cms::BlogPostsController, type: :controller do
     let!(:bpost) { create(:blog_post) }
 
     it 'should update the given blog post' do
-      post :update, params: { id: bpost.id, blog_post: { title: "new test title" } }
-      expect(bpost.reload.title).to eq "new test title"
+      post :update, params: { id: bpost.id, blog_post: { title: 'new test title' } }
+      expect(bpost.reload.title).to eq 'new test title'
     end
   end
 
@@ -65,7 +65,7 @@ describe Cms::BlogPostsController, type: :controller do
     it 'should make draft true in the given blog post' do
       get :unpublish, params: { id: bpost.id }
       expect(bpost.reload.draft).to eq true
-      expect(flash[:success]).to eq "Blog post successfully set to draft."
+      expect(flash[:success]).to eq 'Blog post successfully set to draft.'
       expect(response).to redirect_to cms_blog_posts_path
     end
   end

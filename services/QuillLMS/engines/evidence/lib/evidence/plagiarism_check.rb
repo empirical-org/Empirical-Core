@@ -26,8 +26,8 @@ module Evidence
         feedback_type: Rule::TYPE_PLAGIARISM,
         optimal: optimal?,
         entry: @entry,
-        concept_uid: optimal? ? optimal_rule_hash["concept_uid"] : @rule&.concept_uid,
-        rule_uid: optimal? ? optimal_rule_hash["uid"] : @rule&.uid,
+        concept_uid: optimal? ? optimal_rule_hash['concept_uid'] : @rule&.concept_uid,
+        rule_uid: optimal? ? optimal_rule_hash['uid'] : @rule&.uid,
         hint: optimal? ? nil : @rule&.hint,
         highlight: highlights
       }
@@ -82,13 +82,13 @@ module Evidence
     end
 
     private def matched_slice
-      return "" if !minimum_overlap?
+      return '' if !minimum_overlap?
 
       @matched_slice ||= match_entry_on_passage
     end
 
     private def matched_slice_passage
-      return "" if !minimum_overlap?
+      return '' if !minimum_overlap?
 
       @matched_slice_passage ||= match_passage_on_entry
     end

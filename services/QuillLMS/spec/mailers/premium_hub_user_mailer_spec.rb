@@ -21,7 +21,7 @@ describe PremiumHubUserMailer, type: :mailer do
       expect(mail.subject).to eq("[Action Required] #{user.first_name}, a Quill account was created for you")
       expect(reminder_mail.subject).to eq("🔔 Reminder: #{user.first_name}, a Quill account was created for you")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
       expect(body_contains_expected_content).to eq(true)
     end
   end
@@ -53,7 +53,7 @@ describe PremiumHubUserMailer, type: :mailer do
       expect(mail.subject).to eq("[Action Required] #{user.first_name}, a Quill school admin account was created for you")
       expect(reminder_mail.subject).to eq("🔔 Reminder: #{user.first_name}, a Quill school admin account was created for you")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
       expect(body_contains_expected_content).to eq(true)
     end
   end
@@ -81,7 +81,7 @@ describe PremiumHubUserMailer, type: :mailer do
       body_contains_expected_content = mail.body.include?("Do you teach at the school #{school.name}? This school now has Quill Premium, and an admin, #{admin_user.name}, has requested an upgrade on your behalf.")
       expect(mail.subject).to eq("[Action Required] #{user.first_name}, please link your Quill account to #{school.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
       expect(body_contains_expected_content).to eq(true)
     end
   end
@@ -96,7 +96,7 @@ describe PremiumHubUserMailer, type: :mailer do
       body_contains_expected_content = mail.body.include?("You were made a Quill admin for #{school.name} by #{admin_user.name}")
       expect(mail.subject).to eq("#{user.first_name}, you are now a Quill admin for #{school.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
       expect(body_contains_expected_content).to eq(true)
     end
   end
@@ -111,7 +111,7 @@ describe PremiumHubUserMailer, type: :mailer do
       body_contains_expected_content = mail.body.include?("You were made a Quill admin for #{school.name} by #{admin_user.name}")
       expect(mail.subject).to eq("#{user.first_name}, you are now a Quill admin for #{school.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
       expect(body_contains_expected_content).to eq(true)
     end
   end
@@ -127,7 +127,7 @@ describe PremiumHubUserMailer, type: :mailer do
       body_contains_expected_content = mail.body.include?("Your account is currently linked to #{existing_school.name}. If you’d prefer to link it to #{new_school.name} instead, you can do so by clicking the link below.")
       expect(mail.subject).to eq("#{user.first_name}, you are now a Quill admin for #{new_school.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
       expect(body_contains_expected_content).to eq(true)
     end
   end

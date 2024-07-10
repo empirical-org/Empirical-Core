@@ -13,7 +13,7 @@ module SegmentIntegration
           first_name: first_name,
           last_name: last_name,
           email: email,
-          flags: flags&.join(", "),
+          flags: flags&.join(', '),
           flagset: flagset,
           minimum_grade_level: teacher_info&.minimum_grade_level,
           maximum_grade_level: teacher_info&.maximum_grade_level,

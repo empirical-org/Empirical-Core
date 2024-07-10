@@ -44,8 +44,8 @@ describe PublicProgressReports, type: :model do
     it 'populates directions and last feedback' do
       activity_session_two = create(:activity_session_without_concept_results, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student)
 
-      last_feedback = "This is the last feedback the student received."
-      directions = "Combine the sentences."
+      last_feedback = 'This is the last feedback the student received.'
+      directions = 'Combine the sentences.'
       cr_directions = create(:concept_result_directions, text: directions)
       cr_prompt = create(:concept_result_prompt, text: 'prompt')
       cr_previous_feedback = create(:concept_result_previous_feedback, text: last_feedback)
@@ -62,13 +62,13 @@ describe PublicProgressReports, type: :model do
 
     it 'populates feedback for an evidence activity' do
       activity_session_two = create(:activity_session_without_concept_results, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student)
-      prompt = create(:evidence_prompt, text: "prompt text", conjunction: "but")
-      feedback = "This is the current feedback the student is receiving."
-      evidence_child_activity = create(:evidence_activity, parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: "test activity", notes: "note")
+      prompt = create(:evidence_prompt, text: 'prompt text', conjunction: 'but')
+      feedback = 'This is the current feedback the student is receiving.'
+      evidence_child_activity = create(:evidence_activity, parent_activity_id: activity.id, prompts: [prompt], target_level: 1, title: 'test activity', notes: 'note')
       feedback_history = create(:feedback_history, feedback_session_uid: activity_session_two.uid, attempt: 2, prompt: prompt, feedback_text: feedback)
 
-      last_feedback = "This is the last feedback the student received."
-      directions = "Combine the sentences."
+      last_feedback = 'This is the last feedback the student received.'
+      directions = 'Combine the sentences.'
       cr_directions = create(:concept_result_directions, text: directions)
       cr_prompt = create(:concept_result_prompt, text: prompt.text)
       cr_previous_feedback = create(:concept_result_previous_feedback, text: last_feedback)
@@ -84,7 +84,7 @@ describe PublicProgressReports, type: :model do
       expect(concept_results[1][:feedback]).to eq(feedback)
     end
 
-    describe "completed activities" do
+    describe 'completed activities' do
       before do
         unit_activity = UnitActivity.where(activity: activity, unit: classroom_unit.unit).first
         create(:classroom_unit_activity_state, completed: true, classroom_unit: classroom_unit, unit_activity: unit_activity)
@@ -148,7 +148,7 @@ describe PublicProgressReports, type: :model do
 
   end
 
-  describe "#classrooms_with_students_for_report" do
+  describe '#classrooms_with_students_for_report' do
     let!(:teacher) { create(:teacher) }
     let!(:unit) { create(:unit, user: teacher) }
     let!(:classroom1) { create(:classroom_with_a_couple_students) }
@@ -158,8 +158,8 @@ describe PublicProgressReports, type: :model do
     let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom1, unit: unit)}
     let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit)}
 
-    context "no students have completed the activity" do
-      describe "it is a diagnostic activity" do
+    context 'no students have completed the activity' do
+      describe 'it is a diagnostic activity' do
         let(:instance) { FakeReports.new }
         let!(:diagnostic) { create(:diagnostic) }
         let!(:diagnostic_activity) { create(:diagnostic_activity) }
@@ -167,7 +167,7 @@ describe PublicProgressReports, type: :model do
 
         before { allow(instance).to receive(:current_user).and_return(teacher) }
 
-        it "should return an array of classrooms that have been assigned the activity" do
+        it 'should return an array of classrooms that have been assigned the activity' do
           instance.session = { user_id: teacher.id }
           classrooms = instance.classrooms_with_students_for_report(unit.id, diagnostic_activity.id)
 
@@ -185,7 +185,7 @@ describe PublicProgressReports, type: :model do
     end
   end
 
-  describe "#generate_recommendations_for_classroom" do
+  describe '#generate_recommendations_for_classroom' do
     let!(:unit_template1) { create(:unit_template) }
     let!(:unit1) { create(:unit, unit_template_id: unit_template1.id) }
     let!(:unit2) { create(:unit, unit_template_id: unit_template1.id) }

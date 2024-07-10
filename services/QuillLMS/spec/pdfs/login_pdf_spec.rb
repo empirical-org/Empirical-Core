@@ -24,11 +24,11 @@ describe LoginPdf do
     end
 
     it 'tells google students to log in with google' do
-      expect(@text_analysis.strings).to include("N/A (Log in with Google)")
+      expect(@text_analysis.strings).to include('N/A (Log in with Google)')
     end
 
     it 'displays the right steps for google students' do
-      expect(@text_analysis.strings).to include("Login with Google")
+      expect(@text_analysis.strings).to include('Login with Google')
     end
 
     it 'lists clever students by email' do
@@ -36,11 +36,11 @@ describe LoginPdf do
     end
 
     it 'tells clever students to log in with clever' do
-      expect(@text_analysis.strings).to include("N/A (Log in with Clever)")
+      expect(@text_analysis.strings).to include('N/A (Log in with Clever)')
     end
 
     it 'displays the right steps for cleverstudents' do
-      expect(@text_analysis.strings).to include("Login with Clever")
+      expect(@text_analysis.strings).to include('Login with Clever')
     end
 
     it 'lists regular students by username' do

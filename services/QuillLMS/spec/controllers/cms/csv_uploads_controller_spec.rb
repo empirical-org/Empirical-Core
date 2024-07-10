@@ -18,7 +18,7 @@ describe Cms::CsvUploadsController do
 
       json = JSON.parse(response.body)
 
-      expect(json).to eq({"filename" => filename})
+      expect(json).to eq({'filename' => filename})
     end
   end
 end

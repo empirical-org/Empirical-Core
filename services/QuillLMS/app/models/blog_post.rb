@@ -37,20 +37,20 @@
 #  tsv_idx                         (tsv) USING gin
 #
 class BlogPost < ApplicationRecord
-  GETTING_STARTED = "Getting started"
-  TEACHER_STORIES = "Teacher stories"
-  WRITING_INSTRUCTION_RESEARCH = "Writing instruction research"
-  PRESS_RELEASES = "Press releases"
-  IN_THE_NEWS = "In the news"
-  CASE_STUDIES = "Case studies"
-  TEACHER_MATERIALS = "Teacher materials"
-  BEST_PRACTICES = "Best practices"
-  SUPPORT = "Support"
-  WEBINARS = "Webinars"
-  TWITTER_LOVE = "Twitter love"
-  VIDEO_TUTORIALS = "Video tutorials"
+  GETTING_STARTED = 'Getting started'
+  TEACHER_STORIES = 'Teacher stories'
+  WRITING_INSTRUCTION_RESEARCH = 'Writing instruction research'
+  PRESS_RELEASES = 'Press releases'
+  IN_THE_NEWS = 'In the news'
+  CASE_STUDIES = 'Case studies'
+  TEACHER_MATERIALS = 'Teacher materials'
+  BEST_PRACTICES = 'Best practices'
+  SUPPORT = 'Support'
+  WEBINARS = 'Webinars'
+  TWITTER_LOVE = 'Twitter love'
+  VIDEO_TUTORIALS = 'Video tutorials'
   WHATS_NEW = "What's new?"
-  WRITING_FOR_LEARNING = "Writing for learning"
+  WRITING_FOR_LEARNING = 'Writing for learning'
 
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'

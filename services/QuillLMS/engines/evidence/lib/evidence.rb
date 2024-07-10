@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "evidence/engine"
+require 'evidence/engine'
 require 'net/http'
 
 module Evidence

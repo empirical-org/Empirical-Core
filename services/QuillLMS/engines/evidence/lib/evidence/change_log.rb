@@ -20,14 +20,14 @@ module Evidence
     included do
       attr_accessor :lms_user_id
 
-      has_many :change_logs, as: :changed_record, class_name: "::ChangeLog"
+      has_many :change_logs, as: :changed_record, class_name: '::ChangeLog'
       after_create :log_creation
       after_update :log_update
     end
 
     def log_creation
       if attributes.key?('text')
-        log_change(@lms_user_id, :create, self, "text", nil, text)
+        log_change(@lms_user_id, :create, self, 'text', nil, text)
       else
         log_change(@lms_user_id, :create, self, nil, nil, nil)
       end
@@ -38,11 +38,11 @@ module Evidence
       return unless id_before_last_save
 
       if !attributes.key?('text')
-        saved_changes.except("updated_at".to_sym).each do |key, value|
+        saved_changes.except('updated_at'.to_sym).each do |key, value|
           log_change(@lms_user_id, :update, self, key, value[0], value[1])
         end
       elsif saved_change_to_text?
-        log_change(@lms_user_id, :update, self, "text", text_before_last_save, text)
+        log_change(@lms_user_id, :update, self, 'text', text_before_last_save, text)
       end
     end
 

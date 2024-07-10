@@ -49,14 +49,14 @@ describe TeacherInfo, type: :model, redis: true do
   describe 'minimum_grade_level=' do
     it 'should set the minimum grade level to 0 if it is passed in as K' do
       teacher_info = TeacherInfo.create(minimum_grade_level: 'K')
-      expect(teacher_info.attributes["minimum_grade_level"]).to equal(0)
+      expect(teacher_info.attributes['minimum_grade_level']).to equal(0)
     end
   end
 
   describe 'maximum_grade_level=' do
     it 'should set the maximum grade level to 0 if it is passed in as K' do
       teacher_info = TeacherInfo.create(maximum_grade_level: 'K')
-      expect(teacher_info.attributes["maximum_grade_level"]).to equal(0)
+      expect(teacher_info.attributes['maximum_grade_level']).to equal(0)
     end
   end
 
@@ -118,9 +118,9 @@ describe TeacherInfo, type: :model, redis: true do
   end
 
   describe '#subject_areas_string' do
-    let(:subject1) { create(:subject_area, name: "subject 1")}
-    let(:subject2) { create(:subject_area, name: "subject 2")}
-    let(:subject3) { create(:subject_area, name: "subject 3")}
+    let(:subject1) { create(:subject_area, name: 'subject 1')}
+    let(:subject2) { create(:subject_area, name: 'subject 2')}
+    let(:subject3) { create(:subject_area, name: 'subject 3')}
 
     before do
       create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject1)

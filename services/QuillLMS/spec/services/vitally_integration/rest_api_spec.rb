@@ -17,7 +17,7 @@ describe VitallyIntegration::RestApi do
       expect(HTTParty).to receive(:post).with("#{described_class::BASE_URL}/#{type}",
         headers: {
           Authorization: "Basic #{api_key}",
-          "Content-Type": "application/json"
+          "Content-Type": 'application/json'
         },
         body: payload.to_json
       )
@@ -31,7 +31,7 @@ describe VitallyIntegration::RestApi do
       expect(HTTParty).to receive(:get).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
-          "Content-Type": "application/json"
+          "Content-Type": 'application/json'
         }
       )
       api.get(type, id)
@@ -61,7 +61,7 @@ describe VitallyIntegration::RestApi do
       expect(HTTParty).to receive(:get).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
-          "Content-Type": "application/json"
+          "Content-Type": 'application/json'
         }
       ).and_return(httparty_double)
       api.exists?(type, id)
@@ -89,7 +89,7 @@ describe VitallyIntegration::RestApi do
       expect(HTTParty).to receive(:put).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",
-          "Content-Type": "application/json"
+          "Content-Type": 'application/json'
         },
         body: payload.to_json
       )

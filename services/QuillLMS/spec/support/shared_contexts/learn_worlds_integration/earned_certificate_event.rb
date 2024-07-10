@@ -5,11 +5,11 @@ RSpec.shared_context 'LearnWorlds Earned Certificate Event' do
 
   let(:earned_certificate_event) do
     {
-      "version" => 2,
-      "type" => "awardedCertificate",
-      "trigger" => "certificate_awarded",
-      "school_id" => "60004a6de11ac0798538ccc2",
-      "data" => earned_certificate_event_data
+      'version' => 2,
+      'type' => 'awardedCertificate',
+      'trigger' => 'certificate_awarded',
+      'school_id' => '60004a6de11ac0798538ccc2',
+      'data' => earned_certificate_event_data
     }
   end
 end

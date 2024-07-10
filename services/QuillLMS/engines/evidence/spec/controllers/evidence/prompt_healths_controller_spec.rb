@@ -26,9 +26,9 @@ module Evidence
           expect(response.status).to eq(200)
           expect(parsed_response.class).to eq(Array)
           expect(parsed_response.empty?).to(eq(false))
-          expect(parsed_response.first["text"]).to(eq(prompt_health.text))
-          expect(parsed_response.first["current_version"]).to(eq(prompt_health.current_version))
-          expect(parsed_response.first["confidence"]).to(eq(prompt_health.confidence))
+          expect(parsed_response.first['text']).to(eq(prompt_health.text))
+          expect(parsed_response.first['current_version']).to(eq(prompt_health.current_version))
+          expect(parsed_response.first['confidence']).to(eq(prompt_health.confidence))
         end
       end
     end

@@ -12,14 +12,14 @@ describe AccountsController, type: :controller do
   it { should use_before_action :set_user_by_token }
 
   describe '#new' do
-    before { session[:role] = "something" }
+    before { session[:role] = 'something' }
 
     it 'should kick off the background job, set the session values and variables' do
-      get :new, params: { redirect: "www.test.com" }
+      get :new, params: { redirect: 'www.test.com' }
       expect(session[:role]).to eq 'something'
-      expect(session[:post_sign_up_redirect]).to eq "www.test.com"
+      expect(session[:post_sign_up_redirect]).to eq 'www.test.com'
       expect(assigns(:teacher_from_google_signup)).to eq false
-      expect(assigns(:js_file)).to eq "session"
+      expect(assigns(:js_file)).to eq 'session'
     end
   end
 
@@ -39,7 +39,7 @@ describe AccountsController, type: :controller do
 
     context 'when role is not student or teacher' do
       it 'should not set the role in session' do
-        post :role, params: { role: "not student or teacher" }
+        post :role, params: { role: 'not student or teacher' }
         expect(session[:role]).to eq nil
       end
     end
@@ -60,12 +60,12 @@ describe AccountsController, type: :controller do
 
         it 'should kick off the account creation callback' do
           expect(callbacks).to receive(:call)
-          post :create, params: { user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" } }
+          post :create, params: { user: { classcode: 'code', email: 'test@test.com', password: 'test123', role: 'student' } }
         end
 
         context 'when user is a teacher and affliate tag present' do
           context 'when referrer user id found' do
-            let!(:referrer) { ReferrerUser.create(referral_code: "some code", user: user) }
+            let!(:referrer) { ReferrerUser.create(referral_code: 'some code', user: user) }
 
             before do
               allow(user).to receive(:teacher?) { true }
@@ -73,8 +73,8 @@ describe AccountsController, type: :controller do
             end
 
             it 'should create the referralsuser' do
-              post :create, params: { user: { email: "test@test.com", password: "test123", role: "teacher" } }
-              new_user = User.find_by_email("test@test.com")
+              post :create, params: { user: { email: 'test@test.com', password: 'test123', role: 'teacher' } }
+              new_user = User.find_by_email('test@test.com')
               expect(ReferralsUser.find_by_user_id(user.id).present?).to eq true
               expect(ReferralsUser.find_by_referred_user_id(new_user.id).present?).to eq true
             end
@@ -83,13 +83,13 @@ describe AccountsController, type: :controller do
 
         context 'when post sign up redirect present' do
           before do
-            session[:post_sign_up_redirect] = "www.test.com"
+            session[:post_sign_up_redirect] = 'www.test.com'
           end
 
           it 'should render the json' do
-            post :create, params: { user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" } }
+            post :create, params: { user: { classcode: 'code', email: 'test@test.com', password: 'test123', role: 'student' } }
             expect(response.body).to eq({
-              redirect: "www.test.com"
+              redirect: 'www.test.com'
             }.to_json)
             expect(session[:post_sign_up_redirect]).to eq nil
           end
@@ -102,7 +102,7 @@ describe AccountsController, type: :controller do
             end
 
             it 'should render the teachers classroom path json' do
-              post :create, params: { user: { classcode: "code", email: "test@test.com", password: "test123", role: "student" } }
+              post :create, params: { user: { classcode: 'code', email: 'test@test.com', password: 'test123', role: 'student' } }
               expect(response.body).to eq({redirect: teachers_classrooms_path}.to_json)
             end
           end
@@ -112,9 +112,9 @@ describe AccountsController, type: :controller do
 
       context 'when user is not saved' do
         it 'should render the errors json' do
-          post :create, params: { user: { classcode: "code", email: "test", role: "user" } }
+          post :create, params: { user: { classcode: 'code', email: 'test', role: 'user' } }
           expect(response.status).to eq 422
-          expect(response.body).to eq({errors: {email: ["Enter a valid email"]}}.to_json)
+          expect(response.body).to eq({errors: {email: ['Enter a valid email']}}.to_json)
         end
       end
 
@@ -140,7 +140,7 @@ describe AccountsController, type: :controller do
         it 'should render a duplicate email error' do
           post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
           expect(response.status).to eq 422
-          expect(response.body).to eq({errors: {email: ["That email is taken. Try another."]}}.to_json)
+          expect(response.body).to eq({errors: {email: ['That email is taken. Try another.']}}.to_json)
         end
       end
     end

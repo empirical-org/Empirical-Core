@@ -46,7 +46,7 @@ module Evidence
 
         private def body = { predictions:, references: }.to_json
 
-        private def headers = { "Content-Type" => "application/json", "Authorization" => "Bearer #{EVAL_API_KEY}" }
+        private def headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{EVAL_API_KEY}" }
       end
     end
   end

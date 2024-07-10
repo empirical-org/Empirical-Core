@@ -30,7 +30,7 @@ module Teachers
     end
 
     def path
-      "/invite_students"
+      '/invite_students'
     end
 
     def select_class(class_name)

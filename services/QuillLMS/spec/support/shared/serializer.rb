@@ -11,7 +11,7 @@ shared_examples_for 'serializer' do
   let(:nested_array_keys) { [] }
 
   describe '#to_json output' do
-    it "includes a wrapping key" do
+    it 'includes a wrapping key' do
       expect(parsed.keys).to include(result_key)
     end
 

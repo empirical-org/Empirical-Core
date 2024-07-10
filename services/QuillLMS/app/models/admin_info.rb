@@ -36,13 +36,13 @@ class AdminInfo < ApplicationRecord
   ]
 
   SELECTABLE_SUB_ROLES = [
-    INSTRUCTIONAL_COACH = "Instructional coach",
-    DEPARTMENT_HEAD = "Department head",
-    SCHOOL_ADMINISTRATOR = "School administrator",
-    DISTRICT_ADMINISTRATOR = "District administrator",
-    TECH_COORDINATOR = "Tech coordinator",
-    LIBRARIAN_SLASH_MEDIA_SPECIALIST = "Librarian/media specialist",
-    BILLING_CONTACT = "Billing contact"
+    INSTRUCTIONAL_COACH = 'Instructional coach',
+    DEPARTMENT_HEAD = 'Department head',
+    SCHOOL_ADMINISTRATOR = 'School administrator',
+    DISTRICT_ADMINISTRATOR = 'District administrator',
+    TECH_COORDINATOR = 'Tech coordinator',
+    LIBRARIAN_SLASH_MEDIA_SPECIALIST = 'Librarian/media specialist',
+    BILLING_CONTACT = 'Billing contact'
   ]
 
   SUB_ROLES = SELECTABLE_SUB_ROLES + [

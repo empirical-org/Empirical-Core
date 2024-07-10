@@ -15,14 +15,14 @@ describe Cms::AdminVerificationController do
       get :index, format: 'json'
       parsed_response = JSON.parse(response.body)
 
-      pending_results = parsed_response["pending"]
+      pending_results = parsed_response['pending']
       pending_requests.each do |t|
-        expect(pending_results.find { |tr| tr["admin_info_id"] == t.id }).to be
+        expect(pending_results.find { |tr| tr['admin_info_id'] == t.id }).to be
       end
 
-      completed_results = parsed_response["completed"]
+      completed_results = parsed_response['completed']
       completed_requests.each do |t|
-        expect(completed_results.find { |tr| tr["admin_info_id"] == t.id }).to be
+        expect(completed_results.find { |tr| tr['admin_info_id'] == t.id }).to be
       end
     end
 

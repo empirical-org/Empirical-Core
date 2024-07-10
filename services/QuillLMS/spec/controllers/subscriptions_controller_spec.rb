@@ -5,7 +5,7 @@ require 'rails_helper'
 describe SubscriptionsController do
   let!(:user) { create(:teacher, :premium) }
 
-  context "with teacher" do
+  context 'with teacher' do
     before { allow(controller).to receive(:current_user) { user } }
 
     describe '#index' do
@@ -44,7 +44,7 @@ describe SubscriptionsController do
       end
     end
 
-    describe "#purchaser_name" do
+    describe '#purchaser_name' do
       context 'when subscription is not associated with current user' do
         let(:another_user) { create(:user) }
 
@@ -76,19 +76,19 @@ describe SubscriptionsController do
             subscription: {
               purchaser_id: user.id,
               expiration: 10.days.from_now.to_date,
-              account_type: "some_type",
+              account_type: 'some_type',
               recurring: false
             }
           }
-        expect(user.reload.subscriptions.last.account_type).to eq "some_type"
+        expect(user.reload.subscriptions.last.account_type).to eq 'some_type'
         expect(user.reload.subscriptions.last.recurring).to eq false
       end
     end
 
     describe '#update' do
       it 'should update the given subscription' do
-        post :update, params: { id: user.subscriptions.first, subscription: { account_type: "some_type" } }
-        expect(user.reload.subscriptions.first.account_type).to eq "some_type"
+        post :update, params: { id: user.subscriptions.first, subscription: { account_type: 'some_type' } }
+        expect(user.reload.subscriptions.first.account_type).to eq 'some_type'
       end
     end
 
@@ -101,7 +101,7 @@ describe SubscriptionsController do
     end
   end
 
-  context "with school admin" do
+  context 'with school admin' do
     let!(:school1) { create(:school) }
     let!(:school2) { create(:school) }
     let!(:schools_admins1) { create(:schools_admins, school: school1) }
@@ -129,7 +129,7 @@ describe SubscriptionsController do
     end
   end
 
-  context "without user" do
+  context 'without user' do
 
     before { allow(controller).to receive(:current_user) { nil } }
 

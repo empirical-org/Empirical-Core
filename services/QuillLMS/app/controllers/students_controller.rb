@@ -9,11 +9,11 @@ class StudentsController < ApplicationController
   def index
     @current_user = current_user
     @js_file = 'student'
-    classroom_id = params["classroom"]
-    return unless params["joined"] == 'success' && classroom_id
+    classroom_id = params['classroom']
+    return unless params['joined'] == 'success' && classroom_id
 
     classroom = Classroom.find(classroom_id)
-    flash.now["join-class-notification"] = "You have joined #{classroom.name} 🎉🎊"
+    flash.now['join-class-notification'] = "You have joined #{classroom.name} 🎉🎊"
   end
 
   def account_settings
@@ -26,7 +26,7 @@ class StudentsController < ApplicationController
     @user = User.find_by_email 'angie_thomas_demo@quill.org'
     if @user.nil?
       Demo::ReportDemoCreator.create_demo(nil, is_teacher_demo: true)
-      redirect_to "/student_demo"
+      redirect_to '/student_demo'
     else
       sign_in @user
       redirect_to classes_path
@@ -37,7 +37,7 @@ class StudentsController < ApplicationController
     @user = User.find_by_email 'bell_hooks_demo@quill.org'
     if @user.nil?
       Demo::ReportDemoAPCreator.create_demo(nil)
-      redirect_to "/student_demo_ap"
+      redirect_to '/student_demo_ap'
     else
       sign_in @user
       redirect_to classes_path
@@ -101,8 +101,8 @@ class StudentsController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   private def redirect_to_profile
     @current_user = current_user
-    classroom_id = params["classroom"]
-    unit_id = params["unit_id"]
+    classroom_id = params['classroom']
+    unit_id = params['unit_id']
 
     return redirect_to profile_path unless current_user&.student?
 
@@ -117,8 +117,8 @@ class StudentsController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   private def flash_errors
-    unit = Unit.find(params["unit_id"])
-    classroom_id = params["classroom"]
+    unit = Unit.find(params['unit_id'])
+    classroom_id = params['classroom']
 
     if !unit.open
       flash[:error] = t('activity_link.errors.activity_pack_closed')

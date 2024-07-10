@@ -67,7 +67,7 @@ class ClassroomUnitActivityState < ApplicationRecord
         classroom_unit_id: classroom_unit_id,
         unit_activity_id: unit_activity_id
       )
-      errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
+      errors.add(:duplicate_classroom_unit_activity_state, 'this classroom unit activity state is a duplicate')
     else
       true
     end
@@ -86,7 +86,7 @@ class ClassroomUnitActivityState < ApplicationRecord
       pinned_cua = ClassroomUnitActivityState.unscoped.find_by(pinned: true, classroom_unit_id: classroom_unit_ids)
       return if pinned_cua && pinned_cua == self
 
-      pinned_cua.update_column("pinned", false) if pinned_cua
+      pinned_cua.update_column('pinned', false) if pinned_cua
     end
   end
 

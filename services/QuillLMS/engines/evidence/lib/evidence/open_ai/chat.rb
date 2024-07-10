@@ -11,12 +11,12 @@ module Evidence
 
       MODEL = 'gpt-4-turbo'
 
-      KEY_ROLE = "role"
-      KEY_CONTENT = "content"
-      ROLE_SYSTEM = "system"
-      ROLE_USER = "user"
-      ROLE_ASSISTANT = "assistant"
-      RESPONSE_FORMAT = { "type" => "json_object" }
+      KEY_ROLE = 'role'
+      KEY_CONTENT = 'content'
+      ROLE_SYSTEM = 'system'
+      ROLE_USER = 'user'
+      ROLE_ASSISTANT = 'assistant'
+      RESPONSE_FORMAT = { 'type' => 'json_object' }
 
       attr_reader :system_prompt, :entry, :history, :temperature
 

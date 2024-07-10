@@ -22,13 +22,13 @@ describe StandardLevel, type: :model do
 
   context "when it's created/updated" do
 
-    it "must be valid with valid info" do
+    it 'must be valid with valid info' do
       expect(standard_level).to be_valid
     end
 
-    context "when it runs validations" do
+    context 'when it runs validations' do
 
-      it "must have a name" do
+      it 'must have a name' do
         standard_level.name=nil
         standard_level.valid?
         expect(standard_level.errors[:name]).to include "can't be blank"
@@ -48,7 +48,7 @@ describe StandardLevel, type: :model do
     end
 
     context 'when standardLevel is committed' do
-      it "should send clear_activity_search_cache after commit" do
+      it 'should send clear_activity_search_cache after commit' do
         expect(Activity).to receive(:clear_activity_search_cache)
         standard_level.run_callbacks(:commit)
       end

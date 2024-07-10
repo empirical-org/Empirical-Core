@@ -6,4 +6,4 @@
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
 
-Mime::Type.register "application/pdf", :pdf unless Mime::Type.lookup_by_extension :pdf
+Mime::Type.register 'application/pdf', :pdf unless Mime::Type.lookup_by_extension :pdf

@@ -16,7 +16,7 @@ module CleverIntegration::SignUp::SchoolAdmin
       import_schools(user, district.token)
       {type: 'user_success', data: user}
     else
-      {type: 'user_failure', data: "No User Present"}
+      {type: 'user_failure', data: 'No User Present'}
     end
   end
 

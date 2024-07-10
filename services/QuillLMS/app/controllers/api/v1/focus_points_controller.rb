@@ -13,11 +13,11 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def create
     uid = @question.add_focus_point(valid_params)
-    render(json: {uid => @question.data.dig("focusPoints", uid)})
+    render(json: {uid => @question.data.dig('focusPoints', uid)})
   end
 
   def update
-    return not_found unless @question.data.dig("focusPoints", params[:id])
+    return not_found unless @question.data.dig('focusPoints', params[:id])
 
     if @question.set_focus_point(params[:id], valid_params)
       render_focus_point
@@ -50,13 +50,13 @@ class Api::V1::FocusPointsController < Api::ApiController
   end
 
   private def render_focus_point
-    focus_point = @question.data.dig("focusPoints", params[:id])
+    focus_point = @question.data.dig('focusPoints', params[:id])
     return not_found unless focus_point
 
     render(json: focus_point)
   end
 
   private def render_all_focus_points
-    render(json: @question.data["focusPoints"])
+    render(json: @question.data['focusPoints'])
   end
 end

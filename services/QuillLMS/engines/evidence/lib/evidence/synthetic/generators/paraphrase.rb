@@ -12,7 +12,7 @@ module Evidence
         def initialize(string_array, options = {})
           super
 
-          @passage = HTMLTagRemover.run(options[:passage] || "")
+          @passage = HTMLTagRemover.run(options[:passage] || '')
         end
 
         def generate

@@ -42,7 +42,7 @@ module Evidence
       it 'should ensure expires_at is a future date on create' do
         turking_round = build(:evidence_turking_round, :expires_at => 1.month.ago)
         expect(turking_round.valid?).to(eq(false))
-        expect(turking_round.errors[:expires_at].include?("must be in the future")).to(eq(true))
+        expect(turking_round.errors[:expires_at].include?('must be in the future')).to(eq(true))
       end
 
       it 'should allow updates to expires_at to be in the past even though creates should not' do

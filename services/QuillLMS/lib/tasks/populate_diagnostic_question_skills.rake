@@ -3,7 +3,7 @@
 namespace :diagnostic_question_skills do
   desc 'Populate diagnostic question skills table'
   task :populate => :environment do
-    skill_to_question_mapping = CSV.parse(File.read("lib/data/skill_to_question_mapping.csv"), headers: true)
+    skill_to_question_mapping = CSV.parse(File.read('lib/data/skill_to_question_mapping.csv'), headers: true)
 
     ActiveRecord::Base.transaction do
       skill_to_question_mapping.each do |row|

@@ -18,30 +18,30 @@ describe ActivitySearch do
 
     context 'beta flagset input' do
       it 'should get the correct attributes based on the flag given' do
-        expect(described_class.search("beta").first).to eq(
+        expect(described_class.search('beta').first).to eq(
           {
-            "activity_name" => activity.name,
-            "activity_description" => activity.description ,
-            "activity_flag" => "{beta,production}",
-            "activity_id" => activity.id,
-            "activity_maximum_grade_level" => activity.maximum_grade_level,
-            "activity_minimum_grade_level" => activity.minimum_grade_level,
-            "activity_uid" => activity.uid,
-            "activity_category_id" => activity_category.id,
-            "activity_category_name" => activity_category.name,
-            "standard_level_id" => standard_level.id,
-            "standard_level_name" => standard_level.name,
-            "standard_name" => standard.name,
-            "topic_id" => topic.id,
-            "topic_level" => topic.level,
-            "topic_name" => topic.name,
-            "topic_parent_id" => topic.parent_id,
-            "content_partner_description" => content_partner.description,
-            "content_partner_id" => content_partner.id,
-            "content_partner_name" => content_partner.name,
-            "order_number" => activity_category_activity.order_number,
-            "classification_id" => activity_classification.id,
-            "classification_key" => activity_classification.key
+            'activity_name' => activity.name,
+            'activity_description' => activity.description ,
+            'activity_flag' => '{beta,production}',
+            'activity_id' => activity.id,
+            'activity_maximum_grade_level' => activity.maximum_grade_level,
+            'activity_minimum_grade_level' => activity.minimum_grade_level,
+            'activity_uid' => activity.uid,
+            'activity_category_id' => activity_category.id,
+            'activity_category_name' => activity_category.name,
+            'standard_level_id' => standard_level.id,
+            'standard_level_name' => standard_level.name,
+            'standard_name' => standard.name,
+            'topic_id' => topic.id,
+            'topic_level' => topic.level,
+            'topic_name' => topic.name,
+            'topic_parent_id' => topic.parent_id,
+            'content_partner_description' => content_partner.description,
+            'content_partner_id' => content_partner.id,
+            'content_partner_name' => content_partner.name,
+            'order_number' => activity_category_activity.order_number,
+            'classification_id' => activity_classification.id,
+            'classification_key' => activity_classification.key
           }
         )
       end

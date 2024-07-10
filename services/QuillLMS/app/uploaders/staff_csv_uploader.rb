@@ -8,6 +8,6 @@ class StaffCSVUploader < ApplicationUploader
   end
 
   def store_dir
-    "csv"
+    'csv'
   end
 end

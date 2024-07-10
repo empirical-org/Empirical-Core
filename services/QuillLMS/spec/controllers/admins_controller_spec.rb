@@ -16,7 +16,7 @@ describe AdminsController  do
   let!(:schools_admins) { create(:schools_admins, school: school, user: admin) }
 
   describe '#show' do
-    before { allow(UserAdminSerializer).to receive(:new) { "some json" } }
+    before { allow(UserAdminSerializer).to receive(:new) { 'some json' } }
 
     it 'should render the correct json' do
       get :show, params: { id: teacher.id }

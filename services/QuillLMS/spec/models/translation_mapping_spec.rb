@@ -38,7 +38,7 @@ RSpec.describe TranslationMapping, type: :model do
     end
 
     context 'a mapping in the wrong locale' do
-      let(:translated_locale) { "jp" }
+      let(:translated_locale) { 'jp' }
 
       it 'does not return records in the wrong locale' do
         expect(subject).not_to include(mapping_with_translation)
@@ -50,28 +50,28 @@ RSpec.describe TranslationMapping, type: :model do
     it { is_expected.to delegate_method(:text).to(:english_text) }
   end
 
-  describe "#translation(locale:source:)" do
+  describe '#translation(locale:source:)' do
     let(:translation_mapping) { create(:translation_mapping, english_text:)}
     let(:english_text) { create(:english_text)}
-    let(:locale) { "fa" }
+    let(:locale) { 'fa' }
     let(:source_api) { Translatable::GENGO_SOURCE }
 
-    context "there is a translation that does not match the source_api" do
+    context 'there is a translation that does not match the source_api' do
       subject { translation_mapping.translation(locale:, source_api:)}
 
       let!(:translated_text_open_ai_source) { create(:translated_text, english_text:, locale:, source_api: Translatable::OPEN_AI_SOURCE)}
 
-      it "returns that translation" do
+      it 'returns that translation' do
         expect(subject).to eq(translated_text_open_ai_source.translation)
       end
     end
 
     context 'there is a translation' do
-      let!(:translated_text_wrong_locale) { create(:translated_text, english_text:, locale: "jp", source_api:)}
+      let!(:translated_text_wrong_locale) { create(:translated_text, english_text:, locale: 'jp', source_api:)}
       let!(:translated_text_open_ai_source) { create(:translated_text, english_text:, locale:, source_api: Translatable::OPEN_AI_SOURCE)}
       let!(:translated_text_gengo_source) { create(:translated_text, english_text:, locale:, source_api:)}
 
-      context "parameters passed in" do
+      context 'parameters passed in' do
         subject { translation_mapping.translation(locale:, source_api:)}
 
         it "returns the first translated_text record's translation for that locale and source" do
@@ -79,12 +79,12 @@ RSpec.describe TranslationMapping, type: :model do
         end
       end
 
-      context "no parameters passed in" do
+      context 'no parameters passed in' do
         let(:locale) { Translatable::DEFAULT_LOCALE }
 
         subject { translation_mapping.translation }
 
-        it "defaults to open_ai and DEFAULT_LOCALE" do
+        it 'defaults to open_ai and DEFAULT_LOCALE' do
           expect(subject).to eq(translated_text_open_ai_source.translation)
         end
       end
@@ -95,8 +95,8 @@ RSpec.describe TranslationMapping, type: :model do
 
       let(:translation_mapping) { create(:translation_mapping)}
 
-      it "returns an empty string" do
-        expect(subject).to eq("")
+      it 'returns an empty string' do
+        expect(subject).to eq('')
       end
     end
 

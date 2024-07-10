@@ -27,8 +27,8 @@ describe SchoolSubscription, type: :model do
   it { should belong_to(:subscription) }
   it { is_expected.to callback(:update_schools_users).after(:commit) }
 
-  describe "presence of" do
-    it "school_id" do
+  describe 'presence of' do
+    it 'school_id' do
       expect{school_sub.update!(school_id: nil)}.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
@@ -36,7 +36,7 @@ describe SchoolSubscription, type: :model do
   context '#update_schools_users' do
     let(:user) { create(:user) }
     let!(:queens_teacher) { create(:teacher, name: 'queens teacher') }
-    let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385', users: [queens_teacher, user]}
+    let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385', users: [queens_teacher, user]}
 
     let!(:subscription) {create(:subscription, account_type: 'School Paid')}
     let!(:school_sub) {create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
