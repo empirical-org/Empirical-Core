@@ -55,6 +55,20 @@ RSpec.describe Translatable do
           subject
           expect(translatable_object.english_texts.first.text).to eq('Test text to translate')
         end
+
+        context 'a field name is passed in' do
+          subject { translatable_object.create_translation_mappings(field_name:)}
+
+          let(:field_name) { "test_text2" }
+
+          it 'makes a translation_mapping for that particular field name' do
+            translatable_object.data[field_name] = "Exists!"
+            translatable_object.save
+            subject
+            translation_mapping = translatable_object.translation_mappings.last
+            expect(translation_mapping.field_name).to eq(field_name)
+          end
+        end
       end
 
       context 'when a translation mapping already exists' do
@@ -68,6 +82,20 @@ RSpec.describe Translatable do
 
         it 'does not create a new english text' do
           expect { subject }.not_to change(EnglishText, :count)
+        end
+
+        context 'a different field name is passed in' do
+          subject { translatable_object.create_translation_mappings(field_name:)}
+
+          let(:field_name) { "test_text2" }
+
+          it 'makes a translation_mapping for that particular field name' do
+            translatable_object.data[field_name] = "Exists!"
+            translatable_object.save
+            subject
+            translation_mappings = translatable_object.translation_mappings
+            expect(translation_mappings.map(&:field_name)).to include(field_name)
+          end
         end
       end
     end

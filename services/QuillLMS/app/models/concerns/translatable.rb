@@ -26,12 +26,13 @@ module Translatable
     data.merge({"translated#{default_field_name.capitalize}" => translation_text})
   end
 
-  def create_translation_mappings
+  def create_translation_mappings(field_name: nil)
+    field_name ||= default_field_name
     return if translatable_text.nil?
-    return unless translation_mappings.empty?
+    return unless translation_mappings.where(field_name:).empty?
 
     english_text = EnglishText.find_or_create_by(text: translatable_text)
-    translation_mappings.create(english_text: english_text, field_name: default_field_name)
+    translation_mappings.create(english_text:, field_name:)
   end
 
   def translation(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
