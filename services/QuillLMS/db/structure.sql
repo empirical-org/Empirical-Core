@@ -2733,7 +2733,7 @@ CREATE TABLE public.evidence_automl_models (
     notes text DEFAULT ''::text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    project character varying
+    project character varying NOT NULL
 );
 
 
