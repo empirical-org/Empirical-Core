@@ -116,7 +116,7 @@ class Cms::SchoolsController < Cms::CmsController
       user = User.find_by(email: params[:email_address])
       school = School.find(params[:id])
       SchoolsAdmins.create(user_id: user.id, school_id: school.id)
-      flash[:success] = "Yay! It worked! 🎉"
+      flash[:success] = 'Yay! It worked! 🎉'
       redirect_to cms_school_path(params[:id])
     rescue
       flash[:error] = "It didn't work! 😭😭😭"
@@ -132,7 +132,7 @@ class Cms::SchoolsController < Cms::CmsController
       school = School.find_by!(id: params[:id])
       SchoolsUsers.where(user: user).destroy_all
       SchoolsUsers.create!(user_id: user.id, school_id: school.id)
-      flash[:success] = "Yay! It worked! 🎉"
+      flash[:success] = 'Yay! It worked! 🎉'
       redirect_to cms_school_path(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "It didn't work! Make sure the email you typed is correct."
@@ -150,7 +150,7 @@ class Cms::SchoolsController < Cms::CmsController
     begin
       teacher = User.find(params[:teacher_id])
       if teacher.unlink
-        flash[:success] = "Yay! It worked! 🎉"
+        flash[:success] = 'Yay! It worked! 🎉'
       else
         flash[:error] = "It didn't work. See a developer about this issue."
       end
@@ -339,7 +339,7 @@ class Cms::SchoolsController < Cms::CmsController
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
       "ORDER BY #{sort} #{sort_direction}"
     else
-      "ORDER BY number_teachers DESC"
+      'ORDER BY number_teachers DESC'
     end
   end
 

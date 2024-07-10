@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Analytics::Analyzer do
   let(:analyzer) { double(:analyzer, track: true, identify: true) }
-  let(:user) { double(:user, id: "some_id", ip_address: "some_ip") }
+  let(:user) { double(:user, id: 'some_id', ip_address: 'some_ip') }
 
   subject { described_class.new(analyzer) }
 
@@ -13,10 +13,10 @@ describe Analytics::Analyzer do
       expect(analyzer).to receive(:identify).with(user)
       expect(analyzer).to receive(:track).with({
         user_id: user.id,
-        event: "event",
+        event: 'event',
         context: { ip: user.ip_address }
       })
-      subject.track(user, "event")
+      subject.track(user, 'event')
     end
   end
 
@@ -25,10 +25,10 @@ describe Analytics::Analyzer do
       expect(analyzer).to receive(:identify).with(user)
       expect(analyzer).to receive(:track).with({
           user_id: user.id,
-          event: "event",
-          key: "value"
+          event: 'event',
+          key: 'value'
       })
-      subject.track_with_attributes(user, "event", { key: "value" })
+      subject.track_with_attributes(user, 'event', { key: 'value' })
     end
   end
 
@@ -37,12 +37,12 @@ describe Analytics::Analyzer do
       expect(analyzer).to receive(:identify).with(user)
       expect(analyzer).to receive(:track).with({
           user_id: user.id,
-          event: "event",
+          event: 'event',
           context: { ip: user.ip_address }
       })
       expect(analyzer).to receive(:track).with({
           user_id: user.id,
-          event: "another_event",
+          event: 'another_event',
           context: { ip: user.ip_address }
       })
       subject.track_chain(user, %w{event another_event})

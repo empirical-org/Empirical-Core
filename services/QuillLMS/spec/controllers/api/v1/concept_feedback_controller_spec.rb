@@ -5,14 +5,14 @@ require 'rails_helper'
 describe Api::V1::ConceptFeedbackController, type: :controller do
   let!(:concept_feedback) { create(:concept_feedback) }
 
-  describe "#index" do
+  describe '#index' do
 
-    it "should return a list of ConceptFeedbacks" do
+    it 'should return a list of ConceptFeedbacks' do
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
       expect(JSON.parse(response.body).keys.length).to eq(1)
     end
 
-    it "should include the response from the db" do
+    it 'should include the response from the db' do
       get :index, params: { activity_type: concept_feedback.activity_type }, as: :json
       expect(JSON.parse(response.body).keys.first).to eq(concept_feedback.uid)
     end
@@ -29,38 +29,38 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
     end
   end
 
-  describe "#show" do
-    it "should return the specified concept_feedback" do
+  describe '#show' do
+    it 'should return the specified concept_feedback' do
       get :show, params: { activity_type: concept_feedback.activity_type, id: concept_feedback.uid }, as: :json
       expect(JSON.parse(response.body)).to eq(concept_feedback.data)
     end
 
-    it "should return a 404 if the requested ConceptFeedback is not found" do
+    it 'should return a 404 if the requested ConceptFeedback is not found' do
       get :show, params: { activity_type: concept_feedback.activity_type, id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      expect(response.body).to include('The resource you were looking for does not exist')
     end
   end
 
-  describe "#create" do
-    it "should create a new ConceptFeedback record" do
+  describe '#create' do
+    it 'should create a new ConceptFeedback record' do
       uuid = SecureRandom.uuid
-      data = {foo: "bar"}
+      data = {foo: 'bar'}
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = ConceptFeedback.count
       post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: data }, as: :json
       expect(ConceptFeedback.count).to eq(pre_create_count + 1)
     end
 
-    it "should expire the redis cache for concept feedbacks with that activity type" do
+    it 'should expire the redis cache for concept feedbacks with that activity type' do
       expect($redis).to receive(:del).with(concept_feedback.cache_key)
-      post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: {foo: "bar"} }, as: :json
+      post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: {foo: 'bar'} }, as: :json
     end
   end
 
-  describe "#update" do
-    it "should update the existing record" do
-      data = {"foo" => "bar"}
+  describe '#update' do
+    it 'should update the existing record' do
+      data = {'foo' => 'bar'}
       put :update,
         params: {
           activity_type: concept_feedback.activity_type,
@@ -74,7 +74,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
     end
 
     it "should create a new record with the specified UID if one doesn't exit" do
-      data = {"foo" => "bar"}
+      data = {'foo' => 'bar'}
       uid = SecureRandom.uuid
       expect(ConceptFeedback.find_by(uid: uid)).to be_nil
       put :update,
@@ -88,9 +88,9 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       expect(ConceptFeedback.find_by(uid: uid)).to be
     end
 
-    it "should expire the redis cache for concept feedbacks with that activity type" do
+    it 'should expire the redis cache for concept feedbacks with that activity type' do
       expect($redis).to receive(:del).with(concept_feedback.cache_key)
-      data = {"foo" => "bar"}
+      data = {'foo' => 'bar'}
       put :update,
         params: {
           activity_type: concept_feedback.activity_type,

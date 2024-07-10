@@ -2,10 +2,10 @@
 
 module Evidence
   class StringNormalizer < ApplicationService
-    EMDASH = "—" # You may not be able to tell, but this is an emdash
-    ENDASH = "–" # You may not be able to tell, but this is an endash
+    EMDASH = '—' # You may not be able to tell, but this is an emdash
+    ENDASH = '–' # You may not be able to tell, but this is an endash
     HTML_TAG_REGEX = /<("[^"]*"|'[^']*'|[^'">])*>/
-    SPACE = " "
+    SPACE = ' '
 
     attr_reader :input
 
@@ -21,7 +21,7 @@ module Evidence
         .gsub(/[\u02CC\u201A\uFF0C]/, ',')
         .gsub(/\u2013/, ENDASH)
         .gsub(/\u2014/, EMDASH)
-        .gsub(/\u2026/, "...")
+        .gsub(/\u2026/, '...')
     end
   end
 end

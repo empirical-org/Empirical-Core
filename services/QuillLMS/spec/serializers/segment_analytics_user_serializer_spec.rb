@@ -5,7 +5,7 @@ require 'rails_helper'
 describe SegmentAnalyticsUserSerializer do
   it_behaves_like 'serializer' do
     let(:record_instance) { create(:user) }
-    let(:result_key) { "segment_analytics_user" }
+    let(:result_key) { 'segment_analytics_user' }
 
     let(:expected_serialized_keys) do
       %w{

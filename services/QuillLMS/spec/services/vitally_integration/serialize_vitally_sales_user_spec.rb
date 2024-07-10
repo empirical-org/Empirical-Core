@@ -356,7 +356,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       evidence_activities_completed_this_year: 2,
       evidence_activities_completed_all_time: 3,
       completed_evidence_activities_per_student_this_year: 2.0,
-      date_of_last_completed_evidence_activity: (middle_of_school_year - 3.days).strftime("%F")
+      date_of_last_completed_evidence_activity: (middle_of_school_year - 3.days).strftime('%F')
     )
   end
 

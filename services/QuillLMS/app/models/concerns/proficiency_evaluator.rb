@@ -18,9 +18,9 @@ module ProficiencyEvaluator
 
   def self.evaluate(score)
     if score >= proficiency_cutoff
-      "Proficient"
+      'Proficient'
     else
-      "Not yet proficient"
+      'Not yet proficient'
     end
   end
 

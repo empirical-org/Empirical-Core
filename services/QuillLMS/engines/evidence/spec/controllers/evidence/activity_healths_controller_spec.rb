@@ -24,9 +24,9 @@ module Evidence
           expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
           expect(parsed_response.empty?).to(eq(false))
-          expect(parsed_response.first["name"]).to(eq(activity_health.name))
-          expect(parsed_response.first["version"]).to(eq(activity_health.version))
-          expect(parsed_response.first["completion_rate"]).to(eq(activity_health.completion_rate))
+          expect(parsed_response.first['name']).to(eq(activity_health.name))
+          expect(parsed_response.first['version']).to(eq(activity_health.version))
+          expect(parsed_response.first['completion_rate']).to(eq(activity_health.completion_rate))
         end
       end
     end

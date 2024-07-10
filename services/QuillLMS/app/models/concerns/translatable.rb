@@ -3,10 +3,10 @@
 module Translatable
   extend ActiveSupport::Concern
 
-  SPANISH_LOCALE = "es-la"
+  SPANISH_LOCALE = 'es-la'
   DEFAULT_LOCALE = SPANISH_LOCALE
-  GENGO_SOURCE = "gengo"
-  OPEN_AI_SOURCE = "open_ai"
+  GENGO_SOURCE = 'gengo'
+  OPEN_AI_SOURCE = 'open_ai'
   SOURCES = [OPEN_AI_SOURCE, GENGO_SOURCE]
 
   included do
@@ -63,11 +63,11 @@ module Translatable
   end
 
   private def custom_prompt
-    config_yaml["custom_prompt"]
+    config_yaml['custom_prompt']
   end
 
   private def config_filename = "#{self.class.name.underscore}.yml"
-  private def config_file = Rails.root.join("app/models/translation_config", config_filename)
+  private def config_file = Rails.root.join('app/models/translation_config', config_filename)
   private def config_yaml = YAML.load_file(config_file)
 
   private def prompt_start(locale:)
@@ -80,8 +80,8 @@ module Translatable
   end
 
   private def examples
-    examples = config_yaml["examples"]
-    return "" unless examples.present?
+    examples = config_yaml['examples']
+    return '' unless examples.present?
 
     formatted_examples = "Examples: \n"
     examples.each_with_index do |example, index|

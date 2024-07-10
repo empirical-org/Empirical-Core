@@ -21,8 +21,8 @@ class StudentsClassrooms < ApplicationRecord
   include Archivable
   include CheckboxCallback
 
-  belongs_to :student, class_name: "User"
-  belongs_to :classroom, class_name: "Classroom", touch: true
+  belongs_to :student, class_name: 'User'
+  belongs_to :classroom, class_name: 'Classroom', touch: true
 
   # validates uniqueness of student/classroom on db
   after_save :checkbox, :run_associator
@@ -43,7 +43,7 @@ class StudentsClassrooms < ApplicationRecord
     {
       className: classroom.name,
       id: id,
-      joinDate: created_at.strftime("%m/%d/%Y"),
+      joinDate: created_at.strftime('%m/%d/%Y'),
       teacherName: classroom.owner.name
     }
   end

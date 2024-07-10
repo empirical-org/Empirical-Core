@@ -20,7 +20,7 @@ module CanvasIntegration
 
       transient do
         sequence(:id)
-        created_at { Time.zone.now.strftime("%Y-%m-%dT%H:%M:%SZ") }
+        created_at { Time.zone.now.strftime('%Y-%m-%dT%H:%M:%SZ') }
         name { Faker::Name.name }
         email { Faker::Internet.email }
       end

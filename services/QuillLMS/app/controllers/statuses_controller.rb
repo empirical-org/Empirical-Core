@@ -46,7 +46,7 @@ class StatusesController < ApplicationController
   def sidekiq_queue_length
     queues_hash = Sidekiq::Stats.new.queues
     retry_hash = {
-      "retry" => Sidekiq::RetrySet.new.size
+      'retry' => Sidekiq::RetrySet.new.size
     }
     render json: queues_hash.merge(retry_hash)
   end
@@ -65,6 +65,6 @@ class StatusesController < ApplicationController
         }
       }.to_json
     end
-    render plain: "OK", status: resp.status
+    render plain: 'OK', status: resp.status
   end
 end

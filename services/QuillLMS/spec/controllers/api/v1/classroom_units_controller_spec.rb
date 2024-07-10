@@ -86,7 +86,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       session[:user_id] = teacher.id
       get :teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id }, as: :json
       expect(JSON.parse(response.body))
-        .to eq({"teacher"=>teacher.name, "classroom"=>classroom.name})
+        .to eq({'teacher'=>teacher.name, 'classroom'=>classroom.name})
     end
   end
 
@@ -178,7 +178,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
                      "#{classroom_unit.id}/activities/#{activity.follow_up_activity_id}"
 
       expect(JSON.parse(response.body))
-        .to eq({ "follow_up_url" => expected_url })
+        .to eq({ 'follow_up_url' => expected_url })
     end
 
     it 'returns JSON object with link to home if not requested' do
@@ -192,7 +192,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         },
         as: :json
 
-      expect(JSON.parse(response.body)).to eq({"follow_up_url"=> (ENV['DEFAULT_URL']).to_s})
+      expect(JSON.parse(response.body)).to eq({'follow_up_url'=> (ENV['DEFAULT_URL']).to_s})
     end
 
     it 'destroys ActivitySessions with no ConceptResults related to them' do
@@ -202,13 +202,13 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
       concept_result_payload = {
         "concept_id": concept.uid,
-        "question_type": "lessons-slide",
+        "question_type": 'lessons-slide',
         "metadata": {
           "activity_session_uid": activity_sessions.first.uid,
           "correct": 1,
-          "directions": "",
-          "prompt": "<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>",
-          "answer": "It makes causal relationships more obvious.",
+          "directions": '',
+          "prompt": '<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>',
+          "answer": 'It makes causal relationships more obvious.',
           "attemptNumber": 1,
           "questionNumber": 1
         },
@@ -238,13 +238,13 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
       concept_result_payload = {
         "concept_id": concept.uid,
-        "question_type": "lessons-slide",
+        "question_type": 'lessons-slide',
         "metadata": {
           "activity_session_uid": activity_sessions.first.uid,
           "correct": 1,
-          "directions": "",
-          "prompt": "<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>",
-          "answer": "It makes causal relationships more obvious.",
+          "directions": '',
+          "prompt": '<p>What is one reason to use time order joining words in your writing instead of using two shorter sentences?</p>',
+          "answer": 'It makes causal relationships more obvious.',
           "attemptNumber": 1,
           "questionNumber": 1
         },

@@ -7,8 +7,8 @@ class FeedbackHistoryRatingsController < ApplicationController
   def create_or_update
     rating =
       create_or_update_feedback_history_rating(
-        feedback_history_rating_params["feedback_history_id"],
-        feedback_history_rating_params["rating"]
+        feedback_history_rating_params['feedback_history_id'],
+        feedback_history_rating_params['rating']
       )
 
     if rating.valid?
@@ -20,7 +20,7 @@ class FeedbackHistoryRatingsController < ApplicationController
   end
 
   def mass_mark
-    ratings = mass_mark_params[:feedback_history_ids].map { |id| create_or_update_feedback_history_rating(id, mass_mark_params["rating"]) }
+    ratings = mass_mark_params[:feedback_history_ids].map { |id| create_or_update_feedback_history_rating(id, mass_mark_params['rating']) }
 
     if ratings.all? { |r| r.valid? }
       ratings.each { |r| r.save! }

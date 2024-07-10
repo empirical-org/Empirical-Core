@@ -12,14 +12,14 @@ describe Cms::SchoolsController do
   it { should use_before_action :set_school }
   it { should use_before_action :subscription_data }
 
-  describe "SCHOOLS_PER_PAGE" do
+  describe 'SCHOOLS_PER_PAGE' do
     it 'should have the correct value' do
       expect(described_class::SCHOOLS_PER_PAGE).to eq 30.0
     end
   end
 
   describe '#index' do
-    let(:school_hash) { {school_zip: "1234", number_teachers: 23, number_admins: 5, frl: "frl"} }
+    let(:school_hash) { {school_zip: '1234', number_teachers: 23, number_admins: 5, frl: 'frl'} }
 
     before { allow(RawSqlRunner).to receive(:execute) { [school_hash] } }
 
@@ -42,7 +42,7 @@ describe Cms::SchoolsController do
         create(:school_subscription, school: school, subscription: active_sub)
         get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
-        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
     end
 
@@ -51,7 +51,7 @@ describe Cms::SchoolsController do
         school = create(:school)
         get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
-        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
     end
 
@@ -62,7 +62,7 @@ describe Cms::SchoolsController do
         create(:school_subscription, school: school, subscription: expired_sub)
         get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
-        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
     end
 
@@ -73,7 +73,7 @@ describe Cms::SchoolsController do
         create(:school_subscription, school: school, subscription: deactivated_sub)
         get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
-        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]["id"]).to eq(school.id)
+        expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
     end
   end
@@ -83,7 +83,7 @@ describe Cms::SchoolsController do
     let!(:school) { create(:school, district: district) }
 
     it 'should assign the correct values' do
-      allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) { "teacher data" }
+      allow_any_instance_of(Cms::TeacherSearchQuery).to receive(:run) { 'teacher data' }
       get :show, params: { id: school.id }
       expect(assigns(:subscription)).to eq school.subscription
       expect(assigns(:school_subscription_info)).to eq({
@@ -102,7 +102,7 @@ describe Cms::SchoolsController do
        'PPIN' => school.ppin,
        'Clever ID' => school.clever_id
       })
-      expect(assigns(:teacher_data)).to eq "teacher data"
+      expect(assigns(:teacher_data)).to eq 'teacher data'
       expect(assigns(:admins)).to eq(SchoolsAdmins.includes(:user).where(school_id: school.id).map do |admin|
           {
               name: admin.user.name,
@@ -138,8 +138,8 @@ describe Cms::SchoolsController do
     let!(:school) { create(:school) }
 
     it 'should update the given school' do
-      post :update, params: { id: school.id, school: { id: school.id, name: "test name" } }
-      expect(school.reload.name).to eq "test name"
+      post :update, params: { id: school.id, school: { id: school.id, name: 'test name' } }
+      expect(school.reload.name).to eq 'test name'
       expect(response).to redirect_to cms_school_path(school.id)
     end
   end
@@ -147,16 +147,16 @@ describe Cms::SchoolsController do
   describe '#create' do
     it 'should create the school with the given params' do
       post :create, params: { school: {
-          name: "test",
-          city: "test city",
-          state: "test state",
-          zipcode: "11000",
+          name: 'test',
+          city: 'test city',
+          state: 'test state',
+          zipcode: '11000',
           free_lunches: 2
       } }
-      expect(School.last.name).to eq "test"
-      expect(School.last.city).to eq "test city"
-      expect(School.last.state).to eq "test state"
-      expect(School.last.zipcode).to eq "11000"
+      expect(School.last.name).to eq 'test'
+      expect(School.last.city).to eq 'test city'
+      expect(School.last.state).to eq 'test state'
+      expect(School.last.zipcode).to eq '11000'
       expect(School.last.free_lunches).to eq 2
       expect(response).to redirect_to cms_school_path(School.last.id)
     end
@@ -165,12 +165,12 @@ describe Cms::SchoolsController do
       expect do
         2.times do
           post :create, params: { school: {
-              name: "test",
-              city: "test city",
-              state: "test state",
-              zipcode: "11000",
+              name: 'test',
+              city: 'test city',
+              state: 'test state',
+              zipcode: '11000',
               free_lunches: 2,
-              nces_id: "1"
+              nces_id: '1'
           } }
         end
       end.to_not raise_error
@@ -216,7 +216,7 @@ describe Cms::SchoolsController do
 
     it 'should create the schools admin and redirect to cms school path' do
       post :add_admin_by_email, params: { email_address: another_user.email, id: school.id }
-      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(flash[:success]).to eq 'Yay! It worked! 🎉'
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsAdmins.last.user).to eq another_user
       expect(SchoolsAdmins.last.school).to eq school
@@ -233,7 +233,7 @@ describe Cms::SchoolsController do
 
     it 'should create the schools users and redirect to cms school path' do
       post :add_existing_user_by_email, params: { email_address: another_user.email, id: school.id }
-      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(flash[:success]).to eq 'Yay! It worked! 🎉'
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsUsers.last.user).to eq another_user
       expect(SchoolsUsers.last.school).to eq school
@@ -257,7 +257,7 @@ describe Cms::SchoolsController do
     it 'should unlink the user and redirect to cms school path' do
       expect(SchoolsUsers.find_by(user: another_user.id, school: school)).to be
       post :unlink, params: { teacher_id: another_user.id, id: school.id }
-      expect(flash[:success]).to eq "Yay! It worked! 🎉"
+      expect(flash[:success]).to eq 'Yay! It worked! 🎉'
       expect(response).to redirect_to cms_school_path(school.id)
       expect(SchoolsUsers.find_by(user: another_user.id, school: school)).not_to be
       expect(another_user.reload.school).to eq nil

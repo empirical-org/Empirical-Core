@@ -51,13 +51,13 @@ module Evidence
       end
 
       it 'should return nil if the passages include HTML tags but otherwise contain the highlight' do
-        tag_wrapped_words = highlight.text.split.map{ |word| "<b>#{word}</b>" }.join(" ")
+        tag_wrapped_words = highlight.text.split.map{ |word| "<b>#{word}</b>" }.join(' ')
         activity.passages.first.update(text: tag_wrapped_words)
         expect(highlight.invalid_activity_ids).to be_nil
       end
 
       it 'should return nil if the is contained n the passage after HTML tags are stripped from the highlight' do
-        tag_wrapped_words = highlight.text.split.map{ |word| "<b>#{word}</b>" }.join(" ")
+        tag_wrapped_words = highlight.text.split.map{ |word| "<b>#{word}</b>" }.join(' ')
         highlight.update(text: tag_wrapped_words)
         expect(highlight.invalid_activity_ids).to be_nil
       end

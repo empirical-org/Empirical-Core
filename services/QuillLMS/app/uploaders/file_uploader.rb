@@ -2,6 +2,6 @@
 
 class FileUploader < ApplicationUploader
   def store_dir
-    "uploads/files"
+    'uploads/files'
   end
 end

@@ -156,17 +156,17 @@ module Evidence
 
     def change_log_name
       if regex?
-        "Regex Rule"
+        'Regex Rule'
       elsif plagiarism?
-        "Plagiarism Rule"
+        'Plagiarism Rule'
       elsif automl?
-        "Semantic Label"
+        'Semantic Label'
       elsif universal_rule_type?
-        "Universal Rule"
+        'Universal Rule'
       elsif low_confidence?
-        "Low Confidence Rule"
+        'Low Confidence Rule'
       else
-        "Rule"
+        'Rule'
       end
     end
 
@@ -182,7 +182,7 @@ module Evidence
       elsif automl?
         "evidence/#/activities/#{activity_id}/semantic-labels/#{prompt_id}/#{id}"
       else
-        ""
+        ''
       end
     end
 

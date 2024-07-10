@@ -23,7 +23,7 @@ module Evidence
 
         private def feedback_preamble? = text.start_with?('Feedback: ')
 
-        private def json_preamble? = text.start_with?("```json") && text.end_with?("```")
+        private def json_preamble? = text.start_with?('```json') && text.end_with?('```')
 
         private def strip_feedback_preamble = text.sub(/^Feedback: /, '')
 

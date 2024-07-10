@@ -55,7 +55,7 @@ module CanvasIntegration
       transient do
         sequence(:account_id)
         course_code { :College }
-        created_at { Time.zone.now.strftime("%Y-%m-%dT%H:%M:%SZ") }
+        created_at { Time.zone.now.strftime('%Y-%m-%dT%H:%M:%SZ') }
         sequence(:id)
         name { Faker::Educator.subject }
         time_zone { Faker::Address.time_zone }

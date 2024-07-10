@@ -5,7 +5,7 @@ class Demo::RecreateAccountWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW, retry: false
 
-  STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
+  STAFF_DEMO_EMAIL = 'hello+demoteacher+staff@quill.org'
 
   def perform
     Demo::ReportDemoCreator.create_demo(nil, is_teacher_demo: true)

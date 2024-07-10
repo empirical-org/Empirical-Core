@@ -77,8 +77,8 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
     expect(school.latitude).to eq(response_school['latitude'].to_f)
     expect(school.ulocal).to eq(response_school['urban_centric_locale'].to_i)
     expect(school.fte_classroom_teacher).to eq(response_school['teachers_fte'].to_i)
-    expect(school.free_lunches).to eq((response_school["free_or_reduced_price_lunch"].to_i / response_school["enrollment"].to_f * 100).to_i)
-    expect(school.direct_certification).to eq((response_school["direct_certification"].to_i / response_school["enrollment"].to_f * 100).to_i)
+    expect(school.free_lunches).to eq((response_school['free_or_reduced_price_lunch'].to_i / response_school['enrollment'].to_f * 100).to_i)
+    expect(school.direct_certification).to eq((response_school['direct_certification'].to_i / response_school['enrollment'].to_f * 100).to_i)
     expect(school.total_students).to eq(response_school['enrollment'].to_i)
     expect(school.district_id).to eq(district.id)
   end
@@ -113,8 +113,8 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
     expect(school.latitude).to eq(response_school['latitude'].to_f)
     expect(school.ulocal).to eq(response_school['urban_centric_locale'].to_i)
     expect(school.fte_classroom_teacher).to eq(response_school['teachers_fte'].to_i)
-    expect(school.free_lunches).to eq((response_school["free_or_reduced_price_lunch"].to_i / response_school["enrollment"].to_f * 100).to_i)
-    expect(school.direct_certification).to eq((response_school["direct_certification"].to_i / response_school["enrollment"].to_f * 100).to_i)
+    expect(school.free_lunches).to eq((response_school['free_or_reduced_price_lunch'].to_i / response_school['enrollment'].to_f * 100).to_i)
+    expect(school.direct_certification).to eq((response_school['direct_certification'].to_i / response_school['enrollment'].to_f * 100).to_i)
     expect(school.total_students).to eq(response_school['enrollment'].to_i)
     expect(school.district_id).to eq(district.id)
   end

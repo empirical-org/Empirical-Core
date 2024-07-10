@@ -92,7 +92,7 @@ class Scorebook::Query
     return unless unit_id
     return if unit_id.blank?
 
-    ["JOIN units ON cu.unit_id = units.id", "AND units.id = #{ActiveRecord::Base.connection.quote(unit_id)}"]
+    ['JOIN units ON cu.unit_id = units.id', "AND units.id = #{ActiveRecord::Base.connection.quote(unit_id)}"]
   end
 
   def self.sanitize_date(date)

@@ -47,7 +47,7 @@ class AdminReportFilterSelection < ApplicationRecord
       .uniq
       .map { |report| SEGMENT_MAPPING[report] }
       .compact
-      .join(", ")
+      .join(', ')
   end
 
   def aggregation = filter_selections.dig('group_by_value', 'value')

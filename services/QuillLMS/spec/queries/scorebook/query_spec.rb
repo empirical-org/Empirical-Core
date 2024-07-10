@@ -122,7 +122,7 @@ describe 'ScorebookQuery' do
         expect(updated_at).to eq in_user_time
       end
 
-      it "factors in offset to return activities where the teacher is in a different timezone than the database" do
+      it 'factors in offset to return activities where the teacher is in a different timezone than the database' do
         tz = TZInfo::Timezone.get('Australia/Perth')
         offset = tz.period_for_utc(Time.new.utc).utc_total_offset
         new_act_sesh_1_completed_at = activity_session_completed_at_to_time_midnight_minus_offset(activity_session1, offset - 1)

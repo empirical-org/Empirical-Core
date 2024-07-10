@@ -108,7 +108,7 @@ describe GrowthResultsSummary do
                     pre: nil
                   }
                 ],
-                number_of_correct_questions_text: "2 of 2 Questions Correct",
+                number_of_correct_questions_text: '2 of 2 Questions Correct',
                 pre: {
                   number_correct: 1,
                   number_incorrect: 1,
@@ -137,8 +137,8 @@ describe GrowthResultsSummary do
             total_pre_possible_questions_count: 2,
             total_maintained_skill_group_proficiency_count: 0,
             total_possible_questions_count: 2,
-            correct_question_text: "2 of 2 Questions Correct",
-            correct_skill_groups_text: "1 of 1 Skills",
+            correct_question_text: '2 of 2 Questions Correct',
+            correct_skill_groups_text: '1 of 1 Skills',
           },
           {
             name: student2.name
@@ -234,7 +234,7 @@ describe GrowthResultsSummary do
                   summary: GrowthResultsSummary::FULLY_CORRECT
                 },
                 question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
-                number_of_correct_questions_text: "2 of 2 Questions Correct",
+                number_of_correct_questions_text: '2 of 2 Questions Correct',
                 proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
                 pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
                 pre_test_proficiency_score: 0.5,
@@ -252,8 +252,8 @@ describe GrowthResultsSummary do
             total_pre_correct_questions_count: 1,
             total_pre_possible_questions_count: 2,
             total_possible_questions_count: 2,
-            correct_question_text: "2 of 2 Questions Correct",
-            correct_skill_groups_text: "1 of 1 Skills",
+            correct_question_text: '2 of 2 Questions Correct',
+            correct_skill_groups_text: '1 of 1 Skills',
           },
           {
             name: student2.name
@@ -364,7 +364,7 @@ describe GrowthResultsSummary do
             summary: GrowthResultsSummary::FULLY_CORRECT
           },
           question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
-          number_of_correct_questions_text: "2 of 2 Questions Correct",
+          number_of_correct_questions_text: '2 of 2 Questions Correct',
           proficiency_text: GrowthResultsSummary::GAINED_PROFICIENCY,
           pre_test_proficiency: GrowthResultsSummary::PARTIAL_PROFICIENCY,
           pre_test_proficiency_score: 0.5,

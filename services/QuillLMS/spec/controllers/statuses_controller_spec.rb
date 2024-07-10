@@ -52,7 +52,7 @@ describe StatusesController, type: :controller do
     end
   end
 
-  describe "#sidekiq_queue_latency" do
+  describe '#sidekiq_queue_latency' do
     let(:queue_doubles) do
       queue_latency_pairs.map do |name, latency|
         double(name: name, latency: latency)
@@ -102,14 +102,14 @@ describe StatusesController, type: :controller do
     end
   end
 
-  describe "#sidekiq_queue_length" do
+  describe '#sidekiq_queue_length' do
     let(:queues_hash) do
       {
-        "critical" => 0,
-        "critical_external" => 0,
-        "default" => 0,
-        "google" => 0,
-        "low" => 0
+        'critical' => 0,
+        'critical_external' => 0,
+        'default' => 0,
+        'google' => 0,
+        'low' => 0
       }
     end
     let(:retry_size) { 0 }
@@ -139,7 +139,7 @@ describe StatusesController, type: :controller do
       parsed_response = JSON.parse(response.body)
 
       expect(response.status).to eq 200
-      expect(parsed_response["retry"]).to eq(retry_size)
+      expect(parsed_response['retry']).to eq(retry_size)
     end
   end
 end

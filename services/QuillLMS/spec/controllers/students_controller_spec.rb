@@ -18,12 +18,12 @@ RSpec.describe StudentsController do
     it 'should set the current user and js file' do
       get :index
       expect(assigns(:current_user)).to eq user
-      expect(assigns(:js_file)).to eq "student"
+      expect(assigns(:js_file)).to eq 'student'
     end
 
     it 'should find the classroom and set flash' do
-      get :index, params: { joined: "success", classroom: classroom.id }
-      expect(flash["join-class-notification"]).to eq "You have joined #{classroom.name} 🎉🎊"
+      get :index, params: { joined: 'success', classroom: classroom.id }
+      expect(flash['join-class-notification']).to eq "You have joined #{classroom.name} 🎉🎊"
     end
 
     context 'Unit is closed and ClassroomUnit is missing' do
@@ -46,7 +46,7 @@ RSpec.describe StudentsController do
       get :join_classroom, params: { classcode: 'nonsense_doesnt_exist' }
 
       expect(response).to redirect_to '/classes'
-      expect(flash[:error]).to match("Oops! There is no class with the code nonsense_doesnt_exist. Ask your teacher for help.")
+      expect(flash[:error]).to match('Oops! There is no class with the code nonsense_doesnt_exist. Ask your teacher for help.')
     end
 
     it 'should redirect for a valid class_code' do
@@ -61,7 +61,7 @@ RSpec.describe StudentsController do
     it 'should set the current user and js file' do
       get :account_settings
       expect(assigns(:current_user)).to eq user
-      expect(assigns(:js_file)).to eq "student"
+      expect(assigns(:js_file)).to eq 'student'
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe StudentsController do
       it 'should destroy recreate the demo and redirect to student demo' do
         expect(Demo::ReportDemoCreator).to receive(:create_demo).with(nil, is_teacher_demo: true)
         get :student_demo
-        expect(response).to redirect_to "/student_demo"
+        expect(response).to redirect_to '/student_demo'
       end
     end
   end
@@ -100,28 +100,28 @@ RSpec.describe StudentsController do
       it 'should recreate the demo and redirect to student demo' do
         expect(Demo::ReportDemoAPCreator).to receive(:create_demo).with(nil)
         get :demo_ap
-        expect(response).to redirect_to "/student_demo_ap"
+        expect(response).to redirect_to '/student_demo_ap'
       end
     end
   end
 
   describe '#update_account' do
-    let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student", time_zone: 'America/Anchorage') }
-    let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username: "harvey-milk", role: "student") }
+    let!(:user) { create(:user, name: 'Maya Angelou', email: 'maya_angelou_demo@quill.org', username: 'maya-angelou', role: 'student', time_zone: 'America/Anchorage') }
+    let!(:second_user) { create(:user, name: 'Harvey Milk', email: 'harvey@quill.org', username: 'harvey-milk', role: 'student') }
 
     it 'should update the name, email, time_zone, and username' do
-      put :update_account, params: { email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar", time_zone: 'America/New_York' }
-      expect(user.reload.email).to eq "pablo@quill.org"
-      expect(user.reload.username).to eq "pabllo-vittar"
-      expect(user.reload.name).to eq "Pabllo Vittar"
+      put :update_account, params: { email: 'pablo@quill.org', username: 'pabllo-vittar', name: 'Pabllo Vittar', time_zone: 'America/New_York' }
+      expect(user.reload.email).to eq 'pablo@quill.org'
+      expect(user.reload.username).to eq 'pabllo-vittar'
+      expect(user.reload.name).to eq 'Pabllo Vittar'
       expect(user.reload.time_zone).to eq 'America/New_York'
     end
 
     it 'should not update the email or username if already taken' do
-      put :update_account, params: { email: "harvey@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar" }
-      expect(user.reload.errors.messages[:email].first).to eq "That email is taken. Try another."
-      put :update_account, params: { email: "pablo@quill.org", username: "harvey-milk", name: "Pabllo Vittar" }
-      expect(user.reload.errors.messages[:username].first).to eq "That username is taken. Try another."
+      put :update_account, params: { email: 'harvey@quill.org', username: 'pabllo-vittar', name: 'Pabllo Vittar' }
+      expect(user.reload.errors.messages[:email].first).to eq 'That email is taken. Try another.'
+      put :update_account, params: { email: 'pablo@quill.org', username: 'harvey-milk', name: 'Pabllo Vittar' }
+      expect(user.reload.errors.messages[:username].first).to eq 'That username is taken. Try another.'
     end
   end
 end

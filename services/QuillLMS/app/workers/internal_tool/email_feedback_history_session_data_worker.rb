@@ -17,7 +17,7 @@ class InternalTool::EmailFeedbackHistorySessionDataWorker
     )
     results = []
     feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
-    results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
+    results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
     return if !results
 
     csv_file_path = Rails.root.join('public', "feedback_history_#{activity_id}_#{Time.current.to_i}.csv")
@@ -26,14 +26,14 @@ class InternalTool::EmailFeedbackHistorySessionDataWorker
       csv_body << FEEDBACK_HISTORY_CSV_HEADERS
       results.each do |row|
         csv_body << [
-          row["datetime"],
-          row["session_uid"],
-          row["conjunction"],
-          row["attempt"],
-          row["optimal"],
+          row['datetime'],
+          row['session_uid'],
+          row['conjunction'],
+          row['attempt'],
+          row['optimal'],
           row['optimal'] || row['attempt'] == DEFAULT_MAX_ATTEMPTS,
-          row["response"],
-          row["feedback"],
+          row['response'],
+          row['feedback'],
           "#{row['feedback_type']}: #{row['name']}"
         ]
       end

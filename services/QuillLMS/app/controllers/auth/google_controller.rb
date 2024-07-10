@@ -72,11 +72,11 @@ class Auth::GoogleController < ApplicationController
         if user
           session[ApplicationController::GOOGLE_OR_CLEVER_JUST_SET] = true
         else
-          flash[:error] = "This Google account is already associated with another Quill account. Contact support@quill.org for further assistance."
+          flash[:error] = 'This Google account is already associated with another Quill account. Contact support@quill.org for further assistance.'
           flash.keep(:error)
         end
       else
-        flash[:error] = "You are not logged in. Please try again or contact support@quill.org for further assistance."
+        flash[:error] = 'You are not logged in. Please try again or contact support@quill.org for further assistance.'
         flash.keep(:error)
       end
     end

@@ -2,7 +2,7 @@
 
 class IntegrationsController < ApplicationController
   include HTTParty
-  layout "integrations"
+  layout 'integrations'
   before_action :set_root_url
 
   def amplify
@@ -27,8 +27,8 @@ class IntegrationsController < ApplicationController
     @partner_name = action_name
     @session_id = params[:session_id]
     session[:partner_session] = {
-      "partner_name" => @partner_name,
-      "session_id" => @session_id
+      'partner_name' => @partner_name,
+      'session_id' => @session_id
     }
   end
 

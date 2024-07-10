@@ -9,7 +9,7 @@ class Teachers::UnitsController < ApplicationController
 
   def create
     units_with_same_name = current_user.units_with_same_name(params[:unit][:name])
-    includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
+    includes_ell_starter_diagnostic = params[:unit][:activities].include?({'id'=>1161})
 
     if units_with_same_name.any?
       activities_data = unit_params[:activities].map(&:to_h)
@@ -40,7 +40,7 @@ class Teachers::UnitsController < ApplicationController
     if unit_params[:name] && unit_params[:name] === ''
       render json: {errors: { name: 'Unit must have a name'} }, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
-      render json: {errors: { name: "Existing activity packs cannot be updated to share a name with featured activity packs. Please choose a different name."} }, status: 422
+      render json: {errors: { name: 'Existing activity packs cannot be updated to share a name with featured activity packs. Please choose a different name.'} }, status: 422
     elsif Unit.find(params[:id])&.update(unit_params)
       render json: {}
     else
@@ -113,7 +113,7 @@ class Teachers::UnitsController < ApplicationController
     activity_id = params[:activity_id].to_i
     classroom_units = lessons_with_current_user_and_activity
     if classroom_units.length == 1
-      classroom_unit_id = classroom_units.first["id"]
+      classroom_unit_id = classroom_units.first['id']
       redirect_to "/teachers/classroom_units/#{classroom_unit_id}/launch_lesson/#{lesson_uid}"
     else
       redirect_to "/teachers/classrooms/activity_planner/lessons_for_activity/#{activity_id}"
@@ -257,11 +257,11 @@ class Teachers::UnitsController < ApplicationController
     scores, completed = ''
 
     if report
-      completed = lessons ? "HAVING ca.completed" : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
+      completed = lessons ? 'HAVING ca.completed' : "HAVING SUM(CASE WHEN act_sesh.visible = true AND act_sesh.state = 'finished' THEN 1 ELSE 0 END) > 0"
     end
 
     if lessons
-      lessons = "AND activities.activity_classification_id = 6"
+      lessons = 'AND activities.activity_classification_id = 6'
     else
       lessons = ''
     end

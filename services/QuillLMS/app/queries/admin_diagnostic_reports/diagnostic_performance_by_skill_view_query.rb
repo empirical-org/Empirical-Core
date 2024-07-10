@@ -41,7 +41,7 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def rollup_select_columns = "skill_group_name"
+    def rollup_select_columns = 'skill_group_name'
 
     def select_clause
       <<-SQL
@@ -55,7 +55,7 @@ module AdminDiagnosticReports
     end
 
     def relevant_diagnostic_where_clause = "AND performance.activity_id = #{diagnostic_id}"
-    def relevant_date_column = "performance.pre_activity_session_completed_at"
+    def relevant_date_column = 'performance.pre_activity_session_completed_at'
 
     def group_by_clause = "GROUP BY aggregate_id, #{aggregate_sort_clause}, skill_group_name"
 

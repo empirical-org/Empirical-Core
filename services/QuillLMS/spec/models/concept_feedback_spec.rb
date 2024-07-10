@@ -56,8 +56,8 @@ RSpec.describe ConceptFeedback, type: :model do
   end
 
   describe '#as_json' do
-    let(:concept_feedback) { create(:concept_feedback, data: { "description" => "Test description" }) }
-    let(:options) { { source_api: "test_api" } }
+    let(:concept_feedback) { create(:concept_feedback, data: { 'description' => 'Test description' }) }
+    let(:options) { { source_api: 'test_api' } }
 
     it 'delegates to the translated_json method from Translatable concern' do
       expect(concept_feedback).to receive(:translated_json).with(options)
@@ -77,7 +77,7 @@ RSpec.describe ConceptFeedback, type: :model do
 
     context 'after create' do
       it 'calls redis cache delete on concept feedback with activity type' do
-        activity_type = "grammar"
+        activity_type = 'grammar'
         expect($redis).to receive(:del).with("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}")
         ConceptFeedback.create(activity_type: activity_type, data: {test: 'test'}, uid: SecureRandom.uuid)
       end

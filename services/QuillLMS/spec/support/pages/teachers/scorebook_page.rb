@@ -12,7 +12,7 @@ module Teachers
     end
 
     def path
-      "/teachers/classrooms/scorebook"
+      '/teachers/classrooms/scorebook'
     end
 
     def students

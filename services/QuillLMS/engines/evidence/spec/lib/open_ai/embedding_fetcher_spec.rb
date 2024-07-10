@@ -67,7 +67,7 @@ module Evidence
               mean_time = times.reduce(:+) / times.size
               stddev = Math.sqrt(times.map { |time| (time - mean_time)**2 }.reduce(:+) / times.size)
 
-              puts "Benchmarking for Third-Party API: OpenAI GPT-3 Embedding Fetcher"
+              puts 'Benchmarking for Third-Party API: OpenAI GPT-3 Embedding Fetcher'
               puts "\nModel: #{model}, Dimension: #{dimension}, num_iterations: #{num_iterations}"
               puts "Average response time: #{mean_time} seconds"
               puts "Standard deviation: #{stddev} seconds"

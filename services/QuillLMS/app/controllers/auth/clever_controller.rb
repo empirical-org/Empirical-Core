@@ -48,7 +48,7 @@ module Auth
     # rubocop:enable Metrics/CyclomaticComplexity
 
     private def user_success(user, redirect=nil)
-      CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes["id"]
+      CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes['id']
       user.update(ip_address: request.remote_ip)
 
       verify_email_if_necessary(user)
@@ -69,7 +69,7 @@ module Auth
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)
         return redirect_to url
-      elsif current_user.admin? && user.previous_changes["id"]
+      elsif current_user.admin? && user.previous_changes['id']
         return redirect_to '/sign-up/select-sub-role'
       elsif current_user&.is_new_teacher_without_school?
         # then the user does not have a school and needs one
@@ -83,7 +83,7 @@ module Auth
     end
 
     private def user_failure(data, redirect)
-      flash[:notice] = data || "error"
+      flash[:notice] = data || 'error'
       redirect_to redirect || '/clever/no_classroom'
     end
   end

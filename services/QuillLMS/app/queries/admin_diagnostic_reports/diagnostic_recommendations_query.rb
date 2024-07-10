@@ -42,7 +42,7 @@ module AdminDiagnosticReports
 
     def classroom_ids_where_clause = ("AND classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
     def grades_where_clause = ("AND (grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
-    def grades_where_null_clause = ("OR grade IS NULL" if grades.include?('null'))
+    def grades_where_null_clause = ('OR grade IS NULL' if grades.include?('null'))
     def relevant_diagnostic_where_clause = "AND activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
     def school_ids_where_clause = "AND school_id IN (#{school_ids.join(',')})"
     def teacher_ids_where_clause = ("AND teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
@@ -50,7 +50,7 @@ module AdminDiagnosticReports
     def group_by_clause = "GROUP BY activity_id, activity_name, aggregate_id, #{aggregate_sort_clause}"
 
     def relevant_date_column
-      "pre_diagnostic_completed_at"
+      'pre_diagnostic_completed_at'
     end
 
     def recommendation_view = materialized_view('recommendation_count_rollup_view')
@@ -59,17 +59,17 @@ module AdminDiagnosticReports
 
     def aggregate_by_clause
       {
-        'grade' => "grade",
-        'classroom' => "classroom_id",
-        'teacher' => "teacher_id"
+        'grade' => 'grade',
+        'classroom' => 'classroom_id',
+        'teacher' => 'teacher_id'
       }.fetch(additional_aggregation)
     end
 
     def aggregate_sort_clause
       {
-        'grade' => "grade",
-        'classroom' => "classroom_name",
-        'teacher' => "teacher_name"
+        'grade' => 'grade',
+        'classroom' => 'classroom_name',
+        'teacher' => 'teacher_name'
       }.fetch(additional_aggregation)
     end
 

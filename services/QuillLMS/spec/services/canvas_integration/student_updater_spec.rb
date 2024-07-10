@@ -11,13 +11,7 @@ describe CanvasIntegration::StudentUpdater do
   let(:email) { student.email }
   let(:name) { student.name }
 
-  let(:data) do
-    {
-      email: email,
-      name: name,
-      user_external_id: user_external_id
-    }
-  end
+  let(:data) { { email:, name:, user_external_id: } }
 
   context 'student has no email' do
     before { student.update(email: nil) }
@@ -81,7 +75,7 @@ describe CanvasIntegration::StudentUpdater do
   end
 
   context 'new name provided' do
-    let(:name) { Faker::Name.custom_name }
+    let(:name) { 'New Name' }
 
     it { expect { subject }.to change(student, :name).to(name) }
   end

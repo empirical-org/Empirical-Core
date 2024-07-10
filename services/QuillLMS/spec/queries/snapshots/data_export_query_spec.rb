@@ -15,7 +15,7 @@ module Snapshots
         it 'should adjust the completed_at DateTime string for the given timezone' do
           query = DataExportQuery.new(**query_args.merge(user: user))
           transformed_query = query.post_query_transform(stubbed_query_result)
-          expect(transformed_query.first[:completed_at].strftime("%F")).to eq "2019-12-31"
+          expect(transformed_query.first[:completed_at].strftime('%F')).to eq '2019-12-31'
         end
       end
 
@@ -23,7 +23,7 @@ module Snapshots
         it 'should return the untransformed DateTime string' do
           query = DataExportQuery.new(**query_args)
           transformed_query = query.post_query_transform(stubbed_query_result)
-          expect(transformed_query.first[:completed_at].strftime("%F")).to eq "2020-01-01"
+          expect(transformed_query.first[:completed_at].strftime('%F')).to eq '2020-01-01'
         end
       end
     end

@@ -81,7 +81,7 @@ FactoryBot.define do
       classification { ActivityClassification.find_by_key attributes_for(:lesson_classification)[:key] || create(:lesson_classification) }
       activity_classification_id { ActivityClassification.find_by_key(attributes_for(:lesson_classification)[:key])&.id || create(:lesson_classification).id }
       repeatable { false }
-      supporting_info { "https://www.example.com/example.pdf" }
+      supporting_info { 'https://www.example.com/example.pdf' }
 
       trait :with_follow_up do
         follow_up_activity { create(:lesson_activity) }

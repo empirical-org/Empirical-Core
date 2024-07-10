@@ -99,7 +99,7 @@ describe Teachers::ClassroomsController, type: :controller do
     context 'current_user is not the classroom owner' do
       it 'should not allow a teacher to modify a classroom' do
         unauthorized_teacher = create(:teacher)
-        unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: "fake.kid@aol.com"}
+        unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: 'fake.kid@aol.com'}
         allow(controller).to receive(:current_user) { unauthorized_teacher }
         post :create_students, params: { classroom_id: classroom.id, students: [unauthorized_student], classroom: {} }
 
@@ -207,7 +207,7 @@ describe Teachers::ClassroomsController, type: :controller do
           parsed_response = JSON.parse(response.body)
 
           classrooms.order(created_at: :desc).each.with_index do |classroom, i|
-            expect(parsed_response["classrooms"][i]["id"]).to eq classroom.id
+            expect(parsed_response['classrooms'][i]['id']).to eq classroom.id
           end
         end
 
@@ -217,7 +217,7 @@ describe Teachers::ClassroomsController, type: :controller do
           classrooms.count.times { |i| expect(assigns(:classrooms)[i][:students]).to be_empty }
         end
 
-        context "with activity sesions" do
+        context 'with activity sesions' do
           let!(:classroom) { classroom3 }
           let!(:activity) { create(:activity) }
           let!(:student) { create(:user, classcode: classroom.code) }
@@ -249,7 +249,7 @@ describe Teachers::ClassroomsController, type: :controller do
           end
         end
 
-        context "with order property" do
+        context 'with order property' do
           before do
             # remove classroom_teacher entries from earlier tests
             ClassroomsTeacher
@@ -265,7 +265,7 @@ describe Teachers::ClassroomsController, type: :controller do
             parsed_response = JSON.parse(response.body)
 
             classrooms.joins(:classrooms_teachers).order('classrooms_teachers.order ASC, created_at DESC').each_with_index do |classroom, i|
-              expect(parsed_response["classrooms"][i]["id"]).to eq classroom.id
+              expect(parsed_response['classrooms'][i]['id']).to eq classroom.id
             end
           end
 
@@ -278,9 +278,9 @@ describe Teachers::ClassroomsController, type: :controller do
 
             parsed_response = JSON.parse(response.body)
 
-            expect(parsed_response["classrooms"][0]["id"]).to eq classroom2.id
-            expect(parsed_response["classrooms"][1]["id"]).to eq classroom1.id
-            expect(parsed_response["classrooms"][2]["id"]).to eq classroom3.id
+            expect(parsed_response['classrooms'][0]['id']).to eq classroom2.id
+            expect(parsed_response['classrooms'][1]['id']).to eq classroom1.id
+            expect(parsed_response['classrooms'][2]['id']).to eq classroom3.id
           end
         end
       end
@@ -310,8 +310,8 @@ describe Teachers::ClassroomsController, type: :controller do
         it 'reports which students are no longer in provider classroom in visible classroom' do
           get :index, as: :json
           parsed_response = JSON.parse(response.body)
-          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
-          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
+          expect(parsed_response['classrooms'][0]['students'][0]['synced']).to eq true
+          expect(parsed_response['classrooms'][0]['students'][1]['synced']).to eq false
         end
 
         it 'reports which students are no longer in provider classroom in archived classroom' do
@@ -319,8 +319,8 @@ describe Teachers::ClassroomsController, type: :controller do
 
           get :index, as: :json
           parsed_response = JSON.parse(response.body)
-          expect(parsed_response["classrooms"][0]["students"][0]["synced"]).to eq true
-          expect(parsed_response["classrooms"][0]["students"][1]["synced"]).to eq false
+          expect(parsed_response['classrooms'][0]['students'][0]['synced']).to eq true
+          expect(parsed_response['classrooms'][0]['students'][1]['synced']).to eq false
         end
 
       end
@@ -358,12 +358,12 @@ describe Teachers::ClassroomsController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(Classroom).to receive(:generate_unique_code) { "unique code" }
+      allow(Classroom).to receive(:generate_unique_code) { 'unique code' }
     end
 
     it 'should give the new code' do
       get :regenerate_code
-      expect(response.body).to eq({code: "unique code"}.to_json)
+      expect(response.body).to eq({code: 'unique code'}.to_json)
     end
   end
 
@@ -379,8 +379,8 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'should update the given classroom' do
-      post :update, params: { id: classroom.id, classroom: { name: "new name" } }
-      expect(classroom.reload.name).to eq "new name"
+      post :update, params: { id: classroom.id, classroom: { name: 'new name' } }
+      expect(classroom.reload.name).to eq 'new name'
       expect(response).to redirect_to teachers_classroom_students_path(classroom.id)
     end
   end
@@ -441,12 +441,12 @@ describe Teachers::ClassroomsController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow_any_instance_of(Classroom).to receive(:units_json) { "units" }
+      allow_any_instance_of(Classroom).to receive(:units_json) { 'units' }
     end
 
     it 'should give the correct json' do
       get :units, params: { id: classroom.id }
-      expect(response.body).to eq({units: "units"}.to_json)
+      expect(response.body).to eq({units: 'units'}.to_json)
     end
   end
 end

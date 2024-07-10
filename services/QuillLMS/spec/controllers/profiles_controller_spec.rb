@@ -108,16 +108,16 @@ describe ProfilesController, type: :controller do
       end
     end
 
-    context "#student_profile_data" do
+    context '#student_profile_data' do
 
-      it "returns an error when the current user has no classrooms" do
+      it 'returns an error when the current user has no classrooms' do
         session[:user_id] = other_student.id
         get :student_profile_data
         expect(JSON.parse(response.body)['error']).to be
       end
 
       context 'when the student has a single classroom' do
-        it "returns student, classroom, and teacher info when the current user has classrooms" do
+        it 'returns student, classroom, and teacher info when the current user has classrooms' do
           get :student_profile_data, params: { current_classroom_id: classroom.id }
           response_body = JSON.parse(response.body)
           expect(student.classrooms.count).to eq(1)

@@ -3,7 +3,7 @@
 module Evidence
   class HTMLTagRemover < ApplicationService
     HTML_TAG_REGEX = /<("[^"]*"|'[^']*'|[^'">])*>/
-    SPACE = " "
+    SPACE = ' '
 
     attr_reader :html
 
@@ -12,14 +12,14 @@ module Evidence
     end
 
     def run
-      return "" if html.nil?
+      return '' if html.nil?
 
       html
         .gsub(HTML_TAG_REGEX, SPACE) # remove html tags
-        .gsub("&#x27;", "'") # replace html single quotes
+        .gsub('&#x27;', "'") # replace html single quotes
         .gsub(/(‘|’)/,"'") # replace html single curly quotes
-        .gsub("&quot;","\"") # replace html double quotes
-        .gsub(/(“|”)/,"\"") # replace html double curly quotes
+        .gsub('&quot;','"') # replace html double quotes
+        .gsub(/(“|”)/,'"') # replace html double curly quotes
         .gsub(/\s+/, SPACE) # replace multiple spaces with single space
         .strip
     end

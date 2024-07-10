@@ -4,7 +4,7 @@ class InternalToolUserMailer < UserMailer
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: "The Quill Team <hello@quill.org>"
+  default from: 'The Quill Team <hello@quill.org>'
 
   def admin_account_created_email(user, school_name)
     @user = user

@@ -23,7 +23,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
         unit_activity: @unit_activity
       )
     rescue ActiveRecord::StatementInvalid
-      flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+      flash.now[:error] = 'We cannot launch this lesson. If the problem persists, please contact support.'
       redirect_back(fallback_location: dashboard_teachers_classrooms_path)
       return
     end
@@ -35,7 +35,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
         PusherLessonLaunched.run(@classroom_unit.classroom)
         redirect_to lesson_url(lesson) and return
       else
-        flash.now[:error] = "We cannot launch this lesson. If the problem persists, please contact support."
+        flash.now[:error] = 'We cannot launch this lesson. If the problem persists, please contact support.'
         redirect_back(fallback_location: dashboard_teachers_classrooms_path)
       end
     else

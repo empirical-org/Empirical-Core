@@ -26,7 +26,7 @@ module Evidence
     end
 
     if defined?(FactoryBot)
-      initializer "evidence.factories", after: "factory_bot.set_factory_paths" do
+      initializer 'evidence.factories', after: 'factory_bot.set_factory_paths' do
         FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories/evidence', __FILE__)
       end
     end
