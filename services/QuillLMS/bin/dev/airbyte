@@ -8,7 +8,7 @@ INSTANCES = {
     tables: "concept_results (prefix: special)",
   },
   2 => {
-    name: 'airbyte-pink',
+    name: 'airbyte-indigo',
     port: 8002,
     tables: "classrooms classroom_units provider_classroom_users  students_classrooms unit_activities"
   },
