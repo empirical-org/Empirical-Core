@@ -72,65 +72,65 @@ describe 'Student Concern', type: :model do
     create(:activity_session, user_id: student2.id, classroom_unit_id: classroom_unit5.id)
   end
 
-  describe "#student_average_score" do
+  describe '#student_average_score' do
     let(:student_with_no_activity) { create(:student)}
 
-    context "no average" do
-      it "should not error" do
+    context 'no average' do
+      it 'should not error' do
         expect(student_with_no_activity.student_average_score).to be 0
       end
     end
   end
 
-  describe "#hide_extra_activity_sessions" do
+  describe '#hide_extra_activity_sessions' do
     context 'updated_at check' do
       before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
-      it "updates the updated_at value for models that are hidden" do
+      it 'updates the updated_at value for models that are hidden' do
         expect { student1.hide_extra_activity_sessions(classroom_unit2.id) }.to change { lower_percentage.reload.updated_at }
       end
     end
 
-    context "there is an activity session with a final score" do
-      it "leaves the activity session with a final score" do
+    context 'there is an activity session with a final score' do
+      it 'leaves the activity session with a final score' do
         student1.hide_extra_activity_sessions(classroom_unit1.id)
         expect(final_score.visible).to be true
       end
 
-      it "hides all other activity sessions with that user id and classroom unit id" do
+      it 'hides all other activity sessions with that user id and classroom unit id' do
         student1.hide_extra_activity_sessions(classroom_unit1.id)
         expect(ActivitySession.where(classroom_unit_id: classroom_unit1.id, user_id: student1.id).length).to be 1
       end
     end
 
-    context "there are activities with percentages assigned" do
-      it "leaves the activity session with the highest percentage" do
+    context 'there are activities with percentages assigned' do
+      it 'leaves the activity session with the highest percentage' do
         expect do
           student1.hide_extra_activity_sessions(classroom_unit2.id)
         end.to change { lower_percentage.reload.visible }.to(false)
           .and not_change { higher_percentage.reload.visible }
       end
 
-      it "hides all other activity sessions with that user id and classroom unit id" do
+      it 'hides all other activity sessions with that user id and classroom unit id' do
         student1.hide_extra_activity_sessions(classroom_unit2.id)
         expect(ActivitySession.where(classroom_unit_id: classroom_unit2.id, user_id: student1.id).length).to be 1
       end
     end
 
-    context "there are activities that have been started" do
-      it "leaves the activity session that was started most recently" do
+    context 'there are activities that have been started' do
+      it 'leaves the activity session that was started most recently' do
         student1.hide_extra_activity_sessions(classroom_unit3.id)
         expect(started.visible).to be true
       end
 
-      it "hides all other activity sessions with that user id and classroom unit id" do
+      it 'hides all other activity sessions with that user id and classroom unit id' do
         student1.hide_extra_activity_sessions(classroom_unit3.id)
         expect(ActivitySession.where(classroom_unit_id: classroom_unit3.id, user_id: student1.id).length).to be 1
       end
     end
   end
 
-  describe "#move_activity_sessions" do
+  describe '#move_activity_sessions' do
     it 'finds or creates a classroom unit for the new classroom with that student assigned' do
       student1.move_activity_sessions(classroom, classroom2)
       started.reload
@@ -163,7 +163,7 @@ describe 'Student Concern', type: :model do
     end
   end
 
-  describe "#move_student_from_one_class_to_another" do
+  describe '#move_student_from_one_class_to_another' do
     subject { student1.move_student_from_one_class_to_another(classroom, classroom3) }
 
     let!(:classroom3) { create(:classroom) }
@@ -184,13 +184,13 @@ describe 'Student Concern', type: :model do
     end
   end
 
-  describe "#merge_student_account" do
-    context "called with no teacher id" do
-      it "returns false when the students are not in the same classrooms" do
+  describe '#merge_student_account' do
+    context 'called with no teacher id' do
+      it 'returns false when the students are not in the same classrooms' do
         expect(student1.merge_student_account(student2)).not_to be
       end
 
-      it "calls merge_activity_sessions and remove_student_classrooms when the students are in the same classrooms" do
+      it 'calls merge_activity_sessions and remove_student_classrooms when the students are in the same classrooms' do
         StudentsClassrooms.find_or_create_by(classroom_id: classroom2.id, student_id: student1.id)
         expect(student1).to receive(:merge_activity_sessions).with(student2, nil)
         expect(student2).to receive(:remove_student_classrooms).with(nil)
@@ -198,15 +198,15 @@ describe 'Student Concern', type: :model do
       end
     end
 
-    context "called with a teacher id" do
-      it "creates a students_classrooms record for any necessary classrooms" do
+    context 'called with a teacher id' do
+      it 'creates a students_classrooms record for any necessary classrooms' do
         ClassroomsTeacher.find_by(role: 'owner', classroom_id: classroom2.id).update(user_id: classroom.owner.id)
         student1.merge_student_account(student2, classroom.owner.id)
         student1.reload
         expect(StudentsClassrooms.find_by(student_id: student1.id, classroom_id: classroom2.id)).to be
       end
 
-      it "calls merge_activity_sessions and remove_student_classrooms" do
+      it 'calls merge_activity_sessions and remove_student_classrooms' do
         expect(student1).to receive(:merge_activity_sessions).with(student2, classroom.owner.id)
         expect(student2).to receive(:remove_student_classrooms).with(classroom.owner.id)
         student1.merge_student_account(student2, classroom.owner.id)
@@ -214,8 +214,8 @@ describe 'Student Concern', type: :model do
     end
   end
 
-  describe "#remove_student_classrooms" do
-    context "called with no teacher id" do
+  describe '#remove_student_classrooms' do
+    context 'called with no teacher id' do
       it "removes all of a student's student_classrooms" do
         student2.remove_student_classrooms
         student2.reload
@@ -223,7 +223,7 @@ describe 'Student Concern', type: :model do
       end
     end
 
-    context "called with a teacher id" do
+    context 'called with a teacher id' do
       it "remove a student's student_classrooms for that teacher's classrooms" do
         student2.remove_student_classrooms(classroom.owner.id)
         student2.reload
@@ -233,15 +233,15 @@ describe 'Student Concern', type: :model do
     end
   end
 
-  describe "#merge_activity_sessions" do
-    context "called with no teacher id" do
+  describe '#merge_activity_sessions' do
+    context 'called with no teacher id' do
       it "transfers all of a student's activity sessions" do
         student1.merge_activity_sessions(student2)
         student2.reload
         expect(student2.activity_sessions.length).to equal(0)
       end
 
-      it "sets updated_at on the ActivitySessions that get moved" do
+      it 'sets updated_at on the ActivitySessions that get moved' do
         now = DateTime.current.utc
         allow(DateTime).to receive(:current).and_return(now)
 
@@ -249,7 +249,7 @@ describe 'Student Concern', type: :model do
         expect(activity_session_for_second_student1.reload.updated_at.iso8601).to eq(now.iso8601)
       end
 
-      it "sets the updated_at to the same value that touch would" do
+      it 'sets the updated_at to the same value that touch would' do
         activity_session_for_second_student1.update_columns(updated_at: DateTime.current)
         datetime_current_updated_at = activity_session_for_second_student1.reload.updated_at
 
@@ -260,7 +260,7 @@ describe 'Student Concern', type: :model do
       end
     end
 
-    context "called with a teacher id" do
+    context 'called with a teacher id' do
       it "transfers all of a student's activity sessions's for that teacher's classes" do
         student1.merge_activity_sessions(student2, classroom.owner.id)
         student2.reload
@@ -269,7 +269,7 @@ describe 'Student Concern', type: :model do
     end
   end
 
-  describe "#same_classrooms_as_other_student" do
+  describe '#same_classrooms_as_other_student' do
     it 'returns false if the students are not in the same classrooms' do
       expect(student1.same_classrooms_as_other_student(student2.id)).to be false
     end
@@ -305,14 +305,14 @@ describe 'Student Concern', type: :model do
         let(:student) { student4 }
         let(:other_student) { student5 }
 
-        it { expect(subject).to eq [{"classroom_id" => classroom5.id}] }
+        it { expect(subject).to eq [{'classroom_id' => classroom5.id}] }
       end
 
       context 'students share multiple classes' do
         let(:student) { student2 }
         let(:other_student) { student3 }
 
-        it { expect(subject).to match_array [{"classroom_id" => classroom.id}, {"classroom_id" => classroom2.id}] }
+        it { expect(subject).to match_array [{'classroom_id' => classroom.id}, {'classroom_id' => classroom2.id}] }
       end
     end
 
@@ -330,7 +330,7 @@ describe 'Student Concern', type: :model do
         let(:student) { student2 }
         let(:other_student) { student3 }
 
-        it { expect(subject).to match_array [{"classroom_id" => classroom2.id}] }
+        it { expect(subject).to match_array [{'classroom_id' => classroom2.id}] }
       end
 
       context 'classes with no owners does not break filtering' do

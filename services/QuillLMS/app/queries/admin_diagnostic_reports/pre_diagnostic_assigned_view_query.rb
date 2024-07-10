@@ -4,7 +4,7 @@ module AdminDiagnosticReports
   class PreDiagnosticAssignedViewQuery < DiagnosticAggregateViewQuery
     def specific_select_clause = "COUNT(DISTINCT CONCAT(performance.classroom_id, ':', performance.student_id)) AS pre_students_assigned"
 
-    def relevant_date_column = "performance.pre_assigned_at"
+    def relevant_date_column = 'performance.pre_assigned_at'
 
     private def rollup_aggregation_hash
       {

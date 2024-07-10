@@ -39,8 +39,8 @@ module OpenAI
 
     private def headers
       {
-        "Content-Type" => "application/json",
-        "Authorization" => "Bearer #{ENV['OPENAI_API_KEY']}"
+        'Content-Type' => 'application/json',
+        'Authorization' => "Bearer #{ENV['OPENAI_API_KEY']}"
       }
     end
 

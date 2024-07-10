@@ -28,41 +28,41 @@ class SchoolsController < ApplicationController
     else
       stored_school_ids = $redis.get("PREFIX_TO_SCHOOL_#{@prefix}")
       school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
-      @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
+      @schools = School.select('schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers')
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
       .where(id: school_ids)
-      .group("schools.id")
+      .group('schools.id')
       .limit(@limit)
     end
 
     if @schools.empty? and school_ids.present?
-      @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
+      @schools = School.select('schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers')
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
       .where(id: school_ids)
       .where(
-        "lower(name) LIKE :prefix", prefix: "#{@prefix.downcase}%"
-      ).group("schools.id")
+        'lower(name) LIKE :prefix', prefix: "#{@prefix.downcase}%"
+      ).group('schools.id')
       .limit(@limit)
     end
 
     if ((@lat.present? and @lng.present?) or @zipcode.present?) and @schools.empty?
       zip_arr = []
-      cache_id = "LAT_LNG"
+      cache_id = 'LAT_LNG'
       if @zipcode.present?
         zip_arr << @zipcode
-        cache_id = "ZIPCODE"
+        cache_id = 'ZIPCODE'
       else
         zip_arr += ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
       end
 
       if zip_arr.present?
-        @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
+        @schools = School.select('schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers')
         .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
         .where(
           "zipcode in #{array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{array_to_postgres_array_helper(zip_arr)}"
          ).where(
-         "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
-         ).group("schools.id")
+         'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
+         ).group('schools.id')
          .limit(@limit)
         $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
          # short cache, highly specific
@@ -73,11 +73,11 @@ class SchoolsController < ApplicationController
     if @schools.empty? and @prefix.length < MIN_PREFIX_LENGTH
       @schools = []
     elsif @schools.empty?
-      @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
+      @schools = School.select('schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers')
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
       .where(
-         "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
-       ).group("schools.id")
+         'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
+       ).group('schools.id')
        .limit(@limit)
       $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
       # longer cache, more general
@@ -131,7 +131,7 @@ class SchoolsController < ApplicationController
     zipcode = nil
     if search.present?
       zipcode = search.match(/\d{5}/).to_s
-      prefix = search.gsub(/\d{5}/, "").strip()
+      prefix = search.gsub(/\d{5}/, '').strip()
     end
     unless zipcode.present?
       zipcode = nil

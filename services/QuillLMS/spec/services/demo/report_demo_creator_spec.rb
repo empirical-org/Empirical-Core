@@ -31,7 +31,7 @@ RSpec.describe Demo::ReportDemoCreator do
     end
 
     describe 'create_demo' do
-      let(:demo_teacher) { User.find_by(email: "hello+demoteacher@quill.org") }
+      let(:demo_teacher) { User.find_by(email: 'hello+demoteacher@quill.org') }
 
       it 'should create teacher and classroom with activity' do
         expect(SaveActivitySessionConceptResultsWorker).to receive(:perform_async).exactly(Demo::SessionData.new.concept_results.length).times
@@ -61,7 +61,7 @@ RSpec.describe Demo::ReportDemoCreator do
     let(:demo_config) do
       [
         {
-          name: "Quill Activity Pack",
+          name: 'Quill Activity Pack',
           activity_sessions: [
             {activity_id => user_id},
             {activity_id => user_id},
@@ -76,24 +76,24 @@ RSpec.describe Demo::ReportDemoCreator do
     let(:is_teacher_demo) { true }
 
     before do
-      stub_const("Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES", demo_config)
-      stub_const("Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID", activity_id)
-      stub_const("Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID", user_id)
+      stub_const('Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES', demo_config)
+      stub_const('Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID', activity_id)
+      stub_const('Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID', user_id)
     end
 
     it 'creates a teacher with name' do
-      email = "hello+demoteacher@quill.org"
+      email = 'hello+demoteacher@quill.org'
       Demo::ReportDemoCreator.create_teacher(email)
-      teacher = User.find_by(name: "Demo Teacher")
-      expect(teacher.name).to eq("Demo Teacher")
+      teacher = User.find_by(name: 'Demo Teacher')
+      expect(teacher.name).to eq('Demo Teacher')
       expect(teacher.email).to eq(email)
-      expect(teacher.role).to eq("teacher")
-      expect(teacher.flags).to eq(["beta"])
+      expect(teacher.role).to eq('teacher')
+      expect(teacher.flags).to eq(['beta'])
     end
 
     it 'creates a classroom for the teacher' do
       Demo::ReportDemoCreator.create_classroom(teacher)
-      classroom = teacher.classrooms_i_teach.find {|c| c.name == "Quill Classroom"}
+      classroom = teacher.classrooms_i_teach.find {|c| c.name == 'Quill Classroom'}
 
       expect(classroom.code).to eq("demo-#{teacher.id}")
       expect(classroom.grade).to eq('9')
@@ -131,7 +131,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
     context 'create students' do
       let(:classroom) {create(:classroom)}
-      let(:student_names) { ["Angie Thomas", "Jason Reynolds", "Ken Liu", "Nic Stone", "Tahereh Mafi"]}
+      let(:student_names) { ['Angie Thomas', 'Jason Reynolds', 'Ken Liu', 'Nic Stone', 'Tahereh Mafi']}
       let(:angie_email) { 'angie_thomas_demo@quill.org' }
       let(:demo_password) {described_class::PASSWORD}
 
@@ -142,7 +142,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
-        it { expect(subject.find_by(name: "Angie Thomas").username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
+        it { expect(subject.find_by(name: 'Angie Thomas').username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
         it { expect(subject.all?{|s| s.authenticate(demo_password) }).to be true }
         it { expect(subject.exists?(email: angie_email)).to be true }
       end
@@ -152,7 +152,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
-        it { expect(subject.find_by(name: "Angie Thomas").username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
+        it { expect(subject.find_by(name: 'Angie Thomas').username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
         it { expect(subject.all?{|s| s.authenticate(demo_password) }).to be true }
         it { expect(subject.exists?(email: angie_email)).to be false}
       end
@@ -192,9 +192,9 @@ RSpec.describe Demo::ReportDemoCreator do
       end
     end
 
-    describe "#reset_account" do
+    describe '#reset_account' do
       before do
-        stub_const("Demo::ReportDemoCreator::UNITS_COUNT", 1)
+        stub_const('Demo::ReportDemoCreator::UNITS_COUNT', 1)
 
         Demo::ReportDemoCreator.create_demo_classroom_data(teacher, is_teacher_demo: true)
       end
@@ -202,7 +202,7 @@ RSpec.describe Demo::ReportDemoCreator do
       subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
 
 
-      it "should create expected counts for untouched account" do
+      it 'should create expected counts for untouched account' do
         expect{ subject }
           .to not_change{teacher.reload.google_id}.from(nil)
           .and not_change{teacher.reload.clever_id}.from(nil)
@@ -212,16 +212,16 @@ RSpec.describe Demo::ReportDemoCreator do
       end
 
 
-      context "teacher account has added data" do
+      context 'teacher account has added data' do
         let(:teacher) {create(:teacher, google_id: 1234, clever_id: 5678)}
         let!(:auth_credential) {create(:google_auth_credential, user: teacher) }
         let(:classroom) {create(:classroom)}
         let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
 
-        it "should create expected counts" do
+        it 'should create expected counts' do
           expect{ subject }
-            .to change{teacher.reload.google_id}.from("1234").to(nil)
-            .and change{teacher.reload.clever_id}.from("5678").to(nil)
+            .to change{teacher.reload.google_id}.from('1234').to(nil)
+            .and change{teacher.reload.clever_id}.from('5678').to(nil)
             .and change {teacher.reload.classrooms_i_teach.count}.from(2).to(1)
             .and change(AuthCredential, :count).from(1).to(0)
             .and change(Classroom.where(id: classroom.id), :count).from(1).to(0)
@@ -230,15 +230,15 @@ RSpec.describe Demo::ReportDemoCreator do
         end
       end
 
-      context "demo classroom changed" do
+      context 'demo classroom changed' do
         before do
           demo_classroom = teacher.classrooms_i_teach.first
-          demo_classroom.update(name: "my classroom name")
+          demo_classroom.update(name: 'my classroom name')
         end
 
         it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
 
-        it "should not raise an error with two occurences running at once" do
+        it 'should not raise an error with two occurences running at once' do
           threads = Array.new(2) do
             Thread.new { subject }.tap {|thread| thread.report_on_exception = false}
           end

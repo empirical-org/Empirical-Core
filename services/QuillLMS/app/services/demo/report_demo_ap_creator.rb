@@ -12,13 +12,13 @@ module Demo::ReportDemoAPCreator
   end
 
   def self.create_teacher(name)
-    email = name ? "hello+#{name}+ap@quill.org" : "hello+demoteacher+ap@quill.org"
+    email = name ? "hello+#{name}+ap@quill.org" : 'hello+demoteacher+ap@quill.org'
 
     existing_teacher = User.find_by_email(email)
     existing_teacher.destroy if existing_teacher
 
     values = {
-      name: "Demo Teacher",
+      name: 'Demo Teacher',
       email: email,
       role: User::TEACHER,
       password: 'password',
@@ -33,11 +33,11 @@ module Demo::ReportDemoAPCreator
     values = [
       {
         classroom: {
-          name: "Pre-AP English 1",
+          name: 'Pre-AP English 1',
           code: "demo-#{teacher.id}-ap1",
           grade: '9'
         },
-        unit: "Pre-AP Activity Pack",
+        unit: 'Pre-AP Activity Pack',
         activities: [
           1229,
           770,
@@ -56,11 +56,11 @@ module Demo::ReportDemoAPCreator
       },
       {
         classroom: {
-          name: "AP English",
+          name: 'AP English',
           code: "demo-#{teacher.id}-ap",
           grade: '9'
         },
-        unit: "AP Activity Pack",
+        unit: 'AP Activity Pack',
         activities: [
           992,
           853,
@@ -79,11 +79,11 @@ module Demo::ReportDemoAPCreator
       },
       {
         classroom: {
-          name: "ELA 601",
+          name: 'ELA 601',
           code: "demo-#{teacher.id}-ela",
           grade: '9'
         },
-        unit: "ELA Activity Pack",
+        unit: 'ELA Activity Pack',
         activities: [
           849,
           801,
@@ -128,38 +128,38 @@ module Demo::ReportDemoAPCreator
     students = []
     student_values = [
       {
-        name: "William Shakespeare",
+        name: 'William Shakespeare',
         username: "william.shakespeare.#{classroom.id}@demo-teacher",
-        role: "student",
+        role: 'student',
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "Harper Lee",
+        name: 'Harper Lee',
         username: "harper.lee.#{classroom.id}@demo-teacher",
-        role: "student",
+        role: 'student',
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "Charles Dickens",
+        name: 'Charles Dickens',
         username: "charles.dickens.#{classroom.id}@demo-teacher",
-        role: "student",
+        role: 'student',
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "James Joyce",
+        name: 'James Joyce',
         username: "james.joyce.#{classroom.id}@demo-teacher",
-        role: "student",
+        role: 'student',
         password: 'password',
         password_confirmation: 'password',
       },
       {
-        name: "Bell Hooks",
+        name: 'Bell Hooks',
         username: "bell.hooks.#{classroom.id}@demo-teacher",
         email: 'bell_hooks_demo@quill.org',
-        role: "student",
+        role: 'student',
         password: 'password',
         password_confirmation: 'password'
       }
@@ -208,7 +208,7 @@ module Demo::ReportDemoAPCreator
         next unless temp
 
         cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids) AND classroom_id=#{classroom.id}").first
-        act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
+        act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: 'finished', percentage: temp.percentage})
         temp.concept_results.each do |cr|
           values = {
             activity_session_id: act_session.id,

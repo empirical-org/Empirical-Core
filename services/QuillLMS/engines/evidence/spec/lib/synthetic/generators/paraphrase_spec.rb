@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Evidence::Synthetic::Generators::Paraphrase do
   let(:text1) {'text string'}
-  let(:passage) {"passage text text text text text"}
+  let(:passage) {'passage text text text text text'}
   let(:result1) {'word string'}
   let(:result2) {'sentence string'}
   let(:uppercase_result) {'Text yarn'}

@@ -47,7 +47,7 @@ class PasswordResetController < ApplicationController
   end
 
   private def set_title
-    @title = "Password Reset"
+    @title = 'Password Reset'
   end
 
   private def unlink_teacher_or_admin_google_account(user)

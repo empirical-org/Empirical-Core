@@ -10,11 +10,11 @@ describe Teachers::ProgressReports::Standards::ClassroomStandardsController, typ
     let(:result_key) { 'standards' }
     let(:expected_result_count) { visible_standards.size }
 
-    it_behaves_like "filtering progress reports by Unit" do
+    it_behaves_like 'filtering progress reports by Unit' do
       let(:filter_value) { empty_unit.id }
       let(:expected_result_count) { 0 }
     end
 
-    it_behaves_like "exporting to CSV"
+    it_behaves_like 'exporting to CSV'
   end
 end

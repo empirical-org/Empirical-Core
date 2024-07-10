@@ -47,15 +47,15 @@ module Staff
     end
 
     def start_date_where_clause
-      start_date ? "AND feedback_histories.time >= '#{DateTime.parse(start_date).to_fs(:db)}'" : ""
+      start_date ? "AND feedback_histories.time >= '#{DateTime.parse(start_date).to_fs(:db)}'" : ''
     end
 
     def end_date_where_clause
-      end_date ? "AND feedback_histories.time <= '#{DateTime.parse(end_date).to_fs(:db)}'" : ""
+      end_date ? "AND feedback_histories.time <= '#{DateTime.parse(end_date).to_fs(:db)}'" : ''
     end
 
     def activity_version_where_clause
-      activity_version ? "AND feedback_histories.activity_version = #{activity_version}" : ""
+      activity_version ? "AND feedback_histories.activity_version = #{activity_version}" : ''
     end
 
     def post_query_transform(query_result)

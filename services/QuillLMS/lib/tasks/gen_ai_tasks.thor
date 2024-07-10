@@ -74,7 +74,7 @@ class GenAITasks < Thor
 
   desc "test_csv 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def test_csv(conjunction = 'because', limit = 50)
-    CSV.open(output_file(conjunction, limit), "wb") do |csv|
+    CSV.open(output_file(conjunction, limit), 'wb') do |csv|
       csv << csv_headers
       all_live_prompts(conjunction, limit).each do |prompt|
         csv << prompt_csv_row(prompt)
@@ -119,7 +119,7 @@ class GenAITasks < Thor
       ]
     end
 
-    private def activity_link_string(activity_id) = format("https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings", activity_id:)
+    private def activity_link_string(activity_id) = format('https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings', activity_id:)
 
     private def live_activity_ids
       Activity.evidence_live_flags.evidence.pluck(:id)
@@ -147,7 +147,7 @@ class GenAITasks < Thor
 
       puts 'Incorrect'
       print_line
-      puts "None" if incorrect_examples.empty?
+      puts 'None' if incorrect_examples.empty?
       incorrect_examples.each do |incorrect|
         prompt, entry, feedback = incorrect
         print_example(prompt.id, entry, feedback)
@@ -155,7 +155,7 @@ class GenAITasks < Thor
 
       puts 'Errors'
       print_line
-      puts "None" if error_examples.empty?
+      puts 'None' if error_examples.empty?
       error_examples.each do |error|
         prompt, entry = error
         print_example(prompt.id, entry)
@@ -164,7 +164,7 @@ class GenAITasks < Thor
 
     private def print_example(prompt_id, entry, feedback = nil)
       puts "Prompt: #{prompt_id}, Entry: #{entry} #{feedback.nil? ? '' : " Feedback: #{feedback}"}"
-      puts " "
+      puts ' '
       puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt_id} '#{entry}'"
       print_line
     end

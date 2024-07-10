@@ -21,8 +21,8 @@
 #
 FactoryBot.define do
   factory :evidence_activity_health, class: 'Evidence::ActivityHealth' do
-    name { "test name" }
-    flag { "production" }
+    name { 'test name' }
+    flag { 'production' }
     activity_id { 1 }
     version { 1 }
     version_plays { 10 }

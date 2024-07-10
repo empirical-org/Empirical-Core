@@ -58,7 +58,7 @@ RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
         request.fetch_ids_to_suspend
       end.to raise_error(
         LearnWorldsIntegration::Request::UnexpectedApiResponse,
-        "No totalPages value"
+        'No totalPages value'
       )
     end
 

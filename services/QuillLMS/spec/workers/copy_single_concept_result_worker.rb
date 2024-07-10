@@ -11,12 +11,12 @@ describe CopySingleConceptResultWorker, type: :worker do
     let(:metadata) do
       {
         "correct": 1,
-        "directions": "Combine the sentences. (And)",
-        "lastFeedback": "Proofread your work. Check your spelling.",
-        "prompt": "Deserts are very dry. Years go by without rain.",
-        "instructions": "Instructions go here.",
+        "directions": 'Combine the sentences. (And)',
+        "lastFeedback": 'Proofread your work. Check your spelling.',
+        "prompt": 'Deserts are very dry. Years go by without rain.',
+        "instructions": 'Instructions go here.',
         "attemptNumber": 2,
-        "answer": "Deserts are very dry, and years go by without rain.",
+        "answer": 'Deserts are very dry, and years go by without rain.',
         "questionNumber": 1,
         "questionScore": 0.8
       }

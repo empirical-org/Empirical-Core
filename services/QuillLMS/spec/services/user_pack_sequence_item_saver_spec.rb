@@ -183,7 +183,7 @@ RSpec.describe UserPackSequenceItemSaver do
 
   def should_enqueue_workers
     subject
-    expect(worker_class.jobs.map { |job| job["args"] }).to eq expected_job_args
+    expect(worker_class.jobs.map { |job| job['args'] }).to eq expected_job_args
   end
 end
 

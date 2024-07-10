@@ -17,21 +17,21 @@ module Evidence
         #
         # Regexp.last_match(1)&.to_i will be 20 in this case
 
-        DELIMITER = "~~~"
-        OPTIONAL_COMMA_AND_DIGIT_REGEX = "(?:,(\\d+))?"
+        DELIMITER = '~~~'
+        OPTIONAL_COMMA_AND_DIGIT_REGEX = '(?:,(\\d+))?'
 
         ACTIVITY_SUBSTITUTIONS = {
-          "stem" => ->(builder, _) { builder.stem_vault.stem },
-          "conjunction" => ->(builder, _) { builder.stem_vault.conjunction },
-          "because_text" => ->(builder, _) { builder.stem_vault.because_text },
-          "but_text" => ->(builder, _) { builder.stem_vault.but_text },
-          "so_text" => ->(builder, _) { builder.stem_vault.so_text },
-          "relevant_text" => ->(builder, _) { builder.stem_vault.relevant_text },
-          "full_text" => ->(builder, _) { builder.stem_vault.full_text },
-          "optimal_examples" => ->(builder, _) { builder.optimal_examples },
-          "suboptimal_examples" => ->(builder, _) { builder.suboptimal_examples },
-          "optimal_guidelines" => ->(builder, _) { builder.optimal_guidelines },
-          "suboptimal_guidelines" => ->(builder, _) { builder.suboptimal_guidelines }
+          'stem' => ->(builder, _) { builder.stem_vault.stem },
+          'conjunction' => ->(builder, _) { builder.stem_vault.conjunction },
+          'because_text' => ->(builder, _) { builder.stem_vault.because_text },
+          'but_text' => ->(builder, _) { builder.stem_vault.but_text },
+          'so_text' => ->(builder, _) { builder.stem_vault.so_text },
+          'relevant_text' => ->(builder, _) { builder.stem_vault.relevant_text },
+          'full_text' => ->(builder, _) { builder.stem_vault.full_text },
+          'optimal_examples' => ->(builder, _) { builder.optimal_examples },
+          'suboptimal_examples' => ->(builder, _) { builder.suboptimal_examples },
+          'optimal_guidelines' => ->(builder, _) { builder.optimal_guidelines },
+          'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines }
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|

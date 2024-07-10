@@ -3,13 +3,13 @@
 class WebinarBanner
   attr_reader :time
 
-  ZOOM_URL = "https://quill-org.zoom.us/webinar/register"
+  ZOOM_URL = 'https://quill-org.zoom.us/webinar/register'
 
-  MLK_DAY_2021 = Date.parse("20210118")
-  PRESIDENTS_DAY_2021 = Date.parse("20210215")
+  MLK_DAY_2021 = Date.parse('20210118')
+  PRESIDENTS_DAY_2021 = Date.parse('20210215')
   SKIPPED_DAYS = [MLK_DAY_2021, PRESIDENTS_DAY_2021]
 
-  SCHOOL_PREMIUM_TYPES = ["School Paid", "School District Paid", "School Sponsored Free"]
+  SCHOOL_PREMIUM_TYPES = ['School Paid', 'School District Paid', 'School Sponsored Free']
 
   def initialize(time)
     @time = time

@@ -2,7 +2,7 @@
 
 class RecurringBanner < WebinarBanner
 
-  OFFICE_HOURS_TITLE = "Quill Office Hours are live now!"
+  OFFICE_HOURS_TITLE = 'Quill Office Hours are live now!'
 
   # ONE-OFFS have the key format Month-Day-Hour
   # RECURRING have the key format DayOfWeek-Hour

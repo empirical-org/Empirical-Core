@@ -7,7 +7,7 @@ describe Auth::GoogleController, type: :controller do
   it 'shows error message for nonexistent accounts with no role' do
     get 'online_access_callback', params: { role: nil }
     expect(flash[:error]).to include('We could not find an account connected to your Google email')
-    expect(response).to redirect_to "/session/new"
+    expect(response).to redirect_to '/session/new'
   end
 
   describe 'role behavior' do
@@ -24,7 +24,7 @@ describe Auth::GoogleController, type: :controller do
 
       get 'online_access_callback', params: { email: user.email, role: nil }
       expect(flash[:error]).to include('We could not find an account connected to your Google email')
-      expect(response).to redirect_to "/session/new"
+      expect(response).to redirect_to '/session/new'
     end
 
     it 'updates role for sales-contact accounts when session[:role] is set' do

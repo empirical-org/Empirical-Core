@@ -23,7 +23,7 @@ module Evidence
           GEMINI_1_5_FLASH_LATEST = 'gemini-1.5-flash-latest'
         ].freeze
 
-        GOOGLE_JSON_FORMAT_RESPONSES = { "generationConfig": { "response_mime_type": "application/json" } }.freeze
+        GOOGLE_JSON_FORMAT_RESPONSES = { "generationConfig": { "response_mime_type": 'application/json' } }.freeze
 
         OPEN_AI_VERSIONS = [
           GPT_3_5_TURBO_0125 = 'gpt-3.5-turbo-0125',
@@ -31,7 +31,7 @@ module Evidence
           GPT_4_O = 'gpt-4o'
         ]
 
-        OPEN_AI_JSON_FORMAT_RESPONSES = { "response_format": {"type": "json_object"} }.freeze
+        OPEN_AI_JSON_FORMAT_RESPONSES = { "response_format": {"type": 'json_object'} }.freeze
 
         validates :vendor, presence: true
         validates :version, presence: true

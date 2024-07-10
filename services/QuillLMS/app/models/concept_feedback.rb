@@ -42,10 +42,10 @@ class ConceptFeedback < ApplicationRecord
   end
 
 
-  def self.translatable_field_name = "description"
+  def self.translatable_field_name = 'description'
 
   private def data_must_be_hash
-    errors.add(:data, "must be a hash") unless data.is_a?(Hash)
+    errors.add(:data, 'must be a hash') unless data.is_a?(Hash)
   end
 
   private def clear_concept_feedbacks_cache

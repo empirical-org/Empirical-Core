@@ -78,7 +78,7 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
     end
 
     it 'should raise error if the year is the current year' do
-      expect { described_class.new(teacher, Time.current.year).calculate_data }.to raise_error("Cannot calculate data for a school year that is still ongoing.")
+      expect { described_class.new(teacher, Time.current.year).calculate_data }.to raise_error('Cannot calculate data for a school year that is still ongoing.')
     end
 
     it 'should calculate all data' do

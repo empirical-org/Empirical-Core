@@ -52,7 +52,7 @@ describe Api::V1::UsersController do
       it 'should return teacher for teacher users' do
         get :current_user_role, as: :json
 
-        expect(response.body).to eq({ role: "teacher" }.to_json)
+        expect(response.body).to eq({ role: 'teacher' }.to_json)
       end
     end
 
@@ -61,7 +61,7 @@ describe Api::V1::UsersController do
 
       it 'should return student for student users' do
         get :current_user_role, as: :json
-        expect(response.body).to eq({ role: "student" }.to_json)
+        expect(response.body).to eq({ role: 'student' }.to_json)
       end
     end
 

@@ -55,11 +55,11 @@ module AdminDiagnosticReports
     def timeframe_where_clause = "#{relevant_date_column} BETWEEN '#{timeframe_start.to_fs(:db)}' AND '#{timeframe_end.to_fs(:db)}'"
     def classroom_ids_where_clause = ("AND filter.classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
     def grades_where_clause = ("AND (filter.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
-    def grades_where_null_clause = ("OR filter.grade IS NULL" if grades.include?('null'))
+    def grades_where_null_clause = ('OR filter.grade IS NULL' if grades.include?('null'))
     def relevant_diagnostic_where_clause = "AND performance.activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
     def school_ids_where_clause = "AND filter.school_id IN (#{school_ids.join(',')})"
     def teacher_ids_where_clause = ("AND filter.teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
 
-    def relevant_date_column = "performance.pre_assigned_at"
+    def relevant_date_column = 'performance.pre_assigned_at'
   end
 end

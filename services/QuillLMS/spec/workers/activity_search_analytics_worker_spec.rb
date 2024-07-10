@@ -12,8 +12,8 @@ describe ActivitySearchAnalyticsWorker do
     before { allow(Analytics::SegmentAnalytics).to receive(:new) { analytics } }
 
     it 'should track the activity search' do
-      expect(analytics).to receive(:track_activity_search).with(user.id, "query")
-      subject.perform(user.id, "query")
+      expect(analytics).to receive(:track_activity_search).with(user.id, 'query')
+      subject.perform(user.id, 'query')
     end
   end
 end

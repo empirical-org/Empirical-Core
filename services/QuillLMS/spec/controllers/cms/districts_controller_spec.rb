@@ -10,14 +10,14 @@ describe Cms::DistrictsController do
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_district }
 
-  describe "DISTRICTS_PER_PAGE" do
+  describe 'DISTRICTS_PER_PAGE' do
     it 'should have the correct value' do
       expect(described_class::DISTRICTS_PER_PAGE).to eq 30.0
     end
   end
 
   describe '#index' do
-    let(:district_hash) { {district_zip: "1234", district_name: 'Test District', district_city: 'Test City'} }
+    let(:district_hash) { {district_zip: '1234', district_name: 'Test District', district_city: 'Test City'} }
 
     it 'should allows staff memeber to view and search through district' do
       get :index
@@ -33,7 +33,7 @@ describe Cms::DistrictsController do
   end
 
   describe '#search' do
-    let!(:district) { create(:district, name: "Test District") }
+    let!(:district) { create(:district, name: 'Test District') }
     let!(:subscription) { create(:subscription, account_type: Subscription::OFFICIAL_DISTRICT_TYPES.first)}
     let(:district_hash) do
       {
@@ -63,8 +63,8 @@ describe Cms::DistrictsController do
         district_without_subscription = create(:district)
 
         get :search, params: {:sort => 'premium_status', :sort_direction => 'desc'}
-        expect(JSON.parse(response.body)["districtSearchQueryResults"][0]["id"]).to eq(district_without_subscription.id)
-        expect(JSON.parse(response.body)["districtSearchQueryResults"][1]["id"]).to eq(district.id)
+        expect(JSON.parse(response.body)['districtSearchQueryResults'][0]['id']).to eq(district_without_subscription.id)
+        expect(JSON.parse(response.body)['districtSearchQueryResults'][1]['id']).to eq(district.id)
       end
     end
   end
@@ -145,8 +145,8 @@ describe Cms::DistrictsController do
     let!(:district) { create(:district) }
 
     it 'should update the given district' do
-      post :update, params: { id: district.id, district: { id: district.id, name: "test name" } }
-      expect(district.reload.name).to eq "test name"
+      post :update, params: { id: district.id, district: { id: district.id, name: 'test name' } }
+      expect(district.reload.name).to eq 'test name'
       expect(response).to redirect_to cms_district_path(district.id)
     end
   end
@@ -166,7 +166,7 @@ describe Cms::DistrictsController do
 
       post :create, params: { district: existing_district.as_json }
       expect(response).to redirect_to cms_districts_path
-      expect(flash[:error].first).to include("A district with this NCES ID already exists.")
+      expect(flash[:error].first).to include('A district with this NCES ID already exists.')
     end
   end
 

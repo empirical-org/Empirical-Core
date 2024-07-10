@@ -11,15 +11,15 @@ describe SaveActivitySessionConceptResultsWorker, type: :worker do
       {
         activity_session_id: activity_session.id,
         concept_id: concept.id,
-        question_type: "sentence-writing",
+        question_type: 'sentence-writing',
         metadata: {
-          answer: "This is a response answer",
+          answer: 'This is a response answer',
           attemptNumber: 1,
           correct: 1,
-          directions: "This a student response directions 2.",
-          instructions: "This a student response directions 2.",
-          lastFeedback: "This a student response answer 2.",
-          prompt: "This a student response prompt 2.",
+          directions: 'This a student response directions 2.',
+          instructions: 'This a student response directions 2.',
+          lastFeedback: 'This a student response answer 2.',
+          prompt: 'This a student response prompt 2.',
           questionNumber: 1
         }
       }

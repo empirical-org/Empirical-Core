@@ -10,14 +10,14 @@ class SyncDistrictDataFromUrlWorker
 
     districts_data.each do |district_data|
       attributes_hash = {
-        name: district_data["lea_name"].titleize,
-        nces_id: district_data["leaid"].to_i,
-        city: district_data["city_location"],
-        state: district_data["state_location"],
-        zipcode: district_data["zip_location"],
-        phone: district_data["phone"],
-        total_schools: district_data["number_of_schools"],
-        total_students: district_data["enrollment"],
+        name: district_data['lea_name'].titleize,
+        nces_id: district_data['leaid'].to_i,
+        city: district_data['city_location'],
+        state: district_data['state_location'],
+        zipcode: district_data['zip_location'],
+        phone: district_data['phone'],
+        total_schools: district_data['number_of_schools'],
+        total_students: district_data['enrollment'],
         grade_range: "#{district_data['lowest_grade_offered']} - #{district_data['highest_grade_offered']}"
       }
 

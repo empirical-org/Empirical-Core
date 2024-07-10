@@ -9,7 +9,7 @@ class AddStatusColumnToInvitations < ActiveRecord::Migration[4.2]
 
   def self.down
     remove_column :invitations, :status
-    execute "ALTER TABLE classrooms_teachers DROP CONSTRAINT check_status_is_valid"
+    execute 'ALTER TABLE classrooms_teachers DROP CONSTRAINT check_status_is_valid'
     remove_index :invitations, :status
   end
 end

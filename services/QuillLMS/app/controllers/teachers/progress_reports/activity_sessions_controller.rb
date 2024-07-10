@@ -164,17 +164,17 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
 
   # rubocop:disable Metrics/CyclomaticComplexity
   private def timespent_string(seconds)
-    return "N/A" unless seconds
-    return "<1 min" if seconds < 60
-    return "1 min" if seconds >= 60 && seconds < 120
+    return 'N/A' unless seconds
+    return '<1 min' if seconds < 60
+    return '1 min' if seconds >= 60 && seconds < 120
     return "#{((seconds % 3600) / 60).floor} min" if seconds >= 120 && seconds < 3600
-    return "1 hr" if seconds >= 3600 && seconds < 3660
+    return '1 hr' if seconds >= 3600 && seconds < 3660
 
     hours = (seconds / 60 / 60).floor
     minutes = ((seconds % 3600) / 60).floor
-    hours_text = hours > 1 ? "hrs" : "hr"
+    hours_text = hours > 1 ? 'hrs' : 'hr'
     if minutes
-      minutes_text = minutes > 1 ? "mins" : "min"
+      minutes_text = minutes > 1 ? 'mins' : 'min'
       return "#{hours} #{hours_text} #{minutes} #{minutes_text}"
     end
     "#{hours} #{hours_text}"

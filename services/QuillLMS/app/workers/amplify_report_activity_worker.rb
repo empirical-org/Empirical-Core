@@ -11,12 +11,12 @@ class AmplifyReportActivityWorker
 
   def generate_payload(amplify_session_id, activity_name, description, score, activity_url, results_url)
     {
-      "amplify_user_id" => amplify_session_id,
-      "quill_activity_name" => activity_name,
-      "quill_activity_description" => description,
-      "score" => score,
-      "activity_url" => activity_url,
-      "results_url" => results_url
+      'amplify_user_id' => amplify_session_id,
+      'quill_activity_name' => activity_name,
+      'quill_activity_description' => description,
+      'score' => score,
+      'activity_url' => activity_url,
+      'results_url' => results_url
     }
   end
 

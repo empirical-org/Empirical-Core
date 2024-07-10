@@ -8,7 +8,7 @@ class LoginPdf < Prawn::Document
     @classroom = classroom
     StudentLoginPdfDownloadAnalyticsWorker.perform_async(classroom.owner.id, classroom.id)
     font_families.update(
-      "DejaVuSans" => {
+      'DejaVuSans' => {
         :normal => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans.ttf",
         :bold => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-Bold.ttf",
         :italic => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-Oblique.ttf",
@@ -23,13 +23,13 @@ class LoginPdf < Prawn::Document
     move_down 14
     float do
       bounding_box([273, cursor], width: 279, height: 120) do
-        render_text "<u>Instructions for New Students:</u>", 12
+        render_text '<u>Instructions for New Students:</u>', 12
         move_down 14
-        render_text "1. Visit <b>quill.org</b>", 12
+        render_text '1. Visit <b>quill.org</b>', 12
         move_down 7
-        render_text "2. Click <b>Sign up</b> (at the top of the page)", 12
+        render_text '2. Click <b>Sign up</b> (at the top of the page)', 12
         move_down 7
-        render_text "3. Create <b>username</b> and <b>password</b>", 12
+        render_text '3. Create <b>username</b> and <b>password</b>', 12
         move_down 7
         render_text "4. Enter the class code: <b>#{@classroom.code}</b>", 12
       end
@@ -39,17 +39,17 @@ class LoginPdf < Prawn::Document
       vertical_line cursor, cursor - 106, at: 242
     end
     stroke_color '000000'
-    render_text "<u>Instructions for Invited Students:</u>", 12
+    render_text '<u>Instructions for Invited Students:</u>', 12
     move_down 14
-    render_text "1. Visit <b>quill.org</b>", 12
+    render_text '1. Visit <b>quill.org</b>', 12
     move_down 7
-    render_text "2. Click <b>Log In</b> (at the top of the page)", 12
+    render_text '2. Click <b>Log In</b> (at the top of the page)', 12
     move_down 7
-    render_text "3. Enter <b>username</b> and <b>password</b>", 12
+    render_text '3. Enter <b>username</b> and <b>password</b>', 12
     move_down 7
-    render_text "4. Click the <b>Log In</b> button", 12
+    render_text '4. Click the <b>Log In</b> button', 12
     move_down 40
-    render_text "Student List:", 12
+    render_text 'Student List:', 12
     move_down 12
   end
 
@@ -75,7 +75,7 @@ class LoginPdf < Prawn::Document
   end
 
   def render_section_for_one_student(student)
-    font("DejaVuSans", size: 18, style: :bold) do
+    font('DejaVuSans', size: 18, style: :bold) do
       text_box(
         student.name,
         at: [0, cursor],
@@ -93,7 +93,7 @@ class LoginPdf < Prawn::Document
         fill_color '000000'
         render_text username_or_email_for_student(student), 10
         move_down 2
-        font("DejaVuSans", style: :bold) do
+        font('DejaVuSans', style: :bold) do
           text_box(
             username_or_email_value_for_student(student),
             at: [0, cursor],
@@ -105,7 +105,7 @@ class LoginPdf < Prawn::Document
         move_down 20
         render_password_instructions_for_student(student)
         move_down 2
-        font("DejaVuSans", style: :bold) do
+        font('DejaVuSans', style: :bold) do
           text_box(
             render_password_for_student(student),
             at: [0, cursor],
@@ -116,18 +116,18 @@ class LoginPdf < Prawn::Document
         end
       end
     end
-    render_text "1. Visit <b>quill.org</b>"
+    render_text '1. Visit <b>quill.org</b>'
     move_down 8
-    render_text "2. Click <b>Login</b> (at the top of the page)"
+    render_text '2. Click <b>Login</b> (at the top of the page)'
     move_down 8
     render_specific_login_instructions_for_student(student)
   end
 
   def username_or_email_for_student(student)
     if (student.clever_id.present? || student.signed_up_with_google?) && !student.email.blank?
-      "Email:"
+      'Email:'
     else
-      "Username:"
+      'Username:'
     end
   end
 
@@ -141,42 +141,42 @@ class LoginPdf < Prawn::Document
 
   def render_specific_login_instructions_for_student(student)
     if student.clever_id.present?
-      render_text "3. Click the <b>Login with Clever</b> button"
+      render_text '3. Click the <b>Login with Clever</b> button'
       move_down 8
-      render_text "4. Log in with Clever"
+      render_text '4. Log in with Clever'
     elsif student.signed_up_with_google?
-      render_text "3. Click the <b>Login with Google</b> button"
+      render_text '3. Click the <b>Login with Google</b> button'
       move_down 8
-      render_text "4. Log in with Google"
+      render_text '4. Log in with Google'
     else
-      render_text "3. Enter your <b>username</b> and <b>password</b>"
+      render_text '3. Enter your <b>username</b> and <b>password</b>'
       move_down 8
-      render_text "4. Click the <b>Login</b> button"
+      render_text '4. Click the <b>Login</b> button'
     end
   end
 
   def render_password_instructions_for_student(student)
     if student.clever_id.present? || student.signed_up_with_google?
-      render_text "Default Password:", 10
+      render_text 'Default Password:', 10
     else
-      render_text "Password: (First letter is <b>Capitalized</b>)", 10
+      render_text 'Password: (First letter is <b>Capitalized</b>)', 10
     end
   end
 
   def render_password_for_student(student)
     if student.clever_id.present?
-      "N/A (Log in with Clever)"
+      'N/A (Log in with Clever)'
     elsif student.signed_up_with_google?
-      "N/A (Log in with Google)"
+      'N/A (Log in with Google)'
     elsif student.authenticate(student.last_name)
       (student.last_name.capitalize).to_s
     else
-      "N/A (Custom Password)"
+      'N/A (Custom Password)'
     end
   end
 
   def render_login_pdf
-    font("DejaVuSans")
+    font('DejaVuSans')
     render_cover_page_header
     render_cover_page_table
     start_new_page

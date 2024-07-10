@@ -19,7 +19,7 @@ class CreateFeedbackHistory < ActiveRecord::Migration[4.2]
     end
     add_index :feedback_histories, :activity_session_uid
     add_index :feedback_histories, [:prompt_type, :prompt_id],
-              name: "index_feedback_histories_on_prompt_type_and_id"
+              name: 'index_feedback_histories_on_prompt_type_and_id'
     add_index :feedback_histories, :concept_uid
   end
 end

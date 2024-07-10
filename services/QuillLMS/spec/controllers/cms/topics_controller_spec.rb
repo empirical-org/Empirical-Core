@@ -14,11 +14,11 @@ describe Cms::TopicsController do
     it 'returns a json hash with all the topics and change logs' do
       get :index
       parsed_response = JSON.parse(response.body)
-      topic_results = parsed_response["topics"]
-      change_log_results = parsed_response["change_logs"]
+      topic_results = parsed_response['topics']
+      change_log_results = parsed_response['change_logs']
       topics.each do |t|
-        expect(topic_results.find { |tr| tr["id"] == t.id }).to be
-        expect(change_log_results.find { |cl| cl["id"] == t.change_logs[0].id}).to be
+        expect(topic_results.find { |tr| tr['id'] == t.id }).to be
+        expect(change_log_results.find { |cl| cl['id'] == t.change_logs[0].id}).to be
       end
     end
   end
@@ -38,7 +38,7 @@ describe Cms::TopicsController do
           ]
         } }
       parsed_response = JSON.parse(response.body)
-      id = parsed_response["topic"]["id"]
+      id = parsed_response['topic']['id']
       expect(id).to be
       expect(Topic.find_by_id(id)).to be
       expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'Topic', action: 'Created')).to be

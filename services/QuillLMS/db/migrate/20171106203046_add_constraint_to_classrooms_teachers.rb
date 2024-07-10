@@ -7,7 +7,7 @@ class AddConstraintToClassroomsTeachers < ActiveRecord::Migration[4.2]
   end
 
   def self.down
-    execute "ALTER TABLE classrooms_teachers DROP CONSTRAINT check_role_is_valid"
+    execute 'ALTER TABLE classrooms_teachers DROP CONSTRAINT check_role_is_valid'
     remove_index :classrooms_teachers, name: 'unique_classroom_and_user_ids_on_classrooms_teachers'
   end
 end

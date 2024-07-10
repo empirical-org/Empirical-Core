@@ -28,7 +28,7 @@ describe Topic, type: :model do
 
   let!(:level_three_topic) { create(:topic, level: 3) }
 
-  it "should send callback after commit" do
+  it 'should send callback after commit' do
     expect(Activity).to receive(:clear_activity_search_cache)
     level_three_topic.run_callbacks(:commit)
   end

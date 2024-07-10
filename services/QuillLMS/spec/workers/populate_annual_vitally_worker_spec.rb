@@ -5,8 +5,8 @@ require 'rails_helper'
 describe PopulateAnnualVitallyWorker do
   subject { described_class.new }
 
-  describe "#perform" do
-    it "make queries for schools and users and enqueue them for further jobs" do
+  describe '#perform' do
+    it 'make queries for schools and users and enqueue them for further jobs' do
       past_year = School.school_year_start(1.year.ago).year
       ENV['SYNC_TO_VITALLY'] = 'true'
       school = create(:school)

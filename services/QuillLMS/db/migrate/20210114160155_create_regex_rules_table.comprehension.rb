@@ -12,6 +12,6 @@ class CreateRegexRulesTable < ActiveRecord::Migration[4.2]
     end
     add_index :comprehension_regex_rules, :rule_set_id
 
-    execute "INSERT INTO comprehension_regex_rules SELECT * FROM comprehension_rules"
+    execute 'INSERT INTO comprehension_regex_rules SELECT * FROM comprehension_rules'
   end
 end

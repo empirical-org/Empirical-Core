@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 describe TeacherActivityFeed, type: :model do
-  describe "redis feed model without callback" do
+  describe 'redis feed model without callback' do
 
     let(:activity_session) {create(:activity_session, percentage: 0.90, completed_at: 5.minutes.ago)}
     let(:activity_session2) {create(:activity_session, percentage: 0.66, completed_at: 2.minutes.ago)}
 
-    context "Storing and retrieving a session" do
+    context 'Storing and retrieving a session' do
       it 'should add and return activity sessions by order completed DESC' do
         TeacherActivityFeed.new(1).send(:delete_all)
         TeacherActivityFeed.add(1, activity_session.id)
@@ -20,11 +20,11 @@ describe TeacherActivityFeed, type: :model do
         expect(feed.size).to eq(2)
 
         expect(feed.first[:id]).to eq(activity_session2.id)
-        expect(feed.first[:completed]).to eq("2 mins ago")
+        expect(feed.first[:completed]).to eq('2 mins ago')
         expect(feed.first[:score]).to eq(ActivitySession::SOMETIMES_DEMONSTRATED_SKILL)
 
         expect(feed.last[:id]).to eq(activity_session.id)
-        expect(feed.last[:completed]).to eq("5 mins ago")
+        expect(feed.last[:completed]).to eq('5 mins ago')
         expect(feed.last[:score]).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
@@ -43,14 +43,14 @@ describe TeacherActivityFeed, type: :model do
         expect(feed.size).to eq(1)
 
         expect(feed.first[:id]).to eq(activity_session.id)
-        expect(feed.first[:completed]).to eq("5 mins ago")
+        expect(feed.first[:completed]).to eq('5 mins ago')
         expect(feed.first[:score]).to eq(ActivitySession::FREQUENTLY_DEMONSTRATED_SKILL)
       end
     end
   end
 
-  describe "feed integration test" do
-    include_context "Unit Assignments Variables"
+  describe 'feed integration test' do
+    include_context 'Unit Assignments Variables'
 
     let!(:classroom_unit1) { create(:classroom_unit, classroom_id: classroom.id, assigned_student_ids: [student1.id, student2.id], assign_on_join: false)}
     let!(:activity_session1) {create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student1.id, completed_at: 1.day.ago)}
@@ -67,7 +67,7 @@ describe TeacherActivityFeed, type: :model do
         expect(data[2][:id]).to eq(activity_session2.id)
       end
 
-      it "ignores activity sessions that have no completed_at value" do
+      it 'ignores activity sessions that have no completed_at value' do
         activity_session
         activity_session3 = create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student2.id, completed_at: nil)
         activity_session3.update(state: 'started', completed_at: nil)
@@ -147,43 +147,43 @@ describe TeacherActivityFeed, type: :model do
 
     context 'when the timestamp was less than one minute ago' do
       it 'should return "0 mins ago"' do
-        expect(feed.send(:text_for_completed, 30.seconds.ago)).to eq("0 mins ago")
+        expect(feed.send(:text_for_completed, 30.seconds.ago)).to eq('0 mins ago')
       end
     end
 
     context 'when the timestamp was one minute ago' do
       it 'should return "1 min ago"' do
-        expect(feed.send(:text_for_completed, 1.minute.ago)).to eq("1 min ago")
+        expect(feed.send(:text_for_completed, 1.minute.ago)).to eq('1 min ago')
       end
     end
 
     context 'when the timestamp was more than one minute but less than one hour ago' do
       it 'should return "47 mins ago"' do
-        expect(feed.send(:text_for_completed, 47.minutes.ago)).to eq("47 mins ago")
+        expect(feed.send(:text_for_completed, 47.minutes.ago)).to eq('47 mins ago')
       end
     end
 
     context 'when the timestamp was one hour ago' do
       it 'should return "1 hour ago"' do
-        expect(feed.send(:text_for_completed, 1.hour.ago)).to eq("1 hour ago")
+        expect(feed.send(:text_for_completed, 1.hour.ago)).to eq('1 hour ago')
       end
     end
 
     context 'when the timestamp was more than one hour but less than a day ago' do
       it 'should return "22 hours ago"' do
-        expect(feed.send(:text_for_completed, 22.hours.ago)).to eq("22 hours ago")
+        expect(feed.send(:text_for_completed, 22.hours.ago)).to eq('22 hours ago')
       end
     end
 
     context 'when the timestamp was one day ago' do
       it 'should return "1 day ago"' do
-        expect(feed.send(:text_for_completed, 1.day.ago)).to eq("1 day ago")
+        expect(feed.send(:text_for_completed, 1.day.ago)).to eq('1 day ago')
       end
     end
 
     context 'when the timestamp was more than one day but less than one week ago' do
       it 'should return "3 days ago"' do
-        expect(feed.send(:text_for_completed, 3.days.ago)).to eq("3 days ago")
+        expect(feed.send(:text_for_completed, 3.days.ago)).to eq('3 days ago')
       end
     end
 

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::DistrictClient do
-  include_context "Clever District Classrooms Data"
+  include_context 'Clever District Classrooms Data'
 
   let(:teacher) { create(:teacher, clever_id: teacher_clever_id) }
   let(:district_token) { 'district-token' }

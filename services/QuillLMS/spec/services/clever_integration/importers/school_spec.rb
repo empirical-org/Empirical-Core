@@ -10,24 +10,24 @@ describe CleverIntegration::Importers::School do
 
   before do
     clever_school = Clever::School.new(
-      id: "53ea7d6b2187a9bc1e188be0",
-      created: "2014-08-12T20:47:39.084Z",
-      school_number: "02M800",
-      low_grade: "9",
-      last_modified: "2014-08-12T20:47:39.086Z",
-      name: "City High School",
-      phone: "(212) 555-1212",
-      sis_id: "02M800",
+      id: '53ea7d6b2187a9bc1e188be0',
+      created: '2014-08-12T20:47:39.084Z',
+      school_number: '02M800',
+      low_grade: '9',
+      last_modified: '2014-08-12T20:47:39.086Z',
+      name: 'City High School',
+      phone: '(212) 555-1212',
+      sis_id: '02M800',
       location: {
-        address: "350 5th Avenue",
-        city: "New York",
-        state: "NY",
+        address: '350 5th Avenue',
+        city: 'New York',
+        state: 'NY',
         zip: 10001
       },
-      district: "53ea7c626e727c2e0d000018",
-      state_id: "712345",
-      nces_id: "fake_nces_id",
-      high_grade: "12"
+      district: '53ea7c626e727c2e0d000018',
+      state_id: '712345',
+      nces_id: 'fake_nces_id',
+      high_grade: '12'
     )
 
     clever_school_response = Clever::SchoolResponse.new(data: clever_school)

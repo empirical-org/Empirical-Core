@@ -42,6 +42,6 @@ class UploadToS3 < ApplicationService
     raise CloudUploadError, "Unable to upload #{extension} file for user #{user.id}" unless upload_status
 
     # The response-content-disposition param triggers browser file download instead of screen rendering
-    uploader.url(query: {"response-content-disposition" => "attachment;"})
+    uploader.url(query: {'response-content-disposition' => 'attachment;'})
   end
 end

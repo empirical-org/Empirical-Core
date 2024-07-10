@@ -20,7 +20,7 @@ class UniversalRuleLoader
     end
 
     if (CSV.parse(iostream, headers: true).headers & REQUIRED_HEADERS).count != REQUIRED_HEADERS.length
-      raise ArgumentError, "Invalid CSV headers."
+      raise ArgumentError, 'Invalid CSV headers.'
     end
 
     CSV.parse(iostream, headers: true) do |row|

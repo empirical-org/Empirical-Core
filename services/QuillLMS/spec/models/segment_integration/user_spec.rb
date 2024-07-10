@@ -25,7 +25,7 @@ RSpec.describe SegmentIntegration::User do
           first_name: admin.first_name,
           last_name: admin.last_name,
           email: admin.email,
-          flags: admin.flags&.join(", "),
+          flags: admin.flags&.join(', '),
           flagset: admin.flagset,
         }.reject {|_,v| v.nil? },
         integrations: admin.segment_user.integration_rules
@@ -103,10 +103,10 @@ RSpec.describe SegmentIntegration::User do
   end
 
   context 'teacher' do
-    let(:teacher) { create(:teacher, flags: ["private", "beta"]) }
-    let(:subject1) { create(:subject_area, name: "subject 1")}
-    let(:subject2) { create(:subject_area, name: "subject 2")}
-    let(:subject3) { create(:subject_area, name: "subject 3")}
+    let(:teacher) { create(:teacher, flags: ['private', 'beta']) }
+    let(:subject1) { create(:subject_area, name: 'subject 1')}
+    let(:subject2) { create(:subject_area, name: 'subject 2')}
+    let(:subject3) { create(:subject_area, name: 'subject 3')}
     let(:teacher_info) { teacher.teacher_info }
 
     before {
@@ -127,11 +127,11 @@ RSpec.describe SegmentIntegration::User do
             first_name: teacher.first_name,
             last_name: teacher.last_name,
             email: teacher.email,
-            flags: teacher.flags&.join(", "),
+            flags: teacher.flags&.join(', '),
             flagset: teacher.flagset,
             minimum_grade_level: teacher_info.minimum_grade_level,
             maximum_grade_level: teacher_info.maximum_grade_level,
-            subject_areas: teacher_info.subject_areas.map(&:name).join(", ")
+            subject_areas: teacher_info.subject_areas.map(&:name).join(', ')
           }.reject {|_,v| v.nil? },
           integrations: teacher.segment_user.integration_rules
         }
@@ -150,7 +150,7 @@ RSpec.describe SegmentIntegration::User do
           premium_type: teacher.subscription&.account_type,
           minimum_grade_level: teacher_info.minimum_grade_level,
           maximum_grade_level: teacher_info.maximum_grade_level,
-          subject_areas: teacher_info.subject_areas.map(&:name).join(", "),
+          subject_areas: teacher_info.subject_areas.map(&:name).join(', '),
           role: teacher.role
         }.reject {|_,v| v.nil? }
         expect(teacher.segment_user.common_params).to eq params

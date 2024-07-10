@@ -9,7 +9,7 @@ namespace :report_demo do
     Demo::ReportDemoCreator::create_demo("hello+#{name}@quill.org")
   end
 
-  desc "Generate new data for the ACTIVITY_PACK_TEMPLATES"
+  desc 'Generate new data for the ACTIVITY_PACK_TEMPLATES'
   task :generate_new_data, [:email] => :environment do |_, args|
     user = User.find_by(email: args[:email])
     classroom = user.classrooms_i_teach.first

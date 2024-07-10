@@ -44,7 +44,7 @@ module Evidence
         post(:create, :params => ({ :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
-        expect(parsed_response["activity_session_uid"].include?("can't be blank")).to(eq(true))
+        expect(parsed_response['activity_session_uid'].include?("can't be blank")).to(eq(true))
         expect(TurkingRoundActivitySession.count).to(eq(0))
       end
     end
@@ -69,7 +69,7 @@ module Evidence
       it 'should update record if valid, return nothing' do
         new_session_uid = SecureRandom.uuid
         patch(:update, :params => ({ :id => turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => new_session_uid }) }))
-        expect(response.body).to(eq(""))
+        expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         turking_round_activity_session.reload
         expect(new_session_uid).to(eq(turking_round_activity_session.activity_session_uid))
@@ -79,7 +79,7 @@ module Evidence
         patch(:update, :params => ({ :id => turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
-        expect(parsed_response["activity_session_uid"].include?("can't be blank")).to(eq(true))
+        expect(parsed_response['activity_session_uid'].include?("can't be blank")).to(eq(true))
       end
     end
 
@@ -88,7 +88,7 @@ module Evidence
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => turking_round_activity_session.id }))
-        expect(response.body).to(eq(""))
+        expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect(turking_round_activity_session.id).to(be_truthy)
         expect(TurkingRoundActivitySession.find_by_id(turking_round_activity_session.id)).to(be_nil)
@@ -96,8 +96,8 @@ module Evidence
     end
 
     context 'should validate' do
-      let!(:archived_activity) { Evidence.parent_activity_class.create(:name => "Archived Activity", :flags => (["archived"])) }
-      let!(:unarchived_activity) { Evidence.parent_activity_class.create(:name => "Unarchived Activity") }
+      let!(:archived_activity) { Evidence.parent_activity_class.create(:name => 'Archived Activity', :flags => (['archived'])) }
+      let!(:unarchived_activity) { Evidence.parent_activity_class.create(:name => 'Unarchived Activity') }
       let!(:turking_round) { create(:evidence_turking_round, expires_at: 1.second.from_now) }
       let!(:activity) { create(:evidence_activity, parent_activity_id: unarchived_activity.id)}
 

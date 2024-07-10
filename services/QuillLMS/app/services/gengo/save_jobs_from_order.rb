@@ -5,8 +5,8 @@ module Gengo
     class FetchTranslationOrderError < StandardError; end
     attr_accessor :order_id
 
-    JOB_ID = "job_id"
-    RESPONSE = "response"
+    JOB_ID = 'job_id'
+    RESPONSE = 'response'
 
     def initialize(order_id)
       @order_id = order_id

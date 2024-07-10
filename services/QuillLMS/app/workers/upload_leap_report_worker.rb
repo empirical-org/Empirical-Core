@@ -21,7 +21,7 @@ class UploadLeapReportWorker
     )
     bucket = s3.bucket(LEAP_S3_BUCKET)
     obj = bucket.object("Data/#{Time.current.strftime('%Y-%m-%d_%H-%M-%S')}.csv")
-    obj.put(body: csv_data, content_type: "text/csv")
+    obj.put(body: csv_data, content_type: 'text/csv')
   end
 
   private def current_academic_year_start

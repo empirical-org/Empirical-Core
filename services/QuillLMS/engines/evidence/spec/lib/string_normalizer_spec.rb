@@ -56,19 +56,19 @@ module Evidence
 
       it 'should normalize the single elipsis character' do
         ellipsis = "\u2026"
-        expect(StringNormalizer.new(ellipsis).run).to eq("...")
+        expect(StringNormalizer.new(ellipsis).run).to eq('...')
       end
 
       it 'should normalize utf-8 emdash to ASCII mdash' do
         emdash = "\u2014"
         # This may not be visible on your screen, but the value in the eq is an ANSI emdash
-        expect(StringNormalizer.new(emdash).run).to eq("—")
+        expect(StringNormalizer.new(emdash).run).to eq('—')
       end
 
       it 'should normalize utf-8 endash to ASCII ndash' do
         endash = "\u2013"
         # This may not be visible on your screen, but the value in the eq is an ANSI endash
-        expect(StringNormalizer.new(endash).run).to eq("–")
+        expect(StringNormalizer.new(endash).run).to eq('–')
       end
     end
   end

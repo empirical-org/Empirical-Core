@@ -41,7 +41,7 @@ describe ApplicationController, type: :controller do
       end
     end
 
-    describe "#confirm_valid_session" do
+    describe '#confirm_valid_session' do
       before { ApplicationController.send(:public, :confirm_valid_session) }
 
       subject { controller.confirm_valid_session }
@@ -73,7 +73,7 @@ describe ApplicationController, type: :controller do
         end
       end
 
-      context "when a reset_session? and current_user.google_access_expired_and_no_password? both false" do
+      context 'when a reset_session? and current_user.google_access_expired_and_no_password? both false' do
         before do
           allow(controller).to receive(:reset_session?).and_return(false)
           allow(user).to receive(:google_access_expired_and_no_password?).and_return(false)
@@ -85,7 +85,7 @@ describe ApplicationController, type: :controller do
         end
       end
 
-      context "when reset_session? is true" do
+      context 'when reset_session? is true' do
         before { allow(controller).to receive(:reset_session?).and_return(true) }
 
         it do
@@ -94,7 +94,7 @@ describe ApplicationController, type: :controller do
         end
       end
 
-      context "when current_user.google_access_expired_and_no_password? is true" do
+      context 'when current_user.google_access_expired_and_no_password? is true' do
         before { allow(user).to receive(:google_access_expired_and_no_password?).and_return(true) }
 
         it do
@@ -115,39 +115,39 @@ describe ApplicationController, type: :controller do
       end
     end
 
-    describe "#reset_session?" do
+    describe '#reset_session?' do
       before { ApplicationController.send(:public, :reset_session?) }
 
-      context "when a user.inactive_too_long? is false" do
+      context 'when a user.inactive_too_long? is false' do
         before { allow(user).to receive(:inactive_too_long?).and_return(false) }
 
         it { expect(controller.reset_session?).to be false }
       end
 
-      context "when a user.inactive_too_long? is true" do
+      context 'when a user.inactive_too_long? is true' do
         before { allow(user).to receive(:inactive_too_long?).and_return(true) }
 
         it { expect(controller.reset_session?).to be true }
 
-        context "when KEEP_ME_SIGNED_IN is false" do
+        context 'when KEEP_ME_SIGNED_IN is false' do
           before { session[ApplicationController::KEEP_ME_SIGNED_IN] = false }
 
           it { expect(controller.reset_session?).to be true }
         end
 
-        context "when KEEP_ME_SIGNED_IN is true" do
+        context 'when KEEP_ME_SIGNED_IN is true' do
           before { session[ApplicationController::KEEP_ME_SIGNED_IN] = true }
 
           it { expect(controller.reset_session?).to be false }
         end
 
-        context "when user is a Google user" do
+        context 'when user is a Google user' do
           before { allow(user).to receive(:google_id).and_return('123') }
 
           it { expect(controller.reset_session?).to be false }
         end
 
-        context "when user is a Clever user" do
+        context 'when user is a Clever user' do
           before { allow(user).to receive(:clever_id).and_return('123') }
 
           it { expect(controller.reset_session?).to be false }
@@ -160,7 +160,7 @@ describe ApplicationController, type: :controller do
       subject { get :custom, as: format }
 
       before do
-        routes.draw { get 'custom' => "anonymous#custom", format: [:html, :json, :pdf] }
+        routes.draw { get 'custom' => 'anonymous#custom', format: [:html, :json, :pdf] }
         allow(user).to receive(:staff_session_duration_exceeded?).and_return(true)
       end
 
@@ -219,7 +219,7 @@ describe ApplicationController, type: :controller do
     let(:redirect_path) { URI.parse(referer).path }
 
     before do
-      routes.draw { post 'custom' => "anonymous#custom" }
+      routes.draw { post 'custom' => 'anonymous#custom' }
       request.headers['HTTP_REFERER'] = referer
     end
 

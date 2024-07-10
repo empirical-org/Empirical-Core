@@ -23,6 +23,6 @@ class TranslationMapping < ApplicationRecord
   }
 
   def translation(locale: Translatable::DEFAULT_LOCALE, source_api: Translatable::OPEN_AI_SOURCE)
-    translated_texts.where(locale:).ordered_by_source_api(source_api).first&.translation || ""
+    translated_texts.where(locale:).ordered_by_source_api(source_api).first&.translation || ''
   end
 end

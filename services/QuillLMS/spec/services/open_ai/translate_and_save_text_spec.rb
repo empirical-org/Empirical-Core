@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
-  describe "run" do
+  describe 'run' do
     subject { described_class.run(english_text, prompt:)}
 
     let(:english_text) {create(:english_text)}
-    let(:prompt) { "translate please" }
+    let(:prompt) { 'translate please' }
     let(:text) { english_text.text}
-    let(:response) { "Do not go gentle into that good night" }
+    let(:response) { 'Do not go gentle into that good night' }
     let(:locale) { Translatable::DEFAULT_LOCALE }
 
     before do
@@ -31,7 +31,7 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
               }.by(1)
       end
 
-      it "always translates to spanish" do
+      it 'always translates to spanish' do
         expect { subject }
           .to change {
                 TranslatedText
@@ -45,10 +45,10 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
         expect(english_text.translated_texts.first.translation).to eq(response)
       end
 
-      it "updates if the translated_text exists" do
+      it 'updates if the translated_text exists' do
         translated_text = create(:translated_text,
           english_text_id: english_text.id,
-          translation: "Foo",
+          translation: 'Foo',
           locale:
         )
         subject
@@ -57,7 +57,7 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
 
     end
 
-    context "the response is nil" do
+    context 'the response is nil' do
       let(:response) { nil }
 
       it { expect{subject}.to raise_error(described_class::OpenAITranslationError)}

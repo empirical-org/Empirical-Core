@@ -70,7 +70,7 @@ module Snapshots
       end
 
       before do
-        stub_const("Snapshots::CacheSnapshotCountWorker::QUERIES", {
+        stub_const('Snapshots::CacheSnapshotCountWorker::QUERIES', {
           query => query_double
         })
       end
@@ -105,7 +105,7 @@ module Snapshots
         end
       end
 
-      context "params with string keys" do
+      context 'params with string keys' do
         it 'should execute the query for the timeframe' do
           expect(query_double).to receive(:run).with(expected_query_args)
           expect(Rails.cache).to receive(:write)

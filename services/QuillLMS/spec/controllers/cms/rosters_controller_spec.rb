@@ -15,18 +15,18 @@ describe Cms::RostersController do
     let!(:existing_teacher) { create(:teacher) }
 
     it 'should create teachers and students based on the data provided, and it should ignore empty items in payload arrays' do
-      teacher_email = "Email@test.org"
-      student_email = "StudentEmail@test.org"
-      another_student_email = "anotheremail@test.org"
+      teacher_email = 'Email@test.org'
+      student_email = 'StudentEmail@test.org'
+      another_student_email = 'anotheremail@test.org'
       teacher_email_downcased = teacher_email.downcase
       student_email_downcased = student_email.downcase
       another_student_email_downcased = another_student_email.downcase
-      classroom_name = "Class A"
+      classroom_name = 'Class A'
       post :upload_teachers_and_students, params: {
         school_id: school.id,
         teachers: [
           {
-            name: "Test Teacher",
+            name: 'Test Teacher',
             email: teacher_email,
             password: nil
           },
@@ -34,17 +34,17 @@ describe Cms::RostersController do
         ],
         students: [
           {
-            name: "Test Student",
+            name: 'Test Student',
             email: student_email,
-            teacher_name: "Test Teacher",
+            teacher_name: 'Test Teacher',
             teacher_email: teacher_email,
             classroom: classroom_name,
-            password: "password"
+            password: 'password'
           },
           {
-            name: "Another Student",
+            name: 'Another Student',
             email: another_student_email,
-            teacher_name: "Test Teacher",
+            teacher_name: 'Test Teacher',
             teacher_email: teacher_email,
             classroom: classroom_name,
             password: nil
@@ -79,7 +79,7 @@ describe Cms::RostersController do
             teacher_name: teacher.name,
             teacher_email: teacher.email,
             classroom: classroom.name,
-            password: "password"
+            password: 'password'
           }
         ]
       }
@@ -133,8 +133,8 @@ describe Cms::RostersController do
 
     it 'should not overwrite passwords for existing student if the parameter overwritePasswords is false' do
       create(:schools_users, school: school, user: existing_teacher)
-      new_password = "new-password"
-      classroom = "classroom"
+      new_password = 'new-password'
+      classroom = 'classroom'
 
       post :upload_teachers_and_students, params: {
         school_id: school.id,
@@ -157,7 +157,7 @@ describe Cms::RostersController do
     it 'should flash error if school is not found' do
       post :upload_teachers_and_students, params: { school_id: 10000000 }
       expect(response.status).to eq 422
-      expect(JSON.parse(response.body)["errors"]).to eq("School not found. Check that the ID is correct and try again.")
+      expect(JSON.parse(response.body)['errors']).to eq('School not found. Check that the ID is correct and try again.')
     end
 
     it 'should flash error if teacher already exists' do
@@ -174,22 +174,22 @@ describe Cms::RostersController do
       }
 
       expect(response.status).to eq 422
-      expect(JSON.parse(response.body)["errors"]).to eq("Teacher with email #{teacher.email} already exists.")
+      expect(JSON.parse(response.body)['errors']).to eq("Teacher with email #{teacher.email} already exists.")
     end
 
     it 'should flash error if no password or last name is provided' do
       post :upload_teachers_and_students, params: {
         school_id: school.id,
         teachers: [
-          name: "Firstname",
-          email: "email@email.org",
+          name: 'Firstname',
+          email: 'email@email.org',
           password: nil
         ],
         students: []
       }
 
       expect(response.status).to eq 422
-      expect(JSON.parse(response.body)["errors"]).to eq("Please provide a last name or password for teacher Firstname, otherwise this account will have no password.")
+      expect(JSON.parse(response.body)['errors']).to eq('Please provide a last name or password for teacher Firstname, otherwise this account will have no password.')
     end
 
     it 'should flash error if a student is attached to a nonexistent teacher' do
@@ -198,18 +198,18 @@ describe Cms::RostersController do
         teachers: [],
         students: [
           {
-            name: "Test Student",
-            email: "test@test.org",
-            teacher_name: "Fake Name",
-            teacher_email: "noemail@none.org",
-            classroom: "classroom name",
-            password: "password"
+            name: 'Test Student',
+            email: 'test@test.org',
+            teacher_name: 'Fake Name',
+            teacher_email: 'noemail@none.org',
+            classroom: 'classroom name',
+            password: 'password'
           }
         ]
       }
 
       expect(response.status).to eq 422
-      expect(JSON.parse(response.body)["errors"]).to eq("Teacher with email noemail@none.org does not exist.")
+      expect(JSON.parse(response.body)['errors']).to eq('Teacher with email noemail@none.org does not exist.')
     end
   end
 end

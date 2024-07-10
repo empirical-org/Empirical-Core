@@ -7,7 +7,7 @@ class Api::V1::LockersController < Api::ApiController
     if locker
       render json: { locker: locker }
     else
-      render json: { no_locker: "Personal locker has not been created yet." }, status: 200
+      render json: { no_locker: 'Personal locker has not been created yet.' }, status: 200
     end
   end
 

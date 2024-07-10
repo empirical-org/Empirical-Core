@@ -27,7 +27,7 @@ describe LongProcessNotifier do
       subject.run { nil }
     end
 
-    context "attach time_to_execute to provided options" do
+    context 'attach time_to_execute to provided options' do
       subject { described_class.new(error, threshold, key_values) }
 
       let(:expected_options) { key_values.merge({time_to_execute: finish - start}) }
@@ -38,7 +38,7 @@ describe LongProcessNotifier do
       end
     end
 
-    context "runtime less than threshold" do
+    context 'runtime less than threshold' do
       let(:finish) { start }
 
       it do

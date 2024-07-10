@@ -23,7 +23,7 @@ describe ErrorNotifier do
     end
   end
 
-  describe "initialization with engine" do
+  describe 'initialization with engine' do
     it "should set ErrorNotifier as Evidence's error notifier" do
       expect(Evidence.error_notifier).to be(ErrorNotifier)
     end

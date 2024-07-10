@@ -160,27 +160,27 @@ class School < ApplicationRecord
 
   def ulocal_to_school_type
     data = {
-      "11": "City, Large",
-      "12": "City, Mid-size",
-      "13": "City, Small",
-      "21": "Suburb, Large",
-      "22": "Suburb, Mid-size",
-      "23": "Suburb, Small",
-      "31": "Town, Fringe",
-      "32": "Town, Distant",
-      "33": "Town, Remote",
-      "41": "Rural, Fringe",
-      "42": "Rural, Distant"
+      "11": 'City, Large',
+      "12": 'City, Mid-size',
+      "13": 'City, Small',
+      "21": 'Suburb, Large',
+      "22": 'Suburb, Mid-size',
+      "23": 'Suburb, Small',
+      "31": 'Town, Fringe',
+      "32": 'Town, Distant',
+      "33": 'Town, Remote',
+      "41": 'Rural, Fringe',
+      "42": 'Rural, Distant'
     }
     data[ulocal.to_s.to_sym]
   end
 
-  def generate_leap_csv(activities_since = Date.parse("2010-01-01"))
+  def generate_leap_csv(activities_since = Date.parse('2010-01-01'))
     CSV.generate do |csv_file|
       csv_file << LEAP_CSV_HEADERS
 
       students.each do |student|
-        student.activity_sessions.where("completed_at >= ?", activities_since).where.not(completed_at: nil).each do |activity_session|
+        student.activity_sessions.where('completed_at >= ?', activities_since).where.not(completed_at: nil).each do |activity_session|
           classroom = activity_session.classroom
           teacher = User.joins(:classrooms_teachers).where(classrooms_teachers: {role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom_id: classroom.id}).first
           csv_file << generate_leap_csv_row(student, teacher, classroom, activity_session)

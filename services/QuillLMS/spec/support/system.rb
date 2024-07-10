@@ -39,7 +39,7 @@ RSpec.configure do |config|
   config.before(type: :system) { driven_by :rack_test }
 
   config.before(type: :system, js: true) do
-    if ENV["SELENIUM_DRIVER_URL"].present?
+    if ENV['SELENIUM_DRIVER_URL'].present?
       driven_by :remote_selenium_chrome
     else
       driven_by :local_selenium_chrome_headless

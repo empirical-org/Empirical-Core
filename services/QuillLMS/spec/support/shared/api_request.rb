@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples "a simple api request" do
+shared_examples 'a simple api request' do
   let(:model) {controller.controller_name.classify.underscore}
 
   before do
@@ -21,14 +21,14 @@ shared_examples "a simple api request" do
   end
 end
 
-shared_examples "an api request" do
-  context "has standard response items" do
-    describe "root nodes" do
+shared_examples 'an api request' do
+  context 'has standard response items' do
+    describe 'root nodes' do
       let(:parsed_body) { JSON.parse(response.body) }
 
       it { expect(parsed_body.keys).to include('meta') }
 
-      context "meta node" do
+      context 'meta node' do
         let(:meta) { parsed_body['meta'] }
 
         it { expect(meta.keys).to match_array(%w(status message errors)) }

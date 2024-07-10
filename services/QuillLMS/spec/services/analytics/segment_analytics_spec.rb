@@ -96,7 +96,7 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(Analytics::SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[0][:properties][:activity_pack_type]).to eq("Diagnostic")
+      expect(track_calls[0][:properties][:activity_pack_type]).to eq('Diagnostic')
       expect(track_calls[0][:properties][:activity_pack_name]).to eq(diagnostic_unit_template.name)
     end
 
@@ -107,7 +107,7 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(Analytics::SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[0][:properties][:activity_pack_type]).to eq("Custom")
+      expect(track_calls[0][:properties][:activity_pack_type]).to eq('Custom')
       expect(track_calls[0][:properties][:activity_pack_name]).to eq(unit.name)
     end
 
@@ -121,7 +121,7 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:event]).to eq(Analytics::SegmentIo::BackgroundEvents::ACTIVITY_PACK_ASSIGNMENT)
       expect(track_calls[0][:user_id]).to eq(teacher.id)
-      expect(track_calls[0][:properties][:activity_pack_type]).to eq("Pre-made")
+      expect(track_calls[0][:properties][:activity_pack_type]).to eq('Pre-made')
       expect(track_calls[0][:properties][:activity_pack_name]).to eq(unit_template.name)
     end
 

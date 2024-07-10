@@ -36,8 +36,8 @@ describe Classroom, type: :model do
   it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:activity_sessions).through(:classroom_units) }
   it { should have_many(:coteacher_classroom_invitations) }
-  it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name("StudentsClassrooms") }
-  it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name("User") }
+  it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name('StudentsClassrooms') }
+  it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name('User') }
   it { should have_many(:classrooms_teachers).with_foreign_key('classroom_id') }
   it { should have_many(:teachers).through(:classrooms_teachers).source(:user) }
   it { should have_one(:canvas_classroom).dependent(:destroy) }
@@ -84,19 +84,19 @@ describe Classroom, type: :model do
   describe '#create_with_join' do
 
     context 'when passed valid classrooms data' do
-      it "creates a classroom" do
+      it 'creates a classroom' do
         old_count = Classroom.all.count
         Classroom.create_with_join(classroom.attributes, teacher.id)
         expect(Classroom.all.count).to eq(old_count + 1)
       end
 
-      it "creates a ClassroomsTeacher" do
+      it 'creates a ClassroomsTeacher' do
         old_count = ClassroomsTeacher.all.count
         Classroom.create_with_join(classroom.attributes, teacher.id)
         expect(ClassroomsTeacher.all.count).to eq(old_count + 1)
       end
 
-      it "makes the classroom teacher an owner if no third argument is passed" do
+      it 'makes the classroom teacher an owner if no third argument is passed' do
         old_count = ClassroomsTeacher.all.count
         Classroom.create_with_join(classroom.attributes, teacher.id)
         expect(ClassroomsTeacher.all.count).to eq(old_count + 1)
@@ -107,16 +107,16 @@ describe Classroom, type: :model do
     context 'when passed invalid classrooms data' do
       def invalid_classroom_attributes
         attributes = classroom.attributes
-        attributes.delete("name")
+        attributes.delete('name')
         attributes
       end
-      it "does not create a classroom" do
+      it 'does not create a classroom' do
         old_count = Classroom.all.count
         Classroom.create_with_join(invalid_classroom_attributes, teacher.id)
         expect(Classroom.all.count).to eq(old_count)
       end
 
-      it "does not create a ClassroomsTeacher" do
+      it 'does not create a ClassroomsTeacher' do
         old_count = ClassroomsTeacher.all.count
         Classroom.create_with_join(invalid_classroom_attributes, teacher.id)
         expect(ClassroomsTeacher.all.count).to eq(old_count)
@@ -189,7 +189,7 @@ describe Classroom, type: :model do
 
     it 'should return the correct hash' do
       expect(classroom.archived_classrooms_manager).to eq({
-        createdDate: classroom.created_at.strftime("%m/%d/%Y"),
+        createdDate: classroom.created_at.strftime('%m/%d/%Y'),
         className: classroom.name,
         id: classroom.id,
         studentCount: classroom.students.count,
@@ -255,17 +255,17 @@ describe Classroom, type: :model do
     end
   end
 
-  describe "#generate_code" do
-    it "must not run before validate" do
+  describe '#generate_code' do
+    it 'must not run before validate' do
       expect(classroom.code).to be_nil
     end
 
-    it "must generate a code after validations" do
+    it 'must generate a code after validations' do
       classroom=create(:classroom)
       expect(classroom.code).to_not be_nil
     end
 
-    it "does not generate a code twice" do
+    it 'does not generate a code twice' do
       classroom = create(:classroom)
       old_code = classroom.code
       classroom.update(name: 'Testy Westy')

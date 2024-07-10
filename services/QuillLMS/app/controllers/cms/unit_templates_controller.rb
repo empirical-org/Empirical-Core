@@ -42,7 +42,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
     @unit_template.save
     if @unit_template.update(params)
       @unit_template.activities_unit_templates.each do |aut|
-        order_number = params["activity_ids"].index(aut.activity_id)
+        order_number = params['activity_ids'].index(aut.activity_id)
         aut.update(order_number: order_number)
       end
       render json: @unit_template

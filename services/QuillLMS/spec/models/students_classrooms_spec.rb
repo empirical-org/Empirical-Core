@@ -21,7 +21,7 @@ require 'rails_helper'
 
 describe StudentsClassrooms, type: :model, redis: true do
   it { should belong_to(:student).class_name('User') }
-  it { should belong_to(:classroom).class_name("Classroom") }
+  it { should belong_to(:classroom).class_name('Classroom') }
 
   it { is_expected.to callback(:checkbox).after(:save) }
   it { is_expected.to callback(:run_associator).after(:save) }
@@ -33,7 +33,7 @@ describe StudentsClassrooms, type: :model, redis: true do
     it 'should return the correct hash' do
       expect(classrooms.archived_classrooms_manager).to eq(
         {
-          joinDate: classrooms.created_at.strftime("%m/%d/%Y"),
+          joinDate: classrooms.created_at.strftime('%m/%d/%Y'),
           className: classrooms.classroom.name,
           teacherName: classrooms.classroom.owner.name,
           id: classrooms.id
@@ -64,12 +64,12 @@ describe StudentsClassrooms, type: :model, redis: true do
       let(:student) { create(:student_in_two_classrooms_with_many_activities) }
       let(:student_classroom) { StudentsClassrooms.find_by(student_id: student.id) }
 
-      it "should call the ArchiveStudentAssociationsForClassroomWorker" do
+      it 'should call the ArchiveStudentAssociationsForClassroomWorker' do
         expect(ArchiveStudentAssociationsForClassroomWorker).to receive(:perform_async).with(student.id, student_classroom.classroom_id)
         student_classroom.update(visible: false)
       end
 
-      it "should not call the ArchiveStudentAssociationsForClassroomWorker if skip attribute is set to true" do
+      it 'should not call the ArchiveStudentAssociationsForClassroomWorker if skip attribute is set to true' do
         student_classroom.skip_archive_student_associations = true
         expect(ArchiveStudentAssociationsForClassroomWorker).not_to receive(:perform_async).with(student.id, student_classroom.classroom_id)
         student_classroom.update(visible: false)
@@ -79,8 +79,8 @@ describe StudentsClassrooms, type: :model, redis: true do
     describe '#invalidate_classroom_minis' do
       let(:classrooms) { create(:students_classrooms) }
 
-      it "should invalidate the classroom minis" do
-        $redis.set("user_id:#{classrooms.classroom.owner.id}_classroom_minis", "something")
+      it 'should invalidate the classroom minis' do
+        $redis.set("user_id:#{classrooms.classroom.owner.id}_classroom_minis", 'something')
         classrooms.run_callbacks(:commit)
         expect($redis.get("user_id:#{classrooms.classroom.owner.id}_classroom_minis")).to eq nil
       end
