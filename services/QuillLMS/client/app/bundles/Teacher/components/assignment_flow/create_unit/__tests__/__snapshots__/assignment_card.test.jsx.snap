@@ -41,7 +41,7 @@ exports[`AssignmentCard component should render 1`] = `
         </span>
       </a>
       <button
-        className="quill-button-archived fun contained primary focus-on-light"
+        className="quill-button fun contained primary focus-on-light"
         type="button"
       >
         Select

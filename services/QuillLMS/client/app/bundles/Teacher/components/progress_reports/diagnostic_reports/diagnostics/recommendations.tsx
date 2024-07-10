@@ -36,6 +36,8 @@ import {
 import ActivityDisclaimerBanner from '../../../shared/activityDisclaimerBanner';
 import DemoOnboardingTour, { DEMO_ONBOARDING_DIAGNOSTIC_RECOMMENDATIONS, } from '../../../shared/demo_onboarding_tour';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
+import { DisabledDiagnosticsBanner } from '../../../../helpers/unitTemplates';
+import { DISABLED_DIAGNOSTIC_RECOMMENDATIONS_IDS } from '../../../assignment_flow/assignmentFlowConstants';
 
 const craneIllustration = <img alt="Grayscale construction crane" src={`${baseDiagnosticImageSrc}/crane-grayscale.svg`} />
 
@@ -501,7 +503,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
     return assignedPacks.every(pack => pack.activity_count === pack.diagnostic_progress[sr.id])
   })
 
-  const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && postDiagnosticUnitTemplateId && !isPostDiagnostic
+  const showPostTestAssignmentColumn = studentsWhoCompletedDiagnostic.length && postDiagnosticUnitTemplateId && !isPostDiagnostic && !DISABLED_DIAGNOSTIC_RECOMMENDATIONS_IDS.includes(Number(activityId))
 
   const widthClass = showPostTestAssignmentColumn ? "smaller-width" : ""
 
@@ -522,6 +524,7 @@ export const Recommendations = ({ passedPreviouslyAssignedRecommendations, passe
         <div className="section-header">
           <h2>Independent practice</h2>{recommendedKey}
         </div>
+        <DisabledDiagnosticsBanner className="recommendations" />
         <div className="recommendations-table-container">
           <div className={`recommendations-table-wrapper ${widthClass}`}>
             <IndependentRecommendationsButtons
