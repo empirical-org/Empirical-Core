@@ -98,7 +98,7 @@ export default class StudentOveriewTable extends React.Component {
         maxWidth: activityNameHeaderWidth,
         Cell: ({ row }) => {
           const { original, activity_id } = row
-          const { id, name, classroom_unit_id, completed_at } = original
+          const { id, name, classroom_unit_id, completed_at, activity_classification_id } = original
           const icon = this.activityClassificationIcon(activity_classification_id)
           const link = completed_at ? `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${classroom_unit_id}/user/${studentId}/a/${activity_id}` : null
           return renderTooltipRow({ icon, id, label: name, link, headerWidth: activityNameHeaderWidth })
