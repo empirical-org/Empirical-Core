@@ -297,7 +297,6 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-
   describe "#flag's overwritten methods" do
     it 'must be nil if has not been set' do
       expect(activity.flag).to be_nil
@@ -800,6 +799,45 @@ describe Activity, type: :model, redis: true do
           activity.update_questions_flag_status_if_necessary!
         end.not_to change{ q1.reload.data['flag'] }
       end
+    end
+  end
+
+  describe '#questions' do
+    subject { activity.questions }
+
+    let(:activity) { create(:activity) }
+
+    context 'there are questions in the data field' do
+      let(:questions) { create_list(:question, 2)}
+
+      before do
+        activity.data["questions"] = questions.map{|q| {"key" => q.uid}}
+        activity.save
+      end
+
+      it { expect(subject).to be_a(ActiveRecord::Relation) }
+
+      it { expect(subject).to match_array(questions) }
+
+      context 'has an extra question key that does not exist' do
+        before do
+          activity.data["questions"] << {"key" => "124"}
+          activity.save
+        end
+
+        it { expect(subject).to match_array(questions) }
+      end
+
+    end
+
+    context 'there are no questions in the data field' do
+      before do
+        activity.data.delete("questions")
+        activity.save
+      end
+
+      it { expect(subject).to be_a(ActiveRecord::Relation) }
+      it { expect(subject.count).to eq(0) }
     end
   end
 end

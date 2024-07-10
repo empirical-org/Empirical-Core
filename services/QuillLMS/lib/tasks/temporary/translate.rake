@@ -7,7 +7,7 @@ namespace :translate do
     count = hints.count
     hints.each_with_index do |hint, index|
       puts "translating #{index + 1}/#{count}..."
-      hint.translate!
+      OpenAI::TranslateWorker.perform_async(hint.id, hint.class.name)
     end
 
   end
@@ -20,16 +20,7 @@ namespace :translate do
     activity_count = activities.count
     activities.each_with_index do |activity, index|
       puts "translating #{index + 1}/#{activity_count}..."
-      activity.translate!
-      questions = activity.data['questions']
-      next if questions.empty?
-
-      question_count = questions.length
-      questions.each_with_index do |q, q_index|
-        puts "translating question #{q_index + 1}/#{question_count} for activity #{index + 1}"
-        question = Question.find_by(uid: q['key'])
-        question.translate!
-      end
+      OpenAI::TranslateActivityAndQuestionsWorker.perform_async(activity.id)
     end
   end
 
