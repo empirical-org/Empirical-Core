@@ -23,11 +23,11 @@ module Auth
     end
 
     private def learn_worlds_courses_endpoint
-      sso_response["url"]
+      sso_response['url']
     end
 
     private def learn_worlds_external_id
-      sso_response["user_id"]
+      sso_response['user_id']
     end
 
     private def sso_response
@@ -35,7 +35,7 @@ module Auth
     end
 
     private def sso_success?
-      sso_response["success"] == true
+      sso_response['success'] == true
     end
 
     private def update_last_login

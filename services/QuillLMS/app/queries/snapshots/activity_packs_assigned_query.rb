@@ -10,7 +10,7 @@ module Snapshots
     end
 
     def select_clause
-      "SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(JSON_VALUE_ARRAY(classroom_units.assigned_student_ids)) AS assigned_count"
+      'SELECT DISTINCT classroom_units.id, ARRAY_LENGTH(JSON_VALUE_ARRAY(classroom_units.assigned_student_ids)) AS assigned_count'
     end
 
     def from_and_join_clauses
@@ -21,7 +21,7 @@ module Snapshots
     end
 
     def relevant_date_column
-      "classroom_units.created_at"
+      'classroom_units.created_at'
     end
   end
 end

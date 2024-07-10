@@ -6,9 +6,9 @@ RSpec.describe Demo::CreateAdminReport do
   let!(:teacher_email) { 'hello+demoadmin-admindemoschool@quill.org' }
   let!(:passed_data) {
     [
-      {"School"=>"MLK Middle School", "Teacher"=>"Maya Angelou", "Classroom"=>"Period 1a"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 4"},
-      {"School"=>"Douglass High School", "Teacher"=>"Kevin Kwan", "Classroom"=>"Period 5"}
+      {'School'=>'MLK Middle School', 'Teacher'=>'Maya Angelou', 'Classroom'=>'Period 1a'},
+      {'School'=>'Douglass High School', 'Teacher'=>'Kevin Kwan', 'Classroom'=>'Period 4'},
+      {'School'=>'Douglass High School', 'Teacher'=>'Kevin Kwan', 'Classroom'=>'Period 5'}
     ]
   }
   let(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }
@@ -71,7 +71,7 @@ RSpec.describe Demo::CreateAdminReport do
     let(:min) { activity_session_count_range.first }
     let(:max) { activity_session_count_range.last }
 
-    it "should create every classroom from the data hash, associated with the correct teacher, each with 25 students" do
+    it 'should create every classroom from the data hash, associated with the correct teacher, each with 25 students' do
       subject.data.each do |row|
         classroom = Classroom.find_by_name(row['Classroom'])
         teacher = User.find_by_name(row['Teacher'])

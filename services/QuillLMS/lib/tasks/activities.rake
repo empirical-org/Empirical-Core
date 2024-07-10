@@ -64,7 +64,7 @@ namespace :activities do
 
       # Normalize any whitespace from the spreadsheet
       new_name = row['New Name'].gsub(/\s/, ' ')
-      raise "New name column is empty" if new_name.blank?
+      raise 'New name column is empty' if new_name.blank?
 
       activity.name = new_name
       if activity.data
@@ -99,7 +99,7 @@ namespace :activities do
       # Normalize any whitespace from the spreadsheet, but keep newlines
       # since there are long-term plans of allowing newlines in descriptions
       new_description = row['New Description - No Line Breaks'].gsub(/[^\S\r\n]/, ' ')
-      raise "New description column is empty" if new_description.blank?
+      raise 'New description column is empty' if new_description.blank?
 
       activity.description = new_description
       activity.save!

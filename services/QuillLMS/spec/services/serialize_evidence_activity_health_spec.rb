@@ -6,7 +6,7 @@ RSpec.describe SerializeEvidenceActivityHealth do
 
   before do
     @activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
-    @activity.update(flag: "production")
+    @activity.update(flag: 'production')
     @previous_version = @activity.version
     @activity.increment_version!
 
@@ -14,9 +14,9 @@ RSpec.describe SerializeEvidenceActivityHealth do
     @but_prompt1 = create(:evidence_prompt, activity: @activity, conjunction: 'but', text: 'Some feedback text but', max_attempts_feedback: 'Feedback')
     @so_prompt1 = create(:evidence_prompt, activity: @activity, conjunction: 'so', text: 'Some feedback text so', max_attempts_feedback: 'Feedback')
 
-    @activity_session1 = create(:activity_session, state: "finished", timespent: 600)
-    @activity_session2 = create(:activity_session, state: "finished", timespent: 300)
-    @activity_session3 = create(:activity_session, state: "started", timespent: 200)
+    @activity_session1 = create(:activity_session, state: 'finished', timespent: 600)
+    @activity_session2 = create(:activity_session, state: 'finished', timespent: 300)
+    @activity_session3 = create(:activity_session, state: 'started', timespent: 200)
     @activity_session1_uid = @activity_session1.uid
     @feedback_session1_uid = FeedbackSession.get_uid_for_activity_session(@activity_session1_uid)
     @activity_session2_uid = @activity_session2.uid

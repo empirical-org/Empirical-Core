@@ -10,7 +10,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
   it { should use_before_action :is_teacher? }
   it { should use_before_action :redirect_to_public_index_if_no_unit_template_found }
 
-  include_context "Unit Assignments Variables"
+  include_context 'Unit Assignments Variables'
 
 
   let(:parsed_body) { JSON.parse(response.body) }
@@ -24,10 +24,10 @@ describe Teachers::UnitTemplatesController, type: :controller do
 
   describe '#fast_assign' do
     context 'creates a new unit' do
-      it "can create new units and classroom activities" do
+      it 'can create new units and classroom activities' do
         data = {"id": unit_template1.id}
         current_jobs = FastAssignWorker.jobs.size
-        post "fast_assign", params: (data)
+        post 'fast_assign', params: (data)
         expect(FastAssignWorker.jobs.size).to eq(current_jobs + 1)
       end
     end

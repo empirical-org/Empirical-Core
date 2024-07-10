@@ -6,7 +6,7 @@ describe Admin::TeacherSerializer do
   it_behaves_like 'serializer' do
     let!(:teacher) { create(:teacher) }
     let(:record_instance) { TeachersData.run([teacher.id])[0] }
-    let(:result_key) { "teacher" }
+    let(:result_key) { 'teacher' }
 
     let(:expected_serialized_keys) do
       %w{

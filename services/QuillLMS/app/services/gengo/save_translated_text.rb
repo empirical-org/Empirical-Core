@@ -5,15 +5,15 @@ module Gengo
     class FetchTranslationJobError < StandardError; end
     attr_reader :translation_job_id
 
-    SLUG = "slug"
-    RESPONSE = "response"
-    JOB = "job"
-    JOB_ID = "job_id"
-    DELETED = "deleted"
-    CANCELED = "canceled"
-    STATUS = "status"
-    BODY_TGT = "body_tgt"
-    LC_TGT = "lc_tgt"
+    SLUG = 'slug'
+    RESPONSE = 'response'
+    JOB = 'job'
+    JOB_ID = 'job_id'
+    DELETED = 'deleted'
+    CANCELED = 'canceled'
+    STATUS = 'status'
+    BODY_TGT = 'body_tgt'
+    LC_TGT = 'lc_tgt'
 
     def initialize(translation_job_id)
       @translation_job_id = translation_job_id

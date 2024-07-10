@@ -25,7 +25,7 @@ module Snapshots
     end
 
     def relevant_count_column
-      "unit_activities.id"
+      'unit_activities.id'
     end
 
     def count_clause
@@ -37,16 +37,16 @@ module Snapshots
     end
 
     def relevant_date_column
-      "classroom_units.created_at"
+      'classroom_units.created_at'
     end
 
     def relevant_group_column
-      "activities.name"
+      'activities.name'
     end
 
     # Set to "" here because we want to create an un-LIMITed sub-query
     def limit_clause
-      ""
+      ''
     end
   end
 end

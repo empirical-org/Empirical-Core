@@ -48,7 +48,7 @@ describe LessonRecommendationsQuery do
     context 'when activity 413' do
       context 'when classroom id given' do
         let(:classroom) { create(:classroom, visible: true) }
-        let(:unit) { create(:unit, visible: true, name: "Adjectives Lesson Pack") }
+        let(:unit) { create(:unit, visible: true, name: 'Adjectives Lesson Pack') }
         let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, unit: unit) }
 
         before do
@@ -56,16 +56,16 @@ describe LessonRecommendationsQuery do
             recs.each { |r| r[:previously_assigned] = true }
             recs
           end
-          allow(subject).to receive(:rec_activities) { "activities" }
+          allow(subject).to receive(:rec_activities) { 'activities' }
         end
 
         it 'should return the correct response' do
-          expect(subject.recs_for_activity("413", classroom.id)).to eq(
+          expect(subject.recs_for_activity('413', classroom.id)).to eq(
             [
               {
                 recommendation: 'Compound Subjects, Objects, and Predicates Lesson Pack',
                 activityPackId: 40,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -82,7 +82,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Adjectives Lesson Pack',
                 activityPackId: 39,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -95,7 +95,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Adverbs Lesson Pack',
                 activityPackId: 41,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -108,7 +108,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Compound Sentences Lesson Pack',
                 activityPackId: 42,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -133,7 +133,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Complex Sentences Lesson Pack',
                 activityPackId: 43,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -158,7 +158,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Appositive Phrases Lesson Pack',
                 activityPackId: 44,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -175,7 +175,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Parallel Structure Lesson Pack',
                 activityPackId: 46,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -192,16 +192,16 @@ describe LessonRecommendationsQuery do
 
       context 'when classroom id not given' do
         before do
-          allow(subject).to receive(:rec_activities) { "activities" }
+          allow(subject).to receive(:rec_activities) { 'activities' }
         end
 
         it 'should return the correct response' do
-          expect(subject.recs_for_activity("413")).to eq(
+          expect(subject.recs_for_activity('413')).to eq(
             [
               {
                 recommendation: 'Compound Subjects, Objects, and Predicates Lesson Pack',
                 activityPackId: 40,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -217,7 +217,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Adjectives Lesson Pack',
                 activityPackId: 39,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -229,7 +229,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Adverbs Lesson Pack',
                 activityPackId: 41,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -241,7 +241,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Compound Sentences Lesson Pack',
                 activityPackId: 42,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                       {
@@ -265,7 +265,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Complex Sentences Lesson Pack',
                 activityPackId: 43,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                       {
@@ -289,7 +289,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Appositive Phrases Lesson Pack',
                 activityPackId: 44,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -305,7 +305,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Parallel Structure Lesson Pack',
                 activityPackId: 46,
-                activities: "activities",
+                activities: 'activities',
                 requirements:
                   [
                     {
@@ -324,7 +324,7 @@ describe LessonRecommendationsQuery do
     context 'when activity 417' do
       context 'when classroom id given' do
         let(:classroom) { create(:classroom, visible: true) }
-        let(:unit) { create(:unit, visible: true, name: "Adjectives Lesson Pack") }
+        let(:unit) { create(:unit, visible: true, name: 'Adjectives Lesson Pack') }
         let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, unit: unit) }
 
         before do
@@ -332,16 +332,16 @@ describe LessonRecommendationsQuery do
             recs.each { |r| r[:previously_assigned] = true }
             recs
           end
-          allow(subject).to receive(:rec_activities) { "activities" }
+          allow(subject).to receive(:rec_activities) { 'activities' }
         end
 
         it 'should return the correct response' do
-          expect(subject.recs_for_activity("447", classroom.id)).to eq(
+          expect(subject.recs_for_activity('447', classroom.id)).to eq(
           [
               {
                   recommendation: 'Adjectives Lesson Pack',
                   activityPackId: 39,
-                  activities: "activities",
+                  activities: 'activities',
                   requirements: [
                       {
                           concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
@@ -355,7 +355,7 @@ describe LessonRecommendationsQuery do
               {
                   recommendation: 'Adverbs Lesson Pack',
                   activityPackId: 41,
-                  activities: "activities",
+                  activities: 'activities',
                   requirements: [
                       {
                           concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -373,7 +373,7 @@ describe LessonRecommendationsQuery do
               {
                   recommendation: 'Compound Sentences Lesson Pack',
                   activityPackId: 42,
-                  activities: "activities",
+                  activities: 'activities',
                   requirements: [
                       {
                           concept_id: 'tSSLMHqX0q-9mKTJHSyung',
@@ -396,7 +396,7 @@ describe LessonRecommendationsQuery do
               {
                   recommendation: 'Complex Sentences Lesson Pack',
                   activityPackId: 43,
-                  activities: "activities",
+                  activities: 'activities',
                   requirements: [
                       {
                           concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
@@ -428,16 +428,16 @@ describe LessonRecommendationsQuery do
 
       context 'when classroom id not given' do
         before do
-          allow(subject).to receive(:rec_activities) { "activities" }
+          allow(subject).to receive(:rec_activities) { 'activities' }
         end
 
         it 'should return the correct response' do
-          expect(subject.recs_for_activity("447")).to eq(
+          expect(subject.recs_for_activity('447')).to eq(
             [
               {
                 recommendation: 'Adjectives Lesson Pack',
                 activityPackId: 39,
-                activities: "activities",
+                activities: 'activities',
                 requirements: [
                   {
                     concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
@@ -449,7 +449,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Adverbs Lesson Pack',
                 activityPackId: 41,
-                activities: "activities",
+                activities: 'activities',
                 requirements: [
                   {
                     concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
@@ -466,7 +466,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Compound Sentences Lesson Pack',
                 activityPackId: 42,
-                activities: "activities",
+                activities: 'activities',
                 requirements: [
                   {
                     concept_id: 'tSSLMHqX0q-9mKTJHSyung',
@@ -488,7 +488,7 @@ describe LessonRecommendationsQuery do
               {
                 recommendation: 'Complex Sentences Lesson Pack',
                 activityPackId: 43,
-                activities: "activities",
+                activities: 'activities',
                 requirements: [
                   {
                     concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',

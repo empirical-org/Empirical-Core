@@ -5,8 +5,8 @@ require 'rails_helper'
 describe Api::V1::ActivitySurveyResponsesController, type: :controller do
   let!(:activity_session) { create(:activity_session) }
 
-  describe "#create" do
-    it "should create a new record" do
+  describe '#create' do
+    it 'should create a new record' do
       data = {
         emoji_selection: 1,
         multiple_choice_selections: ['This activity was the worst', 'This activity was the best'],

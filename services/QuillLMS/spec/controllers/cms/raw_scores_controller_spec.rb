@@ -19,9 +19,9 @@ describe Cms::RawScoresController do
     it 'returns a json hash with all the raw_scores and the activity classification tables' do
       get :index
       parsed_response = JSON.parse(response.body)
-      raw_score_results = parsed_response["raw_scores"]
+      raw_score_results = parsed_response['raw_scores']
       raw_scores.each do |t|
-        expect(raw_score_results.find { |tr| tr["id"] == t.id }).to be
+        expect(raw_score_results.find { |tr| tr['id'] == t.id }).to be
       end
     end
   end
@@ -33,7 +33,7 @@ describe Cms::RawScoresController do
           order: 1
         } }
       parsed_response = JSON.parse(response.body)
-      id = parsed_response["raw_score"]["id"]
+      id = parsed_response['raw_score']['id']
       expect(id).to be
       expect(RawScore.find_by_id(id)).to be
     end

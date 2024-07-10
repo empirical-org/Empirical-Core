@@ -20,7 +20,7 @@ module TeacherCenterHelper
       {
         id: BlogPost::WHATS_NEW,
         name: BlogPost::WHATS_NEW,
-        url: "/teacher-center/topic/whats-new"
+        url: '/teacher-center/topic/whats-new'
       },
       {
         id: BlogPost::WRITING_FOR_LEARNING,

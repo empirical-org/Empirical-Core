@@ -21,13 +21,13 @@ namespace :translate do
     activities.each_with_index do |activity, index|
       puts "translating #{index + 1}/#{activity_count}..."
       activity.translate!
-      questions = activity.data["questions"]
+      questions = activity.data['questions']
       next if questions.empty?
 
       question_count = questions.length
       questions.each_with_index do |q, q_index|
         puts "translating question #{q_index + 1}/#{question_count} for activity #{index + 1}"
-        question = Question.find_by(uid: q["key"])
+        question = Question.find_by(uid: q['key'])
         question.translate!
       end
     end

@@ -164,16 +164,16 @@ RSpec.describe User, type: :model do
     end
 
     describe '#testing_flag' do
-      it "returns nil if the user does not have a flag from the User::TESTING_FLAGS array" do
+      it 'returns nil if the user does not have a flag from the User::TESTING_FLAGS array' do
         user.update(flags: [User::PERMISSIONS_FLAGS.first])
         expect(user.testing_flag).to eq(nil)
       end
 
-      it "returns nil if the user does any flags" do
+      it 'returns nil if the user does any flags' do
         expect(user.testing_flag).to eq(nil)
       end
 
-      it "returns a flag from the User::TESTING_FLAGS array if the user does have one" do
+      it 'returns a flag from the User::TESTING_FLAGS array if the user does have one' do
         sample_testing_flag = User::TESTING_FLAGS.first
         user.update(flags: [sample_testing_flag])
         expect(user.testing_flag).to eq(sample_testing_flag)
@@ -211,7 +211,7 @@ RSpec.describe User, type: :model do
 
     context 'customer exists on stripe' do
       let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
-      let(:customer_attrs) { { id: stripe_customer_id, object: "customer" } }
+      let(:customer_attrs) { { id: stripe_customer_id, object: 'customer' } }
 
       before { retrieve_stripe_customer.and_return(stripe_customer) }
 
@@ -220,7 +220,7 @@ RSpec.describe User, type: :model do
 
     context 'customer exists on stripe but is deleted' do
       let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
-      let(:customer_attrs) { { id: stripe_customer_id, object: "customer", deleted: true } }
+      let(:customer_attrs) { { id: stripe_customer_id, object: 'customer', deleted: true } }
 
       before { retrieve_stripe_customer.and_return(stripe_customer) }
 
@@ -229,16 +229,16 @@ RSpec.describe User, type: :model do
   end
 
   describe '#utc_offset' do
-    it "returns 0 if the user does not have a timezone" do
+    it 'returns 0 if the user does not have a timezone' do
       expect(user.utc_offset).to eq(0)
     end
 
-    it "returns a negative number if the user has a timezone that is behind utc" do
+    it 'returns a negative number if the user has a timezone that is behind utc' do
       user.update(time_zone: 'America/New_York')
       expect(user.utc_offset).to be < 0
     end
 
-    it "returns a postive number if the user has a timezone that is ahead of utc" do
+    it 'returns a postive number if the user has a timezone that is ahead of utc' do
       user.update(time_zone: 'Australia/Perth')
       expect(user.utc_offset).to be > 0
     end
@@ -274,7 +274,7 @@ RSpec.describe User, type: :model do
           expect(user.subscription_authority_level(subscription.id)).to eq('coordinator')
         end
 
-        it "returns nil if the user has no authority" do
+        it 'returns nil if the user has no authority' do
           expect(user.subscription_authority_level(subscription.id)).to eq(nil)
         end
       end
@@ -288,26 +288,26 @@ RSpec.describe User, type: :model do
           expect(user.reload.last_expired_subscription).to eq(subscription2)
         end
 
-        it "returns nil if the user does not have a recently expired subscription" do
+        it 'returns nil if the user does not have a recently expired subscription' do
           user.subscriptions.destroy_all
           expect(user.subscription).not_to be
         end
       end
 
       describe '#eligible_for_new_subscription?' do
-        it "returns true if the user does not have a subscription" do
+        it 'returns true if the user does not have a subscription' do
           user.reload.subscription.destroy
           expect(user.eligible_for_new_subscription?).to be
         end
 
-        it "returns true if the user has a subscription with a trial account type" do
+        it 'returns true if the user has a subscription with a trial account type' do
           Subscription::TRIAL_TYPES.each do |type|
             subscription.update(account_type: type)
             expect(user.reload.eligible_for_new_subscription?).to be true
           end
         end
 
-        it "returns false if the user has a subscription that does not have a trial account type" do
+        it 'returns false if the user has a subscription that does not have a trial account type' do
           (Subscription::OFFICIAL_PAID_TYPES).each do |type|
             subscription.update(account_type: type)
             expect(user.reload.eligible_for_new_subscription?).to be false
@@ -358,7 +358,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'constants' do
-    it "should give the correct value for all the constants" do
+    it 'should give the correct value for all the constants' do
       expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
       expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
     end
@@ -496,8 +496,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'should send the mail with user mailer' do
-      expect(UserMailer).to receive(:account_created_email).with(user, "pass", "name")
-      user.send_account_created_email("pass", "name")
+      expect(UserMailer).to receive(:account_created_email).with(user, 'pass', 'name')
+      user.send_account_created_email('pass', 'name')
     end
   end
 
@@ -509,12 +509,12 @@ RSpec.describe User, type: :model do
     end
 
     it 'should send the invitation received email' do
-      expect(UserMailer).to receive(:invitation_to_non_existing_user).with({test: "test"})
-      user.send_invitation_to_non_existing_user({test: "test"})
+      expect(UserMailer).to receive(:invitation_to_non_existing_user).with({test: 'test'})
+      user.send_invitation_to_non_existing_user({test: 'test'})
     end
   end
 
-  describe "#send_invitation_to_existing_user" do
+  describe '#send_invitation_to_existing_user' do
     let(:user) { create(:user) }
 
     before do
@@ -522,8 +522,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'should send the invitation to existing user' do
-      expect(UserMailer).to receive(:invitation_to_existing_user).with({test: "test"})
-      user.send_invitation_to_existing_user({test: "test"})
+      expect(UserMailer).to receive(:invitation_to_existing_user).with({test: 'test'})
+      user.send_invitation_to_existing_user({test: 'test'})
     end
   end
 
@@ -574,7 +574,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     it 'should clear the class_room_minis cache' do
-      $redis.set("user_id:#{user.id}_classroom_minis", "anything")
+      $redis.set("user_id:#{user.id}_classroom_minis", 'anything')
       user.delete_classroom_minis_cache
       expect($redis.get("user_id:#{user.id}_classroom_minis")).to eq(nil)
     end
@@ -584,7 +584,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     it 'should clear the class_room_minis cache' do
-      $redis.set("user_id:#{user.id}_struggling_students", "anything")
+      $redis.set("user_id:#{user.id}_struggling_students", 'anything')
       user.delete_struggling_students_cache
       expect($redis.get("user_id:#{user.id}_struggling_students")).to eq(nil)
     end
@@ -634,9 +634,9 @@ RSpec.describe User, type: :model do
         show_students_exact_score: teacher_info.show_students_exact_score,
         notification_email_frequency: TeacherInfo::DAILY_EMAIL,
         teacher_notification_settings: {
-          "TeacherNotifications::StudentCompletedDiagnostic" => false,
-          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
-          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+          'TeacherNotifications::StudentCompletedDiagnostic' => false,
+          'TeacherNotifications::StudentCompletedAllDiagnosticRecommendations' => false,
+          'TeacherNotifications::StudentCompletedAllAssignedActivities' => false
         }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
@@ -654,9 +654,9 @@ RSpec.describe User, type: :model do
         show_students_exact_score: teacher_info.show_students_exact_score,
         notification_email_frequency: TeacherInfo::DAILY_EMAIL,
         teacher_notification_settings: {
-          "TeacherNotifications::StudentCompletedDiagnostic" => false,
-          "TeacherNotifications::StudentCompletedAllDiagnosticRecommendations" => false,
-          "TeacherNotifications::StudentCompletedAllAssignedActivities" => false
+          'TeacherNotifications::StudentCompletedDiagnostic' => false,
+          'TeacherNotifications::StudentCompletedAllDiagnosticRecommendations' => false,
+          'TeacherNotifications::StudentCompletedAllAssignedActivities' => false
         }
       })
       expect(user.generate_teacher_account_info).to eq(hash)
@@ -667,13 +667,13 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     it 'should clear the class_room_minis cache' do
-      $redis.set("user_id:#{user.id}_difficult_concepts", "anything")
+      $redis.set("user_id:#{user.id}_difficult_concepts", 'anything')
       user.delete_difficult_concepts_cache
       expect($redis.get("user_id:#{user.id}_difficult_concepts")).to eq(nil)
     end
   end
 
-  describe "default scope" do
+  describe 'default scope' do
     let(:user1) { create(:user) }
     let(:user2) { create(:user, role: 'temporary') }
 
@@ -783,7 +783,7 @@ RSpec.describe User, type: :model do
             expect(subscription.start_date).to eq(Date.current)
           end
 
-          it "with the user as the contact" do
+          it 'with the user as the contact' do
             subscription = user.redeem_credit
             expect(subscription.purchaser).to eq(user)
           end
@@ -791,14 +791,14 @@ RSpec.describe User, type: :model do
       end
 
       context 'and an existing subscription' do
-        it "creates a new subscription" do
+        it 'creates a new subscription' do
           subscription = create(:subscription, expiration: 3.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: subscription)
 
           expect{ user.redeem_credit }.to change(Subscription, :count).by(1)
         end
 
-        it "creates a new subscription with the start date equal to last subscription expiration" do
+        it 'creates a new subscription with the start date equal to last subscription expiration' do
           subscription = create(:subscription, expiration: 3.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: subscription)
 
@@ -1062,7 +1062,7 @@ RSpec.describe User, type: :model do
       it 'is invalid when there is a space in it' do
         user = build(:user,  email: 'test@test.lan ')
         user.save
-        expect(user.errors[:email]).to include("That email is not valid because it has a space. Try another.")
+        expect(user.errors[:email]).to include('That email is not valid because it has a space. Try another.')
       end
 
       context 'when role requires email' do
@@ -1632,7 +1632,7 @@ RSpec.describe User, type: :model do
       it 'sets the timezone based on the ip address if the school does not have a zipcode or a mail_zipcode' do
         school = create(:school, mail_zipcode: nil, zipcode: nil)
         user.school = school
-        user.update(ip_address: "179.61.239.7")
+        user.update(ip_address: '179.61.239.7')
         user.set_time_zone
         expect(user.time_zone).to eq('America/New_York')
       end
@@ -1640,7 +1640,7 @@ RSpec.describe User, type: :model do
 
     describe 'if the user does not have a school' do
       it 'sets the timezone based on the ip address' do
-        user.update(ip_address: "73.9.149.0")
+        user.update(ip_address: '73.9.149.0')
         user.set_time_zone
         expect(user.time_zone).to eq('America/New_York')
       end
@@ -2069,7 +2069,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'should save the role_selected_at_signup attribute to TeacherInfo record' do
-        role_selected_at_signup = "admin"
+        role_selected_at_signup = 'admin'
         teacher = create(:teacher, role_selected_at_signup:)
 
         expect(teacher.teacher_info.role_selected_at_signup).to eq(role_selected_at_signup)

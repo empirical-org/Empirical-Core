@@ -48,7 +48,7 @@ RSpec.describe CleverIntegration::ClassroomCreator do
         end
       end
 
-      it "stops naming duplicates at max and then starts using random values" do
+      it 'stops naming duplicates at max and then starts using random values' do
         expect(subject.name).not_to eq "#{name}_11"
       end
 

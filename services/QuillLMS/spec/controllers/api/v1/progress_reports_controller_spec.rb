@@ -88,7 +88,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     before do
       allow(teacher).to receive(:admin?) { true }
       allow(controller).to receive(:current_user) { teacher }
-      allow_any_instance_of(ProgressReports::DistrictActivityScores).to receive(:results) { "some data" }
+      allow_any_instance_of(ProgressReports::DistrictActivityScores).to receive(:results) { 'some data' }
     end
 
     it 'should return the district activit scores progress reports' do
@@ -101,7 +101,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     before do
       allow(teacher).to receive(:admin?) { true }
       allow(controller).to receive(:current_user) { teacher }
-      allow_any_instance_of(ProgressReports::DistrictConceptReports).to receive(:results) { "some data" }
+      allow_any_instance_of(ProgressReports::DistrictConceptReports).to receive(:results) { 'some data' }
     end
 
     it 'should return the district activity scores progress reports' do
@@ -114,7 +114,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     before do
       allow(teacher).to receive(:admin?) { true }
       allow(controller).to receive(:current_user) { teacher }
-      allow_any_instance_of(ProgressReports::DistrictStandardsReports).to receive(:results) { "some data" }
+      allow_any_instance_of(ProgressReports::DistrictStandardsReports).to receive(:results) { 'some data' }
     end
 
     it 'should return the district activities scores progress reports for the standards reports page' do

@@ -44,15 +44,15 @@ module Evidence
 
     def change_log_name
       if semantic_rule && first_order
-        "Semantic Label First Layer Feedback"
+        'Semantic Label First Layer Feedback'
       elsif semantic_rule && second_order
-        "Semantic Label Second Layer Feedback"
+        'Semantic Label Second Layer Feedback'
       elsif rule.plagiarism?
-        "Plagiarism Rule Feedback"
+        'Plagiarism Rule Feedback'
       elsif rule.regex?
-        "Regex Rule Feedback"
+        'Regex Rule Feedback'
       else
-        "Feedback"
+        'Feedback'
       end
     end
 

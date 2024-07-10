@@ -81,14 +81,14 @@ describe Subscription, type: :model do
   describe '#is_trial?' do
     let!(:subscription) { create(:subscription) }
 
-    it "returns true if the subscription is in Subscription::TRIAL_TYPES" do
+    it 'returns true if the subscription is in Subscription::TRIAL_TYPES' do
       Subscription::TRIAL_TYPES.each do |tt|
         subscription.update(account_type: tt)
         expect(subscription.is_trial?).to be
       end
     end
 
-    it "returns false if the subscription is not Subscription::TRIAL_TYPES" do
+    it 'returns false if the subscription is not Subscription::TRIAL_TYPES' do
       Subscription::OFFICIAL_PAID_TYPES.each do |tt|
         subscription.update(account_type: tt)
         expect(subscription.is_trial?).not_to be
@@ -97,7 +97,7 @@ describe Subscription, type: :model do
   end
 
   describe 'the subscription type consts' do
-    it "the official school and offical teacher types contain the same values as all offical types" do
+    it 'the official school and offical teacher types contain the same values as all offical types' do
       types_by_role = Subscription::OFFICIAL_DISTRICT_TYPES + Subscription::OFFICIAL_SCHOOL_TYPES + Subscription::OFFICIAL_TEACHER_TYPES
       expect(types_by_role.uniq).to match_array(Subscription::ALL_OFFICIAL_TYPES)
     end
@@ -164,7 +164,7 @@ describe Subscription, type: :model do
     end
   end
 
-  describe ".redemption_start_date" do
+  describe '.redemption_start_date' do
     let!(:school) { create(:school) }
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
     let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
@@ -174,17 +174,17 @@ describe Subscription, type: :model do
     end
   end
 
-  describe ".promotional_dates" do
+  describe '.promotional_dates' do
     context 'when called on a day prior to July, 1' do
       before do
         allow(Date).to receive(:current).and_return Date.new(2018,4,4)
       end
 
-      it "returns an expiration date of July 31 the next year when called on a day prior to July" do
+      it 'returns an expiration date of July 31 the next year when called on a day prior to July' do
         expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,7,31))
       end
 
-      it "returns a start date one year from the day it was called" do
+      it 'returns a start date one year from the day it was called' do
         expect(Subscription.promotional_dates[:start_date]).to eq(Date.current)
       end
     end
@@ -192,11 +192,11 @@ describe Subscription, type: :model do
     context 'when called on a day after June 30' do
       before { allow(Date).to receive(:current).and_return Date.new(2018,10,4) }
 
-      it "returns an expiration date of December 31 the next year when called on a day prior to July" do
+      it 'returns an expiration date of December 31 the next year when called on a day prior to July' do
         expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,12,31))
       end
 
-      it "returns a start date one year from the day it was called" do
+      it 'returns a start date one year from the day it was called' do
         expect(Subscription.promotional_dates[:start_date]).to eq(Date.current)
       end
     end
@@ -321,12 +321,12 @@ describe Subscription, type: :model do
         allow(Stripe::Customer).to receive(:retrieve).with(purchaser.stripe_customer_id).and_return(customer)
       end
 
-      it "calls renew_via_stripe on all recurring subscriptions expiring that day that have users" do
+      it 'calls renew_via_stripe on all recurring subscriptions expiring that day that have users' do
         expect(recurring_subscription_expiring_today1).to receive(:renew_via_stripe)
         subject
       end
 
-      it "does not call renew_via_stripe on any other subscriptions" do
+      it 'does not call renew_via_stripe on any other subscriptions' do
         expect(recurring_subscription_expiring_today2).not_to receive(:renew_via_stripe)
         expect(recurring_subscription_expiring_but_de_activated).not_to receive(:renew_via_stripe)
         expect(recurring_subscription_expiring_tomorrow).not_to receive(:renew_via_stripe)
@@ -345,7 +345,7 @@ describe Subscription, type: :model do
 
         before { allow(purchaser).to receive(:stripe_customer?).and_return(false) }
 
-        it "reports a RenewalNilStripeCustomer exception" do
+        it 'reports a RenewalNilStripeCustomer exception' do
           expect(ErrorNotifier).to receive(:report).with(error, subscription_id: subscription.id)
           subject
         end
@@ -366,7 +366,7 @@ describe Subscription, type: :model do
     describe '.expired_today_or_previously_and_recurring' do
       subject { Subscription.expired_today_or_previously_and_recurring }
 
-      it "returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null" do
+      it 'returns all subscriptions where the expiration date is today and recurring is true and de_activated_date is null' do
         expect(subject).to contain_exactly(recurring_subscription_expiring_today1, recurring_subscription_expiring_today2)
       end
 
@@ -374,15 +374,15 @@ describe Subscription, type: :model do
         expect(subject).not_to include(recurring_stripe_subscription_expiring_today)
       end
 
-      it "does not return subscriptions just because they expire today" do
+      it 'does not return subscriptions just because they expire today' do
         expect(subject).not_to include(non_recurring_subscription_expiring_today)
       end
 
-      it "does not return subscriptions just because they are recurring" do
+      it 'does not return subscriptions just because they are recurring' do
         expect(subject).not_to include(recurring_subscription_expiring_tomorrow)
       end
 
-      it "does not return subscriptions that are neither recurring nor expiring today" do
+      it 'does not return subscriptions that are neither recurring nor expiring today' do
         expect(subject).not_to include(subscription)
       end
     end

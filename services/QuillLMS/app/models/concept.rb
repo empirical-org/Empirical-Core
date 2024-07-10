@@ -24,7 +24,7 @@ class Concept < ApplicationRecord
   has_many :change_logs, as: :changed_record
   has_many :diagnostic_question_optimal_concepts, dependent: :destroy
 
-  ALL_CONCEPTS_KEY = "all_concepts_with_level"
+  ALL_CONCEPTS_KEY = 'all_concepts_with_level'
 
   after_commit :clear_concept_cache
 

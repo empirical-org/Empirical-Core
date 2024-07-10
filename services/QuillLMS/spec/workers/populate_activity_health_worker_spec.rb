@@ -47,7 +47,7 @@ describe PopulateActivityHealthWorker do
     end
 
     let!(:diagnostic) { create(:diagnostic_activity)}
-    let!(:unit_template) { create(:unit_template, flag: "production")}
+    let!(:unit_template) { create(:unit_template, flag: 'production')}
     let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
     let!(:sample_unit) { create(:unit, unit_template: unit_template)}
     let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
@@ -101,22 +101,22 @@ describe PopulateActivityHealthWorker do
       expect(activity_health.name).to eq(activity.name)
       expect(activity_health.url).to eq("https://quill.org/connect/#/admin/lessons/#{activity.uid}")
       expect(activity_health.flag).to eq(activity.flag.to_s)
-      expect(activity_health.tool).to eq("connect")
+      expect(activity_health.tool).to eq('connect')
       expect(activity_health.avg_difficulty).to eq(1.84)
-      expect(activity_health.activity_packs[0]["name"]).to eq(activity.unit_templates[0].name)
+      expect(activity_health.activity_packs[0]['name']).to eq(activity.unit_templates[0].name)
     end
 
     it 'should create new Prompt Health objects' do
       subject.perform(activity.id)
       expect(PromptHealth.count).to eq(2)
-      expect(PromptHealth.first.text).to eq(question.data["prompt"])
+      expect(PromptHealth.first.text).to eq(question.data['prompt'])
       expect(PromptHealth.first.percent_common_unmatched).to eq(50)
-      expect(PromptHealth.second.text).to eq(another_question.data["prompt"])
+      expect(PromptHealth.second.text).to eq(another_question.data['prompt'])
       expect(PromptHealth.second.percent_common_unmatched).to eq(100)
     end
 
     it 'should create a new Activity Health object with a bad activity' do
-      bad_activity = create(:activity, activity_classification_id: connect.id, flags: ["nonflag"])
+      bad_activity = create(:activity, activity_classification_id: connect.id, flags: ['nonflag'])
       expect { subject.perform(bad_activity.id) }.not_to raise_error
 
     end

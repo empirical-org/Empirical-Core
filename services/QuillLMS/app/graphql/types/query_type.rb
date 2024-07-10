@@ -5,7 +5,7 @@ class Types::QueryType < Types::BaseObject
   field :current_user, Types::UserType, null: true, resolve: ->(obj, args, ctx) { ctx[:current_user] }
 
   field :concept, Types::ConceptType, null: true do
-    argument :id, Int, "Restrict items to this status", required: false
+    argument :id, Int, 'Restrict items to this status', required: false
   end
 
   def concept(id: nil)
@@ -13,9 +13,9 @@ class Types::QueryType < Types::BaseObject
   end
 
   field :concepts, [Types::ConceptType], null: false do
-    argument :level_zero_only, Boolean, "Select only concepts with a parent and grandparent", required: false
-    argument :level_two_only, Boolean, "Select only concepts with no parent id", required: false
-    argument :level_one_only, Boolean, "Select only concepts with a parent and no grandparent", required: false
+    argument :level_zero_only, Boolean, 'Select only concepts with a parent and grandparent', required: false
+    argument :level_two_only, Boolean, 'Select only concepts with no parent id', required: false
+    argument :level_one_only, Boolean, 'Select only concepts with a parent and no grandparent', required: false
   end
 
   def concepts(level_zero_only: false, level_two_only: false, level_one_only: false)
@@ -39,7 +39,7 @@ class Types::QueryType < Types::BaseObject
   end
 
   field :change_logs, [Types::ChangeLogType], null: false do
-    argument :concept_change_logs, Boolean, "Select only change logs for concepts", required: false
+    argument :concept_change_logs, Boolean, 'Select only change logs for concepts', required: false
   end
 
   def change_logs(concept_change_logs: false)

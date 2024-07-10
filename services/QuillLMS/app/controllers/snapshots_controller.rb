@@ -3,29 +3,29 @@
 class SnapshotsController < ApplicationController
   CACHE_REPORT_NAME = 'admin-snapshot'
   GRADE_OPTIONS = [
-    {value: "Kindergarten", name: "Kindergarten"},
-    {value: "1", name: "1st"},
-    {value: "2", name: "2nd"},
-    {value: "3", name: "3rd"},
-    {value: "4", name: "4th"},
-    {value: "5", name: "5th"},
-    {value: "6", name: "6th"},
-    {value: "7", name: "7th"},
-    {value: "8", name: "8th"},
-    {value: "9", name: "9th"},
-    {value: "10", name: "10th"},
-    {value: "11", name: "11th"},
-    {value: "12", name: "12th"},
-    {value: "University", name: "University"},
-    {value: "Other", name: "Other"},
-    {value: "null", name: "No grade set"}
+    {value: 'Kindergarten', name: 'Kindergarten'},
+    {value: '1', name: '1st'},
+    {value: '2', name: '2nd'},
+    {value: '3', name: '3rd'},
+    {value: '4', name: '4th'},
+    {value: '5', name: '5th'},
+    {value: '6', name: '6th'},
+    {value: '7', name: '7th'},
+    {value: '8', name: '8th'},
+    {value: '9', name: '9th'},
+    {value: '10', name: '10th'},
+    {value: '11', name: '11th'},
+    {value: '12', name: '12th'},
+    {value: 'University', name: 'University'},
+    {value: 'Other', name: 'Other'},
+    {value: 'null', name: 'No grade set'}
   ]
 
   WORKERS_FOR_ACTIONS = {
-    "count" => Snapshots::CacheSnapshotCountWorker,
-    "top_x" => Snapshots::CacheSnapshotTopXWorker,
-    "data_export" => Snapshots::CachePremiumReportsWorker,
-    "create_csv_report_download" => Snapshots::PremiumDownloadReportsWorker
+    'count' => Snapshots::CacheSnapshotCountWorker,
+    'top_x' => Snapshots::CacheSnapshotTopXWorker,
+    'data_export' => Snapshots::CachePremiumReportsWorker,
+    'create_csv_report_download' => Snapshots::PremiumDownloadReportsWorker
   }
 
   before_action :set_query, only: [:count, :top_x, :data_export, :create_csv_report_download]
@@ -260,7 +260,7 @@ class SnapshotsController < ApplicationController
   end
 
   private def initial_load?
-    option_params[:is_initial_load].in?([true, "true"])
+    option_params[:is_initial_load].in?([true, 'true'])
   end
 
 end

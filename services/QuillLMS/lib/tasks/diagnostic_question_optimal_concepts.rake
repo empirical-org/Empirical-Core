@@ -9,22 +9,22 @@ namespace :diagnostic_question_optimal_concepts do
   OPTIMAL_CONCEPTS_INDEX = 3
 
   DIAGNOSTIC_ID_LOOKUP = {
-    "Starter Pre" => 1663,
-    "Starter Post" => 1664,
-    "Intermediate Pre" => 1668,
-    "Intermediate Post" => 1669,
-    "Advanced Pre" => 1678,
-    "Advanced Post" => 1680,
-    "ELL Starter Pre" => 1161,
-    "ELL Starter Post" => 1774,
-    "ELL Intermediate Pre" => 1568,
-    "ELL Intermediate Post" => 1814,
-    "ELL Advanced Pre" => 1590,
-    "ELL Advanced Post" => 1818,
-    "Springboard" => 1432,
-    "PreAP 1" => 1229,
-    "PreAP 2" => 1230,
-    "AP" => 992
+    'Starter Pre' => 1663,
+    'Starter Post' => 1664,
+    'Intermediate Pre' => 1668,
+    'Intermediate Post' => 1669,
+    'Advanced Pre' => 1678,
+    'Advanced Post' => 1680,
+    'ELL Starter Pre' => 1161,
+    'ELL Starter Post' => 1774,
+    'ELL Intermediate Pre' => 1568,
+    'ELL Intermediate Post' => 1814,
+    'ELL Advanced Pre' => 1590,
+    'ELL Advanced Post' => 1818,
+    'Springboard' => 1432,
+    'PreAP 1' => 1229,
+    'PreAP 2' => 1230,
+    'AP' => 992
   }
 
   desc 'Populate diagnostic_question_optimal_concepts from CSV extracted from Curriculum Notion database: https://www.notion.so/quill/f937b1cc8d2d4ed8943a36ce35dca177?v=7dd55ee1f04e4b5daf79645aae960aa1'
@@ -52,7 +52,7 @@ namespace :diagnostic_question_optimal_concepts do
       question = fetch_question_from_row(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ""}.uniq
+      full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ''}.uniq
       concepts = full_concept_names.map do |concept_name|
         concept = fetch_concept(concept_name)
         if concept.length > 1
@@ -95,9 +95,9 @@ namespace :diagnostic_question_optimal_concepts do
     end
 
     def fetch_concept(concept_name)
-      level0, level1, level2 = concept_name.split("|").map(&:strip).reverse
+      level0, level1, level2 = concept_name.split('|').map(&:strip).reverse
       concepts = Concept.left_outer_joins(:parent)
-        .joins("LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id")
+        .joins('LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id')
         .where(visible: true)
         .where.not(parent: {parent_id: nil})
       concepts = concepts.where(parent: {name: level1}) if level1
@@ -117,12 +117,12 @@ namespace :diagnostic_question_optimal_concepts do
 
     def sanitize_question(question)
       question
-        .gsub("&#x27;", "'")
-        .gsub("’", "'")
-        .gsub(/<[^>]*>/,"")
-        .gsub(/\./, ". ")
-        .gsub(/\s+/, " ")
-        .gsub(/_[_]+/, "___")
+        .gsub('&#x27;', "'")
+        .gsub('’', "'")
+        .gsub(/<[^>]*>/,'')
+        .gsub(/\./, '. ')
+        .gsub(/\s+/, ' ')
+        .gsub(/_[_]+/, '___')
         .strip
     end
 
@@ -135,7 +135,7 @@ namespace :diagnostic_question_optimal_concepts do
     def concepts_valid?(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ""}.uniq
+      full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ''}.uniq
       concepts = full_concept_names.map { |concept_name| fetch_concept(concept_name) }.flatten
 
       full_concept_names.length == concepts.length

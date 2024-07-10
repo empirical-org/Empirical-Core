@@ -27,7 +27,7 @@ module CleverIntegration
     end
 
     private def data
-      @data ||= classroom_data["data"].deep_symbolize_keys
+      @data ||= classroom_data['data'].deep_symbolize_keys
     end
   end
 end

@@ -61,9 +61,9 @@ module Staff
         context 'without activity versions' do
           let(:feedback_histories) do
             [
-              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def"),
-              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi"),
-              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc")
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: '2021-04-07T19:02:54', feedback_session_uid: 'def'),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: '2021-05-07T19:02:54', feedback_session_uid: 'ghi'),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: '2021-06-07T19:02:54', feedback_session_uid: 'abc')
            ]
           end
 
@@ -89,8 +89,8 @@ module Staff
             {
               conjunction: 'so',
               activity_id: evidence_activities.first.id,
-              start_date: "2021-03-06T19:02:54",
-              end_date: "2021-04-10T19:02:54"
+              start_date: '2021-03-06T19:02:54',
+              end_date: '2021-04-10T19:02:54'
             }
           end
 
@@ -103,9 +103,9 @@ module Staff
         context 'with activity versions' do
           let(:feedback_histories) do
             [
-              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: "2021-04-07T19:02:54", feedback_session_uid: "def", activity_version: 2),
-              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: "2021-05-07T19:02:54", feedback_session_uid: "ghi", activity_version: 2),
-              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: "2021-06-07T19:02:54", feedback_session_uid: "abc", activity_version: 1)
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: '2021-04-07T19:02:54', feedback_session_uid: 'def', activity_version: 2),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: '2021-05-07T19:02:54', feedback_session_uid: 'ghi', activity_version: 2),
+              create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: '2021-06-07T19:02:54', feedback_session_uid: 'abc', activity_version: 1)
            ]
           end
 
@@ -131,8 +131,8 @@ module Staff
             {
               conjunction: 'so',
               activity_id: evidence_activities.first.id,
-              start_date: "2021-03-06T19:02:54",
-              end_date: "2021-07-10T19:02:54",
+              start_date: '2021-03-06T19:02:54',
+              end_date: '2021-07-10T19:02:54',
               activity_version: 2
             }
           end

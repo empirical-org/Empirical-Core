@@ -4,9 +4,9 @@ module PusherTrigger
 
   def self.run(channel, event, message)
     pusher_client = Pusher::Client.new(
-      app_id: ENV["PUSHER_APP_ID"],
-      key: ENV["PUSHER_KEY"],
-      secret: ENV["PUSHER_SECRET"],
+      app_id: ENV['PUSHER_APP_ID'],
+      key: ENV['PUSHER_KEY'],
+      secret: ENV['PUSHER_SECRET'],
       use_tls: true
     )
 

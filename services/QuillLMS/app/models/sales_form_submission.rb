@@ -32,16 +32,16 @@ class SalesFormSubmission < ApplicationRecord
     QUOTE_REQUEST_TYPE = 'quote request',
     RENEWAL_REQUEST_TYPE = 'renewal request'
   ]
-  FORM_SOURCE = "Form"
-  INTERCOM_SOURCE = "Intercom"
+  FORM_SOURCE = 'Form'
+  INTERCOM_SOURCE = 'Intercom'
 
-  VITALLY_DISTRICTS_TYPE = "organizations"
-  VITALLY_SCHOOLS_TYPE = "accounts"
-  VITALLY_USERS_TYPE = "users"
-  VITALLY_SALES_FORMS_TYPE = "projects"
+  VITALLY_DISTRICTS_TYPE = 'organizations'
+  VITALLY_SCHOOLS_TYPE = 'accounts'
+  VITALLY_USERS_TYPE = 'users'
+  VITALLY_SALES_FORMS_TYPE = 'projects'
 
-  FALLBACK_SCHOOL_NAME = "Unknown School"
-  FALLBACK_DISTRICT_NAME = "Unknown District"
+  FALLBACK_SCHOOL_NAME = 'Unknown School'
+  FALLBACK_DISTRICT_NAME = 'Unknown District'
 
   SCHOOL_QUOTE_REQUEST_TEMPLATE_ID = ENV['VITALLY_SCHOOL_QUOTE_TEMPLATE_ID']
   DISTRICT_QUOTE_REQUEST_TEMPLATE_ID = ENV['VITALLY_DISTRICT_QUOTE_TEMPLATE_ID']
@@ -65,13 +65,13 @@ class SalesFormSubmission < ApplicationRecord
     if school_collection?
       {
         templateId: vitally_template_id,
-        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)["id"],
+        customerId: api.get(VITALLY_SCHOOLS_TYPE, school.id)['id'],
         traits: vitally_traits
       }
     else
       {
         templateId: vitally_template_id,
-        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)["id"],
+        organizationId: api.get(VITALLY_DISTRICTS_TYPE, district.id)['id'],
         traits: vitally_traits
       }
     end

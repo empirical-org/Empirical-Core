@@ -9,7 +9,7 @@ module Snapshots
     end
 
     def order_by_clause
-      "ORDER BY count DESC"
+      'ORDER BY count DESC'
     end
 
     def limit_clause

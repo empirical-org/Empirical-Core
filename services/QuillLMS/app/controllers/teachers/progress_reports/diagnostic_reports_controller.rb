@@ -95,15 +95,15 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       pre_test_activity_session = pre_test && find_activity_session_for_student_activity_and_classroom(student_id, pre_test.id, classroom_id, nil)
 
       if pre_test && pre_test_activity_session
-        pre_questions = format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order("question_number::int"))
-        post_questions = format_concept_results(activity_session, activity_session.concept_results.order("question_number::int"))
+        pre_questions = format_concept_results(pre_test_activity_session, pre_test_activity_session.concept_results.order('question_number::int'))
+        post_questions = format_concept_results(activity_session, activity_session.concept_results.order('question_number::int'))
         concept_results = {
           pre: { questions: pre_questions },
           post: { questions: post_questions }
         }
         skill_group_results = GrowthResultsSummary.skill_groups_for_session(skill_groups, activity_session, pre_test_activity_session, student.name)
       else
-        concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order("question_number::int")) }
+        concept_results = { questions: format_concept_results(activity_session, activity_session.concept_results.order('question_number::int')) }
         skill_group_results = ResultsSummary.skill_groups_for_session(skill_groups, activity_session.concept_results, student.name)
       end
       { concept_results: concept_results, skill_group_results: skill_group_results, name: student.name }

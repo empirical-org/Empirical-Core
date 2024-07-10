@@ -19,7 +19,7 @@ describe 'Sign up', type: :request do
 
       post '/account', params: { user: user_params }
       sign_up_fails
-      expect(JSON.parse(response.body)['errors']['email']).to include("That email is taken. Try another.")
+      expect(JSON.parse(response.body)['errors']['email']).to include('That email is taken. Try another.')
     end
   end
 
@@ -30,7 +30,7 @@ describe 'Sign up', type: :request do
 
       post '/account', params: { user: user_params(username: 'TestStudent', role: 'student') }
       sign_up_fails
-      expect(JSON.parse(response.body)['errors']['username']).to include("That username is taken. Try another.")
+      expect(JSON.parse(response.body)['errors']['username']).to include('That username is taken. Try another.')
     end
 
     it 'does not require email' do

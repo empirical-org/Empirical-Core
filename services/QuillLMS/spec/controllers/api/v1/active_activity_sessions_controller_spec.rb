@@ -5,322 +5,322 @@ require 'rails_helper'
 describe Api::V1::ActiveActivitySessionsController, type: :controller do
   let!(:active_activity_session) { create(:active_activity_session) }
 
-  describe "#show" do
-    it "should return the specified active_activity_session" do
+  describe '#show' do
+    it 'should return the specified active_activity_session' do
       get :show, params: { id: active_activity_session.uid }, as: :json
       expect(JSON.parse(response.body)).to eq(active_activity_session.data)
     end
 
-    it "should return a 404 if the requested activity session is not found" do
+    it 'should return a 404 if the requested activity session is not found' do
       get :show, params: { id: 'doesnotexist' }, as: :json
       expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      expect(response.body).to include('The resource you were looking for does not exist')
     end
   end
 
-  describe "#update" do
+  describe '#update' do
     let(:update_payload) do
       {
         "updatedAt": 1593741284430,
         "questionSet": [
             {
                 "attempts": [],
-                "question": "-LLpg811AFtOLArzxhGD"
+                "question": '-LLpg811AFtOLArzxhGD'
             },
             {
                 "attempts": [],
-                "question": "-LLpge97AyWoQvHD1x-z"
+                "question": '-LLpge97AyWoQvHD1x-z'
             },
             {
                 "attempts": [],
-                "question": "-LLpgiatjAx6rqO7WSFM"
+                "question": '-LLpgiatjAx6rqO7WSFM'
             },
-            "-LLpgoQ5htJoVCvD7UVm",
-            "-LLpgzQe__AE9qPPyGjI",
-            "-LLph6mZ4dNZBKbUp85P",
-            "-LLphFPNUJTDPT_c6051",
-            "-LLphUnDFXlV1j9U-Lhn",
-            "-LLph_7oSgbIcaghSm0O",
-            "-LLpheCBnjyVA-sn0dJl",
-            "-LLphovfRQrIM6fPwQMu"
+            '-LLpgoQ5htJoVCvD7UVm',
+            '-LLpgzQe__AE9qPPyGjI',
+            '-LLph6mZ4dNZBKbUp85P',
+            '-LLphFPNUJTDPT_c6051',
+            '-LLphUnDFXlV1j9U-Lhn',
+            '-LLph_7oSgbIcaghSm0O',
+            '-LLpheCBnjyVA-sn0dJl',
+            '-LLphovfRQrIM6fPwQMu'
         ],
         "currentQuestion": {
             "attempts": [
                 {
                     "response": {
-                        "text": "I saw the Mayor give a speech at Richmond city hall.",
+                        "text": 'I saw the Mayor give a speech at Richmond city hall.',
                         "count": 1,
-                        "author": "Incorrect Sequence Hint",
-                        "feedback": "<p>Revise your work. Only capitalize a job title if it comes before a name.</p>",
+                        "author": 'Incorrect Sequence Hint',
+                        "feedback": '<p>Revise your work. Only capitalize a job title if it comes before a name.</p>',
                         "parent_id": 7641004,
-                        "question_uid": "-LLpgiatjAx6rqO7WSFM",
+                        "question_uid": '-LLpgiatjAx6rqO7WSFM',
                         "concept_results": {
                             "nrq-IGTxmwLxyr_hieouGg": {
-                                "key": "nrq-IGTxmwLxyr_hieouGg",
-                                "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                 "correct": false,
-                                "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                             }
                         }
                     }
                 },
                 {
                     "response": {
-                        "text": "I saw the Mayor give a speech at Richmond City Hall.",
+                        "text": 'I saw the Mayor give a speech at Richmond City Hall.',
                         "count": 1,
-                        "author": "Incorrect Sequence Hint",
-                        "feedback": "<p>Revise your work. Only capitalize a job title if it comes before a name.</p>",
+                        "author": 'Incorrect Sequence Hint',
+                        "feedback": '<p>Revise your work. Only capitalize a job title if it comes before a name.</p>',
                         "parent_id": 7641004,
-                        "question_uid": "-LLpgiatjAx6rqO7WSFM",
+                        "question_uid": '-LLpgiatjAx6rqO7WSFM',
                         "concept_results": {
                             "nrq-IGTxmwLxyr_hieouGg": {
-                                "key": "nrq-IGTxmwLxyr_hieouGg",
-                                "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                 "correct": false,
-                                "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                             }
                         }
                     }
                 },
                 {
                     "response": {
-                        "text": "I saw the Mayor give a speech at Richmond city Hall.",
+                        "text": 'I saw the Mayor give a speech at Richmond city Hall.',
                         "count": 1,
-                        "author": "Incorrect Sequence Hint",
-                        "feedback": "<p>Revise your work. Only capitalize a job title if it comes before a name.</p>",
+                        "author": 'Incorrect Sequence Hint',
+                        "feedback": '<p>Revise your work. Only capitalize a job title if it comes before a name.</p>',
                         "parent_id": 7641004,
-                        "question_uid": "-LLpgiatjAx6rqO7WSFM",
+                        "question_uid": '-LLpgiatjAx6rqO7WSFM',
                         "concept_results": {
                             "nrq-IGTxmwLxyr_hieouGg": {
-                                "key": "nrq-IGTxmwLxyr_hieouGg",
-                                "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                 "correct": false,
-                                "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                             }
                         }
                     }
                 },
                 {
                     "response": {
-                        "text": "I saw the Mayor give a speech at Richmond City hall.",
+                        "text": 'I saw the Mayor give a speech at Richmond City hall.',
                         "count": 1,
-                        "author": "Incorrect Sequence Hint",
-                        "feedback": "<p>Revise your work. Only capitalize a job title if it comes before a name.</p>",
+                        "author": 'Incorrect Sequence Hint',
+                        "feedback": '<p>Revise your work. Only capitalize a job title if it comes before a name.</p>',
                         "parent_id": 7641004,
-                        "question_uid": "-LLpgiatjAx6rqO7WSFM",
+                        "question_uid": '-LLpgiatjAx6rqO7WSFM',
                         "concept_results": {
                             "nrq-IGTxmwLxyr_hieouGg": {
-                                "key": "nrq-IGTxmwLxyr_hieouGg",
-                                "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                 "correct": false,
-                                "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                             }
                         }
                     }
                 }
             ],
-            "question": "-LLpgiatjAx6rqO7WSFM"
+            "question": '-LLpgiatjAx6rqO7WSFM'
         },
         "answeredQuestions": [
             {
                 "attempts": [
                     {
                         "response": {
-                            "text": "The President is originally from North Dakota.",
+                            "text": 'The President is originally from North Dakota.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>',
                             "parent_id": 7623759,
-                            "question_uid": "-LLpg811AFtOLArzxhGD",
+                            "question_uid": '-LLpg811AFtOLArzxhGD',
                             "concept_results": {
                                 "nrq-IGTxmwLxyr_hieouGg": {
-                                    "key": "nrq-IGTxmwLxyr_hieouGg",
-                                    "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                    "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                    "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                     "correct": false,
-                                    "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                    "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "he President is originally from North Dakota.",
+                            "text": 'he President is originally from North Dakota.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>',
                             "parent_id": 7623759,
-                            "question_uid": "-LLpg811AFtOLArzxhGD",
+                            "question_uid": '-LLpg811AFtOLArzxhGD',
                             "concept_results": {
                                 "nrq-IGTxmwLxyr_hieouGg": {
-                                    "key": "nrq-IGTxmwLxyr_hieouGg",
-                                    "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                    "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                    "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                     "correct": false,
-                                    "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                    "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "the President is originally from North Dakota.",
+                            "text": 'the President is originally from North Dakota.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>',
                             "parent_id": 7623759,
-                            "question_uid": "-LLpg811AFtOLArzxhGD",
+                            "question_uid": '-LLpg811AFtOLArzxhGD',
                             "concept_results": {
                                 "nrq-IGTxmwLxyr_hieouGg": {
-                                    "key": "nrq-IGTxmwLxyr_hieouGg",
-                                    "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                    "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                    "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                     "correct": false,
-                                    "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                    "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "the President is originally from north Dakota.",
+                            "text": 'the President is originally from north Dakota.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Remember, only capitalize a job title if it comes before a name.</p>',
                             "parent_id": 7623759,
-                            "question_uid": "-LLpg811AFtOLArzxhGD",
+                            "question_uid": '-LLpg811AFtOLArzxhGD',
                             "concept_results": {
                                 "nrq-IGTxmwLxyr_hieouGg": {
-                                    "key": "nrq-IGTxmwLxyr_hieouGg",
-                                    "name": "Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles",
+                                    "key": 'nrq-IGTxmwLxyr_hieouGg',
+                                    "name": 'Capitalization | Capitalizing Formal Titles | Capitalize Formal Titles',
                                     "correct": false,
-                                    "conceptUID": "nrq-IGTxmwLxyr_hieouGg"
+                                    "conceptUID": 'nrq-IGTxmwLxyr_hieouGg'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "The president is originally from north Dakota.",
+                            "text": 'The president is originally from north Dakota.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Always capitalize the names of cities, countries, or states.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Always capitalize the names of cities, countries, or states.</p>',
                             "parent_id": 7623759,
-                            "question_uid": "-LLpg811AFtOLArzxhGD",
+                            "question_uid": '-LLpg811AFtOLArzxhGD',
                             "concept_results": {
                                 "YkA1YFe-dUvXqkEXxbNgQw": {
-                                    "name": "Capitalization | Capitalize Geographic Names | Capitalize Geographic Names",
+                                    "name": 'Capitalization | Capitalize Geographic Names | Capitalize Geographic Names',
                                     "correct": false,
-                                    "conceptUID": "YkA1YFe-dUvXqkEXxbNgQw"
+                                    "conceptUID": 'YkA1YFe-dUvXqkEXxbNgQw'
                                 }
                             }
                         }
                     }
                 ],
-                "question": "-LLpg811AFtOLArzxhGD"
+                "question": '-LLpg811AFtOLArzxhGD'
             },
             {
                 "attempts": [
                     {
                         "response": {
-                            "text": "I have maths class with Mr. Jenkins on Tuesday and english class on Thursday.",
+                            "text": 'I have maths class with Mr. Jenkins on Tuesday and english class on Thursday.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Capitalize a class name when it&#x27;s a language like <em>English</em> or <em>Spanish</em>.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Capitalize a class name when it&#x27;s a language like <em>English</em> or <em>Spanish</em>.</p>',
                             "parent_id": 7641019,
-                            "question_uid": "-LLpge97AyWoQvHD1x-z",
+                            "question_uid": '-LLpge97AyWoQvHD1x-z',
                             "concept_results": {
                                 "66upe3S5uvqxuHoHOt4PcQ": {
-                                    "key": "66upe3S5uvqxuHoHOt4PcQ",
-                                    "name": "Capitalization | Capitalization | Capitalization",
+                                    "key": '66upe3S5uvqxuHoHOt4PcQ',
+                                    "name": 'Capitalization | Capitalization | Capitalization',
                                     "correct": false,
-                                    "conceptUID": "66upe3S5uvqxuHoHOt4PcQ"
+                                    "conceptUID": '66upe3S5uvqxuHoHOt4PcQ'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "I have Maths class with Mr. Jenkins on Tuesday and English class on Thursday.",
+                            "text": 'I have Maths class with Mr. Jenkins on Tuesday and English class on Thursday.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>',
                             "parent_id": 7641019,
-                            "question_uid": "-LLpge97AyWoQvHD1x-z",
+                            "question_uid": '-LLpge97AyWoQvHD1x-z',
                             "concept_results": {
                                 "66upe3S5uvqxuHoHOt4PcQ": {
-                                    "key": "66upe3S5uvqxuHoHOt4PcQ",
-                                    "name": "Capitalization | Capitalization | Capitalization",
+                                    "key": '66upe3S5uvqxuHoHOt4PcQ',
+                                    "name": 'Capitalization | Capitalization | Capitalization',
                                     "correct": false,
-                                    "conceptUID": "66upe3S5uvqxuHoHOt4PcQ"
+                                    "conceptUID": '66upe3S5uvqxuHoHOt4PcQ'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "I have Maths Class with Mr. Jenkins on Tuesday and English Class on Thursday.",
+                            "text": 'I have Maths Class with Mr. Jenkins on Tuesday and English Class on Thursday.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>',
                             "parent_id": 7641019,
-                            "question_uid": "-LLpge97AyWoQvHD1x-z",
+                            "question_uid": '-LLpge97AyWoQvHD1x-z',
                             "concept_results": {
                                 "66upe3S5uvqxuHoHOt4PcQ": {
-                                    "key": "66upe3S5uvqxuHoHOt4PcQ",
-                                    "name": "Capitalization | Capitalization | Capitalization",
+                                    "key": '66upe3S5uvqxuHoHOt4PcQ',
+                                    "name": 'Capitalization | Capitalization | Capitalization',
                                     "correct": false,
-                                    "conceptUID": "66upe3S5uvqxuHoHOt4PcQ"
+                                    "conceptUID": '66upe3S5uvqxuHoHOt4PcQ'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "I have Maths Class with Mr. Jenkins on Tuesday and English class on Thursday.",
+                            "text": 'I have Maths Class with Mr. Jenkins on Tuesday and English class on Thursday.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>',
                             "parent_id": 7641019,
-                            "question_uid": "-LLpge97AyWoQvHD1x-z",
+                            "question_uid": '-LLpge97AyWoQvHD1x-z',
                             "concept_results": {
                                 "66upe3S5uvqxuHoHOt4PcQ": {
-                                    "key": "66upe3S5uvqxuHoHOt4PcQ",
-                                    "name": "Capitalization | Capitalization | Capitalization",
+                                    "key": '66upe3S5uvqxuHoHOt4PcQ',
+                                    "name": 'Capitalization | Capitalization | Capitalization',
                                     "correct": false,
-                                    "conceptUID": "66upe3S5uvqxuHoHOt4PcQ"
+                                    "conceptUID": '66upe3S5uvqxuHoHOt4PcQ'
                                 }
                             }
                         }
                     },
                     {
                         "response": {
-                            "text": "I have Maths class with Mr. Jenkins on Tuesday and English class on Thursday.",
+                            "text": 'I have Maths class with Mr. Jenkins on Tuesday and English class on Thursday.',
                             "count": 1,
-                            "author": "Incorrect Sequence Hint",
-                            "feedback": "<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>",
+                            "author": 'Incorrect Sequence Hint',
+                            "feedback": '<p>Revise your work. Only capitalize the name of a class when it&#x27;s the official name like <em>Introduction to Biology 101 </em>or when it&#x27;s a language like<em> English</em>.</p>',
                             "parent_id": 7641019,
-                            "question_uid": "-LLpge97AyWoQvHD1x-z",
+                            "question_uid": '-LLpge97AyWoQvHD1x-z',
                             "concept_results": {
                                 "66upe3S5uvqxuHoHOt4PcQ": {
-                                    "key": "66upe3S5uvqxuHoHOt4PcQ",
-                                    "name": "Capitalization | Capitalization | Capitalization",
+                                    "key": '66upe3S5uvqxuHoHOt4PcQ',
+                                    "name": 'Capitalization | Capitalization | Capitalization',
                                     "correct": false,
-                                    "conceptUID": "66upe3S5uvqxuHoHOt4PcQ"
+                                    "conceptUID": '66upe3S5uvqxuHoHOt4PcQ'
                                 }
                             }
                         }
                     }
                 ],
-                "question": "-LLpge97AyWoQvHD1x-z"
+                "question": '-LLpge97AyWoQvHD1x-z'
             }
         ],
         "unansweredQuestions": [
-            "-LLpgoQ5htJoVCvD7UVm",
-            "-LLpgzQe__AE9qPPyGjI",
-            "-LLph6mZ4dNZBKbUp85P",
-            "-LLphFPNUJTDPT_c6051",
-            "-LLphUnDFXlV1j9U-Lhn",
-            "-LLph_7oSgbIcaghSm0O",
-            "-LLpheCBnjyVA-sn0dJl",
-            "-LLphovfRQrIM6fPwQMu"
+            '-LLpgoQ5htJoVCvD7UVm',
+            '-LLpgzQe__AE9qPPyGjI',
+            '-LLph6mZ4dNZBKbUp85P',
+            '-LLphFPNUJTDPT_c6051',
+            '-LLphUnDFXlV1j9U-Lhn',
+            '-LLph_7oSgbIcaghSm0O',
+            '-LLpheCBnjyVA-sn0dJl',
+            '-LLphovfRQrIM6fPwQMu'
         ],
         "passage": []
       }
@@ -339,33 +339,33 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     end
 
 
-    it "should update the existing record" do
-      data = {"foo" => "bar"}
+    it 'should update the existing record' do
+      data = {'foo' => 'bar'}
       put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
       active_activity_session.reload
       expect(active_activity_session.data).to eq(data)
     end
 
-    it "should filter out uid" do
-      data = {"foo" => "bar", "uid" => "this-should-be-filtered-out" }
+    it 'should filter out uid' do
+      data = {'foo' => 'bar', 'uid' => 'this-should-be-filtered-out' }
       put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
       active_activity_session.reload
-      expect(active_activity_session.data).to eq({"foo" => "bar"})
+      expect(active_activity_session.data).to eq({'foo' => 'bar'})
     end
 
-    it "should handle proofreader nested passage data" do
+    it 'should handle proofreader nested passage data' do
       old_data = active_activity_session.data
 
       new_data = {
-        "passage" => [
+        'passage' => [
           [
-            { "originalText" => "fred", "currentText" => "Fred"},
-            { "originalText" => "fred", "currentText" => "freD"}
+            { 'originalText' => 'fred', 'currentText' => 'Fred'},
+            { 'originalText' => 'fred', 'currentText' => 'freD'}
           ],
           [],
           [
-            { "originalText" => "bill", "currentText" => "Bill"},
-            { "originalText" => "bill", "currentText" => "bill"}
+            { 'originalText' => 'bill', 'currentText' => 'Bill'},
+            { 'originalText' => 'bill', 'currentText' => 'bill'}
           ]
         ]
       }
@@ -375,18 +375,18 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(active_activity_session.data).to eq(old_data.merge(new_data))
     end
 
-    it "should handle nested data" do
+    it 'should handle nested data' do
       old_data = active_activity_session.data
 
       new_data = {
-        "answeredQuestions" => [
+        'answeredQuestions' => [
           {
-            "attempts" => [
+            'attempts' => [
               {
-                "response" => "{\"child_count\":2468}"
+                'response' => '{"child_count":2468}'
               }
             ],
-            "question" => "-LOKpH-21lwuPa"
+            'question' => '-LOKpH-21lwuPa'
           }
         ]
       }
@@ -407,8 +407,8 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     end
 
 
-    it "should create a new session if the requested activity session is not found" do
-      data = {"foo" => "bar"}
+    it 'should create a new session if the requested activity session is not found' do
+      data = {'foo' => 'bar'}
       put :update, params: { id: 'doesnotexist', active_activity_session: data }, as: :json
       expect(response.status).to eq(204)
       new_activity_session = ActiveActivitySession.find_by(uid: 'doesnotexist')
@@ -416,15 +416,15 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(new_activity_session.data).to eq(data)
     end
 
-    it "should retain the values in keys not updated in the payload" do
+    it 'should retain the values in keys not updated in the payload' do
       old_data = active_activity_session.data
-      new_data = {"newkey" => "newvalue"}
+      new_data = {'newkey' => 'newvalue'}
       put :update, params: { id: active_activity_session.uid, active_activity_session: new_data }, as: :json
       active_activity_session.reload
       expect(active_activity_session.data.keys).to eq(old_data.keys + new_data.keys)
     end
 
-    it "should not raise an ActiveRecord::RecordNotUnique error if that is raised during the first save attempt but not raised on retry" do
+    it 'should not raise an ActiveRecord::RecordNotUnique error if that is raised during the first save attempt but not raised on retry' do
       call_count = 0
       allow_any_instance_of(ActiveActivitySession).to receive(:save!) do
         call_count += 1
@@ -435,7 +435,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       put :update, params: { id: active_activity_session.uid, active_activity_session: active_activity_session.data }
     end
 
-    it "should raise an ActiveRecord::RecordNotUnique error if that is raised both during save and on retry" do
+    it 'should raise an ActiveRecord::RecordNotUnique error if that is raised both during save and on retry' do
       err = ActiveRecord::RecordNotUnique.new('Error')
       allow_any_instance_of(ActiveActivitySession).to receive(:save!).and_raise(err)
       expect do

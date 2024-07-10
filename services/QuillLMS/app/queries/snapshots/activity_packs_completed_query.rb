@@ -10,7 +10,7 @@ module Snapshots
     end
 
     def select_clause
-      "SELECT classroom_units.id, activity_sessions.user_id, COUNT(DISTINCT activity_sessions.activity_id) AS activities_completed, COUNT(DISTINCT unit_activities.activity_id) AS activities_in_pack"
+      'SELECT classroom_units.id, activity_sessions.user_id, COUNT(DISTINCT activity_sessions.activity_id) AS activities_completed, COUNT(DISTINCT unit_activities.activity_id) AS activities_in_pack'
     end
 
     def from_and_join_clauses
@@ -21,11 +21,11 @@ module Snapshots
     end
 
     def group_by_clause
-      "GROUP BY classroom_units.id, activity_sessions.user_id"
+      'GROUP BY classroom_units.id, activity_sessions.user_id'
     end
 
     def relevant_date_column
-      "activity_sessions.completed_at"
+      'activity_sessions.completed_at'
     end
   end
 end

@@ -20,7 +20,7 @@ module AdminDiagnosticReports
 
     before do
       allow_any_instance_of(ActionView::Base).to receive(:vite_stylesheet_tag)
-      stub_const("AdminDiagnosticReports::BenchmarkMailer::RECIPIENT_EMAIL", recipient_email)
+      stub_const('AdminDiagnosticReports::BenchmarkMailer::RECIPIENT_EMAIL', recipient_email)
     end
 
     it { expect(mail.subject).to eq('Admin Diagnostic Report Query Runtimes') }

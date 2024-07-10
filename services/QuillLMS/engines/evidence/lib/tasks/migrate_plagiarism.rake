@@ -2,7 +2,7 @@
 
 namespace :plagiarism do
 
-  desc "Migrates old plagiarism from fields on Prompt to new models PlagiarismText and Feedback"
+  desc 'Migrates old plagiarism from fields on Prompt to new models PlagiarismText and Feedback'
 
   task :migrate => :environment do |t, args|
     CONCEPT_ID = 863

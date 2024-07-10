@@ -2,7 +2,7 @@
 
 namespace :quillwriter do
 
-  desc "create initial activities for writer"
+  desc 'create initial activities for writer'
   task :bootstrap => :environment do
 
     # classification

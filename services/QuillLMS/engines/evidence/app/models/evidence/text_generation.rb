@@ -34,15 +34,15 @@ module Evidence
     has_many :prompt_texts
 
     TYPES = [
-      TYPE_ORIGINAL = "Original",
-      TYPE_FULL_PASSAGE = "FullPassage",
-      TYPE_FULL_PASSAGE_NOUN = "FullPassageNoun",
-      TYPE_PASSAGE_CHUNK = "PassageChunk",
-      TYPE_LABEL_EXAMPLE = "LabelExample",
-      TYPE_PARAPHRASE = "Paraphrase",
-      TYPE_SPELLING = "Spelling",
-      TYPE_SPELLING_PASSAGE = "SpellingPassage",
-      TYPE_TRANSLATION = "Translation"
+      TYPE_ORIGINAL = 'Original',
+      TYPE_FULL_PASSAGE = 'FullPassage',
+      TYPE_FULL_PASSAGE_NOUN = 'FullPassageNoun',
+      TYPE_PASSAGE_CHUNK = 'PassageChunk',
+      TYPE_LABEL_EXAMPLE = 'LabelExample',
+      TYPE_PARAPHRASE = 'Paraphrase',
+      TYPE_SPELLING = 'Spelling',
+      TYPE_SPELLING_PASSAGE = 'SpellingPassage',
+      TYPE_TRANSLATION = 'Translation'
     ]
 
     validates :type, presence: true, inclusion: {in: TYPES}
@@ -50,11 +50,11 @@ module Evidence
     scope :original, -> {where(type: TYPE_ORIGINAL)}
 
     def seed_descriptor
-      seed_descriptor_fields.compact.join("_").downcase
+      seed_descriptor_fields.compact.join('_').downcase
     end
 
     private def seed_descriptor_fields
-      [type&.underscore, label, index, "temp", temperature, conjunction, noun]
+      [type&.underscore, label, index, 'temp', temperature, conjunction, noun]
     end
 
     def labeled_descriptor

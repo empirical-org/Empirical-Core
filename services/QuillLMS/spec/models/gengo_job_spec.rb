@@ -15,7 +15,7 @@
 require 'rails_helper'
 
 RSpec.describe GengoJob, type: :model do
-  describe "self.pending_translation" do
+  describe 'self.pending_translation' do
     subject { GengoJob.pending_translation }
 
     let!(:untranslated) { create(:gengo_job) }
@@ -25,13 +25,13 @@ RSpec.describe GengoJob, type: :model do
     it { expect(subject).not_to include(complete) }
   end
 
-  describe "fetch_and_save_pending!" do
+  describe 'fetch_and_save_pending!' do
     subject { GengoJob.fetch_and_save_pending! }
 
     let(:untranslated) { create(:gengo_job) }
     let!(:complete) { create(:gengo_job, translated_text_id: 2) }
 
-    it "calls fetch_translation! on all the pending translations" do
+    it 'calls fetch_translation! on all the pending translations' do
       expect(GengoJob).to receive(:pending_translation)
       .and_return([untranslated])
       expect(untranslated).to receive(:fetch_translation!)
@@ -40,7 +40,7 @@ RSpec.describe GengoJob, type: :model do
     end
   end
 
-  describe "fetch_translation!" do
+  describe 'fetch_translation!' do
     subject {gengo_job.fetch_translation!}
 
     let(:gengo_job) { create(:gengo_job) }

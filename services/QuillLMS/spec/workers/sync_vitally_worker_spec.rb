@@ -5,13 +5,13 @@ require 'rails_helper'
 RSpec.describe SyncVitallyWorker, type: :worker do
   let(:worker) { described_class.new }
 
-  describe "#perform" do
+  describe '#perform' do
 
     before do
       stub_const('ENV', {'SYNC_TO_VITALLY' => 'true'})
     end
 
-    it "make queries for schools and users and enqueue them for further jobs" do
+    it 'make queries for schools and users and enqueue them for further jobs' do
       district = create(:district)
       school = create(:school, district:)
       user = create(:user, role: 'teacher')

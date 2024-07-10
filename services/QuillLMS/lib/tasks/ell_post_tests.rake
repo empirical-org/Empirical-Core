@@ -32,8 +32,8 @@ namespace :ell_post_tests do
   def update_data_hashes(activity)
     activity.data['name'] = activity.name
     activity.data['flag'] = 'production' # there is no private flag in the activity cms
-    if activity.data['landingPageHtml'] == "<br/>"
-      activity.data['landingPageHtml'] = "<p> </p>"
+    if activity.data['landingPageHtml'] == '<br/>'
+      activity.data['landingPageHtml'] = '<p> </p>'
     end
     activity.save
   end

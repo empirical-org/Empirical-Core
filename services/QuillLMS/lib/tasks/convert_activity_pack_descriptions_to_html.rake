@@ -6,7 +6,7 @@ namespace :activity_pack_descriptions do
     ActiveRecord::Base.transaction do
       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(filter_html: true, hard_wrap: true))
       UnitTemplate.all.each do |unit_template|
-        converted_text = markdown.render(unit_template.activity_info || "")
+        converted_text = markdown.render(unit_template.activity_info || '')
         unit_template.update!(activity_info: converted_text)
         puts "Converted activity info for unit template #{unit_template.id}"
       end

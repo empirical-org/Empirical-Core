@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe TeachersController, type: :controller do
 
-  context "with teacher" do
+  context 'with teacher' do
     let!(:school) { create(:school) }
     let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities, school: school) }
     let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
@@ -218,7 +218,7 @@ describe TeachersController, type: :controller do
     end
   end
 
-  context "without user" do
+  context 'without user' do
 
     before do
       allow(controller).to receive(:current_user) { nil }

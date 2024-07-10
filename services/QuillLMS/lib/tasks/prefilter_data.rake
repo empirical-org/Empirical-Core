@@ -3,9 +3,9 @@
 namespace :data do
   desc 'Add prefilter rules and feedbacks'
   task :prefilter => :environment do |t, args|
-    TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
-    PROFANITY_FEEDBACK = "Revise your work. When writing your response, make sure to use appropriate language."
-    MULTIPLE_SENTENCES_FEEDBACK = "Revise your work. Your response should be only one sentence long."
+    TOO_SHORT_FEEDBACK = 'Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided.'
+    PROFANITY_FEEDBACK = 'Revise your work. When writing your response, make sure to use appropriate language.'
+    MULTIPLE_SENTENCES_FEEDBACK = 'Revise your work. Your response should be only one sentence long.'
     QUESTION_MARK_FEEDBACK = "Revise your response. Instead of using a question mark, write a statement that ends with a period. Remember, anytime you do an activity like this one on Quill, you'll write statements instead of questions."
 
     prefilters = [

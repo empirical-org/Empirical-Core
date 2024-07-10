@@ -9,23 +9,23 @@ class ProgressReports::Concepts::ConceptResult
       concept_results.concept_id
     SELECT
   ).joins({activity_session: {classroom_unit: :classroom}})
-     .joins("INNER JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id")
-      .where("activity_sessions.state = ? AND classrooms_teachers.user_id = ?", "finished", teacher.id)
+     .joins('INNER JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id')
+      .where('activity_sessions.state = ? AND classrooms_teachers.user_id = ?', 'finished', teacher.id)
 
     if filters[:classroom_id].present?
-      query = query.where("classrooms.id = ?", filters[:classroom_id])
+      query = query.where('classrooms.id = ?', filters[:classroom_id])
     end
 
     if filters[:student_id].present?
-      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
+      query = query.where('activity_sessions.user_id = ?', filters[:student_id])
     end
 
     if filters[:unit_id].present?
-      query = query.where("classroom_units.unit_id = ?", filters[:unit_id])
+      query = query.where('classroom_units.unit_id = ?', filters[:unit_id])
     end
 
     if filters[:concept_id].present?
-      query = query.where("concept_results.concept_id = ?", filters[:concept_id])
+      query = query.where('concept_results.concept_id = ?', filters[:concept_id])
     end
 
     query

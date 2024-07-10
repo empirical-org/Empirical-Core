@@ -7,7 +7,7 @@ module Evidence
     let(:email) { 'test@quill.org' }
 
     before do
-      stub_const("Evidence::Synthetic::EMAIL", email)
+      stub_const('Evidence::Synthetic::EMAIL', email)
     end
 
     subject { described_class.new }

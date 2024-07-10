@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
-  context "index" do
-    it "should return successfully - no history" do
+  context 'index' do
+    it 'should return successfully - no history' do
       get :index, as: :json
 
       parsed_response = JSON.parse(response.body)
@@ -19,7 +19,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
 
     context 'with feedback_history' do
-      it "should return successfully" do
+      it 'should return successfully' do
         create(:feedback_history, entry: 'This is the first entry in history')
         create(:feedback_history, entry: 'This is the second entry in history')
 
@@ -37,7 +37,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           create_list(:feedback_history, 3)
         end
 
-        it "should return 2 records at a time" do
+        it 'should return 2 records at a time' do
           get :index, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -46,7 +46,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           expect(parsed_response['activity_sessions'].length).to eq(2)
         end
 
-        it "should skip pages if specified" do
+        it 'should skip pages if specified' do
           get :index, params: { page: 2 }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -125,7 +125,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve all sessions when filter_type is all' do
-          get :index, params: { filter_type: "all" }, as: :json
+          get :index, params: { filter_type: 'all' }, as: :json
 
           parsed_response = JSON.parse(response.body)
 
@@ -145,7 +145,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only scored sessions when filter_type is scored' do
-          get :index, params: { filter_type: "scored" }, as: :json
+          get :index, params: { filter_type: 'scored' }, as: :json
 
           parsed_response = JSON.parse(response.body)
 
@@ -160,7 +160,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only unscored sessions when filter_type is unscored' do
-          get :index, params: { filter_type: "unscored" }, as: :json
+          get :index, params: { filter_type: 'unscored' }, as: :json
 
           parsed_response = JSON.parse(response.body)
 
@@ -170,7 +170,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only weak sessions when filter_type is weak' do
-          get :index, params: { filter_type: "weak" }, as: :json
+          get :index, params: { filter_type: 'weak' }, as: :json
 
           parsed_response = JSON.parse(response.body)
 
@@ -180,7 +180,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
         end
 
         it 'should retrieve only incomplete sessions when filter_type is incomplete' do
-          get :index, params: { filter_type: "incomplete" }, as: :json
+          get :index, params: { filter_type: 'incomplete' }, as: :json
 
           parsed_response = JSON.parse(response.body)
 
@@ -198,7 +198,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
           feedback_history4 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: but_prompt, optimal: true)
           feedback_history5 = create(:feedback_history, feedback_session_uid: activity_session.uid, prompt: so_prompt, optimal: true)
 
-          get :index, params: { filter_type: "complete" }, as: :json
+          get :index, params: { filter_type: 'complete' }, as: :json
 
           parsed_response = JSON.parse(response.body)
 
@@ -209,10 +209,10 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
     end
   end
 
-  context "show" do
+  context 'show' do
     before { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
 
-    it "should return json if found" do
+    it 'should return json if found' do
       get :show, params: { id: @feedback_history.feedback_session_uid }, as: :json
 
       parsed_response = JSON.parse(response.body)
@@ -221,14 +221,14 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
       expect(parsed_response.to_json).to eq(FeedbackHistory.serialize_detail_by_activity_session(@feedback_history.feedback_session_uid).to_json)
     end
 
-    it "should raise if not found (to be handled by parent app)" do
+    it 'should raise if not found (to be handled by parent app)' do
       get :show, params: { id: 99999 }, as: :json
       expect(response.status).to eq(404)
-      expect(response.body.include?("The resource you were looking for does not exist")).to be
+      expect(response.body.include?('The resource you were looking for does not exist')).to be
     end
   end
 
-  context "email_csv_data" do
+  context 'email_csv_data' do
     let!(:user) { create(:user)}
     let!(:activity) { create(:evidence_lms_activity) }
 

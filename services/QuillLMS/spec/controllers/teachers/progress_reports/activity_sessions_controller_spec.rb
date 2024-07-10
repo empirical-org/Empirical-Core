@@ -11,7 +11,7 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
     let(:result_key) { 'activity_sessions' }
     let(:expected_result_count) { visible_activity_sessions.size }
 
-    it_behaves_like "filtering progress reports by Unit" do
+    it_behaves_like 'filtering progress reports by Unit' do
       let(:filter_value) { empty_unit.id }
       let(:expected_result_count) { 0 }
     end

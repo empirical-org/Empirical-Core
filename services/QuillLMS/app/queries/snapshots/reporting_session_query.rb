@@ -48,7 +48,7 @@ module Snapshots
     end
 
     def grades_where_clause
-      return "" if grades.blank?
+      return '' if grades.blank?
 
       <<-SQL
         AND (
@@ -59,13 +59,13 @@ module Snapshots
     end
 
     def teacher_ids_where_clause
-      return "" if teacher_ids.blank?
+      return '' if teacher_ids.blank?
 
       "AND #{reporting_sessions_view.name}.teacher_id IN (#{teacher_ids.join(',')})"
     end
 
     def classroom_ids_where_clause
-      return "" if classroom_ids.blank?
+      return '' if classroom_ids.blank?
 
       "AND #{reporting_sessions_view.name}.classroom_id IN (#{classroom_ids.join(',')})"
     end

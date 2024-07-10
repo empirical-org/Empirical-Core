@@ -96,13 +96,13 @@ module AdminDiagnosticReports
       SQL
     end
 
-    def rollup_select_columns = "diagnostic_id, diagnostic_name"
+    def rollup_select_columns = 'diagnostic_id, diagnostic_name'
     def specific_select_clause = raise NotImplementedError
 
     def timeframe_where_clause = "#{relevant_date_column} BETWEEN '#{timeframe_start.to_fs(:db)}' AND '#{timeframe_end.to_fs(:db)}'"
     def classroom_ids_where_clause = ("AND filter.classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
     def grades_where_clause = ("AND (filter.grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
-    def grades_where_null_clause = ("OR filter.grade IS NULL" if grades.include?('null'))
+    def grades_where_null_clause = ('OR filter.grade IS NULL' if grades.include?('null'))
     def relevant_diagnostic_where_clause = "AND performance.activity_id IN (#{DIAGNOSTIC_ORDER_BY_ID.join(',')})"
     def school_ids_where_clause = "AND filter.school_id IN (#{school_ids.join(',')})"
     def teacher_ids_where_clause = ("AND filter.teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
@@ -111,17 +111,17 @@ module AdminDiagnosticReports
 
     def aggregate_by_clause
       {
-        'grade' => "filter.grade",
-        'classroom' => "filter.classroom_id",
-        'teacher' => "filter.teacher_id"
+        'grade' => 'filter.grade',
+        'classroom' => 'filter.classroom_id',
+        'teacher' => 'filter.teacher_id'
       }.fetch(additional_aggregation)
     end
 
     def aggregate_sort_clause
       {
-        'grade' => "filter.grade",
-        'classroom' => "filter.classroom_name",
-        'teacher' => "filter.teacher_name"
+        'grade' => 'filter.grade',
+        'classroom' => 'filter.classroom_name',
+        'teacher' => 'filter.teacher_name'
       }.fetch(additional_aggregation)
     end
 
@@ -149,7 +149,7 @@ module AdminDiagnosticReports
         .map do |row|
           # Make grade information more human-readable than simple integers
           next row unless grade_aggregation?
-          next row.merge({name: "No grade selected"}) if row[:name].nil?
+          next row.merge({name: 'No grade selected'}) if row[:name].nil?
           # to_i returns 0 for non-numeric strings, so this will only apply to numbered grades
           next row.merge({name: "Grade #{row[:name]}"}) if row[:name].to_i > 0
 
@@ -177,7 +177,7 @@ module AdminDiagnosticReports
       Classroom::GRADE_INTEGERS.fetch(name.to_sym, name).to_i
     end
 
-    private def sort_teachers(name) = name.split(" ", 2).last
+    private def sort_teachers(name) = name.split(' ', 2).last
     private def valid_aggregation_options = AGGREGATION_OPTIONS
     private def grade_aggregation? = additional_aggregation == 'grade'
     private def teacher_aggregation? = additional_aggregation == 'teacher'
@@ -186,7 +186,7 @@ module AdminDiagnosticReports
     private def rollup_aggregation_select
       rollup_aggregation_hash.map do |column, aggregation_function|
         aggregation_function.call(column)
-      end.join(", ")
+      end.join(', ')
     end
 
     private def average_aggregate(weight_column) = ->(column) { "SUM(#{weight_column} * #{column}) / SUM(#{weight_column}) AS #{column}" }

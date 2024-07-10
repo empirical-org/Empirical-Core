@@ -34,13 +34,13 @@ describe 'SerializeActivityHealth' do
 
   let!(:content_partner) { create(:content_partner, activities: [activity])}
   let!(:start_time) { 1.day.ago }
-  let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity, state: "finished", started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
-  let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 10.minutes) }
-  let!(:activity_session3) { create(:activity_session_without_concept_results, activity: activity, state: "finished", started_at: start_time, completed_at: start_time + 20.minutes) }
+  let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity, state: 'finished', started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
+  let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity, state: 'finished', started_at: start_time, completed_at: start_time + 10.minutes) }
+  let!(:activity_session3) { create(:activity_session_without_concept_results, activity: activity, state: 'finished', started_at: start_time, completed_at: start_time + 20.minutes) }
   let!(:diagnostic) { create(:diagnostic_activity)}
-  let!(:unit_template) { create(:unit_template, flag: "production")}
+  let!(:unit_template) { create(:unit_template, flag: 'production')}
   let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
-  let!(:unit_template2) { create(:unit_template, flag: "archived")}
+  let!(:unit_template2) { create(:unit_template, flag: 'archived')}
   let!(:activities_unit_template2) { create(:activities_unit_template, unit_template: unit_template2, activity: activity)}
   let!(:sample_unit) { create(:unit, unit_template: unit_template)}
   let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
@@ -96,8 +96,8 @@ describe 'SerializeActivityHealth' do
     expect(data[:flag]).to eq(activity.flag.to_s)
     expect(data[:activity_categories]).to eq(activity.activity_categories.pluck(:name).sort)
     expect(data[:content_partners]).to eq([content_partner.name])
-    expect(data[:tool]).to eq("connect")
-    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: "production").map {|ut| {id: ut.id, name: ut.name}}.sort_by{|h| h[:name]})
+    expect(data[:tool]).to eq('connect')
+    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: 'production').map {|ut| {id: ut.id, name: ut.name}}.sort_by{|h| h[:name]})
     expect(data[:diagnostics]).to eq([diagnostic.name])
   end
 
@@ -124,7 +124,7 @@ describe 'SerializeActivityHealth' do
     unit = create(:unit)
     create(:classroom_unit, unit: unit, created_at: 1.year.ago)
     create(:unit_activity, unit: unit, activity: activity)
-    create(:activity_session, activity: activity, state: "finished", started_at: nil, completed_at: nil)
+    create(:activity_session, activity: activity, state: 'finished', started_at: nil, completed_at: nil)
     data = SerializeActivityHealth.new(activity).data
     expect(data[:recent_plays]).to eq(2)
   end

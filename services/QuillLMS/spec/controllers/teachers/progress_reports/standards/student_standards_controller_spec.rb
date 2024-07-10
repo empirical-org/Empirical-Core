@@ -10,6 +10,6 @@ describe Teachers::ProgressReports::Standards::StudentStandardsController, type:
     let(:result_key) { 'standards' }
     let(:expected_result_count) { 2 }
 
-    it_behaves_like "exporting to CSV"
+    it_behaves_like 'exporting to CSV'
   end
 end

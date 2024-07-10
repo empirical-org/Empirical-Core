@@ -22,7 +22,7 @@ class FirebaseApp < ApplicationRecord
   def connect_token_for(user)
     payload = create_connect_payload(user)
     private_key = OpenSSL::PKey::RSA.new(pkey)
-    JWT.encode(payload, private_key, "RS256")
+    JWT.encode(payload, private_key, 'RS256')
   end
 
   private def create_payload(user)
@@ -50,7 +50,7 @@ class FirebaseApp < ApplicationRecord
       iss: ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
       sub: ENV['FIREBASE_CONNECT_SERVICE_EMAIL'],
       uid: user_id,
-      aud: "https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit",
+      aud: 'https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit',
       iat: now_seconds,
       exp: now_seconds+(60*60), # Maximum expiration time is one hour,
       claims: {}

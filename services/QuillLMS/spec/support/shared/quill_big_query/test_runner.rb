@@ -7,7 +7,7 @@ module QuillBigQuery
     # This is used as part of a hack-y approach to mirroring some very specific
     # Airbyte parsing behavior
     MODEL_ATTRIBUTE_CUSTOM_CONVERSION = {
-      "ClassroomUnit.assigned_student_ids" => ->(v) { "'#{v.to_json}'" }
+      'ClassroomUnit.assigned_student_ids' => ->(v) { "'#{v.to_json}'" }
     }
 
     def initialize(cte_records)
@@ -61,7 +61,7 @@ module QuillBigQuery
       attr_type = record.class.column_for_attribute(attr).type
 
       if value.nil?
-        "NULL"
+        'NULL'
       elsif MODEL_ATTRIBUTE_CUSTOM_CONVERSION.fetch("#{record.class.name}.#{attr}", nil)
         MODEL_ATTRIBUTE_CUSTOM_CONVERSION.fetch("#{record.class.name}.#{attr}").call(value)
       elsif value.is_a?(Array)

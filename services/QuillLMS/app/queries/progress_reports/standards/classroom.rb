@@ -27,7 +27,7 @@ class ProgressReports::Standards::Classroom
       )
       .joins(:students)
       .joins("JOIN #{user_info} ON user_info.id = users.id")
-      .order("classrooms.name ASC")
-      .group("classrooms.id")
+      .order('classrooms.name ASC')
+      .group('classrooms.id')
   end
 end

@@ -87,8 +87,8 @@ describe School, type: :model do
     end
   end
 
-  let!(:bk_school) { create :school, name: "Brooklyn Charter School", zipcode: '11206'}
-  let!(:queens_school) { create :school, name: "Queens Charter School", zipcode: '11385'}
+  let!(:bk_school) { create :school, name: 'Brooklyn Charter School', zipcode: '11206'}
+  let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385'}
   let!(:bk_teacher) { create(:teacher, school: bk_school) }
   let!(:bk_teacher_colleague) { create(:teacher, school: bk_school) }
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
@@ -97,17 +97,17 @@ describe School, type: :model do
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
     let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
 
-    it "returns a subscription if a valid one exists" do
+    it 'returns a subscription if a valid one exists' do
       expect(bk_school.reload.subscription).to eq(subscription)
     end
 
-    it "returns the subscription with the latest expiration date multiple valid ones exists" do
+    it 'returns the subscription with the latest expiration date multiple valid ones exists' do
       later_subscription = create(:subscription, expiration: 365.days.from_now.to_date)
       later_user_sub = create(:school_subscription, school: bk_school, subscription: later_subscription)
       expect(bk_school.reload.subscription).to eq(later_subscription)
     end
 
-    it "returns nil if a valid subscription does not exist" do
+    it 'returns nil if a valid subscription does not exist' do
       subscription.update(expiration: Date.yesterday)
       expect(bk_school.reload.subscription).to eq(nil)
     end
@@ -121,16 +121,16 @@ describe School, type: :model do
     let!(:expired_subscription) {create(:subscription, expiration: Date.yesterday, de_activated_date: Date.yesterday)}
     let!(:expired_school_subscription) {create(:school_subscription, school: bk_school, subscription: expired_subscription)}
 
-    it "returns all subscriptions even if they have not started yet" do
+    it 'returns all subscriptions even if they have not started yet' do
       expect(bk_school.present_and_future_subscriptions.size).to eq(2)
     end
 
-    it "returns in ascending order of expiration date" do
+    it 'returns in ascending order of expiration date' do
       expect(bk_school.present_and_future_subscriptions.first).to eq(subscription)
       expect(bk_school.present_and_future_subscriptions.last).to eq(next_subscription)
     end
 
-    it "does not return deactivated subscriptions" do
+    it 'does not return deactivated subscriptions' do
       expect(bk_school.present_and_future_subscriptions).not_to include(expired_subscription)
     end
   end
@@ -180,13 +180,13 @@ describe School, type: :model do
     end
 
     it 'zipcode is present and is not 5 digits' do
-      school.zipcode = "123"
+      school.zipcode = '123'
       expect(school).not_to be_valid
-      expect(school.errors.messages).to eq(zipcode: ["is too short (minimum is 5 characters)"])
+      expect(school.errors.messages).to eq(zipcode: ['is too short (minimum is 5 characters)'])
     end
 
     it 'zipcode is present and is 5 digits' do
-      school.zipcode = "12345"
+      school.zipcode = '12345'
 
       expect(school).to be_valid
     end

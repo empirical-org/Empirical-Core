@@ -35,8 +35,8 @@ class SerializeEvidenceActivityHealth
     prompt = activity.prompts.find_by(conjunction: conjunction)
     return nil unless prompt && prompt_feedback_history[prompt.id]
 
-    num_final_attempt_optimal = prompt_feedback_history[prompt.id]["num_final_attempt_optimal"]
-    num_final_attempt_not_optimal = prompt_feedback_history[prompt.id]["num_final_attempt_not_optimal"]
+    num_final_attempt_optimal = prompt_feedback_history[prompt.id]['num_final_attempt_optimal']
+    num_final_attempt_not_optimal = prompt_feedback_history[prompt.id]['num_final_attempt_not_optimal']
     num_final_attempts = num_final_attempt_optimal + num_final_attempt_not_optimal
 
     return 0 if num_final_attempt_optimal.zero? || num_final_attempts.zero?

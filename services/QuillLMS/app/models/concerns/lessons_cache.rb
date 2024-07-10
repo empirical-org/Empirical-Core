@@ -6,13 +6,13 @@ module LessonsCache
   def lessons_cache_info_formatter(cua)
     classroom_unit = cua.classroom_unit
     activity = cua.unit_activity.activity
-    {"classroom_unit_id" => classroom_unit.id,
-      "classroom_unit_activity_state_id" => cua.id,
-      "activity_id" => activity.id,
-      "activity_name" => activity.name,
-      "unit_id" => classroom_unit.unit_id,
-      "completed" => ActivitySession.has_a_completed_session?(activity.id, classroom_unit.id) || cua.completed,
-      "visible" => cua.unit_activity.visible}
+    {'classroom_unit_id' => classroom_unit.id,
+      'classroom_unit_activity_state_id' => cua.id,
+      'activity_id' => activity.id,
+      'activity_name' => activity.name,
+      'unit_id' => classroom_unit.unit_id,
+      'completed' => ActivitySession.has_a_completed_session?(activity.id, classroom_unit.id) || cua.completed,
+      'visible' => cua.unit_activity.visible}
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

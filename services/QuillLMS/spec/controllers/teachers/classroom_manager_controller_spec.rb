@@ -9,7 +9,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#lesson_planner' do
     let!(:teacher) { create(:classrooms_teacher, user: user) }
-    let(:user) { create(:teacher, first_name: "test") }
+    let(:user) { create(:teacher, first_name: 'test') }
     let(:milestone) { create(:dismiss_unassign_warning_modal) }
 
     before do
@@ -17,9 +17,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should assign the tab, grade, students, last_classroom_name and last_lassroom_id' do
-      get :lesson_planner, params: { id: teacher.id, tab: "test tab", grade: "test grade" }
-      expect(assigns(:tab)).to eq "test tab"
-      expect(assigns(:grade)).to eq "test grade"
+      get :lesson_planner, params: { id: teacher.id, tab: 'test tab', grade: 'test grade' }
+      expect(assigns(:tab)).to eq 'test tab'
+      expect(assigns(:grade)).to eq 'test grade'
       expect(assigns(:students)).to eq user.students.any?
       expect(assigns(:unassign_warning_hidden)).to eq UserMilestone.exists?(milestone_id: milestone.id, user_id: user.id)
       expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
@@ -35,14 +35,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-      get :assign, params: { tab: "test tab", grade: "test grade" }
+      get :assign, params: { tab: 'test tab', grade: 'test grade' }
       expect(response.status).to eq(200)
     end
   end
 
   describe '#assign' do
-    let!(:teacher) { create(:classrooms_teacher, user: user, role: "owner") }
-    let(:user) { create(:teacher, first_name: "test") }
+    let!(:teacher) { create(:classrooms_teacher, user: user, role: 'owner') }
+    let(:user) { create(:teacher, first_name: 'test') }
 
     before do
       allow(controller).to receive(:current_user) { user }
@@ -51,13 +51,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
     context 'when current user is staff or has classrooms i teach' do
       context 'when user is staff' do
         before do
-          user.role = "staff"
+          user.role = 'staff'
         end
 
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-          get :assign, params: { tab: "test tab", grade: "test grade" }
-          expect(assigns(:tab)).to eq "test tab"
-          expect(assigns(:grade)).to eq "test grade"
+          get :assign, params: { tab: 'test tab', grade: 'test grade' }
+          expect(assigns(:tab)).to eq 'test tab'
+          expect(assigns(:grade)).to eq 'test grade'
           expect(assigns(:students)).to eq user.students.any?
           expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
           expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
@@ -66,9 +66,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       context 'when user has classrooms i teach' do
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-          get :assign, params: { tab: "test tab", grade: "test grade" }
-          expect(assigns(:tab)).to eq "test tab"
-          expect(assigns(:grade)).to eq "test grade"
+          get :assign, params: { tab: 'test tab', grade: 'test grade' }
+          expect(assigns(:tab)).to eq 'test tab'
+          expect(assigns(:grade)).to eq 'test grade'
           expect(assigns(:students)).to eq user.students.any?
           expect(assigns(:last_classroom_id)).to eq user.classrooms_i_teach.last.id
           expect(assigns(:last_classroom_name)).to eq user.classrooms_i_teach.last.name
@@ -577,14 +577,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(controller).to receive(:current_user) { teacher }
       allow(teacher).to receive(:trial_days_remaining) { 10 }
       allow(teacher).to receive(:premium_updated_or_created_today?) { true }
-      allow(teacher).to receive(:premium_state) { "some subscription" }
+      allow(teacher).to receive(:premium_state) { 'some subscription' }
     end
 
     it 'should set the subscription type and return the correct json' do
       get :premium, as: :json
-      expect(assigns(:subscription_type)).to eq "some subscription"
+      expect(assigns(:subscription_type)).to eq 'some subscription'
       expect(response.body).to eq({
-        hasPremium: "some subscription",
+        hasPremium: 'some subscription',
         last_subscription_was_trial: nil,
         trial_days_remaining: 10,
         first_day_of_premium_or_trial: true
@@ -597,13 +597,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(teacher).to receive(:classroom_minis_info) { "some class info" }
+      allow(teacher).to receive(:classroom_minis_info) { 'some class info' }
     end
 
     it 'should render the correct json' do
       get :classroom_mini, as: :json
       expect(response.body).to eq({
-        classes: "some class info"
+        classes: 'some class info'
       }.to_json)
     end
   end
@@ -699,7 +699,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(controller).not_to receive(:current_user_demo_id=)
 
       get :view_demo
-      expect(JSON.parse(response.body)["errors"]).to eq("Demo Account does not exist")
+      expect(JSON.parse(response.body)['errors']).to eq('Demo Account does not exist')
     end
 
     it 'will track event' do

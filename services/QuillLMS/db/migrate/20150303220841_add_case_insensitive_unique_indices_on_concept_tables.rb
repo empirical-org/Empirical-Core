@@ -14,13 +14,13 @@ class AddCaseInsensitiveUniqueIndicesOnConceptTables < ActiveRecord::Migration[4
   end
 
   def down
-    execute "DROP INDEX index_concept_tags_on_lowercase_name;"
+    execute 'DROP INDEX index_concept_tags_on_lowercase_name;'
     add_index :concept_tags, :name
 
-    execute "DROP INDEX index_concept_categories_on_lowercase_name;"
+    execute 'DROP INDEX index_concept_categories_on_lowercase_name;'
     add_index :concept_categories, :name
 
-    execute "DROP INDEX index_concept_classes_on_lowercase_name;"
+    execute 'DROP INDEX index_concept_classes_on_lowercase_name;'
     # add_index :concept_classes, :name
 
   end

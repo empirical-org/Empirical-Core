@@ -4,9 +4,9 @@ RSpec.shared_context 'Stripe Capability' do
   let(:stripe_capability) do
     Stripe::Capability.construct_from(
       object: {
-        id: "treasury",
-        object: "capability",
-        account: "acct_abc123def456",
+        id: 'treasury',
+        object: 'capability',
+        account: 'acct_abc123def456',
         future_requirements: {
         },
         requested: true,
@@ -14,28 +14,28 @@ RSpec.shared_context 'Stripe Capability' do
         requirements: {
           alternatives: [],
           currently_due: [
-            "person_adbcde.email",
-            "person_adbcde.relationship.title",
-            "settings.treasury.tos_acceptance.date",
-            "settings.treasury.tos_acceptance.ip"
+            'person_adbcde.email',
+            'person_adbcde.relationship.title',
+            'settings.treasury.tos_acceptance.date',
+            'settings.treasury.tos_acceptance.ip'
           ],
-          disabled_reason: "requirements.fields_needed",
+          disabled_reason: 'requirements.fields_needed',
           errors: [],
           eventually_due: [
-            "person_adbcde.email",
-            "person_adbcde.relationship.title",
-            "settings.treasury.tos_acceptance.date",
-            "settings.treasury.tos_acceptance.ip"
+            'person_adbcde.email',
+            'person_adbcde.relationship.title',
+            'settings.treasury.tos_acceptance.date',
+            'settings.treasury.tos_acceptance.ip'
           ],
           past_due: [
-            "person_adbcde.email",
-            "person_adbcde.relationship.title",
-            "settings.treasury.tos_acceptance.date",
-            "settings.treasury.tos_acceptance.ip"
+            'person_adbcde.email',
+            'person_adbcde.relationship.title',
+            'settings.treasury.tos_acceptance.date',
+            'settings.treasury.tos_acceptance.ip'
           ],
           pending_verification: []
         },
-        status: "inactive"
+        status: 'inactive'
       },
       previous_attributes: {
         requirements: {

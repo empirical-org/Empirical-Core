@@ -33,7 +33,7 @@ describe BlogPostsController, type: :controller do
   describe '#show' do
     let(:blog_post) { create(:blog_post) }
     let(:blog_post2) { create(:blog_post, topic: "What's new", created_at: 1.day.ago) }
-    let(:blog_post3) { create(:blog_post, topic: "Getting started") }
+    let(:blog_post3) { create(:blog_post, topic: 'Getting started') }
     let(:blog_post4) { create(:blog_post, topic: "What's new", created_at: 1.year.ago) }
     let(:blog_post5) { create(:blog_post, topic: "What's new", created_at: 1.week.ago) }
     let(:related_posts_array) { [blog_post2, blog_post5, blog_post4] }
@@ -96,7 +96,7 @@ describe BlogPostsController, type: :controller do
     end
 
     it 'should return the title as description if the subtitle is an empty string' do
-      blog_post = create(:blog_post, subtitle: "")
+      blog_post = create(:blog_post, subtitle: '')
       get :show, params: { slug: blog_post.slug }
       expect(assigns(:description)).to eq(blog_post.title)
     end
@@ -108,8 +108,8 @@ describe BlogPostsController, type: :controller do
     it 'should return the blog post and author with passed id param' do
       get :featured_blog_post, params: { id: blog_post.id }
 
-      expect(JSON.parse(response.body)["blog_post"]["id"]).to eq(blog_post.id)
-      expect(JSON.parse(response.body)["author"]).to eq(blog_post.author.name)
+      expect(JSON.parse(response.body)['blog_post']['id']).to eq(blog_post.id)
+      expect(JSON.parse(response.body)['author']).to eq(blog_post.author.name)
     end
   end
 
@@ -163,7 +163,7 @@ describe BlogPostsController, type: :controller do
     let(:in_the_news_post) { create(:blog_post, title: 'Press', topic: BlogPost::IN_THE_NEWS)}
 
     it 'should redirect back if no query is present' do
-      request.env["HTTP_REFERER"] = 'https://example.org'
+      request.env['HTTP_REFERER'] = 'https://example.org'
       get :search
       expect(response).to redirect_to 'https://example.org'
     end

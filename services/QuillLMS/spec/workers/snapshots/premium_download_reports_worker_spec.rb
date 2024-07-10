@@ -13,7 +13,7 @@ describe Snapshots::PremiumDownloadReportsWorker do
     let(:school_ids) { [1, 2, 3] }
     let(:filters) { { 'filter1' => 'value1' } }
     let(:mock_payload) { double }
-    let(:mock_csv) { "mock,csv,data" }
+    let(:mock_csv) { 'mock,csv,data' }
     let(:csv_tempfile) { Tempfile.new('mock.csv') }
     let(:s3_url) { 'https://www.example.com' }
     let(:headers_to_display) { [] }

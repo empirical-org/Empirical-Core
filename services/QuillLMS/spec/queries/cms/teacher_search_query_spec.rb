@@ -17,7 +17,7 @@ describe Cms::TeacherSearchQuery do
     let!(:activity_session) { create(:activity_session, user_id: user.id, completed_at: todays_date) }
     let!(:classroom) { create(:classroom, visible: true) }
     let!(:students_classrooms) { create(:students_classrooms, student: user, classroom: classroom) }
-    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: user, role: "owner") }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: user, role: 'owner') }
     let!(:schools_users)  { create(:schools_users, user: user, school: school) }
     let!(:schools_admins) { create(:schools_admins, user: user, school: school) }
 

@@ -10,7 +10,7 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
     allow(controller).to receive(:current_user) { user }
   end
 
-  describe "PUT #create_or_update" do
+  describe 'PUT #create_or_update' do
     context 'updating a record' do
 
       context 'with valid params that have a nil rating' do
@@ -61,8 +61,8 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
     end
 
     context 'new record' do
-      context "with valid params" do
-        it "should attach to an existing FeedbackHistory" do
+      context 'with valid params' do
+        it 'should attach to an existing FeedbackHistory' do
           f_h = create(:feedback_history)
           user = create(:user)
           valid_attributes = {
@@ -77,8 +77,8 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
       end
 
 
-      context "with invalid params" do
-        it "should raise ParameterMissing" do
+      context 'with invalid params' do
+        it 'should raise ParameterMissing' do
           expect do
             post :create_or_update, params: { :feedback_history_rating => {} }
           end.to raise_error(ActionController::ParameterMissing)
@@ -88,8 +88,8 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
 
   end
 
-  describe "PUT #mass_mark" do
-    it "should create or update all relevant records" do
+  describe 'PUT #mass_mark' do
+    it 'should create or update all relevant records' do
       f_h1 = create(:feedback_history)
       f_h2 = create(:feedback_history)
 

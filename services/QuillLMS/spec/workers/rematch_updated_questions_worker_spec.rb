@@ -6,7 +6,7 @@ describe RematchUpdatedQuestionsWorker, type: :worker do
   let(:worker) { described_class.new }
 
   it 'post to CMS url for only production questions' do
-    stub_const("RematchUpdatedQuestionsWorker::REMATCH_URL", "test_url")
+    stub_const('RematchUpdatedQuestionsWorker::REMATCH_URL', 'test_url')
 
     prod_question = create(:question,
       data: {flag: Question::FLAG_PRODUCTION},
@@ -42,13 +42,13 @@ describe RematchUpdatedQuestionsWorker, type: :worker do
     )
 
     expect(HTTParty).to receive(:post).with(
-      "test_url",
+      'test_url',
       body: {type: 'questions', uid: 'prod_question', delay: 0}.to_json,
       headers:  {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
     ).once
 
     expect(HTTParty).to receive(:post).with(
-      "test_url",
+      'test_url',
       body: {type: 'questions', uid: 'prod_question2', delay: 7}.to_json,
       headers:  {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
     ).once
