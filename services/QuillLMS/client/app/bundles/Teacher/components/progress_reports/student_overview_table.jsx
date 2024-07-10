@@ -53,6 +53,38 @@ export default class StudentOveriewTable extends React.Component {
     }
   }
 
+  activityClassificationIcon(id) {
+    let alt = ""
+    let src
+    switch (id) {
+      case 5:
+        alt = "Target representing Quill Connect"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-connect-green.svg`
+        break
+      case 4:
+        alt = "Magnifying glass representing Quill Diagnostic"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-diagnostic-green.svg`
+        break
+      case 2:
+        alt = "Puzzle piece representing Quill Grammar"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-grammar-green.svg`
+        break
+      case 6:
+        alt = "Apple representing Quill Lessons"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-lessons-green.svg`
+        break
+      case 1:
+        alt = "Flag representing Quill Proofreader"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-proofreader-green.svg`
+        break
+      case 9:
+        alt = "Book representing Quill Reading for Evidence"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-evidence-green.svg`
+        break
+    }
+    return { alt, src }
+  }
+
   columns() {
     const { userIsPremium } = this.state;
     const { studentId } = this.props
@@ -67,8 +99,9 @@ export default class StudentOveriewTable extends React.Component {
         Cell: ({ row }) => {
           const { original, activity_id } = row
           const { id, name, classroom_unit_id, completed_at } = original
+          const icon = this.activityClassificationIcon(activity_classification_id)
           const link = completed_at ? `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${classroom_unit_id}/user/${studentId}/a/${activity_id}` : null
-          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: activityNameHeaderWidth })
+          return renderTooltipRow({ icon, id, label: name, link, headerWidth: activityNameHeaderWidth })
         },
       }, {
         Header: 'Date Completed',

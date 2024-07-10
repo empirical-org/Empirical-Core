@@ -15,7 +15,7 @@
       th {
         height: 100%;
         &:not(:last-child) {
-          border-right: 1px solid #CFCFCF;
+          border-right: 1px solid #CFCFCF !important;
         }
       }
       .data-table-header {
