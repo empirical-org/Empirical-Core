@@ -1,3 +1,6 @@
+import * as React from 'react'
+import { DataTableChip, Tooltip } from "../../Shared";
+
 export function getTimeSpent(seconds: number) {
   if(!seconds) {
     return 'N/A';
@@ -22,4 +25,35 @@ export function getTimeSpent(seconds: number) {
     return `${hours} ${hoursText} ${minutes} ${minuteText}`;
   }
   return `${hours} ${hoursText}`;
+}
+
+interface renderTooltipRowProps {
+  color?: string,
+  icon?: {
+    alt: string,
+    src: string
+  }
+  id: number,
+  label: string,
+  link?: string,
+  headerWidth: number
+}
+
+export function renderTooltipRow({ color, icon, id, label, link, headerWidth }: renderTooltipRowProps) {
+  const averageFontWidth = 8
+  let style: React.CSSProperties = { width: `${headerWidth}px`, minWidth: `${headerWidth}px` }
+  const dataTableChip = <DataTableChip color={color} icon={icon} label={label} link={link} />
+  if ((String(label).length * averageFontWidth) >= headerWidth) {
+    return (
+      <Tooltip
+        key={id}
+        tooltipText={label}
+        tooltipTriggerStyle={style}
+        tooltipTriggerText={dataTableChip}
+        tooltipTriggerTextStyle={style}
+      />
+    )
+  } else {
+    return dataTableChip
+  }
 }
