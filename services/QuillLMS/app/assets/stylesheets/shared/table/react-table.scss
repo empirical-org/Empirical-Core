@@ -41,6 +41,10 @@
     }
   }
 
+  .rt-thead {
+    border-bottom: 1px solid $quill-grey-15;
+  }
+
   .-loading {
     display: none;
   }
@@ -142,9 +146,6 @@
       .rt-th {
         &:last-of-type{
           border-left: none;
-        }
-        &:nth-last-of-type(2) {
-          border-right: none;
         }
       }
     }
