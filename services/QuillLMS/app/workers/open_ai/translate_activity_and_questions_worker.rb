@@ -12,7 +12,8 @@ module OpenAI
       activity = Activity.find_by(id: activity_id)
       return unless activity.present?
 
-      TranslateActivityAndQuestions.run(activity)
+      activity.translate!
+      activity.questions.each(&:translate!)
     end
   end
 end

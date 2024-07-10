@@ -7,17 +7,15 @@ module OpenAI
     include Sidekiq::Worker
 
     sidekiq_options queue: SidekiqQueue::LOW
-
+    TRANSLATABLE_TYPES = {
+      'Activity' => Activity,
+      'Question' => Question,
+      'ConceptFeedback' => ConceptFeedback
+    }.freeze
     def perform(translatable_id, translatable_type)
-      case translatable_type
-      when 'Activity'
-        translatable = Activity.find_by(id: translatable_id)
-      when 'Question'
-        translatable = Question.find_by(id: translatable_id)
-      when 'ConceptFeedback'
-        translatable = ConceptFeedback.find_by(id: translatable_id)
-      end
-      translatable&.translate!
+      TRANSLATABLE_TYPES[translatable_type]
+      &.find_by(id: translatable_id)
+      &.translate!
     end
   end
 end

@@ -817,22 +817,15 @@ describe Activity, type: :model, redis: true do
 
       it { expect(subject).to be_a(ActiveRecord::Relation) }
 
-      it 'returns all the questions' do
-        expect(subject.first).to eq(questions.first)
-        expect(subject.last).to eq(questions.last)
-      end
+      it { expect(subject).to match_array(questions) }
 
-      context 'one of the questions does not exist' do
+      context 'has an extra question key that does not exist' do
         before do
           activity.data["questions"] << {"key" => "124"}
           activity.save
         end
 
-        it "returns only the existing questions" do
-          expect(subject.count).to eq(questions.count)
-          expect(subject.first).to eq(questions.first)
-          expect(subject.last).to eq(questions.last)
-        end
+        it { expect(subject).to match_array(questions) }
       end
 
     end

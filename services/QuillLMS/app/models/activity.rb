@@ -327,9 +327,7 @@ class Activity < ApplicationRecord
     end
   end
 
-  def questions
-    Question.where(uid: question_uids)
-  end
+  def questions = Question.where(uid: question_uids)
 
   private def question_uids = data["questions"]&.map{|q| q["key"]}
 
