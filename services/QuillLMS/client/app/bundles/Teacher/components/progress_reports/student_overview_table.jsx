@@ -65,9 +65,9 @@ export default class StudentOveriewTable extends React.Component {
         resizable: false,
         maxWidth: activityNameHeaderWidth,
         Cell: ({ row }) => {
-          const { original } = row
+          const { original, activity_id } = row
           const { id, name, classroom_unit_id, completed_at } = original
-          const link = completed_at ? `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${classroom_unit_id}/user/${studentId}/a/${row.activity_id}` : null
+          const link = completed_at ? `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${classroom_unit_id}/user/${studentId}/a/${activity_id}` : null
           return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: activityNameHeaderWidth })
         },
       }, {

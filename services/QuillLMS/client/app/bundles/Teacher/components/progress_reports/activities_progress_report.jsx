@@ -118,8 +118,8 @@ export default createReactClass({
         resizeable: false,
         Cell: ({ row }) => {
           const { original } = row
-          const { id, name, link } = original
-          const label = studentFilters.find(student => student.value == row.original.student_id)?.name
+          const { id, link, student_id } = original
+          const label = studentFilters.find(student => student.value == student_id)?.name
           return renderTooltipRow({ color: 'grey', icon: accountGreyIcon, id, label, link, headerWidth: 200 })
         },
         maxWidth: 200

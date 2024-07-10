@@ -62,8 +62,8 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         sortType: sortTableByLastName,
         Cell: ({ row }) => {
           const { original } = row
-          const { id, name } = original
-          const link = `/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`
+          const { id, name, classroom_id, student_id } = original
+          const link = `/teachers/progress_reports/student_overview?classroom_id=${classroom_id}&student_id=${student_id}`
           return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: studentHeaderWidth })
         },
         maxWidth: studentHeaderWidth,

@@ -95,10 +95,11 @@ export default class IndividualStandardsReport extends React.Component {
         maxWidth: 210,
         Cell: ({row}) => {
           const proficiencyStatus = row.original['mastery_status'] === 'Proficient' ? PROFICIENT : 'not-proficient'
-          const iconSrc = `${process.env.CDN_URL}/images/icons/2xs/${proficiencyStatus === PROFICIENT ? 'proficiency-circle/proficient' : 'proficiency-circle/no-proficiency'}.svg`
+          const proficientIconSrc = `${process.env.CDN_URL}/images/icons/2xs/proficiency-circle/proficient.svg`
+          const notProficienctIconSrc = `${process.env.CDN_URL}/images/icons/2xs/proficiency-circle/no-proficiency.svg`
           return(
             <span className={`proficiency-chip ${blurIfNotPremium} ${proficiencyStatus}`}>
-              <img alt="proficiency indicator" src={iconSrc} />
+              <img alt="proficiency indicator" src={proficiencyStatus === PROFICIENT ? proficientIconSrc : notProficienctIconSrc} />
               <span>{row.original['mastery_status']}</span>
             </span>
           )
