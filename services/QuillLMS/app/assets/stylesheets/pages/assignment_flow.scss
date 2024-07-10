@@ -203,6 +203,38 @@
   }
 }
 
+.disabled-diagnostic-banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: $quill-yellow-50;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  color: $quill-black;
+  font-size: 14px;
+
+  &.assignment-flow {
+    max-width: 600px;
+  }
+
+  &.recommendations {
+    width: max-content;
+    margin-top: 32px;
+  }
+
+  a {
+    margin-left: 8px;
+    font-weight: 700;
+    text-decoration: underline;
+
+    &:focus {
+      outline-offset: 2px;
+    }
+  }
+}
+
 @media (max-width: 850px) {
   .quill-modal {
     max-width: 90vw;
