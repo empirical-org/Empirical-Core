@@ -367,7 +367,7 @@ RSpec.describe User, type: :model do
   describe '#capitalize_name' do
     subject { user.capitalize_name }
 
-    let(:user) { build(:user, name: name) }
+    let(:user) { build(:user, name:) }
 
     context 'single name' do
       let(:name) { 'test' }
@@ -385,6 +385,30 @@ RSpec.describe User, type: :model do
       let(:name) { 'test mctest'}
 
       it { expect { subject }.to change(user, :name).from(name).to('Test McTest') }
+    end
+
+    context 'van as first name' do
+      let(:name) { 'van Test'}
+
+      it { expect { subject }.to change(user, :name).from(name).to('Van Test') }
+    end
+
+    context 'van elsewhere in name' do
+      let(:name) { 'Test van Test'}
+
+      it { expect { subject }.not_to change(user, :name) }
+    end
+
+    context 'dit as first name' do
+      let(:name) { 'dit Test'}
+
+      it { expect { subject }.to change(user, :name).from(name).to('Dit Test') }
+    end
+
+    context 'dit elsewhere in name' do
+      let(:name) { 'Test dit Test'}
+
+      it { expect { subject }.not_to change(user, :name) }
     end
   end
 

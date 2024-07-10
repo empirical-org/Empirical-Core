@@ -120,6 +120,8 @@ class User < ApplicationRecord
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
+  LEADING_CAPITALIZE_NAMES = %w(van dit)
+
   attr_accessor :newsletter,
     :require_password_confirmation_when_password_present,
     :skip_capitalize_names_callback,
@@ -473,7 +475,11 @@ class User < ApplicationRecord
   end
 
   def capitalize_name
-    self.name = ::CapitalizeNames.capitalize(name)
+    temp_name = ::CapitalizeNames.capitalize(name)
+    words = temp_name.split
+    words[0].capitalize! if words[0].in?(LEADING_CAPITALIZE_NAMES)
+
+    self.name = words.join(' ')
   end
 
   def admin?
