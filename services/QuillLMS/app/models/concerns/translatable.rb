@@ -31,7 +31,7 @@ module Translatable
     return unless translation_mappings.empty?
 
     english_text = EnglishText.find_or_create_by(text: translatable_text)
-    translation_mappings.create(english_text: english_text)
+    translation_mappings.create(english_text: english_text, field_name: translatable_field_name)
   end
 
   def translation(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
