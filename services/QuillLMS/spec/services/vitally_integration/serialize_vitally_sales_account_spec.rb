@@ -102,7 +102,8 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       activities_finished: 0,
       school_link: "https://www.quill.org/cms/schools/#{school.id}",
       premium_expiry_date: described_class::NOT_APPLICABLE,
-      premium_start_date: described_class::NOT_APPLICABLE,
+      current_premium_start_date: described_class::NOT_APPLICABLE,
+      earliest_premium_start_date: described_class::NOT_APPLICABLE,
       annual_revenue_current_contract: described_class::NOT_APPLICABLE,
       stripe_invoice_id_current_contract: described_class::NOT_APPLICABLE,
       purchase_order_number_current_contract: described_class::NOT_APPLICABLE
@@ -122,12 +123,24 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       school_id: school.id
     )
 
+    old_subscription = create(:subscription,
+      account_type: 'SUPER SAVER PREMIUM',
+      expiration: Time.zone.today - 1.year,
+      start_date: Time.zone.today - 2.years
+    )
+    create(:school_subscription,
+      subscription_id: old_subscription.id,
+      school_id: school.id
+    )
+
     school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(
       school_subscription: school_subscription.account_type,
       premium_expiry_date: school_subscription.expiration,
-      premium_start_date: school_subscription.start_date,
+      current_premium_start_date: school_subscription.start_date,
+      earliest_premium_start_date: old_subscription.start_date,
+      total_premium_months: school_subscription.length_in_months + old_subscription.length_in_months,
       annual_revenue_current_contract: school_subscription.payment_amount,
       stripe_invoice_id_current_contract: school_subscription.stripe_invoice_id,
       purchase_order_number_current_contract: school_subscription.purchase_order_number
