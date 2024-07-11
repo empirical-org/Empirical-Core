@@ -5,7 +5,7 @@ module VitallyTeacherStats
 
   DIAGNOSTIC_ID = 4
 
-  def total_students_in_year(user, school_year_start, school_year_end)
+  def total_students_in_year
     all_classrooms = user.classrooms_i_teach + user.archived_classrooms
     year_classrooms = all_classrooms.select { |c| school_year_start <= c.created_at && school_year_end > c.created_at }
     year_classrooms.sum { |c| c.students.count}
@@ -19,7 +19,7 @@ module VitallyTeacherStats
     .where('classrooms_teachers.user_id = ?', user.id)
   end
 
-  def activities_assigned_in_year_count(user, school_year_start, school_year_end)
+  def activities_assigned_in_year_count
     sum_students(in_school_year(activities_assigned_query(user), school_year_start, school_year_end))
   end
 
@@ -36,7 +36,7 @@ module VitallyTeacherStats
     .where("activity_sessions.state='finished'")
   end
 
-  def diagnostics_assigned_in_year_count(user, school_year_start, school_year_end)
+  def diagnostics_assigned_in_year_count
     sum_students(filter_diagnostics(in_school_year(activities_assigned_query(user), school_year_start, school_year_end)))
   end
 

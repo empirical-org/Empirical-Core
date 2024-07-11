@@ -21,13 +21,15 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
     let!(:classroom_unit2) { create(:classroom_unit, classroom: archived_classroom, unit: unit3, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id])}
     let!(:classroom_unit3) { create(:classroom_unit, classroom: current_classroom, unit: unit2, created_at: Date.new(2021, 10, 1), assigned_student_ids: [student3.id])}
     let!(:classroom_unit4) { create(:classroom_unit, classroom: current_classroom, unit: unit4, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id])}
-    let!(:diagnostic) { create(:diagnostic_activity)}
+    let!(:post_diagnostic) {create(:diagnostic_activity)}
+    let!(:pre_diagnostic) { create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS[0], follow_up_activity_id: post_diagnostic.id)}
     let!(:connect) { create(:connect_activity)}
     let!(:evidence) { create(:evidence_lms_activity)}
-    let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic, created_at: Date.new(year, 10, 1)) }
-    let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: diagnostic, created_at: Date.new(2021, 10, 1)) }
+    let!(:unit_activity) { create(:unit_activity, unit: unit, activity: pre_diagnostic, created_at: Date.new(year, 10, 1)) }
+    let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: pre_diagnostic, created_at: Date.new(2021, 10, 1)) }
     let!(:unit_activity3) { create(:unit_activity, unit: unit3, activity: connect, created_at: Date.new(year, 10, 1)) }
     let!(:unit_activity4) { create(:unit_activity, unit: unit4, activity: evidence, created_at: Date.new(year, 10, 1)) }
+    let!(:unit_activity5) { create(:unit_activity, unit: unit, activity: post_diagnostic, created_at: Date.new(year, 10, 1)) }
 
     before do
       create(:classrooms_teacher, user: teacher, classroom: active_classroom)
@@ -38,7 +40,7 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
       create(:activity_session,
         user: student1,
         classroom_unit: classroom_unit1,
-        activity: diagnostic,
+        activity: pre_diagnostic,
         state: 'finished',
         completed_at: Date.new(year, 10, 2)
       )
@@ -46,14 +48,14 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         user: student1,
         classroom_unit: classroom_unit1,
         state: 'finished',
-        activity: diagnostic,
+        activity: pre_diagnostic,
         completed_at: Date.new(year, 10, 2)
       )
       create(:activity_session,
         user: student2,
         classroom_unit: classroom_unit1,
         state: 'started',
-        activity: diagnostic,
+        activity: pre_diagnostic,
         completed_at: Date.new(year, 10, 2)
       )
       create(:activity_session,
@@ -75,6 +77,8 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         state: 'finished',
         completed_at: Date.new(2021, 10, 2)
       )
+
+      stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic.id])
     end
 
     it 'should raise error if the year is the current year' do
@@ -85,16 +89,20 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
       expected_data = {
         total_students: 3,
         active_students: 2,
-        activities_assigned: 4,
+        activities_assigned: 6,
         completed_activities: 4,
         completed_activities_per_student: 2.0,
         completed_evidence_activities_per_student: 0.5,
-        percent_completed_activities: 1.0,
-        diagnostics_assigned: 2,
+        percent_completed_activities: 0.67,
+        diagnostics_assigned: 4,
         diagnostics_finished: 2,
+        pre_diagnostics_assigned: 2,
+        pre_diagnostics_completed: 2,
+        post_diagnostics_assigned: 2,
+        post_diagnostics_completed: 0,
         evidence_activities_assigned: 1,
         evidence_activities_completed: 1,
-        percent_completed_diagnostics: 1.0
+        percent_completed_diagnostics: 0.5
       }
       teacher_data = described_class.new(teacher, year).calculate_data
       expect(teacher_data).to eq(expected_data)

@@ -5,17 +5,16 @@ module VitallyIntegration
     include VitallySchoolStats
     include VitallySharedFunctions
 
-    attr_accessor :school_year_start, :school_year_end, :year, :school, :entity
+    attr_accessor :school_year_start, :school_year_end, :school, :entity
 
     def initialize(school, year)
-      @year = year
+      @school_year_start = Date.new(year, 7, 1)
+      @school_year_end = school_year_start + 1.year
       @school = school
       @entity = school
     end
 
     def calculate_data
-      @school_year_start = Date.new(year, 7, 1)
-      @school_year_end = school_year_start + 1.year
       raise "Cannot calculate data for a school year that is still ongoing." if school_year_end > Time.current
 
       active_students_this_year = active_students_query(school).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
