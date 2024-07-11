@@ -48,8 +48,8 @@ describe Cms::UnitTemplatesController, type: :controller do
     let(:template) { create(:unit_template) }
 
     it 'should update the given template' do
-      post :update, params: { id: template.id, unit_template: { name: "new name" } }
-      expect(template.reload.name).to eq "new name"
+      post :update, params: { id: template.id, unit_template: { name: 'new name' } }
+      expect(template.reload.name).to eq 'new name'
     end
   end
 

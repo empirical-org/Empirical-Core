@@ -255,13 +255,13 @@ describe TeacherFixes do
       expect(student1.activity_sessions.map(&:id)).not_to include(completed_later.id)
     end
 
-    it "should update another activity session to be final score if possible" do
+    it 'should update another activity session to be final score if possible' do
       TeacherFixes::delete_last_activity_session(student1.id, activity.id)
       expect(completed_earlier.reload.is_final_score).to be
     end
   end
 
-  describe "#get_all_completed_activity_sessions_for_a_given_user_and_activity" do
+  describe '#get_all_completed_activity_sessions_for_a_given_user_and_activity' do
     it "should return all of a student's completed activity sessions for a given activity id" do
       completed_activity_sessions =
         TeacherFixes::get_all_completed_activity_sessions_for_a_given_user_and_activity(student1.id, activity.id)

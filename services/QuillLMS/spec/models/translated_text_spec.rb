@@ -33,19 +33,19 @@ RSpec.describe TranslatedText, type: :model do
       subject{ TranslatedText.ordered_by_source_api(source_api) }
 
       context 'open_ai' do
-        let(:source_api) {TranslatedText::OPEN_AI_SOURCE}
+        let(:source_api) {Translatable::OPEN_AI_SOURCE}
 
         it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text])}
       end
 
       context 'gengo' do
-        let(:source_api) {TranslatedText::GENGO_SOURCE}
+        let(:source_api) {Translatable::GENGO_SOURCE}
 
         it { expect(subject.map(&:translation)).to eq([gengo_text, open_ai_text])}
       end
 
       context 'not in our list' do
-        let(:source_api) { "sql injection attempt" }
+        let(:source_api) { 'sql injection attempt' }
 
         it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text])}
       end

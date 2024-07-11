@@ -17,8 +17,8 @@
 FactoryBot.define do
   factory :objective do
     sequence(:name) { |n| "Objective #{n}" }
-    help_info { "https://www.fake-url.com/" }
-    action_url { "#/some-fake-path" }
+    help_info { 'https://www.fake-url.com/' }
+    action_url { '#/some-fake-path' }
     section { 'Getting Started' }
     sequence(:section_placement)
 

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "benchmark"
-require "open3"
+require 'benchmark'
+require 'open3'
 
 if defined?(Sprockets)
-  Rake::Task["assets:precompile"]
+  Rake::Task['assets:precompile']
     .enhance do
-      npm_build = "npm run build:production:client"
+      npm_build = 'npm run build:production:client'
 
       puts "***** Start #{npm_build}"
       time = Benchmark.realtime do

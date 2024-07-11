@@ -17,8 +17,8 @@ describe PusherCSVExportCompleted do
         secret: ENV['PUSHER_SECRET'],
         use_tls: true
       )
-      expect(client).to receive(:trigger).with("1", "csv-export-completed", message: "some_url")
-      described_class.run(1, "some_url")
+      expect(client).to receive(:trigger).with('1', 'csv-export-completed', message: 'some_url')
+      described_class.run(1, 'some_url')
     end
   end
 end

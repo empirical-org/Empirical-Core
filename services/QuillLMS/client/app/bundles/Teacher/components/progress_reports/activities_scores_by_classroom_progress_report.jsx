@@ -7,12 +7,13 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByLastName, sortTableFromSQLTimeStamp } from '../../../../modules/sortingMethods.js';
-import { ReactTable, Tooltip, ReportHeader } from '../../../Shared/index';
-import { getTimeSpent } from '../../helpers/studentReports';
+import { ReactTable, Tooltip, ReportHeader, accountGreenIcon } from '../../../Shared/index';
+import { getTimeSpent, renderTooltipRow } from '../../helpers/studentReports';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
 
 const showAllClassroomKey = 'All classes'
+const iconUrl = 'https://assets.quill.org/images/icons/xs/account-green.svg'
 
 export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   constructor() {
@@ -52,20 +53,25 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
   }
 
   columns() {
+    const studentHeaderWidth = 360
     return ([
       {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
         sortType: sortTableByLastName,
-        Cell: ({row}) => (<a className='row-link-disguise underlined' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-          {row.original.name}
-        </a>),
+        Cell: ({ row }) => {
+          const { original } = row
+          const { id, name, classroom_id, student_id } = original
+          const link = `/teachers/progress_reports/student_overview?classroom_id=${classroom_id}&student_id=${student_id}`
+          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link, headerWidth: studentHeaderWidth })
+        },
+        maxWidth: studentHeaderWidth,
       }, {
         Header: "Activities completed",
         accessor: 'activity_count',
         resizable: false,
-        minWidth: 186,
+        maxWidth: 168,
         Cell: ({row}) => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {Number(row.original.activity_count)}
         </a>),
@@ -73,7 +79,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: "Overall score",
         accessor: 'average_score',
         resizable: false,
-        minWidth: 80,
+        maxWidth: 168,
         Cell: ({row}) => {
           const value = Math.round(parseFloat(row.original.average_score) * 100);
           return (
@@ -87,7 +93,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: "Time spent",
         accessor: 'timespent',
         resizable: false,
-        minWidth: 80,
+        maxWidth: 168,
         Cell: ({row}) => {
           const value = row.original.timespent;
           return (
@@ -101,7 +107,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: "Last active",
         accessor: 'last_active',
         resizable: false,
-        minWidth: 90,
+        maxWidth: 168,
         Cell: ({row}) => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
           {row.original.last_active ? moment(row.original.last_active).format("MM/DD/YYYY") : <span>N/A</span>}
         </a>),
@@ -111,6 +117,7 @@ export class ActivitiesScoresByClassroomProgressReport extends React.Component {
         Header: "Class",
         accessor: 'classroom_name',
         resizable: false,
+        maxWidth: 168,
         Cell: ({row}) => {
           const tooltipText = `<p>${row.original.classroom_name}</p>`;
           const tooltipTriggerElement = <a className="tooltip-trigger row-link-disguise" href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`} rel='noreferrer noopener' target="_blank">{row.original.classroom_name}</a>

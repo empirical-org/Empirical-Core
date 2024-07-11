@@ -71,6 +71,25 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
       <h1>
         Which diagnostic covers the skills you want to assess?
       </h1>
+      <DisabledDiagnosticsBanner
+        className="assignment-flow"
+      >
+        <div
+          className="disabled-diagnostic-banner assignment-flow"
+        >
+          <p>
+            New diagnostics for the 2024-2025 school year are coming August 1st.
+          </p>
+          <a
+            className="focus-on-dark"
+            href="https://www.quill.org/teacher-center/important-update-to-diagnostics"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Learn more
+          </a>
+        </div>
+      </DisabledDiagnosticsBanner>
       <section
         className="filter-tabs"
       >
@@ -182,7 +201,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <div
                   className="top-row"
@@ -201,26 +220,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1663"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -298,7 +302,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className="show-new-tag assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <span
                   className="new-tag"
@@ -322,26 +326,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1664"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -419,7 +408,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <div
                   className="top-row"
@@ -438,26 +427,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1668"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -535,7 +509,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className="show-new-tag assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <span
                   className="new-tag"
@@ -559,73 +533,12 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1669"
-                      onClick={[Function]}
-                      target="_blank"
+                    <button
+                      className="quill-button small disabled contained"
+                      type="button"
                     >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
-                      tooltipTriggerText={
-                        <button
-                          className="quill-button-archived small disabled contained"
-                          type="button"
-                        >
-                          <img
-                            alt="Lock icon"
-                            src="undefined/images/icons/icons-locked.svg"
-                          />
-                           Locked
-                        </button>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
-                          <button
-                            className="quill-button-archived small disabled contained"
-                            type="button"
-                          >
-                            <img
-                              alt="Lock icon"
-                              src="undefined/images/icons/icons-locked.svg"
-                            />
-                             Locked
-                          </button>
-                        </span>
-                        <span
-                          className="quill-tooltip-wrapper"
-                        >
-                          <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
-                        </span>
-                      </span>
-                    </Tooltip>
+                      Coming Aug 1
+                    </button>
                   </div>
                 </div>
                 <div
@@ -702,7 +615,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <div
                   className="top-row"
@@ -721,26 +634,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1678"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -818,7 +716,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className="show-new-tag assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <span
                   className="new-tag"
@@ -842,73 +740,12 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1680"
-                      onClick={[Function]}
-                      target="_blank"
+                    <button
+                      className="quill-button small disabled contained"
+                      type="button"
                     >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
-                    <Tooltip
-                      isTabbable={true}
-                      tooltipText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
-                      tooltipTriggerText={
-                        <button
-                          className="quill-button-archived small disabled contained"
-                          type="button"
-                        >
-                          <img
-                            alt="Lock icon"
-                            src="undefined/images/icons/icons-locked.svg"
-                          />
-                           Locked
-                        </button>
-                      }
-                    >
-                      <span
-                        aria-hidden={false}
-                        className="quill-tooltip-trigger "
-                        role="tooltip"
-                      >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
-                          <button
-                            className="quill-button-archived small disabled contained"
-                            type="button"
-                          >
-                            <img
-                              alt="Lock icon"
-                              src="undefined/images/icons/icons-locked.svg"
-                            />
-                             Locked
-                          </button>
-                        </span>
-                        <span
-                          className="quill-tooltip-wrapper"
-                        >
-                          <span
-                            aria-live="polite"
-                            className="quill-tooltip"
-                          />
-                        </span>
-                      </span>
-                    </Tooltip>
+                      Coming Aug 1
+                    </button>
                   </div>
                 </div>
                 <div
@@ -985,7 +822,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <div
                   className="top-row"
@@ -1004,26 +841,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1161"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -1099,7 +921,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className="show-new-tag assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <span
                   className="new-tag"
@@ -1123,26 +945,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1774"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -1220,7 +1027,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <div
                   className="top-row"
@@ -1239,26 +1046,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1568"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -1334,7 +1126,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className="show-new-tag assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <span
                   className="new-tag"
@@ -1358,26 +1150,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1814"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -1455,7 +1232,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <div
                   className="top-row"
@@ -1474,26 +1251,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1590"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -1569,7 +1331,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             >
               <div
                 className="show-new-tag assignment-card quill-card"
-                onClick={[Function]}
+                onClick={null}
               >
                 <span
                   className="new-tag"
@@ -1593,26 +1355,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   <div
                     className="button-container"
                   >
-                    <a
-                      className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=1818"
-                      onClick={[Function]}
-                      target="_blank"
-                    >
-                      <img
-                        alt="Eye icon"
-                        src="undefined/images/icons/icons-preview.svg"
-                      />
-                      <span>
-                        Preview
-                      </span>
-                    </a>
                     <button
-                      className="quill-button-archived fun contained primary focus-on-light"
-                      onClick={[Function]}
+                      className="quill-button small disabled contained"
                       type="button"
                     >
-                      Select
+                      Coming Aug 1
                     </button>
                   </div>
                 </div>
@@ -1721,7 +1468,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button-archived fun contained primary focus-on-light"
+                    className="quill-button fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >
@@ -1833,7 +1580,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button-archived fun contained primary focus-on-light"
+                    className="quill-button fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >
@@ -1945,7 +1692,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button-archived fun contained primary focus-on-light"
+                    className="quill-button fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >
@@ -2057,7 +1804,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button-archived fun contained primary focus-on-light"
+                    className="quill-button fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >

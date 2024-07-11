@@ -51,16 +51,16 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       unit_activity.update(visible: true)
     end
 
-    it "returns true if both the classroom unit and the unit activity are visible" do
+    it 'returns true if both the classroom unit and the unit activity are visible' do
       expect(cua.visible).to be
     end
 
-    it "returns false if the classroom unit is not visible" do
+    it 'returns false if the classroom unit is not visible' do
       classroom_unit.update(visible: false)
       expect(cua.visible).to be false
     end
 
-    it "returns false if the unit activity is not visible" do
+    it 'returns false if the unit activity is not visible' do
       unit_activity.update(visible: false)
       expect(cua.visible).to be false
     end
@@ -76,18 +76,18 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to be
     end
 
-    it "caches data about the assignment" do
-      lesson_data = {"classroom_unit_id" => cua.classroom_unit.id,
-        "classroom_unit_activity_state_id" => cua.id,
-        "activity_id" => cua.unit_activity.activity.id,
-        "activity_name" => cua.unit_activity.activity.name,
-        "unit_id" => cua.classroom_unit.unit_id,
-        "completed" => cua.completed,
-        "visible" => cua.unit_activity.visible}
+    it 'caches data about the assignment' do
+      lesson_data = {'classroom_unit_id' => cua.classroom_unit.id,
+        'classroom_unit_activity_state_id' => cua.id,
+        'activity_id' => cua.unit_activity.activity.id,
+        'activity_name' => cua.unit_activity.activity.name,
+        'unit_id' => cua.classroom_unit.unit_id,
+        'completed' => cua.completed,
+        'visible' => cua.unit_activity.visible}
       expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
     end
 
-    it "caches data about subsequent assignment" do
+    it 'caches data about subsequent assignment' do
       classroom2 = create(:classroom, students: [student])
 
       classroom_unit2 = create(:classroom_unit , unit: unit, classroom: classroom2, assigned_student_ids: [student.id])
@@ -97,20 +97,20 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       classroom2.teachers.destroy_all
       create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id)
       cua2.save
-      lesson_data = {"classroom_unit_id" => cua.classroom_unit.id,
-        "classroom_unit_activity_state_id" => cua.id,
-        "activity_id" => cua.unit_activity.activity.id,
-        "activity_name" => cua.unit_activity.activity.name,
-        "unit_id" => cua.classroom_unit.unit_id,
-        "completed" => cua.completed,
-        "visible" => unit_activity.visible}
-      lesson2_data = {"classroom_unit_id" => cua2.classroom_unit.id,
-        "classroom_unit_activity_state_id" => cua2.id,
-        "activity_id" => cua2.unit_activity.activity.id,
-        "activity_name" => cua2.unit_activity.activity.name,
-        "unit_id" => cua2.classroom_unit.unit_id,
-        "completed" => cua2.completed,
-        "visible" => unit_activity.visible}
+      lesson_data = {'classroom_unit_id' => cua.classroom_unit.id,
+        'classroom_unit_activity_state_id' => cua.id,
+        'activity_id' => cua.unit_activity.activity.id,
+        'activity_name' => cua.unit_activity.activity.name,
+        'unit_id' => cua.classroom_unit.unit_id,
+        'completed' => cua.completed,
+        'visible' => unit_activity.visible}
+      lesson2_data = {'classroom_unit_id' => cua2.classroom_unit.id,
+        'classroom_unit_activity_state_id' => cua2.id,
+        'activity_id' => cua2.unit_activity.activity.id,
+        'activity_name' => cua2.unit_activity.activity.name,
+        'unit_id' => cua2.classroom_unit.unit_id,
+        'completed' => cua2.completed,
+        'visible' => unit_activity.visible}
       expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
     end
   end

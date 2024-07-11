@@ -100,11 +100,11 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   private def demo_name
-    params[:name].present? ? params[:name] : "demoteacher"
+    params[:name].present? ? params[:name] : 'demoteacher'
   end
 
   private def staff_demo_name
-    params[:name].present? ? params[:name] : "demoteacher+staff"
+    params[:name].present? ? params[:name] : 'demoteacher+staff'
   end
 
   private def demo_redirect_path

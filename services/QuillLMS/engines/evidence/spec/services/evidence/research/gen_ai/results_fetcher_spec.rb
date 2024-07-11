@@ -30,7 +30,7 @@ module Evidence
         end
 
         before do
-          stub_const("Evidence::Research::GenAI::ResultsFetcher::ENDPOINT", 'http://example.com/metrics')
+          stub_const('Evidence::Research::GenAI::ResultsFetcher::ENDPOINT', 'http://example.com/metrics')
           stub_request(:post, described_class::ENDPOINT).to_return(misc_metrics)
           allow(trial).to receive(:llm_examples).and_return(llm_examples)
         end

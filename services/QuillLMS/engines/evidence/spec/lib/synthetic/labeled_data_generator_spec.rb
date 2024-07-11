@@ -120,8 +120,8 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     let(:data) {[[text1,label1], [text2,label1], [text3,label1]]}
 
     before do
-      stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 1)
-      stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 1)
+      stub_const('Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL', 1)
+      stub_const('Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL', 1)
     end
 
     subject { described_class.run(data, prompt: prompt, generators: [:spelling_passage_specific])}
@@ -144,7 +144,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       let(:generator) { described_class.run(data,prompt: prompt, generators: [:spelling_passage_specific], manual_types: true) }
 
       context 'test types' do
-        subject { generator.results.find {|r| r.type == "TEST"} }
+        subject { generator.results.find {|r| r.type == 'TEST'} }
 
         it 'should populate passage errors' do
           expect(subject.generated.first.generator.type).to eq 'SpellingPassage'
@@ -152,7 +152,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       end
 
       context 'validation types' do
-        subject { generator.results.find {|r| r.type == "VALIDATION"} }
+        subject { generator.results.find {|r| r.type == 'VALIDATION'} }
 
         it 'should populate passage errors' do
           expect(subject.generated.first.generator.type).to eq 'SpellingPassage'
@@ -169,7 +169,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {passage: passage.text}).and_return(spelling_response)
     end
 
-    describe "#training_data_rows" do
+    describe '#training_data_rows' do
       it 'should produce an array of arrays to make a csv used for training' do
         training_data = generator.batch.labeled_training_csv_rows
         first_row = training_data.first
@@ -183,7 +183,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       end
     end
 
-    describe "#detail_data_rows" do
+    describe '#detail_data_rows' do
       it 'should produce an array of arrays to make a csv used for analyzing synthetic data' do
         data = generator.batch.labeled_analysis_csv_rows
 
@@ -199,19 +199,19 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     end
   end
 
-  describe "#self.csvs_from_run" do
+  describe '#self.csvs_from_run' do
     let(:filename) { 'some_activity_but.csv' }
     let(:automl_name) {'some_activity_but_synthetic_automl_upload.csv'}
 
     before do
-      stub_const("Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL", 0)
-      stub_const("Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL", 0)
+      stub_const('Evidence::Synthetic::ManualTypes::MIN_TEST_PER_LABEL', 0)
+      stub_const('Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL', 0)
 
       allow(Evidence::Synthetic::Generators::Paraphrase).to receive(:run).with([text1, text2], {passage: passage.text}).and_return(paraphrase_response)
       allow(Evidence::Synthetic::Generators::Spelling).to receive(:run).with([text1, text2], {passage: passage.text}).and_return(spelling_response)
     end
 
-    it "should generate a hash of csv_strings" do
+    it 'should generate a hash of csv_strings' do
       output = described_class.csvs_from_run(labeled_data, filename, prompt)
 
       expect(output.class).to be Hash
@@ -225,7 +225,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
       csv = CSV.parse(output[automl_name])
       expect(csv.size).to be 5
       first_row = csv.first
-      expect(first_row.first).to(satisfy {|v| v.in?(["TRAIN", "TEST", "VALIDATION"])})
+      expect(first_row.first).to(satisfy {|v| v.in?(['TRAIN', 'TEST', 'VALIDATION'])})
       expect(first_row.second).to eq text1
       expect(first_row.last).to eq label1
     end

@@ -4,7 +4,7 @@ module PagesHelper
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def pages_tab_class(tabname)
-    about_actions = ["mission", "develop", "faq"]
+    about_actions = ['mission', 'develop', 'faq']
     impact_actions = ['impact', 'map', 'stats']
     team_actions = %w(team)
     partners_actions = %w(partners)
@@ -17,7 +17,7 @@ module PagesHelper
     getting_started_actions = ['teacher-center']
     media_actions = ['news', 'press', 'blog_posts']
     case tabname
-    when "about"
+    when 'about'
       about_actions.include?(action_name) ? 'active' : ''
     when 'faq'
       faq_actions.include?(action_name) ? 'active' : ''
@@ -25,9 +25,9 @@ module PagesHelper
       press_actions.include?(action_name) ? 'active' : ''
     when 'partners'
       partners_actions.include?(action_name) ? 'active' : ''
-    when "media"
+    when 'media'
       media_actions.include?(action_name) ? 'active' : ''
-    when "team"
+    when 'team'
       team_actions.include?(action_name) ? 'active' : ''
     when 'getting-started'
       # TODO: revert this when we launch front end of knowlege center
@@ -36,14 +36,14 @@ module PagesHelper
       news_actions.include?(action_name) ? 'active' : ''
     when 'media_kit'
       media_kit_actions.include?(action_name) ? 'active' : ''
-    when "impact"
+    when 'impact'
       impact_actions.include?(action_name) ? 'active' : ''
     when 'standards'
       standards_actions.include?(action_name) ? 'active' : ''
     when 'topics'
       topics_actions.include?(action_name) ? 'active' : ''
     when 'premium'
-      action_name == 'premium_from_discover' ? "premium-tab active" : ''
+      action_name == 'premium_from_discover' ? 'premium-tab active' : ''
     end
 
   end
@@ -51,9 +51,9 @@ module PagesHelper
 
   def subtab_class(tabname)
     if action_name == tabname
-      "active"
+      'active'
     else
-      ""
+      ''
     end
   end
 
@@ -78,9 +78,9 @@ module PagesHelper
             img: 'team-peter-gault.webp'
           },
           {
-            name: 'Hannah Monk',
-            title: 'VP of Curriculum',
-            img: 'team-hannah-monk.webp'
+            name: 'Rebekah Bergman',
+            title: 'Vice President of Curriculum',
+            img: 'team-rebekah-bergman.webp'
           }
         ]
       },
@@ -117,6 +117,11 @@ module PagesHelper
             name: 'Ellie Dean',
             title: 'Finance & Operations Manager I',
             img: 'team-ellie-dean.webp'
+          },
+          {
+            name: 'Nikki DeMichael',
+            title: 'Partnerships Specialist I',
+            img: 'team-nikki-demichael.webp'
           },
           {
             name: 'Emilia Friedberg',
@@ -283,6 +288,11 @@ module PagesHelper
             name: 'Alexandria Redmon',
             title: 'Senior Director of Product & Technology at Hearst',
             img: 'advisor-alexandria-redmon.webp'
+          },
+          {
+            name: 'Hannah Monk',
+            title: 'Senior Advisor',
+            img: 'team-hannah-monk.webp'
           }
         ]
       },

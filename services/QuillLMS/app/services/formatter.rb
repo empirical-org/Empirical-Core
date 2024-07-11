@@ -27,9 +27,9 @@ class Formatter < ApplicationService
     AS_RATIO => ->(x) { x.map{ |value| LAMBDAS[BLANK_AS_ZERO].call(value) }.join(' of ') },
     AS_ROUNDED_INTEGER => ->(x) { x.present? ? x.round : LAMBDAS[BLANK_AS_ZERO].call(x) },
     BLANK_AS_ZERO => ->(x) { x.presence || 0 },
-    DATE => ->(x) { x.strftime("%F") },
+    DATE => ->(x) { x.strftime('%F') },
     PERCENT_AS_INTEGER => ->(x) { x.present? ? LAMBDAS[AS_ROUNDED_INTEGER].call(x * 100) : LAMBDAS[BLANK_AS_ZERO].call(x) },
-    SCORE_OR_COMPLETED => ->(x) { x.is_a?(Numeric) && x != -1 ? "#{LAMBDAS[PERCENT_AS_INTEGER].call(x)}%" : "Completed" },
+    SCORE_OR_COMPLETED => ->(x) { x.is_a?(Numeric) && x != -1 ? "#{LAMBDAS[PERCENT_AS_INTEGER].call(x)}%" : 'Completed' },
     SECONDS_TO_MINUTES => ->(x) { x.is_a?(Numeric) ? (x.to_i / 60).nonzero? || '< 1' : '' }
   }.freeze
 

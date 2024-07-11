@@ -33,6 +33,7 @@ export {
   Card,
   CarouselAnimation,
   Checkbox,
+  DataTableChip,
   DataTable,
   ProgressBar,
   DragHandle,
@@ -200,6 +201,8 @@ export {
   documentFileIcon,
   singleUserIcon,
   whiteEmailIcon,
+  accountGreenIcon,
+  accountGreyIcon,
 } from './images/index'
 
 export {
@@ -233,6 +236,7 @@ export {
   PRODUCT,
   SUPPORT,
   TEAMS,
+  TRANSLATIONS,
   ARCHIVED_FLAG,
   PRODUCTION_FLAG,
   ALPHA_FLAG,

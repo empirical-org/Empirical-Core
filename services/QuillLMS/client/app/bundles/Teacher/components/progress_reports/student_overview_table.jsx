@@ -3,9 +3,8 @@ import React from 'react'
 import _ from 'underscore'
 
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js'
-import { Tooltip } from '../../../Shared/index'
-import { getTimeSpent } from '../../helpers/studentReports'
-import gradeColor from '../modules/grade_color.js'
+import { ReactTable, Tooltip, accountGreenIcon } from '../../../Shared/index'
+import { getTimeSpent, renderTooltipRow } from '../../helpers/studentReports'
 import userIsPremium from '../modules/user_is_premium'
 
 export default class StudentOveriewTable extends React.Component {
@@ -15,13 +14,6 @@ export default class StudentOveriewTable extends React.Component {
     this.state = {
       userIsPremium: userIsPremium()
     }
-  }
-
-  activityImage(activity_classification_id, color) {
-    if (color === 'unstarted') {
-      return <div className={`icon-wrapper icon-${color} icon-${activity_classification_id}-lightgray`} />
-    }
-    return <div className={`icon-wrapper icon-${color} icon-${activity_classification_id}`} />
   }
 
   activityTableRowsAndAverageScore(unit) {
@@ -34,12 +26,12 @@ export default class StudentOveriewTable extends React.Component {
         cumulativeScore += parseFloat(row.percentage);
         applicableScoreRowCount += 1;
       }
-      rows.push(this.tableRow(row))
+      rows.push(row)
     })
     if (cumulativeScore > 0) {
       averageScore = cumulativeScore / applicableScoreRowCount
     }
-    return {averageScore, rows}
+    return { averageScore, rows }
   }
 
   completedStatus(row) {
@@ -51,102 +43,120 @@ export default class StudentOveriewTable extends React.Component {
     return 'Not Started'
   }
 
-  greenArrow(row) {
-    const { studentId } = this.props;
-    if (row.completed_at) {
-      return (
-        <a href={`/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}`}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-        </a>
-      )
-    }
-  }
-
   score(row) {
     if (row.completed_at && !notLessonsOrDiagnostic(row.activity_classification_id)) {
-      return {content: 'Completed', color: 'blue'}
+      return 'Completed'
     } else if (row.percentage) {
-      return {
-        content: Math.round(row.percentage * 100) + '%',
-        color: gradeColor(parseFloat(row.percentage)),
-        linkColor: 'standard'
-      }
+      return Math.round(row.percentage * 100) + '%'
     } else {
-      return {content: undefined, color: 'unstarted'}
+      return 'Not Started'
     }
   }
 
-  tableRow(row) {
-    const { studentId } = this.props;
+  activityClassificationIcon(id) {
+    let alt = ""
+    let src
+    switch (id) {
+      case 5:
+        alt = "Target representing Quill Connect"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-connect-green.svg`
+        break
+      case 4:
+        alt = "Magnifying glass representing Quill Diagnostic"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-diagnostic-green.svg`
+        break
+      case 2:
+        alt = "Puzzle piece representing Quill Grammar"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-grammar-green.svg`
+        break
+      case 6:
+        alt = "Apple representing Quill Lessons"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-lessons-green.svg`
+        break
+      case 1:
+        alt = "Flag representing Quill Proofreader"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-proofreader-green.svg`
+        break
+      case 9:
+        alt = "Book representing Quill Reading for Evidence"
+        src = `${process.env.CDN_URL}/images/icons/xs/tool-evidence-green.svg`
+        break
+    }
+    return { alt, src }
+  }
+
+  columns() {
     const { userIsPremium } = this.state;
-    const scoreInfo = this.score(row);
-    const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${row.classroom_unit_id}/user/${studentId}/a/${row.activity_id}` : () => {}
-    const blurIfNotPremium = userIsPremium ?  '' : 'non-premium-blur'
-    return (
-      <tr className={row.completed_at ? 'clickable' : ''} onClick={onClickFunction}>
-        <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
-        <td className='activity-name'>
-          <a className={scoreInfo.linkColor} href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
-        </td>
-        <td>{this.completedStatus(row)}</td>
-        {this.scoreContent(scoreInfo, blurIfNotPremium)}
-        <td className={`activity-timespent ${blurIfNotPremium}`}>{getTimeSpent(row.timespent)}</td>
-        <td className='green-arrow'>{this.greenArrow(row)}</td>
-      </tr>
-    )
-  }
-
-  scoreContent(scoreInfo, blurIfNotPremium) {
-    const activityUngraded = scoreInfo.content === 'Completed'
-    if (activityUngraded) {
-      return (
-        <td className={`score ${blurIfNotPremium}`}>
-          <Tooltip
-            tooltipText="This type of activity is not graded."
-            tooltipTriggerText={scoreInfo.content}
-          />
-        </td>
-      )
-    } else {
-      return (
-        <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
-      )
-    }
+    const { studentId } = this.props
+    const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
+    const activityNameHeaderWidth = 660
+    return ([
+      {
+        Header: 'Activity',
+        accessor: 'name',
+        resizable: false,
+        maxWidth: activityNameHeaderWidth,
+        Cell: ({ row }) => {
+          const { original, activity_id } = row
+          const { id, name, classroom_unit_id, completed_at, activity_classification_id } = original
+          const icon = this.activityClassificationIcon(activity_classification_id)
+          const link = completed_at ? `/teachers/progress_reports/report_from_classroom_unit_and_activity_and_user/cu/${classroom_unit_id}/user/${studentId}/a/${activity_id}` : null
+          return renderTooltipRow({ icon, id, label: name, link, headerWidth: activityNameHeaderWidth })
+        },
+      }, {
+        Header: 'Date Completed',
+        accessor: 'completed_at',
+        resizable: false,
+        maxWidth: 180,
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{this.completedStatus(row.original)}</span>,
+      }, {
+        Header: 'Overall Score',
+        accessor: 'percentage',
+        resizable: false,
+        maxWidth: 180,
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{this.score(row.original)}</span>,
+      }, {
+        Header: 'Time Spent',
+        accessor: 'timespent',
+        resizable: false,
+        maxWidth: 180,
+        Cell: ({ row }) => <span className={blurIfNotPremium}>{getTimeSpent(row.original.timespent)}</span>,
+      },
+    ])
   }
 
   unitTable(unit) {
     const { userIsPremium } = this.state;
-    const constantData = unit[0]
     const activityTableRowsAndAverageScore = this.activityTableRowsAndAverageScore(unit)
-    const averageScore = activityTableRowsAndAverageScore.averageScore
-    const blurIfNotPremium = userIsPremium ?  '' : 'non-premium-blur'
+    const { rows, averageScore } = activityTableRowsAndAverageScore
+    const blurIfNotPremium = userIsPremium ? '' : 'non-premium-blur'
     return (
-      <div className='average-score'>
-        <table className='student-overview-table'>
-          <tbody>
-            <tr className='header-row'>
-              <th className='unit-name' colSpan='2'>{constantData.unit_name}</th>
-              <th className='small-font'>Date completed</th>
-              <th className='small-font'>Score</th>
-              <th className='small-font'>Time spent</th>
-              <th className='average-score-container'>
-                <div className='average-score-label'>
-                  Average score:
-                </div>
-                <div className={`${blurIfNotPremium}`}>
-                  {averageScore
-                    ? Math.round(averageScore * 100) + '%'
-                    : <Tooltip
-                      tooltipText="This type of activity is not graded."
-                      tooltipTriggerText="N/A"
-                    />}
-                </div>
-              </th>
-            </tr>
-            {activityTableRowsAndAverageScore.rows}
-          </tbody>
-        </table>
-      </div>
+      <React.Fragment>
+        <div className="unit-header-container">
+          <p className="unit-name">{unit[0].unit_name}</p>
+          <div className='average-score-container'>
+            <div className={`score-value ${blurIfNotPremium}`}>
+              {averageScore
+                ? Math.round(averageScore * 100) + '%'
+                : <Tooltip
+                  tooltipText="This type of activity is not graded."
+                  tooltipTriggerText="N/A"
+                />}
+            </div>
+            <p className='average-score-label'>Average score</p>
+          </div>
+        </div>
+        <ReactTable
+          className='progress-report has-green-arrow'
+          columns={this.columns()}
+          data={rows}
+          defaultSorted={[{
+            id: 'completed_at',
+            desc: true
+          }
+          ]}
+        />
+      </React.Fragment>
     )
   }
 
@@ -160,5 +170,4 @@ export default class StudentOveriewTable extends React.Component {
       </div >
     )
   }
-
 }

@@ -76,32 +76,32 @@ module Evidence
 
       it 'should fill out hash with all fields' do
         json_hash = rule.as_json
-        expect(rule.id).to(eq(json_hash["id"]))
-        expect(rule.uid).to(eq(json_hash["uid"]))
-        expect(rule.name).to(eq(json_hash["name"]))
-        expect(rule.note).to(eq(json_hash["note"]))
-        expect(rule.universal).to(eq(json_hash["universal"]))
-        expect(rule.rule_type).to(eq(json_hash["rule_type"]))
-        expect(rule.optimal).to(eq(json_hash["optimal"]))
-        expect(rule.suborder).to(eq(json_hash["suborder"]))
-        expect(rule.concept_uid).to(eq(json_hash["concept_uid"]))
-        expect(rule.prompt_ids).to(eq(json_hash["prompt_ids"]))
+        expect(rule.id).to(eq(json_hash['id']))
+        expect(rule.uid).to(eq(json_hash['uid']))
+        expect(rule.name).to(eq(json_hash['name']))
+        expect(rule.note).to(eq(json_hash['note']))
+        expect(rule.universal).to(eq(json_hash['universal']))
+        expect(rule.rule_type).to(eq(json_hash['rule_type']))
+        expect(rule.optimal).to(eq(json_hash['optimal']))
+        expect(rule.suborder).to(eq(json_hash['suborder']))
+        expect(rule.concept_uid).to(eq(json_hash['concept_uid']))
+        expect(rule.prompt_ids).to(eq(json_hash['prompt_ids']))
       end
     end
 
     context 'should display_name' do
 
       it 'should correspond to the correct display name' do
-        rule = create(:evidence_rule, :rule_type => "rules-based-2")
+        rule = create(:evidence_rule, :rule_type => 'rules-based-2')
         expect(rule.display_name).to(be_truthy)
       end
     end
 
     context 'should #determine_feedback_from_history' do
       let!(:rule) { create(:evidence_rule) }
-      let!(:feedback1) { create(:evidence_feedback, :rule => (rule), :order => 0, :text => "Example feedback 1") }
-      let!(:feedback2) { create(:evidence_feedback, :rule => (rule), :order => 1, :text => "Example feedback 2") }
-      let!(:feedback3) { create(:evidence_feedback, :rule => (rule), :order => 2, :text => "Example feedback 3") }
+      let!(:feedback1) { create(:evidence_feedback, :rule => (rule), :order => 0, :text => 'Example feedback 1') }
+      let!(:feedback2) { create(:evidence_feedback, :rule => (rule), :order => 1, :text => 'Example feedback 2') }
+      let!(:feedback3) { create(:evidence_feedback, :rule => (rule), :order => 2, :text => 'Example feedback 3') }
 
       it 'should fetch lowest order feedback if feedback history is empty' do
         feedback_history = []
@@ -109,12 +109,12 @@ module Evidence
       end
 
       it 'should fetch lowest order feedback with text not matched from history' do
-        feedback_history = [{ "feedback" => feedback1.text, "feedback_type" => rule.rule_type }]
+        feedback_history = [{ 'feedback' => feedback1.text, 'feedback_type' => rule.rule_type }]
         expect(feedback2).to(eq(rule.determine_feedback_from_history(feedback_history)))
       end
 
       it 'should fetch highest order if all feedbacks have text matched from history' do
-        feedback_history = [{ "feedback" => feedback1.text, "feedback_type" => rule.rule_type }, { "feedback" => feedback2.text, "feedback_type" => rule.rule_type }, { "feedback" => feedback3.text, "feedback_type" => rule.rule_type }]
+        feedback_history = [{ 'feedback' => feedback1.text, 'feedback_type' => rule.rule_type }, { 'feedback' => feedback2.text, 'feedback_type' => rule.rule_type }, { 'feedback' => feedback3.text, 'feedback_type' => rule.rule_type }]
         expect(feedback3).to(eq(rule.determine_feedback_from_history(feedback_history)))
       end
     end
@@ -122,7 +122,7 @@ module Evidence
     describe '#conditional' do
       it 'should return conditional state of first regex rule' do
         required_rule = create(:evidence_rule)
-        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :conditional => true)
+        regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'you need this sequence', :sequence_type => 'required', :conditional => true)
         expect(required_rule.conditional).to(eq(true))
 
         regex_rule_three.update(conditional: false)
@@ -140,75 +140,75 @@ module Evidence
 
       context 'when the regex rules are not conditional' do
         let!(:rule) { create(:evidence_rule) }
-        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Hello", :sequence_type => "incorrect", :conditional => false) }
-        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Something", :sequence_type => "incorrect", :conditional => false) }
+        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Hello', :sequence_type => 'incorrect', :conditional => false) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Something', :sequence_type => 'incorrect', :conditional => false) }
 
         it 'should be true if sequence_type is incorrect and entry does not match the regex text' do
-          expect(rule.regex_is_passing?("Nope, I dont start with hello.")).to(eq(true))
+          expect(rule.regex_is_passing?('Nope, I dont start with hello.')).to(eq(true))
         end
 
         it 'should be false if sequence_type is incorrect and entry matches the regex text and there are more than one sequences' do
-          expect(rule.regex_is_passing?("Something is wrong here.")).to(eq(false))
+          expect(rule.regex_is_passing?('Something is wrong here.')).to(eq(false))
         end
 
         it 'should be false if sequence_type is incorrect and entry matches regex text' do
-          expect(rule.regex_is_passing?("Hello!!!")).to(eq(false))
+          expect(rule.regex_is_passing?('Hello!!!')).to(eq(false))
         end
 
         it 'should be false if sequence_type is required and entry does not match regex text' do
           required_rule = create(:evidence_rule)
-          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
-          expect(required_rule.regex_is_passing?("I do not have the right sequence")).to(eq(false))
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'you need this sequence', :sequence_type => 'required')
+          expect(required_rule.regex_is_passing?('I do not have the right sequence')).to(eq(false))
         end
 
         it 'should be true if sequence_type is required and entry matches regex text' do
           required_rule = create(:evidence_rule)
-          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
-          expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'you need this sequence', :sequence_type => 'required')
+          expect(required_rule.regex_is_passing?('you need this sequence and I do have it')).to(eq(true))
         end
 
         it 'should be true if sequence_type is required and entry matches regex text and there are multiple required sequences' do
           required_rule = create(:evidence_rule)
-          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required")
-          regex_rule_four = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "or you need this one", :sequence_type => "required")
-          expect(required_rule.regex_is_passing?("you need this sequence and I do have it")).to(eq(true))
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'you need this sequence', :sequence_type => 'required')
+          regex_rule_four = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'or you need this one', :sequence_type => 'required')
+          expect(required_rule.regex_is_passing?('you need this sequence and I do have it')).to(eq(true))
         end
 
         it 'should be true if rule is NOT case sensitive and entry matches regardless of casing' do
           required_rule = create(:evidence_rule)
-          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false)
-          expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I DO HAVE IT")).to(eq(true))
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'you need this sequence', :sequence_type => 'required', :case_sensitive => false)
+          expect(required_rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I DO HAVE IT')).to(eq(true))
         end
 
         it 'should be false if rule IS case sensitive and entry does not match casing' do
           required_rule = create(:evidence_rule)
-          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => true)
-          expect(required_rule.regex_is_passing?("YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing")).to(eq(false))
+          regex_rule_three = create(:evidence_regex_rule, :rule => required_rule, :regex_text => 'you need this sequence', :sequence_type => 'required', :case_sensitive => true)
+          expect(required_rule.regex_is_passing?('YOU NEED THIS SEQUENCE AND I do not HAVE IT in the right casing')).to(eq(false))
         end
 
         it 'should grade both incorrect sequence and required sequence in the same rule' do
           dual_rule = create(:evidence_rule)
-          regex_rule_three = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => "you need this sequence", :sequence_type => "required", :case_sensitive => false)
-          regex_rule_four = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => "but not this one", :sequence_type => "incorrect", :case_sensitive => false)
-          expect((dual_rule.regex_is_passing?("you need this sequence but not this one"))).to(eq(false))
-          expect((dual_rule.regex_is_passing?("you need this sequence and this should pass"))).to(eq(true))
+          regex_rule_three = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => 'you need this sequence', :sequence_type => 'required', :case_sensitive => false)
+          regex_rule_four = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => 'but not this one', :sequence_type => 'incorrect', :case_sensitive => false)
+          expect((dual_rule.regex_is_passing?('you need this sequence but not this one'))).to(eq(false))
+          expect((dual_rule.regex_is_passing?('you need this sequence and this should pass'))).to(eq(true))
           expect((dual_rule.regex_is_passing?("this fails because you don't have the needed sequence"))).to(eq(false))
         end
       end
 
       context 'when the regex rules are conditional' do
         let!(:rule) { create(:evidence_rule) }
-        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "^Conditional-start", :sequence_type => "incorrect", :conditional => true) }
-        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => "required-end.$", :sequence_type => "required", :conditional => true) }
+        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Conditional-start', :sequence_type => 'incorrect', :conditional => true) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => 'required-end.$', :sequence_type => 'required', :conditional => true) }
 
         it 'should require the required sequence if the incorrect sequence is present' do
-          expect(rule.regex_is_passing?("Conditional-start that does not contain the right end.")).to(eq(false))
-          expect(rule.regex_is_passing?("Conditional-start that does contain the required-end.")).to(eq(true))
+          expect(rule.regex_is_passing?('Conditional-start that does not contain the right end.')).to(eq(false))
+          expect(rule.regex_is_passing?('Conditional-start that does contain the required-end.')).to(eq(true))
         end
 
         it 'should NOT require the required sequence if the incorrect sequence is NOT present' do
-          expect(rule.regex_is_passing?("Non-conditional start that does not contain the right end.")).to(eq(true))
-          expect(rule.regex_is_passing?("Conditional-start that does contain the required-end.")).to(eq(true))
+          expect(rule.regex_is_passing?('Non-conditional start that does not contain the right end.')).to(eq(true))
+          expect(rule.regex_is_passing?('Conditional-start that does contain the required-end.')).to(eq(true))
         end
 
       end

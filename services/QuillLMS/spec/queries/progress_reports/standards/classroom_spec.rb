@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::Classroom do
-  describe "getting classrooms for the progress report" do
+  describe 'getting classrooms for the progress report' do
     let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }
     let(:filters) { {} }
     include_context 'StandardLevel Progress Report'
@@ -15,17 +15,17 @@ describe ProgressReports::Standards::Classroom do
 
     subject { ProgressReports::Standards::Classroom.new(teacher).results(filters).to_a }
 
-    it "retrieves aggregated classroom data" do
+    it 'retrieves aggregated classroom data' do
       classrooms = subject
-      expect(classrooms[0]["name"]).to eq(classrooms.first.name)
-      expect(classrooms[0]["id"]).to eq(classrooms.first.id)
-      expect(classrooms[0]["total_student_count"]).to eq(classrooms.first.total_student_count)
-      expect(classrooms[0]["proficient_student_count"]).to eq(classrooms.first.proficient_student_count)
-      expect(classrooms[0]["not_proficient_student_count"]).to eq(classrooms.first.not_proficient_student_count)
+      expect(classrooms[0]['name']).to eq(classrooms.first.name)
+      expect(classrooms[0]['id']).to eq(classrooms.first.id)
+      expect(classrooms[0]['total_student_count']).to eq(classrooms.first.total_student_count)
+      expect(classrooms[0]['proficient_student_count']).to eq(classrooms.first.proficient_student_count)
+      expect(classrooms[0]['not_proficient_student_count']).to eq(classrooms.first.not_proficient_student_count)
       # expect(classrooms[0]["total_standard_count"]).to eq(classrooms.first.total_standard_count)
     end
 
-    it "retrieves classrooms with no filters" do
+    it 'retrieves classrooms with no filters' do
       expect(subject.size).to eq(classrooms.size)
     end
 
@@ -55,7 +55,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'empty classroom' do
-      let(:filters) { {classroom_id: ""} }
+      let(:filters) { {classroom_id: ''} }
 
       it 'does not filter by classroom' do
         expect(subject.size).to eq(standard_levels.size)
@@ -71,7 +71,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'empty units' do
-      let(:filters) { {unit_id: ""} }
+      let(:filters) { {unit_id: ''} }
 
       it 'does not filter by units' do
         expect(subject.size).to eq(standard_levels.size)
@@ -103,7 +103,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'empty students' do
-      let(:filters) { {student_id: ""} }
+      let(:filters) { {student_id: ''} }
 
       it 'does not filter by students' do
         expect(subject.size).to eq(standard_levels.size)

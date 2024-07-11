@@ -32,8 +32,8 @@ module EmailApiHelper
   def get_satismeter_nps_data(start_time, end_time)
     uri = URI.parse("https://app.satismeter.com/api/v2/response-statistics?startDate=#{start_time}&endDate=#{end_time}&project=#{ENV['SATISMETER_PROJECT_KEY']}")
     request = Net::HTTP::Get.new(uri)
-    request["Authkey"] = ENV['SATISMETER_AUTH_KEY']
-    req_options = { use_ssl: uri.scheme == "https" }
+    request['Authkey'] = ENV['SATISMETER_AUTH_KEY']
+    req_options = { use_ssl: uri.scheme == 'https' }
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) { |http| http.request(request) }
     parse_nps_response(JSON.parse(response.body)) if response.is_a?(Net::HTTPSuccess)
   end
@@ -41,8 +41,8 @@ module EmailApiHelper
   def get_satismeter_comment_data(start_time, end_time)
     uri = URI.parse("https://app.satismeter.com/api/responses?format=json&project=#{ENV['SATISMETER_PROJECT_KEY']}&startDate=#{start_time}&endDate=#{end_time}")
     request = Net::HTTP::Get.new(uri)
-    request.basic_auth(ENV['SATISMETER_AUTH_KEY'], "")
-    req_options = { use_ssl: uri.scheme == "https" }
+    request.basic_auth(ENV['SATISMETER_AUTH_KEY'], '')
+    req_options = { use_ssl: uri.scheme == 'https' }
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) { |http| http.request(request) }
     parse_comment_response(JSON.parse(response.body)) if response.is_a?(Net::HTTPSuccess)
   end

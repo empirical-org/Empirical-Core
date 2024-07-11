@@ -178,27 +178,27 @@ activities = {
       activityPackId: 7,
       requirements: [
         {
-          concept_id: "LPMBB_M5hooC263qXFc_Yg",
+          concept_id: 'LPMBB_M5hooC263qXFc_Yg',
           count: 0,
           noIncorrect: true
         },
         {
-          concept_id: "lD5FBHF-FEPpsFG0SXlcfQ",
+          concept_id: 'lD5FBHF-FEPpsFG0SXlcfQ',
           count: 0,
           noIncorrect: true
         },
         {
-          concept_id: "FZ0wa0oqQ-6ELHf1gzVJjw",
+          concept_id: 'FZ0wa0oqQ-6ELHf1gzVJjw',
           count: 0,
           noIncorrect: true
         },
         {
-          concept_id: "wpzl6e2NhXcBaKDC11K4NA",
+          concept_id: 'wpzl6e2NhXcBaKDC11K4NA',
           count: 0,
           noIncorrect: true
         },
         {
-          concept_id: "iY2_MBNxcVgzH3xmnyeEJA",
+          concept_id: 'iY2_MBNxcVgzH3xmnyeEJA',
           count: 0,
           noIncorrect: true
         }

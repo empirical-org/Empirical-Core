@@ -70,8 +70,8 @@ describe Unit, type: :model do
 
   describe 'the name field' do
 
-    context "it should be unique" do
-      it "at the teacher level" do
+    context 'it should be unique' do
+      it 'at the teacher level' do
         non_uniq_unit = Unit.create(name: unit.name, user: teacher)
         expect(non_uniq_unit.valid?).to eq(false)
       end
@@ -79,11 +79,11 @@ describe Unit, type: :model do
       context 'it should be scoped to visibility' do
         let!(:non_uniq_unit) {Unit.new(name: unit.name, user: teacher, visible: true)}
 
-        it "when visibile == true it must be unique" do
+        it 'when visibile == true it must be unique' do
           expect{non_uniq_unit.save!}.to raise_error(ActiveRecord::RecordInvalid)
         end
 
-        it "unless visibility == false" do
+        it 'unless visibility == false' do
           non_uniq_unit.visible = false
           expect{non_uniq_unit.save!}.to_not raise_error
         end
@@ -94,7 +94,7 @@ describe Unit, type: :model do
         end
       end
 
-      it "does not have to be unique by name with different teachers" do
+      it 'does not have to be unique by name with different teachers' do
         different_teacher = User.create(role: 'teacher')
         new_unit = Unit.create(name: unit.name, user: different_teacher)
         expect(new_unit.valid?).to eq(true)
@@ -109,7 +109,7 @@ describe Unit, type: :model do
     end
 
     it 'does not include units that are marked invisible' do
-      result = Unit.new(name: "hidden unit", visible: false)
+      result = Unit.new(name: 'hidden unit', visible: false)
       expect(Unit.where(name: result.name)).to be_empty
     end
   end
@@ -176,7 +176,7 @@ describe Unit, type: :model do
     let!(:classroom) { create(:classroom) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
 
-    it "should update classrooms and classroom_units updated_at on unit save" do
+    it 'should update classrooms and classroom_units updated_at on unit save' do
       classroom.update_columns(updated_at: initial_time)
       classroom_updated_at = classroom.reload.updated_at
       classroom_unit.update_columns(updated_at: initial_time)
@@ -188,7 +188,7 @@ describe Unit, type: :model do
       expect(classroom_unit.reload.updated_at.to_i).not_to equal(classroom_unit_updated_at.to_i)
     end
 
-    it "should update classrooms updated_t on classroom_unit touch" do
+    it 'should update classrooms updated_t on classroom_unit touch' do
       classroom.update_columns(updated_at: initial_time)
       classroom_updated_at = classroom.reload.updated_at
       classroom_unit.update_columns(updated_at: initial_time)

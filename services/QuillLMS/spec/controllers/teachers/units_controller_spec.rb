@@ -123,7 +123,7 @@ describe Teachers::UnitsController, type: :controller do
       it 'should render the correct json' do
         get :lesson_info_for_activity, params: { activity_id: classroom.activities.first.id }, as: :json
         expect(response.body).to eq({
-          errors: "No activities found"
+          errors: 'No activities found'
         }.to_json)
       end
     end
@@ -363,18 +363,18 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#classrooms_with_students_and_classroom_units' do
 
-    it "returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id" do
+    it 'returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id' do
       get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
       res = JSON.parse(response.body)
-      expect(res["classrooms"].first["id"]).to eq(classroom.id)
-      expect(res["classrooms"].first["name"]).to eq(classroom.name)
-      expect(res["classrooms"].first["students"].first['id']).to eq(student.id)
-      expect(res["classrooms"].first["students"].first['name']).to eq(student.name)
-      expect(res["classrooms"].first["classroom_unit"]).to eq({"id" => classroom_unit.id, "assigned_student_ids" => classroom_unit.assigned_student_ids, "assign_on_join" => true})
+      expect(res['classrooms'].first['id']).to eq(classroom.id)
+      expect(res['classrooms'].first['name']).to eq(classroom.name)
+      expect(res['classrooms'].first['students'].first['id']).to eq(student.id)
+      expect(res['classrooms'].first['students'].first['name']).to eq(student.name)
+      expect(res['classrooms'].first['classroom_unit']).to eq({'id' => classroom_unit.id, 'assigned_student_ids' => classroom_unit.assigned_student_ids, 'assign_on_join' => true})
     end
 
 
-    it "sends a 422 error code when it is not passed a valid unit id" do
+    it 'sends a 422 error code when it is not passed a valid unit id' do
       get :classrooms_with_students_and_classroom_units, params: { id: Unit.count + 1000 }
       expect(response.status).to eq(422)
     end
@@ -383,14 +383,14 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#update_classroom_unit_assigned_students' do
 
-    it "sends a 200 status code when it is passed valid data" do
+    it 'sends a 200 status code when it is passed valid data' do
       put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
             classrooms: [{ id: classroom.id, student_ids: [student.id] }]
           } }
       expect(response.status).to eq(200)
     end
 
-    it "sends a 422 status code when it is passed invalid data" do
+    it 'sends a 422 status code when it is passed invalid data' do
       put :update_classroom_unit_assigned_students, params: { id: unit.id + 500, unit: {
             classrooms: [{ id: classroom.id, student_ids: [] }]
           } }
@@ -406,7 +406,7 @@ describe Teachers::UnitsController, type: :controller do
       completed_activity_session.update(visible: false)
     end
 
-    it "adds the student back to the assigned_student_ids array and unarchives any hidden activity sessions" do
+    it 'adds the student back to the assigned_student_ids array and unarchives any hidden activity sessions' do
       put :restore_classroom_unit_assignment_for_one_student, params: { id: unit.id, classroom_unit_id: classroom_unit.id, student_id: student.id }
 
       expect(classroom_unit.reload.assigned_student_ids).to eq([student.id])
@@ -419,7 +419,7 @@ describe Teachers::UnitsController, type: :controller do
 
   describe '#update_activities' do
 
-    it "sends a 200 status code when it is passed valid data" do
+    it 'sends a 200 status code when it is passed valid data' do
       activity = unit_activity.activity
       put :update_activities,
         params: {
@@ -433,7 +433,7 @@ describe Teachers::UnitsController, type: :controller do
       expect(response.status).to eq(200)
     end
 
-    it "sends a 422 status code when it is passed invalid data" do
+    it 'sends a 422 status code when it is passed invalid data' do
       activity = unit_activity.activity
       put :update_activities, params: { id: unit.id + 500, data: {
             unit_id: unit.id + 500,

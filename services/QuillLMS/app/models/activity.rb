@@ -37,6 +37,7 @@
 #
 class Activity < ApplicationRecord
   include Flags
+  include Translatable
   include Uid
 
   validate :data_must_be_hash
@@ -46,7 +47,7 @@ class Activity < ApplicationRecord
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :standard
   belongs_to :raw_score
-  belongs_to :follow_up_activity, class_name: "Activity", foreign_key: "follow_up_activity_id"
+  belongs_to :follow_up_activity, class_name: 'Activity', foreign_key: 'follow_up_activity_id'
 
   has_one :standard_level, through: :standard
 
@@ -98,6 +99,7 @@ class Activity < ApplicationRecord
   ARCHIVED = 'archived'
 
   FLAGS_ATTRIBUTE = 'flags'
+
 
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
@@ -204,7 +206,7 @@ class Activity < ApplicationRecord
     return nil unless is_evidence?
 
     created_time = child_activity.last_flags_change_log_record&.created_at || created_at
-    created_time.strftime("%m/%d/%Y")
+    created_time.strftime('%m/%d/%Y')
   end
 
   # TODO: cleanup
@@ -224,7 +226,7 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    User::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
+    User::FLAGSETS.keys.map{|x| "#{x}_"}.push('').each do |flagset|
       $redis.del("default_#{flagset}activity_search")
     end
   end
@@ -242,15 +244,17 @@ class Activity < ApplicationRecord
   end
 
   def self.search_results(flagset)
-    substring = flagset ? "#{flagset}_" : ""
+    substring = flagset ? "#{flagset}_" : ''
     activity_search_results = $redis.get("default_#{substring}activity_search")
     activity_search_results ||= ActivitySearchWrapper.search_cache_data(flagset)
     JSON.parse(activity_search_results)
   end
 
   def data_as_json
-    data
+    translated_json({})
   end
+
+  def self.translatable_field_name = 'landingPageHtml'
 
   def add_question(question)
     return if !validate_question(question)
@@ -318,14 +322,14 @@ class Activity < ApplicationRecord
   def update_questions_flag_status_if_necessary!
     return unless flags.include?(:production)
 
-    question_uids = data["questions"]&.map{|q| q["key"]}
-    questions = Question.where("uid in (?)", question_uids)
-
     questions.each do |question|
-      question.update_flag("production")
+      question.update_flag('production')
     end
   end
 
+  def questions = Question.where(uid: question_uids)
+
+  private def question_uids = data["questions"]&.map{|q| q["key"]}
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
@@ -354,7 +358,7 @@ class Activity < ApplicationRecord
   end
 
   private def data_must_be_hash
-    errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
+    errors.add(:data, 'must be a hash') unless data.is_a?(Hash) || data.blank?
   end
 
   private def flag_as_beta
@@ -419,7 +423,7 @@ class Activity < ApplicationRecord
       errors.add(:question, "Question #{question[:key]} does not exist.")
       return false
     end
-    if data["questionType"] != question[:questionType]
+    if data['questionType'] != question[:questionType]
       errors.add(:question, "The question type #{question[:questionType]} does not match the lesson's question type: #{data['questionType']}")
       return false
     end

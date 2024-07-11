@@ -4,7 +4,7 @@ class PremiumHubUserMailer < UserMailer
   include EmailApiHelper
   include ActionView::Helpers::NumberHelper
 
-  default from: "The Quill Team <hello@quill.org>"
+  default from: 'The Quill Team <hello@quill.org>'
 
   def teacher_account_created_email(user, admin_name, school_name, is_reminder)
     @user = user
@@ -19,7 +19,7 @@ class PremiumHubUserMailer < UserMailer
     @user_first_name = user_first_name
     @file_url = file_url
     @human_date = DateTime.current.strftime('%B %d, %Y')
-    mail to: email, subject: "Your Quill data export is ready"
+    mail to: email, subject: 'Your Quill data export is ready'
   end
 
   def admin_usage_snapshot_report_pdf_email(download_url:, pdf_subscription:)

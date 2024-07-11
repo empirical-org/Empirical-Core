@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples_for "uid" do
+shared_examples_for 'uid' do
 
 
   let(:parent) do

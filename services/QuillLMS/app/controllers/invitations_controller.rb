@@ -8,7 +8,7 @@ class InvitationsController < ApplicationController
   def create_coteacher_invitation
     validate_email_and_classroom_ids
     @pending_invite = find_or_create_coteacher_invite_from_current_user
-    raise StandardError, @pending_invite.errors[:base].join(" ") unless @pending_invite.valid?
+    raise StandardError, @pending_invite.errors[:base].join(' ') unless @pending_invite.valid?
 
     assign_classrooms_to_invitee
     invoke_email_worker
@@ -73,7 +73,7 @@ class InvitationsController < ApplicationController
     @classroom_ids.each do |id|
       if existing_invitations_for_classrooms.exclude?(id)
         invite = CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
-        raise StandardError, invite.errors[:base].join(" ") unless invite.valid?
+        raise StandardError, invite.errors[:base].join(' ') unless invite.valid?
       end
     end
   end

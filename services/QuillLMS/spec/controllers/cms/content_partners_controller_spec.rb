@@ -14,9 +14,9 @@ describe Cms::ContentPartnersController do
     it 'returns a json hash with all the content_partners and change logs' do
       get :index
       parsed_response = JSON.parse(response.body)
-      content_partner_results = parsed_response["content_partners"]
+      content_partner_results = parsed_response['content_partners']
       content_partners.each do |t|
-        expect(content_partner_results.find { |tr| tr["id"] == t.id }).to be
+        expect(content_partner_results.find { |tr| tr['id'] == t.id }).to be
       end
     end
   end
@@ -30,7 +30,7 @@ describe Cms::ContentPartnersController do
           description: 'Blah da blah'
         } }
       parsed_response = JSON.parse(response.body)
-      id = parsed_response["content_partner"]["id"]
+      id = parsed_response['content_partner']['id']
       expect(id).to be
       expect(ContentPartner.find_by_id(id)).to be
     end

@@ -54,7 +54,7 @@ module UserCacheable
 
   private def last_updated_classroom
     Classroom
-      .select("classrooms.*, MAX(classrooms.updated_at)")
+      .select('classrooms.*, MAX(classrooms.updated_at)')
       .unscoped
       .joins(:classrooms_teachers)
       .where(classrooms_teachers: {user_id: id})
@@ -69,13 +69,13 @@ module UserCacheable
 
     # use ClassroomUnit with the maximium `updated_at`
     ClassroomUnit
-      .select("classroom_units.*, MAX(classroom_units.updated_at)")
+      .select('classroom_units.*, MAX(classroom_units.updated_at)')
       .unscoped
       .where(classroom_id: classroom_id)
       .joins(:unit_activities)
       .where(unit: {unit_activities: {activity_id: activity_id}})
-      .order("classroom_units.updated_at DESC")
-      .group("classroom_units.id")
+      .order('classroom_units.updated_at DESC')
+      .group('classroom_units.id')
       .first
   end
 end

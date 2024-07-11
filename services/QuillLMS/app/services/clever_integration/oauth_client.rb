@@ -13,7 +13,7 @@ module CleverIntegration
       self
         .class
         .get("/oauth/tokens?owner_type=district&district=#{district_id}", @options)
-        .parsed_response["data"]
+        .parsed_response['data']
     end
 
     private def basic_auth_header

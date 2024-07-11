@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ActivitiesController < Api::ApiController
-  CLASSIFICATION_TO_TOOL = {:connect => "connect", :sentence => "grammar"}
+  CLASSIFICATION_TO_TOOL = {:connect => 'connect', :sentence => 'grammar'}
 
   before_action :staff!, only: [:create, :update, :destroy]
 
@@ -22,10 +22,10 @@ class Api::V1::ActivitiesController < Api::ApiController
   def update
     if @activity.update(activity_params)
       @status = :success
-      @message = "Activity Updated"
+      @message = 'Activity Updated'
     else
       @status = :failed
-      @message = "Activity Update Failed"
+      @message = 'Activity Update Failed'
     end
 
     render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}, serializer: ActivitySerializer
@@ -39,11 +39,11 @@ class Api::V1::ActivitiesController < Api::ApiController
     if activity.valid? && activity.save
       @status = :success
       @response_status = :ok
-      @message = "Activity Created"
+      @message = 'Activity Created'
     else
       @status = :failed
       @response_status = :unprocessable_entity
-      @message = "Activity Create Failed"
+      @message = 'Activity Create Failed'
     end
 
     render json: activity,
@@ -54,9 +54,9 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   def destroy
     if @activity.destroy
-      render json: Activity.new, meta: {status: 'success', message: "Activity Destroy Successful", errors: nil}, serializer: ActivitySerializer
+      render json: Activity.new, meta: {status: 'success', message: 'Activity Destroy Successful', errors: nil}, serializer: ActivitySerializer
     else
-      render json: @activity, meta: {status: 'failed', message: "Activity Destroy Failed", errors: @activity.errors}, serializer: ActivitySerializer
+      render json: @activity, meta: {status: 'failed', message: 'Activity Destroy Failed', errors: @activity.errors}, serializer: ActivitySerializer
     end
   end
 
@@ -100,10 +100,10 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   def question_health
-    questions = @activity.data["questions"]
+    questions = @activity.data['questions']
     tool = CLASSIFICATION_TO_TOOL[ActivityClassification.find(@activity.activity_classification_id).key.to_sym]
     questions_arr = questions.each.with_index(1).map do |q, question_number|
-      question = Question.find_by(uid: q["key"])
+      question = Question.find_by(uid: q['key'])
       question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {}
     end
     render json: {question_health: questions_arr}

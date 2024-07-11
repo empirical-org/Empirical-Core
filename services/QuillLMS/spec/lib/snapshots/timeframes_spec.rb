@@ -7,14 +7,14 @@ module Snapshots
     context '#frontend_options' do
       it do
         expect(described_class.frontend_options).to eq([
-          {default: false, name: "Last 30 days", value: "last-30-days"},
-          {default: false, name: "Last 90 days", value: "last-90-days"},
-          {default: false, name: "This month", value: "this-month"},
-          {default: false, name: "Last month", value: "last-month"},
-          {default: true, name: "This school year", value: "this-school-year"},
-          {default: false, name: "Last school year", value: "last-school-year"},
-          {default: false, name: "All time", value: "all-time"},
-          {default: false, name: "Custom", value: "custom"}
+          {default: false, name: 'Last 30 days', value: 'last-30-days'},
+          {default: false, name: 'Last 90 days', value: 'last-90-days'},
+          {default: false, name: 'This month', value: 'this-month'},
+          {default: false, name: 'Last month', value: 'last-month'},
+          {default: true, name: 'This school year', value: 'this-school-year'},
+          {default: false, name: 'Last school year', value: 'last-school-year'},
+          {default: false, name: 'All time', value: 'all-time'},
+          {default: false, name: 'Custom', value: 'custom'}
         ])
       end
     end
@@ -76,11 +76,11 @@ module Snapshots
       context "'all-time' time of day" do
         subject { described_class.calculate_timeframes('all-time')}
 
-        context "current start" do
+        context 'current start' do
           it { expect(subject.first).to be_start_of_day }
         end
 
-        context "current end" do
+        context 'current end' do
           it { expect(subject.last).to be_end_of_day }
         end
       end
@@ -98,8 +98,10 @@ module Snapshots
     it_behaves_like 'snapshots period length', 'last-90-days', 90
     it_behaves_like 'snapshots period length', 'this-month', DateTime.current.yesterday.day
     it_behaves_like 'snapshots period length', 'last-month', Time.days_in_month(DateTime.current.yesterday.prev_month.month)
-    it_behaves_like 'snapshots period length', 'this-school-year', DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current.yesterday)
-    it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(DateTime.current.prev_year.year) ? 366 : 365
+    # The snapshots period length uses round(6), over short enough time differences (like the first day of a new school year), failing to round(6) on this expectation fails to match even though it matches without the rounding most of the year
+    it_behaves_like 'snapshots period length', 'this-school-year', (DateTime.current.yesterday.end_of_day - School.school_year_start(DateTime.current.yesterday)).round(6)
+    # A little complex, but school years start the year before February, so we need to know if the year after the start of the school year is a leap year
+    it_behaves_like 'snapshots period length', 'last-school-year', Date.leap?(School.school_year_start(DateTime.current.prev_year).next_year.year) ? 366 : 365
     it_behaves_like 'snapshots period length', 'custom', 4, (DateTime.current - 3.days).to_s, DateTime.current.to_s
 
     it_behaves_like 'snapshots period length matches previous', 'last-30-days'

@@ -41,8 +41,8 @@ module Evidence
 
         private def headers
           {
-            "Content-Type" => "application/json",
-            "Authorization" => "Bearer #{Evidence::OpenAI::API_KEY}"
+            'Content-Type' => 'application/json',
+            'Authorization' => "Bearer #{Evidence::OpenAI::API_KEY}"
           }
         end
 

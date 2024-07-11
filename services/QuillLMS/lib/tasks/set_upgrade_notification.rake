@@ -13,7 +13,7 @@ namespace :upgrade do
           -H "Content-Type: application/json" \
           -H "Accept: application/vnd.heroku+json; version=3"}
     else
-      puts "You need to specify a start time and an end time for this task. Use the following command:"
+      puts 'You need to specify a start time and an end time for this task. Use the following command:'
       puts "rake 'upgrade:set_upgrade_vars[START_DATETIME_STRING, END_DATETIME_STRING]'"
     end
   end

@@ -11,7 +11,7 @@ module Snapshots
     end
 
     def group_by_clause
-      "GROUP BY activity_id, activity_name"
+      'GROUP BY activity_id, activity_name'
     end
   end
 end

@@ -6,7 +6,7 @@ module Snapshots
     # BigQuery uses the BI Query Cache with this present
     # And skips it when it is not
     def select_clause
-      "SELECT IFNULL(SUM(question_count * 1), 0) AS count"
+      'SELECT IFNULL(SUM(question_count * 1), 0) AS count'
     end
   end
 end

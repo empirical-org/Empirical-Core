@@ -36,6 +36,7 @@ export const CONCEPT_MANAGEMENT = 'concept management';
 export const USER_MANAGEMENT = 'user management';
 export const TEACHER_CENTER = 'teacher center';
 export const ADMIN_VERIFICATION = 'admin verification';
+export const GEN_AI = 'generative AI'
 
 export const SAVE = 'Save';
 export const REVERT = 'Revert';

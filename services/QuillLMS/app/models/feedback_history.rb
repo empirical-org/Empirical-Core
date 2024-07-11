@@ -32,38 +32,38 @@
 class FeedbackHistory < ApplicationRecord
   CONCEPT_UID_LENGTH = 22
   DEFAULT_PAGE_SIZE = 25
-  DEFAULT_PROMPT_TYPE = "Evidence::Prompt"
+  DEFAULT_PROMPT_TYPE = 'Evidence::Prompt'
   DEFAULT_VERSION = 1
   MIN_ATTEMPT = 1
   MAX_ATTEMPT = 5
   MIN_FEEDBACK_LENGTH = 10
   MAX_FEEDBACK_LENGTH = 500
   FEEDBACK_TYPES = [
-    ERROR = "error",
-    GRAMMAR = "grammar",
-    PLAGIARISM = "plagiarism",
-    RULES_BASED_ONE = "rules-based-1",
-    RULES_BASED_TWO = "rules-based-2",
-    RULES_BASED_THREE = "rules-based-3",
+    ERROR = 'error',
+    GRAMMAR = 'grammar',
+    PLAGIARISM = 'plagiarism',
+    RULES_BASED_ONE = 'rules-based-1',
+    RULES_BASED_TWO = 'rules-based-2',
+    RULES_BASED_THREE = 'rules-based-3',
     GEN_AI = 'genAI',
-    AUTO_ML = "autoML",
-    SPELLING = "spelling",
-    OPINION = "opinion",
-    PREFILTER = "prefilter",
+    AUTO_ML = 'autoML',
+    SPELLING = 'spelling',
+    OPINION = 'opinion',
+    PREFILTER = 'prefilter',
     LOW_CONFIDENCE = 'low-confidence'
   ]
   FILTER_TYPES = [
-    FILTER_ALL = "all",
-    FILTER_SCORED =  "scored",
-    FILTER_UNSCORED =  "unscored",
-    FILTER_WEAK =  "weak",
-    FILTER_COMPLETE =  "complete",
-    FILTER_INCOMPLETE =  "incomplete"
+    FILTER_ALL = 'all',
+    FILTER_SCORED =  'scored',
+    FILTER_UNSCORED =  'unscored',
+    FILTER_WEAK =  'weak',
+    FILTER_COMPLETE =  'complete',
+    FILTER_INCOMPLETE =  'incomplete'
   ]
   CONJUNCTIONS = [
-    BECAUSE =  "because",
-    BUT =  "but",
-    SO =  "so"
+    BECAUSE =  'because',
+    BUT =  'but',
+    SO =  'so'
   ]
 
   after_commit :initiate_flag_worker, on: :create
@@ -98,7 +98,7 @@ class FeedbackHistory < ApplicationRecord
   scope :suboptimal,  -> { where(optimal: false) }
   scope :autoML, -> { where(feedback_type: AUTO_ML)}
   scope :confidence_greater_than, ->(lower_limit) {where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit)}
-  scope :entry_shorter_than, ->(length) { where("LENGTH(entry) < ?", length) }
+  scope :entry_shorter_than, ->(length) { where('LENGTH(entry) < ?', length) }
   scope :for_prompt, ->(prompt_id) { where(prompt_id: prompt_id) }
 
   def readonly?
@@ -111,7 +111,7 @@ class FeedbackHistory < ApplicationRecord
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
       .entry_shorter_than(max_length)
-      .order("id DESC")
+      .order('id DESC')
       .limit(limit)
       .pluck(:entry)
       .uniq
@@ -123,7 +123,7 @@ class FeedbackHistory < ApplicationRecord
       .for_prompt(prompt_id)
       .confidence_greater_than(confidence_limit)
       .entry_shorter_than(max_length)
-      .order("id DESC")
+      .order('id DESC')
       .limit(limit)
       .offset(offset)
       .pluck(:entry)
@@ -293,11 +293,11 @@ class FeedbackHistory < ApplicationRecord
     when FILTER_ALL
       query
     when FILTER_SCORED
-      query = query.where("feedback_history_ratings.rating IS NOT NULL")
+      query = query.where('feedback_history_ratings.rating IS NOT NULL')
     when FILTER_UNSCORED
-      query = query.where("feedback_history_ratings.rating IS NULL")
+      query = query.where('feedback_history_ratings.rating IS NULL')
     when FILTER_WEAK
-      query = query.where("feedback_history_ratings.rating IS FALSE")
+      query = query.where('feedback_history_ratings.rating IS FALSE')
     when FILTER_COMPLETE
       query = query.having(FeedbackHistory.completeness_filter_query(true))
     when FILTER_INCOMPLETE
@@ -337,15 +337,15 @@ class FeedbackHistory < ApplicationRecord
         ) AS complete
       SQL
       )
-      .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
-      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
-      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
+      .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
       .order('start_date DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
-    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
-    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
     query = query.limit(page_size) if page_size
@@ -356,15 +356,15 @@ class FeedbackHistory < ApplicationRecord
 
   def self.get_total_count(activity_id: nil, start_date: nil, end_date: nil, filter_type: nil, responses_for_scoring: false, activity_version: nil)
     query = FeedbackHistory.select(:feedback_session_uid)
-      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
-      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .group(:feedback_session_uid, :activity_id)
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
-    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
-    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
-    query = query.where("feedback_histories.activity_version = ?", activity_version) if activity_version
+    query = query.where('feedback_histories.activity_version = ?', activity_version) if activity_version
     result = ActiveRecord::Base.connection.execute("SELECT COUNT(*) from (#{query.to_sql}) as nickname")
     result.first['count']
   end
@@ -405,9 +405,9 @@ class FeedbackHistory < ApplicationRecord
         feedback_histories.feedback_session_uid AS session_uid
       SQL
       )
-      .joins("LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id")
-      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
-      .joins("LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id")
+      .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .where(used: true)
       .group(:feedback_session_uid)
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
@@ -432,13 +432,13 @@ class FeedbackHistory < ApplicationRecord
         comprehension_rules.name
       SQL
       )
-      .joins("LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id")
-      .joins("LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid")
+      .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
+      .joins('LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid')
       .where(used: true)
       .order('datetime DESC')
     query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
-    query = query.where("feedback_histories.created_at >= ?", start_date) if start_date
-    query = query.where("feedback_histories.created_at <= ?", end_date) if end_date
+    query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query = query.where(feedback_session_uid: session_uids) if responses_for_scoring || filter_type
     query
   end

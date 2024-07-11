@@ -43,35 +43,35 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
       let(:concept_result_frontend_json1) do
         {
-          "activity_session_id" => activity_session.id,
-          "concept_id" => writing_concept.id,
-          "concept_uid" => writing_concept.uid,
-          "metadata" => {
-            "foo"=>"bar",
-            "correct"=>true
+          'activity_session_id' => activity_session.id,
+          'concept_id' => writing_concept.id,
+          'concept_uid' => writing_concept.uid,
+          'metadata' => {
+            'foo'=>'bar',
+            'correct'=>true
           },
         }
       end
 
       let(:concept_result_frontend_json2) do
         {
-          "activity_session_id" => activity_session.id,
-          "concept_id" => writing_concept.id,
-          "concept_uid" => writing_concept.uid,
-          "metadata" => {
-            "baz"=>"foo",
-            "correct"=>true
+          'activity_session_id' => activity_session.id,
+          'concept_id' => writing_concept.id,
+          'concept_uid' => writing_concept.uid,
+          'metadata' => {
+            'baz'=>'foo',
+            'correct'=>true
           },
         }
       end
 
       let(:concept_result_frontend_json3) do
         {
-          "activity_session_id" => activity_session.id,
-          "concept_id" => another_concept.id,
-          "concept_uid" => another_concept.uid,
-          "metadata" => {
-            "correct"=>true
+          'activity_session_id' => activity_session.id,
+          'concept_id' => another_concept.id,
+          'concept_uid' => another_concept.uid,
+          'metadata' => {
+            'correct'=>true
           },
         }
       end
@@ -98,7 +98,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         Sidekiq::Testing.inline! do
           put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
           activity_session.reload
-          expect(activity_session.concept_results.find{|x| x.extra_metadata&.dig('foo') == "bar"}).to be
+          expect(activity_session.concept_results.find{|x| x.extra_metadata&.dig('foo') == 'bar'}).to be
         end
       end
 
@@ -199,14 +199,14 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       it 'returns a 422 error if activity session is already saved' do
         put :update, params: { id: activity_session.uid }, as: :json
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+        expect(parsed_body['meta']['message']).to eq('Activity Session Already Completed')
       end
 
       it 'returns a 200 if the activity session is not already finished and can be updated' do
         activity_session.update(completed_at: nil, state: 'started')
         put :update, params: { id: activity_session.uid }, as: :json
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body["meta"]["message"]).to eq("Activity Session Updated")
+        expect(parsed_body['meta']['message']).to eq('Activity Session Updated')
       end
 
       it 'returns a 422 error if activity session update method fails' do
@@ -216,7 +216,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
         put :update, params: { id: activity_session.uid }, as: :json
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body["meta"]["message"]).to eq("Activity Session Already Completed")
+        expect(parsed_body['meta']['message']).to eq('Activity Session Already Completed')
       end
 
       context '#send_teacher_notifications' do
@@ -245,18 +245,18 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     it 'renders the correct json' do
       get :show, params: { id: session.uid }, as: :json
 
-      expect(JSON.parse(response.body)["meta"]).to eq({
-          "status" => "success",
-          "message" => nil,
-          "errors" => nil
+      expect(JSON.parse(response.body)['meta']).to eq({
+          'status' => 'success',
+          'message' => nil,
+          'errors' => nil
         })
-      expect(JSON.parse(response.body)["activity_session"]["uid"]).to eq session.uid
-      expect(JSON.parse(response.body)["activity_session"]["percentage"]).to eq session.percentage
-      expect(JSON.parse(response.body)["activity_session"]["state"]).to eq session.state
-      expect(JSON.parse(response.body)["activity_session"]["data"]).to eq session.data
-      expect(JSON.parse(response.body)["activity_session"]["temporary"]).to eq session.temporary
-      expect(JSON.parse(response.body)["activity_session"]["activity_uid"]).to eq session.activity_uid
-      expect(JSON.parse(response.body)["activity_session"]["anonymous"]).to eq session.anonymous
+      expect(JSON.parse(response.body)['activity_session']['uid']).to eq session.uid
+      expect(JSON.parse(response.body)['activity_session']['percentage']).to eq session.percentage
+      expect(JSON.parse(response.body)['activity_session']['state']).to eq session.state
+      expect(JSON.parse(response.body)['activity_session']['data']).to eq session.data
+      expect(JSON.parse(response.body)['activity_session']['temporary']).to eq session.temporary
+      expect(JSON.parse(response.body)['activity_session']['activity_uid']).to eq session.activity_uid
+      expect(JSON.parse(response.body)['activity_session']['anonymous']).to eq session.anonymous
     end
   end
 
@@ -268,10 +268,10 @@ describe Api::V1::ActivitySessionsController, type: :controller do
     it 'creates the activity session' do
       post :create, params: params, as: :json
 
-      expect(JSON.parse(response.body)["meta"]).to eq({
-        "status" => "success",
-        "message" => "Activity Session Created",
-        "errors" => {}
+      expect(JSON.parse(response.body)['meta']).to eq({
+        'status' => 'success',
+        'message' => 'Activity Session Created',
+        'errors' => {}
       })
     end
   end
@@ -285,12 +285,12 @@ describe Api::V1::ActivitySessionsController, type: :controller do
 
     context 'as staff' do
       let(:user) { create(:staff) }
-      let(:meta) { { "status" => "success", "message" => "Activity Session Destroy Successful", "errors" => nil } }
+      let(:meta) { { 'status' => 'success', 'message' => 'Activity Session Destroy Successful', 'errors' => nil } }
       let(:parsed_body) { JSON.parse(response.body) }
 
       before { subject }
 
-      it { expect(parsed_body["meta"]).to eq meta }
+      it { expect(parsed_body['meta']).to eq meta }
     end
   end
 end

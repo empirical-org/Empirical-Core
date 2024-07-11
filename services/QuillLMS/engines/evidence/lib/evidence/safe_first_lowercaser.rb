@@ -7,7 +7,7 @@ module Evidence
     COMMON_WORD_LIST = Evidence::Configs.from_yml(:common_lowercase_words)
     WORD_REGEX = /[\w']+/
 
-    def initialize(passage = "")
+    def initialize(passage = '')
       passage_lowercase_words = passage
         .scan(WORD_REGEX)
         .select {|i| i[0] == i[0].downcase}

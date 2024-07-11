@@ -5,15 +5,15 @@ module Gengo
     class FetchTranslationJobError < StandardError; end
     attr_reader :translation_job_id
 
-    SLUG = "slug"
-    RESPONSE = "response"
-    JOB = "job"
-    JOB_ID = "job_id"
-    DELETED = "deleted"
-    CANCELED = "canceled"
-    STATUS = "status"
-    BODY_TGT = "body_tgt"
-    LC_TGT = "lc_tgt"
+    SLUG = 'slug'
+    RESPONSE = 'response'
+    JOB = 'job'
+    JOB_ID = 'job_id'
+    DELETED = 'deleted'
+    CANCELED = 'canceled'
+    STATUS = 'status'
+    BODY_TGT = 'body_tgt'
+    LC_TGT = 'lc_tgt'
 
     def initialize(translation_job_id)
       @translation_job_id = translation_job_id
@@ -44,7 +44,7 @@ module Gengo
         english_text_id: gengo_job.english_text_id,
         locale:,
         translation: new_translation,
-        source_api: TranslatedText::GENGO_SOURCE
+        source_api: Translatable::GENGO_SOURCE
       )
     end
 

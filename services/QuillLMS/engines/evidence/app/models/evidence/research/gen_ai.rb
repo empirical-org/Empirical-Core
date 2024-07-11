@@ -15,7 +15,7 @@ module Evidence
       }.freeze
 
       def self.table_name_prefix
-        "evidence_research_gen_ai_"
+        'evidence_research_gen_ai_'
       end
     end
   end

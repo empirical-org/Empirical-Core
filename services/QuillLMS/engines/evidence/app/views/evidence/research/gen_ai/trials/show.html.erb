@@ -1,3 +1,5 @@
+<%= link_to 'Back to Dataset', @dataset %>
+
 <div class="container">
   <div class="column">
     <h2>
@@ -12,21 +14,16 @@
     </h2>
     <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
 
-    <h3>Activity + Conjunction</h3>
-    <p><%= link_to @trial.stem_vault, @trial.stem_vault %></p>
+    <h3>Stem Vault</h3>
+    <p><%= @trial.stem_vault %></p>
+
 
     <h3>LLM</h3>
     <p><%= @trial.llm %></p>
 
-    <h3>LLM Prompt Templates</h3>
-    <%= link_to 'LLMPromptTemplate', @trial.llm_prompt.llm_prompt_template %>
 
     <h3>LLM Prompt</h3>
     <p><%= link_to @trial.llm_prompt.description, @trial.llm_prompt %></p>
-
-    <h3>Dataset</h3>
-    <%= link_to @dataset, research_gen_ai_dataset_path(@dataset) %>
-
 
     <% if @g_evals %>
       <h3>G-eval</h3>

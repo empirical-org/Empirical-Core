@@ -137,7 +137,7 @@ module Evidence
       let(:automl_model) { create(:evidence_automl_model) }
       let(:endpoint_external_id) { automl_model.endpoint_external_id }
       let(:text) { 'the text' }
-      let(:label) { "the label" }
+      let(:label) { 'the label' }
       let(:score) { rand }
 
       before do

@@ -3,10 +3,10 @@
 require File.expand_path('../boot', __FILE__)
 
 # Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "sprockets/railtie"
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'sprockets/railtie'
 require 'active_support/core_ext/hash/indifferent_access'
 
 # Require the gems listed in Gemfile, including any gems
@@ -19,7 +19,7 @@ module EmpiricalGrammar
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.cache_store = :redis_store, ENV["REDISCLOUD_URL"]
+    config.cache_store = :redis_store, ENV['REDISCLOUD_URL']
 
     config.paperclip_defaults = {
       storage: :fog,

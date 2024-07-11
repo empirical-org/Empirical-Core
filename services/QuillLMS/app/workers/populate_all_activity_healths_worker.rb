@@ -8,7 +8,7 @@ class PopulateAllActivityHealthsWorker
   def perform
     ActivityHealth.destroy_all
     # execute this command to start primary key indices back from 1
-    ActiveRecord::Base.connection.execute("TRUNCATE activity_healths RESTART IDENTITY CASCADE")
+    ActiveRecord::Base.connection.execute('TRUNCATE activity_healths RESTART IDENTITY CASCADE')
 
     relevant_ids = ActivityClassification.connect_or_grammar.pluck(:id)
 

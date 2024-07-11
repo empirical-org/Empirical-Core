@@ -6,21 +6,21 @@ class StudentsClassroomsController < ApplicationController
   def create
     if current_user
       @user = current_user
-      classcode = params[:classcode].downcase.gsub(/\s+/, "")
+      classcode = params[:classcode].downcase.gsub(/\s+/, '')
       classroom = Classroom.where(code: classcode).first
       if classroom.blank?
         # rubocop:disable Style/GuardClause
         if Classroom.unscoped.where(code: classcode).first.nil?
-          return render status: 404, json: {error: "No such classcode"}, text: "No such classcode"
+          return render status: 404, json: {error: 'No such classcode'}, text: 'No such classcode'
         else
-          return render status: 400, json: {error: "Class is archived"}, text: "Class is archived"
+          return render status: 400, json: {error: 'Class is archived'}, text: 'Class is archived'
         end
         # rubocop:enable Style/GuardClause
       end
       StudentClassroomAssociator.run(@user, classroom)
       render json: classroom.reload.attributes
     else
-      render status: 403, json: {error: "Student not logged in."}, text: "Student not logged in."
+      render status: 403, json: {error: 'Student not logged in.'}, text: 'Student not logged in.'
     end
   end
 
@@ -48,7 +48,7 @@ class StudentsClassroomsController < ApplicationController
   end
 
   def classroom_manager
-    render "student_teacher_shared/archived_classroom_manager"
+    render 'student_teacher_shared/archived_classroom_manager'
   end
 
   def classroom_manager_data
@@ -61,7 +61,7 @@ class StudentsClassroomsController < ApplicationController
         .includes(classroom: :teacher)
         .map(&:archived_classrooms_manager)
     rescue NoMethodError => e
-      render json: {error: "No classrooms yet!"}, status: 400
+      render json: {error: 'No classrooms yet!'}, status: 400
       else
         render json: {active: active, inactive: inactive}
     end

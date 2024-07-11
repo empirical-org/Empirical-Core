@@ -28,8 +28,8 @@ module Evidence
     CSV_SUFFIX = '.csv'
 
     TYPES = [
-      TYPE_SEED = "SeedData",
-      TYPE_LABELED = "LabeledData"
+      TYPE_SEED = 'SeedData',
+      TYPE_LABELED = 'LabeledData'
     ]
 
     store :config, accessors: CONFIG_ACCESSORS, coder: JSON

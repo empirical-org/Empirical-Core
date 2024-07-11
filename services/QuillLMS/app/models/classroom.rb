@@ -28,7 +28,7 @@ class Classroom < ApplicationRecord
   include CheckboxCallback
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
-  UNIVERSITY = "University"
+  UNIVERSITY = 'University'
   GRADE_INTEGERS = {Kindergarten: 0, University: 13, PostGraduate: 14}
 
   validates_uniqueness_of :code
@@ -46,8 +46,8 @@ class Classroom < ApplicationRecord
   has_many :coteacher_classroom_invitations, dependent: :destroy
   has_many :pack_sequences, dependent: :destroy
 
-  has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
-  has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: "User"
+  has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: 'StudentsClassrooms'
+  has_many :students, through: :students_classrooms, source: :student, inverse_of: :classrooms, class_name: 'User'
 
   has_many :classrooms_teachers, foreign_key: 'classroom_id'
   has_many :teachers, through: :classrooms_teachers, source: :user
@@ -116,7 +116,7 @@ class Classroom < ApplicationRecord
     best_activity_sessions = ProgressReports::Standards::ActivitySession.new(owner).results.to_sql
 
     ActivitySession
-      .select("COUNT(DISTINCT(activities.standard_id)) as standard_count")
+      .select('COUNT(DISTINCT(activities.standard_id)) as standard_count')
       .joins("JOIN (#{best_activity_sessions}) AS best_activity_sessions ON activity_sessions.id = best_activity_sessions.id")
       .joins('JOIN activities ON activities.id = best_activity_sessions.activity_id')
       .joins('JOIN classroom_units ON classroom_units.id = best_activity_sessions.classroom_unit_id')
@@ -127,7 +127,7 @@ class Classroom < ApplicationRecord
 
   def archived_classrooms_manager
     coteachers = self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } }
-    {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !google_classroom_id.nil?, coteachers: coteachers}
+    {createdDate: created_at.strftime('%m/%d/%Y'), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !google_classroom_id.nil?, coteachers: coteachers}
   end
 
   def set_code

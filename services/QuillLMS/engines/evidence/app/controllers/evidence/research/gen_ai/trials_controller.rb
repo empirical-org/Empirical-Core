@@ -32,8 +32,8 @@ module Evidence
         def show
           @trial = dataset.trials.find(params[:id])
           @histogram = @trial.api_call_times.map(&:round).tally if @trial.api_call_times.present?
-          @next = Trial.where("id > ?", @trial.id).order(id: :asc).first
-          @previous = Trial.where("id < ?", @trial.id).order(id: :desc).first
+          @next = Trial.where('id > ?', @trial.id).order(id: :asc).first
+          @previous = Trial.where('id < ?', @trial.id).order(id: :desc).first
           @g_evals = GEval.where(id: @trial.g_eval_ids)
         end
 

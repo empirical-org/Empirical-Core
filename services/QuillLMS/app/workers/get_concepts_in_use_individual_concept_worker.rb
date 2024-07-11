@@ -19,52 +19,52 @@ class GetConceptsInUseIndividualConceptWorker
     @organized_concepts = []
 
     activity_rows.each do |c|
-      uid = c["concept_uid"]
-      existing_oc = @organized_concepts.find { |oc| oc["uid"] == uid }
+      uid = c['concept_uid']
+      existing_oc = @organized_concepts.find { |oc| oc['uid'] == uid }
 
       if existing_oc
         new_oc = existing_oc
-        case c["classification_name"]
+        case c['classification_name']
         when 'Quill Connect'
-          new_oc["grades_connect_activities"] << (c["activity_name"])
-        when "Quill Diagnostic"
-          new_oc["grades_diagnostic_activities"] << (c["activity_name"])
-        when "Quill Grammar"
-          new_oc["grades_grammar_activities"] << (c["activity_name"])
-        when "Quill Proofreader"
-          new_oc["grades_proofreader_activities"] << (c["activity_name"])
+          new_oc['grades_connect_activities'] << (c['activity_name'])
+        when 'Quill Diagnostic'
+          new_oc['grades_diagnostic_activities'] << (c['activity_name'])
+        when 'Quill Grammar'
+          new_oc['grades_grammar_activities'] << (c['activity_name'])
+        when 'Quill Proofreader'
+          new_oc['grades_proofreader_activities'] << (c['activity_name'])
         end
 
         index = @organized_concepts.find_index(existing_oc)
         @organized_concepts[index] = new_oc
       else
-        grandparent_name = c["grandparent_name"] ?  "#{c['grandparent_name']} | " : ''
-        parent_name = c["parent_name"] ?  "#{c['parent_name']} | " : ''
+        grandparent_name = c['grandparent_name'] ?  "#{c['grandparent_name']} | " : ''
+        parent_name = c['parent_name'] ?  "#{c['parent_name']} | " : ''
         new_oc = {
           grades_connect_activities: [],
           grades_diagnostic_activities: [],
           grades_grammar_activities: [],
           grades_proofreader_activities: [],
           diagnostic_recommendations: [],
-          name: grandparent_name + parent_name + c["concept_name"],
+          name: grandparent_name + parent_name + c['concept_name'],
           uid: uid,
-          last_retrieved: Time.current.strftime("%m/%d/%y")
+          last_retrieved: Time.current.strftime('%m/%d/%y')
         }.stringify_keys
 
-        case c["classification_name"]
+        case c['classification_name']
         when 'Quill Connect'
-          new_oc["grades_connect_activities"] << (c["activity_name"])
-        when "Quill Diagnostic"
-          new_oc["grades_diagnostic_activities"] << (c["activity_name"])
-        when "Quill Grammar"
-          new_oc["grades_grammar_activities"] << (c["activity_name"])
-        when "Quill Proofreader"
-          new_oc["grades_proofreader_activities"] << (c["activity_name"])
+          new_oc['grades_connect_activities'] << (c['activity_name'])
+        when 'Quill Diagnostic'
+          new_oc['grades_diagnostic_activities'] << (c['activity_name'])
+        when 'Quill Grammar'
+          new_oc['grades_grammar_activities'] << (c['activity_name'])
+        when 'Quill Proofreader'
+          new_oc['grades_proofreader_activities'] << (c['activity_name'])
         end
 
-        new_oc["categorized_connect_questions"] = find_categorized_connect_questions(uid)
-        new_oc["categorized_diagnostic_questions"] = find_categorized_diagnostic_questions(uid)
-        new_oc["diagnostic_recommendations"] << (c['recommendation_name'])
+        new_oc['categorized_connect_questions'] = find_categorized_connect_questions(uid)
+        new_oc['categorized_diagnostic_questions'] = find_categorized_diagnostic_questions(uid)
+        new_oc['diagnostic_recommendations'] << (c['recommendation_name'])
 
         @organized_concepts << (new_oc)
       end
@@ -128,15 +128,15 @@ class GetConceptsInUseIndividualConceptWorker
   def find_categorized_connect_questions(uid)
     questions = []
     @sc_questions.values.each do |q|
-      questions << q["prompt"] if q["conceptID"] == uid
+      questions << q['prompt'] if q['conceptID'] == uid
     end
 
     @fib_questions.values.each do |q|
-      questions << q["prompt"] if q["conceptID"] == uid
+      questions << q['prompt'] if q['conceptID'] == uid
     end
 
     @sf_questions.values.each do |q|
-      questions << q["prompt"] if q["conceptID"] == uid
+      questions << q['prompt'] if q['conceptID'] == uid
     end
 
     questions
@@ -145,15 +145,15 @@ class GetConceptsInUseIndividualConceptWorker
   def find_categorized_diagnostic_questions(uid)
     questions = []
     @d_questions.values.each do |q|
-      questions << q["prompt"] if q["conceptID"] == uid
+      questions << q['prompt'] if q['conceptID'] == uid
     end
 
     @d_fib_questions.values.each do |q|
-      questions << q["prompt"] if q["conceptID"] == uid
+      questions << q['prompt'] if q['conceptID'] == uid
     end
 
     @d_sf_questions.values.each do |q|
-      questions << q["prompt"] if q["conceptID"] == uid
+      questions << q['prompt'] if q['conceptID'] == uid
     end
 
     questions
@@ -173,7 +173,7 @@ class GetConceptsInUseIndividualConceptWorker
           end
         end
       end
-      $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
+      $redis.set('CONCEPTS_IN_USE', concepts_in_use.to_json)
       $redis.unwatch
     rescue => e
       set_concepts_in_use_cache

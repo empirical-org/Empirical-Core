@@ -24,8 +24,8 @@ shared_context 'Concept Progress Report' do
 
   let!(:writing_grandparent_concept) { create(:concept, name: 'Writing Grandparent') }
   let!(:writing_parent_concept) { create(:concept, name: 'Writing Parent', parent: writing_grandparent_concept)}
-  let!(:writing_concept) { create(:concept, name: "Writing Tag", parent: writing_parent_concept) }
-  let!(:grammar_tag) { create(:concept, name: "Grammar Tag") }
+  let!(:writing_concept) { create(:concept, name: 'Writing Tag', parent: writing_parent_concept) }
+  let!(:grammar_tag) { create(:concept, name: 'Grammar Tag') }
 
   let!(:activity_session) { create(:activity_session,
                                         classroom_unit: classroom_unit,

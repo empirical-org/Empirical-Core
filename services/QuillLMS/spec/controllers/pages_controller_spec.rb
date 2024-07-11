@@ -41,7 +41,7 @@ describe PagesController do
   end
 
   describe '#play' do
-    let!(:activity) { create(:activity, uid: "-K0rnIIF_iejGqS3XPJ8") }
+    let!(:activity) { create(:activity, uid: '-K0rnIIF_iejGqS3XPJ8') }
 
     it 'should assign the activity and module url and redirect to the same url' do
       get :play
@@ -163,9 +163,28 @@ describe PagesController do
     end
   end
 
+  describe '#translations' do
+    let!(:user) { create(:user) }
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+    end
+
+    it 'should redirect if current user is not staff' do
+      get :translations
+      expect(response).to redirect_to profile_path
+    end
+
+    it 'should render for staff' do
+      user.role = 'staff'
+      get :translations
+      expect(response.status).to eq 200
+    end
+  end
+
   describe '#press' do
-    let!(:post) { create(:blog_post, draft: false, topic: "In the news") }
-    let!(:other_post) { create(:blog_post, draft: false, topic: "Press releases") }
+    let!(:post) { create(:blog_post, draft: false, topic: 'In the news') }
+    let!(:other_post) { create(:blog_post, draft: false, topic: 'Press releases') }
 
     it 'should assign the blog posts' do
       get :press

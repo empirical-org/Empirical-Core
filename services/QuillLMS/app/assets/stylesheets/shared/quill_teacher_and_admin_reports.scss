@@ -112,6 +112,20 @@
   }
 }
 
+.admin-report-container {
+  .dropdown-container {
+    margin-top: 32px;
+
+    .dropdown__control {
+      padding: 4px 14px !important;
+
+      .dropdown__single-value {
+        font-size: 14px !important;
+      }
+    }
+  }
+}
+
 #student-overview {
   .student-overview-header-container {
     display: flex;
@@ -178,6 +192,27 @@
             color: $quill-grey-50;
           }
         }
+      }
+    }
+  }
+  .unit-header-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    &:not(:first-of-type) {
+      margin-top: 32px;
+    }
+    .unit-name {
+      @include display-m;
+    }
+    .average-score-container {
+      text-align: right;
+      .average-score-label {
+        @include text-s;
+        color: $quill-grey-50;
+      }
+      .score-value {
+        @include display-m;
       }
     }
   }

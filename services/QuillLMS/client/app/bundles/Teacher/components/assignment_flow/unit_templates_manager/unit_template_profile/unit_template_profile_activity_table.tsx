@@ -25,7 +25,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
     return [
       {
         Header: 'Tool',
-        maxWidth: 50,
+        maxWidth: 60,
         accessor: a => a,
         id: 'toolName',
         Cell: ({row}) => {
@@ -75,7 +75,7 @@ export const UnitTemplateProfileActivityTable = ({ data }) => {
       {
         Header: 'Previously assigned',
         accessor: a => a,
-        maxWidth: 80,
+        maxWidth: 140,
         id: 'previouslyAssigned',
         Cell: ({row}) => {
           const { original } = row;

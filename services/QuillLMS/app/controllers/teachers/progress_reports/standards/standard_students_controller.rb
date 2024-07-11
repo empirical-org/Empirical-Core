@@ -7,8 +7,8 @@ class Teachers::ProgressReports::Standards::StandardStudentsController < Teacher
       format.html
       format.json do
         cache_groups = {
-          classroom_id: params["classroom_id"],
-          standard_id: params["standard_id"]
+          classroom_id: params['classroom_id'],
+          standard_id: params['standard_id']
         }
         response = current_user.all_classrooms_cache(key: 'teachers.progress_reports.standards_standard_students.index', groups: cache_groups) do
           students = ::ProgressReports::Standards::NewStudent.new(current_user).results(params)

@@ -12,7 +12,7 @@ namespace :classrooms do
 
     puts "You are about to irreversibly orphan #{activity_sessions&.count || 0} activity_sessions. Continue? [y/N]"
     input = $stdin.gets.chomp
-    raise "Canceling task." unless input == "y"
+    raise 'Canceling task.' unless input == 'y'
 
     ActiveRecord::Base.transaction do
       activity_sessions.update_all(user_id: nil, classroom_unit_id: nil)

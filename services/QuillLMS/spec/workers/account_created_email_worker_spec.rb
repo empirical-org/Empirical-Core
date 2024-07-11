@@ -9,8 +9,8 @@ describe AccountCreatedEmailWorker do
     let!(:user) { create(:user) }
 
     it 'should send the account created email to the user' do
-      expect_any_instance_of(User).to receive(:send_account_created_email).with("test123", "test")
-      subject.perform(user.id, "test123", "test")
+      expect_any_instance_of(User).to receive(:send_account_created_email).with('test123', 'test')
+      subject.perform(user.id, 'test123', 'test')
     end
   end
 end

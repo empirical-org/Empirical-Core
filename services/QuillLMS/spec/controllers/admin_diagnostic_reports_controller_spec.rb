@@ -10,7 +10,7 @@ describe AdminDiagnosticReportsController, type: :controller do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  context "#actions" do
+  context '#actions' do
     let(:cache_key) { 'CACHE_KEY' }
     let(:timeframe_name) { 'last-30-days' }
     let(:now) { DateTime.current }
@@ -86,10 +86,10 @@ describe AdminDiagnosticReportsController, type: :controller do
 
       it 'should return the value in the cache assigned to the `results` key if it is available for all actions' do
         cache_payload = {
-          "current" => "CURRENT",
-          "previous" => "PREVIOUS"
+          'current' => 'CURRENT',
+          'previous' => 'PREVIOUS'
         }
-        expected_response = { "results" => cache_payload }
+        expected_response = { 'results' => cache_payload }
 
         expect(Rails.cache).to receive(:read).exactly(controller_actions.length).times.with(cache_key).and_return(cache_payload)
 
@@ -193,12 +193,12 @@ describe AdminDiagnosticReportsController, type: :controller do
 
           json_response = JSON.parse(response.body)
 
-          expect(json_response).to eq("message" => "Generating snapshot")
+          expect(json_response).to eq('message' => 'Generating snapshot')
         end
 
         it 'should include school_ids and grades in the call to the cache worker if they are in params' do
           query_name = 'pre-diagnostic-assigned'
-          grades = ["Kindergarten", "1", "2"]
+          grades = ['Kindergarten', '1', '2']
           teacher_ids = ['3', '4']
           classroom_ids = ['5', '6', '7']
 

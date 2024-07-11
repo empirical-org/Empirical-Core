@@ -15,16 +15,16 @@ module Student
     has_many :students_classrooms,
       foreign_key: 'student_id',
       dependent: :destroy,
-      class_name: "StudentsClassrooms"
+      class_name: 'StudentsClassrooms'
 
     has_many :classrooms,
       through: :students_classrooms,
       source: :classroom,
       inverse_of: :students,
-      class_name: "Classroom"
+      class_name: 'Classroom'
 
     has_many :activity_sessions, dependent: :destroy
-    has_many :assigned_activities, -> { where("students_classrooms.student_id = ANY (classroom_units.assigned_student_ids)") }, through: :classrooms, source: :activities
+    has_many :assigned_activities, -> { where('students_classrooms.student_id = ANY (classroom_units.assigned_student_ids)') }, through: :classrooms, source: :activities
 
     def incomplete_assigned_activities
       assigned_activities_with_activity_sessions
@@ -93,11 +93,11 @@ module Student
       user_id = id
 
       classroom_units = ClassroomUnit
-      .joins("JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id")
-      .joins("JOIN users ON activity_sessions.user_id = users.id")
-      .where("users.id = ?", user_id)
-      .where("classroom_units.classroom_id = ?", old_classroom_id)
-      .group("classroom_units.id")
+      .joins('JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id')
+      .joins('JOIN users ON activity_sessions.user_id = users.id')
+      .where('users.id = ?', user_id)
+      .where('classroom_units.classroom_id = ?', old_classroom_id)
+      .group('classroom_units.id')
 
       if old_classroom.owner.id == new_classroom.owner.id
         classroom_units.each do |cu|
@@ -137,12 +137,12 @@ module Student
   end
 
   def hide_extra_activity_sessions(classroom_unit_id)
-    ActivitySession.joins("JOIN users ON activity_sessions.user_id = users.id")
-    .joins("JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id")
-    .where("users.id = ?", id)
-    .where("classroom_units.id = ?", classroom_unit_id)
-    .where("activity_sessions.visible = true")
-    .order("activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at")
+    ActivitySession.joins('JOIN users ON activity_sessions.user_id = users.id')
+    .joins('JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id')
+    .where('users.id = ?', id)
+    .where('classroom_units.id = ?', classroom_unit_id)
+    .where('activity_sessions.visible = true')
+    .order('activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at')
     .offset(1)
     .update_all(visible: false, updated_at: DateTime.current)
   end

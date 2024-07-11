@@ -21,7 +21,7 @@ RSpec.describe ResetLessonCacheWorker do
   context 'when user_id is not nil' do
     let(:user_id) { 1 }
 
-    before { $redis.set(redis_key, ["something"]) }
+    before { $redis.set(redis_key, ['something']) }
 
     context 'when user is not present' do
       it do

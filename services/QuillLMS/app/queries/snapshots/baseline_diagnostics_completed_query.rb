@@ -5,7 +5,7 @@ module Snapshots
     BASELINE_DIAGNOSTIC_IDS = Activity::PRE_TEST_DIAGNOSTIC_IDS
 
     def select_clause
-      "SELECT COUNT(DISTINCT session_id) AS count"
+      'SELECT COUNT(DISTINCT session_id) AS count'
     end
 
     def where_clause

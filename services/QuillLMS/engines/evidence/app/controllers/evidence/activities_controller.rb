@@ -27,10 +27,10 @@ module Evidence
           changed_record_type: 'Evidence::Activity',
           changed_record_id: @activity.id,
           user_id: lms_user_id,
-          explanation: "Activity Created",
+          explanation: 'Activity Created',
           changed_attribute: 'version',
-          previous_value: "0",
-          new_value: "1"
+          previous_value: '0',
+          new_value: '1'
         }
         Evidence.change_log_class.create!(changelog_params)
         render json: @activity, status: :created

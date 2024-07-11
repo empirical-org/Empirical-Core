@@ -85,9 +85,9 @@ module Evidence
 
 
       EXCEPTIONS = [
-        "cloning mammals",
-        "united states",
-        "texas"
+        'cloning mammals',
+        'united states',
+        'texas'
       ]
 
       def self.run(client_response:, previous_feedback: [])

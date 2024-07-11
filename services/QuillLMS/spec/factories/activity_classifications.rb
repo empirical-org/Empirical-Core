@@ -33,8 +33,8 @@ FactoryBot.define do
     end
     app_name       { key }
     name           { "Quill #{key.titleize}" }
-    module_url     { "https://www.fake-url.com/" }
-    form_url       { "https://www.fake-url.com/" }
+    module_url     { 'https://www.fake-url.com/' }
+    form_url       { 'https://www.fake-url.com/' }
     sequence(:order_number)
     uid            { SecureRandom.urlsafe_base64 } # mock a uid
 

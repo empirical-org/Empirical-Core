@@ -33,6 +33,6 @@ FactoryBot.define do
     recent_plays { rand(0..1000) }
     avg_mins_to_complete { rand(0..30) }
     flag { 'production' }
-    activity_packs { [{ id: 1, name: "Activity Pack Test" }] }
+    activity_packs { [{ id: 1, name: 'Activity Pack Test' }] }
   end
 end

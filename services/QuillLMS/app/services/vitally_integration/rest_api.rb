@@ -4,7 +4,7 @@ module VitallyIntegration
   class RestApi
     BASE_URL = 'https://rest.vitally.io/resources'
     RATE_LIMIT_CODE = 429
-    ENDPOINT_ORGANIZATIONS = "organizations"
+    ENDPOINT_ORGANIZATIONS = 'organizations'
     API_KEY = ENV['VITALLY_REST_API_KEY']
 
     class RateLimitError < StandardError; end
@@ -43,7 +43,7 @@ module VitallyIntegration
     private def headers
       {
         Authorization: "Basic #{API_KEY}",
-        "Content-Type": "application/json"
+        "Content-Type": 'application/json'
       }
     end
   end

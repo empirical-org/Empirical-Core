@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :zipcode do
-  desc "TODO"
+  desc 'TODO'
   task populate: :environment do
     # TODO: perhaps copy from a zipped file to reduce heroku bundle size?
 

@@ -59,7 +59,7 @@ class AssignRecommendationsWorker
   end
 
   def handle_error_tracking_for_diagnostic_recommendation_assignment_time(teacher_id, lesson)
-    lesson_text = lesson ? "lesson_" : ''
+    lesson_text = lesson ? 'lesson_' : ''
     start_time = $redis.get("user_id:#{teacher_id}_#{lesson_text}diagnostic_recommendations_start_time")
     return unless start_time
 
@@ -77,7 +77,7 @@ class AssignRecommendationsWorker
         NewRelic::Agent.notice_error(e)
       end
     else
-      diagnostic_recommendations_under_ten_seconds_count = $redis.get("diagnostic_recommendations_under_ten_seconds_count")
+      diagnostic_recommendations_under_ten_seconds_count = $redis.get('diagnostic_recommendations_under_ten_seconds_count')
       if diagnostic_recommendations_under_ten_seconds_count
         $redis.set("#{lesson_text}diagnostic_recommendations_under_ten_seconds_count", diagnostic_recommendations_under_ten_seconds_count.to_i + 1)
       else

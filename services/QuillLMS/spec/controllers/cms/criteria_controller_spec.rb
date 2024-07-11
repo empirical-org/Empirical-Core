@@ -44,7 +44,7 @@ describe Cms::CriteriaController do
         activity,
         recommendation
       )
-      expect(flash[:notice]).to eq "Criterion created!"
+      expect(flash[:notice]).to eq 'Criterion created!'
     end
   end
 
@@ -62,7 +62,7 @@ describe Cms::CriteriaController do
         activity,
         recommendation
       )
-      expect(flash[:notice]).to eq "Criterion updated!"
+      expect(flash[:notice]).to eq 'Criterion updated!'
       expect(criterion.reload.count).to eq 2
     end
   end

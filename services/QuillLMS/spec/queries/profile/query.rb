@@ -14,7 +14,7 @@ describe Profile::Query do
 
 
     it 'should return the right activity sessions' do
-      expect(subject.query(student, "", "" , classroom.id).first).to eq(activity_session)
+      expect(subject.query(student, '', '' , classroom.id).first).to eq(activity_session)
     end
   end
 end

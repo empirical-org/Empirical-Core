@@ -1,6 +1,9 @@
 <div>
+  <p><%= link_to 'Back to Stem Vault', @stem_vault %></p>
+
   <h2><%= @dataset.model_name.human.titleize %></h2>
   <p><%= @dataset %></p>
+
 
   <h3>Optimal Count</h3>
   <p><%= @dataset.optimal_count %></p>

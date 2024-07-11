@@ -10,7 +10,7 @@ module Pdfs
     PDF_TEMPLATE = 'pdfs/admin_usage_snapshot_report'
 
     # The response-content-disposition triggers browser file download instead of screen rendering
-    RESPONSE_CONTENT_DISPOSITION= { "response-content-disposition" => "attachment;" }
+    RESPONSE_CONTENT_DISPOSITION= { 'response-content-disposition' => 'attachment;' }
 
     attr_reader :pdf_subscription
 

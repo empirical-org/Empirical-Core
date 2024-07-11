@@ -57,7 +57,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classrooms_and_classroom_units_for_activity_share
-    unit_id = params["unit_id"]
+    unit_id = params['unit_id']
     render json: {
       classrooms: classroom_with_students_json(current_user.classrooms_i_teach),
       classroom_units: ClassroomUnit.where(unit_id: unit_id)
@@ -71,7 +71,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find{|classroom| classroom["id"].to_i == params['classroom_id'].to_i}
+      @classroom = @classrooms.find{|classroom| classroom['id'].to_i == params['classroom_id'].to_i}
     end
     @classrooms = @classrooms.as_json
     @classroom = @classroom.as_json
@@ -208,7 +208,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def view_demo
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
-    return render json: {errors: "Demo Account does not exist"}, status: 422 if demo.nil?
+    return render json: {errors: 'Demo Account does not exist'}, status: 422 if demo.nil?
 
     Demo::ResetAccountWorker.perform_async(demo.id)
 
@@ -375,7 +375,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       elsif params[:grade]
         redirect_to "/activities/packs?grade=#{params[:grade]}"
       else
-        redirect_to "/activities/packs"
+        redirect_to '/activities/packs'
       end
     else
       teacher_or_staff!
