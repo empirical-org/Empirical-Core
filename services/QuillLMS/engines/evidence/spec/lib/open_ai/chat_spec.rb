@@ -56,7 +56,6 @@ RSpec.describe Evidence::OpenAI::Chat, type: :service do
           { 'role' => 'assistant', 'content' => history.first.assistant },
           { 'role' => 'user', 'content' => entry }
         ],
-        n: 1,
         response_format: { 'type' => 'json_object' }
       }
       expect(subject.request_body).to eq(expected_body)

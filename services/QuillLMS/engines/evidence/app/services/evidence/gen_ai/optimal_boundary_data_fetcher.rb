@@ -22,7 +22,7 @@ module Evidence
       end
 
       private def csv_data = CSV.read(file_path, headers: true)
-      private def file_path = CSV_FILE_PATH % {file:}
+      private def file_path = format(CSV_FILE_PATH, file:)
 
       private def dataset_from_row(row)
         DataSet.new(
