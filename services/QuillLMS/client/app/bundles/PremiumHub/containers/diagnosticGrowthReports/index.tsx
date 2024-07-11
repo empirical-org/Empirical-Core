@@ -199,6 +199,8 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   function renderContent() {
+    /* TEMPORARILY DISABLING THIS CODE
+       TODO: re-enable this once we get code in place so that the "Apply filters" button will actually apply filters if this cut-out view is showing
     if (noDiagnosticDataAvailable) {
       return(
         <div className="no-diagnostic-data-container">
@@ -209,6 +211,7 @@ export const DiagnosticGrowthReportsContainer = ({
         </div>
       )
     }
+    */
     return (
       <React.Fragment>
         {renderButtons()}
