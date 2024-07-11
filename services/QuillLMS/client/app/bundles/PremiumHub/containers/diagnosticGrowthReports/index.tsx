@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, diagnosticTypeDropdownOptions } from '../../shared'
-import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
-import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
+
+import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, diagnosticTypeDropdownOptions } from '../../shared'
+import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
+import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 import { requestPost } from '../../../../modules/request'
 
@@ -17,8 +18,6 @@ const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usa
 const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
 
 const FILTER_SELECTIONS_REPORT_BASE = 'diagnostic_growth_report_'
-// these reports only show for the current school year
-const SELECTED_TIMEFRAME = "this-school-year"
 
 const reportButtons = [
   {
@@ -48,6 +47,7 @@ export const DiagnosticGrowthReportsContainer = ({
   searchCount,
   selectedClassrooms,
   availableClassrooms,
+  selectedTimeframe,
   selectedGrades,
   availableGrades,
   selectedSchools,
@@ -87,7 +87,7 @@ export const DiagnosticGrowthReportsContainer = ({
     selectedSchoolIds: selectedSchools.map(school => school.id),
     selectedTeacherIds: mapItemsIfNotAll(selectedTeachers, availableTeachers),
     selectedClassroomIds: mapItemsIfNotAll(selectedClassrooms, availableClassrooms),
-    selectedTimeframe: SELECTED_TIMEFRAME,
+    selectedTimeframe: selectedTimeframe.value,
     pusherChannel,
     hasAdjustedFiltersFromDefault,
     handleSetNoDiagnosticDataAvailable,
@@ -188,7 +188,7 @@ export const DiagnosticGrowthReportsContainer = ({
         {reportButtons.map((button, i) => {
           const { tab, displayName, activeIconSrc, inactiveIconSrc } = button
           return (
-            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} key={`${displayName}-${i}`} onClick={handleTabChange} value={tab}>
+            <button className={`interactive-wrapper performance-type-button ${tab} ${tab === activeTab ? 'active' : ''}`} key={`${displayName}-${i}`} onClick={handleTabChange} type="button" value={tab}>
               <img alt="" src={tab === activeTab ? activeIconSrc : inactiveIconSrc} />
               <span>{displayName}</span>
             </button>
@@ -199,6 +199,8 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   function renderContent() {
+    /* TEMPORARILY DISABLING THIS CODE
+       TODO: re-enable this once we get code in place so that the "Apply filters" button will actually apply filters if this cut-out view is showing
     if (noDiagnosticDataAvailable) {
       return(
         <div className="no-diagnostic-data-container">
@@ -209,6 +211,7 @@ export const DiagnosticGrowthReportsContainer = ({
         </div>
       )
     }
+    */
     return (
       <React.Fragment>
         {renderButtons()}

@@ -408,6 +408,16 @@ describe SnapshotsController, type: :controller do
       expect(json_response['timeframes']).to eq(Snapshots::Timeframes.frontend_options.map(&:stringify_keys))
     end
 
+    context 'report is Admin Diagnostic Report' do
+      let(:params) { {report: '/diagnostic_growth_report'} }
+      let(:json_response) { JSON.parse(response.body) }
+      let(:expected_timeframe_values) { ['this-school-year', 'last-school-year'] }
+
+      before { get :options, params: }
+
+      it { expect(json_response['timeframes'].map{|t| t['value']}).to eq(expected_timeframe_values) }
+    end
+
     it 'should return a list of all schools and their ids tied to the current_user' do
       get :options
 
