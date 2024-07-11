@@ -222,7 +222,7 @@ class GenAITasks < Thor
 
     private def print_example(prompt_id, entry, feedback = nil)
       puts "Prompt: #{prompt_id}, Entry: #{entry} #{feedback.nil? ? '' : " Feedback: #{feedback}"}"
-      puts " "
+      puts ' '
       puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt_id} \"#{entry}\""
       print_line
     end
