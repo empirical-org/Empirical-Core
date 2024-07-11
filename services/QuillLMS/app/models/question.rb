@@ -173,7 +173,7 @@ class Question < ApplicationRecord
     return data_array unless data_array.is_a?(Array)
 
     data_array.each do |item|
-      item['uid'] = new_uuid
+      item['uid'] ||= new_uuid
     end
     data_array
   end

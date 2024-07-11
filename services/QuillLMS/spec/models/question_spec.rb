@@ -449,6 +449,17 @@ RSpec.describe Question, type: :model do
             expect(item['uid']).to be_present
           end
         end
+
+        context 'the uid already exists for a data point' do
+          let(:type1) { {'uid' => 'uid1', 'text' => 'foo', 'feedback' => 'bar'} }
+          let(:type2) { {'uid' => 'uid2', 'text' => 'baz', 'feedback' => 'qux'} }
+
+          it 'does not change the uid if it already exists' do
+            subject
+            uids = question.reload.data[type].map{|i| i['uid']}
+            expect(uids).to eq(['uid1', 'uid2'])
+          end
+        end
       end
 
       context 'the focusPoints are a hash' do
