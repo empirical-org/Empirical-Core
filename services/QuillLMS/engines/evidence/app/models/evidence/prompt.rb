@@ -76,8 +76,8 @@ module Evidence
 
     def first_passage = activity.passages.first
 
-    def plagiarism_text
-      plagiarism_rule&.plagiarism_texts&.first&.text || ""
+    def plagiarism_texts
+      plagiarism_rule&.plagiarism_texts&.map(&:text) || []
     end
 
     private def plagiarism_rule
