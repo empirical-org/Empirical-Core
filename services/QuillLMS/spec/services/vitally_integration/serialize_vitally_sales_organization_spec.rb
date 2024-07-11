@@ -16,8 +16,9 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1) }
     let!(:student1) { create(:student, student_in_classroom: [classroom1]) }
     let!(:student2) { create(:student, student_in_classroom: [classroom1]) }
-    let!(:diagnostic) { create(:diagnostic_activity) }
-    let!(:unit) { create(:unit, activities: [diagnostic]) }
+    let!(:post_diagnostic) {create(:diagnostic_activity)}
+    let!(:pre_diagnostic) { create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS[0], follow_up_activity_id: post_diagnostic.id)}
+    let!(:unit) { create(:unit, activities: [pre_diagnostic]) }
 
     it 'should return vitally payload with correct data when no diagnostics or evidence activities have been assigned' do
       expect(described_class.new(district).data).to eq({
@@ -102,7 +103,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
       it 'should ignore assigned activities that are not diagnostics' do
         classification = create(:connect)
-        diagnostic.update(classification: classification)
+        pre_diagnostic.update(classification: classification)
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_assigned_last_year: 0
@@ -112,7 +113,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
     context 'diagnostic completion rollups' do
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
-      let!(:activity_session1) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
+      let!(:activity_session1) { create(:activity_session, activity: pre_diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
 
       it 'should roll up diagnostic completions this year' do
         expect(described_class.new(district).data[:traits]).to include(
@@ -146,7 +147,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         create(:classrooms_teacher, user: teacher2, classroom: classroom2)
         classroom_unit2 = create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])
 
-        create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit2, user: student2, completed_at: Time.current)
+        create(:activity_session, activity: pre_diagnostic, classroom_unit: classroom_unit2, user: student2, completed_at: Time.current)
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 2
@@ -155,7 +156,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
       it 'should not count activity_sessions for non-diagnostic activities' do
         classification = create(:connect)
-        diagnostic.update(classification: classification)
+        pre_diagnostic.update(classification: classification)
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0
@@ -168,7 +169,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       it 'should calculate completion percentages' do
         student2 = create(:student, student_in_classroom: [classroom1])
         classroom_unit1 = create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])
-        create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit1, user: student1, completed_at: Time.current)
+        create(:activity_session, activity: pre_diagnostic, classroom_unit: classroom_unit1, user: student1, completed_at: Time.current)
 
         expect(described_class.new(district).data[:traits]).to include(
           percent_diagnostics_completed_this_year: 0.5
@@ -310,12 +311,12 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       let!(:classroom_unit) {create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])}
       let!(:connect_activity) { create(:connect_activity) }
       let!(:last_school_year) { Time.zone.today - 1.year }
-      let!(:session1) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session2) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session3) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session4) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session1) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student1, classroom_unit: classroom_unit, activity: pre_diagnostic)}
+      let!(:session2) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: pre_diagnostic)}
+      let!(:session3) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student2, classroom_unit: classroom_unit, activity: pre_diagnostic)}
+      let!(:session4) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: pre_diagnostic)}
       let!(:session5) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: connect_activity)}
-      let!(:session6) { create(:activity_session, state: 'started', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session6) { create(:activity_session, state: 'started', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: pre_diagnostic)}
 
       let!(:other_district_student) { create(:student)}
       let!(:session7) { create(:activity_session, state: 'finished', completed_at: Time.current, user: other_district_student)}

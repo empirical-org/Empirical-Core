@@ -20,8 +20,8 @@ module VitallyIntegration
       active_students = active_students_query(user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
       activities_assigned = activities_assigned_in_year_count
       activities_finished = activities_finished_query(user).where("activity_sessions.completed_at >= ? and activity_sessions.completed_at < ?", school_year_start, school_year_end).count
-      evidence_activities_assigned_this_year = evidence_assigned_in_year_count
-      evidence_activities_completed_this_year = evidence_completed_in_year_count
+      evidence_activities_assigned_this_year = evidence_assigned_this_year_count
+      evidence_activities_completed_this_year = evidence_completed_this_year_count
       completed_evidence_activities_per_student_this_year = activities_per_student(active_students, evidence_activities_completed_this_year)
       {
         total_students: total_students_in_year,

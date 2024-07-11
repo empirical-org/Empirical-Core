@@ -6,24 +6,31 @@ module VitallyIntegration
 
     VITALLY_NOT_APPLICABLE = 'N/A'
 
+    attr_accessor :school_year_start, :school_year_end, :last_school_year_start, :district, :entity
+
     def initialize(district)
+      current_time = Time.current
+      @school_year_start = School.school_year_start(current_time)
+      @school_year_end = school_year_start + 1.year
+      @last_school_year_start = school_year_start - 1.year
       @district = district
+      @entity = district
     end
 
     def data
       {
-        externalId: @district.id.to_s,
-        name: @district.name,
+        externalId: district.id.to_s,
+        name: district.name,
         traits: {
-          name: @district.name,
-          nces_id: @district.nces_id,
-          clever_id: @district.clever_id,
-          city: @district.city,
-          state: @district.state,
-          zipcode: @district.zipcode,
-          phone: @district.phone,
-          total_students: @district.total_students,
-          total_schools: @district.total_schools,
+          name: district.name,
+          nces_id: district.nces_id,
+          clever_id: district.clever_id,
+          city: district.city,
+          state: district.state,
+          zipcode: district.zipcode,
+          phone: district.phone,
+          total_students: district.total_students,
+          total_schools: district.total_schools,
           **diagnostic_rollups,
           **evidence_rollups,
           **subscription_rollups,
@@ -33,10 +40,6 @@ module VitallyIntegration
     end
 
     def activities_and_students_rollups
-      current_time = Time.current
-      school_year_start = School.school_year_start(current_time)
-      last_school_year_start = school_year_start - 1.year
-
       active_students_this_year = active_students(school_year_start)
       active_students_last_year = active_students(last_school_year_start, school_year_start)
       active_students_all_time = active_students
@@ -79,19 +82,16 @@ module VitallyIntegration
     end
 
     private def evidence_rollups
-      school_year_start = School.school_year_start(Time.current)
-      last_school_year_start = school_year_start - 1.year
-      school_year_end = school_year_start + 1.year
       active_students_this_year = active_students(school_year_start)
       active_students_last_year = active_students(last_school_year_start, school_year_start)
 
-      evidence_activities_assigned_all_time = evidence_assigned_count(@district)
-      evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@district, school_year_start, school_year_end)
-      evidence_activities_assigned_last_year = evidence_assigned_in_year_count(@district, last_school_year_start, school_year_start)
-      evidence_activities_completed_all_time = evidence_finished(@district).count
-      evidence_activities_completed_this_year = evidence_completed_in_year_count(@district, school_year_start, school_year_end)
+      evidence_activities_assigned_all_time = evidence_assigned_count(district)
+      evidence_activities_assigned_this_year = evidence_assigned_this_year_count
+      evidence_activities_assigned_last_year = evidence_assigned_last_year_count
+      evidence_activities_completed_all_time = evidence_finished(district).count
+      evidence_activities_completed_this_year = evidence_completed_this_year_count
       evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
-      evidence_activities_completed_last_year = evidence_completed_in_year_count(@district, last_school_year_start, school_year_start)
+      evidence_activities_completed_last_year = evidence_completed_last_year_count
       evidence_activities_completed_per_student_last_year = activities_per_student(active_students_last_year, evidence_activities_completed_last_year)
 
       {
@@ -118,7 +118,7 @@ module VitallyIntegration
     end
 
     def diagnostics_assigned_between_count(start, stop)
-      @district.schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
+      district.schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
         .joins(users: {
         classrooms_i_teach: {
           classroom_units: {
@@ -133,7 +133,7 @@ module VitallyIntegration
     end
 
     def diagnostics_completed_between(start, stop)
-      @district.schools.joins(users: {
+      district.schools.joins(users: {
         classrooms_i_teach: {
           classroom_units: {
             activity_sessions: {
@@ -178,7 +178,7 @@ module VitallyIntegration
     def last_active_time
       User.select("students.last_sign_in")
         .includes(schools_users: [school: :district])
-        .where('districts.id = ?', @district.id).references(:district)
+        .where('districts.id = ?', district.id).references(:district)
         .includes(classrooms_teachers: [classroom: :students_classrooms])
         .joins("JOIN users students ON students.id = students_classrooms.student_id")
         .order("students.last_sign_in DESC")
@@ -191,7 +191,7 @@ module VitallyIntegration
         .joins([user: [schools_users: [school: :district]]])
         .joins([classroom: [classroom_units: :activity_sessions]])
         .joins("JOIN users students on students.id = activity_sessions.user_id")
-        .where('districts.id = ?', @district.id)
+        .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
 
@@ -208,11 +208,11 @@ module VitallyIntegration
     end
 
     private def latest_subscription
-      @district.subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
+      district.subscriptions.not_expired.not_de_activated.order(expiration: :desc).first
     end
 
     private def premium_start_date
-      @district.subscription&.start_date || VITALLY_NOT_APPLICABLE
+      district.subscription&.start_date || VITALLY_NOT_APPLICABLE
     end
 
     private def premium_expiry_date
@@ -220,19 +220,19 @@ module VitallyIntegration
     end
 
     private def district_subscription
-      @district.subscription&.account_type || VITALLY_NOT_APPLICABLE
+      district.subscription&.account_type || VITALLY_NOT_APPLICABLE
     end
 
     private def annual_revenue_current_contract
-      @district.subscription&.payment_amount || VITALLY_NOT_APPLICABLE
+      district.subscription&.payment_amount || VITALLY_NOT_APPLICABLE
     end
 
     private def stripe_invoice_id_current_contract
-      @district.subscription&.stripe_invoice_id || VITALLY_NOT_APPLICABLE
+      district.subscription&.stripe_invoice_id || VITALLY_NOT_APPLICABLE
     end
 
     private def purchase_order_number_current_contract
-      @district.subscription&.purchase_order_number || VITALLY_NOT_APPLICABLE
+      district.subscription&.purchase_order_number || VITALLY_NOT_APPLICABLE
     end
   end
 end

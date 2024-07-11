@@ -32,8 +32,12 @@ module VitallySharedFunctions
     activities.select {|r| r.created_at >= school_year_start && r.created_at < school_year_end }
   end
 
-  def evidence_assigned_in_year_count
+  def evidence_assigned_this_year_count
     sum_students(filter_evidence(in_school_year(activities_assigned_query(entity), school_year_start, school_year_end)))
+  end
+
+  def evidence_assigned_last_year_count
+    sum_students(filter_evidence(in_school_year(activities_assigned_query(entity), last_school_year_start, school_year_start)))
   end
 
   def pre_diagnostics_assigned_in_year_count
@@ -68,7 +72,11 @@ module VitallySharedFunctions
     activities_finished_query(entity).where("activities.activity_classification_id=?", ActivityClassification.evidence.id)
   end
 
-  private def evidence_completed_in_year_count
+  private def evidence_completed_this_year_count
     evidence_finished(entity).where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+  end
+
+  private def evidence_completed_last_year_count
+    evidence_finished(entity).where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", last_school_year_start, school_year_start).count
   end
 end
