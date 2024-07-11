@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
   context '#calculate_data' do
     let!(:evidence) { create(:evidence) }
+    let!(:post_diagnostic) {create(:diagnostic_activity)}
+    let!(:pre_diagnostic) { create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS[0], follow_up_activity_id: post_diagnostic.id)}
     let!(:year) { 2016 }
     let!(:student) { create(:user, last_sign_in: Date.new(year, 10, 2))}
     let!(:student2) { create(:user, last_sign_in: Date.new(year, 10, 2))}
@@ -19,6 +21,8 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
 
     before do
       create(:unit_activity, unit: unit, activity: evidence_activity, created_at: Date.new(year, 10, 1))
+      create(:unit_activity, unit: unit, activity: pre_diagnostic, created_at: Date.new(year, 10, 1))
+      create(:unit_activity, unit: unit, activity: post_diagnostic, created_at: Date.new(year, 10, 1))
       create(:classrooms_teacher, user: teacher, classroom: relevent_classroom)
       create(:classrooms_teacher, user: teacher, classroom: current_classroom)
       create(:students_classrooms, student: student, classroom: relevent_classroom)
@@ -33,6 +37,32 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         updated_at: Date.new(year, 10, 2),
         activity: evidence_activity
       )
+      create(:activity_session,
+        user: student,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: pre_diagnostic
+      )
+      create(:activity_session,
+        user: student2,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: pre_diagnostic
+      )
+      create(:activity_session,
+        user: student,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: post_diagnostic
+      )
+
+      stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic.id])
     end
 
     it 'should raise error if the year is the current year' do
@@ -42,10 +72,14 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
     it 'should calculate active students' do
       expected_data = {
         total_students: 2,
-        active_students: 1,
-        activities_finished: 1,
-        activities_per_student: 1.0,
-        completed_evidence_activities_per_student: 1,
+        active_students: 2,
+        activities_finished: 4,
+        activities_per_student: 2.0,
+        pre_diagnostics_assigned: 2,
+        pre_diagnostics_completed: 2,
+        post_diagnostics_assigned: 2,
+        post_diagnostics_completed: 1,
+        completed_evidence_activities_per_student: 0.5,
         evidence_activities_assigned: 2,
         evidence_activities_completed: 1
       }

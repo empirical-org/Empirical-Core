@@ -16,7 +16,7 @@ module VitallySchoolStats
   end
 
   private def activities_finished_query(school)
-    ClassroomsTeacher.joins("JOIN users ON users.id=classrooms_teachers.user_id")
+    @activities_finished ||= ClassroomsTeacher.joins("JOIN users ON users.id=classrooms_teachers.user_id")
       .joins("JOIN schools_users ON schools_users.user_id=users.id")
       .joins("JOIN schools ON schools.id=schools_users.school_id")
       .joins("JOIN classrooms ON classrooms.id=classrooms_teachers.classroom_id")
@@ -28,7 +28,7 @@ module VitallySchoolStats
   end
 
   def activities_assigned_query(school)
-    ClassroomUnit.joins(classroom: {teachers: :school}, unit: :activities)
+    @activities_assigned ||= ClassroomUnit.joins(classroom: {teachers: :school}, unit: :activities)
       .where("schools.id = ?", school.id)
       .select("assigned_student_ids", "activities.id", "unit_activities.created_at")
   end
