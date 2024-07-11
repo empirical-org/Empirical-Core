@@ -4,10 +4,10 @@ module Evidence
   module GenAI
     class SystemPromptBuilder < ApplicationService
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
-      DEFAULT_TEMPLATE = '2024_06_07_more_examples.md'
+      DEFAULT_TEMPLATE = '2024_07_11_plagiarism_only.md'
 
       OPTIMAL_SAMPLE_COUNT = 100
-      SUBOPTIMAL_SAMPLE_COUNT = 20
+      SUBOPTIMAL_SAMPLE_COUNT = 100
 
       attr_reader :prompt, :history, :template_file
 
@@ -38,7 +38,7 @@ module Evidence
       end
 
       private def passage = prompt.first_passage&.text
-      private def plagiarism_text = prompt.plagiarism_text
+      private def plagiarism_text = markdown_ul(prompt.plagiarism_texts)
       private def stem = prompt.text
       private def optimal_examples = markdown_ul(optimal_example_list)
       private def suboptimal_examples = markdown_ul(suboptimal_example_list)

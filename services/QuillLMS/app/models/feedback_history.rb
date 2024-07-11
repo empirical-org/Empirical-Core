@@ -105,7 +105,7 @@ class FeedbackHistory < ApplicationRecord
     !new_record?
   end
 
-  def self.optimal_sample(prompt_id:, confidence_limit: 0.95, max_length: 80, limit: 20)
+  def self.optimal_sample(prompt_id:, confidence_limit: 0.90, max_length: 100, limit: 20)
     optimal
       .autoML
       .for_prompt(prompt_id)
@@ -117,7 +117,7 @@ class FeedbackHistory < ApplicationRecord
       .uniq
   end
 
-  def self.suboptimal_sample(prompt_id:, confidence_limit: 0.90, max_length: 80, limit: 20, offset: 0)
+  def self.suboptimal_sample(prompt_id:, confidence_limit: 0.90, max_length: 100, limit: 20, offset: 0)
     suboptimal
       .autoML
       .for_prompt(prompt_id)
