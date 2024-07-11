@@ -11,8 +11,8 @@ module Evidence
       let(:credentials) { credentials_hash.to_json }
       let(:prediction_service_class) { described_class::SERVICE_CLIENT_CLASS }
       let(:prediction_service_instance) { instance_double(prediction_service_class) }
-      let(:text) { "sample text" }
-      let(:endpoint_external_id) { "endpoint_external_id" }
+      let(:text) { 'sample text' }
+      let(:endpoint_external_id) { 'endpoint_external_id' }
       let(:config_struct) { Struct.new(:credentials, :timeout).new(credentials_hash, described_class::PREDICT_API_TIMEOUT) }
 
       before do
@@ -25,7 +25,7 @@ module Evidence
       describe '#predict_label_and_score' do
         subject { described_class.new(project:).predict_label_and_score(endpoint_external_id:, text:) }
 
-        let(:predicted_response) { double("PredictedResponse") }
+        let(:predicted_response) { double('PredictedResponse') }
 
         before { allow(prediction_service_instance).to receive(:predict).and_return(predicted_response) }
 

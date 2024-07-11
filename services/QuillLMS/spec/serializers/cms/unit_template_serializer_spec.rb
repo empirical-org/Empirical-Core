@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Cms::UnitTemplateSerializer do
   it_behaves_like 'serializer' do
     let(:record_instance) { create(:unit_template) }
-    let(:result_key) { "unit_template" }
+    let(:result_key) { 'unit_template' }
 
     let(:expected_serialized_keys) do
       %w{

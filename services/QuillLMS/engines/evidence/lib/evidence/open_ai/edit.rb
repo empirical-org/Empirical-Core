@@ -12,7 +12,7 @@ module Evidence
       # available for the Edit endpoint
       MODEL = 'text-davinci-edit-001'
 
-      DEFAULT_INSTRUCTION = "Paraphrase the text"
+      DEFAULT_INSTRUCTION = 'Paraphrase the text'
 
       attr_reader :input, :instruction, :temperature, :count
 

@@ -28,7 +28,7 @@ FactoryBot.define do
 
     factory :diagnostic_report_overview_selection do
       report { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_OVERVIEW }
-      filter_selections { {group_by_value: {label: "Teacher", value: "teacher"}}.as_json }
+      filter_selections { {group_by_value: {label: 'Teacher', value: 'teacher'}}.as_json }
     end
 
     factory :diagnostic_report_skill_selection do
@@ -36,11 +36,11 @@ FactoryBot.define do
       filter_selections do
         {
           group_by_value: {
-            label: "Teacher",
-            value: "teacher"
+            label: 'Teacher',
+            value: 'teacher'
           },
           diagnostic_type_value: {
-            label: "Intermediate Diagnostic",
+            label: 'Intermediate Diagnostic',
             value: 1668
           }
         }.as_json
@@ -49,7 +49,7 @@ FactoryBot.define do
 
     factory :diagnostic_report_student_selection do
       report { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_STUDENT }
-      filter_selections { {diagnostic_type_value: {label: "Intermediate Diagnostic", value: 1668}}.as_json }
+      filter_selections { {diagnostic_type_value: {label: 'Intermediate Diagnostic', value: 1668}}.as_json }
     end
 
     trait :with_default_filters do

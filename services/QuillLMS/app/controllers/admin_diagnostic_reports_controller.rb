@@ -3,7 +3,7 @@
 class AdminDiagnosticReportsController < ApplicationController
   CACHE_REPORT_NAME = 'admin-diagnostic-overview'
   WORKERS_FOR_ACTIONS = {
-    "report" => AdminDiagnosticReports::DiagnosticOverviewWorker
+    'report' => AdminDiagnosticReports::DiagnosticOverviewWorker
   }
 
   BASE_REPORT_FILTER_NAME = 'diagnostic_growth_report'

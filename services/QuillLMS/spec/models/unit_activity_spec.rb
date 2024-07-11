@@ -58,7 +58,7 @@ describe UnitActivity, type: :model, redis: true do
 
       it 'should return the formatted due date' do
         unit_activity.due_date = 10.days.from_now.to_date
-        expect(unit_activity.formatted_due_date).to eq(unit_activity.due_date.strftime("%-m-%-e-%Y"))
+        expect(unit_activity.formatted_due_date).to eq(unit_activity.due_date.strftime('%-m-%-e-%Y'))
       end
     end
 
@@ -67,7 +67,7 @@ describe UnitActivity, type: :model, redis: true do
 
       it 'should return emtpty string' do
         unit_activity.due_date = nil
-        expect(unit_activity.formatted_due_date).to eq("")
+        expect(unit_activity.formatted_due_date).to eq('')
       end
     end
   end
@@ -79,13 +79,13 @@ describe UnitActivity, type: :model, redis: true do
     end
 
 
-    it "returns true if it was created after 25-10-2016 and the classification is 1 or 2" do
+    it 'returns true if it was created after 25-10-2016 and the classification is 1 or 2' do
       unit_activity.update(created_at: Date.parse('26-10-2016'))
       activity.classification = activity_classification2
       expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(true)
     end
 
-    it "returns false if it was created before 25-10-2016 and the classification is 1 or 2" do
+    it 'returns false if it was created before 25-10-2016 and the classification is 1 or 2' do
       unit_activity.update(created_at: Date.parse('24-10-2016'))
       activity.classification = activity_classification2
       expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(false)

@@ -10,10 +10,10 @@ namespace :create_initial_change_log_for_evidence_activities do
         changed_record_type: 'Evidence::Activity',
         changed_record_id: activity.id,
         user_id: rake_task_user.id,
-        explanation: "Activity Created",
+        explanation: 'Activity Created',
         changed_attribute: 'version',
-        previous_value: "0",
-        new_value: "1",
+        previous_value: '0',
+        new_value: '1',
         created_at: activity.created_at,
         updated_at: activity.created_at
       }

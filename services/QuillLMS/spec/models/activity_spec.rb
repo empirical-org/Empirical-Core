@@ -45,14 +45,14 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:skill_groups).through(:skill_group_activities) }
 
   it { should have_and_belong_to_many(:unit_templates) }
-  it { should belong_to(:classification).class_name("ActivityClassification") }
+  it { should belong_to(:classification).class_name('ActivityClassification') }
   it { should belong_to(:standard) }
   it { should belong_to(:raw_score) }
   it { should have_one(:standard_level).through(:standard) }
 
   it do
-    expect(subject).to belong_to(:follow_up_activity).class_name("Activity")
-      .with_foreign_key("follow_up_activity_id")
+    expect(subject).to belong_to(:follow_up_activity).class_name('Activity')
+      .with_foreign_key('follow_up_activity_id')
   end
 
   it { should have_many(:unit_activities).dependent(:destroy) }
@@ -117,7 +117,7 @@ describe Activity, type: :model, redis: true do
 
       describe 'activity is evidence and the flag is being changed' do
         let!(:evidence_activity) { create(:evidence_lms_activity, flag: 'alpha') }
-        let!(:child_activity) { create(:evidence_activity, title: "this is a child activity", notes: "note", parent_activity_id: evidence_activity.id)}
+        let!(:child_activity) { create(:evidence_activity, title: 'this is a child activity', notes: 'note', parent_activity_id: evidence_activity.id)}
         let!(:staff_user) { create(:user, role: 'staff') }
 
         before do
@@ -133,16 +133,16 @@ describe Activity, type: :model, redis: true do
           expect(change_log.user_id).to eq(staff_user.id)
           expect(change_log.changed_record_type).to eq(child_activity.class.name)
           expect(change_log.changed_record_id).to eq(child_activity.id)
-          expect(change_log.changed_attribute).to eq("flags")
-          expect(change_log.previous_value).to eq("[\"alpha\"]")
-          expect(change_log.new_value).to eq("[\"production\"]")
+          expect(change_log.changed_attribute).to eq('flags')
+          expect(change_log.previous_value).to eq('["alpha"]')
+          expect(change_log.new_value).to eq('["production"]')
         end
       end
     end
   end
 
-  describe ".find_by_id_or_uid" do
-    it "can find by uid string" do
+  describe '.find_by_id_or_uid' do
+    it 'can find by uid string' do
       uid = 'a2423kahfadf32'
       activity = create(:activity, id: '999', uid: uid)
 
@@ -151,7 +151,7 @@ describe Activity, type: :model, redis: true do
       expect(result).to eq(activity)
     end
 
-    it "can find by numeric id" do
+    it 'can find by numeric id' do
       id = 999
       activity = create(:activity, id: id, uid: 'a2423kahfadf32')
 
@@ -161,50 +161,50 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe "#classification_key" do
-    describe "#classification_key=" do
-      it "must set classification relationship" do
+  describe '#classification_key' do
+    describe '#classification_key=' do
+      it 'must set classification relationship' do
         activity.classification=nil
         expect(activity.classification).to_not be_present
         expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
       end
     end
 
-    describe "#classification_key" do
+    describe '#classification_key' do
       before do
         activity.classification=nil
         activity.classification_key=ActivityClassification.first.key || create(:classification).key
       end
 
-      it "must set classification relationship" do
+      it 'must set classification relationship' do
         expect(activity.classification_key).to be_present
       end
     end
   end
 
-  describe "#form_url" do
+  describe '#form_url' do
     it "must not include uid if hasn't been validated" do
       activity.uid = nil
-      expect(activity.form_url.to_s).not_to include "uid="
+      expect(activity.form_url.to_s).not_to include 'uid='
     end
 
-    it "must include uid after validate" do
+    it 'must include uid after validate' do
       activity.valid?
-      expect(activity.form_url.to_s).to include "uid="
+      expect(activity.form_url.to_s).to include 'uid='
     end
   end
 
-  describe "#module_url" do
+  describe '#module_url' do
     let!(:student){ build(:student) }
 
     it "must add uid param of it's a valid student session" do
       activity.valid?
-      expect(activity.module_url(student.activity_sessions.build()).to_s).to include "uid="
+      expect(activity.module_url(student.activity_sessions.build()).to_s).to include 'uid='
     end
 
     it "must add student param of it's a valid student session" do
       activity.valid?
-      expect(activity.module_url(student.activity_sessions.build()).to_s).to include "student"
+      expect(activity.module_url(student.activity_sessions.build()).to_s).to include 'student'
     end
 
     it "must add 'activities' param if the student has completed previous sessions of this activity classification" do
@@ -227,7 +227,7 @@ describe Activity, type: :model, redis: true do
       classified_activity = create(:activity, classification: classification)
       activity_session = create(:activity_session, :started, activity: classified_activity)
 
-      expect(classified_activity.module_url(activity_session).to_s).to_not include("activities")
+      expect(classified_activity.module_url(activity_session).to_s).to_not include('activities')
     end
 
     it "must use the connect_url_helper when the classification.key is 'connect'" do
@@ -265,7 +265,7 @@ describe Activity, type: :model, redis: true do
 
   describe '#anonymous_module_url' do
     it 'must add anonymous param' do
-      expect(activity.anonymous_module_url.to_s).to include "anonymous=true"
+      expect(activity.anonymous_module_url.to_s).to include 'anonymous=true'
     end
 
     it "must use the connect_url_helper when the classification.key is 'connect'" do
@@ -297,22 +297,21 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-
   describe "#flag's overwritten methods" do
-    it "must be nil if has not been set" do
+    it 'must be nil if has not been set' do
       expect(activity.flag).to be_nil
     end
 
-    it "must have a setter" do
+    it 'must have a setter' do
       expect(activity.flag=:alpha).to eq :alpha
     end
 
-    context "when is set it must preserve the value" do
+    context 'when is set it must preserve the value' do
       before do
         activity.flag=:alpha
       end
 
-      it "must return the correct value" do
+      it 'must return the correct value' do
         expect(activity.flag).to eq :alpha
       end
     end
@@ -374,13 +373,13 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe "can behave like a flagged model" do
-    context "when behaves like flagged" do
-      it_behaves_like "flagged"
+  describe 'can behave like a flagged model' do
+    context 'when behaves like flagged' do
+      it_behaves_like 'flagged'
     end
   end
 
-  describe "#clear_activity_search_cache" do
+  describe '#clear_activity_search_cache' do
     let(:activity) { create(:activity) }
 
     it 'deletes the default_activity_search from the cache' do
@@ -390,13 +389,13 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
-      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
+      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push('').each do |flagset|
         $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'}.to_json )
       end
 
       Activity.clear_activity_search_cache
 
-      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push("").each do |flagset|
+      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push('').each do |flagset|
         expect(
           $redis.del("default_#{flagset}activity_search")
         ).to eq 0
@@ -409,7 +408,7 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe "#set_activity_search_cache" do
+  describe '#set_activity_search_cache' do
     let!(:cache_activity) { create(:activity, :production) }
 
     it 'sets the default_activity_search for the cache' do
@@ -488,32 +487,32 @@ describe Activity, type: :model, redis: true do
     let(:question) { create(:question)}
 
     it 'should add a question to the lesson' do
-      old_length = activity.data["questions"].length
-      question_obj = {"key": question.uid, "questionType": "questions"}
+      old_length = activity.data['questions'].length
+      question_obj = {"key": question.uid, "questionType": 'questions'}
       activity.add_question(question_obj)
-      questions = activity.data["questions"]
+      questions = activity.data['questions']
       last_question = questions.last.symbolize_keys
 
       expect(questions.length).to eq(old_length + 1)
       expect(last_question[:key]).to eq(question.uid)
-      expect(last_question[:questionType]).to eq("questions")
+      expect(last_question[:questionType]).to eq('questions')
     end
 
     it 'should throw error if the question does not exist' do
-      question_obj = {"key": "fakeid", "questionType": "questions"}
+      question_obj = {"key": 'fakeid', "questionType": 'questions'}
       activity.add_question(question_obj)
       expect(activity.errors[:question]).to include('Question fakeid does not exist.')
     end
 
     it 'should throw error if the question type does not match' do
-      question_obj = {"key": question.uid, "questionType": "faketype"}
+      question_obj = {"key": question.uid, "questionType": 'faketype'}
       activity.add_question(question_obj)
       expect(activity.errors[:question]).to include("The question type faketype does not match the lesson's question type: questions")
     end
 
     it 'should throw error if the activity classification is Grammar or Lesson' do
-      question_obj = {"key": question.uid, "questionType": "questions"}
-      data = {"questionType": "questions"}
+      question_obj = {"key": question.uid, "questionType": 'questions'}
+      data = {"questionType": 'questions'}
       proofreader_activity = create(:proofreader_activity, data: data)
       proofreader_activity.add_question(question_obj)
       expect(proofreader_activity.errors[:activity]).to include("You can't add questions to this type of activity.")
@@ -741,19 +740,19 @@ describe Activity, type: :model, redis: true do
     context 'when the activity has no associated flag change log' do
       it 'returns the created_at date of that activity' do
         activity = create(:evidence_lms_activity, created_at: Time.zone.today - 10.days)
-        create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
+        create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
 
-        expect(activity.publication_date).to eq(activity.created_at.strftime("%m/%d/%Y"))
+        expect(activity.publication_date).to eq(activity.created_at.strftime('%m/%d/%Y'))
       end
     end
 
     context 'when the activity has an associated flag change log' do
       it 'returns the created_at date of the last flag change' do
         activity = create(:evidence_lms_activity)
-        evidence_activity = create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
+        evidence_activity = create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
         change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
 
-        expect(activity.publication_date).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+        expect(activity.publication_date).to eq(change_log.created_at.strftime('%m/%d/%Y'))
       end
     end
   end
@@ -762,44 +761,83 @@ describe Activity, type: :model, redis: true do
     it 'returns the serialized activity hash with topics genealogy and publication date added' do
       topic = create(:topic, level: 1)
       activity = create(:evidence_lms_activity, topics: [topic])
-      evidence_activity = create(:evidence_activity, parent_activity: activity, title: "title", notes: "notes")
+      evidence_activity = create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
       change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
 
       serialized_hash = activity.serialize_with_topics_and_publication_date
-      expect(serialized_hash["id"]).to eq(activity.id)
+      expect(serialized_hash['id']).to eq(activity.id)
       expect(serialized_hash[:topics]).to eq([topic.genealogy])
-      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%m/%d/%Y"))
+      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime('%m/%d/%Y'))
     end
   end
 
-  describe "#update_questions_flag_status_if_necessary!" do
-    let(:q1) { create(:question, data: {flag: "beta"}) }
-    let(:q2) { create(:question, data: {flag: "beta"}) }
-    let(:questions) { [{"key" => q1.uid, "question_type" => "questions"}, {"key" => q2.uid, "question_type" => "questions"}] }
+  describe '#update_questions_flag_status_if_necessary!' do
+    let(:q1) { create(:question, data: {flag: 'beta'}) }
+    let(:q2) { create(:question, data: {flag: 'beta'}) }
+    let(:questions) { [{'key' => q1.uid, 'question_type' => 'questions'}, {'key' => q2.uid, 'question_type' => 'questions'}] }
     let(:data) { {questions: } } # NOTE: that the unmatched `x:` syntax in Ruby will try to set the value by finding a variable with the name of the key, so in this case "questions"
 
 
     context 'activity flag set to production' do
-      let(:flags) { ["production"] }
+      let(:flags) { ['production'] }
       let(:activity) { create(:grammar_activity, flags:, data:) }
 
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.to change{ q1.reload.data["flag"] }.to("production")
-          .and change{ q2.reload.data["flag"] }.to("production")
+        end.to change{ q1.reload.data['flag'] }.to('production')
+          .and change{ q2.reload.data['flag'] }.to('production')
       end
     end
 
     context 'activity flag is not set to production' do
-      let(:flags) { ["alpha"] }
+      let(:flags) { ['alpha'] }
       let(:activity) { create(:grammar_activity, flags:, data:) }
 
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.not_to change{ q1.reload.data["flag"] }
+        end.not_to change{ q1.reload.data['flag'] }
       end
+    end
+  end
+
+  describe '#questions' do
+    subject { activity.questions }
+
+    let(:activity) { create(:activity) }
+
+    context 'there are questions in the data field' do
+      let(:questions) { create_list(:question, 2)}
+
+      before do
+        activity.data["questions"] = questions.map{|q| {"key" => q.uid}}
+        activity.save
+      end
+
+      it { expect(subject).to be_a(ActiveRecord::Relation) }
+
+      it { expect(subject).to match_array(questions) }
+
+      context 'has an extra question key that does not exist' do
+        before do
+          activity.data["questions"] << {"key" => "124"}
+          activity.save
+        end
+
+        it { expect(subject).to match_array(questions) }
+      end
+
+    end
+
+    context 'there are no questions in the data field' do
+      before do
+        activity.data.delete("questions")
+        activity.save
+      end
+
+      it { expect(subject).to be_a(ActiveRecord::Relation) }
+      it { expect(subject.count).to eq(0) }
     end
   end
 end

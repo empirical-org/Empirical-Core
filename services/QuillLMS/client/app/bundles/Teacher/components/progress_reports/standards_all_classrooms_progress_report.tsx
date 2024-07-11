@@ -9,8 +9,8 @@ import { NOT_SCORED_DISPLAY_TEXT } from './constants.js';
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByStandardLevel } from '../../../../modules/sortingMethods.js';
-import { ReactTable, ReportHeader, Tooltip, } from '../../../Shared/index';
-import { getTimeSpent } from '../../helpers/studentReports';
+import { ReactTable, ReportHeader, Tooltip } from '../../../Shared/index';
+import { getTimeSpent, renderTooltipRow } from '../../helpers/studentReports';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import userIsPremium from '../modules/user_is_premium';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
@@ -85,14 +85,14 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
   columns() {
     const { userIsPremium } = this.state;
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
-
+    const standardNameHeaderWidth = 500
     return ([
       {
         Header: 'Standard level',
         accessor: 'standard_level',
         sortType: sortTableByStandardLevel,
         resizable: false,
-        width: 150,
+        maxWidth: 124,
         Cell: ({row}) => (
           <a className="standard-level" href={row.original['link']}>
             {row.original['standard_level_name']}
@@ -103,9 +103,12 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
         accessor: 'standard_name',
         sortType: sortTableByStandardLevel,
         resizable: false,
-        minWidth: 300,
-        Cell: ({row}) => this.renderTooltipRow(row),
-        style: {overflow: 'visible'},
+        minWidth: standardNameHeaderWidth,
+        Cell: ({ row }) => {
+          const { original } = row
+          const { id, name, link } = original
+          return renderTooltipRow({ id, label: name, link, headerWidth: standardNameHeaderWidth })
+        }
       }, {
         Header: "Students",
         accessor: 'number_of_students',
@@ -114,7 +117,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['number_of_students']}
           </a>
-        )
+        ),
+        maxWidth: 140
       }, {
         Header: "Proficient",
         accessor: 'proficient',
@@ -123,7 +127,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           <a className={`row-link-disguise ${blurIfNotPremium}`} href={row.original['link']}>
             {row.original['proficient']}
           </a>
-        )
+        ),
+        maxWidth: 140
       }, {
         Header: "Activities",
         accessor: 'activities',
@@ -132,7 +137,8 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           <a className="row-link-disguise" href={row.original['link']}>
             {row.original['activities']}
           </a>
-        )
+        ),
+        maxWidth: 140
       }, {
         Header: "Time spent",
         accessor: 'timespent',
@@ -141,35 +147,10 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
           <a className="row-link-disguise" href={row.original['link']}>
             {getTimeSpent(row.original['timespent'])}
           </a>
-        )
+        ),
+        maxWidth: 140
       }
     ])
-  }
-
-  renderTooltipRow(row) {
-    const averageFontWidth = 7
-    const headerWidthNumber = 300
-    const rowDisplayText = row.original['name']
-    let style: React.CSSProperties = { width: `300px`, minWidth: `300px` }
-    const key = `${row.id}`
-    const sectionClass = 'something-class'
-    const sectionText = (<a className="row-link-disguise underlined" href={row.original['link']}>
-      {row.original['name']}
-    </a>)
-    if ((String(rowDisplayText).length * averageFontWidth) >= headerWidthNumber) {
-      return (
-        <Tooltip
-          key={key}
-          tooltipText={rowDisplayText}
-          tooltipTriggerStyle={style}
-          tooltipTriggerText={sectionText}
-          tooltipTriggerTextClass={sectionClass}
-          tooltipTriggerTextStyle={style}
-        />
-      )
-    } else {
-      return sectionText
-    }
   }
 
   formatDataForCSV() {

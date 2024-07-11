@@ -69,10 +69,10 @@ describe Cms::RecommendationsController do
       let!(:recommendation) { create(:recommendation, activity: activity, category: 0) }
 
       it 'should create the recommendation with the given activity and order number greater than that of the category' do
-        post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: "independent_practice", recommendation: {
-             name: "some_name",
+        post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: 'independent_practice', recommendation: {
+             name: 'some_name',
              unit_template_id: unit_template.id,
-             category: "independent_practice"
+             category: 'independent_practice'
            } }
         expect(Recommendation.last.order).to eq recommendation.order + 1
         expect(Recommendation.last.activity).to eq activity
@@ -81,10 +81,10 @@ describe Cms::RecommendationsController do
 
 
     it 'should create the recommendation with the given activity and next order number' do
-      post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: "independent_practice", recommendation: {
-               name: "some_name",
+      post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: 'independent_practice', recommendation: {
+               name: 'some_name',
                unit_template_id: unit_template.id,
-               category: "independent_practice"
+               category: 'independent_practice'
            } }
       expect(Recommendation.last.order).to eq 0
       expect(Recommendation.last.activity).to eq activity
@@ -93,10 +93,10 @@ describe Cms::RecommendationsController do
     it 'should throw error if recommendation is not created' do
       post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, recommendation: {
                unit_template_id: unit_template.id,
-               category: "independent_practice"
+               category: 'independent_practice'
            } }
       expect(response).to render_template :new
-      expect(flash[:error]).to eq "Unable to create recommendation."
+      expect(flash[:error]).to eq 'Unable to create recommendation.'
     end
   end
 

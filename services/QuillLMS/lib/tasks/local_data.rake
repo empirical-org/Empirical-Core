@@ -3,12 +3,12 @@
 require 'open3'
 
 namespace :local_data do
-  desc "truncate local non-user tables"
+  desc 'truncate local non-user tables'
   task truncate_nonuser_tables: :environment do
     include LocalSeedCommands
 
-    db_config = Rails.configuration.database_configuration["development"]["primary"]
-    ActiveRecord::Base.connection.execute(truncate_command(host: db_config["host"]))
+    db_config = Rails.configuration.database_configuration['development']['primary']
+    ActiveRecord::Base.connection.execute(truncate_command(host: db_config['host']))
   end
 
   # Note, before running, populate these ENV vars with a 'read-only' user from Heroku:
@@ -22,22 +22,22 @@ namespace :local_data do
   # You will be prompted for the password in the console when run
   # If starting from a new database, run `bundle exec rake db:schema:load` first
   # To Run: bundle exec rake local_data:reset_nonuser_data_from_follower
-  desc "import non-user tables"
+  desc 'import non-user tables'
   task reset_nonuser_data_from_follower: :environment do
     include LocalSeedCommands
-    db_config = Rails.configuration.database_configuration["development"]["primary"]
+    db_config = Rails.configuration.database_configuration['development']['primary']
 
-    pretty_print("Truncating non-user tables")
-    ActiveRecord::Base.connection.execute(truncate_command(host: db_config["host"]))
+    pretty_print('Truncating non-user tables')
+    ActiveRecord::Base.connection.execute(truncate_command(host: db_config['host']))
 
     pretty_print("Downloading data from follower\n(Ignore circular key warning)")
     run_cmd(dump_command)
 
-    database = db_config["database"]
+    database = db_config['database']
     pretty_print("Loading data to #{database}")
     run_cmd(load_command(database: database))
 
-    pretty_print("removing datafile")
+    pretty_print('removing datafile')
     run_cmd(rm_file_command)
   end
 
@@ -76,7 +76,7 @@ namespace :local_data do
     end
 
     def truncate_command(host:, tables: NONUSER_TABLES)
-      raise NonLocalDBError if host != "localhost"
+      raise NonLocalDBError if host != 'localhost'
 
       "TRUNCATE #{tables.compact.join(',')} RESTART IDENTITY CASCADE;"
     end

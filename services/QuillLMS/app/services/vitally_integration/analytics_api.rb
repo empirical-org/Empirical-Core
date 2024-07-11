@@ -24,7 +24,7 @@ module VitallyIntegration
       response = HTTParty.post("#{BASE_URL}/#{endpoint}",
         headers: {
           Authorization: "Basic #{API_KEY}",
-          "Content-Type": "application/json"
+          "Content-Type": 'application/json'
         },
         body: payload.to_json
       )

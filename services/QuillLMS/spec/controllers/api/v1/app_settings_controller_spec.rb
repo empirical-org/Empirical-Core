@@ -7,8 +7,8 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
   before { allow(controller).to receive(:current_user) { user } }
 
-  describe "GET #index" do
-    it "returns a success response" do
+  describe 'GET #index' do
+    it 'returns a success response' do
 
       create(:app_setting, name: 'first', enabled: true)
       create(:app_setting, name: 'second', enabled: true)
@@ -17,13 +17,13 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
       get :index, as: :json
 
       expect(response).to be_successful
-      expected_keys = Set["first", "second", "third"]
+      expected_keys = Set['first', 'second', 'third']
       expect(Set[*JSON.parse(response.body).keys]).to eq expected_keys
     end
   end
 
   describe 'GET #admin_show' do
-    it "returns a success response" do
+    it 'returns a success response' do
       user1 = create(:user, email: 'a@b.com')
       user2 = create(:user, email: 'c@d.com')
 
@@ -62,14 +62,14 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
   end
 
 
-  describe "GET #show" do
-    it "returns a success response" do
+  describe 'GET #show' do
+    it 'returns a success response' do
       create(:app_setting, name: 'lorem', enabled: false)
 
       get :show, params: { name: 'lorem' }, as: :json
 
       expect(response).to be_successful
-      expect(JSON.parse(response.body)).to eq({ "lorem" => false })
+      expect(JSON.parse(response.body)).to eq({ 'lorem' => false })
     end
   end
 end

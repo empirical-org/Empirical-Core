@@ -10,6 +10,6 @@ describe Teachers::ProgressReports::Standards::StandardStudentsController, type:
     let(:result_key) { 'students' }
     let(:expected_result_count) { first_grade_standard_students.size }
 
-    it_behaves_like "exporting to CSV"
+    it_behaves_like 'exporting to CSV'
   end
 end

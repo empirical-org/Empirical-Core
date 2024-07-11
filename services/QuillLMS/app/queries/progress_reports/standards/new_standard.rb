@@ -7,8 +7,8 @@ class ProgressReports::Standards::NewStandard
   end
 
   def results(filters)
-    @standard_id = filters ? filters["standard_id"] : nil
-    @student_id = filters ? filters["student_id"] : nil
+    @standard_id = filters ? filters['standard_id'] : nil
+    @student_id = filters ? filters['student_id'] : nil
 
     ::Standard
       .select(

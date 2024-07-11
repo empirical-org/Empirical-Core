@@ -8,12 +8,12 @@ module PublicProgressReports
   extend ActiveSupport::Concern
 
   GRAMMAR_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Well done! That's the correct answer."
-  GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Good try! Compare your response to the strong responses, and then go to on to the next question."
-  PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Correct"
-  PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = "Incorrect"
+  GRAMMAR_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = 'Good try! Compare your response to the strong responses, and then go to on to the next question.'
+  PROOFREADER_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = 'Correct'
+  PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = 'Incorrect'
   CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "That's a strong sentence!"
   CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK = "Nice try. Let's try a multiple choice question."
-  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  "Good try! Compare your response to the strong responses, and then go to on to the next question."
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  'Good try! Compare your response to the strong responses, and then go to on to the next question.'
 
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -49,7 +49,7 @@ module PublicProgressReports
       custom_url = "#u/#{cu.unit.id}/a/#{cu.activity_id}/c/#{cu.classroom_id}"
       "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
     else
-      "/teachers/progress_reports/diagnostic_reports/#not_completed"
+      '/teachers/progress_reports/diagnostic_reports/#not_completed'
     end
   end
 
@@ -70,8 +70,8 @@ module PublicProgressReports
       curr_quest[:question_number] ||= answer.question_number
       curr_quest[:question_uid] ||= answer.extra_metadata && answer.extra_metadata['question_uid']
       if answer.attempt_number == 1 || !curr_quest[:instructions]
-        direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ""
-        curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
+        direct = answer.concept_result_directions&.text || answer.concept_result_instructions&.text || ''
+        curr_quest[:instructions] = direct.gsub(/(<([^>]+)>)/i, '').gsub('()', '').gsub('&nbsp;', '')
       end
     end
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
@@ -180,7 +180,7 @@ module PublicProgressReports
 
     # Use DISTINCT ON to only pull one session per user
     final_sessions_by_user = ActivitySession
-      .select("DISTINCT ON (activity_sessions.user_id) user_id, activity_sessions.*")
+      .select('DISTINCT ON (activity_sessions.user_id) user_id, activity_sessions.*')
       .includes(concept_results: :concept)
       .where(
         user_id: students.map(&:id),
@@ -292,12 +292,12 @@ module PublicProgressReports
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
       cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
-      directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ""
+      directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ''
       prompt_text = cr.first.concept_result_prompt&.text
       score = get_score_for_question(cr)
       question_uid = cr.first.extra_metadata&.dig('question_uid')
       hash = {
-        directions: directfirst.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", ""),
+        directions: directfirst.gsub(/(<([^>]+)>)/i, '').gsub('()', '').gsub('&nbsp;', ''),
         prompt: prompt_text,
         answer: cr.first.answer,
         cues: cr.first.extra_metadata&.dig('cues'),
@@ -305,7 +305,7 @@ module PublicProgressReports
         key_target_skill_concept: get_key_target_skill_concept_for_question(cr, activity_session),
         concepts: cr.map { |crs|
           attempt_number = crs.attempt_number
-          direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ""
+          direct = crs.concept_result_directions&.text || crs.concept_result_instructions&.text || ''
           {
             id: crs.concept_id,
             name: crs.concept&.name,
@@ -315,7 +315,7 @@ module PublicProgressReports
             finalAttemptFeedback: get_final_attempt_feedback(activity_session, question_uid, score, prompt_text, attempt_number),
             attempt: attempt_number || 1,
             answer: crs.answer,
-            directions: direct.gsub(/(<([^>]+)>)/i, "").gsub("()", "").gsub("&nbsp;", "")
+            directions: direct.gsub(/(<([^>]+)>)/i, '').gsub('()', '').gsub('&nbsp;', '')
           }
         },
         question_number: cr.first.question_number,
@@ -377,7 +377,7 @@ module PublicProgressReports
     activity_sessions_counted = activity_sessions_with_counted_concepts(@activity_sessions)
     students = @assigned_students.map do |s|
       completed = @activity_sessions.any? { |session| session.user_id == s&.id }
-      {id: s&.id, name: s&.name || "Unknown Student", completed: completed }
+      {id: s&.id, name: s&.name || 'Unknown Student', completed: completed }
     end
 
     sorted_students = students.compact.sort_by {|stud| stud[:name].split().second || ''}
@@ -386,11 +386,11 @@ module PublicProgressReports
       student_ids = []
       activity_sessions_counted.each do |activity_session|
         recommendation[:requirements].each do |req|
-          if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]["total"] > activity_session[:concept_scores][req[:concept_id]]["correct"]
+          if req[:noIncorrect] && activity_session[:concept_scores][req[:concept_id]]['total'] > activity_session[:concept_scores][req[:concept_id]]['correct']
             student_ids.push(activity_session[:user_id])
             break
           end
-          if activity_session[:concept_scores][req[:concept_id]]["correct"] < req[:count]
+          if activity_session[:concept_scores][req[:concept_id]]['correct'] < req[:count]
             student_ids.push(activity_session[:user_id])
             break
           end
@@ -484,8 +484,8 @@ module PublicProgressReports
   def concept_results_by_count(activity_session)
     hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
     activity_session.concept_results.each do |concept_result|
-      hash[concept_result.concept.uid]["correct"] += concept_result.correct ? 1 : 0
-      hash[concept_result.concept.uid]["total"] += 1
+      hash[concept_result.concept.uid]['correct'] += concept_result.correct ? 1 : 0
+      hash[concept_result.concept.uid]['total'] += 1
     end
     hash
   end

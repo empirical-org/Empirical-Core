@@ -15,7 +15,7 @@ module Evidence
           @prompt_template_variable = PromptTemplateVariable.new(prompt_template_variable_params)
 
           if @prompt_template_variable.save
-            redirect_to new_research_gen_ai_trial_path
+            redirect_to @prompt_template_variable
           else
             render :new
           end

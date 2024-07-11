@@ -41,8 +41,8 @@ namespace :flags do
     desc 'Update User.flags from a CSV file'
     task :update_from_csv, [:filepath] => :environment do |t, args|
       iostream = File.read(args[:filepath])
-      if (CSV.parse(iostream, headers: true).headers & ["email", "flag"]).count != 2
-        puts "Invalid headers. Exiting."
+      if (CSV.parse(iostream, headers: true).headers & ['email', 'flag']).count != 2
+        puts 'Invalid headers. Exiting.'
         exit 1
       end
 
@@ -64,7 +64,7 @@ namespace :flags do
     task :remove_from_csv, [:filepath, :flag_name] => :environment do |t, args|
       iostream = File.read(args[:filepath])
       if (CSV.parse(iostream, headers: true).headers & ['id']).count != 1
-        puts "Invalid headers. Exiting."
+        puts 'Invalid headers. Exiting.'
         exit 1
       end
 

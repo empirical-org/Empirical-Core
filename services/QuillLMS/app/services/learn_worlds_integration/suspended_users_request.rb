@@ -26,7 +26,7 @@ module LearnWorldsIntegration
       return [] if initial_page == :no_users
 
       total_pages = initial_page.dig('meta', 'totalPages')
-      raise UnexpectedApiResponse, "No totalPages value" unless total_pages&.to_i
+      raise UnexpectedApiResponse, 'No totalPages value' unless total_pages&.to_i
 
       2.upto(total_pages)
         .reduce([]) {|memo, n| memo.concat(fetch_page(n)['data']) }

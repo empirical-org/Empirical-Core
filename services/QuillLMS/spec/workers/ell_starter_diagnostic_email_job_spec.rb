@@ -7,8 +7,8 @@ describe ELLStarterDiagnosticEmailJob do
 
   describe '#perform' do
     it 'should send ELL Starter Diagnostic information' do
-      name = "Eric"
-      email = "eric@quill.org"
+      name = 'Eric'
+      email = 'eric@quill.org'
       expect(UserMailer).to receive(:ell_starter_diagnostic_info_email).with(name, email).and_return(double('mailer', deliver_now!: true))
 
       job.perform(name, email)

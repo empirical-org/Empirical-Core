@@ -10,7 +10,7 @@ module Evidence
     let(:error) {Evidence::Check::Spelling::BingException}
     let(:error_context) { {entry: entry, prompt_id: prompt.id, prompt_text: prompt.text}}
 
-    context "get_feedback" do
+    context 'get_feedback' do
       let(:response) { {key: 'value'} }
 
       it "should return trigger_check's response if there is one" do
@@ -21,7 +21,7 @@ module Evidence
         expect(feedback).to eq(response)
       end
 
-      it "should return fallback response if no trigger check is found" do
+      it 'should return fallback response if no trigger check is found' do
         expect(Check).to receive(:find_triggered_check).once.and_return(nil)
 
         feedback = Check.get_feedback(entry, prompt, previous_feedback)
@@ -29,7 +29,7 @@ module Evidence
         expect(feedback).to eq(Check.fallback_feedback)
       end
 
-      it "should normalize the entry text before trying to get feedback" do
+      it 'should normalize the entry text before trying to get feedback' do
         normalized_entry = "#{entry} with special characters replaced"
         normalizer_double = double
         expect(StringNormalizer).to receive(:new).with(entry).and_return(normalizer_double)
@@ -41,10 +41,10 @@ module Evidence
       end
     end
 
-    context "find_triggered_check" do
+    context 'find_triggered_check' do
 
       context 'all optimal' do
-        it "should return autoML feedback" do
+        it 'should return autoML feedback' do
           Evidence::Check::ALL_CHECKS.each do |check_class|
             expect_any_instance_of(check_class).to receive(:run).once
             expect_any_instance_of(check_class).to receive(:optimal?).once.and_return(true)
@@ -57,8 +57,8 @@ module Evidence
         end
       end
 
-      context "nonoptimal" do
-        it "should return suboptimal response and not call later checks" do
+      context 'nonoptimal' do
+        it 'should return suboptimal response and not call later checks' do
           Evidence::Check::ALL_CHECKS.slice(0..2).each do |check_class|
             expect_any_instance_of(check_class).to receive(:run).once
             expect_any_instance_of(check_class).to receive(:optimal?).once.and_return(true)
@@ -81,8 +81,8 @@ module Evidence
         end
       end
 
-      context "API raises error" do
-        it "should skip that check and move to the next check" do
+      context 'API raises error' do
+        it 'should skip that check and move to the next check' do
           first_check_class = Evidence::Check::ALL_CHECKS.first
           second_check_class = Evidence::Check::ALL_CHECKS.second
 
@@ -104,7 +104,7 @@ module Evidence
         end
       end
 
-      context "exception handling" do
+      context 'exception handling' do
         it "should return fallback feedback with the raised error assigned to a 'debug' key" do
           error = Check::NoMatchedFeedbackTypesError.new('Test error')
           expect(Check).to receive(:checks_to_run).and_raise(error)
@@ -116,7 +116,7 @@ module Evidence
       end
     end
 
-    context "fallback_feedback" do
+    context 'fallback_feedback' do
       it 'should construct feedback based on an error-type rule if it exists' do
         expect(Evidence.error_notifier).to receive(:report).with(error, error_context).once
 
@@ -157,7 +157,7 @@ module Evidence
       it 'provides constant-based feedback if there are multiple error-type rules' do
         Check::ALL_CHECKS.each do |check_class|
           if check_class == Check::AutoML
-            expect_any_instance_of(check_class).to receive(:run).and_raise("some error")
+            expect_any_instance_of(check_class).to receive(:run).and_raise('some error')
           else
             expect_any_instance_of(check_class).to receive(:run)
             expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)

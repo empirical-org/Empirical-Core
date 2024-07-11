@@ -16,10 +16,10 @@ module Evidence
 
       def request_body
         {
-          "contents" => [
+          'contents' => [
             {
-              "parts" => [
-                { "text" => prompt }
+              'parts' => [
+                { 'text' => prompt }
               ]
             }
           ]

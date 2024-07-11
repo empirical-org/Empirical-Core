@@ -40,7 +40,7 @@ class Subscription < ApplicationRecord
   has_many :schools, through: :school_subscriptions
   has_many :user_subscriptions
   has_many :users, through: :user_subscriptions
-  belongs_to :purchaser, class_name: "User"
+  belongs_to :purchaser, class_name: 'User'
   belongs_to :plan, optional: true
 
   validates :expiration, presence: true
@@ -140,7 +140,7 @@ class Subscription < ApplicationRecord
   scope :recurring, -> { where(recurring: true) }
   scope :not_recurring, -> { where(recurring: false) }
   scope :not_stripe, -> { where(stripe_invoice_id: nil, stripe_subscription_id: nil) }
-  scope :started, -> { where("start_date <= ?", Date.current) }
+  scope :started, -> { where('start_date <= ?', Date.current) }
   scope :paid_with_card, -> { where.not(stripe_invoice_id: nil, stripe_subscription_id: nil).or(where(payment_method: 'Credit Card')) }
   scope :for_schools, -> { where(account_type: OFFICIAL_SCHOOL_TYPES) }
   scope :for_teachers, -> { where(account_type: OFFICIAL_TEACHER_TYPES) }
@@ -268,7 +268,7 @@ class Subscription < ApplicationRecord
       exp_month_and_day = "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
     end
 
-    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}","%d-%m-%Y") }
+    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}",'%d-%m-%Y') }
   end
 
   def self.set_premium_expiration_and_start_date(subscriber)

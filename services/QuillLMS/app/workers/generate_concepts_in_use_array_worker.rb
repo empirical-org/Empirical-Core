@@ -5,12 +5,12 @@ class GenerateConceptsInUseArrayWorker
   sidekiq_options queue: SidekiqQueue::LOW
 
   REDIS_KEY_QUESTION_TYPES = {
-    "SC_QUESTIONS" => "connect_sentence_combining",
-    "FIB_QUESTIONS" => "connect_fill_in_blanks",
-    "SF_QUESTIONS" => "connect_sentence_fragments",
-    "D_QUESTIONS" => "diagnostic_sentence_combining",
-    "D_FIB_QUESTIONS" => "diagnostic_fill_in_blanks",
-    "D_SF_QUESTIONS" => "diagnostic_sentence_fragments",
+    'SC_QUESTIONS' => 'connect_sentence_combining',
+    'FIB_QUESTIONS' => 'connect_fill_in_blanks',
+    'SF_QUESTIONS' => 'connect_sentence_fragments',
+    'D_QUESTIONS' => 'diagnostic_sentence_combining',
+    'D_FIB_QUESTIONS' => 'diagnostic_fill_in_blanks',
+    'D_SF_QUESTIONS' => 'diagnostic_sentence_fragments',
   }.freeze
 
   CONCEPTS_IN_USE = [%w(
@@ -39,8 +39,8 @@ class GenerateConceptsInUseArrayWorker
   end
 
   private def set_concepts_in_use
-    $redis.set("CONCEPTS_IN_USE", CONCEPTS_IN_USE)
-    $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.current)
+    $redis.set('CONCEPTS_IN_USE', CONCEPTS_IN_USE)
+    $redis.set('NUMBER_OF_CONCEPTS_IN_USE_LAST_SET', Time.current)
   end
 
   private def set_question_types

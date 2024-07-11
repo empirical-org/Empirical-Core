@@ -3,7 +3,7 @@
 class AdminDiagnosticStudentsController < ApplicationController
   CACHE_REPORT_NAME = 'admin-diagnostic-students'
   WORKERS_FOR_ACTIONS = {
-    "report" => AdminDiagnosticReports::DiagnosticStudentsWorker
+    'report' => AdminDiagnosticReports::DiagnosticStudentsWorker
   }
 
   before_action :set_query

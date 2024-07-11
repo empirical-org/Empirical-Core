@@ -41,7 +41,7 @@ describe PagesController do
   end
 
   describe '#play' do
-    let!(:activity) { create(:activity, uid: "-K0rnIIF_iejGqS3XPJ8") }
+    let!(:activity) { create(:activity, uid: '-K0rnIIF_iejGqS3XPJ8') }
 
     it 'should assign the activity and module url and redirect to the same url' do
       get :play
@@ -183,8 +183,8 @@ describe PagesController do
   end
 
   describe '#press' do
-    let!(:post) { create(:blog_post, draft: false, topic: "In the news") }
-    let!(:other_post) { create(:blog_post, draft: false, topic: "Press releases") }
+    let!(:post) { create(:blog_post, draft: false, topic: 'In the news') }
+    let!(:other_post) { create(:blog_post, draft: false, topic: 'Press releases') }
 
     it 'should assign the blog posts' do
       get :press

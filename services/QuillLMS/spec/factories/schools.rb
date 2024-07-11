@@ -55,18 +55,18 @@ FactoryBot.define do
 
   factory :school do
     sequence(:nces_id, 100000000000)
-    mail_street { "123 Broadway" }
-    mail_city { "New York City" }
-    mail_state { "NY" }
-    mail_zipcode { "10003" }
+    mail_street { '123 Broadway' }
+    mail_city { 'New York City' }
+    mail_state { 'NY' }
+    mail_zipcode { '10003' }
     street { mail_street }
     city { mail_city }
     state { mail_state }
     zipcode { mail_zipcode }
     sequence(:name) { |n| "#{mail_city} School #{n}" }
-    phone { "1-800-555-1234" }
-    longitude { "-74.044500" }
-    latitude { "40.689249" }
+    phone { '1-800-555-1234' }
+    longitude { '-74.044500' }
+    latitude { '40.689249' }
     free_lunches { 50 }
     nces_status_code { 3 }
     nces_type_code { 6 }
@@ -80,7 +80,7 @@ FactoryBot.define do
       free_lunches { nil }
       total_students { 1500 }
       fte_classroom_teacher { 100 }
-      ppin { "A1234567" }
+      ppin { 'A1234567' }
     end
   end
 end

@@ -32,6 +32,8 @@ export const PRE_AP_WRITINGS_SKILLS_2_UNIT_TEMPLATE_ID = 195
 export const AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 193
 export const SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
 
+export const DISABLED_DIAGNOSTIC_RECOMMENDATIONS_IDS = [1663, 1668, 1678, 1161, 1568, 1590]
+
 export const starterPreTest = {
   activityId: 1663,
   name: 'Starter Baseline Diagnostic (Pre)',
@@ -254,4 +256,19 @@ export const ACTIVITY_PACK_TYPES = [
     name: 'Whole Class Lessons',
     id: 'whole-class'
   },
+]
+
+export const DISABLED_DIAGNOSTICS = [
+  'Starter Baseline Diagnostic (Pre)',
+  'Starter Growth Diagnostic (Post)',
+  'Intermediate Baseline Diagnostic (Pre)',
+  'Intermediate Growth Diagnostic (Post)',
+  'Advanced Baseline Diagnostic (Pre)',
+  'Advanced Growth Diagnostic (Post)',
+  'ELL Starter Baseline Diagnostic (Pre)',
+  'ELL Starter Growth Diagnostic (Post)',
+  'ELL Intermediate Baseline Diagnostic (Pre)',
+  'ELL Intermediate Growth Diagnostic (Post)',
+  'ELL Advanced Baseline Diagnostic (Pre)',
+  'ELL Advanced Growth Diagnostic (Post)'
 ]

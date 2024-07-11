@@ -75,7 +75,7 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe '#teacher_and_classroom_name' do
-    it "returns a hash with the name of the owner and the classroom" do
+    it 'returns a hash with the name of the owner and the classroom' do
       expect(classroom_unit.teacher_and_classroom_name).to eq({teacher: teacher.name, classroom: classroom.name})
     end
   end
@@ -129,7 +129,7 @@ describe ClassroomUnit, type: :model, redis: true do
       let(:other_classroom_unit) { create(:classroom_unit, unit: unit3, classroom: classroom_with_two_students, assigned_student_ids: []) }
 
       describe 'when the assigned students contain all the students in the classroom' do
-        it "sets the classroom unit to assign_on_join: true" do
+        it 'sets the classroom unit to assign_on_join: true' do
           expect(other_classroom_unit.assign_on_join).not_to eq(true)
           other_classroom_unit.update!(assigned_student_ids: [student.id, student2.id])
           expect(other_classroom_unit.reload.assign_on_join).to eq(true)
@@ -137,7 +137,7 @@ describe ClassroomUnit, type: :model, redis: true do
       end
 
       describe 'when the assigned students do not contain all the students in the classroom' do
-        it "does not set the classroom unit to assign_on_join: true" do
+        it 'does not set the classroom unit to assign_on_join: true' do
           other_classroom_unit.update!(assign_on_join: false)
           other_classroom_unit.update!(assigned_student_ids: [])
           expect(other_classroom_unit.reload.assign_on_join).not_to eq(true)
@@ -146,7 +146,7 @@ describe ClassroomUnit, type: :model, redis: true do
     end
 
     context 'when assign_on_join is true' do
-      it "updates the assigned student ids with all students in the classroom" do
+      it 'updates the assigned student ids with all students in the classroom' do
         empty_classroom_unit = create(:classroom_unit, classroom: classroom, assign_on_join: true, assigned_student_ids: [])
         expect(empty_classroom_unit.reload.assigned_student_ids).to eq([student.id])
       end
@@ -174,7 +174,7 @@ describe ClassroomUnit, type: :model, redis: true do
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
     let(:initial_time) { 1.day.ago}
 
-    it "should updated classrooms updated_at on classroom_unit save" do
+    it 'should updated classrooms updated_at on classroom_unit save' do
       classroom.update_columns(updated_at: initial_time)
       classroom_updated_at = classroom.reload.updated_at
 
@@ -183,7 +183,7 @@ describe ClassroomUnit, type: :model, redis: true do
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
     end
 
-    it "should update classrooms updated_t on classroom_unit touch" do
+    it 'should update classrooms updated_t on classroom_unit touch' do
       classroom.update_columns(updated_at: initial_time)
       classroom_updated_at = classroom.reload.updated_at
 
@@ -192,11 +192,11 @@ describe ClassroomUnit, type: :model, redis: true do
       expect(classroom.reload.updated_at.to_i).not_to equal(classroom_updated_at.to_i)
     end
 
-    context "with a hidden classroom" do
+    context 'with a hidden classroom' do
       let(:classroom) { create(:classroom, visible: false) }
       let(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
 
-      it "should not raise an error" do
+      it 'should not raise an error' do
         expect {classroom_unit.save}.to_not raise_error
       end
     end

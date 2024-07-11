@@ -8,8 +8,8 @@ namespace :flagsets do
     desc 'Add flagsets to users from csv'
     task :update_flagsets_from_csv, [:filepath, :flagset] => :environment do |t, args|
       iostream = File.read(args[:filepath])
-      if (CSV.parse(iostream, headers: true).headers & ["email", "flagset"]).count != 2
-        puts "Invalid headers. Exiting."
+      if (CSV.parse(iostream, headers: true).headers & ['email', 'flagset']).count != 2
+        puts 'Invalid headers. Exiting.'
         exit 1
       end
 

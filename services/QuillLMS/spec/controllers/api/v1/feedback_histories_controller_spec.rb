@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe Api::V1::FeedbackHistoriesController, type: :controller do
-  context "index" do
-    it "should return successfully - no history" do
+  context 'index' do
+    it 'should return successfully - no history' do
       get :index, as: :json
 
       parsed_response = JSON.parse(response.body)['feedback_histories']
@@ -20,7 +20,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
         create(:feedback_history, entry: 'This is the second entry in history')
       end
 
-      it "should return successfully" do
+      it 'should return successfully' do
         get :index, as: :json
 
         parsed_response = JSON.parse(response.body)['feedback_histories']
@@ -29,14 +29,14 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
         expect(Array).to eq(parsed_response.class)
         refute parsed_response.empty?
 
-        expect(parsed_response.first['entry']).to eq("This is the first entry in history")
-        expect(parsed_response.last['entry']).to eq("This is the second entry in history")
+        expect(parsed_response.first['entry']).to eq('This is the first entry in history')
+        expect(parsed_response.last['entry']).to eq('This is the second entry in history')
       end
     end
   end
 
-  context "create" do
-    it "should create a valid record and return it as json" do
+  context 'create' do
+    it 'should create a valid record and return it as json' do
       post :create,
         params: {
           feedback_history: {
@@ -58,13 +58,13 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       parsed_response = JSON.parse(response.body)
 
       expect(response.code.to_i).to eq(201)
-      expect(parsed_response['entry']).to eq("This is the entry provided by the student")
+      expect(parsed_response['entry']).to eq('This is the entry provided by the student')
       expect(FeedbackHistory.count).to eq(1)
     end
 
     it "should populate metadata['highlight']" do
       metadata = {
-        "highlight" => [
+        'highlight' => [
           { 'text' => 'is',
             'type' => 'response',
             'category' => 'lorem',
@@ -92,7 +92,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
       expect(parsed_response['metadata']['highlight'].first.keys).to eq metadata['highlight'].first.keys
     end
 
-    it "should set prompt_type to Evidence::Prompt if prompt_id is provided" do
+    it 'should set prompt_type to Evidence::Prompt if prompt_id is provided' do
       activity = create(:evidence_activity, target_level: 1, title: 'Test Activity Title')
       prompt = create(:evidence_prompt, activity: activity, text: 'Test prompt text', conjunction: 'but')
       post :create,
@@ -118,10 +118,10 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
 
       expect(response.code.to_i).to eq(201)
       expect(FeedbackHistory.count).to eq(1)
-      expect(FeedbackHistory.find(parsed_response['id']).prompt_type).to eq("Evidence::Prompt")
+      expect(FeedbackHistory.find(parsed_response['id']).prompt_type).to eq('Evidence::Prompt')
     end
 
-    it "should not create an invalid record and return errors as json" do
+    it 'should not create an invalid record and return errors as json' do
       post :create, params: { feedback_history: { entry: nil } }, as: :json
 
       parsed_response = JSON.parse(response.body)
@@ -132,25 +132,25 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
     end
   end
 
-  context "show" do
+  context 'show' do
     before { @feedback_history = create(:feedback_history, entry: 'This is the first entry in history') }
 
-    it "should return json if found" do
+    it 'should return json if found' do
       get :show, params: { id: @feedback_history.id }, as: :json
 
       parsed_response = JSON.parse(response.body)
 
       expect(response.code.to_i).to eq(200)
-      expect(parsed_response['entry']).to eq("This is the first entry in history")
+      expect(parsed_response['entry']).to eq('This is the first entry in history')
     end
 
-    it "should raise if not found (to be handled by parent app)" do
+    it 'should raise if not found (to be handled by parent app)' do
       get :show, params: { id: 99999 }, as: :json
       expect(response.status).to eq(404)
-      expect(response.body.include?("The resource you were looking for does not exist")).to be
+      expect(response.body.include?('The resource you were looking for does not exist')).to be
     end
 
-    it "should attach include prompt model if attached" do
+    it 'should attach include prompt model if attached' do
       activity = create(:evidence_activity, target_level: 1, title: 'Test Activity Title')
       prompt = create(:evidence_prompt, activity: activity, text: 'Test prompt text', conjunction: 'but')
       feedback_history = build(:feedback_history)

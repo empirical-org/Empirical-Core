@@ -45,16 +45,16 @@ module AdminDiagnosticReports
 
     def classroom_ids_where_clause = ("AND classroom_id IN (#{classroom_ids.join(',')})" if classroom_ids.present?)
     def grades_where_clause = ("AND (grade IN (#{grades.map { |g| "'#{g}'" }.join(',')}) #{grades_where_null_clause})" if grades.present?)
-    def grades_where_null_clause = ("OR grade IS NULL" if grades.include?('null'))
+    def grades_where_null_clause = ('OR grade IS NULL' if grades.include?('null'))
     def school_ids_where_clause = "AND school_id IN (#{school_ids.join(',')})"
     def teacher_ids_where_clause = ("AND teacher_id IN (#{teacher_ids.join(',')})" if teacher_ids.present?)
     def relevant_diagnostic_where_clause = "AND activity_id = #{diagnostic_id}"
 
-    def group_by_clause = ""
+    def group_by_clause = ''
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(students.name), STRPOS(students.name, ' ') + 1))"
-    def limit_clause = ("LIMIT 500" if limited)
+    def limit_clause = ('LIMIT 500' if limited)
 
-    def relevant_date_column = "pre_diagnostic_completed_at"
+    def relevant_date_column = 'pre_diagnostic_completed_at'
 
     def query = root_query
 

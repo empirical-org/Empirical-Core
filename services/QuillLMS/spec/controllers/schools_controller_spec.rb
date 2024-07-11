@@ -54,7 +54,7 @@ describe SchoolsController, type: :controller do
     end
   end
 
-  context "there is no current user" do
+  context 'there is no current user' do
 
     describe '#select_school' do
       let(:user) { create(:user) }
@@ -71,7 +71,7 @@ describe SchoolsController, type: :controller do
 
   end
 
-  context "there is a current user" do
+  context 'there is a current user' do
 
     describe '#select_school' do
       let(:user) { create(:user, email: 'emilaif@gmail.com') }

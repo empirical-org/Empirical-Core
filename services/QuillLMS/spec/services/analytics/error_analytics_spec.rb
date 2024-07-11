@@ -8,12 +8,12 @@ describe Analytics::ErrorAnalytics do
   subject { described_class.new(analyzer) }
 
   before do
-    allow(SecureRandom).to receive(:urlsafe_base64) { "secure_random" }
+    allow(SecureRandom).to receive(:urlsafe_base64) { 'secure_random' }
   end
 
   describe '#track500' do
     it 'should track the error 500 event' do
-      expect(analyzer).to receive(:track).with({ event: Analytics::SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: "secure_random" })
+      expect(analyzer).to receive(:track).with({ event: Analytics::SegmentIo::BackgroundEvents::ERROR_500, anonymous_id: 'secure_random' })
       subject.track500
     end
   end

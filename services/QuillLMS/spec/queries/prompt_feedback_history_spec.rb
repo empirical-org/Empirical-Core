@@ -228,7 +228,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 0,
           num_first_attempt_not_optimal: 1,
-          avg_time_spent: "00:00",
+          avg_time_spent: '00:00',
           avg_confidence: 0.0
   }.stringify_keys,
   @prompt2.id => {
@@ -243,7 +243,7 @@ RSpec.describe PromptFeedbackHistory, type: :model do
           num_sessions_with_non_consecutive_repeated_rule: 0.0,
           num_first_attempt_optimal: 1,
           num_first_attempt_not_optimal: 0,
-          avg_time_spent: "00:00",
+          avg_time_spent: '00:00',
           avg_confidence: 0.0
   }.stringify_keys
       })

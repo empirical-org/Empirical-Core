@@ -36,10 +36,10 @@ describe PreCachePremiumHubsWorker, type: :worker do
     worker.perform
   end
 
-  context "duplicate admins" do
+  context 'duplicate admins' do
     let!(:new_admin_old_user) { create(:schools_admins, user: current_admin1) }
 
-    it "should not queue duplicates" do
+    it 'should not queue duplicates' do
       expect(mock_users_worker).to receive(:perform_async).with(current_admin1.id).once
       expect(mock_users_worker).to receive(:perform_async).with(current_admin2.id).once
       worker.perform

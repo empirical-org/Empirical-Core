@@ -73,13 +73,13 @@ describe ActivitySessionsController, type: :controller do
     it 'shouldnt error unfound sessions' do
       get :result, params: { uid: 923123213123123123 }
 
-      expect(response.code).to eq("404")
+      expect(response.code).to eq('404')
     end
   end
 
   describe '#anonymous' do
     context 'activity with classification key lessons' do
-      before { allow_any_instance_of(ActivityClassification).to receive(:key) { "lessons" } }
+      before { allow_any_instance_of(ActivityClassification).to receive(:key) { 'lessons' } }
 
       it 'should assign the activity' do
         get :anonymous, params: { activity_id: activity.id }
@@ -93,7 +93,7 @@ describe ActivitySessionsController, type: :controller do
     end
 
     context 'activity without classification key lessons' do
-      before { allow_any_instance_of(ActivityClassification).to receive(:key) { "not lessons" } }
+      before { allow_any_instance_of(ActivityClassification).to receive(:key) { 'not lessons' } }
 
       it 'should redirect to anonymous module url' do
         get :anonymous, params: { activity_id: activity.id }
@@ -117,7 +117,7 @@ describe ActivitySessionsController, type: :controller do
     end
   end
 
-  describe "#redirect_if_student_has_not_completed_pre_test" do
+  describe '#redirect_if_student_has_not_completed_pre_test' do
     let!(:student) { create(:student)}
     let!(:activity) { create(:diagnostic_activity) }
 

@@ -24,8 +24,8 @@ RSpec.describe SegmentIntegration::Activity do
     it 'returns the expected params hash' do
       params = {
         **activity.segment_activity.common_params,
-        concepts: activity.activity_categories.pluck(:name).join(", "),
-        content_partners: activity.content_partners.pluck(:name).join(", ")
+        concepts: activity.activity_categories.pluck(:name).join(', '),
+        content_partners: activity.content_partners.pluck(:name).join(', ')
       }.reject {|_,v| v.nil? }
       expect(activity.segment_activity.content_params).to eq params
     end

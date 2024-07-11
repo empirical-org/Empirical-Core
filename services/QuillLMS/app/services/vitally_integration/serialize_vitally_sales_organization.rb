@@ -152,14 +152,14 @@ module VitallyIntegration
     end
 
     def active_students(start_date=nil, end_date=nil)
-      return activities_completed_all_time.group("students.id").length if start_date.blank? && end_date.blank?
+      return activities_completed_all_time.group('students.id').length if start_date.blank? && end_date.blank?
 
       if start_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
+        filtered_results = activities_completed_all_time.where('activity_sessions.completed_at >= ?', start_date).group('students.id')
       end
 
       if end_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at <= ?", end_date).group("students.id")
+        filtered_results = activities_completed_all_time.where('activity_sessions.completed_at <= ?', end_date).group('students.id')
       end
 
       filtered_results.length
@@ -169,29 +169,29 @@ module VitallyIntegration
       return activities_completed_all_time.count if start_date.blank? && end_date.blank?
 
       if start_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at >= ?", start_date)
+        filtered_results = activities_completed_all_time.where('activity_sessions.completed_at >= ?', start_date)
       end
 
       if end_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at <= ?", end_date)
+        filtered_results = activities_completed_all_time.where('activity_sessions.completed_at <= ?', end_date)
       end
 
       filtered_results.count
     end
 
     def last_active_time
-      User.select("students.last_sign_in")
+      User.select('students.last_sign_in')
         .includes(schools_users: [school: :district])
         .where('districts.id = ?', district.id).references(:district)
         .includes(classrooms_teachers: [classroom: :students_classrooms])
-        .joins("JOIN users students ON students.id = students_classrooms.student_id")
-        .order("students.last_sign_in DESC")
+        .joins('JOIN users students ON students.id = students_classrooms.student_id')
+        .order('students.last_sign_in DESC')
         .first
         &.last_sign_in
     end
 
     def activities_completed_all_time
-      @activities_completed ||= ClassroomsTeacher.select("students.id")
+      @activities_completed ||= ClassroomsTeacher.select('students.id')
         .joins([user: [schools_users: [school: :district]]])
         .joins([classroom: [classroom_units: :activity_sessions]])
         .joins("JOIN users students on students.id = activity_sessions.user_id")
@@ -201,13 +201,13 @@ module VitallyIntegration
 
     def activities_assigned_query(district)
       ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
-        .where("districts.id = ?", district.id)
-        .select("assigned_student_ids", "activities.id", "unit_activities.created_at")
+        .where('districts.id = ?', district.id)
+        .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
     end
 
     def activities_finished_query(district)
       ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
-        .where("districts.id = ?", district.id)
+        .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
 

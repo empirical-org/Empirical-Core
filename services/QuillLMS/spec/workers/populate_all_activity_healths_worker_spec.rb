@@ -9,7 +9,7 @@ end
 describe PopulateAllActivityHealthsWorker do
   subject { described_class.new }
 
-  let(:connect) { create(:activity_classification, key: "connect") }
+  let(:connect) { create(:activity_classification, key: 'connect') }
   let(:activity) { create(:activity, activity_classification_id: connect.id) }
   let(:activity_two) { create(:activity, activity_classification_id: connect.id) }
   let(:activity_three) { create(:activity, activity_classification_id: connect.id) }
@@ -18,7 +18,7 @@ describe PopulateAllActivityHealthsWorker do
   describe '#perform' do
 
     it 'should kick off populate activity health worker jobs spread out by interval' do
-      stub_const("PopulateAllActivityHealthsWorker::INTERVAL", 5)
+      stub_const('PopulateAllActivityHealthsWorker::INTERVAL', 5)
 
       expect(PopulateActivityHealthWorker).to receive(:perform_in).with(a_multiple_of(5), activity.id)
       expect(PopulateActivityHealthWorker).to receive(:perform_in).with(a_multiple_of(5), activity_two.id)
@@ -27,7 +27,7 @@ describe PopulateAllActivityHealthsWorker do
     end
 
     it 'should not run for archived activity' do
-      stub_const("PopulateAllActivityHealthsWorker::INTERVAL", 5)
+      stub_const('PopulateAllActivityHealthsWorker::INTERVAL', 5)
 
       expect(PopulateActivityHealthWorker).to receive(:perform_in).with(0, activity.id).once
       expect(PopulateActivityHealthWorker).to_not receive(:perform_in).with(5, activity_archived.id)

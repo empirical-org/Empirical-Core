@@ -72,7 +72,7 @@ describe Cms::SchoolAdminsController do
         Sidekiq::Testing.inline! do
           post :create, params: { school_id: school1.id, email: admin1.email}
 
-          body_contains_expected_content = ActionMailer::Base.deliveries.last.encoded.include?("To receive access to premium features, please link your account")
+          body_contains_expected_content = ActionMailer::Base.deliveries.last.encoded.include?('To receive access to premium features, please link your account')
 
           expect(SchoolsAdmins.find_by_user_id(admin1.id)).to be
           expect(ActionMailer::Base.deliveries.last.subject).to eq("#{admin1.first_name}, you are now a Quill admin for #{school1.name}")
@@ -87,7 +87,7 @@ describe Cms::SchoolAdminsController do
           admin1.reload
           post :create, params: { school_id: school1.id, email: admin1.email}
 
-          body_contains_expected_content = !ActionMailer::Base.deliveries.last.encoded.include?("To receive access to premium features, please link your account")
+          body_contains_expected_content = !ActionMailer::Base.deliveries.last.encoded.include?('To receive access to premium features, please link your account')
           expect(SchoolsAdmins.find_by_user_id(admin1.id)).to be
           expect(ActionMailer::Base.deliveries.last.subject).to eq("#{admin1.first_name}, you are now a Quill admin for #{school1.name}")
           expect(ActionMailer::Base.deliveries.last.to).to eq([admin1.email])

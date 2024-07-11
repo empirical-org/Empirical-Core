@@ -39,19 +39,19 @@ module Evidence
     BUT_CONJUNCTION = 'but'
     SO_CONJUNCTION = 'so'
 
-    DEFAULT_BECAUSE_RULE_NAME = "Match with \"because of\" responses"
-    DEFAULT_BECAUSE_RULE_CONCEPT = "6gQZPREURQQAaSzpIt_EEw"
-    DEFAULT_BECAUSE_RULE_FEEDBACK = "Revise your work. Instead of starting your response with the word <i>of</i>, start with a person, place or thing."
-    DEFAULT_BECAUSE_RULE_REGEX = "^of "
+    DEFAULT_BECAUSE_RULE_NAME = 'Match with "because of" responses'
+    DEFAULT_BECAUSE_RULE_CONCEPT = '6gQZPREURQQAaSzpIt_EEw'
+    DEFAULT_BECAUSE_RULE_FEEDBACK = 'Revise your work. Instead of starting your response with the word <i>of</i>, start with a person, place or thing.'
+    DEFAULT_BECAUSE_RULE_REGEX = '^of '
 
-    DEFAULT_SO_RULE_NAME = "Match with \"so that\" responses"
-    DEFAULT_SO_RULE_CONCEPT = "R3sBcYAvoXP2_oNVXiA98g"
-    DEFAULT_SO_RULE_FEEDBACK = "Your response suggests a <i>so that</i> relationship, which explains a reason why something was done. Instead, use <i>so</i> to explain what happened as a result."
+    DEFAULT_SO_RULE_NAME = 'Match with "so that" responses'
+    DEFAULT_SO_RULE_CONCEPT = 'R3sBcYAvoXP2_oNVXiA98g'
+    DEFAULT_SO_RULE_FEEDBACK = 'Your response suggests a <i>so that</i> relationship, which explains a reason why something was done. Instead, use <i>so</i> to explain what happened as a result.'
     DEFAULT_SO_RULE_REGEX = "^that(?!('s | is why))"
     DEFAULT_SO_RULE_HINT_ID = 657
 
-    DEFAULT_REPEAT_STEM_RULE_NAME = "Repeating the stem"
-    DEFAULT_REPEAT_STEM_RULE_CONCEPT = "N5VXCdTAs91gP46gATuvPQ"
+    DEFAULT_REPEAT_STEM_RULE_NAME = 'Repeating the stem'
+    DEFAULT_REPEAT_STEM_RULE_CONCEPT = 'N5VXCdTAs91gP46gATuvPQ'
 
     before_destroy :expire_turking_rounds
     before_validation :set_parent_activity, on: :create
@@ -106,7 +106,7 @@ module Evidence
     end
 
     def change_log_name
-      "Evidence Activity"
+      'Evidence Activity'
     end
 
     def url
@@ -153,7 +153,7 @@ module Evidence
     end
 
     def stem
-      because_prompt&.text&.gsub(' because', '') || ""
+      because_prompt&.text&.gsub(' because', '') || ''
     end
 
     def because_prompt

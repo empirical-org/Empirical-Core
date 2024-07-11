@@ -17,7 +17,7 @@ class Rack::Attack
       # since .read flushes the StringIO object (results in empty params hitting the controller)
       # https://ruby-doc.org/stdlib-2.6.4/libdoc/stringio/rdoc/StringIO.html
       params = JSON.parse( req.body.string )
-      params['user']['email'].to_s.downcase.gsub(/\s+/, "")
+      params['user']['email'].to_s.downcase.gsub(/\s+/, '')
     end
   end
 

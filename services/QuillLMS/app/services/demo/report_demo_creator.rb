@@ -2,7 +2,7 @@
 
 module Demo::ReportDemoCreator
   EMAIL = 'hello+demoteacher@quill.org'
-  STAFF_DEMO_EMAIL = "hello+demoteacher+staff@quill.org"
+  STAFF_DEMO_EMAIL = 'hello+demoteacher+staff@quill.org'
 
   STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
 

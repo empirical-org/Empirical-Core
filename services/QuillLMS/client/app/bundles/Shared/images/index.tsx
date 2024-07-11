@@ -23,6 +23,16 @@ export const accountViewIcon = {
   alt: "Avatar with an eye next to it icon"
 }
 
+export const accountGreenIcon = {
+  src: `${process.env.CDN_URL}/images/icons/xs/account-green.svg`,
+  alt: "Green avatar icon"
+}
+
+export const accountGreyIcon = {
+  src: `${process.env.CDN_URL}/images/icons/xs/account.svg`,
+  alt: "Grey avatar icon"
+}
+
 export const demoViewIcon = {
   src: `${process.env.CDN_URL}/images/icons/s/teacher-account-view.svg`,
   alt: "Teacher preview icon"

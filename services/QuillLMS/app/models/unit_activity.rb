@@ -70,7 +70,7 @@ class UnitActivity < ApplicationRecord
     if due_date.present?
       "#{due_date.month}-#{due_date.day}-#{due_date.year}"
     else
-      ""
+      ''
     end
   end
 

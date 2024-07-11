@@ -24,9 +24,9 @@ module Evidence
           expect(response.status).to eq(200)
           expect(parsed_response.class).to(eq(Array))
           expect(parsed_response.empty?).to(eq(false))
-          expect(parsed_response.first["name"]).to(eq(hint.name))
-          expect(parsed_response.first["image_link"]).to(eq(hint.image_link))
-          expect(parsed_response.first["image_alt_text"]).to(eq(hint.image_alt_text))
+          expect(parsed_response.first['name']).to(eq(hint.name))
+          expect(parsed_response.first['image_link']).to(eq(hint.image_link))
+          expect(parsed_response.first['image_alt_text']).to(eq(hint.image_alt_text))
         end
       end
     end
@@ -39,10 +39,10 @@ module Evidence
           post(:create, :params => ({ :hint => ({ :name => hint.name, :image_link => hint.image_link, :image_alt_text => hint.image_alt_text, :explanation => hint.explanation }) }))
           parsed_response = JSON.parse(response.body)
           expect(response.code.to_i).to(eq(201))
-          expect(parsed_response["name"]).to(eq(hint.name))
-          expect(parsed_response["image_link"]).to(eq(hint.image_link))
-          expect(parsed_response["image_alt_text"]).to(eq(hint.image_alt_text))
-          expect(parsed_response["explanation"]).to(eq(hint.explanation))
+          expect(parsed_response['name']).to(eq(hint.name))
+          expect(parsed_response['image_link']).to(eq(hint.image_link))
+          expect(parsed_response['image_alt_text']).to(eq(hint.image_alt_text))
+          expect(parsed_response['explanation']).to(eq(hint.explanation))
         end.to change(Hint, :count).by(1)
       end
 
@@ -51,9 +51,9 @@ module Evidence
           post(:create, :params => ({ :hint => { :name => 'New Hint'} }))
           parsed_response = JSON.parse(response.body)
           expect(response.code.to_i).to(eq(422))
-          expect(parsed_response["image_link"]).to(include("can't be blank"))
-          expect(parsed_response["image_alt_text"]).to(include("can't be blank"))
-          expect(parsed_response["explanation"]).to(include("can't be blank"))
+          expect(parsed_response['image_link']).to(include("can't be blank"))
+          expect(parsed_response['image_alt_text']).to(include("can't be blank"))
+          expect(parsed_response['explanation']).to(include("can't be blank"))
         end.to change(Hint, :count).by(0)
       end
     end
@@ -65,10 +65,10 @@ module Evidence
         get(:show, :params => ({ :id => hint.id }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
-        expect(parsed_response["name"]).to(eq(hint.name))
-        expect(parsed_response["image_link"]).to(eq(hint.image_link))
-        expect(parsed_response["image_alt_text"]).to(eq(hint.image_alt_text))
-        expect(parsed_response["explanation"]).to(eq(hint.explanation))
+        expect(parsed_response['name']).to(eq(hint.name))
+        expect(parsed_response['image_link']).to(eq(hint.image_link))
+        expect(parsed_response['image_alt_text']).to(eq(hint.image_alt_text))
+        expect(parsed_response['explanation']).to(eq(hint.explanation))
       end
 
       it 'should raise if not found (to be handled by parent app)' do
@@ -83,7 +83,7 @@ module Evidence
         new_name = 'This is a new name'
         new_explanation = 'This is a new explanation'
         patch(:update, :params => ({ :id => hint.id, :hint => ({ :name => new_name, :explanation => new_explanation }) }))
-        expect(response.body).to(eq(""))
+        expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         hint.reload
         expect(hint.name).to(eq(new_name))
@@ -94,8 +94,8 @@ module Evidence
         patch(:update, :params => ({ :id => hint.id, :hint => ({ :name => nil, :explanation => nil }) }))
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
-        expect(parsed_response["name"]).to(include("can't be blank"))
-        expect(parsed_response["explanation"]).to(include("can't be blank"))
+        expect(parsed_response['name']).to(include("can't be blank"))
+        expect(parsed_response['explanation']).to(include("can't be blank"))
       end
     end
 
@@ -104,7 +104,7 @@ module Evidence
 
       it 'should destroy record at id' do
         delete(:destroy, :params => ({ :id => hint.id }))
-        expect(response.body).to(eq(""))
+        expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect(hint.id).to(be_truthy)
         expect(Hint.find_by_id(hint.id)).to(be_nil)

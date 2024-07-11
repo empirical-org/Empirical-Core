@@ -12,11 +12,11 @@ module Snapshots
         end
 
         def select_clause
-          "SELECT classrooms.id"
+          'SELECT classrooms.id'
         end
 
         def relevant_date_column
-          "classrooms.created_at"
+          'classrooms.created_at'
         end
       end
     end

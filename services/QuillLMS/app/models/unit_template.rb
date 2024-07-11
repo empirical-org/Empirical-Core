@@ -63,7 +63,7 @@ class UnitTemplate < ApplicationRecord
   DIAGNOSTIC = 'Diagnostic'
 
   def readability
-    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).reorder("raw_scores.order ASC")
+    activities_with_raw_scores = activities.joins(:raw_score).where.not(raw_score: nil).reorder('raw_scores.order ASC')
     return nil if activities_with_raw_scores.empty?
 
     lowest_raw_score_activity = activities_with_raw_scores.first
@@ -80,7 +80,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def meta_grade_description
-    return "school students" if grades.blank?
+    return 'school students' if grades.blank?
 
     levels = grades
       .sort_by(&:to_i)
@@ -105,7 +105,7 @@ class UnitTemplate < ApplicationRecord
   end
 
   def grade_level_range
-    activities_with_minimum_grade_levels = activities.where.not(minimum_grade_level: nil).reorder("minimum_grade_level ASC")
+    activities_with_minimum_grade_levels = activities.where.not(minimum_grade_level: nil).reorder('minimum_grade_level ASC')
     return nil if activities_with_minimum_grade_levels.empty?
 
     highest_grade_range_activity = activities_with_minimum_grade_levels.last
@@ -168,10 +168,10 @@ class UnitTemplate < ApplicationRecord
     results = {}
     activity_ids.map do |id|
       units = Unit.joins(:classroom_units, :unit_activities)
-        .where("classroom_units.classroom_id IN (?)", current_user&.classrooms_i_teach&.map(&:id))
-        .where("unit_activities.activity_id = ?", id)
-        .where("units.visible AND classroom_units.visible AND unit_activities.visible = ?", true)
-        .order("units.created_at")
+        .where('classroom_units.classroom_id IN (?)', current_user&.classrooms_i_teach&.map(&:id))
+        .where('unit_activities.activity_id = ?', id)
+        .where('units.visible AND classroom_units.visible AND unit_activities.visible = ?', true)
+        .order('units.created_at')
         .uniq
 
       next if units.empty?

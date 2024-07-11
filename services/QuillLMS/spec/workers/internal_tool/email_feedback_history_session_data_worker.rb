@@ -31,10 +31,10 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
       feedback_histories = FeedbackHistory.session_data_for_csv({activity_id: activity.id})
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
-      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
+      results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
 
-      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", csv_file_path)
-      described_class.new.perform(activity.id, nil, nil, nil, nil, "test@test.com")
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with('test@test.com', csv_file_path)
+      described_class.new.perform(activity.id, nil, nil, nil, nil, 'test@test.com')
     end
 
     it 'should fetch all feedback history sessions for that activity and between designated dates' do
@@ -43,29 +43,29 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
       feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, start_date: start_date, end_date: end_date})
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
-      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
+      results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
 
-      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", csv_file_path)
-      described_class.new.perform(activity.id, start_date, end_date, nil, nil, "test@test.com")
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with('test@test.com', csv_file_path)
+      described_class.new.perform(activity.id, start_date, end_date, nil, nil, 'test@test.com')
     end
 
     it 'should fetch all feedback history sessions for that activity that qualify for scoring' do
       feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true})
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
-      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
+      results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
 
-      expect(UserMailer).to receive(:feedback_history_session_csv_download).with("test@test.com", csv_file_path)
-      described_class.new.perform(activity.id, nil, nil, nil, true, "test@test.com")
+      expect(UserMailer).to receive(:feedback_history_session_csv_download).with('test@test.com', csv_file_path)
+      described_class.new.perform(activity.id, nil, nil, nil, true, 'test@test.com')
     end
 
     it 'should write to a csv with the results data' do
       feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true})
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
-      results.sort! { |a,b| b["datetime"] <=> a["datetime"] }
+      results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
 
-      described_class.new.perform(activity.id, nil, nil, nil, true, "test@test.com")
+      described_class.new.perform(activity.id, nil, nil, nil, true, 'test@test.com')
       expect(File.read(csv_file_path)).to eq(csv(results))
     end
   end
@@ -76,14 +76,14 @@ def csv(results)
     csv_body << InternalTool::EmailFeedbackHistorySessionDataWorker::FEEDBACK_HISTORY_CSV_HEADERS
     results.each do |row|
       csv_body << [
-        row["datetime"],
-        row["session_uid"],
-        row["conjunction"],
-        row["attempt"],
-        row["optimal"],
+        row['datetime'],
+        row['session_uid'],
+        row['conjunction'],
+        row['attempt'],
+        row['optimal'],
         row['optimal'] || row['attempt'] == InternalTool::EmailFeedbackHistorySessionDataWorker::DEFAULT_MAX_ATTEMPTS,
-        row["response"],
-        row["feedback"],
+        row['response'],
+        row['feedback'],
         "#{row['feedback_type']}: #{row['name']}"
       ]
     end

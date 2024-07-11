@@ -9,13 +9,13 @@ describe SessionsController, type: :controller do
     let!(:user) { create(:user) }
 
     before do
-      user.update(password: "test123")
+      user.update(password: 'test123')
       user.reload
     end
 
     context 'when user is nil' do
       it 'should report login failure' do
-        post :login_through_ajax, params: { user: { email: "test@whatever.com" } }, as: :json
+        post :login_through_ajax, params: { user: { email: 'test@whatever.com' } }, as: :json
         expect(response.body).to eq({message: 'An account with this email or username does not exist. Try again.', type: 'email'}.to_json)
       end
     end
@@ -66,7 +66,7 @@ describe SessionsController, type: :controller do
         end
 
         it 'should redirect to the value' do
-          post :login_through_ajax, params: { user: { email: user.email, password: "test123" } }, as: :json
+          post :login_through_ajax, params: { user: { email: user.email, password: 'test123' } }, as: :json
           expect(response.body).to eq({redirect: root_path}.to_json)
           expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq nil
         end
@@ -78,7 +78,7 @@ describe SessionsController, type: :controller do
             params: {
               user: {
                 email: user.email,
-                password: "test123"
+                password: 'test123'
               },
               redirect: root_path,
             },
@@ -95,14 +95,14 @@ describe SessionsController, type: :controller do
         end
 
         it 'should redirect to subscriptions path' do
-          post :login_through_ajax, params: { user: { email: user.email, password: "test123" } }, as: :json
+          post :login_through_ajax, params: { user: { email: user.email, password: 'test123' } }, as: :json
           expect(response.body).to eq({redirect: '/subscriptions'}.to_json)
         end
       end
 
       context 'when none of the above' do
         it 'should redirect to root path' do
-          post :login_through_ajax, params: { user: { email: user.email, password: "test123" } }, as: :json
+          post :login_through_ajax, params: { user: { email: user.email, password: 'test123' } }, as: :json
           expect(response.body).to eq({redirect: '/'}.to_json)
         end
       end
@@ -152,10 +152,10 @@ describe SessionsController, type: :controller do
 
   describe '#new' do
     it 'should set the js file, role in session and post auth redirect in session' do
-      session[:role] = "something"
-      session[ApplicationController::POST_AUTH_REDIRECT] = "something else"
+      session[:role] = 'something'
+      session[ApplicationController::POST_AUTH_REDIRECT] = 'something else'
       get :new, params: { redirect: root_path }
-      expect(assigns(:js_file)).to eq "login"
+      expect(assigns(:js_file)).to eq 'login'
       expect(session[:role]).to eq nil
       expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq root_path
     end
@@ -163,7 +163,7 @@ describe SessionsController, type: :controller do
 
   describe '#set post_auth_redirect' do
     it 'should save the post_auth_redirect param to the session' do
-      url = "/blah"
+      url = '/blah'
       get :set_post_auth_redirect, params: { post_auth_redirect: url }
       expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq url
     end
@@ -172,7 +172,7 @@ describe SessionsController, type: :controller do
   describe '#finish_sign_up' do
     context 'when there is a post auth redirect saved' do
       it 'should redirect to the post auth redirect and remove it from the session' do
-        url = "/blah"
+        url = '/blah'
         session[ApplicationController::POST_AUTH_REDIRECT] = url
         get :finish_sign_up
         expect(response).to redirect_to url

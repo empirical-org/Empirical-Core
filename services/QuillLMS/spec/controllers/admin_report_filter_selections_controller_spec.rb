@@ -30,10 +30,10 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  describe "POST #show" do
-    context "with valid params" do
+  describe 'POST #show' do
+    context 'with valid params' do
 
-      it "returns the requested admin report filter selection" do
+      it 'returns the requested admin report filter selection' do
         admin_report_filter_selection = create(:admin_report_filter_selection, valid_model_attributes)
 
         post :show, params: { admin_report_filter_selection: { report: admin_report_filter_selection.report } }
@@ -42,23 +42,23 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
       end
     end
 
-    context "with invalid params" do
-      it "returns null" do
+    context 'with invalid params' do
+      it 'returns null' do
         post :show, params: { admin_report_filter_selection: invalid_params }
         expect(JSON.parse(response.body)).to eq(nil)
       end
     end
   end
 
-  describe "POST #create_or_update" do
-    context "with valid params" do
-      it "creates a new AdminReportFilterSelection" do
+  describe 'POST #create_or_update' do
+    context 'with valid params' do
+      it 'creates a new AdminReportFilterSelection' do
         expect {
           post :create_or_update, params: { admin_report_filter_selection: valid_params }
         }.to change(AdminReportFilterSelection, :count).by(1)
       end
 
-      it "updates the filter selections for standard filters" do
+      it 'updates the filter selections for standard filters' do
         report = AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT
         last_week = 'last_week'
         admin_report_filter_selection = create(:admin_report_filter_selection, user: user, report: report, filter_selections: { 'timeframe' => { 'value' => last_week }, 'schools' => [{}] })
@@ -78,7 +78,7 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
           .and change { admin_report_filter_selection.reload.filter_selections['schools'][0]['name'] }.from(nil).to(school['name'])
       end
 
-      it "updates the filter selections for growth diagnostic dropdown filters" do
+      it 'updates the filter selections for growth diagnostic dropdown filters' do
         report = AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_SKILL
         grade_string = 'grade'
         classroom_string = 'classroom'
@@ -103,14 +103,14 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
           .and change { admin_report_filter_selection.reload.filter_selections['diagnostic_type_value']['value'] }.from(first_diagnostic_id).to(second_diagnostic_id)
       end
 
-      it "renders a JSON response with the admin report filter selection" do
+      it 'renders a JSON response with the admin report filter selection' do
         post :create_or_update, params: { admin_report_filter_selection: valid_params }
         expect(response).to have_http_status(:ok)
       end
     end
 
-    context "with invalid params" do
-      it "renders a JSON response with errors for the new admin report filter selection" do
+    context 'with invalid params' do
+      it 'renders a JSON response with errors for the new admin report filter selection' do
         post :create_or_update, params: { admin_report_filter_selection: invalid_params }
         expect(response).to have_http_status(:unprocessable_entity)
       end

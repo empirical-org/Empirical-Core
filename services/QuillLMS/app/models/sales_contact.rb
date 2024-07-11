@@ -19,5 +19,5 @@
 #
 class SalesContact < ApplicationRecord
   belongs_to :user
-  has_many :stages, class_name: "SalesStage", dependent: :destroy
+  has_many :stages, class_name: 'SalesStage', dependent: :destroy
 end

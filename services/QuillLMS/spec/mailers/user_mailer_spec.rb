@@ -8,26 +8,26 @@ describe UserMailer, type: :mailer do
   end
 
   describe 'invitation_to_non_existing_user' do
-    let(:invitation_hash) { { "inviter_name" => "test", "inviter_email" => "inviter@test.com", "invitee_email" => "invitee@test.com", classroom_names: ["classroom1"] } }
+    let(:invitation_hash) { { 'inviter_name' => 'test', 'inviter_email' => 'inviter@test.com', 'invitee_email' => 'invitee@test.com', classroom_names: ['classroom1'] } }
     let(:mail) { described_class.invitation_to_non_existing_user(invitation_hash) }
 
     it 'should set the subject, reply_to, receiver and the sender' do
       expect(mail.subject).to eq('test has invited you to co-teach on Quill.org!')
-      expect(mail.to).to eq(["invitee@test.com"])
+      expect(mail.to).to eq(['invitee@test.com'])
       expect(mail.from).to eq(['hello@quill.org'])
-      expect(mail.reply_to).to eq(["inviter@test.com"])
+      expect(mail.reply_to).to eq(['inviter@test.com'])
     end
   end
 
   describe 'invitation_to_existing_user' do
-    let(:invitation_hash) { { "inviter_name" => "test", "inviter_email" => "inviter@test.com", "invitee_email" => "invitee@test.com", classroom_names: ["classroom1"] } }
+    let(:invitation_hash) { { 'inviter_name' => 'test', 'inviter_email' => 'inviter@test.com', 'invitee_email' => 'invitee@test.com', classroom_names: ['classroom1'] } }
     let(:mail) { described_class.invitation_to_existing_user(invitation_hash) }
 
     it 'should set the subject, reply_to, receiver and the sender' do
       expect(mail.subject).to eq('test has invited you to co-teach on Quill.org!')
-      expect(mail.to).to eq(["invitee@test.com"])
+      expect(mail.to).to eq(['invitee@test.com'])
       expect(mail.from).to eq(['hello@quill.org'])
-      expect(mail.reply_to).to eq(["inviter@test.com"])
+      expect(mail.reply_to).to eq(['inviter@test.com'])
     end
   end
 
@@ -37,9 +37,9 @@ describe UserMailer, type: :mailer do
     it 'should set the subject, receiver and the sender' do
       user.refresh_token!
       mail = described_class.password_reset_email(user)
-      expect(mail.subject).to eq("Reset your Quill password")
+      expect(mail.subject).to eq('Reset your Quill password')
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
@@ -49,20 +49,20 @@ describe UserMailer, type: :mailer do
 
     it 'should set the subject, receiver and the sender' do
       mail = described_class.email_verification_email(user)
-      expect(mail.subject).to eq("Complete your Quill registration")
+      expect(mail.subject).to eq('Complete your Quill registration')
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
   describe 'account_created_email' do
     let(:user) { build(:user) }
-    let(:mail) { described_class.account_created_email(user, "test123", "admin") }
+    let(:mail) { described_class.account_created_email(user, 'test123', 'admin') }
 
     it 'should set the subject, receiver and the sender' do
-      expect(mail.subject).to eq("Welcome to Quill, An Administrator Created A Quill Account For You!")
+      expect(mail.subject).to eq('Welcome to Quill, An Administrator Created A Quill Account For You!')
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
@@ -74,7 +74,7 @@ describe UserMailer, type: :mailer do
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("#{user.first_name}, you need to link your account to your school")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
@@ -87,7 +87,7 @@ describe UserMailer, type: :mailer do
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("Next Steps for the Lessons in Your New Activity Pack, #{unit.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
@@ -99,7 +99,7 @@ describe UserMailer, type: :mailer do
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("#{user.first_name}, you are now an admin on Quill!")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
@@ -113,7 +113,7 @@ describe UserMailer, type: :mailer do
       it 'should set the subject, receiver and the sender' do
         expect(mail.subject).to eq("You were approved as an admin of #{school.name}")
         expect(mail.to).to eq([user.email])
-        expect(mail.from).to eq(["hello@quill.org"])
+        expect(mail.from).to eq(['hello@quill.org'])
       end
     end
 
@@ -123,7 +123,7 @@ describe UserMailer, type: :mailer do
       it 'should set the subject, receiver and the sender' do
         expect(mail.subject).to eq("We couldn’t verify you as an admin of #{school.name}")
         expect(mail.to).to eq([user.email])
-        expect(mail.from).to eq(["hello@quill.org"])
+        expect(mail.from).to eq(['hello@quill.org'])
       end
     end
 
@@ -149,7 +149,7 @@ describe UserMailer, type: :mailer do
       user.reload
       expect(mail.subject).to eq("#{user.name} requested to be verified as an admin for #{school.name}")
       expect(mail.to).to eq(['support@quill.org'])
-      expect(mail.from).to eq(["hello@quill.org"])
+      expect(mail.from).to eq(['hello@quill.org'])
     end
   end
 
@@ -170,8 +170,8 @@ describe UserMailer, type: :mailer do
     it 'should set the subject, receiver and the sender' do
       mail = UserMailer.daily_stats_email(date)
 
-      expect(mail.to).to eq(["team@quill.org"])
-      expect(mail.subject).to match("Quill Daily Analytics")
+      expect(mail.to).to eq(['team@quill.org'])
+      expect(mail.subject).to match('Quill Daily Analytics')
     end
   end
 
@@ -185,14 +185,14 @@ describe UserMailer, type: :mailer do
     let(:data) do
       [
         {
-          "datetime": "20220701",
-          "session_uid": "sessionuid",
-          "conjunction": "but",
-          "attempt": "1",
-          "optimal": "false",
-          "response": "this is a test response",
-          "feedback": "test feedback",
-          "feedback_type": "spelling"
+          "datetime": '20220701',
+          "session_uid": 'sessionuid',
+          "conjunction": 'but',
+          "attempt": '1',
+          "optimal": 'false',
+          "response": 'this is a test response',
+          "feedback": 'test feedback',
+          "feedback_type": 'spelling'
         }
       ]
     end
@@ -207,14 +207,14 @@ describe UserMailer, type: :mailer do
         data.each do |row|
           #  break up multiple parameter method into multiple lines for readability
           csv << [
-            row["datetime"],
-            row["session_uid"],
-            row["conjunction"],
-            row["attempt"],
-            row["optimal"],
+            row['datetime'],
+            row['session_uid'],
+            row['conjunction'],
+            row['attempt'],
+            row['optimal'],
             row['optimal'] || row['attempt'] == InternalTool::EmailFeedbackHistorySessionDataWorker::DEFAULT_MAX_ATTEMPTS,
-            row["response"],
-            row["feedback"],
+            row['response'],
+            row['feedback'],
             "#{row['feedback_type']}: #{row['name']}"
           ]
         end

@@ -29,7 +29,7 @@ namespace :vertex_ai  do
       rows_data << row_data
     end
 
-    CSV.open("vertex_backfill.csv", "wb") do |csv|
+    CSV.open('vertex_backfill.csv', 'wb') do |csv|
       csv << rows_data.first.keys
 
       rows_data.each do |row|

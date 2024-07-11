@@ -10,7 +10,7 @@ module Snapshots
     end
 
     def group_by_clause
-      "GROUP BY teacher_id, teacher_name"
+      'GROUP BY teacher_id, teacher_name'
     end
   end
 end

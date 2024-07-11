@@ -17,4 +17,8 @@ class EnglishText < ApplicationRecord
   def gengo_translation?(locale: Translatable::DEFAULT_LOCALE)
     gengo_jobs.where(locale:).present?
   end
+
+  def translated?(locale: Translatable::DEFAULT_LOCALE)
+    translated_texts.where(locale:).any?
+  end
 end

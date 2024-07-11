@@ -26,6 +26,6 @@ class ActivityTopic < ApplicationRecord
   validate :activity_topic_level_one_validator
 
   def activity_topic_level_one_validator
-    errors.add(:base, "Topics associated with Activities must be level one.") unless topic.present? && topic.level_one?
+    errors.add(:base, 'Topics associated with Activities must be level one.') unless topic.present? && topic.level_one?
   end
 end
