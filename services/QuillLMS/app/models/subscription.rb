@@ -328,6 +328,8 @@ class Subscription < ApplicationRecord
   end
 
   def length_in_months
+    return 0 if expiration.nil? || start_date.nil?
+
     ((expiration.year - start_date.year) * 12) + (expiration.month - start_date.month)
   end
 
