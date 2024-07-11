@@ -19,6 +19,7 @@ describe AddUuidToQuestionDataWorker do
 
     context 'question with an array type' do
       let(:data) { [{'text' => 'foo', 'feedback' => 'bar'}]}
+
       before do
         question.data[type] = data
         question.save
