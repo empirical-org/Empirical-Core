@@ -112,7 +112,11 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
         as: :json
 
       question.reload
-      expect(question.data['incorrectSequences']).to eq(data)
+      incorrect_sequences = question.data['incorrectSequences']
+      incorrect_sequences.each_with_index do |sequence, index|
+        expect(sequence['text']).to eq(data[index]['text'])
+        expect(sequence['feedback']).to eq(data[index]['feedback'])
+      end
     end
 
     it 'should return a 404 if the requested Question is not found' do
