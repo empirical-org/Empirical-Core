@@ -251,7 +251,7 @@ class Activity < ApplicationRecord
   end
 
   def data_as_json
-    translated_json({})
+    data
   end
 
   def self.translatable_field_name = 'landingPageHtml'
