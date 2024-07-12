@@ -59,7 +59,7 @@ RSpec.describe LearnWorldsIntegration::SSORequest do
         before { user.update(username: nil) }
 
         it do
-          expect(URI).to receive(:encode_www_form).with(data)
+          expect(URI).to receive(:encode_www_form).with(data.merge(username: user.name))
           subject
         end
       end
@@ -70,7 +70,7 @@ RSpec.describe LearnWorldsIntegration::SSORequest do
         before { user.update(username: '') }
 
         it do
-          expect(URI).to receive(:encode_www_form).with(data)
+          expect(URI).to receive(:encode_www_form).with(data.merge(username: user.name))
           subject
         end
       end
