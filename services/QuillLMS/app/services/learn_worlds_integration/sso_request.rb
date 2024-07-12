@@ -39,7 +39,7 @@ module LearnWorldsIntegration
       {
         email: email,
         redirectURL: COURSES_ENDPOINT,
-        username: username.presence || name
+        username: ::Utils::String.to_username(username.presence || name)
       }
     end
 

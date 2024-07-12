@@ -2,22 +2,18 @@
 
 namespace :learn_worlds do
   desc 'Convert existing LW usernames to Quill name'
-  task :backfill_username => :environment do
-    headers = {
-      'Lw-Client' => CLIENT_ID,
-      'Authorization' => "Bearer #{ACCESS_TOKEN}"
-    }
-
+  task :backfill_usernames => :environment do
     lw_users = LearnWorldsAccount.all
       .includes(:user)
       .filter {|row| row&.user }
 
-    lw_users.each do |user|
+    lw_users.each do |row|
       sleep 1
-      body = {username: user.username.presence || user.name }
+      puts "Backfilling user: #{row.user.name}"
+      body = {username: ::Utils::String.to_username(row.user.username.presence || row.user.name) }
 
       HTTParty.post(
-        "#{LearnWorldsIntegration::USER_TAGS_ENDPOINT}/#{user.external_id}",
+        "#{LearnWorldsIntegration::USER_TAGS_ENDPOINT}/#{row.external_id}",
         body:,
         headers: LearnWorldsIntegration::Request.new.headers
       )
