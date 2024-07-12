@@ -53,10 +53,10 @@ module VitallyIntegration
         active_students_all_time: active_students_all_time,
         activities_completed_this_year: activities_completed_this_year,
         activities_completed_last_year: activities_completed_last_year,
-        activities_completed_all_time: activities_completed_all_time,
+        activities_completed_all_time: activities_finished_query.count,
         activities_completed_per_student_this_year: active_students_this_year > 0 ? ((activities_completed_this_year.to_f / active_students_this_year).round(2)) : 0,
         activities_completed_per_student_last_year: active_students_last_year > 0 ? ((activities_completed_last_year.to_f / active_students_last_year).round(2)) : 0,
-        activities_completed_per_student_all_time: active_students_all_time > 0 ? ((activities_completed_all_time.to_f / active_students_all_time).round(2)) : 0,
+        activities_completed_per_student_all_time: active_students_all_time > 0 ? ((activities_finished_query.count.to_f / active_students_all_time).round(2)) : 0,
         last_active_time: last_active_time,
       }
     end
@@ -64,20 +64,43 @@ module VitallyIntegration
     def diagnostic_rollups
       school_year_start = School.school_year_start(Time.current)
 
-      diagnostics_assigned_this_year = diagnostics_assigned_between_count(school_year_start, school_year_start + 1.year)
-      diagnostics_assigned_last_year = diagnostics_assigned_between_count(school_year_start - 1.year, school_year_start)
+      diagnostics_assigned_this_year = diagnostics_assigned_between(school_year_start, school_year_start + 1.year)
+      diagnostics_assigned_this_year_count = sum_students(filter_diagnostics(diagnostics_assigned_this_year))
+      pre_diagnostics_assigned_this_year_count = sum_students(filter_pre_diagnostic(diagnostics_assigned_this_year))
+      post_diagnostics_assigned_this_year_count = sum_students(filter_post_diagnostic(diagnostics_assigned_this_year))
+
+      diagnostics_assigned_last_year = diagnostics_assigned_between(school_year_start - 1.year, school_year_start)
+      diagnostics_assigned_last_year_count = sum_students(diagnostics_assigned_last_year)
+      pre_diagnostics_assigned_last_year_count = sum_students(filter_pre_diagnostic(diagnostics_assigned_last_year))
+      post_diagnostics_assigned_last_year_count = sum_students(filter_post_diagnostic(diagnostics_assigned_last_year))
+
       diagnostics_completed_this_year = diagnostics_completed_between(school_year_start, school_year_start + 1.year)
       diagnostics_completed_last_year = diagnostics_completed_between(school_year_start - 1.year, school_year_start)
-      percent_completed_this_year = diagnostics_assigned_this_year > 0 ? (1.0 * diagnostics_completed_this_year / diagnostics_assigned_this_year) : 0.0
-      percent_completed_last_year = diagnostics_assigned_last_year > 0 ? (1.0 * diagnostics_completed_last_year / diagnostics_assigned_last_year) : 0.0
+      percent_completed_this_year = diagnostics_assigned_this_year_count > 0 ? (1.0 * diagnostics_completed_this_year.count / diagnostics_assigned_this_year_count) : 0.0
+      percent_completed_last_year = diagnostics_assigned_last_year_count > 0 ? (1.0 * diagnostics_completed_last_year.count / diagnostics_assigned_last_year_count) : 0.0
+
+      pre_diagnostics_completed_last_year_count = diagnostics_completed_last_year.where(activity: {id: Activity::PRE_TEST_DIAGNOSTIC_IDS}).count
+      post_diagnostics_completed_last_year_count = diagnostics_completed_last_year.where(activity: {id: POST_DIAGNOSTIC_IDS}).count
 
       {
-        diagnostics_assigned_this_year: diagnostics_assigned_this_year,
-        diagnostics_assigned_last_year: diagnostics_assigned_last_year,
-        diagnostics_completed_this_year: diagnostics_completed_this_year,
-        diagnostics_completed_last_year: diagnostics_completed_last_year,
+        diagnostics_assigned_this_year: diagnostics_assigned_this_year_count,
+        diagnostics_assigned_last_year: diagnostics_assigned_last_year_count,
+        diagnostics_completed_this_year: diagnostics_completed_this_year.count,
+        diagnostics_completed_last_year: diagnostics_completed_last_year.count,
         percent_diagnostics_completed_this_year: percent_completed_this_year,
-        percent_diagnostics_completed_last_year: percent_completed_last_year
+        percent_diagnostics_completed_last_year: percent_completed_last_year,
+        pre_diagnostics_assigned_this_year: pre_diagnostics_assigned_this_year_count,
+        pre_diagnostics_completed_this_year: pre_diagnostics_completed_in_year_count,
+        pre_diagnostics_assigned_last_year: pre_diagnostics_assigned_last_year_count,
+        pre_diagnostics_completed_last_year: pre_diagnostics_completed_last_year_count,
+        pre_diagnostics_assigned_all_time: pre_diagnostics_assigned_count,
+        pre_diagnostics_completed_all_time: pre_diagnostics_completed(district).count,
+        post_diagnostics_assigned_this_year: post_diagnostics_assigned_this_year_count,
+        post_diagnostics_completed_this_year: post_diagnostics_completed_in_year_count,
+        post_diagnostics_assigned_last_year: post_diagnostics_assigned_last_year_count,
+        post_diagnostics_completed_last_year: post_diagnostics_completed_last_year_count,
+        post_diagnostics_assigned_all_time: post_diagnostics_assigned_count,
+        post_diagnostics_completed_all_time: post_diagnostics_completed(district).count
       }
     end
 
@@ -117,59 +140,41 @@ module VitallyIntegration
       }
     end
 
-    def diagnostics_assigned_between_count(start, stop)
-      district.schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
-        .joins(users: {
-        classrooms_i_teach: {
-          classroom_units: {
-            unit_activities: {
-            activity: :classification
-            }
-          }
-        }
-      }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
+    def diagnostics_assigned_between(start, stop)
+      activities_assigned_query
+        .where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
         .where(classroom_units: {created_at: start..stop})
-        .map(&:assigned_students).reject(&:blank?).sum
     end
 
     def diagnostics_completed_between(start, stop)
-      district.schools.joins(users: {
-        classrooms_i_teach: {
-          classroom_units: {
-            activity_sessions: {
-              activity: :classification
-            }
-          }
-        }
-      }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
+      activities_finished_query
+        .where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
         .where(activity_sessions: {completed_at: start..stop})
-        .distinct
-        .count
     end
 
     def active_students(start_date=nil, end_date=nil)
-      return activities_completed_all_time.group("students.id").length if start_date.blank? && end_date.blank?
+      return activities_finished_query.group("students.id").length if start_date.blank? && end_date.blank?
 
       if start_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
+        filtered_results = activities_finished_query.where("activity_sessions.completed_at >= ?", start_date).group("students.id")
       end
 
       if end_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at <= ?", end_date).group("students.id")
+        filtered_results = activities_finished_query.where("activity_sessions.completed_at <= ?", end_date).group("students.id")
       end
 
       filtered_results.length
     end
 
     def activities_completed(start_date=nil, end_date=nil)
-      return activities_completed_all_time.count if start_date.blank? && end_date.blank?
+      return activities_finished_query.count if start_date.blank? && end_date.blank?
 
       if start_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at >= ?", start_date)
+        filtered_results = activities_finished_query.where("activity_sessions.completed_at >= ?", start_date)
       end
 
       if end_date.present?
-        filtered_results = activities_completed_all_time.where("activity_sessions.completed_at <= ?", end_date)
+        filtered_results = activities_finished_query.where("activity_sessions.completed_at <= ?", end_date)
       end
 
       filtered_results.count
@@ -186,25 +191,20 @@ module VitallyIntegration
         &.last_sign_in
     end
 
-    def activities_completed_all_time
+    def activities_finished_query(d = nil)
       @activities_completed ||= ClassroomsTeacher.select("students.id")
         .joins([user: [schools_users: [school: :district]]])
-        .joins([classroom: [classroom_units: :activity_sessions]])
+        .joins([classroom: [classroom_units: [activity_sessions: [activity: :classification]]]])
         .joins("JOIN users students on students.id = activity_sessions.user_id")
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
 
-    def activities_assigned_query(district)
-      ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
+    def activities_assigned_query(d = nil)
+      @activities_assigned ||= ClassroomUnit
+        .joins(classroom: {teachers: {school: :district}}, unit_activities: {activity: :classification})
         .where("districts.id = ?", district.id)
         .select("assigned_student_ids", "activities.id", "unit_activities.created_at")
-    end
-
-    def activities_finished_query(district)
-      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
-        .where("districts.id = ?", district.id)
-        .where('activity_sessions.state = ?', 'finished')
     end
 
     private def latest_subscription

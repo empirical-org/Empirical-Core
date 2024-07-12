@@ -12,7 +12,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:district) { create(:district) }
     let!(:school1) { create(:school, district: district) }
     let!(:teacher1) { create(:teacher, school: school1) }
-    let!(:classroom1) { create(:classroom) }
+    let!(:classroom1) { create(:classroom, visible: false) }
     let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1) }
     let!(:student1) { create(:student, student_in_classroom: [classroom1]) }
     let!(:student2) { create(:student, student_in_classroom: [classroom1]) }
@@ -38,6 +38,18 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           diagnostics_assigned_last_year: 0,
           diagnostics_completed_this_year: 0,
           diagnostics_completed_last_year: 0,
+          pre_diagnostics_assigned_this_year: 0,
+          pre_diagnostics_completed_this_year: 0,
+          pre_diagnostics_assigned_last_year: 0,
+          pre_diagnostics_completed_last_year: 0,
+          pre_diagnostics_assigned_all_time: 0,
+          pre_diagnostics_completed_all_time: 0,
+          post_diagnostics_assigned_this_year: 0,
+          post_diagnostics_completed_this_year: 0,
+          post_diagnostics_assigned_last_year: 0,
+          post_diagnostics_completed_last_year: 0,
+          post_diagnostics_assigned_all_time: 0,
+          post_diagnostics_completed_all_time: 0,
           evidence_activities_assigned_all_time: 0,
           evidence_activities_assigned_this_year: 0,
           evidence_activities_assigned_last_year: 0,
@@ -69,6 +81,10 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     end
 
     context 'diagnostic assignment rollups' do
+      before do
+        stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic.id])
+      end
+
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
 
       it 'should roll up diagnostic data when diagnostics are assigned, but not completed' do
@@ -109,12 +125,89 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           diagnostics_assigned_last_year: 0
         )
       end
+
+      it 'should roll up pre-diagnostic data' do
+        create(:activity_session,
+          classroom_unit: classroom_unit,
+          activity: pre_diagnostic,
+          user: student1,
+          state: 'finished',
+          completed_at: Time.current
+        )
+
+        last_school_year_time = School.school_year_start(Time.current) - 2.days
+        last_year_unit = create(:unit, activities: [pre_diagnostic])
+        last_year_classroom_unit = create(:classroom_unit, classroom: classroom1, unit: last_year_unit, assigned_student_ids: [student1.id], created_at: last_school_year_time)
+        create(:activity_session,
+          classroom_unit: last_year_classroom_unit,
+          activity: pre_diagnostic,
+          user: student1,
+          state: 'finished',
+          completed_at: last_school_year_time
+        )
+
+        expect(described_class.new(district).data[:traits]).to include(
+          pre_diagnostics_assigned_this_year: 2,
+          pre_diagnostics_completed_this_year: 1,
+          pre_diagnostics_assigned_last_year: 1,
+          pre_diagnostics_completed_last_year: 1,
+          pre_diagnostics_assigned_all_time: 3,
+          pre_diagnostics_completed_all_time: 2
+        )
+      end
+
+      it 'should roll up post-diagnostic data' do
+        student3 = create(:student, student_in_classroom: [classroom1])
+        this_year_unit = create(:unit, activities: [post_diagnostic])
+        this_year_classroom_unit = create(:classroom_unit, classroom: classroom1, unit: this_year_unit, assigned_student_ids: [student1.id, student2.id, student3.id])
+        create(:activity_session,
+          classroom_unit: this_year_classroom_unit,
+          activity: post_diagnostic,
+          user: student1,
+          state: 'finished',
+          completed_at: Time.current
+        )
+        create(:activity_session,
+          classroom_unit: this_year_classroom_unit,
+          activity: post_diagnostic,
+          user: student2,
+          state: 'finished',
+          completed_at: Time.current - 2.days
+        )
+        create(:activity_session,
+          classroom_unit: this_year_classroom_unit,
+          activity: post_diagnostic,
+          user: student3,
+          state: 'finished',
+          completed_at: Time.current - 2.days
+        )
+
+
+        last_school_year_time = School.school_year_start(Time.current) - 2.days
+        last_year_unit = create(:unit, activities: [pre_diagnostic])
+        last_year_classroom_unit = create(:classroom_unit, classroom: classroom1, unit: last_year_unit, assigned_student_ids: [student1.id, student2.id], created_at: last_school_year_time)
+        create(:activity_session,
+          classroom_unit: last_year_classroom_unit,
+          activity: post_diagnostic,
+          user: student1,
+          state: 'finished',
+          completed_at: last_school_year_time
+        )
+
+        expect(described_class.new(district).data[:traits]).to include(
+          post_diagnostics_assigned_this_year: 3,
+          post_diagnostics_completed_this_year: 3,
+          post_diagnostics_assigned_last_year: 2,
+          post_diagnostics_completed_last_year: 1,
+          post_diagnostics_assigned_all_time: 5,
+          post_diagnostics_completed_all_time: 4
+        )
+      end
     end
 
     context 'diagnostic completion rollups' do
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
       let!(:activity_session1) { create(:activity_session, activity: pre_diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
-
       it 'should roll up diagnostic completions this year' do
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 1,

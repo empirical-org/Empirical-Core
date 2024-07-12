@@ -20,6 +20,11 @@ module VitallySharedFunctions
     activities.select {|r| evidence_ids.include?(r.id) }
   end
 
+  def filter_diagnostics(activities)
+    diagnostic_ids = Activity.where(activity_classification_id: ActivityClassification.diagnostic.id).pluck(:id)
+    activities.select {|r| diagnostic_ids.include?(r.id) }
+  end
+
   def filter_pre_diagnostic(activities)
     activities.select {|r| Activity::PRE_TEST_DIAGNOSTIC_IDS.include?(r.id) }
   end
@@ -56,12 +61,24 @@ module VitallySharedFunctions
     post_diagnostics_completed(entity).where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
   end
 
+  def pre_diagnostics_assigned_count
+    sum_students(filter_pre_diagnostic((activities_assigned_query(entity))))
+  end
+
+  def post_diagnostics_assigned_count
+    sum_students(filter_post_diagnostic((activities_assigned_query(entity))))
+  end
+
+  def diagnostics_completed(entity)
+    activities_finished_query(entity).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
+  end
+
   private def pre_diagnostics_completed(entity)
-    activities_finished_query(entity).where("activities.id IN (?)", Activity::PRE_TEST_DIAGNOSTIC_IDS)
+    activities_finished_query(entity).where(activity: {id: Activity::PRE_TEST_DIAGNOSTIC_IDS})
   end
 
   private def post_diagnostics_completed(entity)
-    activities_finished_query(entity).where("activities.id IN (?)", POST_DIAGNOSTIC_IDS)
+    activities_finished_query(entity).where(activity: {id: POST_DIAGNOSTIC_IDS})
   end
 
   private def evidence_assigned_count(entity)
@@ -69,7 +86,7 @@ module VitallySharedFunctions
   end
 
   private def evidence_finished(entity)
-    activities_finished_query(entity).where("activities.activity_classification_id=?", ActivityClassification.evidence.id)
+    activities_finished_query(entity).where(classification: {key: ActivityClassification::EVIDENCE_KEY})
   end
 
   private def evidence_completed_this_year_count
