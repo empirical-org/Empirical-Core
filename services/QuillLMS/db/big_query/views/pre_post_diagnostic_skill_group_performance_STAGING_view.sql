@@ -27,7 +27,7 @@ SELECT
         activities.follow_up_activity_id AS post_activity_id,
         skill_groups.id AS skill_group_id,
         skill_groups.name AS skill_group_name,
-        SUM(CAST(question_scores.correct AS int64)) questions_correct,
+        SUM(CAST(question_scores.correct AS int64)) AS questions_correct,
         COUNT(DISTINCT question_scores.question_number) AS questions_total,
         classroom_units.classroom_id AS classroom_id,
         CAST(assigned_student_id AS int64) AS student_id,
@@ -56,14 +56,19 @@ SELECT
             concept_results.activity_session_id,
             STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) AS question_uid,
             concept_results.question_number,
-            (
-              COUNT(diagnostic_question_optimal_concepts.id) > 0 AND
-              LOGICAL_AND(CASE WHEN diagnostic_question_optimal_concepts.id IS NOT NULL THEN concept_results.correct END)
-            ) AS correct
+            /* Old diagnostics use a more complicated way of scoring questions than new ones */
+            CASE WHEN activity_sessions.activity_id IN (1663,1668,1678,1161,1568,1590,992,1229,1230,1432)
+              THEN (
+                COUNT(diagnostic_question_optimal_concepts.id) > 0 AND
+                LOGICAL_AND(CASE WHEN diagnostic_question_optimal_concepts.id IS NOT NULL THEN concept_results.correct END)
+              )
+              ELSE LOGICAL_AND(concept_results.correct)
+            END AS correct
           FROM lms.concept_results AS concept_results
+          JOIN lms.activity_sessions ON concept_results.activity_session_id = activity_sessions.id
           LEFT OUTER JOIN lms.diagnostic_question_optimal_concepts ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = diagnostic_question_optimal_concepts.question_uid AND concept_results.concept_id = diagnostic_question_optimal_concepts.concept_id
-        WHERE concept_results.attempt_number IS NULL
-        GROUP BY concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
+          WHERE concept_results.attempt_number IS NULL
+          GROUP BY activity_sessions.activity_id, concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
       ) AS question_scores ON activity_sessions.id = question_scores.activity_session_id
       LEFT OUTER JOIN lms.questions ON question_scores.question_uid = questions.uid
       LEFT OUTER JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
@@ -121,19 +126,24 @@ SELECT
             AND most_recent.activity_id = activity_sessions.activity_id
             AND most_recent.completed_at = activity_sessions.completed_at
       ) AS activity_sessions ON activity_sessions.classroom_unit_id = classroom_units.id AND activity_sessions.user_id = CAST(assigned_student_id AS int64) AND activity_sessions.activity_id = activities.follow_up_activity_id AND activity_sessions.visible = true
-            LEFT OUTER JOIN (
+      LEFT OUTER JOIN (
         SELECT
             concept_results.activity_session_id,
             STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) AS question_uid,
             concept_results.question_number,
-            (
-              COUNT(diagnostic_question_optimal_concepts.id) > 0 AND
-              LOGICAL_AND(CASE WHEN diagnostic_question_optimal_concepts.id IS NOT NULL THEN concept_results.correct END)
-            ) AS correct
+            /* Old diagnostics use a more complicated way of scoring questions than new ones */
+            CASE WHEN activity_sessions.activity_id IN (1664, 1680, 1669, 1774, 1814, 1818)
+              THEN (
+                COUNT(diagnostic_question_optimal_concepts.id) > 0 AND
+                LOGICAL_AND(CASE WHEN diagnostic_question_optimal_concepts.id IS NOT NULL THEN concept_results.correct END)
+              )
+              ELSE LOGICAL_AND(concept_results.correct)
+            END AS correct
           FROM lms.concept_results AS concept_results
+          JOIN lms.activity_sessions ON concept_results.activity_session_id = activity_sessions.id
           LEFT OUTER JOIN lms.diagnostic_question_optimal_concepts ON STRING(PARSE_JSON(concept_results.extra_metadata).question_uid) = diagnostic_question_optimal_concepts.question_uid AND concept_results.concept_id = diagnostic_question_optimal_concepts.concept_id
-        WHERE concept_results.attempt_number IS NULL
-        GROUP BY concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
+          WHERE concept_results.attempt_number IS NULL
+          GROUP BY activity_sessions.activity_id, concept_results.activity_session_id, concept_results.extra_metadata, concept_results.question_number
       ) AS question_scores ON activity_sessions.id = question_scores.activity_session_id
       LEFT OUTER JOIN lms.questions ON question_scores.question_uid = questions.uid
       LEFT OUTER JOIN lms.diagnostic_question_skills ON questions.id = diagnostic_question_skills.question_id
