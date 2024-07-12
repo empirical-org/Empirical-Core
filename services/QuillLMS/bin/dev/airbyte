@@ -13,7 +13,7 @@ INSTANCES = {
     tables: "classrooms classroom_units provider_classroom_users  students_classrooms unit_activities"
   },
   3 => {
-    name: 'airbyte-0-43-0',
+    name: 'airbyte-ivory',
     port: 8003,
     tables: "all_other_tables"
   },
