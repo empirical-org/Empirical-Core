@@ -14,6 +14,7 @@
 #
 class TranslatedText < ApplicationRecord
   validates :source_api, presence: true, inclusion: { in: Translatable::SOURCES }
+  validates :translation, presence: true
   belongs_to :english_text
   has_many :translation_mappings, through: :english_text
 
