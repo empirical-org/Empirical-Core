@@ -4,8 +4,6 @@ module Evidence
   module Research
     module GenAI
       module TrialsHelper
-        EASTERN_TIME_ZONE = 'Eastern Time (US & Canada)'
-
         def percent_complete(trial) = (trial.llm_examples.count.to_f / trial.test_examples_count * 100)&.round
 
         def progress(trial)

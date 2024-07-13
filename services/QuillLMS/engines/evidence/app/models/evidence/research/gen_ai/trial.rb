@@ -64,6 +64,13 @@ module Evidence
         def optimal_correct = confusion_matrix ? confusion_matrix[0][0] : 0
         def suboptimal_correct = confusion_matrix ? confusion_matrix[1][1] : 0
 
+        def average_g_eval_score
+          scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
+          return 0 if scores.blank?
+
+          (scores.sum / scores.size).round(2)
+        end
+
         def run
           start_time = Time.zone.now
 

@@ -16,7 +16,7 @@ module Evidence
         private def g_evals
           trial.g_eval_ids&.index_with do |g_eval_id|
             llm_examples.map do |llm_example|
-              GEvalRunner.run(g_eval_id:, llm_example:)
+              GEvalRunner.run(g_eval_id:, llm_example:)&.to_f
             end
           end
         end

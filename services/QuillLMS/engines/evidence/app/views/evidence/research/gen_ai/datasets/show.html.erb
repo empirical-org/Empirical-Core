@@ -36,6 +36,7 @@
             <th>Optimal Accuracy</th>
             <th>Sub-Optimal Accuracy</th>
             <th>Model</th>
+            <th>GEval Average</th>
             <th>Status</th>
             <th>Actions</th>
             <th>Compare</th>
@@ -55,6 +56,7 @@
               <td><%= percent_accuracy(trial.optimal_correct, trial.optimal_count) %></td>
               <td><%= percent_accuracy(trial.suboptimal_correct, trial.suboptimal_count) %></td>
               <td><%= trial.llm.version %></td>
+              <td><%= trial.average_g_eval_score %></td>
               <td><%= trial.status %></td>
               <td><%= link_to "View", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
               <td><%= check_box_tag 'trial_ids[]', trial.id, false, class: 'compare-checkbox' %></td>
