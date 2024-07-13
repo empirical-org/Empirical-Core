@@ -59,6 +59,7 @@ Evidence::Engine.routes.draw do
         end
 
         resources :comparisons, only: [:create, :show]
+        resources :prompt_examples, only: [:new, :create]
       end
 
       resources :activities, only: [:new, :create, :show, :index] do

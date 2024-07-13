@@ -61,6 +61,7 @@ module Evidence
         def pending? = status == PENDING
         def failed? = status == FAILED
         def running? = status == RUNNING
+        def completed? = status == COMPLETED
 
         def run
           start_time = Time.zone.now
