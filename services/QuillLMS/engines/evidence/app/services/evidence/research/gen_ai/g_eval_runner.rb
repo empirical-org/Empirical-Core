@@ -23,7 +23,7 @@ module Evidence
 
         private def stem = test_example.dataset.stem_vault.stem
 
-        private def ideal_feedback = test_example.staff_feedback
+        private def ideal_feedback = test_example.curriculum_proposed_feedback
 
         private def test_example = @test_example ||= llm_example.test_example
 

@@ -6,9 +6,9 @@
  <div class="field-spacing">
     <%= f.label :assigned_status, "Assigned Status:" %>
     <div>
-      <% @staff_assigned_statuses.each do |staff_assigned_status| %>
-        <%= f.radio_button :staff_assigned_status, staff_assigned_status %>
-        <%= f.label :staff_assigned_status, staff_assigned_status, value: staff_assigned_status %><br>
+      <% @curriculum_assigned_statuses.each do |curriculum_assigned_status| %>
+        <%= f.radio_button :curriculum_assigned_status, curriculum_assigned_status %>
+        <%= f.label :curriculum_assigned_status, curriculum_assigned_status, value: curriculum_assigned_status %><br>
       <% end %>
     </div>
   </div>

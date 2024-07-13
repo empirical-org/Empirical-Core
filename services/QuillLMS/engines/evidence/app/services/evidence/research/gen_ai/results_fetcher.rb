@@ -18,7 +18,7 @@ module Evidence
           @trial = trial
           @llm_examples = trial.llm_examples
           @predictions = llm_examples.map(&:llm_feedback)
-          @references = llm_examples.map(&:test_example).map(&:staff_feedback)
+          @references = llm_examples.map(&:test_example).map(&:curriculum_proposed_feedback)
         end
 
         def run

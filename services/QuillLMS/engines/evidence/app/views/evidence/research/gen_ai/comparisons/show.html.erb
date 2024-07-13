@@ -84,7 +84,7 @@
             <%= test_example.student_response %>
           </td>
           <td class='dark-border'>
-            <%= test_example.staff_feedback %>
+            <%= test_example.curriculum_proposed_feedback %>
           </td>
           <% @trials.each do |trial| %>
             <% llm_example = trial.llm_examples.find_by(test_example:) %>

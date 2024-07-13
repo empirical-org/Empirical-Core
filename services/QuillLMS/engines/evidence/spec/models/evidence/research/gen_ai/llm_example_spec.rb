@@ -44,11 +44,11 @@ module Evidence
           let(:optimal) { described_class::OPTIMAL }
           let(:suboptimal) { described_class::SUBOPTIMAL }
 
-          let(:test_example) { create(:evidence_research_gen_ai_test_example, staff_assigned_status:) }
+          let(:test_example) { create(:evidence_research_gen_ai_test_example, curriculum_assigned_status:) }
           let(:llm_example) { create(factory, test_example: test_example, llm_assigned_status:) }
 
           context 'test example is optimal' do
-            let(:staff_assigned_status) { optimal }
+            let(:curriculum_assigned_status) { optimal }
 
             context 'llm example is optimal' do
               let(:llm_assigned_status) { optimal }
@@ -64,7 +64,7 @@ module Evidence
           end
 
           context 'test example is suboptimal' do
-            let(:staff_assigned_status) { suboptimal }
+            let(:curriculum_assigned_status) { suboptimal }
 
             context 'llm example is optimal' do
               let(:llm_assigned_status) { optimal }

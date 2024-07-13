@@ -20,15 +20,16 @@ module Evidence
           CSV.parse(file.read, headers: true) do |row|
             curriculum_assigned_optimal_status = row['Curriculum Assigned Optimal Status'] == 'TRUE'
             curriculum_assigned_status = curriculum_assigned_optimal_status ? HasAssignedStatus::OPTIMAL : HasAssignedStatus::SUBOPTIMAL
+            data_partition = row['Data Partition']
 
             example_attrs = {
               automl_label: row['Optional - AutoML Label'],
               automl_primary_feedback: row['Optional - AutoML Primary Feedback'],
               automl_secondary_feedback: row['Optional - AutoML Secondary Feedback'],
-              data_partition: row['Data Partition'],
               curriculum_assigned_status:,
-              curriculum_label: row['Curriculum Label'],
+              curriculum_label: row['Optional - Curriculum Label'],
               curriculum_proposed_feedback: row['Curriculum Proposed Feedback'],
+              highlight: row['Optional - Highlight'],
               student_response: row['Student Response'],
             }
 

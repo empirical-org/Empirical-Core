@@ -3115,7 +3115,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
-    staff_assigned_status character varying NOT NULL,
+    curriculum_assigned_status character varying NOT NULL,
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -3351,10 +3351,15 @@ CREATE TABLE public.evidence_research_gen_ai_prompt_examples (
     id bigint NOT NULL,
     dataset_id integer NOT NULL,
     student_response text NOT NULL,
-    staff_assigned_status character varying NOT NULL,
-    staff_feedback text,
+    curriculum_assigned_status character varying NOT NULL,
+    curriculum_proposed_feedback text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    curriculum_label character varying,
+    highlight text,
+    automl_label text,
+    automl_primary_feedback text,
+    automl_secondary_feedback text
 );
 
 
@@ -3517,14 +3522,15 @@ CREATE TABLE public.evidence_research_gen_ai_test_examples (
     id bigint NOT NULL,
     dataset_id integer NOT NULL,
     student_response text NOT NULL,
-    staff_assigned_status character varying NOT NULL,
-    staff_feedback text,
+    curriculum_assigned_status character varying NOT NULL,
+    curriculum_proposed_feedback text,
     highlight text,
-    automl_feedback text,
-    automl_status character varying,
-    topic_tag character varying,
+    automl_primary_feedback text,
+    automl_label character varying,
+    curriculum_label character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    automl_secondary_feedback text
 );
 
 
@@ -12078,6 +12084,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240626142949'),
 ('20240627001654'),
 ('20240627002601'),
-('20240701180742');
+('20240701180742'),
+('20240713144717');
 
 
