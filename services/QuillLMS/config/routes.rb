@@ -822,7 +822,6 @@ EmpiricalGrammar::Application.routes.draw do
     locker
     quill_academy
     teacher_premium
-    translations
   )
 
   all_pages = other_pages
