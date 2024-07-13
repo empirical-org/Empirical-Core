@@ -18,17 +18,25 @@ module Evidence
           suboptimal_count = 0
 
           CSV.parse(file.read, headers: true) do |row|
-            student_response = row['Student Response']
-            data_partition = row['data_partition']
-            topic_tag = row['label']
-            staff_assigned_status = topic_tag == 'Optimal' ? HasAssignedStatus::OPTIMAL : HasAssignedStatus::SUBOPTIMAL
-            staff_feedback = row['Proposed Feedback']
+            curriculum_assigned_optimal_status = row['Curriculum Assigned Optimal Status'] == 'TRUE'
+            curriculum_assigned_status = curriculum_assigned_optimal_status ? HasAssignedStatus::OPTIMAL : HasAssignedStatus::SUBOPTIMAL
+
+            example_attrs = {
+              automl_label: row['Optional - AutoML Label'],
+              automl_primary_feedback: row['Optional - AutoML Primary Feedback'],
+              automl_secondary_feedback: row['Optional - AutoML Secondary Feedback'],
+              data_partition: row['Data Partition'],
+              curriculum_assigned_status:,
+              curriculum_label: row['Curriculum Label'],
+              curriculum_proposed_feedback: row['Curriculum Proposed Feedback'],
+              student_response: row['Student Response'],
+            }
 
             if data_partition == 'test'
-              staff_assigned_status == HasAssignedStatus::OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
-              dataset.test_examples.create!(student_response:, staff_assigned_status:, staff_feedback:, topic_tag:)
+              curriculum_assigned_status == HasAssignedStatus::OPTIMAL ? optimal_count += 1 : suboptimal_count += 1
+              dataset.test_examples.create!(example_attrs)
             elsif data_partition == 'prompt'
-              dataset.prompt_examples.create!(student_response:, staff_assigned_status:, staff_feedback:)
+              dataset.prompt_examples.create!(example_attrs)
             end
           end
 
