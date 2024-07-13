@@ -30,7 +30,7 @@
   </div>
 
   <br>
-  <div class="field-spacing">
+  <div class="field-spacing optimal-section">
     <h3>
       Optimal Guidelines
       <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
@@ -64,7 +64,7 @@
   </div>
 
   <br>
-  <div class="field-spacing">
+  <div class="field-spacing suboptimal-section">
     <h3>
       Sub-Optimal Guidelines
       <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
@@ -98,7 +98,7 @@
   </div>
 
   <br>
-  <div class="field-spacing">
+  <div class="field-spacing optimal-section">
     <h3>
       Optimal Examples
       <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
@@ -134,7 +134,8 @@
   </div>
 
   <br>
-  <div class="field-spacing">
+
+  <div class="field-spacing suboptimal-section">
     <h3>
       Sub-optimal Responses with Feedback
       <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
@@ -180,6 +181,49 @@
   }
   .created-column {
     width: 25px;
+  }
+  .optimal-section {
+    background-color: #e6f3e6; /* Light green */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .suboptimal-section {
+    background-color: #fff0e6; /* Light orange */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .optimal-section h3,
+  .suboptimal-section h3 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+  }
+
+  .optimal-section h3 {
+    color: #2e8b57; /* Sea Green */
+  }
+
+  .suboptimal-section h3 {
+    color: #ff8c00; /* Dark Orange */
+  }
+
+  table {
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
   }
 </style>
 
