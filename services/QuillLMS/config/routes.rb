@@ -84,6 +84,12 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :student_feedback_responses, only: [:create]
 
+  resources :translated_texts, only: [:index, :update] do
+    collection do
+      get :download_csv
+    end
+  end
+
   namespace :stripe_integration do
     post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
     post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
