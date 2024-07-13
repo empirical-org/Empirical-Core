@@ -12,7 +12,7 @@
         %>
       <% end %>
     </h2>
-    <p><%= eastern_datetime(@trial.created_at) %></p>
+    <p><%= datetime_helper(@trial.created_at) %></p>
 
     <h3>Stem Vault</h3>
     <p><%= @trial.stem_vault %></p>
@@ -48,7 +48,6 @@
     <% elsif @trial.completed? %>
       <p>You can make a comparison with another trial <a href="<%= research_gen_ai_dataset_path(@dataset) %>">here</a></p>
       <% if @trial.api_call_times %>
-        <p>Optimal match: <%= @trial.accuracy_optimal_suboptimal&.round(2) %></p>
         <p>Trial duration: <%= trial_duration(@trial) %></p>
         <p>Evaluation duration: <%= evaluation_duration(@trial) %></p>
 

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="column">
-    <p><%= @comparison.created_at.strftime("%B %d, %Y %H:%M") %></p>
+    <p><%= datetime_helper(@comparison.created_at.strftime("%B %d, %Y %H:%M") %></p>
   </div>
 </div>
 <hr>

@@ -47,14 +47,14 @@
             <% llm_prompt = trial.llm_prompt %>
             <tr>
               <td><%= "Trial #{num_trials - index}" %></td>
-              <td><%= eastern_date(trial.created_at) %></td>
+              <td><%= date_helper(trial.created_at) %></td>
               <td><%= llm_prompt.description %></td>
               <td><%= llm_prompt.optimal_examples_count %></td>
               <td><%= llm_prompt.suboptimal_examples_count %></td>
               <td><%= llm_prompt.guidelines_count %></td>
-              <td><%= trial.optimal_accuracy %></td>
-              <td><%= trial.suboptimal_accuracy %></td>
-              <td><%= llm.version %></td>
+              <td><%= percent_accuracy(trial.optimal_correct, trial.optimal_count) %></td>
+              <td><%= percent_accuracy(trial.suboptimal_correct, trial.suboptimal_count) %></td>
+              <td><%= trial.llm.version %></td>
               <td><%= trial.status %></td>
               <td><%= link_to "View", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
               <td><%= check_box_tag 'trial_ids[]', trial.id, false, class: 'compare-checkbox' %></td>

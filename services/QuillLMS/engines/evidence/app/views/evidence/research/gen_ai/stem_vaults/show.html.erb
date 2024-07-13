@@ -34,7 +34,7 @@
       <% @datasets.each do |dataset| %>
         <tr>
           <td><%= "Dataset #{dataset.version}" %></td>
-          <td><%= eastern_date(dataset.created_at) %></td>
+          <td><%= date_helper(dataset.created_at) %></td>
           <td><%= dataset.optimal_count + dataset.suboptimal_count %></td>
           <td><%= dataset.optimal_count %></td>
           <td><%= dataset.suboptimal_count %></td>
