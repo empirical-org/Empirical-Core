@@ -22,7 +22,7 @@
     <thead>
       <tr>
         <th>Dataset</th>
-        <th>Date Created</th>
+        <th>Created</th>
         <th>Total Evaluation Responses</th>
         <th>Optimal</th>
         <th>Sub-optimal</th>
@@ -34,7 +34,7 @@
       <% @datasets.each do |dataset| %>
         <tr>
           <td><%= "Dataset #{dataset.version}" %></td>
-          <td><%= dataset.created_at.strftime('%m/%d/%Y') %></td>
+          <td><%= eastern_date(dataset.created_at) %></td>
           <td><%= dataset.optimal_count + dataset.suboptimal_count %></td>
           <td><%= dataset.optimal_count %></td>
           <td><%= dataset.suboptimal_count %></td>

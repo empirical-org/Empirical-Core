@@ -12,7 +12,7 @@
         %>
       <% end %>
     </h2>
-    <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
+    <p><%= eastern_datetime(@trial.created_at) %></p>
 
     <h3>Stem Vault</h3>
     <p><%= @trial.stem_vault %></p>

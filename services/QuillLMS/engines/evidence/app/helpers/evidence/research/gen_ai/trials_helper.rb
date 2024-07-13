@@ -4,6 +4,8 @@ module Evidence
   module Research
     module GenAI
       module TrialsHelper
+        EASTERN_TIME_ZONE = 'Eastern Time (US & Canada)'
+
         def percent_complete(trial) = (trial.llm_examples.count.to_f / trial.test_examples_count * 100)&.round
 
         def progress(trial)
@@ -12,9 +14,7 @@ module Evidence
           "#{percent_complete(trial)}% complete (#{trial.llm_examples.count}/#{trial.test_examples_count})"
         end
 
-        def evaluation_duration(trial)
-          "#{trial.evaluation_duration&.round(2)} s"
-        end
+        def evaluation_duration(trial) = "#{trial.evaluation_duration&.round(2)} s"
 
         def trial_duration(trial)
           return '0 s' if trial.trial_duration.nil? || trial.test_examples_count.zero?

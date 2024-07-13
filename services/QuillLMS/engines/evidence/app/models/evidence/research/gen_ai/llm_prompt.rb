@@ -73,6 +73,8 @@ module Evidence
           "#{prompt}\n\n{student_response: #{student_response}}\nProvide feedback in the following JSON format: #{FEEDBACK_JSON_SCHEMA}"
         end
 
+        def guidelines_count = optimal_guidelines_count + suboptimal_guidelines_count
+
         def to_s = description.truncate(40)
       end
     end
