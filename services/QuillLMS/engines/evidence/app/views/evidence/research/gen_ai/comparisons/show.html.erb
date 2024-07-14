@@ -6,80 +6,36 @@
 <hr>
 
 <div>
+  <select id="filter-dropdown" onchange="filterRows()">
+    <option value="all">Show all</option>
+    <option value="checked">Checked responses only</option>
+    <option value="non-matching">Show Non-Matching (Red) Only</option>
+  </select>
   <table>
     <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
       <tr>
-        <th class="dark-border"></th>
-        <th class="dark-border">
-          Feedback key
-          <div style="display: flex; align-items: center;">
-            <div>
-              <table>
-                <tr>
-                  <td class='green feedback-key-font'>O</td>
-                  <td>5</td>
-                  <td class='feedback-key-font' style='border: none;'>
-                    Optimal Match;
-                    <br>
-                    G-eval=5
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div>
-              <table>
-                <tr>
-                  <td class='red'>O</td>
-                  <td>3</td>
-                  <td class='feedback-key-font' style='border: none;'>
-                    Quill sub-optimal, LLM optimal;
-                    <br>
-                    G-eval=3
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div>
-              <table>
-                <tr>
-                  <td class='green'>S</td>
-                  <td>4</td>
-                  <td class='feedback-key-font' style='border: none;'>
-                    Sub-Optimal Match
-                    <br>
-                    G-eval=4
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div>
-              <table>
-                <tr>
-                  <td class='red'>S</td>
-                  <td>2</td>
-                  <td class='feedback-key-font' style='border: none;'>
-                    Quill optimal, LLM sub-optimal;
-                    <br>
-                    G-eval=2
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </th>
+        <th class="dark-border">Select</th>
+        <th class="dark-border">#</th>
+        <th class="dark-border">Student Responses</th>
+        <th class="dark-border"><%= render 'feedback_key' %></th>
 
         <% @trials.each do |trial| %>
           <th class='dark-border-top no-border-right'></th>
           <th class='dark-border-top-bottom'></th>
           <th class="dark-border-top-bottom-right">
+            <%= trial.name %>
             <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
           </th>
         <% end %>
       </tr>
     </thead>
     <tbody>
-      <% @test_examples.each do |test_example| %>
-        <tr>
+      <% @test_examples.each.with_index do |test_example, index| %>
+        <tr class="response-row">
+          <td class='dark-border'>
+            <input type="checkbox" class="response-checkbox" id="checkbox-<%= index %>">
+          </td>
+          <td class='dark-border'><%= index + 1 %></td>
           <td class='dark-border'>
             <%= test_example.student_response %>
           </td>
@@ -142,5 +98,33 @@
   }
   .feedback-key-font {
     font-size: 12px;
-
+  }
+  .hidden {
+    display: none;
+  }
 </style>
+
+<script>
+  function filterRows() {
+    const filterValue = document.getElementById('filter-dropdown').value;
+    const rows = document.querySelectorAll('.response-row');
+
+    rows.forEach(row => {
+      const checkbox = row.querySelector('.response-checkbox');
+      const hasRedCell = row.querySelector('td[style*="lightcoral"]');
+
+      switch(filterValue) {
+        case 'all':
+          row.classList.remove('hidden');
+          break;
+        case 'checked':
+          row.classList.toggle('hidden', !checkbox.checked);
+          break;
+        case 'non-matching':
+          row.classList.toggle('hidden', !hasRedCell);
+          break;
+      }
+    });
+  }
+  filterRows();
+</script>
