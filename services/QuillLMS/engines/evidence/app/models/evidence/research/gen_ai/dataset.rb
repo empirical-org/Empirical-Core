@@ -31,6 +31,8 @@ module Evidence
 
         attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count, :version
 
+        delegate :stem_and_conjunction, to: :stem_vault
+
         attr_accessor :file
 
         before_validation :set_version

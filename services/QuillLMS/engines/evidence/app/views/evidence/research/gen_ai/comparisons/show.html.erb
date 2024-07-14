@@ -16,14 +16,30 @@
       <tr>
         <th class="dark-border select-column">Select</th>
         <th class="dark-border example-number-column">#</th>
-        <th class="dark-border student-response-column">Student Responses</th>
+        <th class="dark-border student-response-column"><%= @comparison.stem_and_conjunction %></th>
         <th class="dark-border feedback-key-column"><%= render 'feedback_key' %></th>
 
         <% @trials.each do |trial| %>
+          <% llm_prompt = trial.llm_prompt %>
           <th class='dark-border-top no-border-right'></th>
           <th class='dark-border-top-bottom'></th>
           <th class="dark-border-top-bottom-right trial-column">
-            <%= trial.name %>
+            <div style='font-size: 0.7em'>
+              Trial <%= trial.id %>
+              <ul style='list-style-type: none; padding: 0;'>
+                <li>Model: <%= trial.llm.version %></li>
+                <li>
+                  Guidelines:
+                  <%= llm_prompt.optimal_guidelines_count %> Optimal,
+                  <%= llm_prompt.suboptimal_guidelines_count %> Sub-Optimal
+                </li>
+                <li>
+                  Examples:
+                  <%= llm_prompt.optimal_examples_count %> Optimal,
+                  <%= llm_prompt.suboptimal_examples_count %> Sub-Optimal
+                </li>
+              </ul>
+            </div>
             <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
           </th>
         <% end %>

@@ -3,7 +3,7 @@
     <tr class='light-gray' style='text-align: center'>
       <td style="text-align: center"></td>
       <td class='llm-optimal' style="text-align: center">LLM Optimal</td>
-      <td class='llm-suboptimal' style="text-align: center">LLM Suboptimal</td>
+      <td class='llm-suboptimal' style="text-align: center">LLM Sub-Optimal</td>
       <td style="text-align: center">Total</td>
       <td class='accuracy' style="text-align: center;">Accuracy</td>
     </tr>
@@ -15,7 +15,7 @@
       <td class='white' style="text-align: center;"><%= (100.0 * matrix[0][0] / (matrix[0][0] + matrix[0][1])).round.to_s + '%' %></td>
     </tr>
     <tr>
-      <td class='white curriculum-suboptimal' style="text-align: center;">Curriculum Suboptimal</td>
+      <td class='white curriculum-suboptimal' style="text-align: center;">Curriculum Sub-Optimal</td>
       <td class='light-red' style="text-align: center;"><%= matrix[1][0] %></td>
       <td class='green' style="text-align: center;"><%= matrix[1][1] %></td>
       <td class='white' style="text-align: center;"><%= matrix[1][0] + matrix[1][1] %></td>
