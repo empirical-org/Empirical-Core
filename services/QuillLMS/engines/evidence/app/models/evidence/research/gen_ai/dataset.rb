@@ -44,7 +44,7 @@ module Evidence
 
         def test_examples_count = optimal_count + suboptimal_count
 
-        def to_s = "#{stem_vault}, v#{version}"
+        def to_s = "Dataset v#{version}"
       end
     end
   end

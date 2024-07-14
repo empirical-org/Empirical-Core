@@ -1,0 +1,5 @@
+<% unless current_page?(research_gen_ai_activities_path) %>
+  <%= link_to 'All Activities', research_gen_ai_activities_path %>
+<% end %>
+
+<%= yield :all_activities_breadcrumbs %>

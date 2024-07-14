@@ -1,6 +1,9 @@
-<div>
-  <p><%= link_to 'Back to Stem Vault', @stem_vault %></p>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
+  / <%= link_to "#{@stem_vault.conjunction.capitalize} Stem Vault", @stem_vault %></p>
+<% end %>
 
+<div>
   <h2><%= @dataset.model_name.human.titleize %></h2>
   <p><%= @dataset %></p>
 

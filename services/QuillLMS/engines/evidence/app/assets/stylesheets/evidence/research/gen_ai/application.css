@@ -62,9 +62,9 @@ tr:nth-child(even) {
 
 .white { background-color: white; }
 .light-gray { background-color: #f2f2f2 }
+.light-green { background-color: lightgreen; }
 .light-red { background-color: lightcoral; }
-.red { background-color: firebrick; }
-.green { background-color: lightgreen; }
+.dark-red { background-color: firebrick; }
 
 .link-button {
     background: none!important;
