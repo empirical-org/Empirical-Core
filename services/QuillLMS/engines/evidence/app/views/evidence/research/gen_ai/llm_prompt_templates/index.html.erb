@@ -1,0 +1,32 @@
+<header>
+  <h2>LLM Prompt Templates</h2>
+</header>
+
+<%= link_to 'New LLM Prompt Template', new_research_gen_ai_llm_prompt_template_path %>
+<br>
+<br>
+
+<% if @llm_prompt_templates.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @llm_prompt_templates.each do |llm_prompt_template| %>
+        <tr>
+          <td><%= llm_prompt_template.id %></td>
+          <td><%= llm_prompt_template.name %></td>
+          <td><%= date_helper(llm_prompt_template.created_at) %></td>
+          <td><%= link_to "View", llm_prompt_template %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No LLM Prompt Templates found.</p>
+<% end %>

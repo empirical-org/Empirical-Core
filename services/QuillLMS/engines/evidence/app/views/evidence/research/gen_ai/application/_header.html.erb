@@ -3,3 +3,9 @@
 <% end %>
 
 <%= yield :all_activities_breadcrumbs %>
+
+<% unless current_page?(research_gen_ai_llm_prompt_templates_path) %>
+  <br>
+  <br>
+  <%= link_to 'All LLM Prompt Templates', research_gen_ai_llm_prompt_templates_path %>
+<% end %>

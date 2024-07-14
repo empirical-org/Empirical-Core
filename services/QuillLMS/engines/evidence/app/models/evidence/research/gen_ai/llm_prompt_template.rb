@@ -4,24 +4,25 @@
 #
 # Table name: evidence_research_gen_ai_llm_prompt_templates
 #
-#  id          :bigint           not null, primary key
-#  contents    :text             not null
-#  description :text             not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id         :bigint           not null, primary key
+#  contents   :text             not null
+#  name       :text             not null
+#  notes      :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 module Evidence
   module Research
     module GenAI
       class LLMPromptTemplate < ApplicationRecord
-        validates :description, presence: true
+        validates :name, presence: true
         validates :contents, presence: true
 
-        attr_readonly :description, :contents
+        attr_readonly :name, :contents
 
         has_many :llm_prompts,dependent: :destroy
 
-        def to_s = description
+        def to_s = name
       end
     end
   end
