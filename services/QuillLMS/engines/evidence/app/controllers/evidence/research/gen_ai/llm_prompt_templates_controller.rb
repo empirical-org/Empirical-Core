@@ -4,6 +4,8 @@ module Evidence
   module Research
     module GenAI
       class LLMPromptTemplatesController < ApplicationController
+        def index = @llm_prompt_templates = LLMPromptTemplate.all.order(:created_at)
+
         def new
           @llm_prompt_template = LLMPromptTemplate.new
           @prompt_template_variables = PromptTemplateVariable.all.order(:name)
