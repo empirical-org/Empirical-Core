@@ -4,8 +4,40 @@
   <h3>Name</h3>
   <p><%= @llm_prompt_template.name %></p>
 
-  <h3>Contents</h3>
-  <p><%= simple_format(@llm_prompt_template.contents) %></p>
+  <% if @llm_prompt_template.notes.present? %>
+    <h3>Notes</h3>
+    <p><%= simple_format(@llm_prompt_template.notes) %></p>
+  <% end %>
+
+  <h3>
+    Contents
+    <label for="toggle_checkbox">
+      <input type="checkbox" id="toggle_checkbox" onchange="togglePreview()">Preview
+    </label>
+  </h3>
+
+  <div id="contents">
+    <%== @contents %>
+  </div>
+
+  <div id="previewed_contents" style="display: none;">
+    <%== @previewed_contents %>
+  </div>
+
 </div>
 
-<br>
+<script>
+  function togglePreview() {
+    var contents = document.getElementById('contents');
+    var previewedContents = document.getElementById('previewed_contents');
+    var checkbox = document.getElementById('toggle_checkbox');
+
+    if (checkbox.checked) {
+      contents.style.display = 'none';
+      previewedContents.style.display = 'block';
+    } else {
+      contents.style.display = 'block';
+      previewedContents.style.display = 'none';
+    }
+  }
+</script>

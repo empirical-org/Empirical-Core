@@ -10,19 +10,23 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th>Template Number</th>
+        <th>Template Name</th>
+        <th>Number of Trials</th>
         <th>Date Created</th>
+        <th>Template Notes
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <% @llm_prompt_templates.each do |llm_prompt_template| %>
+      <% @llm_prompt_templates.each.with_index do |llm_prompt_template, index| %>
         <tr>
+          <td>Template <%= index + 1 %></td>
           <td><%= llm_prompt_template.id %></td>
           <td><%= llm_prompt_template.name %></td>
           <td><%= date_helper(llm_prompt_template.created_at) %></td>
-          <td><%= link_to "View", llm_prompt_template %></td>
+          <td><%= llm_prompt_template.name %></td>
+          <td><%= link_to "View", llm_prompt_template %> / <%= link_to "Edit", [:edit, llm_prompt_template] %></td>
         </tr>
       <% end %>
     </tbody>

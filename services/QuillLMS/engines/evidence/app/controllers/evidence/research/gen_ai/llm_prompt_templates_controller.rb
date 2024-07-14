@@ -24,7 +24,22 @@ module Evidence
           end
         end
 
-        def show = llm_prompt_template
+        def show
+          @contents = llm_prompt_template.contents
+          @contents = color_text('red', LLMPromptBuilder.activity_substitutions, @contents)
+          @contents = color_text('blue', PromptTemplateVariable.general_substitutions, @contents)
+          @contents = @contents.gsub("\n", '<br>')
+
+          dataset = Dataset.first
+
+          @previewed_contents = LLMPromptBuilder.run(
+            dataset_id: dataset.id,
+            guidelines: dataset.stem_vault.guidelines,
+            llm_prompt_template_id: llm_prompt_template.id,
+            prompt_examples: dataset.prompt_examples.limit(2),
+            text: @contents
+          )
+        end
 
         def edit = llm_prompt_template
 
@@ -42,6 +57,12 @@ module Evidence
           params
             .require(:research_gen_ai_llm_prompt_template)
             .permit(permitted_params)
+        end
+
+        private def color_text(color, substitutions, text)
+          substitutions.reduce(text) do |current_text, substitution|
+            current_text.gsub(substitution, "<span style='color: #{color};'>#{substitution}</span>")
+          end
         end
       end
     end
