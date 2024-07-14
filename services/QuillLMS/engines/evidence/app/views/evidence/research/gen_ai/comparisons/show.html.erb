@@ -14,15 +14,15 @@
   <table>
     <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
       <tr>
-        <th class="dark-border">Select</th>
-        <th class="dark-border">#</th>
-        <th class="dark-border">Student Responses</th>
-        <th class="dark-border"><%= render 'feedback_key' %></th>
+        <th class="dark-border select-column">Select</th>
+        <th class="dark-border example-number-column">#</th>
+        <th class="dark-border student-response-column">Student Responses</th>
+        <th class="dark-border feedback-key-column"><%= render 'feedback_key' %></th>
 
         <% @trials.each do |trial| %>
           <th class='dark-border-top no-border-right'></th>
           <th class='dark-border-top-bottom'></th>
-          <th class="dark-border-top-bottom-right">
+          <th class="dark-border-top-bottom-right trial-column">
             <%= trial.name %>
             <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
           </th>
@@ -48,7 +48,8 @@
               <% llm_example_index = trial.llm_examples.index(llm_example) %>
               <% g_eval_id = trial.g_evals&.keys&.first %>
               <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index) || '' %>
-              <td class='dark-border-top-bottom-left' style="background-color: <%= llm_example.optimal_or_suboptimal_match? ? 'lightgreen' : 'lightcoral' %>;">
+              <% background_color = llm_example.optimal_or_suboptimal_match? ? 'green' : (llm_example.optimal? ? 'light-red' : 'red') %>
+              <td class="dark-border-top-bottom-left <%= background_color %>">
                 <%= llm_example.optimal? ? :O : :S %>
               </td>
               <td class='dark-border-top-bottom'>
@@ -99,8 +100,26 @@
   .feedback-key-font {
     font-size: 12px;
   }
+  .comparison-column {
+    width: 200px;
+  }
   .hidden {
     display: none;
+  }
+  .trial-column {
+    width: calc(60% / <%= @trials.count %>);
+  }
+  .select-column {
+    width: 2%;
+  }
+  .example-number-column {
+    width: 2%;
+  }
+  .student-response-column {
+    width: 18%;
+  }
+  .feedback-key-column {
+    width: 18%;
   }
 </style>
 
@@ -111,7 +130,7 @@
 
     rows.forEach(row => {
       const checkbox = row.querySelector('.response-checkbox');
-      const hasRedCell = row.querySelector('td[style*="lightcoral"]');
+      const hasRedCell = row.querySelector('td[class*="red"], td[class*="light-red"]');
 
       switch(filterValue) {
         case 'all':

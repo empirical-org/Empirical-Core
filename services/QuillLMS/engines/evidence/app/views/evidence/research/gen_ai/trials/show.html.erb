@@ -55,7 +55,9 @@
           <%= render 'histogram', histogram: @histogram %>
         <% end %>
 
-        <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
+        <div style="width: 500px">
+          <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
+        </div>
       <% end %>
     <% elsif @trial.failed? %>
       <p>The trial had some errors.</p>
@@ -70,7 +72,7 @@
     <table>
       <thead>
         <tr>
-          <th class='match-column'>Optimal match</th>
+          <th class='match-column'>Match</th>
           <% if @trial.g_evals %>
             <% @g_evals.each do |g_eval| %>
               <th class='g-eval-column'>G-Eval (<%= g_eval %>)</th>
