@@ -219,7 +219,7 @@ RSpec.describe Question, type: :model do
       new_val = 'foo'
       question.update_model_concept(new_val)
       question.reload
-      expect(question.data['modelConceptUID']).to eq(new_val)
+      expect(question.modelConceptUID).to eq(new_val)
     end
   end
 

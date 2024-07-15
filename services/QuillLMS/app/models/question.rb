@@ -69,6 +69,7 @@ class Question < ApplicationRecord
   store_accessor :data, :incorrectSequences
   store_accessor :data, :focusPoints
   store_accessor :data, :flag
+  store_accessor :data, :modelConceptUID
   attr_accessor :skip_refresh_caches
 
   after_save :refresh_caches, unless: -> { skip_refresh_caches }
@@ -104,7 +105,7 @@ class Question < ApplicationRecord
   end
 
   def update_model_concept(model_concept_id)
-    data['modelConceptUID'] = model_concept_id
+    self.modelConceptUID = model_concept_id
     save
   end
 
