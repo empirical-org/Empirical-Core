@@ -1,6 +1,7 @@
-<% content_for :all_activities_breadcrumbs do %>
+
+<% content_for :breadcrumbs do %>
   / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
-  / <%= link_to "#{@stem_vault.conjunction.capitalize} Stem Vault", @stem_vault %></p>
+  / <%= link_to "#{@stem_vault.conjunction.capitalize} Stem Vault", @stem_vault %>
 <% end %>
 
 <div>
