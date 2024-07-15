@@ -53,8 +53,8 @@ RSpec.describe TranslatedText, type: :model do
     end
   end
 
-  describe '#english' do
-    subject { translated_text.english }
+  describe '#text' do
+    subject { translated_text.text }
 
     let(:translated_text) { create(:translated_text)}
 

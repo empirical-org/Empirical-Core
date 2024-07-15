@@ -24,7 +24,7 @@
   <tbody>
     <% @translated_texts.each do |text| %>
       <tr id="translated-text-<%= text.id %>" class='data-row'>
-        <td><%= raw(text.english) %></td>
+        <td><%= raw(text.text) %></td>
         <td class='translation-text' data-id=<%=text.id%>>
           <div class="text-content"><%= raw(text.translation) %></div>
           <textarea class="edit-input" style="display: none;" rows="5" cols="50"> <%= simple_format(text.translation) %></textarea>
