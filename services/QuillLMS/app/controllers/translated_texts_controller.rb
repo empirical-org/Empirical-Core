@@ -19,13 +19,9 @@ class TranslatedTextsController < ApplicationController
     @translated_text = TranslatedText.find(params[:id])
     translated_text_params = params.require(:translated_text).permit(:translation)
 
-    Rails.logger.debug @translated_text
     if @translated_text.update(translated_text_params)
-      Rails.logger.debug 'update successful'
       render json: { success: true }
     else
-      Rails.logger.debug 'update error'
-      Rails.logger.debug @translated_text.errors.full_messages
       render json: { success: false, errors: @translated_text.errors.full_messages }, status: :unprocessable_entity
     end
   end
