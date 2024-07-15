@@ -67,6 +67,12 @@ RSpec.describe TranslatedTextsController, type: :controller do
           expect(response.content_type).to include('application/json')
           expect(JSON.parse(response.body)['success']).to be true
         end
+
+        it 'returns the new translation' do
+          patch :update, params: { id: translated_text.id, translated_text: { translation: new_translation } }
+          expect(response.content_type).to include('application/json')
+          expect(JSON.parse(response.body)['translation']).to eq(new_translation)
+        end
       end
 
       context 'with invalid params' do

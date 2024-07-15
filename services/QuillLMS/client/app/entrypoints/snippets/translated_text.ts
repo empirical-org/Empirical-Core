@@ -50,7 +50,7 @@ function initializeTranslatedTexts() {
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            row.querySelector('.text-content').innerHTML = newText;
+            row.querySelector('.text-content').innerHTML = data.translation;
             row.querySelector('.text-content').style.display = 'inline';
             row.querySelector('.edit-input').style.display = 'none';
             row.querySelector('.edit-btn').style.display = 'inline-block';

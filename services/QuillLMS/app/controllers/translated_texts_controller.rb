@@ -20,7 +20,7 @@ class TranslatedTextsController < ApplicationController
     translated_text_params = params.require(:translated_text).permit(:translation)
 
     if @translated_text.update(translated_text_params)
-      render json: { success: true }
+      render json: { success: true, translation: @translated_text.translation }
     else
       render json: { success: false, errors: @translated_text.errors.full_messages }, status: :unprocessable_entity
     end
