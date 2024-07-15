@@ -11,8 +11,8 @@
 
   <h3>
     Contents
-    <label for="toggle_checkbox">
-      <input type="checkbox" id="toggle_checkbox" onchange="togglePreview()">Preview
+    <label for="toggle_checkbox" class="small-checkbox-label">
+      <input type="checkbox" id="toggle_checkbox" class="small-checkbox" onchange="togglePreview()">Preview
     </label>
   </h3>
 
@@ -41,3 +41,14 @@
     }
   }
 </script>
+
+<style>
+  .small-checkbox {
+    width: 12px;
+    height: 12px;
+  }
+
+  .small-checkbox-label {
+    font-size: 14px;
+  }
+</style>
