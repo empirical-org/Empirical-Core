@@ -66,10 +66,11 @@ class Question < ApplicationRecord
   validate :validate_sequences
 
 
-  store_accessor :data, :incorrectSequences
-  store_accessor :data, :focusPoints
   store_accessor :data, :flag
+  store_accessor :data, :focusPoints
+  store_accessor :data, :incorrectSequences
   store_accessor :data, :modelConceptUID
+  store_accessor :data, :prompt
   attr_accessor :skip_refresh_caches
 
   after_save :refresh_caches, unless: -> { skip_refresh_caches }
