@@ -10,8 +10,8 @@ describe Api::V1::FocusPointsController, type: :controller do
         Question::FOCUS_POINTS => {
           '0' => { 'text' => 'text', 'feedback'=>'fff' }
         },
-        Question::INCORRECT_SEQUENCES => [
-          { 'text'=>'foo', 'feedback'=>'bar' }
+        'incorrectSequences'=> [
+          { 'text'=>'foo', 'feedback'=>'bar', 'uid' => 'uid1'}
         ]
       }
     )
