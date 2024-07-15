@@ -189,12 +189,18 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should remove the specified incorrectSequence if stored in an array' do
-      data = [{'text'=>'text', 'feedback'=>'bar'}, {'text'=>'text', 'feedback'=>'bar'}, {'text'=>'text', 'feedback'=>'bar'}]
-      question.data['incorrectSequences'] = data
+      data = [
+        {'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar'},
+        {'uid' => 'uid2', 'text'=>'text', 'feedback'=>'bar'},
+        {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}]
+      question.update_incorrect_sequences(data)
       first_incorrect_sequence_key = '1'
       question.delete_incorrect_sequence(first_incorrect_sequence_key)
       question.reload
-      expect(question.data['incorrectSequences']).to contain_exactly({'text'=>'text', 'feedback'=>'bar'}, {'text'=>'text', 'feedback'=>'bar'})
+      expect(question.data['incorrectSequences']).to contain_exactly(
+        {'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar'},
+        {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}
+        )
     end
   end
 
@@ -218,21 +224,21 @@ RSpec.describe Question, type: :model do
 
   describe '#get_incorrect_sequence' do
     it 'should retrieve the incorrect sequence if it is a hash' do
-      data = {'foo' => 'bar'}
-      question.data['incorrectSequences'] = data
+      data = { 'foo' => 'bar'}
+      question.update_incorrect_sequences(data)
       expect(question.get_incorrect_sequence('foo')).to eq('bar')
     end
 
     it 'should retrieve the incorrect sequence if it is an array' do
-      data = ['foo']
-      question.data['incorrectSequences'] = data
-      expect(question.get_incorrect_sequence(0)).to eq('foo')
+      sequence = {'uid' => '1', 'text' => 'foo', 'feedback' => 'bar'}
+      question.update_incorrect_sequences([sequence])
+      expect(question.get_incorrect_sequence(0)).to eq(sequence)
     end
 
     it 'should retrieve the incorrect sequence if it is an array even if the passed id is a string' do
-      data = [{'text'=>'foo','feedback'=>'bar'}]
-      question.data['incorrectSequences'] = data
-      expect(question.get_incorrect_sequence('0')).to eq({'text'=>'foo','feedback'=>'bar'})
+      sequence = {'uid' => '1', 'text' => 'foo', 'feedback' => 'bar'}
+      question.update_incorrect_sequences([sequence])
+      expect(question.get_incorrect_sequence('0')).to eq(sequence)
     end
   end
 

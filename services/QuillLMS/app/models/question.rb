@@ -103,7 +103,7 @@ class Question < ApplicationRecord
   def save_uids_for(type)
     return unless stored_as_array?(type)
 
-    new_data = add_uid(data_array: data[type])
+    new_data = add_uid(data: data[type])
     data[type] = new_data
     save
   end
@@ -169,13 +169,13 @@ class Question < ApplicationRecord
     return id if set_data_for(type:, id:, new_data:)
   end
 
-  private def add_uid(data_array:)
-    return data_array unless data_array.is_a?(Array)
+  private def add_uid(data:)
+    return data unless data.is_a?(Array)
 
-    data_array.each do |item|
+    data.each do |item|
       item['uid'] ||= new_uuid
     end
-    data_array
+    data
   end
 
   private def set_data_for(type:, id:, new_data:)
@@ -187,7 +187,7 @@ class Question < ApplicationRecord
   end
 
   private def update_data_for(type:, new_data:)
-    data[type] = add_uid(data_array: new_data)
+    data[type] = add_uid(data: new_data)
     save
   end
 
@@ -208,12 +208,6 @@ class Question < ApplicationRecord
 
   private def new_uuid
     SecureRandom.uuid
-  end
-
-  private def time_based_uuid
-    now = Time.zone.now
-    timestamp = (now.to_i * 1_000_000) + now.usec
-    ((timestamp << 16) + SecureRandom.random_number(1 << 15)).to_s(36)
   end
 
   private def data_must_be_hash
