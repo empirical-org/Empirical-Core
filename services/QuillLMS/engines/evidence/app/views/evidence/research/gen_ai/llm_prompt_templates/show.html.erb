@@ -16,8 +16,8 @@
     </label>
   </h3>
 
-  <div id="contents">
-    <%== @contents %>
+  <div id="colored_contents">
+    <%== @colored_contents %>
   </div>
 
   <div id="previewed_contents" style="display: none;">
@@ -28,15 +28,15 @@
 
 <script>
   function togglePreview() {
-    var contents = document.getElementById('contents');
+    var coloredContents = document.getElementById('colored_contents');
     var previewedContents = document.getElementById('previewed_contents');
     var checkbox = document.getElementById('toggle_checkbox');
 
     if (checkbox.checked) {
-      contents.style.display = 'none';
+      coloredContents.style.display = 'none';
       previewedContents.style.display = 'block';
     } else {
-      contents.style.display = 'block';
+      coloredContents.style.display = 'block';
       previewedContents.style.display = 'none';
     }
   }
