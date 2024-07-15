@@ -210,7 +210,7 @@ RSpec.describe Question, type: :model do
       new_val = 'foo'
       question.update_flag(new_val)
       question.reload
-      expect(question.data['flag']).to eq(new_val)
+      expect(question.flag).to eq(new_val)
     end
   end
 

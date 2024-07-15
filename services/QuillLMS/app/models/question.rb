@@ -68,6 +68,7 @@ class Question < ApplicationRecord
 
   store_accessor :data, :incorrectSequences
   store_accessor :data, :focusPoints
+  store_accessor :data, :flag
   attr_accessor :skip_refresh_caches
 
   after_save :refresh_caches, unless: -> { skip_refresh_caches }
@@ -98,7 +99,7 @@ class Question < ApplicationRecord
   end
 
   def update_flag(flag_value)
-    data['flag'] = flag_value
+    self.flag = flag_value
     save
   end
 
