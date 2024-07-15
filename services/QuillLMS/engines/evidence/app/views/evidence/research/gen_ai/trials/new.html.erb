@@ -9,6 +9,11 @@
 <%= form_for @trial, url: research_gen_ai_dataset_trials_path(@dataset) do |f| %>
   <%= render 'errors', object: @trial %>
 
+  <div class="actions">
+    <%= f.submit "run" %>
+  </div>
+  <br>
+
   <div class="field-spacing">
     <label>LLM:</label>
     <%= link_to 'new', new_research_gen_ai_llm_path, class: 'new-link', target: '_blank' %>
