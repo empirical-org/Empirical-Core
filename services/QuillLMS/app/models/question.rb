@@ -52,6 +52,10 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
+  INCORRECT_SEQUENCES = 'incorrectSequences'
+  FOCUS_POINTS = 'focusPoints'
+  FEEDBACK_TYPES = [INCORRECT_SEQUENCES, FOCUS_POINTS]
+
   has_many :diagnostic_question_optimal_concepts, class_name: 'DiagnosticQuestionOptimalConcept', foreign_key: :question_uid, primary_key: :uid, dependent: :destroy
   has_many :diagnostic_question_skills
 
@@ -61,7 +65,12 @@ class Question < ApplicationRecord
   validate :data_must_be_hash
   validate :validate_sequences
 
-  after_save :refresh_caches
+
+  store_accessor :data, :incorrectSequences
+  store_accessor :data, :focusPoints
+  attr_accessor :skip_refresh_caches
+
+  after_save :refresh_caches, unless: -> { skip_refresh_caches }
 
   scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
   scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
@@ -88,27 +97,6 @@ class Question < ApplicationRecord
     end
   end
 
-  def add_focus_point(new_data)
-    new_uid = new_uuid
-    return new_uid if set_focus_point(new_uid, new_data)
-  end
-
-  def set_focus_point(focus_point_id, new_data)
-    data['focusPoints'] ||= {}
-    data['focusPoints'][focus_point_id] = new_data
-    save
-  end
-
-  def update_focus_points(new_data)
-    data['focusPoints'] = new_data
-    save
-  end
-
-  def delete_focus_point(focus_point_id)
-    data['focusPoints'].delete(focus_point_id)
-    save
-  end
-
   def update_flag(flag_value)
     data['flag'] = flag_value
     save
@@ -119,42 +107,53 @@ class Question < ApplicationRecord
     save
   end
 
-  def get_incorrect_sequence(incorrect_sequence_id)
-    return nil if !data['incorrectSequences']
+  def save_uids_for(type)
+    return unless stored_as_array?(type)
 
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
-    return data['incorrectSequences'][incorrect_sequence_id]
+    new_data = add_uid(data: data[type])
+    data[type] = new_data
+    save
+  end
+
+  def get_incorrect_sequence(incorrect_sequence_id)
+    return nil if !incorrectSequences
+
+    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?(INCORRECT_SEQUENCES)
+    return incorrectSequences[incorrect_sequence_id]
   end
 
   def add_incorrect_sequence(new_data)
-    if stored_as_array?('incorrectSequences')
-      new_id = data['incorrectSequences'].length
-    else
-      new_id = new_uuid
-    end
-    return new_id if set_incorrect_sequence(new_id, new_data)
+    add_data_for(type: INCORRECT_SEQUENCES, new_data:)
   end
 
-  def set_incorrect_sequence(incorrect_sequence_id, new_data)
-    data['incorrectSequences'] ||= {}
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
-    data['incorrectSequences'][incorrect_sequence_id] = new_data
-    save
+  def add_focus_point(new_data)
+    add_data_for(type: FOCUS_POINTS, new_data:)
+  end
+
+  def set_focus_point(id, new_data)
+    set_data_for(type: FOCUS_POINTS, id:, new_data:)
+  end
+
+  def set_incorrect_sequence(id, new_data)
+    set_data_for(type: INCORRECT_SEQUENCES, id:, new_data:)
   end
 
   def update_incorrect_sequences(new_data)
-    data['incorrectSequences'] = new_data
-    save
+    update_data_for(type: INCORRECT_SEQUENCES, new_data:)
   end
 
-  def delete_incorrect_sequence(incorrect_sequence_id)
-    if stored_as_array?('incorrectSequences')
-      data['incorrectSequences'].delete_at(incorrect_sequence_id.to_i)
-    else
-      data['incorrectSequences'].delete(incorrect_sequence_id)
-    end
-    save
+  def update_focus_points(new_data)
+    update_data_for(type: FOCUS_POINTS, new_data:)
   end
+
+  def delete_focus_point(id)
+    delete_data_for(id:, type: FOCUS_POINTS)
+  end
+
+  def delete_incorrect_sequence(id)
+    delete_data_for(id:, type: INCORRECT_SEQUENCES)
+  end
+
 
   # this attribute is used by the CMS's Rematch All process
   def rematch_type
@@ -167,6 +166,46 @@ class Question < ApplicationRecord
 
   # Translatable
   def self.translatable_field_name = 'instructions'
+
+  private def add_data_for(type:, new_data:)
+    if stored_as_array?(type)
+      id = data[type].length
+    else
+      id = new_uuid
+    end
+    return id if set_data_for(type:, id:, new_data:)
+  end
+
+  private def add_uid(data:)
+    return data unless data.is_a?(Array)
+
+    data.each do |item|
+      item['uid'] ||= new_uuid
+    end
+    data
+  end
+
+  private def set_data_for(type:, id:, new_data:)
+    data[type] ||= {}
+    id = id.to_i if stored_as_array?(type)
+    new_data  = {'uid' => new_uuid}.merge(new_data) if stored_as_array?(type)
+    data[type][id] = new_data
+    save
+  end
+
+  private def update_data_for(type:, new_data:)
+    data[type] = add_uid(data: new_data)
+    save
+  end
+
+  private def delete_data_for(id:, type:)
+    if stored_as_array?(type)
+      data[type].delete_at(id.to_i)
+    else
+      data[type].delete(id)
+    end
+    save
+  end
 
   private def refresh_caches
     Rails.cache.delete(CACHE_KEY_QUESTION + uid.to_s)
@@ -189,11 +228,11 @@ class Question < ApplicationRecord
   private def validate_sequences
     return if data.blank? || !data.is_a?(Hash)
 
-    parse_and_validate(data['incorrectSequences'])
-    parse_and_validate(data['focusPoints'])
+    FEEDBACK_TYPES.each {|type| parse_and_validate(type) }
   end
 
-  private def parse_and_validate(sequences)
+  private def parse_and_validate(type)
+    sequences = data[type]
     return if sequences.blank?
 
     case sequences
