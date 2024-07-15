@@ -10,8 +10,6 @@ module Utils::String
     last || first
   end
 
-  def self.to_username(str) = str.downcase.strip.gsub(/\s/, '.')
-
   def self.parse_null_to_nil(input)
     return nil if input == NULL_STRING
 

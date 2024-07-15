@@ -27,11 +27,6 @@ RSpec.describe Utils::String do
     end
   end
 
-  describe '.to_username' do
-    it { expect(described_class.to_username('Elvis Presley')).to eq 'elvis.presley' }
-    it { expect(described_class.to_username(' mononym ')).to eq 'mononym' }
-  end
-
   describe 'parse_null_to_nil' do
     subject { described_class.parse_null_to_nil(arg) }
 
