@@ -22,6 +22,8 @@ module Evidence
 
         has_many :llm_prompts,dependent: :destroy
 
+        def num_trials = Trial.where(llm_prompt: llm_prompts).count
+
         def to_s = name
       end
     end

@@ -7,7 +7,7 @@ module Evidence
         NEW_PERMITTED_PARAMS = %i[contents name notes]
         EDIT_PERMITTED_PARAMS = %i[notes]
 
-        def index = @llm_prompt_templates = LLMPromptTemplate.all.order(:created_at)
+        def index = @llm_prompt_templates = LLMPromptTemplate.all.order(id: :desc)
 
         def new
           @llm_prompt_template = LLMPromptTemplate.new

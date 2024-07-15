@@ -19,11 +19,12 @@
       </tr>
     </thead>
     <tbody>
+      <% num_llm_prompt_templates = @llm_prompt_templates.count %>
       <% @llm_prompt_templates.each.with_index do |llm_prompt_template, index| %>
         <tr>
-          <td>Template <%= index + 1 %></td>
-          <td><%= llm_prompt_template.id %></td>
+          <td>Template <%= num_llm_prompt_templates - index %></td>
           <td><%= llm_prompt_template.name %></td>
+          <td><%= llm_prompt_template.num_trials %></td>
           <td><%= date_helper(llm_prompt_template.created_at) %></td>
           <td><%= llm_prompt_template.name %></td>
           <td><%= link_to "View", llm_prompt_template %> / <%= link_to "Edit", [:edit, llm_prompt_template] %></td>
