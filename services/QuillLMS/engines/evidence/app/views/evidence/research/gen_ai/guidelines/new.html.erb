@@ -1,3 +1,8 @@
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
+  / <%= link_to "#{@stem_vault.conjunction.capitalize} Stem Vault", @stem_vault %>
+<% end %>
+
 <h1>New Guideline</h1>
 
 <%= form_for @guideline, url: research_gen_ai_stem_vault_guidelines_path(@stem_vault) do |f| %>

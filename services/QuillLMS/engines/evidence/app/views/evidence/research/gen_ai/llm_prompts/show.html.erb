@@ -1,3 +1,10 @@
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+  / <%= link_to :Trial, research_gen_ai_dataset_trial_path(dataset_id: @dataset.id, trial: @trial) %>
+<% end %>
+
 <div>
   <h2><%= @llm_prompt.model_name.human.titleize %></h2>
 
