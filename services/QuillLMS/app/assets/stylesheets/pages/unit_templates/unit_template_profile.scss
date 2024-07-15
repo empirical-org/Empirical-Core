@@ -27,7 +27,7 @@
     .unit-template-profile-activities {
       .activity-name {
         white-space: nowrap;
-        width: 450px;
+        max-width: 450px;
         text-overflow: ellipsis;
         overflow: hidden;
         text-align: left;
