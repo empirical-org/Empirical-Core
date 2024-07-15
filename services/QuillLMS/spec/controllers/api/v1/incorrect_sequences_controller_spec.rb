@@ -8,7 +8,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
   describe '#index' do
     it 'should include the response from the db' do
       get :index, params: { question_id: question.uid }, as: :json
-      expect(JSON.parse(response.body)).to eq(question.data['incorrectSequences'])
+      expect(JSON.parse(response.body)).to eq(question.incorrectSequences)
     end
 
     it 'should return a 404 if the requested Question is not found' do
@@ -20,13 +20,13 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
 
   describe '#show' do
     it 'should return the specified question' do
-      is_id = question.data['incorrectSequences'].keys.first
+      is_id = question.incorrectSequences.keys.first
       get :show, params: { question_id: question.uid, id: is_id }, as: :json
-      expect(JSON.parse(response.body)).to eq(question.data['incorrectSequences'][is_id])
+      expect(JSON.parse(response.body)).to eq(question.incorrectSequences[is_id])
     end
 
     it 'should return a 404 if the requested Question is not found' do
-      is_id = question.data['incorrectSequences'].keys.first
+      is_id = question.incorrectSequences.keys.first
       get :show, params: { question_id: 'doesnotexist', id: is_id }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include('The resource you were looking for does not exist')
@@ -42,17 +42,17 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
   describe '#create' do
     it 'should add a new incorrect sequence to the question data' do
       data = {'text' => 'text', 'feedback'=>'feedback'}
-      incorrect_sequence_count = question.data['incorrectSequences'].keys.length
+      incorrect_sequence_count = question.incorrectSequences.keys.length
       post :create, params: { question_id: question.uid, incorrect_sequence: data }, as: :json
       question.reload
-      expect(question.data['incorrectSequences'].keys.length).to eq(incorrect_sequence_count + 1)
+      expect(question.incorrectSequences.keys.length).to eq(incorrect_sequence_count + 1)
     end
   end
 
   describe '#update' do
     it 'should update an existing incorrect sequence in the question data' do
       data = {'text' => 'text', 'feedback'=>'feedback'}
-      incorrect_sequence_uid = question.data['incorrectSequences'].keys.first
+      incorrect_sequence_uid = question.incorrectSequences.keys.first
       put :update,
        params: {
          question_id: question.uid,
@@ -62,7 +62,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
         as: :json
 
       question.reload
-      expect(question.data['incorrectSequences'][incorrect_sequence_uid]).to eq(data)
+      expect(question.incorrectSequences[incorrect_sequence_uid]).to eq(data)
     end
 
     it 'should return a 404 if the requested Question is not found' do
@@ -80,11 +80,11 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
 
   describe '#destroy' do
     it 'should delete the incorrect sequence' do
-      incorrect_sequence_uid = question.data['incorrectSequences'].keys.first
-      pre_delete_count = question.data['incorrectSequences'].keys.length
+      incorrect_sequence_uid = question.incorrectSequences.keys.first
+      pre_delete_count = question.incorrectSequences.keys.length
       delete :destroy, params: { question_id: question.uid, id: incorrect_sequence_uid }, as: :json
       question.reload
-      expect(question.data['incorrectSequences'].keys.length).to eq(pre_delete_count - 1)
+      expect(question.incorrectSequences.keys.length).to eq(pre_delete_count - 1)
     end
 
     it 'should return a 404 if the requested Question is not found' do
@@ -99,7 +99,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
       data = {'0'=>{'text' => 'text', 'feedback'=>'feedback'}}
       put :update_all, params: { question_id: question.uid, incorrect_sequence: data }, as: :json
       question.reload
-      expect(question.data['incorrectSequences']).to eq(data)
+      expect(question.incorrectSequences).to eq(data)
     end
 
     it 'should handle array data as an input' do
@@ -112,7 +112,11 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
         as: :json
 
       question.reload
-      expect(question.data['incorrectSequences']).to eq(data)
+      incorrect_sequences = question.incorrectSequences
+      incorrect_sequences.each_with_index do |sequence, index|
+        expect(sequence['text']).to eq(data[index]['text'])
+        expect(sequence['feedback']).to eq(data[index]['feedback'])
+      end
     end
 
     it 'should return a 404 if the requested Question is not found' do
