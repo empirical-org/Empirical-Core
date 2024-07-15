@@ -7,7 +7,7 @@ describe AddUuidToQuestionDataWorker do
 
   describe '#perform' do
     let(:question) { create(:question) }
-    let(:type) { 'incorrectSequences' }
+    let(:type) { Question::INCORRECT_SEQUENCES }
 
     context 'questions without an array type' do
       it 'does not change the question' do

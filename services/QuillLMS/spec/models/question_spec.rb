@@ -84,64 +84,64 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if a focus point has no text' do
-      question.data = {'focusPoints'=>{'0'=>{'feedback'=>'foo'}}}
+      question.data = {Question::FOCUS_POINTS=>{'0'=>{'feedback'=>'foo'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if a focus point has no feedback' do
-      question.data = {'focusPoints'=>{'0'=>{'text'=>'foo'}}}
+      question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'foo'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if a focus point text is invalid regex' do
-      question.data = {'focusPoints'=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
+      question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
 
     it 'should be valid if focus point has valid regex and feedback' do
-      question.data = {'focusPoints'=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
+      question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
       expect(question.valid?).to be true
     end
 
     it 'should be invalid if an incorrect sequence has no text' do
-      question.data = {'incorrectSequences'=>{'0'=>{'feedback'=>'foo'}}}
+      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'feedback'=>'foo'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if an incorrect sequence has no feedback' do
-      question.data = {'incorrectSequences'=>{'0'=>{'text'=>'foo'}}}
+      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'foo'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if an incorrect sequence is invalid regex' do
-      question.data = {'incorrectSequences'=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
+      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
 
     it 'should be valid if an incorrect sequence has valid regex and feedback' do
-      question.data = {'incorrectSequences'=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
+      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
       expect(question.valid?).to be true
     end
   end
 
   describe '#add_focus_point' do
     it 'should increase the number of focus points' do
-      starting_length = question.data['focusPoints'].keys.length
+      starting_length = question.focusPoints.keys.length
       question.add_focus_point(new_focus_point)
       question.reload
-      expect(question.data['focusPoints'].keys.length).to eq(starting_length + 1)
+      expect(question.focusPoints.keys.length).to eq(starting_length + 1)
     end
 
     it 'should put the new focus point in the data attribute' do
       uid = question.add_focus_point(new_focus_point)
       question.reload
-      expect(question.data['focusPoints'][uid]).to eq(new_focus_point)
+      expect(question.focusPoints[uid]).to eq(new_focus_point)
     end
   end
 
@@ -153,11 +153,11 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should set the value of the specified focusPoint' do
-      replace_uid = question.data['focusPoints'].keys.first
-      expect(question.data['focusPoints'][replace_uid]).not_to eq(new_focus_point)
+      replace_uid = question.focusPoints.keys.first
+      expect(question.focusPoints[replace_uid]).not_to eq(new_focus_point)
       question.set_focus_point(replace_uid, new_focus_point)
       question.reload
-      expect(question.data['focusPoints'][replace_uid]).to eq(new_focus_point)
+      expect(question.focusPoints[replace_uid]).to eq(new_focus_point)
     end
   end
 
@@ -167,37 +167,38 @@ RSpec.describe Question, type: :model do
     it 'should change the contents of focusPoints' do
       question.update_focus_points(update_data)
       question.reload
-      expect(question.data['focusPoints']).to eq(update_data)
+      expect(question.focusPoints).to eq(update_data)
     end
   end
 
   describe '#delete_focus_point' do
     it 'should remove the specified focusPoint' do
-      first_focus_point_key = question.data['focusPoints'].keys.first
+      first_focus_point_key = question.focusPoints.keys.first
       question.delete_focus_point(first_focus_point_key)
       question.reload
-      expect(question.data['focusPoints'][first_focus_point_key]).to be_nil
+      expect(question.focusPoints[first_focus_point_key]).to be_nil
     end
   end
 
   describe '#delete_incorrect_sequence' do
     it 'should remove the specified incorrectSequence if stored in a hash' do
-      first_incorrect_sequence_key = question.data['incorrectSequences'].keys.first
+      first_incorrect_sequence_key = question.incorrectSequences.keys.first
       question.delete_incorrect_sequence(first_incorrect_sequence_key)
       question.reload
-      expect(question.data['incorrectSequences'][first_incorrect_sequence_key]).to be_nil
+      expect(question.incorrectSequences[first_incorrect_sequence_key]).to be_nil
     end
 
     it 'should remove the specified incorrectSequence if stored in an array' do
       data = [
         {'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar'},
         {'uid' => 'uid2', 'text'=>'text', 'feedback'=>'bar'},
-        {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}]
+        {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}
+]
       question.update_incorrect_sequences(data)
       first_incorrect_sequence_key = '1'
       question.delete_incorrect_sequence(first_incorrect_sequence_key)
       question.reload
-      expect(question.data['incorrectSequences']).to contain_exactly(
+      expect(question.incorrectSequences).to contain_exactly(
         {'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar'},
         {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}
         )
@@ -244,16 +245,16 @@ RSpec.describe Question, type: :model do
 
   describe '#add_incorrect_sequence' do
     it 'should increase the number of incorrectSequences' do
-      starting_length = question.data['incorrectSequences'].keys.length
+      starting_length = question.incorrectSequences.keys.length
       question.add_incorrect_sequence(new_incorrect_sequence)
       question.reload
-      expect(question.data['incorrectSequences'].keys.length).to eq(starting_length + 1)
+      expect(question.incorrectSequences.keys.length).to eq(starting_length + 1)
     end
 
     it 'should put the new incorrectSequence in the data attribute' do
       uid = question.add_incorrect_sequence(new_incorrect_sequence)
       question.reload
-      expect(question.data['incorrectSequences'][uid]).to eq(new_incorrect_sequence)
+      expect(question.incorrectSequences[uid]).to eq(new_incorrect_sequence)
     end
 
     context 'incorrectSequence is an array' do
@@ -272,14 +273,14 @@ RSpec.describe Question, type: :model do
 
       it 'assigns an "id" of array length' do
         question.add_incorrect_sequence(new_incorrect_sequence)
-        new_data = question.reload.data['incorrectSequences'][length]
+        new_data = question.reload.incorrectSequences[length]
         new_data.delete('uid') # remove the added uid
         expect(new_data).to eq(new_incorrect_sequence)
       end
 
       it 'adds a uid to the new sequence' do
         question.add_incorrect_sequence(new_incorrect_sequence)
-        expect(question.reload.data['incorrectSequences'].last['uid']).to be_present
+        expect(question.reload.incorrectSequences.last['uid']).to be_present
       end
     end
   end
@@ -292,15 +293,15 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should set the value of the specified incorrectSequence if in hash' do
-      replace_uid = question.data['incorrectSequences'].keys.first
+      replace_uid = question.incorrectSequences.keys.first
       question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
       question.reload
-      expect(question.data['incorrectSequences'][replace_uid]).to eq(new_incorrect_sequence)
+      expect(question.incorrectSequences[replace_uid]).to eq(new_incorrect_sequence)
     end
 
     context 'array' do
       before do
-        question.data['incorrectSequences'] = [
+        question.incorrectSequences = [
           {'text'=>'text1','feedback'=>'feedback1'},
           {'text'=>'text2','feedback'=>'feedback2'},
           {'text'=>'text3','feedback'=>'feedback3'}
@@ -312,7 +313,7 @@ RSpec.describe Question, type: :model do
         replace_uid = 0
         question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
         question.reload
-        new_data = question.data['incorrectSequences'][replace_uid]
+        new_data = question.incorrectSequences[replace_uid]
         new_data.delete('uid') # remove the added uid
         expect(new_data).to eq(new_incorrect_sequence)
       end
@@ -321,7 +322,7 @@ RSpec.describe Question, type: :model do
         replace_uid = 0
         question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
         question.reload
-        new_sequence = question.data['incorrectSequences'][replace_uid]
+        new_sequence = question.incorrectSequences[replace_uid]
         expect(new_sequence['uid']).to be_present
       end
 
@@ -330,7 +331,7 @@ RSpec.describe Question, type: :model do
         replace_uid = 0
         question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
         question.reload
-        new_sequence = question.data['incorrectSequences'][replace_uid]
+        new_sequence = question.incorrectSequences[replace_uid]
         expect(new_sequence['uid']).to eq('uid1')
       end
     end
@@ -345,7 +346,7 @@ RSpec.describe Question, type: :model do
       it 'should add uids to each of the sequences' do
         subject
         question.reload
-        sequences = question.data['incorrectSequences']
+        sequences = question.incorrectSequences
         sequences.each do |sequence|
           expect(sequence['uid']).to be_present
         end
@@ -354,7 +355,7 @@ RSpec.describe Question, type: :model do
       it 'should change the contents of incorrectSequences' do
         subject
         question.reload
-        sequences = question.data['incorrectSequences']
+        sequences = question.incorrectSequences
         sequences.each_with_index do |sequence, index|
           expect(sequence['text']).to eq(update_data[index]['text'])
           expect(sequence['feedback']).to eq(update_data[index]['feedback'])
@@ -368,7 +369,7 @@ RSpec.describe Question, type: :model do
       it 'should change the contents of incorrectSequences' do
         subject
         question.reload
-        expect(question.data['incorrectSequences']).to eq(update_data)
+        expect(question.incorrectSequences).to eq(update_data)
       end
     end
   end
@@ -444,7 +445,7 @@ RSpec.describe Question, type: :model do
     end
 
     context 'type is focusPoints' do
-      let(:type) { 'focusPoints' }
+      let(:type) { Question::FOCUS_POINTS }
 
       context 'the focusPoints are an array' do
         let(:data) { [type1, type2] }
@@ -479,7 +480,7 @@ RSpec.describe Question, type: :model do
     end
 
     context 'type is incorrectSequences' do
-      let(:type) { 'incorrectSequences' }
+      let(:type) { Question::INCORRECT_SEQUENCES }
 
       context 'the incorrectSequences are an array' do
         let(:data) { [type1, type2] }

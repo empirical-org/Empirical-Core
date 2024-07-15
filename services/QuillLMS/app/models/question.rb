@@ -52,6 +52,10 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
+  INCORRECT_SEQUENCES = 'incorrectSequences'
+  FOCUS_POINTS = 'focusPoints'
+  FEEDBACK_TYPES = [INCORRECT_SEQUENCES, FOCUS_POINTS]
+
   has_many :diagnostic_question_optimal_concepts, class_name: 'DiagnosticQuestionOptimalConcept', foreign_key: :question_uid, primary_key: :uid, dependent: :destroy
   has_many :diagnostic_question_skills
 
@@ -61,6 +65,9 @@ class Question < ApplicationRecord
   validate :data_must_be_hash
   validate :validate_sequences
 
+
+  store_accessor :data, :incorrectSequences
+  store_accessor :data, :focusPoints
   attr_accessor :skip_refresh_caches
 
   after_save :refresh_caches, unless: -> { skip_refresh_caches }
@@ -109,42 +116,42 @@ class Question < ApplicationRecord
   end
 
   def get_incorrect_sequence(incorrect_sequence_id)
-    return nil if !data['incorrectSequences']
+    return nil if !incorrectSequences
 
-    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?('incorrectSequences')
-    return data['incorrectSequences'][incorrect_sequence_id]
+    incorrect_sequence_id = incorrect_sequence_id.to_i if stored_as_array?(INCORRECT_SEQUENCES)
+    return incorrectSequences[incorrect_sequence_id]
   end
 
   def add_incorrect_sequence(new_data)
-    add_data_for(type: 'incorrectSequences', new_data:)
+    add_data_for(type: INCORRECT_SEQUENCES, new_data:)
   end
 
   def add_focus_point(new_data)
-    add_data_for(type: 'focusPoints', new_data:)
+    add_data_for(type: FOCUS_POINTS, new_data:)
   end
 
   def set_focus_point(id, new_data)
-    set_data_for(type: 'focusPoints', id:, new_data:)
+    set_data_for(type: FOCUS_POINTS, id:, new_data:)
   end
 
   def set_incorrect_sequence(id, new_data)
-    set_data_for(type: 'incorrectSequences', id:, new_data:)
+    set_data_for(type: INCORRECT_SEQUENCES, id:, new_data:)
   end
 
   def update_incorrect_sequences(new_data)
-    update_data_for(type: 'incorrectSequences', new_data:)
+    update_data_for(type: INCORRECT_SEQUENCES, new_data:)
   end
 
   def update_focus_points(new_data)
-    update_data_for(type: 'focusPoints', new_data:)
+    update_data_for(type: FOCUS_POINTS, new_data:)
   end
 
   def delete_focus_point(id)
-    delete_data_for(id:, type: 'focusPoints')
+    delete_data_for(id:, type: FOCUS_POINTS)
   end
 
   def delete_incorrect_sequence(id)
-    delete_data_for(id:, type: 'incorrectSequences')
+    delete_data_for(id:, type: INCORRECT_SEQUENCES)
   end
 
 
@@ -221,11 +228,11 @@ class Question < ApplicationRecord
   private def validate_sequences
     return if data.blank? || !data.is_a?(Hash)
 
-    parse_and_validate(data['incorrectSequences'])
-    parse_and_validate(data['focusPoints'])
+    FEEDBACK_TYPES.each {|type| parse_and_validate(type) }
   end
 
-  private def parse_and_validate(sequences)
+  private def parse_and_validate(type)
+    sequences = data[type]
     return if sequences.blank?
 
     case sequences
