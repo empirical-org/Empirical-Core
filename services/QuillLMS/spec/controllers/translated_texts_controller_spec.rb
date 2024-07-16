@@ -6,11 +6,16 @@ RSpec.describe TranslatedTextsController, type: :controller do
   let(:staff_user) { create(:user, role: 'staff') }
   let(:regular_user) { create(:user) }
 
+  before do
+    allow(controller).to receive(:signed_in?) { true }
+    allow(controller).to receive(:current_user) { current_user }
+  end
+
   describe 'GET #index' do
     context 'when user is staff' do
+      let(:current_user) { staff_user }
+
       before do
-        allow(controller).to receive(:signed_in?) { true }
-        allow(controller).to receive(:current_user) { staff_user}
         get :index
       end
 
@@ -32,14 +37,14 @@ RSpec.describe TranslatedTextsController, type: :controller do
     end
 
     context 'when user is not staff' do
+      let(:current_user) { regular_user }
+
       before do
-        allow(controller).to receive(:signed_in?) { true }
-        allow(controller).to receive(:current_user) { regular_user }
         get :index
       end
 
-      it 'redirects to profile path' do
-        expect(response).to redirect_to(profile_path)
+      it 'redirects to new_session_path' do
+        expect(response).to redirect_to(new_session_path)
       end
     end
   end
@@ -48,10 +53,7 @@ RSpec.describe TranslatedTextsController, type: :controller do
     let(:translated_text) { create(:translated_text) }
 
     context 'when user is staff' do
-      before do
-        allow(controller).to receive(:signed_in?) { true }
-        allow(controller).to receive(:current_user) { staff_user }
-      end
+      let(:current_user) { staff_user }
 
       context 'with valid params' do
         let(:new_translation) { 'Updated translation' }
@@ -87,14 +89,14 @@ RSpec.describe TranslatedTextsController, type: :controller do
     end
 
     context 'when user is not staff' do
+      let(:current_user) { regular_user }
+
       before do
-        allow(controller).to receive(:signed_in?) { true }
-        allow(controller).to receive(:current_user) { regular_user }
         patch :update, params: { id: translated_text.id, translated_text: { translation: 'New translation' } }
       end
 
-      it 'redirects to profile path' do
-        expect(response).to redirect_to(profile_path)
+      it 'redirects to new_session_path' do
+        expect(response).to redirect_to(new_session_path)
       end
     end
   end
