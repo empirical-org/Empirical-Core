@@ -9,7 +9,6 @@ class PagesController < ApplicationController
     :play, :preap_units, :springboard_units, :evidence,
     :connect, :grammar, :diagnostic, :proofreader, :lessons
   ]
-  before_action :staff!, only: [:locker]
   before_action :set_root_url
 
   layout :determine_layout
@@ -499,6 +498,8 @@ class PagesController < ApplicationController
   end
 
   def locker
+    return redirect_to profile_path unless staff?
+
     @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
