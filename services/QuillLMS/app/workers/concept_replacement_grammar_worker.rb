@@ -23,8 +23,8 @@ class ConceptReplacementGrammarWorker
         data['concept_uid'] = new_concept_uid
       end
 
-      if q['modelConceptUID'] && q['modelConceptUID'] == original_concept_uid
-        data['modelConceptUID'] = new_concept_uid
+      if q.modelConceptUID && q.modelConceptUID == original_concept_uid
+        q.modelConceptUID = new_concept_uid
       end
 
       if q.focusPoints

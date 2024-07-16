@@ -785,8 +785,8 @@ describe Activity, type: :model, redis: true do
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.to change{ q1.reload.data['flag'] }.to('production')
-          .and change{ q2.reload.data['flag'] }.to('production')
+        end.to change{ q1.reload.flag }.to('production')
+          .and change{ q2.reload.flag }.to('production')
       end
     end
 
@@ -797,7 +797,7 @@ describe Activity, type: :model, redis: true do
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.not_to change{ q1.reload.data['flag'] }
+        end.not_to change{ q1.reload.flag }
       end
     end
   end

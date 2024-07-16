@@ -109,9 +109,9 @@ describe PopulateActivityHealthWorker do
     it 'should create new Prompt Health objects' do
       subject.perform(activity.id)
       expect(PromptHealth.count).to eq(2)
-      expect(PromptHealth.first.text).to eq(question.data['prompt'])
+      expect(PromptHealth.first.text).to eq(question.prompt)
       expect(PromptHealth.first.percent_common_unmatched).to eq(50)
-      expect(PromptHealth.second.text).to eq(another_question.data['prompt'])
+      expect(PromptHealth.second.text).to eq(another_question.prompt)
       expect(PromptHealth.second.percent_common_unmatched).to eq(100)
     end
 
