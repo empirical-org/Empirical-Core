@@ -101,6 +101,17 @@ RSpec.describe Question, type: :model do
       expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
 
+    it 'should be invalid if the focus point in an array does not have a uid' do
+      data = {
+        Question::FOCUS_POINTS =>
+        [
+          {'text'=>'(foo|bar)', 'feedback'=>'bar'}
+        ]
+      }
+      question.data = data
+      expect(question.valid?).to be false
+    end
+
     it 'should be valid if focus point has valid regex and feedback' do
       question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
       expect(question.valid?).to be true
@@ -116,6 +127,17 @@ RSpec.describe Question, type: :model do
       question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'foo'}}}
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
+    end
+
+    it 'should be invalid if the incorrectSequence in an array does not have a uid' do
+      data = {
+        Question::INCORRECT_SEQUENCES =>
+        [
+          {'text'=>'(foo|bar)', 'feedback'=>'bar'}
+        ]
+      }
+      question.data = data
+      expect(question.valid?).to be false
     end
 
     it 'should be invalid if an incorrect sequence is invalid regex' do
@@ -301,20 +323,20 @@ RSpec.describe Question, type: :model do
 
     context 'array' do
       before do
-        question.incorrectSequences = [
-          {'text'=>'text1','feedback'=>'feedback1'},
-          {'text'=>'text2','feedback'=>'feedback2'},
-          {'text'=>'text3','feedback'=>'feedback3'}
+        question.data['incorrectSequences'] = [
+          {'text'=>'text1','feedback'=>'feedback1', 'uid' => 'uid1'},
+          {'text'=>'text2','feedback'=>'feedback2', 'uid' => 'uid2'},
+          {'text'=>'text3','feedback'=>'feedback3', 'uid' => 'uid3'}
         ]
         question.save
       end
 
       it 'should set the value of the specified incorrectSequence' do
         replace_uid = 0
+        new_incorrect_sequence = {'text' => 't4', 'feedback' => 'f4', 'uid' => 'u4'}
         question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
         question.reload
         new_data = question.incorrectSequences[replace_uid]
-        new_data.delete('uid') # remove the added uid
         expect(new_data).to eq(new_incorrect_sequence)
       end
 
