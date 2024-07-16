@@ -22,7 +22,7 @@ describe AddUuidToQuestionDataWorker do
 
       before do
         question.data[type] = data
-        question.save
+        question.save(validate: false)
       end
 
       it 'saves the uids for the question' do
