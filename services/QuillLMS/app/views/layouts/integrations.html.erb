@@ -9,7 +9,7 @@
     <%= redux_store_hydration_data %>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application' %>
     <% if %w(pages subscriptions).include?(controller.controller_name) && %w(index premium).include?(controller.action_name) %>
     <script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
     <script src="https://checkout.stripe.com/checkout.js" >
