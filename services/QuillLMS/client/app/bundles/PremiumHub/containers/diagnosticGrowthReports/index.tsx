@@ -4,7 +4,7 @@ import OverviewSection from './overviewSection'
 import SkillSection from './skillSection'
 import StudentSection from './studentSection'
 
-import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, diagnosticTypeDropdownOptions } from '../../shared'
+import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, getDiagnosticTypeDropdownOptionsByTimeframe } from '../../shared'
 import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
 import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
@@ -129,7 +129,7 @@ export const DiagnosticGrowthReportsContainer = ({
         setSelectedDiagnosticType(diagnostic_type_value)
       } else {
         setSelectedGroupByValue(groupByDropdownOptions[0])
-        setSelectedDiagnosticType(diagnosticTypeDropdownOptions[0])
+        setSelectedDiagnosticType(getDiagnosticTypeDropdownOptionsByType(selectedTimeframe)[0])
       }
     })
   }

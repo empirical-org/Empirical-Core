@@ -4,7 +4,7 @@ import { aggregateStudentData, preToPostImprovedSkillsTooltipText, preQuestionsC
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
+import { getDiagnosticTypeDropdownOptionsByTimeframe, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 
 const STUDENTS_QUERY_KEY = "diagnostic-students"
@@ -275,6 +275,7 @@ export const StudentSection = ({
   }
 
   function getInitialDiagnosticType() {
+    const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)
     if(selectedDiagnosticId) {
       return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
     }
@@ -329,7 +330,7 @@ export const StudentSection = ({
         handleChange={handleDiagnosticTypeOptionChange}
         isSearchable={true}
         label="Diagnostic:"
-        options={diagnosticTypeDropdownOptions}
+        options={getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)}
         value={diagnosticTypeValue}
       />
       {renderContent()}

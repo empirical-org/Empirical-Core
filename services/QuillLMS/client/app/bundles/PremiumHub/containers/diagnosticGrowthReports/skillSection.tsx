@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
+import { getDiagnosticTypeDropdownOptionsByTimeframe, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 import { aggregateSkillsData, growthResultsTooltipText, postSkillScoreTooltipText, preSkillScoreTooltipText, studentsImprovedSkillTooltipText, studentsMaintainedProficiencyTooltipText, studentsWithoutImprovementTooltipText } from './helpers'
 
@@ -217,7 +217,7 @@ export const SkillSection = ({
           handleChange={handleDiagnosticTypeOptionChange}
           isSearchable={true}
           label="Diagnostic:"
-          options={diagnosticTypeDropdownOptions}
+          options={getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)}
           value={diagnosticTypeValue}
         />
         <DropdownInput
