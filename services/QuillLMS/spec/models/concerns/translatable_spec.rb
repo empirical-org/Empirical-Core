@@ -214,10 +214,11 @@ RSpec.describe Translatable do
   end
 
   describe '#translate!' do
-    subject { translatable_object.translate!(locale:, source_api:) }
+    subject { translatable_object.translate!(locale:, source_api:, field_name:) }
 
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let(:source_api) { Translatable::GENGO_SOURCE }
+    let(:field_name) { translatable_object.default_field_name }
 
     before do
       allow(Gengo::RequestTranslations).to receive(:run)
@@ -225,7 +226,7 @@ RSpec.describe Translatable do
     end
 
     it 'calls create_translation_mappings first' do
-      expect(translatable_object).to receive(:create_translation_mappings)
+      expect(translatable_object).to receive(:create_translation_mappings).with(field_name:)
       subject
     end
 

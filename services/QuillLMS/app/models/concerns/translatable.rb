@@ -43,8 +43,8 @@ module Translatable
     translated_texts.where(locale: locale).ordered_by_source_api(source_api)
   end
 
-  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE, force: false)
-    create_translation_mappings
+  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE, force: false, field_name: default_field_name)
+    create_translation_mappings(field_name:)
     case source_api
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
