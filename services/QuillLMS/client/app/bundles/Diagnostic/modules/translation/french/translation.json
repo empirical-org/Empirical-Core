@@ -26,10 +26,6 @@
         "header": "Vous en êtes à la moitié !",
         "text": "Continuez !"
     },
-    "ELL Halfway": {
-        "header": "Vous en êtes à la moitié !",
-        "text": "Continuez !"
-    },
     "ELL Starter Questions": {
         "header": "Questions",
         "text": "Dans cette section, vous allez écrire des questions. N’oubliez pas d’écrire un point d’interrogation (?) à la fin de vos questions. Facile !"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Réécris la phrase. Corrige le verbe d'action souligné afin que sa conjugaison concorde avec le reste de la phrase.",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Réécris la phrase. Corrige les mots soulignés pour qu'ils soient au futur.",
         "Respond to the question. Fill in the blank with one of the choices.": "Réponds à la question. Remplis le blanc avec l'un des choix proposés.",
-        "Use the joining word to combine the sentences into one sentence.": "Utilisez le mot de liaison indiqué pour combiner les phrases et en former une seule."
+        "Use the joining word to combine the sentences into one sentence.": "Utilisez le mot de liaison indiqué pour combiner les phrases et en former une seule.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Remplis certains des espaces avec les mots jaunes. Tu  peux laisser des espaces vides.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Il y a deux bonnes réponses. Remplis chaque espace avec l’une des bonnes réponses. N’écris pas deux fois la même réponse.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Remplis chaque espace avec l’un des mots. Tu peux utiliser le même mot plusieurs fois.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people.": "Écris les phrases. Change les mots soulignés pour qu’ils évoquent plusieurs personnes.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Écris les questions. Modifie les mots soulignés pour que les questions soient correctement écrites.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Écris correctement ces phrases. Ne change que les mots soulignés. Conserve le mot « not » dans chaque phrase.",
+        "Write the words in the correct order. There are multiple correct answers.": "Écris les mots dans le bon ordre. Il y a plusieurs bonnes réponses.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Écris la phrase. Change le mot souligné pour qu’il corresponde à la phrase. N’ajoute aucun nouveau mot.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Écris la phrase. Change le mot souligné pour qu’il corresponde à la phrase. Tu peux le remplacer par 1 ou 2 mots.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Écris les phrases. Transforme chaque série de mots soulignés par un seul mot. Utilise une apostrophe (’).",
+        "Fill in the blank with the correct option.": "Remplis l’espace avec la bonne solution.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Remplis chaque espace en choisissant la bonne solution. Tu peux utiliser une solution plusieurs fois.",
+        "Fill in the blank with the most natural option.": "Remplis l’espace avec la solution la plus naturelle.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don't have to.": "Remplis chaque espace à l’aide de l’une des solutions. Tu peux utiliser la même solution plusieurs fois, mais ce n’est pas nécessaire.",
+        "Fill in the blank with the most natural sentence.": "Remplis l’espace avec la phrase la plus naturelle.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same option multiple times, but you don’t have to.": "Remplis les espaces qui nécessitent des mots. Tu peux laisser des espaces vides. Tu peux utiliser la même solution plusieurs fois, mais ce n’est pas nécessaire.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Remplis chaque espace avec une solution. Tu peux utiliser la même solution plusieurs fois, mais ce n’est pas nécessaire.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Remplis chaque espace avec un mot. Tu as le droit d’utiliser le même mot plusieurs fois, mais ce n’est pas nécessaire.",
+        "Fill in each blank with one of the words.": "Remplis chaque espace avec l’un des mots.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Il y a deux solutions correctes. Remplis chaque espace avec l’une des solutions appropriées. N’écris pas deux fois la même réponse.",
+        "Fill in each blank with one of the options.": "Remplis chaque espace à l’aide de l’une des solutions.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Réécris la phrase. Modifie les mots soulignés qui ne sont pas corrects. Ne modifie pas les mots qui sont déjà corrects."
     },
     "cues": {
         "type one": "type one / tape un mot",
@@ -76,7 +94,12 @@
         "choose one": "choose one / choisissez-en un",
         "choose three": "choose three / choisissez-en trois",
         "choose two or three" : "choose two or three / choisissez-en deux ou trois",
-        "joining word": "joining word / mot de liaison"
+        "joining word": "joining word / mot de liaison",
+        "words": "words / mots",
+        "type two": "type two / type deux",
+        "options": "options / solutions",
+        "sentences": "sentences / phrases",
+        "answers": "answers / réponses"
     },
     "feedback": {
         "blank": "Utilisez l’une des options ci-dessous ou laissez vide.",

@@ -26,10 +26,6 @@
         "header": "절반가량 완료했습니다!",
         "text": "아주 잘하고 있습니다!"
     },
-    "ELL Halfway": {
-        "header": "절반가량 완료했습니다!",
-        "text": "아주 잘하고 있습니다!"
-    },
     "ELL Starter Questions": {
         "header": "질문",
         "text": "이 섹션에서는 의문문을 써 보겠습니다. 의문문에는 끝에 물음표(?)가 있다는 사실을 기억하십시오. 잘할 수 있습니다!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "문장을 다시 쓰세요. 밑줄 친 동작 단어의 형태를 문장의 나머지 부분의 시제와 어울리게 바꾸세요.",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "문장을 다시 쓰세요. 밑줄 친 단어를 미래 시제에 맞게 바꾸세요.",
         "Respond to the question. Fill in the blank with one of the choices.": "질문에 답하세요. 빈칸에 선택한 단어를 기재하세요.",
-        "Use the joining word to combine the sentences into one sentence.": "연결 단어를 이용하여 여러 문장을 한 문장으로 결합하여 주세요."
+        "Use the joining word to combine the sentences into one sentence.": "연결 단어를 이용하여 여러 문장을 한 문장으로 결합하여 주세요.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "노란색 단어로 빈칸을 채우세요. 빈칸을 모두 채우지 않아도 괜찮아요.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "두 가지 정답이 있어요. 각 빈칸에 정답을 한 가지 선택하여 채우세요. 같은 답을 두 번 쓰지 마세요.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "각 빈칸에 한 단어를 선택하여 채우세요. 같은 단어를 두 번 이상 사용할 수 있어요.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people.": "문장을 쓰세요. 밑줄 친 단어를 바꿔 여러 사람을 뜻하는 문장으로 만들어 보세요.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "질문을 만드세요. 밑줄 친 단어를 바꿔 질문을 올바르게 만드세요.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "이 문장들을 올바르게 쓰세요. 밑줄 친 단어만 바꾸세요. 각 문장에 “not”이라는 단어를 유지하세요.",
+        "Write the words in the correct order. There are multiple correct answers.": "단어를 알맞은 순서로 쓰세요. 정답이 여러 개 있습니다.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "문장을 쓰세요. 밑줄 친 단어를 문장에 맞게 바꾸세요. 새로운 단어를 추가하지 마세요.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "문장을 쓰세요. 밑줄 친 단어를 문장에 맞게 바꾸세요. 1~2단어로 바꿀 수 있습니다.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "문장을 쓰세요. 밑줄 친 각 단어 세트를 하나의 단어로 바꾸세요. 아포스트로피( ' )를 사용하세요.",
+        "Fill in the blank with the correct option.": "빈칸을 올바른 문항으로 채우세요.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "각 빈칸에 올바른 문항을 입력하세요. 문항은 두 번 이상 사용할 수 있습니다.",
+        "Fill in the blank with the most natural option.": "빈칸을 가장 자연스러운 문항으로 채우세요.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don't have to.": "문항 중 하나를 선택하여 빈칸을 채우세요. 같은 문항을 여러 번 사용할 수 있지만 반드시 그럴 필요는 없어요. ",
+        "Fill in the blank with the most natural sentence.": "빈칸을 가장 자연스러운 문장으로 채우세요.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same option multiple times, but you don’t have to.": "빈칸을 필요한 단어로 채우세요. 빈칸을 모두 채우지 않아도 괜찮아요. 같은 문항을 여러 번 사용할 수 있지만 반드시 그럴 필요는 없어요. ",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "각 빈칸에 문항을 입력하세요. 같은 문항을 여러 번 사용할 수 있지만 반드시 그럴 필요는 없어요. ",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "각 빈칸을 단어로 채우세요. 같은 단어를 여러 번 사용할 수 있지만 반드시 그럴 필요는 없어요. ",
+        "Fill in each blank with one of the words.": "각 빈칸에 한 단어를 선택하여 채우세요.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "두 가지 올바른 문항이 있어요. 각 빈칸에 올바른 문항 중 하나를 선택하여 입력하세요. 같은 답을 두 번 쓰지 마세요.",
+        "Fill in each blank with one of the options.": "문항 중 하나를 선택하여 빈칸을 채우세요.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "문장을 다시 쓰세요. 밑줄 친 단어 중 틀린 단어를 바꾸세요. 이미 맞는 단어는 바꾸지 마세요."
     },
     "cues": {
         "type one": "type one / 하나를 기재하세요",
@@ -76,7 +94,12 @@
         "choose one": "choose one / 하나를 선택하세요",
         "choose three": "choose three / 셋을 선택하세요",
         "choose two or three" : "choose two or three / 둘이나 셋을 택하세요",
-        "joining word": "joining word / 단어 결합"
+        "joining word": "joining word / 단어 결합",
+        "words": "words / 단어",
+        "type two": "type two / 유형 2",
+        "options": "options / 문항",
+        "sentences": "sentences / 문장",
+        "answers": "answers / 답"
     },
     "feedback": {
         "blank": "아래 옵션 중 하나를 사용하거나 빈칸을 비워 두세요.",
