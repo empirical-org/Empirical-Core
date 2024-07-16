@@ -94,7 +94,7 @@ export const ellStarterPreTest = {
 }
 
 export const ellStarterPostTest = {
-  activityId: 2251,
+  activityId: 2551,
   name: 'ELL Starter Growth Diagnostic (Post)',
   unitTemplateId: ELL_STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.',
