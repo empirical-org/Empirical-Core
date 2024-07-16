@@ -310,6 +310,10 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   font-size: 13px;
 }
 
+@mixin quill-green-filter {
+  filter: invert(22%) sepia(62%) saturate(6162%) hue-rotate(164deg) brightness(95%) contrast(95%);
+}
+
 .wf-loading {
   visibility: hidden;
 }

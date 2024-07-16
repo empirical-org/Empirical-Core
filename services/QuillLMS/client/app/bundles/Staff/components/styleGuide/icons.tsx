@@ -24,12 +24,14 @@ const iconGroups = [
       { path: "activity-library.svg" },
       { path: "activity-packs.svg" },
       { path: "add-students.svg" },
+      { path: "ai.svg" },
       { path: "ap.svg" },
       { path: "archive.svg" },
       { path: "assign-activities.svg" },
       { path: "assigned-activities.svg" },
       { path: "business-building.svg" },
       { path: "diagnostics-all.svg" },
+      { path: "earth.svg" },
       { path: "email.svg" },
       { path: "globe.svg" },
       { path: "graduation-cap.svg" },
@@ -59,7 +61,9 @@ const iconGroups = [
     path: 'sm',
     title: 'SM (Small-Medium / 48x48)',
     icons: [
+      { path: "ai.svg" },
       { path: "bulb-alt.svg" },
+      { path: "globe.svg" },
       { path: "revise.svg" },
       { path: "success.svg" },
       { path: "tool-connect-bordered.svg" },
@@ -81,6 +85,7 @@ const iconGroups = [
       { path: "account-view.svg" },
       { path: "account.svg" },
       { path: "add-fill.svg" },
+      { path: "ai.svg" },
       { path: "archive.svg" },
       { path: "arrow-back.svg" },
       { path: "avatar.svg" },
@@ -299,6 +304,7 @@ const IconGallery = () => {
     <div id="icons">
       <h2 className="style-guide-h2">Icons</h2>
       <p>All paths follow: <code>{process.env.CDN_URL}/images/icons</code></p>
+      <p>If you need to change the color of an image for use in a design, rather than downloading a new version of the image, please use a <a href="https://codepen.io/sosuke/pen/Pjoqqp" target="_blank" rel="noopener noreferrer">CSS filter generator</a> to apply via CSS and make a mixin for that filter in the variables file if it doesn't already exist. See: `@mixin quill-green-filter`</p>
       {iconGroups.map(iconGroup => (
         <IconDisplay groupPath={iconGroup.path} icons={iconGroup.icons} key={iconGroup.path} title={iconGroup.title} />
       ))}

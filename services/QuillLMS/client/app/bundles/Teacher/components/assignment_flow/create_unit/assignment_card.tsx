@@ -15,6 +15,8 @@ interface AssignmentCardProps {
   showNewTag?: boolean;
   showRecommendedToStartTag?: boolean;
   lockedText?: string;
+  preHeader?: string;
+  showNewTagInPreHeaderLine?: boolean;
 }
 
 export default class AssignmentCard extends React.Component<AssignmentCardProps, {}> {
@@ -51,7 +53,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
   }
 
   render() {
-    const { imgSrc, imgAlt, imgClassName, showNewTag, header, bodyArray, showRecommendedToStartTag, } = this.props
+    const { imgSrc, imgAlt, imgClassName, showNewTag, header, bodyArray, showRecommendedToStartTag, preHeader, showNewTagInPreHeaderLine, } = this.props
     const isDisabled = DISABLED_DIAGNOSTICS.includes(header)
     const bodyElements = bodyArray.map(obj => (
       <div className="body-element" key={obj.key}>
@@ -62,6 +64,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
 
     const newTag = showNewTag ? <span className="new-tag">NEW</span> : null
     const recommendedToStartTag = showRecommendedToStartTag ? <span className="recommended-to-start-tag">Recommended to start</span> : null
+    const preHeaderTag = preHeader ? <span className="pre-header">{preHeader}</span> : null
     const leftClassName = showRecommendedToStartTag ? "left include-recommended-to-start-tag" : "left"
 
     return (
@@ -72,6 +75,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
             {imgSrc && <img alt={imgAlt} className={imgClassName} src={imgSrc} />}
             <div className="header-wrapper">
               {recommendedToStartTag}
+              {preHeaderTag ? <div>{preHeaderTag}{showNewTagInPreHeaderLine ? newTag : null}</div> : null}
               <h2>{header}</h2>
             </div>
           </div>
