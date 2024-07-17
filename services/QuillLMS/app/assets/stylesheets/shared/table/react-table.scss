@@ -1,19 +1,92 @@
 .ReactTable {
+  .rt-table {
+    border-radius: 8px;
+  }
   .rt-tbody .rt-td {
     border: none;
+    @include text-xs;
+    &:has(.quill-tooltip) {
+      overflow: visible;
+    }
+    .data-table-chip {
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      padding: 4px 8px 4px 6px;
+      background-color: $quill-green-1;
+      border: 1px solid $quill-green-20;
+      width: min-content;
+      max-width: 100%;
+      &:focus {
+        outline-offset: 3px;
+      }
+      &:not(.grey):hover {
+        background-color: $quill-green-5;
+      }
+      &.grey {
+        background-color: $quill-grey-1;
+        border: 1px solid $quill-grey-15;
+        p {
+          color: $quill-grey-90;
+        }
+      }
+      p {
+        @include display-xs;
+        color: $quill-green;
+        margin-left: 4px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .rt-thead {
+    border-bottom: 1px solid $quill-grey-15;
   }
 
   .-loading {
     display: none;
   }
 
-  .rt-thead .rt-th {
-    &.-sort-asc {
-      box-shadow: inset 0 3px 0 0 rgba(0,0,0,0.6);
-    }
+  .-sort-asc,
+  .-sort-desc {
+    box-shadow: none !important;
+  }
 
-    &.-sort-desc {
-      box-shadow: inset 0 -3px 0 0 rgba(0,0,0,0.6);
+  .-sort-asc {
+    div::after {
+      position: absolute;
+      top: 8px;
+      right: 4px;
+      content: url('https://assets.quill.org/images/icons/s/collapse.svg');
+    }
+  }
+
+  .-sort-desc {
+    div::after {
+      position: absolute;
+      top: 8px;
+      right: 4px;
+      content: url('https://assets.quill.org/images/icons/s/expand.svg');
+    }
+  }
+
+  .rt-thead .rt-th {
+    background-color: $quill-grey-1;
+    color: $quill-grey-90;
+    @include display-xs;
+    &:first-of-type {
+      border-top-left-radius: 8px;
+    }
+    &:last-of-type {
+      border-top-right-radius: 8px;
+    }
+  }
+
+  .rt-tr-group .rt-tr {
+    &:has(.data-table-chip) {
+      align-items: center;
     }
   }
 
@@ -24,7 +97,7 @@
     margin: auto;
 
     .rt-table {
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      border: 1px solid $quill-grey-15;
     }
 
     .pagination-bottom {
@@ -36,7 +109,7 @@
         justify-content: space-between;
         background: #fafafa;
         border-top: none;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 1px solid $quill-grey-15;
         -webkit-box-shadow: none;
                 box-shadow: none;
         padding: 8px;
@@ -55,13 +128,9 @@
     }
 
     .rt-th {
-      background-color: #fafafa;
       height: 40px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #3b3b3b;
       text-align: left;
-      padding-left: 14px;
+      padding: 15px 8px;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -77,9 +146,6 @@
       .rt-th {
         &:last-of-type{
           border-left: none;
-        }
-        &:nth-last-of-type(2) {
-          border-right: none;
         }
       }
     }
@@ -97,15 +163,15 @@
           color: #00c2a2;
         }
       }
+      &:last-of-type {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
     }
 
     .green-arrow {
       text-align: right;
       padding: 20px;
-    }
-
-    .rt-td {
-      padding-left: 10px;
     }
   }
   &.unit-template-profile-activities .rt-table {
@@ -127,7 +193,6 @@
 
     .rt-th {
       border-right: none;
-      padding-left: 10px;
     }
     a {
       color: #027360;
@@ -148,4 +213,47 @@
               align-items: center;
     }
   }
+  .-pagination {
+    border-radius: 8px;
+    border: 1px solid $quill-grey-10;
+    background-color: $quill-grey-1;
+    align-items: center;
+    margin-top: 10px;
+    box-shadow: none;
+    padding: 8px;
+    .-next {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .-btn {
+      background-color: $quill-white;
+      border: 1px solid $quill-grey-15;
+      border-radius: 8px;
+      color: $quill-grey-90;
+      width: 90px;
+      height: 32px;
+      padding: 4px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      &:not([disabled]):hover {
+        background-color: $quill-grey-1 !important;
+        color: $quill-grey-90 !important;
+      }
+      &:focus {
+        outline: dashed 2px $quill-grey-80;
+        outline-offset: 4px;
+      }
+    }
+    .-pageInfo {
+      font-size: 13px;
+      font-weight: 600;
+      .-pageJump {
+        margin: 0px 10px;
+        input {
+          border-radius: 8px;
+        }
+      }
+    }
+  }
 }
+

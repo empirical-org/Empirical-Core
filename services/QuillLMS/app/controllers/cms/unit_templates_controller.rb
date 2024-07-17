@@ -28,8 +28,12 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   def create
-    @unit_template = UnitTemplate.new(unit_template_params)
+    @unit_template = UnitTemplate.new(unit_template_params.except(:activity_ids))
     if @unit_template.save!
+      unit_template_params[:activity_ids].each_with_index do |activity_id, order_number|
+        ActivitiesUnitTemplate.create(activity_id:, order_number:, unit_template_id: @unit_template.id)
+      end
+
       render json: @unit_template
     else
       render json: {errors: @unit_template.errors}, status: 422
@@ -37,14 +41,13 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   def update
-    params = unit_template_params
-    @unit_template.activities = []
-    @unit_template.save
-    if @unit_template.update(params)
-      @unit_template.activities_unit_templates.each do |aut|
-        order_number = params['activity_ids'].index(aut.activity_id)
-        aut.update(order_number: order_number)
+    if @unit_template.update(unit_template_params.except(:activity_ids))
+      @unit_template.activities_unit_templates.destroy_all
+
+      unit_template_params[:activity_ids].each_with_index do |activity_id, order_number|
+        ActivitiesUnitTemplate.create(activity_id:, order_number:, unit_template_id: @unit_template.id)
       end
+
       render json: @unit_template
     else
       render json: {errors: @unit_template.errors}, status: 422
@@ -68,18 +71,21 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   private def unit_template_params
-    params.require(:unit_template)
-            .permit(:id,
-                    :authenticity_token,
-                    :name,
-                    :flag,
-                    :author_id,
-                    :activity_info,
-                    :time,
-                    :order_number,
-                    :unit_template_category_id,
-                    :image_link,
-                    grades: [],
-                    activity_ids: [])
+    params
+      .require(:unit_template)
+      .permit(
+        :id,
+        :authenticity_token,
+        :name,
+        :flag,
+        :author_id,
+        :activity_info,
+        :time,
+        :order_number,
+        :unit_template_category_id,
+        :image_link,
+        grades: [],
+        activity_ids: []
+      )
   end
 end

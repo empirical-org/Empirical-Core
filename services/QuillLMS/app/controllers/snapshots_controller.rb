@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SnapshotsController < ApplicationController
+  ADMIN_DIAGNOSTIC_REPORT = '/diagnostic_growth_report'
   CACHE_REPORT_NAME = 'admin-snapshot'
   GRADE_OPTIONS = [
     {value: 'Kindergarten', name: 'Kindergarten'},
@@ -78,12 +79,26 @@ class SnapshotsController < ApplicationController
 
   private def build_options_hash
     {
-      timeframes: Snapshots::Timeframes.frontend_options,
+      timeframes:,
       schools: format_option_list(school_options),
       grades: GRADE_OPTIONS,
       teachers: format_option_list(sorted_teacher_options),
       classrooms: format_option_list(classroom_options)
     }.merge(initial_load_options)
+  end
+
+  private def timeframes
+    return admin_diagnostic_growth_report_timeframes if report == ADMIN_DIAGNOSTIC_REPORT
+
+    all_timeframes
+  end
+
+  private def all_timeframes = Snapshots::Timeframes.frontend_options
+
+  private def admin_diagnostic_growth_report_timeframes
+    Snapshots::Timeframes.frontend_options.filter do |timeframe|
+      ['this-school-year', 'last-school-year'].include?(timeframe[:value])
+    end
   end
 
   private def initial_load_options
@@ -258,6 +273,8 @@ class SnapshotsController < ApplicationController
       teacher_ids: []
     )
   end
+
+  private def report = option_params[:report]
 
   private def initial_load?
     option_params[:is_initial_load].in?([true, 'true'])

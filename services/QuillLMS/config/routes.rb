@@ -84,6 +84,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :student_feedback_responses, only: [:create]
 
+  resources :translated_texts, only: [:index, :update]
+
   namespace :stripe_integration do
     post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
     post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
@@ -779,6 +781,14 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  resources :email_subscriptions, param: :type, only: [:destroy] do
+    post :create_or_update
+    get :current
+    collection do
+      get 'unsubscribe/:cancel_token', to: 'email_subscriptions#unsubscribe', as: :unsubscribe
+    end
+  end
+
   other_pages = %w(
     beta
     board
@@ -816,7 +826,6 @@ EmpiricalGrammar::Application.routes.draw do
     locker
     quill_academy
     teacher_premium
-    translations
   )
 
   all_pages = other_pages

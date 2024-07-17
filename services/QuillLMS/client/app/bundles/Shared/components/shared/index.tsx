@@ -21,6 +21,10 @@ export {
 } from './checkBox'
 
 export {
+  DataTableChip
+} from './dataTableChip'
+
+export {
   DragHandle
 } from './dragHandle'
 

@@ -233,10 +233,10 @@ describe Api::V1::ActivitiesController, type: :controller do
 
       response_obj = parsed_body['question_health']
       expect(response_obj[0]['url']).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
-      expect(response_obj[0]['text']).to eq(question.data['prompt'])
-      expect(response_obj[0]['flag']).to eq(question.data['flag'])
-      expect(response_obj[0]['incorrect_sequences']).to eq(question.data['incorrectSequences'].length)
-      expect(response_obj[0]['focus_points']).to eq(question.data['focusPoints'].length)
+      expect(response_obj[0]['text']).to eq(question.prompt)
+      expect(response_obj[0]['flag']).to eq(question.flag)
+      expect(response_obj[0]['incorrect_sequences']).to eq(question.incorrectSequences.length)
+      expect(response_obj[0]['focus_points']).to eq(question.focusPoints.length)
       expect(response_obj[0]['percent_common_unmatched']).to eq(50)
       expect(response_obj[0]['percent_specified_algorithms']).to eq(75)
       expect(response_obj[0]['difficulty']).to eq(2.67)

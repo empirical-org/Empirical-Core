@@ -206,7 +206,7 @@ class Activity < ApplicationRecord
     return nil unless is_evidence?
 
     created_time = child_activity.last_flags_change_log_record&.created_at || created_at
-    created_time.strftime('%m/%d/%Y')
+    created_time.strftime("%Y-%m-%dT%H:%M:%S")
   end
 
   # TODO: cleanup
@@ -251,7 +251,7 @@ class Activity < ApplicationRecord
   end
 
   def data_as_json
-    translated_json({})
+    data
   end
 
   def self.translatable_field_name = 'landingPageHtml'

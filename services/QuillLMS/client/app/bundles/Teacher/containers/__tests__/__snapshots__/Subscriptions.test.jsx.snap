@@ -6,7 +6,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptionStatus={
     Object {
       "account_type": "School District Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -22,14 +22,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School District Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -45,7 +45,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -57,7 +57,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -73,7 +73,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -150,7 +150,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -166,7 +166,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -432,7 +432,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         Array [
           Object {
             "account_type": "School District Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -448,7 +448,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -497,7 +497,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -665,7 +665,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscription={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -681,7 +681,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -697,9 +697,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptionStatus={
     Object {
       "account_type": "School District Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -713,16 +713,16 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School District Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -736,7 +736,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -748,9 +748,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -764,7 +764,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -840,9 +840,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -856,7 +856,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -872,9 +872,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         Array [
           Object {
             "account_type": "School District Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -888,7 +888,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -937,7 +937,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -1105,9 +1105,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscription={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -1121,7 +1121,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -1137,7 +1137,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptionStatus={
     Object {
       "account_type": "School District Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -1153,14 +1153,14 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School District Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -1176,7 +1176,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -1188,7 +1188,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -1204,7 +1204,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -1281,7 +1281,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -1297,7 +1297,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -1629,7 +1629,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         Array [
           Object {
             "account_type": "School District Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -1645,7 +1645,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -1694,7 +1694,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -1862,7 +1862,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscription={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -1878,7 +1878,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -1894,9 +1894,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
   subscriptionStatus={
     Object {
       "account_type": "School District Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -1910,16 +1910,16 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School District Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -1933,7 +1933,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -1945,9 +1945,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -1961,7 +1961,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -2026,9 +2026,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscriptionStatus={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -2042,7 +2042,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="District Premium"
@@ -2058,9 +2058,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
         Array [
           Object {
             "account_type": "School District Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -2074,7 +2074,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -2123,7 +2123,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -2291,9 +2291,9 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
       subscription={
         Object {
           "account_type": "School District Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -2307,7 +2307,7 @@ exports[`Subscriptions UI state iterations district paid via invoice the current
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -2323,7 +2323,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
   subscriptionStatus={
     Object {
       "account_type": "Premium Credit",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -2339,14 +2339,14 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Premium Credit",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -2362,7 +2362,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -2374,7 +2374,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       subscriptionStatus={
         Object {
           "account_type": "Premium Credit",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -2390,7 +2390,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Credit"
@@ -2467,7 +2467,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       subscriptionStatus={
         Object {
           "account_type": "Premium Credit",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -2483,7 +2483,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Credit"
@@ -2734,7 +2734,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         Array [
           Object {
             "account_type": "Premium Credit",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -2750,7 +2750,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -2799,7 +2799,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -2967,7 +2967,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       subscription={
         Object {
           "account_type": "Premium Credit",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -2983,7 +2983,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -2999,9 +2999,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
   subscriptionStatus={
     Object {
       "account_type": "Premium Credit",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -3015,16 +3015,16 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Premium Credit",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -3038,7 +3038,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -3050,9 +3050,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       subscriptionStatus={
         Object {
           "account_type": "Premium Credit",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -3066,7 +3066,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Credit"
@@ -3140,9 +3140,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       subscriptionStatus={
         Object {
           "account_type": "Premium Credit",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -3156,7 +3156,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Credit"
@@ -3172,9 +3172,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
         Array [
           Object {
             "account_type": "Premium Credit",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -3188,7 +3188,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -3237,7 +3237,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -3405,9 +3405,9 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
       subscription={
         Object {
           "account_type": "Premium Credit",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -3421,7 +3421,7 @@ exports[`Subscriptions UI state iterations premium credit renders when there is 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -3437,7 +3437,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
   subscriptionStatus={
     Object {
       "account_type": "School Sponsored Free",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -3453,14 +3453,14 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Sponsored Free",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -3476,7 +3476,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -3488,7 +3488,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       subscriptionStatus={
         Object {
           "account_type": "School Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -3504,7 +3504,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium (Scholarship)"
@@ -3581,7 +3581,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       subscriptionStatus={
         Object {
           "account_type": "School Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -3597,7 +3597,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium (Scholarship)"
@@ -3848,7 +3848,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         Array [
           Object {
             "account_type": "School Sponsored Free",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -3864,7 +3864,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -3913,7 +3913,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -4081,7 +4081,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       subscription={
         Object {
           "account_type": "School Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -4097,7 +4097,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -4113,9 +4113,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
   subscriptionStatus={
     Object {
       "account_type": "School Sponsored Free",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -4129,16 +4129,16 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Sponsored Free",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -4152,7 +4152,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -4164,9 +4164,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       subscriptionStatus={
         Object {
           "account_type": "School Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -4180,7 +4180,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium (Scholarship)"
@@ -4254,9 +4254,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       subscriptionStatus={
         Object {
           "account_type": "School Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -4270,7 +4270,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium (Scholarship)"
@@ -4286,9 +4286,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
         Array [
           Object {
             "account_type": "School Sponsored Free",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -4302,7 +4302,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -4351,7 +4351,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -4519,9 +4519,9 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
       subscription={
         Object {
           "account_type": "School Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -4535,7 +4535,7 @@ exports[`Subscriptions UI state iterations school free renders when there is an 
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -4551,7 +4551,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
   subscriptionStatus={
     Object {
       "account_type": "School Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -4567,14 +4567,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -4590,7 +4590,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -4602,7 +4602,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -4618,7 +4618,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -4695,7 +4695,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -4711,7 +4711,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -4977,7 +4977,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         Array [
           Object {
             "account_type": "School Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -4993,7 +4993,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -5042,7 +5042,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -5210,7 +5210,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscription={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -5226,7 +5226,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -5242,9 +5242,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
   subscriptionStatus={
     Object {
       "account_type": "School Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -5258,16 +5258,16 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -5281,7 +5281,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -5293,9 +5293,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -5309,7 +5309,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -5392,9 +5392,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -5408,7 +5408,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -5424,9 +5424,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         Array [
           Object {
             "account_type": "School Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -5440,7 +5440,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -5489,7 +5489,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -5657,9 +5657,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscription={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -5673,7 +5673,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -5689,7 +5689,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
   subscriptionStatus={
     Object {
       "account_type": "School Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -5705,14 +5705,14 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -5728,7 +5728,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -5740,7 +5740,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -5756,7 +5756,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -5833,7 +5833,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -5849,7 +5849,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -6181,7 +6181,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         Array [
           Object {
             "account_type": "School Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -6197,7 +6197,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -6246,7 +6246,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -6414,7 +6414,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscription={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -6430,7 +6430,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -6446,9 +6446,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
   subscriptionStatus={
     Object {
       "account_type": "School Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -6462,16 +6462,16 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -6485,7 +6485,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -6497,9 +6497,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -6513,7 +6513,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -6585,9 +6585,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscriptionStatus={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -6601,7 +6601,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -6617,9 +6617,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
         Array [
           Object {
             "account_type": "School Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -6633,7 +6633,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -6682,7 +6682,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -6850,9 +6850,9 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
       subscription={
         Object {
           "account_type": "School Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -6866,7 +6866,7 @@ exports[`Subscriptions UI state iterations school paid via invoice the current u
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -6882,7 +6882,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
   subscriptionStatus={
     Object {
       "account_type": "School Paid (via Stripe)",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -6898,14 +6898,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid (via Stripe)",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -6921,7 +6921,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -6933,7 +6933,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -6949,7 +6949,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -7026,7 +7026,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -7042,7 +7042,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -7302,7 +7302,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         Array [
           Object {
             "account_type": "School Paid (via Stripe)",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -7318,7 +7318,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -7367,7 +7367,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -7535,7 +7535,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscription={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -7551,7 +7551,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -7567,7 +7567,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
   subscriptionStatus={
     Object {
       "account_type": "School Paid (via Stripe)",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -7583,14 +7583,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid (via Stripe)",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -7606,7 +7606,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -7618,7 +7618,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -7634,7 +7634,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -7711,7 +7711,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -7727,7 +7727,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -7999,7 +7999,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         Array [
           Object {
             "account_type": "School Paid (via Stripe)",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -8015,7 +8015,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -8064,7 +8064,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -8232,7 +8232,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscription={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -8248,7 +8248,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -8264,9 +8264,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
   subscriptionStatus={
     Object {
       "account_type": "School Paid (via Stripe)",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -8280,16 +8280,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid (via Stripe)",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -8303,7 +8303,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -8315,9 +8315,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -8331,7 +8331,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -8414,9 +8414,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -8430,7 +8430,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -8446,9 +8446,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         Array [
           Object {
             "account_type": "School Paid (via Stripe)",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -8462,7 +8462,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -8511,7 +8511,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -8679,9 +8679,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscription={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -8695,7 +8695,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -8711,7 +8711,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
   subscriptionStatus={
     Object {
       "account_type": "School Paid (via Stripe)",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -8727,14 +8727,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid (via Stripe)",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -8750,7 +8750,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -8762,7 +8762,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -8778,7 +8778,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -8855,7 +8855,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -8871,7 +8871,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -9144,7 +9144,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         Array [
           Object {
             "account_type": "School Paid (via Stripe)",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -9160,7 +9160,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -9209,7 +9209,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -9377,7 +9377,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscription={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -9393,7 +9393,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -9409,7 +9409,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
   subscriptionStatus={
     Object {
       "account_type": "School Paid (via Stripe)",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -9425,14 +9425,14 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid (via Stripe)",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -9448,7 +9448,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -9460,7 +9460,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -9476,7 +9476,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -9553,7 +9553,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -9569,7 +9569,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -9863,7 +9863,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         Array [
           Object {
             "account_type": "School Paid (via Stripe)",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -9879,7 +9879,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -9928,7 +9928,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -10096,7 +10096,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscription={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -10112,7 +10112,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -10128,9 +10128,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
   subscriptionStatus={
     Object {
       "account_type": "School Paid (via Stripe)",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -10144,16 +10144,16 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       "renewal_price": 1800,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "School Paid (via Stripe)",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -10167,7 +10167,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         "renewal_price": 1800,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -10179,9 +10179,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -10195,7 +10195,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -10267,9 +10267,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscriptionStatus={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -10283,7 +10283,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="School Premium"
@@ -10299,9 +10299,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
         Array [
           Object {
             "account_type": "School Paid (via Stripe)",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -10315,7 +10315,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
             "renewal_price": 1800,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -10364,7 +10364,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -10532,9 +10532,9 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
       subscription={
         Object {
           "account_type": "School Paid (via Stripe)",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -10548,7 +10548,7 @@ exports[`Subscriptions UI state iterations school paid via stripe the current us
           "renewal_price": 1800,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -10564,7 +10564,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
   subscriptionStatus={
     Object {
       "account_type": "Teacher Sponsored Free",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -10580,14 +10580,14 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Sponsored Free",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -10603,7 +10603,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -10615,7 +10615,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -10631,7 +10631,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium (Scholarship)"
@@ -10708,7 +10708,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -10724,7 +10724,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium (Scholarship)"
@@ -10975,7 +10975,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         Array [
           Object {
             "account_type": "Teacher Sponsored Free",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -10991,7 +10991,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -11040,7 +11040,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -11208,7 +11208,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       subscription={
         Object {
           "account_type": "Teacher Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -11224,7 +11224,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -11240,9 +11240,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
   subscriptionStatus={
     Object {
       "account_type": "Teacher Sponsored Free",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -11256,16 +11256,16 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Sponsored Free",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -11279,7 +11279,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -11291,9 +11291,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -11307,7 +11307,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium (Scholarship)"
@@ -11381,9 +11381,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -11397,7 +11397,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium (Scholarship)"
@@ -11413,9 +11413,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
         Array [
           Object {
             "account_type": "Teacher Sponsored Free",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -11429,7 +11429,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -11478,7 +11478,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -11646,9 +11646,9 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
       subscription={
         Object {
           "account_type": "Teacher Sponsored Free",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -11662,7 +11662,7 @@ exports[`Subscriptions UI state iterations teacher free renders when there is an
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -11678,7 +11678,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
   subscriptionStatus={
     Object {
       "account_type": "Teacher Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -11694,14 +11694,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       "renewal_price": 80,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -11717,7 +11717,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         "renewal_price": 80,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -11729,7 +11729,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -11745,7 +11745,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium"
@@ -11822,7 +11822,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -11838,7 +11838,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium"
@@ -12111,7 +12111,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         Array [
           Object {
             "account_type": "Teacher Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -12127,7 +12127,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             "renewal_price": 80,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -12176,7 +12176,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -12344,7 +12344,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscription={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -12360,7 +12360,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -12376,7 +12376,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
   subscriptionStatus={
     Object {
       "account_type": "Teacher Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -12392,14 +12392,14 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       "renewal_price": 80,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -12415,7 +12415,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         "renewal_price": 80,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -12427,7 +12427,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -12443,7 +12443,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium"
@@ -12520,7 +12520,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -12536,7 +12536,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium"
@@ -12830,7 +12830,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         Array [
           Object {
             "account_type": "Teacher Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -12846,7 +12846,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             "renewal_price": 80,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -12895,7 +12895,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -13063,7 +13063,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscription={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -13079,7 +13079,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -13095,9 +13095,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
   subscriptionStatus={
     Object {
       "account_type": "Teacher Paid",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -13111,16 +13111,16 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       "renewal_price": 80,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Paid",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -13134,7 +13134,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         "renewal_price": 80,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -13146,9 +13146,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -13162,7 +13162,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium"
@@ -13245,9 +13245,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscriptionStatus={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -13261,7 +13261,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium"
@@ -13277,9 +13277,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
         Array [
           Object {
             "account_type": "Teacher Paid",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -13293,7 +13293,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
             "renewal_price": 80,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -13342,7 +13342,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -13510,9 +13510,9 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
       subscription={
         Object {
           "account_type": "Teacher Paid",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -13526,7 +13526,7 @@ exports[`Subscriptions UI state iterations teacher paid renders when there is an
           "renewal_price": 80,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -13542,7 +13542,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
   subscriptionStatus={
     Object {
       "account_type": "Teacher Trial",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
       "expiration": "2070-01-01",
       "expired": false,
@@ -13558,14 +13558,14 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Trial",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
         "expiration": "2070-01-01",
         "expired": false,
@@ -13581,7 +13581,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -13593,7 +13593,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
       subscriptionStatus={
         Object {
           "account_type": "Teacher Trial",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -13609,7 +13609,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Trial"
@@ -13686,7 +13686,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
       subscriptionStatus={
         Object {
           "account_type": "Teacher Trial",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -13702,7 +13702,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Trial"
@@ -13953,7 +13953,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
         Array [
           Object {
             "account_type": "Teacher Trial",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
             "expiration": "2070-01-01",
             "expired": false,
@@ -13969,7 +13969,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -14018,7 +14018,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -14186,7 +14186,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
       subscription={
         Object {
           "account_type": "Teacher Trial",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
           "expiration": "2070-01-01",
           "expired": false,
@@ -14202,7 +14202,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an active
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >
@@ -14218,9 +14218,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
   subscriptionStatus={
     Object {
       "account_type": "Teacher Trial",
-      "created_at": "2022-02-16T14: 07: 25.976Z",
+      "created_at": "2022-02-16T14:07:25",
       "de_activated_date": null,
-      "expiration": "2022-01-1",
+      "expiration": "2022-01-01T00:00:00",
       "expired": true,
       "id": 7,
       "lastFour": null,
@@ -14234,16 +14234,16 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
       "renewal_price": null,
       "start_date": "2022-02-16",
       "subscription_type_id": null,
-      "updated_at": "2022-02-16T14: 07: 25.976Z",
+      "updated_at": "2022-02-16T14:07:25",
     }
   }
   subscriptions={
     Array [
       Object {
         "account_type": "Teacher Trial",
-        "created_at": "2022-02-16T14: 07: 25.976Z",
+        "created_at": "2022-02-16T14:07:25",
         "de_activated_date": null,
-        "expiration": "2022-01-1",
+        "expiration": "2022-01-01T00:00:00",
         "expired": true,
         "id": 7,
         "lastFour": null,
@@ -14257,7 +14257,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
         "renewal_price": null,
         "start_date": "2022-02-16",
         "subscription_type_id": null,
-        "updated_at": "2022-02-16T14: 07: 25.976Z",
+        "updated_at": "2022-02-16T14:07:25",
       },
     ]
   }
@@ -14269,9 +14269,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
       subscriptionStatus={
         Object {
           "account_type": "Teacher Trial",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -14285,7 +14285,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Trial"
@@ -14359,9 +14359,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
       subscriptionStatus={
         Object {
           "account_type": "Teacher Trial",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -14375,7 +14375,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
       subscriptionType="Teacher Premium Trial"
@@ -14391,9 +14391,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
         Array [
           Object {
             "account_type": "Teacher Trial",
-            "created_at": "2022-02-16T14: 07: 25.976Z",
+            "created_at": "2022-02-16T14:07:25",
             "de_activated_date": null,
-            "expiration": "2022-01-1",
+            "expiration": "2022-01-01T00:00:00",
             "expired": true,
             "id": 7,
             "lastFour": null,
@@ -14407,7 +14407,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
             "renewal_price": null,
             "start_date": "2022-02-16",
             "subscription_type_id": null,
-            "updated_at": "2022-02-16T14: 07: 25.976Z",
+            "updated_at": "2022-02-16T14:07:25",
           },
         ]
       }
@@ -14456,7 +14456,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
                 <td
                   key="7-1-row"
                 >
-                  Invalid date
+                  February 16th, 2022
                 </td>
                 <td
                   key="7-2-row"
@@ -14624,9 +14624,9 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
       subscription={
         Object {
           "account_type": "Teacher Trial",
-          "created_at": "2022-02-16T14: 07: 25.976Z",
+          "created_at": "2022-02-16T14:07:25",
           "de_activated_date": null,
-          "expiration": "2022-01-1",
+          "expiration": "2022-01-01T00:00:00",
           "expired": true,
           "id": 7,
           "lastFour": null,
@@ -14640,7 +14640,7 @@ exports[`Subscriptions UI state iterations trial renders when there is an expire
           "renewal_price": null,
           "start_date": "2022-02-16",
           "subscription_type_id": null,
-          "updated_at": "2022-02-16T14: 07: 25.976Z",
+          "updated_at": "2022-02-16T14:07:25",
         }
       }
     >

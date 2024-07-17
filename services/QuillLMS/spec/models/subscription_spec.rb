@@ -202,6 +202,15 @@ describe Subscription, type: :model do
     end
   end
 
+  describe '#length_in_months' do
+    it 'returns the length of the subscription in months' do
+      length_in_months = 45
+      subscription = create(:subscription, start_date: Time.zone.today, expiration: Time.zone.today + (length_in_months).months)
+
+      expect(subscription.length_in_months).to eq(length_in_months)
+    end
+  end
+
   describe 'create_and_attach_subscriber' do
     let!(:user) { create(:user) }
     let(:old_sub) do

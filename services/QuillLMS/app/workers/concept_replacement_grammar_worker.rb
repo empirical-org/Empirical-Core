@@ -23,21 +23,21 @@ class ConceptReplacementGrammarWorker
         data['concept_uid'] = new_concept_uid
       end
 
-      if q['modelConceptUID'] && q['modelConceptUID'] == original_concept_uid
-        data['modelConceptUID'] = new_concept_uid
+      if q.modelConceptUID && q.modelConceptUID == original_concept_uid
+        q.modelConceptUID = new_concept_uid
       end
 
-      if q['focusPoints']
-        focus_points = replace_focus_points_or_incorrect_sequences_for_question(q['focusPoints'], original_concept_uid, new_concept_uid)
+      if q.focusPoints
+        focus_points = replace_focus_points_or_incorrect_sequences_for_question(q.focusPoints, original_concept_uid, new_concept_uid)
         if focus_points
-          data['focusPoints'] = focus_points
+          data[Question::FOCUS_POINTS] = focus_points
         end
       end
 
-      if q['incorrectSequences']
-        incorrect_sequences = replace_focus_points_or_incorrect_sequences_for_question(q['incorrectSequences'], original_concept_uid, new_concept_uid)
+      if q.incorrectSequences
+        incorrect_sequences = replace_focus_points_or_incorrect_sequences_for_question(q.incorrectSequences, original_concept_uid, new_concept_uid)
         if incorrect_sequences
-          data['incorrectSequences'] = incorrect_sequences
+          data[Question::INCORRECT_SEQUENCES] = incorrect_sequences
         end
       end
 

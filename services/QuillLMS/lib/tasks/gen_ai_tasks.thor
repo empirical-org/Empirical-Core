@@ -40,6 +40,64 @@ class GenAITasks < Thor
     print_results(name, correct_count, total, incorrect_examples, error_count, error_examples)
   end
 
+  # bundle exec thor gen_a_i_tasks:static_sample_test 2
+  desc "static_sample_test 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def static_sample_test(limit = 10, optimal = true, template_file = nil)
+    correct_count = 0
+    total = 0
+    error_count = 0
+    incorrect_examples = []
+    error_examples = []
+    name = optimal ? 'Optimal' : 'Suboptimal'
+
+    prompt_data = Evidence::GenAI::OptimalBoundaryDataFetcher.run
+
+    prompt_data.first(limit.to_i).each do |prompt_id, dataset|
+      prompt = Evidence::Prompt.find(prompt_id)
+      system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
+
+      test_data = optimal ? dataset.optimals : dataset.suboptimals
+      test_data.each do |entry|
+        begin
+          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+          total += 1
+
+          if response[KEY_OPTIMAL] == optimal
+            print '.'
+            correct_count += 1
+          else
+            print 'F'
+            incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
+          end
+        rescue => e
+          error_count += 1
+          error_examples.append([prompt, entry])
+        end
+      end
+    end
+    puts '' # new line after prints
+
+    print_results(name, correct_count, total, incorrect_examples, error_count, error_examples)
+  end
+
+  # bundle exec thor gen_a_i_tasks:static_full_test 2
+  desc "static_full_test  2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def static_full_test(limit = 50, template_file = nil)
+    static_sample_test(limit, true, template_file)
+    static_sample_test(limit, false, template_file)
+  end
+
+  # bundle exec thor gen_a_i_tasks:static_optimal_test 2
+  desc "static_optimal_test  2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  def static_optimal_test(limit = 50, template_file = nil)
+    static_sample_test(limit, true, template_file)
+  end
+
+  # bundle exec thor gen_a_i_tasks:static_suboptimal_test 'because' 2
+  desc "static_suboptimal_test 2", 'Run to see if examplar suboptimals are labeled suboptimal by the prompt'
+  def static_suboptimal_test(limit = 50, template_file = nil)
+    static_sample_test(limit, false, template_file)
+  end
 
   # bundle exec thor gen_a_i_tasks:full_test 'because' 2
   desc "optimal_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
@@ -165,7 +223,7 @@ class GenAITasks < Thor
     private def print_example(prompt_id, entry, feedback = nil)
       puts "Prompt: #{prompt_id}, Entry: #{entry} #{feedback.nil? ? '' : " Feedback: #{feedback}"}"
       puts ' '
-      puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt_id} '#{entry}'"
+      puts "bundle exec thor gen_a_i_tasks:prompt_entry #{prompt_id} \"#{entry}\""
       print_line
     end
   end
