@@ -26,10 +26,6 @@
         "header": "半分終わりました！",
         "text": "その調子で頑張りましょう！"
     },
-    "ELL Halfway": {
-        "header": "半分終わりました！",
-        "text": "その調子で頑張りましょう！"
-    },
     "ELL Starter Questions": {
         "header": "質問",
         "text": "このセクションでは、あなたが質問を書きます。質問文の文末に忘れずに疑問符（？）をつけてください。あなたならできますよ！"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "文章を書き換えて下さい。アンダーラインが引かれた動作を表す単語を正しい形にして、文章が正しい時制になるようにして下さい。",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "文章を書き換えて下さい。未来形になるように、アンダーラインが引かれている単語を正しい形に書き換えて下さい。",
         "Respond to the question. Fill in the blank with one of the choices.": "質問に答えて下さい。正しい単語を１つ選び、空欄を埋めて下さい。",
-        "Use the joining word to combine the sentences into one sentence.": "空欄に1語づつ単語を記入してください。１つの空欄は何も記入せずにそのままにすることができます"
+        "Use the joining word to combine the sentences into one sentence.": "空欄に1語づつ単語を記入してください。１つの空欄は何も記入せずにそのままにすることができます",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "空欄の一部を黄色い単語で埋めてください。空白は空のままにしておくことができます。",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "正解は2つあります。各空欄をどちらかの正解で埋めてください。同じ答えを二度書かないでください。",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "各空欄をいずれかの単語で埋めてください。同じ単語を複数回使用してもかまいません。",
+        "Write the sentences. Change the underlined words to make them talk about multiple people.": "センテンスを書いてください。下線付きの単語を変えて、複数の人についての話に変えてください。",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "質問を書いてください。質問が正しくなるように、下線付きの単語を変えてください。",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "これらのセンテンスを正しく書いてください。下線付きの単語のみ変えられます。各センテンスには「not」という単語が入ったままとしてください。",
+        "Write the words in the correct order. There are multiple correct answers.": "正しい順序で単語を書いてください。正解は複数あります。",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "センテンスを書いてください。下線付きの単語をセンテンスに合うように変えてください。新しい単語を追加してはいけません。",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "センテンスを書いてください。下線付きの単語をセンテンスに合うように変えてください。1単語または2単語に変えられます。",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "センテンスを書いてください。下線が引かれた複数の単語を1つの単語に変えてください。アポストロフィ(')を使ってください。",
+        "Fill in the blank with the correct option.": "空欄を正しい選択肢で埋めてください。",
+        "Fill in each blank with the correct option. You may use an option more than once.": "各空欄を正しい選択肢で埋めてください。選択肢は複数回使用できます。",
+        "Fill in the blank with the most natural option.": "最も自然な選択肢で空欄を埋めてください。",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "各空欄を選択肢のいずれかで埋めてください。同じ選択肢を複数回使うことはできますが、必ずしもそうする必要はありません。",
+        "Fill in the blank with the most natural sentence.": "空欄を最も自然なセンテンスで埋めてください。",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same option multiple times, but you don’t have to.": "単語が必要な空欄を埋めてください。空白は空のままにしておくことができます。同じ選択肢を複数回使うことはできますが、必ずしもそうする必要はありません。",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "各空欄を選択肢で埋めてください。同じ選択肢を複数回使うことはできますが、必ずしもそうする必要はありません。",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "各空欄を単語で埋めてください。同じ単語を複数回使うことはできますが、必ずしもそうする必要はありません。",
+        "Fill in each blank with one of the words.": "各空欄をいずれかの単語で埋めてください。",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "正しい選択肢は2つあります。各空欄を正しい選択肢のいずれかで埋めてください。同じ答えを二度書かないでください。",
+        "Fill in each blank with one of the options.": "各空欄を選択肢のいずれかで埋めてください。",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "センテンスを書き直してください。正しくない下線付きの単語を変えてください。既に正しい単語は変えないでください。"
     },
     "cues": {
         "type one": "type one / １つ入力して下さい",
@@ -76,7 +94,12 @@
         "choose one": "choose one / 1つ選ぶ",
         "choose three": "choose three / 3つ選ぶ",
         "choose two or three" : "choose two or three / 2つまたは3つ選ぶ",
-        "joining word": "joining word / 単語の結合"
+        "joining word": "joining word / 単語の結合",
+        "words": "words / 単語",
+        "type two": "type two / 選択肢を2つ入力してください",
+        "options": "options / 選択肢",
+        "sentences": "sentences / センテンス",
+        "answers": "answers / 答え"
     },
     "feedback": {
         "blank": "下のオプションのうちの1つを使うか、空欄をそのままにします。",
