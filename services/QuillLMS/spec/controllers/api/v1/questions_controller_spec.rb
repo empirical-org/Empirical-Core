@@ -86,7 +86,7 @@ describe Api::V1::QuestionsController, type: :controller do
       new_model_concept = SecureRandom.uuid
       put :update_model_concept, params: { id: question.uid, question: { modelConcept: new_model_concept } }, as: :json
       question.reload
-      expect(question.data['modelConceptUID']).to eq(new_model_concept)
+      expect(question.modelConceptUID).to eq(new_model_concept)
     end
 
     it 'should return a 404 if the requested Question is not found' do

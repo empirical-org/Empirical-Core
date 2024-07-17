@@ -206,7 +206,7 @@ class Activity < ApplicationRecord
     return nil unless is_evidence?
 
     created_time = child_activity.last_flags_change_log_record&.created_at || created_at
-    created_time.strftime('%m/%d/%Y')
+    created_time.strftime("%Y-%m-%dT%H:%M:%S")
   end
 
   # TODO: cleanup

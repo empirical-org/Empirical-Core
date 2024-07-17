@@ -18,6 +18,10 @@ module AdminDiagnosticReports
       super(aggregation: 'student', **options)
     end
 
+    def materialized_views = super + [active_user_names_view]
+
+    def active_user_names_view = materialized_view('active_user_names_view')
+
     def rollup_select_columns = 'student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id'
 
     def specific_select_clause
