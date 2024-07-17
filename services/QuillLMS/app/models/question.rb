@@ -167,6 +167,26 @@ class Question < ApplicationRecord
   # Translatable
   def self.default_field_name = 'instructions'
 
+  def translatable_data(type:)
+    if stored_as_array?(type)
+      translatable_for_array(type)
+    else
+      translatable_for_hash(type)
+    end
+  end
+
+  private def translatable_for_hash(type)
+    data[type]
+      .transform_values { |v| v['feedback'] }
+      .transform_keys { |k| "incorrectSequences.#{k}" }
+  end
+
+  private def translatable_for_array(type)
+    data[type].each_with_object({}) do |item, hash|
+      hash["incorrectSequences.#{item['uid']}"] = item['feedback']
+    end
+  end
+
   private def add_data_for(type:, new_data:)
     if stored_as_array?(type)
       id = data[type].length

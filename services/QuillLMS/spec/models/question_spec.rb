@@ -526,4 +526,59 @@ RSpec.describe Question, type: :model do
     end
   end
 
+  describe 'translatable_data(type:)' do
+    subject { question.translatable_data(type: Question::INCORRECT_SEQUENCES)}
+
+    let(:question) { create(:question)}
+    let(:expected_data) {
+      {
+        "incorrectSequences.uid1" => "feedback1",
+        "incorrectSequences.uid2" => "feedback2"
+      }
+    }
+
+    before do
+      question.update_incorrect_sequences(incorrect_sequences)
+    end
+
+    context 'type is a hash' do
+      let(:incorrect_sequences) {
+        {
+          'uid1' => {
+            "feedback" => "feedback1",
+            "text" => "text1"
+          },
+          'uid2' => {
+            "feedback" => "feedback2",
+            "text" => "text2"
+          }
+        }
+      }
+
+      it 'it returns a hash with uids as keys and feedback as values' do
+        expect(subject).to eq(expected_data)
+      end
+    end
+
+    context 'incorrectSequences are an array' do
+      let(:incorrect_sequences) {
+        [
+          {
+            "uid" => "uid1",
+            "feedback" => "feedback1",
+            "text" => "text1"
+          },
+          {
+            "uid" => "uid2",
+            "feedback" => "feedback2",
+            "text" => "text2"
+          }
+        ]
+      }
+
+      it 'it returns a hash with uids as keys and feedback as values' do
+        expect(subject).to eq(expected_data)
+      end
+    end
+  end
 end
