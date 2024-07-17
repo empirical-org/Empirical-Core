@@ -12,7 +12,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:district) { create(:district) }
     let!(:school1) { create(:school, district: district) }
     let!(:teacher1) { create(:teacher, school: school1) }
-    let!(:classroom1) { create(:classroom) }
+    let!(:classroom1) { create(:classroom, visible: false) }
     let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1) }
     let!(:student1) { create(:student, student_in_classroom: [classroom1]) }
     let!(:student2) { create(:student, student_in_classroom: [classroom1]) }
@@ -92,7 +92,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       it 'should roll up diagnostic data across multiple classrooms' do
         school2 = create(:school, district: district)
         teacher2 = create(:teacher, school: school2)
-        classroom2 = create(:classroom)
+        classroom2 = create(:classroom, visible: false)
         create(:classrooms_teacher, user: teacher2, classroom: classroom2)
         student3 = create(:student)
         create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])

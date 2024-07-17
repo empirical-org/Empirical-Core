@@ -22,6 +22,7 @@
 class ClassroomsTeacher < ApplicationRecord
   belongs_to :user
   belongs_to :classroom, touch: true
+  belongs_to :classroom_unscoped, foreign_key: :classroom_id
 
   after_create :delete_classroom_minis_cache_for_each_teacher_of_this_classroom, :reset_lessons_cache_for_teacher
   before_destroy :delete_classroom_minis_cache_for_each_teacher_of_this_classroom, :reset_lessons_cache_for_teacher

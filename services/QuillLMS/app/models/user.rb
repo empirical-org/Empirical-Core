@@ -162,6 +162,7 @@ class User < ApplicationRecord
   has_many :teacher_saved_activities, dependent: :destroy, foreign_key: 'teacher_id'
   has_many :activities, through: :teacher_saved_activities
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
+  has_many :unscoped_classrooms_i_teach, through: :classrooms_teachers, source: :classroom_unscoped
   has_many :students_i_teach, through: :classrooms_i_teach, source: :students
 
   has_many :units
