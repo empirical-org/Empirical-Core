@@ -26,7 +26,7 @@ class Demo::CreateAdminReport
   end
 
   def reset
-    User.find_by_email(@teacher_email)&.destroy
+    User.find_by_email(teacher_email)&.destroy
     School.where(mail_street: school_street).destroy_all
     create_demo
   end
@@ -68,7 +68,7 @@ class Demo::CreateAdminReport
     admin_teacher = User.create!(
       name: 'Toni Morrison',
       role: User::ADMIN,
-      email: @teacher_email,
+      email: teacher_email,
       username: '',
       password: SecureRandom.urlsafe_base64
     )
