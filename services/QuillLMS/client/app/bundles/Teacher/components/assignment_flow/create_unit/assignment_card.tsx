@@ -62,7 +62,9 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
       </div>)
     )
 
-    const newTag = showNewTag ? <span className="new-tag">NEW</span> : null
+    const newTagElement = <span className="new-tag">NEW</span>
+    const newTag = showNewTag ? newTagElement : null
+    const newTagInPreHeaderLine = showNewTagInPreHeaderLine ? newTagElement : null
     const recommendedToStartTag = showRecommendedToStartTag ? <span className="recommended-to-start-tag">Recommended to start</span> : null
     const preHeaderTag = preHeader ? <span className="pre-header">{preHeader}</span> : null
     const leftClassName = showRecommendedToStartTag ? "left include-recommended-to-start-tag" : "left"
@@ -75,7 +77,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
             {imgSrc && <img alt={imgAlt} className={imgClassName} src={imgSrc} />}
             <div className="header-wrapper">
               {recommendedToStartTag}
-              {preHeaderTag ? <div>{preHeaderTag}{showNewTagInPreHeaderLine ? newTag : null}</div> : null}
+              {preHeaderTag ? <div className="pre-header-wrapper">{preHeaderTag}{newTagInPreHeaderLine}</div> : null}
               <h2>{header}</h2>
             </div>
           </div>
