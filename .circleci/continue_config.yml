@@ -284,7 +284,7 @@ jobs:
     working_directory: ~/Empirical-Core
     parallelism: 4
     docker:
-      - image: cimg/node:14.21
+      - image: cimg/node:16.20
     steps:
       - run:
           <<: *blank_required_step
@@ -444,7 +444,7 @@ jobs:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
-      - image: cimg/node:14.21
+      - image: cimg/node:16.20
     steps:
       - run:
           <<: *blank_required_step
@@ -526,7 +526,6 @@ parameters:
   marking-logic-run:
     type: boolean
     default: false
-
 
 # here we specify our workflows, most of which are conditionally
 # executed based upon pipeline parameter values. Each workflow calls a
