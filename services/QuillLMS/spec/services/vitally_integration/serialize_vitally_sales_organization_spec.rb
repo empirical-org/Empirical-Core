@@ -12,7 +12,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:district) { create(:district) }
     let!(:school1) { create(:school, district: district) }
     let!(:teacher1) { create(:teacher, school: school1) }
-    let!(:classroom1) { create(:classroom, visible: false) }
+    let!(:classroom1) { create(:classroom) }
     let!(:classroom_teacher1) { create(:classrooms_teacher, user: teacher1, classroom: classroom1) }
     let!(:student1) { create(:student, student_in_classroom: [classroom1]) }
     let!(:student2) { create(:student, student_in_classroom: [classroom1]) }
@@ -92,7 +92,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       it 'should roll up diagnostic data across multiple classrooms' do
         school2 = create(:school, district: district)
         teacher2 = create(:teacher, school: school2)
-        classroom2 = create(:classroom, visible: false)
+        classroom2 = create(:classroom)
         create(:classrooms_teacher, user: teacher2, classroom: classroom2)
         student3 = create(:student)
         create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])
@@ -108,6 +108,17 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_assigned_last_year: 0
+        )
+      end
+
+      it 'should roll up data for archived classrooms' do
+        classroom2 = create(:classroom, visible: false)
+        create(:classrooms_teacher, user: teacher1, classroom: classroom2)
+        student3 = create(:student)
+        create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])
+
+        expect(described_class.new(district).data[:traits]).to include(
+          diagnostics_assigned_this_year: 4
         )
       end
     end
@@ -199,7 +210,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         student_three = create(:user, role: 'student')
 
         classroom = create(:classroom)
-        classroom_two = create(:classroom)
+        classroom_two = create(:classroom, visible: false)
         create(:classrooms_teacher, user: teacher, classroom: classroom)
         create(:classrooms_teacher, user: teacher_two, classroom: classroom_two)
         create(:students_classrooms, student: student, classroom: classroom)
@@ -384,6 +395,25 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         end
 
         it 'for all time' do
+          expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
+        end
+      end
+
+      context 'includes archived classrooms in the roundup' do
+
+        before do
+          classroom1.update(visible: false)
+        end
+
+        it 'activities completed all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_all_time]).to eq(5)
+        end
+
+        it 'activities completed per student all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(2.5)
+        end
+
+        it 'active students all time' do
           expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
         end
       end

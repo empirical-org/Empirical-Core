@@ -205,7 +205,7 @@ module VitallyIntegration
     end
 
     def activities_finished_query(district)
-      @activities_finished ||= ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: {activities: :classification}}}, {classroom_units: :activity_sessions}])
+      @activities_finished ||= ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom_unscoped: [{classroom_units: {unit: {activities: :classification}}}, {classroom_units: :activity_sessions}])
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
