@@ -134,7 +134,7 @@ const coteacherExampleData = {
       cuId: 2898054,
       activityClassificationId: 4,
       classroomId: 484154,
-      dueDate: "2021-2-10T17:0:0",
+      dueDate: "2021-02-10T17:00:00",
       ownedByCurrentUser: false,
       ownerName: "Demo Teacher",
       uaId: 7543502,

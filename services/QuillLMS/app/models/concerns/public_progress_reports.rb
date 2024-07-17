@@ -497,13 +497,13 @@ module PublicProgressReports
     questions = activity.data['questions'].map { |q| Question.find_by_uid(q['key']) }
 
     questions.compact.each do |q|
-      next if !q.data['prompt']
+      next if !q.prompt
 
       question_array.push({
         question_id: question_array.length + 1,
         question_uid: q.uid,
         score: nil,
-        prompt: q.data['prompt'],
+        prompt: q.prompt,
         instructions: q.data['instructions']
       })
     end

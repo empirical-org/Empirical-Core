@@ -47,8 +47,8 @@ RSpec.describe QuestionHealthObj, type: :model do
       activity.update(data: {questions: [{key: question.uid}]})
       health_obj = QuestionHealthObj.new(activity, question, 1, connect.key).run
       expect(health_obj[:url]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
-      expect(health_obj[:text]).to eq(question.data['prompt'])
-      expect(health_obj[:flag]).to eq(question.data['flag'])
+      expect(health_obj[:text]).to eq(question.prompt)
+      expect(health_obj[:flag]).to eq(question.flag)
       expect(health_obj[:incorrect_sequences]).to eq(question.incorrectSequences.length)
       expect(health_obj[:focus_points]).to eq(question.focusPoints.length)
       expect(health_obj[:percent_common_unmatched]).to eq(50)
@@ -60,8 +60,8 @@ RSpec.describe QuestionHealthObj, type: :model do
     it 'should return without erroring if one of the url values is nil' do
       health_obj = QuestionHealthObj.new(activity, question, 1, nil).run
       expect(health_obj[:url]).to eq("https://quill.org//#/admin/questions/#{question.uid}/responses")
-      expect(health_obj[:text]).to eq(question.data['prompt'])
-      expect(health_obj[:flag]).to eq(question.data['flag'])
+      expect(health_obj[:text]).to eq(question.prompt)
+      expect(health_obj[:flag]).to eq(question.flag)
       expect(health_obj[:incorrect_sequences]).to eq(question.incorrectSequences.length)
       expect(health_obj[:focus_points]).to eq(question.focusPoints.length)
       expect(health_obj[:percent_common_unmatched]).to eq(50)
