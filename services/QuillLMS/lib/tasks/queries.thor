@@ -59,7 +59,7 @@ class Queries < Thor
 
     output_file = "#{OUTPUT_SNAPSHOTS}query_results_#{Time.current.to_fs(:number)}.csv"
 
-    CSV.open(output_file, "wb") do |csv|
+    CSV.open(output_file, 'wb') do |csv|
       csv << (['query'] + options[:ids])
       snapshot_page_queries.each do |key, query|
         row = [key]
@@ -145,7 +145,7 @@ class Queries < Thor
     # This is the list of schools admin-ed by `liz.domingue@cpsb.org`
     school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
     # These are two arbitrary grades with data for admin `liz.domingue@cpsb.org`
-    grades = ["6", "9"]
+    grades = ['6', '9']
     # These are two teachers assigned to each of the above grades: "desiree.mott@cpsb.org", "samuel.orsot@cpsb.org", "jamie.sargent@cpsb.org", "trista.johnston@cpsb.org"
     # Adding "cassie.broussard@cpsb.org" to get classrooms with non-starter diagnostics for the multi-diagnostic payloads
     teacher_ids = [4595888, 13775265, 2082409, 4722961, 12924154]

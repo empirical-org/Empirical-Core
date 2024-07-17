@@ -5,22 +5,22 @@ INSTANCES = {
   1 => {
     name: 'airbyte2',
     port: 8001,
-    tables: "concept_results (prefix: special)",
+    tables: 'concept_results (prefix: special)',
   },
   2 => {
-    name: 'airbyte-pink',
+    name: 'airbyte-indigo',
     port: 8002,
-    tables: "classrooms classroom_units provider_classroom_users  students_classrooms unit_activities"
+    tables: 'classrooms classroom_units provider_classroom_users  students_classrooms unit_activities'
   },
   3 => {
-    name: 'airbyte-0-43-0',
+    name: 'airbyte-ivory',
     port: 8003,
-    tables: "all_other_tables"
+    tables: 'all_other_tables'
   },
   4 => {
     name: 'airbyte-celadon',
     port: 8004,
-    tables: "concept_results (prefix: lms)"
+    tables: 'concept_results (prefix: lms)'
   }
 }
 

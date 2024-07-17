@@ -10,15 +10,15 @@ namespace :synthetic do
 
   # Some conjunctions (NB: don't leave spaces after commas)
   # Run: bundle exec rake synthetic:generate_seed_data\[262,1,'but','so'\]
-  desc "generate seed data to local files"
+  desc 'generate seed data to local files'
   task :generate_seed_data, [:activity_id, :run_number] => :environment do |t, args|
     activity_id = args[:activity_id]
     run_number = args[:run_number]
     conjunctions = args.extras.presence || Evidence::Synthetic::SeedDataGenerator::CONJUNCTIONS
 
-    label_config1 = {'label' => 'label11', 'examples' => ["it allows officials to view the same play from different angles.", "coaches and players trust the officials to make the correct call."]}
-    label_config2 = {'label' => 'label7', 'examples' => ["66\% of public schools in the U.S. ban cell phone use anyway.", "students can easily be distracted by their phones."]}
-    label_config3 = {'label' => 'label7', 'examples' => ["the International Handball Federation rewrote its rules in 2022 to allow players on women’s teams to wear tank tops and shorts.", "the Norwegian team protested."]}
+    label_config1 = {'label' => 'label11', 'examples' => ['it allows officials to view the same play from different angles.', 'coaches and players trust the officials to make the correct call.']}
+    label_config2 = {'label' => 'label7', 'examples' => ["66\% of public schools in the U.S. ban cell phone use anyway.", 'students can easily be distracted by their phones.']}
+    label_config3 = {'label' => 'label7', 'examples' => ['the International Handball Federation rewrote its rules in 2022 to allow players on women’s teams to wear tank tops and shorts.', 'the Norwegian team protested.']}
 
     label_configs = {'because' => [label_config1, label_config2, label_config3]}
 
@@ -33,7 +33,7 @@ namespace :synthetic do
   end
 
   # Run: bundle exec rake synthetic:generate_labeled_data\['/Users/danieldrabik/Dropbox/quill/synthetic_surge_sample.csv',133, 1\]
-  desc "generate labeled data from a local file"
+  desc 'generate labeled data from a local file'
   task :generate_labeled_data, [:filepath, :prompt_id, :run_number] => :environment do |t, args|
     filepath = args[:filepath]
     prompt_id = args[:prompt_id]
@@ -41,7 +41,7 @@ namespace :synthetic do
     prompt = Evidence::Prompt.find(prompt_id)
     text_labels = CSV.read(filepath)
 
-    puts "Creating CSVs"
+    puts 'Creating CSVs'
     csv_hash = Evidence::Synthetic::LabeledDataGenerator.csvs_from_run(text_labels, filepath, prompt)
 
     csv_hash.each do |filename, contents|

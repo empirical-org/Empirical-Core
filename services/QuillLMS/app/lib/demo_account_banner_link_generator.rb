@@ -5,7 +5,7 @@ module DemoAccountBannerLinkGenerator
   include ActionController::Helpers
   include QuillAuthentication
 
-  DEMO_ACCOUNT_CLASSROOM_NAME = "Quill Classroom"
+  DEMO_ACCOUNT_CLASSROOM_NAME = 'Quill Classroom'
 
   included do
     helper_method :demo_account_recommendations_link, :demo_account_growth_summary_link

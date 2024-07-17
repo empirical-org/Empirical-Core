@@ -12,7 +12,7 @@ module Snapshots
     end
 
     def group_by_clause
-      "GROUP BY grade"
+      'GROUP BY grade'
     end
   end
 end

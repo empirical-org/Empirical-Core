@@ -98,17 +98,17 @@ class SyncSalesFormSubmissionToVitallyWorker
   end
 
   private def school_vitally_id
-    @school_vitally_id ||= api.get(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id)["id"]
+    @school_vitally_id ||= api.get(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, @sales_form_submission.school.id)['id']
   end
 
   private def district_vitally_id
-    @district_vitally_id ||= api.get(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id)["id"]
+    @district_vitally_id ||= api.get(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, @sales_form_submission.district.id)['id']
   end
 
   private def school_array_for_existing_user
     previous_school = @sales_form_submission.find_or_create_user&.school
     if previous_school.present? && previous_school != @sales_form_submission.school
-      [api.get(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, previous_school.id)["id"], school_vitally_id]
+      [api.get(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, previous_school.id)['id'], school_vitally_id]
     else
       [school_vitally_id]
     end
@@ -117,7 +117,7 @@ class SyncSalesFormSubmissionToVitallyWorker
   private def district_array_for_existing_user
     previous_district = @sales_form_submission.find_or_create_user&.school&.district
     if previous_district.present? && previous_district != @sales_form_submission.district
-      [api.get(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, previous_district.id)["id"], district_vitally_id]
+      [api.get(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, previous_district.id)['id'], district_vitally_id]
     else
       [district_vitally_id]
     end

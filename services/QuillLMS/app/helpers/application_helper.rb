@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def active_on_first(integer_active)
-    "active" if integer_active == 0
+    'active' if integer_active == 0
   end
 
   def root_path
@@ -79,7 +79,7 @@ module ApplicationHelper
     classroom_id = activity_session&.classroom&.id
     user_id = activity_session&.user_id
 
-    "/teachers/progress_reports/diagnostic_reports#/" \
+    '/teachers/progress_reports/diagnostic_reports#/' \
       "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" \
       "#{user_id}"
   end

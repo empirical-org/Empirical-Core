@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 import moment from 'moment'
+
+import { getTimeSpent } from '../../../Teacher/helpers/studentReports'
 import { Tooltip, helpIcon } from '../../../Shared'
 
 const checkSrc = `${process.env.CDN_URL}/images/icons/circle-check-icon-vibrant-green.svg`
@@ -130,8 +131,6 @@ export function aggregateOverviewData(args) {
   // if there are no results for the pre diagnostic API and filters are at default, no diagnostics have been assigned
   if (!preDiagnosticAssignedData.length && !hasAdjustedFiltersFromDefault) {
     handleSetNoDiagnosticDataAvailable(true);
-    setLoading(false);
-    return;
   }
 
   // Hash tables for data storage of each individual API results plus storing the aggregate row data for each diagnostic
@@ -292,10 +291,6 @@ export function aggregateSkillsData({
   setAggregatedData,
   setLoading
 }) {
-  if (!skillsData.length) {
-    setLoading(false)
-    return
-  }
   const aggregatedData = formatSkillsData(skillsData, false)
   setAggregatedData(aggregatedData)
   setLoading(false)

@@ -85,7 +85,7 @@ module AdminDiagnosticReports
     end
 
     def rollup_select_columns
-      "diagnostic_id, diagnostic_name"
+      'diagnostic_id, diagnostic_name'
     end
 
     def from_and_join_clauses
@@ -117,19 +117,19 @@ module AdminDiagnosticReports
 
     def aggregate_by_clause
       {
-        'grade' => "classrooms.grade",
-        'classroom' => "classrooms.id",
-        'teacher' => "users.id",
-        'student' => "students.id"
+        'grade' => 'classrooms.grade',
+        'classroom' => 'classrooms.id',
+        'teacher' => 'users.id',
+        'student' => 'students.id'
       }.fetch(additional_aggregation)
     end
 
     def aggregate_sort_clause
       {
-        'grade' => "classrooms.grade",
-        'classroom' => "classrooms.name",
-        'teacher' => "users.name",
-        'student' => "students.name"
+        'grade' => 'classrooms.grade',
+        'classroom' => 'classrooms.name',
+        'teacher' => 'users.name',
+        'student' => 'students.name'
       }.fetch(additional_aggregation)
     end
 
@@ -159,7 +159,7 @@ module AdminDiagnosticReports
         .map do |row|
           # Make grade information more human-readable than simple integers
           next row unless grade_aggregation?
-          next row.merge({name: "No grade selected"}) if row[:name].nil?
+          next row.merge({name: 'No grade selected'}) if row[:name].nil?
           # to_i returns 0 for non-numeric strings, so this will only apply to numbered grades
           next row.merge({name: "Grade #{row[:name]}"}) if row[:name].to_i > 0
 
@@ -211,7 +211,7 @@ module AdminDiagnosticReports
     private def rollup_aggregation_select
       rollup_aggregation_hash.map do |column, aggregation_function|
         aggregation_function.call(column)
-      end.join(", ")
+      end.join(', ')
     end
 
     private def static_string(value)

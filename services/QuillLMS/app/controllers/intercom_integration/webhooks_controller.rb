@@ -5,15 +5,15 @@ module IntercomIntegration
 
     class UnauthorizedIntercomWebhookCallError < StandardError; end
 
-    UNKNOWN_NAME = "Unknown User"
+    UNKNOWN_NAME = 'Unknown User'
     CREATE_SALES_FORM_SUBMISSION_INTERCOM_EVENTS = [
-      "user.tag.created",
-      "contact.tag.created"
+      'user.tag.created',
+      'contact.tag.created'
     ]
-    QUOTE_REQUEST_DISTRICT = "Quote Request District"
-    QUOTE_REQUEST_SCHOOL = "Quote Request School"
-    RENEWAL_REQUEST_DISTRICT = "Renewal Request District"
-    RENEWAL_REQUEST_SCHOOL = "Renewal Request School"
+    QUOTE_REQUEST_DISTRICT = 'Quote Request District'
+    QUOTE_REQUEST_SCHOOL = 'Quote Request School'
+    RENEWAL_REQUEST_DISTRICT = 'Renewal Request District'
+    RENEWAL_REQUEST_SCHOOL = 'Renewal Request School'
 
     COLLECTION_MAPPING = {
       QUOTE_REQUEST_DISTRICT => SalesFormSubmission::DISTRICT_COLLECTION_TYPE,
@@ -33,20 +33,20 @@ module IntercomIntegration
     before_action :verify_signature, only: [:create]
 
     def create
-      topic = params["topic"]
+      topic = params['topic']
       if CREATE_SALES_FORM_SUBMISSION_INTERCOM_EVENTS.include?(topic)
-        tag = params["data"]["item"]["tag"]["name"]
+        tag = params['data']['item']['tag']['name']
         user = find_or_create_user
         SalesFormSubmission.create!(
           first_name: user.name.split[0],
           last_name: user.name.split[1],
           email: user.email,
-          phone_number: user_params["phone"],
-          zipcode: user_params["location_data"]["postal_code"],
+          phone_number: user_params['phone'],
+          zipcode: user_params['location_data']['postal_code'],
           school_name: user&.school&.name,
           district_name: user&.school&.district&.name,
           source: SalesFormSubmission::INTERCOM_SOURCE,
-          intercom_link: intercom_link(user_params["id"]),
+          intercom_link: intercom_link(user_params['id']),
           collection_type: collection_type(tag),
           submission_type: submission_type(tag)
         )
@@ -63,7 +63,7 @@ module IntercomIntegration
     end
 
     private def user_params
-      @user_params ||= params["data"]["item"]["user"] || params["data"]["item"]["contact"]
+      @user_params ||= params['data']['item']['user'] || params['data']['item']['contact']
     end
 
     private def verify_signature
@@ -71,22 +71,22 @@ module IntercomIntegration
       hexdigest = OpenSSL::HMAC.hexdigest('sha1', client_secret, payload)
       return if request.headers['X-Hub-Signature'] == "sha1=#{hexdigest}"
 
-      raise(UnauthorizedIntercomWebhookCallError, "unauthorized call of Intercom webhook")
+      raise(UnauthorizedIntercomWebhookCallError, 'unauthorized call of Intercom webhook')
     end
 
     # TODO: Reaxamine the logic we use here after we figure out what we want to do
     # regarding 'sales-contact' User roles.
     private def find_or_create_user
-      user = User.find_by(id: user_params["user_id"]) unless user_params["anonymous"]
+      user = User.find_by(id: user_params['user_id']) unless user_params['anonymous']
       return user if user.present?
 
-      user = User.find_by(email: user_params["email"])
+      user = User.find_by(email: user_params['email'])
       return user if user.present?
 
       User.create!(
-        email: user_params["email"],
+        email: user_params['email'],
         role: User::SALES_CONTACT,
-        name: user_params["name"] || UNKNOWN_NAME,
+        name: user_params['name'] || UNKNOWN_NAME,
         password: SecureRandom.uuid
       )
     end

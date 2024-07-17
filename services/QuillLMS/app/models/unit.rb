@@ -88,9 +88,9 @@ class Unit < ApplicationRecord
     activity_ids =
       Activity
         .select('DISTINCT(activities.id)')
-        .joins("JOIN unit_activities ON unit_activities.activity_id = activities.id")
+        .joins('JOIN unit_activities ON unit_activities.activity_id = activities.id')
         .joins("JOIN units ON unit_activities.unit_id = #{id}")
-        .where( "activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL")
+        .where( 'activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL')
         .pluck(:id)
         .uniq
 

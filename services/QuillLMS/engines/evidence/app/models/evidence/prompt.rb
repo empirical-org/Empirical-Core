@@ -63,7 +63,7 @@ module Evidence
     end
 
     def change_log_name
-      "Evidence Stem"
+      'Evidence Stem'
     end
 
     def url
@@ -76,8 +76,8 @@ module Evidence
 
     def first_passage = activity.passages.first
 
-    def plagiarism_text
-      plagiarism_rule&.plagiarism_texts&.first&.text || ""
+    def plagiarism_texts
+      plagiarism_rule&.plagiarism_texts&.map(&:text) || []
     end
 
     private def plagiarism_rule
@@ -111,7 +111,7 @@ module Evidence
 
     def optimal_label_feedback
       # we can just grab the first feedback here because all optimal feedback text strings will be the same for any given prompt
-      rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins("JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id").first&.feedbacks&.first&.text
+      rules.where(optimal: true, rule_type: Evidence::Rule::TYPE_AUTOML).joins('JOIN comprehension_feedbacks ON comprehension_feedbacks.rule_id = comprehension_rules.id').first&.feedbacks&.first&.text
     end
 
     private def downcase_conjunction

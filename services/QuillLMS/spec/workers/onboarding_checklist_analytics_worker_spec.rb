@@ -20,19 +20,19 @@ describe OnboardingChecklistAnalyticsWorker do
       Checkbox.create(user: user, objective: add_students)
       Checkbox.create(user: user, objective: explore_our_library)
       Checkbox.create(user: user, objective: explore_our_diagnostics)
-      expect(analyzer).to receive(:track_event_from_string).with("TEACHER_COMPLETED_ONBOARDING_CHECKLIST", user.id)
+      expect(analyzer).to receive(:track_event_from_string).with('TEACHER_COMPLETED_ONBOARDING_CHECKLIST', user.id)
       subject.perform(user.id)
     end
 
     it 'should not track the event if there are not checkboxes for that user and every onboarding objective' do
       Checkbox.create(user: user, objective: create_a_classroom)
       Checkbox.create(user: user, objective: add_students)
-      expect(analyzer).not_to receive(:track_event_from_string).with("TEACHER_COMPLETED_ONBOARDING_CHECKLIST", user.id)
+      expect(analyzer).not_to receive(:track_event_from_string).with('TEACHER_COMPLETED_ONBOARDING_CHECKLIST', user.id)
       subject.perform(user.id)
     end
 
     it 'should not track the event if there are not checkboxes for that user and any onboarding objectives' do
-      expect(analyzer).not_to receive(:track_event_from_string).with("TEACHER_COMPLETED_ONBOARDING_CHECKLIST", user.id)
+      expect(analyzer).not_to receive(:track_event_from_string).with('TEACHER_COMPLETED_ONBOARDING_CHECKLIST', user.id)
       subject.perform(user.id)
     end
 

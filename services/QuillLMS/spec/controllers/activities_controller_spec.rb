@@ -25,7 +25,7 @@ describe ActivitiesController, type: :controller, redis: true do
 
     it 'should return an object with all the topics' do
       get :search
-      expect(JSON.parse(response.body)["topics"].pluck("id")).to match_array Topic.all.pluck(:id)
+      expect(JSON.parse(response.body)['topics'].pluck('id')).to match_array Topic.all.pluck(:id)
     end
   end
 
@@ -36,7 +36,7 @@ describe ActivitiesController, type: :controller, redis: true do
 
     context 'when current user' do
       context 'when milestone is completed for user' do
-        let!(:milestone) { create(:milestone, name: "View Lessons Tutorial", users: [student]) }
+        let!(:milestone) { create(:milestone, name: 'View Lessons Tutorial', users: [student]) }
 
         it 'should redirect to the preview url' do
           get :preview_lesson, params: { lesson_id: activity.id }
@@ -45,7 +45,7 @@ describe ActivitiesController, type: :controller, redis: true do
       end
 
       context 'when milestone is not completed for the user' do
-        let!(:milestone) { create(:milestone, name: "View Lessons Tutorial", users: []) }
+        let!(:milestone) { create(:milestone, name: 'View Lessons Tutorial', users: []) }
 
         it 'should redirect to the tutorials/lessons/preview url' do
           get :preview_lesson, params: { lesson_id: activity.id }
@@ -190,10 +190,10 @@ describe ActivitiesController, type: :controller, redis: true do
     let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info)}
 
     before do
-      Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: "notes", title: "title")
-      Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: "notes", title: "title")
-      Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: "notes", title: "title")
-      create(:evidence_activity, parent_activity_id: beta2_activity.id, notes: "notes", title: "title")
+      Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: 'notes', title: 'title')
+      Evidence::Activity.create(parent_activity_id: production_activity2.id, notes: 'notes', title: 'title')
+      Evidence::Activity.create(parent_activity_id: beta1_activity.id, notes: 'notes', title: 'title')
+      create(:evidence_activity, parent_activity_id: beta2_activity.id, notes: 'notes', title: 'title')
       allow(controller).to receive(:current_user) { user }
     end
 
@@ -201,8 +201,8 @@ describe ActivitiesController, type: :controller, redis: true do
       it 'should return all production evidence activities' do
         get :suggested_activities
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["activities"].size).to eq(2)
-        expect([parsed_response["activities"][0]["id"], parsed_response["activities"][1]["id"]]).to match_array([production_activity1.id, production_activity2.id])
+        expect(parsed_response['activities'].size).to eq(2)
+        expect([parsed_response['activities'][0]['id'], parsed_response['activities'][1]['id']]).to match_array([production_activity1.id, production_activity2.id])
       end
     end
 
@@ -211,13 +211,13 @@ describe ActivitiesController, type: :controller, redis: true do
         user.update(flagset: Flags::EVIDENCE_BETA1)
         get :suggested_activities
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["activities"].size).to eq(4)
+        expect(parsed_response['activities'].size).to eq(4)
         expect(
           [
-            parsed_response["activities"][0]["id"],
-            parsed_response["activities"][1]["id"],
-            parsed_response["activities"][2]["id"],
-            parsed_response["activities"][3]["id"]
+            parsed_response['activities'][0]['id'],
+            parsed_response['activities'][1]['id'],
+            parsed_response['activities'][2]['id'],
+            parsed_response['activities'][3]['id']
           ]
         ).to match_array(
           [
@@ -236,12 +236,12 @@ describe ActivitiesController, type: :controller, redis: true do
         user.update(flagset: Flags::EVIDENCE_BETA2)
         get :suggested_activities
         parsed_response = JSON.parse(response.body)
-        expect(parsed_response["activities"].size).to eq(3)
+        expect(parsed_response['activities'].size).to eq(3)
         expect(
           [
-            parsed_response["activities"][0]["id"],
-            parsed_response["activities"][1]["id"],
-            parsed_response["activities"][2]["id"]
+            parsed_response['activities'][0]['id'],
+            parsed_response['activities'][1]['id'],
+            parsed_response['activities'][2]['id']
           ]
         ).to match_array(
           [

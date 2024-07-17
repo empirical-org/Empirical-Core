@@ -10,7 +10,7 @@ module AdminDiagnosticReports
 
     def from_and_join_clauses
       super + <<-SQL
-        CROSS JOIN UNNEST(classroom_units.assigned_student_ids) AS assigned_student_id
+        CROSS JOIN UNNEST(JSON_VALUE_ARRAY(classroom_units.assigned_student_ids)) AS assigned_student_id
         JOIN lms.unit_activities
           ON classroom_units.unit_id = unit_activities.unit_id
         JOIN lms.activities
@@ -19,7 +19,7 @@ module AdminDiagnosticReports
     end
 
     def relevant_date_column
-      "classroom_units.created_at"
+      'classroom_units.created_at'
     end
 
     private def rollup_aggregation_hash

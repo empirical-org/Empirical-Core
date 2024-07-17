@@ -13,7 +13,7 @@ module PublicPagesHelper
   AP_WRITINGS_SKILLS_UNIT_TEMPLATE_ID = 193
   SPRING_BOARD_SKILLS_UNIT_TEMPLATE_ID = 253
 
-  EVIDENCE_HANDBOOK_URL = "https://docsend.com/view/29vcfdqa5aupkmfp"
+  EVIDENCE_HANDBOOK_URL = 'https://docsend.com/view/29vcfdqa5aupkmfp'
 
   def render_react_component?(current_user)
     (current_user)
@@ -42,15 +42,15 @@ module PublicPagesHelper
     [
       {
         question: 'What is Quill.org?',
-        answer: "<p>Quill is a writing tool that provides over 700 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.</p>"
+        answer: '<p>Quill is a writing tool that provides over 700 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.</p>'
       },
       {
         question: 'What is the AP Writing Skills Survey?',
-        answer: "<p>The AP Writing Skills Survey is a survey with 17 questions on a range of writing skills. The questions ask students to combine sentences, sometimes with a direction to use a specific strategy, and sometimes without any direction (other than to combine).</p>"
+        answer: '<p>The AP Writing Skills Survey is a survey with 17 questions on a range of writing skills. The questions ask students to combine sentences, sometimes with a direction to use a specific strategy, and sometimes without any direction (other than to combine).</p>'
       },
       {
         question: 'For which AP courses is this practice most relevant?',
-        answer: "<p>Students in any AP course can benefit from the practice recommended by Quill&apos;s AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.</p>"
+        answer: '<p>Students in any AP course can benefit from the practice recommended by Quill&apos;s AP Writing Skills Survey, but the practice is probably of greatest interest to teachers of AP English Language and Composition and AP English Literature and Composition.</p>'
       },
       {
         question: 'Is a writing skills survey different than a diagnostic?',
@@ -58,7 +58,7 @@ module PublicPagesHelper
       },
       {
         question: 'How long does the Survey take?',
-        answer: "<p>The Survey contains 17 questions and is designed to take about 30 minutes for students to complete.</p>"
+        answer: '<p>The Survey contains 17 questions and is designed to take about 30 minutes for students to complete.</p>'
       },
       {
         question: 'What happens after I assign the Survey and my students complete it?',
@@ -87,7 +87,7 @@ module PublicPagesHelper
       },
       {
         question: 'Can students complete the AP Writing Practice packs independently?',
-        answer: "<p>Yes! From anywhere and at any time! Again though, please note that recommendations of the AP Writing Packs are generated after students complete the AP Writing Skills Survey. Please also note that students&apos; performance on the AP Writing Practice packs will only be recorded if they are assigned to them by their teacher.</p>"
+        answer: '<p>Yes! From anywhere and at any time! Again though, please note that recommendations of the AP Writing Packs are generated after students complete the AP Writing Skills Survey. Please also note that students&apos; performance on the AP Writing Practice packs will only be recorded if they are assigned to them by their teacher.</p>'
       },
       {
         question: 'How many activities are in each AP Writing Practice pack?',
@@ -107,7 +107,7 @@ module PublicPagesHelper
       },
       {
         question: 'Will my students receive feedback as they work through the AP Writing Practice activity packs?',
-        answer: "<p>Yes! In each recommended practice activity, Quill provides students with immediate feedback on their writing that they can use to revise their responses up to 5 times. Through these rounds of feedback and revision, students improve the clarity and precision of their writing.</p>"
+        answer: '<p>Yes! In each recommended practice activity, Quill provides students with immediate feedback on their writing that they can use to revise their responses up to 5 times. Through these rounds of feedback and revision, students improve the clarity and precision of their writing.</p>'
       },
       {
         question: "Where can I track my students' completion of and performance on the AP Writing Practice packs?",
@@ -124,7 +124,7 @@ module PublicPagesHelper
       },
       {
         question: 'If my students have been using Quill for a while, will they encounter activities in the AP Writing Practice packs that they have completed before?',
-        answer: "<p>The activities in the AP Writing Practice packs are curated from existing Quill activities. While your students may encounter an activity they have already completed, the AP Writing Practice packs have been customized to target the skills students need to write successfully at the AP level. Given the quantity and variety of activities available on Quill, chances are that the AP Writing Practice packs will include plenty of new activities, even for students who have been using Quill for a while.</p>"
+        answer: '<p>The activities in the AP Writing Practice packs are curated from existing Quill activities. While your students may encounter an activity they have already completed, the AP Writing Practice packs have been customized to target the skills students need to write successfully at the AP level. Given the quantity and variety of activities available on Quill, chances are that the AP Writing Practice packs will include plenty of new activities, even for students who have been using Quill for a while.</p>'
       },
       {
         question: 'Can I assign my students practice beyond the recommended AP Writing Practice packs?',
@@ -156,7 +156,7 @@ module PublicPagesHelper
     [
       {
         question: 'What is Quill.org?',
-        answer: "<p>Quill is a writing tool that provides over 600 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.</p>"
+        answer: '<p>Quill is a writing tool that provides over 600 writing, grammar, and proofreading activities designed to engage students in the writing process. Quill provides practice in many areas of sentence writing, from comma placement and subject-verb agreement to the use of conjunctions to convey complex relationships between ideas. In the Quill Connect tool, students practice writing different types of sentences using the evidence-based strategy of sentence combining. Students receive specific, targeted feedback on their writing that they can use to revise their work. Through these activities, students practice writing a variety of sophisticated sentences and practice conveying complex ideas in clear, succinct, and grammatically strong ways. Most activities are designed to be completed in 10-15 minutes so that you have the freedom to use them in the way that works best for your classroom.</p>'
       },
       {
         question: 'How is Quill.org used in Pre-AP English 1?',
@@ -484,7 +484,7 @@ module PublicPagesHelper
       },
       {
         question: 'How can I support both struggling students and advanced learners in lessons mode?',
-        answer: "<p>You can also use the flagging features to privately select students for extra support. If a student’s response requires intervention, you can click on the flag next to their answer, and they will show up in a list for you at the end of the lesson. At this point all other students can begin the independent practice while you work with a small group.</p>"
+        answer: '<p>You can also use the flagging features to privately select students for extra support. If a student’s response requires intervention, you can click on the flag next to their answer, and they will show up in a list for you at the end of the lesson. At this point all other students can begin the independent practice while you work with a small group.</p>'
       },
       {
         question: 'Can I skip slides?',
@@ -521,7 +521,7 @@ module PublicPagesHelper
       },
       {
         question: 'How many answers should I display at a time?',
-        answer: "<p>We suggest that you project 2-3 student responses to allow for discussion. More than four responses might not all fit on the screen, and will require scrolling on the part of the students. If you want to discuss more than four answers, try projecting 2-3 options to start. Then deselect those answers and choose another set to continue the conversation.</p>"
+        answer: '<p>We suggest that you project 2-3 student responses to allow for discussion. More than four responses might not all fit on the screen, and will require scrolling on the part of the students. If you want to discuss more than four answers, try projecting 2-3 options to start. Then deselect those answers and choose another set to continue the conversation.</p>'
       }
     ]
   end
@@ -530,15 +530,15 @@ module PublicPagesHelper
     [
       {
         question: 'What do I get with a free membership?',
-        answer: "<p>All of our apps and all of our activities will always remain free, forever. Teachers see their students&apos; results in the scorebook, and teachers may hover over the activity result to see the details.</p>"
+        answer: '<p>All of our apps and all of our activities will always remain free, forever. Teachers see their students&apos; results in the scorebook, and teachers may hover over the activity result to see the details.</p>'
       },
       {
         question: 'What do I get with a premium membership?',
-        answer: "<p>With Quill Premium, teachers can access Quill Progress Reports, which allow teachers to easily view and download their data. Quill Progress Reports show teachers how students are progressing on the Common Core and which concepts they need help with. With Quill Premium for Schools, teachers and administrators can access a school-wide dashboard that shows student progress and standards mastered across the entire school.</p>"
+        answer: '<p>With Quill Premium, teachers can access Quill Progress Reports, which allow teachers to easily view and download their data. Quill Progress Reports show teachers how students are progressing on the Common Core and which concepts they need help with. With Quill Premium for Schools, teachers and administrators can access a school-wide dashboard that shows student progress and standards mastered across the entire school.</p>'
       },
       {
         question: 'How does payment work on a premium membership?',
-        answer: "<p>Quill Premium is provided on an annual license based on the school year. You may pay via credit card or check. Credit cards will be billed annually for Teacher and School Premium. If you pay with a check, Quill will issue an invoice to renew your subscription.</p>"
+        answer: '<p>Quill Premium is provided on an annual license based on the school year. You may pay via credit card or check. Credit cards will be billed annually for Teacher and School Premium. If you pay with a check, Quill will issue an invoice to renew your subscription.</p>'
       },
       {
         question: 'How much does premium cost?',

@@ -207,6 +207,7 @@ const iconGroups = [
     title: 'XS (Extra Small / 16x16)',
     icons: [
       { path: "arrow.svg" },
+      { path: "account-green.svg" },
       { path: "asterisk.svg" },
       { path: "bar-graph-increasing.svg" },
       { path: "calendar-date.svg" },

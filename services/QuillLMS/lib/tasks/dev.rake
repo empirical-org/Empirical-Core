@@ -2,11 +2,11 @@
 
 namespace :dev do
 
-  desc "easy tool to make this work locally with oauth apps"
+  desc 'easy tool to make this work locally with oauth apps'
   task :reset_apps => :environment do
     ActivityClassification.all.each { |app| switch_to_local(app, ['form_url', 'module_url']) }
 
-    puts "Replaced existing OAuth endpoints and app with localhost:4000 choices -- remember to run grammar there"
+    puts 'Replaced existing OAuth endpoints and app with localhost:4000 choices -- remember to run grammar there'
 
   end
 
@@ -16,7 +16,7 @@ namespace :dev do
     keys.each do |key|
       rd_uri = URI.parse(app.send(key))
       if Rails.env.development?
-        rd_uri.host = "localhost"
+        rd_uri.host = 'localhost'
         rd_uri.port = 4000
       elsif Rails.env.staging?
         rd_uri.host = 'grammar.staging.quill.org'

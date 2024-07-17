@@ -288,7 +288,7 @@ module Evidence
         },
         query: {
           text: @entry,
-          mode: "proof"
+          mode: 'proof'
         },
         timeout: API_TIMEOUT
       )

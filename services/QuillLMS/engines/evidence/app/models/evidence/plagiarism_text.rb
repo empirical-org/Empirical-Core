@@ -39,7 +39,7 @@ module Evidence
     end
 
     def change_log_name
-      "Plagiarism Rule Text"
+      'Plagiarism Rule Text'
     end
 
     def url

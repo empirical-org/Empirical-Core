@@ -61,19 +61,19 @@ module Snapshots
     end
 
     def relevant_date_column
-      "activity_sessions.completed_at"
+      'activity_sessions.completed_at'
     end
 
     def order_by_clause
-      "ORDER BY completed_at DESC"
+      'ORDER BY completed_at DESC'
     end
 
     def limit_clause
-      "LIMIT 10"
+      'LIMIT 10'
     end
 
     def group_by_clause
-      "GROUP BY activity_sessions.id"
+      'GROUP BY activity_sessions.id'
     end
   end
 end

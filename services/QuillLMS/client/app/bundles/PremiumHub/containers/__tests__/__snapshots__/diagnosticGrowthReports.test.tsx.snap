@@ -1,76 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DiagnosticGrowthReports full state it should render expected messaging if there is no diagnostic data 1`] = `
-<DocumentFragment>
-  <main>
-    <div
-      class="header"
-    >
-      <div
-        class="quill-snackbar "
-      >
-        You will receive an email with a download link shortly.
-      </div>
-      <h1>
-        <span>
-          Diagnostic Growth Report
-        </span>
-        <a
-          href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            alt="Document file with folded corner and two horizontal lines"
-            src="undefined/images/icons/file-document.svg"
-          />
-          <span>
-            Guide
-          </span>
-        </a>
-      </h1>
-      <div
-        class="header-buttons"
-      >
-        <button
-          class="quill-button-archived download-report-button contained primary medium focus-on-light"
-          type="button"
-        >
-          <img
-            alt="White arrow pointing down icon"
-            src="undefined/images/icons/downward-arrow-icon-white.svg"
-          />
-          <span>
-            Download
-          </span>
-        </button>
-      </div>
-    </div>
-    <div
-      class="no-diagnostic-data-container"
-    >
-      <h2>
-        There are not yet any completed diagnostics.
-      </h2>
-      <p>
-        The Quill Diagnostic enables you to provide a Pre-Diagnostic at the start of the year to identify skills students need to practice. The Post-Diagnostic allows you to then measure students' learning gains over the course of the school year.
-      </p>
-      <p>
-        At the moment, there are no teachers connected to your admin account who have completed a diagnostic. Once at least one teacher has completed a diagnostic with at least one student, you will be able to see their results in this report. View our guide to learn how teachers can assign diagnostics to their students.
-      </p>
-      <a
-        class="assign-link focus-on-light"
-        href="https://support.quill.org/en/articles/1049933-how-do-i-assign-a-quill-diagnostic"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        How to Assign a Diagnostic
-      </a>
-    </div>
-  </main>
-</DocumentFragment>
-`;
-
 exports[`DiagnosticGrowthReports full state it should render the expected header components 1`] = `
 <DocumentFragment>
   <main>
@@ -122,6 +51,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
     >
       <button
         class="interactive-wrapper performance-type-button overview active"
+        type="button"
         value="overview"
       >
         <img
@@ -134,6 +64,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       </button>
       <button
         class="interactive-wrapper performance-type-button skill "
+        type="button"
         value="skill"
       >
         <img
@@ -146,6 +77,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       </button>
       <button
         class="interactive-wrapper performance-type-button student "
+        type="button"
         value="student"
       >
         <img

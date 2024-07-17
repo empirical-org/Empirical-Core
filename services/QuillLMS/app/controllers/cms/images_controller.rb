@@ -18,13 +18,13 @@ class Cms::ImagesController < Cms::CmsController
   end
 
   def destroy
-    image = Image.find(params["id"])
+    image = Image.find(params['id'])
     if image
       hosted_image = directory.files.get(image.file.path)
       hosted_image.destroy if hosted_image
       image.destroy
     end
-    redirect_to action: "index"
+    redirect_to action: 'index'
   end
 
   def update

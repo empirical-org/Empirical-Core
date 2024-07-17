@@ -18,7 +18,7 @@ module Evidence
         turbo35_instruct: 'gpt-3.5-turbo-instruct'
       }
 
-      STOP_TOKENS = [". ", "; ", "? ", "! "] # max of 4 stop tokens
+      STOP_TOKENS = ['. ', '; ', '? ', '! '] # max of 4 stop tokens
       MAX_COUNT = 128 # API has an undocument max of 128 for 'n'
 
       attr_accessor :prompt, :temperature, :count, :model_key, :options

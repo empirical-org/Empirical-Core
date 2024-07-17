@@ -27,7 +27,7 @@ class District < ApplicationRecord
   include Subscriber
 
   validates :name, presence: true
-  validates_uniqueness_of :nces_id, allow_blank: true, message: "A district with this NCES ID already exists."
+  validates_uniqueness_of :nces_id, allow_blank: true, message: 'A district with this NCES ID already exists.'
 
   has_many :schools
   has_many :district_admins, dependent: :destroy
@@ -40,7 +40,7 @@ class District < ApplicationRecord
   scope :by_state, ->(state) { where(state: state.upcase) }
   scope :by_zipcode, ->(zipcode) { where(zipcode: zipcode) }
   scope :by_nces_id, ->(nces_id) { where(nces_id: nces_id) }
-  scope :by_premium_status, ->(premium_status) { joins(:subscriptions).where("subscriptions.account_type = ?", premium_status) }
+  scope :by_premium_status, ->(premium_status) { joins(:subscriptions).where('subscriptions.account_type = ?', premium_status) }
 
   def attach_subscription(subscription)
     district_subscriptions.create(subscription: subscription)

@@ -5,22 +5,22 @@ class OneOffBanner < WebinarBanner
   # ONE-OFFS have the key format Month-Day-Hour
   # RECURRING have the key format DayOfWeek-Hour
 
-  LINK_TEXT = "Click here to register and join."
+  LINK_TEXT = 'Click here to register and join.'
 
   WEBINAR_BASIC = {
-    title: "The webinar <strong>Back to School with Quill: Learn the Basics</strong> is live now!",
+    title: 'The webinar <strong>Back to School with Quill: Learn the Basics</strong> is live now!',
     link_display_text: LINK_TEXT,
     link: "#{ZOOM_URL}/WN_2LfW2CGRSfyfJzv79kF_2Q#/registration"
   }
 
   WEBINAR_BEYOND = {
-    title: "The webinar <strong>Back to School with Quill: Beyond the Basics</strong> is live now!",
+    title: 'The webinar <strong>Back to School with Quill: Beyond the Basics</strong> is live now!',
     link_display_text: LINK_TEXT,
     link: "#{ZOOM_URL}/WN_h2usGleLTRqPBLv9D5KNvw#/registration"
   }
 
   WEBINAR_EVIDENCE = {
-    title: "The webinar <strong>Introducing Quill’s Newest Tool: Reading for Evidence (grades 8 & up)</strong> is live now!",
+    title: 'The webinar <strong>Introducing Quill’s Newest Tool: Reading for Evidence (grades 8 & up)</strong> is live now!',
     link_display_text: LINK_TEXT,
     link: "#{ZOOM_URL}/WN_SBH_CLO5TIucJSlH7j2lkQ#/registration",
     custom_length: 30

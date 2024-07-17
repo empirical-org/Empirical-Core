@@ -36,16 +36,16 @@ describe Api::V1::FirebaseTokensController, type: :controller do
     let!(:user) { create(:student) }
 
     before do
-      allow_any_instance_of(FirebaseApp).to receive(:connect_token_for) { "connect token" }
+      allow_any_instance_of(FirebaseApp).to receive(:connect_token_for) { 'connect token' }
       subject
     end
 
     def subject
-      post :create_for_connect, params: { "json" => { "app" => 'foobar' }.to_json, as: :json }
+      post :create_for_connect, params: { 'json' => { 'app' => 'foobar' }.to_json, as: :json }
     end
 
     it 'should respond with the connect token' do
-      expect(response.body).to eq({ token: "connect token" }.to_json)
+      expect(response.body).to eq({ token: 'connect token' }.to_json)
     end
   end
 end

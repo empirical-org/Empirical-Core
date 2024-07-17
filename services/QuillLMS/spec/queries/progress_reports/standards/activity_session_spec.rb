@@ -12,7 +12,7 @@ describe ProgressReports::Standards::ActivitySession do
     expect(subject.size).to eq(best_activity_sessions.size)
   end
 
-  it "filters correctly for teacher" do
+  it 'filters correctly for teacher' do
     a = create(:activity)
     c = create(:classroom)
     s = create(:student)

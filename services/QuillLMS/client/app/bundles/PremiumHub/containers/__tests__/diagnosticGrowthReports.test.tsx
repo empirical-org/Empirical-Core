@@ -11,6 +11,7 @@ const props = {
   searchCount: 0,
   selectedClassrooms: [],
   availableClassrooms: [],
+  selectedTimeframe: {value: 'this-school-year'},
   selectedGrades: [],
   availableGrades: [],
   selectedSchools: [],
@@ -60,6 +61,9 @@ describe('DiagnosticGrowthReports', () => {
       expect(screen.getByRole('button', { name: /performance by skill/i })).toBeInTheDocument()
       expect(screen.getByRole('button', { name: /performance by student/i })).toBeInTheDocument()
     })
+
+    /*
+    TODO: Re-enable this test, or some version of it, once the code to display this page is re-instated
     test('it should render expected messaging if there is no diagnostic data', () => {
       props.passedData = true
       const { asFragment } = render(<DiagnosticGrowthReports {...props} />);
@@ -67,5 +71,6 @@ describe('DiagnosticGrowthReports', () => {
       expect(screen.getByRole('heading', { name: /there are not yet any completed diagnostics\./i})).toBeInTheDocument()
       expect(screen.getByRole('link', { name: /how to assign a diagnostic/i })).toBeInTheDocument()
     })
+    */
   })
 })

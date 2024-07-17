@@ -23,7 +23,7 @@ class ProgressReports::DistrictStandardsReports
       .pluck(:id)
       .map { |standard_id| standards_report_query(user_ids, standard_id) }
       .flatten
-      .sort_by { |k| k["name"] }
+      .sort_by { |k| k['name'] }
     standards_results = standards_results.take(FREEMIUM_LIMIT) if @is_freemium
     standards_results
   end

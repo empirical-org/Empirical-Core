@@ -12,6 +12,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   let(:suboptimal_example_list) {['some other example']}
   let(:optimal_examples) {optimal_example_list.map {|i| "- #{i}"}.join("\n")}
   let(:suboptimal_examples) {suboptimal_example_list.map {|i| "- #{i}"}.join("\n")}
+  let(:plagiarism_texts) {[plagiarism_text].map {|i| "- #{i}"}.join("\n")}
 
   let(:prompt) { create(:evidence_prompt, text: stem, first_strong_example: example_one, second_strong_example: example_two) }
   let!(:passage) {create(:evidence_passage, text: passage_text, activity: prompt.activity) }
@@ -37,7 +38,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   end
 
   describe '#run' do
-    let(:filled_template) {"Template with passage: #{passage_text}, plagiarism: #{plagiarism_text}, stem: #{stem}, optimal examples: #{optimal_examples}, suboptimal examples: #{suboptimal_examples}"}
+    let(:filled_template) {"Template with passage: #{passage_text}, plagiarism: #{plagiarism_texts}, stem: #{stem}, optimal examples: #{optimal_examples}, suboptimal examples: #{suboptimal_examples}"}
 
     before do
       allow(File).to receive(:read).and_return('Template with passage: %<passage>s, plagiarism: %<plagiarism_text>s, stem: %<stem>s, optimal examples: %<optimal_examples>s, suboptimal examples: %<suboptimal_examples>s')
@@ -73,7 +74,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
     end
 
     it 'returns the correct plagiarism_text' do
-      expect(subject.send(:plagiarism_text)).to eq(plagiarism_text)
+      expect(subject.send(:plagiarism_text)).to eq(plagiarism_texts)
     end
 
     it 'returns the correct stem' do

@@ -20,7 +20,7 @@ class StudentDashboardMetrics
   end
 
   def metrics_from_start_date(start_date)
-    completed_sessions_for_timeframe = completed_sessions.where("completed_at >= ?", start_date)
+    completed_sessions_for_timeframe = completed_sessions.where('completed_at >= ?', start_date)
     {
       activities_completed: completed_sessions_for_timeframe.count,
       timespent: completed_sessions_for_timeframe.pluck(:timespent).compact.sum

@@ -39,21 +39,21 @@ module Evidence
           allow(user).to receive(:staff?).and_return(true)
         end
 
-        describe "POST #create" do
+        describe 'POST #create' do
           subject { post :create, params: }
 
-          context "with valid params" do
+          context 'with valid params' do
             let(:params) { valid_params}
 
             it { expect { subject }.to change(GEval, :count).by(1) }
 
-            it "redirects to the created g_eval" do
+            it 'redirects to the created g_eval' do
               subject
               expect(response).to redirect_to(GEval.last)
             end
           end
 
-          context "with invalid params" do
+          context 'with invalid params' do
             let(:params) { invalid_params }
 
             it { expect { subject }.not_to change(GEval, :count) }

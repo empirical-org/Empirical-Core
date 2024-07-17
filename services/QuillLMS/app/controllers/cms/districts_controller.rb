@@ -122,7 +122,7 @@ class Cms::DistrictsController < Cms::CmsController
         result = result.order("#{sort} #{sort_direction}")
       end
     else
-      result = result.order("total_students DESC")
+      result = result.order('total_students DESC')
     end
 
     result = add_where_conditions(result).includes(:subscriptions).select('subscriptions.account_type AS premium_status, districts.id, districts.name, districts.city, districts.state, districts.zipcode, districts.phone, districts.total_students, districts.total_schools, districts.nces_id').references(:subscriptions)
@@ -173,7 +173,7 @@ class Cms::DistrictsController < Cms::CmsController
       .left_joins(:schools_users)
       .left_joins(:schools_admins)
       .left_joins(school_subscriptions: :subscription)
-      .where("subscriptions.de_activated_date IS NULL")
+      .where('subscriptions.de_activated_date IS NULL')
       .group('schools.name, schools.id, subscriptions.account_type')
   end
 

@@ -22,7 +22,7 @@ FactoryBot.define do
     'cues' => [''],
     'cuesLabel' => '',
     'flag' => 'production',
-    'focusPoints' => {
+    Question::FOCUS_POINTS => {
       '-LNLfzKfwaoZUVeSIH8o' => {
         'conceptResults' => {
           'Jl4ByYtUfo4VhIKpMt23yA' => {
@@ -36,7 +36,7 @@ FactoryBot.define do
         'text' => 'and'
       }
     },
-    'incorrectSequences' => {
+    Question::INCORRECT_SEQUENCES => {
       '0' => {
         'conceptResults' => {
           'GiUZ6KPkH958AT8S413nJg' => {

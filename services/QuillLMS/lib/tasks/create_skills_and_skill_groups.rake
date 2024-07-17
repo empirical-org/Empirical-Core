@@ -657,7 +657,7 @@ namespace :skills_and_skill_groups do
         description: 'Students who show proficiency in this skill will make the correct choice between irregular past, past perfect, and present perfect verb tenses. Students will also correctly agree the subject to the verb.',
         skills: [
           {
-            name: "Perfect Tense Verbs",
+            name: 'Perfect Tense Verbs',
             concepts: [
               { uid: 'TE-ElKaRWWumTrmVE4-m6g' },
               { uid: 'I5Si4ZxILjjDR077WgSZ6w' },

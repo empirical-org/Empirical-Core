@@ -5,7 +5,7 @@ require 'rails_helper'
 describe NavigationHelper do
   describe '#home_page_active?' do
     context 'when action name is dashboard, my account, teacher guide or google sync' do
-      before { allow(helper).to receive(:action_name) { "dashboard" } }
+      before { allow(helper).to receive(:action_name) { 'dashboard' } }
 
       it 'should return true' do
         expect(helper.home_page_active?).to eq true
@@ -14,8 +14,8 @@ describe NavigationHelper do
 
     context 'when on subscriptions index' do
       before do
-        allow(helper).to receive(:action_name) { "index" }
-        allow(helper).to receive(:controller_name) { "subscriptions" }
+        allow(helper).to receive(:action_name) { 'index' }
+        allow(helper).to receive(:controller_name) { 'subscriptions' }
       end
 
       it 'should return true' do
@@ -34,14 +34,14 @@ describe NavigationHelper do
     end
 
     context 'when invite_students action and not in concepts controller' do
-      let(:class_double) { double(:klass, module_parent: "something") }
+      let(:class_double) { double(:klass, module_parent: 'something') }
 
       before do
         allow(helper).to receive(:controller) { double(:controller, class: class_double) }
 
         without_partial_double_verification do
-          allow(helper).to receive(:action_name) { "invite_students" }
-          allow(helper).to receive(:controller_name) { "anything" }
+          allow(helper).to receive(:action_name) { 'invite_students' }
+          allow(helper).to receive(:controller_name) { 'anything' }
         end
       end
 
@@ -51,10 +51,10 @@ describe NavigationHelper do
     end
   end
 
-  describe "#assign_activity_page_active?" do
+  describe '#assign_activity_page_active?' do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
-      without_partial_double_verification { allow(helper).to receive(:action_name) { "assign" } }
+      without_partial_double_verification { allow(helper).to receive(:action_name) { 'assign' } }
     end
 
     it 'should return true when classroom manager controller and assign activities action' do
@@ -65,7 +65,7 @@ describe NavigationHelper do
   describe '#my_activities_page_active?' do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
-      without_partial_double_verification { allow(helper).to receive(:action_name) { "lesson_planner" } }
+      without_partial_double_verification { allow(helper).to receive(:action_name) { 'lesson_planner' } }
     end
 
     it 'should return true if classroom manager controller and lesson planner action' do
@@ -74,7 +74,7 @@ describe NavigationHelper do
   end
 
   describe '#admin_page_active?' do
-    before { allow(helper).to receive(:action_name) { "premium_hub" } }
+    before { allow(helper).to receive(:action_name) { 'premium_hub' } }
 
     it 'should return true on premium hub action' do
       expect(helper.admin_page_active?).to eq true
@@ -82,7 +82,7 @@ describe NavigationHelper do
   end
 
   describe '#teacher_premium_active?' do
-    before { allow(helper).to receive(:action_name) { "teacher_premium" } }
+    before { allow(helper).to receive(:action_name) { 'teacher_premium' } }
 
     it 'should return true on teacher premium action' do
       expect(helper.teacher_premium_active?).to eq true
@@ -96,19 +96,19 @@ describe NavigationHelper do
     let(:premium_subscription) { create(:subscription, account_type: 'Not A Trial') }
 
     context 'user has 5 days left in trial' do
-      let(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
+      let(:current_user) { double(:user, premium_state: 'trial', trial_days_remaining: 5) }
 
       it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>5 Days Left</span>" }
     end
 
     context 'user has locked premium subscription' do
-      let(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: premium_subscription) }
+      let(:current_user) { double(:user, premium_state: 'locked', last_expired_subscription: premium_subscription) }
 
       it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Expired</span>" }
     end
 
     context 'user has locked trial subscription' do
-      let(:current_user) { double(:user, premium_state: "locked", last_expired_subscription: trial_subscription) }
+      let(:current_user) { double(:user, premium_state: 'locked', last_expired_subscription: trial_subscription) }
 
       it { is_expected.to eq "<span>Premium</span><div class='large-diamond-icon is-in-middle'></div><span>Trial Expired</span>" }
     end
@@ -120,7 +120,7 @@ describe NavigationHelper do
     end
 
     context "user has 'none' premium state" do
-      let(:current_user) { double(:user, premium_state: "none") }
+      let(:current_user) { double(:user, premium_state: 'none') }
 
       it { is_expected.to eq "<span>Explore Premium</span><div class='large-diamond-icon'></div>" }
     end

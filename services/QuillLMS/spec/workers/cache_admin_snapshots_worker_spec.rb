@@ -25,8 +25,8 @@ describe CacheAdminSnapshotsWorker, type: :worker do
     allow(Snapshots::Timeframes).to receive(:calculate_timeframes).with(anything).and_return([current_timeframe_start, current_timeframe_end])
     allow(Snapshots::Timeframes).to receive(:calculate_timeframes).with(anything, previous_timeframe: true).and_return([previous_timeframe_start, previous_timeframe_end])
 
-    stub_const("Snapshots::CacheSnapshotCountWorker::QUERIES", { query_name => nil })
-    stub_const("Snapshots::CacheSnapshotTopXWorker::QUERIES", { query_name => nil })
+    stub_const('Snapshots::CacheSnapshotCountWorker::QUERIES', { query_name => nil })
+    stub_const('Snapshots::CacheSnapshotTopXWorker::QUERIES', { query_name => nil })
   end
 
   context 'enqueueing cache workers' do

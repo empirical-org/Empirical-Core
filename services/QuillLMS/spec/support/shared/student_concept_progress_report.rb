@@ -4,16 +4,16 @@ shared_context 'Student Concept Progress Report' do
   # Create 3 students
   # Create 2 concept tag, one displayed, the other not
   # Create a distribution of concept tag results for each student
-  let(:alice) { create(:student, name: "Alice Cool") }
-  let(:fred) { create(:student, name: "Fred Kewl") }
-  let(:zojirushi) { create(:student, name: "Zojirushi Kewel") }
+  let(:alice) { create(:student, name: 'Alice Cool') }
+  let(:fred) { create(:student, name: 'Fred Kewl') }
+  let(:zojirushi) { create(:student, name: 'Zojirushi Kewel') }
 
   let(:concept) { create(:concept) }
-  let(:hidden_concept) { create(:concept, name: "Hidden") }
+  let(:hidden_concept) { create(:concept, name: 'Hidden') }
 
   # Boilerplate
   let(:classroom) { create(:classroom,
-    name: "Bacon Weaving",
+    name: 'Bacon Weaving',
     students: [alice, fred, zojirushi]) }
   let(:teacher) {classroom.owner}
   let(:activity) { create(:activity) }

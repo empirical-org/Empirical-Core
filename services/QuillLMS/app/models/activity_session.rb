@@ -188,20 +188,20 @@ class ActivitySession < ApplicationRecord
         JOIN classrooms_teachers ON cu.classroom_id = classrooms_teachers.classroom_id
         JOIN classrooms ON cu.classroom_id = classrooms.id
       "
-    ).where("classrooms_teachers.user_id = ?", teacher.id)
+    ).where('classrooms_teachers.user_id = ?', teacher.id)
   end
 
   def self.with_filters(query, filters)
     if filters[:classroom_id].present?
-      query = query.where("classrooms.id = ?", filters[:classroom_id])
+      query = query.where('classrooms.id = ?', filters[:classroom_id])
     end
 
     if filters[:student_id].present?
-      query = query.where("activity_sessions.user_id = ?", filters[:student_id])
+      query = query.where('activity_sessions.user_id = ?', filters[:student_id])
     end
 
     if filters[:unit_id].present?
-      query = query.joins(:classroom_unit).where("classroom_units.unit_id = ?", filters[:unit_id])
+      query = query.joins(:classroom_unit).where('classroom_units.unit_id = ?', filters[:unit_id])
     end
 
     if filters[:standard_level_id].present?
@@ -272,7 +272,7 @@ class ActivitySession < ApplicationRecord
     elsif unit_activity.present? and unit_activity.due_date.present?
       (unit_activity.due_date.strftime('%A, %B %d, %Y')).to_s
     else
-      ""
+      ''
     end
   end
 
@@ -305,7 +305,7 @@ class ActivitySession < ApplicationRecord
 
   def data=(input)
     data_will_change!
-    self['data'] = data.to_h.update(input.except("activity_session"))
+    self['data'] = data.to_h.update(input.except('activity_session'))
   end
 
   def activity_uid= uid
@@ -369,7 +369,7 @@ class ActivitySession < ApplicationRecord
 
     ErrorNotifier.report(
       ConceptResultSubmittedWithoutActivitySessionError.new(
-        "Received a request to record a ConceptResult with no related ActivitySession."
+        'Received a request to record a ConceptResult with no related ActivitySession.'
       )
     )
   end
@@ -378,7 +378,7 @@ class ActivitySession < ApplicationRecord
   # other activity types make a call directly to the api/v1/activity_sessions controller with timetracking data included
   def self.save_timetracking_data_from_active_activity_session(activity_sessions)
     activity_sessions.each do |as|
-      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch("timeTracking")
+      time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch('timeTracking')
       as.data['time_tracking'] = time_tracking&.transform_values{ |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
       as.save
     end
@@ -484,7 +484,7 @@ class ActivitySession < ApplicationRecord
   private def correctly_assigned
     if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       ErrorNotifier.report(StudentNotAssignedActivityError.new)
-      errors.add(:incorrectly_assigned, "student was not assigned this activity")
+      errors.add(:incorrectly_assigned, 'student was not assigned this activity')
     else
       true
     end

@@ -35,19 +35,19 @@ module TeacherNotifications
     context 'should include the diagnostics section if diagnostic notifications are provided' do
       let(:notifications) { create_list(:teacher_notification_student_completed_diagnostic, 1, user: user) }
 
-      it { expect(mail.body.encoded).to match("View results and recommendations") }
+      it { expect(mail.body.encoded).to match('View results and recommendations') }
     end
 
     context 'should include the all assignments section if all assignment notifications are provided' do
       let(:notifications) { create_list(:teacher_notification_student_completed_all_assigned_activities, 1, user: user) }
 
-      it { expect(mail.body.encoded).to match("Assign your students more activities") }
+      it { expect(mail.body.encoded).to match('Assign your students more activities') }
     end
 
     context 'should include the diagnostic recommendations section if diagnostic recommendation notifications are provided' do
       let(:notifications) { create_list(:teacher_notification_student_completed_all_diagnostic_recommendations, 1, user: user) }
 
-      it { expect(mail.body.encoded).to match("Assign a growth diagnostic") }
+      it { expect(mail.body.encoded).to match('Assign a growth diagnostic') }
     end
 
     context 'should sort the notification types consistently as defined' do
@@ -66,19 +66,19 @@ module TeacherNotifications
     context 'should not include the diagnostics section if diagnostic notifications are not provided' do
       let(:notifications) { [] }
 
-      it { expect(mail.body.encoded).not_to match("View results and recommendations") }
+      it { expect(mail.body.encoded).not_to match('View results and recommendations') }
     end
 
     context 'should not include the all assignments section if all assignment notifications are not provided' do
       let(:notifications) { [] }
 
-      it { expect(mail.body.encoded).not_to match("Assign your students more activities") }
+      it { expect(mail.body.encoded).not_to match('Assign your students more activities') }
     end
 
     context 'should not include the diagnostic recommendations sectiion if diagnostic recommendation notifications are not provided' do
       let(:notifications) { [] }
 
-      it { expect(mail.body.encoded).not_to match("Assign a post-test diagnostic") }
+      it { expect(mail.body.encoded).not_to match('Assign a post-test diagnostic') }
     end
 
     context 'should include a "and X more" cut-off when there are more than ten notifications of the same type' do

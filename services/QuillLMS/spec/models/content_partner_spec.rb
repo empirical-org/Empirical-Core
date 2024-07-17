@@ -19,7 +19,7 @@ describe ContentPartner do
   it { expect(subject).to validate_presence_of :name }
   it { expect(subject).to have_many :content_partner_activities }
 
-  it "should send callback after commit" do
+  it 'should send callback after commit' do
     expect(Activity).to receive(:clear_activity_search_cache)
     content_partner.run_callbacks(:commit)
   end

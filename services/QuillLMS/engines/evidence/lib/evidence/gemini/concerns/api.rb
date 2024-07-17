@@ -13,7 +13,7 @@ module Evidence
         class ServiceUnavailableError < StandardError; end
 
         BASE_URI = Evidence::Gemini::BASE_URI
-        BLOCK_NONE = "BLOCK_NONE"
+        BLOCK_NONE = 'BLOCK_NONE'
 
         MAX_RETRIES = 10
         MAX_ATTEMPTS = 5
@@ -56,13 +56,13 @@ module Evidence
 
         private def body = request_body.merge(safety_settings: SAFETY_SETTINGS).to_json
 
-        private def headers = { "Content-Type" => "application/json" }
+        private def headers = { 'Content-Type' => 'application/json' }
 
         private def post_with_backoff(retries: 0)
           response = self.class.post(endpoint, body:, headers:, timeout: TIMEOUT)
 
-          raise ServiceUnavailableError, "Service is unavailable" if response.code == 503
-          raise RateLimitError, "Rate limit exceeded. Please try again later." if response.code == 429
+          raise ServiceUnavailableError, 'Service is unavailable' if response.code == 503
+          raise RateLimitError, 'Rate limit exceeded. Please try again later.' if response.code == 429
 
           response
         rescue => e

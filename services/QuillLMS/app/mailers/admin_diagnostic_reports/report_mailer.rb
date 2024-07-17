@@ -12,7 +12,7 @@ module AdminDiagnosticReports
 
       email = ENV.fetch('TEST_EMAIL_ADDRESS', user.email)
 
-      mail to: email, subject: "Your Quill Diagnostic Growth Report is ready"
+      mail to: email, subject: 'Your Quill Diagnostic Growth Report is ready'
     end
   end
 end

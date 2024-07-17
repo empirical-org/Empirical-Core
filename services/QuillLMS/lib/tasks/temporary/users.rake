@@ -5,7 +5,7 @@ namespace :users do
     old_domain = "@#{args[:old_domain].downcase}"
     new_domain = "@#{args[:new_domain].downcase}"
 
-    users = User.where("email LIKE ?", "%#{old_domain}")
+    users = User.where('email LIKE ?', "%#{old_domain}")
 
     puts "Going to update #{users.count} email addresses"
     num_updates = 0

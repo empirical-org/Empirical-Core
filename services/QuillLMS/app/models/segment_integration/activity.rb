@@ -12,8 +12,8 @@ module SegmentIntegration
     def content_params
       {
         **common_params,
-        concepts: activity_categories.pluck(:name).join(", "),
-        content_partners: content_partners.pluck(:name).join(", ")
+        concepts: activity_categories.pluck(:name).join(', '),
+        content_partners: content_partners.pluck(:name).join(', ')
       }.reject {|_,v| v.nil? }
     end
 

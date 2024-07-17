@@ -6,13 +6,14 @@ import { NOT_SCORED_DISPLAY_TEXT } from './constants.js'
 
 import { requestGet, } from '../../../../modules/request/index'
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js'
-import { ReactTable, ReportHeader, } from '../../../Shared/index'
-import { getTimeSpent } from '../../helpers/studentReports'
+import { ReactTable, ReportHeader, accountGreyIcon, } from '../../../Shared/index'
+import { getTimeSpent, renderTooltipRow } from '../../helpers/studentReports'
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown'
 import userIsPremium from '../modules/user_is_premium'
 import LoadingSpinner from '../shared/loading_indicator.jsx'
 
 const showAllClassroomKey = 'All classrooms'
+const PROFICIENT = 'proficient'
 
 export default class IndividualStandardsReport extends React.Component {
   state = {
@@ -57,36 +58,52 @@ export default class IndividualStandardsReport extends React.Component {
   columns() {
     const { userIsPremium } = this.state;
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
+    const nameHeaderWidth = 360
     return ([
       {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
         sortType: sortTableByLastName,
-        Cell: ({row}) => (
-          <a href={row.original['student_standards_href']}><span className='row-link-disguise underlined'>{row.original['name']}</span></a>
-        )
+        Cell: ({ row }) => {
+          const { original } = row
+          const { id, name, student_standards_href } = original
+          return renderTooltipRow({ color: 'grey', icon: accountGreyIcon, id, label: name, link: student_standards_href, headerWidth: nameHeaderWidth })
+        },
+        minWidth: nameHeaderWidth
       }, {
         Header: 'Activities',
         accessor: 'total_activity_count',
-        resizable: false
+        resizable: false,
+        maxWidth: 210
       }, {
         Header: 'Time spent',
         accessor: 'timespent',
         resizable: false,
+        maxWidth: 210,
         Cell: ({ row }) => <span className={blurIfNotPremium}>{getTimeSpent(row.original['timespent'])}</span>
       }, {
-        Header: 'Avg. score',
+        Header: 'Average score',
         accessor: 'average_score',
         resizable: false,
+        maxWidth: 210,
         Cell: ({ row }) => <span className={blurIfNotPremium}>{`${row.original['average_score']}`}</span>
       }, {
         Header: 'Proficiency Status',
         accessor: 'mastery_status',
         resizable: false,
-        Cell: ({row}) => (
-          <span className={blurIfNotPremium}><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
-        )
+        maxWidth: 210,
+        Cell: ({row}) => {
+          const proficiencyStatus = row.original['mastery_status'] === 'Proficient' ? PROFICIENT : 'not-proficient'
+          const proficientIconSrc = `${process.env.CDN_URL}/images/icons/2xs/proficiency-circle/proficient.svg`
+          const notProficienctIconSrc = `${process.env.CDN_URL}/images/icons/2xs/proficiency-circle/no-proficiency.svg`
+          return(
+            <span className={`proficiency-chip ${blurIfNotPremium} ${proficiencyStatus}`}>
+              <img alt="proficiency indicator" src={proficiencyStatus === PROFICIENT ? proficientIconSrc : notProficienctIconSrc} />
+              <span>{row.original['mastery_status']}</span>
+            </span>
+          )
+        }
       }
     ])
   }

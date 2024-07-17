@@ -57,7 +57,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.readability).to eq("2nd-7th")
+      expect(unit_template.readability).to eq('2nd-7th')
     end
 
     it 'calculates readability as nil if the activities do not have readability' do
@@ -77,7 +77,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.readability).to eq("2nd-3rd")
+      expect(unit_template.readability).to eq('2nd-3rd')
     end
   end
 
@@ -90,7 +90,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.grade_level_range).to eq("10th-12th")
+      expect(unit_template.grade_level_range).to eq('10th-12th')
     end
 
     it 'calculates grade_level_range as nil if the activities do not have minimum grade levels' do
@@ -108,7 +108,7 @@ describe UnitTemplate, redis: true, type: :model do
 
       unit_template = create(:unit_template, activity_ids: [activity_one.id, activity_two.id])
 
-      expect(unit_template.grade_level_range).to eq("6th-12th")
+      expect(unit_template.grade_level_range).to eq('6th-12th')
     end
   end
 
@@ -117,8 +117,8 @@ describe UnitTemplate, redis: true, type: :model do
     let!(:unit_template2) { create(:unit_template) }
 
     it 'should return the unit templates with the same category' do
-      expect(unit_template.related_models("alpha")).to include unit_template1
-      expect(unit_template.related_models("alpha")).to_not include unit_template2
+      expect(unit_template.related_models('alpha')).to include unit_template1
+      expect(unit_template.related_models('alpha')).to_not include unit_template2
     end
   end
 
@@ -146,7 +146,7 @@ describe UnitTemplate, redis: true, type: :model do
     let(:standard2) {create(:standard, name: 'CCSS Grade 9')}
     let(:activity1) { create(:activity, standard: standard1) }
     let(:activity2) { create(:activity, standard: standard2) }
-    let(:description) {"Free online writing activity pack \"Template Name\" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9."}
+    let(:description) {'Free online writing activity pack "Template Name" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9.'}
 
     subject { create(:unit_template, name: 'Template Name', activities: [activity1, activity2]) }
 
@@ -155,7 +155,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'with grades' do
-      let(:description) {"Free online writing activity pack \"Template Name\" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9."}
+      let(:description) {'Free online writing activity pack "Template Name" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9.'}
 
       subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
 
@@ -165,7 +165,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'no activities' do
-      let(:description) {"Free online writing activity pack \"Template Name\" for teachers of school students. "}
+      let(:description) {'Free online writing activity pack "Template Name" for teachers of school students. '}
 
       subject { create(:unit_template, name: 'Template Name') }
 
@@ -345,14 +345,14 @@ describe UnitTemplate, redis: true, type: :model do
       exist_count
     end
 
-    it "deletes the cache of the saved unit" do
+    it 'deletes the cache of the saved unit' do
       $redis.set("unit_template_id:#{unit_template.id}_serialized", 'something')
       expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(1)
       unit_template.update(name: 'something else')
       expect($redis.exists("unit_template_id:#{unit_template.id}_serialized")).to eq(0)
     end
 
-    it "deletes the cache of all flags before and after save" do
+    it 'deletes the cache of all flags before and after save' do
       expect(exist_count).to eq(4)
       unit_template.update(flag: 'beta')
       expect(exist_count).to eq(0)
@@ -366,7 +366,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe 'flag validations' do
 
-    it "can equal production" do
+    it 'can equal production' do
       unit_template.update(flag:'production')
       expect(unit_template).to be_valid
     end
@@ -381,7 +381,7 @@ describe UnitTemplate, redis: true, type: :model do
       expect(unit_template).to be_valid
     end
 
-    it "cannot equal gibberish" do
+    it 'cannot equal gibberish' do
       unit_template.update(flag: 'sunglasses')
       expect(unit_template).to_not be_valid
     end
@@ -391,12 +391,12 @@ describe UnitTemplate, redis: true, type: :model do
     let(:template) { create(:unit_template) }
 
     it 'should clear the unit templates' do
-      $redis.set("unit_template_id:#{template.id}_serialized", "pretend")
-      $redis.set('production_unit_templates', "this")
-      $redis.set('beta_unit_templates', "is")
-      $redis.set('alpha_unit_templates', "real")
-      $redis.set('private_unit_templates', "data")
-      $redis.set('gamma_unit_templates', "same")
+      $redis.set("unit_template_id:#{template.id}_serialized", 'pretend')
+      $redis.set('production_unit_templates', 'this')
+      $redis.set('beta_unit_templates', 'is')
+      $redis.set('alpha_unit_templates', 'real')
+      $redis.set('private_unit_templates', 'data')
+      $redis.set('gamma_unit_templates', 'same')
       UnitTemplate.delete_all_caches
       expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
       expect($redis.get('production_unit_templates')).to eq nil

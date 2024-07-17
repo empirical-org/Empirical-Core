@@ -9,7 +9,7 @@ module Evidence
     let(:prompt)  { activity.prompts.first }
 
     before do
-      stub_const("Evidence::Synthetic::EMAIL", email)
+      stub_const('Evidence::Synthetic::EMAIL', email)
     end
 
     subject { described_class.new }

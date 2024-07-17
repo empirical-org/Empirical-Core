@@ -29,13 +29,13 @@ describe ActivitySearchWrapper do
     activity_from_result = result[:activities].find { |a| a[:id] == activity.id }
     topics = activity_from_result[:topics]
     expect(topics.length).to eq(4)
-    expect(topics.find { |t| t[:level] == "0" }[:name]).to eq(level0_topic.name)
-    expect(topics.find { |t| t[:level] == "1" }[:name]).to eq(level1_topic.name)
-    expect(topics.find { |t| t[:level] == "2" }[:name]).to eq(level2_topic.name)
-    expect(topics.find { |t| t[:level] == "3" }[:name]).to eq(level3_topic.name)
+    expect(topics.find { |t| t[:level] == '0' }[:name]).to eq(level0_topic.name)
+    expect(topics.find { |t| t[:level] == '1' }[:name]).to eq(level1_topic.name)
+    expect(topics.find { |t| t[:level] == '2' }[:name]).to eq(level2_topic.name)
+    expect(topics.find { |t| t[:level] == '3' }[:name]).to eq(level3_topic.name)
   end
 
-  it "will have the readability grade level of that activity" do
+  it 'will have the readability grade level of that activity' do
     result = ActivitySearchWrapper.new.search
     activity_from_result = result[:activities].find { |a| a[:id] == activity.id }
     expect(activity_from_result[:readability_grade_level]).to eq(activity.readability_grade_level)

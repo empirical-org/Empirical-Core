@@ -259,7 +259,7 @@ class Cms::UsersController < Cms::CmsController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   protected def class_code_string_builder
-    class_code = user_query_params["class_code"]
+    class_code = user_query_params['class_code']
     return unless class_code.present?
 
     sanitized_class_code = ActiveRecord::Base.connection.quote(class_code)
@@ -283,7 +283,7 @@ class Cms::UsersController < Cms::CmsController
     if sort && sort_direction && sort != 'undefined' && sort_direction != 'undefined'
       "ORDER BY #{sort} #{sort_direction} NULLS LAST"
     else
-      "ORDER BY last_sign_in DESC NULLS LAST"
+      'ORDER BY last_sign_in DESC NULLS LAST'
     end
   end
 
@@ -298,7 +298,7 @@ class Cms::UsersController < Cms::CmsController
     return unless params.dig(:user, :flags)
 
     # checkboxes pass back '0' when unchecked -- we only want the attributes that are checked
-    params[:user][:flags] = user_params[:flags] - ["0"]
+    params[:user][:flags] = user_params[:flags] - ['0']
   end
 
   protected def subscription_params
@@ -322,9 +322,9 @@ class Cms::UsersController < Cms::CmsController
 
     #omit password field if password not filled in
     if user_params[:password].blank?
-      new_user_params = user_params.except("password", "password_confirmation")
+      new_user_params = user_params.except('password', 'password_confirmation')
     else
-      new_user_params = user_params.except("password_confirmation")
+      new_user_params = user_params.except('password_confirmation')
     end
 
     difference = (new_user_params.to_h.to_a - previous_user_params.to_h.to_a).to_h

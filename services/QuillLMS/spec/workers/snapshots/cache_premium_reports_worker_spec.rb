@@ -24,9 +24,9 @@ module Snapshots
     end
     let(:filters_with_string_keys) do
       {
-        "grades" => grades,
-        "teacher_ids" => teacher_ids,
-        "classroom_ids" => classroom_ids
+        'grades' => grades,
+        'teacher_ids' => teacher_ids,
+        'classroom_ids' => classroom_ids
       }
     end
     let(:query_double) { double(run: {}) }
@@ -71,7 +71,7 @@ module Snapshots
       end
 
       before do
-        stub_const("Snapshots::CachePremiumReportsWorker::QUERIES", {
+        stub_const('Snapshots::CachePremiumReportsWorker::QUERIES', {
           query => query_double
         })
       end
@@ -95,7 +95,7 @@ module Snapshots
         end
       end
 
-      context "params with string keys" do
+      context 'params with string keys' do
         it 'should execute a query for the timeframe' do
           expect(query_double).to receive(:run).with(expected_query_args)
           expect(Rails.cache).to receive(:write)

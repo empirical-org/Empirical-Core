@@ -2,7 +2,7 @@
 
 namespace :hints do
 
-  desc "Migrate the Rule <> Hint relationship from one-to-one to many-to-one"
+  desc 'Migrate the Rule <> Hint relationship from one-to-one to many-to-one'
   task :deduplicate_and_move_relations => :environment do
     # Note that while we could just straightforwardly move the existing
     # relationships from one-to-one to many-to-one, one of the reasons that

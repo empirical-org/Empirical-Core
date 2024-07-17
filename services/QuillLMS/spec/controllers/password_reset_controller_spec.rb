@@ -42,7 +42,7 @@ describe PasswordResetController do
 
     context 'when user does not exist' do
       it 'should render the index page and show error' do
-        post :create, params: { user: { email: "test@test.com" } }
+        post :create, params: { user: { email: 'test@test.com' } }
         expect(response.body).to eq ({ message: 'An account with this email does not exist. Try again.', type: 'email' }.to_json)
       end
     end
@@ -121,8 +121,8 @@ describe PasswordResetController do
     end
 
     it 'should update the sign the user in and redirect to profile path' do
-      expect(@user.password).to_not eq "test123"
-      post :update, params: { id: @user.token, user: { password: "test123" } }
+      expect(@user.password).to_not eq 'test123'
+      post :update, params: { id: @user.token, user: { password: 'test123' } }
       expect(session[:user_id]).to eq @user.id
       expect(response.body).to eq({ redirect: '/profile'}.to_json)
       expect(@user.reload.token).to eq nil

@@ -32,7 +32,7 @@ RSpec.describe String do
 
   describe '#strip_whitespace' do
     it 'removes all whitespace from the string' do
-      expect("hello world".strip_whitespace).to eq('helloworld')
+      expect('hello world'.strip_whitespace).to eq('helloworld')
     end
 
     it 'removes tabs, spaces, and newlines' do
@@ -40,7 +40,7 @@ RSpec.describe String do
     end
 
     it 'works with strings that have no whitespace' do
-      expect("helloworld".strip_whitespace).to eq('helloworld')
+      expect('helloworld'.strip_whitespace).to eq('helloworld')
     end
 
     it 'returns an empty string if the original string was only whitespace' do

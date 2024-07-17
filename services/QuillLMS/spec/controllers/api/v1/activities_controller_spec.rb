@@ -111,15 +111,15 @@ describe Api::V1::ActivitiesController, type: :controller do
       let(:user) { create(:staff) }
 
       context 'when the destroy is successful' do
-        let(:meta) { { "status" => 'success', "message" => "Activity Destroy Successful", "errors" => nil } }
+        let(:meta) { { 'status' => 'success', 'message' => 'Activity Destroy Successful', 'errors' => nil } }
 
         before { subject }
 
-        it { expect(parsed_body["meta"]).to eq meta }
+        it { expect(parsed_body['meta']).to eq meta }
       end
 
       context 'when the destroy is not successful' do
-        let(:meta) { { "status" => 'failed', "message" => "Activity Destroy Failed", "errors" => {} } }
+        let(:meta) { { 'status' => 'failed', 'message' => 'Activity Destroy Failed', 'errors' => {} } }
 
         before do
           allow(activity).to receive(:destroy).and_return(false)
@@ -127,7 +127,7 @@ describe Api::V1::ActivitiesController, type: :controller do
           subject
         end
 
-        it { expect(parsed_body["meta"]).to eq meta }
+        it { expect(parsed_body['meta']).to eq meta }
       end
     end
   end
@@ -162,18 +162,18 @@ describe Api::V1::ActivitiesController, type: :controller do
       get :uids_and_flags, as: :json
       expect(parsed_body).to eq({
         activity.uid => {
-          "flag" => activity.flag.to_s
+          'flag' => activity.flag.to_s
         },
         activity1.uid => {
-          "flag" => activity1.flag.to_s
+          'flag' => activity1.flag.to_s
         }
       })
     end
   end
 
   describe '#published_edition' do
-    let(:objective) { create(:objective, name: "Publish Customized Lesson") }
-    let(:milestone) { create(:milestone, name: "Publish Customized Lesson") }
+    let(:objective) { create(:objective, name: 'Publish Customized Lesson') }
+    let(:milestone) { create(:milestone, name: 'Publish Customized Lesson') }
     let(:user) { create(:user) }
 
     before { allow(controller).to receive(:current_user) { user } }
@@ -196,8 +196,8 @@ describe Api::V1::ActivitiesController, type: :controller do
       get :diagnostic_activities, as: :json
       response_obj = parsed_body['diagnostics']
       expect(response_obj.size).to eq(2)
-      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[0]["id"])
-      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[1]["id"])
+      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[0]['id'])
+      expect([diagnostic_activity_one.id, diagnostic_activity_two.id]).to include(response_obj[1]['id'])
     end
   end
 
@@ -231,23 +231,23 @@ describe Api::V1::ActivitiesController, type: :controller do
       activity.update(data: {questions: [{key: question.uid}]})
       get :question_health, params: { id: activity.id }, as: :json
 
-      response_obj = parsed_body["question_health"]
-      expect(response_obj[0]["url"]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
-      expect(response_obj[0]["text"]).to eq(question.data['prompt'])
-      expect(response_obj[0]["flag"]).to eq(question.data['flag'])
-      expect(response_obj[0]["incorrect_sequences"]).to eq(question.data["incorrectSequences"].length)
-      expect(response_obj[0]["focus_points"]).to eq(question.data["focusPoints"].length)
-      expect(response_obj[0]["percent_common_unmatched"]).to eq(50)
-      expect(response_obj[0]["percent_specified_algorithms"]).to eq(75)
-      expect(response_obj[0]["difficulty"]).to eq(2.67)
-      expect(response_obj[0]["percent_reached_optimal"]).to eq(66.67)
+      response_obj = parsed_body['question_health']
+      expect(response_obj[0]['url']).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
+      expect(response_obj[0]['text']).to eq(question.prompt)
+      expect(response_obj[0]['flag']).to eq(question.flag)
+      expect(response_obj[0]['incorrect_sequences']).to eq(question.incorrectSequences.length)
+      expect(response_obj[0]['focus_points']).to eq(question.focusPoints.length)
+      expect(response_obj[0]['percent_common_unmatched']).to eq(50)
+      expect(response_obj[0]['percent_specified_algorithms']).to eq(75)
+      expect(response_obj[0]['difficulty']).to eq(2.67)
+      expect(response_obj[0]['percent_reached_optimal']).to eq(66.67)
     end
 
     it 'returns empty hashes if questions do not exist' do
       activity.update(data: {questions: [{key: question.uid}, {key: SecureRandom.uuid}]})
       get :question_health, params: { id: activity.id }, as: :json
       expect(response.status).to eq(200)
-      response_obj = parsed_body["question_health"]
+      response_obj = parsed_body['question_health']
       expect(response_obj[1]).to eq({})
     end
   end
@@ -259,7 +259,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     it 'should return a list of all activity healths with associated prompt health' do
       get :activities_health, as: :json
       expect(response.status).to eq(200)
-      response_obj = parsed_body["activities_health"]
+      response_obj = parsed_body['activities_health']
       expect(response_obj[0]).to eq(ActivityHealth.first.as_json)
     end
 
@@ -267,7 +267,7 @@ describe Api::V1::ActivitiesController, type: :controller do
       ActivityHealth.destroy_all
       get :activities_health, as: :json
       expect(response.status).to eq(200)
-      response_obj = parsed_body["activities_health"]
+      response_obj = parsed_body['activities_health']
       expect(response_obj).to eq([])
     end
   end

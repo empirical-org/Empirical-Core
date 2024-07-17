@@ -54,7 +54,7 @@ namespace :reports do
     end
 
     if activity_session_rows_with_skill_scores.empty?
-      puts "No scores."
+      puts 'No scores.'
       exit 0
     end
 

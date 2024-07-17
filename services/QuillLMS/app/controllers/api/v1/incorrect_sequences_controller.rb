@@ -61,6 +61,6 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   end
 
   private def render_all_incorrect_sequences
-    render(json: @question.data["incorrectSequences"])
+    render(json: @question.incorrectSequences)
   end
 end

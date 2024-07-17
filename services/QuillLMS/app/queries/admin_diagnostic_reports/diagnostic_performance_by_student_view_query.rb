@@ -18,7 +18,7 @@ module AdminDiagnosticReports
       super(aggregation: 'student', **options)
     end
 
-    def rollup_select_columns = "student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id"
+    def rollup_select_columns = 'student_id, student_name, pre_activity_session_completed_at, post_activity_session_completed_at, classroom_id'
 
     def specific_select_clause
       <<-SQL
@@ -82,12 +82,12 @@ module AdminDiagnosticReports
     end
 
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name"
-    def limit_clause = (" LIMIT 5000" if limited)
+    def limit_clause = (' LIMIT 5000' if limited)
 
-    def relevant_date_column = "performance.pre_assigned_at"
+    def relevant_date_column = 'performance.pre_assigned_at'
 
     def aggregate_by_clause = "CONCAT(performance.classroom_id, ':', performance.student_id)"
-    def aggregate_sort_clause = "students.name"
+    def aggregate_sort_clause = 'students.name'
 
     private def post_process(result)
       # This is an override of the base post_process without a Ruby-based
@@ -107,7 +107,7 @@ module AdminDiagnosticReports
 
     private def rollup_aggregation_hash
       {
-        skill_group_name: static_string("ROLLUP"),
+        skill_group_name: static_string('ROLLUP'),
         pre_to_post_improved_skill_count: sum_aggregate,
         pre_questions_correct: sum_aggregate,
         pre_questions_total: sum_aggregate,

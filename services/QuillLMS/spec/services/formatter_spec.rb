@@ -23,22 +23,22 @@ describe Formatter do
     let(:selected_format) { described_class::AS_LIST }
     let(:value) { [1,2,3] }
 
-    it { is_expected.to eq(value.join(", ")) }
+    it { is_expected.to eq(value.join(', ')) }
   end
 
   context 'as_minutes_string' do
     let(:selected_format) { described_class::AS_MINUTES_STRING }
 
-    context "less than one minute" do
+    context 'less than one minute' do
       let(:value) { 34 }
 
-      it { is_expected.to eq("0:34") }
+      it { is_expected.to eq('0:34') }
     end
 
-    context "more than one minute" do
+    context 'more than one minute' do
       let(:value) { 64 }
 
-      it { is_expected.to eq("1:04") }
+      it { is_expected.to eq('1:04') }
     end
   end
 
@@ -66,7 +66,7 @@ describe Formatter do
     end
 
     context 'empty string' do
-      let(:value) { "" }
+      let(:value) { '' }
 
       it { is_expected.to eq(0) }
     end
@@ -126,7 +126,7 @@ describe Formatter do
     context '< 60' do
       let(:value) { 50 }
 
-      it { is_expected.to eq("< 1") }
+      it { is_expected.to eq('< 1') }
     end
 
     context '>= 60' do

@@ -2,11 +2,11 @@
 
 class SerializeActivityHealth
   CLASSIFICATION_TO_TOOL = {
-    connect: "connect",
-    sentence: "grammar"
+    connect: 'connect',
+    sentence: 'grammar'
   }
   MAX_SESSIONS_VIEWED = 500
-  PRODUCTION_FLAG = "production"
+  PRODUCTION_FLAG = 'production'
 
   def initialize(activity)
     @activity = activity
@@ -31,11 +31,11 @@ class SerializeActivityHealth
   end
 
   def prompt_data
-    questions = @activity.data["questions"]
+    questions = @activity.data['questions']
     return [] if !questions.present?
 
     @questions_arr ||= questions.each.with_index(1).map { |q, question_number|
-      question = Question.find_by(uid: q["key"])
+      question = Question.find_by(uid: q['key'])
       question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : nil
     }.compact
   end
@@ -46,7 +46,7 @@ class SerializeActivityHealth
 
   private def avg_mins_to_complete
     all_session_lengths = ActivitySession
-      .where(activity: @activity, state: "finished")
+      .where(activity: @activity, state: 'finished')
       .last(MAX_SESSIONS_VIEWED)
       .map(&:minutes_to_complete)
       .reject{ |b| !b || b==0 }
@@ -56,7 +56,7 @@ class SerializeActivityHealth
   private def recent_plays
     today = Date.current
     if !@activity.classroom_units.empty? && @activity.classroom_units.order(:created_at).first.created_at <= today - 3.months
-      ActivitySession.where("started_at >= ?", today - 3.months).where(state: "finished", activity_id: @activity.id).count
+      ActivitySession.where('started_at >= ?', today - 3.months).where(state: 'finished', activity_id: @activity.id).count
     else
       nil
     end

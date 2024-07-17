@@ -4,7 +4,7 @@ require 'csv'
 
 namespace :plagiarized_responses do
 
-  desc "Reads a csv of responses and returns a csv with plagiarized responses filtered out"
+  desc 'Reads a csv of responses and returns a csv with plagiarized responses filtered out'
 
   task :filter, [:passage, :responses] => :environment do |t, args|
     passage_file_path = args[:passage]
@@ -14,13 +14,13 @@ namespace :plagiarized_responses do
     passage_text = passage_file.read.chomp
 
     responses_table = CSV.parse(File.read(response_csv), headers: true)
-    optimal_file = "filtered_responses.csv"
-    plagiarized_file = "plagiarized_responses.csv"
+    optimal_file = 'filtered_responses.csv'
+    plagiarized_file = 'plagiarized_responses.csv'
     CSV.open(plagiarized_file, 'w', write_headers: true, headers: responses_table.headers) do |plagiarized_writer|
       CSV.open(optimal_file, 'w', write_headers: true, headers: responses_table.headers) do |writer|
         responses_table.each do |row|
           response_text = row[0]
-          plagiarism_check = Evidence::PlagiarismCheck.new(response_text, passage_text, "")
+          plagiarism_check = Evidence::PlagiarismCheck.new(response_text, passage_text, '')
           if plagiarism_check.optimal?
             writer << row
           else
@@ -31,7 +31,7 @@ namespace :plagiarized_responses do
     end
   end
 
-  desc "Reads a CSV of historical responses and applies theoretical plagiarism algorithms to them, then outputs the responses and those plagiarism results into a new CSV for comparison"
+  desc 'Reads a CSV of historical responses and applies theoretical plagiarism algorithms to them, then outputs the responses and those plagiarism results into a new CSV for comparison'
 
   # Intended to operate on data generated via the following query:
   # SELECT comprehension_prompts.text, entry, feedback_text, feedback_type, comprehension_plagiarism_texts.text AS plagiarism_text

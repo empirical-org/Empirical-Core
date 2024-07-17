@@ -9,22 +9,23 @@ module Evidence
 
       ENDPOINT = '/chat/completions'
 
-      MODEL = 'gpt-4-turbo'
+      DEFAULT_MODEL = 'gpt-4-turbo'
 
-      KEY_ROLE = "role"
-      KEY_CONTENT = "content"
-      ROLE_SYSTEM = "system"
-      ROLE_USER = "user"
-      ROLE_ASSISTANT = "assistant"
-      RESPONSE_FORMAT = { "type" => "json_object" }
+      KEY_ROLE = 'role'
+      KEY_CONTENT = 'content'
+      ROLE_SYSTEM = 'system'
+      ROLE_USER = 'user'
+      ROLE_ASSISTANT = 'assistant'
+      RESPONSE_FORMAT = { 'type' => 'json_object' }
 
-      attr_reader :system_prompt, :entry, :history, :temperature
+      attr_reader :system_prompt, :entry, :history, :temperature, :model
 
-      def initialize(system_prompt:, entry:, history: [], temperature: 0.5)
+      def initialize(system_prompt:, entry:, history: [], temperature: 0.5, model: DEFAULT_MODEL)
         @system_prompt = system_prompt
         @entry = entry
         @history = history
         @temperature = temperature
+        @model = model
       end
 
       private def messages = [system_message, history_messages, current_message].flatten
@@ -55,17 +56,11 @@ module Evidence
       end
 
       def endpoint = ENDPOINT
+      def response_format = RESPONSE_FORMAT
 
       # https://platform.openai.com/docs/api-reference/chat/create
-      def request_body
-        {
-          model: MODEL,
-          temperature: temperature,
-          messages: messages,
-          n: 1,
-          response_format: RESPONSE_FORMAT
-        }
-      end
+      def request_body = { model:, temperature:, messages:, response_format: }
+
     end
   end
 end

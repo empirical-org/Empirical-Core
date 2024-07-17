@@ -11,6 +11,6 @@ namespace :quill_scaffold do
     system("rails g quill_model #{args[:options]} --force")
     system("rails g model_tests #{args[:options]} --force")
     system("rails g controller_tests #{args[:options]} --force")
-    system("rm -rf test/fixtures")
+    system('rm -rf test/fixtures')
   end
 end

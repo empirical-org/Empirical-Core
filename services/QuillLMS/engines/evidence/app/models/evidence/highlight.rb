@@ -47,15 +47,15 @@ module Evidence
 
     def change_log_name
       if semantic_rule && first_order
-        "Semantic Label First Layer Feedback Highlight"
+        'Semantic Label First Layer Feedback Highlight'
       elsif semantic_rule && second_order
-        "Semantic Label Second Layer Feedback Highlight"
+        'Semantic Label Second Layer Feedback Highlight'
       elsif feedback.rule.plagiarism?
-        "Plagiarism Rule Highlight"
+        'Plagiarism Rule Highlight'
       elsif feedback.rule.regex?
-        "Regex Rule Highlight"
+        'Regex Rule Highlight'
       else
-        "Highlight"
+        'Highlight'
       end
     end
 

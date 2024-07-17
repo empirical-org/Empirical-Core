@@ -3,10 +3,10 @@
 module Translatable
   extend ActiveSupport::Concern
 
-  SPANISH_LOCALE = "es-la"
+  SPANISH_LOCALE = 'es-la'
   DEFAULT_LOCALE = SPANISH_LOCALE
-  GENGO_SOURCE = "gengo"
-  OPEN_AI_SOURCE = "open_ai"
+  GENGO_SOURCE = 'gengo'
+  OPEN_AI_SOURCE = 'open_ai'
   SOURCES = [OPEN_AI_SOURCE, GENGO_SOURCE]
 
   included do
@@ -42,13 +42,14 @@ module Translatable
     translated_texts.where(locale: locale).ordered_by_source_api(source_api)
   end
 
-  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
+  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE, force: false)
     create_translation_mappings
     case source_api
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
-      english_texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: prompt(locale:)) }
+      texts = force ? english_texts : english_texts.reject {|e| e.translated?(locale:)}
+      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: prompt(locale:)) }
     end
     translation(locale:, source_api:)
   end
@@ -62,11 +63,11 @@ module Translatable
   end
 
   private def custom_prompt
-    config_yaml["custom_prompt"]
+    config_yaml['custom_prompt']
   end
 
   private def config_filename = "#{self.class.name.underscore}.yml"
-  private def config_file = Rails.root.join("app/models/translation_config", config_filename)
+  private def config_file = Rails.root.join('app/models/translation_config', config_filename)
   private def config_yaml = YAML.load_file(config_file)
 
   private def prompt_start(locale:)
@@ -79,8 +80,8 @@ module Translatable
   end
 
   private def examples
-    examples = config_yaml["examples"]
-    return "" unless examples.present?
+    examples = config_yaml['examples']
+    return '' unless examples.present?
 
     formatted_examples = "Examples: \n"
     examples.each_with_index do |example, index|

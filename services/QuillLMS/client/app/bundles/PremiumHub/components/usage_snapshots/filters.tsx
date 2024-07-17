@@ -177,13 +177,12 @@ const Filters = ({
           <label className="filter-label" htmlFor="timeframe-filter">
             <span>Timeframe</span>
             <Tooltip
-              tooltipText={isGrowthDiagnosticReport ? "The diagnostic growth report only shows results for the current school year. This report is updated nightly." : "This report is updated nightly."}
+              tooltipText={isGrowthDiagnosticReport ? "To ensure meaningful results, this report must be viewed for an entire school year, defined as July 1 through June 30. This report is updated nightly." : "This report is updated nightly."}
               tooltipTriggerText={<img alt={helpIcon.alt} src={helpIcon.src} />}
             />
           </label>
           <DropdownInput
-            className={isGrowthDiagnosticReport ? 'timeframe-filter disabled' : ''}
-            disabled={isGrowthDiagnosticReport}
+            className=""
             handleChange={handleSetSelectedTimeframe}
             helperText={timeframeHelperText}
             id="timeframe-filter"

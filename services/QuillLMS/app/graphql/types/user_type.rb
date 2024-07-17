@@ -19,7 +19,7 @@ class Types::UserType < Types::BaseObject
   def notifications
     return [] unless ENV['USER_NOTIFICATIONS_ENABLED']
 
-    object.notifications.order("notifications.id DESC").limit(10)
+    object.notifications.order('notifications.id DESC').limit(10)
   end
 
   def activity_scores
@@ -38,7 +38,7 @@ class Types::UserType < Types::BaseObject
 
   def recommended_activities
     if completed_diagnostic
-      diagnostic_session = ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").last
+      diagnostic_session = ActivitySession.where(user_id: object.id, activity_id: 413, state: 'finished').last
       counted_concept_results = concept_results_by_count(diagnostic_session)
       units = get_recommended_units(counted_concept_results)
       get_acts_from_recommended_units(units).flatten
@@ -48,7 +48,7 @@ class Types::UserType < Types::BaseObject
   end
 
   def completed_diagnostic
-    ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").any?
+    ActivitySession.where(user_id: object.id, activity_id: 413, state: 'finished').any?
   end
 
   private def get_recommended_units(concept_result_scores)
@@ -56,11 +56,11 @@ class Types::UserType < Types::BaseObject
     activity_pack_recommendation = Recommendation.find_by(activity_id: 413, category: 0)
 
     activity_pack_recommendation.criteria.each do |req|
-      if req.no_incorrect && concept_result_scores[req[:concept_id]]["total"] > concept_result_scores[req[:concept_id]]["correct"]
+      if req.no_incorrect && concept_result_scores[req[:concept_id]]['total'] > concept_result_scores[req[:concept_id]]['correct']
         units.pusharr(activity_pack_recommendation[:unit_template_id])
         break
       end
-      if concept_result_scores[req[:concept_id]]["correct"] < req[:count]
+      if concept_result_scores[req[:concept_id]]['correct'] < req[:count]
         units.push(activity_pack_recommendation[:unit_template_id])
         break
       end
@@ -78,8 +78,8 @@ class Types::UserType < Types::BaseObject
   private def concept_results_by_count activity_session
     hash = Hash.new { |h, k| h[k] = Hash.new { |j, l| j[l] = 0 } }
     activity_session.concept_results.each do |concept_result|
-      hash[concept_result.concept.uid]["correct"] += concept_result.correct ? 1 : 0
-      hash[concept_result.concept.uid]["total"] += 1
+      hash[concept_result.concept.uid]['correct'] += concept_result.correct ? 1 : 0
+      hash[concept_result.concept.uid]['total'] += 1
     end
     hash
   end

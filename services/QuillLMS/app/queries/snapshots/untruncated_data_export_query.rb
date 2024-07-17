@@ -3,7 +3,7 @@
 module Snapshots
   class UntruncatedDataExportQuery < DataExportQuery
     def limit_clause
-      ""
+      ''
     end
   end
 end

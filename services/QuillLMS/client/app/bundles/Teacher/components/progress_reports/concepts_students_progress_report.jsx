@@ -8,10 +8,11 @@ import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_const
 
 import { requestGet, } from '../../../../modules/request/index';
 import { sortTableByLastName } from '../../../../modules/sortingMethods.js';
-import { ReactTable, ReportHeader } from '../../../Shared/index';
+import { ReactTable, ReportHeader, accountGreenIcon } from '../../../Shared/index';
 import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown';
 import userIsPremium from '../modules/user_is_premium';
 import LoadingSpinner from '../shared/loading_indicator.jsx';
+import { renderTooltipRow } from '../../helpers/studentReports';
 
 const showAllClassroomKey = 'All Classrooms'
 
@@ -54,20 +55,24 @@ export default class ConceptsStudentsProgressReport extends React.Component {
     const { userIsPremium, } = this.state
     const blurIfNotPremium = userIsPremium ? null : 'non-premium-blur'
     const cellClassName = `row-link-disguise ${blurIfNotPremium}`
+    const nameHeaderWidth = 360
     return ([
       {
         Header: 'Student',
         accessor: 'name',
         resizable: false,
         sortType: sortTableByLastName,
-        width: 174,
-        Cell: ({row}) => (
-          <a href={row.original['concepts_href']}>{row.original['name']}</a>
-        )
+        maxWidth: nameHeaderWidth,
+        Cell: ({ row }) => {
+          const { original } = row
+          const { id, name, concepts_href } = original
+          return renderTooltipRow({ icon: accountGreenIcon, id, label: name, link: concepts_href, headerWidth: nameHeaderWidth })
+        },
       }, {
         Header: 'Questions',
         accessor: 'total_result_count',
         resizable: false,
+        maxWidth: 210,
         Cell: ({row}) => (
           <a className="row-link-disguise" href={row.original['concepts_href']}>{row.original['total_result_count']}</a>
         )
@@ -75,6 +80,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         Header: 'Correct',
         accessor: 'correct_result_count',
         resizable: false,
+        maxWidth: 210,
         Cell: ({row}) => (
           <a className={cellClassName} href={row.original['concepts_href']}>{row.original['correct_result_count']}</a>
         )
@@ -82,6 +88,7 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         Header: 'Incorrect',
         accessor: 'incorrect_result_count',
         resizable: false,
+        maxWidth: 210,
         Cell: ({row}) => (
           <a className={cellClassName} href={row.original['concepts_href']}>{row.original['incorrect_result_count']}</a>
         )
@@ -89,19 +96,9 @@ export default class ConceptsStudentsProgressReport extends React.Component {
         Header: 'Percentage',
         accessor: 'percentage',
         resizable: false,
+        maxWidth: 210,
         Cell: ({row}) => (
           <a className={cellClassName} href={row.original['concepts_href']}>{row.original['percentage']}%</a>
-        )
-      }, {
-        Header: "",
-        accessor: 'green_arrow',
-        resizable: false,
-        sortable: false,
-        maxWidth: 80,
-        Cell: ({row}) => (
-          <a className='green-arrow' href={row.original['concepts_href']}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-          </a>
         )
       }
     ])

@@ -8,7 +8,7 @@
 #  labels               :string           default([]), is an Array
 #  name                 :string           not null
 #  notes                :text             default("")
-#  project              :string
+#  project              :string           not null
 #  state                :string           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -79,10 +79,10 @@ module Evidence
     def classify_text(text) = VertexAI::TextClassifier.run(endpoint_external_id:, project:, text:)
 
     def older_models
-      @older_models ||= AutomlModel.where(prompt_id: prompt_id).where("created_at < ?", created_at).count
+      @older_models ||= AutomlModel.where(prompt_id: prompt_id).where('created_at < ?', created_at).count
     end
 
-    def change_log_name = "AutoML Model"
+    def change_log_name = 'AutoML Model'
 
     def url = "evidence/#/activities/#{prompt.activity.id}/semantic-labels/model/#{id}"
 

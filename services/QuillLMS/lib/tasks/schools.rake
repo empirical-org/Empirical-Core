@@ -19,17 +19,17 @@ def charter_value(value)
 end
 
 namespace :schools do
-  desc "Import schools from CSV"
+  desc 'Import schools from CSV'
   task import: :environment do
 
-    puts "Beginning school import..."
+    puts 'Beginning school import...'
     total_updated = 0
     total_new = 0
 
     CSV.foreach(open('https://assets.quill.org/data/schools.txt'),
       col_sep: "\t",
       headers: true,
-      encoding: "ISO-8859-1"
+      encoding: 'ISO-8859-1'
     ) do |row|
       school_hash = row.to_hash
       school = School.where(nces_id: school_hash['NCESSCH']).first_or_initialize
@@ -63,7 +63,7 @@ namespace :schools do
       school.save!
     end
 
-    puts "✨ Task Completed"
+    puts '✨ Task Completed'
     puts "✨ New Schools: #{total_new}"
     puts "✨ Updated Schools: #{total_updated}"
   end

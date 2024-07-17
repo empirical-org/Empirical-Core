@@ -24,7 +24,7 @@ module CanvasIntegration
 
       transient do
         sequence(:course_id)
-        created_at { Time.zone.now.strftime("%Y-%m-%dT%H:%M:%SZ") }
+        created_at { Time.zone.now.strftime('%Y-%m-%dT%H:%M:%SZ') }
         sequence(:id)
         sequence(:name) { |n| "Section #{n}" }
         students { nil }

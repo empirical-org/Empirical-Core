@@ -120,6 +120,8 @@ class User < ApplicationRecord
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
+  LEADING_CAPITALIZE_NAMES = %w(van dit)
+
   attr_accessor :newsletter,
     :require_password_confirmation_when_password_present,
     :skip_capitalize_names_callback,
@@ -264,7 +266,7 @@ class User < ApplicationRecord
     distinct
       .joins(:schools_users)
       .left_outer_joins(:classrooms_teachers)
-      .joins("LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id")
+      .joins('LEFT OUTER JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id')
       .where(schools_users: { school_id: school_ids })
   }
 
@@ -473,7 +475,11 @@ class User < ApplicationRecord
   end
 
   def capitalize_name
-    self.name = ::CapitalizeNames.capitalize(name)
+    temp_name = ::CapitalizeNames.capitalize(name)
+    words = temp_name.split
+    words[0].capitalize! if words[0].in?(LEADING_CAPITALIZE_NAMES)
+
+    self.name = words.join(' ')
   end
 
   def admin?
@@ -491,7 +497,7 @@ class User < ApplicationRecord
 
   def self.find_by_username_or_email(login_name)
     login_name = login_name.downcase
-    User.where("email = ? OR username = ?", login_name, login_name).first
+    User.where('email = ? OR username = ?', login_name, login_name).first
   end
 
   # replace with authority, cancan or something
@@ -709,7 +715,7 @@ class User < ApplicationRecord
   end
 
   def is_new_teacher_without_school?
-    teacher? && !school && previous_changes["id"]
+    teacher? && !school && previous_changes['id']
   end
 
   def generate_username(classroom_id=nil)

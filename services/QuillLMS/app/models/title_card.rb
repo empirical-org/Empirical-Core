@@ -28,6 +28,6 @@ class TitleCard < ApplicationRecord
   validates :title_card_type, presence: true, inclusion: {in: TYPES}
 
   def as_json(options=nil)
-    super(options).except("id")
+    super(options).except('id')
   end
 end

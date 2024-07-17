@@ -2,7 +2,7 @@
 
 class ArchiveStandardLevels < ActiveRecord::Migration[4.2]
 
-  TO_ARCHIVE = ["Diagnostic", "Quill Tutorial Lesson"]
+  TO_ARCHIVE = ['Diagnostic', 'Quill Tutorial Lesson']
 
   def change
     TO_ARCHIVE.each do |sl|
