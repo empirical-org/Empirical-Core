@@ -49,7 +49,7 @@ const passedSuggestedActivities = [
         "Architecture & Artifacts"
       ]
     ],
-    "publication_date": "10/24/2022"
+    "publication_date": "2022-10-24T10:00:00"
   },
   {
     "id": 2369,
@@ -88,7 +88,7 @@ const passedSuggestedActivities = [
         "Architecture & Artifacts"
       ]
     ],
-    "publication_date": "10/24/2022"
+    "publication_date": "2022-10-24T10:00:00"
   },
   {
     "id": 2336,
@@ -117,7 +117,7 @@ const passedSuggestedActivities = [
         "School Policy"
       ]
     ],
-    "publication_date": "10/20/2022"
+    "publication_date": "2022-10-20T10:00:00"
   },
   {
     "id": 2329,
@@ -151,7 +151,7 @@ const passedSuggestedActivities = [
         "Narratives"
       ]
     ],
-    "publication_date": "10/07/2022"
+    "publication_date": "2022-10-07T10:00:00"
   },
   {
     "id": 2327,
@@ -180,7 +180,7 @@ const passedSuggestedActivities = [
         "School Policy"
       ]
     ],
-    "publication_date": "09/14/2022"
+    "publication_date": "2022-09-14T10:00:00"
   },
   {
     "id": 2326,
@@ -209,7 +209,7 @@ const passedSuggestedActivities = [
         "Sports & Recreation"
       ]
     ],
-    "publication_date": "08/29/2022"
+    "publication_date": "2022-08-29T10:00:00"
   },
   {
     "id": 2324,
@@ -238,7 +238,7 @@ const passedSuggestedActivities = [
         "Sports & Recreation"
       ]
     ],
-    "publication_date": "08/24/2022"
+    "publication_date": "2022-08-24T10:00:00"
   },
   {
     "id": 2323,
@@ -267,7 +267,7 @@ const passedSuggestedActivities = [
         "Sports & Recreation"
       ]
     ],
-    "publication_date": "08/17/2022"
+    "publication_date": "2022-08-17T10:00:00"
   },
   {
     "id": 2322,
@@ -296,7 +296,7 @@ const passedSuggestedActivities = [
         "Sports & Recreation"
       ]
     ],
-    "publication_date": "08/16/2022"
+    "publication_date": "2022-08-16T10:00:00"
   },
   {
     "id": 2320,
@@ -330,7 +330,7 @@ const passedSuggestedActivities = [
         "Internet & Technology"
       ]
     ],
-    "publication_date": "08/16/2022"
+    "publication_date": "2022-08-16T10:00:00"
   }
 ]
 
