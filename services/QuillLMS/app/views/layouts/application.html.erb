@@ -30,7 +30,7 @@
       <%= render partial: 'application/notification_bar' %>
     <% end %>
     <div id='application_nav_bar'>
-      <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+      <%= render partial: 'header', media: 'all' => true %>
     </div>
     <%= render partial: 'premium_hub_header' %>
     <div id="main-content" class="page">
@@ -39,7 +39,7 @@
     <!-- This is a placeholder for ReactOnRails to know where to render the store props for
      client side hydration -->
     <%= redux_store_hydration_data %>
-    <%= render partial: 'pages/shared/footer', media: 'all', 'data-turbolinks-track' => true %>
+    <%= render partial: 'pages/shared/footer', media: 'all' %>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 

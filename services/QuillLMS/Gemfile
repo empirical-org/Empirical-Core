@@ -101,8 +101,6 @@ gem 'redis-rack-cache'
 gem 'actionpack-action_caching'
 
 # JS/APP/UI
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 gem 'jbuilder'
 gem 'active_link_to'
 
