@@ -115,25 +115,28 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     context 'diagnostic completion rollups' do
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
       let!(:activity_session1) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
+      let!(:activity_session2) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student2, completed_at: Time.current) }
 
       it 'should roll up diagnostic completions this year' do
         expect(described_class.new(district).data[:traits]).to include(
-          diagnostics_completed_this_year: 1,
+          diagnostics_completed_this_year: 2,
           diagnostics_completed_last_year: 0
         )
       end
 
       it 'should roll up diagnostic completions from last year' do
         activity_session1.update(completed_at: 1.year.ago)
+        activity_session2.update(completed_at: 1.year.ago)
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0,
-          diagnostics_completed_last_year: 1
+          diagnostics_completed_last_year: 2
         )
       end
 
       it 'should not count activity_session records that are not completed' do
         activity_session1.update(completed_at: nil, state: 'started')
+        activity_session2.update(completed_at: nil, state: 'started')
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0
@@ -151,7 +154,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit2, user: student2, completed_at: Time.current)
 
         expect(described_class.new(district).data[:traits]).to include(
-          diagnostics_completed_this_year: 2
+          diagnostics_completed_this_year: 3
         )
       end
 
