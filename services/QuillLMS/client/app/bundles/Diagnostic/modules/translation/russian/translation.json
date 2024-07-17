@@ -26,10 +26,6 @@
         "header": "Вы завершили половину!",
         "text": "Продолжайте отлично делать свою работу!"
     },
-    "ELL Halfway": {
-        "header": "Вы завершили половину!",
-        "text": "Продолжайте отлично делать свою работу!"
-    },
     "ELL Starter Questions": {
         "header": "Вопросы",
         "text": "В этом разделе вы будете писать вопросы. Помните, что вопросы имеют знак вопроса (?) в конце. Вы можете сделать это!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Перепиши предложение. Исправь подчеркнутое слово действия, употребив его в нужном времени, так, чтобы оно сочеталось с остальными словами в предложении.",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Перепиши предложение. Исправь подчеркнутые слова, употребив их в будущем времени.",
         "Respond to the question. Fill in the blank with one of the choices.": "Ответь на вопрос. Заполни пробел одним из выбранных вариантов.",
-        "Use the joining word to combine the sentences into one sentence.": "Используйте союзное слово, чтобы объединить предложения в одно."
+        "Use the joining word to combine the sentences into one sentence.": "Используйте союзное слово, чтобы объединить предложения в одно.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Заполните некоторые пробелы желтыми словами. Пробелы можно оставить пустыми.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Есть два правильных ответа. Заполните каждый пробел одним из правильных ответов. Не пишите один и тот же ответ дважды.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Заполните каждый пробел одним из слов. Одно и то же слово можно использовать несколько раз.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people.": "Напишите предложения. Измените подчеркнутые слова так, чтобы они говорили о нескольких людях.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Напишите вопросы. Измените подчеркнутые слова так, чтобы вопросы были написаны правильно.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Напишите эти предложения правильно. Поменяйте только подчеркнутые слова. Сохраните слово «not» в каждом предложении.",
+        "Write the words in the correct order. There are multiple correct answers.": "Напишите слова в правильном порядке. Есть несколько правильных ответов.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Напишите предложение. Измените подчеркнутое слово так, чтобы оно соответствовало предложению. Не добавляйте новые слова.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Напишите предложение. Измените подчеркнутое слово так, чтобы оно соответствовало предложению. Вы можете изменить его на 1–2 слова.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Напишите предложения. Превратите каждый набор подчеркнутых слов в одно слово. Используйте апостроф (').",
+        "Fill in the blank with the correct option.": "Заполните пустое поле, указав правильный вариант.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Заполните каждый пробел, указав правильный вариант. Вы можете использовать один и тот же вариант несколько раз.",
+        "Fill in the blank with the most natural option.": "Заполните пробел наиболее естественным вариантом.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "Заполните каждый пробел одним из вариантов. Вы можете использовать один и тот же вариант несколько раз, но это не обязательно.",
+        "Fill in the blank with the most natural sentence.": "Заполните пробел самым естественным предложением.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same option multiple times, but you don’t have to.": "Заполните пробелы, в которых нужны слова. Пробелы можно оставить пустыми. Вы можете использовать один и тот же вариант несколько раз, но это не обязательно.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Заполните каждый пробел вариантом. Вы можете использовать один и тот же вариант несколько раз, но это не обязательно.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Заполните каждый пробел словом. Вы можете использовать одно и то же слов несколько раз, но это не обязательно.",
+        "Fill in each blank with one of the words.": "Заполните каждый пробел одним из слов.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Есть два правильных варианта. Заполните каждый пробел одним из правильных вариантов. Не пишите один и тот же ответ дважды.",
+        "Fill in each blank with one of the options.": "Заполните каждый пробел одним из вариантов.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Перепишите предложение. Измените подчеркнутые слова, которые неверны. Не меняйте слова, которые уже верны."
     },
     "cues": {
         "type one": "type one / напиши один",
@@ -76,7 +94,12 @@
         "choose one": "choose one / Выберите вариант",
         "choose three": "choose three / Выберите три",
         "choose two or three" : "choose two or three / Выберите два или три",
-        "joining word": "joining word / Союзное слово"
+        "joining word": "joining word / Союзное слово",
+        "words": "words / слова",
+        "type two": "type two / второй тип",
+        "options": "options / варианты",
+        "sentences": "sentences / предложения",
+        "answers": "answers / ответы"
     },
     "feedback": {
         "blank": "Используйте один из вариантов ниже или оставьте поле пустым.",
