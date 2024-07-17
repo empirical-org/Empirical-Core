@@ -14,7 +14,10 @@
 #
 class TranslatedText < ApplicationRecord
   validates :source_api, presence: true, inclusion: { in: Translatable::SOURCES }
+  validates :translation, presence: true
   belongs_to :english_text
+  has_many :translation_mappings, through: :english_text
+  delegate :text, to: :english_text
 
   scope :ordered_by_source_api, lambda { |source_api = Translatable::OPEN_AI_SOURCE|
     source_api = Translatable::OPEN_AI_SOURCE unless Translatable::SOURCES.include? source_api
@@ -22,4 +25,8 @@ class TranslatedText < ApplicationRecord
       Arel.sql("CASE WHEN source_api = '#{source_api}' THEN 0 ELSE 1 END, source_api ASC")
     )
   }
+
+  def source
+    translation_mappings.first&.source_type
+  end
 end

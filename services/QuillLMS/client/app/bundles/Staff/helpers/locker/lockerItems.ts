@@ -247,7 +247,7 @@ export const lockerItems: LockerItemsInterface = {
   },
   [TRANSLATIONS] : {
     label: TRANSLATIONS,
-    href: `${baseUrl}/translations`,
+    href: `${baseUrl}/translated_texts`,
     emoji: '🌐',
     emojiLabel: 'globe',
   },
