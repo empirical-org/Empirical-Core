@@ -187,9 +187,9 @@ class Question < ApplicationRecord
   end
 
   private def translatable_for_hash(type)
-    data[type]&.transform_values { |v| v['feedback'] }&.
-      compact&.
-      transform_keys { |k| "incorrectSequences.#{k}" } || {}
+    data[type]&.transform_values { |v| v['feedback'] }
+      &.compact
+      &.transform_keys { |k| "incorrectSequences.#{k}" } || {}
   end
 
   private def translatable_for_array(type)

@@ -528,6 +528,7 @@ RSpec.describe Question, type: :model do
 
   describe 'create_translation_mappings' do
     subject {question.create_translation_mappings}
+
     let(:question) { create(:question, data: {'instructions' => instructions})}
     let(:instructions) { "do this question"}
     let(:english_texts ) { question.english_texts }
@@ -547,6 +548,7 @@ RSpec.describe Question, type: :model do
 
   describe 'create_data_translation_mappings(type:)' do
     subject {question.create_data_translation_mappings(type: )}
+
     let(:type) { Question::FOCUS_POINTS }
     let(:question) { create(:question)}
     let(:translatable_data) { { 'focusPoints.uid1' => 'f1', 'focusPoints.uid2' => 'f2'}}
