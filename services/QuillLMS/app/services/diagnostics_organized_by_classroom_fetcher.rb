@@ -9,7 +9,13 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     Activity::ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'Advanced Diagnostic',
     Activity::ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID => 'ELL Starter Diagnostic',
     Activity::ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'ELL Intermediate Diagnostic',
-    Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic'
+    Activity::ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic',
+    Activity::OLD_STARTER_DIAGNOSTIC_ACTIVITY_ID => 'Starter Diagnostic - 2023-2024 School Year',
+    Activity::OLD_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'Intermediate Diagnostic - 2023-2024 School Year',
+    Activity::OLD_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'Advanced Diagnostic - 2023-2024 School Year',
+    Activity::OLD_ELL_STARTER_DIAGNOSTIC_ACTIVITY_ID => 'ELL Starter Diagnostic - 2023-2024 School Year',
+    Activity::OLD_ELL_INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID => 'ELL Intermediate Diagnostic - 2023-2024 School Year',
+    Activity::OLD_ELL_ADVANCED_DIAGNOSTIC_ACTIVITY_ID => 'ELL Advanced Diagnostic - 2023-2024 School Year'
   }.freeze
 
   QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE = DateTime.new(2023, 7, 19, 0, 0, 0)
