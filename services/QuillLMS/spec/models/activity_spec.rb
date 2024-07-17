@@ -840,4 +840,33 @@ describe Activity, type: :model, redis: true do
       it { expect(subject.count).to eq(0) }
     end
   end
+
+  describe 'translated_json' do
+    subject {activity.translated_json}
+
+    let(:activity) { create(:activity)}
+
+    context 'there are translations' do
+      it 'is data + all available languages' do
+        activity.data.merge!({'landingPageHtml' => "html"})
+        activity.create_translation_mappings
+        chinese_locale = "zh-CN"
+        english_text = activity.english_texts.first
+        chinese = create(:translated_text, english_text:, locale: chinese_locale)
+        spanish = create(:translated_text, english_text:, locale: Translatable::SPANISH_LOCALE)
+        expected_data = activity.data.merge(
+          'translations' => {
+            chinese_locale => chinese.translation,
+            Translatable::SPANISH_LOCALE => spanish.translation
+          }
+        )
+        expect(subject).to eq(expected_data)
+      end
+    end
+
+    context 'the activity has no translations' do
+      it { expect(subject).to eq( activity.data )}
+    end
+
+  end
 end

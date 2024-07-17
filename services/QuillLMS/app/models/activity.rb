@@ -254,7 +254,15 @@ class Activity < ApplicationRecord
     data
   end
 
+  # translatable
   def self.translatable_field_name = 'landingPageHtml'
+
+  def translated_json(options = {})
+    translations = translated_texts.pluck(:locale, :translation).to_h
+    return data unless translations.present?
+
+    data.merge('translations' => translations)
+  end
 
   def add_question(question)
     return if !validate_question(question)
