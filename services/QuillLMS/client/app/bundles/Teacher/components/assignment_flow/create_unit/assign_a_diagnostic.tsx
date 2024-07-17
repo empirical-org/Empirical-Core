@@ -5,7 +5,6 @@ import AssignmentCard from './assignment_card';
 import ScrollToTop from '../../shared/scroll_to_top';
 import * as constants from '../assignmentFlowConstants';
 import AssignmentFlowNavigation from '../assignment_flow_navigation';
-import { DisabledDiagnosticsBanner } from '../../../helpers/unitTemplates';
 
 const ALL = 'All'
 const GENERAL = 'General'
@@ -131,7 +130,6 @@ const AssignADiagnostic = ({ history, assignedPreTests, }) => {
       <ScrollToTop />
       <div className="diagnostic-page container">
         <h1>Which diagnostic covers the skills you want to assess?</h1>
-        <DisabledDiagnosticsBanner className="assignment-flow" />
         <section className="filter-tabs">
           <FilterTab activeFilter={filter} filter={ALL} number={16} setFilter={setFilter} />
           <FilterTab activeFilter={filter} filter={GENERAL} number={6} setFilter={setFilter} />
