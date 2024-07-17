@@ -1,0 +1,44 @@
+<style>
+  table {
+    margin: 20px 0px;
+  }
+
+  .page {
+    margin: 0px 20px;
+  }
+
+</style>
+<h1>Translated Texts</h1>
+
+<table class='table'>
+  <thead>
+    <tr class="header-row">
+      <th>English</th>
+      <th>Translation</th>
+      <th>Actions</th>
+      <th>Source</th>
+      <th>Locale</th>
+      <th>Translator</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @translated_texts.each do |text| %>
+      <tr id="translated-text-<%= text.id %>" class='data-row'>
+        <td><%= raw(text.text) %></td>
+        <td class='translation-text' data-id=<%=text.id%>>
+          <div class="text-content"><%= raw(text.translation) %></div>
+          <textarea class="edit-input" style="display: none;" rows="5" cols="50"> <%= simple_format(text.translation) %></textarea>
+        </td>
+        <td>
+          <button class="edit-btn" data-id="<%= text.id %>">Edit</button>
+          <button class="save-btn" data-id="<%= text.id %>" style="display: none;">Save</button>
+          <button class="cancel-btn" data-id="<%= text.id %>" style="display: none;">Cancel</button>
+        </td>
+        <td><%= text.source %></td>
+        <td><%= text.locale %></td>
+        <td><%= text.source_api %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p> <%= paginate @translated_texts %> </p>

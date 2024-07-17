@@ -84,6 +84,8 @@ EmpiricalGrammar::Application.routes.draw do
 
   resources :student_feedback_responses, only: [:create]
 
+  resources :translated_texts, only: [:index, :update]
+
   namespace :stripe_integration do
     post '/subscription_checkout_sessions', to: 'subscription_checkout_sessions#create'
     post '/subscription_payment_methods', to: 'subscription_payment_methods#create'
@@ -816,7 +818,6 @@ EmpiricalGrammar::Application.routes.draw do
     locker
     quill_academy
     teacher_premium
-    translations
   )
 
   all_pages = other_pages
