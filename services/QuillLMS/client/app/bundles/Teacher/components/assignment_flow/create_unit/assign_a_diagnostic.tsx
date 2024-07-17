@@ -30,7 +30,7 @@ interface Diagnostic {
   lockedText?: string
 }
 
-const DiagnosticAssignmentCard = ({ history, diagnostic, lockedText, showNewTag, }: { history: any, diagnostic: Diagnostic, lockedText?: string, showNewTag?: boolean, }) => {
+const DiagnosticAssignmentCard = ({ history, diagnostic, lockedText, }: { history: any, diagnostic: Diagnostic, lockedText?: string, }) => {
   function onSelectCard() { selectCard(history, diagnostic.name, encodeURIComponent([diagnostic.activityId].toString()), diagnostic.unitTemplateId) }
 
   return (
@@ -45,7 +45,6 @@ const DiagnosticAssignmentCard = ({ history, diagnostic, lockedText, showNewTag,
       key={diagnostic.activityId}
       lockedText={lockedText}
       selectCard={onSelectCard}
-      showNewTag={showNewTag}
     />
   )
 }
@@ -59,15 +58,15 @@ const generalDiagnosticMinis = ({ history, assignedPreTests, }) => {
   return [
     (<div className="grouped-minis" key="starter">
       <DiagnosticAssignmentCard diagnostic={constants.starterPreTest} history={history} />
-      <DiagnosticAssignmentCard diagnostic={constants.starterPostTest} history={history} lockedText={isLocked(constants.starterPostTest.activityId) && constants.starterPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.starterPostTest} history={history} lockedText={isLocked(constants.starterPostTest.activityId) && constants.starterPostTest.lockedText} />
     </div>),
     (<div className="grouped-minis" key="intermediate">
       <DiagnosticAssignmentCard diagnostic={constants.intermediatePreTest} history={history} />
-      <DiagnosticAssignmentCard diagnostic={constants.intermediatePostTest} history={history} lockedText={isLocked(constants.intermediatePostTest.activityId) && constants.intermediatePostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.intermediatePostTest} history={history} lockedText={isLocked(constants.intermediatePostTest.activityId) && constants.intermediatePostTest.lockedText} />
     </div>),
     (<div className="grouped-minis" key="advanced">
       <DiagnosticAssignmentCard diagnostic={constants.advancedPreTest} history={history} />
-      <DiagnosticAssignmentCard diagnostic={constants.advancedPostTest} history={history} lockedText={isLocked(constants.advancedPostTest.activityId) && constants.advancedPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.advancedPostTest} history={history} lockedText={isLocked(constants.advancedPostTest.activityId) && constants.advancedPostTest.lockedText} />
     </div>)
   ]
 }
@@ -81,15 +80,15 @@ const ellDiagnosticMinis = ({ history, assignedPreTests, }) => {
   return [
     (<div className="grouped-minis" key="ell-starter">
       <DiagnosticAssignmentCard diagnostic={constants.ellStarterPreTest} history={history} />
-      <DiagnosticAssignmentCard diagnostic={constants.ellStarterPostTest} history={history} lockedText={isLocked(constants.ellStarterPostTest.activityId) && constants.ellStarterPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellStarterPostTest} history={history} lockedText={isLocked(constants.ellStarterPostTest.activityId) && constants.ellStarterPostTest.lockedText} />
     </div>),
     (<div className="grouped-minis" key="ell-intermediate">
       <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePreTest} history={history} />
-      <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePostTest} history={history} lockedText={isLocked(constants.ellIntermediatePostTest.activityId) && constants.ellIntermediatePostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellIntermediatePostTest} history={history} lockedText={isLocked(constants.ellIntermediatePostTest.activityId) && constants.ellIntermediatePostTest.lockedText} />
     </div>),
     (<div className="grouped-minis" key="ell-advanced">
       <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPreTest} history={history} />
-      <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPostTest} history={history} lockedText={isLocked(constants.ellAdvancedPostTest.activityId) && constants.ellAdvancedPostTest.lockedText} showNewTag={true} />
+      <DiagnosticAssignmentCard diagnostic={constants.ellAdvancedPostTest} history={history} lockedText={isLocked(constants.ellAdvancedPostTest.activityId) && constants.ellAdvancedPostTest.lockedText} />
     </div>)
   ]
 }
