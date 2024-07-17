@@ -58,11 +58,39 @@ const miniList = () => {
   ];
 }
 
+const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScienceActivities) => {
+  const socialStudiesLink = hasAssignedSocialStudiesActivities ? ' ': '/assign/social-studies'
+  const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student progress."
+
+  const interdisciplinaryScienceLink = hasAssignedScienceActivities ? ' ': '/assign/interdisciplinary-science'
+  const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student progress."
+
+  return [
+    {
+      title: 'Social Studies Dashboard',
+      href: socialStudiesLink,
+      img: `${process.env.CDN_URL}/images/illustrations/world-history-dashboard.svg`,
+      bodyText: socialStudiesBodyText,
+      flag: null,
+      new: true
+    }, {
+      title: 'Interdisciplinary Science Dashboard',
+      href: interdisciplinaryScienceLink,
+      img: `${process.env.CDN_URL}/images/illustrations/ai-dashboard.svg`,
+      bodyText: interdisciplinaryScienceBodyText,
+      flag: null,
+      new: true
+    }
+  ]
+}
+
 const miniBuilder = (mini) => {
+  const newElement = mini.new ? <span className="new-tag">NEW</span> : null
   const premium = mini.premium ? <h4 className="premium"><span>Premium</span><img alt="" src={`${process.env.CDN_URL}/images/icons/yellow-diamond.svg`} /></h4> : null;
   return (
     <div className="generic-mini" id={mini.id} key={mini.title}>
       <a href={mini.href}>
+        {newElement}
         <h3>{mini.title}</h3>
         {premium}
         <div className="img-wrapper">
@@ -93,6 +121,8 @@ const LandingPage = ({ flag, }) => {
     return minisArr;
   };
 
+  const contentHubMinis = contentHubMiniList(false, false).map(mini => miniBuilder(mini))
+
   return (
     <div className="progress-reports-landing-page">
       <DemoOnboardingTour pageKey={DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE} />
@@ -101,6 +131,10 @@ const LandingPage = ({ flag, }) => {
           <h1>Choose which type of report you’d like to see:</h1>
         </div>
         <div className="generic-minis">{minis()}</div>
+        <div className="header">
+          <h1>Access curriculum-specific dashboards:</h1>
+        </div>
+        <div className="curriculum-minis">{contentHubMinis}</div>
       </div>
     </div>
   );

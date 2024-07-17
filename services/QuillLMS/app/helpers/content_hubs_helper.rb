@@ -1,0 +1,150 @@
+# frozen_string_literal: true
+
+module ContentHubsHelper
+
+  def world_history_1200_to_present
+    [
+      {
+        display_name: "The Global Tapestry (1200-1450 CE)",
+        description: "From 1200 to 1450 CE, diverse societies emerged and expanded around the world. Although these societies had many similarities, they also had important differences. As interactions increased, unique ideas, resources, and technology spread farther than ever before. New trade networks—and new conflicts—arose as societies made contact across Europe, Asia, and Africa.",
+        unit_template_id: nil,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-2",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Unit-2-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1Q62sQb8H4aWMqNxn2V525s4d2B6YryxS/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: "",
+        quill_teacher_guide_href: '',
+        activities: global_tapestry_activities
+      },
+      {
+        display_name: "Transoceanic Connections (1450-1750 CE)",
+        description: "Transoceanic connections transformed societies and the global economy. New goods spread around the world via trade networks like the Columbian Exchange, and European leaders used those same routes to expand their empires across oceans. Meanwhile, land-based empires in Afro-Eurasia both competed and connected with these growing ocean powers. ",
+        unit_template_id: 551,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-3",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/Unit-3-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1oURXhjxIaxhY6r48c9RJto8Z7bzXkx3y/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: "https://docs.google.com/document/d/1LzcMDsFlbW_gifr-s-I5gY7ajiHOVTbsojM4WJqmV-A/edit",
+        quill_teacher_guide_href: '',
+        activities: transoceanic_connection_activities
+      },
+      {
+        display_name: "Revolutions (1750-1914 CE)",
+        description: "From 1750 to 1914 CE, new ideas about liberty, natural law, and government spread rapidly. These Enlightenment beliefs, along with difficult material conditions, inspired many to fight for change. These upheavals reshaped societies, dismantled old regimes, and established new political systems. ",
+        unit_template_id: 587,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-4",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit4/Unit-4-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1amKT62b-New9kEKG4URZ7pAx8AfKzcQ8/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: 'https://docs.google.com/document/d/1ndNVZX8P0F8wzxIS07wBWZgxoTTJY73-fv-WePcQDvo/edit',
+        quill_teacher_guide_href: '',
+        activities: revolution_activities
+      },
+      {
+        display_name: "Industrialization (1750-1914 CE)",
+        description: "Advancements in technology and production sparked the Industrial Revolution. This transformed the world of work and led to the development of new economic theories. Rapid urbanization, growing migration, and new reform movements challenged existing political and social systems, triggering backlash from elites and, in some cases, meaningful change for everyday people. ",
+        unit_template_id: 596,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-5",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Unit-5-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1cnifbOcrkCxq_ZgnODUxZdNWzIQMVyoQ/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: 'https://docs.google.com/document/d/1gioQZdIV3ush2QWzSdtrz8sUsDADGAniorXCmBLWghc/edit',
+        quill_teacher_guide_href: '',
+        activities: industrialization_activities
+      },
+      {
+        display_name: "'New' Imperialism & Resistance (1850-1950 CE)",
+        description: "As industrialized nations competed for raw materials and new markets, they expanded their influence and control over parts of Africa, Asia, and other regions. These imperial ambitions led to the establishment of vast colonial empires. At the same time, local populations used many different strategies to resist and challenge these colonizing forces.",
+        unit_template_id: 597,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-6",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit6/Unit-6-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/18Ou6glUW6QdbpaFxgszFLuq7iuhIUNF8/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: 'https://docs.google.com/document/d/1K-8Nxau9IBCXgu8vEoIzwwzTmaK6fLiJvb0xO_gUs_M/edit?usp=sharing',
+        quill_teacher_guide_href: '',
+        activities: new_imperialism_and_resistance_activities
+      },
+      {
+        display_name: "Global Conflict (1914-1945 CE)",
+        description: "From 1914 to 1945, the world endured two major conflicts ---World War I and World War II---which resulted in immense human suffering, advancements in military technology, and major shifts in international relations. The interwar period began with efforts to prevent further conflict, but this work was hindered by economic instability and the rise of totalitarian regimes.",
+        unit_template_id: 591,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-7",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit7/Unit-7-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1nO78eUYRNORQQwnWy9jUmwTbxmk1dNNd/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: 'https://docs.google.com/document/d/14mnkQ75WILd6WsGch6AfG4XxKaiY_u8LHR9ZQyg2DD8/edit?usp=sharing',
+        quill_teacher_guide_href: '',
+        activities: global_conflict_activities
+      },
+      {
+        display_name: "Cold War and Decolonization (1945-1990 CE)",
+        description: "The second half of the 20th century was shaped by the dynamics of the Cold War and decolonization. The capitalist United States and communist Soviet Union rose as dominant powers, competing for global influence. Simultaneously, decolonization movements used a variety of methods, including both non-violent resistance and armed conflict, to achieve independence.",
+        unit_template_id: 598,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-8",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit8/Unit-8-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1tHmlCgf8FgIoS0Ipdvj2Zuw3AKDYPU14/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: 'https://docs.google.com/document/d/1Cg7ShOIbYoMa3NYUSh_l2Fx5B4CiZODEW1_vSVTagCw/edit?usp=sharing',
+        quill_teacher_guide_href: '',
+        activities: cold_war_and_decolonization_activities
+      },
+      {
+        display_name: "Globalization (1990-Present)",
+        description: "Coming Spring 2025!",
+        unit_template_id: nil,
+        oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-9",
+        oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit9/Unit-9-Guide",
+        all_oer_articles: "https://docs.google.com/document/d/1UN4K3X6LgfhhU8ET0tagon92pYxMebAL/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        all_quill_articles_href: '',
+        quill_teacher_guide_href: '',
+        activities: []
+      },
+    ]
+  end
+
+  def global_tapestry_activities
+    [
+      {
+        activity_id: 2750,
+        display_name: 'Wokou Pirates',
+        description: '',
+        paired_oer_asset_name: 'Archipelago of Trade',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Archipelago-of-Trade'
+      },
+      {
+        activity_id: nil,
+        display_name: 'Early Inquisition',
+        description: 'Coming Spring 2025!',
+        paired_oer_asset_name: 'Christendom',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Christendom'
+      },
+      {
+        activity_id: nil,
+        display_name: 'Mamluk Sultanate',
+        description: 'Coming Spring 2025!',
+        paired_oer_asset_name: 'The Caliphate',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/The-Caliphate'
+      }
+    ]
+  end
+
+  def transoceanic_connection_activities
+    [
+      {
+        activity_id: 2518,
+        display_name: "How Did Horses Reshape Indigenous Americans' Ways of Life?",
+        description: 'Students will read and write about the impact of growing horse populations on 16th and 17th century Indigenous communities on the North American Plains.',
+        paired_oer_asset_name: 'The Columbian Exchange',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/The-Columbian-Exchange'
+      },
+      {
+        activity_id: 2517,
+        display_name: "How Did Queen Elizabeth I Use Diplomacy to Avoid Economic Decline?",
+        description: 'Students will read and write about the successful partnerships that Queen Elizabeth I built with Muslim leaders after she was excommunicated.',
+        paired_oer_asset_name: 'A Sublime Empire: Ottoman Rule on Land and Sea',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/A-Sublime-Empire'
+      },
+      {
+        activity_id: 2516,
+        display_name: 'Why Did a "Hidden Christian" Community Emerge in Tokugawa Japan?',
+        description: 'Students will read and write about the political and cultural responses to the spread of Catholicism in Japan during the 1600s.',
+        paired_oer_asset_name: 'Oceanic Empires, 1450 to 1750',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/Oceanic-Empires-1450-to-1750'
+      }
+    ]
+
+  end
+end

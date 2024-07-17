@@ -80,7 +80,7 @@ const minis = (diagnosticBannerShowing) => [
     imgSrc={largeGlobeSrc}
     key="world-history"
     preHeader="Social Studies"
-    selectCard={() => window.location.href = '/assign/world-history'}
+    selectCard={() => window.location.href = '/assign/social-studies'}
     showNewTagInPreHeaderLine={true}
   />),
   (<AssignmentCard
@@ -94,7 +94,7 @@ const minis = (diagnosticBannerShowing) => [
     imgSrc={largeArtificalIntelligenceSrc}
     key="building-ai-knowledge"
     preHeader="Interdisciplinary Science"
-    selectCard={() => window.location.href = '/assign/building-ai-knowledge'}
+    selectCard={() => window.location.href = '/assign/interdisciplinary-science'}
     showNewTagInPreHeaderLine={true}
   />)
 ];
