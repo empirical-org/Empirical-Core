@@ -526,6 +526,49 @@ RSpec.describe Question, type: :model do
     end
   end
 
+  describe 'create_translation_mappings' do
+    subject {question.create_translation_mappings}
+    let(:question) { create(:question, data: {'instructions' => instructions})}
+    let(:instructions) { "do this question"}
+    let(:english_texts ) { question.english_texts }
+
+    it 'creates translation_mappings for focusPoints and incorrectSequences' do
+      expect(question).to receive(:create_data_translation_mappings).with(type: Question::FOCUS_POINTS)
+      expect(question).to receive(:create_data_translation_mappings).with(type: Question::INCORRECT_SEQUENCES)
+      subject
+    end
+
+    it 'creates translation_mappings for instructions' do
+      subject
+      instructions_mapping = question.translation_mappings.find_by(field_name: "instructions")
+      expect(instructions_mapping.text).to eq(instructions)
+    end
+  end
+
+  describe 'create_data_translation_mappings(type:)' do
+    subject {question.create_data_translation_mappings(type: )}
+    let(:type) { Question::FOCUS_POINTS }
+    let(:question) { create(:question)}
+    let(:translatable_data) { { 'focusPoints.uid1' => 'f1', 'focusPoints.uid2' => 'f2'}}
+
+    before do
+      allow(question).to receive(:translatable_data)
+        .with(type:)
+        .and_return(translatable_data)
+    end
+
+    it 'creates translation_mappings for each of the items in the translatable_data' do
+      subject
+      expect(question.translation_mappings.map(&:field_name)).to match_array(translatable_data.keys)
+    end
+
+    it 'creates an english_word for each of the items in the translatable_data' do
+      subject
+      expect(question.english_texts.map(&:text)).to match_array(translatable_data.values)
+    end
+
+  end
+
   describe 'translatable_data(type:)' do
     subject { question.translatable_data(type: Question::INCORRECT_SEQUENCES)}
 
@@ -581,4 +624,5 @@ RSpec.describe Question, type: :model do
       end
     end
   end
+
 end

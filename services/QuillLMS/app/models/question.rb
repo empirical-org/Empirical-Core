@@ -175,10 +175,21 @@ class Question < ApplicationRecord
     end
   end
 
+  def create_translation_mappings(field_name: nil)
+    super(field_name:)
+    create_data_translation_mappings(type: INCORRECT_SEQUENCES)
+    create_data_translation_mappings(type: FOCUS_POINTS)
+  end
+  def create_data_translation_mappings(type:)
+    translatable_data(type:).each do |field_name, translatable_text|
+      create_translation_mappings_with_text(field_name:, translatable_text:)
+    end
+  end
+
   private def translatable_for_hash(type)
-    data[type]
-      .transform_values { |v| v['feedback'] }
-      .transform_keys { |k| "incorrectSequences.#{k}" }
+    data[type]&.transform_values { |v| v['feedback'] }&.
+      compact&.
+      transform_keys { |k| "incorrectSequences.#{k}" } || {}
   end
 
   private def translatable_for_array(type)

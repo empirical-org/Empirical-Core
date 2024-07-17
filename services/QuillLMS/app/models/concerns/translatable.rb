@@ -28,7 +28,12 @@ module Translatable
 
   def create_translation_mappings(field_name: nil)
     field_name ||= default_field_name
-    return if translatable_text.nil?
+    translatable_text = translatable_text(field_name:)
+    create_translation_mappings_with_text(field_name:, translatable_text:)
+  end
+
+  def create_translation_mappings_with_text(field_name:, translatable_text:)
+    return unless translatable_text.is_a?(String) && translatable_text.present?
     return unless translation_mappings.where(field_name:).empty?
 
     english_text = EnglishText.find_or_create_by(text: translatable_text)
@@ -92,7 +97,7 @@ module Translatable
     formatted_examples
   end
 
-  private def translatable_text
-    data[self.class.default_field_name]
+  private def translatable_text(field_name:)
+    data[field_name]
   end
 end
