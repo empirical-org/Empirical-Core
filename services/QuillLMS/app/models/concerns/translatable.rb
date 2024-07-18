@@ -15,7 +15,7 @@ module Translatable
     has_many :translated_texts, through: :english_texts
     has_many :gengo_jobs, through: :english_texts
 
-    class_attribute :default_field_name, default: nil
+    class_attribute :default_translatable_field, default: nil
   end
 
   def translated_json(options = {})
@@ -23,14 +23,14 @@ module Translatable
     translation_text = translation(source_api: source_api)
     return data unless translation_text.present?
 
-    data.merge({"translated#{default_field_name.capitalize}" => translation_text})
+    data.merge({"translated#{default_translatable_field.capitalize}" => translation_text})
   end
 
   def create_translation_mappings
     create_translation_mappings_with_text(translatable_text:)
   end
 
-  def create_translation_mappings_with_text(translatable_text:, field_name: default_field_name)
+  def create_translation_mappings_with_text(translatable_text:, field_name: default_translatable_field)
     return unless translatable_text.is_a?(String) && translatable_text.present?
     return unless translation_mappings.where(field_name:).empty?
 
@@ -95,7 +95,7 @@ module Translatable
     formatted_examples
   end
 
-  private def translatable_text(field_name: default_field_name)
+  private def translatable_text(field_name: default_translatable_field)
     data[field_name]
   end
 end

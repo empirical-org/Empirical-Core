@@ -15,7 +15,7 @@ RSpec.describe Translatable do
         'Test prompt'
       end
 
-      def self.default_field_name
+      def self.default_translatable_field
         'test_text'
       end
 

@@ -254,7 +254,7 @@ class Activity < ApplicationRecord
     data
   end
 
-  def self.default_field_name = 'landingPageHtml'
+  def self.default_translatable_field = 'landingPageHtml'
 
   def add_question(question)
     return if !validate_question(question)

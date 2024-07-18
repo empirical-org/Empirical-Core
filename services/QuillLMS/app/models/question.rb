@@ -166,7 +166,7 @@ class Question < ApplicationRecord
   end
 
   # Translatable
-  def self.default_field_name = 'instructions'
+  def self.default_translatable_field = 'instructions'
 
   private def add_data_for(type:, new_data:)
     if stored_as_array?(type)
