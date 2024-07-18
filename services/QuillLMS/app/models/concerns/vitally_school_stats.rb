@@ -3,7 +3,9 @@
 module VitallySchoolStats
   extend ActiveSupport::Concern
 
-  private def active_students_query(school)
+  attr_accessor :school
+
+  private def active_students_query
     # use raw SQL to bypass scope limits (visible: true) on classrooms
     ActivitySession.unscoped.select(:user_id)
       .distinct
@@ -15,7 +17,7 @@ module VitallySchoolStats
       .where(state: 'finished').where('schools.id = ?', school.id)
   end
 
-  private def activities_finished_query(school)
+  private def activities_finished_query
     ClassroomsTeacher.joins('JOIN users ON users.id=classrooms_teachers.user_id')
       .joins('JOIN schools_users ON schools_users.user_id=users.id')
       .joins('JOIN schools ON schools.id=schools_users.school_id')
@@ -27,7 +29,7 @@ module VitallySchoolStats
       .where('activity_sessions.state = ?', 'finished')
   end
 
-  def activities_assigned_query(school)
+  def activities_assigned_query
     ClassroomUnit.joins(classroom: {teachers: :school}, unit: :activities)
       .where('schools.id = ?', school.id)
       .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
