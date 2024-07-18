@@ -175,8 +175,8 @@ class Question < ApplicationRecord
     end
   end
 
-  def create_translation_mappings(field_name: nil)
-    super(field_name:)
+  def create_translation_mappings
+    super
     create_data_translation_mappings(type: INCORRECT_SEQUENCES)
     create_data_translation_mappings(type: FOCUS_POINTS)
   end

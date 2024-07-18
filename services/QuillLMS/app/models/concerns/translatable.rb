@@ -26,13 +26,11 @@ module Translatable
     data.merge({"translated#{default_field_name.capitalize}" => translation_text})
   end
 
-  def create_translation_mappings(field_name: nil)
-    field_name ||= default_field_name
-    translatable_text = translatable_text(field_name:)
-    create_translation_mappings_with_text(field_name:, translatable_text:)
+  def create_translation_mappings
+    create_translation_mappings_with_text(translatable_text:)
   end
 
-  def create_translation_mappings_with_text(field_name:, translatable_text:)
+  def create_translation_mappings_with_text(translatable_text:, field_name: default_field_name)
     return unless translatable_text.is_a?(String) && translatable_text.present?
     return unless translation_mappings.where(field_name:).empty?
 
@@ -48,8 +46,8 @@ module Translatable
     translated_texts.where(locale: locale).ordered_by_source_api(source_api)
   end
 
-  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE, force: false, field_name: default_field_name)
-    create_translation_mappings(field_name:)
+  def translate!(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE, force: false)
+    create_translation_mappings
     case source_api
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
@@ -97,7 +95,7 @@ module Translatable
     formatted_examples
   end
 
-  private def translatable_text(field_name:)
+  private def translatable_text(field_name: default_field_name)
     data[field_name]
   end
 end
