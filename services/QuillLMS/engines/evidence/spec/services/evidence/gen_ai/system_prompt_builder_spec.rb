@@ -60,7 +60,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   describe 'template methods' do
     it 'fetches the correct template file text' do
       expect(File).to receive(:read).with(subject.send(:template_file_path))
-      subject.send(:template_file_text)
+      subject.send(:template)
     end
 
     it 'builds the correct template file path' do
