@@ -54,7 +54,6 @@ class Question < ApplicationRecord
 
   INCORRECT_SEQUENCES = TranslatableQuestion::INCORRECT_SEQUENCES
   FOCUS_POINTS = TranslatableQuestion::FOCUS_POINTS
-  CMS_RESPONSES = TranslatableQuestion::CMS_RESPONSES
   FEEDBACK_TYPES = [INCORRECT_SEQUENCES, FOCUS_POINTS]
 
   has_many :diagnostic_question_optimal_concepts, class_name: 'DiagnosticQuestionOptimalConcept', foreign_key: :question_uid, primary_key: :uid, dependent: :destroy
