@@ -49,7 +49,7 @@ export const UsageSnapshotsContainer = ({
   const [currentPdfSubscription, setCurrentPdfSubscription] = useState(null)
   const [isSnackbarVisible, setIsSnackbarVisible] = useState(false)
   const [snackbarCopy, setSnackbarCopy] = useState('')
-
+  const foo = 1
   useSnackbarMonitor(isSnackbarVisible, setIsSnackbarVisible, defaultSnackbarTimeout)
 
   useEffect(() => {
