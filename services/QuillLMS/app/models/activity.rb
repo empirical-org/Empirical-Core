@@ -255,7 +255,7 @@ class Activity < ApplicationRecord
   end
 
   # translatable
-  def self.translatable_field_name = 'landingPageHtml'
+  def self.default_translatable_field = 'landingPageHtml'
 
   def translated_json(options = {})
     translations = translated_texts.pluck(:locale, :translation).to_h
