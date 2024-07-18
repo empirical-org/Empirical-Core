@@ -16,4 +16,5 @@ class TranslationMapping < ApplicationRecord
   belongs_to :english_text
   belongs_to :source, polymorphic: true
   has_many :translated_texts, through: :english_text
+  delegate :text, to: :english_text
 end
