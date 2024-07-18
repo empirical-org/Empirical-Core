@@ -5920,7 +5920,8 @@ CREATE TABLE public.translation_mappings (
     source_type character varying NOT NULL,
     source_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    field_name character varying NOT NULL
 );
 
 
@@ -12078,6 +12079,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240626142949'),
 ('20240627001654'),
 ('20240627002601'),
-('20240701180742');
+('20240701180742'),
+('20240710195857');
 
 
