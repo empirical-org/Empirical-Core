@@ -3,6 +3,7 @@ import React from 'react';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';
 
 import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour';
+import { requestGet, } from '../../../../modules/request'
 
 const miniList = () => {
   return [
@@ -58,12 +59,12 @@ const miniList = () => {
   ];
 }
 
-const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScienceActivities) => {
+const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScienceActivities, loading) => {
   const socialStudiesLink = hasAssignedSocialStudiesActivities ? ' ': '/assign/social-studies'
-  const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student progress."
+  const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student&nbsp;progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student&nbsp;progress."
 
   const interdisciplinaryScienceLink = hasAssignedScienceActivities ? ' ': '/assign/interdisciplinary-science'
-  const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student progress."
+  const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student&nbsp;progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student&nbsp;progress."
 
   return [
     {
@@ -104,6 +105,20 @@ const miniBuilder = (mini) => {
 
 
 const LandingPage = ({ flag, }) => {
+  const [loadingContentHubData, setLoadingContentHubData] = React.useState(true)
+  const [hasAssignedSocialStudiesActivities, setHasAssignedSocialStudiesActivities] = React.useState(false)
+  const [hasAssignedScienceActivities, setHasAssignedScienceActivities] = React.useState(false)
+
+  React.useEffect(() => {
+    requestGet('/teachers/progress_reports/has_assigned_content_hub_activities',
+      ({ has_assigned_science_activities, has_assigned_social_studies_activities, }) => {
+        setHasAssignedScienceActivities(has_assigned_science_activities)
+        setHasAssignedSocialStudiesActivities(has_assigned_social_studies_activities)
+        setLoadingContentHubData(false)
+      }
+    )
+  })
+
   const minis = () => {
     const minisArr = [];
     miniList().forEach((mini) => {
@@ -121,7 +136,7 @@ const LandingPage = ({ flag, }) => {
     return minisArr;
   };
 
-  const contentHubMinis = contentHubMiniList(false, false).map(mini => miniBuilder(mini))
+  const contentHubMinis = contentHubMiniList(hasAssignedSocialStudiesActivities, hasAssignedScienceActivities, loadingContentHubData).map(mini => miniBuilder(mini))
 
   return (
     <div className="progress-reports-landing-page">

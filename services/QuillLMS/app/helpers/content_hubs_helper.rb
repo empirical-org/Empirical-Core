@@ -2,6 +2,20 @@
 
 module ContentHubsHelper
 
+  def unit_activities_include_social_studies_activities?(unit_activities)
+    activity_ids = world_history_1200_to_present.map { |unit_template| unit_template[:activities].map { |act| act[:activity_id] } }.flatten
+    unit_activities_include_content_activities?(unit_activities, activity_ids)
+  end
+
+  def unit_activities_include_science_activities?(unit_activities)
+    activity_ids = []
+    unit_activities_include_content_activities?(unit_activities, activity_ids)
+  end
+
+  def unit_activities_include_content_activities?(unit_activities, content_activity_ids)
+    unit_activities.where(activity_id: content_activity_ids).any?
+  end
+
   def world_history_1200_to_present
     [
       {
@@ -90,7 +104,7 @@ module ContentHubsHelper
         all_oer_articles: "https://docs.google.com/document/d/1UN4K3X6LgfhhU8ET0tagon92pYxMebAL/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: '',
         quill_teacher_guide_href: '',
-        activities: []
+        activities: globalization_activities
       },
     ]
   end
@@ -146,5 +160,139 @@ module ContentHubsHelper
       }
     ]
 
+  end
+
+  def revolution_activities
+    [
+      {
+        activity_id: 2428,
+        display_name: 'Why Did Revolutions Erupt Throughout the Atlantic World?',
+        description: 'Students will read and write about the ideological and material causes of revolutions in the Atlantic world during the late 18th and early 19th centuries.',
+        paired_oer_asset_name: 'The Atlantic Revolutions',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit4/The-Atlantic-Revolutions'
+      },
+      {
+        activity_id: 2519,
+        display_name: 'Why Did France Intervene in the American Revolution?',
+        description: "Students will read and write about France's motivation for supporting North American colonists in their fight for independence during the American Revolution.",
+        paired_oer_asset_name: 'Economic and Material Causes of Revolt',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/AP-World-History/Unit5/Economic-and-Material-Causes-of-Revolt'
+      },
+      {
+        activity_id: 2427,
+        display_name: 'How Did Haiti Become the First Independent Black Republic?',
+        description: "Students will read and write about how enslaved people led a revolution in Haiti and won the country's independence from France.",
+        paired_oer_asset_name: 'Americas in 1750',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit1/Americas-in-1750'
+      }
+    ]
+  end
+
+  def industrialization_activities
+    [
+      {
+        activity_id: 2545,
+        display_name: 'How Did British Women Workers Fight for Their Rights in the 19th Century?',
+        description: "Students will read and write about how groups like the Women's Protective and Provident League (WPPL) helped British women workers organize to improve their pay and conditions.",
+        paired_oer_asset_name: 'Responses to Industrialization',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Responses-to-Industrialization'
+      },
+      {
+        activity_id: 2544,
+        display_name: 'Why Did Industrial Workers March on the Russian Imperial Palace?',
+        description: "Students will read and write about the ways that factory workers in St. Petersburg, Russia fought for better working conditions and the resistance they faced from Russian leaders.",
+        paired_oer_asset_name: 'Rise of the Proletariat',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Rise-of-the-Proletariat'
+      },
+      {
+        activity_id: 2546,
+        display_name: 'Why Did the Russian Empire Want to Expand its Settlements in Siberia?',
+        description: "Students will read and write about how Russian leaders used incentives, transportation, and forced migration to populate Siberia.",
+        paired_oer_asset_name: 'Industrialization and Migration',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Industrialization-and-Migration'
+      }
+    ]
+  end
+
+  def new_imperialism_and_resistance_activities
+    [
+      {
+        activity_id: 2571,
+        display_name: 'Why Did Ottoman Reformers Think Education Would Help Preserve the Empire?',
+        description: "Students will read and write about how Ottoman leaders reimagined their education system during the Tanzimat reform period.",
+        paired_oer_asset_name: 'Tools of Imperialism',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit6/Tools-of-Imperialism'
+      },
+      {
+        activity_id: 2552,
+        display_name: 'Why Did French Colonial Leaders Try to Recreate Paris in Vietnam?',
+        description: "Students will read and write about how French colonial leaders attempted to spread their culture in Vietnam, along with the ways that Vietnamese people resisted this imperialism.",
+        paired_oer_asset_name: 'Responses to Industrial Imperialism',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit6/Responses-to-Industrial-Imperialism'
+      },
+      {
+        activity_id: 2553,
+        display_name: 'How Did Ethiopia Resist Italian Imperialism During the 19th Century?',
+        description: "Students will read and write about how King Menelik II and his army prevented Italy from colonizing Ethiopia in the 1890s. ",
+        paired_oer_asset_name: 'The Berlin Conference',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit6/The-Berlin-Conference'
+      }
+    ]
+  end
+
+  def global_conflict_activities
+    [
+      {
+        activity_id: 2490,
+        display_name: 'Why Did So Many Underage Soldiers Fight in Great Britain’s Army?',
+        description: "Students will read and write about how and why young boys were encouraged to join the British Army during World War I.",
+        paired_oer_asset_name: 'World War I: A Total War?',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit7/World-War-I-A-Total-War'
+      },
+      {
+        activity_id: 2482,
+        display_name: 'Why Was Racial Equality Excluded From the Treaty of Versailles?',
+        description: "Students will read and write about the debate over including Japan's Racial Equality Proposal in the Treaty of Versailles.",
+        paired_oer_asset_name: 'Fascist Histories, Part I',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit7/Fascist-Histories-Part-I'
+      },
+      {
+        activity_id: 2470,
+        display_name: 'How Did the Nazi Party Use the Berlin Olympics as Propaganda?',
+        description: "Students will read and write about how the Nazi Party tried to conceal their fascist beliefs and violence ahead of the 1936 Berlin Olympics.",
+        paired_oer_asset_name: 'Fascism in Germany',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit7/Fascism-in-Germany'
+      }
+    ]
+  end
+
+  def cold_war_and_decolonization_activities
+    [
+      {
+        activity_id: 2490,
+        display_name: 'How Did Bananas Lead to a Coup in Guatemala?',
+        description: "Students will read and write about the causes and effects of the United States' intervention in Guatemala during the Cold War.",
+        paired_oer_asset_name: 'The Cold War Around the World',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit8/The-Cold-War-Around-the-World'
+      },
+      {
+        activity_id: 2482,
+        display_name: 'Why Did the USSR Race to Send a Woman to Space?',
+        description: "Students will read and write about why Soviet leaders wanted to be the first country to send a woman to space during the Cold War.",
+        paired_oer_asset_name: 'Arms Race, Space Race',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit8/Arms-Race-Space-Race'
+      },
+      {
+        activity_id: 2470,
+        display_name: 'How Did Black South African Students Protest Apartheid?',
+        description: "Students will read and write about how Black South African students challenged the segregated school system under apartheid.",
+        paired_oer_asset_name: 'Apartheid',
+        paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit8/Apartheid'
+      }
+    ]
+  end
+
+  def globalization_activities
+    []
   end
 end

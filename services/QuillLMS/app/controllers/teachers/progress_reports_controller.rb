@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Teachers::ProgressReportsController < ApplicationController
+  include ContentHubsHelper
+
   layout 'progress_reports'
 
   around_action :force_writer_db_role, only: [:admin_demo, :coach_demo, :staff_demo, :demo]
@@ -46,6 +48,15 @@ class Teachers::ProgressReportsController < ApplicationController
 
   def student_overview
     render 'student_overview'
+  end
+
+  def has_assigned_content_hub_activities
+    unit_activities = current_user.unit_activities
+
+    render json: {
+      has_assigned_social_studies_activities: unit_activities_include_social_studies_activities?(unit_activities),
+      has_assigned_science_activities: unit_activities_include_science_activities?(unit_activities),
+    }
   end
 
   private def authorize!
