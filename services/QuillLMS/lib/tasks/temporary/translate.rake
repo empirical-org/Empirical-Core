@@ -30,12 +30,12 @@ namespace :translate do
     activity_count = activities.count
     activities.each_with_index do |activity, index|
       puts ''
-      puts "translating questions for #{index + 1}/#{activity_count}..."
+      puts "translating questions for #{activity.uid} #{index + 1}/#{activity_count}..."
 
       questions = activity.questions
       question_count = questions.count
       questions.each_with_index do |question, q_index|
-        puts "translating question #{index + 1} / #{question_count}..."
+        puts "translating #{question.id} question #{q_index + 1} / #{question_count}... "
         OpenAI::TranslateWorker.perform_async(question.id, question.class.name)
       end
     end
