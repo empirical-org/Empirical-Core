@@ -95,7 +95,7 @@ module Translatable
     formatted_examples
   end
 
-  private def translatable_text(field_name: default_translatable_field)
-    data[field_name]
+  private def translatable_text
+    data[default_translatable_field]
   end
 end
