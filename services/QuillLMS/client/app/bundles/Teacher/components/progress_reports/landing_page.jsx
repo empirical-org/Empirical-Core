@@ -3,6 +3,7 @@ import React from 'react';
 import { PROGRESS_REPORTS_SELECTED_CLASSROOM_ID, } from './progress_report_constants';
 
 import DemoOnboardingTour, { DEMO_ONBOARDING_STUDENT_REPORTS_LANDING_PAGE, } from '../shared/demo_onboarding_tour';
+import { Spinner, } from '../../../Shared'
 import { requestGet, } from '../../../../modules/request'
 
 const miniList = () => {
@@ -61,10 +62,10 @@ const miniList = () => {
 
 const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScienceActivities, loading) => {
   const socialStudiesLink = hasAssignedSocialStudiesActivities ? ' ': '/assign/social-studies'
-  const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student&nbsp;progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student&nbsp;progress."
+  const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student\xa0progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student\xa0progress."
 
   const interdisciplinaryScienceLink = hasAssignedScienceActivities ? ' ': '/assign/interdisciplinary-science'
-  const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student&nbsp;progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student&nbsp;progress."
+  const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student\xa0progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student\xa0progress."
 
   return [
     {
@@ -73,14 +74,16 @@ const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScien
       img: `${process.env.CDN_URL}/images/illustrations/world-history-dashboard.svg`,
       bodyText: socialStudiesBodyText,
       flag: null,
-      new: true
+      new: true,
+      loading
     }, {
       title: 'Interdisciplinary Science Dashboard',
       href: interdisciplinaryScienceLink,
       img: `${process.env.CDN_URL}/images/illustrations/ai-dashboard.svg`,
       bodyText: interdisciplinaryScienceBodyText,
       flag: null,
-      new: true
+      new: true,
+      loading
     }
   ]
 }
@@ -97,7 +100,7 @@ const miniBuilder = (mini) => {
         <div className="img-wrapper">
           <img alt="" src={mini.img} />
         </div>
-        <p style={mini.pStyle ? mini.pStyle : {}}>{mini.bodyText}</p>
+        <p style={mini.pStyle ? mini.pStyle : {}}>{mini.loading ? <Spinner /> : mini.bodyText}</p>
       </a>
     </div>
   );

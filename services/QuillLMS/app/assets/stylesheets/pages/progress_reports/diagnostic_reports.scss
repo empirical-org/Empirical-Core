@@ -773,6 +773,13 @@ $lightgray: #cecece;
       margin-bottom: 8px;
       display: inline-block;
     }
+    .spinner-container {
+      margin: 0px;
+      padding: 0px;
+      .spinner {
+        height: 32px;
+      }
+    }
   }
   .premium {
     border-radius: 4px;

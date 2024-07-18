@@ -349,6 +349,198 @@ exports[`AssignANewActivity component default should render 1`] = `
             </div>
           </div>
         </AssignmentCard>
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Explore Reading for Evidence activities that reinforce world history content while helping students strengthen their reading and writing skills.",
+              },
+              Object {
+                "key": "When",
+                "text": "You teach high school history or ELA and want to supplement your curriculum with a deep dive into essential world history topics and themes.",
+              },
+            ]
+          }
+          header="View World History Activities"
+          imgAlt="globe"
+          imgClassName="globe"
+          imgSrc="undefined/images/icons/l/globe.svg"
+          key="world-history"
+          preHeader="Social Studies"
+          selectCard={[Function]}
+          showNewTagInPreHeaderLine={true}
+        >
+          <div
+            className=" assignment-card quill-card"
+            onClick={[Function]}
+          >
+            <div
+              className="top-row"
+            >
+              <div
+                className="left"
+              >
+                <img
+                  alt="globe"
+                  className="globe"
+                  src="undefined/images/icons/l/globe.svg"
+                />
+                <div
+                  className="header-wrapper"
+                >
+                  <div
+                    className="pre-header-wrapper"
+                  >
+                    <span
+                      className="pre-header"
+                    >
+                      Social Studies
+                    </span>
+                    <span
+                      className="new-tag"
+                    >
+                      NEW
+                    </span>
+                  </div>
+                  <h2>
+                    View World History Activities
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div
+              className="body"
+            >
+              <div
+                className="body-element"
+                key="What"
+              >
+                <p
+                  className="key"
+                >
+                  What
+                </p>
+                <p
+                  className="text"
+                >
+                  Explore Reading for Evidence activities that reinforce world history content while helping students strengthen their reading and writing skills.
+                </p>
+              </div>
+              <div
+                className="body-element"
+                key="When"
+              >
+                <p
+                  className="key"
+                >
+                  When
+                </p>
+                <p
+                  className="text"
+                >
+                  You teach high school history or ELA and want to supplement your curriculum with a deep dive into essential world history topics and themes.
+                </p>
+              </div>
+            </div>
+          </div>
+        </AssignmentCard>
+        <AssignmentCard
+          bodyArray={
+            Array [
+              Object {
+                "key": "What",
+                "text": "Discover Reading for Evidence activities where students can learn and write about the opportunities and challenges of artificial intelligence in society.",
+              },
+              Object {
+                "key": "When",
+                "text": "You’re an ELA or STEM teacher interested in exploring the societal impacts of artificial intelligence with your high school students.",
+              },
+            ]
+          }
+          header="View Building AI Knowledge Activities"
+          imgAlt="brain with nodes extending from it"
+          imgClassName="artificial-intelligence"
+          imgSrc="undefined/images/icons/l/ai.svg"
+          key="building-ai-knowledge"
+          preHeader="Interdisciplinary Science"
+          selectCard={[Function]}
+          showNewTagInPreHeaderLine={true}
+        >
+          <div
+            className=" assignment-card quill-card"
+            onClick={[Function]}
+          >
+            <div
+              className="top-row"
+            >
+              <div
+                className="left"
+              >
+                <img
+                  alt="brain with nodes extending from it"
+                  className="artificial-intelligence"
+                  src="undefined/images/icons/l/ai.svg"
+                />
+                <div
+                  className="header-wrapper"
+                >
+                  <div
+                    className="pre-header-wrapper"
+                  >
+                    <span
+                      className="pre-header"
+                    >
+                      Interdisciplinary Science
+                    </span>
+                    <span
+                      className="new-tag"
+                    >
+                      NEW
+                    </span>
+                  </div>
+                  <h2>
+                    View Building AI Knowledge Activities
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div
+              className="body"
+            >
+              <div
+                className="body-element"
+                key="What"
+              >
+                <p
+                  className="key"
+                >
+                  What
+                </p>
+                <p
+                  className="text"
+                >
+                  Discover Reading for Evidence activities where students can learn and write about the opportunities and challenges of artificial intelligence in society.
+                </p>
+              </div>
+              <div
+                className="body-element"
+                key="When"
+              >
+                <p
+                  className="key"
+                >
+                  When
+                </p>
+                <p
+                  className="text"
+                >
+                  You’re an ELA or STEM teacher interested in exploring the societal impacts of artificial intelligence with your high school students.
+                </p>
+              </div>
+            </div>
+          </div>
+        </AssignmentCard>
       </div>
     </div>
   </div>
@@ -609,6 +801,146 @@ exports[`AssignANewActivity component with suggested activities should render 1`
                 class="text"
               >
                 You're a SpringBoard, Pre-AP, or AP teacher, or you're interested in using Pre-AP or AP materials with your high school students.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class=" assignment-card quill-card"
+        >
+          <div
+            class="top-row"
+          >
+            <div
+              class="left"
+            >
+              <img
+                alt="globe"
+                class="globe"
+                src="undefined/images/icons/l/globe.svg"
+              />
+              <div
+                class="header-wrapper"
+              >
+                <div
+                  class="pre-header-wrapper"
+                >
+                  <span
+                    class="pre-header"
+                  >
+                    Social Studies
+                  </span>
+                  <span
+                    class="new-tag"
+                  >
+                    NEW
+                  </span>
+                </div>
+                <h2>
+                  View World History Activities
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                What
+              </p>
+              <p
+                class="text"
+              >
+                Explore Reading for Evidence activities that reinforce world history content while helping students strengthen their reading and writing skills.
+              </p>
+            </div>
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                When
+              </p>
+              <p
+                class="text"
+              >
+                You teach high school history or ELA and want to supplement your curriculum with a deep dive into essential world history topics and themes.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class=" assignment-card quill-card"
+        >
+          <div
+            class="top-row"
+          >
+            <div
+              class="left"
+            >
+              <img
+                alt="brain with nodes extending from it"
+                class="artificial-intelligence"
+                src="undefined/images/icons/l/ai.svg"
+              />
+              <div
+                class="header-wrapper"
+              >
+                <div
+                  class="pre-header-wrapper"
+                >
+                  <span
+                    class="pre-header"
+                  >
+                    Interdisciplinary Science
+                  </span>
+                  <span
+                    class="new-tag"
+                  >
+                    NEW
+                  </span>
+                </div>
+                <h2>
+                  View Building AI Knowledge Activities
+                </h2>
+              </div>
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                What
+              </p>
+              <p
+                class="text"
+              >
+                Discover Reading for Evidence activities where students can learn and write about the opportunities and challenges of artificial intelligence in society.
+              </p>
+            </div>
+            <div
+              class="body-element"
+            >
+              <p
+                class="key"
+              >
+                When
+              </p>
+              <p
+                class="text"
+              >
+                You’re an ELA or STEM teacher interested in exploring the societal impacts of artificial intelligence with your high school students.
               </p>
             </div>
           </div>
