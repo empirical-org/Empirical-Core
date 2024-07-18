@@ -17,7 +17,7 @@
 #  index_questions_on_uid            (uid) UNIQUE
 #
 class Question < ApplicationRecord
-  include Translatable
+  include TranslatableQuestion
 
   TYPES = [
     TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
@@ -52,8 +52,9 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
-  INCORRECT_SEQUENCES = 'incorrectSequences'
-  FOCUS_POINTS = 'focusPoints'
+  INCORRECT_SEQUENCES = TranslatableQuestion::INCORRECT_SEQUENCES
+  FOCUS_POINTS = TranslatableQuestion::FOCUS_POINTS
+  CMS_RESPONSES = TranslatableQuestion::CMS_RESPONSES
   FEEDBACK_TYPES = [INCORRECT_SEQUENCES, FOCUS_POINTS]
 
   has_many :diagnostic_question_optimal_concepts, class_name: 'DiagnosticQuestionOptimalConcept', foreign_key: :question_uid, primary_key: :uid, dependent: :destroy
@@ -166,37 +167,6 @@ class Question < ApplicationRecord
 
   # Translatable
   def self.default_field_name = 'instructions'
-
-  def translatable_data(type:)
-    if stored_as_array?(type)
-      translatable_for_array(type)
-    else
-      translatable_for_hash(type)
-    end
-  end
-
-  def create_translation_mappings
-    super
-    create_data_translation_mappings(type: INCORRECT_SEQUENCES)
-    create_data_translation_mappings(type: FOCUS_POINTS)
-  end
-  def create_data_translation_mappings(type:)
-    translatable_data(type:).each do |field_name, translatable_text|
-      create_translation_mappings_with_text(field_name:, translatable_text:)
-    end
-  end
-
-  private def translatable_for_hash(type)
-    data[type]&.transform_values { |v| v['feedback'] }
-      &.compact
-      &.transform_keys { |k| "incorrectSequences.#{k}" } || {}
-  end
-
-  private def translatable_for_array(type)
-    data[type].each_with_object({}) do |item, hash|
-      hash["incorrectSequences.#{item['uid']}"] = item['feedback']
-    end
-  end
 
   private def add_data_for(type:, new_data:)
     if stored_as_array?(type)

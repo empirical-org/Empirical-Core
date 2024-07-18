@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# spec/models/concerns/translatable_spec.rb
 require 'rails_helper'
 
 RSpec.describe Translatable do

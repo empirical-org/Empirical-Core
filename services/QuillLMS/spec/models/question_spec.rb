@@ -19,6 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
+
   it { expect(Question.ancestors).to include(Translatable) }
 
   let(:question) { create(:question) }
@@ -522,107 +523,6 @@ RSpec.describe Question, type: :model do
           subject
           expect(question.reload.data[type]).to eq(data)
         end
-      end
-    end
-  end
-
-  describe 'create_translation_mappings' do
-    subject {question.create_translation_mappings}
-
-    let(:question) { create(:question, data: {'instructions' => instructions})}
-    let(:instructions) { "do this question"}
-    let(:english_texts ) { question.english_texts }
-
-    it 'creates translation_mappings for focusPoints and incorrectSequences' do
-      expect(question).to receive(:create_data_translation_mappings).with(type: Question::FOCUS_POINTS)
-      expect(question).to receive(:create_data_translation_mappings).with(type: Question::INCORRECT_SEQUENCES)
-      subject
-    end
-
-    it 'creates translation_mappings for instructions' do
-      subject
-      instructions_mapping = question.translation_mappings.find_by(field_name: "instructions")
-      expect(instructions_mapping.text).to eq(instructions)
-    end
-  end
-
-  describe 'create_data_translation_mappings(type:)' do
-    subject {question.create_data_translation_mappings(type: )}
-
-    let(:type) { Question::FOCUS_POINTS }
-    let(:question) { create(:question)}
-    let(:translatable_data) { { 'focusPoints.uid1' => 'f1', 'focusPoints.uid2' => 'f2'}}
-
-    before do
-      allow(question).to receive(:translatable_data)
-        .with(type:)
-        .and_return(translatable_data)
-    end
-
-    it 'creates translation_mappings for each of the items in the translatable_data' do
-      subject
-      expect(question.translation_mappings.map(&:field_name)).to match_array(translatable_data.keys)
-    end
-
-    it 'creates an english_word for each of the items in the translatable_data' do
-      subject
-      expect(question.english_texts.map(&:text)).to match_array(translatable_data.values)
-    end
-
-  end
-
-  describe 'translatable_data(type:)' do
-    subject { question.translatable_data(type: Question::INCORRECT_SEQUENCES)}
-
-    let(:question) { create(:question)}
-    let(:expected_data) {
-      {
-        "incorrectSequences.uid1" => "feedback1",
-        "incorrectSequences.uid2" => "feedback2"
-      }
-    }
-
-    before do
-      question.update_incorrect_sequences(incorrect_sequences)
-    end
-
-    context 'type is a hash' do
-      let(:incorrect_sequences) {
-        {
-          'uid1' => {
-            "feedback" => "feedback1",
-            "text" => "text1"
-          },
-          'uid2' => {
-            "feedback" => "feedback2",
-            "text" => "text2"
-          }
-        }
-      }
-
-      it 'it returns a hash with uids as keys and feedback as values' do
-        expect(subject).to eq(expected_data)
-      end
-    end
-
-    context 'incorrectSequences are an array' do
-      let(:incorrect_sequences) {
-        [
-          {
-            "uid" => "uid1",
-            "feedback" => "feedback1",
-            "text" => "text1"
-          },
-          {
-            "uid" => "uid2",
-            "feedback" => "feedback2",
-            "text" => "text2"
-          }
-        ]
-      }
-
-      it 'it returns a hash with uids as keys and feedback as values' do
-        expect(subject).to eq(expected_data)
       end
     end
   end
