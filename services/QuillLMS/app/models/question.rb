@@ -78,10 +78,6 @@ class Question < ApplicationRecord
   scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
   scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
 
-  def as_json(options=nil)
-    translated_json(options)
-  end
-
   def self.all_questions_json(question_type)
     where(question_type: question_type)
       .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }

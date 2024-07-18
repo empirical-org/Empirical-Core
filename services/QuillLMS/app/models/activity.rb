@@ -257,7 +257,7 @@ class Activity < ApplicationRecord
   # translatable
   def self.default_translatable_field = 'landingPageHtml'
 
-  def translated_json(options = {})
+  def json_with_translations
     translations = translated_texts.pluck(:locale, :translation).to_h
     return data unless translations.present?
 

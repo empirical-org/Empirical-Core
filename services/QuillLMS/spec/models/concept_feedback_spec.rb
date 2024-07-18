@@ -55,16 +55,6 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  describe '#as_json' do
-    let(:concept_feedback) { create(:concept_feedback, data: { 'description' => 'Test description' }) }
-    let(:options) { { source_api: 'test_api' } }
-
-    it 'delegates to the translated_json method from Translatable concern' do
-      expect(concept_feedback).to receive(:translated_json).with(options)
-      concept_feedback.as_json(options)
-    end
-  end
-
   describe '#callbacks' do
     let!(:concept_feedback) { create(:concept_feedback) }
 
