@@ -37,6 +37,11 @@ class ConceptFeedback < ApplicationRecord
 
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
+  def as_json(options = nil)
+    data
+  end
+
+  # translatable
   def self.default_translatable_field = 'description'
 
   private def data_must_be_hash

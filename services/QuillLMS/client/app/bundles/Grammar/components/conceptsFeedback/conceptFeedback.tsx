@@ -46,18 +46,6 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
     }
   }
 
-  toggleTranslation() {
-    this.setState(prevState => ({ translated: !prevState.translated }))
-  }
-
-  renderTranslationButton(data) {
-    const { translated } = this.state
-    if(data.translatedDescription) {
-      const buttonText = translated ? "Hide translation" : "Show translation"
-      return <button className="button is-info" id='toggle-translation' onClick={this.toggleTranslation}>{buttonText}</button>
-    }
-  }
-
   submitNewFeedback(conceptFeedbackID: string, data: ConceptFeedback) {
     this.props.dispatch(actions.submitConceptsFeedbackEdit(conceptFeedbackID, data))
   }
@@ -89,11 +77,10 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
         return (
           <div key={conceptFeedbackID}>
             {conceptName}
-            <ConceptExplanation {...data[conceptFeedbackID]} translated={this.state.translated} />
+            <ConceptExplanation {...data[conceptFeedbackID]} />
             <p className="concept-feedback-control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button>
               <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept Feedback</button>
-              {this.renderTranslationButton(data[conceptFeedbackID])}
             </p>
           </div>
         )
