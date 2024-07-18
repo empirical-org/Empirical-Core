@@ -147,12 +147,14 @@ class GenAITasks < Thor
     test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(test_file)
 
     results = []
-    test_set.sample(limit.to_i).each do |feedback_set|
+    # Pull a random sample, but use the same seed so examples are consistent.
+    test_subset = test_set.sample(limit.to_i, random: Random.new(1))
+    test_subset.each do |feedback_set|
       prompt = Evidence::Prompt.find(feedback_set.prompt_id)
       system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
       entry = feedback_set.primary
 
-      response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+      response = Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
 
       results << [prompt.id, entry, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary]
     end
@@ -174,7 +176,7 @@ class GenAITasks < Thor
     end
 
     private def secondary_output_file(limit)
-      Rails.root + "lib/data/secondary_feedback_#{limit}.csv"
+      Rails.root + "lib/data/secondary_feedback_#{limit}_#{Time.now.to_i}.csv"
     end
 
     private def prompt_csv_row(prompt)

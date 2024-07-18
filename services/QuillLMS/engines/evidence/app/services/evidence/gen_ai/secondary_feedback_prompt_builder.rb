@@ -5,18 +5,31 @@ module Evidence
     class SecondaryFeedbackPromptBuilder < PromptBuilder
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/secondary_feedback_prompts/'
       DEFAULT_TEMPLATE = '2024_07_17_initial.md'
-
-      OPTIMAL_SAMPLE_COUNT = 100
-      SUBOPTIMAL_SAMPLE_COUNT = 100
+      EXAMPLE_LIMIT = 500
 
       private def template_variables
         {
+          primary_secondary_examples:,
           plagiarism_text:
         }
       end
 
       private def default_template = DEFAULT_TEMPLATE
       private def template_folder = TEMPLATE_FOLDER
+
+      private def primary_secondary_examples
+        markdown_table_rows(feedback_data_tuples)
+      end
+
+      private def feedback_data_tuples
+        feedback_data
+          .first(EXAMPLE_LIMIT)
+          .map {|f| [f.primary, f.secondary]}
+      end
+
+      private def feedback_data
+        @feedback_data ||= Evidence::GenAI::SecondaryFeedbackDataFetcher.run
+      end
     end
   end
 end
