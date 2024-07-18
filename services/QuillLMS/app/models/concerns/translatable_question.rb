@@ -36,9 +36,7 @@ module TranslatableQuestion
   end
 
   private def cms_url = "#{ENV['CMS_URL']}/questions/#{uid}/responses"
-  private def cms_data
-    @cms_data ||= HTTParty.get(cms_url)
-  end
+  private def cms_data = @cms_data ||= HTTParty.get(cms_url)
 
   private def translatable_data(type:)
     if stored_as_array?(type)
