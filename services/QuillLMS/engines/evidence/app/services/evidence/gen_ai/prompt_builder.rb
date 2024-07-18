@@ -3,6 +3,8 @@
 module Evidence
   module GenAI
     class PromptBuilder < ApplicationService
+      PIPE = '|'
+
       attr_reader :prompt, :history, :template_file
 
       def initialize(prompt:, history: [], template_file: nil)
@@ -36,6 +38,9 @@ module Evidence
       private def stem = prompt.text
 
       private def markdown_ul(array) = array.map {|i| "- #{i}"}.join("\n")
+      private def markdown_table_rows(array_of_arrays)
+        array_of_arrays.map {|array| "#{PIPE}#{array.join(PIPE)}#{PIPE}\n"}
+      end
 
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def example_one = prompt.first_strong_example

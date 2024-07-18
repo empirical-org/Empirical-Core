@@ -118,6 +118,7 @@ class GenAITasks < Thor
     sample_test(conjunction, limit, false, template_file)
   end
 
+  # bundle exec prompt_entry 256 'some answer from student'
   desc "prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def prompt_entry(prompt_id, entry, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
@@ -140,13 +141,40 @@ class GenAITasks < Thor
     end
   end
 
+  desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
+  def secondary_feedback_test(limit = 2)
+    test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::TEST_FILE
+    test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(test_file)
+
+    results = []
+    test_set.sample(limit.to_i).each do |feedback_set|
+      prompt = Evidence::Prompt.find(feedback_set.prompt_id)
+      system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
+      entry = feedback_set.primary
+
+      response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+
+      results << [prompt.id, entry, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary]
+    end
+
+    CSV.open(secondary_output_file(limit), 'wb') do |csv|
+      csv << ['Prompt ID', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary']
+      results.each { |result| csv << result }
+    end
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
     KEY_FEEDBACK = 'feedback'
+    KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
 
     private def output_file(conjunction, limit)
       Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"
+    end
+
+    private def secondary_output_file(limit)
+      Rails.root + "lib/data/secondary_feedback_#{limit}.csv"
     end
 
     private def prompt_csv_row(prompt)
