@@ -316,7 +316,7 @@ jobs:
                 command: |
                   cd services/QuillLMS/client
                   TESTFILES=$(circleci tests glob "app/**/*.{test.*,spec.ts}" | circleci tests split)
-                  node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
+                  node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=8 --logHeapUsage
   cms_rails_build:
     parameters:
       <<: *should_run_params
