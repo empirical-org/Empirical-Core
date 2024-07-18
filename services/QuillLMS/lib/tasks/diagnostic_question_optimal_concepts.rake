@@ -129,7 +129,7 @@ namespace :diagnostic_question_optimal_concepts do
     def question_valid?(row)
       question = fetch_question_from_row(row)
 
-      sanitize_question(question.data['prompt']) == sanitize_question(row[QUESTION_INDEX])
+      sanitize_question(question.prompt) == sanitize_question(row[QUESTION_INDEX])
     end
 
     def concepts_valid?(row)

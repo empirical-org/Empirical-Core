@@ -67,8 +67,11 @@ class Question < ApplicationRecord
   validate :validate_sequences
 
 
-  store_accessor :data, :incorrectSequences
+  store_accessor :data, :flag
   store_accessor :data, :focusPoints
+  store_accessor :data, :incorrectSequences
+  store_accessor :data, :modelConceptUID
+  store_accessor :data, :prompt
   attr_accessor :skip_refresh_caches
 
   after_save :refresh_caches, unless: -> { skip_refresh_caches }
@@ -99,12 +102,12 @@ class Question < ApplicationRecord
   end
 
   def update_flag(flag_value)
-    data['flag'] = flag_value
+    self.flag = flag_value
     save
   end
 
   def update_model_concept(model_concept_id)
-    data['modelConceptUID'] = model_concept_id
+    self.modelConceptUID = model_concept_id
     save
   end
 

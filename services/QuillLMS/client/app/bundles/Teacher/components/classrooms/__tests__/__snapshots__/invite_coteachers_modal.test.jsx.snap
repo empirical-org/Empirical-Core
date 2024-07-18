@@ -59,19 +59,19 @@ exports[`InviteCoteacherModal component if a coteacher does not get passed shoul
             Array [
               Object {
                 "checked": false,
-                "created": "Invalid date",
+                "created": "Jul 19, 2019",
                 "id": 285401,
                 "name": "Testing",
               },
               Object {
                 "checked": false,
-                "created": "Invalid date",
+                "created": "Jul 19, 2019",
                 "id": 285400,
                 "name": "Empty Class",
               },
               Object {
                 "checked": true,
-                "created": "Invalid date",
+                "created": "May 21, 2019",
                 "id": 285383,
                 "name": "Quill Classroom",
               },
@@ -165,13 +165,13 @@ exports[`InviteCoteacherModal component if a coteacher gets passed should render
             Array [
               Object {
                 "checked": false,
-                "created": "Invalid date",
+                "created": "Jul 19, 2019",
                 "id": 285401,
                 "name": "Testing",
               },
               Object {
                 "checked": false,
-                "created": "Invalid date",
+                "created": "Jul 19, 2019",
                 "id": 285400,
                 "name": "Empty Class",
               },

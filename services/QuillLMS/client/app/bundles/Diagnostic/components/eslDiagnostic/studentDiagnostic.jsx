@@ -380,6 +380,14 @@ export class ELLStudentDiagnostic extends React.Component {
     return data[diagnosticID].landingPageHtml
   }
 
+  getQuestionCount = () => {
+    const { playDiagnostic, } = this.props
+    if (playDiagnostic.questionSet && playDiagnostic.questionSet.length) {
+      const { questionSet } = playDiagnostic
+      return questionSet.filter(question => question.type !== 'TL').length
+    }
+  }
+
   renderFooter = () => {
     if (!this.language()) { return }
 
@@ -455,7 +463,7 @@ export class ELLStudentDiagnostic extends React.Component {
         begin={this.startActivity}
         dispatch={dispatch}
         previewMode={previewMode}
-        questionCount={playDiagnostic.questionSet && playDiagnostic.questionSet.length}
+        questionCount={this.getQuestionCount()}
         setLanguage={this.updateLanguage}
       />);
     }

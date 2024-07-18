@@ -169,8 +169,8 @@ describe('Scorebook component', () => {
 
   describe('selectDates function', () => {
     const wrapper = shallow(<Scorebook allClassrooms={[]} />);
-    const beginDate = moment();
-    const endDate = moment();
+    const beginDate = moment().format('YYYY-MM-DDTHH:mm:ss');
+    const endDate = moment().format('YYYY-MM-DDTHH:mm:ss');
     const dateFilterName = 'All Time'
     wrapper.instance().fetchData = jest.fn();
 
@@ -196,8 +196,8 @@ describe('Scorebook component', () => {
 
   describe('convertStoredDateToMoment function', () => {
     const wrapper = shallow(<Scorebook allClassrooms={[]} />);
-    const beginDate = moment().toString();
-    const endDate = moment().toString();
+    const beginDate = moment().format('YYYY-MM-DDTHH:mm:ss').toString();
+    const endDate = moment().format('YYYY-MM-DDTHH:mm:ss').toString();
 
     it('should get scorebookBeginDate and convert it to Moment', () => {
       expect(wrapper.instance().convertStoredDateToMoment(beginDate)).toEqual(moment(beginDate));

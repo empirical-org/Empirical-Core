@@ -26,10 +26,6 @@
         "header": "你已经完成一半了！",
         "text": "继续努力吧！"
     },
-    "ELL Halfway": {
-        "header": "你已经完成一半了！",
-        "text": "继续努力吧！"
-    },
     "ELL Starter Questions": {
         "header": "问题",
         "text": "在本节中，由你来编写问题。请记住，问题的末尾带有问号（？）。你能做到的！"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "改写句子。改正带下划线的动作单词，使其具有与句子其余部分匹配的正确时态。",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "改写句子。改正带下划线的单词，使其成为将来时态。",
         "Respond to the question. Fill in the blank with one of the choices.": "回答问题。在空格中填入一个选择。",
-        "Use the joining word to combine the sentences into one sentence.": "用连接词把几个句子组合成一个句子。"
+        "Use the joining word to combine the sentences into one sentence.": "用连接词把几个句子组合成一个句子。",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "在部分空白处填入黄色单词。空白处可留空。",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "共有两个正确答案。在每个空白处填入一个正确答案。同一个答案不得填写两次。",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "在每个空白处填入一个单词。同一个单词可以使用多次。",
+        "Write the sentences. Change the underlined words to make them talk about multiple people.": "书写句子。更改带下划线的单词，使其形容多人。",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "E书写问题。更改带下划线的单词，将问题改正。",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "正确书写以下句子。仅更改带下划线的单词。保留每个句子中的“not”一词。",
+        "Write the words in the correct order. There are multiple correct answers.": "按正确顺序书写单词。有多个正确答案。",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "书写句子。更改带下划线的单词，使其符合句子意思。不得添加任何新单词。",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "书写句子。更改带下划线的单词，使其符合句子意思。可将该单词改成 1 或 2 个单词。",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "书写句子。将每组带下划线的单词更改为一个单词。可使用撇号 ( ' )。",
+        "Fill in the blank with the correct option.": "在空白处填入正确选项。",
+        "Fill in each blank with the correct option. You may use an option more than once.": "在每个空白处填入正确选项。一个选项可以使用多次。",
+        "Fill in the blank with the most natural option.": "在空白处填入最合理的选项。",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "在每个空白处填入一个选项。同一个选项可以使用多次（非必须）。",
+        "Fill in the blank with the most natural sentence.": "在空白处填入最合理的句子。",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same option multiple times, but you don’t have to.": "在空白处填入所需单词。空白处可留空。同一个选项可以使用多次（非必须）。",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "在每个空白处填入选项。同一个选项可以使用多次（非必须）。",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "在每个空白处填入单词。同一个单词可以使用多次（非必须）。",
+        "Fill in each blank with one of the words.": "在每个空白处填入一个单词。",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "共有两个正确选项。在每个空白处填入一个正确选项。同一答案不得填写两次。",
+        "Fill in each blank with one of the options.": "在每个空白处填入一个选项。",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "改写句子。更改带下划线的错误单词。不得更改正确单词。"
     },
     "cues": {
         "type one": "type one / 键入一个",
@@ -76,7 +94,12 @@
         "choose one": "choose one / 选择一个",
         "choose three": "choose three / 选择三个",
         "choose two or three" : "choose two or three / 选择两个或三个",
-        "joining word": "joining word / 连接词"
+        "joining word": "joining word / 连接词",
+        "words": "words / 单词",
+        "type two": "type two / 输入两个",
+        "options": "options / 选项",
+        "sentences": "sentences / 句子",
+        "answers": "answers / 答案"
     },
     "feedback": {
         "blank": "使用下面的其中一个选项，或者留空。",

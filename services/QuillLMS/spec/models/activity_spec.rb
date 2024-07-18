@@ -742,7 +742,7 @@ describe Activity, type: :model, redis: true do
         activity = create(:evidence_lms_activity, created_at: Time.zone.today - 10.days)
         create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
 
-        expect(activity.publication_date).to eq(activity.created_at.strftime('%m/%d/%Y'))
+        expect(activity.publication_date).to eq(activity.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
       end
     end
 
@@ -752,7 +752,7 @@ describe Activity, type: :model, redis: true do
         evidence_activity = create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
         change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
 
-        expect(activity.publication_date).to eq(change_log.created_at.strftime('%m/%d/%Y'))
+        expect(activity.publication_date).to eq(change_log.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
       end
     end
   end
@@ -767,7 +767,7 @@ describe Activity, type: :model, redis: true do
       serialized_hash = activity.serialize_with_topics_and_publication_date
       expect(serialized_hash['id']).to eq(activity.id)
       expect(serialized_hash[:topics]).to eq([topic.genealogy])
-      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime('%m/%d/%Y'))
+      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
     end
   end
 
@@ -785,8 +785,8 @@ describe Activity, type: :model, redis: true do
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.to change{ q1.reload.data['flag'] }.to('production')
-          .and change{ q2.reload.data['flag'] }.to('production')
+        end.to change{ q1.reload.flag }.to('production')
+          .and change{ q2.reload.flag }.to('production')
       end
     end
 
@@ -797,7 +797,7 @@ describe Activity, type: :model, redis: true do
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.not_to change{ q1.reload.data['flag'] }
+        end.not_to change{ q1.reload.flag }
       end
     end
   end
@@ -839,5 +839,34 @@ describe Activity, type: :model, redis: true do
       it { expect(subject).to be_a(ActiveRecord::Relation) }
       it { expect(subject.count).to eq(0) }
     end
+  end
+
+  describe 'translated_json' do
+    subject {activity.translated_json}
+
+    let(:activity) { create(:activity)}
+
+    context 'there are translations' do
+      it 'is data + all available languages' do
+        activity.data.merge!({'landingPageHtml' => "html"})
+        activity.create_translation_mappings
+        chinese_locale = "zh-CN"
+        english_text = activity.english_texts.first
+        chinese = create(:translated_text, english_text:, locale: chinese_locale)
+        spanish = create(:translated_text, english_text:, locale: Translatable::SPANISH_LOCALE)
+        expected_data = activity.data.merge(
+          'translations' => {
+            chinese_locale => chinese.translation,
+            Translatable::SPANISH_LOCALE => spanish.translation
+          }
+        )
+        expect(subject).to eq(expected_data)
+      end
+    end
+
+    context 'the activity has no translations' do
+      it { expect(subject).to eq( activity.data )}
+    end
+
   end
 end

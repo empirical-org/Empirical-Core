@@ -9,7 +9,7 @@ namespace :connect do
 
     questions = Question.where(question_type: question_type).where("data->>'flag' = ?", flag_to_replace)
     questions.each do |q|
-      q.data['flag'] = flag_to_set
+      q.flag = flag_to_set
       q.save
     end
   end
