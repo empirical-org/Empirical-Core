@@ -4,11 +4,12 @@ module Evidence
   module GenAI
     class SecondaryFeedbackPromptBuilder < PromptBuilder
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/secondary_feedback_prompts/'
-      DEFAULT_TEMPLATE = '2024_07_17_initial.md'
+      DEFAULT_TEMPLATE = '2024_07_17_with_highlight.md'
       EXAMPLE_LIMIT = 500
 
       private def template_variables
         {
+          highlight_texts:,
           primary_secondary_examples:,
           plagiarism_text:
         }

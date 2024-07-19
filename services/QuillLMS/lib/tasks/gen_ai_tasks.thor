@@ -155,12 +155,14 @@ class GenAITasks < Thor
       entry = feedback_set.primary
 
       response = Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
+      highlight_key = response[KEY_HIGHLIGHT] || 99
+      highlight = prompt.distinct_automl_highlight_texts[highlight_key - 1]
 
-      results << [prompt.id, entry, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary]
+      results << [prompt.id, entry, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary, highlight]
     end
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
-      csv << ['Prompt ID', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary']
+      csv << ['Prompt ID', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'LLM Highlight']
       results.each { |result| csv << result }
     end
   end
@@ -170,6 +172,7 @@ class GenAITasks < Thor
     KEY_OPTIMAL = 'optimal'
     KEY_FEEDBACK = 'feedback'
     KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
+    KEY_HIGHLIGHT = 'highlight'
 
     private def output_file(conjunction, limit)
       Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"
