@@ -19,6 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
+
   it { expect(Question.ancestors).to include(Translatable) }
 
   let(:question) { create(:question) }

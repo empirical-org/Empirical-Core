@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# spec/models/concerns/translatable_spec.rb
 require 'rails_helper'
 
 RSpec.describe Translatable do
@@ -16,7 +15,7 @@ RSpec.describe Translatable do
         'Test prompt'
       end
 
-      def self.translatable_field_name
+      def self.default_translatable_field
         'test_text'
       end
 

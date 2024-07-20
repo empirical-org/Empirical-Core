@@ -9,17 +9,20 @@ module VitallyIntegration
 
     def initialize(school)
       @school = school
+      @vitally_entity = school
+
+      current_time = Time.current
+      @school_year_start = School.school_year_start(current_time)
+      @school_year_end = school_year_start + 1.year
     end
 
     def data
       current_time = Time.current
-      school_year_start = School.school_year_start(current_time)
-      school_year_end = school_year_start + 1.year
 
-      active_students = active_students_query(@school).count
-      active_students_this_year = active_students_query(@school).where('activity_sessions.completed_at >= ?', school_year_start).count
-      activities_finished = activities_finished_query(@school).count('DISTINCT activity_sessions.id')
-      activities_finished_this_year = activities_finished_query(@school).where('activity_sessions.completed_at >= ?', school_year_start).count('DISTINCT activity_sessions.id')
+      active_students = active_students_query.count
+      active_students_this_year = active_students_query.where('activity_sessions.completed_at >= ?', school_year_start).count
+      activities_finished = activities_finished_query.count('DISTINCT activity_sessions.id')
+      activities_finished_this_year = activities_finished_query.where('activity_sessions.completed_at >= ?', school_year_start).count('DISTINCT activity_sessions.id')
 
       total_premium_months = @school.subscriptions.map(&:length_in_months).sum
 
@@ -78,12 +81,12 @@ module VitallyIntegration
       current_time = Time.current
       school_year_start = School.school_year_start(current_time)
       school_year_end = school_year_start + 1.year
-      active_students_this_year = active_students_query(@school).where('activity_sessions.completed_at >= ?', school_year_start).count
+      active_students_this_year = active_students_query.where('activity_sessions.completed_at >= ?', school_year_start).count
 
-      evidence_activities_assigned_all_time = evidence_assigned_count(@school)
-      evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@school, school_year_start, school_year_end)
-      evidence_activities_completed_all_time = evidence_finished(@school).count
-      evidence_activities_completed_this_year = evidence_completed_in_year_count(@school, school_year_start, school_year_end)
+      evidence_activities_assigned_all_time = evidence_assigned_count
+      evidence_activities_assigned_this_year = evidence_assigned_in_year_count
+      evidence_activities_completed_all_time = evidence_finished.count
+      evidence_activities_completed_this_year = evidence_completed_in_year_count
       evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
 
       {

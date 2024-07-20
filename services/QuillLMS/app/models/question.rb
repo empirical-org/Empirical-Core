@@ -17,7 +17,7 @@
 #  index_questions_on_uid            (uid) UNIQUE
 #
 class Question < ApplicationRecord
-  include Translatable
+  include TranslatableQuestion
 
   TYPES = [
     TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
@@ -52,8 +52,8 @@ class Question < ApplicationRecord
     TYPE_GRAMMAR_QUESTION => 'grammar_questions',
   }
 
-  INCORRECT_SEQUENCES = 'incorrectSequences'
-  FOCUS_POINTS = 'focusPoints'
+  INCORRECT_SEQUENCES = TranslatableQuestion::INCORRECT_SEQUENCES
+  FOCUS_POINTS = TranslatableQuestion::FOCUS_POINTS
   FEEDBACK_TYPES = [INCORRECT_SEQUENCES, FOCUS_POINTS]
 
   has_many :diagnostic_question_optimal_concepts, class_name: 'DiagnosticQuestionOptimalConcept', foreign_key: :question_uid, primary_key: :uid, dependent: :destroy
@@ -168,7 +168,7 @@ class Question < ApplicationRecord
   end
 
   # Translatable
-  def self.translatable_field_name = 'instructions'
+  def self.default_translatable_field = 'instructions'
 
   private def add_data_for(type:, new_data:)
     if stored_as_array?(type)

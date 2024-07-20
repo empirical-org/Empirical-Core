@@ -42,7 +42,7 @@ class ConceptFeedback < ApplicationRecord
   end
 
 
-  def self.translatable_field_name = 'description'
+  def self.default_translatable_field = 'description'
 
   private def data_must_be_hash
     errors.add(:data, 'must be a hash') unless data.is_a?(Hash)

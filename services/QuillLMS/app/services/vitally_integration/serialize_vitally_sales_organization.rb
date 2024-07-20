@@ -10,6 +10,11 @@ module VitallyIntegration
 
     def initialize(district)
       @district = district
+      @vitally_entity = district
+
+      current_time = Time.current
+      @school_year_start = School.school_year_start(current_time)
+      @school_year_end = school_year_start + 1.year
     end
 
     def data
@@ -35,8 +40,6 @@ module VitallyIntegration
     end
 
     def activities_and_students_rollups
-      current_time = Time.current
-      school_year_start = School.school_year_start(current_time)
       last_school_year_start = school_year_start - 1.year
 
       active_students_this_year = active_students(school_year_start)
@@ -61,8 +64,6 @@ module VitallyIntegration
     end
 
     def diagnostic_rollups
-      school_year_start = School.school_year_start(Time.current)
-
       diagnostics_assigned_this_year = diagnostics_assigned_between_count(school_year_start, school_year_start + 1.year)
       diagnostics_assigned_last_year = diagnostics_assigned_between_count(school_year_start - 1.year, school_year_start)
       diagnostics_completed_this_year = diagnostics_completed_between(school_year_start, school_year_start + 1.year)
@@ -81,19 +82,18 @@ module VitallyIntegration
     end
 
     private def evidence_rollups
-      school_year_start = School.school_year_start(Time.current)
       last_school_year_start = school_year_start - 1.year
-      school_year_end = school_year_start + 1.year
+
       active_students_this_year = active_students(school_year_start)
       active_students_last_year = active_students(last_school_year_start, school_year_start)
 
-      evidence_activities_assigned_all_time = evidence_assigned_count(district)
-      evidence_activities_assigned_this_year = evidence_assigned_in_year_count(district, school_year_start, school_year_end)
-      evidence_activities_assigned_last_year = evidence_assigned_in_year_count(district, last_school_year_start, school_year_start)
-      evidence_activities_completed_all_time = evidence_finished(district).count
-      evidence_activities_completed_this_year = evidence_completed_in_year_count(district, school_year_start, school_year_end)
+      evidence_activities_assigned_all_time = evidence_assigned_count
+      evidence_activities_assigned_this_year = sum_students(filter_evidence(in_school_year(activities_assigned_query, school_year_start, school_year_end)))
+      evidence_activities_assigned_last_year = sum_students(filter_evidence(in_school_year(activities_assigned_query, last_school_year_start, school_year_start)))
+      evidence_activities_completed_all_time = evidence_finished.count
+      evidence_activities_completed_this_year = evidence_finished.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
       evidence_activities_completed_per_student_this_year = activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
-      evidence_activities_completed_last_year = evidence_completed_in_year_count(district, last_school_year_start, school_year_start)
+      evidence_activities_completed_last_year = evidence_finished.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', last_school_year_start, school_year_start).count
       evidence_activities_completed_per_student_last_year = activities_per_student(active_students_last_year, evidence_activities_completed_last_year)
 
       {
@@ -198,14 +198,14 @@ module VitallyIntegration
         .where('activity_sessions.state = ?', 'finished')
     end
 
-    def activities_assigned_query(district)
-      ClassroomUnit.joins(classroom_unscoped: {teachers: {school: :district}}, unit: :activities)
+    def activities_assigned_query
+      ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
         .where('districts.id = ?', district.id)
         .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
     end
 
-    def activities_finished_query(district)
-      @activities_finished ||= ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom_unscoped: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
+    def activities_finished_query
+      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
