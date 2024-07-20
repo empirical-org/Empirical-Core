@@ -3,6 +3,8 @@
 module VitallySharedFunctions
   extend ActiveSupport::Concern
 
+  attr_reader :vitally_entity, :school_year_start, :school_year_end
+
   def activities_per_student(active_students, activities_finished)
     return 0 unless active_students.nonzero?
 
@@ -22,19 +24,19 @@ module VitallySharedFunctions
     activities.select {|r| r.created_at >= school_year_start && r.created_at < school_year_end }
   end
 
-  def evidence_assigned_in_year_count(entity, school_year_start, school_year_end)
-    sum_students(filter_evidence(in_school_year(activities_assigned_query(entity), school_year_start, school_year_end)))
+  def evidence_assigned_in_year_count
+    sum_students(filter_evidence(in_school_year(activities_assigned_query, school_year_start, school_year_end)))
   end
 
-  private def evidence_assigned_count(entity)
-    sum_students(filter_evidence(activities_assigned_query(entity)))
+  private def evidence_assigned_count
+    sum_students(filter_evidence(activities_assigned_query))
   end
 
-  private def evidence_finished(entity)
-    activities_finished_query(entity).where('activities.activity_classification_id=?', ActivityClassification.evidence.id)
+  private def evidence_finished
+    activities_finished_query.where('activities.activity_classification_id=?', ActivityClassification.evidence.id)
   end
 
-  private def evidence_completed_in_year_count(entity, school_year_start, school_year_end)
-    evidence_finished(entity).where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
+  private def evidence_completed_in_year_count
+    evidence_finished.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
   end
 end
