@@ -3,7 +3,7 @@
 module VitallySharedFunctions
   extend ActiveSupport::Concern
 
-  attr_accessor :vitally_entity, :school_year_start, :school_year_end
+  attr_reader :vitally_entity, :school_year_start, :school_year_end
 
   def activities_per_student(active_students, activities_finished)
     return 0 unless active_students.nonzero?
