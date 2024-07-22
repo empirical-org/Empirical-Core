@@ -19,6 +19,8 @@ import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
 
 import questionActions from '../../actions/questions';
 
+window.alert = jest.fn();
+
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
     it('should call QuestionApi.getAll()', () => {
@@ -57,7 +59,7 @@ describe('Questions actions', () => {
   describe('submitNewQuestion', () => {
     it('should call QuestionApi.create()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
-      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, "", "123abc"))
+      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, {}, "123abc"))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE, MOCK_CONTENT)
     })
 
@@ -84,7 +86,7 @@ describe('Questions actions', () => {
     it('should call IncorrectSequenceApi.create()', () => {
       const MOCK_ID = 1
       const MOCK_CONTENT = { mock: 'content' }
-      dispatch(questionActions.submitNewIncorrectSequence(MOCK_ID, MOCK_CONTENT))
+      dispatch(questionActions.submitNewIncorrectSequence(MOCK_ID, MOCK_CONTENT, jest.fn()))
       expect(mockIncorrectSequenceApi.create).toHaveBeenLastCalledWith(MOCK_ID, MOCK_CONTENT)
     })
   })
