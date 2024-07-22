@@ -113,7 +113,7 @@ const LandingPage = ({ flag, }) => {
   const [hasAssignedScienceActivities, setHasAssignedScienceActivities] = React.useState(false)
 
   React.useEffect(() => {
-    requestGet('/teachers/progress_reports/has_assigned_content_hub_activities',
+    requestGet('/teachers/progress_reports/assigned_content_hub_activities_status',
       ({ has_assigned_science_activities, has_assigned_social_studies_activities, }) => {
         setHasAssignedScienceActivities(has_assigned_science_activities)
         setHasAssignedSocialStudiesActivities(has_assigned_social_studies_activities)

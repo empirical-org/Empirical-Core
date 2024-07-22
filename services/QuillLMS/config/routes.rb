@@ -323,7 +323,7 @@ EmpiricalGrammar::Application.routes.draw do
     namespace :progress_reports do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
-      get 'has_assigned_content_hub_activities'
+      get 'assigned_content_hub_activities_status'
       get 'report_from_classroom_unit_and_activity_and_user/cu/:classroom_unit_id/user/:user_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_activity_and_user'
       get 'report_from_classroom_and_unit_and_activity_and_user/classroom/:classroom_id/unit/:unit_id/user/:user_id/activity/:activity_id' => 'diagnostic_reports#report_from_classroom_and_unit_and_activity_and_user'
       get 'report_from_classroom_unit_and_activity/:classroom_unit_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_activity'

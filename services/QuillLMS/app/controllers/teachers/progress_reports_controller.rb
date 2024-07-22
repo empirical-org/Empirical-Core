@@ -50,7 +50,7 @@ class Teachers::ProgressReportsController < ApplicationController
     render 'student_overview'
   end
 
-  def has_assigned_content_hub_activities
+  def assigned_content_hub_activities_status
     unit_activities = current_user.unit_activities
 
     render json: {
