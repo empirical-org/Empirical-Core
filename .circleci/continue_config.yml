@@ -445,7 +445,7 @@ jobs:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
     docker:
-      - image: cimg/node:16.20
+      - image: cimg/node:14.21
     steps:
       - run:
           <<: *blank_required_step
