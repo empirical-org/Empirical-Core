@@ -62,6 +62,12 @@
       line-height: normal;
       margin-bottom: 8px;
     }
+    .new-tag {
+      color: $quill-white;
+      border-radius: 5px;
+      background-color: $quill-gold;
+      padding: 4px 8px;
+    }
   }
 
   .body {
