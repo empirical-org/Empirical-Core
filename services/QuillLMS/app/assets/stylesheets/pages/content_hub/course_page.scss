@@ -1,0 +1,47 @@
+.content-hub-course-page-container {
+  padding-top: 32px;
+  .overview {
+    margin-top: 32px;
+    display: flex;
+    gap: 48px;
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 16px;
+    }
+    .overview-description {
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 32px;
+    }
+    img {
+      height: 350px;
+    }
+    .quill-tooltip-trigger {
+      display: block;
+      margin: auto;
+      color: $quill-grey-50;
+      font-size: 13px;
+      border-bottom: dotted;
+      margin-top: 8px;
+    }
+    .quill-tooltip {
+      font-size: 14px;
+      line-height: 22px;
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .overview {
+      flex-direction: column;
+      .quill-tooltip-trigger {
+        margin: 8px 0px;
+      }
+    }
+  }
+}
