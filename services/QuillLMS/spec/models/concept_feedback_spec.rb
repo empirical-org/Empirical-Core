@@ -76,9 +76,12 @@ RSpec.describe ConceptFeedback, type: :model do
 
   describe '#translations_json(language:)' do
     subject { concept_feedback.translations_json(locale: )}
+
     let(:locale) { Translatable::DEFAULT_LOCALE}
+
     context 'there is a translation for the language' do
       let(:concept_feedback) { create(:concept_feedback, :with_translated_text)}
+
       it 'returns a json hash of with the uid as the key and the translation as the value' do
         expect(subject).to eq({
           concept_feedback.uid => { 'description' => concept_feedback.translation }
@@ -87,7 +90,8 @@ RSpec.describe ConceptFeedback, type: :model do
     end
 
     context 'there is no translation for the language' do
-      let (:concept_feedback) { create(:concept_feedback)}
+      let(:concept_feedback) { create(:concept_feedback)}
+
       it { expect(subject).to eq({})}
     end
   end

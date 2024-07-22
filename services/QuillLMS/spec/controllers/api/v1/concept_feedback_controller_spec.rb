@@ -37,9 +37,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       let!(:concept_feedback1) { create(:concept_feedback, :with_translated_text)}
       let!(:concept_feedback2) { create(:concept_feedback, :with_translated_text)}
       let(:cache_key) {
-        ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY + "_" +
-        concept_feedback1.activity_type + "_" +
-        locale
+        "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{concept_feedback1.activity_type}_#{locale}"
       }
 
       context 'there is no cache set' do

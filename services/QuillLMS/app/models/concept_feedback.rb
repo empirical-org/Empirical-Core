@@ -46,6 +46,7 @@ class ConceptFeedback < ApplicationRecord
 
   def translations_json(locale:)
     return {} unless translation(locale:)
+
     { uid => { default_translatable_field => translation(locale:) } }
   end
 
