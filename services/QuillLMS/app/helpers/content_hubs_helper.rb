@@ -105,7 +105,7 @@ module ContentHubsHelper
         all_quill_articles_href: '',
         quill_teacher_guide_href: '',
         activities: globalization_activities
-      },
+      }
     ]
   end
 

@@ -45,14 +45,11 @@ describe ContentHubsHelper, type: :helper do
 
         activities = unit[:activities]
         expect(activities).to be_an(Array)
-
-        activities.each do |activity|
-          expect(activity).to have_key(:activity_id)
-          expect(activity).to have_key(:display_name)
-          expect(activity).to have_key(:description)
-          expect(activity).to have_key(:paired_oer_asset_name)
-          expect(activity).to have_key(:paired_oer_asset_link)
-        end
+        expect(activities).to all(have_key(:activity_id))
+        expect(activities).to all(have_key(:display_name))
+        expect(activities).to all(have_key(:description))
+        expect(activities).to all(have_key(:paired_oer_asset_name))
+        expect(activities).to all(have_key(:paired_oer_asset_link))
       end
     end
   end
