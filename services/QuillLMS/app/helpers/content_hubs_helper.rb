@@ -11,10 +11,7 @@ module ContentHubsHelper
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
-  def unit_activities_include_science_activities?(unit_activities)
-    activity_ids = []
-    unit_activities_include_content_activities?(unit_activities, activity_ids)
-  end
+  def unit_activities_include_science_activities? = false
 
   def world_history_1200_to_present
     [
