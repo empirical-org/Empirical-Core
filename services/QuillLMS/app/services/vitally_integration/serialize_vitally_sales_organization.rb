@@ -199,13 +199,13 @@ module VitallyIntegration
     end
 
     def activities_assigned_query
-      ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
+      ClassroomUnit.joins(classroom_unscoped: {teachers: {school: :district}}, unit: :activities)
         .where('districts.id = ?', district.id)
         .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
     end
 
     def activities_finished_query
-      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
+      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom_unscoped: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
