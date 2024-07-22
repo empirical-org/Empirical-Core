@@ -5,6 +5,9 @@
   position: relative;
 
   &.dropdown-container {
+    .helper-text {
+      margin-top: 8px;
+    }
     .dropdown {
       .dropdown__control {
         display: flex;
@@ -87,10 +90,6 @@
 
     .dropdown {
       margin-bottom: 0px;
-    }
-
-    .helper-text {
-      margin-top: 8px;
     }
 
     &.active {
