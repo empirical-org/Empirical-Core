@@ -30,9 +30,11 @@ module VitallyTeacherStats
   end
 
   def activities_finished_query
-    @activities_finished ||= ClassroomsTeacher.joins(:user, classroom: [{classroom_units: {unit_activities: :activity}}, {classroom_units: :activity_sessions}])
-    .where('users.id = ?', user.id)
-    .where('activity_sessions.state = ?', 'finished')
+    @activities_finished ||= ActivitySession.unscoped.select(:id).distinct
+      .joins(classroom_unit: {classroom_unscoped: :classrooms_teachers})
+      .joins(:activity)
+      .where(state: 'finished')
+      .where('classrooms_teachers.user_id = ?', user.id)
   end
 
   def diagnostics_assigned_in_year_count

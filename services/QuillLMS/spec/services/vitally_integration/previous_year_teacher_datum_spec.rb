@@ -60,6 +60,7 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         user: student4,
         classroom_unit: classroom_unit2,
         state: 'finished',
+        activity: connect,
         completed_at: Date.new(year, 10, 2)
       )
       create(:activity_session,
@@ -94,7 +95,11 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         diagnostics_finished: 2,
         evidence_activities_assigned: 1,
         evidence_activities_completed: 1,
-        percent_completed_diagnostics: 1.0
+        percent_completed_diagnostics: 1.0,
+        pre_diagnostics_assigned: 0,
+        pre_diagnostics_completed: 0,
+        post_diagnostics_assigned: 0,
+        post_diagnostics_completed: 0
       }
       teacher_data = described_class.new(teacher, year).calculate_data
       expect(teacher_data).to eq(expected_data)
