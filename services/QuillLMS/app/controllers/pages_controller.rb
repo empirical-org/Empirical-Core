@@ -459,6 +459,9 @@ class PagesController < ApplicationController
     render json: { units: preap_and_springboard_content }
   end
 
+  def world_history_1200_to_present
+  end
+
   def backpack
     @style_file = "#{ApplicationController::STAFF}.scss"
   end

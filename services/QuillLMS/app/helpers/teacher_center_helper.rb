@@ -9,6 +9,7 @@ module TeacherCenterHelper
   PRE_AP_ACTIVITIES = 'Pre-AP Activities'
   SPRINGBOARD_ACTIVITIES = 'SpringBoard Activities'
   ELA_STANDARDS = 'ELA Standards'
+  SOCIAL_STUDIES_ACTIVITIES = 'Social Studies Activities'
 
   def teacher_center_tabs
     [
@@ -91,6 +92,11 @@ module TeacherCenterHelper
         id: FEATURED_ACTIVITIES,
         name: FEATURED_ACTIVITIES,
         url: '/activities/packs'
+      },
+      {
+        id: SOCIAL_STUDIES_ACTIVITIES,
+        name: SOCIAL_STUDIES_ACTIVITIES,
+        url: '/social_studies'
       },
       {
         id: AP_ACTIVITIES,

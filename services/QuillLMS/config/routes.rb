@@ -821,6 +821,8 @@ EmpiricalGrammar::Application.routes.draw do
     teacher_premium
   )
 
+  get 'social_studies/world_history_1200_to_present' => 'pages#world_history_1200_to_present'
+
   all_pages = other_pages
   all_pages.each do |page|
     get page => "pages##{page}", as: page.to_s

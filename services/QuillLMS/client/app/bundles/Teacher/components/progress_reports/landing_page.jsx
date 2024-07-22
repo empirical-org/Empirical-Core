@@ -61,10 +61,10 @@ const miniList = () => {
 }
 
 const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScienceActivities, loading) => {
-  const socialStudiesLink = hasAssignedSocialStudiesActivities ? ' ': '/assign/social-studies'
+  const socialStudiesLink = hasAssignedSocialStudiesActivities ? '/assign/social-studies/world-history-1200-to-present' : '/assign/social-studies'
   const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student\xa0progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student\xa0progress."
 
-  const interdisciplinaryScienceLink = hasAssignedScienceActivities ? ' ': '/assign/interdisciplinary-science'
+  const interdisciplinaryScienceLink = hasAssignedScienceActivities ? '' : '/assign/interdisciplinary-science'
   const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student\xa0progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student\xa0progress."
 
   return [
