@@ -2,6 +2,10 @@
 
 module ContentHubsHelper
 
+  def unit_activities_include_content_activities?(unit_activities, content_activity_ids)
+    unit_activities.where(activity_id: content_activity_ids).any?
+  end
+
   def unit_activities_include_social_studies_activities?(unit_activities)
     activity_ids = world_history_1200_to_present.map { |unit_template| unit_template[:activities].map { |act| act[:activity_id] } }.flatten
     unit_activities_include_content_activities?(unit_activities, activity_ids)
@@ -10,10 +14,6 @@ module ContentHubsHelper
   def unit_activities_include_science_activities?(unit_activities)
     activity_ids = []
     unit_activities_include_content_activities?(unit_activities, activity_ids)
-  end
-
-  def unit_activities_include_content_activities?(unit_activities, content_activity_ids)
-    unit_activities.where(activity_id: content_activity_ids).any?
   end
 
   def world_history_1200_to_present

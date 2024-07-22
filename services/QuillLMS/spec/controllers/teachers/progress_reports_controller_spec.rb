@@ -199,4 +199,41 @@ describe Teachers::ProgressReportsController do
       expect(response).to render_template 'student_overview'
     end
   end
+
+  describe '#assigned_content_hub_activities_status' do
+    before do
+      allow(controller).to receive(:current_user).and_return(teacher)
+      allow(teacher).to receive(:unit_activities).and_return([])
+    end
+
+    context 'when unit_activities include social studies and science activities' do
+      before do
+        allow(controller).to receive(:unit_activities_include_social_studies_activities?).and_return(true)
+        allow(controller).to receive(:unit_activities_include_science_activities?).and_return(true)
+      end
+
+      it 'renders json with both social studies and science activities as true' do
+        get :assigned_content_hub_activities_status
+        expect(JSON.parse(response.body)).to eq({
+          "has_assigned_social_studies_activities" => true,
+          "has_assigned_science_activities" => true
+        })
+      end
+    end
+
+    context 'when unit_activities do not include social studies and science activities' do
+      before do
+        allow(controller).to receive(:unit_activities_include_social_studies_activities?).and_return(false)
+        allow(controller).to receive(:unit_activities_include_science_activities?).and_return(false)
+      end
+
+      it 'renders json with both social studies and science activities as false' do
+        get :assigned_content_hub_activities_status
+        expect(JSON.parse(response.body)).to eq({
+          "has_assigned_social_studies_activities" => false,
+          "has_assigned_science_activities" => false
+        })
+      end
+    end
+  end
 end
