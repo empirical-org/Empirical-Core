@@ -209,7 +209,7 @@ RSpec.describe Translatable do
 
     context 'when using OpenAI as the source' do
       let(:source_api) { Translatable::OPEN_AI_SOURCE }
-      let(:prompt) { translatable_object.prompt(locale:) }
+      let(:prompt) { translatable_object.open_ai_prompt(locale:) }
 
       context 'there is not an existing translation' do
         it 'calls OpenAI::TranslateAndSaveText for each English text' do
@@ -267,7 +267,7 @@ RSpec.describe Translatable do
     end
   end
 
-  describe '#prompt(locale:)' do
+  describe '#open_ai_prompt(locale:)' do
     let(:locale) { Translatable::DEFAULT_LOCALE }
 
     it 'returns the expected prompt' do
@@ -277,13 +277,13 @@ RSpec.describe Translatable do
         We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
       STRING
       expected += "\nTest prompt\n text to translate: "
-      expect(translatable_object.prompt(locale:)).to eq(expected)
+      expect(translatable_object.open_ai_prompt(locale:)).to eq(expected)
     end
 
     it 'adds in the example_json' do
       filename = 'question.yml'
       allow(translatable_object).to receive(:config_file).and_return(Rails.root.join('app/models/translation_config', filename))
-      prompt = translatable_object.prompt(locale:)
+      prompt = translatable_object.open_ai_prompt(locale:)
       expect(prompt).to match(translatable_object.send(:examples))
       expect(translatable_object.send(:examples)).to match('1. English: "Combine the sentences')
     end
