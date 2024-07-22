@@ -3,7 +3,7 @@
 RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
 
   let(:post_diagnostic) { create(:diagnostic_activity, id: 1664) }
-  let(:pre_diagnostic) { create(:diagnostic_activity, follow_up_activity: post_diagnostic, id: AdminDiagnosticReports::DiagnosticAggregateQuery::DIAGNOSTIC_ORDER_BY_ID.first) }
+  let(:pre_diagnostic) { create(:diagnostic_activity, follow_up_activity: post_diagnostic, id: 1663) }
   let(:activities) { [pre_diagnostic, post_diagnostic].flatten }
 
   let(:pre_diagnostic_question) { create(:question) }
