@@ -27,5 +27,15 @@ FactoryBot.define do
     uid { SecureRandom.uuid }
     activity_type { 'connect' }
     data { data }
+
+    trait :with_translated_text do
+      after(:create) do |concept_feedback|
+        create(:translation_mapping_with_translation,
+          source: concept_feedback,
+          field_name: concept_feedback.default_translatable_field
+        )
+      end
+    end
+
   end
 end

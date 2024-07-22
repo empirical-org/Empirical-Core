@@ -18,4 +18,8 @@ FactoryBot.define do
     english_text { create(:english_text) }
     field_name { 'description' }
   end
+
+  factory :translation_mapping_with_translation, parent: :translation_mapping do
+    english_text { create(:english_text, :with_translated_text)}
+  end
 end
