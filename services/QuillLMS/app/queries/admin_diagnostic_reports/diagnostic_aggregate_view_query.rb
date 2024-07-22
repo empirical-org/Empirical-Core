@@ -28,7 +28,7 @@ module AdminDiagnosticReports
     def materialized_views = [filter_view, performance_view]
 
     def filter_view = materialized_view('school_classroom_teachers_view')
-    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_STAGING_view')
+    def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
     def run
       post_process(run_query)
@@ -79,7 +79,7 @@ module AdminDiagnosticReports
 
     def from_and_join_clauses
       <<-SQL
-        FROM lms.pre_post_diagnostic_skill_group_performance_STAGING_view AS performance
+        FROM lms.pre_post_diagnostic_skill_group_performance_view AS performance
         JOIN lms.school_classroom_teachers_view AS filter ON performance.classroom_id = filter.classroom_id
       SQL
     end
