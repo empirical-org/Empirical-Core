@@ -283,6 +283,7 @@ jobs:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
     parallelism: 4
+    resource_class: large
     docker:
       - image: cimg/node:16.20
     steps:
