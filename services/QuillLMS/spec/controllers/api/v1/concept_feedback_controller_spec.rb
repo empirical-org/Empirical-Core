@@ -32,13 +32,13 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
   describe "#translations" do
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let!(:concept_feedback_untranslated) { create(:concept_feedback)}
+    let(:cache_key) {
+      "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{concept_feedback_untranslated.activity_type}_#{locale}"
+    }
 
     context 'there is a translation available for the language' do
       let!(:concept_feedback1) { create(:concept_feedback, :with_translated_text)}
       let!(:concept_feedback2) { create(:concept_feedback, :with_translated_text)}
-      let(:cache_key) {
-        "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{concept_feedback1.activity_type}_#{locale}"
-      }
 
       context 'there is no cache set' do
         before do
@@ -80,13 +80,32 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
     end
 
     context 'there is no translation for that language' do
-      it 'returns an empty hash' do
-        get :translations, params: {
-            locale:,
-            activity_type: concept_feedback_untranslated.activity_type
-        }, as: :json
-        body = JSON.parse(response.body)
-        expect(body).to eq({})
+      context 'there is no cache set' do
+        before do
+          $redis.del(cache_key)
+        end
+
+        it 'returns an empty hash' do
+          get :translations, params: {
+              locale:,
+              activity_type: concept_feedback_untranslated.activity_type
+          }, as: :json
+          body = JSON.parse(response.body)
+          expect(body).to eq({})
+        end
+      end
+
+      context 'the cache is set' do
+        let(:cache_value) { {foo: 'bar'}.to_json }
+
+        it 'returns the cache value' do
+          $redis.set(cache_key, cache_value)
+          get :translations, params: {
+              locale:,
+              activity_type: concept_feedback_untranslated.activity_type
+          }, as: :json
+          expect(response.body).to eq(cache_value)
+        end
       end
     end
 
