@@ -131,9 +131,20 @@ export const StudentSection = ({
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
     if (!passedVisibleData && diagnosticTypeValue) {
-      handleSetDiagnosticIdForStudentCount(Number(diagnosticTypeValue.value))
-      resetToDefault()
-      getData()
+
+      // If the timeframe has changed, we may be re-populating the selectedDiagnosticType drop-downs
+      // In these cases, we need to re-select the appropriate value from the drop-down for the new timeframe
+      // The re-selection will re-trigger this effect by changing the value of diagnosticTypeValue
+      const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)
+      if (!diagnosticTypeDropdownOptions.includes(diagnosticTypeValue)) {
+        const selectedDiagnosticType = diagnosticTypeDropdownOptions.find((option) => option.label === diagnosticTypeValue.label)
+
+        handleSetSelectedDiagnosticType(selectedDiagnosticType)
+      } else {
+        handleSetDiagnosticIdForStudentCount(Number(diagnosticTypeValue.value))
+        resetToDefault()
+        getData()
+      }
     }
   }, [searchCount, diagnosticTypeValue])
 
