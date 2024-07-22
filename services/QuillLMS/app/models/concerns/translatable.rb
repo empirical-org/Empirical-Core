@@ -31,7 +31,7 @@ module Translatable
   end
 
   def translation(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
-    translations(locale: locale, source_api: source_api)&.first&.translation
+    @translation ||= translations(locale: locale, source_api: source_api)&.first&.translation
   end
 
   def translations(locale:, source_api:)

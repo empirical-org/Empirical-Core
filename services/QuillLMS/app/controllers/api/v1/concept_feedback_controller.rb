@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
 class Api::V1::ConceptFeedbackController < Api::ApiController
-  before_action :activity_type, except: [:index]
-  before_action :concept_feedback_by_uid, except: [:index, :create, :update]
+  before_action :activity_type, except: [:index, :translations]
+  before_action :concept_feedback_by_uid, except: [:index, :create, :update, :translations]
 
   CACHE_EXPIRY = 24.hours
 
   def index
-    concept_feedbacks = $redis.get("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}")
+    concept_feedbacks = $redis.get(concepts_cache_key)
     concept_feedbacks ||= fetch_all_concept_feedbacks_and_cache
+    render json: concept_feedbacks
+  end
+
+  def translations
+    concept_feedbacks = $redis.get(translation_cache_key)
+    concept_feedbacks ||= fetch_all_concept_feedback_translations_and_cache
     render json: concept_feedbacks
   end
 
@@ -53,13 +59,26 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
 
   private def fetch_all_concept_feedbacks_and_cache
     concept_feedbacks = ConceptFeedback
-      .includes(:translation_mappings, :english_texts, :translated_texts)
       .where(activity_type: params[:activity_type])
       .all
       .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
       .to_json
 
-    $redis.set("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}", concept_feedbacks)
+    $redis.set(concepts_cache_key, concept_feedbacks)
     concept_feedbacks
   end
+
+  private def fetch_all_concept_feedback_translations_and_cache
+    concept_feedbacks = ConceptFeedback
+      .includes(:translation_mappings, :english_texts, :translated_texts)
+      .where(activity_type: params[:activity_type])
+      .reduce({}) { |acc, cf| acc.merge!(cf.translations_json(locale: params[:locale])) }
+      .to_json
+
+    $redis.set(translation_cache_key, concept_feedbacks)
+    concept_feedbacks
+  end
+
+  private def translation_cache_key = "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}_#{params[:locale]}"
+  private def concepts_cache_key = "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}"
 end
