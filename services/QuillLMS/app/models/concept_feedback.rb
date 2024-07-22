@@ -44,6 +44,11 @@ class ConceptFeedback < ApplicationRecord
   # translatable
   def self.default_translatable_field = 'description'
 
+  def translations_json(locale:)
+    return {} unless translation(locale:)
+    { uid => { default_translatable_field => translation(locale:) } }
+  end
+
   private def data_must_be_hash
     errors.add(:data, 'must be a hash') unless data.is_a?(Hash)
   end
