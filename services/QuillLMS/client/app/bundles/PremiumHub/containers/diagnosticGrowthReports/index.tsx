@@ -129,7 +129,7 @@ export const DiagnosticGrowthReportsContainer = ({
         setSelectedDiagnosticType(diagnostic_type_value)
       } else {
         setSelectedGroupByValue(groupByDropdownOptions[0])
-        setSelectedDiagnosticType(getDiagnosticTypeDropdownOptionsByType(selectedTimeframe)[0])
+        setSelectedDiagnosticType(getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe.value)[0])
       }
     })
   }
