@@ -28,7 +28,6 @@ import {
   clearData,
   loadData,
   nextQuestion,
-  openLanguageMenu,
   resumePreviousDiagnosticSession,
   setCurrentQuestion,
   setDiagnosticID,
@@ -360,12 +359,6 @@ export class ELLStudentDiagnostic extends React.Component {
     dispatch(updateLanguage(language));
   }
 
-  onClickOpenMobileLanguageMenu = () => {
-    const { dispatch, } = this.props
-    dispatch(openLanguageMenu())
-    window.scrollTo(0, 0)
-  }
-
   language = () => {
     const { playDiagnostic, } = this.props
 
@@ -386,18 +379,6 @@ export class ELLStudentDiagnostic extends React.Component {
       const { questionSet } = playDiagnostic
       return questionSet.filter(question => question.type !== 'TL').length
     }
-  }
-
-  renderFooter = () => {
-    if (!this.language()) { return }
-
-    return (
-      <Footer
-        handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
-        language={this.language()}
-        updateLanguage={this.updateLanguage}
-      />
-    )
   }
 
   renderProgressBar = () => {
@@ -478,7 +459,6 @@ export class ELLStudentDiagnostic extends React.Component {
             </CarouselAnimation>
           </div>
         </section>
-        {this.renderFooter()}
       </div>
     );
   }

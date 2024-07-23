@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { useQuery } from 'react-query';
 import { renderRoutes } from "react-router-config";
 
@@ -10,8 +11,12 @@ import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/inde
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { getParameterByName } from '../libs/getParameterByName';
 import { routes } from "../routes";
+import i18n from '../i18n';
+import { updateLanguage } from '../actions/diagnostics.js';
+// TODO: standardize Question Typescript interface definitions
+import { Question } from '../../Grammar/interfaces/questions';
 
-export const Home = () => {
+export const Home = ({ dispatch, playDiagnostic }) => {
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
@@ -50,12 +55,17 @@ export const Home = () => {
     setPreviewShowing(!previewShowing);
   }
 
-  function handleToggleQuestion (question: object) {
+  function handleToggleQuestion (question: Question) {
     setQuestionToPreview(question);
   }
 
   function handleSkipToQuestionFromIntro () {
     setSkippedToQuestionFromIntro(true);
+  }
+
+  function handleUpdateLanguage(language) {
+    i18n.changeLanguage(language);
+    dispatch(updateLanguage(language));
   }
 
   let className = "ant-layout "
@@ -81,8 +91,16 @@ export const Home = () => {
         <main style={{ height: '100vh', overflow: 'auto' }}>
           <ScreenreaderInstructions />
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
-          {isPlaying && !isTeacherOrAdmin && <StudentNavBar />}
-          {isPlaying && isTeacherOrAdmin && <TeacherNavbar isOnMobile={isOnMobile} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />}
+          {isPlaying && !isTeacherOrAdmin && <StudentNavBar language={playDiagnostic?.language} updateLanguage={handleUpdateLanguage} />}
+          {isPlaying && isTeacherOrAdmin &&
+            <TeacherNavbar
+              isOnMobile={isOnMobile}
+              onTogglePreview={handleTogglePreviewMenu}
+              previewShowing={previewShowing}
+              language={playDiagnostic?.language}
+              updateLanguage={handleUpdateLanguage}
+            />
+          }
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
             isOnMobile: isOnMobile,
             handleTogglePreview: handleTogglePreviewMenu,
@@ -98,4 +116,10 @@ export const Home = () => {
   );
 }
 
-export default Home;
+const select = (state: any, props: any) => {
+  return {
+    playDiagnostic: state.playDiagnostic
+  };
+}
+
+export default connect(select)(Home);
