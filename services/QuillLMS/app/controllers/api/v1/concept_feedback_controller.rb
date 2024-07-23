@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
 class Api::V1::ConceptFeedbackController < Api::ApiController
-  before_action :activity_type, except: [:index]
-  before_action :concept_feedback_by_uid, except: [:index, :create, :update]
+  before_action :activity_type, except: [:index, :translations]
+  before_action :concept_feedback_by_uid, except: [:index, :create, :update, :translations]
 
   CACHE_EXPIRY = 24.hours
 
   def index
-    concept_feedbacks = $redis.get("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}")
-    concept_feedbacks ||= fetch_all_concept_feedbacks_and_cache
-    render json: concept_feedbacks
+    render json: cached_concept_feedbacks
+  end
+
+  def translations
+    render json: cached_concept_feedbacks(translated: true)
   end
 
   def show
@@ -51,15 +53,25 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
     params.require(:concept_feedback).except(:uid)
   end
 
-  private def fetch_all_concept_feedbacks_and_cache
-    concept_feedbacks = ConceptFeedback
-      .includes(:translation_mappings, :english_texts, :translated_texts)
-      .where(activity_type: params[:activity_type])
-      .all
-      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-      .to_json
 
-    $redis.set("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}", concept_feedbacks)
+  private def cached_concept_feedbacks(translated: false)
+    $redis.get(cache_key(translated)) || fetch_and_cache_concept_feedbacks(translated:)
+  end
+
+  private def fetch_and_cache_concept_feedbacks(translated: false)
+    query = ConceptFeedback.where(activity_type: params[:activity_type])
+    query = query.includes(:translation_mappings, :english_texts, :translated_texts) if translated
+
+    concept_feedbacks = query.each_with_object({}) do |cf, acc|
+      acc.merge!(translated ? cf.translations_json(locale: params[:locale]) : { cf.uid => cf.as_json })
+    end.to_json
+
+    $redis.set(cache_key(translated:), concept_feedbacks)
     concept_feedbacks
+  end
+
+  private def cache_key(translated)
+    base = "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{params[:activity_type]}"
+    translated ? "#{base}_#{params[:locale]}" : base
   end
 end

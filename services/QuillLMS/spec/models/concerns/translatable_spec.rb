@@ -289,42 +289,4 @@ RSpec.describe Translatable do
     end
   end
 
-  describe '#translated_json' do
-    subject { translatable_object.translated_json(options) }
-
-    let(:options) { {} }
-    let(:data) { translatable_object.data }
-
-    context 'when there are no translations' do
-      it { is_expected.to eq(data) }
-    end
-
-    context 'when there are translations available' do
-      let(:translation) { 'test translation' }
-      let(:translated_text) { create(:translated_text, translation: translation) }
-
-      before do
-        translatable_object.create_translation_mappings
-        translatable_object.english_texts.first.translated_texts << translated_text
-      end
-
-      it 'adds the translations to the data' do
-        expect(subject['translatedTest_text']).to eq(translation)
-      end
-
-      context 'when a specific source_api is provided' do
-        let(:options) { { source_api: Translatable::GENGO_SOURCE } }
-        let(:gengo_translation) { 'gengo translation' }
-        let(:gengo_translated_text) { create(:translated_text, translation: gengo_translation, source_api: Translatable::GENGO_SOURCE) }
-
-        before do
-          translatable_object.english_texts.first.translated_texts << gengo_translated_text
-        end
-
-        it 'uses the specified source_api for translation' do
-          expect(subject['translatedTest_text']).to eq(gengo_translation)
-        end
-      end
-    end
-  end
 end

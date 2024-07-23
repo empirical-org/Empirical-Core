@@ -841,8 +841,8 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe 'translated_json' do
-    subject {activity.translated_json}
+  describe 'json_with_translations' do
+    subject {activity.json_with_translations}
 
     let(:activity) { create(:activity)}
 

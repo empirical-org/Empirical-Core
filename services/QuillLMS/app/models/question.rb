@@ -79,7 +79,7 @@ class Question < ApplicationRecord
   scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
 
   def as_json(options=nil)
-    translated_json(options)
+    data
   end
 
   def self.all_questions_json(question_type)
