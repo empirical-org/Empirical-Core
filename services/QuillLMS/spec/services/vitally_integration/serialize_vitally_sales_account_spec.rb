@@ -74,7 +74,6 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
   end
 
   it 'generates basic school params' do
-
     school_data = described_class.new(school).data
 
     expect(school_data[:traits]).to include(

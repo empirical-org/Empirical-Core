@@ -48,7 +48,6 @@ class ClassroomUnitActivityState < ApplicationRecord
     update_lessons_cache(self)
   end
 
-
   private def lock_if_lesson
     return unless unit_activity.activity.lesson?
 
@@ -99,5 +98,4 @@ class ClassroomUnitActivityState < ApplicationRecord
     end
     true
   end
-
 end

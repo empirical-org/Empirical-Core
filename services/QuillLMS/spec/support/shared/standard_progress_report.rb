@@ -43,7 +43,6 @@ shared_context 'Standard Progress Report' do
     unit: unit1)
   }
 
-
   # NOTE: ClassroomActivity.create does not create new activity sessions for every student in the classroom.
   # Create new sessions for them
   let!(:alice_second_grade_standard_session) do

@@ -52,7 +52,6 @@ module Evidence
 
         context 'previous feedback does not exist' do
           it 'should return secondary feedback' do
-
             result = FeedbackAssembler.run(
               client_response: client_response.merge({ FeedbackAssembler.error_name => error_name }),
               previous_feedback: []

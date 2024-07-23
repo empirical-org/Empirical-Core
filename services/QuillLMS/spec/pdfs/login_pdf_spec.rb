@@ -62,7 +62,6 @@ describe LoginPdf do
     it 'registers a pdf Mime Type' do
       expect(Mime::Type.lookup_by_extension(:pdf)).to_not be_nil
     end
-
   end
 
   describe 'student name is not whitespace delineable' do

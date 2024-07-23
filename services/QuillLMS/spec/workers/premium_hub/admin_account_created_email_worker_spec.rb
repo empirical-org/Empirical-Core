@@ -22,7 +22,6 @@ describe PremiumHub::AdminAccountCreatedEmailWorker, type: :worker do
   end
 
   describe 'user is nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(nil)
     end
@@ -39,7 +38,6 @@ describe PremiumHub::AdminAccountCreatedEmailWorker, type: :worker do
   end
 
   describe 'user is not nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(teacher, referring_admin)
     end

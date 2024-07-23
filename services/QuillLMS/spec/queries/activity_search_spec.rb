@@ -54,6 +54,5 @@ describe ActivitySearch do
         expect(results.first['activity_name']).to_not eq beta_flagset_activity.name
       end
     end
-
   end
 end

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::StripeInvoiceIdFinder do
-
   subject { described_class.run(checkout_session_id) }
 
   context 'nil checkout_session_id' do

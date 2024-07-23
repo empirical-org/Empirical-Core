@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'ScorebookQuery' do
-
   let!(:teacher) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
   let!(:classroom) { teacher.classrooms_i_teach.first }
   let!(:classroom1) { teacher.classrooms_i_teach.second }
@@ -137,5 +136,4 @@ describe 'ScorebookQuery' do
       end
     end
   end
-
 end

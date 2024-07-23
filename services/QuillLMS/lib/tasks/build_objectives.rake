@@ -11,7 +11,6 @@ namespace :objectives do
     User.where(role:'teacher').each{ |teacher| TestForEarnedCheckboxesWorker.perform_async(teacher.id) }
   end
 
-
   module ObjectiveCreator
     def self.data
       [
@@ -33,5 +32,4 @@ namespace :objectives do
       end
     end
   end
-
 end

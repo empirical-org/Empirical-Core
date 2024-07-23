@@ -19,5 +19,4 @@ namespace :zipcode do
     end
     rc.put_copy_end
   end
-
 end

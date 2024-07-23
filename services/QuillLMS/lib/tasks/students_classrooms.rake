@@ -18,5 +18,4 @@ namespace :students_classrooms do
     end
     puts 'Rake Task Completed'
   end
-
 end

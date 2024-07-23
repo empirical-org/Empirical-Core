@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe QuestionHealthObj, type: :model do
-
   describe '#question_health' do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:question) { create(:question) }
@@ -70,5 +69,4 @@ RSpec.describe QuestionHealthObj, type: :model do
       expect(health_obj[:percent_reached_optimal]).to eq(66.67)
     end
   end
-
 end

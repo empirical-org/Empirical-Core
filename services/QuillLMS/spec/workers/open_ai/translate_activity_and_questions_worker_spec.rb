@@ -36,5 +36,4 @@ describe OpenAI::TranslateActivityAndQuestionsWorker, type: :worker do
       subject
     end
   end
-
 end

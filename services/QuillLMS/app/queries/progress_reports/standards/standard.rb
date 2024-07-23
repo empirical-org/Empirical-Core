@@ -71,4 +71,3 @@ class ProgressReports::Standards::Standard
     SQL
   end
 end
-

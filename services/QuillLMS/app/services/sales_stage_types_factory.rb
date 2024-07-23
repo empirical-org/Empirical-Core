@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SalesStageTypesFactory
-
   STAGE_TYPE_SEEDS = [
     {
       name: 'Basic Subscription',

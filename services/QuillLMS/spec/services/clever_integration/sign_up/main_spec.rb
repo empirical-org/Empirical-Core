@@ -76,7 +76,6 @@ describe 'CleverIntegration::SignUp::Main' do
   end
 
   describe 'when the user is a school admin' do
-
     it 'creates a user' do
       subject
       expect(user).to be_present

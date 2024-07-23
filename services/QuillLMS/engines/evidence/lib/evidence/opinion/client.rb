@@ -46,7 +46,6 @@ module Evidence
           timeout: API_TIMEOUT
         )
       end
-
     end
   end
 end

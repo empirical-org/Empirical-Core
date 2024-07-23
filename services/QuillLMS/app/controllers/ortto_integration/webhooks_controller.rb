@@ -29,6 +29,5 @@ module OrttoIntegration
     def authenticate
       return head 403 unless params['secret'] == ENV['ORTTO_WEBHOOK_PASSWORD']
     end
-
   end
 end

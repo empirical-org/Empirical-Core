@@ -107,5 +107,4 @@ describe MilestonesController do
       end
     end
   end
-
 end

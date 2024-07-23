@@ -26,7 +26,6 @@ module Evidence
           { 'text'=>' they are working too hard and becoming too popular', 'index'=>2, 'logprobs'=>nil, 'finish_reason'=>'stop' }
         ]
       }
-
     end
     # include headers in response for proper parsing by HTTParty
     let(:sample_response) { { body: sample_response_body.to_json, headers: { content_type: 'application/json' } } }

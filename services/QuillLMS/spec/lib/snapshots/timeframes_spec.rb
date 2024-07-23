@@ -112,6 +112,5 @@ module Snapshots
     it_behaves_like 'snapshots period length, previous within threshold', 'last-school-year', 1
     it_behaves_like 'snapshots period length, previous within threshold', 'this-month', 1, 3
     it_behaves_like 'snapshots period length, previous within threshold', 'last-month', 1, 3
-
   end
 end

@@ -34,5 +34,4 @@ module VitallySchoolStats
       .where('schools.id = ?', school.id)
       .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
   end
-
 end

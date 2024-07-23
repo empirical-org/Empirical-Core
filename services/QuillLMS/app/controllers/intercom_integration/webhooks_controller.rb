@@ -2,7 +2,6 @@
 
 module IntercomIntegration
   class WebhooksController < ApplicationController
-
     class UnauthorizedIntercomWebhookCallError < StandardError; end
 
     UNKNOWN_NAME = 'Unknown User'

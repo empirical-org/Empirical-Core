@@ -16,6 +16,5 @@ module SegmentIntegration
         content_partners: content_partners.pluck(:name).join(', ')
       }.reject { |_,v| v.nil? }
     end
-
   end
 end

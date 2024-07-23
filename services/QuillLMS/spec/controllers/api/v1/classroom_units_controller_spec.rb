@@ -291,7 +291,6 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
 
     before { session[:user_id] = teacher.id }
 
-
     it 'should unpin and lock the state of classroom unit activity' do
       put :unpin_and_lock_activity,
         params: {
@@ -317,5 +316,4 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       expect(response.body).to eq({ teacher_ids: teacher_ids }.to_json)
     end
   end
-
 end

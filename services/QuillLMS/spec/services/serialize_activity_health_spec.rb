@@ -159,7 +159,6 @@ describe 'SerializeActivityHealth' do
   end
 
   it 'calculates the data without nil erroring for a badly formatted activity with no assignments or attributes' do
-
     data = SerializeActivityHealth.new(bad_activity).data
 
     expect(data[:avg_difficulty]).to eq(0)

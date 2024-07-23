@@ -23,4 +23,3 @@ FactoryBot.define do
     trait(:monthly) { frequency { EmailSubscription::MONTHLY } }
   end
 end
-

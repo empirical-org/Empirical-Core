@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PusherDistrictConceptReportsCompleted
-
   def self.run(admin_id)
     pusher_client = Pusher::Client.new(
         app_id: ENV['PUSHER_APP_ID'],
@@ -15,5 +14,4 @@ module PusherDistrictConceptReportsCompleted
      message: "District concept reports found for #{admin_id}."
    )
   end
-
 end

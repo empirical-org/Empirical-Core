@@ -2,7 +2,6 @@
 
 module Evidence
   class PromptHealthsController < ApiController
-
     def index
       render json: PromptHealth.all.as_json
     end

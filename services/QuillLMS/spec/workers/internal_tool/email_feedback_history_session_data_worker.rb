@@ -21,7 +21,6 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
   let!(:csv_file_path) { Rails.root.join('public', "feedback_history_#{activity.id}_#{time_current.to_i}.csv") }
 
   describe 'called with only activity id' do
-
     before do
       allow(UserMailer).to receive(:feedback_history_session_csv_download).and_return(double(:email, deliver_now!: true))
       allow(Time).to receive(:current).and_return(time_current)
@@ -88,5 +87,4 @@ def csv(results)
       ]
     end
   end
-
 end

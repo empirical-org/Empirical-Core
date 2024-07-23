@@ -33,7 +33,6 @@ module Evidence
       end
     end
 
-
     # PATCH/PUT /rules/1.json
     def update
       if @rule.update(rule_params)

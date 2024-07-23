@@ -146,7 +146,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: user.classrooms_i_teach.last, assigned_student_ids: [students_classrooms.student.id]) }
         let!(:activity_session) { create(:activity_session, user: students_classrooms.student, activity: starter_pre_test, classroom_unit: classroom_unit) }
 
-
         it 'should be a an array with objects containing the activity id, post test id, and assigned classroom ids' do
           get :assign
           expect(assigns(:assigned_pre_tests)).to include({
@@ -193,7 +192,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         let!(:explore_our_diagnostics) { create(:explore_our_diagnostics) }
 
         context 'on the base assign route' do
-
           it 'should create the Explore our library checkbox for the current user' do
             get :assign
             expect(Checkbox.find_by(objective_id: explore_our_library.id, user_id: user.id)).to be
@@ -203,11 +201,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
             get :assign
             expect(Checkbox.find_by(objective_id: explore_our_diagnostics.id, user_id: user.id)).not_to be
           end
-
         end
 
         context 'on the /assign/diagnostic route' do
-
           it 'should create the Explore our library checkbox for the current user' do
             get :assign, params: { tab: 'diagnostic' }
             expect(Checkbox.find_by(objective_id: explore_our_library.id, user_id: user.id)).to be
@@ -217,9 +213,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
             get :assign, params: { tab: 'diagnostic' }
             expect(Checkbox.find_by(objective_id: explore_our_diagnostics.id, user_id: user.id)).to be
           end
-
         end
-
       end
     end
   end
@@ -363,7 +357,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
         expect(assigns(:classroom)).to eq (classroom1.as_json)
       end
     end
-
   end
 
   describe '#dashboard' do
@@ -402,7 +395,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     describe 'teacher info milestone' do
-
       describe 'when the teacher already has teacher info minimum grade level' do
         it 'assigns must_see_teacher_info_modal to false' do
           teacher.teacher_info.update(minimum_grade_level: 3)
@@ -413,7 +405,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       end
 
       describe 'when the teacher does not have minimum_grade_level set on teacher_info' do
-
         it 'assigns must_see_teacher_info_modal to true if the user_milestone does not exist' do
           get :dashboard
           expect(assigns(:must_see_teacher_info_modal)).to eq true
@@ -439,12 +430,10 @@ describe Teachers::ClassroomManagerController, type: :controller do
           get :dashboard
           expect(assigns(:must_see_teacher_info_modal)).to eq true
         end
-
       end
     end
 
     describe 'onboarding checklist' do
-
       it 'should set the onboarding_checklist variable to an array of objects with values' do
         get :dashboard
         expect(assigns(:objective_checklist)).to eq ([
@@ -472,7 +461,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       end
 
       context 'when the user does not have existing checkboxes for the latter two objectives but has assigned units' do
-
         it 'should create the relevant checkboxes and reflect that in the onboarding checklist array' do
           create(:unit, user_id: teacher.id)
           get :dashboard
@@ -501,9 +489,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
             }
           ])
         end
-
       end
-
     end
   end
 
@@ -817,7 +803,6 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(controller).to receive(:preview_student_id=).with(nil)
       get :unset_preview_as_student
     end
-
   end
 
   describe '#activity_feed' do
@@ -835,6 +820,5 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       expect(json['data'].first['id']).to eq (activity_session.id)
     end
-
   end
 end

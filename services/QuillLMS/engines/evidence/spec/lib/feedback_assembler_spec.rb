@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 module Evidence
-
   RSpec.describe 'FeedbackAssembler' do
     describe '#run' do
       let(:example_error) { 'example_error' }
@@ -99,8 +98,6 @@ module Evidence
           end.to raise_error(KeyError)
         end
       end
-
     end
   end
-
 end

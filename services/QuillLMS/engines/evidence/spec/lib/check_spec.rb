@@ -42,7 +42,6 @@ module Evidence
     end
 
     context 'find_triggered_check' do
-
       context 'all optimal' do
         it 'should return autoML feedback' do
           Evidence::Check::ALL_CHECKS.each do |check_class|

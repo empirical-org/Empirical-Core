@@ -14,7 +14,6 @@ RSpec.describe EmailSubscriptionsController, type: :controller do
   describe 'GET #current' do
     subject { get :current, params: { email_subscription_type: subscription_type } }
 
-
     before { subject }
 
     it { expect(json_response['id']).to eq(email_subscription.id) }

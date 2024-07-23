@@ -29,15 +29,11 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(PromptHealth, :type => :model) do
-
     context 'associations' do
-
       it { should belong_to(:activity_health) }
-
     end
 
     context 'validations' do
-
       it { should validate_numericality_of(:current_version).is_greater_than_or_equal_to(1) }
 
       it { should validate_numericality_of(:version_responses).is_greater_than_or_equal_to(0) }

@@ -55,7 +55,6 @@ module Evidence
             it { is_expected.to eq described_class::OPTIMAL }
           end
 
-
           context 'when optimal is false' do
             let(:optimal) { false }
 

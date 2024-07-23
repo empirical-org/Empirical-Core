@@ -67,6 +67,5 @@ describe CleverIntegration::Creators::Teacher do
         expect(teacher.reload.google_id).to be_nil
       end
     end
-
   end
 end

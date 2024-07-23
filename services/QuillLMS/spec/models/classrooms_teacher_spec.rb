@@ -67,5 +67,4 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
       expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq nil
     end
   end
-
 end

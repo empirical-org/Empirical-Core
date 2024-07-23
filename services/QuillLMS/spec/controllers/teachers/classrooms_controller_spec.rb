@@ -44,7 +44,6 @@ describe Teachers::ClassroomsController, type: :controller do
       students_classroom.reload
       expect(students_classroom.visible).to be(false)
     end
-
   end
 
   describe 'create students' do
@@ -200,7 +199,6 @@ describe Teachers::ClassroomsController, type: :controller do
       before { allow(controller).to receive(:current_user) { teacher } }
 
       context 'when current user has classrooms i teach' do
-
         it 'should return classrooms in order of creation date' do
           get :index, as: :json
 
@@ -322,7 +320,6 @@ describe Teachers::ClassroomsController, type: :controller do
           expect(parsed_response['classrooms'][0]['students'][0]['synced']).to eq true
           expect(parsed_response['classrooms'][0]['students'][1]['synced']).to eq false
         end
-
       end
     end
   end
@@ -342,7 +339,6 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'should provide valid data when making fresh and cached queries' do
-
       2.times do
         get :classrooms_i_teach
         expect(response.status).to eq(200)

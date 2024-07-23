@@ -63,7 +63,6 @@ RSpec.describe AppSetting, type: :model do
       it 'should return false' do
         expect(app_setting1.enabled_for_user?(user)).to be false
       end
-
     end
 
     context 'user is nil' do
@@ -93,7 +92,6 @@ RSpec.describe AppSetting, type: :model do
         expect(app_setting1.enabled_for_user?(user)).to be false
       end
     end
-
   end
 
   describe '#user_in_rollout_bucket?' do
@@ -124,6 +122,5 @@ RSpec.describe AppSetting, type: :model do
         expect(result).to eq 100
       end
     end
-
   end
 end

@@ -119,8 +119,6 @@ describe Cms::SchoolAdminsController do
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end
       end
-
     end
-
   end
 end

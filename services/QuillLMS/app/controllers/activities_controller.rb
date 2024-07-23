@@ -147,5 +147,4 @@ class ActivitiesController < ApplicationController
   protected def search_params
     params.require(:search).permit([:search_query, { sort: [:field, :asc_or_desc] },  { filters: [:field, :selected] }])
   end
-
 end

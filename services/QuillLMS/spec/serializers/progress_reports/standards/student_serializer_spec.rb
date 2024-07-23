@@ -58,6 +58,5 @@ describe ProgressReports::Standards::StudentSerializer, type: :serializer do
       expect { serializer.average_score }.to_not raise_error
       expect(serializer.average_score).to eq 0
     end
-
   end
 end

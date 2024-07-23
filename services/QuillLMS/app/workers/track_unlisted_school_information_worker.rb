@@ -12,5 +12,4 @@ class TrackUnlistedSchoolInformationWorker
 
     analytics.track_teacher_school_not_listed(user, school_name, school_zipcode)
   end
-
 end

@@ -7,7 +7,6 @@ module Evidence
     let!(:rule) { create(:evidence_rule, :rule_type => 'plagiarism') }
 
     context 'should #feedback_object' do
-
       it 'should return appropriate feedback attributes if there is plagiarism' do
         $redis.redis.flushdb
         entry = "these are s'',ome! r''esponse words to plagiarize and this is plagiarism"

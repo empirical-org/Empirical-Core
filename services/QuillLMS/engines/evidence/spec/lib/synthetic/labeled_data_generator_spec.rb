@@ -84,7 +84,6 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     end
   end
 
-
   describe '#run paraphrase' do
     subject { described_class.run(labeled_data, prompt: prompt, generators: [:paraphrase]) }
 

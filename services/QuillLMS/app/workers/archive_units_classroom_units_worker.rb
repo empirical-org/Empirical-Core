@@ -13,5 +13,4 @@ class ArchiveUnitsClassroomUnitsWorker
       unit_activity.update(visible: false)
     end
   end
-
 end

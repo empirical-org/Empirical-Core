@@ -32,7 +32,6 @@ describe Cms::SchoolsController do
   end
 
   describe '#search' do
-
     context 'when a school has an expired subscription and an active subscription' do
       it 'should only one record of that school, without duplicates' do
         school = create(:school)
@@ -191,7 +190,6 @@ describe Cms::SchoolsController do
     let!(:school_with_no_subscription) { create(:school) }
     let!(:subscription) { create(:subscription) }
     let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
-
 
     describe 'when there is no existing subscription' do
       it 'should create a new subscription that starts today and ends at the promotional expiration date' do

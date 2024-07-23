@@ -260,7 +260,6 @@ describe Activity, type: :model, redis: true do
       result = classified_activity.module_url(activity_session)
       expect(result.to_s).to eq("#{classification.module_url}?session=#{activity_session.uid}&uid=#{comp_activity.id}")
     end
-
   end
 
   describe '#anonymous_module_url' do
@@ -315,7 +314,6 @@ describe Activity, type: :model, redis: true do
         expect(activity.flag).to eq :alpha
       end
     end
-
   end
 
   describe 'scope results' do
@@ -520,7 +518,6 @@ describe Activity, type: :model, redis: true do
   end
 
   describe '#readability_grade_level' do
-
     it 'should return the corresponding grade level' do
       raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
       activity = create(:activity, raw_score_id: raw_score.id)
@@ -531,11 +528,9 @@ describe Activity, type: :model, redis: true do
       activity = create(:activity, raw_score_id: nil)
       expect(activity.readability_grade_level).to eq(nil)
     end
-
   end
 
   describe '#default_minimum_grade_level' do
-
     it 'should return the corresponding number' do
       raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
       activity = create(:activity, raw_score_id: raw_score.id)
@@ -546,11 +541,9 @@ describe Activity, type: :model, redis: true do
       activity = create(:activity, raw_score_id: nil)
       expect(activity.default_minimum_grade_level).to eq(nil)
     end
-
   end
 
   describe '#default_maximum_grade_level' do
-
     it 'should return the default maximum' do
       raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
       activity = create(:activity, raw_score_id: raw_score.id)
@@ -561,11 +554,9 @@ describe Activity, type: :model, redis: true do
       activity = create(:activity, raw_score_id: nil)
       expect(activity.default_maximum_grade_level).to eq(nil)
     end
-
   end
 
   describe '#set_minimum_and_maximum_grade_levels' do
-
     it 'should set the activity minimum and maximum grade level to the default values' do
       raw_score = create(:raw_score, :eight_hundred_to_nine_hundred)
       activity = create(:activity, raw_score_id: raw_score.id)
@@ -573,11 +564,9 @@ describe Activity, type: :model, redis: true do
       expect(activity.minimum_grade_level).to eq(activity.default_minimum_grade_level)
       expect(activity.maximum_grade_level).to eq(activity.default_maximum_grade_level)
     end
-
   end
 
   describe '#is_diagnostic' do
-
     it 'should return true when activity is diagnostic' do
       diagnostic_activity = create(:diagnostic_activity)
       assert diagnostic_activity.is_diagnostic?
@@ -777,7 +766,6 @@ describe Activity, type: :model, redis: true do
     let(:questions) { [{ 'key' => q1.uid, 'question_type' => 'questions' }, { 'key' => q2.uid, 'question_type' => 'questions' }] }
     let(:data) { { questions: } } # NOTE: that the unmatched `x:` syntax in Ruby will try to set the value by finding a variable with the name of the key, so in this case "questions"
 
-
     context 'activity flag set to production' do
       let(:flags) { ['production'] }
       let(:activity) { create(:grammar_activity, flags:, data:) }
@@ -827,7 +815,6 @@ describe Activity, type: :model, redis: true do
 
         it { expect(subject).to match_array(questions) }
       end
-
     end
 
     context 'there are no questions in the data field' do
@@ -867,6 +854,5 @@ describe Activity, type: :model, redis: true do
     context 'the activity has no translations' do
       it { expect(subject).to eq(activity.data) }
     end
-
   end
 end

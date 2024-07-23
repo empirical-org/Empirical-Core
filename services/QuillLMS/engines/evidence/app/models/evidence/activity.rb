@@ -19,7 +19,6 @@
 #  index_comprehension_activities_on_parent_activity_id  (parent_activity_id)
 #
 module Evidence
-
   class Activity < ApplicationRecord
     self.table_name = 'comprehension_activities'
 

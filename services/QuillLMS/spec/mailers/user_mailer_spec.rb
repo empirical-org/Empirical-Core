@@ -126,7 +126,6 @@ describe UserMailer, type: :mailer do
         expect(mail.from).to eq(['hello@quill.org'])
       end
     end
-
   end
 
   describe 'declined_renewal_email' do
@@ -235,7 +234,6 @@ describe UserMailer, type: :mailer do
     end
 
     it 'should set the subject, receiver and the sender' do
-
       expect(subject.to).to eq [email]
 
       # Refer to constants to make coupling with string explicit

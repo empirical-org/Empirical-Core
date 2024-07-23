@@ -51,5 +51,3 @@ RSpec.describe VitallyIntegration::UnlinkUserWorker do
     subject
   end
 end
-
-

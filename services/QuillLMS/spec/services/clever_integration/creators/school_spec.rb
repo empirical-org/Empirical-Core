@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'CleverIntegration::Creators::School' do
-
   let!(:nces_school) { create(:school, nces_id: 'NCES_ID') }
   let!(:clever_school) { create(:school, nces_id: nil, clever_id: 'CLEVER_ID') }
 
@@ -59,4 +58,3 @@ describe 'CleverIntegration::Creators::School' do
     expect(school).to be_nil
   end
 end
-

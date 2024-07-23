@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe SerializeEvidenceActivityHealth do
-
   before do
     @activity = create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1)
     @activity.update(flag: 'production')
@@ -125,5 +124,4 @@ RSpec.describe SerializeEvidenceActivityHealth do
     expect(data[:so_final_optimal]).to eq(nil)
     expect(data[:avg_completion_time]).to eq(nil)
   end
-
 end

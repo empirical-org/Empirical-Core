@@ -181,5 +181,4 @@ class ActivitySearchWrapper
     h[:id] = classification_id
     h
   end
-
 end

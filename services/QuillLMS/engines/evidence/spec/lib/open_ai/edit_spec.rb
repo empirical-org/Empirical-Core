@@ -26,7 +26,6 @@ module Evidence
 
     subject { described_class.new(input: input, temperature: temperature, count: count, instruction: instruction) }
 
-
     describe '#new' do
       it 'should initialize as expected' do
         expect(subject.input).to eq(input)

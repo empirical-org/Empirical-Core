@@ -144,7 +144,5 @@ class TeachersController < ApplicationController
   private def teacher_params
     params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email)
            .merge({ role: User::TEACHER })
-
   end
-
 end

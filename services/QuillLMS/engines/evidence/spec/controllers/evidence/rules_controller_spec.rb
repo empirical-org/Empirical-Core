@@ -18,7 +18,6 @@ module Evidence
     end
 
     context 'should index' do
-
       it 'should return successfully - no rule' do
         get :index, params: { rule_type: Rule::TYPE_REGEX_ONE }
         parsed_response = JSON.parse(response.body)
@@ -326,7 +325,6 @@ module Evidence
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['hint']['id']).to(eq(hint.id))
       end
-
     end
 
     context 'should show' do

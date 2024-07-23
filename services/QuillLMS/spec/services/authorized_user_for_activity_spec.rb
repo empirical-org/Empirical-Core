@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe AuthorizedUserForActivity do
-
   it 'returns true when user is staff' do
     user = create(:user, role: 'staff')
     session = create(:activity_session, user: user)

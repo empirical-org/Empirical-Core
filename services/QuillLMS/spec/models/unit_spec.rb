@@ -69,7 +69,6 @@ describe Unit, type: :model do
   end
 
   describe 'the name field' do
-
     context 'it should be unique' do
       it 'at the teacher level' do
         non_uniq_unit = Unit.create(name: unit.name, user: teacher)

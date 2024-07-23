@@ -23,14 +23,11 @@
 #  index_zipcode_infos_on_zipcode  (zipcode) UNIQUE
 #
 class ZipcodeInfo < ApplicationRecord
-
-
   # Takes a tuple of (lat, lng) where lng and lat are floats, and a distance in
   # miles. Returns a list of zipcodes near the point.
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def self.isinradius(point, distance)
-
     zips_in_radius = []
 
     unless point.is_a? Array and point.length == 2 and point.all? { |e| e.is_a?(Float) }
@@ -77,7 +74,6 @@ class ZipcodeInfo < ApplicationRecord
     end
 
     zips_in_radius
-
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 end

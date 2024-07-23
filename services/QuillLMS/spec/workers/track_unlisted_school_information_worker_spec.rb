@@ -26,5 +26,4 @@ describe TrackUnlistedSchoolInformationWorker, type: :worker do
     expect(analytics).not_to receive(:track_teacher_school_not_listed)
     worker.perform(nil, school_name, zipcode)
   end
-
 end

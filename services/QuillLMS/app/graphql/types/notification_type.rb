@@ -11,5 +11,4 @@ class Types::NotificationType < Types::BaseObject
   def href
     object.meta['href']
   end
-
 end

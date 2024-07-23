@@ -191,5 +191,4 @@ class UserMailer < ActionMailer::Base
     }
     @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
-
 end

@@ -285,7 +285,6 @@ describe GrowthResultsSummary do
         ]
       )
     end
-
   end
 
   describe '#skill_groups_for_session' do
@@ -391,6 +390,5 @@ describe GrowthResultsSummary do
       skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq []
     end
-
   end
 end

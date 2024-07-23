@@ -51,11 +51,9 @@ describe User, type: :model do
         coteacher = ct.user
         expect(teacher.classrooms_i_own_that_a_specific_user_coteaches_with_me(coteacher.id)).to eq([classroom])
       end
-
     end
 
     describe '#classrooms_i_own_that_have_coteachers' do
-
       it 'returns an empty array if a user owns no classrooms with coteachers' do
         expect(teacher.classrooms_i_own_that_have_coteachers).to eq([])
       end
@@ -75,7 +73,6 @@ describe User, type: :model do
     end
 
     describe '#classrooms_i_own_that_have_pending_coteacher_invitations' do
-
       it 'returns an empty array if a user owns no classrooms with pending coteacher invitation' do
         expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq([])
       end
@@ -223,7 +220,6 @@ describe User, type: :model do
       end
 
       context '#handle_positive_classrooms_from_update_coteachers' do
-
         it 'adds new invitations to classrooms the teacher has not been invited to' do
           new_classroom = create(:classroom)
 
@@ -236,9 +232,6 @@ describe User, type: :model do
             .not_to change(CoteacherClassroomInvitation, :count)
         end
       end
-
-
-
     end
 
     describe '#archived_classrooms' do
@@ -396,7 +389,6 @@ describe User, type: :model do
 
       context 'when the school has a subscription' do
         describe 'and the teacher has a subscription' do
-
           let!(:user_sub) { create(:user_subscription, subscription: create(:subscription), user: teacher) }
 
           it "deletes the teacher's user_sub when the teachers changes school" do
@@ -462,7 +454,6 @@ describe User, type: :model do
           end
         end
       end
-
 
       context 'user has never had a subscription' do
         it "returns 'none'" do
@@ -619,7 +610,6 @@ describe User, type: :model do
 
   context 'callbacks' do
     describe '#update_ortto_newsletter_subscription_status' do
-
       it 'should call UpdateNewsletterSubscriptionStatusWorker when User.send_newsletter is changed false -> true' do
         teacher = create(:teacher, send_newsletter: false)
         expect(OrttoIntegration::UpdateNewsletterSubscriptionStatusWorker).to receive(:perform_async).with(teacher.email, true).once

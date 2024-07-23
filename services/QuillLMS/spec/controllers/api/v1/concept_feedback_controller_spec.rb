@@ -26,7 +26,6 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
           .reduce({}) { |agg, q| agg.update({ q.uid => q.as_json }) }
       )
     end
-
   end
 
   describe "#translations" do
@@ -107,7 +106,6 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
         end
       end
     end
-
   end
 
   describe '#show' do

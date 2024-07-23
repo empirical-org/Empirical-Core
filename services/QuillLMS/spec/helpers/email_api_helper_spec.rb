@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe EmailApiHelper do
-
   start_time = Time.current.yesterday.beginning_of_day
   end_time = Time.current.yesterday.end_of_day
   mock_nps_response = {
@@ -77,5 +76,4 @@ describe EmailApiHelper do
       get_intercom_data(start_time, end_time)
     end
   end
-
 end

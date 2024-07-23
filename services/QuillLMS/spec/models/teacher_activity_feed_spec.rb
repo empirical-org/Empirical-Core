@@ -4,7 +4,6 @@ require 'rails_helper'
 
 describe TeacherActivityFeed, type: :model do
   describe 'redis feed model without callback' do
-
     let(:activity_session) { create(:activity_session, percentage: 0.90, completed_at: 5.minutes.ago) }
     let(:activity_session2) { create(:activity_session, percentage: 0.66, completed_at: 2.minutes.ago) }
 
@@ -79,7 +78,6 @@ describe TeacherActivityFeed, type: :model do
         expect(data[2][:id]).to eq(activity_session2.id)
       end
     end
-
   end
 
   describe '#text_for_score' do
@@ -139,7 +137,6 @@ describe TeacherActivityFeed, type: :model do
         expect(text).to eq(ActivitySession::RARELY_DEMONSTRATED_SKILL)
       end
     end
-
   end
 
   describe '#text_for_completed' do

@@ -2,7 +2,6 @@
 
 module Evidence
   class Profanity
-
     # Returns: string | nil
     def self.profane(entry)
       # find the badword substrings that exist in the entry
@@ -41,6 +40,5 @@ module Evidence
         stripped_badword == word
       end
     end
-
   end
 end

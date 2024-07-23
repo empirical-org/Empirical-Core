@@ -288,7 +288,6 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
     concept_results.group_by{ |cr| cr.question_number }.map { |key, cr|
-
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
       cr.sort!{ |x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
@@ -528,5 +527,4 @@ module PublicProgressReports
 
     CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
   end
-
 end

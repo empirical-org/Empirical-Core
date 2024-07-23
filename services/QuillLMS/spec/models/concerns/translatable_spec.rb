@@ -20,7 +20,6 @@ RSpec.describe Translatable do
       end
 
       private def config_file = Rails.root.join('app/models/translation_config/concept_feedback.yml')
-
     end
   end
 
@@ -288,5 +287,4 @@ RSpec.describe Translatable do
       expect(translatable_object.send(:examples)).to match('1. English: "Combine the sentences')
     end
   end
-
 end

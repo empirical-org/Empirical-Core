@@ -44,7 +44,6 @@ describe GradesController do
       # in a convoluted way
       expect(json_response[:sessions].first[:completed_at].to_datetime.to_i)
         .to eq((activity_session.reload.completed_at + teacher.utc_offset.seconds).to_datetime.to_i)
-
     end
   end
 end

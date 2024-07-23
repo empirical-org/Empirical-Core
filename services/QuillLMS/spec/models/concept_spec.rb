@@ -18,7 +18,6 @@
 require 'rails_helper'
 
 describe Concept, type: :model do
-
   it { should have_many(:change_logs) }
   it { should have_many(:diagnostic_question_optimal_concepts).dependent(:destroy) }
 

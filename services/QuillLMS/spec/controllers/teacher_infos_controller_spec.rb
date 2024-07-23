@@ -59,5 +59,4 @@ describe TeacherInfosController do
       end
     end
   end
-
 end

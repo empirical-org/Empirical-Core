@@ -16,7 +16,6 @@ describe PopulateAllActivityHealthsWorker do
   let(:activity_archived) { create(:activity, activity_classification_id: connect.id, flags: '{archived}') }
 
   describe '#perform' do
-
     it 'should kick off populate activity health worker jobs spread out by interval' do
       stub_const('PopulateAllActivityHealthsWorker::INTERVAL', 5)
 

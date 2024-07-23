@@ -62,5 +62,4 @@ class ClassroomsTeachersController < ApplicationController
       invited_to_coteach: current_user.classroom_ids_i_have_invited_a_specific_teacher_to_coteach(selected_teacher_id)
     }
   end
-
 end

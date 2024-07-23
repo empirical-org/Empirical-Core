@@ -42,5 +42,4 @@ class Invitation < ApplicationRecord
 
     errors.add(:base, "User #{inviter_id} has reached the maximum of #{MAX_COTEACHER_INVITATIONS_PER_TIME} coteacher invitations that they can issue in a #{MAX_COTEACHER_INVITATIONS_PER_TIME_LIMIT_RESET_HOURS} hour period")
   end
-
 end

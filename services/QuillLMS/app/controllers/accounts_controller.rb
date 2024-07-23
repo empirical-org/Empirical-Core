@@ -54,7 +54,6 @@ class AccountsController < ApplicationController
       errors = @user.errors
       render json: { errors: errors }, status: 422
     end
-
   end
 
   protected def user_params

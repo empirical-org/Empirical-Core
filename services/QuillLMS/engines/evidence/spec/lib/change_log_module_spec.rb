@@ -4,7 +4,6 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(ChangeLog, :type => :module) do
-
     before do
       @activity = create(:evidence_activity)
       @prompt = create(:evidence_prompt, activity: @activity)

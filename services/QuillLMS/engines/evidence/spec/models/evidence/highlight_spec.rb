@@ -16,9 +16,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Highlight, :type => :model) do
-
     context 'should validations' do
-
       it { should validate_presence_of(:text) }
 
       it { should validate_length_of(:text).is_at_least(1).is_at_most(5000) }
@@ -31,7 +29,6 @@ module Evidence
     end
 
     context 'should relationships' do
-
       it { should belong_to(:feedback) }
     end
 

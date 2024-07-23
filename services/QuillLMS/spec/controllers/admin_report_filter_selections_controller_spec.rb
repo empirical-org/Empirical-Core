@@ -32,7 +32,6 @@ RSpec.describe AdminReportFilterSelectionsController, type: :controller do
 
   describe 'POST #show' do
     context 'with valid params' do
-
       it 'returns the requested admin report filter selection' do
         admin_report_filter_selection = create(:admin_report_filter_selection, valid_model_attributes)
 

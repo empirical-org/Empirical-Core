@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe OneOffBanner, type: :model do
-
   it 'does return false for show? when the key does not have an associated webinar' do
     time =  DateTime.new(2020,1,1,11,0,0)
     banner = OneOffBanner.new(time)

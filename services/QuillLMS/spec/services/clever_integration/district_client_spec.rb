@@ -96,6 +96,3 @@ RSpec.describe CleverIntegration::DistrictClient do
     end
   end
 end
-
-
-

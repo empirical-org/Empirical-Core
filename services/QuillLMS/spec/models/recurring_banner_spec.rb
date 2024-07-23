@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe RecurringBanner, type: :model do
-
   it 'does return false for show? when the key does not have an associated webinar' do
     time =  DateTime.new(2020,1,1,11,0,0)
     banner = RecurringBanner.new(time)
@@ -28,5 +27,4 @@ describe RecurringBanner, type: :model do
     banner = RecurringBanner.new(time)
     expect(banner.show?(true)).to eq(false)
   end
-
 end

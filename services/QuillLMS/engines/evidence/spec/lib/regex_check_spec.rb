@@ -10,7 +10,6 @@ module Evidence
     let!(:feedback) { create(:evidence_feedback, :rule => (rule), :text => 'This string begins with the word Test!') }
 
     context 'should #initialize' do
-
       it 'should should have working accessor methods for all initialized fields' do
         regex_check = Evidence::RegexCheck.new('entry', prompt, rule.rule_type)
         expect(regex_check.entry).to(eq('entry'))
@@ -19,7 +18,6 @@ module Evidence
     end
 
     context 'should #feedback_object' do
-
       it 'should return optimal blank feedback when there is no regex match' do
         $redis.redis.flushdb
         optimal_rule = create(:evidence_rule, :rule_type => 'rules-based-1', :optimal => true)

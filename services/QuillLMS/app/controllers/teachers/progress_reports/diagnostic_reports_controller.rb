@@ -341,5 +341,4 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   private def set_lesson_diagnostic_recommendations_start_time
     $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
   end
-
 end

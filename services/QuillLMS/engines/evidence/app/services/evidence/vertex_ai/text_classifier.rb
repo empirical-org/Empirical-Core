@@ -12,7 +12,6 @@ module Evidence
         Google::Cloud::DeadlineExceededError
       ].freeze
 
-
       PREDICTION_NUM_RETRIES = 1
 
       attr_reader :endpoint_external_id, :project, :text
@@ -31,7 +30,6 @@ module Evidence
           .values
           .map(&:number_value)
       end
-
 
       private def prediction
         @prediction ||=

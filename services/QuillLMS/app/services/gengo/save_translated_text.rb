@@ -55,6 +55,5 @@ module Gengo
         locale:
       )
     end
-
   end
 end

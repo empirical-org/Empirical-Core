@@ -97,7 +97,6 @@ class ProgressReports::Standards::NewStandard
     SQL
   end
 
-
   private def standard_conditional
     "AND activities.standard_id = #{@standard_id}" if @standard_id
   end

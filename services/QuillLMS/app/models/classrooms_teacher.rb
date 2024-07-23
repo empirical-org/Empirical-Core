@@ -45,5 +45,4 @@ class ClassroomsTeacher < ApplicationRecord
   private def reset_lessons_cache_for_teacher
     ResetLessonCacheWorker.perform_async(user_id)
   end
-
 end

@@ -39,5 +39,4 @@ FactoryBot.define do
       activities              { build_list(:activity, 3) }
     end
   end
-
 end

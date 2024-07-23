@@ -55,7 +55,6 @@ describe ActivitiesController, type: :controller, redis: true do
     end
 
     context 'when no current user' do
-
       before do
         allow(controller).to receive(:current_user) { nil }
       end
@@ -231,7 +230,6 @@ describe ActivitiesController, type: :controller, redis: true do
     end
 
     context 'when user is flagged evidence beta 2' do
-
       it 'should return all production and evidence beta 2 evidence activities' do
         user.update(flagset: Flags::EVIDENCE_BETA2)
         get :suggested_activities

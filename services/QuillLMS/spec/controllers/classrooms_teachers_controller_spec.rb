@@ -10,7 +10,6 @@ describe ClassroomsTeachersController, type: :controller do
 
   let(:user) { create(:user) }
 
-
   describe '#edit_coteacher_form' do
     let(:classroom) { create(:classroom) }
     let(:edit_info_for_teacher) do

@@ -37,7 +37,6 @@ class Api::V1::TeacherNotificationSettingsController < ApplicationController
     }
   end
 
-
   private def set_current_settings
     @current_settings = TeacherNotificationSetting.where(user: current_user)
   end

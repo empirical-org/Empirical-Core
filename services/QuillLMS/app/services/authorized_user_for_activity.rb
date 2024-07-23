@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class AuthorizedUserForActivity
-
   def initialize(current_user, activity_session)
     @current_user = current_user
     @activity_session = activity_session

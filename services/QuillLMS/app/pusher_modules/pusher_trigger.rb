@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PusherTrigger
-
   def self.run(channel, event, message)
     pusher_client = Pusher::Client.new(
       app_id: ENV['PUSHER_APP_ID'],
@@ -16,5 +15,4 @@ module PusherTrigger
       message: message
      )
   end
-
 end

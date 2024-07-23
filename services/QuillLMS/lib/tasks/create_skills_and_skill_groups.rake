@@ -1226,5 +1226,4 @@ namespace :skills_and_skill_groups do
       }
     ]
   end
-
 end

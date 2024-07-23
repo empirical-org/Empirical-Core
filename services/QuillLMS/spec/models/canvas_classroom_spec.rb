@@ -39,7 +39,6 @@ RSpec.describe CanvasClassroom, type: :model do
 
     subject { canvas_classroom.classroom_external_id }
 
-
     it { is_expected.to eq [canvas_instance_id, external_id].join(':') }
   end
 

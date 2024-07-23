@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe Feature do
-
   describe '#in_day_bucket?' do
     it 'should meet expectations for 50%' do
       date = Date.parse('2000-01-01')

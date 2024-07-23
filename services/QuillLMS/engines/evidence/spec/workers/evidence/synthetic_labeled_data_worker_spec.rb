@@ -15,7 +15,6 @@ module Evidence
     subject { described_class.new }
 
     context 'perform' do
-
       let(:filename) { 'test.csv' }
       let(:mock_uploader) { double(file: file) }
       let(:file) { fixture_file_upload(filename) }
@@ -28,7 +27,6 @@ module Evidence
       let(:mailer) { double('mailer', deliver_now!: true) }
 
       it 'call generate and call file_mailer' do
-
         expect(FileUploader).to receive(:new).and_return(mock_uploader)
         expect(mock_uploader).to receive(:retrieve_from_store!).with(filename)
 

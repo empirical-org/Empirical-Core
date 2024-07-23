@@ -100,7 +100,6 @@ class Activity < ApplicationRecord
 
   FLAGS_ATTRIBUTE = 'flags'
 
-
   scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)") }
   scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)") }
   scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)") }
@@ -441,5 +440,4 @@ class Activity < ApplicationRecord
   private def populate_question_count
     self.question_count = QuestionCounter.run(self)
   end
-
 end

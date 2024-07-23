@@ -39,5 +39,4 @@ class ProgressReports::Standards::StandardSerializer < ApplicationSerializer
   def mastery_status
     ProficiencyEvaluator.evaluate(average_score)
   end
-
 end

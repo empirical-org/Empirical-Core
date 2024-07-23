@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe Api::V1::FirebaseTokensController, type: :controller do
-
   context 'POST #create' do
     let!(:app) { FirebaseApp.create!(name: 'foobar', secret: '12345abcde') }
     let!(:user) { create(:student) }

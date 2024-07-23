@@ -89,6 +89,5 @@ module Evidence
         category: ''
       }]
     end
-
   end
 end

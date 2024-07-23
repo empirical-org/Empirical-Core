@@ -2,7 +2,6 @@
 
 module Snapshots
   class StudentLearningHoursQuery < ReportingSessionCountQuery
-
     # BI Engine seems to have an issue using RAM for SUM()
     # Adding * 1 causes BI Engine to use RAM for some reason
     def select_clause

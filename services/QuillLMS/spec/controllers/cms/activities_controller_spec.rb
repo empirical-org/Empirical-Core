@@ -17,7 +17,6 @@ describe Cms::ActivitiesController, type: :controller do
   let(:activity_category) { create(:activity_category) }
   let(:standard) { create(:standard) }
 
-
   describe '#index' do
     before { allow_any_instance_of(ActivityClassification).to receive(:activities) { activities } }
 

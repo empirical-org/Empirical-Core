@@ -28,7 +28,6 @@ shared_context 'Student Concept Progress Report' do
                                 activity: activity,
                                 unit: unit)}
 
-
   # Create 2 activity session for each student, one with the concept tags, one without
   let(:alice_session) { create(:activity_session,
                                       classroom_unit: classroom_unit,

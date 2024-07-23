@@ -137,7 +137,6 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
         expect(subject).not_to include('admin')
       end
     end
-
   end
 
   describe '#initialize' do

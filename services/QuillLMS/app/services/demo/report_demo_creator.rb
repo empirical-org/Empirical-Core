@@ -378,7 +378,6 @@ module Demo::ReportDemoCreator
         question_type: question_type&.text
       })
     end
-
   end
 
   def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
