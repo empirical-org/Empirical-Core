@@ -3,6 +3,11 @@ import { mockFocusPointApi, } from '../__mocks__/focus_point_api'
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api'
 import { mockLessonApi, } from '../__mocks__/lesson_api'
 import { mockQuestionApi, } from '../__mocks__/question_api'
+import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api'
+import { SENTENCE_FRAGMENTS_TYPE } from '../../libs/questions_api'
+import questionActions from '../../actions/sentenceFragments'
+
 jest.mock('../../libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
 }))
@@ -11,13 +16,6 @@ jest.mock('../../libs/questions_api', () => ({
   IncorrectSequenceApi: mockIncorrectSequenceApi,
   QuestionApi: mockQuestionApi,
 }))
-
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
-import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api'
-import { SENTENCE_FRAGMENTS_TYPE } from '../../libs/questions_api'
-
-import questionActions from '../../actions/sentenceFragments'
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
@@ -30,7 +28,7 @@ describe('Questions actions', () => {
   describe('submitNewQuestion', () => {
     it('should call QuestionApi.getAll()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
-      dispatch(questionActions.submitNewSentenceFragment(MOCK_CONTENT, "", "123abc"))
+      dispatch(questionActions.submitNewSentenceFragment(MOCK_CONTENT, {}, "123abc"))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_FRAGMENTS_TYPE, MOCK_CONTENT)
     })
 

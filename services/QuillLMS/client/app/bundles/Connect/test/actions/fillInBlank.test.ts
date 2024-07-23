@@ -3,6 +3,11 @@ import { mockFocusPointApi, } from '../__mocks__/focus_point_api'
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api'
 import { mockLessonApi, } from '../__mocks__/lesson_api'
 import { mockQuestionApi, } from '../__mocks__/question_api'
+import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
+import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api'
+import { FILL_IN_BLANKS_TYPE } from '../../libs/questions_api'
+import questionActions from '../../actions/fillInBlank'
+
 jest.mock('../../libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,
@@ -11,13 +16,6 @@ jest.mock('../../libs/questions_api', () => ({
 jest.mock('../../libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
 }))
-
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
-import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api'
-import { FILL_IN_BLANKS_TYPE } from '../../libs/questions_api'
-
-import questionActions from '../../actions/fillInBlank'
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
@@ -30,7 +28,7 @@ describe('Questions actions', () => {
   describe('submitNewQuestion', () => {
     it('should call QuestionApi.getAll()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
-      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, "", "testKey"))
+      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, {}, "testKey"))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(FILL_IN_BLANKS_TYPE, MOCK_CONTENT)
     })
 

@@ -283,8 +283,9 @@ jobs:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
     parallelism: 4
+    resource_class: xlarge
     docker:
-      - image: cimg/node:14.21
+      - image: cimg/node:16.20
     steps:
       - run:
           <<: *blank_required_step
@@ -316,7 +317,7 @@ jobs:
                 command: |
                   cd services/QuillLMS/client
                   TESTFILES=$(circleci tests glob "app/**/*.{test.*,spec.ts}" | circleci tests split)
-                  node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
+                  node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=8 --logHeapUsage
   cms_rails_build:
     parameters:
       <<: *should_run_params
@@ -526,7 +527,6 @@ parameters:
   marking-logic-run:
     type: boolean
     default: false
-
 
 # here we specify our workflows, most of which are conditionally
 # executed based upon pipeline parameter values. Each workflow calls a
