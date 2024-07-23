@@ -1,8 +1,20 @@
 .content-hub-course-page-container {
   padding-top: 32px;
 
+  .quill-tooltip {
+    font-size: 12px;
+    line-height: normal;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
   .overview {
-    margin-top: 32px;
+    margin: 32px 0px 80px;
     display: flex;
     gap: 48px;
     h1 {
@@ -28,8 +40,6 @@
       margin-top: 8px;
     }
     .quill-tooltip {
-      font-size: 14px;
-      line-height: 22px;
       a {
         color: white;
         text-decoration: underline;
@@ -38,13 +48,159 @@
   }
 
   .course-page-pie-chart {
-    .activity-analysis-pie-chart {
-      border-radius: 50%;
-      box-shadow: 0 0 0 2px $quillblue inset;
-      margin-right: 10px;
-      transform: rotate(-90deg);
-      vertical-align: text-bottom;
-      width: 18px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px $quillblue inset;
+    margin-right: 4px;
+    transform: rotate(-90deg);
+    vertical-align: text-bottom;
+    width: 18px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .toggle-buttons {
+    gap: 8px;
+    display: flex;
+  }
+
+  .course-page-unit-template {
+    margin-top: 32px;
+    border-radius: 8px;
+    border: 1px solid $quill-grey-15;
+    padding: 24px 0px;
+    position: relative;
+
+    h3 {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+
+    h4 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: normal;
+      padding-left: 24px;
+    }
+
+    .name-and-buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 24px;
+      align-items: center;
+      gap: 16px;
+
+      .quill-button {
+        margin-right: 48px;
+      }
+
+      .interactive-wrapper {
+        position: absolute;
+        right: 24px;
+        top: 32px;
+      }
+    }
+
+    .unit-template-description {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      max-width: 980px;
+      padding: 0px 24px;
+      margin-top: 16px;
+    }
+
+    .quill-resource-links {
+      display: flex;
+      gap: 8px;
+      padding: 24px;
+      border-bottom: 1px solid $quill-grey-15;
+    }
+
+  }
+
+  .activities-section {
+    padding: 24px 0px;
+  }
+
+  .course-page-activity {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    justify-content: space-between;
+    border-bottom: 1px solid $quill-grey-15;
+    padding: 32px 24px;
+
+    .evidence-img {
+      @include quill-grey-30-filter;
+    }
+
+    .activity-information {
+      width: 100%;
+
+      h5 {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        color: $quill-green;
+      }
+
+      p {
+        line-height: normal;
+        margin: 16px 0px;
+      }
+
+      .oer-asset-line {
+        font-weight: 700;
+        margin-bottom: 0px;
+        a {
+          font-weight: 400;
+          text-decoration-line: underline;
+          color: $quill-green;
+        }
+      }
+    }
+
+    .results-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      .quill-button {
+        margin-bottom: 16px;
+      }
+      p {
+        white-space: nowrap;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+    }
+
+    &:first-of-type {
+      padding-top: 24px;
+    }
+  }
+
+  .oer-resources-section .links {
+    margin: 16px 24px 8px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .partner-section {
+    margin-top: 32px;
+
+    p {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      margin: 16px 0px;
     }
   }
 
@@ -54,6 +210,17 @@
       .quill-tooltip-trigger {
         margin: 8px 0px;
       }
+    }
+  }
+
+  @media (max-width: 700px) {
+    .section-header {
+      flex-direction: column;
+    }
+
+    .course-page-unit-template .name-and-buttons {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 }

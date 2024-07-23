@@ -314,6 +314,10 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   filter: invert(22%) sepia(62%) saturate(6162%) hue-rotate(164deg) brightness(95%) contrast(95%);
 }
 
+@mixin quill-grey-30-filter {
+  filter: invert(53%) sepia(0%) saturate(201%) hue-rotate(161deg) brightness(100%) contrast(94%);
+}
+
 .wf-loading {
   visibility: hidden;
 }

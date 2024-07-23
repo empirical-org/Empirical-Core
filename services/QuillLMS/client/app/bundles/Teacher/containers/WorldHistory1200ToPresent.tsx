@@ -50,7 +50,7 @@ const CoursePageActivity = ({ activity, }) => {
   }
 
   let resultsSection = (
-    <div>
+    <div className="results-section">
       <Tooltip
         tooltipText="There are no assigned activities. Once activities are assigned and completed, you can view results."
         tooltipTriggerText={<button className="quill-button focus-on-light small contained disabled" disabled={true}>View results</button>}
@@ -60,7 +60,7 @@ const CoursePageActivity = ({ activity, }) => {
 
   if (link_for_report) {
     resultsSection = (
-      <div>
+      <div className="results-section">
         <a className="quill-button focus-on-light small contained green" href={link_for_report}>View results</a>
         <p>{renderPieChart()} {completed_student_count} of {assigned_student_count} student{assigned_student_count === 1 ? '' : 's'} completed</p>
         {average_score && <p>Average score: {average_score}%</p>}
@@ -69,9 +69,9 @@ const CoursePageActivity = ({ activity, }) => {
   }
 
   return (
-    <div>
-      <img alt="" src={evidenceImgSrc} />
-      <div>
+    <div className="course-page-activity">
+      <img alt="" className="evidence-img" src={evidenceImgSrc} />
+      <div className="activity-information">
         <h5>{display_name}</h5>
         <p>{description}</p>
         {paired_oer_asset_link && paired_oer_asset_name && (
@@ -93,7 +93,7 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
   const isExpanded = expandedUnitTemplateIds.includes(unit_template_id)
 
   let previewAndAssignButton = <button className="quill-button medium contained disabled focus-on-light" disabled={true}>Coming Soon</button>
-  let expandOrCollapseButton = <div className="expand-or-collapse-button-placeholder" />
+  let expandOrCollapseButton
 
   if (unit_template_id) {
     let previewAndAssignButtonClassName = "quill-button medium green focus-on-light "
@@ -122,10 +122,10 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
 
   if (isExpanded) {
     quillResourceLinks = (
-      <React.Fragment>
+      <div className="quill-resource-links">
         <QuillResourceLink href={quill_teacher_guide_href} text="Quill Teacher Guide" />
         <QuillResourceLink href={all_quill_articles_href} text="Download all unit texts" />
-      </React.Fragment>
+      </div>
     )
 
     activitiesSection = (
@@ -138,9 +138,11 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
     oerResourcesSection = oer_unit_number && (
       <div className="oer-resources-section">
         <h4>OER Project Aligned Resources</h4>
-        <a className="quill-button focus-on-light small outlined grey" href={oer_unit_website} target='_blank' rel='noopener noreferrer'>OER Unit {oer_unit_number} website</a>
-        <a className="quill-button focus-on-light small outlined grey" href={oer_unit_teacher_guide} target='_blank' rel='noopener noreferrer'>OER Unit {oer_unit_number} teacher guide</a>
-        <a className="quill-button focus-on-light small outlined grey" href={all_oer_articles} target='_blank' rel='noopener noreferrer'>Download all OER Unit {oer_unit_number} articles</a>
+        <div className="links">
+          <a className="quill-button focus-on-light small outlined grey" href={oer_unit_website} target='_blank' rel='noopener noreferrer'>OER Unit {oer_unit_number} website</a>
+          <a className="quill-button focus-on-light small outlined grey" href={oer_unit_teacher_guide} target='_blank' rel='noopener noreferrer'>OER Unit {oer_unit_number} teacher guide</a>
+          <a className="quill-button focus-on-light small outlined grey" href={all_oer_articles} target='_blank' rel='noopener noreferrer'>Download all OER Unit {oer_unit_number} articles</a>
+        </div>
       </div>
     )
   }
@@ -196,7 +198,8 @@ const WorldHistory1200ToPresent = ({ unitTemplates, }) => {
   })
 
   return (
-    <div className="container content-hub-course-page-container">
+    <div className="container content-hub-course-page-container white-background-accommodate-footer">
+
       <a className="quill-button medium outlined grey icon focus-on-light" href="/social_studies"><img alt="" src={chevronLeftImgSrc} />View all social studies activities</a>
 
       <div className="overview">
@@ -221,6 +224,13 @@ const WorldHistory1200ToPresent = ({ unitTemplates, }) => {
       </div>
 
       {unitTemplateElements}
+
+      <div className="partner-section">
+        <h2>Paired with the OER Project for deeper learning</h2>
+        <p>OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. Want to learn more? Visit <a href="www.oerproject.com" rel="noopener noreferrer" target="_blank">www.oerproject.com</a>!</p>
+        <a className="quill-button medium outlined grey focus-on-light" href="/social_studies">Learn More About Quill’s Social Studies Activities</a>
+      </div>
+
     </div>
   )
 }
