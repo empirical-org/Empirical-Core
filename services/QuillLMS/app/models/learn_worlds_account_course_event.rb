@@ -31,7 +31,7 @@ class LearnWorldsAccountCourseEvent < ApplicationRecord
   belongs_to :learn_worlds_account
   belongs_to :learn_worlds_course
 
-  validates :event_type, inclusion: { in: EVENT_TYPES}
+  validates :event_type, inclusion: { in: EVENT_TYPES }
   validates :learn_worlds_account_id, presence: true
   validates :learn_worlds_course_id, presence: true
 

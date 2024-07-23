@@ -9,16 +9,16 @@ end
 describe FakeController, type: :controller do
 
   describe 'link generation methods' do
-    let!(:classroom) { create(:classroom, name: DemoAccountBannerLinkGenerator::DEMO_ACCOUNT_CLASSROOM_NAME ) }
+    let!(:classroom) { create(:classroom, name: DemoAccountBannerLinkGenerator::DEMO_ACCOUNT_CLASSROOM_NAME) }
     let!(:owner) { classroom.owner }
     let!(:post_test_activity) { create(:diagnostic_activity) }
-    let!(:pre_test_activity) { create(:diagnostic_activity, id: Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: post_test_activity.id )}
+    let!(:pre_test_activity) { create(:diagnostic_activity, id: Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID, follow_up_activity_id: post_test_activity.id) }
     let!(:pre_test_unit) { create(:unit, user_id: owner.id) }
     let!(:pre_test_unit_activity) { create(:unit_activity, unit: pre_test_unit, activity: pre_test_activity) }
-    let!(:pre_test_classroom_unit) { create(:classroom_unit, classroom: classroom, unit: pre_test_unit)}
+    let!(:pre_test_classroom_unit) { create(:classroom_unit, classroom: classroom, unit: pre_test_unit) }
     let!(:post_test_unit) { create(:unit, user_id: owner.id) }
     let!(:post_test_unit_activity) { create(:unit_activity, unit: post_test_unit, activity: post_test_activity) }
-    let!(:post_test_classroom_unit) { create(:classroom_unit, classroom: classroom, unit: post_test_unit)}
+    let!(:post_test_classroom_unit) { create(:classroom_unit, classroom: classroom, unit: post_test_unit) }
 
 
     before do

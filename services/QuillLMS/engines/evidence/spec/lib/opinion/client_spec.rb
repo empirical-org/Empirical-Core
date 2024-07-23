@@ -8,7 +8,7 @@ module Evidence
       let(:mock_endpoint) { 'https://www.opinion.com' }
       let(:client) { Opinion::Client.new(entry: '', prompt_text: '') }
       # include headers in response for proper parsing by HTTParty
-      let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
+      let(:sample_response) { { body: '{}', headers: { content_type: 'application/json' } } }
 
       before do
         stub_const('Evidence::Opinion::Client::API_ENDPOINT', mock_endpoint)
@@ -24,7 +24,7 @@ module Evidence
         errored_response = sample_response.merge(status: 500)
         stub_request(:post, mock_endpoint).to_return(errored_response)
 
-        expect { client.post}.to raise_error(Evidence::Opinion::Client::APIError)
+        expect { client.post }.to raise_error(Evidence::Opinion::Client::APIError)
       end
 
       it 'should raise error if the retry fails' do

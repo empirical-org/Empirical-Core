@@ -19,7 +19,7 @@ describe Cms::UsersController do
 
     it 'should assign the search query, the results, and number of spaces' do
       get :index
-      expect(assigns(:user_search_query)).to eq({sort: 'last_sign_in', sort_direction: 'desc'})
+      expect(assigns(:user_search_query)).to eq({ sort: 'last_sign_in', sort_direction: 'desc' })
       expect(assigns(:user_search_query_results)).to eq []
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:index])
     end
@@ -29,16 +29,16 @@ describe Cms::UsersController do
 
     it 'should search for the users with given flagset' do
       get :search, params: { flagset: 'alpha' }
-      expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: {flagset: 'alpha'}}.to_json)
+      expect(response.body).to eq({ numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: { flagset: 'alpha' } }.to_json)
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('alpha')
     end
 
     context 'email search' do
-      let!(:search_user) {create(:user, email: 'test@testerson.com')}
+      let!(:search_user) { create(:user, email: 'test@testerson.com') }
 
       it 'should exact search a lower, trimmed version of email exact' do
-        post :search, params: { user_email_exact: '  Test@teStErson.CoM  '}, as: :json
+        post :search, params: { user_email_exact: '  Test@teStErson.CoM  ' }, as: :json
 
         json = JSON.parse(response.body)
 
@@ -112,7 +112,7 @@ describe Cms::UsersController do
     let!(:school) { create(:school) }
 
     it 'should create the school users and kick of the syn sales contact worker' do
-      post :create_with_school, params: { user: new_user.attributes.merge({password: 'test123'}), school_id: school.id }
+      post :create_with_school, params: { user: new_user.attributes.merge({ password: 'test123' }), school_id: school.id }
       expect(SchoolsUsers.last.school_id).to eq school.id
       expect(response).to redirect_to cms_school_path(school.id)
     end
@@ -176,7 +176,7 @@ describe Cms::UsersController do
 
     it 'should destroy the schoolsadmins' do
       put :remove_admin, params: { user_id: admin.id, school_id: school.id }
-      expect{SchoolsAdmins.find(schools_admin.id)}.to raise_exception ActiveRecord::RecordNotFound
+      expect{ SchoolsAdmins.find(schools_admin.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to 'http://example.com'
     end
   end
@@ -203,7 +203,7 @@ describe Cms::UsersController do
   describe '#new_subscription' do
     let!(:another_user) { create(:user) }
     let!(:user_with_no_subscription) { create(:user) }
-    let!(:subscription) { create(:subscription)}
+    let!(:subscription) { create(:subscription) }
     let!(:user_subscription) { create(:user_subscription, user: another_user, subscription: subscription) }
 
     describe 'when there is no existing subscription' do

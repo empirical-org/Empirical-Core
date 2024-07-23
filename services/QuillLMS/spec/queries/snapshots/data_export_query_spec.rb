@@ -7,10 +7,10 @@ module Snapshots
     include_context 'Snapshots Period CTE'
 
     context 'post query transforms' do
-      let(:stubbed_query_result) { [{completed_at: DateTime.new(2020, 1, 1, 1)}]}
+      let(:stubbed_query_result) { [{ completed_at: DateTime.new(2020, 1, 1, 1) }] }
 
       context 'user timezone exists' do
-        let(:user) { create(:user, time_zone: 'America/Chicago' )}
+        let(:user) { create(:user, time_zone: 'America/Chicago') }
 
         it 'should adjust the completed_at DateTime string for the given timezone' do
           query = DataExportQuery.new(**query_args.merge(user: user))

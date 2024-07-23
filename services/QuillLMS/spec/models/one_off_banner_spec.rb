@@ -38,10 +38,10 @@ describe OneOffBanner, type: :model do
   end
 
   describe 'custom_length' do
-    let(:hour_minute1) {DateTime.new(2022,8,15,10,1,0)}
-    let(:hour_minute30) {DateTime.new(2022,8,15,10,30,0)}
-    let(:banner_minute1) {OneOffBanner.new(hour_minute1)}
-    let(:banner_minute30) {OneOffBanner.new(hour_minute30)}
+    let(:hour_minute1) { DateTime.new(2022,8,15,10,1,0) }
+    let(:hour_minute30) { DateTime.new(2022,8,15,10,30,0) }
+    let(:banner_minute1) { OneOffBanner.new(hour_minute1) }
+    let(:banner_minute30) { OneOffBanner.new(hour_minute30) }
 
     let(:banner_config) do
       {
@@ -53,7 +53,7 @@ describe OneOffBanner, type: :model do
     end
 
     before do
-      stub_const('OneOffBanner::WEBINARS', {'8-15-10' => banner_config})
+      stub_const('OneOffBanner::WEBINARS', { '8-15-10' => banner_config })
     end
 
     it 'should show before the custom length ends' do

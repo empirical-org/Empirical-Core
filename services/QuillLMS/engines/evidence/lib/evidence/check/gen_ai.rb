@@ -24,7 +24,7 @@ module Evidence
 
         session
           .history_texts
-          .map {|fh| Evidence::OpenAI::Chat::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
+          .map { |fh| Evidence::OpenAI::Chat::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
       end
     end
   end

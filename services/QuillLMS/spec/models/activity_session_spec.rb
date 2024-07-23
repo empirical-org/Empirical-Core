@@ -118,7 +118,7 @@ describe ActivitySession, type: :model, redis: true do
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
       let(:follow_up_activity) { create(:activity) }
       let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
-      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity)}
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity) }
       let!(:activity_session) do
         create(:activity_session,
           activity: activity,
@@ -141,7 +141,7 @@ describe ActivitySession, type: :model, redis: true do
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
       let(:follow_up_activity) { create(:activity) }
       let(:activity) { create(:activity, follow_up_activity: follow_up_activity) }
-      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity, visible: false)}
+      let!(:unit_activity) { create(:unit_activity, unit: unit, activity: follow_up_activity, visible: false) }
       let!(:activity_session) do
         create(:activity_session,
           activity: activity,
@@ -283,7 +283,7 @@ describe ActivitySession, type: :model, redis: true do
     describe '#invalidate_activity_session_count_if_completed' do
       let!(:student){ create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-      let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated')}
+      let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
 
       before do
         $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
@@ -308,7 +308,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity){ create(:activity) }
       let!(:student){ create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
-      let!(:unit_activity ) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
+      let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
       let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
 
       it "must return the unit activity's activity" do
@@ -353,7 +353,7 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     context 'when unit_activity has a due date' do
-      let(:unit) { create(:unit)}
+      let(:unit) { create(:unit) }
       let(:classroom_unit) { create(:classroom_unit, unit: unit) }
       let(:unit_activity) { create(:unit_activity, unit: unit, due_date: 10.days.from_now) }
       let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: unit_activity.activity) }
@@ -396,7 +396,7 @@ describe ActivitySession, type: :model, redis: true do
     context 'when classroom_unit and unit_activity present' do
       context 'when due date present' do
         let(:student) { create(:student) }
-        let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id])}
+        let(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id]) }
         let(:unit_activity) { create(:unit_activity, unit: classroom_unit.unit, due_date: 2.days.from_now) }
 
         let(:activity_session) do
@@ -512,13 +512,13 @@ end
   describe 'search_sort_sql' do
     it 'should return the right string for the right field' do
       last_name = "substring(users.name, '(?=\s).*')"
-      expect(ActivitySession.search_sort_sql({field: 'activity_classification_name', direction: 'desc'})).to eq("activity_classifications.name desc, #{last_name} desc")
-      expect(ActivitySession.search_sort_sql({field: 'student_name', direction: 'desc'})).to eq("#{last_name} desc, users.name desc")
-      expect(ActivitySession.search_sort_sql({field: 'completed_at', direction: 'desc'})).to eq('activity_sessions.completed_at desc')
-      expect(ActivitySession.search_sort_sql({field: 'activity_name', direction: 'anything'})).to eq('activities.name asc')
-      expect(ActivitySession.search_sort_sql({field: 'percentage', direction: 'anything'})).to eq('activity_sessions.percentage asc')
-      expect(ActivitySession.search_sort_sql({field: 'standard', direction: 'anything'})).to eq('standards.name asc')
-      expect(ActivitySession.search_sort_sql({field: ''})).to eq("#{last_name} asc, users.name asc")
+      expect(ActivitySession.search_sort_sql({ field: 'activity_classification_name', direction: 'desc' })).to eq("activity_classifications.name desc, #{last_name} desc")
+      expect(ActivitySession.search_sort_sql({ field: 'student_name', direction: 'desc' })).to eq("#{last_name} desc, users.name desc")
+      expect(ActivitySession.search_sort_sql({ field: 'completed_at', direction: 'desc' })).to eq('activity_sessions.completed_at desc')
+      expect(ActivitySession.search_sort_sql({ field: 'activity_name', direction: 'anything' })).to eq('activities.name asc')
+      expect(ActivitySession.search_sort_sql({ field: 'percentage', direction: 'anything' })).to eq('activity_sessions.percentage asc')
+      expect(ActivitySession.search_sort_sql({ field: 'standard', direction: 'anything' })).to eq('standards.name asc')
+      expect(ActivitySession.search_sort_sql({ field: '' })).to eq("#{last_name} asc, users.name asc")
       expect(ActivitySession.search_sort_sql({})).to eq("#{last_name} asc, users.name asc")
     end
   end
@@ -538,12 +538,12 @@ end
     # This setup is very convoluted... the factories appear to be untrustworthy w/r/t generating extra records
     let!(:current_classroom) { create(:classroom_with_one_student) }
     let(:current_teacher) { current_classroom.owner }
-    let!(:current_student) {current_classroom.students.first}
-    let!(:current_teacher_classroom_unit) { create(:classroom_unit, classroom: current_classroom)}
+    let!(:current_student) { current_classroom.students.first }
+    let!(:current_teacher_classroom_unit) { create(:classroom_unit, classroom: current_classroom) }
     let!(:other_classroom) { create(:classroom_with_one_student) }
     let(:other_teacher) { other_classroom.owner }
-    let!(:other_student) {other_classroom.students.first}
-    let!(:other_teacher_classroom_unit) { create(:classroom_unit, classroom: other_classroom)}
+    let!(:other_student) { other_classroom.students.first }
+    let!(:other_teacher_classroom_unit) { create(:classroom_unit, classroom: other_classroom) }
 
     before do
       # Can't figure out why the setup above creates 2 activity sessions
@@ -669,12 +669,12 @@ end
   describe '#determine_if_final_score' do
     let!(:now) { DateTime.current.utc }
     let!(:starting_updated_at) { now - 1.hour }
-    let(:classroom) {create(:classroom)}
-    let(:student) {create(:student)}
-    let(:activity) {create(:activity)}
+    let(:classroom) { create(:classroom) }
+    let(:student) { create(:student) }
+    let(:activity) { create(:activity) }
 
-    let(:classroom_unit)   { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-    let(:previous_final_score) { create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at)}
+    let(:classroom_unit)   { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let(:previous_final_score) { create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at) }
 
     before { allow(DateTime).to receive(:current).and_return(now) }
 
@@ -756,9 +756,9 @@ end
   describe '#validations' do
     let!(:assigned_student){ create(:student) }
     let!(:unassigned_student){ create(:student) }
-    let!(:classroom){ create(:classroom, students: [assigned_student, unassigned_student])}
+    let!(:classroom){ create(:classroom, students: [assigned_student, unassigned_student]) }
     let!(:activity){ create(:activity) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [assigned_student.id], assign_on_join: false )}
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [assigned_student.id], assign_on_join: false) }
 
     it 'ensures that the student was correctly assigned' do
       act_sesh = ActivitySession.create(user_id: unassigned_student.id, classroom_unit: classroom_unit)
@@ -822,22 +822,22 @@ end
   end
 
   describe '#save_timetracking_data_from_active_activity_session' do
-    let!(:activity) { create(:activity)}
+    let!(:activity) { create(:activity) }
     let(:classroom_unit) { create(:classroom_unit) }
     let!(:activity_session) { create(:activity_session, activity: activity, classroom_unit: classroom_unit) }
-    let!(:active_activity_session) { create(:active_activity_session, uid: activity_session.uid, data: { 'timeTracking': { 'total': 64691 }})}
+    let!(:active_activity_session) { create(:active_activity_session, uid: activity_session.uid, data: { 'timeTracking': { 'total': 64691 } }) }
 
     it 'should save the timetracking hash to the data field on the activity session and the total time to the timespent field' do
       ActivitySession.save_timetracking_data_from_active_activity_session([activity_session])
       activity_session.reload
-      expect(activity_session.data).to eq({'time_tracking' => { 'total' => 64 }})
+      expect(activity_session.data).to eq({ 'time_tracking' => { 'total' => 64 } })
       expect(activity_session.timespent).to eq(64)
     end
   end
 
   describe '#calculate_timespent' do
-    let(:time_tracking) {{'1'=>1, '2'=>2, '3'=>3, '4' => 4}}
-    let(:time_tracking_with_nulls) { {'1'=>188484, '2'=>94405, '3'=>89076, '4'=>120504, 'onboarding'=>nil} }
+    let(:time_tracking) { { '1'=>1, '2'=>2, '3'=>3, '4' => 4 } }
+    let(:time_tracking_with_nulls) { { '1'=>188484, '2'=>94405, '3'=>89076, '4'=>120504, 'onboarding'=>nil } }
 
     it 'should return nil for nil' do
       expect(ActivitySession.calculate_timespent(nil, nil)).to be_nil
@@ -933,7 +933,7 @@ end
     let(:classroom) { create(:classroom) }
     let(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let(:activity) { create(:activity) }
-    let (:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit )}
+    let (:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
 
     it 'returns a started activity session if it exists' do
       started_activity_session = create(:activity_session, :started, user: student, activity: activity, classroom_unit: classroom_unit)
@@ -995,12 +995,12 @@ end
     end
 
     it "should calculate time using the values of the keys in the data['time_tracking'] hash" do
-      activity_session = build(:activity_session, data: {'time_tracking'=>{'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1}})
+      activity_session = build(:activity_session, data: { 'time_tracking'=>{ 'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1 } })
       expect(activity_session.timespent).to eq(21)
     end
 
     it 'should have calculation overridden by DB value' do
-      activity_session = build(:activity_session, state: 'finished', data: {'time_tracking'=>{'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1}}, timespent: 99)
+      activity_session = build(:activity_session, state: 'finished', data: { 'time_tracking'=>{ 'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1 } }, timespent: 99)
       expect(activity_session.timespent).to eq(99)
     end
   end
@@ -1008,7 +1008,7 @@ end
 
   describe '#teacher_activity_feed' do
     let(:activity_session) { create(:activity_session, :unstarted) }
-    let(:teacher) {activity_session.teachers.first}
+    let(:teacher) { activity_session.teachers.first }
 
     it 'should create a teacher_activity_feed item only ONCE on completed.' do
       teacher_feed = TeacherActivityFeed.get(teacher.id)

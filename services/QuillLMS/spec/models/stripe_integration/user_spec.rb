@@ -18,7 +18,7 @@ RSpec.describe StripeIntegration::User do
     end
 
     context 'stripe_customer_id exists' do
-      let(:stripe_customer_id) { "cus_#{SecureRandom.hex}"}
+      let(:stripe_customer_id) { "cus_#{SecureRandom.hex}" }
       let(:stripe_customer) { double(:stripe_customer, customer_attrs) }
       let(:customer_attrs) { { invoice_settings: invoice_settings, sources: sources } }
       let(:invoice_settings) { double(:invoice_settings, default_payment_method: default_payment_method) }

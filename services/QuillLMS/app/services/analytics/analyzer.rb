@@ -10,7 +10,7 @@ module Analytics
 
     def track(user, event)
       analytics.identify(user)
-      analytics.track({user_id: user.id,
+      analytics.track({ user_id: user.id,
         event: event,
         context: { ip: user.ip_address } }
       )
@@ -18,7 +18,7 @@ module Analytics
 
     def track_with_attributes(user, event, attributes)
       analytics.identify(user)
-      analytics.track({user_id: user.id, event: event}.merge(attributes))
+      analytics.track({ user_id: user.id, event: event }.merge(attributes))
     end
 
     def track_chain(user, events)

@@ -52,7 +52,7 @@ class Cms::RostersController < Cms::CmsController
 
     render json: {}
   rescue => e
-    render json: {errors: e.message}, status: 422
+    render json: { errors: e.message }, status: 422
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

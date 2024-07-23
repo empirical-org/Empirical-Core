@@ -98,7 +98,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         Sidekiq::Testing.inline! do
           put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
           activity_session.reload
-          expect(activity_session.concept_results.find{|x| x.extra_metadata&.dig('foo') == 'bar'}).to be
+          expect(activity_session.concept_results.find{ |x| x.extra_metadata&.dig('foo') == 'bar' }).to be
         end
       end
 

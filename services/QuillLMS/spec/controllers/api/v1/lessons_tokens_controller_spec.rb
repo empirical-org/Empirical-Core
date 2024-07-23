@@ -9,7 +9,7 @@ describe Api::V1::LessonsTokensController do
 
     it 'should render the token' do
       post :create, as: :json
-      expect(response.body).to eq({token: 'token'}.to_json)
+      expect(response.body).to eq({ token: 'token' }.to_json)
     end
   end
 end

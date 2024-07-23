@@ -30,7 +30,7 @@ RSpec.describe Checkbox, type: :model do
     it 'should allow creating a checkbox object' do
       checkbox1.objective = objective
       expect(checkbox1.save).to eq false
-      expect(checkbox1.errors.messages).to eq({:objective_id=>['should only be checked once per user']})
+      expect(checkbox1.errors.messages).to eq({ :objective_id=>['should only be checked once per user'] })
     end
   end
 

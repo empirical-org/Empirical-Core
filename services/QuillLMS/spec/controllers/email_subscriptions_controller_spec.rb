@@ -29,10 +29,10 @@ RSpec.describe EmailSubscriptionsController, type: :controller do
   end
 
   describe 'POST #create_or_update' do
-    subject { post :create_or_update, format:, params: {email_subscription_type: subscription_type, subscription: {params:, frequency:}} }
+    subject { post :create_or_update, format:, params: { email_subscription_type: subscription_type, subscription: { params:, frequency: } } }
 
     let(:format) { :js }
-    let(:params) { {overview_params: {timeframe: 'this-school-year'}} }
+    let(:params) { { overview_params: { timeframe: 'this-school-year' } } }
     let(:frequency) { EmailSubscription::MONTHLY }
 
     context 'when there is not an existing subscription' do
@@ -46,12 +46,12 @@ RSpec.describe EmailSubscriptionsController, type: :controller do
       let(:new_freq) { EmailSubscription::MONTHLY }
       let(:email_subscription) { create(:email_subscription, user:, frequency: old_freq) }
 
-      it { expect{subject}.to change { email_subscription.reload.frequency }.from(old_freq).to(new_freq) }
+      it { expect{ subject }.to change { email_subscription.reload.frequency }.from(old_freq).to(new_freq) }
     end
   end
 
   describe 'DELETE #destroy' do
-    subject { delete :destroy, params: {type:}, format: }
+    subject { delete :destroy, params: { type: }, format: }
 
     context 'HTML format' do
       let(:format) { :html }
@@ -87,7 +87,7 @@ RSpec.describe EmailSubscriptionsController, type: :controller do
         let(:email_subscription) { nil }
 
         it 'should not change anything in the database and 404' do
-          expect{subject}.not_to change(EmailSubscription, :count)
+          expect{ subject }.not_to change(EmailSubscription, :count)
           expect(response).to have_http_status(:not_found)
         end
       end

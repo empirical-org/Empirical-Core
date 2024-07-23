@@ -23,7 +23,7 @@ RSpec.describe ClassroomUnitUpdater do
     context 'classroom_unit is archived' do
       before { classroom_unit.update(visible: false) }
 
-      it { expect { subject }.not_to change { classroom_unit.reload.visible}.from(false) }
+      it { expect { subject }.not_to change { classroom_unit.reload.visible }.from(false) }
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe ClassroomUnitUpdater do
     let(:student_ids) { [student2.id] }
 
     it { expect { subject }.to change { classroom_unit.reload.assigned_student_ids }.to match_array [student1.id, student2.id] }
-    it { expect { subject }.not_to change { classroom_unit.reload.visible}.from(true) }
+    it { expect { subject }.not_to change { classroom_unit.reload.visible }.from(true) }
     it { unarchives_an_archived_classroom_unit }
 
     context 'concatenate_existing_student_ids is false' do
@@ -52,7 +52,7 @@ RSpec.describe ClassroomUnitUpdater do
     before { classroom_unit.update!(assign_on_join: false) }
 
     it { expect { subject }.to change { classroom_unit.reload.assign_on_join }.from(false).to(true) }
-    it { expect { subject }.not_to change { classroom_unit.reload.visible}.from(true) }
+    it { expect { subject }.not_to change { classroom_unit.reload.visible }.from(true) }
     it { unarchives_an_archived_classroom_unit }
   end
 
@@ -61,6 +61,6 @@ RSpec.describe ClassroomUnitUpdater do
   def unarchives_an_archived_classroom_unit
     classroom_unit.update(visible: false)
 
-    expect { subject }.to change { classroom_unit.reload.visible}.from(false).to(true)
+    expect { subject }.to change { classroom_unit.reload.visible }.from(false).to(true)
   end
 end

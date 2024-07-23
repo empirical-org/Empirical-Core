@@ -23,7 +23,7 @@ module Evidence
         begin
           check.run
         rescue => e
-          context = {entry: entry, prompt_id: prompt&.id, prompt_text: prompt&.text}
+          context = { entry: entry, prompt_id: prompt&.id, prompt_text: prompt&.text }
           Evidence.error_notifier.report(e, context)
 
           @error = e

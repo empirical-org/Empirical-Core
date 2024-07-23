@@ -28,7 +28,7 @@ module AdminDiagnosticReports
     def filter_view = materialized_view('school_classroom_teachers_view')
     def performance_view = materialized_view('pre_post_diagnostic_skill_group_performance_view')
 
-    def run = {count: run_query.first[:count]}
+    def run = { count: run_query.first[:count] }
 
     def select_clause = "SELECT COUNT(DISTINCT CONCAT(performance.classroom_id, ':', performance.student_id)) AS count"
 

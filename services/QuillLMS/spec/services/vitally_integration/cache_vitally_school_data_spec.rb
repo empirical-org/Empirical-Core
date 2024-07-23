@@ -13,8 +13,8 @@ describe VitallyIntegration::CacheVitallySchoolData do
   end
 
   it '#set' do
-    data = {test: 1}
-    expect($redis).to receive(:set).with("school_id:#{school_id}_vitally_stats_for_year_#{year}", data.to_json, {ex: 1.year})
+    data = { test: 1 }
+    expect($redis).to receive(:set).with("school_id:#{school_id}_vitally_stats_for_year_#{year}", data.to_json, { ex: 1.year })
     subject.set(school_id, year, data.to_json)
   end
 

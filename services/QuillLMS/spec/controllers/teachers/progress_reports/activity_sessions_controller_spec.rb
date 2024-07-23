@@ -7,7 +7,7 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
 
   include_context 'Standard Progress Report'
   it_behaves_like 'Progress Report' do
-    let(:default_filters) { {page: 1} }
+    let(:default_filters) { { page: 1 } }
     let(:result_key) { 'activity_sessions' }
     let(:expected_result_count) { visible_activity_sessions.size }
 
@@ -34,7 +34,7 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
       end
 
       it 'can filter by classroom' do
-        get :index, params: { classroom_id: empty_classroom.id, page: 1}, as: :json
+        get :index, params: { classroom_id: empty_classroom.id, page: 1 }, as: :json
         expect(json['activity_sessions'].size).to eq(0)
         expect(json['students'].size).to eq(0)
       end

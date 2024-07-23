@@ -20,12 +20,12 @@ describe AdminsController  do
 
     it 'should render the correct json' do
       get :show, params: { id: teacher.id }
-      expect(response.body).to eq(({id: admin.id}).to_json)
+      expect(response.body).to eq(({ id: admin.id }).to_json)
     end
   end
 
   describe '#admin_info' do
-    let!(:admin_for_admin_info) { create(:admin)}
+    let!(:admin_for_admin_info) { create(:admin) }
 
     before { allow(controller).to receive(:current_user) { admin_for_admin_info } }
 
@@ -39,7 +39,7 @@ describe AdminsController  do
       end
 
       context 'when the user is associated with a school' do
-        let(:school_for_admin_info) { create(:school )}
+        let(:school_for_admin_info) { create(:school) }
         let!(:schools_users) { create(:schools_users, school: school_for_admin_info, user: admin_for_admin_info) }
 
         describe 'with an active subscription' do
@@ -190,7 +190,7 @@ describe AdminsController  do
       it 'creates a school admin record, returns a message, and fires an email worker' do
         expect(PremiumHub::AdminAccountCreatedEmailWorker).to receive(:perform_async)
         post :resend_login_details, params: { id: teacher.id, school_id: school.id, role: 'admin' }
-        expect(response.body).to eq({message: I18n.t('admin.resend_login_details')}.to_json)
+        expect(response.body).to eq({ message: I18n.t('admin.resend_login_details') }.to_json)
       end
     end
 
@@ -198,7 +198,7 @@ describe AdminsController  do
       it 'returns a message and fires an email worker' do
         expect(PremiumHub::TeacherAccountCreatedEmailWorker).to receive(:perform_async)
         post :resend_login_details, params: { id: teacher.id, school_id: school.id, role: 'teacher' }
-        expect(response.body).to eq({message: I18n.t('admin.resend_login_details')}.to_json)
+        expect(response.body).to eq({ message: I18n.t('admin.resend_login_details') }.to_json)
       end
     end
   end
@@ -208,7 +208,7 @@ describe AdminsController  do
       expect(PremiumHub::MadeSchoolAdminEmailWorker).to receive(:perform_async)
       post :make_admin, params: { id: teacher.id, school_id: school.id  }
       expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).to be
-      expect(response.body).to eq({message: I18n.t('admin.make_admin')}.to_json)
+      expect(response.body).to eq({ message: I18n.t('admin.make_admin') }.to_json)
     end
   end
 
@@ -221,7 +221,7 @@ describe AdminsController  do
     it 'should destroy the schools admins record and return a message' do
       post :remove_as_admin, params: { id: teacher.id, school_id: school.id  }
       expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).not_to be
-      expect(response.body).to eq({message: I18n.t('admin.remove_admin')}.to_json)
+      expect(response.body).to eq({ message: I18n.t('admin.remove_admin') }.to_json)
     end
   end
 
@@ -231,7 +231,7 @@ describe AdminsController  do
       describe "when request_made_during_sign_up is #{request_made_during_sign_up}" do
         it 'should update the teacher admin info to be approved, create a school admin record, call the analytics worker, and return a message' do
           admin_info = create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
-          admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: request_made_during_sign_up )
+          admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: request_made_during_sign_up)
           expect(TeacherApprovedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id, admin_approval_request.request_made_during_sign_up)
 
           post :approve_admin_request, params: { id: teacher.id, school_id: school.id  }
@@ -240,7 +240,7 @@ describe AdminsController  do
           expect(teacher.admin_info.approval_status).to eq(AdminInfo::APPROVED)
           expect(teacher.admin_info.sub_role).to eq(AdminInfo::TEACHER_ADMIN)
           expect(SchoolsAdmins.find_by(user: teacher, school: school)).to be
-          expect(response.body).to eq({message: I18n.t('admin.approve_admin_request')}.to_json)
+          expect(response.body).to eq({ message: I18n.t('admin.approve_admin_request') }.to_json)
         end
       end
     end
@@ -250,7 +250,7 @@ describe AdminsController  do
   describe '#deny_admin_request' do
     it 'should update the teacher admin info to be denied, call the analytics worker, and return a message' do
       admin_info = create(:admin_info, user: teacher, approval_status: AdminInfo::PENDING)
-      admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: [true, false].sample )
+      admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: [true, false].sample)
 
       expect(TeacherDeniedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id, admin_approval_request.request_made_during_sign_up)
 
@@ -258,7 +258,7 @@ describe AdminsController  do
 
       teacher.admin_info.reload
       expect(teacher.admin_info.approval_status).to eq(AdminInfo::DENIED)
-      expect(response.body).to eq({message: I18n.t('admin.deny_admin_request')}.to_json)
+      expect(response.body).to eq({ message: I18n.t('admin.deny_admin_request') }.to_json)
     end
   end
 
@@ -266,7 +266,7 @@ describe AdminsController  do
     it 'should destroy the schools users record and return a message' do
       post :unlink_from_school, params: { id: teacher.id }
       expect(teacher.reload.school).not_to be
-      expect(response.body).to eq({message: I18n.t('admin.unlink_teacher_from_school')}.to_json)
+      expect(response.body).to eq({ message: I18n.t('admin.unlink_teacher_from_school') }.to_json)
     end
   end
 
@@ -287,8 +287,8 @@ describe AdminsController  do
           it 'returns a message' do
             create(:schools_admins, user: existing_teacher, school: school)
 
-            post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-            expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.linked', school_name: school.name)}.to_json)
+            post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email } }
+            expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.admin.linked', school_name: school.name) }.to_json)
           end
         end
 
@@ -296,8 +296,8 @@ describe AdminsController  do
           describe 'and they are not linked to a school' do
             it 'creates a school admin record, returns a message and fires an email worker' do
               expect(PremiumHub::MadeSchoolAdminLinkSchoolEmailWorker).to receive(:perform_async)
-              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-              expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
+              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email } }
+              expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.admin.new') }.to_json)
               expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
@@ -307,8 +307,8 @@ describe AdminsController  do
               create(:schools_users, school: school, user: existing_teacher)
 
               expect(PremiumHub::MadeSchoolAdminEmailWorker).to receive(:perform_async)
-              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-              expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
+              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email } }
+              expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.admin.new') }.to_json)
               expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
@@ -319,8 +319,8 @@ describe AdminsController  do
               create(:schools_users, school: other_school, user: existing_teacher)
 
               expect(PremiumHub::MadeSchoolAdminChangeSchoolEmailWorker).to receive(:perform_async)
-              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-              expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.new')}.to_json)
+              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email } }
+              expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.admin.new') }.to_json)
               expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
@@ -331,8 +331,8 @@ describe AdminsController  do
               create(:schools_users, school: other_school, user: existing_teacher)
               create(:schools_admins, user: existing_teacher, school: other_school)
 
-              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email }}
-              expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.admin.admin_for_other_school')}.to_json)
+              post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: existing_teacher.email } }
+              expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.admin.admin_for_other_school') }.to_json)
               expect(ActionMailer::Base.deliveries.count).to eq(0)
               expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
@@ -347,29 +347,29 @@ describe AdminsController  do
           it 'returns a message' do
             create(:schools_users, user: existing_teacher, school: school)
 
-            post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: existing_teacher.email }}
-            expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.teacher.linked', school_name: school.name)}.to_json)
+            post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: existing_teacher.email } }
+            expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.teacher.linked', school_name: school.name) }.to_json)
           end
         end
 
         describe 'and the user is not already a teacher at the school' do
           it 'returns a message and fires an email worker' do
             expect(PremiumHub::TeacherLinkSchoolEmailWorker).to receive(:perform_async)
-            post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: existing_teacher.email }}
-            expect(response.body).to eq({message: I18n.t('admin_created_account.existing_account.teacher.new', school_name: school.name)}.to_json)
+            post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: existing_teacher.email } }
+            expect(response.body).to eq({ message: I18n.t('admin_created_account.existing_account.teacher.new', school_name: school.name) }.to_json)
           end
         end
       end
     end
 
     describe 'when there is not a teacher with the submitted email address' do
-      let!(:email) { 'hello@quill.org'}
+      let!(:email) { 'hello@quill.org' }
       let!(:first_name) { 'Hello' }
       let!(:last_name) { 'Quill' }
 
       it 'creates a user with the submitted params, sets their token, and schedules a worker to expire the token in 30 days' do
         expect(ExpirePasswordTokenWorker).to receive(:perform_in)
-        post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: email, first_name: first_name, last_name: last_name }}
+        post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: email, first_name: first_name, last_name: last_name } }
         user = User.find_by(role: 'teacher', email: email, name: "#{first_name} #{last_name}")
         expect(user.present?).to be
         expect(user.token.present?).to be
@@ -378,18 +378,18 @@ describe AdminsController  do
       describe 'and the submitted role is admin' do
         it 'creates a school admin record, returns a message, and fires an email worker' do
           expect(PremiumHub::AdminAccountCreatedEmailWorker).to receive(:perform_async)
-          post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: email, first_name: first_name, last_name: last_name }}
+          post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'admin', email: email, first_name: first_name, last_name: last_name } }
           user = User.find_by(email: email)
           expect(SchoolsAdmins.find_by(user: user, school: school)).to be
-          expect(response.body).to eq({message: I18n.t('admin_created_account.new_account.admin')}.to_json)
+          expect(response.body).to eq({ message: I18n.t('admin_created_account.new_account.admin') }.to_json)
         end
       end
 
       describe 'and the submitted role is teacher' do
         it 'returns a message and fires an email worker' do
           expect(PremiumHub::TeacherAccountCreatedEmailWorker).to receive(:perform_async)
-          post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: email, first_name: first_name, last_name: last_name }}
-          expect(response.body).to eq({message: I18n.t('admin_created_account.new_account.teacher')}.to_json)
+          post :create_and_link_accounts, params: { id: admin.id, school_id: school.id, teacher: { role: 'teacher', email: email, first_name: first_name, last_name: last_name } }
+          expect(response.body).to eq({ message: I18n.t('admin_created_account.new_account.teacher') }.to_json)
         end
       end
 

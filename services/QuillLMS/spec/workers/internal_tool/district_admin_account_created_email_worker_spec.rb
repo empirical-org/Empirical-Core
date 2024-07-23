@@ -9,7 +9,7 @@ describe InternalTool::DistrictAdminAccountCreatedEmailWorker, type: :worker do
   let!(:district) { create(:district) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
-  let!(:mailer_method) { :district_admin_account_created_email}
+  let!(:mailer_method) { :district_admin_account_created_email }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do

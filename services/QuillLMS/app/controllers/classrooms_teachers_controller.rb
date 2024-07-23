@@ -16,7 +16,7 @@ class ClassroomsTeachersController < ApplicationController
     rescue => e
       return render json: { error_message: e }, status: 422
     end
-    render json: {message: 'Update Succeeded!'}
+    render json: { message: 'Update Succeeded!' }
   end
 
   def remove_coteacher
@@ -38,7 +38,7 @@ class ClassroomsTeachersController < ApplicationController
   end
 
   def specific_coteacher_info
-    render json: { selectedTeachersClassroomIds: edit_info_for_specific_teacher(params[:coteacher_id])}
+    render json: { selectedTeachersClassroomIds: edit_info_for_specific_teacher(params[:coteacher_id]) }
   end
 
   def destroy
@@ -47,7 +47,7 @@ class ClassroomsTeachersController < ApplicationController
     rescue => e
       return render json: { error_message: e }, status: 422
     end
-    render json: {message: 'Deletion Succeeded!'}
+    render json: { message: 'Deletion Succeeded!' }
   end
 
   private def multi_classroom_auth

@@ -41,7 +41,7 @@ module Evidence
         AutomlModel.stub_any_instance(:classify_text, [label.name, automl_confidence]) do
           entry = 'entry'
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
-          expect(:feedback => feedback.text, :feedback_type => 'autoML', :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or '')), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => {:confidence => automl_confidence}).to(eq(automl_check.feedback_object))
+          expect(:feedback => feedback.text, :feedback_type => 'autoML', :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or '')), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => { :confidence => automl_confidence }).to(eq(automl_check.feedback_object))
         end
       end
 

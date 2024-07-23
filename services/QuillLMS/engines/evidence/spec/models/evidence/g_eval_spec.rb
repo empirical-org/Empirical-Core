@@ -41,7 +41,7 @@ module Evidence
         it { should have_readonly_attribute(:version) }
 
         describe 'callbacks' do
-          let(:metric) { 'test_metric'}
+          let(:metric) { 'test_metric' }
 
           it 'sets version before create' do
             g_eval = build(factory, metric:)

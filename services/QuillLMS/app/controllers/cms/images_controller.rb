@@ -14,7 +14,7 @@ class Cms::ImagesController < Cms::CmsController
     i.file.store!(file)
     i.file = file
     i.save!
-    render json: {url: i.file.url}
+    render json: { url: i.file.url }
   end
 
   def destroy

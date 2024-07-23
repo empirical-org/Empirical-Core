@@ -24,7 +24,7 @@ describe ClearUserDataWorker, type: :worker do
 
   it 'removes student from related classroom_units' do
     subject
-    classroom_units.each {|cu| expect(cu.assigned_student_ids).not_to include(user.id)}
+    classroom_units.each { |cu| expect(cu.assigned_student_ids).not_to include(user.id) }
   end
 
   it 'removes student from related activity_sessions' do

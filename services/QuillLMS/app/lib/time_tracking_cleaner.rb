@@ -33,8 +33,8 @@ class TimeTrackingCleaner < ApplicationService
 
   private def time_tracking_outliers_replaced
     time_tracking
-      .merge(median_outliers.transform_values {|_| median_value})
-      .merge(max_outliers.transform_values {|_| MAX_TIME_SECTION})
+      .merge(median_outliers.transform_values { |_| median_value })
+      .merge(max_outliers.transform_values { |_| MAX_TIME_SECTION })
   end
 
   private def time_tracking_edits_updated
@@ -47,7 +47,7 @@ class TimeTrackingCleaner < ApplicationService
     @max_outliers ||= begin
       time_tracking
         .except(*median_outliers.keys)
-        .select {|_,v| v > MAX_TIME_SECTION }
+        .select { |_,v| v > MAX_TIME_SECTION }
     end
   end
 
@@ -55,7 +55,7 @@ class TimeTrackingCleaner < ApplicationService
     @median_outliers ||= begin
       time_tracking
         .except(*IGNORE_MEDIAN_KEYS)
-        .select {|_, v| v > median_outlier_threshold}
+        .select { |_, v| v > median_outlier_threshold }
     end
   end
 

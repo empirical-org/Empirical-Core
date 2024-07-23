@@ -102,7 +102,7 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
     let(:other_name) { 'other clever_classroom classroom' }
     let(:classroom1) { create(:classroom, :from_clever, :with_no_teacher, name: other_name) }
 
-    let(:name) { 'clever_classroom classroom'}
+    let(:name) { 'clever_classroom classroom' }
     let(:synced_name) { name }
     let(:data_name) { other_name }
 

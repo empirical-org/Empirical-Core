@@ -28,7 +28,7 @@ class ConceptFeedback < ApplicationRecord
 
   validates :data, presence: true
   validates :uid, presence: true, uniqueness: { scope: :activity_type }
-  validates :activity_type, presence: true, inclusion: {in: TYPES}
+  validates :activity_type, presence: true, inclusion: { in: TYPES }
   validate :data_must_be_hash
 
   store_accessor :data, :description

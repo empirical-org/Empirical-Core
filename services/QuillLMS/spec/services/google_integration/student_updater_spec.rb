@@ -15,7 +15,7 @@ module GoogleIntegration
     let(:data) { { email: email, user_external_id: user_external_id } }
 
     context 'student has role student' do
-      let(:student) { create(:student, email: email )}
+      let(:student) { create(:student, email: email) }
 
       it { updates_student_attributes }
       it { expect { subject }.not_to change(ChangeLog, :count) }
@@ -28,7 +28,7 @@ module GoogleIntegration
     end
 
     context 'student has role teacher' do
-      let(:student) { create(:teacher, email: email )}
+      let(:student) { create(:teacher, email: email) }
 
       it { updates_student_attributes }
       it { expect { subject }.to change(ChangeLog, :count).by(1) }

@@ -10,7 +10,7 @@ module AdminDiagnosticReports
     context 'big_query_snapshot', :big_query_snapshot do
       # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
       let(:reference_activity_session) { create(:activity_session, :finished) }
-      let(:reference_concept_result) { create(:concept_result, activity_session: reference_activity_session, extra_metadata: {question_uid: SecureRandom.uuid}) }
+      let(:reference_concept_result) { create(:concept_result, activity_session: reference_activity_session, extra_metadata: { question_uid: SecureRandom.uuid }) }
 
       let(:cte_records) do
         [
@@ -70,13 +70,13 @@ module AdminDiagnosticReports
       end
 
       context 'all concept results are non-optimal' do
-        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: false, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
+        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: false, extra_metadata: { question_uid: pre_diagnostic_question.uid }) } }
 
         it { expect(results.first[:pre_average_score]).to eq(0) }
       end
 
       context 'a mix of optimal and non-optimal concept results' do
-        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: i.even?, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
+        let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: i.even?, extra_metadata: { question_uid: pre_diagnostic_question.uid }) } }
 
         it { expect(results.first[:pre_average_score]).to eq(0.5) }
       end
@@ -85,8 +85,8 @@ module AdminDiagnosticReports
         let(:pre_diagnostic_concept_results) do
           pre_diagnostic_activity_sessions.map.with_index do |activity_session, i|
             [
-              create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: true, extra_metadata: {question_uid: pre_diagnostic_question.uid}),
-              create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: false, extra_metadata: {question_uid: pre_diagnostic_question.uid})
+              create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: true, extra_metadata: { question_uid: pre_diagnostic_question.uid }),
+              create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, correct: false, extra_metadata: { question_uid: pre_diagnostic_question.uid })
             ]
           end
         end

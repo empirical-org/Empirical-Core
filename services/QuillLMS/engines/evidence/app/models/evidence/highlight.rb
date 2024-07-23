@@ -32,9 +32,9 @@ module Evidence
     ]
     belongs_to :feedback, inverse_of: :highlights
 
-    validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH, maximum: MAX_TEXT_LENGTH}
-    validates :highlight_type, presence: true, inclusion: {in: TYPES}
-    validates :starting_index, numericality: {only_integer: true, greater_than_or_equal_to: 0}
+    validates :text, presence: true, length: { minimum: MIN_TEXT_LENGTH, maximum: MAX_TEXT_LENGTH }
+    validates :highlight_type, presence: true, inclusion: { in: TYPES }
+    validates :starting_index, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -79,7 +79,7 @@ module Evidence
       return unless highlight_type == 'passage'
 
       related_passages = feedback.rule.prompts.map(&:activity).uniq.map(&:passages).flatten
-      invalid_ids = related_passages.reject {|p| strip_tags(p.text).include?(strip_tags(text))}.map {|p| p.activity.id}
+      invalid_ids = related_passages.reject { |p| strip_tags(p.text).include?(strip_tags(text)) }.map { |p| p.activity.id }
       return if invalid_ids.empty?
 
       invalid_ids

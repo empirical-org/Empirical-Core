@@ -18,7 +18,7 @@ module SegmentIntegration
           minimum_grade_level: teacher_info&.minimum_grade_level,
           maximum_grade_level: teacher_info&.maximum_grade_level,
           subject_areas: teacher_info&.subject_areas_string
-        }.reject {|_,v| v.nil? },
+        }.reject { |_,v| v.nil? },
         integrations: integration_rules
       }
     end
@@ -43,7 +43,7 @@ module SegmentIntegration
         number_of_schools_administered: schools_admins.any? ? schools_admins.count : nil,
         number_of_districts_administered: district_admins.any? ? district_admins.count : nil,
         admin_report_subscriptions: premium_admin? ? admin_report_filter_selections.segment_admin_report_subscriptions : nil
-      }.reject {|_,v| v.nil? }
+      }.reject { |_,v| v.nil? }
     end
     # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -52,7 +52,7 @@ module SegmentIntegration
         email: email,
         premium_state: premium_state,
         premium_type: subscription&.account_type,
-      }.reject {|_,v| v.nil? }
+      }.reject { |_,v| v.nil? }
     end
 
     def school_params
@@ -65,7 +65,7 @@ module SegmentIntegration
           active_teachers_at_school_this_year: cache[Analytics::CacheSegmentSchoolData::ACTIVE_TEACHERS_AT_SCHOOL_THIS_YEAR],
           active_students_at_school_this_year: cache[Analytics::CacheSegmentSchoolData::ACTIVE_STUDENTS_AT_SCHOOL_THIS_YEAR],
           total_activities_completed_by_students_at_school_this_year: cache[Analytics::CacheSegmentSchoolData::TOTAL_ACTIVITIES_COMPLETED_BY_STUDENTS_AT_SCHOOL_THIS_YEAR]
-        }.reject {|_,v| v.nil? }
+        }.reject { |_,v| v.nil? }
       else
         {}
       end

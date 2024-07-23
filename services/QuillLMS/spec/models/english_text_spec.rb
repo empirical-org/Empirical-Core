@@ -13,8 +13,8 @@ require 'rails_helper'
 
 RSpec.describe EnglishText, type: :model do
   describe 'active_record associations' do
-    it {should have_many(:translated_texts) }
-    it {should have_many(:translation_mappings) }
+    it { should have_many(:translated_texts) }
+    it { should have_many(:translation_mappings) }
   end
 
   describe '#gengo_translation?(locale:)' do

@@ -61,7 +61,7 @@ RSpec.describe ConceptFeedback, type: :model do
     context 'after update' do
       it 'calls redis cache delete on concept feedback with activity type' do
         expect($redis).to receive(:del).with(concept_feedback.cache_key)
-        concept_feedback.update(data: {test: 'test'})
+        concept_feedback.update(data: { test: 'test' })
       end
     end
 
@@ -69,18 +69,18 @@ RSpec.describe ConceptFeedback, type: :model do
       it 'calls redis cache delete on concept feedback with activity type' do
         activity_type = 'grammar'
         expect($redis).to receive(:del).with("#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}")
-        ConceptFeedback.create(activity_type: activity_type, data: {test: 'test'}, uid: SecureRandom.uuid)
+        ConceptFeedback.create(activity_type: activity_type, data: { test: 'test' }, uid: SecureRandom.uuid)
       end
     end
   end
 
   describe '#translations_json(language:)' do
-    subject { concept_feedback.translations_json(locale: )}
+    subject { concept_feedback.translations_json(locale:) }
 
-    let(:locale) { Translatable::DEFAULT_LOCALE}
+    let(:locale) { Translatable::DEFAULT_LOCALE }
 
     context 'there is a translation for the language' do
-      let(:concept_feedback) { create(:concept_feedback, :with_translated_text)}
+      let(:concept_feedback) { create(:concept_feedback, :with_translated_text) }
 
       it 'returns a json hash of with the uid as the key and the translation as the value' do
         expect(subject).to eq({
@@ -90,9 +90,9 @@ RSpec.describe ConceptFeedback, type: :model do
     end
 
     context 'there is no translation for the language' do
-      let(:concept_feedback) { create(:concept_feedback)}
+      let(:concept_feedback) { create(:concept_feedback) }
 
-      it { expect(subject).to eq({})}
+      it { expect(subject).to eq({}) }
     end
   end
 end

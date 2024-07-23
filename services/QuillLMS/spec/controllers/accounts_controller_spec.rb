@@ -103,7 +103,7 @@ describe AccountsController, type: :controller do
 
             it 'should render the teachers classroom path json' do
               post :create, params: { user: { classcode: 'code', email: 'test@test.com', password: 'test123', role: 'student' } }
-              expect(response.body).to eq({redirect: teachers_classrooms_path}.to_json)
+              expect(response.body).to eq({ redirect: teachers_classrooms_path }.to_json)
             end
           end
 
@@ -114,7 +114,7 @@ describe AccountsController, type: :controller do
         it 'should render the errors json' do
           post :create, params: { user: { classcode: 'code', email: 'test', role: 'user' } }
           expect(response.status).to eq 422
-          expect(response.body).to eq({errors: {email: ['Enter a valid email']}}.to_json)
+          expect(response.body).to eq({ errors: { email: ['Enter a valid email'] } }.to_json)
         end
       end
 
@@ -140,7 +140,7 @@ describe AccountsController, type: :controller do
         it 'should render a duplicate email error' do
           post :create, params: { user: { name: name, email: user.email, password: password, role: User::TEACHER } }
           expect(response.status).to eq 422
-          expect(response.body).to eq({errors: {email: ['That email is taken. Try another.']}}.to_json)
+          expect(response.body).to eq({ errors: { email: ['That email is taken. Try another.'] } }.to_json)
         end
       end
     end
@@ -165,7 +165,7 @@ describe AccountsController, type: :controller do
       it 'should render the errors json' do
         post :update, params: { token: user.token, user: { name: '', password: 'some-password' } }
         expect(response.status).to eq 422
-        expect(response.body).to eq({errors: {name: ["can't be blank"]}}.to_json)
+        expect(response.body).to eq({ errors: { name: ["can't be blank"] } }.to_json)
       end
     end
   end

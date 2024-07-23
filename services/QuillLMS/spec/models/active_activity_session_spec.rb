@@ -41,7 +41,7 @@ RSpec.describe ActiveActivitySession, type: :model do
     end
 
     it 'should be invalid if the uid is not unique' do
-      new_active_activity_session = ActiveActivitySession.new(uid: active_activity_session.uid, data: {foo: 'bar'})
+      new_active_activity_session = ActiveActivitySession.new(uid: active_activity_session.uid, data: { foo: 'bar' })
       expect(new_active_activity_session.valid?).to be false
     end
   end

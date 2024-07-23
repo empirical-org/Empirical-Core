@@ -19,7 +19,7 @@ class Cms::UnitTemplateCategoriesController < Cms::CmsController
     if @unit_template_category.save!
       render json: @unit_template_category
     else
-      render json: {errors: @unit_template_category.erros}, status: 422
+      render json: { errors: @unit_template_category.erros }, status: 422
     end
   end
 
@@ -27,7 +27,7 @@ class Cms::UnitTemplateCategoriesController < Cms::CmsController
     if @unit_template_category.update(unit_template_category_params)
       render json: @unit_template_category
     else
-      render json: {errors: @unit_template_category.errors}, status: 422
+      render json: { errors: @unit_template_category.errors }, status: 422
     end
   end
 

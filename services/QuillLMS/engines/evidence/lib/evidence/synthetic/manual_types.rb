@@ -36,7 +36,7 @@ module Evidence
         assign_minimum_per_label
 
         # assign rest of empty types
-        results.select {|r| r.type.nil?}.each.with_index do |result, index|
+        results.select { |r| r.type.nil? }.each.with_index do |result, index|
           result.type = allocated_type(index)
         end
       end
@@ -55,10 +55,10 @@ module Evidence
 
       def assign_type_to_results_sample_for_label(label, number, type)
         results
-          .select {|r| r.type.nil?}
-          .select {|r| r.label == label}
+          .select { |r| r.type.nil? }
+          .select { |r| r.label == label }
           .sample(number)
-          .each {|r| r.type = type}
+          .each { |r| r.type = type }
       end
 
       def test_count_needed
@@ -78,7 +78,7 @@ module Evidence
       end
 
       def train_data
-        results.select {|r| r.type == TYPE_TRAIN}
+        results.select { |r| r.type == TYPE_TRAIN }
       end
 
       def train_size
@@ -86,7 +86,7 @@ module Evidence
       end
 
       def test_data
-        results.select {|r| r.type == TYPE_TEST}
+        results.select { |r| r.type == TYPE_TEST }
       end
 
       def test_size
@@ -94,7 +94,7 @@ module Evidence
       end
 
       def validation_data
-        results.select {|r| r.type == TYPE_VALIDATION}
+        results.select { |r| r.type == TYPE_VALIDATION }
       end
 
       def validation_size
@@ -128,7 +128,7 @@ module Evidence
       end
 
       private def label_count_invalid(label, type, minimum)
-        results.count {|r| r.label == label && r.type == type } < minimum
+        results.count { |r| r.label == label && r.type == type } < minimum
       end
     end
   end

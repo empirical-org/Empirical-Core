@@ -52,16 +52,16 @@ class ProfilesController < ApplicationController
     elsif current_user.classrooms.any?
       render json: {}
     else
-      render json: {error: 'Current user has no classrooms'}
+      render json: { error: 'Current user has no classrooms' }
     end
   end
 
   def mobile_profile_data
     if current_user.classrooms.any?
       grouped_scores = get_parsed_mobile_profile_data(params[:current_classroom_id])
-      render json: {grouped_scores: grouped_scores}
+      render json: { grouped_scores: grouped_scores }
     else
-      render json: {error: 'Current user has no classrooms'}
+      render json: { error: 'Current user has no classrooms' }
     end
   end
 
@@ -70,11 +70,11 @@ class ProfilesController < ApplicationController
       exact_scores_data_all(current_user, params[:data], params[:classroom_id])
     end
 
-    render json: { exact_scores_data:}
+    render json: { exact_scores_data: }
   end
 
   def students_classrooms_json
-    render json: {classrooms: students_classrooms_with_join_info}
+    render json: { classrooms: students_classrooms_with_join_info }
   end
 
   def admin
@@ -108,12 +108,12 @@ class ProfilesController < ApplicationController
       .includes(:unit, concept_results: :concept, activity: :classification)
       .where(
         user_id: user_id,
-        activity_id: data.map{|h| h[ACTIVITY_ID]},
-        classroom_unit_id: data.map{|h| h[CLASSROOM_UNIT_ID]},
+        activity_id: data.map{ |h| h[ACTIVITY_ID] },
+        classroom_unit_id: data.map{ |h| h[CLASSROOM_UNIT_ID] },
         state: ActivitySession::STATE_FINISHED
       )
       .order('activity_sessions.completed_at ASC')
-      .group_by {|as| [as.activity_id, as.classroom_unit_id]}
+      .group_by { |as| [as.activity_id, as.classroom_unit_id] }
   end
 
   private def student_exact_scores(user, unit_activity_params, activity_sessions)

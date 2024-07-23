@@ -57,7 +57,7 @@ module UserCacheable
       .select('classrooms.*, MAX(classrooms.updated_at)')
       .unscoped
       .joins(:classrooms_teachers)
-      .where(classrooms_teachers: {user_id: id})
+      .where(classrooms_teachers: { user_id: id })
       .order(updated_at: :desc)
       .first
   end
@@ -73,7 +73,7 @@ module UserCacheable
       .unscoped
       .where(classroom_id: classroom_id)
       .joins(:unit_activities)
-      .where(unit: {unit_activities: {activity_id: activity_id}})
+      .where(unit: { unit_activities: { activity_id: activity_id } })
       .order('classroom_units.updated_at DESC')
       .group('classroom_units.id')
       .first

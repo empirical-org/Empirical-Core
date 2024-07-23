@@ -8,7 +8,7 @@ RSpec.describe SyncVitallyWorker, type: :worker do
   describe '#perform' do
 
     before do
-      stub_const('ENV', {'SYNC_TO_VITALLY' => 'true'})
+      stub_const('ENV', { 'SYNC_TO_VITALLY' => 'true' })
     end
 
     it 'make queries for schools and users and enqueue them for further jobs' do

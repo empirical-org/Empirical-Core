@@ -76,7 +76,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
       allow(mock_worker).to receive(:perform_in)
 
       expect do
-        subject.enqueue_jobs([mock_user], mock_worker) {|u| [u.external_id]}
+        subject.enqueue_jobs([mock_user], mock_worker) { |u| [u.external_id] }
       end.to change(subject, :counter).by 1
     end
 
@@ -86,9 +86,9 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
       expect(mock_worker).to receive(:perform_in).with(2, 1)
       expect(mock_worker).to receive(:perform_in).with(3, 1)
 
-      subject.enqueue_jobs([mock_user, mock_user], mock_worker) {|u| [u.external_id]}
+      subject.enqueue_jobs([mock_user, mock_user], mock_worker) { |u| [u.external_id] }
 
-      subject.enqueue_jobs([mock_user, mock_user], mock_worker) {|u| [u.external_id]}
+      subject.enqueue_jobs([mock_user, mock_user], mock_worker) { |u| [u.external_id] }
     end
   end
 
@@ -118,7 +118,7 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
 
       it 'ignores nil values' do
         teacher_info_mock = double
-        mock_subject_areas = ['math', 'Poly Sci'].map {|x| create(:subject_area, name: x) }
+        mock_subject_areas = ['math', 'Poly Sci'].map { |x| create(:subject_area, name: x) }
 
         allow(teacher_info_mock).to receive(:subject_areas).and_return mock_subject_areas
         allow(user).to receive(:teacher_info).and_return(teacher_info_mock)

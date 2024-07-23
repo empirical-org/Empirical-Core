@@ -32,7 +32,7 @@ class StudentDashboardMetrics
       ActivitySession
         .unscoped
         .joins(:classroom_unit)
-        .where(user:, classroom_unit: {classroom_id:})
+        .where(user:, classroom_unit: { classroom_id: })
         .where.not(completed_at: nil)
         .where(visible: true)
     end

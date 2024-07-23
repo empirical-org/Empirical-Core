@@ -38,11 +38,11 @@ describe District, type: :model do
   it_behaves_like 'a subscriber'
 
   context '#total_invoice' do
-    let!(:district) { create(:district)}
-    let!(:school) { create(:school)}
-    let!(:another_school) { create(:school)}
-    let!(:subscription) { create(:subscription, payment_amount: 500)}
-    let!(:another_subscription) { create(:subscription, payment_amount: 100)}
+    let!(:district) { create(:district) }
+    let!(:school) { create(:school) }
+    let!(:another_school) { create(:school) }
+    let!(:subscription) { create(:subscription, payment_amount: 500) }
+    let!(:another_subscription) { create(:subscription, payment_amount: 100) }
 
     it 'should return 0 if there are no schools in the district' do
       expect(district.total_invoice).to eq(0)
@@ -66,7 +66,7 @@ describe District, type: :model do
     end
 
     context 'subscription exists' do
-      before { allow(district).to receive(:subscription).and_return(double(:subscription))}
+      before { allow(district).to receive(:subscription).and_return(double(:subscription)) }
 
       it { expect(subject).to be true }
     end

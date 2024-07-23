@@ -229,7 +229,7 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
   end
 
   context 'email_csv_data' do
-    let!(:user) { create(:user)}
+    let!(:user) { create(:user) }
     let!(:activity) { create(:evidence_lms_activity) }
 
     before { allow(controller).to receive(:current_user) { user } }

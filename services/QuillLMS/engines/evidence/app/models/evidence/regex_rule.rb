@@ -41,7 +41,7 @@ module Evidence
     before_save :validate_regex
 
     validates_presence_of :rule
-    validates :regex_text, presence: true, length: {maximum: MAX_REGEX_TEXT_LENGTH}
+    validates :regex_text, presence: true, length: { maximum: MAX_REGEX_TEXT_LENGTH }
     validates :case_sensitive, inclusion: CASE_SENSITIVE_ALLOWED_VALUES
     validates :sequence_type, inclusion: SEQUENCE_TYPES
 

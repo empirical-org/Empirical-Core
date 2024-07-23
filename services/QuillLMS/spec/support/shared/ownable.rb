@@ -6,7 +6,7 @@ shared_examples_for 'ownable' do
   let(:owner){ create(owner_name) }
 
   let(:parent) do
-    described_class.new( :"#{owner_name}_id" => owner.id )
+    described_class.new(:"#{owner_name}_id" => owner.id)
   end
 
   describe '.owner_name' do
@@ -32,7 +32,7 @@ shared_examples_for 'ownable' do
     describe '#owner=' do
       it 'must change the owner' do
         parent.owner= owner
-        expect(parent.send(owner_name) ).to eq owner
+        expect(parent.send(owner_name)).to eq owner
       end
     end
 

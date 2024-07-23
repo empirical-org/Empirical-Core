@@ -53,7 +53,7 @@ namespace :skills_and_skill_groups do
       sg[:skills].each do |s|
         skill = Skill.create(name: s[:name], skill_group: skill_group)
         s[:concepts].each do |concept|
-          SkillConcept.create({skill: skill, concept: Concept.find_by_uid(concept[:uid])})
+          SkillConcept.create({ skill: skill, concept: Concept.find_by_uid(concept[:uid]) })
         end
       end
       skill_group
@@ -318,7 +318,7 @@ namespace :skills_and_skill_groups do
           {
             name: 'Plural Possessive Nouns',
             concepts: [
-              { uid: 'uYwGHRRUNwzvGtFT-64KHQ'}
+              { uid: 'uYwGHRRUNwzvGtFT-64KHQ' }
             ]
           },
           {
@@ -940,13 +940,13 @@ namespace :skills_and_skill_groups do
           {
             name: 'Possessive Pronouns',
             concepts: [
-              { uid: 'rmEM8FefHInj_EHfdGb-mQ'}
+              { uid: 'rmEM8FefHInj_EHfdGb-mQ' }
             ]
           },
           {
             name: 'Singular Possessive Nouns',
             concepts: [
-              { uid: 'nAcT-C3UfPFuhWcf0JJNMw'}
+              { uid: 'nAcT-C3UfPFuhWcf0JJNMw' }
             ]
           }
         ]
@@ -959,49 +959,49 @@ namespace :skills_and_skill_groups do
           {
             name: 'In (Time)',
             concepts: [
-              { uid: 'lD5FBHF-FEPpsFG0SXlcfQ'}
+              { uid: 'lD5FBHF-FEPpsFG0SXlcfQ' }
             ]
           },
           {
             name: 'On (Time)',
             concepts: [
-              { uid: 'SpNQAzc2JL48JJ2KnfhUjA'}
+              { uid: 'SpNQAzc2JL48JJ2KnfhUjA' }
             ]
           },
           {
             name: 'At (Time)',
             concepts: [
-              { uid: 'OHlY0IZhsT6Usvg9lBYJFg'}
+              { uid: 'OHlY0IZhsT6Usvg9lBYJFg' }
             ]
           },
           {
             name: 'In (Place)',
             concepts: [
-              { uid: 'FZ0wa0oqQ-6ELHf1gzVJjw'}
+              { uid: 'FZ0wa0oqQ-6ELHf1gzVJjw' }
             ]
           },
           {
             name: 'On (Place)',
             concepts: [
-              { uid: 'wpzl6e2NhXcBaKDC11K4NA'}
+              { uid: 'wpzl6e2NhXcBaKDC11K4NA' }
             ]
           },
           {
             name: 'At (Place)',
             concepts: [
-              { uid: 'LPMBB_M5hooC263qXFc_Yg'}
+              { uid: 'LPMBB_M5hooC263qXFc_Yg' }
             ]
           },
           {
             name: 'For',
             concepts: [
-              { uid: 'peVXhSMPeMWPIui5uYyuUg'}
+              { uid: 'peVXhSMPeMWPIui5uYyuUg' }
             ]
           },
           {
             name: 'To',
             concepts: [
-              { uid: 'iY2_MBNxcVgzH3xmnyeEJA'}
+              { uid: 'iY2_MBNxcVgzH3xmnyeEJA' }
             ]
           }
         ]

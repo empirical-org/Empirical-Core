@@ -18,7 +18,7 @@ describe Cms::TopicsController do
       change_log_results = parsed_response['change_logs']
       topics.each do |t|
         expect(topic_results.find { |tr| tr['id'] == t.id }).to be
-        expect(change_log_results.find { |cl| cl['id'] == t.change_logs[0].id}).to be
+        expect(change_log_results.find { |cl| cl['id'] == t.change_logs[0].id }).to be
       end
     end
   end

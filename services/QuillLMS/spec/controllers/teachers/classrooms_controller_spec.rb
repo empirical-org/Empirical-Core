@@ -9,7 +9,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
   describe 'new' do
     let(:teacher) { create(:teacher) }
-    let(:classroom_attributes) {attributes_for(:classroom)}
+    let(:classroom_attributes) { attributes_for(:classroom) }
 
     before do
       session[:user_id] = teacher.id # sign in, is there a better way to do this in test?
@@ -27,7 +27,7 @@ describe Teachers::ClassroomsController, type: :controller do
     let!(:classrooms_teacher) do
       create(:classrooms_teacher, user_id: teacher.id, classroom: classroom)
     end
-    let(:students_classroom) { create(:students_classrooms, classroom: classroom)}
+    let(:students_classroom) { create(:students_classrooms, classroom: classroom) }
 
     before do
       session[:user_id] = teacher.id
@@ -59,8 +59,8 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'calls the student creator' do
-      student1 = { name: 'Happy Kid', password: 'Kid', username: "happy.kid@#{classroom.code}"}
-      student2 = { name: 'Sad Kid', password: 'Kid', username: "sad.kid@#{classroom.code}"}
+      student1 = { name: 'Happy Kid', password: 'Kid', username: "happy.kid@#{classroom.code}" }
+      student2 = { name: 'Sad Kid', password: 'Kid', username: "sad.kid@#{classroom.code}" }
       student1_with_account_type = student1.dup
       student1_with_account_type[:account_type] = 'Teacher Created Account'
       student2_with_account_type = student2.dup
@@ -77,8 +77,8 @@ describe Teachers::ClassroomsController, type: :controller do
     end
 
     it 'student creator catches duplicate usernames' do
-      student1 = { name: 'Good Kid', password: 'Kid', username: "good.kid@#{classroom.code}"}
-      student2 = { name: 'Good Kid', password: 'Kid', username: "good.kid@#{classroom.code}"}
+      student1 = { name: 'Good Kid', password: 'Kid', username: "good.kid@#{classroom.code}" }
+      student2 = { name: 'Good Kid', password: 'Kid', username: "good.kid@#{classroom.code}" }
       student1_with_account_type = student1.dup
       student1_with_account_type[:account_type] = 'Teacher Created Account'
       student2_with_account_type = student2.dup
@@ -99,7 +99,7 @@ describe Teachers::ClassroomsController, type: :controller do
     context 'current_user is not the classroom owner' do
       it 'should not allow a teacher to modify a classroom' do
         unauthorized_teacher = create(:teacher)
-        unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: 'fake.kid@aol.com'}
+        unauthorized_student = { name: 'Fake Kid', password: 'Kid', username: 'fake.kid@aol.com' }
         allow(controller).to receive(:current_user) { unauthorized_teacher }
         post :create_students, params: { classroom_id: classroom.id, students: [unauthorized_student], classroom: {} }
 
@@ -189,13 +189,13 @@ describe Teachers::ClassroomsController, type: :controller do
     before { allow(controller).to receive(:current_user) { teacher } }
 
     context 'plain classrooms' do
-      let!(:classroom1) { create(:classroom)}
-      let!(:classroom2) { create(:classroom)}
-      let!(:classroom3) { create(:classroom)}
+      let!(:classroom1) { create(:classroom) }
+      let!(:classroom2) { create(:classroom) }
+      let!(:classroom3) { create(:classroom) }
       let!(:classrooms) { Classroom.where(id: [classroom1.id, classroom2.id, classroom3.id]) }
-      let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher )}
-      let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher )}
-      let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher )}
+      let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher) }
+      let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher) }
+      let!(:classrooms_teacher3) { create(:classrooms_teacher, classroom: classroom3, user: teacher) }
 
       before { allow(controller).to receive(:current_user) { teacher } }
 
@@ -221,8 +221,8 @@ describe Teachers::ClassroomsController, type: :controller do
           let!(:classroom) { classroom3 }
           let!(:activity) { create(:activity) }
           let!(:student) { create(:user, classcode: classroom.code) }
-          let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-          let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
+          let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
+          let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity) }
           let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
           let!(:activity_session2) { create(:activity_session, user: student, state: 'finished') }
 
@@ -291,7 +291,7 @@ describe Teachers::ClassroomsController, type: :controller do
         let(:classroom) { create(:classroom_with_a_couple_students, :from_google, students: [student1, student2]) }
         let(:student1) { create(:student, :signed_up_with_google) }
         let(:student2) { create(:student, :signed_up_with_google) }
-        let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher )}
+        let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
 
         before do
           create(:google_classroom_user,
@@ -363,7 +363,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
     it 'should give the new code' do
       get :regenerate_code
-      expect(response.body).to eq({code: 'unique code'}.to_json)
+      expect(response.body).to eq({ code: 'unique code' }.to_json)
     end
   end
 
@@ -405,8 +405,8 @@ describe Teachers::ClassroomsController, type: :controller do
     let!(:owned_classroom1) { create(:classroom, :with_no_teacher) }
     let!(:owned_classroom2) { create(:classroom, :with_no_teacher) }
     let!(:unowned_classroom) { create(:classroom) }
-    let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: owned_classroom1, user: teacher, role: 'owner')}
-    let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: owned_classroom2, user: teacher, role: 'owner')}
+    let!(:classrooms_teacher1) { create(:classrooms_teacher, classroom: owned_classroom1, user: teacher, role: 'owner') }
+    let!(:classrooms_teacher2) { create(:classrooms_teacher, classroom: owned_classroom2, user: teacher, role: 'owner') }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -446,7 +446,7 @@ describe Teachers::ClassroomsController, type: :controller do
 
     it 'should give the correct json' do
       get :units, params: { id: classroom.id }
-      expect(response.body).to eq({units: 'units'}.to_json)
+      expect(response.body).to eq({ units: 'units' }.to_json)
     end
   end
 end

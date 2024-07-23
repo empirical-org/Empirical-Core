@@ -30,7 +30,7 @@ class Teachers::ClassroomsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json {render json: {classrooms: @classrooms, coteacher_invitations: @coteacher_invitations }}
+      format.json { render json: { classrooms: @classrooms, coteacher_invitations: @coteacher_invitations } }
     end
   end
 
@@ -43,15 +43,15 @@ class Teachers::ClassroomsController < ApplicationController
   end
 
   def regenerate_code
-    render json: {code: Classroom.generate_unique_code}
+    render json: { code: Classroom.generate_unique_code }
   end
 
   def create
     @classroom = Classroom.create_with_join(classroom_params, current_user.id)
     if @classroom.valid?
-      render json: {classroom: @classroom}
+      render json: { classroom: @classroom }
     else
-      render json: {errors: @classroom.errors}
+      render json: { errors: @classroom.errors }
     end
   end
 
@@ -108,8 +108,8 @@ class Teachers::ClassroomsController < ApplicationController
     classroom.visible = false
     classroom.save(validate: false)
     respond_to do |format|
-      format.html{redirect_to teachers_classrooms_path}
-      format.json{render json: classroom, serializer: ClassroomSerializer}
+      format.html{ redirect_to teachers_classrooms_path }
+      format.json{ render json: classroom, serializer: ClassroomSerializer }
     end
   end
 
@@ -123,7 +123,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def units
     @classroom = Classroom.find(params[:id])
-    render json: {units: @classroom.units_json }
+    render json: { units: @classroom.units_json }
   end
 
   def generate_login_pdf
@@ -175,7 +175,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   # rubocop:disable Metrics/CyclomaticComplexity
   private def format_coteacher_invitations_for_index
-    coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
+    coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: { invitee_email: current_user.email }, classrooms: { visible: true })
 
     coteacher_invitations.map do |coteacher_invitation|
       coteacher_invitation_obj = coteacher_invitation.attributes
@@ -190,7 +190,7 @@ class Teachers::ClassroomsController < ApplicationController
   private def format_classrooms_for_index
     classrooms = Classroom.unscoped
       .joins(:classrooms_teachers)
-      .where(classrooms_teachers: {user_id: current_user.id})
+      .where(classrooms_teachers: { user_id: current_user.id })
       .includes(
         :students,
         coteacher_classroom_invitations: :invitation,

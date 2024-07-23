@@ -31,7 +31,7 @@ module Evidence
     belongs_to :activity, inverse_of: :passages
 
     validates_presence_of :activity
-    validates :text, presence: true, length: {minimum: MIN_TEXT_LENGTH}
+    validates :text, presence: true, length: { minimum: MIN_TEXT_LENGTH }
 
     def serializable_hash(options = nil)
       options ||= {}

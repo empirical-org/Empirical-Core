@@ -12,7 +12,7 @@ describe RedisFeed, type: :model do
         def limit; 3; end
 
         def hydrate(ids:)
-          ids.map {|id| {id: id.to_s } }
+          ids.map { |id| { id: id.to_s } }
         end
       end
     end
@@ -27,13 +27,13 @@ describe RedisFeed, type: :model do
         test_feed_class.add(1, '19')
         test_feed_class.add(1, 'word')
 
-        expect(test_feed_class.get(1)).to eq([{id: 'word'}, {id: '19'}, {id: '17'}])
+        expect(test_feed_class.get(1)).to eq([{ id: 'word' }, { id: '19' }, { id: '17' }])
       end
 
       it 'should store an array of stings as multiple entries maintaining order' do
         test_feed_class.add(1, [17, '19', 'word'])
 
-        expect(test_feed_class.get(1)).to eq([{id: '17'}, {id: '19'}, {id: 'word'}])
+        expect(test_feed_class.get(1)).to eq([{ id: '17' }, { id: '19' }, { id: 'word' }])
       end
 
       it 'should add and retrieve hydrated records in reverse order of addition' do
@@ -41,7 +41,7 @@ describe RedisFeed, type: :model do
         test_feed_class.add(1, 19)
         test_feed_class.add(1, 12)
 
-        expect(test_feed_class.get(1)).to eq([{id: '12'}, {id: '19'}, {id: '17'}])
+        expect(test_feed_class.get(1)).to eq([{ id: '12' }, { id: '19' }, { id: '17' }])
       end
 
       it 'should only store the limit amount of records' do
@@ -50,7 +50,7 @@ describe RedisFeed, type: :model do
         test_feed_class.add(1, 19)
         test_feed_class.add(1, 12)
 
-        expect(test_feed_class.get(1)).to eq([{id: '12'}, {id: '19'}, {id: '17'}])
+        expect(test_feed_class.get(1)).to eq([{ id: '12' }, { id: '19' }, { id: '17' }])
       end
 
       it 'should have a different store for each key' do
@@ -58,8 +58,8 @@ describe RedisFeed, type: :model do
         test_feed_class.add(1, 17)
         test_feed_class.add(2, 18)
 
-        expect(test_feed_class.get(1)).to eq([{id: '17'}])
-        expect(test_feed_class.get(2)).to eq([{id: '18'}])
+        expect(test_feed_class.get(1)).to eq([{ id: '17' }])
+        expect(test_feed_class.get(2)).to eq([{ id: '18' }])
       end
 
       it 'should empty the data set on reset!' do
@@ -80,7 +80,7 @@ describe RedisFeed, type: :model do
         def limit; 3; end
 
         def hydrate(ids:)
-          ids.map {|id| {id: id.to_s } }
+          ids.map { |id| { id: id.to_s } }
         end
 
         def callback_on_add(id)

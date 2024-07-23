@@ -7,8 +7,8 @@ describe TeachersController, type: :controller do
   context 'with teacher' do
     let!(:school) { create(:school) }
     let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities, school: school) }
-    let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
-    let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+    let!(:co_taught_classroom) { create(:classroom, :with_no_teacher) }
+    let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }
 
     before { allow(controller).to receive(:current_user) { teacher } }
 
@@ -44,7 +44,7 @@ describe TeachersController, type: :controller do
 
       it 'returns the classrooms the current user owns' do
         get :classrooms_i_teach_with_students
-        expect(response.body).to eq({classrooms: teacher.classrooms_i_teach_with_students}.to_json)
+        expect(response.body).to eq({ classrooms: teacher.classrooms_i_teach_with_students }.to_json)
       end
     end
 
@@ -52,12 +52,12 @@ describe TeachersController, type: :controller do
 
       it 'returns the classrooms with students the current user owns' do
         get :classrooms_i_own_with_students
-        expect(response.body).to eq({classrooms: teacher.classrooms_i_own_with_students}.to_json)
+        expect(response.body).to eq({ classrooms: teacher.classrooms_i_own_with_students }.to_json)
       end
 
       it 'does not return the classrooms with students the current user coteaches' do
         get :classrooms_i_own_with_students
-        expect(response.body).not_to eq({classrooms: teacher.classrooms_i_teach_with_students}.to_json)
+        expect(response.body).not_to eq({ classrooms: teacher.classrooms_i_teach_with_students }.to_json)
       end
     end
 
@@ -77,9 +77,9 @@ describe TeachersController, type: :controller do
         let!(:unit) { create(:unit) }
         let!(:classroom) { create(:classroom_with_a_couple_students) }
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
-        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: lesson_activity1)}
-        let!(:classroom_unit_activity_state) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit, completed: true)}
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids) }
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: lesson_activity1) }
+        let!(:classroom_unit_activity_state) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit, completed: true) }
 
         it 'returns an empty array' do
           get :lessons_info_for_dashboard_mini
@@ -91,11 +91,11 @@ describe TeachersController, type: :controller do
         let!(:unit) { create(:unit) }
         let!(:classroom) { create(:classroom_with_a_couple_students) }
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
-        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
-        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: lesson_activity1)}
-        let!(:unit_activity2) { create(:unit_activity, created_at: unit_activity1.created_at.since(1.minute), unit: unit, activity: lesson_activity2)}
-        let!(:classroom_unit_activity_state1) { create(:classroom_unit_activity_state, unit_activity: unit_activity1, classroom_unit: classroom_unit, completed: false)}
-        let!(:classroom_unit_activity_state2) { create(:classroom_unit_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit, completed: false)}
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids) }
+        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: lesson_activity1) }
+        let!(:unit_activity2) { create(:unit_activity, created_at: unit_activity1.created_at.since(1.minute), unit: unit, activity: lesson_activity2) }
+        let!(:classroom_unit_activity_state1) { create(:classroom_unit_activity_state, unit_activity: unit_activity1, classroom_unit: classroom_unit, completed: false) }
+        let!(:classroom_unit_activity_state2) { create(:classroom_unit_activity_state, unit_activity: unit_activity2, classroom_unit: classroom_unit, completed: false) }
 
         it 'returns an array with both lessons activities in it in reverse order of creation' do
           get :lessons_info_for_dashboard_mini
@@ -116,7 +116,7 @@ describe TeachersController, type: :controller do
               classroom_id: classroom.id,
               supporting_info: lesson_activity1.supporting_info
             }
-          ]}.to_json)
+          ] }.to_json)
         end
       end
 
@@ -138,9 +138,9 @@ describe TeachersController, type: :controller do
         let!(:unit) { create(:unit) }
         let!(:classroom) { create(:classroom_with_a_couple_students) }
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
-        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
-        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: diagnostic_activity1)}
-        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: diagnostic_activity2)}
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids) }
+        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: diagnostic_activity1) }
+        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: diagnostic_activity2) }
 
         it 'returns a row for each diagnostic' do
           get :diagnostic_info_for_dashboard_mini
@@ -178,11 +178,11 @@ describe TeachersController, type: :controller do
         let!(:unit) { create(:unit) }
         let!(:classroom) { create(:classroom_with_a_couple_students) }
         let!(:classroom_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
-        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids)}
-        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: diagnostic_activity1)}
-        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: diagnostic_activity2)}
-        let!(:activity_session1) { create(:activity_session, user: classroom.students[0], classroom_unit: classroom_unit, activity: unit_activity1.activity)}
-        let!(:activity_session2) { create(:activity_session, user: classroom.students[1], classroom_unit: classroom_unit, activity: unit_activity2.activity)}
+        let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: classroom.students.ids) }
+        let!(:unit_activity1) { create(:unit_activity, unit: unit, activity: diagnostic_activity1) }
+        let!(:unit_activity2) { create(:unit_activity, unit: unit, activity: diagnostic_activity2) }
+        let!(:activity_session1) { create(:activity_session, user: classroom.students[0], classroom_unit: classroom_unit, activity: unit_activity1.activity) }
+        let!(:activity_session2) { create(:activity_session, user: classroom.students[1], classroom_unit: classroom_unit, activity: unit_activity2.activity) }
 
         it 'returns a row for each diagnostic' do
           get :diagnostic_info_for_dashboard_mini

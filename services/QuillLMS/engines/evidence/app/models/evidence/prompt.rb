@@ -51,8 +51,8 @@ module Evidence
 
     validate :validate_prompt_text_length, on: [:create, :update]
 
-    scope :conjunction, ->(conjunction) {where(conjunction:)}
-    scope :parent_activity_ids, ->(parent_activity_ids) {joins(:activity).where(activity: {parent_activity_id: parent_activity_ids})}
+    scope :conjunction, ->(conjunction) { where(conjunction:) }
+    scope :parent_activity_ids, ->(parent_activity_ids) { joins(:activity).where(activity: { parent_activity_id: parent_activity_ids }) }
 
     def serializable_hash(options = nil)
       options ||= {}
@@ -90,7 +90,7 @@ module Evidence
         .active
         .auto_ml
         .suboptimal
-        .map {|r| r.feedbacks.map {|f| f.highlights.map(&:text)}}
+        .map { |r| r.feedbacks.map { |f| f.highlights.map(&:text) } }
         .flatten
         .uniq
     end

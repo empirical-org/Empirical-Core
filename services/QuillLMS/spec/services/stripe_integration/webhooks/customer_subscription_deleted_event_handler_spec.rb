@@ -6,7 +6,7 @@ RSpec.describe StripeIntegration::Webhooks::CustomerSubscriptionDeletedEventHand
   include_context 'Stripe Customer Subscription Deleted Event'
 
   let(:stripe_webhook_event) { create(:stripe_webhook_event, event_type: stripe_event_type) }
-  let(:subscription_canceler_class) { StripeIntegration::Webhooks::SubscriptionCanceler}
+  let(:subscription_canceler_class) { StripeIntegration::Webhooks::SubscriptionCanceler }
   let(:external_id) { stripe_webhook_event.external_id }
 
   subject { described_class.run(stripe_webhook_event) }

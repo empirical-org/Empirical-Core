@@ -28,7 +28,7 @@ RSpec.shared_examples 'a provider classroom user' do
   end
 
   context 'uniqueness' do
-    it { expect { subject.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
+    it { expect { subject.dup.save! }.to raise_error ActiveRecord::RecordNotUnique }
   end
 
   context 'scopes' do

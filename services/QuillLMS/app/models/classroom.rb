@@ -29,13 +29,13 @@ class Classroom < ApplicationRecord
 
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
   UNIVERSITY = 'University'
-  GRADE_INTEGERS = {Kindergarten: 0, University: 13, PostGraduate: 14}
+  GRADE_INTEGERS = { Kindergarten: 0, University: 13, PostGraduate: 14 }
 
   validates_uniqueness_of :code
   validates_presence_of :name
   validate :validate_name
 
-  default_scope { where(visible: true)}
+  default_scope { where(visible: true) }
 
   has_many :classroom_units, dependent: :destroy
   has_many :units, through: :classroom_units
@@ -55,7 +55,7 @@ class Classroom < ApplicationRecord
   has_one :canvas_classroom, dependent: :destroy
   has_one :canvas_instance, through: :canvas_classroom
 
-  before_validation :set_code, if: proc {|c| c.code.blank?}
+  before_validation :set_code, if: proc { |c| c.code.blank? }
 
   after_save :reset_teacher_activity_feed, :save_user_pack_sequence_items, if: :saved_change_to_visible?
 
@@ -96,7 +96,7 @@ class Classroom < ApplicationRecord
 
   def units_json
     units.select('units.id AS value, units.name')
-         .where(classroom_units: {visible: true})
+         .where(classroom_units: { visible: true })
          .distinct.order('units.name').as_json(except: :id)
   end
 
@@ -127,7 +127,7 @@ class Classroom < ApplicationRecord
 
   def archived_classrooms_manager
     coteachers = self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } }
-    {createdDate: created_at.strftime('%m/%d/%Y'), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !google_classroom_id.nil?, coteachers: coteachers}
+    { createdDate: created_at.strftime('%m/%d/%Y'), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !google_classroom_id.nil?, coteachers: coteachers }
   end
 
   def set_code
@@ -175,7 +175,7 @@ class Classroom < ApplicationRecord
   end
 
   def with_students_ids
-    attributes.merge({student_ids: students.ids})
+    attributes.merge({ student_ids: students.ids })
   end
 
   def classroom_type_for_segment

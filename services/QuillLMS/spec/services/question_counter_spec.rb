@@ -8,9 +8,9 @@ describe QuestionCounter do
   let(:question_list) { [{ key: 'fake_key' }, { key: 'fake_key' }] }
   let(:concept_quantity1) { 2 }
   let(:concept_quantity2) { 5 }
-  let(:concept_list) { {'1232' => {'quantity' => concept_quantity1}, '1235' => {'quantity' => concept_quantity2}} }
-  let(:passage) { 'Yuri Gagarin is {+famous-famous,|nb0JW1r5pRB5ouwAzTgMbQ} because he was the first person to travel into outer space and orbit the Earth. He was born on {+March-march|E635Hrr0tuMsBDm7lLfrPg} 9, 1934, in the Soviet Union.<br/><br/><br/>Gagarin first learned to fly a plane when he was young man studying in Saratov. After finishing {+school,-school|m8sKnkzLg1mIAkkXeqHOWw}'}
-  let(:default_size) {99}
+  let(:concept_list) { { '1232' => { 'quantity' => concept_quantity1 }, '1235' => { 'quantity' => concept_quantity2 } } }
+  let(:passage) { 'Yuri Gagarin is {+famous-famous,|nb0JW1r5pRB5ouwAzTgMbQ} because he was the first person to travel into outer space and orbit the Earth. He was born on {+March-march|E635Hrr0tuMsBDm7lLfrPg} 9, 1934, in the Soviet Union.<br/><br/><br/>Gagarin first learned to fly a plane when he was young man studying in Saratov. After finishing {+school,-school|m8sKnkzLg1mIAkkXeqHOWw}' }
+  let(:default_size) { 99 }
 
   context 'blank activity' do
     before do
@@ -33,7 +33,7 @@ describe QuestionCounter do
       stub_const('QuestionCounter::DEFAULT', default_size)
     end
 
-    let(:classification) {build(:classification, key: 'some-unknown')}
+    let(:classification) { build(:classification, key: 'some-unknown') }
     let(:activity) { build(:activity, classification: classification) }
 
     it { expect(subject).to eq default_size }
@@ -46,31 +46,31 @@ describe QuestionCounter do
   end
 
   context 'connect' do
-    let(:activity) { build(:connect_activity, data: {questions: question_list}) }
+    let(:activity) { build(:connect_activity, data: { questions: question_list }) }
 
     it { expect(subject).to eq question_list.size }
   end
 
   context 'grammar' do
-    let(:activity) { build(:grammar_activity, data: {questions: question_list}) }
+    let(:activity) { build(:grammar_activity, data: { questions: question_list }) }
 
     it { expect(subject).to eq question_list.size }
 
     context 'blank question list, use concept list sum of quantity keys' do
-      let(:activity) { build(:grammar_activity, data: {questions: [], concepts: concept_list}) }
+      let(:activity) { build(:grammar_activity, data: { questions: [], concepts: concept_list }) }
 
       it { expect(subject).to eq(concept_quantity1 + concept_quantity2) }
     end
   end
 
   context 'diagnostic' do
-    let(:activity) { build(:diagnostic_activity, data: {questions: question_list}) }
+    let(:activity) { build(:diagnostic_activity, data: { questions: question_list }) }
 
     it { expect(subject).to eq question_list.size }
   end
 
   context 'proofreader' do
-    let(:activity) { build(:proofreader_activity, data: {passage: passage }) }
+    let(:activity) { build(:proofreader_activity, data: { passage: passage }) }
 
     it { expect(subject).to eq 3 }
   end

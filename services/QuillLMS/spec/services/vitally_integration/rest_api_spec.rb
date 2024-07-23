@@ -49,7 +49,7 @@ describe VitallyIntegration::RestApi do
 
     it 'should return false if the Vitally REST API returns a parsed_response with an error' do
       api_get = double
-      expect(api_get).to receive(:parsed_response).and_return({'error' => 'there is one'})
+      expect(api_get).to receive(:parsed_response).and_return({ 'error' => 'there is one' })
       expect(api).to receive(:get).with(type, id).and_return(api_get)
 
       expect(api.exists?(type, id)).to eq(false)

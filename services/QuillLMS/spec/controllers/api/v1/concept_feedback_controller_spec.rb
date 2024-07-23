@@ -23,7 +23,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
         ConceptFeedback
           .where(activity_type: concept_feedback.activity_type)
           .all
-          .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+          .reduce({}) { |agg, q| agg.update({ q.uid => q.as_json }) }
       )
     end
 
@@ -31,14 +31,14 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
 
   describe "#translations" do
     let(:locale) { Translatable::DEFAULT_LOCALE }
-    let!(:concept_feedback_untranslated) { create(:concept_feedback)}
+    let!(:concept_feedback_untranslated) { create(:concept_feedback) }
     let(:cache_key) {
       "#{ConceptFeedback::ALL_CONCEPT_FEEDBACKS_KEY}_#{concept_feedback_untranslated.activity_type}_#{locale}"
     }
 
     context 'there is a translation available for the language' do
-      let!(:concept_feedback1) { create(:concept_feedback, :with_translated_text)}
-      let!(:concept_feedback2) { create(:concept_feedback, :with_translated_text)}
+      let!(:concept_feedback1) { create(:concept_feedback, :with_translated_text) }
+      let!(:concept_feedback2) { create(:concept_feedback, :with_translated_text) }
 
       context 'there is no cache set' do
         before do
@@ -62,7 +62,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       end
 
       context 'the cache is set' do
-        let(:cache_value) { {foo: 'bar'}.to_json }
+        let(:cache_value) { { foo: 'bar' }.to_json }
 
         before do
           $redis.set(cache_key, cache_value)
@@ -95,7 +95,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       end
 
       context 'the cache is set' do
-        let(:cache_value) { {foo: 'bar'}.to_json }
+        let(:cache_value) { { foo: 'bar' }.to_json }
 
         it 'returns the cache value' do
           $redis.set(cache_key, cache_value)
@@ -126,7 +126,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
   describe '#create' do
     it 'should create a new ConceptFeedback record' do
       uuid = SecureRandom.uuid
-      data = {foo: 'bar'}
+      data = { foo: 'bar' }
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = ConceptFeedback.count
       post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: data }, as: :json
@@ -135,13 +135,13 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
 
     it 'should expire the redis cache for concept feedbacks with that activity type' do
       expect($redis).to receive(:del).with(concept_feedback.cache_key)
-      post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: {foo: 'bar'} }, as: :json
+      post :create, params: { activity_type: concept_feedback.activity_type, concept_feedback: { foo: 'bar' } }, as: :json
     end
   end
 
   describe '#update' do
     it 'should update the existing record' do
-      data = {'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       put :update,
         params: {
           activity_type: concept_feedback.activity_type,
@@ -155,7 +155,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
     end
 
     it "should create a new record with the specified UID if one doesn't exit" do
-      data = {'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       uid = SecureRandom.uuid
       expect(ConceptFeedback.find_by(uid: uid)).to be_nil
       put :update,
@@ -171,7 +171,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
 
     it 'should expire the redis cache for concept feedbacks with that activity type' do
       expect($redis).to receive(:del).with(concept_feedback.cache_key)
-      data = {'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       put :update,
         params: {
           activity_type: concept_feedback.activity_type,

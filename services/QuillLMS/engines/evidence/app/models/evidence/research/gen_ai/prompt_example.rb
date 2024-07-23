@@ -30,7 +30,7 @@ module Evidence
 
         def self.assigned_status_column = :staff_assigned_status
 
-        def response_feedback_status = {student_response:, feedback: staff_feedback, optimal: optimal? }
+        def response_feedback_status = { student_response:, feedback: staff_feedback, optimal: optimal? }
       end
     end
   end

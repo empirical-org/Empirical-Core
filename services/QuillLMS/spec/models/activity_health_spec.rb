@@ -23,12 +23,12 @@ require 'rails_helper'
 
 describe ActivityHealth, type: :model, redis: true do
 
-  it { should have_many(:prompt_healths)}
+  it { should have_many(:prompt_healths) }
 
-  it { should validate_inclusion_of(:flag).in_array(ActivityHealth::FLAGS)}
-  it { should validate_inclusion_of(:tool).in_array(ActivityHealth::ALLOWED_TOOLS)}
-  it { should validate_numericality_of(:recent_plays).is_greater_than_or_equal_to(0)}
-  it { should validate_inclusion_of(:avg_difficulty).in_range(0..5)}
+  it { should validate_inclusion_of(:flag).in_array(ActivityHealth::FLAGS) }
+  it { should validate_inclusion_of(:tool).in_array(ActivityHealth::ALLOWED_TOOLS) }
+  it { should validate_numericality_of(:recent_plays).is_greater_than_or_equal_to(0) }
+  it { should validate_inclusion_of(:avg_difficulty).in_range(0..5) }
 
   context '#serializable_hash' do
     it 'serialize into the expected shape' do

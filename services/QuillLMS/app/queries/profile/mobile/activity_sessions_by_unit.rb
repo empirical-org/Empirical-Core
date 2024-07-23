@@ -98,6 +98,6 @@ class Profile::Mobile::ActivitySessionsByUnit
   end
 
   private def group_by_unit(all)
-    all.select{|s| s['unit_name'].present?}.group_by{|s| s['unit_name']}
+    all.select{ |s| s['unit_name'].present? }.group_by{ |s| s['unit_name'] }
   end
 end

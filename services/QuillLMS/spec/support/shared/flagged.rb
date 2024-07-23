@@ -38,12 +38,12 @@ shared_examples_for 'flagged' do
 
       it 'must pop the passed flag as argument' do
         flagged.unflag :alpha
-        expect( flagged.flags ).to eq [:betha]
+        expect(flagged.flags).to eq [:betha]
       end
 
       it 'must to contains 1 elements' do
         flagged.unflag :alpha
-        expect( flagged.flags.count ).to eq 1
+        expect(flagged.flags.count).to eq 1
       end
     end
   end

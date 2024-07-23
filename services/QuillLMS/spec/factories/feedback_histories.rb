@@ -40,7 +40,7 @@ FactoryBot.define do
     optimal { true }
     used { true }
     time { DateTime.current }
-    metadata { {foo: 'bar'} }
+    metadata { { foo: 'bar' } }
     rule_uid { SecureRandom.uuid }
   end
 end

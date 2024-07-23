@@ -46,7 +46,7 @@ class Unit < ApplicationRecord
   has_many :activities, through: :unit_activities
   has_many :standards, through: :activities
 
-  default_scope { where(visible: true)}
+  default_scope { where(visible: true) }
 
   before_save :set_open_to_false
 
@@ -90,7 +90,7 @@ class Unit < ApplicationRecord
         .select('DISTINCT(activities.id)')
         .joins('JOIN unit_activities ON unit_activities.activity_id = activities.id')
         .joins("JOIN units ON unit_activities.unit_id = #{id}")
-        .where( 'activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL')
+        .where('activities.activity_classification_id = 6 AND activities.supporting_info IS NOT NULL')
         .pluck(:id)
         .uniq
 
@@ -103,7 +103,7 @@ class Unit < ApplicationRecord
     classroom_units.each(&:save_user_pack_sequence_items)
   end
 
-  def self.create_with_incremented_name(user_id:, name: )
+  def self.create_with_incremented_name(user_id:, name:)
     unit = Unit.create(user_id: user_id, name: name)
     return unit if unit.persisted?
 

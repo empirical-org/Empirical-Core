@@ -124,8 +124,8 @@ describe User, type: :model do
     end
 
     describe '#classrooms_i_coteach' do
-      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
-      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classroom) { create(:classroom, :with_no_teacher) }
+      let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }
 
       it 'should return all visible classrooms associated with the teacher through classrooms teacher and role coteacher' do
         expect(teacher.classrooms_i_coteach).to match_array([co_taught_classroom])
@@ -135,14 +135,14 @@ describe User, type: :model do
     end
 
     describe '#classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach' do
-      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
-      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classroom) { create(:classroom, :with_no_teacher) }
+      let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }
 
-      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
+      let!(:pending_coteacher_invitation) { create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email) }
+      let!(:coteacher_classroom_invitation) { create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id) }
 
       it 'returns all the cotaught classrooms' do
-        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{|c| c.id })
+        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{ |c| c.id })
         expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.superset?(cotaught_classroom_ids)).to be
       end
 
@@ -152,14 +152,14 @@ describe User, type: :model do
     end
 
     describe '#ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of' do
-      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
-      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
-      let!(:co_taught_classrooms_teacher2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classroom) { create(:classroom, :with_no_teacher) }
+      let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }
+      let!(:co_taught_classrooms_teacher2) { create(:classrooms_teacher, user: teacher, role: 'coteacher') }
 
-      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:pending_coteacher_invitation2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
-      let!(:coteacher_classroom_invitation2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation2.id)}
+      let!(:pending_coteacher_invitation) { create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email) }
+      let!(:pending_coteacher_invitation2) { create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email) }
+      let!(:coteacher_classroom_invitation) { create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id) }
+      let!(:coteacher_classroom_invitation2) { create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation2.id) }
 
       context 'with no passed classroom ids' do
         it 'returns all the cotaught classrooms' do
@@ -195,14 +195,14 @@ describe User, type: :model do
     end
 
     describe '#handle_negative_classrooms_from_update_coteachers and #handle_positive_classrooms_from_update_coteachers' do
-      let!(:co_taught_classroom) {create(:classroom, :with_no_teacher)}
-      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
-      let!(:co_taught_classrooms_teacher2) {create(:classrooms_teacher, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classroom) { create(:classroom, :with_no_teacher) }
+      let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }
+      let!(:co_taught_classrooms_teacher2) { create(:classrooms_teacher, user: teacher, role: 'coteacher') }
 
-      let!(:pending_coteacher_invitation) {create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:pending_coteacher_invitation2) {create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email)}
-      let!(:coteacher_classroom_invitation) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id)}
-      let!(:coteacher_classroom_invitation2) {create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation2.id)}
+      let!(:pending_coteacher_invitation) { create(:pending_coteacher_invitation, inviter_id: teacher.id, invitee_email: co_taught_classrooms_teacher.user.email) }
+      let!(:pending_coteacher_invitation2) { create(:pending_coteacher_invitation, invitee_email: co_taught_classrooms_teacher.user.email) }
+      let!(:coteacher_classroom_invitation) { create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id) }
+      let!(:coteacher_classroom_invitation2) { create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation2.id) }
 
       context '#handle_negative_classrooms_from_update_coteachers' do
         it 'deletes only the passed classrooms from invitations, leaving other ones unaffected' do
@@ -397,7 +397,7 @@ describe User, type: :model do
       context 'when the school has a subscription' do
         describe 'and the teacher has a subscription' do
 
-          let!(:user_sub) {create(:user_subscription, subscription: create(:subscription), user: teacher)}
+          let!(:user_sub) { create(:user_subscription, subscription: create(:subscription), user: teacher) }
 
           it "deletes the teacher's user_sub when the teachers changes school" do
             expect(queens_teacher2_user_sub).to be

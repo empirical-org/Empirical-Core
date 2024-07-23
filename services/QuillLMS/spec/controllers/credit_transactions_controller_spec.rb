@@ -15,7 +15,7 @@ describe CreditTransactionsController do
   describe '#redeem_credits_for_premium' do
     it 'should render the correct json' do
       put :redeem_credits_for_premium
-      expect(response.body).to eq({subscription: 'test'}.to_json)
+      expect(response.body).to eq({ subscription: 'test' }.to_json)
     end
   end
 end
