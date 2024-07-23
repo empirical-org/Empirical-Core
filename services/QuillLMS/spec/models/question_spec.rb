@@ -398,10 +398,26 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#as_json' do
+    subject { question.as_json(options) }
+
+    let(:options) { nil }
+
     it 'should just be the data attribute' do
-      expect(question.as_json).to eq(question.data)
+      expect(subject).to eq(question.data)
+    end
+
+    context 'a locale is passed in' do
+      let(:locale) { "ch-zn" }
+      let(:options) { { locale: } }
+
+      it 'should return translated_data(locale:)' do
+        expect(question).to receive(:translated_data).with(locale:)
+        subject
+      end
     end
   end
+
+
 
   describe '#refresh_cache' do
     let!(:question) { create(:question, uid: '1234', data: { 'foo' => 'initial_value' }) }
