@@ -3,6 +3,11 @@ import { mockFocusPointApi, } from '../__mocks__/focus_point_api';
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api';
 import { mockLessonApi, } from '../__mocks__/lesson_api';
 import { mockQuestionApi, } from '../__mocks__/question_api';
+import { mockDispatch as dispatch, } from '../__mocks__/dispatch';
+import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api';
+import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
+import questionActions from '../../actions/questions';
+
 jest.mock('../../libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,
@@ -11,15 +16,6 @@ jest.mock('../../libs/questions_api', () => ({
 jest.mock('../../libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
 }))
-
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch';
-
-import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api';
-import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
-
-import questionActions from '../../actions/questions';
-
-window.alert = jest.fn();
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {

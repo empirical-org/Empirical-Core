@@ -11,8 +11,6 @@ jest.mock('../../libs/questions_api', () => ({
   QuestionApi: mockQuestionApi,
 }))
 
-window.alert = jest.fn();
-
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
     it('should call QuestionApi.getAll()', () => {
