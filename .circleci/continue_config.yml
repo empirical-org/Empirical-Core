@@ -285,7 +285,7 @@ jobs:
     parallelism: 4
     resource_class: xlarge
     docker:
-      - image: cimg/node:16.20
+      - image: cimg/node:18.20
     steps:
       - run:
           <<: *blank_required_step
