@@ -16,19 +16,19 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      min-width: 306px;
+      min-width: 286px;
 
       .ell-language-selector {
         width: max-content;
         height: 80px;
         margin-right: 14px;
-        min-width: 180px;
+        min-width: 120px;
 
         .dropdown__control {
           background-color: transparent;
 
           .dropdown__value-container {
-            min-width: 164px;
+            min-width: 104px;
           }
           .dropdown__single-value {
             color: $quill-white;
@@ -43,7 +43,7 @@
           width: max-content;
           position: initial;
           margin-top: 14px;
-          min-width: 180px;
+          min-width: 120px;
           .dropdown__option {
             display: flex;
             align-items: center;
