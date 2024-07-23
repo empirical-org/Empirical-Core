@@ -9,7 +9,7 @@
   "engineStrict": true,
   "engines": {
     "node": "18.x",
-    "npm": "8.x"
+    "npm": "10.x"
   },
   "type": "module",
   "main": "js/app.js",
