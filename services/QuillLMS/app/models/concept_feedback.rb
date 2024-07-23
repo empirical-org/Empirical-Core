@@ -38,11 +38,17 @@ class ConceptFeedback < ApplicationRecord
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
   def as_json(options = nil)
-    translated_json(options || {})
+    data
   end
 
-
+  # translatable
   def self.default_translatable_field = 'description'
+
+  def translations_json(locale:)
+    return {} unless translation(locale:)
+
+    { uid => { default_translatable_field => translation(locale:) } }
+  end
 
   private def data_must_be_hash
     errors.add(:data, 'must be a hash') unless data.is_a?(Hash)

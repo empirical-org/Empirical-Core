@@ -55,16 +55,6 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
-  describe '#as_json' do
-    let(:concept_feedback) { create(:concept_feedback, data: { 'description' => 'Test description' }) }
-    let(:options) { { source_api: 'test_api' } }
-
-    it 'delegates to the translated_json method from Translatable concern' do
-      expect(concept_feedback).to receive(:translated_json).with(options)
-      concept_feedback.as_json(options)
-    end
-  end
-
   describe '#callbacks' do
     let!(:concept_feedback) { create(:concept_feedback) }
 
@@ -84,4 +74,25 @@ RSpec.describe ConceptFeedback, type: :model do
     end
   end
 
+  describe '#translations_json(language:)' do
+    subject { concept_feedback.translations_json(locale: )}
+
+    let(:locale) { Translatable::DEFAULT_LOCALE}
+
+    context 'there is a translation for the language' do
+      let(:concept_feedback) { create(:concept_feedback, :with_translated_text)}
+
+      it 'returns a json hash of with the uid as the key and the translation as the value' do
+        expect(subject).to eq({
+          concept_feedback.uid => { 'description' => concept_feedback.translation }
+        })
+      end
+    end
+
+    context 'there is no translation for the language' do
+      let(:concept_feedback) { create(:concept_feedback)}
+
+      it { expect(subject).to eq({})}
+    end
+  end
 end
