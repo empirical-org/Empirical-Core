@@ -95,12 +95,11 @@ export const Home = ({ dispatch, playDiagnostic }) => {
           {isPlaying && isTeacherOrAdmin &&
             <TeacherNavbar
               isOnMobile={isOnMobile}
+              language={playDiagnostic?.language}
               onTogglePreview={handleTogglePreviewMenu}
               previewShowing={previewShowing}
-              language={playDiagnostic?.language}
               updateLanguage={handleUpdateLanguage}
-            />
-          }
+            />}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
             isOnMobile: isOnMobile,
             handleTogglePreview: handleTogglePreviewMenu,
