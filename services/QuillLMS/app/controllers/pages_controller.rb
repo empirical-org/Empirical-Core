@@ -3,6 +3,7 @@
 class PagesController < ApplicationController
   include HTTParty
   include PagesHelper
+  include ContentHubsHelper
 
   before_action :determine_js_file, :determine_flag
   before_action :set_defer_js, except: [
@@ -460,6 +461,7 @@ class PagesController < ApplicationController
   end
 
   def world_history_1200_to_present
+    @unit_templates = course_with_assignment_data(world_history_1200_to_present_data, current_user&.classrooms_i_teach)
   end
 
   def backpack

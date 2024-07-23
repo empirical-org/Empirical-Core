@@ -25,9 +25,9 @@ describe ContentHubsHelper, type: :helper do
     end
   end
 
-  describe '#world_history_1200_to_present' do
+  describe '#world_history_1200_to_present_data' do
     it 'returns an array of world history units with the expected structure' do
-      result = helper.world_history_1200_to_present
+      result = helper.world_history_1200_to_present_data
 
       expect(result).to be_an(Array)
       expect(result).not_to be_empty
@@ -40,6 +40,7 @@ describe ContentHubsHelper, type: :helper do
         expect(unit).to have_key(:oer_unit_teacher_guide)
         expect(unit).to have_key(:all_oer_articles)
         expect(unit).to have_key(:all_quill_articles_href)
+        expect(unit).to have_key(:oer_unit_number)
         expect(unit).to have_key(:quill_teacher_guide_href)
         expect(unit).to have_key(:activities)
 

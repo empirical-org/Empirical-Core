@@ -7,13 +7,51 @@ module ContentHubsHelper
   end
 
   def unit_activities_include_social_studies_activities?(unit_activities)
-    activity_ids = world_history_1200_to_present.map { |unit_template| unit_template[:activities].map { |act| act[:activity_id] } }.flatten
+    activity_ids = world_history_1200_to_present_data.map { |unit_template| unit_template[:activities].map { |act| act[:activity_id] } }.flatten
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
   def unit_activities_include_science_activities?(unit_activities) = false
 
-  def world_history_1200_to_present
+  def course_with_assignment_data(course_data, classrooms)
+    return course_data unless classrooms&.length
+
+    classroom_ids_as_string = classrooms.map(&:id).join(',')
+
+    course_data.map do |unit_template|
+      unit_template[:activities].map do |activity|
+
+        unit_activities = UnitActivity
+          .joins(:classroom_units)
+          .where(activity_id: activity[:activity_id])
+          .where("classroom_units.classroom_id IN (#{classroom_ids_as_string})")
+
+        classroom_units = ClassroomUnit.where(unit_id: unit_activities.pluck(:unit_id))
+        activity_sessions = ActivitySession.completed.where(classroom_unit: classroom_units.ids, activity_id: activity[:activity_id], is_final_score: true)
+        activity_sessions_with_scores = activity_sessions.where.not(percentage: nil)
+
+        unit_id = activity_sessions.last&.unit&.id || unit_activities.last&.unit_id
+
+        # if activity[:activity_id] == 2516
+        #   puts 'UNIT_ACTIVITIES', unit_activities
+        #   puts 'CLASSROOM_UNITS', classroom_units
+        #   puts 'ACTIVITY_SESSIONS', activity_sessions
+        #   puts 'ACTIVITY_SESSIONS_WITH_SCORES', activity_sessions_with_scores
+        #   puts 'UNIT_ID', unit_id
+        # end
+
+        activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
+        activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
+        activity[:link_for_report] = unit_id ? "/teachers/progress_reports/report_from_unit_and_activity/u/#{unit_id}/a/#{activity[:activity_id]}" : nil
+        activity[:average_score] = activity_sessions_with_scores.length > 0 ? activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count : nil
+
+        activity
+      end
+      unit_template
+    end
+  end
+
+  def world_history_1200_to_present_data
     [
       {
         display_name: "The Global Tapestry (1200-1450 CE)",
@@ -22,6 +60,7 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-2",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Unit-2-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1Q62sQb8H4aWMqNxn2V525s4d2B6YryxS/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 2,
         all_quill_articles_href: "",
         quill_teacher_guide_href: '',
         activities: global_tapestry_activities
@@ -34,6 +73,7 @@ module ContentHubsHelper
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/Unit-3-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1oURXhjxIaxhY6r48c9RJto8Z7bzXkx3y/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: "https://docs.google.com/document/d/1LzcMDsFlbW_gifr-s-I5gY7ajiHOVTbsojM4WJqmV-A/edit",
+        oer_unit_number: 3,
         quill_teacher_guide_href: '',
         activities: transoceanic_connection_activities
       },
@@ -45,6 +85,7 @@ module ContentHubsHelper
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit4/Unit-4-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1amKT62b-New9kEKG4URZ7pAx8AfKzcQ8/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: 'https://docs.google.com/document/d/1ndNVZX8P0F8wzxIS07wBWZgxoTTJY73-fv-WePcQDvo/edit',
+        oer_unit_number: 4,
         quill_teacher_guide_href: '',
         activities: revolution_activities
       },
@@ -56,6 +97,7 @@ module ContentHubsHelper
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Unit-5-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1cnifbOcrkCxq_ZgnODUxZdNWzIQMVyoQ/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: 'https://docs.google.com/document/d/1gioQZdIV3ush2QWzSdtrz8sUsDADGAniorXCmBLWghc/edit',
+        oer_unit_number: 5,
         quill_teacher_guide_href: '',
         activities: industrialization_activities
       },
@@ -66,6 +108,7 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-6",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit6/Unit-6-Guide",
         all_oer_articles: "https://docs.google.com/document/d/18Ou6glUW6QdbpaFxgszFLuq7iuhIUNF8/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 6,
         all_quill_articles_href: 'https://docs.google.com/document/d/1K-8Nxau9IBCXgu8vEoIzwwzTmaK6fLiJvb0xO_gUs_M/edit?usp=sharing',
         quill_teacher_guide_href: '',
         activities: new_imperialism_and_resistance_activities
@@ -77,6 +120,7 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-7",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit7/Unit-7-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1nO78eUYRNORQQwnWy9jUmwTbxmk1dNNd/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 7,
         all_quill_articles_href: 'https://docs.google.com/document/d/14mnkQ75WILd6WsGch6AfG4XxKaiY_u8LHR9ZQyg2DD8/edit?usp=sharing',
         quill_teacher_guide_href: '',
         activities: global_conflict_activities
@@ -88,6 +132,7 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-8",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit8/Unit-8-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1tHmlCgf8FgIoS0Ipdvj2Zuw3AKDYPU14/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 8,
         all_quill_articles_href: 'https://docs.google.com/document/d/1Cg7ShOIbYoMa3NYUSh_l2Fx5B4CiZODEW1_vSVTagCw/edit?usp=sharing',
         quill_teacher_guide_href: '',
         activities: cold_war_and_decolonization_activities
@@ -99,6 +144,7 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-9",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit9/Unit-9-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1UN4K3X6LgfhhU8ET0tagon92pYxMebAL/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 9,
         all_quill_articles_href: '',
         quill_teacher_guide_href: '',
         activities: globalization_activities
