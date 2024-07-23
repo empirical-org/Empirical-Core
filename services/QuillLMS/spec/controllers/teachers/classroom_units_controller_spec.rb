@@ -6,13 +6,13 @@ describe Teachers::ClassroomUnitsController, type: :controller do
   it { should use_before_action :authorize! }
   it { should use_before_action :teacher! }
 
-  let(:classroom) { create(:classroom)}
+  let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
-  let(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id)}
-  let(:classroom_unit2) { create(:classroom_unit, classroom_id: classroom.id, unit_id: classroom_unit.unit.id)}
-  let(:classroom_unit3) { create(:classroom_unit, classroom_id: classroom.id, unit_id: classroom_unit.unit.id)}
+  let(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id) }
+  let(:classroom_unit2) { create(:classroom_unit, classroom_id: classroom.id, unit_id: classroom_unit.unit.id) }
+  let(:classroom_unit3) { create(:classroom_unit, classroom_id: classroom.id, unit_id: classroom_unit.unit.id) }
   let!(:activity_classification) { create(:lesson_classification) }
-  let!(:activity) { create(:activity, activity_classification_id: activity_classification.id ) }
+  let!(:activity) { create(:activity, activity_classification_id: activity_classification.id) }
 
   context 'with teacher' do
     before do
@@ -31,10 +31,10 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
       context 'when milestone exists and activity got updated' do
         let!(:user_milestone) { create(:user_milestone, milestone: milestone, user: teacher) }
-        let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit)}
-        let!(:cuas) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit)}
+        let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
+        let!(:cuas) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit) }
 
-        let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}"}
+        let(:customize_lesson_url) { "#{activity.classification_form_url}customize/#{activity.uid}?&classroom_unit_id=#{classroom_unit.id}" }
 
         context 'when activity session exists' do
           let!(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, state: 'started') }
@@ -80,13 +80,13 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
         it 'should render the redis cache' do
           get :lessons_activities_cache, as: :json
-          expect(response.body).to eq({data: { id: 10 } }.to_json)
+          expect(response.body).to eq({ data: { id: 10 } }.to_json)
         end
       end
 
       it 'should render the current users lesson cache data' do
         get :lessons_activities_cache, as: :json
-        expect(response.body).to eq({data: { id: 'not 10' }}.to_json)
+        expect(response.body).to eq({ data: { id: 'not 10' } }.to_json)
       end
     end
 
@@ -100,7 +100,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
 
       it 'should return the activity id in the cache' do
         get :lessons_units_and_activities
-        expect(response.body).to eq({data: [{ activity_id: 10, name: 'some name', completed: false, visible: true }]}.to_json)
+        expect(response.body).to eq({ data: [{ activity_id: 10, name: 'some name', completed: false, visible: true }] }.to_json)
       end
     end
   end

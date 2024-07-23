@@ -10,13 +10,13 @@ class TeacherFixController < ApplicationController
 
   def archived_units
     if !@user
-      render json: {error: 'No such user.'}
+      render json: { error: 'No such user.' }
     elsif !@user.teacher?
-      render json: {error: 'This user is not a teacher.'}
+      render json: { error: 'This user is not a teacher.' }
     elsif archived_units_for_user.any?
-      render json: {archived_units: archived_units_for_user}
+      render json: { archived_units: archived_units_for_user }
     else
-      render json: {error: 'This user has no archived units.'}
+      render json: { error: 'This user has no archived units.' }
     end
   end
 
@@ -42,7 +42,7 @@ class TeacherFixController < ApplicationController
       TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
       render json: {}, status: 200
     else
-      render json: {error: 'No such classroom'}
+      render json: { error: 'No such classroom' }
     end
   end
 
@@ -53,7 +53,7 @@ class TeacherFixController < ApplicationController
       TeacherFixes::recover_unit_activities_for_units(units)
       render json: {}, status: 200
     else
-      render json: {error: "Cannot find a teacher with the email #{params_email}."}
+      render json: { error: "Cannot find a teacher with the email #{params_email}." }
     end
   end
 
@@ -66,10 +66,10 @@ class TeacherFixController < ApplicationController
         TeacherFixes::recover_classroom_units_and_associated_activity_sessions(classroom_units)
         render json: {}, status: 200
       else
-        render json: {error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}"}
+        render json: { error: "The user with the email #{user.email} does not have a unit named #{params['unit_name']}" }
       end
     else
-      render json: {error: "Cannot find a teacher with the email #{params_email}."}
+      render json: { error: "Cannot find a teacher with the email #{params_email}." }
     end
   end
 
@@ -82,15 +82,15 @@ class TeacherFixController < ApplicationController
         if primary_account.merge_student_account(secondary_account)
           render json: {}, status: 200
         else
-          render json: {error: "#{params['source_student_identifier']} is in at least one class that #{params['destination_student_identifier']} is not in, so we can't merge them."}
+          render json: { error: "#{params['source_student_identifier']} is in at least one class that #{params['destination_student_identifier']} is not in, so we can't merge them." }
         end
       else
         nonstudent_account_identifier = primary_account.role == 'student' ? params['source_student_identifier'] : params['destination_student_identifier']
-        render json: {error: "#{nonstudent_account_identifier} is not a student."}
+        render json: { error: "#{nonstudent_account_identifier} is not a student." }
       end
     else
       missing_account_identifier = primary_account ? params['source_student_identifier'] : params['destination_student_identifier']
-      render json: {error: "We do not have an account for #{missing_account_identifier}"}
+      render json: { error: "We do not have an account for #{missing_account_identifier}" }
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
@@ -114,11 +114,11 @@ class TeacherFixController < ApplicationController
         render json: {}, status: 200
       else
         nonteacher_account_identifier = account1.teacher? ? params['account2_identifier'] : params['account1_identifier']
-        render json: {error: "#{nonteacher_account_identifier} is not a teacher."}
+        render json: { error: "#{nonteacher_account_identifier} is not a teacher." }
       end
     else
       missing_account_identifier = account1 ? params['account2_identifier'] : params['account1_identifier']
-      render json: {error: "We do not have an account for #{missing_account_identifier}"}
+      render json: { error: "We do not have an account for #{missing_account_identifier}" }
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
@@ -136,17 +136,17 @@ class TeacherFixController < ApplicationController
             user.move_student_from_one_class_to_another(old_classroom, new_classroom)
             render json: {}, status: 200
           else
-            render json: {error: "#{account_identifier} is not in a classroom with the code #{params['class_code1']}."}
+            render json: { error: "#{account_identifier} is not in a classroom with the code #{params['class_code1']}." }
           end
         else
           missing_class_code = old_classroom ? params['class_code2'] : params['class_code1']
-          render json: {error: "We cannot find a class with class code #{missing_class_code}."}
+          render json: { error: "We cannot find a class with class code #{missing_class_code}." }
         end
       else
-        render json: {error: "#{account_identifier} is not a student."}
+        render json: { error: "#{account_identifier} is not a student." }
       end
     else
-      render json: {error: "We do not have an account for #{account_identifier}"}
+      render json: { error: "We do not have an account for #{account_identifier}" }
     end
   end
 
@@ -166,7 +166,7 @@ class TeacherFixController < ApplicationController
         render json: {}, status: 200
       end
     else
-      render json: {error: "We do not have a user registered with the email #{original_email}"}
+      render json: { error: "We do not have a user registered with the email #{original_email}" }
     end
   end
 

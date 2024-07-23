@@ -40,7 +40,7 @@ RSpec.describe StripeIntegration::StripeInvoiceIdFinder do
       end
 
       context 'subscription exists' do
-        let(:stripe_invoice_id) { "in_#{SecureRandom.hex}"}
+        let(:stripe_invoice_id) { "in_#{SecureRandom.hex}" }
         let(:stripe_subscription) { double(:stripe_subscription, latest_invoice: stripe_invoice_id) }
 
         before { retrieve_subscription.and_return(stripe_subscription) }

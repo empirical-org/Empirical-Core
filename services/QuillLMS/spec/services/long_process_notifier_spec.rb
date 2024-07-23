@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe LongProcessNotifier do
   let(:error) { StandardError }
-  let(:key_values) { {key: 'value', key2: 'value2'}}
+  let(:key_values) { { key: 'value', key2: 'value2' } }
 
   describe 'run' do
     subject { described_class.new(error, threshold) }
@@ -30,7 +30,7 @@ describe LongProcessNotifier do
     context 'attach time_to_execute to provided options' do
       subject { described_class.new(error, threshold, key_values) }
 
-      let(:expected_options) { key_values.merge({time_to_execute: finish - start}) }
+      let(:expected_options) { key_values.merge({ time_to_execute: finish - start }) }
 
       it do
         expect(ErrorNotifier).to receive(:report).with(error, expected_options)

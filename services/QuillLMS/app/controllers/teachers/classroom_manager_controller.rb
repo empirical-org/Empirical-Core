@@ -71,7 +71,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find{|classroom| classroom['id'].to_i == params['classroom_id'].to_i}
+      @classroom = @classrooms.find{ |classroom| classroom['id'].to_i == params['classroom_id'].to_i }
     end
     @classrooms = @classrooms.as_json
     @classroom = @classroom.as_json
@@ -99,7 +99,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def students_list
-    @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
+    @classroom = current_user.classrooms_i_teach.find { |classroom| classroom.id == params[:id]&.to_i }
     last_name = "substring(users.name, '(?=\s).*')"
     render json: { students: @classroom&.students&.order(Arel.sql("#{last_name} asc, users.name asc")) }
   end
@@ -115,7 +115,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    render json: { classes: current_user.classroom_minis_info}
+    render json: { classes: current_user.classroom_minis_info }
   end
 
   def teacher_dashboard_metrics
@@ -177,7 +177,7 @@ class Teachers::ClassroomManagerController < ApplicationController
     response = current_user.update_teacher(params['classroom_manager'])
     if response && response[:errors] && response[:errors].any?
       errors = response[:errors]
-      render json: {errors: errors}, status: 422
+      render json: { errors: errors }, status: 422
     else
       render json: current_user.generate_teacher_account_info
     end
@@ -192,7 +192,7 @@ class Teachers::ClassroomManagerController < ApplicationController
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
     if errors.any?
-      render json: {errors: errors}, status: 422
+      render json: { errors: errors }, status: 422
     else
       render json: current_user.generate_teacher_account_info
     end
@@ -208,7 +208,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def view_demo
     demo = User.find_by_email(Demo::ReportDemoCreator::EMAIL)
-    return render json: {errors: 'Demo Account does not exist'}, status: 422 if demo.nil?
+    return render json: { errors: 'Demo Account does not exist' }, status: 422 if demo.nil?
 
     Demo::ResetAccountWorker.perform_async(demo.id)
 

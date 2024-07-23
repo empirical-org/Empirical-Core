@@ -16,7 +16,7 @@ class Queries < Thor
 
     snapshot_queries_to_run.each do |key, query|
       sql = query
-        .new(**{timeframe_start:,timeframe_end:,school_ids:})
+        .new(**{ timeframe_start:,timeframe_end:,school_ids: })
         .query
 
       puts sql
@@ -40,7 +40,7 @@ class Queries < Thor
     query = snapshot_queries_to_run[query_key]
 
     sql = query
-      .new(**{timeframe_start:,timeframe_end:,school_ids:})
+      .new(**{ timeframe_start:,timeframe_end:,school_ids: })
       .query
     metadata = query_metadata(sql)
 
@@ -65,7 +65,7 @@ class Queries < Thor
         row = [key]
         options[:ids].each do |user_id|
           school_ids = school_ids_for_user(user_id)
-          result = query.run(**{timeframe_start:,timeframe_end:,school_ids:})
+          result = query.run(**{ timeframe_start:,timeframe_end:,school_ids: })
           row.append(parse_result(result))
         end
         csv << row
@@ -113,9 +113,9 @@ class Queries < Thor
     })
     student_args = single_args.except(:aggregation)
 
-    multi_queries.each {|key, query| run_admin_query(key, query, multi_args, dryrun) }
-    single_queries.each {|key, query| run_admin_query(key, query, single_args, dryrun) }
-    student_queries.each {|key, query| run_admin_query(key, query, student_args, dryrun) }
+    multi_queries.each { |key, query| run_admin_query(key, query, multi_args, dryrun) }
+    single_queries.each { |key, query| run_admin_query(key, query, single_args, dryrun) }
+    student_queries.each { |key, query| run_admin_query(key, query, student_args, dryrun) }
   end
 
   # bundle exec thor queries:snapshot_diagnostic_queries
@@ -168,14 +168,14 @@ class Queries < Thor
     aggregation_options = ['grade', 'teacher', 'classroom']
 
     multi_queries.each do |key, query|
-      payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({aggregation:}))] }
+      payloads = aggregation_options.to_h { |aggregation| ["GROUP BY #{aggregation}", query.run(**multi_args.merge({ aggregation: }))] }
       snapshot_query_payload(key, payloads)
     end
     single_queries.each do |key, query|
-      payloads = aggregation_options.to_h {|aggregation| ["GROUP BY #{aggregation}", query.run(**single_args.merge({aggregation:}))] }
+      payloads = aggregation_options.to_h { |aggregation| ["GROUP BY #{aggregation}", query.run(**single_args.merge({ aggregation: }))] }
       snapshot_query_payload(key, payloads)
     end
-    student_queries.each {|key, query| snapshot_query_payload(key, query.run(**single_args)) }
+    student_queries.each { |key, query| snapshot_query_payload(key, query.run(**single_args)) }
   end
 
   # put helper methods in this block
@@ -226,7 +226,7 @@ class Queries < Thor
 
     private def parse_result(result)
       if result.is_a?(Array)
-        result.map {|h| "#{h[:value]}: #{h[:count]}"}.join(', ')
+        result.map { |h| "#{h[:value]}: #{h[:count]}" }.join(', ')
       elsif result.is_a?(Hash)
         result[:count]
       end

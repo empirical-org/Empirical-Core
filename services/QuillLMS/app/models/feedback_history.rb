@@ -79,7 +79,7 @@ class FeedbackHistory < ApplicationRecord
   belongs_to :concept, foreign_key: :concept_uid, primary_key: :uid
 
   validates :feedback_session_uid, presence: true
-  validates :concept_uid, allow_blank: true, length: {is: CONCEPT_UID_LENGTH}
+  validates :concept_uid, allow_blank: true, length: { is: CONCEPT_UID_LENGTH }
   validates :attempt, presence: true,
     numericality: {
       only_integer: true,
@@ -87,8 +87,8 @@ class FeedbackHistory < ApplicationRecord
       greater_than_or_equal_to: MIN_ATTEMPT
     }
   validates :entry, presence: true
-  validates :feedback_text, length: {in: MIN_FEEDBACK_LENGTH..MAX_FEEDBACK_LENGTH}
-  validates :feedback_type, presence: true, inclusion: {in: FEEDBACK_TYPES}
+  validates :feedback_text, length: { in: MIN_FEEDBACK_LENGTH..MAX_FEEDBACK_LENGTH }
+  validates :feedback_type, presence: true, inclusion: { in: FEEDBACK_TYPES }
   validates :optimal, inclusion: { in: [true, false] }
   validates :time, presence: true
   validates :used, inclusion: { in: [true, false] }
@@ -96,8 +96,8 @@ class FeedbackHistory < ApplicationRecord
   scope :used,  -> { where(used: true) }
   scope :optimal,  -> { where(optimal: true) }
   scope :suboptimal,  -> { where(optimal: false) }
-  scope :autoML, -> { where(feedback_type: AUTO_ML)}
-  scope :confidence_greater_than, ->(lower_limit) {where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit)}
+  scope :autoML, -> { where(feedback_type: AUTO_ML) }
+  scope :confidence_greater_than, ->(lower_limit) { where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit) }
   scope :entry_shorter_than, ->(length) { where('LENGTH(entry) < ?', length) }
   scope :for_prompt, ->(prompt_id) { where(prompt_id: prompt_id) }
 
@@ -189,7 +189,7 @@ class FeedbackHistory < ApplicationRecord
       api: api_metadata,
       highlight: feedback_hash['highlight'],
       hint: feedback_hash['hint']
-    }.reject {|_,v| v.blank? }
+    }.reject { |_,v| v.blank? }
 
     # NB, there is a before_create that swaps activity_session_uid for a feedback_session.uid
     create(
@@ -343,7 +343,7 @@ class FeedbackHistory < ApplicationRecord
       .where(used: true)
       .group(:feedback_session_uid, :activity_id)
       .order('start_date DESC')
-    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where(comprehension_prompts: { activity_id: activity_id.to_i }) if activity_id
     query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
     query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
@@ -359,7 +359,7 @@ class FeedbackHistory < ApplicationRecord
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .group(:feedback_session_uid, :activity_id)
-    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where(comprehension_prompts: { activity_id: activity_id.to_i }) if activity_id
     query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
     query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
@@ -381,7 +381,7 @@ class FeedbackHistory < ApplicationRecord
       h&.prompt&.conjunction
     end
     prompt_groups = prompt_groups.transform_values do |attempts|
-      {prompt_id: attempts.first.prompt_id, attempts: attempts}
+      { prompt_id: attempts.first.prompt_id, attempts: attempts }
     end.symbolize_keys
 
     attempt_groups = prompt_groups.transform_values do |detail|
@@ -410,7 +410,7 @@ class FeedbackHistory < ApplicationRecord
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
       .where(used: true)
       .group(:feedback_session_uid)
-    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where(comprehension_prompts: { activity_id: activity_id.to_i }) if activity_id
     query = FeedbackHistory.apply_activity_session_filter(query, filter_type) if filter_type
     query = query.having(FeedbackHistory.responses_for_scoring) if responses_for_scoring
     query
@@ -436,7 +436,7 @@ class FeedbackHistory < ApplicationRecord
       .joins('LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid')
       .where(used: true)
       .order('datetime DESC')
-    query = query.where(comprehension_prompts: {activity_id: activity_id.to_i}) if activity_id
+    query = query.where(comprehension_prompts: { activity_id: activity_id.to_i }) if activity_id
     query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
     query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
     query = query.where(feedback_session_uid: session_uids) if responses_for_scoring || filter_type

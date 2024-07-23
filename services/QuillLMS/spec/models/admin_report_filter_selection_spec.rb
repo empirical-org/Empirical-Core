@@ -26,7 +26,7 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
 
   it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:filter_selections) }
-  it { should validate_inclusion_of(:report).in_array(described_class::REPORTS)}
+  it { should validate_inclusion_of(:report).in_array(described_class::REPORTS) }
 
   describe '.segment_admin_report_subscriptions' do
     subject { described_class.segment_admin_report_subscriptions }
@@ -175,7 +175,7 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
       end
 
       context 'when school ids are present in filter selections' do
-        let(:selected_schools) { [{'id'=> school.id, 'name'=> school.name, 'label'=> school.name, 'value'=> school.id}] }
+        let(:selected_schools) { [{ 'id'=> school.id, 'name'=> school.name, 'label'=> school.name, 'value'=> school.id }] }
 
         before { filter_selections['schools'] = selected_schools }
 

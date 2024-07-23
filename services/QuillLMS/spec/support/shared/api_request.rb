@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 shared_examples 'a simple api request' do
-  let(:model) {controller.controller_name.classify.underscore}
+  let(:model) { controller.controller_name.classify.underscore }
 
   before do
     create_list(model.to_sym, 3)

@@ -60,7 +60,7 @@ module Evidence
     def seed_csv_string
       CSV.generate do |csv|
         csv << ['Text', 'Seed', 'Initial Label']
-        prompt_texts.each {|t| csv << [t.text, t.seed_descriptor, t.label]}
+        prompt_texts.each { |t| csv << [t.text, t.seed_descriptor, t.label] }
       end
     end
 
@@ -73,7 +73,7 @@ module Evidence
       {
         file_name(filename, LABEL_TRAINING) => labeled_training_csv_string,
         file_name(filename, LABEL_ANALYSIS) => labeled_analysis_csv_string,
-        file_name(filename, LABEL_ORIGINAL) => CSV.generate {|csv| original_labeled_items.each {|pt| csv << [pt.text, pt.label] }}
+        file_name(filename, LABEL_ORIGINAL) => CSV.generate { |csv| original_labeled_items.each { |pt| csv << [pt.text, pt.label] } }
       }
     end
 
@@ -89,7 +89,7 @@ module Evidence
 
     def labeled_training_csv_string
       CSV.generate do |csv|
-        labeled_training_csv_rows.each {|row| csv << row }
+        labeled_training_csv_rows.each { |row| csv << row }
       end
     end
 
@@ -100,7 +100,7 @@ module Evidence
     def labeled_analysis_csv_string
       CSV.generate do |csv|
         csv << ['Text', 'Label', 'Original', 'Changed?', 'Language/Spelling', 'Type']
-        labeled_analysis_csv_rows.each {|row| csv << row }
+        labeled_analysis_csv_rows.each { |row| csv << row }
       end
     end
 

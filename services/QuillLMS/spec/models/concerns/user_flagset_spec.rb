@@ -7,7 +7,7 @@ RSpec.describe UserFlagset, type: :model do
   context 'validations' do
     it 'should validate flagset is a member of FLAGSETS' do
       expect { create(:user) }.to_not raise_error
-      expect { create(:user, flagset: 'bad-flagset' ) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { create(:user, flagset: 'bad-flagset') }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
@@ -19,8 +19,8 @@ RSpec.describe UserFlagset, type: :model do
   end
 
   context '#activity_viewable?' do
-    let(:normal_user) { create(:user, flagset: 'production' ) }
-    let(:alpha_user) { create(:user, flagset: 'alpha' ) }
+    let(:normal_user) { create(:user, flagset: 'production') }
+    let(:alpha_user) { create(:user, flagset: 'alpha') }
 
     let(:alpha_activity) { create(:activity, flags: ['alpha']) }
     let(:normal_activity) { create(:activity, flags: ['production']) }

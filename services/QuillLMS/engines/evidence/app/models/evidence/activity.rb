@@ -69,7 +69,7 @@ module Evidence
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
     accepts_nested_attributes_for :prompts
 
-    validates :parent_activity_id, uniqueness: {allow_nil: true}
+    validates :parent_activity_id, uniqueness: { allow_nil: true }
     validates :target_level,
       numericality: {
         only_integer: true,
@@ -77,9 +77,9 @@ module Evidence
         greater_than_or_equal_to: MIN_TARGET_LEVEL,
         allow_nil: true
       }
-    validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
+    validates :title, presence: true, length: { in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH }
     validates :notes, presence: true
-    validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
+    validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true }
     validate :version_monotonically_increases, on: :update
 
     def set_parent_activity
@@ -132,7 +132,7 @@ module Evidence
     end
 
     def invalid_feedback_highlights
-      invalid_highlights = highlights.select {|h| h.invalid_activity_ids&.include?(id)}
+      invalid_highlights = highlights.select { |h| h.invalid_activity_ids&.include?(id) }
       invalid_highlights.map do |highlight|
         {
           rule_id: highlight.feedback.rule_id,

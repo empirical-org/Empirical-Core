@@ -26,7 +26,7 @@ class Teachers::ProgressReports::Standards::StandardStudentsController < Teacher
             serializer.as_json(root: false)
           end
           classrooms_i_teach = current_user.classrooms_i_teach
-          selected_classroom = classroom_id == 0 ? 'All Classrooms' : classrooms_i_teach.find{|c| c.id == classroom_id}
+          selected_classroom = classroom_id == 0 ? 'All Classrooms' : classrooms_i_teach.find{ |c| c.id == classroom_id }
           {
             selected_classroom: selected_classroom,
             classrooms: classrooms_i_teach,

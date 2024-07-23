@@ -36,10 +36,10 @@ describe UnitActivity, type: :model, redis: true do
   it { is_expected.to callback(:teacher_checkbox).after(:save) }
   it { is_expected.to callback(:hide_appropriate_activity_sessions).after(:save) }
 
-  let!(:activity_classification3) { create(:activity_classification, id: 3)}
-  let!(:activity_classification2) { create(:grammar)}
-  let!(:activity_classification6) { create(:lesson_classification)}
-  let!(:diagnostic_activity_classification ) { create(:diagnostic) }
+  let!(:activity_classification3) { create(:activity_classification, id: 3) }
+  let!(:activity_classification2) { create(:grammar) }
+  let!(:activity_classification6) { create(:lesson_classification) }
+  let!(:diagnostic_activity_classification) { create(:diagnostic) }
   let!(:activity) { create(:activity) }
   let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id, name: 'diagnostic activity') }
   let!(:student) { create(:student) }
@@ -50,7 +50,7 @@ describe UnitActivity, type: :model, redis: true do
   let!(:lessons_activity) { create(:activity, activity_classification_id: 6) }
   let!(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
   let!(:classroom_unit) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
-  let!(:activity_session) {create(:activity_session, :finished, user_id: student.id, classroom_unit_id: classroom_unit.id, unit: unit, activity: activity)}
+  let!(:activity_session) { create(:activity_session, :finished, user_id: student.id, classroom_unit_id: classroom_unit.id, unit: unit, activity: activity) }
 
   describe '#formatted_due_date' do
     context 'when due date exists' do
@@ -269,37 +269,37 @@ describe UnitActivity, type: :model, redis: true do
       describe 'when an activity session has been completed' do
         it 'include the unit activity, but not as completed, if the activity session has been archived' do
           activity_session.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id }
           expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq false
         end
 
         it 'does not include the unit activity if the student has been removed from the list of assigned students' do
           classroom_unit.update!(assigned_student_ids: [], assign_on_join: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the classroom unit has been archived' do
           classroom_unit.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the unit activity has been archived' do
           unit_activity.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the unit has been archived' do
           unit.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does include the unit activity if the unit has been closed' do
           unit.update(open: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == unit_activity.id }
           expect(relevant_ua['closed']).to eq true
           expect(relevant_ua[ActivitySession::STATE_FINISHED_KEY]).to eq true
         end
@@ -308,31 +308,31 @@ describe UnitActivity, type: :model, redis: true do
       describe 'when an activity session has not been completed' do
         it 'does not include the unit activity if the student has been removed from the list of assigned students' do
           classroom_unit.update!(assigned_student_ids: [], assign_on_join: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the classroom unit has been archived' do
           classroom_unit.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the unit activity has been archived' do
           lessons_unit_activity.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the unit has been archived' do
           unit.update(visible: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id }
           expect(relevant_ua).not_to be
         end
 
         it 'does not include the unit activity if the unit has been closed' do
           unit.update(open: false)
-          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id}
+          relevant_ua = UnitActivity.get_classroom_user_profile(classroom.id, student.id).find { |ua| ua['ua_id'] == lessons_unit_activity.id }
           expect(relevant_ua).not_to be
         end
       end

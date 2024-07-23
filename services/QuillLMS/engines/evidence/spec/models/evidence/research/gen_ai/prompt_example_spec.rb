@@ -22,7 +22,7 @@ module Evidence
 
         it { expect(build(factory)).to be_valid }
 
-        it { should belong_to(:dataset)}
+        it { should belong_to(:dataset) }
 
         it { should validate_presence_of(:staff_assigned_status) }
         it { should validate_presence_of(:student_response) }

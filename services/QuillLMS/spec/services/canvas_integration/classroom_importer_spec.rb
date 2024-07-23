@@ -18,7 +18,7 @@ RSpec.describe CanvasIntegration::ClassroomImporter do
   subject { described_class.run(data) }
 
   context 'classroom exists' do
-    let(:synced_name) { "original #{name}"}
+    let(:synced_name) { "original #{name}" }
     let!(:classroom) { create(:classroom, :from_canvas, synced_name: synced_name) }
 
     let(:canvas_classroom) { classroom.canvas_classroom }

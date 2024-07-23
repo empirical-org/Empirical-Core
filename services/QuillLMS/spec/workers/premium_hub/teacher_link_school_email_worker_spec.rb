@@ -10,7 +10,7 @@ describe PremiumHub::TeacherLinkSchoolEmailWorker, type: :worker do
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { PremiumHubUserMailer }
-  let!(:mailer_method) { :teacher_link_school_email}
+  let!(:mailer_method) { :teacher_link_school_email }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do

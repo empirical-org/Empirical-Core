@@ -40,8 +40,8 @@ describe Cms::ActivityCategoriesController, type: :controller do
   end
 
   describe '#mass_update' do
-    let!(:activity_categories) { create_list(:activity_category, 3)}
-    let!(:activity) { create(:activity)}
+    let!(:activity_categories) { create_list(:activity_category, 3) }
+    let!(:activity) { create(:activity) }
 
     it 'should update an activity category with changed attributes' do
       put :mass_update,

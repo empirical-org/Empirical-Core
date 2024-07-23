@@ -84,7 +84,7 @@ describe CsvExport, type: :model do
     end
 
     context 'standards: students by standard' do
-      let!(:standard) { create(:standard)}
+      let!(:standard) { create(:standard) }
       let(:filters) { { standard_id: standard.id } }
       let(:export_type) { 'standards_standard_students' }
 

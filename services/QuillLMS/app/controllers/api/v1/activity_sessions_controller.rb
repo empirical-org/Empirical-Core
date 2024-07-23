@@ -8,7 +8,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   before_action :strip_access_token_from_request
 
   def show
-    render json: @activity_session, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySessionSerializer
+    render json: @activity_session, meta: { status: 'success', message: nil, errors: nil }, serializer: ActivitySessionSerializer
   end
 
   def update

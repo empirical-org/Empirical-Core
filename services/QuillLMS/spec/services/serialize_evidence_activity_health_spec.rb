@@ -45,7 +45,7 @@ RSpec.describe SerializeEvidenceActivityHealth do
     create(:feedback_history_rating, user_id: @user.id, rating: true, feedback_history_id: @first_session_feedback3.id)
     create(:feedback_history_rating, user_id: @user.id, rating: false, feedback_history_id: @first_session_feedback4.id)
 
-    @prompt_feedback_history = PromptFeedbackHistory.run(**{activity_id: @activity.id, activity_version: @activity.version})
+    @prompt_feedback_history = PromptFeedbackHistory.run(**{ activity_id: @activity.id, activity_version: @activity.version })
   end
 
   it 'gets the correct basic data for that activity' do
@@ -60,9 +60,9 @@ RSpec.describe SerializeEvidenceActivityHealth do
     prompt_data = SerializeEvidenceActivityHealth.new(@activity, @prompt_feedback_history).prompt_data
     expect(prompt_data.size).to eq(3)
 
-    because_data = prompt_data.select {|pd| pd[:prompt_id] == @because_prompt1.id}.first
-    but_data = prompt_data.select {|pd| pd[:prompt_id] == @but_prompt1.id}.first
-    so_data = prompt_data.select {|pd| pd[:prompt_id] == @so_prompt1.id}.first
+    because_data = prompt_data.select { |pd| pd[:prompt_id] == @because_prompt1.id }.first
+    but_data = prompt_data.select { |pd| pd[:prompt_id] == @but_prompt1.id }.first
+    so_data = prompt_data.select { |pd| pd[:prompt_id] == @so_prompt1.id }.first
 
     expect(because_data).to be
     expect(because_data[:text]).to eq(@because_prompt1.text)
@@ -111,7 +111,7 @@ RSpec.describe SerializeEvidenceActivityHealth do
 
   it 'returns nil for relevent columns if there are no feedback histories yet' do
     @activity.increment_version!
-    prompt_feedback_history = PromptFeedbackHistory.run(**{activity_id: @activity.id, activity_version: @activity.version})
+    prompt_feedback_history = PromptFeedbackHistory.run(**{ activity_id: @activity.id, activity_version: @activity.version })
     data = SerializeEvidenceActivityHealth.new(@activity, prompt_feedback_history).data
     expect(data[:name]).to eq(@activity.title)
     expect(data[:flag]).to eq(@activity.flag.to_s)

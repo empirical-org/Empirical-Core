@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 describe 'SerializeActivityHealth' do
-  let!(:question) { create(:question)}
-  let!(:another_question) { create(:question)}
-  let!(:a_bad_question) { create(:question)}
+  let!(:question) { create(:question) }
+  let!(:another_question) { create(:question) }
+  let!(:a_bad_question) { create(:question) }
   let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
 
   let!(:activity) do
@@ -13,8 +13,8 @@ describe 'SerializeActivityHealth' do
       activity_classification_id: connect.id,
       data: {
         questions: [
-          {key: question.uid},
-          {key: another_question.uid}
+          { key: question.uid },
+          { key: another_question.uid }
         ]
       }
     )
@@ -25,26 +25,26 @@ describe 'SerializeActivityHealth' do
       activity_classification_id: connect.id,
       data: {
         questions: [
-          {key: question.uid},
-          {key: a_bad_question.uid}
+          { key: question.uid },
+          { key: a_bad_question.uid }
         ]
       }
     )
   end
 
-  let!(:content_partner) { create(:content_partner, activities: [activity])}
+  let!(:content_partner) { create(:content_partner, activities: [activity]) }
   let!(:start_time) { 1.day.ago }
   let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity, state: 'finished', started_at: DateTime.new(2021,1,1,4,0,0), completed_at: DateTime.new(2021,1,1,4,5,0)) }
   let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity, state: 'finished', started_at: start_time, completed_at: start_time + 10.minutes) }
   let!(:activity_session3) { create(:activity_session_without_concept_results, activity: activity, state: 'finished', started_at: start_time, completed_at: start_time + 20.minutes) }
-  let!(:diagnostic) { create(:diagnostic_activity)}
-  let!(:unit_template) { create(:unit_template, flag: 'production')}
-  let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
-  let!(:unit_template2) { create(:unit_template, flag: 'archived')}
-  let!(:activities_unit_template2) { create(:activities_unit_template, unit_template: unit_template2, activity: activity)}
-  let!(:sample_unit) { create(:unit, unit_template: unit_template)}
-  let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
-  let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
+  let!(:diagnostic) { create(:diagnostic_activity) }
+  let!(:unit_template) { create(:unit_template, flag: 'production') }
+  let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity) }
+  let!(:unit_template2) { create(:unit_template, flag: 'archived') }
+  let!(:activities_unit_template2) { create(:activities_unit_template, unit_template: unit_template2, activity: activity) }
+  let!(:sample_unit) { create(:unit, unit_template: unit_template) }
+  let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity) }
+  let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template) }
 
   let!(:concept_result1) do
     create(:concept_result,
@@ -82,11 +82,11 @@ describe 'SerializeActivityHealth' do
     ENV['DEFAULT_URL'] = 'https://quill.org'
     ENV['CMS_URL'] = 'https://cms.quill.org'
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-      .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75}.to_json, headers: {})
+      .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{another_question.uid}/question_dashboard_data")
-      .to_return(status: 200, body: { percent_common_unmatched: 100,  percent_specified_algos: 75}.to_json, headers: {})
+      .to_return(status: 200, body: { percent_common_unmatched: 100,  percent_specified_algos: 75 }.to_json, headers: {})
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{a_bad_question.uid}/question_dashboard_data")
-      .to_return(status: 200, body: { percent_common_unmatched: nil,  percent_specified_algos: nil}.to_json, headers: {})
+      .to_return(status: 200, body: { percent_common_unmatched: nil,  percent_specified_algos: nil }.to_json, headers: {})
   end
 
   it 'gets the correct basic data for that activity' do
@@ -97,7 +97,7 @@ describe 'SerializeActivityHealth' do
     expect(data[:activity_categories]).to eq(activity.activity_categories.pluck(:name).sort)
     expect(data[:content_partners]).to eq([content_partner.name])
     expect(data[:tool]).to eq('connect')
-    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: 'production').map {|ut| {id: ut.id, name: ut.name}}.sort_by{|h| h[:name]})
+    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: 'production').map { |ut| { id: ut.id, name: ut.name } }.sort_by{ |h| h[:name] })
     expect(data[:diagnostics]).to eq([diagnostic.name])
   end
 
@@ -173,8 +173,8 @@ describe 'SerializeActivityHealth' do
         activity_classification_id: connect.id,
         data: {
           questions: [
-            {key: question.uid},
-            {key: 'not-a-real-uid'}
+            { key: question.uid },
+            { key: 'not-a-real-uid' }
           ]
         }
       )

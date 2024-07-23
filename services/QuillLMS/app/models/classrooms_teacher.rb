@@ -26,7 +26,7 @@ class ClassroomsTeacher < ApplicationRecord
   after_create :delete_classroom_minis_cache_for_each_teacher_of_this_classroom, :reset_lessons_cache_for_teacher
   before_destroy :delete_classroom_minis_cache_for_each_teacher_of_this_classroom, :reset_lessons_cache_for_teacher
 
-  ROLE_TYPES = {coteacher: 'coteacher', owner: 'owner'}
+  ROLE_TYPES = { coteacher: 'coteacher', owner: 'owner' }
 
   def self.classroom_minis_cache_key(teacher_id)
     "user_id:#{teacher_id}_classroom_minis"

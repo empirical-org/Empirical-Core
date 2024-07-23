@@ -44,7 +44,7 @@ namespace :reports do
       number_of_correct_skills = 0
       all_concept_results = activity_session.concept_results
       skills.each do |skill|
-        concept_results = all_concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+        concept_results = all_concept_results.select { |cr| cr.concept_id.in?(skill.concept_ids) }
         number_correct = concept_results.select(&:correct).length
         number_incorrect = concept_results.reject(&:correct).length
         number_of_correct_skills += 1 if number_incorrect == 0 && number_correct > 0

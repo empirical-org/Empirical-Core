@@ -29,22 +29,22 @@ describe TeacherInfo, type: :model, redis: true do
   it { should have_many(:teacher_info_subject_areas) }
   it { should belong_to(:user) }
 
-  it {should validate_numericality_of(:minimum_grade_level)}
-  it {should validate_numericality_of(:maximum_grade_level)}
+  it { should validate_numericality_of(:minimum_grade_level) }
+  it { should validate_numericality_of(:maximum_grade_level) }
 
-  it {should validate_presence_of(:user_id)}
+  it { should validate_presence_of(:user_id) }
 
-  it {should validate_inclusion_of(:notification_email_frequency).in_array(TeacherInfo::NOTIFICATION_EMAIL_FREQUENCIES)}
-  it {should validate_inclusion_of(:show_students_exact_score).in_array([true, false])}
+  it { should validate_inclusion_of(:notification_email_frequency).in_array(TeacherInfo::NOTIFICATION_EMAIL_FREQUENCIES) }
+  it { should validate_inclusion_of(:show_students_exact_score).in_array([true, false]) }
 
   context 'uniqueness' do
-    let!(:teacher_info) {create(:teacher_info)}
+    let!(:teacher_info) { create(:teacher_info) }
 
-    it {should validate_uniqueness_of(:user_id)}
+    it { should validate_uniqueness_of(:user_id) }
   end
 
-  let(:teacher_info) {create(:teacher_info)}
-  let(:teacher) {create(:teacher)}
+  let(:teacher_info) { create(:teacher_info) }
+  let(:teacher) { create(:teacher) }
 
   describe 'minimum_grade_level=' do
     it 'should set the minimum grade level to 0 if it is passed in as K' do
@@ -105,7 +105,7 @@ describe TeacherInfo, type: :model, redis: true do
     it { expect(build(:teacher_info, minimum_grade_level: 8, maximum_grade_level: 8).grade_levels).to eq [8] }
     it { expect(build(:teacher_info, minimum_grade_level: nil, maximum_grade_level: nil).grade_levels).to eq [] }
     it { expect(build(:teacher_info, minimum_grade_level: nil, maximum_grade_level: 9).grade_levels).to eq [9] }
-    it { expect(build(:teacher_info, minimum_grade_level: 5, maximum_grade_level: nil).grade_levels).to eq [5]}
+    it { expect(build(:teacher_info, minimum_grade_level: 5, maximum_grade_level: nil).grade_levels).to eq [5] }
   end
 
   describe '#in_eighth_through_twelfth?' do
@@ -114,13 +114,13 @@ describe TeacherInfo, type: :model, redis: true do
     it { expect(build(:teacher_info, minimum_grade_level: 8, maximum_grade_level: 8).in_eighth_through_twelfth?).to eq true }
     it { expect(build(:teacher_info, minimum_grade_level: nil, maximum_grade_level: nil).in_eighth_through_twelfth?).to eq false }
     it { expect(build(:teacher_info, minimum_grade_level: nil, maximum_grade_level: 9).in_eighth_through_twelfth?).to eq true }
-    it { expect(build(:teacher_info, minimum_grade_level: 5, maximum_grade_level: nil).in_eighth_through_twelfth?).to eq false}
+    it { expect(build(:teacher_info, minimum_grade_level: 5, maximum_grade_level: nil).in_eighth_through_twelfth?).to eq false }
   end
 
   describe '#subject_areas_string' do
-    let(:subject1) { create(:subject_area, name: 'subject 1')}
-    let(:subject2) { create(:subject_area, name: 'subject 2')}
-    let(:subject3) { create(:subject_area, name: 'subject 3')}
+    let(:subject1) { create(:subject_area, name: 'subject 1') }
+    let(:subject2) { create(:subject_area, name: 'subject 2') }
+    let(:subject3) { create(:subject_area, name: 'subject 3') }
 
     before do
       create(:teacher_info_subject_area, teacher_info: teacher_info, subject_area: subject1)

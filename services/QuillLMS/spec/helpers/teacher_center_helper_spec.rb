@@ -29,11 +29,11 @@ describe TeacherCenterHelper do
   describe `#explore_curriculum_tabs` do
     let(:tabs) {
       [
-        {id: 'Featured Activities', name: 'Featured Activities', url: '/activities/packs'},
-        {id: 'AP Activities', name: 'AP Activities', url: '/ap'},
-        {id: 'Pre-AP Activities', name: 'Pre-AP Activities', url: '/preap'},
-        {id: 'SpringBoard Activities', name: 'SpringBoard Activities', url: '/springboard'},
-        {id: 'ELA Standards', name: 'ELA Standards', url: '/activities/standard_level/7'}
+        { id: 'Featured Activities', name: 'Featured Activities', url: '/activities/packs' },
+        { id: 'AP Activities', name: 'AP Activities', url: '/ap' },
+        { id: 'Pre-AP Activities', name: 'Pre-AP Activities', url: '/preap' },
+        { id: 'SpringBoard Activities', name: 'SpringBoard Activities', url: '/springboard' },
+        { id: 'ELA Standards', name: 'ELA Standards', url: '/activities/standard_level/7' }
       ]
     }
 

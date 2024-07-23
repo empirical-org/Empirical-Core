@@ -20,7 +20,7 @@ RSpec.describe Mailer::User do
     let(:mailer_class)  { PremiumHubUserMailer }
 
     describe '#send_premium_hub_teacher_account_created_email' do
-      let(:mailer_method) { :teacher_account_created_email}
+      let(:mailer_method) { :teacher_account_created_email }
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name, true)
@@ -29,7 +29,7 @@ RSpec.describe Mailer::User do
     end
 
     describe '#send_premium_hub_admin_account_created_email' do
-      let(:mailer_method) { :admin_account_created_email}
+      let(:mailer_method) { :admin_account_created_email }
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name, true)
@@ -38,7 +38,7 @@ RSpec.describe Mailer::User do
     end
 
     describe '#send_premium_hub_teacher_link_school_email' do
-      let(:mailer_method) { :teacher_link_school_email}
+      let(:mailer_method) { :teacher_link_school_email }
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school)
@@ -47,7 +47,7 @@ RSpec.describe Mailer::User do
     end
 
     describe '#send_premium_hub_made_school_admin_email' do
-      let(:mailer_method) { :made_school_admin_email}
+      let(:mailer_method) { :made_school_admin_email }
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name)
@@ -56,7 +56,7 @@ RSpec.describe Mailer::User do
     end
 
     describe '#send_premium_hub_made_school_admin_link_school_email' do
-      let(:mailer_method) { :made_school_admin_link_school_email}
+      let(:mailer_method) { :made_school_admin_link_school_email }
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, school.name)
@@ -65,7 +65,7 @@ RSpec.describe Mailer::User do
     end
 
     describe '#send_premium_hub_made_school_admin_change_school_email' do
-      let(:mailer_method) { :made_school_admin_change_school_email}
+      let(:mailer_method) { :made_school_admin_change_school_email }
 
       it 'should send the mail with user mailer' do
         expect(mailer_class).to receive(mailer_method).with(user.mailer_user, admin_user.name, new_school, existing_school)
@@ -75,7 +75,7 @@ RSpec.describe Mailer::User do
   end
 
   context 'Internal Tools' do
-    let(:mailer_class) { InternalToolUserMailer}
+    let(:mailer_class) { InternalToolUserMailer }
 
     describe '#send_internal_tool_admin_account_created_email' do
       let(:mailer_method) { :admin_account_created_email }

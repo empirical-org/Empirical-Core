@@ -15,10 +15,10 @@ describe ActivitySessionsController, type: :controller do
   it { should use_after_action :update_student_last_active }
 
   let!(:activity) { create(:activity) }
-  let!(:classroom) { create(:classroom)}
+  let!(:classroom) { create(:classroom) }
   let!(:user1) { create(:user, classcode: classroom.code) }
-  let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [user1.id])}
-  let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
+  let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [user1.id]) }
+  let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity) }
   let!(:activity_session) { create(:activity_session, user: user1, activity: activity, classroom_unit: cu, state: 'unstarted') }
   let(:user) { create(:staff) }
 
@@ -35,7 +35,7 @@ describe ActivitySessionsController, type: :controller do
     let(:student_user) { create(:user) }
     let(:activity_session) { create(:activity_session, user: student_user) }
 
-    let(:formatted_score_obj) { { activity_session_id: activity_session.id} }
+    let(:formatted_score_obj) { { activity_session_id: activity_session.id } }
 
     before do
       allow(controller).to receive(:finished_activity_sessions_for_unit_activity_classroom_and_student).and_return([formatted_score_obj])
@@ -118,7 +118,7 @@ describe ActivitySessionsController, type: :controller do
   end
 
   describe '#redirect_if_student_has_not_completed_pre_test' do
-    let!(:student) { create(:student)}
+    let!(:student) { create(:student) }
     let!(:activity) { create(:diagnostic_activity) }
 
     before do

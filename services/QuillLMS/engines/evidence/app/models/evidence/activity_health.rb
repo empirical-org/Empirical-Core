@@ -26,7 +26,7 @@ module Evidence
 
     has_many :prompt_healths, foreign_key: 'evidence_activity_health_id', dependent: :destroy
 
-    validates :flag, inclusion: { in: Evidence.flags_class::FLAGS, allow_nil: true}
+    validates :flag, inclusion: { in: Evidence.flags_class::FLAGS, allow_nil: true }
     validates :version, numericality: { greater_than_or_equal_to: 1, allow_nil: true }
     validates :version_plays, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
     validates :total_plays, numericality: { greater_than_or_equal_to: 0, allow_nil: true }

@@ -77,20 +77,20 @@ describe Unit, type: :model do
       end
 
       context 'it should be scoped to visibility' do
-        let!(:non_uniq_unit) {Unit.new(name: unit.name, user: teacher, visible: true)}
+        let!(:non_uniq_unit) { Unit.new(name: unit.name, user: teacher, visible: true) }
 
         it 'when visibile == true it must be unique' do
-          expect{non_uniq_unit.save!}.to raise_error(ActiveRecord::RecordInvalid)
+          expect{ non_uniq_unit.save! }.to raise_error(ActiveRecord::RecordInvalid)
         end
 
         it 'unless visibility == false' do
           non_uniq_unit.visible = false
-          expect{non_uniq_unit.save!}.to_not raise_error
+          expect{ non_uniq_unit.save! }.to_not raise_error
         end
 
         it "unless the original unit's visibility == false" do
           unit.update(visible: false)
-          expect{non_uniq_unit.save!}.to_not raise_error
+          expect{ non_uniq_unit.save! }.to_not raise_error
         end
       end
 
@@ -171,10 +171,10 @@ describe Unit, type: :model do
   end
 
   describe '#touch_all_classrooms_and_classroom_units' do
-    let(:initial_time) { 1.day.ago}
+    let(:initial_time) { 1.day.ago }
     let!(:unit) { create(:unit) }
     let!(:classroom) { create(:classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit)}
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit) }
 
     it 'should update classrooms and classroom_units updated_at on unit save' do
       classroom.update_columns(updated_at: initial_time)

@@ -107,7 +107,7 @@ RSpec.describe CanvasAccount, type: :model do
         context 'canvas_account does notexist' do
           let(:external_id) { Faker::Number.number }
 
-          it { is_expected.to be_nil}
+          it { is_expected.to be_nil }
         end
       end
     end

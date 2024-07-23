@@ -33,7 +33,7 @@ describe VerifyEmailsController do
         expect(response.status).to be(200)
         expect(user).to receive(:require_email_verification)
 
-        post :require_email_verification, params: { }, format: :json
+        post :require_email_verification, params: {}, format: :json
 
         expect(response.body).to eq({ redirect: '/sign-up/verify-email' }.to_json)
       end
@@ -48,7 +48,7 @@ describe VerifyEmailsController do
         expect(response.status).to be(200)
         expect(user).to receive(:verify_email).with(UserEmailVerification::CLEVER_VERIFICATION)
 
-        post :require_email_verification, params: { }, format: :json
+        post :require_email_verification, params: {}, format: :json
       end
     end
 
@@ -61,7 +61,7 @@ describe VerifyEmailsController do
         expect(response.status).to be(200)
         expect(user).to receive(:verify_email).with(UserEmailVerification::GOOGLE_VERIFICATION)
 
-        post :require_email_verification, params: { }, format: :json
+        post :require_email_verification, params: {}, format: :json
       end
     end
 

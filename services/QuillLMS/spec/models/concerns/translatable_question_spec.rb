@@ -4,20 +4,20 @@ require 'rails_helper'
 
 shared_context 'array and hash data fields' do |data_field|
   let(:data_field) { data_field }
-  let(:uid1) {'uid1'}
-  let(:uid2) {'uid2'}
-  let(:feedback1) { 'focus 1'}
-  let(:feedback2) { 'focus 2'}
+  let(:uid1) { 'uid1' }
+  let(:uid2) { 'uid2' }
+  let(:feedback1) { 'focus 1' }
+  let(:feedback2) { 'focus 2' }
   let(:data) { { data_field => data_field_values } }
-  let(:field_name1) { "#{data_field}.#{uid1}"}
-  let(:field_name2) { "#{data_field}.#{uid2}"}
-  let(:translation_map1) { question.translation_mappings.find_by(field_name: field_name1)}
-  let(:translation_map2) { question.translation_mappings.find_by(field_name: field_name2)}
+  let(:field_name1) { "#{data_field}.#{uid1}" }
+  let(:field_name2) { "#{data_field}.#{uid2}" }
+  let(:translation_map1) { question.translation_mappings.find_by(field_name: field_name1) }
+  let(:translation_map2) { question.translation_mappings.find_by(field_name: field_name2) }
   context 'array' do
     let(:data_field_values) {
       [
-        {'uid' => uid1, 'feedback' => feedback1, text: 'regex'},
-        {'uid' => uid2, 'feedback' => feedback2, text: 'regex'}
+        { 'uid' => uid1, 'feedback' => feedback1, text: 'regex' },
+        { 'uid' => uid2, 'feedback' => feedback2, text: 'regex' }
       ]
     }
 
@@ -31,8 +31,8 @@ shared_context 'array and hash data fields' do |data_field|
   context 'hash' do
     let(:data_field_values) {
       {
-        uid1 => {'feedback' => feedback1, text: 'regex'},
-        uid2 => {'feedback' => feedback2, text: 'regex'}
+        uid1 => { 'feedback' => feedback1, text: 'regex' },
+        uid2 => { 'feedback' => feedback2, text: 'regex' }
       }
     }
 
@@ -53,14 +53,14 @@ RSpec.describe TranslatableQuestion do
   end
 
   describe 'create_translation_mappings' do
-    subject {question.create_translation_mappings}
+    subject { question.create_translation_mappings }
 
-    let(:question) { create(:question, data: data)}
+    let(:question) { create(:question, data: data) }
 
     context 'instructions' do
       let(:field_name) { 'instructions' }
-      let(:data) { { field_name => instructions} }
-      let(:instructions) { "do this question"}
+      let(:data) { { field_name => instructions } }
+      let(:instructions) { "do this question" }
 
       it 'creates translation_mappings for instructions' do
         subject
@@ -79,11 +79,11 @@ RSpec.describe TranslatableQuestion do
 
     context 'cms_responses' do
       let(:question) { create(:question) }
-      let(:field_name) { TranslatableQuestion::CMS_RESPONSES}
+      let(:field_name) { TranslatableQuestion::CMS_RESPONSES }
 
       context 'the CMS does not have responses for this question' do
         let(:translation_mappings) { question.translation_mappings }
-        let(:translated_field_names) { translation_mappings.map(&:field_name)}
+        let(:translated_field_names) { translation_mappings.map(&:field_name) }
 
         it 'does not make any translation mappings for cms_responses' do
           subject
@@ -94,8 +94,8 @@ RSpec.describe TranslatableQuestion do
       context 'the CMS does have responses for this question' do
         let(:id1) { 8856116 }
         let(:id2) { 8856117 }
-        let(:feedback1) { "Good job! That's the correct answer."}
-        let(:feedback2) { "\u003Cb\u003EWell done!\u003C/b\u003E That's the correct answer."}
+        let(:feedback1) { "Good job! That's the correct answer." }
+        let(:feedback2) { "\u003Cb\u003EWell done!\u003C/b\u003E That's the correct answer." }
         let(:response_data) {
           [
             {
@@ -112,10 +112,10 @@ RSpec.describe TranslatableQuestion do
             }
           ]
         }
-        let(:field_name1) { "#{field_name}.#{id1}"}
-        let(:field_name2) { "#{field_name}.#{id2}"}
-        let(:translation_map1) { question.translation_mappings.find_by(field_name: field_name1)}
-        let(:translation_map2) { question.translation_mappings.find_by(field_name: field_name2)}
+        let(:field_name1) { "#{field_name}.#{id1}" }
+        let(:field_name2) { "#{field_name}.#{id2}" }
+        let(:translation_map1) { question.translation_mappings.find_by(field_name: field_name1) }
+        let(:translation_map2) { question.translation_mappings.find_by(field_name: field_name2) }
 
         before do
           stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/responses")

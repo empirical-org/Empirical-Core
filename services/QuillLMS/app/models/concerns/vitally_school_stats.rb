@@ -30,7 +30,7 @@ module VitallySchoolStats
   end
 
   def activities_assigned_query
-    ClassroomUnit.joins(classroom: {teachers: :school}, unit: :activities)
+    ClassroomUnit.joins(classroom: { teachers: :school }, unit: :activities)
       .where('schools.id = ?', school.id)
       .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
   end

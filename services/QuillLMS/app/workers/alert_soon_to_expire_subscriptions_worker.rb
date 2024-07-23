@@ -49,10 +49,10 @@ class AlertSoonToExpireSubscriptionsWorker
   end
 
   private def track_teachers(finder, event)
-    finder.for_teachers.each {|sub| analytics.track_teacher_subscription(sub, event) }
+    finder.for_teachers.each { |sub| analytics.track_teacher_subscription(sub, event) }
   end
 
   private def track_schools(finder, event)
-    finder.for_schools.each {|sub| analytics.track_school_subscription(sub, event) }
+    finder.for_schools.each { |sub| analytics.track_school_subscription(sub, event) }
   end
 end

@@ -96,7 +96,7 @@ describe Cms::ActivitiesController, type: :controller do
 
   describe '#update' do
     let!(:activity) { create(:activity, classification: classification) }
-    let!(:staff_user) { create(:user, role: 'staff')}
+    let!(:staff_user) { create(:user, role: 'staff') }
 
     before do
       session[:user_id] = staff_user.id
@@ -136,7 +136,7 @@ describe Cms::ActivitiesController, type: :controller do
     it 'should create a change log record if the activity is an evidence activity and the flag was updated' do
       parent_activity = create(:activity, activity_classification_id: ActivityClassification.find_by_key('evidence').id, flags: ['beta'])
       evidence_activity = create(:evidence_activity, parent_activity_id: parent_activity.id, title: 'This is a test evidence activity', notes: 'notes')
-      put :update, params: { id: parent_activity.id, activity_classification_id: parent_activity.activity_classification_id, activity: {flags: ['alpha']} }
+      put :update, params: { id: parent_activity.id, activity_classification_id: parent_activity.activity_classification_id, activity: { flags: ['alpha'] } }
 
       change_log = Evidence.change_log_class.last
       expect(change_log.action).to eq(ChangeLog::EVIDENCE_ACTIONS[:update])

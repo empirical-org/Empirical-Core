@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SegmentioHelper
-  DEFAULT_DESTINATION_SETTINGS = {all: true}
+  DEFAULT_DESTINATION_SETTINGS = { all: true }
 
   def generate_segment_identify_arguments(user)
     user_attributes = serialize_user(user)
@@ -15,7 +15,7 @@ module SegmentioHelper
 
   def destination_properties(user)
     user_hash = OpenSSL::HMAC.hexdigest('sha256', ENV['INTERCOM_APP_SECRET'], user.id.to_s)
-    DEFAULT_DESTINATION_SETTINGS.merge({Intercom: {user_hash: user_hash}})
+    DEFAULT_DESTINATION_SETTINGS.merge({ Intercom: { user_hash: user_hash } })
   end
 
   def intercom_properties(user)

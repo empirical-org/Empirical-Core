@@ -21,7 +21,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   def create
     uid = SecureRandom.uuid
     @concept_feedback = ConceptFeedback.create!(uid: uid, activity_type: @activity_type, data: valid_params)
-    render(json: {@concept_feedback.uid => @concept_feedback.as_json})
+    render(json: { @concept_feedback.uid => @concept_feedback.as_json })
   end
 
   def update
@@ -31,7 +31,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
       @concept_feedback = ConceptFeedback.find_by!(uid: params[:id], activity_type: @activity_type)
       @concept_feedback.update!(data: valid_params)
     rescue ActiveRecord::RecordNotFound
-      @concept_feedback = ConceptFeedback.create!({uid: params[:id], activity_type: @activity_type, data: valid_params})
+      @concept_feedback = ConceptFeedback.create!({ uid: params[:id], activity_type: @activity_type, data: valid_params })
     end
     render(json: @concept_feedback.as_json)
   end

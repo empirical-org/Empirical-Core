@@ -15,7 +15,7 @@ describe ActivitiesController, type: :controller, redis: true do
     it 'should give the production activities count' do
       get :count
       expect(assigns(:count)).to eq 2
-      expect(response.body).to eq({count: 2}.to_json)
+      expect(response.body).to eq({ count: 2 }.to_json)
     end
   end
 
@@ -182,12 +182,12 @@ describe ActivitiesController, type: :controller, redis: true do
   end
 
   describe '#suggested_activities' do
-    let!(:production_activity1) { create(:evidence_lms_activity, flags: [Flags::PRODUCTION])}
-    let!(:production_activity2) { create(:evidence_lms_activity, flags: [Flags::PRODUCTION])}
-    let!(:beta2_activity) { create(:evidence_lms_activity, flags: [Flags::EVIDENCE_BETA2])}
-    let!(:beta1_activity) { create(:evidence_lms_activity, flags: [Flags::EVIDENCE_BETA1])}
-    let(:teacher_info) { create(:teacher_info, minimum_grade_level: 9, maximum_grade_level: 12)}
-    let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info)}
+    let!(:production_activity1) { create(:evidence_lms_activity, flags: [Flags::PRODUCTION]) }
+    let!(:production_activity2) { create(:evidence_lms_activity, flags: [Flags::PRODUCTION]) }
+    let!(:beta2_activity) { create(:evidence_lms_activity, flags: [Flags::EVIDENCE_BETA2]) }
+    let!(:beta1_activity) { create(:evidence_lms_activity, flags: [Flags::EVIDENCE_BETA1]) }
+    let(:teacher_info) { create(:teacher_info, minimum_grade_level: 9, maximum_grade_level: 12) }
+    let(:user) { create(:user, flagset: Flags::PRODUCTION, teacher_info: teacher_info) }
 
     before do
       Evidence::Activity.create(parent_activity_id: production_activity1.id, notes: 'notes', title: 'title')

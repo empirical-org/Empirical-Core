@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 describe QuillBigQuery::MaterializedViewRefreshWorker do
-  let(:query_key) {'some_key'}
-  let(:view_double) { double(:refresh!)}
+  let(:query_key) { 'some_key' }
+  let(:view_double) { double(:refresh!) }
 
   subject { described_class.new.perform(query_key) }
 

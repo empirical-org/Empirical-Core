@@ -6,7 +6,7 @@ describe CleanConceptResultInstructionsWorker, type: :worker do
 
   context '#perform' do
     let(:concept_result_instructions) { create(:concept_result_instructions) }
-    let!(:concept_result) { create(:concept_result, concept_result_instructions: concept_result_instructions, extra_metadata: {'instructions': concept_result_instructions.text}) }
+    let!(:concept_result) { create(:concept_result, concept_result_instructions: concept_result_instructions, extra_metadata: { 'instructions': concept_result_instructions.text }) }
 
     it 'should delete the instructions value in extra_metadata if it is just a copy of the normalized value' do
       expect_any_instance_of(ConceptResult).to receive(:update).with(extra_metadata: {}).and_call_original

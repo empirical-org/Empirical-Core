@@ -19,13 +19,13 @@ describe Cms::SchoolsController do
   end
 
   describe '#index' do
-    let(:school_hash) { {school_zip: '1234', number_teachers: 23, number_admins: 5, frl: 'frl'} }
+    let(:school_hash) { { school_zip: '1234', number_teachers: 23, number_admins: 5, frl: 'frl' } }
 
     before { allow(RawSqlRunner).to receive(:execute) { [school_hash] } }
 
     it 'should allows staff memeber to view and search through school' do
       get :index
-      expect(assigns(:school_search_query)).to eq({'search_schools_with_zero_teachers' => true})
+      expect(assigns(:school_search_query)).to eq({ 'search_schools_with_zero_teachers' => true })
       expect(assigns(:school_search_query_results)).to eq []
       expect(assigns(:number_of_pages)).to eq 0
     end
@@ -40,7 +40,7 @@ describe Cms::SchoolsController do
         active_sub = create(:subscription)
         create(:school_subscription, school: school, subscription: expired_sub)
         create(:school_subscription, school: school, subscription: active_sub)
-        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        get :search, params: { :school_name => school.name, :search_schools_with_zero_teachers => true }
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
         expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
@@ -49,7 +49,7 @@ describe Cms::SchoolsController do
     context 'when a school has never had a subscription' do
       it 'should search successfully for that school' do
         school = create(:school)
-        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        get :search, params: { :school_name => school.name, :search_schools_with_zero_teachers => true }
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
         expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
@@ -60,7 +60,7 @@ describe Cms::SchoolsController do
         school = create(:school)
         expired_sub = create(:subscription, expiration: 15.days.ago.to_date)
         create(:school_subscription, school: school, subscription: expired_sub)
-        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        get :search, params: { :school_name => school.name, :search_schools_with_zero_teachers => true }
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
         expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
@@ -71,7 +71,7 @@ describe Cms::SchoolsController do
         school = create(:school)
         deactivated_sub = create(:subscription, de_activated_date: 15.days.ago.to_date)
         create(:school_subscription, school: school, subscription: deactivated_sub)
-        get :search, params: {:school_name => school.name, :search_schools_with_zero_teachers => true}
+        get :search, params: { :school_name => school.name, :search_schools_with_zero_teachers => true }
         expect(JSON.parse(response.body)['schoolSearchQueryResults'].size).to eq(1)
         expect(JSON.parse(response.body)['schoolSearchQueryResults'][0]['id']).to eq(school.id)
       end
@@ -189,7 +189,7 @@ describe Cms::SchoolsController do
   describe '#new_subscription' do
     let!(:school) { create(:school) }
     let!(:school_with_no_subscription) { create(:school) }
-    let!(:subscription) { create(:subscription)}
+    let!(:subscription) { create(:subscription) }
     let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
 
 
@@ -247,8 +247,8 @@ describe Cms::SchoolsController do
   end
 
   describe '#unlink' do
-    let!(:school) { create(:school)}
-    let!(:another_user) { create(:user, school: school)}
+    let!(:school) { create(:school) }
+    let!(:another_user) { create(:user, school: school) }
 
     before do
       request.env['HTTP_REFERER'] = cms_school_path(school.id)

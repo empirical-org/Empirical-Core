@@ -35,7 +35,7 @@ class ClassroomUnit < ApplicationRecord
   has_many :unit_activities, through: :unit
   has_many :pack_sequence_items, dependent: :destroy
   has_many :user_pack_sequence_items, through: :pack_sequence_items
-  has_many :completed_activity_sessions, -> {completed}, class_name: 'ActivitySession'
+  has_many :completed_activity_sessions, -> { completed }, class_name: 'ActivitySession'
   has_many :classroom_unit_activity_states, dependent: :destroy
 
   scope :visible, -> { where(visible: true) }
@@ -70,7 +70,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   def teacher_and_classroom_name
-    {teacher: classroom&.owner&.name, classroom: classroom&.name}
+    { teacher: classroom&.owner&.name, classroom: classroom&.name }
   end
 
   def remove_assigned_student(student_id)

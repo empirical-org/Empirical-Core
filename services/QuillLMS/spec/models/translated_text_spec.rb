@@ -16,8 +16,8 @@ require 'rails_helper'
 
 RSpec.describe TranslatedText, type: :model do
   describe 'active_record associations' do
-    it {should belong_to(:english_text) }
-    it {should have_many(:translation_mappings) }
+    it { should belong_to(:english_text) }
+    it { should have_many(:translation_mappings) }
   end
 
   describe 'ordered_by_source_api' do
@@ -27,28 +27,28 @@ RSpec.describe TranslatedText, type: :model do
     context 'no source API' do
       subject{ TranslatedText.ordered_by_source_api }
 
-      it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text])}
+      it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text]) }
     end
 
     context 'with a source API' do
       subject{ TranslatedText.ordered_by_source_api(source_api) }
 
       context 'open_ai' do
-        let(:source_api) {Translatable::OPEN_AI_SOURCE}
+        let(:source_api) { Translatable::OPEN_AI_SOURCE }
 
-        it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text])}
+        it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text]) }
       end
 
       context 'gengo' do
-        let(:source_api) {Translatable::GENGO_SOURCE}
+        let(:source_api) { Translatable::GENGO_SOURCE }
 
-        it { expect(subject.map(&:translation)).to eq([gengo_text, open_ai_text])}
+        it { expect(subject.map(&:translation)).to eq([gengo_text, open_ai_text]) }
       end
 
       context 'not in our list' do
         let(:source_api) { 'sql injection attempt' }
 
-        it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text])}
+        it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text]) }
       end
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe TranslatedText, type: :model do
   describe '#text' do
     subject { translated_text.text }
 
-    let(:translated_text) { create(:translated_text)}
+    let(:translated_text) { create(:translated_text) }
 
     it 'is the text of the english text' do
       expect(subject).to eq(translated_text.english_text.text)
@@ -66,7 +66,7 @@ RSpec.describe TranslatedText, type: :model do
   describe '#source' do
     subject { translated_text.source }
 
-    let(:translated_text) { create(:translated_text)}
+    let(:translated_text) { create(:translated_text) }
 
     context 'translation mapping exists' do
       it 'is the source of the first translation_mapping' do

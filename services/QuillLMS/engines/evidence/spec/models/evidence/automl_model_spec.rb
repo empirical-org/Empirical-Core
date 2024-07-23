@@ -76,7 +76,7 @@ module Evidence
       context 'state is active' do
         let(:automl_model) { create(:evidence_automl_model) }
 
-        before { automl_model.state = described_class::STATE_ACTIVE}
+        before { automl_model.state = described_class::STATE_ACTIVE }
 
         it 'should not validate state = active if labels_have_associated_rules is false' do
           allow(automl_model).to receive(:labels_have_associated_rules?).and_return(false)

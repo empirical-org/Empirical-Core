@@ -83,7 +83,7 @@ RSpec.describe CanvasIntegration::ClassroomUpdater do
     let(:other_name) { 'other canvas_classroom classroom' }
     let(:classroom1) { create(:classroom, :from_canvas, :with_no_teacher, name: other_name) }
 
-    let(:name) { 'canvas_classroom classroom'}
+    let(:name) { 'canvas_classroom classroom' }
     let(:synced_name) { name }
     let(:data_name) { other_name }
 

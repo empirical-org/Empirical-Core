@@ -7,7 +7,7 @@ class Cms::BlogPostsController < Cms::CmsController
   before_action :authors, :topics, only: [:index, :edit, :new]
 
   def index
-    @blog_posts_name_and_id = BlogPost.all.map{|bp| bp.attributes.merge({'rating' => bp.average_rating})}
+    @blog_posts_name_and_id = BlogPost.all.map{ |bp| bp.attributes.merge({ 'rating' => bp.average_rating }) }
   end
 
   def new; end
@@ -36,12 +36,12 @@ class Cms::BlogPostsController < Cms::CmsController
   end
 
   def update_order_numbers
-    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(order_number: bp['order_number'])}
+    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(order_number: bp['order_number']) }
     render json: {}
   end
 
   def update_featured_order_numbers
-    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(featured_order_number: bp['featured_order_number'])}
+    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(featured_order_number: bp['featured_order_number']) }
     render json: {}
   end
 

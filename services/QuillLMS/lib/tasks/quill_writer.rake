@@ -32,7 +32,7 @@ namespace :quillwriter do
 
     data.values.each do |act|
 
-      payload = {wordList: act['wordList'].to_json, prompt: act['prompt'].to_json}
+      payload = { wordList: act['wordList'].to_json, prompt: act['prompt'].to_json }
 
       a = standard.activities.create!(name: act['name'], description: act['description'], data: payload, classification: ac)
 

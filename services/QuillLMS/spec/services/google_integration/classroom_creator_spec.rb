@@ -21,7 +21,7 @@ module GoogleIntegration
     let(:classroom_external_id) { 123456 }
 
     context 'name present' do
-      let(:name) { 'google classroom name'}
+      let(:name) { 'google classroom name' }
 
       it 'creates a new classroom object with synced_name attr initially set to name' do
         expect(::ClassroomsTeacher.count).to eq 0

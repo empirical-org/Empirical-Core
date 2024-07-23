@@ -24,7 +24,7 @@ RSpec.describe Translatable do
     end
   end
 
-  let(:translatable_object) { translatable_class.create(data: {'test_text' => 'Test text to translate'}) }
+  let(:translatable_object) { translatable_class.create(data: { 'test_text' => 'Test text to translate' }) }
 
   before do
     stub_const('TranslatableTestModel', translatable_class)

@@ -14,7 +14,7 @@ class Api::ApiController < ActionController::Base
   end
 
   rescue_from AccessForbidden do
-    render json: {meta: { message: 'You are not authorized to access this resource', status: :forbidden }},
+    render json: { meta: { message: 'You are not authorized to access this resource', status: :forbidden } },
            status: 403
   end
 
@@ -23,7 +23,7 @@ class Api::ApiController < ActionController::Base
   end
 
   protected def not_found
-    render json: {meta: { message: 'The resource you were looking for does not exist', status: :not_found }},
+    render json: { meta: { message: 'The resource you were looking for does not exist', status: :not_found } },
            status: 404
   end
 

@@ -16,13 +16,13 @@ describe TeacherSavedActivitiesController do
       TeacherSavedActivity.create(activity: activity1, teacher: user)
       TeacherSavedActivity.create(activity: activity2, teacher: user)
       get :saved_activity_ids_for_current_user
-      expect(response.body).to eq({ activity_ids: [activity1.id, activity2.id]}.to_json)
+      expect(response.body).to eq({ activity_ids: [activity1.id, activity2.id] }.to_json)
       expect(response.status).to be(200)
     end
 
     it 'should not error if the current_user is nil' do
       get :saved_activity_ids_for_current_user, current_user: nil
-      expect(response.body).to eq({ activity_ids: []}.to_json)
+      expect(response.body).to eq({ activity_ids: [] }.to_json)
       expect(response.status).to be(200)
     end
   end

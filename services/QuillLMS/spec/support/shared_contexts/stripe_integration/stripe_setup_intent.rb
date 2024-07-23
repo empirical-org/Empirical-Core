@@ -4,7 +4,7 @@ RSpec.shared_context 'Stripe Setup Intent' do
   include_context 'Stripe Subscription'
 
   let(:stripe_setup_intent_id) { "seti_#{SecureRandom.hex}" }
-  let(:stripe_payment_method_id) { "pm_#{SecureRandom.hex}"}
+  let(:stripe_payment_method_id) { "pm_#{SecureRandom.hex}" }
 
   let(:stripe_setup_intent) do
     Stripe::SetupIntent.construct_from(

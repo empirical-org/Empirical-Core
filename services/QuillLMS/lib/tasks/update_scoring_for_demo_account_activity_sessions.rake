@@ -8,7 +8,7 @@ namespace :update_scoring_for_demo_account_activity_sessions do
 
     REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
 
-    ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|hash| hash[:activity_sessions].map(&:to_a)}.flatten(2).push(REPLAYED_PAIR)
+    ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map { |hash| hash[:activity_sessions].map(&:to_a) }.flatten(2).push(REPLAYED_PAIR)
 
     fetch_activity_sessions(ACTIVITY_USER_PAIRS)
       .reject { |activity_session| ActivityClassification::UNSCORED_KEYS.include?(activity_session.classification.key) }

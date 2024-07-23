@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe TimeTrackingCleaner do
   let(:empty_data) { ({}) }
-  let(:data_without_time_tracking) { ({'other_key' => 'other_value'}) }
+  let(:data_without_time_tracking) { ({ 'other_key' => 'other_value' }) }
 
   let(:data_without_outliers) do
     {
@@ -243,7 +243,7 @@ describe TimeTrackingCleaner do
   end
 
   describe '#median_value' do
-    let(:time_tracking) { {'time_tracking' => {'a'=>1,'b'=> 2}} }
+    let(:time_tracking) { { 'time_tracking' => { 'a'=>1,'b'=> 2 } } }
 
     it 'should round median to integer' do
       expect(TimeTrackingCleaner.new(time_tracking).send(:median_value)).to eq(1)

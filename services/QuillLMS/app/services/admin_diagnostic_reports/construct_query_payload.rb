@@ -43,7 +43,7 @@ module AdminDiagnosticReports
 
     private def timeframe
       timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(timeframe_name || default_timeframe)
-      {timeframe_start:, timeframe_end:}
+      { timeframe_start:, timeframe_end: }
     end
 
     private def filters

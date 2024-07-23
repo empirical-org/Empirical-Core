@@ -3,22 +3,22 @@
 require 'rails_helper'
 
 RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
-  let(:passage_text) {'passage text' * 50}
-  let(:stem) {'just because'}
-  let(:plagiarism_text) { 'plagiarism plagiarism_text'}
-  let(:example_one) {'example one'}
-  let(:example_two) {'example two'}
-  let(:optimal_example_list) {['some example']}
-  let(:suboptimal_example_list) {['some other example']}
-  let(:optimal_examples) {optimal_example_list.map {|i| "- #{i}"}.join("\n")}
-  let(:suboptimal_examples) {suboptimal_example_list.map {|i| "- #{i}"}.join("\n")}
-  let(:plagiarism_texts) {[plagiarism_text].map {|i| "- #{i}"}.join("\n")}
+  let(:passage_text) { 'passage text' * 50 }
+  let(:stem) { 'just because' }
+  let(:plagiarism_text) { 'plagiarism plagiarism_text' }
+  let(:example_one) { 'example one' }
+  let(:example_two) { 'example two' }
+  let(:optimal_example_list) { ['some example'] }
+  let(:suboptimal_example_list) { ['some other example'] }
+  let(:optimal_examples) { optimal_example_list.map { |i| "- #{i}" }.join("\n") }
+  let(:suboptimal_examples) { suboptimal_example_list.map { |i| "- #{i}" }.join("\n") }
+  let(:plagiarism_texts) { [plagiarism_text].map { |i| "- #{i}" }.join("\n") }
 
   let(:prompt) { create(:evidence_prompt, text: stem, first_strong_example: example_one, second_strong_example: example_two) }
-  let!(:passage) {create(:evidence_passage, text: passage_text, activity: prompt.activity) }
-  let(:rule) {create(:evidence_rule, :active, :type_plagiarism)}
-  let!(:plagiarism_text_model) {create(:evidence_plagiarism_text, text: plagiarism_text, rule: rule)}
-  let!(:prompt_rule) {create(:evidence_prompts_rule, prompt: prompt, rule: rule)}
+  let!(:passage) { create(:evidence_passage, text: passage_text, activity: prompt.activity) }
+  let(:rule) { create(:evidence_rule, :active, :type_plagiarism) }
+  let!(:plagiarism_text_model) { create(:evidence_plagiarism_text, text: plagiarism_text, rule: rule) }
+  let!(:prompt_rule) { create(:evidence_prompts_rule, prompt: prompt, rule: rule) }
   let(:history) { [double('History', feedback: 'Sample feedback')] }
   let(:template_file) { 'spec/fixtures/files/sample_system_template.md' }
 
@@ -38,7 +38,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
   end
 
   describe '#run' do
-    let(:filled_template) {"Template with passage: #{passage_text}, plagiarism: #{plagiarism_texts}, stem: #{stem}, optimal examples: #{optimal_examples}, suboptimal examples: #{suboptimal_examples}"}
+    let(:filled_template) { "Template with passage: #{passage_text}, plagiarism: #{plagiarism_texts}, stem: #{stem}, optimal examples: #{optimal_examples}, suboptimal examples: #{suboptimal_examples}" }
 
     before do
       allow(File).to receive(:read).and_return('Template with passage: %<passage>s, plagiarism: %<plagiarism_text>s, stem: %<stem>s, optimal examples: %<optimal_examples>s, suboptimal examples: %<suboptimal_examples>s')

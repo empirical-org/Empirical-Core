@@ -14,11 +14,11 @@ module Evidence
 
     context 'perform' do
       let(:activity) { create(:evidence_activity) }
-      let(:nouns) {['noun1']}
+      let(:nouns) { ['noun1'] }
       let(:generator_response) { double }
-      let(:email_subject) {"Evidence Seed Data: Activity #{activity.id} - #{activity.title}"}
+      let(:email_subject) { "Evidence Seed Data: Activity #{activity.id} - #{activity.title}" }
       let(:mailer) { double('mailer', deliver_now!: true) }
-      let(:label_configs) {{'because' => [{'label' => 'Label1', 'examples' => ['hello', 'goodbye']}]}}
+      let(:label_configs) { { 'because' => [{ 'label' => 'Label1', 'examples' => ['hello', 'goodbye'] }] } }
 
       it 'call generate and call file_mailer with defaults' do
         expect(Evidence::Synthetic::SeedDataGenerator).to receive(:csvs_for_activity)

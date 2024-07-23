@@ -150,7 +150,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'should render the correct json' do
       get :supporting_info, params: { id: activity.id }, as: :json
-      expect(response.body).to eq ({supporting_info: activity.supporting_info}.to_json)
+      expect(response.body).to eq ({ supporting_info: activity.supporting_info }.to_json)
     end
   end
 
@@ -203,7 +203,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
   describe '#question_health' do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
-    let!(:question) { create(:question)}
+    let!(:question) { create(:question) }
     let!(:activity) { create(:activity, activity_classification_id: connect.id) }
     let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity) }
     let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity) }
@@ -224,11 +224,11 @@ describe Api::V1::ActivitiesController, type: :controller do
       ENV['DEFAULT_URL'] = 'https://quill.org'
       ENV['CMS_URL'] = 'https://cms.quill.org'
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75}.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
     end
 
     it 'should return a list of all questions and their health' do
-      activity.update(data: {questions: [{key: question.uid}]})
+      activity.update(data: { questions: [{ key: question.uid }] })
       get :question_health, params: { id: activity.id }, as: :json
 
       response_obj = parsed_body['question_health']
@@ -244,7 +244,7 @@ describe Api::V1::ActivitiesController, type: :controller do
     end
 
     it 'returns empty hashes if questions do not exist' do
-      activity.update(data: {questions: [{key: question.uid}, {key: SecureRandom.uuid}]})
+      activity.update(data: { questions: [{ key: question.uid }, { key: SecureRandom.uuid }] })
       get :question_health, params: { id: activity.id }, as: :json
       expect(response.status).to eq(200)
       response_obj = parsed_body['question_health']
@@ -253,8 +253,8 @@ describe Api::V1::ActivitiesController, type: :controller do
   end
 
   describe '#activities_health' do
-    let!(:prompt_health) { create(:prompt_health)}
-    let!(:activity_health) {create(:activity_health, prompt_healths: [prompt_health])}
+    let!(:prompt_health) { create(:prompt_health) }
+    let!(:activity_health) { create(:activity_health, prompt_healths: [prompt_health]) }
 
     it 'should return a list of all activity healths with associated prompt health' do
       get :activities_health, as: :json

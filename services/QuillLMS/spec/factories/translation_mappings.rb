@@ -20,6 +20,6 @@ FactoryBot.define do
   end
 
   factory :translation_mapping_with_translation, parent: :translation_mapping do
-    english_text { create(:english_text, :with_translated_text)}
+    english_text { create(:english_text, :with_translated_text) }
   end
 end

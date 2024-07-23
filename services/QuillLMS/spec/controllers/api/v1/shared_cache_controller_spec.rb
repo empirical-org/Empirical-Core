@@ -27,8 +27,8 @@ describe Api::V1::SharedCacheController, type: :controller do
 
   describe '#update' do
     it 'should set the cache for the specified key' do
-      SET_DATA = {'foo' => 'bar'}
-      expect($redis).to receive(:set).with(COMBINED_KEY, SET_DATA.to_json, {ex: Api::V1::SharedCacheController::SHARED_CACHE_EXPIRY})
+      SET_DATA = { 'foo' => 'bar' }
+      expect($redis).to receive(:set).with(COMBINED_KEY, SET_DATA.to_json, { ex: Api::V1::SharedCacheController::SHARED_CACHE_EXPIRY })
       put :update, params: { id: KEY, data: SET_DATA }, as: :json
       expect(response.status).to eq(200)
       expect(response.body).to eq(SET_DATA.to_json)

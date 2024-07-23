@@ -270,7 +270,7 @@ module Evidence
     end
 
     private def highlight
-      misspelled.map {|m| { type: RESPONSE_TYPE, id: nil, text: m['token']}}
+      misspelled.map { |m| { type: RESPONSE_TYPE, id: nil, text: m['token'] } }
     end
 
     private def optimal?
@@ -278,7 +278,7 @@ module Evidence
     end
 
     private def misspelled
-      bing_response['flaggedTokens']&.reject {|r| r['token']&.downcase&.in?(EXCEPTIONS)} || []
+      bing_response['flaggedTokens']&.reject { |r| r['token']&.downcase&.in?(EXCEPTIONS) } || []
     end
 
     private def bing_response

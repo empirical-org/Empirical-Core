@@ -26,7 +26,7 @@ module Evidence
     belongs_to :rule, inverse_of: :label
 
     validates :rule, presence: true, uniqueness: true
-    validates :name, presence: true, length: {in: NAME_MIN_LENGTH..NAME_MAX_LENGTH}
+    validates :name, presence: true, length: { in: NAME_MIN_LENGTH..NAME_MAX_LENGTH }
 
     validate :name_unique_for_prompt, on: :create
 

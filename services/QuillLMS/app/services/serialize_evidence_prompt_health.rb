@@ -73,11 +73,11 @@ class SerializeEvidencePromptHealth
   private def percent_responses_for_api(api_type)
     return nil if total_responses == 0
 
-    (((rule_feedback_histories.select {|fh| fh[:api_name] == api_type }.map { |fh| fh[:total_responses]}.sum || 0) / total_responses.to_f) * 100).round
+    (((rule_feedback_histories.select { |fh| fh[:api_name] == api_type }.map { |fh| fh[:total_responses] }.sum || 0) / total_responses.to_f) * 100).round
   end
 
   private def percent_automl_consecutive_repeated
-    automl_histories = rule_feedback_histories.select {|fh| fh[:api_name] == FeedbackHistory::AUTO_ML }
+    automl_histories = rule_feedback_histories.select { |fh| fh[:api_name] == FeedbackHistory::AUTO_ML }
     return nil if automl_histories.empty?
 
     total_responses = automl_histories.map { |fh| fh[:total_responses] }.sum

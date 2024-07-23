@@ -8,7 +8,7 @@ module Concepts
     return '' unless activity_session.present?
 
     @concepts = activity_session.concepts
-    @concept_results_by_question_type = activity_session.concept_results.group_by{|c| c.question_type}.values
+    @concept_results_by_question_type = activity_session.concept_results.group_by{ |c| c.question_type }.values
     organize_by_type
   end
 
@@ -18,7 +18,7 @@ module Concepts
   end
 
   private def organize_by_type
-    hash_object = Hash.new {|h,k| h[k] = [] }
+    hash_object = Hash.new { |h,k| h[k] = [] }
     @concepts.map do |concept|
       @concept_results_by_question_type.map do |cr|
         if cr.any?

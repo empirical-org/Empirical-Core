@@ -72,7 +72,7 @@ describe EmailApiHelper do
     it 'should return the count of closed conversations from the Intercom conversations API' do
       mock_response = double('mock_response', { open: false, updated_at: Time.current })
       conversation_list = class_double('ConversationList')
-      allow(conversation_list).to receive(:find_all).with({open: false, sort_by: 'updated_at', order: 'desc'}).and_return([mock_response])
+      allow(conversation_list).to receive(:find_all).with({ open: false, sort_by: 'updated_at', order: 'desc' }).and_return([mock_response])
       expect_any_instance_of(Intercom::Client).to receive(:conversations).and_return(conversation_list)
       get_intercom_data(start_time, end_time)
     end

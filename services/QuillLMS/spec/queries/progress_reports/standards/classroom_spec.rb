@@ -7,10 +7,10 @@ describe ProgressReports::Standards::Classroom do
     let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }
     let(:filters) { {} }
     include_context 'StandardLevel Progress Report'
-    let(:teacher) {classrooms.first.owner}
+    let(:teacher) { classrooms.first.owner }
 
     before do
-      ClassroomsTeacher.all.each{|ct| ct.update(user: teacher)}
+      ClassroomsTeacher.all.each{ |ct| ct.update(user: teacher) }
     end
 
     subject { ProgressReports::Standards::Classroom.new(teacher).results(filters).to_a }
@@ -39,7 +39,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'standard_levels' do
-      let(:filters) { {standard_level_id: standard_level_ids} }
+      let(:filters) { { standard_level_id: standard_level_ids } }
 
       it 'can retrieve standard_levels based on standard_levels' do
         expect(subject.size).to eq(2) # 1 user created for each standard_level
@@ -47,7 +47,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'classrooms' do
-      let(:filters) { {classroom_id: classrooms.first.id} }
+      let(:filters) { { classroom_id: classrooms.first.id } }
 
       it 'can retrieve standard_levels based on classroom_id' do
         expect(subject.size).to eq(1)
@@ -55,7 +55,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'empty classroom' do
-      let(:filters) { {classroom_id: ''} }
+      let(:filters) { { classroom_id: '' } }
 
       it 'does not filter by classroom' do
         expect(subject.size).to eq(standard_levels.size)
@@ -63,7 +63,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'units' do
-      let(:filters) { {unit_id: units.first.id} }
+      let(:filters) { { unit_id: units.first.id } }
 
       it 'can retrieve standard_levels based on unit_id' do
         expect(subject.size).to eq(1)
@@ -71,7 +71,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'empty units' do
-      let(:filters) { {unit_id: ''} }
+      let(:filters) { { unit_id: '' } }
 
       it 'does not filter by units' do
         expect(subject.size).to eq(standard_levels.size)
@@ -79,7 +79,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'a set of standards' do
-      let(:filters) { {standard_level_id: standard_level_ids, standard_id: standards.map {|t| t.id} } }
+      let(:filters) { { standard_level_id: standard_level_ids, standard_id: standards.map { |t| t.id } } }
 
       it 'can retrieve standard_levels based on a set of standards' do
         expect(subject.size).to eq(2)
@@ -87,7 +87,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'a single standard' do
-      let(:filters) { {standard_level_id: standard_level_ids, standard_id: standards.first.id } }
+      let(:filters) { { standard_level_id: standard_level_ids, standard_id: standards.first.id } }
 
       it 'can retrieve standard_levels based on a single standard' do
         expect(subject.size).to eq(1)
@@ -95,7 +95,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'students' do
-      let(:filters) { {student_id: students.first.id} }
+      let(:filters) { { student_id: students.first.id } }
 
       it 'can retrieve standard_levels based on a student' do
         expect(subject.size).to eq(1)
@@ -103,7 +103,7 @@ describe ProgressReports::Standards::Classroom do
     end
 
     context 'empty students' do
-      let(:filters) { {student_id: ''} }
+      let(:filters) { { student_id: '' } }
 
       it 'does not filter by students' do
         expect(subject.size).to eq(standard_levels.size)

@@ -76,7 +76,7 @@ module Analytics
       track({
         user_id: user&.id,
         event: Analytics::SegmentIo::BackgroundEvents::ACTIVITY_COMPLETION,
-        properties: activity.segment_activity.content_params.merge({student_id: student_id})
+        properties: activity.segment_activity.content_params.merge({ student_id: student_id })
       })
       track_activity_pack_completion(user, student_id, activity_session) if activity_pack_completed?(student_id, activity_session)
     end
@@ -295,7 +295,7 @@ module Analytics
           properties: properties,
         })
       else
-        identify_anonymous_user({ anonymous_id: admin_email, traits: { email: admin_email, name: admin_name }})
+        identify_anonymous_user({ anonymous_id: admin_email, traits: { email: admin_email, name: admin_name } })
         track({
           # Segment requires us to send a unique User ID or Anonymous ID for every event
           # sending the admin email as the anonymous id because that's how we find people in Ortto

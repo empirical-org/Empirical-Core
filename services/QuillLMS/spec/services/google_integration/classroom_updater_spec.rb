@@ -85,7 +85,7 @@ module GoogleIntegration
       let(:other_name) { 'other google_classroom classroom' }
       let(:classroom1) { create(:classroom, :from_google, :with_no_teacher, name: other_name) }
 
-      let(:name) { 'google_classroom classroom'}
+      let(:name) { 'google_classroom classroom' }
       let(:synced_name) { name }
       let(:data_name) { other_name }
 

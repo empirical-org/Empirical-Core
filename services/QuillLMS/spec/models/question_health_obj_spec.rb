@@ -6,7 +6,7 @@ RSpec.describe QuestionHealthObj, type: :model do
 
   describe '#question_health' do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
-    let!(:question) { create(:question)}
+    let!(:question) { create(:question) }
     let!(:activity) { create(:activity, activity_classification_id: connect.id) }
     let!(:activity_session1) { create(:activity_session_without_concept_results, activity: activity) }
     let!(:activity_session2) { create(:activity_session_without_concept_results, activity: activity) }
@@ -40,11 +40,11 @@ RSpec.describe QuestionHealthObj, type: :model do
       ENV['DEFAULT_URL'] = 'https://quill.org'
       ENV['CMS_URL'] = 'https://cms.quill.org'
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75}.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
     end
 
     it 'should return an object with that questions health info' do
-      activity.update(data: {questions: [{key: question.uid}]})
+      activity.update(data: { questions: [{ key: question.uid }] })
       health_obj = QuestionHealthObj.new(activity, question, 1, connect.key).run
       expect(health_obj[:url]).to eq("https://quill.org/connect/#/admin/questions/#{question.uid}/responses")
       expect(health_obj[:text]).to eq(question.prompt)

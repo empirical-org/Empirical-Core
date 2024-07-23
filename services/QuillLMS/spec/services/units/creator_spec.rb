@@ -15,8 +15,8 @@ describe Units::Creator do
     Units::Creator.run(
       teacher,
       'Something Really Cool',
-      [{id: activity.id}],
-      [{id: classroom.id, student_ids: []}]
+      [{ id: activity.id }],
+      [{ id: classroom.id, student_ids: [] }]
     )
     expect(Unit.last.user).to eq(teacher)
   end

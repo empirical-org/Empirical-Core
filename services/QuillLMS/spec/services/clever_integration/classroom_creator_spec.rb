@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CleverIntegration::ClassroomCreator do
   let(:teacher_id) { create(:teacher).id }
-  let(:classroom_external_id) { '123_456'}
+  let(:classroom_external_id) { '123_456' }
   let(:grade) { '1' }
   let(:name) { 'clever classroom' }
 

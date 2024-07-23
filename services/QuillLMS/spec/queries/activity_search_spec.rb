@@ -14,7 +14,7 @@ describe ActivitySearch do
     let!(:content_partner) { create(:content_partner) }
     let!(:content_partner_activity) { create(:content_partner_activity, content_partner: content_partner, activity: activity) }
     let!(:topic) { create(:topic, level: 1) }
-    let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity)}
+    let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity) }
 
     context 'beta flagset input' do
       it 'should get the correct attributes based on the flag given' do

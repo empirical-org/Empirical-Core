@@ -8,7 +8,7 @@ class Api::V1::ConceptsController < Api::ApiController
   def create
     concept = Concept.new(concept_params)
     if concept.save
-      render json: {concept: {id: concept.id, name: concept.name, uid: concept.uid, parent_id: concept.parent.id}}
+      render json: { concept: { id: concept.id, name: concept.name, uid: concept.uid, parent_id: concept.parent.id } }
     else
       render json: concept.errors, status: 422
     end
@@ -38,7 +38,7 @@ class Api::V1::ConceptsController < Api::ApiController
   end
 
   private def fetch_all_concepts_and_cache
-    concepts = {concepts: Concept.all_with_level}.to_json
+    concepts = { concepts: Concept.all_with_level }.to_json
     $redis.set(Concept::ALL_CONCEPTS_KEY, concepts)
     concepts
   end

@@ -54,7 +54,7 @@ RSpec.describe CleverIntegration::TeachersController do
 
     context 'import classes flow' do
       let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
-      let(:params) { { selected_classroom_ids: selected_classroom_ids} }
+      let(:params) { { selected_classroom_ids: selected_classroom_ids } }
 
       it 'should kick off background job that imports students' do
         expect(CleverIntegration::TeacherClassroomsCache)
@@ -95,7 +95,7 @@ RSpec.describe CleverIntegration::TeachersController do
       context 'teacher classrooms cache has data' do
         let(:data) { [] }
 
-        before { CleverIntegration::TeacherClassroomsCache.write(teacher.id, data.to_json)}
+        before { CleverIntegration::TeacherClassroomsCache.write(teacher.id, data.to_json) }
 
         it  do
           subject

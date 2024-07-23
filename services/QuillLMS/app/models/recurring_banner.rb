@@ -7,8 +7,7 @@ class RecurringBanner < WebinarBanner
   # ONE-OFFS have the key format Month-Day-Hour
   # RECURRING have the key format DayOfWeek-Hour
 
-  WEBINARS = {
-  }
+  WEBINARS = {}
 
   private def values
     WEBINARS[key]

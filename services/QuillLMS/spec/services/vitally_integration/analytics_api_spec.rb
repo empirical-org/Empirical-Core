@@ -5,7 +5,7 @@ require 'rails_helper'
 describe VitallyIntegration::AnalyticsApi do
   let(:api)  { described_class.new }
 
-  let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
+  let(:sample_response) { { body: '{}', headers: { content_type: 'application/json' } } }
   let(:mock_payload) { {} }
 
   before do
@@ -14,49 +14,49 @@ describe VitallyIntegration::AnalyticsApi do
   end
 
   describe '#batch' do
-    let(:endpoint) { "#{described_class::BASE_URL}/#{described_class::ENDPOINT_BATCH}"}
-    let(:response) {sample_response.merge(status: 200) }
+    let(:endpoint) { "#{described_class::BASE_URL}/#{described_class::ENDPOINT_BATCH}" }
+    let(:response) { sample_response.merge(status: 200) }
 
-    subject {api.batch(mock_payload)}
+    subject { api.batch(mock_payload) }
 
     it 'should post the payload to the batch endpoint' do
       expect(subject.success?).to be true
     end
 
     context 'RateLimit error' do
-      let(:response) {sample_response.merge(status: 429) }
+      let(:response) { sample_response.merge(status: 429) }
 
-      it { expect{subject}.to raise_error(described_class::RateLimitError) }
+      it { expect{ subject }.to raise_error(described_class::RateLimitError) }
     end
 
     context 'Other error' do
-      let(:response) {sample_response.merge(status: 500) }
+      let(:response) { sample_response.merge(status: 500) }
 
-      it { expect{subject}.to raise_error(described_class::ApiError) }
+      it { expect{ subject }.to raise_error(described_class::ApiError) }
     end
   end
 
   describe '#unlink' do
     let(:endpoint) { "#{described_class::BASE_URL}/#{described_class::ENDPOINT_UNLINK}" }
-    let(:response) {sample_response.merge(status: 200) }
+    let(:response) { sample_response.merge(status: 200) }
 
-    subject {api.unlink(mock_payload)}
+    subject { api.unlink(mock_payload) }
 
     it 'should post the payload to the batch endpoint' do
       expect(subject.success?).to be true
     end
 
     context 'RateLimit error' do
-      let(:response) {sample_response.merge(status: 429) }
+      let(:response) { sample_response.merge(status: 429) }
 
-      it { expect{subject}.to raise_error(described_class::RateLimitError) }
+      it { expect{ subject }.to raise_error(described_class::RateLimitError) }
     end
 
     context 'Other error' do
 
-      let(:response) {sample_response.merge(status: 500)}
+      let(:response) { sample_response.merge(status: 500) }
 
-      it { expect{subject}.to raise_error(described_class::ApiError).with_message('500') }
+      it { expect{ subject }.to raise_error(described_class::ApiError).with_message('500') }
     end
   end
 end

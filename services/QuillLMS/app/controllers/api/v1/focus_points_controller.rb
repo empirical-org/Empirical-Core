@@ -13,7 +13,7 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def create
     uid = @question.add_focus_point(valid_params)
-    render(json: {uid => @question&.focusPoints&.[]('uid')})
+    render(json: { uid => @question&.focusPoints&.[]('uid') })
   end
 
   def update
@@ -43,7 +43,7 @@ class Api::V1::FocusPointsController < Api::ApiController
   private def valid_params
     filtered_params = params.require(:focus_point)
     if filtered_params.is_a?(Array)
-      filtered_params.map {|x| x.except(:uid).permit!.to_h }
+      filtered_params.map { |x| x.except(:uid).permit!.to_h }
     else
       filtered_params.except(:uid).permit!.to_h
     end

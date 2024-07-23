@@ -10,8 +10,8 @@ module Cms
 
     let(:schools) do
       [
-        { id: school1.id, name: school1.name, checked: school1_checked},
-        { id: school2.id, name: school2.name, checked: school2_checked}
+        { id: school1.id, name: school1.name, checked: school1_checked },
+        { id: school2.id, name: school2.name, checked: school2_checked }
       ]
     end
 
@@ -24,10 +24,10 @@ module Cms
         let(:school2_checked) { true }
 
         context 'school1 has subscription' do
-          before { create(:school_subscription, subscription: subscription, school: school1)}
+          before { create(:school_subscription, subscription: subscription, school: school1) }
 
           context 'school2 has subscription' do
-            before { create(:school_subscription, subscription: subscription, school: school2)}
+            before { create(:school_subscription, subscription: subscription, school: school2) }
 
             it { expect { subject }.not_to change(SchoolSubscription, :count).from(2) }
           end
@@ -39,7 +39,7 @@ module Cms
 
         context 'school1 has no subscription' do
           context 'school2 has subscription' do
-            before { create(:school_subscription, subscription: subscription, school: school2)}
+            before { create(:school_subscription, subscription: subscription, school: school2) }
 
             it { expect { subject }.to change(SchoolSubscription, :count).from(1).to(2) }
           end
@@ -54,10 +54,10 @@ module Cms
         let(:school2_checked) { false }
 
         context 'school1 has subscription' do
-          before { create(:school_subscription, subscription: subscription, school: school1)}
+          before { create(:school_subscription, subscription: subscription, school: school1) }
 
           context 'school2 has subscription' do
-            before { create(:school_subscription, subscription: subscription, school: school2)}
+            before { create(:school_subscription, subscription: subscription, school: school2) }
 
             it { expect { subject }.to change(SchoolSubscription, :count).from(2).to(1) }
           end
@@ -69,7 +69,7 @@ module Cms
 
         context 'school1 has no subscription' do
           context 'school2 has subscription' do
-            before { create(:school_subscription, subscription: subscription, school: school2)}
+            before { create(:school_subscription, subscription: subscription, school: school2) }
 
             it { expect { subject }.not_to change(SchoolSubscription, :count) }
           end
@@ -88,10 +88,10 @@ module Cms
         let(:school2_checked) { false }
 
         context 'school1 has subscription' do
-          before { create(:school_subscription, subscription: subscription, school: school1)}
+          before { create(:school_subscription, subscription: subscription, school: school1) }
 
           context 'school2 has subscription' do
-            before { create(:school_subscription, subscription: subscription, school: school2)}
+            before { create(:school_subscription, subscription: subscription, school: school2) }
 
             it { expect { subject }.to change(SchoolSubscription, :count).from(2).to(0) }
           end
@@ -103,7 +103,7 @@ module Cms
 
         context 'school1 has no subscription' do
           context 'school2 has subscription' do
-            before { create(:school_subscription, subscription: subscription, school: school2)}
+            before { create(:school_subscription, subscription: subscription, school: school2) }
 
             it { expect { subject }.to change(SchoolSubscription, :count).from(1).to(0) }
           end
