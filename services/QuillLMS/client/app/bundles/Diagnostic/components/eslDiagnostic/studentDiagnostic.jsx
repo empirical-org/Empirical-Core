@@ -3,7 +3,6 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import Footer from './footer';
 import LandingPage from './landingPage.jsx';
 import LanguagePage from './languagePage.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
