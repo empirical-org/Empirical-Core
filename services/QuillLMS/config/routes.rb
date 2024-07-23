@@ -530,7 +530,11 @@ EmpiricalGrammar::Application.routes.draw do
       end
       resources :shared_cache, only: [:show, :update, :destroy]
       scope 'activity_type/:activity_type' do
-        resources :concept_feedback
+        resources :concept_feedback do
+          collection do
+            get 'translations/:locale', action: :translations
+          end
+        end
       end
 
       resources :questions, only: [:index, :show, :new, :create, :edit, :update] do

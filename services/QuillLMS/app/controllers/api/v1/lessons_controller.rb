@@ -17,7 +17,7 @@ class Api::V1::LessonsController < Api::ApiController
   end
 
   def show
-    render(json: @lesson.translated_json)
+    render(json: @lesson.json_with_translations)
   end
 
   def create

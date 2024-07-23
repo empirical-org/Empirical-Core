@@ -18,14 +18,6 @@ module Translatable
     class_attribute :default_translatable_field, default: nil
   end
 
-  def translated_json(options = {})
-    source_api = options&.dig(:source_api) || Translatable::OPEN_AI_SOURCE
-    translation_text = translation(source_api: source_api)
-    return data unless translation_text.present?
-
-    data.merge({"translated#{default_translatable_field.capitalize}" => translation_text})
-  end
-
   def create_translation_mappings
     create_translation_mappings_with_text(translatable_text:)
   end
@@ -39,7 +31,7 @@ module Translatable
   end
 
   def translation(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
-    translations(locale: locale, source_api: source_api)&.first&.translation
+    @translation ||= translations(locale: locale, source_api: source_api)&.first&.translation
   end
 
   def translations(locale:, source_api:)
