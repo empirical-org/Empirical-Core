@@ -43,13 +43,13 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       context 'there is no cache set' do
         before do
           $redis.del(cache_key)
-        end
-
-        it 'returns all the concept feedback translated fields for that language' do
           get :translations, params: {
               locale:,
               activity_type: concept_feedback1.activity_type
           }, as: :json
+        end
+
+        it 'returns all the concept feedback translated fields for that language' do
           body = JSON.parse(response.body)
           expect(body[concept_feedback1.uid]['description']).to eq(concept_feedback1.translation(locale:))
           expect(body[concept_feedback2.uid]['description']).to eq(concept_feedback2.translation(locale:))
@@ -57,10 +57,6 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
         end
 
         it 'sets the redis cache' do
-          get :translations, params: {
-              locale:,
-              activity_type: concept_feedback1.activity_type
-          }, as: :json
           expect($redis.get(cache_key)).to eq(response.body)
         end
       end
@@ -68,8 +64,11 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       context 'the cache is set' do
         let(:cache_value) { {foo: 'bar'}.to_json }
 
-        it 'returns the cache value' do
+        before do
           $redis.set(cache_key, cache_value)
+        end
+
+        it 'returns the cache value' do
           get :translations, params: {
               locale:,
               activity_type: concept_feedback1.activity_type
