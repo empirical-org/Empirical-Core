@@ -13,8 +13,8 @@ describe Teachers::ProgressReportsController do
   describe '#demo' do
     context 'when name not given' do
       context 'when demo accounts exist' do
-        let!(:user) { create(:user, email: Demo::ReportDemoCreator::EMAIL ) }
-        let!(:ap_user) { create(:user, email: 'hello+demoteacher+ap@quill.org' ) }
+        let!(:user) { create(:user, email: Demo::ReportDemoCreator::EMAIL) }
+        let!(:ap_user) { create(:user, email: 'hello+demoteacher+ap@quill.org') }
 
         it 'should use the hello+demot\eacher@quill account and redirect to scorebook teachers classrooms path' do
           get :demo
@@ -31,7 +31,7 @@ describe Teachers::ProgressReportsController do
 
       context 'when demo account does not exist' do
         before do
-          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
+          allow(Demo::ReportDemoCreator).to receive(:create_demo) { |email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
@@ -43,7 +43,7 @@ describe Teachers::ProgressReportsController do
 
     context 'when name is given' do
       context 'when demo account exists' do
-        let!(:user) { create(:user, email: 'hello+test@quill.org' ) }
+        let!(:user) { create(:user, email: 'hello+test@quill.org') }
 
         it 'should use the hello+test@quill account and redirect to scorebook teachers classrooms path' do
           get :demo, params: { name: 'test' }
@@ -52,7 +52,7 @@ describe Teachers::ProgressReportsController do
         end
 
         context 'when when name is demoaccount' do
-          let!(:user) { create(:user, email: 'hello+demoaccount@quill.org' ) }
+          let!(:user) { create(:user, email: 'hello+demoaccount@quill.org') }
 
           it 'should redirect to teachers_progress_reports_concepts_students_path path' do
             get :demo, params: { name: 'demoaccount' }
@@ -61,7 +61,7 @@ describe Teachers::ProgressReportsController do
         end
 
         context 'when name is admin demo' do
-          let!(:user) { create(:user, email: 'hello+admin_demo@quill.org' ) }
+          let!(:user) { create(:user, email: 'hello+admin_demo@quill.org') }
 
           it 'should redirect to profile path' do
             get :demo, params: { name: 'admin_demo' }
@@ -72,7 +72,7 @@ describe Teachers::ProgressReportsController do
 
       context 'when demo account does not exist' do
         before do
-          allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
+          allow(Demo::ReportDemoCreator).to receive(:create_demo) { |email| create(:user, email: email) }
         end
 
         it 'should destroy the current demo and create a new demo' do
@@ -142,7 +142,7 @@ describe Teachers::ProgressReportsController do
 
     context 'when demo account does not exist' do
       before do
-        allow(Demo::ReportDemoCreator).to receive(:create_demo) {|email| create(:user, email: email) }
+        allow(Demo::ReportDemoCreator).to receive(:create_demo) { |email| create(:user, email: email) }
       end
 
       it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do
@@ -167,7 +167,7 @@ describe Teachers::ProgressReportsController do
 
     context 'when demo account does not exist' do
       before do
-        allow(Demo::ReportDemoAPCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}+ap@quill.org") }
+        allow(Demo::ReportDemoAPCreator).to receive(:create_demo) { |name| create(:user, email: "hello+#{name}+ap@quill.org") }
       end
 
       it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do

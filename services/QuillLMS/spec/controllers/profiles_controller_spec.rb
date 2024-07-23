@@ -23,7 +23,7 @@ describe ProfilesController, type: :controller do
   end
 
   context 'as a student' do
-    let!(:classroom) {create(:classroom)}
+    let!(:classroom) { create(:classroom) }
     let!(:student) { create(:student) }
     let!(:students_classrooms) do
       create(:students_classrooms,

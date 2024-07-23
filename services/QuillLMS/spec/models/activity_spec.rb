@@ -64,9 +64,9 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:activity_categories).through(:activity_category_activities) }
   it { should have_many(:content_partners).through(:content_partner_activities) }
   it { should have_many(:teacher_saved_activities) }
-  it { should have_many(:teachers).through(:teacher_saved_activities)}
+  it { should have_many(:teachers).through(:teacher_saved_activities) }
   it { should have_many(:activity_topics) }
-  it { should have_many(:topics).through(:activity_topics)}
+  it { should have_many(:topics).through(:activity_topics) }
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
 
@@ -117,7 +117,7 @@ describe Activity, type: :model, redis: true do
 
       describe 'activity is evidence and the flag is being changed' do
         let!(:evidence_activity) { create(:evidence_lms_activity, flag: 'alpha') }
-        let!(:child_activity) { create(:evidence_activity, title: 'this is a child activity', notes: 'note', parent_activity_id: evidence_activity.id)}
+        let!(:child_activity) { create(:evidence_activity, title: 'this is a child activity', notes: 'note', parent_activity_id: evidence_activity.id) }
         let!(:staff_user) { create(:user, role: 'staff') }
 
         before do
@@ -234,7 +234,7 @@ describe Activity, type: :model, redis: true do
       classification = build(:activity_classification, key: 'connect')
       classified_activity = build(:activity, classification: classification)
       activity_session = build(:activity_session)
-      expect(classified_activity).to receive(:connect_url_helper).with({student: activity_session.uid}).and_call_original
+      expect(classified_activity).to receive(:connect_url_helper).with({ student: activity_session.uid }).and_call_original
       result = classified_activity.module_url(activity_session)
       expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?student=#{activity_session.uid}")
     end
@@ -243,7 +243,7 @@ describe Activity, type: :model, redis: true do
       classification = build(:activity_classification, key: 'diagnostic')
       classified_activity = build(:activity, classification: classification)
       activity_session = build(:activity_session)
-      expect(classified_activity).to receive(:connect_url_helper).with({student: activity_session.uid}).and_call_original
+      expect(classified_activity).to receive(:connect_url_helper).with({ student: activity_session.uid }).and_call_original
       result = classified_activity.module_url(activity_session)
       expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?student=#{activity_session.uid}")
     end
@@ -256,7 +256,7 @@ describe Activity, type: :model, redis: true do
         target_level: 12,
         title: 'Test Evidence Activity',
         notes: 'Test Evidence Activity')
-      expect(classified_activity).to receive(:evidence_url_helper).with({student: activity_session.uid}).and_call_original
+      expect(classified_activity).to receive(:evidence_url_helper).with({ student: activity_session.uid }).and_call_original
       result = classified_activity.module_url(activity_session)
       expect(result.to_s).to eq("#{classification.module_url}?session=#{activity_session.uid}&uid=#{comp_activity.id}")
     end
@@ -271,7 +271,7 @@ describe Activity, type: :model, redis: true do
     it "must use the connect_url_helper when the classification.key is 'connect'" do
       classification = build(:activity_classification, key: 'connect')
       classified_activity = build(:activity, classification: classification)
-      expect(classified_activity).to receive(:connect_url_helper).with({anonymous: true}).and_call_original
+      expect(classified_activity).to receive(:connect_url_helper).with({ anonymous: true }).and_call_original
       result = classified_activity.anonymous_module_url
       expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?anonymous=true")
     end
@@ -279,7 +279,7 @@ describe Activity, type: :model, redis: true do
     it "must use the connect_url_helper when the classification.key is 'diagnostic'" do
       classification = build(:activity_classification, key: 'diagnostic')
       classified_activity = build(:activity, classification: classification)
-      expect(classified_activity).to receive(:connect_url_helper).with({anonymous: true}).and_call_original
+      expect(classified_activity).to receive(:connect_url_helper).with({ anonymous: true }).and_call_original
       result = classified_activity.anonymous_module_url
       expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?anonymous=true")
     end
@@ -291,7 +291,7 @@ describe Activity, type: :model, redis: true do
         target_level: 12,
         title: 'Test Evidence Activity',
         notes: 'Test Evidence Activity')
-      expect(classified_activity).to receive(:evidence_url_helper).with({anonymous: true}).and_call_original
+      expect(classified_activity).to receive(:evidence_url_helper).with({ anonymous: true }).and_call_original
       result = classified_activity.anonymous_module_url
       expect(result.to_s).to eq("#{classification.module_url}?anonymous=true&uid=#{comp_activity.id}")
     end
@@ -324,7 +324,7 @@ describe Activity, type: :model, redis: true do
     let!(:beta_activity){ create(:activity, flag: 'beta') }
     let!(:alpha_activity){ create(:activity, flag: 'alpha') }
     let!(:archived_activity){ create(:activity, flag: 'archived') }
-    let!(:all_types){[production_activity, gamma_activity, beta_activity, alpha_activity, archived_activity]}
+    let!(:all_types){ [production_activity, gamma_activity, beta_activity, alpha_activity, archived_activity] }
 
     context 'the default scope' do
       it 'must show all types of flagged activities when default scope' do
@@ -383,19 +383,19 @@ describe Activity, type: :model, redis: true do
     let(:activity) { create(:activity) }
 
     it 'deletes the default_activity_search from the cache' do
-      $redis.set('default_activity_search', {something: 'something'}.to_json)
+      $redis.set('default_activity_search', { something: 'something' }.to_json)
       Activity.clear_activity_search_cache
       expect($redis.get('default_activity_search')).to eq nil
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
-      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push('').each do |flagset|
-        $redis.set("default_#{flagset}activity_search", {a_key: 'a_value'}.to_json )
+      UserFlagset::FLAGSETS.keys.map{ |x| "#{x}_" }.push('').each do |flagset|
+        $redis.set("default_#{flagset}activity_search", { a_key: 'a_value' }.to_json)
       end
 
       Activity.clear_activity_search_cache
 
-      UserFlagset::FLAGSETS.keys.map{|x| "#{x}_"}.push('').each do |flagset|
+      UserFlagset::FLAGSETS.keys.map{ |x| "#{x}_" }.push('').each do |flagset|
         expect(
           $redis.del("default_#{flagset}activity_search")
         ).to eq 0
@@ -419,7 +419,7 @@ describe Activity, type: :model, redis: true do
   end
 
   describe 'diagnositic_activit_ids' do
-    let(:classification) { create(:diagnostic)}
+    let(:classification) { create(:diagnostic) }
     let!(:activity1) { create(:activity, classification: classification) }
     let!(:activity2) { create(:activity, classification: classification) }
 
@@ -484,11 +484,11 @@ describe Activity, type: :model, redis: true do
 
   describe '#add_question' do
     let(:activity) { create(:connect_activity) }
-    let(:question) { create(:question)}
+    let(:question) { create(:question) }
 
     it 'should add a question to the lesson' do
       old_length = activity.data['questions'].length
-      question_obj = {"key": question.uid, "questionType": 'questions'}
+      question_obj = { "key": question.uid, "questionType": 'questions' }
       activity.add_question(question_obj)
       questions = activity.data['questions']
       last_question = questions.last.symbolize_keys
@@ -499,20 +499,20 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'should throw error if the question does not exist' do
-      question_obj = {"key": 'fakeid', "questionType": 'questions'}
+      question_obj = { "key": 'fakeid', "questionType": 'questions' }
       activity.add_question(question_obj)
       expect(activity.errors[:question]).to include('Question fakeid does not exist.')
     end
 
     it 'should throw error if the question type does not match' do
-      question_obj = {"key": question.uid, "questionType": 'faketype'}
+      question_obj = { "key": question.uid, "questionType": 'faketype' }
       activity.add_question(question_obj)
       expect(activity.errors[:question]).to include("The question type faketype does not match the lesson's question type: questions")
     end
 
     it 'should throw error if the activity classification is Grammar or Lesson' do
-      question_obj = {"key": question.uid, "questionType": 'questions'}
-      data = {"questionType": 'questions'}
+      question_obj = { "key": question.uid, "questionType": 'questions' }
+      data = { "questionType": 'questions' }
       proofreader_activity = create(:proofreader_activity, data: data)
       proofreader_activity.add_question(question_obj)
       expect(proofreader_activity.errors[:activity]).to include("You can't add questions to this type of activity.")
@@ -672,7 +672,7 @@ describe Activity, type: :model, redis: true do
   context 'a test that belongs in Comprehension that we need here because the engine stubs the LMS Activity model, and we need them both to behave as if real' do
     describe '#Evidence::Activity.update_parent_activity_name' do
       let(:activity) { create(:activity) }
-      let(:comp_activity) {create(:evidence_activity, title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
+      let(:comp_activity) { create(:evidence_activity, title: 'Old Title', notes: 'Some notes', target_level: 1, parent_activity_id: activity.id) }
 
       it 'should update the parent_activity.name when the comprehension activity.title is updated' do
         new_title = 'New Title'
@@ -772,10 +772,10 @@ describe Activity, type: :model, redis: true do
   end
 
   describe '#update_questions_flag_status_if_necessary!' do
-    let(:q1) { create(:question, data: {flag: 'beta'}) }
-    let(:q2) { create(:question, data: {flag: 'beta'}) }
-    let(:questions) { [{'key' => q1.uid, 'question_type' => 'questions'}, {'key' => q2.uid, 'question_type' => 'questions'}] }
-    let(:data) { {questions: } } # NOTE: that the unmatched `x:` syntax in Ruby will try to set the value by finding a variable with the name of the key, so in this case "questions"
+    let(:q1) { create(:question, data: { flag: 'beta' }) }
+    let(:q2) { create(:question, data: { flag: 'beta' }) }
+    let(:questions) { [{ 'key' => q1.uid, 'question_type' => 'questions' }, { 'key' => q2.uid, 'question_type' => 'questions' }] }
+    let(:data) { { questions: } } # NOTE: that the unmatched `x:` syntax in Ruby will try to set the value by finding a variable with the name of the key, so in this case "questions"
 
 
     context 'activity flag set to production' do
@@ -808,10 +808,10 @@ describe Activity, type: :model, redis: true do
     let(:activity) { create(:activity) }
 
     context 'there are questions in the data field' do
-      let(:questions) { create_list(:question, 2)}
+      let(:questions) { create_list(:question, 2) }
 
       before do
-        activity.data["questions"] = questions.map{|q| {"key" => q.uid}}
+        activity.data["questions"] = questions.map{ |q| { "key" => q.uid } }
         activity.save
       end
 
@@ -821,7 +821,7 @@ describe Activity, type: :model, redis: true do
 
       context 'has an extra question key that does not exist' do
         before do
-          activity.data["questions"] << {"key" => "124"}
+          activity.data["questions"] << { "key" => "124" }
           activity.save
         end
 
@@ -842,13 +842,13 @@ describe Activity, type: :model, redis: true do
   end
 
   describe 'json_with_translations' do
-    subject {activity.json_with_translations}
+    subject { activity.json_with_translations }
 
-    let(:activity) { create(:activity)}
+    let(:activity) { create(:activity) }
 
     context 'there are translations' do
       it 'is data + all available languages' do
-        activity.data.merge!({'landingPageHtml' => "html"})
+        activity.data.merge!({ 'landingPageHtml' => "html" })
         activity.create_translation_mappings
         chinese_locale = "zh-CN"
         english_text = activity.english_texts.first
@@ -865,7 +865,7 @@ describe Activity, type: :model, redis: true do
     end
 
     context 'the activity has no translations' do
-      it { expect(subject).to eq( activity.data )}
+      it { expect(subject).to eq(activity.data) }
     end
 
   end

@@ -17,8 +17,8 @@ namespace :milestones do
   module MilestoneCreator
     def self.data
       [
-        {name: 'View Lessons Tutorial'},
-        {name: 'Complete Diagnostic'}
+        { name: 'View Lessons Tutorial' },
+        { name: 'Complete Diagnostic' }
       ]
     end
 

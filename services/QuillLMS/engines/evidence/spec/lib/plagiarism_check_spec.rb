@@ -161,7 +161,7 @@ module Evidence
     end
 
     context 'benchmarking', :benchmarking do
-      let(:plagiarism_text) { 'At particular times in the year, fish travel to new locations where they lay their eggs. A surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs. A surge barrier could also slow the flow of the water, causing some eggs to sink. This could pose a problem for fish eggs that need oxygen and must stay on the surface of the water in order to survive.'}
+      let(:plagiarism_text) { 'At particular times in the year, fish travel to new locations where they lay their eggs. A surge barrier could block certain fish from getting to their spawning locations and safely releasing their eggs. A surge barrier could also slow the flow of the water, causing some eggs to sink. This could pose a problem for fish eggs that need oxygen and must stay on the surface of the water in order to survive.' }
 
       def run_benchmark_on_entries(label, entries, plagiarized)
         runtime = Benchmark.realtime do
@@ -169,7 +169,7 @@ module Evidence
             expect(Evidence::PlagiarismCheck.new(entry, plagiarism_text, '', rule).feedback_object[:optimal]).to eq(plagiarized)
           end
         end
-        puts format('Average %<label>s runtime: %<runtime>.3f seconds', {label: label, runtime: (runtime / entries.length)})
+        puts format('Average %<label>s runtime: %<runtime>.3f seconds', { label: label, runtime: (runtime / entries.length) })
       end
 
       it '#short plagiarized responses' do
@@ -249,7 +249,7 @@ module Evidence
               expect(Evidence::PlagiarismCheck.new(entry, plagiarism_text, '', rule).feedback_object[:optimal]).to eq(true)
             end
           end
-          puts format('Average known slow API non-plagiarized runtime: %<runtime>.3f seconds', {runtime: (runtime / samples.length)})
+          puts format('Average known slow API non-plagiarized runtime: %<runtime>.3f seconds', { runtime: (runtime / samples.length) })
         end
 
         it 'with plagiarism' do
@@ -261,7 +261,7 @@ module Evidence
               expect(Evidence::PlagiarismCheck.new(entry, plagiarism_text, '', rule).feedback_object[:optimal]).to eq(false)
             end
           end
-          puts format('Average known slow API with plagiarized runtime: %<runtime>.3f seconds', {runtime: (runtime / samples.length)})
+          puts format('Average known slow API with plagiarized runtime: %<runtime>.3f seconds', { runtime: (runtime / samples.length) })
         end
       end
     end

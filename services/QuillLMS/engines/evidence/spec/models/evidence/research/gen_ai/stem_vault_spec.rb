@@ -24,7 +24,7 @@ module Evidence
         it { should validate_presence_of(:stem) }
         it { should validate_presence_of(:conjunction) }
         it { should validate_presence_of(:activity_id) }
-        it { should validate_inclusion_of(:conjunction).in_array(described_class::CONJUNCTIONS)}
+        it { should validate_inclusion_of(:conjunction).in_array(described_class::CONJUNCTIONS) }
         it { should have_readonly_attribute(:stem) }
         it { should have_readonly_attribute(:conjunction) }
         it { should have_readonly_attribute(:activity_id) }

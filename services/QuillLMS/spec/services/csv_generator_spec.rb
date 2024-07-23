@@ -64,7 +64,7 @@ describe CsvGenerator do
     context 'specified_columns includes column names not defined in the subclass' do
       let(:specified_columns) { [:grade] }
 
-      it { expect{subject}.to raise_error(described_class::UnhandledColumnError) }
+      it { expect{ subject }.to raise_error(described_class::UnhandledColumnError) }
     end
 
     context 'data rows do not contain data for all specified columns' do
@@ -77,7 +77,7 @@ describe CsvGenerator do
         ]
       end
 
-      it { expect{subject}.to raise_error(described_class::DataMissingRequestedColumnError) }
+      it { expect{ subject }.to raise_error(described_class::DataMissingRequestedColumnError) }
     end
   end
 

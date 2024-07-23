@@ -11,8 +11,8 @@ RSpec.shared_context 'Snapshots Activity Session Count CTE' do
     end
   end
 
-  let(:activities) {activity_sessions.map(&:activity).uniq}
+  let(:activities) { activity_sessions.map(&:activity).uniq }
 
-  let(:count_query_cte_records) { period_query_cte_records << classroom_units << activity_sessions << activities}
+  let(:count_query_cte_records) { period_query_cte_records << classroom_units << activity_sessions << activities }
   let(:cte_records) { count_query_cte_records }
 end

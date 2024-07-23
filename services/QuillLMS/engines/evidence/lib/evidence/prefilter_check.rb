@@ -20,7 +20,7 @@ module Evidence
         QUESTION_MARK_RULE_UID      => ->(the_entry) { the_entry.match?(/\?$/) },
         MULTIPLE_SENTENCE_RULE_UID  => ->(the_entry) { PrefilterCheck.sentence_count(the_entry) > 1 },
         PROFANITY_RULE_UID          => ->(the_entry) { profanity? },
-        MINIMUM_WORD_RULE_UID       => ->(the_entry) { PrefilterCheck.word_count(the_entry) < MINIMUM_WORD_COUNT}
+        MINIMUM_WORD_RULE_UID       => ->(the_entry) { PrefilterCheck.word_count(the_entry) < MINIMUM_WORD_COUNT }
       }
 
       @entry = entry

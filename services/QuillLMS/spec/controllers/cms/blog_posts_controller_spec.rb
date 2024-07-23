@@ -21,7 +21,7 @@ describe Cms::BlogPostsController, type: :controller do
 
     it 'should set the blog posts name and id and topics' do
       get :index
-      expect(assigns(:blog_posts_name_and_id).first).to include({'rating' => post.average_rating})
+      expect(assigns(:blog_posts_name_and_id).first).to include({ 'rating' => post.average_rating })
       expect(assigns(:topics)).to eq(BlogPost::TOPICS)
     end
   end
@@ -55,7 +55,7 @@ describe Cms::BlogPostsController, type: :controller do
 
     it 'should destroy the given blog post' do
       delete :destroy, params: { id: bpost.id }
-      expect{BlogPost.find(bpost.id)}.to raise_exception(ActiveRecord::RecordNotFound)
+      expect{ BlogPost.find(bpost.id) }.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
 

@@ -27,7 +27,7 @@ RSpec.describe Evidence::OpenAI::Chat, type: :service do
   end
 
   describe '#run' do
-    let!(:result) {subject.run}
+    let!(:result) { subject.run }
 
     it 'returns cleaned results' do
       result = subject.run

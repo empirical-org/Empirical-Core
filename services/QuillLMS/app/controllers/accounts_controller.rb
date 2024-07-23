@@ -35,7 +35,7 @@ class AccountsController < ApplicationController
       render json: redirect_json
     else
       errors = @user.errors
-      render json: {errors: errors}, status: 422
+      render json: { errors: errors }, status: 422
     end
   end
 
@@ -52,7 +52,7 @@ class AccountsController < ApplicationController
       render json: redirect_json
     else
       errors = @user.errors
-      render json: {errors: errors}, status: 422
+      render json: { errors: errors }, status: 422
     end
 
   end

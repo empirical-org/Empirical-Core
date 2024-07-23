@@ -94,20 +94,20 @@ class AdminsController < ApplicationController
       PremiumHub::TeacherAccountCreatedEmailWorker.perform_async(@teacher.id, current_user.id, params[:school_id], true)
     end
 
-    render json: {message: t('admin.resend_login_details')}, status: 200
+    render json: { message: t('admin.resend_login_details') }, status: 200
   end
 
   def remove_as_admin
     SchoolsAdmins&.find_by(user_id: params[:id], school_id: params[:school_id])&.destroy!
     reset_admin_users_cache
-    render json: {message: t('admin.remove_admin')}, status: 200
+    render json: { message: t('admin.remove_admin') }, status: 200
   end
 
   def make_admin
     SchoolsAdmins.create!(user_id: params[:id], school_id: params[:school_id])
     PremiumHub::MadeSchoolAdminEmailWorker.perform_async(params[:id], current_user.id, params[:school_id])
     reset_admin_users_cache
-    render json: {message: t('admin.make_admin')}, status: 200
+    render json: { message: t('admin.make_admin') }, status: 200
   end
 
   def approve_admin_request
@@ -118,7 +118,7 @@ class AdminsController < ApplicationController
     admin_approval_request = AdminApprovalRequest.find_by(requestee_id: current_user.id, admin_info_id: user.admin_info.id)
     TeacherApprovedToBecomeAdminAnalyticsWorker.perform_async(user.id, admin_approval_request&.request_made_during_sign_up)
 
-    render json: {message: t('admin.approve_admin_request')}, status: 200
+    render json: { message: t('admin.approve_admin_request') }, status: 200
   end
 
   def deny_admin_request
@@ -129,20 +129,20 @@ class AdminsController < ApplicationController
     admin_approval_request = AdminApprovalRequest.find_by(requestee_id: current_user.id, admin_info_id: user.admin_info.id)
     TeacherDeniedToBecomeAdminAnalyticsWorker.perform_async(user.id, admin_approval_request&.request_made_during_sign_up)
 
-    render json: {message: t('admin.deny_admin_request')}, status: 200
+    render json: { message: t('admin.deny_admin_request') }, status: 200
   end
 
   def unlink_from_school
     @teacher&.unlink
     reset_admin_users_cache
-    render json: {message: t('admin.unlink_teacher_from_school')}, status: 200
+    render json: { message: t('admin.unlink_teacher_from_school') }, status: 200
   end
 
   def create_and_link_accounts
     @school = School.find_by(id: params[:school_id])
 
     unless SchoolsAdmins.exists?(school: @school, user: current_user)
-      render json: {errors: t('admin.current_user_is_not_an_admin')}, status: 422
+      render json: { errors: t('admin.current_user_is_not_an_admin') }, status: 422
       return
     end
 
@@ -164,7 +164,7 @@ class AdminsController < ApplicationController
     if @teacher.errors.empty?
       # Return the message to the admin and reset the cache so the next request can load fresh data
       reset_admin_users_cache
-      render json: {message: @message}, status: 200
+      render json: { message: @message }, status: 200
     else
       # Return errors if there are any.
       render json: @teacher.errors, status: 422

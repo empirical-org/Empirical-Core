@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe CanvasClassroomUser, type: :model do
-  subject { create(:canvas_classroom_user)}
+  subject { create(:canvas_classroom_user) }
 
   it_behaves_like 'a provider classroom user'
 

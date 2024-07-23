@@ -33,7 +33,7 @@ class Cms::RecommendationsController < Cms::CmsController
     if @recommendation.update(recommendation_params)
       redirect_to(
         cms_activity_classification_activity_recommendations_path,
-        flash: { notice: 'Recommendation created!'}
+        flash: { notice: 'Recommendation created!' }
       )
     else
       flash.now[:error] = 'Unable to create recommendation.'

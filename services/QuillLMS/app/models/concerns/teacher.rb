@@ -193,19 +193,19 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.map{|classroom| classroom.with_students}
+    classrooms_i_teach.map{ |classroom| classroom.with_students }
   end
 
   def classrooms_i_teach_with_student_ids
-    classrooms_i_teach.map{|classroom| classroom.with_students_ids}
+    classrooms_i_teach.map{ |classroom| classroom.with_students_ids }
   end
 
   def classrooms_i_own_with_students
-    classrooms_i_own.map{|classroom| classroom.with_students}
+    classrooms_i_own.map{ |classroom| classroom.with_students }
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(specified_teacher_id)
-    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map{|classroom| classroom.with_students}
+    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map{ |classroom| classroom.with_students }
   end
 
   def classrooms_i_own_that_have_coteachers
@@ -258,7 +258,7 @@ module Teacher
 
   def classroom_minis_cache=(info)
     # TODO: move this to background worker
-    $redis.set("user_id:#{id}_classroom_minis", info.to_json, {ex: 16.hours} )
+    $redis.set("user_id:#{id}_classroom_minis", info.to_json, { ex: 16.hours })
   end
 
   def self.clear_classrooms_minis_cache(teacher_id)
@@ -420,9 +420,9 @@ module Teacher
     end
 
     if are_there_school_related_errors
-      response = {errors: {school: "can't be blank"}}
+      response = { errors: { school: "can't be blank" } }
     elsif are_there_non_school_related_errors
-      response = {errors: errors}
+      response = { errors: errors }
     else
       response = self
     end
@@ -668,7 +668,7 @@ module Teacher
   end
 
   def earned_months
-    referrals_users.where(activated: true ).count
+    referrals_users.where(activated: true).count
   end
 
   def unredeemed_credits

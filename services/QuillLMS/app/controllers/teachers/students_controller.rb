@@ -9,7 +9,7 @@ class Teachers::StudentsController < ApplicationController
     if valid_names[:status] == 'failed'
       # flash[:notice] = valid_names[:notice]
       # redirect_to invite_students_teachers_classrooms_path
-      render status: 400, json: {error: valid_names[:notice]}.to_json
+      render status: 400, json: { error: valid_names[:notice] }.to_json
     else
       @student = Creators::StudentCreator.create_student(user_params, @classroom.id)
       classroom_units = ClassroomUnit.where(classroom_id: @classroom.id)

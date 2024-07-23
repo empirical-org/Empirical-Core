@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe SegmentioHelper do
-  let!(:user) {create(:teacher, :premium)}
+  let!(:user) { create(:teacher, :premium) }
 
   describe '#generate_segment_identify_arguments' do
     it 'should construct a series of three javascript-parsable "function arguments"' do

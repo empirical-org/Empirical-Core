@@ -40,13 +40,13 @@ module Evidence
 
       it { should validate_numericality_of(:total_plays).is_greater_than_or_equal_to(0) }
 
-      it { should validate_inclusion_of(:completion_rate).in?(0..100)}
+      it { should validate_inclusion_of(:completion_rate).in?(0..100) }
 
-      it { should validate_inclusion_of(:because_final_optimal).in?(0..100)}
+      it { should validate_inclusion_of(:because_final_optimal).in?(0..100) }
 
-      it { should validate_inclusion_of(:but_final_optimal).in?(0..100)}
+      it { should validate_inclusion_of(:but_final_optimal).in?(0..100) }
 
-      it { should validate_inclusion_of(:so_final_optimal).in?(0..100)}
+      it { should validate_inclusion_of(:so_final_optimal).in?(0..100) }
     end
 
     context 'methods' do

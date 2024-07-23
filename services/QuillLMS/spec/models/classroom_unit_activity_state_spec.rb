@@ -35,15 +35,15 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
   it { is_expected.to callback(:update_lessons_cache_with_data).after(:save) }
   it { is_expected.to callback(:lock_if_lesson).after(:create) }
 
-  let!(:activity_classification6) { create(:lesson_classification)}
+  let!(:activity_classification6) { create(:lesson_classification) }
   let!(:activity) { create(:activity, activity_classification_id: 6) }
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
-  let!(:teacher) {classroom.owner}
+  let!(:teacher) { classroom.owner }
   let!(:unit) { create(:unit, name: 'Tapioca', user: teacher) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
-  let!(:classroom_unit ) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
-  let!(:cua ) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit)}
+  let!(:classroom_unit) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+  let!(:cua) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit) }
 
   describe '#visible' do
     after do
@@ -77,13 +77,13 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
     end
 
     it 'caches data about the assignment' do
-      lesson_data = {'classroom_unit_id' => cua.classroom_unit.id,
+      lesson_data = { 'classroom_unit_id' => cua.classroom_unit.id,
         'classroom_unit_activity_state_id' => cua.id,
         'activity_id' => cua.unit_activity.activity.id,
         'activity_name' => cua.unit_activity.activity.name,
         'unit_id' => cua.classroom_unit.unit_id,
         'completed' => cua.completed,
-        'visible' => cua.unit_activity.visible}
+        'visible' => cua.unit_activity.visible }
       expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
     end
 
@@ -97,20 +97,20 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       classroom2.teachers.destroy_all
       create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id)
       cua2.save
-      lesson_data = {'classroom_unit_id' => cua.classroom_unit.id,
+      lesson_data = { 'classroom_unit_id' => cua.classroom_unit.id,
         'classroom_unit_activity_state_id' => cua.id,
         'activity_id' => cua.unit_activity.activity.id,
         'activity_name' => cua.unit_activity.activity.name,
         'unit_id' => cua.classroom_unit.unit_id,
         'completed' => cua.completed,
-        'visible' => unit_activity.visible}
-      lesson2_data = {'classroom_unit_id' => cua2.classroom_unit.id,
+        'visible' => unit_activity.visible }
+      lesson2_data = { 'classroom_unit_id' => cua2.classroom_unit.id,
         'classroom_unit_activity_state_id' => cua2.id,
         'activity_id' => cua2.unit_activity.activity.id,
         'activity_name' => cua2.unit_activity.activity.name,
         'unit_id' => cua2.classroom_unit.unit_id,
         'completed' => cua2.completed,
-        'visible' => unit_activity.visible}
+        'visible' => unit_activity.visible }
       expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
     end
   end

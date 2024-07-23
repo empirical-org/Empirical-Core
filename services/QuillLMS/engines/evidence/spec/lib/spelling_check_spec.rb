@@ -70,7 +70,7 @@ module Evidence
         entry = 'there is no spelling error here'
         spelling_check = Evidence::SpellingCheck.new(entry)
 
-        expect {spelling_check.feedback_object}.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
+        expect { spelling_check.feedback_object }.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
       end
 
       it 'should raise error if the Bing API request times out with a Net::ReadTimeout' do
@@ -78,7 +78,7 @@ module Evidence
         entry = 'there is no spelling error here'
         spelling_check = Evidence::SpellingCheck.new(entry)
 
-        expect {spelling_check.feedback_object}.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
+        expect { spelling_check.feedback_object }.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
       end
 
 

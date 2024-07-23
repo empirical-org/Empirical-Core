@@ -27,7 +27,7 @@ RSpec.describe CleverIntegration::DistrictClient do
     subject { district_client.teacher_classrooms(teacher_clever_id) }
 
     context 'when client returns data' do
-      let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs]}
+      let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs] }
       let(:data) { classrooms_data }
 
       before { expect(data_api).to receive(:get_sections_for_teacher).with(teacher_clever_id).and_return(data) }
@@ -64,7 +64,7 @@ RSpec.describe CleverIntegration::DistrictClient do
         let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
         let(:students_attrs) { [student1_attrs, student2_attrs] }
 
-        it { is_expected.to eq students_attrs}
+        it { is_expected.to eq students_attrs }
       end
 
       context 'classroom 2' do
@@ -72,7 +72,7 @@ RSpec.describe CleverIntegration::DistrictClient do
         let(:classroom_external_id) { classroom2_attrs[:classroom_external_id] }
         let(:students_attrs) { [student3_attrs] }
 
-        it { is_expected.to eq students_attrs}
+        it { is_expected.to eq students_attrs }
       end
     end
 

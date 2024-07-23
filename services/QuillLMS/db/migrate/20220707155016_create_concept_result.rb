@@ -7,7 +7,7 @@ class CreateConceptResult < ActiveRecord::Migration[5.1]
       t.jsonb :answer
       t.integer :attempt_number
       t.references :concept, type: :int, limit: 2, index: false
-      t.references :old_concept_result, type: :int, limit: 8, index: {unique: true}
+      t.references :old_concept_result, type: :int, limit: 8, index: { unique: true }
       t.boolean :correct, null: false
       t.jsonb :extra_metadata
       t.integer :question_number

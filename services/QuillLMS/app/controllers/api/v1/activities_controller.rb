@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::ActivitiesController < Api::ApiController
-  CLASSIFICATION_TO_TOOL = {:connect => 'connect', :sentence => 'grammar'}
+  CLASSIFICATION_TO_TOOL = { :connect => 'connect', :sentence => 'grammar' }
 
   before_action :staff!, only: [:create, :update, :destroy]
 
@@ -16,7 +16,7 @@ class Api::V1::ActivitiesController < Api::ApiController
     ]
 
   def show
-    render json: @activity, meta: {status: 'success', message: nil, errors: nil}, serializer: ActivitySerializer
+    render json: @activity, meta: { status: 'success', message: nil, errors: nil }, serializer: ActivitySerializer
   end
 
   def update
@@ -28,7 +28,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       @message = 'Activity Update Failed'
     end
 
-    render json: @activity, meta: {status: @status, message: @message, errors: @activity.errors}, serializer: ActivitySerializer
+    render json: @activity, meta: { status: @status, message: @message, errors: @activity.errors }, serializer: ActivitySerializer
 
   end
 
@@ -47,38 +47,38 @@ class Api::V1::ActivitiesController < Api::ApiController
     end
 
     render json: activity,
-      meta: {status: @status, message: @message, errors: activity.errors},
+      meta: { status: @status, message: @message, errors: activity.errors },
       status: @response_status,
       serializer: ActivitySerializer
   end
 
   def destroy
     if @activity.destroy
-      render json: Activity.new, meta: {status: 'success', message: 'Activity Destroy Successful', errors: nil}, serializer: ActivitySerializer
+      render json: Activity.new, meta: { status: 'success', message: 'Activity Destroy Successful', errors: nil }, serializer: ActivitySerializer
     else
-      render json: @activity, meta: {status: 'failed', message: 'Activity Destroy Failed', errors: @activity.errors}, serializer: ActivitySerializer
+      render json: @activity, meta: { status: 'failed', message: 'Activity Destroy Failed', errors: @activity.errors }, serializer: ActivitySerializer
     end
   end
 
   def diagnostic_activities
-    render json: {diagnostics: Activity.where(classification: ActivityClassification.diagnostic)}
+    render json: { diagnostics: Activity.where(classification: ActivityClassification.diagnostic) }
   end
 
   def follow_up_activity_name_and_supporting_info
     follow_up_activity_name = @activity.follow_up_activity&.name
     supporting_info = @activity.supporting_info
-    render json: {follow_up_activity_name: follow_up_activity_name, supporting_info: supporting_info}
+    render json: { follow_up_activity_name: follow_up_activity_name, supporting_info: supporting_info }
   end
 
   def supporting_info
     supporting_info = @activity.supporting_info
-    render json: {supporting_info: supporting_info}
+    render json: { supporting_info: supporting_info }
   end
 
   def uids_and_flags
     uids_and_flags_obj = {}
     Activity.all.each do |activity|
-      uids_and_flags_obj[activity.uid] = {flag: activity.flag}
+      uids_and_flags_obj[activity.uid] = { flag: activity.flag }
     end
     render json: uids_and_flags_obj
   end
@@ -96,7 +96,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   end
 
   def activities_health
-    render json: {activities_health: ActivityHealth.all.includes(:prompt_healths).as_json}
+    render json: { activities_health: ActivityHealth.all.includes(:prompt_healths).as_json }
   end
 
   def question_health
@@ -106,7 +106,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       question = Question.find_by(uid: q['key'])
       question.present? ? QuestionHealthObj.new(@activity, question, question_number, tool).run : {}
     end
-    render json: {question_health: questions_arr}
+    render json: { question_health: questions_arr }
   end
 
   private def find_activity
@@ -126,7 +126,7 @@ class Api::V1::ActivitiesController < Api::ApiController
                               :uid,
                               flags: [])
                       .merge(data: @data)
-                      .reject {|k,v| v.nil? }
+                      .reject { |k,v| v.nil? }
   end
 
 end

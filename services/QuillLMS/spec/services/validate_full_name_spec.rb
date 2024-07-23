@@ -30,7 +30,7 @@ describe ValidateFullName do
 
     result = described_class.new(names).call
 
-    expect(result).to eq({first_name: 'First', last_name: 'Last'})
+    expect(result).to eq({ first_name: 'First', last_name: 'Last' })
   end
 
   it 'should strip the white spaces' do

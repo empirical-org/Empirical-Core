@@ -19,11 +19,11 @@
 require 'rails_helper'
 
 RSpec.describe CleverClassroomUser, type: :model do
-  subject { create(:clever_classroom_user)}
+  subject { create(:clever_classroom_user) }
 
   it_behaves_like 'a provider classroom user'
 
-  it { expect(subject.canvas_instance).to be nil}
+  it { expect(subject.canvas_instance).to be nil }
 
   it { expect(subject.clever_classroom_id).to eq subject.classroom_external_id }
   it { expect(subject.clever_user_id).to eq subject.user_external_id }

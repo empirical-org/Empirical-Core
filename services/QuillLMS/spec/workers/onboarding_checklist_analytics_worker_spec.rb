@@ -7,10 +7,10 @@ describe OnboardingChecklistAnalyticsWorker do
 
   describe '#perform' do
     let!(:user) { create(:user) }
-    let!(:create_a_classroom) { create(:create_a_classroom)}
-    let!(:add_students) { create(:add_students)}
-    let!(:explore_our_library) { create(:explore_our_library)}
-    let!(:explore_our_diagnostics) { create(:explore_our_diagnostics)}
+    let!(:create_a_classroom) { create(:create_a_classroom) }
+    let!(:add_students) { create(:add_students) }
+    let!(:explore_our_library) { create(:explore_our_library) }
+    let!(:explore_our_diagnostics) { create(:explore_our_diagnostics) }
     let(:analyzer) { double(:analyzer) }
 
     before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }

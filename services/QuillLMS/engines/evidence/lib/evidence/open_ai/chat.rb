@@ -30,14 +30,14 @@ module Evidence
 
       private def messages = [system_message, history_messages, current_message].flatten
 
-      private def system_message = {KEY_ROLE => ROLE_SYSTEM, KEY_CONTENT => system_prompt}
-      private def current_message = {KEY_ROLE => ROLE_USER, KEY_CONTENT => entry}
+      private def system_message = { KEY_ROLE => ROLE_SYSTEM, KEY_CONTENT => system_prompt }
+      private def current_message = { KEY_ROLE => ROLE_USER, KEY_CONTENT => entry }
 
       private def history_messages
         history.map do |h|
           [
-            {KEY_ROLE => ROLE_USER, KEY_CONTENT => h.user },
-            {KEY_ROLE => ROLE_ASSISTANT, KEY_CONTENT => h.assistant}
+            { KEY_ROLE => ROLE_USER, KEY_CONTENT => h.user },
+            { KEY_ROLE => ROLE_ASSISTANT, KEY_CONTENT => h.assistant }
           ]
         end.flatten
       end
@@ -51,7 +51,7 @@ module Evidence
       private def result_json_string
         response
           .parsed_response['choices']
-          .map{|r| r['message']['content'] }
+          .map{ |r| r['message']['content'] }
           .first
       end
 

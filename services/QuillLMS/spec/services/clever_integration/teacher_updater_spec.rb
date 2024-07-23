@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CleverIntegration::TeacherUpdater do
-  subject { described_class.run(teacher, data)}
+  subject { described_class.run(teacher, data) }
 
   let(:teacher) { create(:teacher, provider_trait) }
 
@@ -26,7 +26,7 @@ RSpec.describe CleverIntegration::TeacherUpdater do
 
     it { expect { subject }.to change(teacher, :name).to(name) }
     it { expect { subject }.to change(teacher, :email).to(email) }
-    it { expect { subject}.not_to change(teacher, :clever_id) }
+    it { expect { subject }.not_to change(teacher, :clever_id) }
 
     context 'teacher does not have a TEACHER_INFO role (i.e. they are school staff)' do
       let(:role) { User::STUDENT }
@@ -49,7 +49,7 @@ RSpec.describe CleverIntegration::TeacherUpdater do
 
     it { expect { subject }.to change(teacher, :clever_id).to(user_external_id) }
     it { expect { subject }.to change(teacher, :google_id).to(nil) }
-    it { expect { subject}.not_to change(teacher, :email) }
+    it { expect { subject }.not_to change(teacher, :email) }
   end
 
   context 'teacher neither linked with clever nor google' do
@@ -57,6 +57,6 @@ RSpec.describe CleverIntegration::TeacherUpdater do
     let(:user_external_id) { SecureRandom.hex(12) }
 
     it { expect { subject }.to change(teacher, :clever_id).to(user_external_id) }
-    it { expect { subject}.not_to change(teacher, :email) }
+    it { expect { subject }.not_to change(teacher, :email) }
   end
 end

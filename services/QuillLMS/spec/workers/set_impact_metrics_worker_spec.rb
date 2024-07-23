@@ -6,25 +6,25 @@ describe SetImpactMetricsWorker do
   subject { described_class.new }
 
   context '#perform' do
-    let(:activity_sessions) { create_list(:activity_session, 10)}
+    let(:activity_sessions) { create_list(:activity_session, 10) }
 
     let(:activity_sessions_payload) {
-      [{count: activity_sessions.length}]
+      [{ count: activity_sessions.length }]
     }
 
-    let(:active_students_payload) { [{count: activity_sessions.length}]}
+    let(:active_students_payload) { [{ count: activity_sessions.length }] }
 
-    let(:teachers) { create_list(:teacher, 15)}
+    let(:teachers) { create_list(:teacher, 15) }
 
     let(:teachers_payload) {
-      [{:count => 3}]
+      [{ :count => 3 }]
     }
 
     let(:schools_payload) {
       [
-        {id: 333, free_lunches: 30},
-        {id: 334, free_lunches: 0},
-        {id: 545, free_lunches: 54}
+        { id: 333, free_lunches: 30 },
+        { id: 334, free_lunches: 0 },
+        { id: 545, free_lunches: 54 }
       ]
     }
 

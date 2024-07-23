@@ -15,7 +15,7 @@ describe EvidenceReports, type: :model do
     subject { FakeReports.new.get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text) }
 
     let(:activity_session) { create(:activity_session) }
-    let(:correct_prompt_text) { 'Prompt text '}
+    let(:correct_prompt_text) { 'Prompt text ' }
     let(:prompt) { create(:evidence_prompt, text: correct_prompt_text) }
     let!(:evidence_child_activity) { create(:evidence_activity, parent_activity_id: activity_session.activity.id, prompts: [prompt]) }
 
@@ -37,7 +37,7 @@ describe EvidenceReports, type: :model do
     subject { FakeReports.new.get_feedback_history_from_activity_session_prompt_text_and_attempt_number(activity_session, prompt_text, attempt_number) }
 
     let!(:activity_session_with_feedback_histories) { create(:activity_session) }
-    let(:activity_session) { activity_session_with_feedback_histories}
+    let(:activity_session) { activity_session_with_feedback_histories }
     let(:correct_prompt_text) { 'Correct prompt text' }
     let(:prompt_text) { correct_prompt_text }
     let(:final_attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }

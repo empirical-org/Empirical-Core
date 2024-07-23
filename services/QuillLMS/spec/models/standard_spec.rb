@@ -22,17 +22,17 @@ require 'rails_helper'
 
 describe Standard, type: :model do
 
-  let!(:standard){create(:standard, name: 'a')}
+  let!(:standard){ create(:standard, name: 'a') }
 
   it_behaves_like 'uid'
 
   context 'when the default order is by name' do
 
-    let!(:standard1){create(:standard, name: 'c')}
-    let!(:standard2){create(:standard, name: 'b')}
+    let!(:standard1){ create(:standard, name: 'c') }
+    let!(:standard2){ create(:standard, name: 'b') }
 
     it 'must be ordered correctly' do
-      expect(Standard.all.map{|x| x.name}).to eq ['a', 'b', 'c']
+      expect(Standard.all.map{ |x| x.name }).to eq ['a', 'b', 'c']
     end
   end
 
@@ -92,7 +92,7 @@ describe Standard, type: :model do
     end
 
     context 'when a classroom filter is provided' do
-      let(:filters) { {standard_level_id: standard_level.id, classroom_id: full_classroom.id} }
+      let(:filters) { { standard_level_id: standard_level.id, classroom_id: full_classroom.id } }
 
       it 'filters by classroom' do
         expect(subject.size).to eq(visible_standards.size)
@@ -100,7 +100,7 @@ describe Standard, type: :model do
     end
 
     context 'classroom filter for an empty classroom' do
-      let(:filters) { {standard_level_id: standard_level.id, classroom_id: empty_classroom.id} }
+      let(:filters) { { standard_level_id: standard_level.id, classroom_id: empty_classroom.id } }
 
       it 'returns no results' do
         expect(subject.size).to eq(0)
@@ -108,7 +108,7 @@ describe Standard, type: :model do
     end
 
     context 'classroom filter with no ID' do
-      let(:filters) { {standard_level_id: standard_level.id, classroom_id: ''} }
+      let(:filters) { { standard_level_id: standard_level.id, classroom_id: '' } }
 
       it 'does not filter by classroom' do
         expect(subject.size).to eq(visible_standards.size)
@@ -116,7 +116,7 @@ describe Standard, type: :model do
     end
 
     context 'when a unit filter is provided' do
-      let(:filters) { {standard_level_id: standard_level.id, unit_id: unit1.id} }
+      let(:filters) { { standard_level_id: standard_level.id, unit_id: unit1.id } }
 
       it 'filters by unit' do
         expect(subject.size).to eq(visible_standards.size)
@@ -124,7 +124,7 @@ describe Standard, type: :model do
     end
 
     context 'when an empty unit filter is provided' do
-      let(:filters) { {standard_level_id: standard_level.id, unit_id: ''} }
+      let(:filters) { { standard_level_id: standard_level.id, unit_id: '' } }
 
       it 'does not filter by unit' do
         expect(subject.size).to eq(visible_standards.size)

@@ -130,6 +130,15 @@ Layout/SpaceBeforeComment:
 Layout/SpaceBeforeFirstArg:
   Enabled: true
 
+Layout/SpaceInsideParens:
+  Enabled: true
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+
 Layout/SpaceInsideReferenceBrackets:
   Enabled: true
 
@@ -457,10 +466,6 @@ Security/Open:
 Security/YAMLLoad:
   Enabled: true
 
-StringLiterals:
-  EnforcedStyle: single_quotes
-  Enabled: true
-
 #######################################################################################################################
 # STYLE
 #######################################################################################################################
@@ -694,6 +699,10 @@ Style/StderrPuts:
   Enabled: true
 
 Style/StringChars:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
   Enabled: true
 
 Style/StringLiteralsInInterpolation:

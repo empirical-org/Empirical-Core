@@ -22,7 +22,7 @@ namespace :free_lunch do
     def self.insert_free_lunch_data(row)
       n_id = santize_nces_id(row['NCESSCH'])
       school = School.find_by(nces_id: n_id)
-      school.try {update(free_lunches: row['free_lunches'].to_i)}
+      school.try { update(free_lunches: row['free_lunches'].to_i) }
     end
 
     def self.santize_nces_id(n_id)

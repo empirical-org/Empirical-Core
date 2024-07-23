@@ -11,7 +11,7 @@ module Evidence
 
         # takes an array of unique strings, e.g. ['original string', 'sample 2']
         def initialize(string_array, options = {})
-          @results_hash = string_array.to_h {|string| [string, []] }
+          @results_hash = string_array.to_h { |string| [string, []] }
         end
 
         # returns a hash of the form:

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe ErrorNotifier do
   let(:error) { StandardError }
-  let(:key_values) { {key: 'value', key2: 'value2'}}
+  let(:key_values) { { key: 'value', key2: 'value2' } }
 
   describe '#report' do
 

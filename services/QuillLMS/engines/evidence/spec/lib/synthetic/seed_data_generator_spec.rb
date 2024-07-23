@@ -6,36 +6,36 @@ module Evidence
   RSpec.describe(Synthetic::SeedDataGenerator, type: :model) do
     let(:passage_text) { '<p>one two <strong>three four five six seven eight</p>' }
     let(:passage_clean) { 'one two three four five six seven eight' }
-    let(:stem) { 'Intro, but'}
-    let(:conjunction) {'but'}
-    let(:nouns) { ['noun1']}
-    let(:full_passage_prompt) {"#{passage_clean}. #{stem}"}
-    let(:full_passage_prompt_alternate1) {"#{passage_clean}. Intro, but the counter argument is that"}
-    let(:full_passage_prompt_alternate2) {"#{passage_clean}. Even though Intro,"}
+    let(:stem) { 'Intro, but' }
+    let(:conjunction) { 'but' }
+    let(:nouns) { ['noun1'] }
+    let(:full_passage_prompt) { "#{passage_clean}. #{stem}" }
+    let(:full_passage_prompt_alternate1) { "#{passage_clean}. Intro, but the counter argument is that" }
+    let(:full_passage_prompt_alternate2) { "#{passage_clean}. Even though Intro," }
 
-    let(:full_passage_response) {['one response']}
-    let(:full_passage_response2) {['one response 2']}
-    let(:full_passage_alternate1_response1) {['one response 3']}
-    let(:full_passage_alternate1_response2) {['one response 4']}
-    let(:full_passage_alternate2_response1) {['one response 5']}
-    let(:full_passage_alternate2_response2) {['one response 6']}
+    let(:full_passage_response) { ['one response'] }
+    let(:full_passage_response2) { ['one response 2'] }
+    let(:full_passage_alternate1_response1) { ['one response 3'] }
+    let(:full_passage_alternate1_response2) { ['one response 4'] }
+    let(:full_passage_alternate2_response1) { ['one response 5'] }
+    let(:full_passage_alternate2_response2) { ['one response 6'] }
 
-    let(:full_noun_prompt) {"#{passage_clean}. #{stem} #{nouns.first}"}
-    let(:full_noun_response) {['two response']}
+    let(:full_noun_prompt) { "#{passage_clean}. #{stem} #{nouns.first}" }
+    let(:full_noun_response) { ['two response'] }
 
-    let(:chunk1_prompt) {"one two three four. #{stem}"}
-    let(:chunk1_prompt_alternate1) {'one two three four. Intro, but the counter argument is that'}
-    let(:chunk1_prompt_alternate2) {'one two three four. Even though Intro,'}
-    let(:chunk1_response) {['three response']}
+    let(:chunk1_prompt) { "one two three four. #{stem}" }
+    let(:chunk1_prompt_alternate1) { 'one two three four. Intro, but the counter argument is that' }
+    let(:chunk1_prompt_alternate2) { 'one two three four. Even though Intro,' }
+    let(:chunk1_response) { ['three response'] }
 
-    let(:chunk2_prompt) {'five six seven eight. Intro, but'}
-    let(:chunk2_prompt_alternate1) {'five six seven eight. Intro, but the counter argument is that'}
-    let(:chunk2_prompt_alternate2) {'five six seven eight. Even though Intro,'}
-    let(:chunk2_response) {['four response']}
+    let(:chunk2_prompt) { 'five six seven eight. Intro, but' }
+    let(:chunk2_prompt_alternate1) { 'five six seven eight. Intro, but the counter argument is that' }
+    let(:chunk2_prompt_alternate2) { 'five six seven eight. Even though Intro,' }
+    let(:chunk2_response) { ['four response'] }
 
-    let(:an_example) {'Example to paraphrase.'}
+    let(:an_example) { 'Example to paraphrase.' }
     let(:label) { 'label1' }
-    let(:label_config) {{'label' => label, 'examples' => [an_example]}}
+    let(:label_config) { { 'label' => label, 'examples' => [an_example] } }
     let(:example_prompt) { "rephrase with some synonyms:\n\nExample to paraphrase." }
     let(:example_response) { ['Example to rephrase.'] }
 
@@ -57,11 +57,11 @@ module Evidence
     end
 
     let(:activity) { create(:evidence_activity) }
-    let!(:passage) { create(:evidence_passage, text: passage_text, activity: activity)}
-    let(:prompt) { create(:evidence_prompt, activity: activity, text: stem, conjunction: conjunction)}
-    let(:batch) { create(:seed_prompt_text_batch, prompt: prompt, use_passage: true, nouns: nouns, label_configs: [label_config])}
+    let!(:passage) { create(:evidence_passage, text: passage_text, activity: activity) }
+    let(:prompt) { create(:evidence_prompt, activity: activity, text: stem, conjunction: conjunction) }
+    let(:batch) { create(:seed_prompt_text_batch, prompt: prompt, use_passage: true, nouns: nouns, label_configs: [label_config]) }
 
-    subject { described_class.new(batch)}
+    subject { described_class.new(batch) }
 
     before do
       stub_const('Evidence::Synthetic::SeedDataGenerator::WORD_SPLIT_COUNT', 4)
@@ -137,7 +137,7 @@ module Evidence
 
         # label example
         expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
-          .with(prompt: example_prompt, count: 1, temperature: 1, options: {max_tokens: 40})
+          .with(prompt: example_prompt, count: 1, temperature: 1, options: { max_tokens: 40 })
           .and_return(example_response)
 
         subject.run
@@ -154,14 +154,14 @@ module Evidence
 
 
       context 'use_passage=false' do
-        let(:batch) { create(:seed_prompt_text_batch, use_passage: false, label_configs: [label_config])}
+        let(:batch) { create(:seed_prompt_text_batch, use_passage: false, label_configs: [label_config]) }
 
-        subject { described_class.new(batch)}
+        subject { described_class.new(batch) }
 
         it 'should generate ONLY label paraphrases' do
           # label example
           expect(Evidence::OpenAI::SentenceCompletion).to receive(:run)
-            .with(prompt: example_prompt, count: 1, temperature: 1, options: {max_tokens: 40})
+            .with(prompt: example_prompt, count: 1, temperature: 1, options: { max_tokens: 40 })
             .and_return(example_response)
 
           subject.run
@@ -174,9 +174,9 @@ module Evidence
     end
 
     describe '#run_generator' do
-      let(:rejected_response) {['one response']}
-      let(:conjunction) {'because'}
-      let(:because) {described_class.new(batch)}
+      let(:rejected_response) { ['one response'] }
+      let(:conjunction) { 'because' }
+      let(:because) { described_class.new(batch) }
       let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
@@ -186,7 +186,7 @@ module Evidence
       subject { because.send(:run_generator, generator) }
 
       context 'response in exclude regex' do
-        let(:response) {['of getting excluded']}
+        let(:response) { ['of getting excluded'] }
 
         it 'should reject response' do
           expect(subject.count).to eq 0
@@ -194,7 +194,7 @@ module Evidence
       end
 
       context 'response not in exclude regex' do
-        let(:response) {['it would not be excluded']}
+        let(:response) { ['it would not be excluded'] }
 
         it 'should not reject response' do
           expect(subject.count).to eq 1
@@ -203,8 +203,8 @@ module Evidence
 
       context 'lowercasing responses' do
         let(:passage_text) { 'Juliet calls out to Romeo and says yo, how are you?' }
-        let(:response) {['They is a common word', 'Romeo dies (spoiler)', 'Calls out to him', 'lowercase']}
-        let(:because) {described_class.new(batch)}
+        let(:response) { ['They is a common word', 'Romeo dies (spoiler)', 'Calls out to him', 'lowercase'] }
+        let(:because) { described_class.new(batch) }
 
         it 'should downcase first letter if common word or lowercase in passage' do
           expect(subject.first.text).to eq 'they is a common word'
@@ -219,7 +219,7 @@ module Evidence
           allow(::Evidence::Check::Opinion).to receive(:run).and_return(opinion_response)
         end
 
-        let(:response) {['some text']}
+        let(:response) { ['some text'] }
 
         context 'flagged as opinion' do
           let(:opinion_response) { double(success?: true, optimal?: false) }
@@ -248,8 +248,8 @@ module Evidence
     end
 
     describe 'API timeout' do
-      let(:openai_url) {'https://api.openai.com/v1/completions'}
-      let(:because) {described_class.new(batch)}
+      let(:openai_url) { 'https://api.openai.com/v1/completions' }
+      let(:because) { described_class.new(batch) }
       let(:generator) { Evidence::TextGeneration.new(ml_prompt: '', count: 1, temperature: 1) }
 
       before do
@@ -266,17 +266,17 @@ module Evidence
     end
 
     describe '#stem_variants_hash' do
-      let(:conjunction) {'so'}
-      let(:stem) {"It is true, #{conjunction}"}
-      let(:subs) {['therefore', 'Since %<stem>s this is']}
-      let(:conjunction_config) { {conjunction => subs}}
+      let(:conjunction) { 'so' }
+      let(:stem) { "It is true, #{conjunction}" }
+      let(:subs) { ['therefore', 'Since %<stem>s this is'] }
+      let(:conjunction_config) { { conjunction => subs } }
 
       before do
         stub_const('Evidence::Synthetic::SeedDataGenerator::CONJUNCTION_SUBS', conjunction_config)
         stub_const('Evidence::Synthetic::SeedDataGenerator::CONJUNCTIONS', [conjunction])
       end
 
-      subject {described_class.new(batch).send(:stem_variants_hash)}
+      subject { described_class.new(batch).send(:stem_variants_hash) }
 
       it 'should return hash of conjunctions => stems' do
         expect(subject.keys).to eq([conjunction] + subs)
@@ -287,12 +287,12 @@ module Evidence
     end
 
     describe '#regex_exclude?' do
-      let(:batch_so) { create(:seed_prompt_text_batch, prompt: create(:evidence_prompt, conjunction: 'so'))}
-      let(:batch_because) { create(:seed_prompt_text_batch, prompt: create(:evidence_prompt, conjunction: 'because'))}
+      let(:batch_so) { create(:seed_prompt_text_batch, prompt: create(:evidence_prompt, conjunction: 'so')) }
+      let(:batch_because) { create(:seed_prompt_text_batch, prompt: create(:evidence_prompt, conjunction: 'because')) }
 
-      let(:because) {described_class.new(batch_because)}
-      let(:so) {described_class.new(batch_so)}
-      let(:but) {described_class.new(batch)}
+      let(:because) { described_class.new(batch_because) }
+      let(:so) { described_class.new(batch_so) }
+      let(:but) { described_class.new(batch) }
 
       it 'should be true for matching regex' do
         expect(because.send(:regex_exclude?, 'of the reason')).to be true
@@ -311,7 +311,7 @@ module Evidence
     end
 
     describe '#self.csvs_for_activity' do
-      let!(:activity) { create(:evidence_activity, title: 'Some Activity Name')}
+      let!(:activity) { create(:evidence_activity, title: 'Some Activity Name') }
       let!(:passage) { create(:evidence_passage, activity: activity) }
       let!(:prompt) { create(:evidence_prompt, activity: activity, conjunction: 'because') }
 
@@ -332,7 +332,7 @@ module Evidence
       end
 
       context 'label examples only' do
-        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: {'because' => [label_config]}, use_passage: false) }
+        subject { described_class.csvs_for_activity(activity_id: activity.id, label_configs: { 'because' => [label_config] }, use_passage: false) }
 
         it 'should generate a hash without prompt_chunks csv' do
           expect(subject.class).to be Hash

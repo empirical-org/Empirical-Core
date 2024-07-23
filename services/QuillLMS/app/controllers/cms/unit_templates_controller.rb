@@ -10,7 +10,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
       format.json do
         unit_templates =
           UnitTemplate
-            .includes(activities: [:raw_score, {standard: :standard_category}])
+            .includes(activities: [:raw_score, { standard: :standard_category }])
             .includes(:unit_template_category)
             .order(order_number: :asc)
 
@@ -36,7 +36,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
 
       render json: @unit_template
     else
-      render json: {errors: @unit_template.errors}, status: 422
+      render json: { errors: @unit_template.errors }, status: 422
     end
   end
 
@@ -50,7 +50,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
 
       render json: @unit_template
     else
-      render json: {errors: @unit_template.errors}, status: 422
+      render json: { errors: @unit_template.errors }, status: 422
     end
   end
 
@@ -58,7 +58,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
     unit_templates = params[:unit_templates]
     unit_templates.each { |ut| UnitTemplate.find(ut['id']).update(order_number: ut['order_number']) }
     UnitTemplate.delete_all_caches
-    render json: {unit_templates: UnitTemplate.order(order_number: :asc)}
+    render json: { unit_templates: UnitTemplate.order(order_number: :asc) }
   end
 
   def destroy

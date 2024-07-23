@@ -6,16 +6,16 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
   context '#calculate_data' do
     let!(:evidence) { create(:evidence) }
     let!(:year) { 2016 }
-    let!(:student) { create(:user, last_sign_in: Date.new(year, 10, 2))}
-    let!(:student2) { create(:user, last_sign_in: Date.new(year, 10, 2))}
-    let!(:current_student) { create(:user, last_sign_in: Date.new(2021, 10, 2))}
+    let!(:student) { create(:user, last_sign_in: Date.new(year, 10, 2)) }
+    let!(:student2) { create(:user, last_sign_in: Date.new(year, 10, 2)) }
+    let!(:current_student) { create(:user, last_sign_in: Date.new(2021, 10, 2)) }
     let!(:teacher) { create(:user, role: 'teacher') }
     let!(:relevent_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: true) }
-    let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1))}
-    let!(:school) { create(:school)}
+    let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1)) }
+    let!(:school) { create(:school) }
     let!(:unit) { create(:unit, user_id: teacher.id) }
     let!(:evidence_activity) { create(:evidence_lms_activity) }
-    let!(:classroom_unit1) { create(:classroom_unit, unit: unit, classroom: relevent_classroom, created_at: Date.new(year, 10, 1), assigned_student_ids: [student.id, student2.id])}
+    let!(:classroom_unit1) { create(:classroom_unit, unit: unit, classroom: relevent_classroom, created_at: Date.new(year, 10, 1), assigned_student_ids: [student.id, student2.id]) }
 
     before do
       create(:unit_activity, unit: unit, activity: evidence_activity, created_at: Date.new(year, 10, 1))

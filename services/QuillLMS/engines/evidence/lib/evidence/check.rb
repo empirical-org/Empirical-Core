@@ -59,13 +59,13 @@ module Evidence
         optimal: @error_rule.optimal,
       }
 
-      return feedback.merge({debug: debug}) if debug
+      return feedback.merge({ debug: debug }) if debug
 
       feedback
     rescue => e
       Evidence.error_notifier.report(e)
 
-      return FALLBACK_RESPONSE.merge({debug: debug}) if debug
+      return FALLBACK_RESPONSE.merge({ debug: debug }) if debug
 
       FALLBACK_RESPONSE
     end

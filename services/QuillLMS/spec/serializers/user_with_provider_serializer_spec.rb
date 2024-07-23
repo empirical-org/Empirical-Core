@@ -11,7 +11,7 @@ describe UserWithProviderSerializer, type: :serializer do
     let(:parsed) { JSON.parse(json) }
     let(:parsed_user) { parsed['user'] }
 
-    it { expect(parsed.keys).to include('user')}
+    it { expect(parsed.keys).to include('user') }
     it { expect(parsed_user.keys).to include('provider') }
     it { expect(parsed_user.keys).to include('user_external_id') }
 

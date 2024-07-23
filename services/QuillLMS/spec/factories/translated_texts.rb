@@ -14,7 +14,7 @@
 #
 FactoryBot.define do
   factory :translated_text do
-    locale {Translatable::DEFAULT_LOCALE}
+    locale { Translatable::DEFAULT_LOCALE }
     english_text
     source_api { Translatable::OPEN_AI_SOURCE }
     translation { Faker::Quotes::Shakespeare.as_you_like_it_quote }

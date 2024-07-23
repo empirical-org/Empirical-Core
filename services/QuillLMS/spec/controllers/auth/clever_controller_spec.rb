@@ -21,7 +21,7 @@ describe Auth::CleverController, type: :controller do
     context 'validation success' do
       it 'should not invoke ErrorNotifier' do
         allow_any_instance_of(ApplicationController).to receive(:route_redirects_to_my_account?).and_return true
-        allow(CleverIntegration::SignUp::SchoolAdmin).to receive(:run).and_return({type: 'user_success', data: user})
+        allow(CleverIntegration::SignUp::SchoolAdmin).to receive(:run).and_return({ type: 'user_success', data: user })
         expect(ErrorNotifier).to receive(:report).exactly(0).times
         expect { get 'clever' }.to_not raise_error
       end
@@ -30,7 +30,7 @@ describe Auth::CleverController, type: :controller do
     context 'validation failure' do
       it 'should invoke ErrorNotifier' do
         allow_any_instance_of(ApplicationController).to receive(:route_redirects_to_my_account?).and_return true
-        allow(CleverIntegration::SignUp::SchoolAdmin).to receive(:run).and_return({type: 'user_success', data: user})
+        allow(CleverIntegration::SignUp::SchoolAdmin).to receive(:run).and_return({ type: 'user_success', data: user })
         allow(user).to receive(:update).and_return false
         expect(ErrorNotifier).to receive(:report).once
         expect { get 'clever' }.to_not raise_error
@@ -49,9 +49,9 @@ describe Auth::CleverController, type: :controller do
         }
       })
       allow_any_instance_of(ApplicationController).to receive(:route_redirects_to_my_account?).and_return true
-      allow(CleverIntegration::SignUp::SchoolAdmin).to receive(:run).and_return({type: 'user_success', data: user})
+      allow(CleverIntegration::SignUp::SchoolAdmin).to receive(:run).and_return({ type: 'user_success', data: user })
 
-      expect { get 'clever', params: {}, session: {role: User::ADMIN} }.to_not raise_error
+      expect { get 'clever', params: {}, session: { role: User::ADMIN } }.to_not raise_error
       expect(user.reload.email_verified?).to be(true)
       expect(user.reload.user_email_verification.verification_method).to eq(UserEmailVerification::CLEVER_VERIFICATION)
     end

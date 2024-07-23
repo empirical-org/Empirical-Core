@@ -3,7 +3,7 @@
 RSpec.shared_context 'Stripe Charge Dispute Closed Event' do
   include_context 'Stripe Dispute'
 
-  let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
+  let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
   let(:stripe_event_type) { 'charge.dispute.closed' }
   let(:stripe_dispute_status) { 'lost' }
 

@@ -217,11 +217,11 @@ class User < ApplicationRecord
   validates :name,
     presence: true,
     format: { without: /\t/, message: 'cannot contain tabs' },
-    length: { maximum:  CHAR_FIELD_MAX_LENGTH}
+    length: { maximum:  CHAR_FIELD_MAX_LENGTH }
 
   validates :password,
     presence: { if: :requires_password? },
-    length: { maximum: CHAR_FIELD_MAX_LENGTH}
+    length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validates :email,
     presence: { if: :email_required? },
@@ -558,7 +558,7 @@ class User < ApplicationRecord
     schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{|school| school.users.ids + school.admins.ids }.flatten.uniq
+    schools.map{ |school| school.users.ids + school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!

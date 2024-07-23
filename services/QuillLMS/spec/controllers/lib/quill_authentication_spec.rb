@@ -55,7 +55,7 @@ describe FakeController, type: :controller do
     let(:classroom) { create(:classroom, :with_coteacher) }
     let(:coteacher) { classroom.coteachers.first }
     let(:owner) { classroom.owner }
-    let(:random_teacher) {create(:teacher)}
+    let(:random_teacher) { create(:teacher) }
 
     describe '#classroom_owner' do
       it 'should return nil if current_user is owner of the classroom' do

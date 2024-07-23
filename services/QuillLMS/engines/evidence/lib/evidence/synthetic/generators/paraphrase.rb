@@ -18,7 +18,7 @@ module Evidence
         def generate
           strings.each do |string|
             results = api_results(string)
-              .map {|s| lowercaser.run(s) }
+              .map { |s| lowercaser.run(s) }
               .uniq
 
             generator = Evidence::TextGeneration.create(

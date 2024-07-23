@@ -53,6 +53,6 @@ RSpec.describe OpenAI::Translate, type: :service do
 
     let(:english_text) { Faker::Quotes::Shakespeare.romeo_and_juliet }
 
-    it { expect(subject).to eq prompt + english_text}
+    it { expect(subject).to eq prompt + english_text }
   end
 end

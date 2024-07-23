@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe DailyStatsEmailJob do
-  let(:job) { described_class.new}
+  let(:job) { described_class.new }
 
   describe '#perform' do
     it 'should send the stats email' do

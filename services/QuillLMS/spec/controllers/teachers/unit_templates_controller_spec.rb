@@ -25,7 +25,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
   describe '#fast_assign' do
     context 'creates a new unit' do
       it 'can create new units and classroom activities' do
-        data = {"id": unit_template1.id}
+        data = { "id": unit_template1.id }
         current_jobs = FastAssignWorker.jobs.size
         post 'fast_assign', params: (data)
         expect(FastAssignWorker.jobs.size).to eq(current_jobs + 1)
@@ -37,7 +37,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
     it 'should set the count' do
       get :count, as: :json
       expect(assigns(:count)).to eq UnitTemplate.count
-      expect(response.body).to eq({count: UnitTemplate.count}.to_json)
+      expect(response.body).to eq({ count: UnitTemplate.count }.to_json)
     end
   end
 
@@ -72,8 +72,8 @@ describe Teachers::UnitTemplatesController, type: :controller do
   describe '#previously_assigned_activities' do
     let!(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
     let!(:classroom) { current_user.classrooms_i_teach.first }
-    let!(:unit_one) {create(:unit, user_id: current_user.id)}
-    let!(:unit_two) {create(:unit, user_id: current_user.id)}
+    let!(:unit_one) { create(:unit, user_id: current_user.id) }
+    let!(:unit_two) { create(:unit, user_id: current_user.id) }
     let!(:activity_one) { create(:activity) }
     let!(:activity_two) { create(:activity) }
     let!(:activity_three) { create(:activity) }

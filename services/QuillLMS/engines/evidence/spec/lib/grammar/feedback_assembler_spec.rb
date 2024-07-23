@@ -33,7 +33,7 @@ module Evidence
               uid = rule.uid
               expect(
                 FeedbackAssembler.run(
-                  client_response: client_response.merge({FeedbackAssembler.error_name => error_name})
+                  client_response: client_response.merge({ FeedbackAssembler.error_name => error_name })
                 )[:rule_uid]
               ).to eq uid
             end
@@ -44,7 +44,7 @@ module Evidence
           it 'should return optimal=true' do
             expect(
               FeedbackAssembler.run(
-                client_response: client_response.merge({FeedbackAssembler.error_name => ''})
+                client_response: client_response.merge({ FeedbackAssembler.error_name => '' })
               )[:optimal]
             ).to eq true
           end
@@ -54,7 +54,7 @@ module Evidence
           it 'should return secondary feedback' do
 
             result = FeedbackAssembler.run(
-              client_response: client_response.merge({FeedbackAssembler.error_name => error_name}),
+              client_response: client_response.merge({ FeedbackAssembler.error_name => error_name }),
               previous_feedback: []
             )
             expect(result[:feedback]).to eq feedback1.text
@@ -69,7 +69,7 @@ module Evidence
             }
 
             result = FeedbackAssembler.run(
-              client_response: client_response.merge({FeedbackAssembler.error_name => error_name}),
+              client_response: client_response.merge({ FeedbackAssembler.error_name => error_name }),
               previous_feedback: [mocked_feedback_history]
             )
             expect(result[:feedback]).to eq feedback2.text
@@ -81,9 +81,9 @@ module Evidence
             stub_const('Evidence::Grammar::FeedbackAssembler::EXCEPTIONS', exceptions)
           end
 
-          let(:exceptions) { ['some phrase', 'other']}
+          let(:exceptions) { ['some phrase', 'other'] }
 
-          subject { FeedbackAssembler.run(client_response: client_response.merge({FeedbackAssembler.error_name => error_name}))}
+          subject { FeedbackAssembler.run(client_response: client_response.merge({ FeedbackAssembler.error_name => error_name })) }
 
           context 'exact match' do
             let(:client_response) do
@@ -134,7 +134,7 @@ module Evidence
           end
 
           context 'capitalization in exception' do
-            let(:exceptions) { ['Some Phrase']}
+            let(:exceptions) { ['Some Phrase'] }
             let(:client_response) do
               {
                 'highlight' => [{

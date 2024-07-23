@@ -34,7 +34,7 @@ describe Api::V1::LessonsController, type: :controller do
   describe '#create' do
     it 'should create a new Lesson record' do
       uuid = SecureRandom.uuid
-      data = {foo: 'bar', name: 'name', flag: 'alpha'}
+      data = { foo: 'bar', name: 'name', flag: 'alpha' }
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = Activity.count
       post :create, params: { lesson_type: 'connect_lesson', lesson: data }, as: :json
@@ -45,7 +45,7 @@ describe Api::V1::LessonsController, type: :controller do
 
   describe '#update' do
     it 'should update the existing record' do
-      data = {'foo' => 'bar', 'flag' => 'alpha', 'name' => 'new name'}
+      data = { 'foo' => 'bar', 'flag' => 'alpha', 'name' => 'new name' }
       put :update, params: { id: activity.uid, lesson: data }, as: :json
       activity.reload
       expect(activity.data).to eq(data)
@@ -59,7 +59,7 @@ describe Api::V1::LessonsController, type: :controller do
     end
 
     it 'should update the feature flags on the related questions' do
-      data = {'foo' => 'bar', 'flag' => 'alpha', 'name' => 'new name'}
+      data = { 'foo' => 'bar', 'flag' => 'alpha', 'name' => 'new name' }
       expect_any_instance_of(Activity).to receive(:update_questions_flag_status_if_necessary!)
       put :update, params: { id: activity.uid, lesson: data }, as: :json
     end
@@ -92,14 +92,14 @@ describe Api::V1::LessonsController, type: :controller do
 
   describe '#add_question' do
     it 'should add a question to the existing record' do
-      data = {'key' => question.uid, 'questionType' => 'questions'}
+      data = { 'key' => question.uid, 'questionType' => 'questions' }
       put :add_question, params: { id: activity.uid, question: data }, as: :json
       activity.reload
       expect(activity.data['questions']).to include(data)
     end
 
     it 'should return a 404 if the requested Question is not found' do
-      data = {'question' => {'key' => 'notarealID', 'questionType' => 'question'}}
+      data = { 'question' => { 'key' => 'notarealID', 'questionType' => 'question' } }
       put :add_question, params: { id: activity.uid, question: data }, as: :json
       expect(response.status).to eq(404)
       expect(response.body).to include('does not exist')

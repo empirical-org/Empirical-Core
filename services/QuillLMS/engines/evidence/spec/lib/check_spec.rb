@@ -4,14 +4,14 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Check, type: :module) do
-    let(:entry) { 'this is the entry'}
+    let(:entry) { 'this is the entry' }
     let(:prompt) { double(id: 123, text: 'some prompt') }
-    let(:previous_feedback) { []}
-    let(:error) {Evidence::Check::Spelling::BingException}
-    let(:error_context) { {entry: entry, prompt_id: prompt.id, prompt_text: prompt.text}}
+    let(:previous_feedback) { [] }
+    let(:error) { Evidence::Check::Spelling::BingException }
+    let(:error_context) { { entry: entry, prompt_id: prompt.id, prompt_text: prompt.text } }
 
     context 'get_feedback' do
-      let(:response) { {key: 'value'} }
+      let(:response) { { key: 'value' } }
 
       it "should return trigger_check's response if there is one" do
         expect(Check).to receive(:find_triggered_check).once.and_return(response)

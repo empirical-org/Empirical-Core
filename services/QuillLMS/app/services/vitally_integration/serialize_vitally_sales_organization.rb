@@ -131,8 +131,8 @@ module VitallyIntegration
             }
           }
         }
-      }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
-        .where(classroom_units: {created_at: start..stop})
+      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
+        .where(classroom_units: { created_at: start..stop })
         .map(&:assigned_students).reject(&:blank?).sum
     end
 
@@ -145,8 +145,8 @@ module VitallyIntegration
             }
           }
         }
-      }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
-        .where(activity_sessions: {completed_at: start..stop})
+      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
+        .where(activity_sessions: { completed_at: start..stop })
         .distinct
         .count
     end
@@ -200,13 +200,13 @@ module VitallyIntegration
     end
 
     def activities_assigned_query
-      ClassroomUnit.joins(classroom: {teachers: {school: :district}}, unit: :activities)
+      ClassroomUnit.joins(classroom: { teachers: { school: :district } }, unit: :activities)
         .where('districts.id = ?', district.id)
         .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
     end
 
     def activities_finished_query
-      ClassroomsTeacher.joins(user: {schools_users: {school: :district}}, classroom: [{classroom_units: {unit: :activities}}, {classroom_units: :activity_sessions}])
+      ClassroomsTeacher.joins(user: { schools_users: { school: :district } }, classroom: [{ classroom_units: { unit: :activities } }, { classroom_units: :activity_sessions }])
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end

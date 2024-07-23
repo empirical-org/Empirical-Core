@@ -22,7 +22,7 @@ module Evidence
         it { expect(build(factory)).to be_valid }
 
         it { should belong_to(:llm_prompt) }
-        it { should belong_to(:prompt_example)}
+        it { should belong_to(:prompt_example) }
 
         it { should validate_presence_of(:llm_prompt_id) }
         it { should validate_presence_of(:prompt_example_id) }

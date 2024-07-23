@@ -52,5 +52,5 @@ shared_context 'Activity Progress Report' do
 
   let(:classroom_one_sessions) { [student_one_session] }
   let(:classroom_two_sessions) { [student_two_session] }
-  let!(:all_sessions) { classroom_one_sessions + classroom_two_sessions}
+  let!(:all_sessions) { classroom_one_sessions + classroom_two_sessions }
 end

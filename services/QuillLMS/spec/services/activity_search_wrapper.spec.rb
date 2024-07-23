@@ -9,7 +9,7 @@ describe ActivitySearchWrapper do
   let!(:level2_topic) { create(:topic, level: 2, parent_id: level3_topic.id) }
   let!(:level1_topic) { create(:topic, level: 1) }
   let!(:level0_topic) { create(:topic, level: 0) }
-  let!(:raw_score) { create(:raw_score, :eight_hundred_to_nine_hundred)}
+  let!(:raw_score) { create(:raw_score, :eight_hundred_to_nine_hundred) }
   let!(:activity) { create(:activity, flags: ['production'], raw_score: raw_score) }
 
   it "will put both of an activity's content partners in the content partner array" do

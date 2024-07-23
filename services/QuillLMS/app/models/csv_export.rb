@@ -26,7 +26,7 @@ class CsvExport < ApplicationRecord
 
   mount_uploader :csv_file, CsvUploader
 
-  validates :export_type, inclusion: {in: EXPORT_TYPE_OPTIONS}
+  validates :export_type, inclusion: { in: EXPORT_TYPE_OPTIONS }
 
   def sent?
     emailed_at.present?

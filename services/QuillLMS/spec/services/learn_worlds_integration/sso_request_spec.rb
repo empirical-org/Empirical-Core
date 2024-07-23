@@ -45,7 +45,7 @@ RSpec.describe LearnWorldsIntegration::SSORequest do
       context 'username is not nil' do
         let(:username) { user.username }
 
-        it { expect(subject).to eq sso_response}
+        it { expect(subject).to eq sso_response }
 
         it do
           expect(URI).to receive(:encode_www_form).with(data)
@@ -77,7 +77,7 @@ RSpec.describe LearnWorldsIntegration::SSORequest do
     end
 
     context 'learn_worlds_account exists' do
-      let(:learn_worlds_account) { create(:learn_worlds_account, user: user)}
+      let(:learn_worlds_account) { create(:learn_worlds_account, user: user) }
       let(:user_id) { learn_worlds_account.external_id }
 
       let(:data) do
@@ -87,7 +87,7 @@ RSpec.describe LearnWorldsIntegration::SSORequest do
         }
       end
 
-      it { expect(subject).to eq sso_response}
+      it { expect(subject).to eq sso_response }
     end
   end
 end

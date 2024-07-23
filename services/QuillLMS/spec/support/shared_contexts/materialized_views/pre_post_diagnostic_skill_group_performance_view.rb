@@ -69,8 +69,8 @@ RSpec.shared_context 'Pre Post Diagnostic Skill Group Performance View' do
   let(:post_diagnostic_activity_sessions) { pre_diagnostic_activity_sessions.map { |pre_session| create(:activity_session, :finished, user: pre_session.user, activity: post_diagnostic, completed_at: pre_session.completed_at ? pre_session.completed_at + 1.hour : nil, classroom_unit: post_diagnostic_classroom_units[pre_diagnostic_classroom_units.index(pre_session.classroom_unit)]) } }
   let(:activity_sessions) { [pre_diagnostic_activity_sessions, post_diagnostic_activity_sessions].flatten }
 
-  let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: pre_diagnostic_question.uid}) } }
-  let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, extra_metadata: {question_uid: post_diagnostic_question.uid}) } }
+  let(:pre_diagnostic_concept_results) { pre_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, extra_metadata: { question_uid: pre_diagnostic_question.uid }) } }
+  let(:post_diagnostic_concept_results) { post_diagnostic_activity_sessions.map.with_index { |activity_session, i| create(:concept_result, activity_session:, question_number: i + 1, attempt_number: nil, extra_metadata: { question_uid: post_diagnostic_question.uid }) } }
   let(:concept_results) { [pre_diagnostic_concept_results, post_diagnostic_concept_results].flatten }
 
   let(:diagnostic_question_optimal_concepts) do

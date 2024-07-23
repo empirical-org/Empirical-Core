@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_context 'Stripe Account' do
-  let(:stripe_account_id) { "acct_#{SecureRandom.hex}"}
+  let(:stripe_account_id) { "acct_#{SecureRandom.hex}" }
 
   let(:stripe_account) do
     Stripe::Account.construct_from(

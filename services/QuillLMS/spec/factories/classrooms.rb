@@ -82,12 +82,12 @@ FactoryBot.define do
 
     factory :google_classroom_with_a_couple_google_students do
       from_google
-      students { create_pair(:student, :signed_up_with_google)}
+      students { create_pair(:student, :signed_up_with_google) }
     end
 
     factory :clever_classroom_with_a_couple_clever_students do
       from_clever
-      students { create_pair(:student, :signed_up_with_clever)}
+      students { create_pair(:student, :signed_up_with_clever) }
     end
 
     trait :with_no_teacher do

@@ -7,6 +7,6 @@ class Cms::CsvUploadsController < Cms::CmsController
 
     uploader.store!(params[:file])
 
-    render json: {filename: uploader.filename}
+    render json: { filename: uploader.filename }
   end
 end

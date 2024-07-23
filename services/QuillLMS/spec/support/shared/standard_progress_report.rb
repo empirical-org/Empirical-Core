@@ -12,7 +12,7 @@ shared_context 'Standard Progress Report' do
   # When filtered by unassigned student, nothing displays
   let!(:standard_level) { create(:standard_level) }
   let!(:full_classroom) { create(:classroom, name: 'full') }
-  let!(:teacher) {full_classroom.owner}
+  let!(:teacher) { full_classroom.owner }
   let!(:alice) { create(:student, name: 'Alice Cool', classrooms: [full_classroom]) }
   let!(:fred) { create(:student, name: 'Fred Kewl', classrooms: [full_classroom]) }
   let!(:zojirushi) { create(:student, name: 'Zojirushi Kewel', classrooms: [full_classroom]) }
@@ -21,7 +21,7 @@ shared_context 'Standard Progress Report' do
   let!(:first_grade_standard) { create(:standard, standard_level: standard_level, name: '1st Grade CCSS') }
   let!(:hidden_standard) { create(:standard, standard_level: standard_level) }
   let!(:empty_classroom) { create(:classroom, :with_no_teacher, visible: false) }
-  let!(:empty_classrooms_teacher) {create(:classrooms_teacher, classroom: empty_classroom, user: teacher)}
+  let!(:empty_classrooms_teacher) { create(:classrooms_teacher, classroom: empty_classroom, user: teacher) }
   let!(:unit1) { create(:unit, user_id: teacher.id) }
   let!(:empty_unit) { create(:unit, user_id: teacher.id) }
   let!(:activity_for_second_grade_standard) { create(:activity,

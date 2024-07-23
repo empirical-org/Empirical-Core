@@ -17,6 +17,6 @@
 FactoryBot.define do
   factory :active_activity_session do
     uid { SecureRandom.uuid }
-    data { { foo: 'bar'} }
+    data { { foo: 'bar' } }
   end
 end

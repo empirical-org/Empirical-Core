@@ -22,6 +22,6 @@ namespace :hints do
     # WARNING: Intended to be run only after `deduplicate_and_move_relations`
     # as we will  identify orphaned Hints by finding the ones with no Rule
     # relationships
-    Evidence::Hint.left_outer_joins(:rules).where(rules: {hint_id: nil}).destroy_all
+    Evidence::Hint.left_outer_joins(:rules).where(rules: { hint_id: nil }).destroy_all
   end
 end

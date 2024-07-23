@@ -30,8 +30,8 @@ module Evidence
     accepts_nested_attributes_for :highlights, allow_destroy: true
 
     validates_presence_of :rule
-    validates :text, presence: true, length: {minimum: MIN_FEEDBACK_LENGTH, maximum: MAX_FEEDBACK_LENGTH}
-    validates :order, numericality: {only_integer: true, greater_than_or_equal_to: 0}, uniqueness: {scope: :rule_id}
+    validates :text, presence: true, length: { minimum: MIN_FEEDBACK_LENGTH, maximum: MAX_FEEDBACK_LENGTH }
+    validates :order, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, uniqueness: { scope: :rule_id }
 
     def serializable_hash(options = nil)
       options ||= {}

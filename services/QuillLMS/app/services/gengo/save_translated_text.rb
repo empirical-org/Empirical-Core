@@ -27,7 +27,7 @@ module Gengo
       gengo_job.update(translated_text:)
     end
 
-    private def response = @response ||= GengoAPI.getTranslationJob({id: translation_job_id})
+    private def response = @response ||= GengoAPI.getTranslationJob({ id: translation_job_id })
     private def job = response&.dig(RESPONSE, JOB)
     private def active_job? = ![DELETED, CANCELED].include?(job[STATUS])
     private def new_translation = job[BODY_TGT]
@@ -36,7 +36,7 @@ module Gengo
 
     private def gengo_job
       # Not using find_or_create_by because the find_by doesn't make an external API request
-      @gengo_job ||= GengoJob.find_by(translation_job_id: ) || create_gengo_job
+      @gengo_job ||= GengoJob.find_by(translation_job_id:) || create_gengo_job
     end
 
     private def translated_text

@@ -7,10 +7,10 @@ describe InternalTool::MadeSchoolAdminEmailWorker, type: :worker do
 
   let!(:teacher) { create(:teacher) }
   let!(:school) { create(:school) }
-  let!(:school_admin) { create(:schools_admins, user: teacher, school: school)}
+  let!(:school_admin) { create(:schools_admins, user: teacher, school: school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
-  let!(:mailer_method) { :made_school_admin_email}
+  let!(:mailer_method) { :made_school_admin_email }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do

@@ -68,7 +68,7 @@ module Evidence
         .includes(:required_sequences, :incorrect_sequences)
         .order(:suborder)
 
-      rules.find {|rule| !rule.regex_is_passing?(@entry) }
+      rules.find { |rule| !rule.regex_is_passing?(@entry) }
     end
   end
 end

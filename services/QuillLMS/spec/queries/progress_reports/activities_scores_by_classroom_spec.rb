@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe 'ActivitiesScoresByClassroom' do
-  let(:classroom) {create(:classroom_with_classroom_units)}
+  let(:classroom) { create(:classroom_with_classroom_units) }
 
   it 'returns a row for each student that completed a visible activity session' do
     activity_sessions = classroom.classroom_units.first.activity_sessions
-    ActivitySession.unscoped.each {|as| as.update(visible: true)}
+    ActivitySession.unscoped.each { |as| as.update(visible: true) }
     expect(ProgressReports::ActivitiesScoresByClassroom.results(classroom.owner.classrooms_i_teach.map(&:id)).length)
       .to eq(classroom.students.length)
   end
@@ -58,7 +58,7 @@ describe 'ActivitiesScoresByClassroom' do
         the_time = 'abc'
 
         data = [
-          { 'last_active' => the_time}
+          { 'last_active' => the_time }
         ]
         expect do
           ProgressReports::ActivitiesScoresByClassroom.transform_timestamps!(data, 'America/Chicago')

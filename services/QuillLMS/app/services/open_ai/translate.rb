@@ -18,7 +18,7 @@ module OpenAI
       @system_prompt = prompt + english_text
     end
 
-    private def system_message = {KEY_ROLE => ROLE_SYSTEM, KEY_CONTENT => system_prompt}
+    private def system_message = { KEY_ROLE => ROLE_SYSTEM, KEY_CONTENT => system_prompt }
 
     def cleaned_results
       return nil if response&.body&.nil?

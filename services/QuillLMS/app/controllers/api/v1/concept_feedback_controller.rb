@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::ConceptFeedbackController < Api::ApiController
-  before_action :activity_type, except: [:index, :translations]
-  before_action :concept_feedback_by_uid, except: [:index, :create, :update, :translations]
+  before_action :activity_type, only: [:show, :create, :update, :destroy]
+  before_action :concept_feedback_by_uid, only: [:show, :destroy]
 
   CACHE_EXPIRY = 24.hours
 
@@ -21,7 +21,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
   def create
     uid = SecureRandom.uuid
     @concept_feedback = ConceptFeedback.create!(uid: uid, activity_type: @activity_type, data: valid_params)
-    render(json: {@concept_feedback.uid => @concept_feedback.as_json})
+    render(json: { @concept_feedback.uid => @concept_feedback.as_json })
   end
 
   def update
@@ -31,7 +31,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
       @concept_feedback = ConceptFeedback.find_by!(uid: params[:id], activity_type: @activity_type)
       @concept_feedback.update!(data: valid_params)
     rescue ActiveRecord::RecordNotFound
-      @concept_feedback = ConceptFeedback.create!({uid: params[:id], activity_type: @activity_type, data: valid_params})
+      @concept_feedback = ConceptFeedback.create!({ uid: params[:id], activity_type: @activity_type, data: valid_params })
     end
     render(json: @concept_feedback.as_json)
   end

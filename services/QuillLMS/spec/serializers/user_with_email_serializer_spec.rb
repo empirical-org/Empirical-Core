@@ -10,7 +10,7 @@ describe UserWithEmailSerializer, type: :serializer do
     let(:json) { serializer.to_json(root: 'user') }
     let(:parsed) { JSON.parse(json) }
 
-    it { expect(parsed.keys).to include('user')}
+    it { expect(parsed.keys).to include('user') }
 
     describe "'user' object" do
       let(:parsed_user) { parsed['user'] }

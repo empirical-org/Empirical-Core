@@ -45,7 +45,7 @@ module Evidence
 
       private def optimal_example_list = prompt.optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
       private def suboptimal_example_list = prompt.suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT)
-      private def markdown_ul(array) = array.map {|i| "- #{i}"}.join("\n")
+      private def markdown_ul(array) = array.map { |i| "- #{i}" }.join("\n")
 
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def example_one = prompt.first_strong_example
@@ -54,7 +54,7 @@ module Evidence
       private def highlight_texts
         prompt
           .distinct_automl_highlight_texts
-          .map.with_index {|text,i| "#{i+1}. #{text}" }
+          .map.with_index { |text,i| "#{i+1}. #{text}" }
           .join("\n")
       end
     end

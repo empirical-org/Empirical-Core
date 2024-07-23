@@ -30,13 +30,13 @@ describe AdminInfo, type: :model, redis: true do
   it { should validate_presence_of(:user_id) }
 
   context 'uniqueness' do
-    let!(:admin_info) {create(:admin_info)}
+    let!(:admin_info) { create(:admin_info) }
 
-    it {should validate_uniqueness_of(:user_id)}
+    it { should validate_uniqueness_of(:user_id) }
   end
 
-  let(:admin_info) {create(:admin_info)}
-  let(:admin) {create(:user)}
+  let(:admin_info) { create(:admin_info) }
+  let(:admin) { create(:user) }
 
   describe 'admin' do
     it 'should read the user for the admin' do

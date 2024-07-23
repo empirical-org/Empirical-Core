@@ -48,9 +48,9 @@ describe Concept, type: :model do
 
   describe '.leaf_nodes' do
     let!(:root_concept) { create(:concept, name: 'root') }
-    let!(:leaf1) { create(:concept, name: 'leaf1', parent: root_concept)}
-    let!(:mid_level_concept) { create(:concept, name: 'mid', parent: root_concept)}
-    let!(:leaf2) { create(:concept, name: 'leaf2', parent: mid_level_concept)}
+    let!(:leaf1) { create(:concept, name: 'leaf1', parent: root_concept) }
+    let!(:mid_level_concept) { create(:concept, name: 'mid', parent: root_concept) }
+    let!(:leaf2) { create(:concept, name: 'leaf2', parent: mid_level_concept) }
 
     subject { Concept.leaf_nodes }
 
@@ -64,8 +64,8 @@ describe Concept, type: :model do
   end
 
   describe '.all_with_level' do
-    let!(:level_2_concept) {create(:concept, name: 'level_2_concept')}
-    let!(:level_1_concept) {create(:concept, name: 'level_1_concept', parent: level_2_concept)}
+    let!(:level_2_concept) { create(:concept, name: 'level_2_concept') }
+    let!(:level_1_concept) { create(:concept, name: 'level_1_concept', parent: level_2_concept) }
 
     subject { Concept.all_with_level }
 

@@ -4,22 +4,22 @@ class SnapshotsController < ApplicationController
   ADMIN_DIAGNOSTIC_REPORT = '/diagnostic_growth_report'
   CACHE_REPORT_NAME = 'admin-snapshot'
   GRADE_OPTIONS = [
-    {value: 'Kindergarten', name: 'Kindergarten'},
-    {value: '1', name: '1st'},
-    {value: '2', name: '2nd'},
-    {value: '3', name: '3rd'},
-    {value: '4', name: '4th'},
-    {value: '5', name: '5th'},
-    {value: '6', name: '6th'},
-    {value: '7', name: '7th'},
-    {value: '8', name: '8th'},
-    {value: '9', name: '9th'},
-    {value: '10', name: '10th'},
-    {value: '11', name: '11th'},
-    {value: '12', name: '12th'},
-    {value: 'University', name: 'University'},
-    {value: 'Other', name: 'Other'},
-    {value: 'null', name: 'No grade set'}
+    { value: 'Kindergarten', name: 'Kindergarten' },
+    { value: '1', name: '1st' },
+    { value: '2', name: '2nd' },
+    { value: '3', name: '3rd' },
+    { value: '4', name: '4th' },
+    { value: '5', name: '5th' },
+    { value: '6', name: '6th' },
+    { value: '7', name: '7th' },
+    { value: '8', name: '8th' },
+    { value: '9', name: '9th' },
+    { value: '10', name: '10th' },
+    { value: '11', name: '11th' },
+    { value: '12', name: '12th' },
+    { value: 'University', name: 'University' },
+    { value: 'Other', name: 'Other' },
+    { value: 'null', name: 'No grade set' }
   ]
 
   WORKERS_FOR_ACTIONS = {
@@ -112,7 +112,7 @@ class SnapshotsController < ApplicationController
   end
 
   private def format_option_list(models)
-    models.pluck(:id, :name).map { |id, name| {id: id, name: name} }
+    models.pluck(:id, :name).map { |id, name| { id: id, name: name } }
   end
 
   private def school_options
@@ -131,9 +131,9 @@ class SnapshotsController < ApplicationController
     grades = option_params[:grades]&.map { |i| Utils::String.parse_null_to_nil(i) }
 
     teachers = User.teachers_in_schools(filtered_schools.pluck(:id))
-      .where(classrooms_teachers: {role: [nil, ClassroomsTeacher::ROLE_TYPES[:owner]]})
+      .where(classrooms_teachers: { role: [nil, ClassroomsTeacher::ROLE_TYPES[:owner]] })
 
-    return teachers.where(classrooms: {grade: grades}) if grades.present?
+    return teachers.where(classrooms: { grade: grades }) if grades.present?
 
     teachers
   end
@@ -141,7 +141,7 @@ class SnapshotsController < ApplicationController
   private def all_sorted_teacher_options
     User
       .teachers_in_schools(school_options.pluck(:id))
-      .where(classrooms_teachers: {role: [nil, ClassroomsTeacher::ROLE_TYPES[:owner]]})
+      .where(classrooms_teachers: { role: [nil, ClassroomsTeacher::ROLE_TYPES[:owner]] })
       .sort_by(&:last_name)
   end
 
@@ -149,7 +149,7 @@ class SnapshotsController < ApplicationController
     Classroom.unscoped
       .distinct
       .joins(:classrooms_teachers)
-      .where(classrooms_teachers: {user_id: all_sorted_teacher_options.pluck(:id)})
+      .where(classrooms_teachers: { user_id: all_sorted_teacher_options.pluck(:id) })
       .order(:name)
   end
 
@@ -170,7 +170,7 @@ class SnapshotsController < ApplicationController
     Classroom.unscoped
       .distinct
       .joins(:classrooms_teachers)
-      .where(classrooms_teachers: {user_id: filtered_teachers.pluck(:id)})
+      .where(classrooms_teachers: { user_id: filtered_teachers.pluck(:id) })
       .order(:name)
   end
 

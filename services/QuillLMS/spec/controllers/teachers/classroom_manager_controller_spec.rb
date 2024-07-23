@@ -346,9 +346,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let(:classroom1) { create(:classroom) }
     let(:classroom2) { create(:classroom) }
     let(:classroom3) { create(:classroom) }
-    let(:classrooms_teacher1) {create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom1.id, order: 1)}
-    let(:classrooms_teacher2) {create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id, order: 0)}
-    let(:classrooms_teacher3) {create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom3.id, order: 2)}
+    let(:classrooms_teacher1) { create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom1.id, order: 1) }
+    let(:classrooms_teacher2) { create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id, order: 0) }
+    let(:classrooms_teacher3) { create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom3.id, order: 2) }
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -368,14 +368,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#dashboard' do
     let(:teacher) { create(:teacher_with_one_classroom) }
-    let(:blog_post1) { create(:blog_post, featured_order_number: 0)}
-    let(:blog_post2) { create(:blog_post, featured_order_number: 1)}
-    let(:blog_post3) { create(:blog_post, featured_order_number: 2)}
-    let!(:create_a_classroom) { create(:create_a_classroom)}
-    let!(:add_students) { create(:add_students)}
-    let!(:explore_our_library) { create(:explore_our_library)}
-    let!(:explore_our_diagnostics) { create(:explore_our_diagnostics)}
-    let!(:create_a_classroom_checkbox) { create(:checkbox, user: teacher, objective: create_a_classroom)}
+    let(:blog_post1) { create(:blog_post, featured_order_number: 0) }
+    let(:blog_post2) { create(:blog_post, featured_order_number: 1) }
+    let(:blog_post3) { create(:blog_post, featured_order_number: 2) }
+    let!(:create_a_classroom) { create(:create_a_classroom) }
+    let!(:add_students) { create(:add_students) }
+    let!(:explore_our_library) { create(:explore_our_library) }
+    let!(:explore_our_diagnostics) { create(:explore_our_diagnostics) }
+    let!(:create_a_classroom_checkbox) { create(:checkbox, user: teacher, objective: create_a_classroom) }
     let!(:teacher_info_milestone) { create(:dismiss_teacher_info_modal) }
 
     before do
@@ -545,14 +545,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     context 'with data' do
-      let!(:classrooms_teacher) {create(:classrooms_teacher, user_id: teacher.id)}
-      let!(:students) {create_list(:student, 2)}
-      let!(:classroom_unit) {create(:classroom_unit, classroom: classrooms_teacher.classroom, assigned_student_ids: students.map { |s| s[:id]})}
+      let!(:classrooms_teacher) { create(:classrooms_teacher, user_id: teacher.id) }
+      let!(:students) { create_list(:student, 2) }
+      let!(:classroom_unit) { create(:classroom_unit, classroom: classrooms_teacher.classroom, assigned_student_ids: students.map { |s| s[:id] }) }
 
       before do
         students.map { |s| create(:students_classrooms, student: s, classroom: classrooms_teacher.classroom) }
 
-        create(:activity_session, :finished, user: students.first, classroom_unit: classroom_unit )
+        create(:activity_session, :finished, user: students.first, classroom_unit: classroom_unit)
       end
 
       it 'should return the summary json' do
@@ -671,7 +671,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#view_demo' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL) }
     let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
@@ -712,21 +712,21 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#demo_id' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL) }
 
     before do
       controller.sign_in(teacher)
     end
 
     it 'will return the value of session[:demo_id]' do
-      get :demo_id, session: {demo_id: demo_teacher.id}
+      get :demo_id, session: { demo_id: demo_teacher.id }
       expect(JSON.parse(response.body)['current_user_demo_id']).to eq(demo_teacher.id)
     end
   end
 
   describe '#unset_view_demo' do
     let!(:teacher) { create(:teacher) }
-    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL)}
+    let!(:demo_teacher) { create(:teacher, email: Demo::ReportDemoCreator::EMAIL) }
 
     before do
       controller.sign_in(teacher)
@@ -736,14 +736,14 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       redirect = '/teachers/classes'
 
-      get :unset_view_demo, params: { redirect: redirect }, session: {demo_id: demo_teacher.id}
+      get :unset_view_demo, params: { redirect: redirect }, session: { demo_id: demo_teacher.id }
       expect(response).to redirect_to redirect
     end
 
     it 'will redirect to the profile path if there is no redirect param' do
       expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
 
-      get :unset_view_demo, session: {demo_id: demo_teacher.id}
+      get :unset_view_demo, session: { demo_id: demo_teacher.id }
       expect(response).to redirect_to profile_path
     end
 
@@ -751,17 +751,17 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(Demo::ResetAccountWorker).to receive(:perform_async).with(demo_teacher.id)
       expect(controller).to receive(:current_user_demo_id=).with(nil)
 
-      get :unset_view_demo, session: {demo_id: demo_teacher.id}
+      get :unset_view_demo, session: { demo_id: demo_teacher.id }
     end
   end
 
   describe '#preview_as_student' do
     let!(:teacher) { create(:teacher) }
     let!(:classroom) { create(:classroom) }
-    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher)}
-    let!(:student1) { create(:student)}
-    let!(:student2) { create(:student)}
-    let!(:students_classrooms) { create(:students_classrooms, student: student1, classroom: classroom)}
+    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
+    let!(:student1) { create(:student) }
+    let!(:student2) { create(:student) }
+    let!(:students_classrooms) { create(:students_classrooms, student: student1, classroom: classroom) }
     let!(:analyzer) { double(:analyzer, track: true) }
 
     before do
@@ -821,7 +821,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
   end
 
   describe '#activity_feed' do
-    let!(:activity_session) {create(:activity_session, completed_at: Time.current) }
+    let!(:activity_session) { create(:activity_session, completed_at: Time.current) }
     let!(:teacher) { activity_session.teachers.first }
 
     before do

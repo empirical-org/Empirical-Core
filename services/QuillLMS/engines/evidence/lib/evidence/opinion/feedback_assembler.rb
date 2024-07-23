@@ -24,7 +24,7 @@ module Evidence
       end
 
       def self.default_payload
-        super.merge({'feedback_type' => 'opinion'})
+        super.merge({ 'feedback_type' => 'opinion' })
       end
 
       def self.error_name

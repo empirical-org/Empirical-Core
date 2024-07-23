@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 describe UnitTemplate, redis: true, type: :model do
-  let!(:unit_template) {create(:unit_template)}
+  let!(:unit_template) { create(:unit_template) }
 
   it { should belong_to(:unit_template_category) }
   it { should belong_to(:author) }
@@ -33,7 +33,7 @@ describe UnitTemplate, redis: true, type: :model do
   it { should have_many(:activities).through(:activities_unit_templates) }
   it { should have_many(:units) }
   it { should serialize(:grades).as(Array) }
-  it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :gamma, :production])}
+  it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :gamma, :production]) }
 
   describe '#activity_ids=' do
     let(:activity) { create(:activity) }
@@ -142,11 +142,11 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#meta_description' do
-    let(:standard1) {create(:standard, name: '7.1b writing sentences')}
-    let(:standard2) {create(:standard, name: 'CCSS Grade 9')}
+    let(:standard1) { create(:standard, name: '7.1b writing sentences') }
+    let(:standard2) { create(:standard, name: 'CCSS Grade 9') }
     let(:activity1) { create(:activity, standard: standard1) }
     let(:activity2) { create(:activity, standard: standard2) }
-    let(:description) {'Free online writing activity pack "Template Name" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9.'}
+    let(:description) { 'Free online writing activity pack "Template Name" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9.' }
 
     subject { create(:unit_template, name: 'Template Name', activities: [activity1, activity2]) }
 
@@ -155,7 +155,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'with grades' do
-      let(:description) {'Free online writing activity pack "Template Name" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9.'}
+      let(:description) { 'Free online writing activity pack "Template Name" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9.' }
 
       subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
 
@@ -165,7 +165,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'no activities' do
-      let(:description) {'Free online writing activity pack "Template Name" for teachers of school students. '}
+      let(:description) { 'Free online writing activity pack "Template Name" for teachers of school students. ' }
 
       subject { create(:unit_template, name: 'Template Name') }
 
@@ -178,10 +178,10 @@ describe UnitTemplate, redis: true, type: :model do
   describe '#get_cached_serialized_unit_template' do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
-    let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred )}
+    let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred) }
     let(:activity) { create(:activity, raw_score: raw_score) }
     let(:first_topic) { create(:topic, level: 1) }
-    let(:second_topic) { create(:topic, level: 1)}
+    let(:second_topic) { create(:topic, level: 1) }
     let!(:activity_topic) { create(:activity_topic, topic: first_topic, activity: activity) }
     let!(:activity_topic_two) { create(:activity_topic, topic: second_topic, activity: activity) }
     let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: [activity]) }
@@ -273,8 +273,8 @@ describe UnitTemplate, redis: true, type: :model do
 
     let!(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
     let!(:classroom) { current_user.classrooms_i_teach.first }
-    let!(:unit_one) {create(:unit, user_id: current_user.id)}
-    let!(:unit_two) {create(:unit, user_id: current_user.id)}
+    let!(:unit_one) { create(:unit, user_id: current_user.id) }
+    let!(:unit_two) { create(:unit, user_id: current_user.id) }
     let!(:activity_one) { create(:activity) }
     let!(:activity_two) { create(:activity) }
     let!(:activity_three) { create(:activity) }
@@ -413,7 +413,7 @@ describe UnitTemplate, redis: true, type: :model do
     let!(:gamma_unit_template){ create(:unit_template, flag: 'gamma') }
     let!(:beta_unit_template){ create(:unit_template, flag: 'beta') }
     let!(:alpha_unit_template){ create(:unit_template, flag: 'alpha') }
-    let!(:all_types){[production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template]}
+    let!(:all_types){ [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
 
     context 'the default scope' do
 

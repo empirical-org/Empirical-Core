@@ -64,7 +64,7 @@ describe SubscriptionsController do
         it 'should render the purchaser name' do
           user.subscriptions.first.update(purchaser: user)
           get :purchaser_name, params: { id: user.subscriptions.first.id }
-          expect(response.body).to eq({name: user.name}.to_json)
+          expect(response.body).to eq({ name: user.name }.to_json)
         end
       end
     end
@@ -106,9 +106,9 @@ describe SubscriptionsController do
     let!(:school2) { create(:school) }
     let!(:schools_admins1) { create(:schools_admins, school: school1) }
     let!(:schools_admins2) { create(:schools_admins, user: schools_admins1.user, school: school2) }
-    let!(:subscription1) { create(:subscription, account_type: Subscription::SCHOOL_PAID ) }
+    let!(:subscription1) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
     let!(:school_subscription1) { create(:school_subscription, subscription: subscription1, school: school1) }
-    let!(:subscription2) { create(:subscription, account_type: Subscription::SCHOOL_PAID, expiration: '2020-01-1'.to_date ) }
+    let!(:subscription2) { create(:subscription, account_type: Subscription::SCHOOL_PAID, expiration: '2020-01-1'.to_date) }
     let!(:school_subscription2) { create(:school_subscription, subscription: subscription2, school: school2) }
 
     before { allow(controller).to receive(:current_user) { schools_admins1.user } }

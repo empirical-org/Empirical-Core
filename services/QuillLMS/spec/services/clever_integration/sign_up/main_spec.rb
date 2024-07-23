@@ -53,7 +53,7 @@ describe 'CleverIntegration::SignUp::Main' do
     })
 
     clever_school_response = Clever::SchoolResponse.new({ data: clever_school })
-    allow_any_instance_of(Clever::DataApi).to receive(:get_schools_for_school_admin).and_return(Clever::SchoolsResponse.new({ data: [clever_school_response]}))
+    allow_any_instance_of(Clever::DataApi).to receive(:get_schools_for_school_admin).and_return(Clever::SchoolsResponse.new({ data: [clever_school_response] }))
     allow(CleverIntegration::Importers::CleverDistrict).to receive(:run).and_return(district)
   end
 

@@ -26,8 +26,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       second_confidence_level = 0.8523
       average_confidence_level = (((first_confidence_level + second_confidence_level) / 2) * 100).round
 
-      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: 'f_h1 lorem', metadata: {api: {confidence: first_confidence_level}})
-      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: 'f_h2 ipsum', metadata: {api: {confidence: second_confidence_level}})
+      f_h1 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: 'f_h1 lorem', metadata: { api: { confidence: first_confidence_level } })
+      f_h2 = create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule1.uid, entry: 'f_h2 ipsum', metadata: { api: { confidence: second_confidence_level } })
 
       user1 = create(:user)
       user2 = create(:user)
@@ -115,7 +115,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       sql_result = RuleFeedbackHistory.exec_query(conjunction: 'so', activity_id: activity1.id, start_date: '2021-03-06T19:02:54.814Z', end_date: '2021-04-10T19:02:54.814Z', activity_version: 2)
       expect(sql_result.all.length).to eq 2
-      expect(sql_result.select {|rf| rf['rules_uid'] == so_rule4.uid}.empty?).to be
+      expect(sql_result.select { |rf| rf['rules_uid'] == so_rule4.uid }.empty?).to be
 
       expect(sql_result[0].rule_type).to eq 'autoML'
     end
@@ -141,7 +141,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       responses = result[so_rule1.uid.to_sym][:responses]
 
-      response_ids = responses.map {|r| r[:response_id]}
+      response_ids = responses.map { |r| r[:response_id] }
       expect(
         Set[*response_ids] == Set[f_h1.id, f_h2.id]
       ).to be true
@@ -188,7 +188,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       responses = result[so_rule1.uid.to_sym][:responses]
 
-      response_ids = responses.map {|r| r[:response_id]}
+      response_ids = responses.map { |r| r[:response_id] }
 
       expect(
         Set[*response_ids] == Set[f_h5.id]
@@ -230,7 +230,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
 
       responses = result[so_rule1.uid.to_sym][:responses]
 
-      rated_response = responses.find {|r| r[:response_id] == f_h1.id }
+      rated_response = responses.find { |r| r[:response_id] == f_h1.id }
 
       expect(rated_response[:strength]).to eq true
 
