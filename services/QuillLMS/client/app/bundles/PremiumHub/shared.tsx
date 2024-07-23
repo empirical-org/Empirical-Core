@@ -71,7 +71,7 @@ export const restrictedPage = (
 
 export const RESTRICTED_TEXT = "Sorry, only verified admins with a subscription to School or District Premium can access this feature."
 
-export function getDiagnosticTypeDropdownOptionsByTimeframe(timeframe) {
+export function getDiagnosticTypeDropdownOptions(timeframe) {
   if (timeframe === OLD_DIAGNOSTIC_TIMEFRAME) return oldDiagnosticTypeDropdownOptions;
 
   return diagnosticTypeDropdownOptions

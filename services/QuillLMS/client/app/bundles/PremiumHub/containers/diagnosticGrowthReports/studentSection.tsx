@@ -4,7 +4,7 @@ import { aggregateStudentData, preToPostImprovedSkillsTooltipText, preQuestionsC
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { getDiagnosticTypeDropdownOptionsByTimeframe, hashPayload } from '../../shared'
+import { getDiagnosticTypeDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 
 const STUDENTS_QUERY_KEY = "diagnostic-students"
@@ -135,7 +135,7 @@ export const StudentSection = ({
       // If the timeframe has changed, we may be re-populating the selectedDiagnosticType drop-downs
       // In these cases, we need to re-select the appropriate value from the drop-down for the new timeframe
       // The re-selection will re-trigger this effect by changing the value of diagnosticTypeValue
-      const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)
+      const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
       if (!diagnosticTypeDropdownOptions.includes(diagnosticTypeValue)) {
         const selectedDiagnosticType = diagnosticTypeDropdownOptions.find((option) => option.label === diagnosticTypeValue.label)
 
@@ -286,7 +286,7 @@ export const StudentSection = ({
   }
 
   function getInitialDiagnosticType() {
-    const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)
+    const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
     if(selectedDiagnosticId) {
       return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
     }
@@ -341,7 +341,7 @@ export const StudentSection = ({
         handleChange={handleDiagnosticTypeOptionChange}
         isSearchable={true}
         label="Diagnostic:"
-        options={getDiagnosticTypeDropdownOptionsByTimeframe(selectedTimeframe)}
+        options={getDiagnosticTypeDropdownOptions(selectedTimeframe)}
         value={diagnosticTypeValue}
       />
       {renderContent()}
