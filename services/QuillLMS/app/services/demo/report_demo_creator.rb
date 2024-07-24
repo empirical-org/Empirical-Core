@@ -4,7 +4,8 @@ module Demo::ReportDemoCreator
   EMAIL = 'hello+demoteacher@quill.org'
   STAFF_DEMO_EMAIL = 'hello+demoteacher+staff@quill.org'
 
-  STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
+  STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 2537
+  STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID = 2538
 
   ANGIE_ID = 14862320
   NIC_ID = 14862321
@@ -18,7 +19,7 @@ module Demo::ReportDemoCreator
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: 'Starter Baseline Diagnostic (Pre)',
-      unit_template_id: 99,
+      unit_template_id: 636,
       activity_sessions: [
         {
           STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => KEN_ID
@@ -39,50 +40,58 @@ module Demo::ReportDemoCreator
     },
     {
       name: 'Capitalization (Starter Baseline Recommendation)',
-      unit_template_id: 308,
+      unit_template_id: 655,
       activity_sessions: [
         {}, # Ken Liu
         {
-          886 => TAHEREH_ID,
-          887 => TAHEREH_ID,
-          801 => TAHEREH_ID,
-          885 => TAHEREH_ID,
-          804 => TAHEREH_ID,
-          181 => TAHEREH_ID,
-          802 => TAHEREH_ID
+          2672 => TAHEREH_ID,
+          2677 => TAHEREH_ID,
+          2679 => TAHEREH_ID,
+          2680 => TAHEREH_ID,
+          2678 => TAHEREH_ID,
+          2673 => TAHEREH_ID,
+          2681 => TAHEREH_ID
         },
         {}, # Jason Reynolds
         {
-          801 => NIC_ID,
-          887 => NIC_ID,
-          804 => NIC_ID,
-          885 => NIC_ID,
-          886 => NIC_ID,
-          181 => NIC_ID,
-          802 => NIC_ID
+          2672 => NIC_ID,
+          2677 => NIC_ID,
+          2679 => NIC_ID,
+          2680 => NIC_ID,
+          2678 => NIC_ID,
+          2673 => NIC_ID,
+          2681 => NIC_ID
         },
         {
-          804 => ANGIE_ID,
-          886 => ANGIE_ID,
-          887 => ANGIE_ID,
-          801 => ANGIE_ID,
-          885 => ANGIE_ID,
-          181 => ANGIE_ID,
-          802 => ANGIE_ID
+          2672 => ANGIE_ID,
+          2677 => ANGIE_ID,
+          2679 => ANGIE_ID,
+          2680 => ANGIE_ID,
+          2678 => ANGIE_ID,
+          2673 => ANGIE_ID,
+          2681 => ANGIE_ID
         }
       ]
     },
     {
       name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
-      unit_template_id: 310,
+      unit_template_id: 654,
       activity_sessions: [
         {
-          1440 => KEN_ID,
-          283 => KEN_ID,
-          252 => KEN_ID,
-          808 => KEN_ID,
+          2639 => KEN_ID,
+          2652 => KEN_ID,
+          2653 => KEN_ID,
+          2654 => KEN_ID,
+          2655 => KEN_ID,
           1308 => KEN_ID,
-          803 => KEN_ID
+          1440 => KEN_ID,
+          2656 => KEN_ID,
+          2649 => KEN_ID,
+          2661 => KEN_ID,
+          2657 => KEN_ID,
+          2658 => KEN_ID,
+          2659 => KEN_ID,
+          2660 => KEN_ID
         },
         {}, # Tahereh Mafi
         {}, # Jason Reynolds
@@ -109,22 +118,22 @@ module Demo::ReportDemoCreator
     },
     {
       name: 'Starter Growth Diagnostic (Post)',
-      unit_template_id: 217,
+      unit_template_id: 651,
       activity_sessions: [
         {
-          1664 => KEN_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => KEN_ID
         },
         {
-          1664 => TAHEREH_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => TAHEREH_ID
         },
         {
-          1664 => JASON_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => JASON_ID
         },
         {
-          1664 => NIC_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => NIC_ID
         },
         {
-          1664 => ANGIE_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => ANGIE_ID
         }
       ]
     },
