@@ -22,39 +22,49 @@ module ContentHubsHelper
 
     classroom_ids_as_string = classrooms.map(&:id).join(',')
 
-    course_data.map do |unit_template|
-      unit_template[:activities].map do |activity|
-
-        unit_activities = UnitActivity
-          .joins(:classroom_units)
-          .where(activity_id: activity[:activity_id])
-          .where("classroom_units.classroom_id IN (#{classroom_ids_as_string})")
-
-        classroom_units = ClassroomUnit.where(unit_id: unit_activities.pluck(:unit_id))
-        activity_sessions = ActivitySession.completed.where(classroom_unit: classroom_units.ids, activity_id: activity[:activity_id], is_final_score: true)
-        activity_sessions_with_scores = activity_sessions.where.not(percentage: nil)
-
-        last_classroom_unit = classroom_units.last
-        last_activity_session = activity_sessions.last
-
-        activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
-        activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
-        activity[:link_for_report] = last_classroom_unit ? get_link_for_report(activity, last_classroom_unit, last_activity_session) : nil
-        activity[:average_score] = activity_sessions_with_scores.empty? ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
-
-        activity
-      end
-      unit_template
-    end
+    course_data.map { |unit_template| assignment_data_for_unit_template(unit_template, classroom_ids_as_string) }
   end
 
-  def get_link_for_report(activity, last_classroom_unit, last_activity_session)
-    unit_id = last_activity_session&.unit&.id || last_classroom_unit.unit_id
-    classroom_id = last_activity_session&.classroom&.id || last_classroom_unit.classroom_id
+  def assignment_data_for_unit_template(unit_template, classroom_ids_as_string)
+    unit_template[:activities].map do |activity|
+
+      unit_activities = UnitActivity
+        .joins(:classroom_units)
+        .where(activity_id: activity[:activity_id])
+        .where("classroom_units.classroom_id IN (#{classroom_ids_as_string})")
+
+      classroom_units = ClassroomUnit.where(unit_id: unit_activities.pluck(:unit_id))
+      activity_sessions = ActivitySession.completed.where(classroom_unit: classroom_units.ids, activity_id: activity[:activity_id], is_final_score: true)
+      activity_sessions_with_scores = activity_sessions.where.not(percentage: nil)
+
+      activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
+      activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
+      activity[:link_for_report] = get_link_for_report(activity, classroom_units, activity_sessions)
+      activity[:average_score] = activity_sessions_with_scores.empty? ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
+
+      activity
+    end
+    unit_template
+  end
+
+  def get_link_for_report(activity, classroom_units, activity_sessions)
+    last_classroom_unit = classroom_units.last
+    last_activity_session = activity_sessions.last
+
+    unit_id = unit_id_for_report(last_classroom_unit, last_activity_session)
+    classroom_id = classroom_id_for_report(last_classroom_unit, last_activity_session)
 
     return nil if !(unit_id && classroom_id)
 
     "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity[:activity_id]}/c/#{classroom_id}/students"
+  end
+
+  def unit_id_for_report(last_classroom_unit, last_activity_session)
+    last_activity_session&.unit&.id || last_classroom_unit.unit_id
+  end
+
+  def classroom_id_for_report(last_classroom_unit, last_activity_session)
+    last_activity_session&.classroom&.id || last_classroom_unit.classroom_id
   end
 
   def world_history_1200_to_present_data
