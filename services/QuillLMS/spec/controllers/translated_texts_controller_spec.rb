@@ -34,6 +34,30 @@ RSpec.describe TranslatedTextsController, type: :controller do
       it 'assigns @js_file' do
         expect(assigns(:js_file)).to eq("entrypoints/snippets/translated_text.ts")
       end
+
+      it 'assigns @locales' do
+        create(:translated_text, locale: "es-la")
+        create(:translated_text, locale: "zh-cn")
+        get :index
+        expect(assigns(:locales)).to match_array(["es-la", "zh-cn"])
+      end
+
+      context 'a locale parameter is passed in' do
+        let(:locale) { 'es-la'}
+        let!(:es_text) { create(:translated_text, locale:) }
+        let!(:zh_text) { create(:translated_text, locale: "zh-cn") }
+        before do
+          get :index, params: { locale: }
+        end
+
+        it 'assigns translated_texts for that locale' do
+          expect(assigns(:translated_texts)).to include(es_text)
+        end
+
+        it 'does not add translated_texts for other locales' do
+          expect(assigns(:translated_texts)).not_to include(zh_text)
+        end
+      end
     end
 
     context 'when user is not staff' do
