@@ -7,7 +7,7 @@ import { requestGet, } from '../../../modules/request'
 const chevronLeftImgSrc = `${process.env.CDN_URL}/images/icons/xs/chevron-left.svg`
 const headerImgSrc = `${process.env.CDN_URL}/images/pages/content_hub/world_history_1200_to_present@2x.png`
 
-const imageCreditTooltipText = '<p><a href="https://purl.stanford.edu/cr193ys2567" rel="noopener noreferrer" target="_blank">"A New and Accurat Map of the World Drawne according to ye truest Descriptions lastest Discoveries & best observations yt have beene made by English or Strangers."</a> by John Speed (1552-1629), <a href="https://exhibits.stanford.edu/ruderman" target="_blank" rel="noopener noreferrer">The Barry Lawrence Ruderman Map Collection</a>, <a href="https://www.stanford.edu/" target="_blank" rel="noopener noreferrer">Stanford University</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a></p>'
+const imageCreditTooltipText = '<p><a href="https://purl.stanford.edu/cr193ys2567" rel="noopener noreferrer" target="_blank">"A New and Accurat Map of the World Drawne according to ye truest Descriptions lastest Discoveries & best observations yt have beene made by English or Strangers."</a> by John Speed (1552-1629), <a href="https://exhibits.stanford.edu/ruderman" rel="noopener noreferrer" target="_blank">The Barry Lawrence Ruderman Map Collection</a>, <a href="https://www.stanford.edu/" rel="noopener noreferrer" target="_blank">Stanford University</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" rel="noopener noreferrer" target="_blank">CC BY-NC-SA 4.0</a></p>'
 
 const LOCAL_STORAGE_KEY = 'worldHistory1200ToPresentExpandedUnitTemplateIds'
 

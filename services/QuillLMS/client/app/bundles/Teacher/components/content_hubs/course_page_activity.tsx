@@ -45,7 +45,7 @@ const CoursePageActivity = ({ activity, }) => {
         <h5>{display_name}</h5>
         <p>{description}</p>
         {paired_oer_asset_link && paired_oer_asset_name && (
-          <p className="oer-asset-line">Optional Paired OER Activity: <a href={paired_oer_asset_link} target="_blank" rel="noopener noreferrer">{paired_oer_asset_name}</a></p>
+          <p className="oer-asset-line">Optional Paired OER Activity: <a href={paired_oer_asset_link} rel="noopener noreferrer" target="_blank">{paired_oer_asset_name}</a></p>
         )}
       </div>
       {resultsSection}

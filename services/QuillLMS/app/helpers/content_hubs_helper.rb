@@ -37,7 +37,7 @@ module ContentHubsHelper
         activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
         activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
         activity[:link_for_report] = get_link_for_report(activity, classroom_units, activity_sessions)
-        activity[:average_score] = activity_sessions_with_scores.length > 0 ? activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count : nil
+        activity[:average_score] = activity_sessions_with_scores.empty ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
 
         activity
       end
@@ -47,10 +47,13 @@ module ContentHubsHelper
 
   def get_link_for_report(activity, classroom_units, activity_sessions)
     last_classroom_unit = classroom_units.last
+
+    return nil unless last_classroom_unit
+
     last_activity_session = activity_sessions.last
 
-    unit_id = last_activity_session&.unit&.id || last_classroom_unit&.unit_id
-    classroom_id = last_activity_session&.classroom&.id || last_classroom_unit&.classroom_id
+    unit_id = last_activity_session&.unit&.id || last_classroom_unit.unit_id
+    classroom_id = last_activity_session&.classroom&.id || last_classroom_unit.classroom_id
 
     unit_id ? "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity[:activity_id]}/c/#{classroom_id}/students" : nil
   end

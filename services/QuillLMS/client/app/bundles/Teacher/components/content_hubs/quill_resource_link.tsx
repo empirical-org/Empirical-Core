@@ -7,7 +7,8 @@ const ComingSoonTooltip = ({ tooltipTrigger, }) => {
     <Tooltip
       tooltipText="Coming soon!"
       tooltipTriggerText={tooltipTrigger}
-  />)
+    />
+  )
 }
 
 export default ComingSoonTooltip

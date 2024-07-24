@@ -62,9 +62,9 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
       <div className="oer-resources-section">
         <h4>OER Project Aligned Resources</h4>
         <div className="links">
-          <a className="quill-button focus-on-light small outlined grey" href={oer_unit_website} target='_blank' rel='noopener noreferrer'>OER Unit {oer_unit_number} website</a>
-          <a className="quill-button focus-on-light small outlined grey" href={oer_unit_teacher_guide} target='_blank' rel='noopener noreferrer'>OER Unit {oer_unit_number} teacher guide</a>
-          <a className="quill-button focus-on-light small outlined grey" href={all_oer_articles} target='_blank' rel='noopener noreferrer'>Download all OER Unit {oer_unit_number} articles</a>
+          <a className="quill-button focus-on-light small outlined grey" href={oer_unit_website} rel="noopener noreferrer" target="_blank">OER Unit {oer_unit_number} website</a>
+          <a className="quill-button focus-on-light small outlined grey" href={oer_unit_teacher_guide} rel="noopener noreferrer" target="_blank">OER Unit {oer_unit_number} teacher guide</a>
+          <a className="quill-button focus-on-light small outlined grey" href={all_oer_articles} rel="noopener noreferrer" target="_blank">Download all OER Unit {oer_unit_number} articles</a>
         </div>
       </div>
     )

@@ -6,7 +6,7 @@ const QuillResourceLink = ({ text, href, }) => {
   const className = "quill-button focus-on-light outlined medium grey"
 
   if (href) {
-    return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{text}</a>
+    return <a className={className} href={href} rel="noopener noreferrer" target="_blank">{text}</a>
   }
 
   return (
