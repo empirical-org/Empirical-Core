@@ -1,14 +1,19 @@
 import * as React from 'react'
 
-import { Tooltip, } from '../../../Shared/index'
+import ComingSoonTooltip from './coming_soon_tooltip'
 
-const ComingSoonTooltip = ({ tooltipTrigger, }) => {
+const QuillResourceLink = ({ text, href, }) => {
+  const className = "quill-button focus-on-light outlined medium grey"
+
+  if (href) {
+    return <a className={className} href={href} rel="noopener noreferrer" target="_blank">{text}</a>
+  }
+
   return (
-    <Tooltip
-      tooltipText="Coming soon!"
-      tooltipTriggerText={tooltipTrigger}
+    <ComingSoonTooltip
+      tooltipTrigger={<button className={className} disabled={true}>{text}</button>}
     />
   )
 }
 
-export default ComingSoonTooltip
+export default QuillResourceLink
