@@ -44,6 +44,7 @@ module ContentHubsHelper
 
       activity
     end
+
     unit_template
   end
 
@@ -60,11 +61,11 @@ module ContentHubsHelper
   end
 
   def unit_id_for_report(last_classroom_unit, last_activity_session)
-    last_activity_session&.unit&.id || last_classroom_unit.unit_id
+    last_activity_session&.unit&.id || last_classroom_unit&.unit_id
   end
 
   def classroom_id_for_report(last_classroom_unit, last_activity_session)
-    last_activity_session&.classroom&.id || last_classroom_unit.classroom_id
+    last_activity_session&.classroom&.id || last_classroom_unit&.classroom_id
   end
 
   def world_history_1200_to_present_data
