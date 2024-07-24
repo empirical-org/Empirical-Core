@@ -36,7 +36,6 @@ describe PasswordResetController do
         expect(ExpirePasswordTokenWorker).to receive(:perform_in).with(24.hours, user.id)
         post :create, params: { user: { email: user.email } }
         expect(response.body).to eq ({ redirect: '/password_reset' }.to_json)
-
       end
     end
 
@@ -127,6 +126,5 @@ describe PasswordResetController do
       expect(response.body).to eq({ redirect: '/profile' }.to_json)
       expect(@user.reload.token).to eq nil
     end
-
   end
 end

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe UserFlagset, type: :model do
-
   context 'validations' do
     it 'should validate flagset is a member of FLAGSETS' do
       expect { create(:user) }.to_not raise_error
@@ -32,7 +31,5 @@ RSpec.describe UserFlagset, type: :model do
       expect(alpha_user.activity_viewable?(alpha_activity)).to eq true
       expect(alpha_user.activity_viewable?(normal_activity)).to eq true
     end
-
   end
-
 end

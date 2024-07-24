@@ -7,7 +7,6 @@ describe VerifyEmailsController do
   let(:user) { create(:user) }
 
   describe '#resend_verification_email' do
-
     before do
       allow(controller).to receive(:current_user) { user }
     end
@@ -21,9 +20,7 @@ describe VerifyEmailsController do
     end
   end
 
-
   describe '#require_email_verification' do
-
     before do
       allow(controller).to receive(:current_user) { user }
     end
@@ -64,7 +61,6 @@ describe VerifyEmailsController do
         post :require_email_verification, params: {}, format: :json
       end
     end
-
   end
 
   context 'with an existing verification record' do

@@ -2,7 +2,6 @@
 
 module Evidence
   class Check::Plagiarism < Check::Base
-
     def run
       rule = prompt.rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
       feedback = get_plagiarism_feedback_from_previous_feedback(previous_feedback, rule)

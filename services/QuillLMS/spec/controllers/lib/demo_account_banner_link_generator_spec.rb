@@ -7,7 +7,6 @@ class FakeController < ApplicationController
 end
 
 describe FakeController, type: :controller do
-
   describe 'link generation methods' do
     let!(:classroom) { create(:classroom, name: DemoAccountBannerLinkGenerator::DEMO_ACCOUNT_CLASSROOM_NAME) }
     let!(:owner) { classroom.owner }
@@ -19,7 +18,6 @@ describe FakeController, type: :controller do
     let!(:post_test_unit) { create(:unit, user_id: owner.id) }
     let!(:post_test_unit_activity) { create(:unit_activity, unit: post_test_unit, activity: post_test_activity) }
     let!(:post_test_classroom_unit) { create(:classroom_unit, classroom: classroom, unit: post_test_unit) }
-
 
     before do
       session[:user_id] = owner.id
@@ -49,7 +47,6 @@ describe FakeController, type: :controller do
         pre_test_classroom_unit.destroy
         expect(controller.demo_account_recommendations_link).to eq("#{teachers_progress_reports_diagnostic_reports_path}#diagnostics")
       end
-
     end
 
     describe '#demo_account_growth_summary_link' do
@@ -77,6 +74,5 @@ describe FakeController, type: :controller do
         expect(controller.demo_account_growth_summary_link).to eq("#{teachers_progress_reports_diagnostic_reports_path}#diagnostics")
       end
     end
-
   end
 end

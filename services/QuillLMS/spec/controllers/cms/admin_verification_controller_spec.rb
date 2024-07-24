@@ -90,7 +90,5 @@ describe Cms::AdminVerificationController do
         expect(admin_info.reload.approval_status).to eq(AdminInfo::PENDING)
       end
     end
-
   end
-
 end

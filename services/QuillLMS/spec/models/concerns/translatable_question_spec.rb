@@ -44,7 +44,6 @@ shared_context 'array and hash data fields' do |data_field|
   end
 end
 
-
 RSpec.describe TranslatableQuestion do
   before do
     ENV['CMS_URL'] = 'https://cms.quill.org'
@@ -127,9 +126,7 @@ RSpec.describe TranslatableQuestion do
           expect(translation_map1.text).to eq(feedback1)
           expect(translation_map2.text).to eq(feedback2)
         end
-
       end
-
     end
   end
 end

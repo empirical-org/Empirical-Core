@@ -8,6 +8,4 @@ namespace :redis do
     end
     puts 'finished'
   end
-
-
 end

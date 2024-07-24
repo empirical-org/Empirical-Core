@@ -28,7 +28,6 @@
 require 'rails_helper'
 
 RSpec.describe ChangeLog, type: :model do
-
   it { should belong_to(:changed_record) }
   it { should belong_to(:user) }
 
@@ -69,5 +68,4 @@ RSpec.describe ChangeLog, type: :model do
       expect(change_log.save).not_to be
     end
   end
-
 end

@@ -19,7 +19,6 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-
   it { expect(Question.ancestors).to include(Translatable) }
 
   let(:question) { create(:question) }
@@ -526,5 +525,4 @@ RSpec.describe Question, type: :model do
       end
     end
   end
-
 end

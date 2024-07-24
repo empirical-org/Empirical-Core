@@ -53,7 +53,6 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
     params.require(:concept_feedback).except(:uid)
   end
 
-
   private def cached_concept_feedbacks(translated: false)
     $redis.get(cache_key(translated)) || fetch_and_cache_concept_feedbacks(translated:)
   end

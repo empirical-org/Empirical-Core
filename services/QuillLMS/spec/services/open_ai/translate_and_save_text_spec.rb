@@ -54,7 +54,6 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
         subject
         expect(translated_text.reload.translation).to eq(response)
       end
-
     end
 
     context 'the response is nil' do

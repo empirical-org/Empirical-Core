@@ -25,5 +25,4 @@ class Criterion < ApplicationRecord
   belongs_to :concept
   validates :recommendation, :concept, :count, presence: true
   validates :no_incorrect, inclusion: [true, false]
-
 end

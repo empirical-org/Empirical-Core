@@ -23,7 +23,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class TeacherInfo < ApplicationRecord
-
   NOTIFICATION_EMAIL_FREQUENCIES = [
     NEVER_EMAIL = 'never',
     HOURLY_EMAIL = 'hourly',

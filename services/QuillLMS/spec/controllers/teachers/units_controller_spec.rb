@@ -127,7 +127,6 @@ describe Teachers::UnitsController, type: :controller do
         }.to_json)
       end
     end
-
   end
 
   describe '#diagnostic_units' do
@@ -344,7 +343,6 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#update' do
-
     it 'sends a 200 status code when a unique name is sent over' do
       put :update, params: { id: unit.id, unit: {
                       name: 'Super Unique Unit Name'
@@ -357,12 +355,10 @@ describe Teachers::UnitsController, type: :controller do
                       name: unit2.name
                     } }
       expect(response.status).to eq(422)
-
     end
   end
 
   describe '#classrooms_with_students_and_classroom_units' do
-
     it 'returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id' do
       get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
       res = JSON.parse(response.body)
@@ -373,16 +369,13 @@ describe Teachers::UnitsController, type: :controller do
       expect(res['classrooms'].first['classroom_unit']).to eq({ 'id' => classroom_unit.id, 'assigned_student_ids' => classroom_unit.assigned_student_ids, 'assign_on_join' => true })
     end
 
-
     it 'sends a 422 error code when it is not passed a valid unit id' do
       get :classrooms_with_students_and_classroom_units, params: { id: Unit.count + 1000 }
       expect(response.status).to eq(422)
     end
-
   end
 
   describe '#update_classroom_unit_assigned_students' do
-
     it 'sends a 200 status code when it is passed valid data' do
       put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
             classrooms: [{ id: classroom.id, student_ids: [student.id] }]
@@ -396,11 +389,9 @@ describe Teachers::UnitsController, type: :controller do
           } }
       expect(response.status).to eq(422)
     end
-
   end
 
   describe '#restore_classroom_unit_assignment_for_one_student' do
-
     before do
       ClassroomUnit.update(assigned_student_ids: [])
       completed_activity_session.update(visible: false)
@@ -414,11 +405,9 @@ describe Teachers::UnitsController, type: :controller do
 
       expect(response.status).to eq(200)
     end
-
   end
 
   describe '#update_activities' do
-
     it 'sends a 200 status code when it is passed valid data' do
       activity = unit_activity.activity
       put :update_activities,

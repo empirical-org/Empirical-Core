@@ -37,7 +37,6 @@ module GoogleIntegration
       end
 
       context 'when a client error with a different status code occurs' do
-
         before { allow(CourseStudentsAggregator).to receive(:run).with(api, course_id).and_raise(error400) }
 
         it do

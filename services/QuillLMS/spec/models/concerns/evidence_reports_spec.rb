@@ -30,7 +30,6 @@ describe EvidenceReports, type: :model do
 
       it { is_expected.to eq(nil) }
     end
-
   end
 
   describe '#get_feedback_history_from_activity_session_prompt_text_and_attempt_number' do
@@ -121,7 +120,6 @@ describe EvidenceReports, type: :model do
 
       it { is_expected.to eq(nil) }
     end
-
   end
 
   describe '#format_max_attempts_feedback' do
@@ -214,5 +212,4 @@ describe EvidenceReports, type: :model do
       end
     end
   end
-
 end

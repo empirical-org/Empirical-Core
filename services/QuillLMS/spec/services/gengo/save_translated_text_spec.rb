@@ -44,7 +44,6 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
       allow(GengoAPI).to receive(:getTranslationJob).and_return(response)
     end
 
-
     it { expect{ subject }.to change{ GengoJob.where(english_text_id:, locale:, translation_job_id: job_id).count }.by(1) }
 
     context 'the gengo_job already exists in our database' do
@@ -96,7 +95,6 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
               expect{ subject }.to change{ gengo_job.reload.translated_text_id }.to(translated_text.id)
             end
           end
-
         end
 
         context 'the response status is deleted' do

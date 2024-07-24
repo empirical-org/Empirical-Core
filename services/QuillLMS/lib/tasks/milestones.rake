@@ -13,7 +13,6 @@ namespace :milestones do
     end
   end
 
-
   module MilestoneCreator
     def self.data
       [

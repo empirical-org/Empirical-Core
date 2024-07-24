@@ -32,7 +32,6 @@ class Queries < Thor
   # e.g. bundle exec thor queries:print_snapshot_sql 9874030 'sentences-written'
   desc 'print_snapshot_sql user_id query_key', 'Print the SQL and data usage for a snaphot query to the console'
   def print_snapshot_sql(user_id, query_key, start_time = DEFAULT_START, end_time = DEFAULT_END)
-
     timeframe_start = DateTime.parse(start_time)
     timeframe_end = DateTime.parse(end_time)
     school_ids = school_ids_for_user(user_id)
@@ -53,7 +52,6 @@ class Queries < Thor
   option :ids, type: :array, required: true
   desc 'run_all_snapshots', 'Print the SQL and data usage for a snaphot query to the console'
   def run_all_snapshots(start_time = DEFAULT_START, end_time = DEFAULT_END)
-
     timeframe_start = DateTime.parse(start_time)
     timeframe_end = DateTime.parse(end_time)
 

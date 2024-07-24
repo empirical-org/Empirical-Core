@@ -10,7 +10,6 @@ namespace :learn_worlds do
     lw_users.each do |row|
       body = { username: LearnWorldsIntegration::Helpers.to_username(row.user.username.presence || row.user.name) }
 
-
       result = HTTParty.put(
         "#{LearnWorldsIntegration::USER_TAGS_ENDPOINT}/#{row.external_id}",
         body: body.to_json,
@@ -20,6 +19,5 @@ namespace :learn_worlds do
       puts "Backfilling user: #{row.user.name}, HTTP response: #{result.code}"
       sleep 1
     end
-
   end
 end

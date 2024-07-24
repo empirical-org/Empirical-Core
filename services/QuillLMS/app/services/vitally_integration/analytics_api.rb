@@ -8,7 +8,6 @@ module VitallyIntegration
     ENDPOINT_UNLINK = 'unlink'
     API_KEY = ENV['VITALLY_API_KEY']
 
-
     class RateLimitError < StandardError; end
     class ApiError < StandardError; end
 

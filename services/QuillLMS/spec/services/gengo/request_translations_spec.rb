@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 RSpec.describe Gengo::RequestTranslations, type: :service do
-
   let(:text1) { create(:english_text) }
   let(:text2) { create(:english_text) }
 
@@ -55,7 +54,6 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
       end
     end
   end
-
 
   describe 'run' do
     subject { described_class.run([text1, text2], Translatable::DEFAULT_LOCALE) }

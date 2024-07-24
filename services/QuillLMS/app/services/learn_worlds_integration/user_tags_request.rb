@@ -2,7 +2,6 @@
 
 module LearnWorldsIntegration
   class UserTagsRequest < Request
-
     attr_reader :external_id, :tags
 
     def initialize(external_id, tags)
@@ -19,6 +18,5 @@ module LearnWorldsIntegration
     def body = data.to_json
 
     def data = { tags: }
-
   end
 end

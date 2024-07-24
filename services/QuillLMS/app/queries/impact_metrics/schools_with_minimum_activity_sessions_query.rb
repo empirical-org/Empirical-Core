@@ -2,7 +2,6 @@
 
 module ImpactMetrics
   class SchoolsWithMinimumActivitySessionsQuery < ::QuillBigQuery::Query
-
     def run
       runner.execute(query)
     end

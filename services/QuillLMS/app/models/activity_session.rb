@@ -34,7 +34,6 @@
 #  new_activity_sessions_user_id_idx            (user_id)
 #
 class ActivitySession < ApplicationRecord
-
   class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
   class StudentNotAssignedActivityError < StandardError; end
 

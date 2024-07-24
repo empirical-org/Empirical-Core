@@ -17,7 +17,6 @@ module TeacherNotifications
     let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: classroom_unit) }
 
     describe '#send_complete_all_assigned_activities' do
-
       it 'should return early if the student still has any incomplete activities assigned to them' do
         incomplete_activity = create(:activity)
         unit_template.activities_unit_templates.create!(activity: incomplete_activity)

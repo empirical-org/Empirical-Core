@@ -2,7 +2,6 @@
 
 module LearnWorldsIntegration
   class UnsuspendUserRequest < Request
-
     attr_reader :external_id
 
     def initialize(external_id)

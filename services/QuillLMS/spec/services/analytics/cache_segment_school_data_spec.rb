@@ -100,5 +100,4 @@ RSpec.describe Analytics::CacheSegmentSchoolData do
     end
   end
   # rubocop:enable RSpec/SubjectStub
-
 end

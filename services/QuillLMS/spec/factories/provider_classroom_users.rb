@@ -18,7 +18,6 @@
 #
 FactoryBot.define do
   factory :provider_classroom_user do
-
     trait(:active) { deleted_at { nil } }
     trait(:synced) { active }
 

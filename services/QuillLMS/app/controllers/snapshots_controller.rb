@@ -237,7 +237,6 @@ class SnapshotsController < ApplicationController
   end
 
   private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
-
     Snapshots::CacheKeys.generate_key(CACHE_REPORT_NAME,
       @query,
       timeframe_name,
@@ -279,5 +278,4 @@ class SnapshotsController < ApplicationController
   private def initial_load?
     option_params[:is_initial_load].in?([true, 'true'])
   end
-
 end

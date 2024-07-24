@@ -109,7 +109,6 @@ describe Teachers::ClassroomUnitsController, type: :controller do
     before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#launch_lesson' do
-
       it 'should redirect to login' do
         get :launch_lesson, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
@@ -118,7 +117,6 @@ describe Teachers::ClassroomUnitsController, type: :controller do
     end
 
     describe '#mark_lesson_as_completed' do
-
       it 'should redirect to login' do
         get :mark_lesson_as_completed, params: { id: classroom_unit.id, lesson_uid: activity.uid }
 
@@ -126,5 +124,4 @@ describe Teachers::ClassroomUnitsController, type: :controller do
       end
     end
   end
-
 end

@@ -19,11 +19,9 @@ RSpec.describe CleverIntegration::DistrictStudentDataAdapter do
     it { expect(subject).to eq student2_attrs }
   end
 
-
   context 'student_data3: invalid email and nil district_username' do
     let(:student_data) { student3_data }
 
     it { expect(subject).to eq student3_attrs }
   end
 end
-

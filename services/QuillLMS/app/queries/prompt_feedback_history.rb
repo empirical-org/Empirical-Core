@@ -110,5 +110,4 @@ class PromptFeedbackHistory
       payload['avg_confidence'] ? payload['avg_confidence'].round(2) * 100 : 0
     end
   end
-
 end

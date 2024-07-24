@@ -11,7 +11,6 @@ namespace :translate do
       puts "translating #{index + 1}/#{count}..."
       OpenAI::TranslateWorker.perform_async(hint.id, hint.class.name, locale)
     end
-
   end
 
   desc 'translate activities and their questions'
@@ -326,5 +325,4 @@ namespace :translate do
     8f401c3f-4f75-4141-a41d-42d5643e7f72
     )
   end
-
 end

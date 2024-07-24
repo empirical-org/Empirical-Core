@@ -25,5 +25,3 @@ RSpec.describe CanvasIntegration::ClassroomStudentsData do
   it { expect(subject.to_a).to match_array classroom_students_data }
   it { expect(subject.classroom_external_id).to eq classroom.classroom_external_id }
 end
-
-

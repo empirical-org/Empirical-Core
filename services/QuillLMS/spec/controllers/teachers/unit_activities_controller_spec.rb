@@ -62,5 +62,4 @@ describe Teachers::UnitActivitiesController, type: :controller do
       expect(unit_activity3.reload.publish_date).to eq new_publish_date
     end
   end
-
 end

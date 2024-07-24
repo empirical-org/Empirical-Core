@@ -61,5 +61,4 @@ describe Teachers::ProgressReports::ActivitySessionsController, type: :controlle
       end
     end
   end
-
 end

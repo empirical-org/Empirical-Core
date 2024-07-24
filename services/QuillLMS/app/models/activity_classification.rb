@@ -23,7 +23,6 @@
 #  index_activity_classifications_on_uid  (uid) UNIQUE
 #
 class ActivityClassification < ApplicationRecord
-
   include Uid
 
   has_many :activities, dependent: :destroy

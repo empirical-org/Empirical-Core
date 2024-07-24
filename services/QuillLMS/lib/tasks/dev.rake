@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
 namespace :dev do
-
   desc 'easy tool to make this work locally with oauth apps'
   task :reset_apps => :environment do
     ActivityClassification.all.each { |app| switch_to_local(app, ['form_url', 'module_url']) }
 
     puts 'Replaced existing OAuth endpoints and app with localhost:4000 choices -- remember to run grammar there'
-
   end
 
-
   def switch_to_local(app, keys)
-
     keys.each do |key|
       rd_uri = URI.parse(app.send(key))
       if Rails.env.development?

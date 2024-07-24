@@ -23,7 +23,6 @@
 require 'rails_helper'
 
 describe PromptHealth, type: :model, redis: true do
-
   it { should belong_to(:activity_health) }
 
   it { should validate_inclusion_of(:flag).in_array(PromptHealth::FLAGS) }
@@ -51,5 +50,4 @@ describe PromptHealth, type: :model, redis: true do
       }.stringify_keys)
     end
   end
-
 end

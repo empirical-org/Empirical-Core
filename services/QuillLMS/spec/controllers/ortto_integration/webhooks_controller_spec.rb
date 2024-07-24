@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe OrttoIntegration::WebhooksController, type: :controller do
-
   describe '#create' do
     let(:ortto_secret) { 'xyz' }
 
@@ -37,6 +36,5 @@ RSpec.describe OrttoIntegration::WebhooksController, type: :controller do
         end
       end
     end
-
   end
 end

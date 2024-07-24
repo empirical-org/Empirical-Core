@@ -37,5 +37,4 @@ class StudentDashboardMetrics
         .where(visible: true)
     end
   end
-
 end

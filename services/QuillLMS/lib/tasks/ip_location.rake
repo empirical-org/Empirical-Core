@@ -14,5 +14,4 @@ namespace :ip_location do
       IpLocationWorker.perform_async(t.id, t.ip_address, ['10005', '11237', '11385', '11212'])
     end
   end
-
 end

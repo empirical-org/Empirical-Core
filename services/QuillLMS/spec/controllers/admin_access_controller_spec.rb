@@ -95,5 +95,4 @@ describe AdminAccessController do
       post :invite_admin, params: { admin_name: admin_name, admin_email: admin_email, note: note }
     end
   end
-
 end

@@ -47,7 +47,6 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#readability' do
-
     it 'calculates readability range across activities by merging the lowest readability grade level and highest readability grade level' do
       raw_score_one = create(:raw_score, :four_hundred_to_five_hundred)
       raw_score_two = create(:raw_score, :eight_hundred_to_nine_hundred)
@@ -82,9 +81,7 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#grade_level_range' do
-
     it 'calculates grade_level_range range across activities as the highest included grade level' do
-
       activity_one = create(:activity, minimum_grade_level: 4, maximum_grade_level: 12)
       activity_two = create(:activity, minimum_grade_level: 10, maximum_grade_level: 12)
 
@@ -325,7 +322,6 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#around_save callback' do
-
     before do
       $redis.redis.flushdb
       $redis.multi{
@@ -363,9 +359,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
-
   describe 'flag validations' do
-
     it 'can equal production' do
       unit_template.update(flag:'production')
       expect(unit_template).to be_valid
@@ -405,7 +399,6 @@ describe UnitTemplate, redis: true, type: :model do
       expect($redis.get('alpha_unit_templates')).to eq nil
       expect($redis.get('private_unit_templates')).to eq nil
     end
-
   end
 
   describe 'scope results' do
@@ -416,17 +409,13 @@ describe UnitTemplate, redis: true, type: :model do
     let!(:all_types){ [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
 
     context 'the default scope' do
-
       it 'must show all types of flagged activities when default scope' do
-
         default_results = UnitTemplate.all
         expect(all_types - default_results).to eq []
       end
-
     end
 
     context 'the production scope' do
-
       it 'must show only production flagged activities' do
         expect(all_types - UnitTemplate.production).to eq [gamma_unit_template, beta_unit_template, alpha_unit_template]
       end
@@ -434,11 +423,9 @@ describe UnitTemplate, redis: true, type: :model do
       it 'must return the same thing as UnitTemplate.user_scope(nil)' do
         expect(UnitTemplate.production).to eq (UnitTemplate.user_scope(nil))
       end
-
     end
 
     context 'the gamma_user scope' do
-
       it 'must show only production and gamma flagged activities' do
         expect(all_types - UnitTemplate.gamma_user).to eq [beta_unit_template, alpha_unit_template]
       end
@@ -446,12 +433,9 @@ describe UnitTemplate, redis: true, type: :model do
       it 'must return the same thing as UnitTemplate.user_scope(gamma)' do
         expect(UnitTemplate.gamma_user).to eq (UnitTemplate.user_scope('gamma'))
       end
-
-
     end
 
     context 'the beta_user scope' do
-
       it 'must show only production and beta and gamma flagged activities' do
         expect(all_types - UnitTemplate.beta_user).to eq [alpha_unit_template]
       end
@@ -459,12 +443,9 @@ describe UnitTemplate, redis: true, type: :model do
       it 'must return the same thing as UnitTemplate.user_scope(beta)' do
         expect(UnitTemplate.beta_user).to eq (UnitTemplate.user_scope('beta'))
       end
-
-
     end
 
     context 'the alpha_user scope' do
-
       it 'must show all types of flags except for archived with alpha_user scope' do
         expect(all_types - UnitTemplate.alpha_user).to eq []
       end
@@ -472,10 +453,6 @@ describe UnitTemplate, redis: true, type: :model do
       it 'must return the same thing as UnitTemplate.user_scope(alpha)' do
         expect(UnitTemplate.alpha_user).to eq (UnitTemplate.user_scope('alpha'))
       end
-
     end
-
   end
-
-
 end

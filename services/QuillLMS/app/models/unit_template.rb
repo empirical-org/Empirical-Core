@@ -205,5 +205,4 @@ class UnitTemplate < ApplicationRecord
       $redis.del("#{flag}unit_templates")
     end
   end
-
 end

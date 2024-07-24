@@ -14,7 +14,6 @@ class AddVersionToDataset < ActiveRecord::Migration[7.0]
           .order(version: :desc)
           .first&.version
 
-
       Evidence::Research::GenAI::Dataset
         .where(id: dataset.id)
         .update_all(version: existing_version.is_a?(Integer) ? existing_version + 1 : 1)

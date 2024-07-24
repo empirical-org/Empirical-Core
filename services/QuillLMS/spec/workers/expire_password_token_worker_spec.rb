@@ -29,4 +29,3 @@ RSpec.describe ExpirePasswordTokenWorker do
     it { expect { subject }.to change { user.reload.token }.to(nil) }
   end
 end
-

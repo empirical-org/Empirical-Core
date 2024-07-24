@@ -2,7 +2,6 @@
 
 module OpenAI
   class TranslateAndSaveText < ApplicationService
-
     class OpenAITranslationError < StandardError; end
     attr_reader :english_text, :locale, :prompt
 

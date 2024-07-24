@@ -4,7 +4,6 @@ require_relative '../progress_bar'
 
 namespace :students do
   task remove_users_with_same_email: :environment do
-
     duplicate_emails = User.student.where.not(email: [nil, '']).group(:email).having('count(email) > 1').pluck(:email)
 
     progress_bar = ProgressBar.new(duplicate_emails.size)

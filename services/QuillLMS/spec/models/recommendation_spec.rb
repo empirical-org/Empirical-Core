@@ -24,7 +24,6 @@
 require 'rails_helper'
 
 RSpec.describe Recommendation, type: :model do
-
   describe 'associations' do
     it { should belong_to(:activity) }
     it { should belong_to(:unit_template) }

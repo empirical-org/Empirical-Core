@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe CleanConceptResultInstructionsWorker, type: :worker do
-
   context '#perform' do
     let(:concept_result_instructions) { create(:concept_result_instructions) }
     let!(:concept_result) { create(:concept_result, concept_result_instructions: concept_result_instructions, extra_metadata: { 'instructions': concept_result_instructions.text }) }

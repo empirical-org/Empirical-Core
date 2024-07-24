@@ -74,7 +74,6 @@ describe Cms::CriteriaController do
     let(:concept) { create(:concept) }
     let(:criterion) { create(:criterion, concept: concept, count: 1, no_incorrect: 0) }
 
-
     it 'should destroy the given criterion' do
       delete :destroy, params: { activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id, id: criterion.id }
       expect{ Criterion.find(criterion.id) }.to raise_exception ActiveRecord::RecordNotFound

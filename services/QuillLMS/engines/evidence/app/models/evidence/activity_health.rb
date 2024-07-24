@@ -21,7 +21,6 @@
 #
 module Evidence
   class ActivityHealth < ApplicationRecord
-
     POOR_HEALTH_CUTOFF = 75
 
     has_many :prompt_healths, foreign_key: 'evidence_activity_health_id', dependent: :destroy

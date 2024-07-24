@@ -13,7 +13,6 @@
 #  updated_at :datetime
 #
 class FirebaseApp < ApplicationRecord
-
   def token_for(user)
     payload = create_payload(user)
     token_generator.create_token(payload)

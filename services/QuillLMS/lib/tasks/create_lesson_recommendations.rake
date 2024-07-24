@@ -462,7 +462,6 @@ namespace :recommendations do
         end
       end
     end
-
   end
 
   task :create_group => :environment do
@@ -686,7 +685,5 @@ namespace :recommendations do
         end
       end
     end
-
   end
-
 end

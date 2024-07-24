@@ -33,7 +33,6 @@ guard :rspec, cmd: 'spring rspec' do
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
 end
 
-
 # Add files and commands to this file, like the example:
 #   watch(%r{file/path}) { `command(s)` }
 #

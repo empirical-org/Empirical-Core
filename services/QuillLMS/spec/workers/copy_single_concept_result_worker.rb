@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe CopySingleConceptResultWorker, type: :worker do
-
   context '#perform' do
     let(:question) { create(:question) }
     let(:activity) { create(:activity, data: { questions: [{ key: question.uid }] }) }

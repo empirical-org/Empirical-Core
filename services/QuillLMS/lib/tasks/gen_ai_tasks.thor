@@ -3,7 +3,6 @@
 require_relative '../../config/environment'
 
 class GenAITasks < Thor
-
   # bundle exec thor gen_a_i_tasks:optimal_test 'because' 2
   desc "sample_test 'because' 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
   def sample_test(conjunction, limit = 10, optimal = true, template_file = nil)

@@ -13,7 +13,6 @@ module Evidence
     isolate_namespace Evidence
 
     config.generators do |g|
-
       g.orm :active_record
       g.test_framework :rspec, fixtures: false
       g.fixtures false

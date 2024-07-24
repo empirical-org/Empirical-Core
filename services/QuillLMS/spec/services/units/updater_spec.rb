@@ -32,21 +32,17 @@ describe Units::Updater do
     describe 'assign_unit_template_to_one_class' do
       context 'there are already students assigned to the classroom unit' do
         describe 'concatenate_existing_student_ids is true' do
-
           it 'should add the new student to the array but also keep the old one' do
             classroom_data = { id: classroom.id, student_ids: [student1.id] }
             Units::Updater.assign_unit_template_to_one_class(unit_based_on_unit_template.id, classroom_data, unit_template.id, teacher.id, concatenate_existing_student_ids: true)
             expect(classroom_unit_for_unit_template.reload.assigned_student_ids).to eq([student.id, student1.id])
           end
-
         end
       end
     end
 
     describe "the updated classroom_unit's" do
-
         context 'assigned_student_ids array overwrites when the old array was' do
-
             describe 'assigned to all students' do
               def update_ca_to_all_assigned
                 cu_with_unit.update(assigned_student_ids: [], assign_on_join: true)
@@ -68,7 +64,6 @@ describe Units::Updater do
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.assigned_student_ids).to eq([student.id])
               end
-
             end
 
             describe 'assigned to some students' do
@@ -98,11 +93,8 @@ describe Units::Updater do
                 Units::Updater.run(unit.id, activities_data, classrooms_data)
                 expect(classroom_unit.reload.visible).to eq(false)
               end
-
             end
-
           end
-
       end
 
     describe 'when an old classroom activity does not exist a new one is initialized' do
@@ -141,12 +133,9 @@ describe Units::Updater do
         Units::Updater.run(unit.id, activities_data, classrooms_data)
         expect(UnitActivity.where(activity_id: activity1).count).to eq(1)
       end
-
     end
 
-
     describe 'new or updated activity sessions' do
-
       before do
         cu_with_unit
         ua_with_unit
@@ -154,7 +143,6 @@ describe Units::Updater do
       end
 
       context 'when assigned students are changed' do
-
         it 'does not give newly assigned students an activity session' do
           classrooms_data = [{ id: classroom.id, student_ids: [student.id, student1.id, student2.id] }]
           old_activity_session_count = ActivitySession.count
@@ -201,11 +189,9 @@ describe Units::Updater do
           assigned_users = classroom_unit.reload.activity_sessions
           expect(assigned_users).to be_empty
         end
-
       end
 
       context 'when a new activity is added' do
-
         it 'it does not create new activity sessions' do
           # because it used to create new ones
           expect(student.activity_sessions.map(&:activity_id)).to be_empty
@@ -215,7 +201,6 @@ describe Units::Updater do
           Units::Updater.run(unit.id, activities_data, classrooms_data)
           expect(ActivitySession.count).to eq(old_activity_session_count)
         end
-
       end
     end
   end

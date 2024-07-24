@@ -25,7 +25,6 @@ describe SendAttachmentMailer, type: :mailer do
     end
   end
 
-
   describe '#send_multiple_files' do
     let(:file_name1) { 'file_name1.csv' }
     let(:file_name2) { 'file_name2.csv' }

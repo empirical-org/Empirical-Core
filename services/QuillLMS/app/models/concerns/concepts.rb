@@ -50,5 +50,4 @@ module Concepts
      incorrectCount: incorrect_count
      }
   end
-
 end

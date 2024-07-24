@@ -5,7 +5,6 @@ require 'simplecov-json'
 require 'webmock/rspec'
 WebMock.disable_net_connect!
 
-
 if ENV['CONTINUOUS_INTEGRATION'] == true
   SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
@@ -17,4 +16,3 @@ if ENV['CONTINUOUS_INTEGRATION'] == true
     add_filter '/spec/'
   end
 end
-

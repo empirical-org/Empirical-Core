@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Cms::CsvUploadsController < Cms::CmsController
-
   def create
     uploader = StaffCSVUploader.new
 

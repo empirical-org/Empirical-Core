@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class VerifyEmailsController < ApplicationController
-
   def resend_verification_email
     if current_user.user_email_verification
       current_user.user_email_verification.set_new_token

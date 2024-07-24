@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module Analytics
   class SegmentAnalytics
     # The actual backend that this uses to talk with segment.io.
@@ -181,7 +180,6 @@ module Analytics
         event: Analytics::SegmentIo::BackgroundEvents::PREVIEWED_ACTIVITY,
         properties: activity.segment_activity.common_params
       })
-
     end
 
     def track_teacher_subscription(subscription, event)
@@ -329,7 +327,6 @@ module Analytics
       options[:integrations] = user&.segment_user&.integration_rules || default_integration_rules
       backend.track(options)
     end
-
 
     def identify(user)
       return unless backend.present?

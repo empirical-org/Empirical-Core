@@ -120,5 +120,4 @@ describe Cms::ActivityCategoriesController, type: :controller do
       expect(ActivityCategory.last.order_number).to eq 2
     end
   end
-
 end

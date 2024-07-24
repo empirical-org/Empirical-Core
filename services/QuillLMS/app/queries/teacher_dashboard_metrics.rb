@@ -48,5 +48,4 @@ class TeacherDashboardMetrics
   private def classroom_ids
     @classroom_ids ||= @user.classrooms_i_teach.map(&:id)
   end
-
 end

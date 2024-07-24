@@ -17,7 +17,6 @@ describe Api::V1::FocusPointsController, type: :controller do
     )
   end
 
-
   describe '#index' do
     it 'should return a list of Question Focus Points' do
       get :index, params: { question_id: question.uid }, as: :json

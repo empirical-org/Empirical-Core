@@ -67,65 +67,6 @@ Layout/CommentIndentation:
   Exclude:
     - 'app/controllers/schools_controller.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'engines/evidence/lib/generators/quill_model/quill_model_generator.rb'
-    - 'engines/evidence/spec/dummy/app/models/activity.rb'
-
-# Offense count: 34
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EmptyLineBetweenMethodDefs, EmptyLineBetweenClassDefs, EmptyLineBetweenModuleDefs, DefLikeMacros, AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Enabled: false
-
-# Offense count: 153
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLines:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: around, only_before
-Layout/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'engines/evidence/lib/generators/model_tests/model_tests_generator.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowAliasSyntax, AllowedMethods.
-# AllowedMethods: alias_method, public, protected, private
-Layout/EmptyLinesAroundAttributeAccessor:
-  Exclude:
-    - 'engines/evidence/spec/dummy/app/models/activity.rb'
-
-# Offense count: 627
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
-
-# Offense count: 184
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
-
-# Offense count: 36
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLinesAroundMethodBody:
-  Enabled: false
-
-# Offense count: 72
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: false
 
 # Offense count: 163
 # This cop supports safe autocorrection (--autocorrect).
@@ -272,15 +213,6 @@ Layout/SpaceBeforeComma:
 Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - 'engines/evidence/lib/generators/quill_scaffold_controller/quill_scaffold_controller_generator.rb'
-
-
-
-# Offense count: 125
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingEmptyLines:
-  Enabled: false
 
 # Offense count: 2
 Lint/DuplicateMethods:

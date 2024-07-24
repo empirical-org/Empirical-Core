@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Profile::Query
-
   def query(student, batch_size, offset, classroom_id)
     student.activity_sessions
            .joins(:activityactivity)
@@ -19,5 +18,4 @@ class Profile::Query
   private def unfinished_first
     "(state = 'finished')" # false will occur first since default ordering is ASC
   end
-
 end

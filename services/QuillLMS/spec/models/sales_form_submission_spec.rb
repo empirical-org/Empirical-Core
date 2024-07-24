@@ -71,5 +71,4 @@ RSpec.describe SalesFormSubmission, type: :model do
       sales_form_submission.save
     end
   end
-
 end

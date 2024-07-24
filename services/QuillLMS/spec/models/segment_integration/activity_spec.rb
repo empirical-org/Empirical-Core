@@ -9,7 +9,6 @@ RSpec.describe SegmentIntegration::Activity do
   let(:activity_category_activity) { create(:activity_category_activity, activity: activity, activity_category: activity_category) }
 
   context '#common_params' do
-
     it 'returns the expected params hash' do
       params = {
         activity_name: activity.name,
@@ -20,7 +19,6 @@ RSpec.describe SegmentIntegration::Activity do
   end
 
   context '#content_params' do
-
     it 'returns the expected params hash' do
       params = {
         **activity.segment_activity.common_params,

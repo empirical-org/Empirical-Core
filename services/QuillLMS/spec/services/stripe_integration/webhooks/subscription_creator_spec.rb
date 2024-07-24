@@ -95,7 +95,6 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     end
   end
 
-
   context 'nil subscription status' do
     before { allow(stripe_subscription).to receive(:respond_to?).with(:status).and_return(false) }
 
@@ -151,4 +150,3 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
     end
   end
 end
-

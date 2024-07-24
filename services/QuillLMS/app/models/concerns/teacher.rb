@@ -250,7 +250,6 @@ module Teacher
     ).to_a
   end
 
-
   def classroom_minis_cache
     cache = $redis.get("user_id:#{id}_classroom_minis")
     cache ? JSON.parse(cache) : nil

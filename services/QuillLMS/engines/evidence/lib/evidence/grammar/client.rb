@@ -44,5 +44,3 @@ module Evidence
     end
   end
 end
-
-

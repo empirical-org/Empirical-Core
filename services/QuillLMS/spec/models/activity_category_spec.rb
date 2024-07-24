@@ -37,7 +37,5 @@ RSpec.describe ActivityCategory, type: :model do
       expect(created_activity_category).not_to receive(:set_order_number)
       created_activity_category.update(name: 'Different')
     end
-
   end
-
 end

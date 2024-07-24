@@ -14,7 +14,6 @@ describe AddUuidToQuestionDataWorker do
         expect(question).not_to receive(:save_uids_for)
         subject.perform(type, 0, 1)
       end
-
     end
 
     context 'question with an array type' do
@@ -36,6 +35,5 @@ describe AddUuidToQuestionDataWorker do
         subject.perform(type, 0, 1)
       end
     end
-
   end
 end

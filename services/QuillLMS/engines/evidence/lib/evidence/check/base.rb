@@ -2,7 +2,6 @@
 
 module Evidence
   class Check::Base
-
     attr_reader :entry, :prompt, :previous_feedback, :session_uid, :error, :response
 
     def initialize(entry, prompt, previous_feedback, session_uid = nil)

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Snapshots
-
   TOPX_QUERY_MAPPING = {
     'top-concepts-assigned' => Snapshots::TopConceptsAssignedQuery,
     'top-concepts-practiced' => Snapshots::TopConceptsPracticedQuery,
@@ -41,5 +40,4 @@ module Snapshots
   PREMIUM_DOWNLOAD_REPORTS_QUERY_MAPPING = {
     'create_csv_report_download' => Snapshots::UntruncatedDataExportQuery
   }
-
 end

@@ -42,6 +42,5 @@ module LearnWorldsIntegration
         username: LearnWorldsIntegration::Helpers.to_username(username.presence || name)
       }
     end
-
   end
 end

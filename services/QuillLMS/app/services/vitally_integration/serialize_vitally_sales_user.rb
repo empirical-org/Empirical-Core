@@ -240,6 +240,5 @@ module VitallyIntegration
     private def number_of_districts_administered
       @user.district_admins.count || nil
     end
-
   end
 end

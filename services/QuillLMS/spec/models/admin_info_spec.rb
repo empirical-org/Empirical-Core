@@ -65,7 +65,6 @@ describe AdminInfo, type: :model, redis: true do
   end
 
   describe '#sub_role' do
-
     it 'should allow valid values' do
       AdminInfo::SUB_ROLES.each do |v|
         admin_info.sub_role = v
@@ -83,7 +82,6 @@ describe AdminInfo, type: :model, redis: true do
   end
 
   describe '#approver_role' do
-
     it 'should allow valid values' do
       AdminInfo::APPROVER_ROLES.each do |v|
         admin_info.approver_role = v
@@ -116,5 +114,4 @@ describe AdminInfo, type: :model, redis: true do
       expect(admin_info).not_to be_valid
     end
   end
-
 end

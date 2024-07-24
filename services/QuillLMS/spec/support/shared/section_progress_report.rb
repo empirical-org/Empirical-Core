@@ -30,7 +30,6 @@ shared_context 'StandardLevel Progress Report' do
                                               activity: activity,
                                               percentage: i / 3.0)
       end
-
     end
   end
 end

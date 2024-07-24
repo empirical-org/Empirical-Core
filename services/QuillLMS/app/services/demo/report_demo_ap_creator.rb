@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Demo::ReportDemoAPCreator
-
   def self.create_demo(name)
     teacher = create_teacher(name)
     create_classrooms_and_populate_units(teacher)

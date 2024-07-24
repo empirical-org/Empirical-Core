@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe QuillBigQuery::MaterializedViewsController do
-
   describe '#refresh' do
     subject { post :refresh, params: params, as: :json }
 

@@ -19,9 +19,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Prompt, :type => :model) do
-
     context 'should relations' do
-
       it { should belong_to(:activity) }
 
       it { should have_many(:automl_models) }
@@ -32,7 +30,6 @@ module Evidence
     end
 
     context 'should validations' do
-
       it { should validate_presence_of(:activity) }
 
       it { should validate_inclusion_of(:max_attempts).in_array([3, 4, 5, 6]) }
@@ -44,7 +41,6 @@ module Evidence
       it { should validate_inclusion_of(:conjunction).in_array(['because', 'but', 'so']) }
 
       context 'should #validate_prompt_length' do
-
         it 'should not allow a prompt to be created that is too short' do
           activity = create(:evidence_activity)
           prompt = build(:evidence_prompt, :conjunction => 'but', :text => 'too short', :max_attempts => 5, :activity_id => activity.id)
@@ -63,9 +59,7 @@ module Evidence
     end
 
     context 'should #after_create' do
-
       context 'should #assign_universal_rules' do
-
         it 'should assign all universal rules to new prompts' do
           rule1 = create(:evidence_rule, :universal => true)
           rule2 = create(:evidence_rule, :universal => true)

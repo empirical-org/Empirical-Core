@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MilestonesController < ApplicationController
-
   def complete_view_lesson_tutorial
     complete_milestone('View Lessons Tutorial')
   end
@@ -52,5 +51,4 @@ class MilestonesController < ApplicationController
     end
     render json: {}
   end
-
 end

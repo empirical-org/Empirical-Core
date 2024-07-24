@@ -2,7 +2,6 @@
 
 module Evidence
   class Check::Spelling < Check::Base
-
     class BingException < StandardError; end
 
     def run
@@ -14,6 +13,5 @@ module Evidence
 
       @response = spelling_check.feedback_object
     end
-
   end
 end

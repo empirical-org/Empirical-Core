@@ -2,7 +2,6 @@
 
 namespace :db do
   namespace :snapshots do
-
     desc 'restore a db snapshot'
     task :restore do
       db_name = Rails.configuration.database_configuration[Rails.env]['database']
@@ -17,7 +16,6 @@ namespace :db do
 
     desc 'synchronize from staging..'
     task :staging_sync do
-
       db_name = Rails.configuration.database_configuration[Rails.env]['database']
 
       system 'heroku pgbackups:capture --expire --app empirical-grammar-staging'
@@ -28,11 +26,9 @@ namespace :db do
       Rake::Task['db:migrate'].invoke
     end
 
-
     desc 'cleanup any mess'
     task :cleanup do
       system 'rm quill_snapshot.dump quill_staging.dump'
     end
-
   end
 end

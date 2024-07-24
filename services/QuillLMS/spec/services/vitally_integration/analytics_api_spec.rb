@@ -53,7 +53,6 @@ describe VitallyIntegration::AnalyticsApi do
     end
 
     context 'Other error' do
-
       let(:response) { sample_response.merge(status: 500) }
 
       it { expect{ subject }.to raise_error(described_class::ApiError).with_message('500') }

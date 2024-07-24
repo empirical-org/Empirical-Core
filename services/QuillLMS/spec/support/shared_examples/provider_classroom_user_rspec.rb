@@ -80,4 +80,3 @@ RSpec.shared_examples 'a provider classroom user' do
     it { expect(deleted_user.deleted?).to be true }
   end
 end
-

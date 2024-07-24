@@ -26,7 +26,6 @@ shared_context 'profile' do
                                                     activity: activity_1a,
                                                     unit: unit1)}
 
-
   let!(:classroom_activity_1aa) { create(:classroom_activity,
                                                     classroom: classroom2,
                                                     activity: activity_1aa,

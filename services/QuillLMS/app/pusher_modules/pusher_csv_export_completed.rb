@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PusherCSVExportCompleted
-
   def self.run(current_user_id, csv_url)
     pusher_client = Pusher::Client.new(
         app_id: ENV['PUSHER_APP_ID'],
@@ -11,5 +10,4 @@ module PusherCSVExportCompleted
     )
     pusher_client.trigger(current_user_id.to_s, 'csv-export-completed', message: csv_url)
   end
-
 end

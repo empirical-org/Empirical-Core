@@ -17,6 +17,5 @@ namespace :backfill do
         updated_at: backfill_value
       )
     end
-
   end
 end

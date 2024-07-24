@@ -30,7 +30,6 @@ describe ActivityClassification, type: :model, redis: true do
 
   it_behaves_like 'uid'
 
-
   let(:activity_classification) { build(:activity_classification) }
 
   describe 'diagnostic' do

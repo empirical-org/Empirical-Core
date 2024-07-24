@@ -55,7 +55,6 @@ describe SchoolsController, type: :controller do
   end
 
   context 'there is no current user' do
-
     describe '#select_school' do
       let(:user) { create(:user) }
       let(:school_user) { create(:school_user, user: user) }
@@ -68,11 +67,9 @@ describe SchoolsController, type: :controller do
         expect(response).to redirect_to('/session/new')
       end
     end
-
   end
 
   context 'there is a current user' do
-
     describe '#select_school' do
       let(:user) { create(:user, email: 'emilaif@gmail.com') }
 
@@ -89,7 +86,6 @@ describe SchoolsController, type: :controller do
         put :select_school, params: { school_id_or_type: @school1.id }, as: :json
       end
     end
-
   end
 
   describe '#submit_unlisted_school_information' do
@@ -105,5 +101,4 @@ describe SchoolsController, type: :controller do
       post :submit_unlisted_school_information, params: { school_name: school_name, school_zipcode: school_zipcode }, as: :json
     end
   end
-
 end

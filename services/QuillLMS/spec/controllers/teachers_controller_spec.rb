@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe TeachersController, type: :controller do
-
   context 'with teacher' do
     let!(:school) { create(:school) }
     let!(:teacher) { create(:teacher, :with_classrooms_students_and_activities, school: school) }
@@ -34,7 +33,6 @@ describe TeachersController, type: :controller do
     end
 
     describe '#classrooms_i_teach_with_students' do
-
       it 'returns the classrooms with students of the current user' do
         get :classrooms_i_teach_with_students
         teacher.classrooms_i_teach_with_students.each do |classroom|
@@ -49,7 +47,6 @@ describe TeachersController, type: :controller do
     end
 
     describe '#classrooms_i_own_with_students' do
-
       it 'returns the classrooms with students the current user owns' do
         get :classrooms_i_own_with_students
         expect(response.body).to eq({ classrooms: teacher.classrooms_i_own_with_students }.to_json)
@@ -119,7 +116,6 @@ describe TeachersController, type: :controller do
           ] }.to_json)
         end
       end
-
     end
 
     describe '#diagnostic_info_for_dashboard_mini' do
@@ -214,20 +210,16 @@ describe TeachersController, type: :controller do
           expect(JSON.parse(response.body)['units']).to match_array expected_response.map(&:stringify_keys)
         end
       end
-
     end
   end
 
   context 'without user' do
-
     before do
       allow(controller).to receive(:current_user) { nil }
     end
 
     describe '#classrooms_i_teach_with_lessons' do
-
       it 'should respond' do
-
         get :classrooms_i_teach_with_lessons
 
         expect(response.status).to eq(200)
@@ -235,7 +227,6 @@ describe TeachersController, type: :controller do
     end
 
     describe '#classrooms_i_own_with_students' do
-
       it 'should redirect to login' do
         get :classrooms_i_own_with_students
 
@@ -244,7 +235,6 @@ describe TeachersController, type: :controller do
     end
 
     describe '#classrooms_i_teach_with_students' do
-
       it 'should redirect to login' do
         get :classrooms_i_teach_with_students
 
@@ -253,9 +243,7 @@ describe TeachersController, type: :controller do
     end
 
     describe '#diagnostic_info_for_dashboard_mini' do
-
       it 'should respond' do
-
         get :diagnostic_info_for_dashboard_mini
 
         expect(response.status).to eq(200)

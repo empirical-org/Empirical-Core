@@ -18,6 +18,5 @@ FactoryBot.define do
         create(:translated_text, english_text: english_text)
       end
     end
-
   end
 end

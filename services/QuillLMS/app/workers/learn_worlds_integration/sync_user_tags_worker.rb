@@ -7,6 +7,5 @@ module LearnWorldsIntegration
     def perform(external_id, tags)
       LearnWorldsIntegration::UserTagsRequest.run(external_id, tags)
     end
-
   end
 end

@@ -76,6 +76,5 @@ FactoryBot.define do
     factory :see_welcome_modal do
       name { 'See Welcome Modal' }
     end
-
   end
 end

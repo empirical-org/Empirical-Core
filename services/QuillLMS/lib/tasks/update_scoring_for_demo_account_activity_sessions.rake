@@ -3,7 +3,6 @@
 namespace :update_scoring_for_demo_account_activity_sessions do
   desc 'updates scoring for demo account activity sessions to give full credit for optimal responses on any attempt'
   task :update => :environment do
-
     include PublicProgressReports
 
     REPLAYED_PAIR = [Demo::ReportDemoCreator::REPLAYED_ACTIVITY_ID, Demo::ReportDemoCreator::REPLAYED_SAMPLE_USER_ID]
@@ -34,5 +33,4 @@ namespace :update_scoring_for_demo_account_activity_sessions do
 
     activity_session.update(percentage: (correct_questions_count.to_f / grouped_concept_results.size).round(2))
   end
-
 end

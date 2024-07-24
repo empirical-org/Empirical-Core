@@ -55,7 +55,6 @@ class Teachers::StudentsController < ApplicationController
         end
       }
     end
-
   end
 
   def destroy
@@ -122,5 +121,4 @@ class Teachers::StudentsController < ApplicationController
       "Student Email": @student.email
     }
   end
-
 end

@@ -234,7 +234,6 @@ describe TeacherFixController do
       it 'should render that we do not have an account for the user' do
         post :merge_student_accounts, params: { destination_student_identifier: student.email, source_student_identifier: 'test@email.com' }
         expect(response.body).to eq({ error: 'We do not have an account for test@email.com' }.to_json)
-
       end
     end
   end
@@ -339,7 +338,6 @@ describe TeacherFixController do
       let(:user) { create(:student, :signed_up_with_google) }
 
       context 'when new email is not given' do
-
         it 'should reset the google id and set the signed up with google flag' do
           post :google_unsync_account, params: { original_email: user.email, password: 'test123' }
           expect(user.reload.signed_up_with_google).to eq false
@@ -363,7 +361,6 @@ describe TeacherFixController do
           expect(user.reload.signed_up_with_google).to eq false
           expect(user.reload.google_id).to eq nil
         end
-
       end
     end
 
