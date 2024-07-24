@@ -43,9 +43,10 @@ RSpec.describe TranslatedTextsController, type: :controller do
       end
 
       context 'a locale parameter is passed in' do
-        let(:locale) { 'es-la'}
+        let(:locale) { 'es-la' }
         let!(:es_text) { create(:translated_text, locale:) }
         let!(:zh_text) { create(:translated_text, locale: "zh-cn") }
+
         before do
           get :index, params: { locale: }
         end
