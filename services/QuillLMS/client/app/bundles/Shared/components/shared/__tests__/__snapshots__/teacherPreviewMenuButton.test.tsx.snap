@@ -5,7 +5,7 @@ exports[`TeacherPreviewMenu component should match snapshot 1`] = `
   className=""
 >
   <button
-    className="quill-button-archived medium secondary outlined focus-on-dark"
+    className="quill-button medium contained white focus-on-dark"
     id="teacher-preview-menu-button"
     onClick={[MockFunction]}
     type="button"
