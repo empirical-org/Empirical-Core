@@ -38,7 +38,7 @@ export const starterPreTest = {
   activityId: 2537,
   name: 'Starter Baseline Diagnostic (Pre)',
   unitTemplateId: STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  what: 'Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words',
+  what: 'Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words',
   when: 'Your students are working on basic grammar concepts.'
 }
 
@@ -55,7 +55,7 @@ export const intermediatePreTest = {
   activityId: 2539,
   name: 'Intermediate Baseline Diagnostic (Pre)',
   unitTemplateId: INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  what: 'Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization',
+  what: 'Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs',
   when: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.'
 }
 
@@ -72,8 +72,8 @@ export const advancedPreTest = {
   activityId: 2541,
   name: 'Advanced Baseline Diagnostic (Pre)',
   unitTemplateId: ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  what: 'Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure',
-  when: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.'
+  what: 'Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining',
+  when: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.'
 }
 
 export const advancedPostTest = {
@@ -89,8 +89,8 @@ export const ellStarterPreTest = {
   activityId: 2250,
   name: 'ELL Starter Baseline Diagnostic (Pre)',
   unitTemplateId: ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  what: 'Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement',
-  when: 'Your students are newcomer English language learners who are working on basic foundational grammar skills.'
+  what: 'Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions',
+  when: 'Your students are newcomer or beginner English learners working on basic English grammar concepts.'
 }
 
 export const ellStarterPostTest = {
@@ -106,8 +106,8 @@ export const ellIntermediatePreTest = {
   activityId: 2555,
   name: 'ELL Intermediate Baseline Diagnostic (Pre)',
   unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  what: 'Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions',
-  when: 'Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.'
+  what: 'Simple tenses, progressive tenses, perfect tenses, and modality',
+  when: 'Your students are beginner, intermediate, or advanced English learners working on English tenses.'
 }
 
 export const ellIntermediatePostTest = {
@@ -123,8 +123,8 @@ export const ellAdvancedPreTest = {
   activityId: 2563,
   name: 'ELL Advanced Baseline Diagnostic (Pre)',
   unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
-  what: 'Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words',
-  when: 'Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.'
+  what: 'Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions',
+  when: 'Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.'
 }
 
 export const ellAdvancedPostTest = {

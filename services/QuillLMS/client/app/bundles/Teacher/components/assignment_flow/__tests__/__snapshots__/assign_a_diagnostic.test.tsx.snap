@@ -156,7 +156,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 "activityId": 2537,
                 "name": "Starter Baseline Diagnostic (Pre)",
                 "unitTemplateId": 636,
-                "what": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+                "what": "Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words",
                 "when": "Your students are working on basic grammar concepts.",
               }
             }
@@ -166,7 +166,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+                    "text": "Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words",
                   },
                   Object {
                     "key": "When",
@@ -239,7 +239,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words
+                      Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words
                     </p>
                   </div>
                   <div
@@ -384,7 +384,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 "activityId": 2539,
                 "name": "Intermediate Baseline Diagnostic (Pre)",
                 "unitTemplateId": 638,
-                "what": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                "what": "Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs",
                 "when": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
               }
             }
@@ -394,7 +394,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                    "text": "Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs",
                   },
                   Object {
                     "key": "When",
@@ -467,7 +467,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization
+                      Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs
                     </p>
                   </div>
                   <div
@@ -612,8 +612,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 "activityId": 2541,
                 "name": "Advanced Baseline Diagnostic (Pre)",
                 "unitTemplateId": 641,
-                "what": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
-                "when": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+                "what": "Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining",
+                "when": "Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.",
               }
             }
           >
@@ -622,11 +622,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+                    "text": "Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+                    "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.",
                   },
                 ]
               }
@@ -695,7 +695,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure
+                      Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining
                     </p>
                   </div>
                   <div
@@ -710,7 +710,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.
+                      Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.
                     </p>
                   </div>
                 </div>
@@ -840,8 +840,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 "activityId": 2250,
                 "name": "ELL Starter Baseline Diagnostic (Pre)",
                 "unitTemplateId": 643,
-                "what": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
-                "when": "Your students are newcomer English language learners who are working on basic foundational grammar skills.",
+                "what": "Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions",
+                "when": "Your students are newcomer or beginner English learners working on basic English grammar concepts.",
               }
             }
           >
@@ -850,11 +850,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
+                    "text": "Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are newcomer English language learners who are working on basic foundational grammar skills.",
+                    "text": "Your students are newcomer or beginner English learners working on basic English grammar concepts.",
                   },
                 ]
               }
@@ -923,7 +923,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement
+                      Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions
                     </p>
                   </div>
                   <div
@@ -938,7 +938,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are newcomer English language learners who are working on basic foundational grammar skills.
+                      Your students are newcomer or beginner English learners working on basic English grammar concepts.
                     </p>
                   </div>
                 </div>
@@ -1068,8 +1068,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 "activityId": 2555,
                 "name": "ELL Intermediate Baseline Diagnostic (Pre)",
                 "unitTemplateId": 645,
-                "what": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
-                "when": "Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.",
+                "what": "Simple tenses, progressive tenses, perfect tenses, and modality",
+                "when": "Your students are beginner, intermediate, or advanced English learners working on English tenses.",
               }
             }
           >
@@ -1078,11 +1078,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
+                    "text": "Simple tenses, progressive tenses, perfect tenses, and modality",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.",
+                    "text": "Your students are beginner, intermediate, or advanced English learners working on English tenses.",
                   },
                 ]
               }
@@ -1151,7 +1151,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions
+                      Simple tenses, progressive tenses, perfect tenses, and modality
                     </p>
                   </div>
                   <div
@@ -1166,7 +1166,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.
+                      Your students are beginner, intermediate, or advanced English learners working on English tenses.
                     </p>
                   </div>
                 </div>
@@ -1296,8 +1296,8 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 "activityId": 2563,
                 "name": "ELL Advanced Baseline Diagnostic (Pre)",
                 "unitTemplateId": 647,
-                "what": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
-                "when": "Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+                "what": "Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions",
+                "when": "Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.",
               }
             }
           >
@@ -1306,11 +1306,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
+                    "text": "Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+                    "text": "Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.",
                   },
                 ]
               }
@@ -1379,7 +1379,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words
+                      Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions
                     </p>
                   </div>
                   <div
@@ -1394,7 +1394,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.
+                      Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.
                     </p>
                   </div>
                 </div>
