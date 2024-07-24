@@ -190,6 +190,19 @@ class GenAITasks < Thor
     end
   end
 
+  # bundle exec secondary_prompt_entry 256 'some answer from student'
+  desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
+  def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
+    prompt = Evidence::Prompt.find(prompt_id)
+    system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:, template_file:)
+
+    puts system_prompt
+    print_line
+    puts "Original Feedback: #{feedback_primary}"
+    print_line
+    puts Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_primary, model: 'gpt-4o-mini')
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
