@@ -213,7 +213,7 @@ RSpec.describe Translatable do
       context 'there is not an existing translation' do
         it 'calls OpenAI::TranslateAndSaveText for each English text' do
           translatable_object.english_texts.each do |text|
-            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:, locale:)
           end
           subject
         end
@@ -231,7 +231,7 @@ RSpec.describe Translatable do
 
           it 'calls OpenAI::TranslateAndSaveText for each English text' do
             translatable_object.english_texts.each do |text|
-              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:, locale:)
             end
             subject
           end

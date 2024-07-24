@@ -55,30 +55,5 @@
 .ell-diagnostic-container {
   display: flex;
   flex-direction: column;
-}
-
-.ell-language-selector {
-  width: 148px;
-  p {
-    display: flex;
-    align-items: center;
-  }
-  img {
-    height: 21px;
-    margin-right: 10px;
-  }
-  &.input-container {
-    min-height: min-content;
-    .dropdown {
-      margin-bottom: 0px;
-    }
-  }
-  .dropdown__menu {
-    top: auto;
-    bottom: 1%;
-    margin-bottom: -20px;
-    .dropdown__menu-list {
-      max-height: 90vh;
-    }
-  }
+  height: 100%;
 }

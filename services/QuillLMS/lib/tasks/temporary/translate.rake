@@ -2,40 +2,37 @@
 
 namespace :translate do
   desc 'translate hints (concept feedback)'
-  task hints: :environment do
+  desc 'on zsh use `noglob rake translate:hints[es-la]` or whatever language code you choose'
+  task :hints, [:locale] => :environment do |t, args|
+    locale = args[:locale] || Translatable::DEFAULT_LOCALE
     hints = ConceptFeedback.all
     count = hints.count
     hints.each_with_index do |hint, index|
       puts "translating #{index + 1}/#{count}..."
-      OpenAI::TranslateWorker.perform_async(hint.id, hint.class.name)
+      OpenAI::TranslateWorker.perform_async(hint.id, hint.class.name, locale)
     end
   end
 
   desc 'translate activities and their questions'
-  desc 'on zsh use `noglob rake translate:activities[2]`'
-  task :activities, [:limit] => :environment do |t, args|
+  desc 'on zsh use `noglob rake translate:activities[es-la, 2]`'
+  desc 'first param is locale, second is (optional) number of activities to translate'
+  task :activities, [:locale, :limit] => :environment do |t, args|
+    puts "translating activities"
     limit = args[:limit] ? args[:limit].to_i : nil
-    activities = Activity.where(uid: activity_uids).limit(limit)
-    activity_count = activities.count
-    activities.each_with_index do |activity, index|
-      puts "translating #{index + 1}/#{activity_count}..."
-      OpenAI::TranslateActivityAndQuestionsWorker.perform_async(activity.id)
-    end
-  end
+    locale = args[:locale] || Translatable::DEFAULT_LOCALE
 
-  task :questions, [:limit] => :environment do |t, args|
-    limit = args[:limit] ? args[:limit].to_i : nil
     activities = Activity.where(uid: activity_uids).limit(limit)
     activity_count = activities.count
     activities.each_with_index do |activity, index|
       puts ''
-      puts "translating questions for #{activity.uid} #{index + 1}/#{activity_count}..."
+      puts "translating #{activity.uid} #{index + 1}/#{activity_count}..."
+      OpenAI::TranslateWorker.perform_async(activity.id, activity.class.name, locale)
 
       questions = activity.questions
       question_count = questions.count
       questions.each_with_index do |question, q_index|
         puts "translating #{question.id} question #{q_index + 1} / #{question_count}... "
-        OpenAI::TranslateWorker.perform_async(question.id, question.class.name)
+        OpenAI::TranslateWorker.perform_async(question.id, question.class.name, locale)
       end
     end
   end
