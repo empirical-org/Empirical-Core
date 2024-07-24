@@ -37,7 +37,7 @@ module ContentHubsHelper
         activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
         activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
         activity[:link_for_report] = get_link_for_report(activity, classroom_units, activity_sessions)
-        activity[:average_score] = activity_sessions_with_scores.empty ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
+        activity[:average_score] = activity_sessions_with_scores.empty? ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
 
         activity
       end
