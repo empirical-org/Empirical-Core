@@ -30,6 +30,8 @@ const WorldHistory1200ToPresent = ({ hideBacklink, }) => {
   }, [unitTemplates])
 
   React.useEffect(() => {
+    if (!expandedUnitTemplateIds) { return }
+
     window.localStorage.setItem(LOCAL_STORAGE_KEY, expandedUnitTemplateIds.join(','))
   }, [expandedUnitTemplateIds])
 
@@ -50,11 +52,13 @@ const WorldHistory1200ToPresent = ({ hideBacklink, }) => {
 
   const backLink = hideBacklink ? null : <a className="quill-button medium outlined grey icon focus-on-light" href={socialStudiesContentPage}><img alt="" src={chevronLeftImgSrc} />View all social studies activities</a>
 
-  if (!unitTemplates) {
-    <div className="container content-hub-course-page-container white-background-accommodate-footer">
-      {backLink}
-      <Spinner />
-    </div>
+  if (!unitTemplates || !expandedUnitTemplateIds) {
+    return (
+      <div className="container content-hub-course-page-container white-background-accommodate-footer">
+        {backLink}
+        <Spinner />
+      </div>
+    )
   }
 
   const unitTemplateElements = unitTemplates?.map(unitTemplate => {
