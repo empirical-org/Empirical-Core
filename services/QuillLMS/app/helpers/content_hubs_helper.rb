@@ -52,7 +52,7 @@ module ContentHubsHelper
     unit_id = last_activity_session&.unit&.id || last_classroom_unit.unit_id
     classroom_id = last_activity_session&.classroom&.id || last_classroom_unit.classroom_id
 
-    return nil if !unit_id || !classroom_id
+    return nil if !(unit_id && classroom_id)
 
     "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity[:activity_id]}/c/#{classroom_id}/students"
   end
