@@ -36,10 +36,10 @@ RSpec.describe TranslatedTextsController, type: :controller do
       end
 
       it 'assigns @locales' do
-        create(:translated_text, locale: "es-la")
-        create(:translated_text, locale: "zh-cn")
+        locales = ["es-la", "zh-cn"]
+        locales.each { |locale| create(:translated_text, locale:) }
         get :index
-        expect(assigns(:locales)).to match_array(["es-la", "zh-cn"])
+        expect(assigns(:locales).to match_array(locales)
       end
 
       context 'a locale parameter is passed in' do
