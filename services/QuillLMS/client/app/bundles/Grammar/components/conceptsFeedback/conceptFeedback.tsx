@@ -22,7 +22,6 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
 
     this.deleteConceptsFeedback = this.deleteConceptsFeedback.bind(this)
     this.toggleEdit = this.toggleEdit.bind(this)
-    this.toggleTranslation = this.toggleTranslation.bind(this)
     this.submitNewFeedback = this.submitNewFeedback.bind(this)
     this.cancelEdit = this.cancelEdit.bind(this)
     this.concept = this.concept.bind(this)
