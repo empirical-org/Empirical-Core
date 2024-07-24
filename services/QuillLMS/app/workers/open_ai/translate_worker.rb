@@ -10,10 +10,10 @@ module OpenAI
       'Question' => Question,
       'ConceptFeedback' => ConceptFeedback
     }.freeze
-    def perform(translatable_id, translatable_type)
+    def perform(translatable_id, translatable_type, locale = Translatable::DEFAULT_LOCALE)
       TRANSLATABLE_TYPES[translatable_type]
       &.find_by(id: translatable_id)
-      &.translate!
+      &.translate!(locale:)
     end
   end
 end
