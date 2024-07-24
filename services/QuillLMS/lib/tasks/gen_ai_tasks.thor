@@ -143,7 +143,7 @@ class GenAITasks < Thor
 
   desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def secondary_feedback_test(limit = 2)
-    test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::TEST_FILE
+    test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
     test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(test_file)
 
     results = []
@@ -152,18 +152,41 @@ class GenAITasks < Thor
     test_subset.each do |feedback_set|
       prompt = Evidence::Prompt.find(feedback_set.prompt_id)
       system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
-      entry = feedback_set.primary
 
-      response = Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
+      response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_set.primary, model: 'gpt-4o-mini')
       highlight_key = response[KEY_HIGHLIGHT] || 99
       highlight = prompt.distinct_automl_highlight_texts[highlight_key - 1]
 
-      results << [prompt.id, entry, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary, highlight]
+      results << [prompt.id, prompt.stem, entry, feedback_set.primary, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary, highlight]
     end
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
       csv << ['Prompt ID', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'LLM Highlight']
       results.each { |result| csv << result }
+    end
+  end
+
+  desc "generate_secondary_data_files", 'Create a csv for training and test.'
+  def generate_secondary_data_files
+    file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
+    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TRAIN
+    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
+
+    full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file_all)
+    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file_test).send(:file_path)
+    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file_train).send(:file_path)
+
+    test_set = full_set.select {|f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS)}
+    train_set = full_set.select {|f| !f.activity_id.in?(TEST_SET_ACTIVITY_IDS)}
+
+    CSV.open(file_test, 'wb') do |csv|
+      csv << SECONDARY_CSV_HEADERS
+      test_set.each { |result| csv << result.to_a }
+    end
+
+    CSV.open(file_train, 'wb') do |csv|
+      csv << SECONDARY_CSV_HEADERS
+      train_set.each { |result| csv << result.to_a }
     end
   end
 
@@ -173,6 +196,8 @@ class GenAITasks < Thor
     KEY_FEEDBACK = 'feedback'
     KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
     KEY_HIGHLIGHT = 'highlight'
+    TEST_SET_ACTIVITY_IDS = [467,460,442,435,431,387]
+    SECONDARY_CSV_HEADERS = %w[activity_id prompt_id rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
 
     private def output_file(conjunction, limit)
       Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"
@@ -209,6 +234,8 @@ class GenAITasks < Thor
         'Suboptimal 2'
       ]
     end
+
+    private def secondary_result(row) = row
 
     private def activity_link_string(activity_id) = format('https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings', activity_id:)
 

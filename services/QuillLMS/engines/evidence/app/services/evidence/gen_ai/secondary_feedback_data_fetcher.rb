@@ -3,15 +3,22 @@
 module Evidence
   module GenAI
     class SecondaryFeedbackDataFetcher < ApplicationService
-      FeedbackSet = Struct.new(:prompt_id, :primary, :secondary, keyword_init: true)
+      FeedbackSet = Struct.new(:activity_id, :prompt_id, :rule_id, :primary, :label, :secondary, :highlights, :sample_entry, keyword_init: true) do
+        def to_a
+          [activity_id, prompt_id, rule_id, label, sample_entry, primary,secondary, highlights.join(ARRAY_DELIMITER)]
+        end
+      end
 
-      DEFAULT_FILE = 'secondary_feedback_train.csv'
-      TEST_FILE = 'secondary_feedback_test.csv'
+      FILE_ALL = 'secondary_feedback_all.csv'
+      FILE_TRAIN = 'secondary_feedback_train.csv'
+      FILE_TEST = 'secondary_feedback_test.csv'
       CSV_FILE_PATH = "#{Evidence::Engine.root}/app/services/evidence/gen_ai/secondary_feedback_data/%<file>s"
+
+      ARRAY_DELIMITER = '|'
 
       attr_reader :file
 
-      def initialize(file = DEFAULT_FILE)
+      def initialize(file = FILE_TRAIN)
         @file = file
       end
 
@@ -22,9 +29,14 @@ module Evidence
 
       private def dataset_from_row(row)
         FeedbackSet.new(
-          prompt_id: row['prompt_id'],
+          activity_id: row['activity_id']&.to_i,
+          rule_id: row['rule_id']&.to_i,
+          prompt_id: row['prompt_id']&.to_i,
+          label: row['label'],
           primary: row['feedback_primary'],
-          secondary: row['feedback_secondary']
+          secondary: row['feedback_secondary'],
+          highlights: row['highlights_secondary']&.split(ARRAY_DELIMITER) || [],
+          sample_entry: row['sample_entry']
         )
       end
     end

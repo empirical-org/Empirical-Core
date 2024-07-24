@@ -90,7 +90,7 @@ module Evidence
         .active
         .auto_ml
         .suboptimal
-        .map {|r| r.feedbacks.map {|f| f.highlights.map(&:text)}}
+        .map {|r| r.feedbacks.map {|f| f.highlights.sort_by(&:text).map(&:text)}}
         .flatten
         .uniq
     end
