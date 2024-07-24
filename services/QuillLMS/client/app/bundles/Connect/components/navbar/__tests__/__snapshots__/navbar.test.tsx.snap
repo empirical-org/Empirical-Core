@@ -15,11 +15,15 @@ exports[`NavBar Component should match snapshot 1`] = `
         src="undefined/images/logos/quill-logo-white-2022.svg"
       />
     </a>
-    <a
-      className="focus-on-dark"
+    <div
+      className="header-buttons-container"
     >
-      Save and exit
-    </a>
+      <a
+        className="quill-button medium contained white focus-on-dark"
+      >
+        Save and exit
+      </a>
+    </div>
   </div>
 </div>
 `;
