@@ -79,7 +79,7 @@ class Question < ApplicationRecord
   scope :production, -> { where("data->>'flag' = ?", FLAG_PRODUCTION) }
 
   def as_json(options=nil)
-    locale = options&.[](:locale)
+    locale = options&.fetch(:locale, nil)
     locale.present? ? translated_data(locale:) : data
   end
 
