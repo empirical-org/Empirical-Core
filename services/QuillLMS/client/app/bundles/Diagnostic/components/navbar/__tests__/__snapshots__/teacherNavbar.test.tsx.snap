@@ -15,11 +15,15 @@ exports[`TeacherNavbar renders when the language menu is not open 1`] = `
         src="undefined/images/logos/quill-logo-white-2022.svg"
       />
     </a>
-    <a
-      className="focus-on-dark"
+    <div
+      className="header-buttons-container"
     >
-      Save and exit
-    </a>
+      <a
+        className="quill-button medium contained white focus-on-dark"
+      >
+        Save and exit
+      </a>
+    </div>
   </div>
 </div>
 `;
@@ -39,32 +43,14 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
         src="undefined/images/logos/quill-logo-white-2022.svg"
       />
     </a>
-    <button
-      className="focus-on-dark"
-      onClick={[Function]}
-      type="button"
-    >
-      <img
-        alt="Close icon"
-        src="undefined/images/icons/close-white.svg"
-      />
-      <span>
-        Close
-      </span>
-    </button>
-  </div>
-  <div
-    className="activity-navbar-content"
-  >
     <div
-      className="mobile-student-language-menu"
+      className="header-buttons-container"
     >
-      <h2>
-        Choose a directions language
-      </h2>
-      <LanguageOptions
-        dispatch={[Function]}
-      />
+      <a
+        className="quill-button medium contained white focus-on-dark"
+      >
+        Save and exit
+      </a>
     </div>
   </div>
 </div>

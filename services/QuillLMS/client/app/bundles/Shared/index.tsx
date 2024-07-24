@@ -105,6 +105,10 @@ export {
 } from './components/titleCards/index'
 
 export {
+  LanguagePicker
+} from './components/translations/index'
+
+export {
   ConceptSelector,
   ConceptSelectorWithCheckbox,
   IncorrectSequencesInputAndConceptSelectorForm,
