@@ -45,7 +45,7 @@ module Translatable
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
       texts = force ? english_texts : english_texts.reject { |e| e.translated?(locale:) }
-      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: open_ai_prompt(locale:)) }
+      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: open_ai_prompt(locale:), locale:) }
     end
     translation(locale:, source_api:)
   end
