@@ -14,6 +14,7 @@ export const START_QUESTION = 'START_QUESTION'
 export const UPDATE_CURRENT_QUESTION = 'UPDATE_CURRENT_QUESTION'
 export const SET_CURRENT_QUESTION = 'SET_CURRENT_QUESTION'
 export const RESUME_PREVIOUS_SESSION = 'RESUME_PREVIOUS_SESSION'
+export const SET_LANGUAGE = 'SET_LANGUAGE'
 
 export const SubmitActions = {
   SUBMIT_RESPONSE,
@@ -28,7 +29,8 @@ export const SubmitActions = {
   START_QUESTION,
   UPDATE_CURRENT_QUESTION,
   SET_CURRENT_QUESTION,
-  RESUME_PREVIOUS_SESSION
+  RESUME_PREVIOUS_SESSION,
+  SET_LANGUAGE
 }
 
 /*
@@ -85,4 +87,8 @@ export function resumePreviousSession(data) {
 
 export function setCurrentQuestion(data) {
   return { type: SET_CURRENT_QUESTION, data };
+}
+
+export function setLanguage(data) {
+  return { type: SET_LANGUAGE, data };
 }
