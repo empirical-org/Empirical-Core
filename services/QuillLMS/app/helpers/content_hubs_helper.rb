@@ -18,7 +18,7 @@ module ContentHubsHelper
   def unit_activities_include_science_activities?(unit_activities) = false
 
   def course_with_assignment_data(course_data, classrooms)
-    return course_data if classrooms.empty?
+    return course_data if !classrooms || classrooms.empty?
 
     classroom_ids_as_string = classrooms.map(&:id).join(',')
 
