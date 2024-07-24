@@ -97,6 +97,11 @@
             <li class="premium-reports-tab"><%= active_link_to raw('<span>Concepts</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_concepts_students_path%></li>
             <li class="premium-reports-tab"><%= active_link_to raw('<span>Standards</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_standards_classrooms_path %></li>
             <li class="premium-reports-tab"><%= active_link_to raw('<span>Data Export</span><div class="small-diamond-icon"></div>'), teachers_progress_reports_activity_sessions_path %></li>
+
+            <% if should_show_social_studies_dashboard_tab? %>
+              <li><%= active_link_to raw('<span>Social Studies</span><div class="small-bar-chart-icon"></div>'), teachers_progress_reports_social_studies_world_history_1200_to_present_path, class: 'default' %></li>
+            <% end%>
+
           <% end %>
 
         </ul>

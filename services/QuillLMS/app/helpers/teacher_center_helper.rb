@@ -96,7 +96,7 @@ module TeacherCenterHelper
       {
         id: SOCIAL_STUDIES_ACTIVITIES,
         name: SOCIAL_STUDIES_ACTIVITIES,
-        url: '/social_studies'
+        url: '/social-studies'
       },
       {
         id: AP_ACTIVITIES,

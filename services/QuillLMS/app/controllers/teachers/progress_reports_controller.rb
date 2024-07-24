@@ -7,7 +7,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   around_action :force_writer_db_role, only: [:admin_demo, :coach_demo, :staff_demo, :demo]
 
-  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo]
+  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo, :world_history_1200_to_present_unit_templates]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
 
   def demo
@@ -51,13 +51,20 @@ class Teachers::ProgressReportsController < ApplicationController
   end
 
   def assigned_content_hub_activities_status
-    classroom_ids_as_string = current_user.classrooms_i_teach.map(&:id).join(',')
-    unit_activities = UnitActivity.joins(:classroom_units).where("classroom_units.classroom_id IN (#{classroom_ids_as_string})")
+    unit_activities = current_user.unit_activities_for_classrooms_i_teach
 
     render json: {
       has_assigned_social_studies_activities: unit_activities_include_social_studies_activities?(unit_activities),
       has_assigned_science_activities: unit_activities_include_science_activities?(unit_activities),
     }
+  end
+
+  def world_history_1200_to_present
+    render 'world_history_1200_to_present'
+  end
+
+  def world_history_1200_to_present_unit_templates
+    render json: { unit_templates: course_with_assignment_data(world_history_1200_to_present_data, current_user&.classrooms_i_teach) }
   end
 
   private def authorize!

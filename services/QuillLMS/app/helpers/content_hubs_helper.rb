@@ -7,7 +7,11 @@ module ContentHubsHelper
   end
 
   def unit_activities_include_social_studies_activities?(unit_activities)
-    activity_ids = world_history_1200_to_present_data.map { |unit_template| unit_template[:activities].map { |act| act[:activity_id] } }.flatten
+    activity_ids = world_history_1200_to_present_data
+      .map do |unit_template|
+        unit_template[:activities].map { |act| act[:activity_id] }
+      end
+      .flatten
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
@@ -30,25 +34,25 @@ module ContentHubsHelper
         activity_sessions = ActivitySession.completed.where(classroom_unit: classroom_units.ids, activity_id: activity[:activity_id], is_final_score: true)
         activity_sessions_with_scores = activity_sessions.where.not(percentage: nil)
 
-        unit_id = activity_sessions.last&.unit&.id || unit_activities.last&.unit_id
-
-        # if activity[:activity_id] == 2516
-        #   puts 'UNIT_ACTIVITIES', unit_activities
-        #   puts 'CLASSROOM_UNITS', classroom_units
-        #   puts 'ACTIVITY_SESSIONS', activity_sessions
-        #   puts 'ACTIVITY_SESSIONS_WITH_SCORES', activity_sessions_with_scores
-        #   puts 'UNIT_ID', unit_id
-        # end
-
         activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
         activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
-        activity[:link_for_report] = unit_id ? "/teachers/progress_reports/report_from_unit_and_activity/u/#{unit_id}/a/#{activity[:activity_id]}" : nil
+        activity[:link_for_report] = get_link_for_report(activity, classroom_units, activity_sessions)
         activity[:average_score] = activity_sessions_with_scores.length > 0 ? activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count : nil
 
         activity
       end
       unit_template
     end
+  end
+
+  def get_link_for_report(activity, classroom_units, activity_sessions)
+    last_classroom_unit = classroom_units.last
+    last_activity_session = activity_sessions.last
+
+    unit_id = last_activity_session&.unit&.id || last_classroom_unit&.unit_id
+    classroom_id = last_activity_session&.classroom&.id || last_classroom_unit&.classroom_id
+
+    unit_id ? "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity[:activity_id]}/c/#{classroom_id}/students" : nil
   end
 
   def world_history_1200_to_present_data

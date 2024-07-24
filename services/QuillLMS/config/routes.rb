@@ -317,6 +317,7 @@ EmpiricalGrammar::Application.routes.draw do
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
     get 'progress_reports/real_time' => 'progress_reports#real_time'
+    get 'progress_reports/social-studies/world-history-1200-to-present' => 'progress_reports#world_history_1200_to_present'
     # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
     get 'progress_reports/student_overview' => 'progress_reports#student_overview'
 
@@ -324,6 +325,7 @@ EmpiricalGrammar::Application.routes.draw do
       resources :activity_sessions, only: [:index]
       resources :csv_exports, only: [:create]
       get 'assigned_content_hub_activities_status'
+      get 'world_history_1200_to_present_unit_templates'
       get 'report_from_classroom_unit_and_activity_and_user/cu/:classroom_unit_id/user/:user_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_activity_and_user'
       get 'report_from_classroom_and_unit_and_activity_and_user/classroom/:classroom_id/unit/:unit_id/user/:user_id/activity/:activity_id' => 'diagnostic_reports#report_from_classroom_and_unit_and_activity_and_user'
       get 'report_from_classroom_unit_and_activity/:classroom_unit_id/a/:activity_id' => 'diagnostic_reports#report_from_classroom_unit_and_activity'
@@ -821,7 +823,7 @@ EmpiricalGrammar::Application.routes.draw do
     teacher_premium
   )
 
-  get 'social_studies/world_history_1200_to_present' => 'pages#world_history_1200_to_present'
+  get 'social-studies/world-history-1200-to-present' => 'pages#world_history_1200_to_present'
 
   all_pages = other_pages
   all_pages.each do |page|
@@ -907,6 +909,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'assign/create-unit' => redirect('/assign/activity-library')
   get 'assign/create-activity-pack' => redirect('/assign/activity-library')
   get 'assign/:tab' => 'teachers/classroom_manager#assign'
+  get 'assign/:tab/:subtab' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'
   get 'assign/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign'
