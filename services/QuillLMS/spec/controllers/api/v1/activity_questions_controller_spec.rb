@@ -82,7 +82,6 @@ RSpec.describe Api::V1::ActivityQuestionsController, type: :controller do
         get :index, params: { activity_id: activity.uid, locale: }
       end
 
-
       it "uses a different cache key for different locales" do
         expect(Rails.cache).to receive(:fetch).with("activity_questions/#{activity.uid}/es", expires_in: 1.hour).and_call_original
         get :index, params: { activity_id: activity.uid, locale: }
