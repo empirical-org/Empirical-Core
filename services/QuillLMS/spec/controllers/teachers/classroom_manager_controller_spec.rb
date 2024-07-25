@@ -353,8 +353,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
     context 'when classroom id is passed' do
       it 'should assign the classrooms (sorted by order) and classroom' do
         get :scorebook, params: { classroom_id: classroom1.id }
-        expect(assigns(:classrooms)).to eq ([classroom2, classroom1, classroom3].as_json)
-        expect(assigns(:classroom)).to eq (classroom1.as_json)
+        expect(assigns(:classrooms)).to eq([classroom2, classroom1, classroom3].as_json)
+        expect(assigns(:classroom)).to eq(classroom1.as_json)
       end
     end
   end
@@ -436,7 +436,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     describe 'onboarding checklist' do
       it 'should set the onboarding_checklist variable to an array of objects with values' do
         get :dashboard
-        expect(assigns(:objective_checklist)).to eq ([
+        expect(assigns(:objective_checklist)).to eq([
           {
             name: create_a_classroom.name,
             checked: true,
@@ -466,7 +466,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
           get :dashboard
           expect(Checkbox.find_by(objective: explore_our_library, user: teacher)).to be
           expect(Checkbox.find_by(objective: explore_our_diagnostics, user: teacher)).to be
-          expect(assigns(:objective_checklist)).to eq ([
+          expect(assigns(:objective_checklist)).to eq([
             {
               name: create_a_classroom.name,
               checked: true,
@@ -818,7 +818,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       json = JSON.parse(response.body)
 
-      expect(json['data'].first['id']).to eq (activity_session.id)
+      expect(json['data'].first['id']).to eq(activity_session.id)
     end
   end
 end

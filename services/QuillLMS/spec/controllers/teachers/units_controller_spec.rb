@@ -465,13 +465,15 @@ describe Teachers::UnitsController, type: :controller do
   describe '#score_info' do
     let!(:activity) { create(:activity) }
     let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
-    let!(:activity_session) { create(:activity_session,
-      activity: activity,
-      classroom_unit: classroom_unit,
-      is_final_score: true,
-      percentage: 0.17,
-      visible: true
-    )}
+    let!(:activity_session) {
+      create(:activity_session,
+        activity: activity,
+        classroom_unit: classroom_unit,
+        is_final_score: true,
+        percentage: 0.17,
+        visible: true
+    )
+    }
 
     it 'no classroom_unit_id should return empty hash' do
       get :score_info, params: { activity_id: 1 }

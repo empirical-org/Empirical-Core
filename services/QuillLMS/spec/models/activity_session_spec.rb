@@ -267,13 +267,13 @@ describe ActivitySession, type: :model, redis: true do
 
   describe '#activity' do
     context 'when there is a direct activity association' do
-    let(:activity){ create(:activity) }
-    let(:activity_session){ build(:activity_session,activity_id: activity.id) }
+      let(:activity){ create(:activity) }
+      let(:activity_session){ build(:activity_session,activity_id: activity.id) }
 
-    it 'must return the associated activity' do
-       expect(activity_session.activity).to eq activity
-     end
-  end
+      it 'must return the associated activity' do
+        expect(activity_session.activity).to eq activity
+      end
+    end
 
     describe '#invalidate_activity_session_count_if_completed' do
       let!(:student){ create(:student, :in_one_classroom) }
@@ -305,10 +305,10 @@ describe ActivitySession, type: :model, redis: true do
       let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
 
       it "must return the unit activity's activity" do
-         activity_session.activity_id=nil
-         unit_activity.unit.reload
-         expect(activity_session.activity).to eq unit_activity.activity
-       end
+        activity_session.activity_id=nil
+        unit_activity.unit.reload
+        expect(activity_session.activity).to eq unit_activity.activity
+      end
     end
   end
 
@@ -440,22 +440,22 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#percentage_as_percent' do
-  context 'when percentage is nil' do
-  let(:activity_session) { create(:activity_session, percentage: nil) }
+    context 'when percentage is nil' do
+      let(:activity_session) { create(:activity_session, percentage: nil) }
 
-  it 'should return no percentage' do
-    expect(activity_session.percentage_as_percent).to eq('no percentage')
-  end
-end
+      it 'should return no percentage' do
+        expect(activity_session.percentage_as_percent).to eq('no percentage')
+      end
+    end
 
-  context 'when percentage is present' do
-    let(:activity_session) { create(:activity_session, percentage: 0.4) }
+    context 'when percentage is present' do
+      let(:activity_session) { create(:activity_session, percentage: 0.4) }
 
-    it 'should return the formatted percentage' do
-      expect(activity_session.percentage_as_percent).to eq('40%')
+      it 'should return the formatted percentage' do
+        expect(activity_session.percentage_as_percent).to eq('40%')
+      end
     end
   end
-end
 
   describe 'score' do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
@@ -915,7 +915,7 @@ end
     let(:classroom) { create(:classroom) }
     let(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let(:activity) { create(:activity) }
-    let (:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
+    let(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
 
     it 'returns a started activity session if it exists' do
       started_activity_session = create(:activity_session, :started, user: student, activity: activity, classroom_unit: classroom_unit)

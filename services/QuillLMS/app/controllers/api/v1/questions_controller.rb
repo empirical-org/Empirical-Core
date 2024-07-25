@@ -26,7 +26,7 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   def update
-    @question.update!({ data:valid_params })
+    @question.update!({ data: valid_params })
     render(json: @question.as_json)
   end
 

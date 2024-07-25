@@ -48,7 +48,7 @@ describe UnitActivity, type: :model, redis: true do
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
   let!(:lessons_activity) { create(:activity, activity_classification_id: 6) }
   let!(:lessons_unit_activity) { create(:unit_activity, unit: unit, activity: lessons_activity) }
-  let!(:classroom_unit) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
   let!(:activity_session) { create(:activity_session, :finished, user_id: student.id, classroom_unit_id: classroom_unit.id, unit: unit, activity: activity) }
 
   describe '#formatted_due_date' do

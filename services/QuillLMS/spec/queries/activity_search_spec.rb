@@ -21,7 +21,7 @@ describe ActivitySearch do
         expect(described_class.search('beta').first).to eq(
           {
             'activity_name' => activity.name,
-            'activity_description' => activity.description ,
+            'activity_description' => activity.description,
             'activity_flag' => '{beta,production}',
             'activity_id' => activity.id,
             'activity_maximum_grade_level' => activity.maximum_grade_level,
