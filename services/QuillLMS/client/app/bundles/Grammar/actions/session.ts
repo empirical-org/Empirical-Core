@@ -127,7 +127,7 @@ const normalizeQuestionWithAttempts = (question: object): object => {
     attempts: question.attempts,
   }
 }
-const activityUID = getParameterByName('uid', window.location.href)
+const activityUID = (): string => { return getParameterByName('uid', window.location.href) }
 
 const handleGrammarSession = (session) => {
   return dispatch => {
@@ -252,7 +252,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
 export const getQuestions = (questions: any, flag: string) => {
   return dispatch => {
     dispatch(setSessionPending(true))
-    QuestionApi.getAll(activityUID).then((allQuestions) => {
+    QuestionApi.getAll(activityUID()).then((allQuestions) => {
       const arrayOfQuestions = questions.map(q => {
         const question = allQuestions[q.key]
         question.uid = q.key
