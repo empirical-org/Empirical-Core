@@ -201,11 +201,6 @@ describe Teachers::ProgressReportsController do
   end
 
   describe '#assigned_content_hub_activities_status' do
-    before do
-      allow(controller).to receive(:current_user).and_return(teacher)
-      allow(teacher).to receive(:unit_activities).and_return([])
-    end
-
     context 'when unit_activities include social studies and science activities' do
       before do
         allow(controller).to receive(:unit_activities_include_social_studies_activities?).and_return(true)
@@ -234,6 +229,19 @@ describe Teachers::ProgressReportsController do
           "has_assigned_science_activities" => false
         })
       end
+    end
+  end
+
+  describe '#world_history_1200_to_present_unit_templates' do
+    before do
+      allow(controller).to receive(:course_with_assignment_data).and_return([])
+    end
+
+    it 'renders json with a unit_templates key' do
+      get :world_history_1200_to_present_unit_templates
+      expect(JSON.parse(response.body)).to eq({
+        "unit_templates" => []
+      })
     end
   end
 end

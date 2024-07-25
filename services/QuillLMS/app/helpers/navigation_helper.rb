@@ -127,8 +127,8 @@ module NavigationHelper
     @data_export_tab ||= { name: DATA_EXPORT, url: teachers_progress_reports_activity_sessions_path }
   end
 
-  def social_studies_dashboard_tab
-    return nil unless should_show_social_studies_dashboard_tab?
+  def social_studies_dashboard_tab(current_user)
+    return nil unless should_show_social_studies_dashboard_tab?(current_user)
 
     @social_studies_dashboard_tab ||= { name: SOCIAL_STUDIES_DASHBOARD, url: teachers_progress_reports_social_studies_world_history_1200_to_present_path }
   end
@@ -344,12 +344,12 @@ module NavigationHelper
         concepts_tab,
         standards_tab,
         data_export_tab,
-        social_studies_dashboard_tab
+        social_studies_dashboard_tab(current_user)
       ].compact
     end
   end
 
-  def should_show_social_studies_dashboard_tab?
+  def should_show_social_studies_dashboard_tab?(current_user)
     unit_activities = current_user.unit_activities_for_classrooms_i_teach
     unit_activities_include_social_studies_activities?(unit_activities)
   end
