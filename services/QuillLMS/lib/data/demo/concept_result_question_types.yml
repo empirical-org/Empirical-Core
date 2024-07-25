@@ -29,19 +29,6 @@
   concise_attributes:
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: id
-    value_before_type_cast: 3159
-  - !ruby/object:ActiveModel::Attribute::FromDatabase
-    name: text
-    value_before_type_cast: passage-proofreader
-  - !ruby/object:ActiveModel::Attribute::FromDatabase
-    name: created_at
-    value_before_type_cast: 2022-07-13 19:51:49.777696000 Z
-  new_record: false
-  active_record_yaml_version: 2
-- !ruby/object:ConceptResultQuestionType
-  concise_attributes:
-  - !ruby/object:ActiveModel::Attribute::FromDatabase
-    name: id
     value_before_type_cast: 3411
   - !ruby/object:ActiveModel::Attribute::FromDatabase
     name: text
