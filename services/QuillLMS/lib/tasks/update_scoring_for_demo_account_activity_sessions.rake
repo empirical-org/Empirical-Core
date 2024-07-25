@@ -11,7 +11,7 @@ namespace :update_scoring_for_demo_account_activity_sessions do
 
     fetch_activity_sessions(ACTIVITY_USER_PAIRS)
       .reject { |activity_session| ActivityClassification::UNSCORED_KEYS.include?(activity_session.classification.key) }
-      .each { |activity_session|  update_activity_session_percentage(activity_session) }
+      .each { |activity_session| update_activity_session_percentage(activity_session) }
   end
 
   def fetch_activity_sessions(id_pairs)

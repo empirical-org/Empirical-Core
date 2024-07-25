@@ -75,13 +75,13 @@ RSpec.describe CleverIntegration::ClassroomUpdater do
     before { ClassroomsTeacher.where(classroom: classroom).delete_all }
 
     context 'classroom has no owner or coteachers' do
-      it  { expect(subject.owner).to eq teacher }
+      it { expect(subject.owner).to eq teacher }
     end
 
     context 'teacher owns classroom' do
       before { create(:classrooms_teacher, classroom: classroom, user: teacher) }
 
-      it  { expect(subject.owner).to eq teacher }
+      it { expect(subject.owner).to eq teacher }
     end
 
     context 'another teacher owns classroom' do

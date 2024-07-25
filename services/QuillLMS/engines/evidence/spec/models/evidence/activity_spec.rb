@@ -219,7 +219,7 @@ module Evidence
       let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
       let(:rule) { create(:evidence_rule, prompts: [activity.prompts.first]) }
       let(:feedback) { create(:evidence_feedback, rule: rule) }
-      let(:highlight) { create(:evidence_highlight, feedback: feedback,  highlight_type: 'passage', text: activity.passages.first.text) }
+      let(:highlight) { create(:evidence_highlight, feedback: feedback, highlight_type: 'passage', text: activity.passages.first.text) }
 
       it 'should return an empty array if there are no invalid highlights or plagiarism_texts at all' do
         expect(activity.invalid_highlights).to eq([])

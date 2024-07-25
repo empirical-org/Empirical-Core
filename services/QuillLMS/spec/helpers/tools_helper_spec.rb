@@ -38,7 +38,7 @@ describe ToolsHelper do
         }
       ]
     }
-    let(:small_tabs)  {
+    let(:small_tabs) {
       [
         {
           name: 'Connect',

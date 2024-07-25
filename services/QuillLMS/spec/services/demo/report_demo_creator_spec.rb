@@ -21,7 +21,7 @@ RSpec.describe Demo::ReportDemoCreator do
         .map { |template| described_class.activity_ids_for_config(template) }
         .flatten
         .uniq
-        .each { |activity_id|  create(:activity, id: activity_id) }
+        .each { |activity_id| create(:activity, id: activity_id) }
 
       Demo::SessionData.new
         .concept_results
@@ -56,7 +56,7 @@ RSpec.describe Demo::ReportDemoCreator do
     let!(:activity) { create(:activity, id: activity_id) }
 
     let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }
-    let!(:concepts) { concept_ids.map { |id|  create(:concept, id: id) } }
+    let!(:concepts) { concept_ids.map { |id| create(:concept, id: id) } }
 
     let(:demo_config) do
       [

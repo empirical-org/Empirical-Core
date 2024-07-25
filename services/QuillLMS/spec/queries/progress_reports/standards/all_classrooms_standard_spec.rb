@@ -23,7 +23,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
     end
 
     it 'should return the correctly shaped payload' do
-      expected_keys =  [
+      expected_keys = [
         'id',
         'name',
         'standard_level_name',

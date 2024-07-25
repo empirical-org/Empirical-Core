@@ -15,7 +15,7 @@ describe AboutUsHelper do
         { id: 'Contact Us', name: 'Contact Us', url: '/contact' }
       ]
     }
-    let(:small_tabs)  {
+    let(:small_tabs) {
       [
         { id: 'About Us', name: 'About', url: '/about' },
         { id: 'Impact', name: 'Impact', url: '/impact' },

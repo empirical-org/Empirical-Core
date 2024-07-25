@@ -139,7 +139,7 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionCreator do
   end
 
   context 'amount paid different than plan price' do
-    let!(:stripe_invoice_amount_paid) { stripe_plan.plan.amount - 1  }
+    let!(:stripe_invoice_amount_paid) { stripe_plan.plan.amount - 1 }
 
     it { expect { subject }.to raise_error described_class::AmountPaidMismatchError }
 

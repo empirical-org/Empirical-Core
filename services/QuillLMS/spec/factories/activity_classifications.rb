@@ -36,7 +36,7 @@ FactoryBot.define do
     module_url     { 'https://www.fake-url.com/' }
     form_url       { 'https://www.fake-url.com/' }
     sequence(:order_number)
-    uid            { SecureRandom.urlsafe_base64 } # mock a uid
+    uid { SecureRandom.urlsafe_base64 } # mock a uid
 
     # Because some of our activity classification code is currently hardcoded,
     # and because activity classifications are very static in our codebase,

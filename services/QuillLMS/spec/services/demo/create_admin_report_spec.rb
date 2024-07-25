@@ -23,7 +23,7 @@ RSpec.describe Demo::CreateAdminReport do
       .map { |template| Demo::ReportDemoCreator.activity_ids_for_config(template) }
       .flatten
       .uniq
-      .each { |activity_id|  create(:activity, id: activity_id) }
+      .each { |activity_id| create(:activity, id: activity_id) }
 
     Demo::SessionData.new
       .concept_results

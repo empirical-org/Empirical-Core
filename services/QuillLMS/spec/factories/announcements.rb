@@ -17,7 +17,7 @@
 #
 FactoryBot.define do
   factory :announcement do
-    announcement_type  { Announcement::TYPES[:webinar] }
+    announcement_type { Announcement::TYPES[:webinar] }
 
     add_attribute(:start) { 1.day.ago }
     add_attribute(:end) { 1.day.from_now }

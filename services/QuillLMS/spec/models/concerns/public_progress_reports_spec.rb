@@ -403,7 +403,7 @@ describe PublicProgressReports, type: :model do
 
     it 'should return the evidence default key target skill concept if the first concept result has no extra metadata and it was an evidence session' do
       evidence_activity_session = create(:evidence_activity_session)
-      concept_result =  create(:concept_result, activity_session: evidence_activity_session)
+      concept_result = create(:concept_result, activity_session: evidence_activity_session)
 
       expect(FakeReports.new.get_key_target_skill_concept_for_question([concept_result], concept_result.activity_session)).to eq(evidence_default)
     end
@@ -421,9 +421,9 @@ describe PublicProgressReports, type: :model do
     end
 
     it 'should return a key target skill concept with the parent of the question\'s concept that is correct if the student reached an optimal response' do
-      concept =  create(:concept_with_grandparent)
-      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
-      correct_concept_result =  create(:concept_result, correct: true, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+      concept = create(:concept_with_grandparent)
+      incorrect_concept_result = create(:concept_result, correct: false, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
+      correct_concept_result = create(:concept_result, correct: true, concept_id: concept.id, question_score: 1, extra_metadata: { question_concept_uid: concept.uid })
 
       expected = {
         id: concept.parent.id,
@@ -436,8 +436,8 @@ describe PublicProgressReports, type: :model do
     end
 
     it 'should return a key target skill concept with the parent of the question\'s concept that is incorrect if the student did not reach an optimal response' do
-      concept =  create(:concept_with_grandparent)
-      incorrect_concept_result =  create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
+      concept = create(:concept_with_grandparent)
+      incorrect_concept_result = create(:concept_result, correct: false, concept_id: concept.id, extra_metadata: { question_concept_uid: concept.uid })
 
       expected = {
         id: concept.parent.id,

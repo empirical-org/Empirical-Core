@@ -20,7 +20,7 @@ namespace :objectives do
          { name: Objective::EXPLORE_OUR_DIAGNOSTICS, section: 'Getting Started', help_info: '', action_url: '/assign/diagnostic', section_placement: 4 },
          { name: 'Assign Featured Activity Pack', section: 'Other', help_info: 'https://support.quill.org/quill-org/getting-started-for-teachers/assigning-activities/how-can-i-assign-a-featured-activity-pack', action_url: '/activities/packs', section_placement: 3 },
          { name: 'Assign Entry Diagnostic', section: 'Other', help_info: 'https://support.quill.org/getting-started-for-teachers/assigning-activities/how-can-i-assign-a-quill-diagnostic', action_url: '/teachers/classrooms/activity_planner/diagnostic', section_placement: 4 },
-         { name: 'Add School', section: 'Other', help_info: 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-add-my-school',  action_url: '/teachers/my_account', section_placement: 5 },
+         { name: 'Add School', section: 'Other', help_info: 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-add-my-school', action_url: '/teachers/my_account', section_placement: 5 },
          { name: 'Build Your Own Activity Pack', section: 'Other', help_info: 'http://support.quill.org/getting-started-for-teachers/assigning-activities/create-and-assign-your-own-activity-pack', action_url: '/teachers/classrooms/lesson_planner', section_placement: 6 }
        ]
     end

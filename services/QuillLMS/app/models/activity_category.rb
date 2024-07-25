@@ -21,7 +21,7 @@ class ActivityCategory < ApplicationRecord
   def set_order_number
     return if order_number.present?
 
-    self.order_number =  ActivityCategory.count
+    self.order_number = ActivityCategory.count
   end
 
   def clear_activity_search_cache

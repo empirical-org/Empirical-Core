@@ -33,7 +33,7 @@ FactoryBot.define do
     factory :grade_3_standard_level do
       name      { '3rd Grade CCSS' }
       position  { 4 }
-      uid        { '9XKMizwyMg9mWt1JO-YRdw' }
+      uid { '9XKMizwyMg9mWt1JO-YRdw' }
     end
 
     factory :grade_4_standard_level do

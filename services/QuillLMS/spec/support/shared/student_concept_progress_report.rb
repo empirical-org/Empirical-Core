@@ -26,7 +26,7 @@ shared_context 'Student Concept Progress Report' do
       assign_on_join: true,
       unit: unit,
       assigned_student_ids: [alice.id, fred.id, zojirushi.id]
-                                          )
+    )
   }
   let(:unit_activity) {
     create(:unit_activity,

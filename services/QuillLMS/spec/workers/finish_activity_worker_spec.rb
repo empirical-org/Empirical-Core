@@ -7,7 +7,7 @@ describe FinishActivityWorker, type: :worker do
   let(:classroom) { create(:classroom) }
   let!(:unit) { create(:unit) }
   let(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit) }
-  let(:activity_session) { create(:activity_session,  classroom_unit: classroom_unit) }
+  let(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
   let(:analyzer) { double(:analyzer) }
 
   before { allow(Analytics::SegmentAnalytics).to receive(:new) { analyzer } }

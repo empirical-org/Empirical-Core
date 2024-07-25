@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe AdminsController  do
+describe AdminsController do
   before { allow(controller).to receive(:current_user) { admin } }
 
   it { should use_before_action :admin! }
@@ -198,7 +198,7 @@ describe AdminsController  do
   describe '#make_admin' do
     it 'should create a schools admins record, fire an email worker, and return a message' do
       expect(PremiumHub::MadeSchoolAdminEmailWorker).to receive(:perform_async)
-      post :make_admin, params: { id: teacher.id, school_id: school.id  }
+      post :make_admin, params: { id: teacher.id, school_id: school.id }
       expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).to be
       expect(response.body).to eq({ message: I18n.t('admin.make_admin') }.to_json)
     end
@@ -210,7 +210,7 @@ describe AdminsController  do
     end
 
     it 'should destroy the schools admins record and return a message' do
-      post :remove_as_admin, params: { id: teacher.id, school_id: school.id  }
+      post :remove_as_admin, params: { id: teacher.id, school_id: school.id }
       expect(SchoolsAdmins.find_by(user_id: teacher.id, school_id: school.id)).not_to be
       expect(response.body).to eq({ message: I18n.t('admin.remove_admin') }.to_json)
     end
@@ -224,7 +224,7 @@ describe AdminsController  do
           admin_approval_request = create(:admin_approval_request, admin_info: admin_info, requestee: admin, request_made_during_sign_up: request_made_during_sign_up)
           expect(TeacherApprovedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id, admin_approval_request.request_made_during_sign_up)
 
-          post :approve_admin_request, params: { id: teacher.id, school_id: school.id  }
+          post :approve_admin_request, params: { id: teacher.id, school_id: school.id }
 
           teacher.admin_info.reload
           expect(teacher.admin_info.approval_status).to eq(AdminInfo::APPROVED)
@@ -243,7 +243,7 @@ describe AdminsController  do
 
       expect(TeacherDeniedToBecomeAdminAnalyticsWorker).to receive(:perform_async).with(teacher.id, admin_approval_request.request_made_during_sign_up)
 
-      post :deny_admin_request, params: { id: teacher.id  }
+      post :deny_admin_request, params: { id: teacher.id }
 
       teacher.admin_info.reload
       expect(teacher.admin_info.approval_status).to eq(AdminInfo::DENIED)

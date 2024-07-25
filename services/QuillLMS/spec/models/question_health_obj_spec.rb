@@ -16,7 +16,7 @@ RSpec.describe QuestionHealthObj, type: :model do
         activity_session: activity_session1,
         question_number: 1,
         question_score: 1
-     )
+      )
     end
 
     let!(:concept_result2) do
@@ -24,7 +24,7 @@ RSpec.describe QuestionHealthObj, type: :model do
         activity_session: activity_session2,
         question_number: 1,
         question_score: 0.75
-     )
+      )
     end
 
     let!(:concept_result3) do
@@ -39,7 +39,7 @@ RSpec.describe QuestionHealthObj, type: :model do
       ENV['DEFAULT_URL'] = 'https://quill.org'
       ENV['CMS_URL'] = 'https://cms.quill.org'
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 50, percent_specified_algos: 75 }.to_json, headers: {})
     end
 
     it 'should return an object with that questions health info' do

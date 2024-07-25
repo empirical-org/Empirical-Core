@@ -32,7 +32,7 @@ RSpec.describe LearnWorldsIntegration::WebhooksController, type: :controller do
       let(:signature_header) { "v2=#{webhook_signature}" }
 
       context 'enrolled_free_course_event' do
-        let(:params) {  enrolled_free_course_event }
+        let(:params) { enrolled_free_course_event }
 
         it { should_call_event_handler(LearnWorldsIntegration::Webhooks::EnrolledFreeCourseEventHandler) }
       end

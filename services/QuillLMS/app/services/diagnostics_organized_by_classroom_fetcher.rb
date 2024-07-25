@@ -95,7 +95,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
     record = records[0]
     return if !record
 
-    record['eligible_for_question_scoring'] = activity_sessions.empty? || activity_sessions.last.completed_at  > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE
+    record['eligible_for_question_scoring'] = activity_sessions.empty? || activity_sessions.last.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE
     record['completed_count'] = activity_sessions.size
     record['assigned_count'] = assigned_student_ids.size
     record.except('unit_id', 'unit_name', 'classroom_unit_id', 'assigned_student_ids')

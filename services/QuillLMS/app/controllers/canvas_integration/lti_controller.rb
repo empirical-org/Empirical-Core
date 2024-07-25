@@ -13,7 +13,7 @@ module CanvasIntegration
       @link_text = LAUNCH_TEXT
       @link_url = canvas_integration_lti_sso_path(canvas_instance_url: params[:custom_canvas_instance_url])
 
-      render layout: false   # canvas doesn't allow script tags in iframes
+      render layout: false # canvas doesn't allow script tags in iframes
     end
 
     def launch_config

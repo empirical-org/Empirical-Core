@@ -57,7 +57,7 @@ describe Api::V1::UsersController do
     end
 
     context 'students' do
-      let(:user)  { create(:student) }
+      let(:user) { create(:student) }
 
       it 'should return student for student users' do
         get :current_user_role, as: :json
