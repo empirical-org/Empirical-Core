@@ -29,17 +29,16 @@ export const Home = ({playLesson, lessons, dispatch}) => {
   const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
   const [languageOptions, setLanguageOptions] = React.useState<any>(null);
   React.useEffect(() => {
-    if (lessons?.hasreceiveddata) {
-      const translations = lessons.data?.[lessonUid]?.translations ?? {};
-      const languageOptions = [
-        { value: ENGLISH, label: ENGLISH },
-        ...Object.keys(translations).map(language => ({
-          value: localeToLanguageMap[language],
-          label: localeToLanguageMap[language]
-        }))
-      ];
-      setLanguageOptions(languageOptions);
-    }
+    if (!lessons?.hasreceiveddata) { return }
+    const translations = lessons.data?.[lessonUid]?.translations ?? {};
+    const languageOptions = [
+      { value: ENGLISH, label: ENGLISH },
+      ...Object.keys(translations).map(language => ({
+        value: localeToLanguageMap[language],
+        label: localeToLanguageMap[language]
+      }))
+    ];
+    setLanguageOptions(languageOptions);
   }, [lessons]);
 
   function handleKeyDown (e: any) {
