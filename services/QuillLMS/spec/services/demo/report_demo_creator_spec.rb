@@ -186,9 +186,9 @@ RSpec.describe Demo::ReportDemoCreator do
 
         expect(activity_session.percentage).to eq(session_clone.percentage)
         expect(activity_session.timespent).to eq(session_clone.timespent || Demo::ReportDemoCreator::DEFAULT_TIMESPENT)
-        expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
+        expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['cues', 'question_uid', 'question_concept_uid']
         # Taken from actual concept_result
-        expect(activity_session.concept_results.first.answer).to eq('Pho is a soup made with herbs bone broth and noodles.')
+        expect(activity_session.concept_results.first.answer).to eq("Even though it's cover is torn and it's pages are yellowed, the book is very valuable because it's three hundred years old and very rare.")
       end
     end
 
