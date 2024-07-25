@@ -39,10 +39,11 @@ describe ContentHubsHelper, type: :helper do
       classroom_ids_as_string = classrooms.map(&:id).join(',')
       allow(helper).to receive(:assignment_data_for_unit_template).and_return(course_data.first)
 
+      expect(helper).to receive(:assignment_data_for_unit_template).with(course_data.first, classroom_ids_as_string).exactly(1).times
+
       result = helper.course_with_assignment_data(course_data, classrooms)
 
       expect(result).to eq(course_data)
-      expect(helper).to have_received(:assignment_data_for_unit_template).with(course_data.first, classroom_ids_as_string).exactly(1).times
     end
   end
 
