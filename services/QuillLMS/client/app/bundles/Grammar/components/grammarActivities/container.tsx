@@ -91,9 +91,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     dispatch(getActivity(activityUID))
 
     if (sessionIdentifier && !previewMode) {
-      dispatch(startListeningToQuestions(sessionIdentifier));
+      dispatch(startListeningToQuestions(activityUID, sessionIdentifier));
     } else {
-      dispatch(startListeningToQuestions());
+      dispatch(startListeningToQuestions(activityUID));
       dispatch(startNewSession())
     }
 
