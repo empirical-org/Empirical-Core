@@ -42,7 +42,15 @@ module Demo::ReportDemoCreator
       name: 'Capitalization (Starter Baseline Recommendation)',
       unit_template_id: 655,
       activity_sessions: [
-        {}, # Ken Liu
+        {
+          2672 => KEN_ID,
+          2677 => KEN_ID,
+          2679 => KEN_ID,
+          2680 => KEN_ID,
+          2678 => KEN_ID,
+          2673 => KEN_ID,
+          2681 => KEN_ID
+        },
         {
           2672 => TAHEREH_ID,
           2677 => TAHEREH_ID,
@@ -62,55 +70,48 @@ module Demo::ReportDemoCreator
           2673 => NIC_ID,
           2681 => NIC_ID
         },
+        {} # Angie Thomas
+      ]
+    },
+    {
+      name: 'Pronouns (Starter Baseline Recommendation)',
+      unit_template_id: 657,
+      activity_sessions: [
+        {}, # Ken Liu
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
         {
-          2672 => ANGIE_ID,
-          2677 => ANGIE_ID,
-          2679 => ANGIE_ID,
-          2680 => ANGIE_ID,
-          2678 => ANGIE_ID,
-          2673 => ANGIE_ID,
-          2681 => ANGIE_ID
+          1486 => ANGIE_ID,
+          2670 => ANGIE_ID,
+          1452 => ANGIE_ID,
+          2671 => ANGIE_ID,
+          1487 => ANGIE_ID,
+          2764 => ANGIE_ID,
+          2765 => ANGIE_ID,
+          2766 => ANGIE_ID,
+          2767 => ANGIE_ID,
+          2768 => ANGIE_ID
         }
       ]
     },
     {
-      name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
-      unit_template_id: 654,
-      activity_sessions: [
-        {
-          2639 => KEN_ID,
-          2652 => KEN_ID,
-          2653 => KEN_ID,
-          2654 => KEN_ID,
-          2655 => KEN_ID,
-          1308 => KEN_ID,
-          1440 => KEN_ID,
-          2656 => KEN_ID,
-          2649 => KEN_ID,
-          2661 => KEN_ID,
-          2657 => KEN_ID,
-          2658 => KEN_ID,
-          2659 => KEN_ID,
-          2660 => KEN_ID
-        },
-        {}, # Tahereh Mafi
-        {}, # Jason Reynolds
-        {}, # Nic Stone
-        {}  # Angie Thomas
-      ]
-    },
-    {
-      name: 'Prepositional Phrases (Starter Baseline Recommendation)',
-      unit_template_id: 314,
+      name: 'Subject-Verb Agreement (Starter Baseline Recommendation)',
+      unit_template_id: 656,
       activity_sessions: [
         {}, # Ken Liu
         {}, # Tahereh Mafi
         {
-          846 => JASON_ID,
-          600 => JASON_ID,
-          712 => JASON_ID,
-          599 => JASON_ID,
-          765 => JASON_ID
+          2506 => JASON_ID,
+          2507 => JASON_ID,
+          2663 => JASON_ID,
+          767  => JASON_ID,
+          2666 => JASON_ID,
+          2667 => JASON_ID,
+          2668 => JASON_ID,
+          2669 => JASON_ID,
+          2664 => JASON_ID,
+          2665 => JASON_ID
         },
         {}, # Nic Stone
         {}  # Angie Thomas
