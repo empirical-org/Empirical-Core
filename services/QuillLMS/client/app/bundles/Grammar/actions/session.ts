@@ -6,6 +6,7 @@ import * as responseActions from './responses';
 
 import { hashToCollection } from '../../Shared/index';
 import { permittedFlag } from '../helpers/flagArray';
+import getParameterByName from '../helpers/getParameterByName';
 import { shuffle } from '../helpers/shuffle';
 import { Question } from '../interfaces/questions';
 import { GRAMMAR_QUESTION_TYPE, QuestionApi } from '../libs/questions_api';
@@ -15,7 +16,7 @@ import { SessionState } from '../reducers/sessionReducer';
 export const allQuestions = {};
 let questionsInitialized = false;
 
-export const populateQuestions = (questions: object, forceRefresh: boolean) => {
+export const populateQuestions = (questions: object, forceRefresh?: boolean) => {
   if (questionsInitialized && !forceRefresh) return;
   Object.keys(questions).forEach((uid) => {
     questions[uid].uid = uid
@@ -126,11 +127,12 @@ const normalizeQuestionWithAttempts = (question: object): object => {
     attempts: question.attempts,
   }
 }
+const activityUID = getParameterByName('uid', window.location.href)
 
 const handleGrammarSession = (session) => {
   return dispatch => {
     if (session && Object.keys(session).length > 1 && !session.error) {
-      QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((allQuestions) => {
+      QuestionApi.getAll(activityUID).then((allQuestions) => {
         if (session.currentQuestion) {
           if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
             const currentQuestion = allQuestions[session.currentQuestion.uid]
@@ -209,7 +211,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
   return (dispatch, getState) => {
     dispatch(setSessionPending(true))
     const conceptUIDs = Object.keys(concepts)
-    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions) => {
+    QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE).then((questions) => {
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
         if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && permittedFlag(flag, questions[q].flag)) {
@@ -250,7 +252,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
 export const getQuestions = (questions: any, flag: string) => {
   return dispatch => {
     dispatch(setSessionPending(true))
-    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((allQuestions) => {
+    QuestionApi.getAll(activityUID).then((allQuestions) => {
       const arrayOfQuestions = questions.map(q => {
         const question = allQuestions[q.key]
         question.uid = q.key
