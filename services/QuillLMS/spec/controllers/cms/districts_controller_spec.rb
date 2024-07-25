@@ -86,7 +86,7 @@ describe Cms::DistrictsController do
             user_id: admin.user_id
         }
       end
-      )
+                                    )
       expect(assigns(:district_subscription_info)).to eq({
         'District Premium Type' => district.subscription.account_type,
         'Expiration' => district.subscription.expiration.strftime('%b %d, %Y')

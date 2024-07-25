@@ -226,7 +226,7 @@ module AdminDiagnosticReports
                     post_students_completed: post_completed_aggregate_row1[:post_students_completed],
                     overall_skill_growth: post_completed_aggregate_row1[:overall_skill_growth]
                   }
-              )
+                )
             end
           end
         end

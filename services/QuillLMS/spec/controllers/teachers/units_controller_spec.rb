@@ -16,7 +16,7 @@ describe Teachers::UnitsController, type: :controller do
       unit: unit,
       classroom: classroom,
       assigned_student_ids: [student.id]
-   )
+    )
   end
 
   let!(:classroom_unit2) do
@@ -24,7 +24,7 @@ describe Teachers::UnitsController, type: :controller do
       unit: unit2,
       classroom: classroom,
       assigned_student_ids: [student.id]
-   )
+    )
   end
 
   let!(:diagnostic) { create(:diagnostic) }
@@ -472,7 +472,7 @@ describe Teachers::UnitsController, type: :controller do
         is_final_score: true,
         percentage: 0.17,
         visible: true
-    )
+      )
     }
 
     it 'no classroom_unit_id should return empty hash' do

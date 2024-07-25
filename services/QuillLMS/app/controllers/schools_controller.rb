@@ -60,9 +60,9 @@ class SchoolsController < ApplicationController
         .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
         .where(
           "zipcode in #{array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{array_to_postgres_array_helper(zip_arr)}"
-         ).where(
-           'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
-         ).group('schools.id')
+        ).where(
+          'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
+        ).group('schools.id')
          .limit(@limit)
         $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map { |s| s.id }.to_json)
         # short cache, highly specific
@@ -77,7 +77,7 @@ class SchoolsController < ApplicationController
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
       .where(
         'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
-       ).group('schools.id')
+      ).group('schools.id')
        .limit(@limit)
       $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map { |s| s.id }.to_json)
       # longer cache, more general

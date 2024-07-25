@@ -12,6 +12,6 @@ module PusherDistrictStandardsReportsCompleted
       admin_id.to_s,
       'district-standards-reports-found',
       message: "District standards reports found for #{admin_id}."
-   )
+    )
   end
 end

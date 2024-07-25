@@ -110,7 +110,7 @@ describe Cms::SchoolsController do
                                            user_id: admin.user_id
                                        }
                                      end
-      )
+                                    )
     end
   end
 

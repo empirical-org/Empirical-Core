@@ -12,6 +12,6 @@ module PusherDistrictActivityScoresCompleted
       admin_id.to_s,
       'district-activity-scores-found',
       message: "District activity scores found for #{admin_id}."
-   )
+    )
   end
 end

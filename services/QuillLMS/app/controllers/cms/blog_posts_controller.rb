@@ -68,7 +68,7 @@ class Cms::BlogPostsController < Cms::CmsController
               :press_name,
               :featured_order_number,
               :footer_content
-                  )
+            )
   end
 
   private def set_blog_post

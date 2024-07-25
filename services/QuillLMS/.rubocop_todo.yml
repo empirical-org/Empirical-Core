@@ -15,12 +15,6 @@ Bundler/OrderedGems:
     - 'Gemfile'
 
 
-# Offense count: 58
-# This cop supports safe autocorrection (--autocorrect).
-Layout/ClosingParenthesisIndentation:
-  Enabled: false
-
-
 # Offense count: 163
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.

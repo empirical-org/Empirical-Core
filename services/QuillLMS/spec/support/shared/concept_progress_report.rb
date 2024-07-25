@@ -23,7 +23,7 @@ shared_context 'Concept Progress Report' do
     create(:unit_activity,
       unit: unit,
       activity: activity
-  )
+    )
   }
 
   let!(:writing_grandparent_concept) { create(:concept, name: 'Writing Grandparent') }
@@ -38,7 +38,7 @@ shared_context 'Concept Progress Report' do
       activity: activity,
       state: 'finished',
       percentage: 0.75
-                                        )
+    )
   }
 
   let!(:correct_writing_result1) do
@@ -106,7 +106,7 @@ shared_context 'Concept Progress Report' do
       user: other_student,
       state: 'finished',
       percentage: 0.75
-   )
+    )
   end
 
   let!(:other_grammar_result) do

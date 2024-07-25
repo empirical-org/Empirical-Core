@@ -18,7 +18,7 @@ describe PopulateActivityHealthWorker do
             { key: another_question.uid }
           ]
         }
-     )
+      )
     end
 
     let!(:content_partner) { create(:content_partner, activities: [activity]) }

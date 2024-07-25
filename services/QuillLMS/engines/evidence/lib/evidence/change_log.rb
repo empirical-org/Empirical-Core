@@ -113,7 +113,7 @@ module Evidence
           ],
         automl_models: [:change_logs]
         ]
-                    ).find(id)
+      ).find(id)
       change_logs = activity_change_logs + passages_change_logs + prompts_change_logs + universal_change_logs
       change_logs.map(&:serializable_hash)
     end

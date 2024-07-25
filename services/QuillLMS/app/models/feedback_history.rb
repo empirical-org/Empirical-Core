@@ -336,7 +336,7 @@ class FeedbackHistory < ApplicationRecord
           THEN true ELSE false END
         ) AS complete
       SQL
-      )
+    )
       .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
@@ -404,7 +404,7 @@ class FeedbackHistory < ApplicationRecord
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid
       SQL
-      )
+    )
       .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
@@ -431,7 +431,7 @@ class FeedbackHistory < ApplicationRecord
         feedback_histories.feedback_type,
         comprehension_rules.name
       SQL
-      )
+    )
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid')
       .where(used: true)
