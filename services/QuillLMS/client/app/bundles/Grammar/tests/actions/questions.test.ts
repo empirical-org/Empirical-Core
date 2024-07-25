@@ -35,10 +35,10 @@ describe('Questions actions', () => {
       expect(mockQuestionApi.getAllForType).toHaveBeenLastCalledWith(GRAMMAR_QUESTION_TYPE)
     })
 
-    it('should call QuestionApi.getAll if an activity ID is passd in', () => {
+    it('should call QuestionApi.getAllForActivity if an activity ID is passd in', () => {
       const MOCK_UID = "23"
       dispatch(startListeningToQuestions(MOCK_UID))
-      expect(mockQuestionApi.getAll).toHaveBeenLastCalledWith(MOCK_UID)
+      expect(mockQuestionApi.getAllForActivity).toHaveBeenLastCalledWith(MOCK_UID)
     })
   })
 
@@ -51,7 +51,7 @@ describe('Questions actions', () => {
   })
 
   describe('submitNewQuestion', () => {
-    it('should call QuestionApi.getAll()', () => {
+    it('should call QuestionApi.create()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       dispatch(submitNewQuestion(MOCK_CONTENT))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(GRAMMAR_QUESTION_TYPE, MOCK_CONTENT)

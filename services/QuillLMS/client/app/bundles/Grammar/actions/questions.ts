@@ -19,7 +19,7 @@ import {
 export const startListeningToQuestions = (activityUID?: string, sessionID?: string) => {
   return (dispatch: Function) => {
     const fetchQuestions = activityUID
-      ? QuestionApi.getAll(activityUID)
+      ? QuestionApi.getAllForActivity(activityUID)
       : QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE);
 
     fetchQuestions.then((questions: Array<Question>) => {

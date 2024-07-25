@@ -20,11 +20,11 @@ import {
 } from '../../libs/questions_api'
 
 describe('QuestionApi calls', () => {
-  describe('getAll', () => {
+  describe('getAllForActivity', () => {
     it('should call requestGet', () => {
       const MOCK_UID = 'uid'
       const url = `${activityApiBaseUrl}/${MOCK_UID}/questions.json`
-      QuestionApi.getAll(MOCK_UID)
+      QuestionApi.getAllForActivity(MOCK_UID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })

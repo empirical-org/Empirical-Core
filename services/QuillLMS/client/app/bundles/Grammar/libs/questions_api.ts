@@ -11,7 +11,7 @@ class QuestionApi {
     return requestGet(`${questionApiBaseUrl}.json?question_type=${questionType}`, null, (error) => {throw(error)});
   }
 
-  static getAll(activity_uid: string): Promise<Array<Question>> {
+  static getAllForActivity(activity_uid: string): Promise<Array<Question>> {
     return requestGet(`${activityApiBaseUrl}/${activity_uid}/questions.json`, null, (error) => {throw(error)});
   }
 

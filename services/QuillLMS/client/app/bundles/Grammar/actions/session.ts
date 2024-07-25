@@ -132,7 +132,7 @@ const activityUID = (): string => { return getParameterByName('uid', window.loca
 const handleGrammarSession = (session) => {
   return dispatch => {
     if (session && Object.keys(session).length > 1 && !session.error) {
-      QuestionApi.getAll(activityUID).then((allQuestions) => {
+      QuestionApi.getAllForActivity(activityUID).then((allQuestions) => {
         if (session.currentQuestion) {
           if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
             const currentQuestion = allQuestions[session.currentQuestion.uid]
@@ -252,7 +252,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
 export const getQuestions = (questions: any, flag: string) => {
   return dispatch => {
     dispatch(setSessionPending(true))
-    QuestionApi.getAll(activityUID()).then((allQuestions) => {
+    QuestionApi.getAllForActivity(activityUID()).then((allQuestions) => {
       const arrayOfQuestions = questions.map(q => {
         const question = allQuestions[q.key]
         question.uid = q.key
