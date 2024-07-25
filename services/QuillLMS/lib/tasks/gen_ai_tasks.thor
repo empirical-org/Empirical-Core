@@ -141,6 +141,7 @@ class GenAITasks < Thor
     end
   end
 
+  # bundle exec thor gen_a_i_tasks:secondary_feedback_test 2
   desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def secondary_feedback_test(limit = 2)
     test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
@@ -155,13 +156,24 @@ class GenAITasks < Thor
 
       response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_set.primary, model: 'gpt-4o-mini')
       highlight_key = response[KEY_HIGHLIGHT] || 99
-      highlight = prompt.distinct_automl_highlight_texts[highlight_key - 1]
+      llm_highlight = prompt.distinct_automl_highlight_arrays[highlight_key - 1]
 
-      results << [prompt.id, prompt.stem, entry, feedback_set.primary, response[KEY_SECONDARY_FEEDBACK], feedback_set.secondary, highlight]
+      highlight_match = feedback_set.highlights == llm_highlight
+
+      results << [
+        prompt.id,
+        prompt.text,
+        feedback_set.primary,
+        response[KEY_SECONDARY_FEEDBACK],
+        feedback_set.secondary,
+        highlight_match,
+        llm_highlight.join('|'),
+        feedback_set.highlights.join('|')
+      ]
     end
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
-      csv << ['Prompt ID', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'LLM Highlight']
+      csv << ['Prompt ID', 'Stem', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match','LLM Highlight', 'Curriculum Highlight']
       results.each { |result| csv << result }
     end
   end
@@ -190,7 +202,7 @@ class GenAITasks < Thor
     end
   end
 
-  # bundle exec secondary_prompt_entry 256 'some answer from student'
+  # bundle exec thor gen_a_i_tasks:econdary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
   desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)

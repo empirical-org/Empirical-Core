@@ -84,14 +84,13 @@ module Evidence
       rules&.find_by(rule_type: Evidence::Rule::TYPE_PLAGIARISM)
     end
 
-    def distinct_automl_highlight_texts
-      @distinct_automl_highlight_texts ||= rules
+    def distinct_automl_highlight_arrays
+      @distinct_automl_highlight_arrays ||= rules
         .includes(feedbacks: :highlights)
         .active
         .auto_ml
         .suboptimal
-        .map {|r| r.feedbacks.map {|f| f.highlights.sort_by(&:text).map(&:text)}}
-        .flatten
+        .map {|r| r.feedbacks.map {|f| f.highlights.sort_by(&:text).map(&:text)}.flatten}
         .uniq
     end
 

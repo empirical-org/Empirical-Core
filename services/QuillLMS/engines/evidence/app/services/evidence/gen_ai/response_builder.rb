@@ -49,21 +49,15 @@ module Evidence
       private def rule_uid = rule_set[conjunction]
       private def rule_set = optimal ? RULES_OPTIMAL : RULES_SUBOPTIMAL
 
-      private def highlight_text
+      private def highlight_array
         return nil if highlight_key.nil?
 
-        prompt.distinct_automl_highlight_texts[highlight_key.to_i - 1]
+        prompt.distinct_automl_highlight_arrays[highlight_key.to_i - 1]
       end
 
-      private def highlight
-        return [] if highlight_text.nil?
+      private def highlight = highlight_array.map {|text| {type:, text:, category: ''} }
 
-        [{
-          type: Evidence::Highlight::TYPE_PASSAGE,
-          text: highlight_text,
-          category: ''
-        }]
-      end
+      private def type = Evidence::Highlight::TYPE_PASSAGE
 
       private def highlight_key = chat_response[KEY_HIGHLIGHT]
       private def optimal = chat_response[KEY_OPTIMAL]
