@@ -9,7 +9,7 @@ class Teachers::UnitsController < ApplicationController
 
   def create
     units_with_same_name = current_user.units_with_same_name(params[:unit][:name])
-    includes_ell_starter_diagnostic = params[:unit][:activities].include?({'id'=>1161})
+    includes_ell_starter_diagnostic = params[:unit][:activities].include?({ 'id'=>1161 })
 
     if units_with_same_name.any?
       activities_data = unit_params[:activities].map(&:to_h)
@@ -21,11 +21,11 @@ class Teachers::UnitsController < ApplicationController
     if includes_ell_starter_diagnostic
       ELLStarterDiagnosticEmailJob.perform_async(current_user.first_name, current_user.email)
     end
-    render json: {id: Unit.where(user: current_user).last.id}
+    render json: { id: Unit.where(user: current_user).last.id }
   end
 
   def prohibited_unit_names
-    unit_names = current_user.units.joins(:classrooms).where(classrooms: {visible: true}).pluck(:name).map(&:downcase)
+    unit_names = current_user.units.joins(:classrooms).where(classrooms: { visible: true }).pluck(:name).map(&:downcase)
     render json: { prohibitedUnitNames: unit_names }.to_json
   end
 
@@ -38,13 +38,13 @@ class Teachers::UnitsController < ApplicationController
   def update
     unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
     if unit_params[:name] && unit_params[:name] === ''
-      render json: {errors: { name: 'Unit must have a name'} }, status: 422
+      render json: { errors: { name: 'Unit must have a name' } }, status: 422
     elsif unit_template_names.include?(unit_params[:name].downcase)
-      render json: {errors: { name: 'Existing activity packs cannot be updated to share a name with featured activity packs. Please choose a different name.'} }, status: 422
+      render json: { errors: { name: 'Existing activity packs cannot be updated to share a name with featured activity packs. Please choose a different name.' } }, status: 422
     elsif Unit.find(params[:id])&.update(unit_params)
       render json: {}
     else
-      render json: {errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name."} }, status: 422
+      render json: { errors: { name: "Each activity pack needs a unique name. You're already using that name for another activity pack. Please choose a different name." } }, status: 422
     end
   end
 
@@ -56,7 +56,7 @@ class Teachers::UnitsController < ApplicationController
       Units::Updater.run(params[:id], activities_data, classroom_data, current_user.id)
       render json: {}
     else
-      render json: {errors: 'Unit can not be found'}, status: 422
+      render json: { errors: 'Unit can not be found' }, status: 422
     end
   end
 
@@ -86,22 +86,22 @@ class Teachers::UnitsController < ApplicationController
       Units::Updater.run(params[:id], activities_data, classrooms_data, current_user.id)
       render json: {}
     else
-      render json: {errors: 'Unit can not be found'}, status: 422
+      render json: { errors: 'Unit can not be found' }, status: 422
     end
   end
 
   def classrooms_with_students_and_classroom_units
     if @unit.name
-      render json: {classrooms: get_classrooms_with_students_and_classroom_units(@unit, current_user), unit_name: @unit.name}
+      render json: { classrooms: get_classrooms_with_students_and_classroom_units(@unit, current_user), unit_name: @unit.name }
     else
-      render json: {errors: 'Unit not found'}, status: 422
+      render json: { errors: 'Unit not found' }, status: 422
     end
   end
 
   def lesson_info_for_activity
     activity_id = params[:activity_id].to_i
     classroom_units = get_classroom_units_for_activity(activity_id)
-    return render json: {errors: 'No activities found'}, status: 422 if classroom_units.empty?
+    return render json: { errors: 'No activities found' }, status: 422 if classroom_units.empty?
 
     render json: {
       classroom_units: classroom_units,
@@ -188,7 +188,7 @@ class Teachers::UnitsController < ApplicationController
       completed_count = completed.count
       cumulative_score = completed.sum(:percentage) * 100
 
-      {cumulative_score: cumulative_score, completed_count: completed_count}
+      { cumulative_score: cumulative_score, completed_count: completed_count }
     end
 
     render json: json
@@ -230,7 +230,7 @@ class Teachers::UnitsController < ApplicationController
 
     @unit = Unit.find_by(id: params[:id])
     if @unit.nil?
-      render json: {errors: 'Unit not found'}, status: 422
+      render json: { errors: 'Unit not found' }, status: 422
     elsif !current_user.affiliated_with_unit?(@unit.id)
       auth_failed
     end
@@ -239,8 +239,8 @@ class Teachers::UnitsController < ApplicationController
   private def formatted_classrooms_data(unit_id)
     # potential refactor into SQL
     cus = ClassroomUnit.where(unit_id: unit_id).select(:classroom_id, :assigned_student_ids)
-    one_cu_per_classroom =  cus.group_by{|class_unit| class_unit[:classroom_id] }.values.map{ |cu| cu.first }
-    one_cu_per_classroom.map{|cu| {id: cu.classroom_id, student_ids: cu.assigned_student_ids}}
+    one_cu_per_classroom =  cus.group_by{ |class_unit| class_unit[:classroom_id] }.values.map{ |cu| cu.first }
+    one_cu_per_classroom.map{ |cu| { id: cu.classroom_id, student_ids: cu.assigned_student_ids } }
   end
 
   private def units(report)

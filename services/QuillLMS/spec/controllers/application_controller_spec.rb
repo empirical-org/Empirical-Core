@@ -190,7 +190,7 @@ describe ApplicationController, type: :controller do
           subject
           expect(response).to have_http_status(:see_other)
           expect(response.content_type).to eq('application/json; charset=utf-8')
-          expect(response.body).to eq({ redirect: new_session_path }.to_json )
+          expect(response.body).to eq({ redirect: new_session_path }.to_json)
         end
       end
 

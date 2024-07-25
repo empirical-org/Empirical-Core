@@ -13,7 +13,6 @@ RSpec.describe LearnWorldsIntegration::UserTagsRequest do
           described_class.run(example_external_id, 'i dont belong here')
         end.to raise_error ArgumentError
       end
-
     end
 
     context 'valid parameters' do

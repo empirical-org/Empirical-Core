@@ -46,5 +46,4 @@ class AdminAccessController < ApplicationController
   private def invite_admin_params
     params.permit(:admin_name, :admin_email, :note)
   end
-
 end

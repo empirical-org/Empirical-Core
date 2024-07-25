@@ -139,7 +139,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       get_recommended_lessons(current_user, params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
-    render json: {lessonsRecommendations: lesson_recs}
+    render json: { lessonsRecommendations: lesson_recs }
   end
 
   def diagnostic_activity_ids
@@ -147,7 +147,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   end
 
   def activity_with_recommendations_ids
-    render json: { activityWithRecommendationsIds: Activity.activity_with_recommendations_ids}
+    render json: { activityWithRecommendationsIds: Activity.activity_with_recommendations_ids }
   end
 
   def previously_assigned_recommendations
@@ -286,7 +286,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     else
       diagnostic_status = 'unassigned'
     end
-    render json: {diagnosticStatus: diagnostic_status}
+    render json: { diagnosticStatus: diagnostic_status }
   end
 
   def diagnostic_results_summary
@@ -328,7 +328,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       activity_session = ActivitySession.find_by(classroom_unit: classroom_unit, state: 'finished', user_id: student_id)
     else
-      classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
+      classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: { unit_activities: { activity_id: activity_id } })
       activity_session = ActivitySession.where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: student_id).order(completed_at: :desc).first
     end
   end
@@ -341,5 +341,4 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
   private def set_lesson_diagnostic_recommendations_start_time
     $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.current)
   end
-
 end

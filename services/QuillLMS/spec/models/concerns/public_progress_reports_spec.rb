@@ -26,10 +26,10 @@ describe PublicProgressReports, type: :model do
     let!(:classroom) { create(:classroom) }
     let!(:activity) { create(:evidence_lms_activity) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assign_on_join: true) }
-    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom)}
-    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom)}
-    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom)}
-    let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student) }
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom) }
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom) }
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom) }
+    let!(:activity_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user: students_classrooms1.student) }
     let!(:unfinished_session) { create(:activity_session, classroom_unit_id: classroom_unit.id, activity_id: activity.id, state: 'started', is_final_score: false, user: students_classrooms2.student) }
 
     it 'fill report' do
@@ -102,50 +102,47 @@ describe PublicProgressReports, type: :model do
 
   describe '#activity_session_report' do
     describe 'when the activity is a diagnostic' do
-      let(:classroom) {create(:classroom)}
-      let(:student) { create(:student)}
+      let(:classroom) { create(:classroom) }
+      let(:student) { create(:student) }
 
       describe 'pre-test' do
-        let(:unit) {create(:unit)}
-        let(:post_test) { create(:diagnostic_activity)}
-        let(:activity) { create(:diagnostic_activity, follow_up_activity_id: post_test.id)}
+        let(:unit) { create(:unit) }
+        let(:post_test) { create(:diagnostic_activity) }
+        let(:activity) { create(:diagnostic_activity, follow_up_activity_id: post_test.id) }
         let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a link' do
-          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}" })
         end
       end
 
       describe 'post-test' do
-        let(:unit) {create(:unit)}
-        let(:activity) { create(:diagnostic_activity)}
-        let!(:pre_test) { create(:diagnostic_activity, follow_up_activity_id: activity.id)}
+        let(:unit) { create(:unit) }
+        let(:activity) { create(:diagnostic_activity) }
+        let!(:pre_test) { create(:diagnostic_activity, follow_up_activity_id: activity.id) }
         let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a link' do
-          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}" })
         end
       end
 
       describe 'neither pre-test nor post-test' do
-        let(:unit) {create(:unit)}
-        let(:activity) { create(:diagnostic_activity)}
+        let(:unit) { create(:unit) }
+        let(:activity) { create(:diagnostic_activity) }
         let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom) }
-        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity)}
+        let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a link' do
-          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}"})
+          expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}" })
         end
-
       end
-
     end
-
   end
 
   describe '#classrooms_with_students_for_report' do
@@ -155,15 +152,15 @@ describe PublicProgressReports, type: :model do
     let!(:classroom_teacher1) { create(:classrooms_teacher, classroom: classroom1, user: teacher) }
     let!(:classroom2) { create(:classroom_with_a_couple_students) }
     let!(:classroom_teacher2) { create(:classrooms_teacher, classroom: classroom2, user: teacher) }
-    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom1, unit: unit)}
-    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit)}
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom1, unit: unit) }
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit) }
 
     context 'no students have completed the activity' do
       describe 'it is a diagnostic activity' do
         let(:instance) { FakeReports.new }
         let!(:diagnostic) { create(:diagnostic) }
         let!(:diagnostic_activity) { create(:diagnostic_activity) }
-        let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit)}
+        let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit) }
 
         before { allow(instance).to receive(:current_user).and_return(teacher) }
 
@@ -192,23 +189,23 @@ describe PublicProgressReports, type: :model do
     let!(:classroom) { create(:classroom) }
     let!(:diagnostic) { create(:diagnostic) }
     let!(:diagnostic_activity) { create(:diagnostic_activity) }
-    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
+    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1) }
     let!(:student_not_in_class) { create(:student) }
     let!(:student1) { create(:student) }
     let!(:student2) { create(:student) }
     let!(:student3) { create(:student) }
-    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1)}
-    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2)}
-    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3)}
-    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1) }
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2) }
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3) }
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id]) }
 
     it 'will only return students who are in the class and have their ids in the assigned array' do
       instance = FakeReports.new
       recommendations = instance.generate_recommendations_for_classroom(unit1.user, unit1.id, classroom.id, diagnostic_activity.id)
-      expect(recommendations[:students].find { |s| s[:id] == student1.id}).to be
-      expect(recommendations[:students].find { |s| s[:id] == student2.id}).to be
-      expect(recommendations[:students].find { |s| s[:id] == student3.id}).not_to be
-      expect(recommendations[:students].find { |s| s[:id] == student_not_in_class.id}).not_to be
+      expect(recommendations[:students].find { |s| s[:id] == student1.id }).to be
+      expect(recommendations[:students].find { |s| s[:id] == student2.id }).to be
+      expect(recommendations[:students].find { |s| s[:id] == student3.id }).not_to be
+      expect(recommendations[:students].find { |s| s[:id] == student_not_in_class.id }).not_to be
     end
 
     it 'will not crash when a relevant student has only one name' do
@@ -222,7 +219,7 @@ describe PublicProgressReports, type: :model do
 
   describe '#get_previously_assigned_recommendations_by_classroom' do
     let!(:unit_template1) { create(:unit_template) }
-    let!(:unit_template2) { create(:unit_template)}
+    let!(:unit_template2) { create(:unit_template) }
     let!(:teacher) { create(:teacher) }
     let!(:unit1) { create(:unit, unit_template_id: unit_template1.id, user: teacher) }
     let!(:unit2) { create(:unit, unit_template_id: unit_template2.id, user: teacher) }
@@ -230,25 +227,25 @@ describe PublicProgressReports, type: :model do
     let!(:classroom2) { create(:classroom) }
     let!(:diagnostic) { create(:diagnostic) }
     let!(:diagnostic_activity) { create(:diagnostic_activity) }
-    let!(:recommendation1) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 0)}
-    let!(:recommendation2) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 1)}
-    let!(:recommendation3) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template2, category: 1)}
-    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1)}
+    let!(:recommendation1) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 0) }
+    let!(:recommendation2) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template1, category: 1) }
+    let!(:recommendation3) { create(:recommendation, activity: diagnostic_activity, unit_template: unit_template2, category: 1) }
+    let!(:unit_activity) { create(:unit_activity, activity: diagnostic_activity, unit: unit1) }
     let!(:student_not_in_class) { create(:student) }
     let!(:student1) { create(:student) }
     let!(:student2) { create(:student) }
     let!(:student3) { create(:student) }
-    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1)}
-    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2)}
-    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3)}
-    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
-    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit2, assigned_student_ids: [] )}
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1) }
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2) }
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3) }
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id]) }
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom2, unit: unit2, assigned_student_ids: []) }
 
     let(:expected_independent_recommendation) do
       {
         activity_count: 0,
         activity_pack_id: unit_template1.id,
-        diagnostic_progress: { student1.id => 0, student2.id => 0},
+        diagnostic_progress: { student1.id => 0, student2.id => 0 },
         name: recommendation1.name,
         students: [student1.id, student2.id]
       }
@@ -325,7 +322,6 @@ describe PublicProgressReports, type: :model do
       ]
 
       expect(FakeReports.new.generic_questions_for_report(activity).to_json).to eq(expected_response.to_json)
-
     end
   end
 
@@ -338,12 +334,12 @@ describe PublicProgressReports, type: :model do
     let!(:student2) { create(:student) }
     let!(:student3) { create(:student) }
     let!(:student4) { create(:student) }
-    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1)}
-    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2)}
-    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3)}
-    let!(:students_classrooms4) { create(:students_classrooms, classroom: classroom, student: student4)}
-    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id] )}
-    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2, assigned_student_ids: [student2.id, student3.id] )}
+    let!(:students_classrooms1) { create(:students_classrooms, classroom: classroom, student: student1) }
+    let!(:students_classrooms2) { create(:students_classrooms, classroom: classroom, student: student2) }
+    let!(:students_classrooms3) { create(:students_classrooms, classroom: classroom, student: student3) }
+    let!(:students_classrooms4) { create(:students_classrooms, classroom: classroom, student: student4) }
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: classroom, unit: unit1, assigned_student_ids: [student1.id, student2.id]) }
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: classroom, unit: unit2, assigned_student_ids: [student2.id, student3.id]) }
 
     it 'returns a flattened and unique-d array of all the assigned student ids for that classroom and those units' do
       expect(
@@ -381,12 +377,11 @@ describe PublicProgressReports, type: :model do
       # in a convoluted way
       expect(formatted_activity_session[:completed_at].to_datetime.to_i)
         .to eq((activity_session.reload.completed_at + classrooms_teacher.teacher.utc_offset.seconds).to_datetime.to_i)
-
     end
   end
 
   describe '#get_key_target_skill_concept_for_question' do
-    let!(:default ) {
+    let!(:default) {
       {
         name: 'Conventions of Language',
         correct: true
@@ -453,21 +448,20 @@ describe PublicProgressReports, type: :model do
 
       expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result], incorrect_concept_result.activity_session)).to eq(expected)
     end
-
   end
 
   describe '#get_final_attempt_feedback' do
-    let(:proofreader_activity) { create(:proofreader_activity)}
-    let(:connect_activity) { create(:connect_activity)}
+    let(:proofreader_activity) { create(:proofreader_activity) }
+    let(:connect_activity) { create(:connect_activity) }
     let(:question_uid) { '123' }
     let(:prompt_text) { 'This is my prompt text' }
     let(:one) { 1 }
     let(:zero) { 0 }
-    let(:final_attempt_number) {FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
+    let(:final_attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER }
     let(:not_final_attempt_number) { FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER - 1 }
 
     describe 'evidence activity' do
-      let(:evidence_activity) { create(:evidence_lms_activity)}
+      let(:evidence_activity) { create(:evidence_lms_activity) }
       let!(:activity_session) { create(:activity_session, activity: evidence_activity) }
 
       it 'should return the default evidence suboptimal final attempt feedback if the concept result is for the fifth attempt and the score is zero' do
@@ -484,7 +478,7 @@ describe PublicProgressReports, type: :model do
     end
 
     describe 'grammar activity' do
-      let(:grammar_activity) { create(:grammar_activity)}
+      let(:grammar_activity) { create(:grammar_activity) }
       let!(:activity_session) { create(:activity_session, activity: grammar_activity) }
 
       it 'should return the default grammar optimal final attempt feedback if the score is greater than zero' do
@@ -497,7 +491,7 @@ describe PublicProgressReports, type: :model do
     end
 
     describe 'proofreader activity' do
-      let(:proofreader_activity) { create(:proofreader_activity)}
+      let(:proofreader_activity) { create(:proofreader_activity) }
       let!(:activity_session) { create(:activity_session, activity: proofreader_activity) }
 
       describe 'the question is a grammar question' do
@@ -521,11 +515,10 @@ describe PublicProgressReports, type: :model do
           expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
         end
       end
-
     end
 
     describe 'connect activity' do
-      let(:connect_activity) { create(:connect_activity)}
+      let(:connect_activity) { create(:connect_activity) }
       let!(:activity_session) { create(:activity_session, activity: connect_activity) }
 
       describe 'the question is a sentence combining question' do
@@ -551,9 +544,7 @@ describe PublicProgressReports, type: :model do
           expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK)
         end
       end
-
     end
-
   end
 
   describe '#finished_activity_sessions_for_unit_activity_classroom_and_student' do
@@ -587,5 +578,4 @@ describe PublicProgressReports, type: :model do
       expect(result.length).to eq(1)
     end
   end
-
 end

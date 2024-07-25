@@ -27,4 +27,3 @@ RSpec.describe CleverIntegration::DistrictClassroomDataAdapter do
     it { expect(subject).to eq classroom2_attrs }
   end
 end
-

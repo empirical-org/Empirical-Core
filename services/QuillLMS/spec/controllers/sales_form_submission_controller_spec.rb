@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe SalesFormSubmissionController, type: :controller do
-
   describe '#create' do
     let!(:school) { create(:school) }
 

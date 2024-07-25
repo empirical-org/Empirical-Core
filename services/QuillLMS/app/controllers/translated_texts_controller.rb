@@ -5,12 +5,14 @@ class TranslatedTextsController < ApplicationController
 
   def index
     @translated_texts = TranslatedText
-      .all
       .includes(:english_text, :translation_mappings)
+      .order(created_at: :asc)
       .page(params[:page])
       .per(200)
 
+    @translated_texts = @translated_texts.where(locale: params[:locale]) if params[:locale].present?
     @js_file = "entrypoints/snippets/translated_text.ts"
+    @locales = TranslatedText.select(:locale).distinct.pluck(:locale)
   end
 
   def update

@@ -43,11 +43,11 @@ class UnitTemplate < ApplicationRecord
   ALPHA = 'alpha'
   PRIVATE = 'private'
 
-  scope :production, -> {where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null")}
-  scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null")}
-  scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null")}
-  scope :alpha_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
-  scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null")}
+  scope :production, -> { where("unit_templates.flag IN('#{PRODUCTION}') OR unit_templates.flag IS null") }
+  scope :gamma_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}') OR unit_templates.flag IS null") }
+  scope :beta_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}') OR unit_templates.flag IS null") }
+  scope :alpha_user, -> { where("unit_templates.flag IN('#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null") }
+  scope :private_user, -> { where("unit_templates.flag IN('private', '#{PRODUCTION}','#{GAMMA}','#{BETA}','#{ALPHA}') OR unit_templates.flag IS null") }
 
   USER_SCOPES = {
     PRIVATE => UnitTemplate.private_user,
@@ -84,7 +84,7 @@ class UnitTemplate < ApplicationRecord
 
     levels = grades
       .sort_by(&:to_i)
-      .map{|g| School::GRADE_DESCRIPTIONS[g.to_i]}
+      .map{ |g| School::GRADE_DESCRIPTIONS[g.to_i] }
       .compact
       .uniq
 
@@ -95,7 +95,7 @@ class UnitTemplate < ApplicationRecord
     return nil if activities.blank?
 
     standards = activities
-      .map {|a| a.standard&.name}
+      .map { |a| a.standard&.name }
       .flatten
       .compact
       .uniq
@@ -142,7 +142,7 @@ class UnitTemplate < ApplicationRecord
     unless serialized_unit_template
       serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
       serialized_unit_template = serializable_unit_template.data
-      $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: cache_expiration_time})
+      $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, { ex: cache_expiration_time })
     end
     serialized_unit_template
   end
@@ -205,5 +205,4 @@ class UnitTemplate < ApplicationRecord
       $redis.del("#{flag}unit_templates")
     end
   end
-
 end

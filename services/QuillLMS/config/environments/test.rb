@@ -44,7 +44,7 @@ EmpiricalGrammar::Application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  config.cache_store = :memory_store, {size: 64.megabytes}
+  config.cache_store = :memory_store, { size: 64.megabytes }
 
   config.active_record.database_selector = { delay: 0.seconds }
   config.active_record.database_resolver = Test::MultiDb::CustomResolver

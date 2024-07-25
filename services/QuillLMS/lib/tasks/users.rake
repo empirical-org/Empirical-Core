@@ -48,7 +48,6 @@ namespace :users do
       .where(role: User::ADMIN)
       .where(user_email_verification: { id: nil })
       .each do |user|
-
       verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
       verification_method = UserEmailVerification::CLEVER_VERIFICATION if user.clever_id
       user.verify_email(verification_method)
@@ -60,7 +59,7 @@ namespace :users do
     # notification_email_frequency set to "never"
     User.left_outer_joins(:teacher_info)
       .where(role: [User::TEACHER, User::ADMIN])
-      .where(teacher_info: {id: nil})
+      .where(teacher_info: { id: nil })
       .find_each do |user|
       puts "Creating TeacherInfo record for user #{user.id}"
       user.create_teacher_info(notification_email_frequency: TeacherInfo::NEVER_EMAIL)

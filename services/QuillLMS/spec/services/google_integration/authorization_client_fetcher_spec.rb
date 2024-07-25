@@ -27,7 +27,7 @@ module GoogleIntegration
     context 'validate refresh token succeeds' do
       before { allow(RefreshTokenValidator).to receive(:run).with(auth_credential) }
 
-      it { expect(subject).to be_a(Signet::OAuth2::Client)}
+      it { expect(subject).to be_a(Signet::OAuth2::Client) }
 
       it do
         expect(SignetClientFetcher).to receive(:run).with(original_refresh_token)

@@ -27,5 +27,4 @@ class ApplicationRecord < ActiveRecord::Base
     ErrorNotifier.report(exception)
     false
   end
-
 end

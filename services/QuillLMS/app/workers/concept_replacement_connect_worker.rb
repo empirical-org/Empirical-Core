@@ -44,7 +44,6 @@ class ConceptReplacementConnectWorker
       if !data.empty?
         HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}/#{key}.json", body: data.to_json)
       end
-
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity

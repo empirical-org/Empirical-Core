@@ -18,10 +18,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Activity, :type => :model) do
-
-
     context 'associations' do
-
       it { should have_many(:passages).dependent(:destroy) }
 
       it { should have_many(:prompts).dependent(:destroy) }
@@ -30,12 +27,9 @@ module Evidence
       it { should have_many(:rules).through(:prompts) }
       it { should have_many(:feedbacks).through(:rules) }
       it { should have_many(:highlights).through(:feedbacks) }
-
     end
 
-
     context 'validations' do
-
       it { should validate_numericality_of(:target_level).only_integer.is_greater_than_or_equal_to(1).is_less_than_or_equal_to(12) }
 
       it { should validate_presence_of(:title) }
@@ -72,7 +66,7 @@ module Evidence
     end
 
     context '#increment_version!' do
-      let!(:activity) { create(:evidence_activity)}
+      let!(:activity) { create(:evidence_activity) }
 
       it 'should not trigger a changelog' do
         expect { activity.increment_version! }.to_not(change{ Evidence.change_log_class.count })
@@ -105,7 +99,6 @@ module Evidence
     end
 
     context 'should create parent activity' do
-
       it 'should set the parent_activity_id to nil if passed in Activity does NOT exist' do
         activity = create(:evidence_activity, :parent_activity_id => 7)
         expect(activity.parent_activity).to(be_nil)
@@ -157,7 +150,6 @@ module Evidence
       end
     end
 
-
     context '#update_parent_activity_name' do
       let(:activity) { create(:evidence_activity) }
 
@@ -181,7 +173,6 @@ module Evidence
     end
 
     context 'should dependent destroy' do
-
       it 'should destroy dependent passages' do
         activity = create(:evidence_activity)
         passage = create(:evidence_passage, :activity => (activity))
@@ -198,7 +189,6 @@ module Evidence
     end
 
     context 'should before_destroy' do
-
       it 'should expire all associated Turking Rounds before destroy' do
         activity = create(:evidence_activity)
         turking_round = create(:evidence_turking_round, :activity => (activity))

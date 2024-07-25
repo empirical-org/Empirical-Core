@@ -109,7 +109,7 @@ module Evidence
           end
 
           context 'multiple substitutions' do
-            let(:filler) { '...some filler here...'}
+            let(:filler) { '...some filler here...' }
             let(:contents) { "#{delimit('stem')} #{filler} #{delimit('conjunction')}" }
 
             it { is_expected.to eq "#{stem} #{filler} #{conjunction}" }

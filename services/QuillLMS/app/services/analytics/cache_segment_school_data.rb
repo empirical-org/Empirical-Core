@@ -73,6 +73,5 @@ module Analytics
     def teachers_at_school
       @teachers_at_school ||= @school.users
     end
-
   end
 end

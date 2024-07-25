@@ -22,4 +22,3 @@ RSpec.shared_context 'Stripe Subscription Item' do
     )
   end
 end
-

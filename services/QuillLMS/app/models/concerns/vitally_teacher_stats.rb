@@ -10,7 +10,7 @@ module VitallyTeacherStats
   def total_students_in_year
     all_classrooms = user.classrooms_i_teach + user.archived_classrooms
     year_classrooms = all_classrooms.select { |c| school_year_start <= c.created_at && school_year_end > c.created_at }
-    year_classrooms.sum { |c| c.students.count}
+    year_classrooms.sum { |c| c.students.count }
   end
 
   def active_students_query
@@ -44,7 +44,7 @@ module VitallyTeacherStats
 
   def filter_diagnostics(activities)
     diagnostic_ids = Activity.where(activity_classification_id: diagnostic_id).pluck(:id)
-    activities.select {|r| diagnostic_ids.include?(r.id) }
+    activities.select { |r| diagnostic_ids.include?(r.id) }
   end
 
   def diagnostics_finished
@@ -54,5 +54,4 @@ module VitallyTeacherStats
   def diagnostic_id
     ActivityClassification.diagnostic.id
   end
-
 end

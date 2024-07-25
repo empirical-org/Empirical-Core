@@ -97,7 +97,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   private def find_or_create_lesson_activity_sessions_for_classroom
-    @classroom_unit.assigned_student_ids.each{|id| ActivitySession.unscoped.find_or_create_by(classroom_unit_id: @classroom_unit.id, activity_id: @lesson.id, user_id: id).update(visible: true)}
+    @classroom_unit.assigned_student_ids.each{ |id| ActivitySession.unscoped.find_or_create_by(classroom_unit_id: @classroom_unit.id, activity_id: @lesson.id, user_id: id).update(visible: true) }
   end
 
   private def authorize!
@@ -107,7 +107,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
 
   private def lessons_units_and_activities_data
     # collapses lessons cache into unique array of activity ids
-    grouped_lessons_cache = lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], name: ca['activity_name'], completed: ca['completed'], visible: ca['visible']}}
+    grouped_lessons_cache = lessons_cache.group_by{ |ca| { activity_id: ca['activity_id'], name: ca['activity_name'], completed: ca['completed'], visible: ca['visible'] } }
     grouped_lessons_cache.keys.select { |lesson| !lesson[:completed] && lesson[:visible] }
   end
 
@@ -121,6 +121,6 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   private def classroom_unit_params
-    params[:classroom_unit].permit(:choose_everyone, {assigned_student_ids: []}, :unit_id)
+    params[:classroom_unit].permit(:choose_everyone, { assigned_student_ids: [] }, :unit_id)
   end
 end

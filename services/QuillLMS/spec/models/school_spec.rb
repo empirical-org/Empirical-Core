@@ -87,15 +87,15 @@ describe School, type: :model do
     end
   end
 
-  let!(:bk_school) { create :school, name: 'Brooklyn Charter School', zipcode: '11206'}
-  let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385'}
+  let!(:bk_school) { create :school, name: 'Brooklyn Charter School', zipcode: '11206' }
+  let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385' }
   let!(:bk_teacher) { create(:teacher, school: bk_school) }
   let!(:bk_teacher_colleague) { create(:teacher, school: bk_school) }
   let!(:queens_teacher) { create(:teacher, school: queens_school) }
 
   describe '#subscription' do
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
+    let!(:school_subscription) { create(:school_subscription, school: bk_school, subscription: subscription) }
 
     it 'returns a subscription if a valid one exists' do
       expect(bk_school.reload.subscription).to eq(subscription)
@@ -116,10 +116,10 @@ describe School, type: :model do
   describe '#present_and_future_subscriptions' do
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
     let!(:next_subscription) { create(:subscription, expiration: Date.tomorrow + 1.year, start_date: Date.tomorrow) }
-    let!(:school_subscription) {create(:school_subscription, school: bk_school, subscription: subscription)}
-    let!(:next_school_subscription) {create(:school_subscription, school: bk_school, subscription: next_subscription)}
-    let!(:expired_subscription) {create(:subscription, expiration: Date.yesterday, de_activated_date: Date.yesterday)}
-    let!(:expired_school_subscription) {create(:school_subscription, school: bk_school, subscription: expired_subscription)}
+    let!(:school_subscription) { create(:school_subscription, school: bk_school, subscription: subscription) }
+    let!(:next_school_subscription) { create(:school_subscription, school: bk_school, subscription: next_subscription) }
+    let!(:expired_subscription) { create(:subscription, expiration: Date.yesterday, de_activated_date: Date.yesterday) }
+    let!(:expired_school_subscription) { create(:school_subscription, school: bk_school, subscription: expired_subscription) }
 
     it 'returns all subscriptions even if they have not started yet' do
       expect(bk_school.present_and_future_subscriptions.size).to eq(2)
@@ -208,7 +208,7 @@ describe School, type: :model do
     let(:school) { create(:school) }
     let(:district) { create(:district) }
     let(:another_district) { create(:district) }
-    let(:admin) { create(:user)}
+    let(:admin) { create(:user) }
 
     before { create(:district_admin, user: admin, district: district) }
 
@@ -253,8 +253,7 @@ describe School, type: :model do
     let(:school) { create(:school) }
 
     it 'sends a payload that contains the correct data for vitally' do
-      expect(school.vitally_data).to eq({externalId: school.id.to_s, name: school.name})
+      expect(school.vitally_data).to eq({ externalId: school.id.to_s, name: school.name })
     end
   end
-
 end

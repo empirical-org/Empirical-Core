@@ -60,11 +60,10 @@ class Question < ApplicationRecord
   has_many :diagnostic_question_skills
 
   validates :data, presence: true
-  validates :question_type, presence: true, inclusion: {in: TYPES}
+  validates :question_type, presence: true, inclusion: { in: TYPES }
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
   validate :validate_sequences
-
 
   store_accessor :data, :flag
   store_accessor :data, :focusPoints
@@ -75,16 +74,17 @@ class Question < ApplicationRecord
 
   after_save :refresh_caches, unless: -> { skip_refresh_caches }
 
-  scope :live, -> {where("data->>'flag' IN (?)", LIVE_FLAGS)}
-  scope :production, -> {where("data->>'flag' = ?", FLAG_PRODUCTION)}
+  scope :live, -> { where("data->>'flag' IN (?)", LIVE_FLAGS) }
+  scope :production, -> { where("data->>'flag' = ?", FLAG_PRODUCTION) }
 
   def as_json(options=nil)
-    translated_json(options)
+    locale = options&.fetch(:locale, nil)
+    locale.present? ? translated_data(locale:) : data
   end
 
   def self.all_questions_json(question_type)
     where(question_type: question_type)
-      .reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      .reduce({}) { |agg, q| agg.update({ q.uid => q.as_json }) }
       .to_json
   end
 
@@ -157,7 +157,6 @@ class Question < ApplicationRecord
     delete_data_for(id:, type: INCORRECT_SEQUENCES)
   end
 
-
   # this attribute is used by the CMS's Rematch All process
   def rematch_type
     REMATCH_TYPE_MAPPING.fetch(question_type)
@@ -191,7 +190,7 @@ class Question < ApplicationRecord
   private def set_data_for(type:, id:, new_data:)
     data[type] ||= {}
     id = id.to_i if stored_as_array?(type)
-    new_data  = {'uid' => new_uuid}.merge(new_data) if stored_as_array?(type)
+    new_data  = { 'uid' => new_uuid }.merge(new_data) if stored_as_array?(type)
     data[type][id] = new_data
     save
   end
@@ -231,7 +230,7 @@ class Question < ApplicationRecord
   private def validate_sequences
     return if data.blank? || !data.is_a?(Hash)
 
-    FEEDBACK_TYPES.each {|type| parse_and_validate(type) }
+    FEEDBACK_TYPES.each { |type| parse_and_validate(type) }
   end
 
   private def parse_and_validate(type)

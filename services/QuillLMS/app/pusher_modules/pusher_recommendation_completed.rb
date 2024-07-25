@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PusherRecommendationCompleted
-
   def self.run(classroom, unit_template_id, lesson)
     pusher_client = Pusher::Client.new(
         app_id: ENV['PUSHER_APP_ID'],
@@ -23,5 +22,4 @@ module PusherRecommendationCompleted
       )
     end
   end
-
 end

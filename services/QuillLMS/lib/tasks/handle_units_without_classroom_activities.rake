@@ -13,6 +13,5 @@ namespace :handle_units_without_classroom_activities do
        end
      end
    end
-
   end
 end

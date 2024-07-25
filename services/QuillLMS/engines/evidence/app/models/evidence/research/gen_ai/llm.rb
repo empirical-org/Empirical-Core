@@ -31,7 +31,7 @@ module Evidence
           GPT_4_O = 'gpt-4o'
         ]
 
-        OPEN_AI_JSON_FORMAT_RESPONSES = { "response_format": {"type": 'json_object'} }.freeze
+        OPEN_AI_JSON_FORMAT_RESPONSES = { "response_format": { "type": 'json_object' } }.freeze
 
         validates :vendor, presence: true
         validates :version, presence: true

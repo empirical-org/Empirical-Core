@@ -15,7 +15,6 @@ describe AdminInfosController do
     let(:verification_url) { 'quill.org/team' }
 
     describe 'when there already is an admin info record' do
-
       it 'should update it with the params' do
         admin_info = create(:admin_info, user: user)
         put :update, params: { sub_role: sub_role, verification_reason: verification_reason, verification_url: verification_url }
@@ -42,7 +41,6 @@ describe AdminInfosController do
           expect(admin_info.reload.approval_status).to eq(AdminInfo::SKIPPED)
         end
       end
-
     end
 
     describe 'when there is not already is an admin info record' do
@@ -52,8 +50,6 @@ describe AdminInfosController do
         expect(user.admin_info.reload.verification_reason).to eq(verification_reason)
         expect(user.admin_info.reload.verification_url).to eq(verification_url)
       end
-
     end
-
   end
 end

@@ -115,6 +115,5 @@ FactoryBot.define do
       locked_by_default { false }
       scored { true }
     end
-
   end
 end

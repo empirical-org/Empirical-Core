@@ -13,7 +13,7 @@ describe PopulateAggregatedEvidenceActivityHealthsWorker do
   let(:connect_activity) { create(:activity, activity_classification_id: connect.id) }
   let(:evidence_activity) { create(:evidence_activity, notes: 'Title_1', title: 'Title 1', parent_activity_id: 1, target_level: 1) }
   let(:evidence_activity_two) { create(:evidence_activity, notes: 'Title_2', title: 'Title 2', parent_activity_id: 1, target_level: 1) }
-  let(:parent_archived_activity) { create(:activity, flag: 'archived')}
+  let(:parent_archived_activity) { create(:activity, flag: 'archived') }
   let(:archived_evidence_activity) { create(:evidence_activity, notes: 'Title_3', title: 'Title 3', parent_activity_id: parent_archived_activity.id, target_level: 1) }
 
   it 'should kick off populate activity health worker jobs spread out by interval' do

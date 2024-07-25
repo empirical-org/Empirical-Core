@@ -13,7 +13,7 @@ module TeacherNotifications
       return false unless @activity_session.user.activity_sessions
         .joins(activity: :classification)
         .joins(:classroom)
-        .where(activity_classifications: {key: ActivityClassification::DIAGNOSTIC_KEY})
+        .where(activity_classifications: { key: ActivityClassification::DIAGNOSTIC_KEY })
         .where(classrooms: @activity_session.classroom)
         .exists?
 

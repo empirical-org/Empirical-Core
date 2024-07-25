@@ -4,7 +4,6 @@ module Evidence
   module Synthetic
     module Generators
       class SpellingPassageSpecific < Synthetic::Generators::Base
-
         LONG_WORDS_LENGTH = 10
         REPEATED_WORD_COUNT = 5
         REPEATED_WORD_MIN_LENGTH = 5
@@ -58,16 +57,16 @@ module Evidence
 
         def long_words
           @long_words ||= passage_words
-            .select {|w| w.length >= LONG_WORDS_LENGTH}
+            .select { |w| w.length >= LONG_WORDS_LENGTH }
             .uniq
         end
 
         def repeated_words
           @repeated_words ||= passage_words
             .tally
-            .select {|_,count| count >= REPEATED_WORD_COUNT}
+            .select { |_,count| count >= REPEATED_WORD_COUNT }
             .keys
-            .select {|w| w.length >= REPEATED_WORD_MIN_LENGTH}
+            .select { |w| w.length >= REPEATED_WORD_MIN_LENGTH }
         end
 
         def passage_words

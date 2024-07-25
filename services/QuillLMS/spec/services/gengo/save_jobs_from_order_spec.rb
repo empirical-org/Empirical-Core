@@ -3,7 +3,7 @@
 require 'rails_helper'
 RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
   describe 'run' do
-    subject { described_class.run(order_id)}
+    subject { described_class.run(order_id) }
 
     let(:order_id) { 123 }
     let(:job_id1) { '4637671' }
@@ -13,8 +13,8 @@ RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
         'opstat'=>'ok',
         'response'=>
         [
-          {'job_id'=>job_id1, 'ctime'=>1718145986},
-          {'job_id'=>job_id2, 'ctime'=>1718145986}
+          { 'job_id'=>job_id1, 'ctime'=>1718145986 },
+          { 'job_id'=>job_id2, 'ctime'=>1718145986 }
         ]
       }
     end
@@ -24,7 +24,7 @@ RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
     end
 
     it 'calls GengoAPI.getTranslationJobs({order_id: })' do
-      expect(GengoAPI).to receive(:getTranslationJobs).with({order_id:})
+      expect(GengoAPI).to receive(:getTranslationJobs).with({ order_id: })
       subject
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
     context 'there is no gengo API response' do
       let(:translation_job_response) { nil }
 
-      it { expect{subject}.to raise_error(described_class::FetchTranslationOrderError)}
+      it { expect{ subject }.to raise_error(described_class::FetchTranslationOrderError) }
     end
   end
 end

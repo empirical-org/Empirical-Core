@@ -20,5 +20,4 @@ class GengoJob < ApplicationRecord
   def self.fetch_and_save_pending! = pending_translation.each(&:fetch_translation!)
 
   def fetch_translation! = Gengo::SaveTranslatedTextWorker.perform_async(translation_job_id)
-
 end

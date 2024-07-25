@@ -7,7 +7,33 @@
     margin: 0px 20px;
   }
 
+  ul {
+    overflow: hidden;
+    padding: 0px;
+  }
+
+  li {
+    float: left;
+    display: block;
+    margin-right: 10px;
+  }
+
+  a {
+    text-decoration: underline;
+    font-size: 1.25em;
+  }
 </style>
+
+<section>
+<h3> Filter locale </h3>
+  <ul>
+  <% @locales.each do |locale| %>
+    <li>
+      <%= link_to(locale, translated_texts_url(locale:)) %>
+    </li>
+  <% end %>
+  </ul>
+</section>
 <h1>Translated Texts</h1>
 
 <table class='table'>

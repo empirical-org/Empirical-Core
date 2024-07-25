@@ -30,8 +30,6 @@ describe CsvExportWorker do
         expect(PusherCSVExportCompleted).to receive(:run).with(1, 'url')
         subject.perform(2, 1)
       end
-
     end
   end
-
 end

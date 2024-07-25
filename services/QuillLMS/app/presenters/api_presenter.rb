@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApiPresenter
-
   def initialize(model)
     @model = model
   end

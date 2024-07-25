@@ -1,9 +1,11 @@
 import { getCurrentQuestion, getFilteredQuestions, getQuestionsWithAttempts } from '../../Shared/index';
+import { ENGLISH } from '../../Shared/utils/languageList';
 import { SubmitActions } from '../actions';
 /// make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
-  unansweredQuestions: []
+  unansweredQuestions: [],
+  language: ENGLISH
 }
 
 function question(state = initialState, action) {
@@ -54,6 +56,8 @@ function question(state = initialState, action) {
     case SubmitActions.UPDATE_NAME:
       var changes = {name: action.data}
       return Object.assign({}, state, changes)
+    case SubmitActions.SET_LANGUAGE:
+      return Object.assign({}, state, {language: action.data})
     case SubmitActions.UPDATE_CURRENT_QUESTION:
       var changes = {currentQuestion:
       Object.assign({}, state.currentQuestion, {

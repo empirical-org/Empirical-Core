@@ -25,7 +25,6 @@
 require 'rails_helper'
 
 RSpec.describe UserPackSequenceItem, type: :model do
-
   context 'validation' do
     it { expect(create(:user_pack_sequence_item)).to be_valid }
     it { expect(create(:user_pack_sequence_item, :locked)).to be_valid }

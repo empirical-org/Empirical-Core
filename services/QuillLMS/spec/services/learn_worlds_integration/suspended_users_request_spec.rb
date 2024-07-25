@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe LearnWorldsIntegration::SuspendedUsersRequest do
-
   describe '#fetch_page' do
     let(:page_number) { 1 }
 

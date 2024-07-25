@@ -37,7 +37,7 @@ describe Cms::AdminVerificationController do
 
   describe '#set_approved' do
     let(:admin) { create(:teacher) }
-    let!(:schools_users) { create(:schools_users, user: admin )}
+    let!(:schools_users) { create(:schools_users, user: admin) }
     let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::PENDING, admin: admin, approver_role: User::STAFF) }
 
     it 'updates the admin info record, creates a school admin record, and fires an email and identify worker' do
@@ -52,7 +52,7 @@ describe Cms::AdminVerificationController do
 
   describe '#set_denied' do
     let(:admin) { create(:teacher) }
-    let!(:schools_users) { create(:schools_users, user: admin )}
+    let!(:schools_users) { create(:schools_users, user: admin) }
     let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::PENDING, admin: admin, approver_role: User::STAFF) }
 
     it 'updates the admin info record and fires an email and identify worker' do
@@ -66,7 +66,7 @@ describe Cms::AdminVerificationController do
 
   describe '#set_pending' do
     let(:admin) { create(:teacher) }
-    let!(:schools_users) { create(:schools_users, user: admin )}
+    let!(:schools_users) { create(:schools_users, user: admin) }
 
     describe 'if the request had been approved' do
       let!(:admin_info) { create(:admin_info, approval_status: AdminInfo::APPROVED, admin: admin, approver_role: User::STAFF) }
@@ -90,7 +90,5 @@ describe Cms::AdminVerificationController do
         expect(admin_info.reload.approval_status).to eq(AdminInfo::PENDING)
       end
     end
-
   end
-
 end

@@ -28,5 +28,4 @@ class SchoolSubscription < ApplicationRecord
       UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user, subscription)
     end
   end
-
 end

@@ -26,14 +26,14 @@ module Evidence
 
         it { should validate_presence_of(:raw_text) }
         it { should validate_presence_of(:llm_feedback) }
-        it { should validate_presence_of(:test_example_id)}
-        it { should validate_presence_of(:trial_id)}
+        it { should validate_presence_of(:test_example_id) }
+        it { should validate_presence_of(:trial_id) }
 
-        it { should have_readonly_attribute(:raw_text)}
+        it { should have_readonly_attribute(:raw_text) }
         it { should have_readonly_attribute(:llm_feedback) }
         it { should have_readonly_attribute(:label) }
         it { should have_readonly_attribute(:test_example_id) }
-        it { should have_readonly_attribute(:trial_id)}
+        it { should have_readonly_attribute(:trial_id) }
 
         it { should belong_to(:test_example) }
         it { should belong_to(:trial) }

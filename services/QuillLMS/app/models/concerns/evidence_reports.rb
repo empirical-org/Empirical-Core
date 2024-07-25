@@ -35,13 +35,13 @@ module EvidenceReports
 
     prompt = get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
 
-    feedback_histories.find {|fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }
+    feedback_histories.find { |fh| fh.attempt == attempt_number.to_i && fh.prompt_id == prompt&.id }
   end
 
   def get_evidence_prompt_from_activity_and_prompt_text(activity_session, prompt_text)
     Evidence::Prompt
       .joins(:activity)
-      .find_by(text: prompt_text, activity: {parent_activity_id: activity_session.activity_id})
+      .find_by(text: prompt_text, activity: { parent_activity_id: activity_session.activity_id })
   end
 
   def get_suboptimal_final_attempt_evidence_feedback_from_activity_session_and_prompt_text(activity_session, prompt_text)

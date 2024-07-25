@@ -28,4 +28,3 @@ module ClassroomRetrievable
     @serialized_classrooms_data ||= provider_namespace::TeacherClassroomsCache.read(current_user.id)
   end
 end
-

@@ -139,13 +139,11 @@ module Staff
 
           it 'should filter by activity_version if specified'  do
             expect(results.count).to eq 2
-            expect(results.select {|rf| rf[:rule_uid] == so_rule4.uid}.empty?).to be
+            expect(results.select { |rf| rf[:rule_uid] == so_rule4.uid }.empty?).to be
             expect(results.first[:api_name]).to eq 'autoML'
           end
         end
-
       end
-
     end
   end
 end

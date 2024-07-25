@@ -17,5 +17,5 @@ class FeedbackHistoryFlag < ApplicationRecord
   ]
 
   belongs_to :feedback_history
-  validates :flag, presence: true, inclusion: {in: FLAG_TYPES}
+  validates :flag, presence: true, inclusion: { in: FLAG_TYPES }
 end

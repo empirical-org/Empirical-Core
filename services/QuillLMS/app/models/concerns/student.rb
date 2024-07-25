@@ -28,7 +28,7 @@ module Student
 
     def incomplete_assigned_activities
       assigned_activities_with_activity_sessions
-        .where(activity_sessions: {completed_at: nil})
+        .where(activity_sessions: { completed_at: nil })
     end
 
     private def assigned_activities_with_activity_sessions
@@ -178,7 +178,7 @@ module Student
 
     secondary_account_grouped_activity_sessions.each do |classroom_unit_id, activity_sessions|
       if classroom_unit_id
-        activity_sessions.each {|as| as.update_columns(user_id: id, updated_at: DateTime.current) }
+        activity_sessions.each { |as| as.update_columns(user_id: id, updated_at: DateTime.current) }
         if primary_account_grouped_activity_sessions[classroom_unit_id]
           hide_extra_activity_sessions(classroom_unit_id)
         else

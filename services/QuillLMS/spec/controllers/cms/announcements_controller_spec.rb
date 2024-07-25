@@ -9,7 +9,6 @@ describe Cms::AnnouncementsController, type: :controller do
 
   let(:user) { create(:staff) }
 
-
   describe '#index' do
     let!(:announcement) { create(:announcement) }
     let!(:announcement1) { create(:announcement) }

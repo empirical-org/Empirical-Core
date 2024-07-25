@@ -9,6 +9,7 @@ class AddLessonTypeToLessons < ActiveRecord::Migration[4.2]
     Lesson.update_all(lesson_type: 'connect_lesson') if defined?(Lesson)
     change_column_null :lessons, :lesson_type, false
   end
+
   def down
     remove_column :lessons, :lesson_type
   end

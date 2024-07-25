@@ -3,16 +3,16 @@
 require 'rails_helper'
 
 describe 'Student Concern', type: :model do
-  let!(:classroom) { create(:classroom)}
-  let!(:classroom2) { create(:classroom)}
+  let!(:classroom) { create(:classroom) }
+  let!(:classroom2) { create(:classroom) }
 
-  let!(:student1) { create(:student, classrooms: [classroom])}
-  let!(:student2) { create(:student, classrooms: [classroom, classroom2])}
-  let!(:student3) { create(:student, classrooms: [classroom, classroom2])}
+  let!(:student1) { create(:student, classrooms: [classroom]) }
+  let!(:student2) { create(:student, classrooms: [classroom, classroom2]) }
+  let!(:student3) { create(:student, classrooms: [classroom, classroom2]) }
 
-  let!(:activity) { create(:activity)}
+  let!(:activity) { create(:activity) }
 
-  let!(:unit) { create(:unit, user_id: classroom.owner.id)}
+  let!(:unit) { create(:unit, user_id: classroom.owner.id) }
 
   let!(:classroom_unit1) do
     create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id])
@@ -27,7 +27,7 @@ describe 'Student Concern', type: :model do
     create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id, is_final_score: true)
   end
 
-  let!(:not_final_score) { create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id)}
+  let!(:not_final_score) { create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit1.id) }
   let!(:lower_percentage) do
     create(:activity_session, user_id: student1.id, classroom_unit_id: classroom_unit2.id, percentage: 0.3)
   end
@@ -73,7 +73,7 @@ describe 'Student Concern', type: :model do
   end
 
   describe '#student_average_score' do
-    let(:student_with_no_activity) { create(:student)}
+    let(:student_with_no_activity) { create(:student) }
 
     context 'no average' do
       it 'should not error' do
@@ -172,14 +172,14 @@ describe 'Student Concern', type: :model do
     context 'assign_on_join false' do
       let(:assign_on_join) { false }
 
-      it { expect { subject }.not_to change { classroom_unit6.reload.assigned_student_ids}.from([]) }
+      it { expect { subject }.not_to change { classroom_unit6.reload.assigned_student_ids }.from([]) }
       it { expect { subject }.to change { student1.reload.classrooms }.from([classroom]).to([classroom3]) }
     end
 
     context 'assign_on_join true' do
       let(:assign_on_join) { true }
 
-      it { expect { subject }.to change { classroom_unit6.reload.assigned_student_ids}.from([]).to([student1.id]) }
+      it { expect { subject }.to change { classroom_unit6.reload.assigned_student_ids }.from([]).to([student1.id]) }
       it { expect { subject }.to change { student1.reload.classrooms }.from([classroom]).to([classroom3]) }
     end
   end
@@ -305,14 +305,14 @@ describe 'Student Concern', type: :model do
         let(:student) { student4 }
         let(:other_student) { student5 }
 
-        it { expect(subject).to eq [{'classroom_id' => classroom5.id}] }
+        it { expect(subject).to eq [{ 'classroom_id' => classroom5.id }] }
       end
 
       context 'students share multiple classes' do
         let(:student) { student2 }
         let(:other_student) { student3 }
 
-        it { expect(subject).to match_array [{'classroom_id' => classroom.id}, {'classroom_id' => classroom2.id}] }
+        it { expect(subject).to match_array [{ 'classroom_id' => classroom.id }, { 'classroom_id' => classroom2.id }] }
       end
     end
 
@@ -330,7 +330,7 @@ describe 'Student Concern', type: :model do
         let(:student) { student2 }
         let(:other_student) { student3 }
 
-        it { expect(subject).to match_array [{'classroom_id' => classroom2.id}] }
+        it { expect(subject).to match_array [{ 'classroom_id' => classroom2.id }] }
       end
 
       context 'classes with no owners does not break filtering' do
@@ -344,13 +344,13 @@ describe 'Student Concern', type: :model do
   end
 
   context 'assigned activity helpers' do
-    let(:clean_classroom) { create(:classroom)}
-    let(:student) { create(:student, classrooms: [clean_classroom])}
+    let(:clean_classroom) { create(:classroom) }
+    let(:student) { create(:student, classrooms: [clean_classroom]) }
     let(:activity1) { create(:activity) }
     let(:activity2) { create(:activity) }
     let(:activity3) { create(:activity) }
-    let(:unit_template1) { create(:unit_template_with_activities, activities: [activity1, activity2, activity3])}
-    let(:unit_template2) { create(:unit_template_with_activities)}
+    let(:unit_template1) { create(:unit_template_with_activities, activities: [activity1, activity2, activity3]) }
+    let(:unit_template2) { create(:unit_template_with_activities) }
     let(:unit1) { create(:unit, unit_template: unit_template1, activities: unit_template1.activities) }
     let(:unit2) { create(:unit, unit_template: unit_template2, activities: unit_template2.activities) }
     let!(:assigned_classroom_unit) do

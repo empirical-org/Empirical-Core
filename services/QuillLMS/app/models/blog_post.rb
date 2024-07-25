@@ -97,7 +97,6 @@ class BlogPost < ApplicationRecord
     self.order_number =  BlogPost.where(topic: topic).count
   end
 
-
   def increment_read_count
     self.read_count += 1
     save

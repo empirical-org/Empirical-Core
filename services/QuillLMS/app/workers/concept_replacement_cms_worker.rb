@@ -11,5 +11,4 @@ class ConceptReplacementCMSWorker
     }
     HTTParty.put("#{ENV['CMS_URL']}/responses/replace_concept_uids", body: data.to_json)
   end
-
 end

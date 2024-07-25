@@ -27,7 +27,7 @@ describe FastAssignWorker, type: :worker do
       original_units_cus = ClassroomUnit.where(unit_id: unit.id).count
       FastAssignWorker.new.perform(teacher.id, unit_template1.id)
       new_units_cus = ClassroomUnit.where(unit_id: unit.id).count
-      eventually { expect(new_units_cus - original_units_cus).to eq(1)}
+      eventually { expect(new_units_cus - original_units_cus).to eq(1) }
     end
 
     it 'that assigns the new activities to all students' do

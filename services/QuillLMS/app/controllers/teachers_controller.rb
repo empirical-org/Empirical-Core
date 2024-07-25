@@ -15,14 +15,14 @@ class TeachersController < ApplicationController
       school_user.school = school
       if school_user.save
         # redirect to profile with confirmation
-        redirect_to profile_path, flash: {notice: "You have successfully joined #{school.name}."}
+        redirect_to profile_path, flash: { notice: "You have successfully joined #{school.name}." }
       else
         # redirect to profile with errors.
         redirect_to profile_path, flash: school_user.errors
       end
     else
       # User is not signed in or they are not the invitee, redirect to sign in page
-      redirect_to new_session_path, flash: {error: 'You must be signed in to add a school.'}
+      redirect_to new_session_path, flash: { error: 'You must be signed in to add a school.' }
     end
   end
 
@@ -40,33 +40,33 @@ class TeachersController < ApplicationController
   end
 
   def classrooms_i_teach_with_students
-    render json: {classrooms: current_user.classrooms_i_teach_with_students}
+    render json: { classrooms: current_user.classrooms_i_teach_with_students }
   end
 
   def classrooms_i_own_with_students
-    render json: {classrooms: current_user.classrooms_i_own_with_students}
+    render json: { classrooms: current_user.classrooms_i_own_with_students }
   end
 
   def classrooms_i_teach_with_lessons
     if current_user.nil?
-      render json: {classrooms: []} and return
+      render json: { classrooms: [] } and return
     end
 
     classrooms = Classroom.joins(:activities, :classrooms_teachers)
-      .where(unit_activities: {visible: true}, classroom_units: {visible: true},
-        classrooms: {visible: true}, units: {visible: true})
-      .where(classrooms_teachers: {user_id: current_user.id})
-      .where(activities: {activity_classification_id: 6})
+      .where(unit_activities: { visible: true }, classroom_units: { visible: true },
+        classrooms: { visible: true }, units: { visible: true })
+      .where(classrooms_teachers: { user_id: current_user.id })
+      .where(activities: { activity_classification_id: 6 })
       .uniq
 
-    render json: {classrooms: classrooms}
+    render json: { classrooms: classrooms }
   end
 
   def update_current_user
     if current_user.update(teacher_params)
       render json: current_user, serializer: UserSerializer
     else
-      render json: {errors: current_user.errors}, status: 400
+      render json: { errors: current_user.errors }, status: 400
     end
   end
 
@@ -77,7 +77,7 @@ class TeachersController < ApplicationController
     rescue
       unit_info = {}
     end
-    render json: {unit_info: unit_info}
+    render json: { unit_info: unit_info }
   end
 
   def lessons_info_for_dashboard_mini
@@ -143,8 +143,6 @@ class TeachersController < ApplicationController
 
   private def teacher_params
     params.require(:teacher).permit(:admin_id, :first_name, :last_name, :email)
-           .merge({role: User::TEACHER})
-
+           .merge({ role: User::TEACHER })
   end
-
 end

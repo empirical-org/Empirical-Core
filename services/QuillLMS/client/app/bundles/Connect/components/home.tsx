@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useQuery } from 'react-query';
+import { connect } from 'react-redux';
 import { renderRoutes } from "react-router-config";
 
 import { NavBar } from './navbar/navbar';
@@ -7,10 +8,11 @@ import { NavBar } from './navbar/navbar';
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
+import { setLanguage } from '../actions.js';
 import { getParameterByName } from '../libs/getParameterByName';
 import { routes } from "../routes";
 
-export const Home = () => {
+export const Home = ({playLesson, dispatch}) => {
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
@@ -57,15 +59,27 @@ export const Home = () => {
     setSkippedToQuestionFromIntro(true);
   }
 
+  function handleUpdateLanguage(language: string) {
+    const action = setLanguage(language)
+    dispatch(action)
+  }
+
   let className = "ant-layout "
   className = showFocusState ? '' : 'hide-focus-outline'
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
   const isOnMobile = window.innerWidth < 1100;
   let header;
   if(isTeacherOrAdmin && isPlaying) {
-    header = <NavBar isOnMobile={isOnMobile} isTeacher={isTeacherOrAdmin} onTogglePreview={handleTogglePreviewMenu} previewShowing={previewShowing} />;
+    header = (<NavBar
+      isOnMobile={isOnMobile}
+      isTeacher={isTeacherOrAdmin}
+      language={playLesson?.language}
+      onTogglePreview={handleTogglePreviewMenu}
+      previewShowing={previewShowing}
+      updateLanguage={handleUpdateLanguage}
+    />);
   } else if (!isTeacherOrAdmin && isPlaying) {
-    header = <NavBar />;
+    header = <NavBar language={playLesson?.language} updateLanguage={handleUpdateLanguage} />;
   }
   return(
     <div className={className}>
@@ -102,4 +116,10 @@ export const Home = () => {
   );
 }
 
-export default Home;
+const select = (state: any, props: any) => {
+  return {
+    playLesson: state.playLesson
+  };
+}
+
+export default connect(select)(Home);

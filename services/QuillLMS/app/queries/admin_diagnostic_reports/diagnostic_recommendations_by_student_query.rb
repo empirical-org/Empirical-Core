@@ -60,7 +60,7 @@ module AdminDiagnosticReports
 
     private def post_query_transform(results)
       results.to_h do |result|
-        [result[:student_id], {completed_activities: result[:completed_activities], time_spent_seconds: result[:time_spent_seconds]}]
+        [result[:student_id], { completed_activities: result[:completed_activities], time_spent_seconds: result[:time_spent_seconds] }]
       end
     end
 

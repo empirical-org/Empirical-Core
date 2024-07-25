@@ -317,7 +317,6 @@ describe LessonRecommendationsQuery do
           ]
         )
         end
-
       end
     end
 

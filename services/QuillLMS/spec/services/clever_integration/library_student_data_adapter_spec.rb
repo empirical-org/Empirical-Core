@@ -33,4 +33,3 @@ RSpec.describe CleverIntegration::LibraryStudentDataAdapter do
     end
   end
 end
-

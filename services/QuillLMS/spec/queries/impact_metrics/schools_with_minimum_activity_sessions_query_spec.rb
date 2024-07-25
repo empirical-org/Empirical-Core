@@ -43,7 +43,6 @@ module ImpactMetrics
       end
 
       it { expect(results).to match_array(expected_results) }
-
     end
   end
 end

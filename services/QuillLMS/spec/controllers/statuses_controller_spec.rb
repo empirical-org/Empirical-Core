@@ -19,7 +19,7 @@ describe StatusesController, type: :controller do
         allow(resp).to receive(:status) { 200 }
         allow(Faraday).to receive(:post).and_return(resp)
 
-        post :deployment_notification, params: {  }
+        post :deployment_notification, params: {}
 
         expect(response.status).to eq 200
         expect(response.body).to eq 'OK'
@@ -31,7 +31,7 @@ describe StatusesController, type: :controller do
         allow(Faraday).to receive(:post).and_raise('Faraday exception')
 
         expect {
-          post :deployment_notification, params: {  }
+          post :deployment_notification, params: {}
         }.to raise_error(RuntimeError, 'Faraday exception')
       end
     end
@@ -43,7 +43,7 @@ describe StatusesController, type: :controller do
         allow(Faraday).to receive(:post).and_return(resp)
 
         expect {
-          post :deployment_notification, params: {  }
+          post :deployment_notification, params: {}
         }.to_not raise_error
 
         expect(response.status).to eq 400

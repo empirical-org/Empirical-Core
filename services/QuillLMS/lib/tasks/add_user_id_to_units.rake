@@ -3,7 +3,6 @@
 namespace :add_user_id_to_units do
   desc 'assign existing units the correct user_id'
   task :update => :environment do
-
    # if we ever start allowing users to restore units they've archived,
    # this will need to be updated
 
@@ -23,6 +22,5 @@ namespace :add_user_id_to_units do
       end
     end
   end
-
  end
 end

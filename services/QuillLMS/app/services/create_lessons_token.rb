@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CreateLessonsToken
-
   def initialize(user, classroom_unit_id)
     @user = user
     @classroom_unit_id = classroom_unit_id

@@ -52,7 +52,7 @@ class SchoolsController < ApplicationController
         zip_arr << @zipcode
         cache_id = 'ZIPCODE'
       else
-        zip_arr += ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map {|z| z.zipcode}
+        zip_arr += ZipcodeInfo.isinradius([@lat.to_f, @lng.to_f], @radius.to_i).map { |z| z.zipcode }
       end
 
       if zip_arr.present?
@@ -64,7 +64,7 @@ class SchoolsController < ApplicationController
          'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
          ).group('schools.id')
          .limit(@limit)
-        $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map {|s| s.id}.to_json)
+        $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map { |s| s.id }.to_json)
          # short cache, highly specific
         $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
       end
@@ -79,11 +79,10 @@ class SchoolsController < ApplicationController
          'lower(name) LIKE :prefix', prefix: "%#{@prefix.downcase}%"
        ).group('schools.id')
        .limit(@limit)
-      $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map {|s| s.id}.to_json)
+      $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map { |s| s.id }.to_json)
       # longer cache, more general
       $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
     end
-
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
@@ -122,7 +121,7 @@ class SchoolsController < ApplicationController
   def array_to_postgres_array_helper(ruby_array)
     array_encoder = PG::TextEncoder::Array.new
     literal_encoder = PG::TextEncoder::QuotedLiteral.new
-    r = array_encoder.encode(ruby_array.map {|v| literal_encoder.encode(v)})
+    r = array_encoder.encode(ruby_array.map { |v| literal_encoder.encode(v) })
     r.sub('{','(').sub('}', ')')
   end
 

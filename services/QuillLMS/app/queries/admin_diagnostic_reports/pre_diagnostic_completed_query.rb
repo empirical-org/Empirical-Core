@@ -51,6 +51,5 @@ module AdminDiagnosticReports
         pre_average_score: average_aggregate(:pre_students_completed)
       }
     end
-
   end
 end

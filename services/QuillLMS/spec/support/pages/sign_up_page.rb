@@ -65,5 +65,4 @@ class SignUpPage < Page
   def self.submit_target_path
     '/account'
   end
-
 end

@@ -27,7 +27,6 @@ namespace :subscriptions do
       rescue => e
         puts "Error processing #{email}: #{e}"
       end
-
     end
   end
 

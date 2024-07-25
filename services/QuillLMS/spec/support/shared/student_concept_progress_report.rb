@@ -15,9 +15,9 @@ shared_context 'Student Concept Progress Report' do
   let(:classroom) { create(:classroom,
     name: 'Bacon Weaving',
     students: [alice, fred, zojirushi]) }
-  let(:teacher) {classroom.owner}
+  let(:teacher) { classroom.owner }
   let(:activity) { create(:activity) }
-  let(:unit) { create(:unit, user: teacher ) }
+  let(:unit) { create(:unit, user: teacher) }
   let(:classroom_unit) { create(:classroom_unit,
                                           classroom: classroom,
                                           assign_on_join: true,
@@ -27,7 +27,6 @@ shared_context 'Student Concept Progress Report' do
   let(:unit_activity) { create(:unit_activity,
                                 activity: activity,
                                 unit: unit)}
-
 
   # Create 2 activity session for each student, one with the concept tags, one without
   let(:alice_session) { create(:activity_session,

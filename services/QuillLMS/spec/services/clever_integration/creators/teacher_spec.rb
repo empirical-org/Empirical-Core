@@ -29,7 +29,7 @@ describe CleverIntegration::Creators::Teacher do
     context 'as a teacher' do
       let(:factory) { :teacher }
 
-      it  { expect(subject.role).to eq User::TEACHER}
+      it  { expect(subject.role).to eq User::TEACHER }
     end
 
     context 'as a student' do
@@ -67,6 +67,5 @@ describe CleverIntegration::Creators::Teacher do
         expect(teacher.reload.google_id).to be_nil
       end
     end
-
   end
 end

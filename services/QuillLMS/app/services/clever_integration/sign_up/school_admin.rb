@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module CleverIntegration::SignUp::SchoolAdmin
-
   def self.run(auth_hash)
     parsed_data = parse_data(auth_hash)
 
@@ -14,9 +13,9 @@ module CleverIntegration::SignUp::SchoolAdmin
     if user.present?
       associate_user_to_district(user, district)
       import_schools(user, district.token)
-      {type: 'user_success', data: user}
+      { type: 'user_success', data: user }
     else
-      {type: 'user_failure', data: 'No User Present'}
+      { type: 'user_failure', data: 'No User Present' }
     end
   end
 
@@ -39,5 +38,4 @@ module CleverIntegration::SignUp::SchoolAdmin
   def self.import_schools(user, district_token)
     CleverIntegration::Importers::SchoolAdminSchools.run(user, district_token)
   end
-
 end

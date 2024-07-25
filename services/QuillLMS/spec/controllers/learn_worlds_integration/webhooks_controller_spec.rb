@@ -14,7 +14,7 @@ RSpec.describe LearnWorldsIntegration::WebhooksController, type: :controller do
   before { stub_const('LearnWorldsIntegration::WEBHOOK_SIGNATURE', webhook_signature) }
 
   context '#create' do
-    before { allow(request).to receive(:env).and_return({described_class::SIGNATURE_HEADER_KEY => signature_header}) }
+    before { allow(request).to receive(:env).and_return({ described_class::SIGNATURE_HEADER_KEY => signature_header }) }
 
     context 'invalid signature' do
       let(:params) { {} }
@@ -34,13 +34,13 @@ RSpec.describe LearnWorldsIntegration::WebhooksController, type: :controller do
       context 'enrolled_free_course_event' do
         let(:params) {  enrolled_free_course_event }
 
-        it { should_call_event_handler(LearnWorldsIntegration::Webhooks::EnrolledFreeCourseEventHandler)}
+        it { should_call_event_handler(LearnWorldsIntegration::Webhooks::EnrolledFreeCourseEventHandler) }
       end
 
       context 'course_completed_event' do
         let(:params) { course_completed_event }
 
-        it { should_call_event_handler(LearnWorldsIntegration::Webhooks::CourseCompletedEventHandler)}
+        it { should_call_event_handler(LearnWorldsIntegration::Webhooks::CourseCompletedEventHandler) }
       end
 
       context 'earned_certificate_event' do
@@ -51,7 +51,7 @@ RSpec.describe LearnWorldsIntegration::WebhooksController, type: :controller do
 
       context 'unknown event type' do
         let(:error) { LearnWorldsIntegration::WebhooksController::UnknownEventTypeError }
-        let(:params) { { 'type' => 'anUnknownEventType', 'data' => {}} }
+        let(:params) { { 'type' => 'anUnknownEventType', 'data' => {} } }
 
         it 'handles the unknown event error and reports to new relic' do
           expect(ErrorNotifier).to receive(:report).with(error)

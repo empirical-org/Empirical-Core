@@ -17,11 +17,11 @@ module VitallySharedFunctions
 
   def filter_evidence(activities)
     evidence_ids = Activity.where(activity_classification_id: ActivityClassification.evidence.id).pluck(:id)
-    activities.select {|r| evidence_ids.include?(r.id) }
+    activities.select { |r| evidence_ids.include?(r.id) }
   end
 
   def in_school_year(activities, school_year_start, school_year_end)
-    activities.select {|r| r.created_at >= school_year_start && r.created_at < school_year_end }
+    activities.select { |r| r.created_at >= school_year_start && r.created_at < school_year_end }
   end
 
   def evidence_assigned_in_year_count

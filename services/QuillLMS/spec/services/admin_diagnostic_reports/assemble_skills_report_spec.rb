@@ -6,7 +6,7 @@ module AdminDiagnosticReports
   describe AssembleSkillsReport do
     subject { described_class.run(payload) }
 
-    let(:payload) { {example: 'payload'} }
+    let(:payload) { { example: 'payload' } }
 
     it do
       expect(AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery).to receive(:run).with(**payload)

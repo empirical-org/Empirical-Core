@@ -13,8 +13,8 @@ require 'rails_helper'
 
 RSpec.describe EnglishText, type: :model do
   describe 'active_record associations' do
-    it {should have_many(:translated_texts) }
-    it {should have_many(:translation_mappings) }
+    it { should have_many(:translated_texts) }
+    it { should have_many(:translation_mappings) }
   end
 
   describe '#gengo_translation?(locale:)' do
@@ -29,7 +29,6 @@ RSpec.describe EnglishText, type: :model do
         locale: other_locale
       )
     end
-
 
     context 'there is a translated_text record associated with that locale' do
       let(:other_locale) { locale }
@@ -48,7 +47,6 @@ RSpec.describe EnglishText, type: :model do
     end
   end
 
-
   describe '#translated?(locale:)' do
     subject { english_text.translated?(locale:) }
 
@@ -61,7 +59,6 @@ RSpec.describe EnglishText, type: :model do
         locale: other_locale
       )
     end
-
 
     context 'there is a translated_text record associated with that locale' do
       let(:other_locale) { locale }

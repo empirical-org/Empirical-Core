@@ -43,7 +43,7 @@ module Evidence
           subject { post :create, params: }
 
           context 'with valid params' do
-            let(:params) { valid_params}
+            let(:params) { valid_params }
 
             it { expect { subject }.to change(GEval, :count).by(1) }
 

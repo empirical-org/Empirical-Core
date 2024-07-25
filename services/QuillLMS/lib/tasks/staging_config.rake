@@ -3,7 +3,6 @@
 require 'open3'
 
 namespace :staging_config do
-
   # bundle exec rake staging_config:copy_from_staging_to_personals\[SOME_KEY\]
   desc 'copy a config from main staging to all other staging envs'
   task :copy_from_staging_to_personals, [:config] => :environment do |t,args|

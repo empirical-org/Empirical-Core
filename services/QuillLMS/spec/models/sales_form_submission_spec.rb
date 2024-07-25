@@ -43,7 +43,7 @@ RSpec.describe SalesFormSubmission, type: :model do
   end
 
   context 'after_save, should perform this behavior on internal User records' do
-    let(:school) { create(:school)}
+    let(:school) { create(:school) }
 
     it 'creates a new user record if a User does not already exist' do
       expect { create(:sales_form_submission, school_name: school.name) }.to change(User, :count).by(1)
@@ -71,5 +71,4 @@ RSpec.describe SalesFormSubmission, type: :model do
       sales_form_submission.save
     end
   end
-
 end

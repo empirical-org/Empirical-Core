@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class OneOffBanner < WebinarBanner
-
   # ONE-OFFS have the key format Month-Day-Hour
   # RECURRING have the key format DayOfWeek-Hour
 
@@ -52,5 +51,4 @@ class OneOffBanner < WebinarBanner
   private def key
     "#{time.month}-#{time.day}-#{time.hour}"
   end
-
 end

@@ -3,12 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe QuillBigQuery::MaterializedViewsController do
-
   describe '#refresh' do
     subject { post :refresh, params: params, as: :json }
 
     let(:api_key) { '1234' }
-    let(:view_key) {'some_key'}
+    let(:view_key) { 'some_key' }
     let(:params) { { api_key:, view_key: } }
 
     before do
@@ -39,14 +38,14 @@ RSpec.describe QuillBigQuery::MaterializedViewsController do
         stub_const('QuillBigQuery::MaterializedViewsController::API_KEY', '')
       end
 
-      it { expect {subject}.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
+      it { expect { subject }.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
     end
 
     context 'wrong api_key' do
       let(:incorrect_key) { 'incorrect' }
       let(:params) { { api_key: incorrect_key, view_key: } }
 
-      it { expect {subject}.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
+      it { expect { subject }.to raise_error(QuillBigQuery::MaterializedViewsController::InvalidRequestError) }
     end
   end
 end

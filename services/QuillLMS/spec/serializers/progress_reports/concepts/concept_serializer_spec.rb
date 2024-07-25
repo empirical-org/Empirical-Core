@@ -5,7 +5,7 @@ require 'rails_helper'
 describe ProgressReports::Concepts::ConceptSerializer, type: :serializer do
   let!(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
-  let!(:student) { create(:user, role: 'student', classrooms: [classroom])}
+  let!(:student) { create(:user, role: 'student', classrooms: [classroom]) }
   let(:activity) { create(:activity) }
   let(:unit_activity) { create(:unit_activity, activity: activity) }
   let(:classroom_unit) do

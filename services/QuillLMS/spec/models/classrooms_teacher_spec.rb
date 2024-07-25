@@ -46,15 +46,15 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
 
   describe 'validations' do
     it 'should prevent saving arbitrary role' do
-      expect{classrooms_teacher_with_arbitrary_role.save}.to raise_error ActiveRecord::StatementInvalid
+      expect{ classrooms_teacher_with_arbitrary_role.save }.to raise_error ActiveRecord::StatementInvalid
     end
 
     it 'should require a user_id that is not null' do
-      expect{classrooms_teacher_with_null_user_id.save}.to raise_error ActiveRecord::StatementInvalid
+      expect{ classrooms_teacher_with_null_user_id.save }.to raise_error ActiveRecord::StatementInvalid
     end
 
     it 'should require a classroom_id that is not null' do
-      expect{classrooms_teacher_with_null_classroom_id.save}.to raise_error ActiveRecord::StatementInvalid
+      expect{ classrooms_teacher_with_null_classroom_id.save }.to raise_error ActiveRecord::StatementInvalid
     end
   end
 
@@ -63,10 +63,9 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
     let(:teacher) { classrooms_teacher.teacher }
 
     it 'should delete_classroom_minis_cache on create' do
-      $redis.set("user_id:#{teacher.id}_classroom_minis", {something: 'something'}.to_json)
+      $redis.set("user_id:#{teacher.id}_classroom_minis", { something: 'something' }.to_json)
       classrooms_teacher.save
       expect($redis.get("user_id:#{teacher.id}_classroom_minis")).to eq nil
     end
   end
-
 end

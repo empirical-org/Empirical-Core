@@ -6,7 +6,7 @@ describe Cms::DistrictAdminsController do
   let(:user) { create(:staff) }
   let!(:district1) { create(:district) }
   let!(:district2) { create(:district) }
-  let!(:school) { create(:school, district: district1)}
+  let!(:school) { create(:school, district: district1) }
   let!(:admin) { create(:user) }
 
   before do
@@ -57,10 +57,10 @@ describe Cms::DistrictAdminsController do
 
     describe 'for an existing user' do
       describe 'who already has an admin info record' do
-        let!(:admin_info) { create(:admin_info, user: admin, approval_status: AdminInfo::PENDING, approver_role: User::ADMIN )}
+        let!(:admin_info) { create(:admin_info, user: admin, approval_status: AdminInfo::PENDING, approver_role: User::ADMIN) }
 
         it 'updates the admin info record to be staff approved' do
-          post :create, params: { district_id: district1.id, email: admin.email}
+          post :create, params: { district_id: district1.id, email: admin.email }
 
           expect(admin.admin_info.reload.approver_role).to eq(User::STAFF)
           expect(admin.admin_info.reload.approval_status).to eq(AdminInfo::APPROVED)
@@ -69,7 +69,7 @@ describe Cms::DistrictAdminsController do
 
       describe 'who does not already have an admin info record' do
         it 'creates the admin info record as staff approved' do
-          post :create, params: { district_id: district1.id, email: admin.email}
+          post :create, params: { district_id: district1.id, email: admin.email }
 
           expect(admin.admin_info.approver_role).to eq(User::STAFF)
           expect(admin.admin_info.approval_status).to eq(AdminInfo::APPROVED)
@@ -78,7 +78,7 @@ describe Cms::DistrictAdminsController do
 
       it 'creates a new district admin and sends the expected email' do
         Sidekiq::Testing.inline! do
-          post :create, params: { district_id: district2.id, email: admin.email}
+          post :create, params: { district_id: district2.id, email: admin.email }
 
           expect(DistrictAdmin.find_by_user_id(admin.id)).to be
           expect(ActionMailer::Base.deliveries.last.subject).to eq("#{admin.first_name}, you are now a Quill admin for #{district2.name}")
@@ -90,7 +90,7 @@ describe Cms::DistrictAdminsController do
         create(:district_admin, district: district1, user: admin)
         expect(DistrictAdmin.count).to eq(1)
 
-        post :create, params: { district_id: district1.id, email: admin.email}
+        post :create, params: { district_id: district1.id, email: admin.email }
 
         expect(DistrictAdmin.count).to eq(1)
       end
@@ -102,7 +102,7 @@ describe Cms::DistrictAdminsController do
       create(:district_admin, district: district1, user: admin)
       district_admin = DistrictAdmin.find_by_user_id(admin.id)
 
-      delete :destroy, params: { district_id: district1.id, id: district_admin.id}
+      delete :destroy, params: { district_id: district1.id, id: district_admin.id }
 
       expect(DistrictAdmin.find_by_user_id(admin.id)).not_to be
     end

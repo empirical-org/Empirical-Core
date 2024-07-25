@@ -20,11 +20,10 @@ RSpec.describe Translatable do
       end
 
       private def config_file = Rails.root.join('app/models/translation_config/concept_feedback.yml')
-
     end
   end
 
-  let(:translatable_object) { translatable_class.create(data: {'test_text' => 'Test text to translate'}) }
+  let(:translatable_object) { translatable_class.create(data: { 'test_text' => 'Test text to translate' }) }
 
   before do
     stub_const('TranslatableTestModel', translatable_class)
@@ -209,12 +208,12 @@ RSpec.describe Translatable do
 
     context 'when using OpenAI as the source' do
       let(:source_api) { Translatable::OPEN_AI_SOURCE }
-      let(:prompt) { translatable_object.prompt(locale:) }
+      let(:prompt) { translatable_object.open_ai_prompt(locale:) }
 
       context 'there is not an existing translation' do
         it 'calls OpenAI::TranslateAndSaveText for each English text' do
           translatable_object.english_texts.each do |text|
-            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:, locale:)
           end
           subject
         end
@@ -232,7 +231,7 @@ RSpec.describe Translatable do
 
           it 'calls OpenAI::TranslateAndSaveText for each English text' do
             translatable_object.english_texts.each do |text|
-              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:, locale:)
             end
             subject
           end
@@ -267,7 +266,7 @@ RSpec.describe Translatable do
     end
   end
 
-  describe '#prompt(locale:)' do
+  describe '#open_ai_prompt(locale:)' do
     let(:locale) { Translatable::DEFAULT_LOCALE }
 
     it 'returns the expected prompt' do
@@ -277,54 +276,15 @@ RSpec.describe Translatable do
         We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
       STRING
       expected += "\nTest prompt\n text to translate: "
-      expect(translatable_object.prompt(locale:)).to eq(expected)
+      expect(translatable_object.open_ai_prompt(locale:)).to eq(expected)
     end
 
     it 'adds in the example_json' do
       filename = 'question.yml'
       allow(translatable_object).to receive(:config_file).and_return(Rails.root.join('app/models/translation_config', filename))
-      prompt = translatable_object.prompt(locale:)
+      prompt = translatable_object.open_ai_prompt(locale:)
       expect(prompt).to match(translatable_object.send(:examples))
       expect(translatable_object.send(:examples)).to match('1. English: "Combine the sentences')
-    end
-  end
-
-  describe '#translated_json' do
-    subject { translatable_object.translated_json(options) }
-
-    let(:options) { {} }
-    let(:data) { translatable_object.data }
-
-    context 'when there are no translations' do
-      it { is_expected.to eq(data) }
-    end
-
-    context 'when there are translations available' do
-      let(:translation) { 'test translation' }
-      let(:translated_text) { create(:translated_text, translation: translation) }
-
-      before do
-        translatable_object.create_translation_mappings
-        translatable_object.english_texts.first.translated_texts << translated_text
-      end
-
-      it 'adds the translations to the data' do
-        expect(subject['translatedTest_text']).to eq(translation)
-      end
-
-      context 'when a specific source_api is provided' do
-        let(:options) { { source_api: Translatable::GENGO_SOURCE } }
-        let(:gengo_translation) { 'gengo translation' }
-        let(:gengo_translated_text) { create(:translated_text, translation: gengo_translation, source_api: Translatable::GENGO_SOURCE) }
-
-        before do
-          translatable_object.english_texts.first.translated_texts << gengo_translated_text
-        end
-
-        it 'uses the specified source_api for translation' do
-          expect(subject['translatedTest_text']).to eq(gengo_translation)
-        end
-      end
     end
   end
 end

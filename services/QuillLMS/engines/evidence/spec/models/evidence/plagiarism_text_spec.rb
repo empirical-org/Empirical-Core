@@ -14,13 +14,11 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(PlagiarismText, :type => :model) do
-
     context 'relations' do
       it { should belong_to(:rule) }
     end
 
     context 'should validations' do
-
       it { should validate_presence_of(:rule) }
 
       it { should validate_presence_of(:text) }

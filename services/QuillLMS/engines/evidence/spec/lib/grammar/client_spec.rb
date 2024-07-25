@@ -8,7 +8,7 @@ module Evidence
       let(:mock_endpoint) { 'https://www.grammar.com' }
       let(:client) { Grammar::Client.new(entry: '', prompt_text: '') }
       # include headers in response for proper parsing by HTTParty
-      let(:sample_response) { {body: '{}', headers: {content_type: 'application/json'}} }
+      let(:sample_response) { { body: '{}', headers: { content_type: 'application/json' } } }
 
       before do
         stub_const('Evidence::Grammar::Client::API_ENDPOINT', mock_endpoint)
@@ -24,7 +24,7 @@ module Evidence
         errored_response = sample_response.merge(status: 500)
         stub_request(:post, mock_endpoint).to_return(errored_response)
 
-        expect { client.post}.to raise_error(Evidence::Grammar::Client::APIError)
+        expect { client.post }.to raise_error(Evidence::Grammar::Client::APIError)
       end
 
       it 'should raise error on timeout' do

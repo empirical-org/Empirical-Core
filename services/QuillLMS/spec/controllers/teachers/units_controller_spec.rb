@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 describe Teachers::UnitsController, type: :controller do
-  let!(:student) {create(:student)}
+  let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom) }
-  let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
+  let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student) }
   let!(:teacher) { classroom.owner }
   let!(:unit_template) { create(:unit_template) }
-  let!(:unit) {create(:unit, user: teacher, unit_template: unit_template)}
-  let!(:unit2) {create(:unit, user: teacher)}
+  let!(:unit) { create(:unit, user: teacher, unit_template: unit_template) }
+  let!(:unit2) { create(:unit, user: teacher) }
 
   let!(:classroom_unit) do
     create(:classroom_unit,
@@ -28,9 +28,9 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   let!(:diagnostic) { create(:diagnostic) }
-  let!(:diagnostic_activity) { create(:diagnostic_activity)}
+  let!(:diagnostic_activity) { create(:diagnostic_activity) }
   let!(:activities_unit_template) { create(:activities_unit_template, activity: diagnostic_activity, unit_template: unit_template) }
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago )}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.current, publish_date: 1.hour.ago) }
 
   let!(:completed_activity_session) do
     create(:activity_session,
@@ -127,7 +127,6 @@ describe Teachers::UnitsController, type: :controller do
         }.to_json)
       end
     end
-
   end
 
   describe '#diagnostic_units' do
@@ -344,7 +343,6 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#update' do
-
     it 'sends a 200 status code when a unique name is sent over' do
       put :update, params: { id: unit.id, unit: {
                       name: 'Super Unique Unit Name'
@@ -357,12 +355,10 @@ describe Teachers::UnitsController, type: :controller do
                       name: unit2.name
                     } }
       expect(response.status).to eq(422)
-
     end
   end
 
   describe '#classrooms_with_students_and_classroom_units' do
-
     it 'returns #get_classrooms_with_students_and_classroom_units when it is passed a valid unit id' do
       get :classrooms_with_students_and_classroom_units, params: { id: unit.id }
       res = JSON.parse(response.body)
@@ -370,19 +366,16 @@ describe Teachers::UnitsController, type: :controller do
       expect(res['classrooms'].first['name']).to eq(classroom.name)
       expect(res['classrooms'].first['students'].first['id']).to eq(student.id)
       expect(res['classrooms'].first['students'].first['name']).to eq(student.name)
-      expect(res['classrooms'].first['classroom_unit']).to eq({'id' => classroom_unit.id, 'assigned_student_ids' => classroom_unit.assigned_student_ids, 'assign_on_join' => true})
+      expect(res['classrooms'].first['classroom_unit']).to eq({ 'id' => classroom_unit.id, 'assigned_student_ids' => classroom_unit.assigned_student_ids, 'assign_on_join' => true })
     end
-
 
     it 'sends a 422 error code when it is not passed a valid unit id' do
       get :classrooms_with_students_and_classroom_units, params: { id: Unit.count + 1000 }
       expect(response.status).to eq(422)
     end
-
   end
 
   describe '#update_classroom_unit_assigned_students' do
-
     it 'sends a 200 status code when it is passed valid data' do
       put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
             classrooms: [{ id: classroom.id, student_ids: [student.id] }]
@@ -396,11 +389,9 @@ describe Teachers::UnitsController, type: :controller do
           } }
       expect(response.status).to eq(422)
     end
-
   end
 
   describe '#restore_classroom_unit_assignment_for_one_student' do
-
     before do
       ClassroomUnit.update(assigned_student_ids: [])
       completed_activity_session.update(visible: false)
@@ -414,11 +405,9 @@ describe Teachers::UnitsController, type: :controller do
 
       expect(response.status).to eq(200)
     end
-
   end
 
   describe '#update_activities' do
-
     it 'sends a 200 status code when it is passed valid data' do
       activity = unit_activity.activity
       put :update_activities,
@@ -437,7 +426,7 @@ describe Teachers::UnitsController, type: :controller do
       activity = unit_activity.activity
       put :update_activities, params: { id: unit.id + 500, data: {
             unit_id: unit.id + 500,
-            activities_data: [{id: activity.id, due_date: nil}]
+            activities_data: [{ id: activity.id, due_date: nil }]
           }.to_json }
       expect(response.status).to eq(422)
     end
@@ -474,9 +463,9 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#score_info' do
-    let!(:activity) {create(:activity)}
-    let!(:classroom_unit) {create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])}
-    let!(:activity_session) {create(:activity_session,
+    let!(:activity) { create(:activity) }
+    let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let!(:activity_session) { create(:activity_session,
       activity: activity,
       classroom_unit: classroom_unit,
       is_final_score: true,

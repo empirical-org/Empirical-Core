@@ -8,16 +8,16 @@ describe GrowthResultsSummary do
   let!(:pre_test_unit) { create(:unit) }
   let!(:post_test_unit) { create(:unit, user: pre_test_unit.user) }
   let!(:classroom) { create(:classroom) }
-  let!(:student1) { create(:student, name: 'Alphabetical A')}
-  let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
-  let!(:student2) { create(:student, name: 'Alphabetical B')}
-  let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
+  let!(:student1) { create(:student, name: 'Alphabetical A') }
+  let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1) }
+  let!(:student2) { create(:student, name: 'Alphabetical B') }
+  let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2) }
   let!(:pre_test_classroom_unit) { create(:classroom_unit, unit: pre_test_unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
   let!(:pre_test_unit_activity) { create(:unit_activity, unit: pre_test_unit) }
   let!(:post_test_classroom_unit) { create(:classroom_unit, unit: post_test_unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
   let!(:post_test_unit_activity) { create(:unit_activity, unit: post_test_unit) }
-  let!(:pre_test_skill_group_activity) { create(:skill_group_activity, activity: pre_test_unit_activity.activity)}
-  let!(:post_test_skill_group_activity) { create(:skill_group_activity, activity: post_test_unit_activity.activity, skill_group: pre_test_skill_group_activity.skill_group)}
+  let!(:pre_test_skill_group_activity) { create(:skill_group_activity, activity: pre_test_unit_activity.activity) }
+  let!(:post_test_skill_group_activity) { create(:skill_group_activity, activity: post_test_unit_activity.activity, skill_group: pre_test_skill_group_activity.skill_group) }
   let!(:pre_test_activity_session) { create(:activity_session_without_concept_results, :finished, user: student1, classroom_unit: pre_test_classroom_unit, activity: pre_test_unit_activity.activity) }
   let!(:post_test_activity_session) { create(:activity_session_without_concept_results, :finished, user: student1, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
   let!(:post_test_activity_session_with_no_pre_test) { create(:activity_session_without_concept_results, :finished, user: student2, classroom_unit: post_test_classroom_unit, activity: post_test_unit_activity.activity) }
@@ -27,10 +27,10 @@ describe GrowthResultsSummary do
   let!(:diagnostic_question_skill3) { create(:diagnostic_question_skill, skill_group: pre_test_skill_group_activity.skill_group) }
   let!(:diagnostic_question_skill4) { create(:diagnostic_question_skill, skill_group: pre_test_skill_group_activity.skill_group) }
 
-  let!(:correct_concept_result1) { create(:concept_result, activity_session: pre_test_activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid } ) }
-  let!(:correct_concept_result2) { create(:concept_result, activity_session: post_test_activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill2.question.uid } ) }
-  let!(:incorrect_concept_result1) { create(:concept_result, activity_session: pre_test_activity_session, correct: false, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill3.question.uid } ) }
-  let!(:correct_concept_result3) { create(:concept_result, activity_session: post_test_activity_session, correct: true, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill4.question.uid } ) }
+  let!(:correct_concept_result1) { create(:concept_result, activity_session: pre_test_activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid }) }
+  let!(:correct_concept_result2) { create(:concept_result, activity_session: post_test_activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill2.question.uid }) }
+  let!(:incorrect_concept_result1) { create(:concept_result, activity_session: pre_test_activity_session, correct: false, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill3.question.uid }) }
+  let!(:correct_concept_result3) { create(:concept_result, activity_session: post_test_activity_session, correct: true, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill4.question.uid }) }
 
   describe '#growth_results_summary' do
     it 'should return data with the student results and skill group summaries' do
@@ -285,7 +285,6 @@ describe GrowthResultsSummary do
         ]
       )
     end
-
   end
 
   describe '#skill_groups_for_session' do
@@ -391,6 +390,5 @@ describe GrowthResultsSummary do
       skill_groups_for_session([pre_test_skill_group_activity.skill_group], post_test_activity_session, pre_test_activity_session, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_in_post_test_student_names]).to eq []
     end
-
   end
 end

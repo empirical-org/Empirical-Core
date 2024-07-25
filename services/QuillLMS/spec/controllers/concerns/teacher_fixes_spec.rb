@@ -246,7 +246,6 @@ describe TeacherFixes do
       TeacherFixes::merge_two_classrooms(classroom.id, classroom2.id)
       expect(classroom.reload.visible).to be(false)
     end
-
   end
 
   describe '#delete_last_activity_session' do
@@ -394,7 +393,6 @@ describe TeacherFixes do
         end
       end
     end
-
   end
 
   describe '#recover_classroom_units_and_associated_activity_sessions' do

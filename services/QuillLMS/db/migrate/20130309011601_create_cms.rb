@@ -26,7 +26,5 @@ class CreateCms < ActiveRecord::Migration[4.2]
       t.text :description
       t.timestamps
     end
-
-
   end
 end

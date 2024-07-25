@@ -53,4 +53,3 @@ describe StripeIntegration::Mailer, type: :mailer do
     expect(subject.from).to eq [described_class::QUILL_TEAM_EMAIL_ADDRESS]
   end
 end
-

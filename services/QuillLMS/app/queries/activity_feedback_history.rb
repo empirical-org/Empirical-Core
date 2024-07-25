@@ -6,7 +6,6 @@ class ActivityFeedbackHistory
   end
 
   def self.activity_stats_query(activity_id:, activity_version: nil)
-
     inner_query = ActivitySession.unscoped
       .joins(:feedback_sessions)
       .joins(:feedback_histories)

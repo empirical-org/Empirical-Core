@@ -127,7 +127,7 @@ class UserMailer < ActionMailer::Base
     subject_date = date_object.strftime('%m/%d/%Y')
 
     teacher_count = User.teacher.count
-    new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: {created_at: start_time..end_time}).count
+    new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: { created_at: start_time..end_time }).count
     conversion_rate = new_premium_accounts/teacher_count.to_f
 
     @current_date = date_object.strftime('%A, %B %d')
@@ -191,5 +191,4 @@ class UserMailer < ActionMailer::Base
     }
     @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
-
 end

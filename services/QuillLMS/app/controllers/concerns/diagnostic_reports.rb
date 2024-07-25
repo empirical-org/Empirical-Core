@@ -63,14 +63,14 @@ module DiagnosticReports
       classroom_unit = ClassroomUnit.find_by(unit_id: unit_id, classroom_id: classroom_id)
       @assigned_students = User.where(id: classroom_unit.assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
-        .includes(:concept_results, activity: {diagnostic_question_skills: :question})
+        .includes(:concept_results, activity: { diagnostic_question_skills: :question })
         .where(classroom_unit: classroom_unit, is_final_score: true, user_id: classroom_unit.assigned_student_ids, activity_id: activity_id)
     else
-      classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
+      classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: { unit_activities: { activity_id: activity_id } })
       assigned_student_ids = assigned_student_ids_filtered_by_classroom_roster(classroom_units)
       @assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
       @activity_sessions = ActivitySession
-        .includes(:concept_results, activity: {diagnostic_question_skills: :question})
+        .includes(:concept_results, activity: { diagnostic_question_skills: :question })
         .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, is_final_score: true, user_id: assigned_student_ids)
         .order(completed_at: :desc)
         .uniq { |activity_session| activity_session.user_id }
@@ -91,11 +91,11 @@ module DiagnosticReports
   end
 
   private def set_pre_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
-    classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
+    classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: { unit_activities: { activity_id: activity_id } })
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @pre_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @pre_test_activity_sessions = ActivitySession
-      .includes(:concept_results, activity: {diagnostic_question_skills: :question})
+      .includes(:concept_results, activity: { diagnostic_question_skills: :question })
       .where(activity_id: activity_id, classroom_unit_id: classroom_units.ids, state: 'finished', user_id: assigned_student_ids)
       .order(completed_at: :desc)
       .uniq { |activity_session| activity_session.user_id }
@@ -106,7 +106,7 @@ module DiagnosticReports
   end
 
   private def set_post_test_activity_sessions_and_assigned_students(activity_id, classroom_id, hashify_activity_sessions: false)
-    classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: {unit_activities: {activity_id: activity_id}})
+    classroom_units = ClassroomUnit.where(classroom_id: classroom_id).joins(:unit, :unit_activities).where(unit: { unit_activities: { activity_id: activity_id } })
     assigned_student_ids = classroom_units.map { |cu| cu.assigned_student_ids }.flatten.uniq
     @post_test_assigned_students = User.where(id: assigned_student_ids).sort_by { |u| u.last_name }
     @post_test_activity_sessions = ActivitySession

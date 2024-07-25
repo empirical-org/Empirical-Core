@@ -5,10 +5,9 @@ namespace :classroom_units do
 
   task :delete_if_missing_unit  => :environment do
     hidden_units = Unit.unscoped.where(visible: false)
-    hidden_units.each {|unit|
+    hidden_units.each { |unit|
       ArchiveUnitsClassroomUnitsWorker.perform_async(unit.id)
       ArchiveUnitsUnitActivitiesWorker.perform_async(unit.id)
     }
   end
-
 end

@@ -65,7 +65,6 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 RSpec.describe User, type: :model do
-
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
   it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
@@ -83,7 +82,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:teacher_saved_activities).with_foreign_key('teacher_id') }
   it { should have_many(:teacher_notifications) }
   it { should have_many(:teacher_notification_settings) }
-  it { should have_many(:activities).through(:teacher_saved_activities)}
+  it { should have_many(:activities).through(:teacher_saved_activities) }
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
   it { should have_many(:unscoped_classrooms_i_teach).through(:classrooms_teachers).source(:classroom_unscoped) }
   it { should have_and_belong_to_many(:districts) }
@@ -153,7 +152,7 @@ RSpec.describe User, type: :model do
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
-          expect{ user.update(flags: user.flags.push(flag))}.not_to raise_error
+          expect{ user.update(flags: user.flags.push(flag)) }.not_to raise_error
         end
       end
 
@@ -246,15 +245,14 @@ RSpec.describe User, type: :model do
   end
 
   describe 'subscription methods' do
-
     context 'subscription methods' do
       let(:user) { create(:user) }
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
       let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
 
       describe '#subscription_authority_level' do
-        let!(:school) {create(:school)}
-        let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
+        let!(:school) { create(:school) }
+        let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
 
         it "returns 'purchaser' if the user is the purchaser" do
           subscription.update(purchaser_id: user.id)
@@ -383,31 +381,31 @@ RSpec.describe User, type: :model do
     end
 
     context 'patronymic prefix' do
-      let(:name) { 'test mctest'}
+      let(:name) { 'test mctest' }
 
       it { expect { subject }.to change(user, :name).from(name).to('Test McTest') }
     end
 
     context 'van as first name' do
-      let(:name) { 'van Test'}
+      let(:name) { 'van Test' }
 
       it { expect { subject }.to change(user, :name).from(name).to('Van Test') }
     end
 
     context 'van elsewhere in name' do
-      let(:name) { 'Test van Test'}
+      let(:name) { 'Test van Test' }
 
       it { expect { subject }.not_to change(user, :name) }
     end
 
     context 'dit as first name' do
-      let(:name) { 'dit Test'}
+      let(:name) { 'dit Test' }
 
       it { expect { subject }.to change(user, :name).from(name).to('Dit Test') }
     end
 
     context 'dit elsewhere in name' do
-      let(:name) { 'Test dit Test'}
+      let(:name) { 'Test dit Test' }
 
       it { expect { subject }.not_to change(user, :name) }
     end
@@ -442,7 +440,6 @@ RSpec.describe User, type: :model do
         end
       end
     end
-
   end
 
   describe '#admin?' do
@@ -510,8 +507,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'should send the invitation received email' do
-      expect(UserMailer).to receive(:invitation_to_non_existing_user).with({test: 'test'})
-      user.send_invitation_to_non_existing_user({test: 'test'})
+      expect(UserMailer).to receive(:invitation_to_non_existing_user).with({ test: 'test' })
+      user.send_invitation_to_non_existing_user({ test: 'test' })
     end
   end
 
@@ -523,8 +520,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'should send the invitation to existing user' do
-      expect(UserMailer).to receive(:invitation_to_existing_user).with({test: 'test'})
-      user.send_invitation_to_existing_user({test: 'test'})
+      expect(UserMailer).to receive(:invitation_to_existing_user).with({ test: 'test' })
+      user.send_invitation_to_existing_user({ test: 'test' })
     end
   end
 
@@ -626,7 +623,7 @@ RSpec.describe User, type: :model do
       SchoolsUsers.create(school: school, user: user)
       user.reload
       hash = user.attributes.merge!({
-        subscription: {'subscriptionType' => premium_state},
+        subscription: { 'subscriptionType' => premium_state },
         school: school,
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
@@ -646,7 +643,7 @@ RSpec.describe User, type: :model do
     it 'should have the no school selected school if the user has no school' do
       school = create(:school, name: School::NO_SCHOOL_SELECTED_SCHOOL_NAME)
       hash = user.attributes.merge!({
-        subscription: {'subscriptionType' => premium_state},
+        subscription: { 'subscriptionType' => premium_state },
         school: school,
         school_type: School::US_K12_SCHOOL_DISPLAY_NAME,
         minimum_grade_level: teacher_info.minimum_grade_level,
@@ -764,9 +761,7 @@ RSpec.describe User, type: :model do
     let!(:negative_credit_transaction) { create(:credit_transaction, user: user, amount: -5) }
 
     context 'when the user has a positive balance' do
-
       context 'and no existing subscription' do
-
         it "creates a credit transaction that clears the user's credit" do
           user.redeem_credit
           expect(CreditTransaction.last.amount).to eq(-45)
@@ -865,7 +860,6 @@ RSpec.describe User, type: :model do
   end
 
   describe '#safe_role_assignment' do
-
     it "must assign 'user' role by default" do
       expect(user.safe_role_assignment('nil')).to eq('user')
     end
@@ -1469,7 +1463,7 @@ RSpec.describe User, type: :model do
       context 'with auth credentials that is not clever_authorized' do
         let(:auth_credential) { double(:auth_credential, clever_authorized?: false) }
 
-        it { is_expected.not_to be_clever_authorized}
+        it { is_expected.not_to be_clever_authorized }
       end
 
       context 'with auth credentials that is clever_authorized' do
@@ -1497,7 +1491,7 @@ RSpec.describe User, type: :model do
       context 'with auth credentials that is not google_authorized' do
         let(:auth_credential) { double(:auth_credential, google_authorized?: false) }
 
-        it { is_expected.not_to be_google_authorized}
+        it { is_expected.not_to be_google_authorized }
       end
 
       context 'with auth credentials that is google_authorized' do
@@ -1520,7 +1514,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'user is staff' do
-      let(:role) { :staff}
+      let(:role) { :staff }
 
       context 'nil last_sign_in' do
         before { user.update(last_sign_in: nil) }
@@ -1673,7 +1667,7 @@ RSpec.describe User, type: :model do
       context 'duplicate has activity session' do
         before { create(:activity_session, user: duplicate) }
 
-        it { expect(subject).to be_empty}
+        it { expect(subject).to be_empty }
       end
 
       context 'duplicate has students_classrooms' do
@@ -1745,7 +1739,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     context 'user has admin info' do
-      let!(:admin_info) { create(:admin_info, user: user)}
+      let!(:admin_info) { create(:admin_info, user: user) }
 
       it 'returns the sub role from the admin info' do
         expect(user.admin_sub_role).to eq(admin_info.sub_role)
@@ -1763,7 +1757,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     context 'user has admin info' do
-      let!(:admin_info) { create(:admin_info, user: user)}
+      let!(:admin_info) { create(:admin_info, user: user) }
 
       it 'returns the approval status from the admin info' do
         expect(user.admin_approval_status).to eq(admin_info.approval_status)
@@ -1781,7 +1775,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     context 'user has admin info' do
-      let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org')}
+      let!(:admin_info) { create(:admin_info, user: user, verification_url: 'quill.org') }
 
       it 'returns the verification url from the admin info' do
         expect(user.admin_verification_url).to eq(admin_info.verification_url)
@@ -1799,7 +1793,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     context 'user has admin info' do
-      let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.')}
+      let!(:admin_info) { create(:admin_info, user: user, verification_reason: 'I really want to be an admin.') }
 
       it 'returns the verification reason from the admin info' do
         expect(user.admin_verification_reason).to eq(admin_info.verification_reason)
@@ -1817,7 +1811,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     context 'user has admin info' do
-      let!(:admin_info) { create(:admin_info, user: user)}
+      let!(:admin_info) { create(:admin_info, user: user) }
 
       it 'sets the admin info to have the new sub role' do
         user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
@@ -2062,11 +2056,10 @@ RSpec.describe User, type: :model do
     end
 
     context 'should create new TeacherInfo record' do
-
       it 'should create a record' do
         teacher = build(:teacher)
 
-        expect{teacher.save}.to change(TeacherInfo, :count).by(1)
+        expect{ teacher.save }.to change(TeacherInfo, :count).by(1)
       end
 
       it 'should save the role_selected_at_signup attribute to TeacherInfo record' do
@@ -2075,7 +2068,6 @@ RSpec.describe User, type: :model do
 
         expect(teacher.teacher_info.role_selected_at_signup).to eq(role_selected_at_signup)
       end
-
     end
 
     it 'should create new TeacherNotificationSetting records based on configured defaults' do
@@ -2136,7 +2128,7 @@ RSpec.describe User, type: :model do
   end
 
   describe '#save_user_pack_sequence_items' do
-    subject { user.save_user_pack_sequence_items}
+    subject { user.save_user_pack_sequence_items }
 
     context 'user has no classrooms' do
       it { expect { subject }.not_to change { SaveUserPackSequenceItemsWorker.jobs.size } }
@@ -2159,7 +2151,7 @@ RSpec.describe User, type: :model do
     context 'user has google_id' do
       let(:google_id) { Faker::Number.number }
 
-      before { allow(user).to receive(:google_id).and_return(google_id)}
+      before { allow(user).to receive(:google_id).and_return(google_id) }
 
       it { is_expected.to eq google_id }
     end
@@ -2233,7 +2225,6 @@ RSpec.describe User, type: :model do
 
         it { is_expected.to match_array [canvas_account1.user, canvas_account2.user] }
       end
-
     end
   end
 
@@ -2368,7 +2359,7 @@ RSpec.describe User, type: :model do
     subject { user.google_student_set_password? }
 
     let(:user) { create(:user, google_id: google_id, password: password, role: role) }
-    let(:role) { User::STUDENT}
+    let(:role) { User::STUDENT }
     let(:google_id) { 'abc123' }
     let(:password) { 'password' }
 

@@ -15,8 +15,8 @@
 require 'rails_helper'
 RSpec.describe TranslationMapping, type: :model do
   describe 'active_record associations' do
-    it {should belong_to(:english_text) }
-    it {should belong_to(:source) }
-    it {should have_many(:translated_texts) }
+    it { should belong_to(:english_text) }
+    it { should belong_to(:source) }
+    it { should have_many(:translated_texts) }
   end
 end

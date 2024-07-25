@@ -338,19 +338,18 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       end
     end
 
-
     it 'should update the existing record' do
-      data = {'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
       active_activity_session.reload
       expect(active_activity_session.data).to eq(data)
     end
 
     it 'should filter out uid' do
-      data = {'foo' => 'bar', 'uid' => 'this-should-be-filtered-out' }
+      data = { 'foo' => 'bar', 'uid' => 'this-should-be-filtered-out' }
       put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
       active_activity_session.reload
-      expect(active_activity_session.data).to eq({'foo' => 'bar'})
+      expect(active_activity_session.data).to eq({ 'foo' => 'bar' })
     end
 
     it 'should handle proofreader nested passage data' do
@@ -359,13 +358,13 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       new_data = {
         'passage' => [
           [
-            { 'originalText' => 'fred', 'currentText' => 'Fred'},
-            { 'originalText' => 'fred', 'currentText' => 'freD'}
+            { 'originalText' => 'fred', 'currentText' => 'Fred' },
+            { 'originalText' => 'fred', 'currentText' => 'freD' }
           ],
           [],
           [
-            { 'originalText' => 'bill', 'currentText' => 'Bill'},
-            { 'originalText' => 'bill', 'currentText' => 'bill'}
+            { 'originalText' => 'bill', 'currentText' => 'Bill' },
+            { 'originalText' => 'bill', 'currentText' => 'bill' }
           ]
         ]
       }
@@ -397,7 +396,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     end
 
     it 'should include all top level hash keys in payload' do
-      active_activity_session1 = create(:active_activity_session, data: {questionSet: []})
+      active_activity_session1 = create(:active_activity_session, data: { questionSet: [] })
       put :update, params: { id: active_activity_session1.uid, active_activity_session: update_payload }, as: :json
       active_activity_session1.reload
 
@@ -406,9 +405,8 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(update_payload_property_set - result_property_set).to eq []
     end
 
-
     it 'should create a new session if the requested activity session is not found' do
-      data = {'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       put :update, params: { id: 'doesnotexist', active_activity_session: data }, as: :json
       expect(response.status).to eq(204)
       new_activity_session = ActiveActivitySession.find_by(uid: 'doesnotexist')
@@ -418,7 +416,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
 
     it 'should retain the values in keys not updated in the payload' do
       old_data = active_activity_session.data
-      new_data = {'newkey' => 'newvalue'}
+      new_data = { 'newkey' => 'newvalue' }
       put :update, params: { id: active_activity_session.uid, active_activity_session: new_data }, as: :json
       active_activity_session.reload
       expect(active_activity_session.data.keys).to eq(old_data.keys + new_data.keys)
@@ -448,5 +446,4 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       end.to raise_error(err)
     end
   end
-
 end
