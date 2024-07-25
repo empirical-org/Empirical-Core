@@ -8,7 +8,7 @@ namespace :objectives do
 
   desc 'match objectives to existing users'
   task :match_with_existing_users => :environment do
-    User.where(role:'teacher').each{ |teacher| TestForEarnedCheckboxesWorker.perform_async(teacher.id) }
+    User.where(role: 'teacher').each{ |teacher| TestForEarnedCheckboxesWorker.perform_async(teacher.id) }
   end
 
   module ObjectiveCreator

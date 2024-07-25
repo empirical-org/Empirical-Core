@@ -8,7 +8,7 @@ namespace :milestones do
 
   desc 'match milestones to existing users'
   task :match_with_existing_users => :environment do
-    User.where(role:'teacher').each do |teacher|
+    User.where(role: 'teacher').each do |teacher|
       MilestoneMatcher::completed_diagnostic(teacher)
     end
   end

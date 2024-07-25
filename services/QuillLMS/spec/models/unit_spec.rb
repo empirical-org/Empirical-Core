@@ -156,7 +156,7 @@ describe Unit, type: :model do
     let(:activity) { create(:activity) }
     let(:activities) { double(:activities, where: [activity]) }
     let(:join_units) { double(:join_units, joins: activities) }
-    let(:join_classroom_activities) { double(:join_classroom_activities , joins: join_units) }
+    let(:join_classroom_activities) { double(:join_classroom_activities, joins: join_units) }
     let(:unit) { create(:unit, user: user) }
     let(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
 

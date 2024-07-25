@@ -189,7 +189,7 @@ module NavigationHelper
     (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||
     action_name == 'invite_students') &&
-    controller.class.module_parent != Teachers::ProgressReports::Concepts
+      controller.class.module_parent != Teachers::ProgressReports::Concepts
   end
 
   def assign_activity_page_active?

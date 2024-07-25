@@ -548,7 +548,7 @@ class User < ApplicationRecord
   # Enable for all new users and a small percentage of older users.
   def satismeter_feature_enabled?
     created_at >= SATISMETER_NEW_USER_THRESHOLD.ago ||
-    Feature.in_day_bucket?(id: id, percent_per_day: SATISMETER_PERCENT_PER_DAY)
+      Feature.in_day_bucket?(id: id, percent_per_day: SATISMETER_PERCENT_PER_DAY)
   end
 
   ## End satismeter

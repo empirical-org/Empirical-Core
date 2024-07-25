@@ -24,19 +24,25 @@ shared_context 'Standard Progress Report' do
   let!(:empty_classrooms_teacher) { create(:classrooms_teacher, classroom: empty_classroom, user: teacher) }
   let!(:unit1) { create(:unit, user_id: teacher.id) }
   let!(:empty_unit) { create(:unit, user_id: teacher.id) }
-  let!(:activity_for_second_grade_standard) { create(:activity,
-    name: '2nd Grade Activity', standard: second_grade_standard) }
-  let!(:classroom_unit1) { create(:classroom_unit,
-    classroom: full_classroom,
-    assign_on_join: true,
-    unit: unit1) }
+  let!(:activity_for_second_grade_standard) {
+    create(:activity,
+      name: '2nd Grade Activity', standard: second_grade_standard)
+  }
+  let!(:classroom_unit1) {
+    create(:classroom_unit,
+      classroom: full_classroom,
+      assign_on_join: true,
+      unit: unit1)
+  }
   let!(:unit_activity1) {
     create(:unit_activity,
       activity: activity_for_second_grade_standard,
       unit: unit1)
   }
-  let!(:activity_for_first_grade_standard) { create(:activity,
-    name: '1st Grade Activity', standard: first_grade_standard) }
+  let!(:activity_for_first_grade_standard) {
+    create(:activity,
+      name: '1st Grade Activity', standard: first_grade_standard)
+  }
   let!(:unit_activity2) {
     create(:unit_activity,
       activity: activity_for_first_grade_standard,
@@ -73,13 +79,15 @@ shared_context 'Standard Progress Report' do
   let!(:visible_standards) { [first_grade_standard, second_grade_standard] }
   let!(:visible_classrooms) { [full_classroom] }
   let!(:visible_students) { [alice, fred, zojirushi] }
-  let!(:visible_activity_sessions) { [
+  let!(:visible_activity_sessions) {
+    [
     alice_second_grade_standard_session,
     alice_first_grade_standard_session,
     fred_second_grade_standard_session,
     fred_first_grade_standard_session,
     zojirushi_second_grade_standard_session
-  ] }
+  ]
+  }
 
   let(:best_activity_sessions) { visible_activity_sessions }
 

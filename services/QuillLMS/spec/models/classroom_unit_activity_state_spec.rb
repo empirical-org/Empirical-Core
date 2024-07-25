@@ -41,7 +41,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
   let!(:teacher) { classroom.owner }
   let!(:unit) { create(:unit, name: 'Tapioca', user: teacher) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }
-  let!(:classroom_unit) { create(:classroom_unit , unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
+  let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
   let!(:cua) { create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit) }
 
   describe '#visible' do
@@ -89,7 +89,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
     it 'caches data about subsequent assignment' do
       classroom2 = create(:classroom, students: [student])
 
-      classroom_unit2 = create(:classroom_unit , unit: unit, classroom: classroom2, assigned_student_ids: [student.id])
+      classroom_unit2 = create(:classroom_unit, unit: unit, classroom: classroom2, assigned_student_ids: [student.id])
 
       cua2 = create(:classroom_unit_activity_state, unit_activity: unit_activity, classroom_unit: classroom_unit2)
 
