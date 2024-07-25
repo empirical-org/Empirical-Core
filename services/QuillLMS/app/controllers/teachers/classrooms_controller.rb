@@ -11,7 +11,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   # The excepted/only methods below are ones that should be accessible to coteachers.
   # TODO This authing could probably be refactored.
-  before_action :authorize_owner!, only: [:update,  :transfer_ownership]
+  before_action :authorize_owner!, only: [:update, :transfer_ownership]
   before_action :authorize_teacher!, only: [:scores, :units, :scorebook, :generate_login_pdf]
 
   INDEX = 'index'
@@ -26,7 +26,7 @@ class Teachers::ClassroomsController < ApplicationController
     @canvas_link = Auth::Canvas::REAUTHORIZATION_PATH
     @clever_link = clever_link
     @google_link = Auth::Google::REAUTHORIZATION_PATH
-    @user =  UserWithProviderSerializer.new(current_user).as_json(root: false)
+    @user = UserWithProviderSerializer.new(current_user).as_json(root: false)
 
     respond_to do |format|
       format.html

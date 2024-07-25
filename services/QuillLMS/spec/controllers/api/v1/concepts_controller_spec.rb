@@ -24,7 +24,7 @@ describe Api::V1::ConceptsController, type: :controller do
 
       it { expect(response).to have_http_status(:ok) }
       it { expect(parsed_body['concept'].keys).to match_array(%w(id uid name parent_id)) }
-      it { expect(parsed_body['concept']['name']).to eq concept_name  }
+      it { expect(parsed_body['concept']['name']).to eq concept_name }
       it { expect(parsed_body['concept']['uid']).to_not be_nil }
     end
 

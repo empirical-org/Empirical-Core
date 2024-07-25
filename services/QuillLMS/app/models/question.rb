@@ -190,7 +190,7 @@ class Question < ApplicationRecord
   private def set_data_for(type:, id:, new_data:)
     data[type] ||= {}
     id = id.to_i if stored_as_array?(type)
-    new_data  = { 'uid' => new_uuid }.merge(new_data) if stored_as_array?(type)
+    new_data = { 'uid' => new_uuid }.merge(new_data) if stored_as_array?(type)
     data[type][id] = new_data
     save
   end

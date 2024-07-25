@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe VitallyIntegration::AnalyticsApi do
-  let(:api)  { described_class.new }
+  let(:api) { described_class.new }
 
   let(:sample_response) { { body: '{}', headers: { content_type: 'application/json' } } }
   let(:mock_payload) { {} }

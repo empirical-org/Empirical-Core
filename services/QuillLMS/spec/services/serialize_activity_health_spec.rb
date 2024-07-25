@@ -82,7 +82,7 @@ describe 'SerializeActivityHealth' do
     ENV['DEFAULT_URL'] = 'https://quill.org'
     ENV['CMS_URL'] = 'https://cms.quill.org'
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-      .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
+      .to_return(status: 200, body: { percent_common_unmatched: 50, percent_specified_algos: 75 }.to_json, headers: {})
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{another_question.uid}/question_dashboard_data")
       .to_return(status: 200, body: { percent_common_unmatched: 100,  percent_specified_algos: 75 }.to_json, headers: {})
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{a_bad_question.uid}/question_dashboard_data")

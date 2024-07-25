@@ -39,7 +39,7 @@ RSpec.describe QuestionHealthObj, type: :model do
       ENV['DEFAULT_URL'] = 'https://quill.org'
       ENV['CMS_URL'] = 'https://cms.quill.org'
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 50, percent_specified_algos: 75 }.to_json, headers: {})
     end
 
     it 'should return an object with that questions health info' do

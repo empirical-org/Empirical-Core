@@ -102,7 +102,7 @@ describe User, type: :model do
 
     describe '#has_outstanding_coteacher_invitation?' do
       it 'returns true if an outstanding invitation exists for the current user' do
-        pending_coteacher_invitation =  create(:pending_coteacher_invitation, invitee_email: teacher.email)
+        pending_coteacher_invitation = create(:pending_coteacher_invitation, invitee_email: teacher.email)
         create(:coteacher_classroom_invitation, invitation: pending_coteacher_invitation)
         expect(teacher.has_outstanding_coteacher_invitation?).to eq(true)
       end

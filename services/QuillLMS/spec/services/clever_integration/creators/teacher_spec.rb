@@ -23,19 +23,19 @@ describe CleverIntegration::Creators::Teacher do
     context 'as an admin' do
       let(:factory) { :admin }
 
-      it  { expect(subject.role).to eq User::ADMIN }
+      it { expect(subject.role).to eq User::ADMIN }
     end
 
     context 'as a teacher' do
       let(:factory) { :teacher }
 
-      it  { expect(subject.role).to eq User::TEACHER }
+      it { expect(subject.role).to eq User::TEACHER }
     end
 
     context 'as a student' do
       let(:factory) { :student }
 
-      it  { expect(subject.role).to eq User::TEACHER }
+      it { expect(subject.role).to eq User::TEACHER }
     end
   end
 

@@ -483,7 +483,7 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
 
-      resources :classroom_units,         only: [] do
+      resources :classroom_units, only: [] do
         collection do
           get 'student_names'
           put 'finish_lesson'

@@ -13,7 +13,7 @@ module PublicProgressReports
   PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = 'Incorrect'
   CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "That's a strong sentence!"
   CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK = "Nice try. Let's try a multiple choice question."
-  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  'Good try! Compare your response to the strong responses, and then go to on to the next question.'
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK = 'Good try! Compare your response to the strong responses, and then go to on to the next question.'
 
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids

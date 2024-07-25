@@ -66,7 +66,7 @@ shared_context 'Standard Progress Report' do
     session
   end
 
-  let!(:alice_first_grade_standard_session)  do
+  let!(:alice_first_grade_standard_session) do
     session = ActivitySession.create(user_id: alice.id, activity: activity_for_first_grade_standard, classroom_unit: classroom_unit1, state: 'finished', percentage: 0.70, timespent: 180, completed_at: 28.days.ago)
     session
   end

@@ -95,7 +95,7 @@ RSpec.describe ConceptResult, type: :model do
 
       it 'should create NormalizedText records when new text is provided' do
         expect do
-          cr =  ConceptResult.create_from_json(json)
+          cr = ConceptResult.create_from_json(json)
           expect(cr.extra_metadata).to be(nil)
         end.to change(ConceptResultDirections, :count).by(1)
           .and change(ConceptResultPreviousFeedback, :count).by(1)

@@ -54,16 +54,16 @@ class FeedbackHistory < ApplicationRecord
   ]
   FILTER_TYPES = [
     FILTER_ALL = 'all',
-    FILTER_SCORED =  'scored',
-    FILTER_UNSCORED =  'unscored',
-    FILTER_WEAK =  'weak',
-    FILTER_COMPLETE =  'complete',
-    FILTER_INCOMPLETE =  'incomplete'
+    FILTER_SCORED = 'scored',
+    FILTER_UNSCORED = 'unscored',
+    FILTER_WEAK = 'weak',
+    FILTER_COMPLETE = 'complete',
+    FILTER_INCOMPLETE = 'incomplete'
   ]
   CONJUNCTIONS = [
     BECAUSE =  'because',
-    BUT =  'but',
-    SO =  'so'
+    BUT = 'but',
+    SO = 'so'
   ]
 
   after_commit :initiate_flag_worker, on: :create
@@ -93,8 +93,8 @@ class FeedbackHistory < ApplicationRecord
   validates :time, presence: true
   validates :used, inclusion: { in: [true, false] }
 
-  scope :used,  -> { where(used: true) }
-  scope :optimal,  -> { where(optimal: true) }
+  scope :used, -> { where(used: true) }
+  scope :optimal, -> { where(optimal: true) }
   scope :suboptimal,  -> { where(optimal: false) }
   scope :autoML, -> { where(feedback_type: AUTO_ML) }
   scope :confidence_greater_than, ->(lower_limit) { where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit) }

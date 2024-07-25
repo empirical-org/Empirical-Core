@@ -18,7 +18,7 @@ describe TeacherDashboardMetrics do
   let(:july_second_of_this_year) { Date.parse("02-07-#{today.year}") }
 
   let(:last_july_second) do
-    today.month > 7 ?  july_second_of_this_year : july_second_of_this_year - 1.year
+    today.month > 7 ? july_second_of_this_year : july_second_of_this_year - 1.year
   end
 
   around do |example|

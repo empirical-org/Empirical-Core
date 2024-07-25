@@ -2,7 +2,7 @@
 
 module AdminDiagnosticReports
   class StudentsCsvGenerator < ::CsvGenerator
-    ORDERED_COLUMNS =  {
+    ORDERED_COLUMNS = {
       student_name: {
         csv_header: 'Student Name',
         csv_tooltip: '', # Intentionally empty

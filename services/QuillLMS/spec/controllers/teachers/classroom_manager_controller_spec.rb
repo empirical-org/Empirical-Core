@@ -244,7 +244,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should return the correct json' do
-      json =  teacher.classrooms_i_own.map { |classroom|
+      json = teacher.classrooms_i_own.map { |classroom|
         {
             classroom: classroom,
             students: classroom.students.sort_by(&:sorting_name)
@@ -267,7 +267,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'should return the correct json' do
-      json =  teacher.classrooms_i_teach.map { |classroom|
+      json = teacher.classrooms_i_teach.map { |classroom|
         {
             classroom: classroom,
             students: classroom.students.sort_by(&:sorting_name)

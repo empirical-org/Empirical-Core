@@ -36,7 +36,7 @@ FactoryBot.define do
     unit_template_category  { create(:unit_template_category) }
 
     factory :unit_template_with_activities do
-      activities              { build_list(:activity, 3) }
+      activities { build_list(:activity, 3) }
     end
   end
 end

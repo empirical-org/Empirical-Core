@@ -6,7 +6,7 @@ module Evidence
   describe SyntheticLabeledDataWorker, type: :worker do
     let(:email) { 'test@quill.org' }
     let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
-    let(:prompt)  { activity.prompts.first }
+    let(:prompt) { activity.prompts.first }
 
     before do
       stub_const('Evidence::Synthetic::EMAIL', email)
