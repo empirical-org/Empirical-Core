@@ -16,9 +16,13 @@ import {
   QuestionApi
 } from '../libs/questions_api';
 
-export const startListeningToQuestions = (sessionID?) => {
+export const startListeningToQuestions = (activityUID?: string, sessionID?: string) => {
   return (dispatch: Function) => {
-    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions: Questions) => {
+    const fetchQuestions = activityUID
+      ? QuestionApi.getAllForActivity(activityUID)
+      : QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE);
+
+    fetchQuestions.then((questions: Array<Question>) => {
       if (questions) {
         if (sessionID) {
           populateQuestions(questions)

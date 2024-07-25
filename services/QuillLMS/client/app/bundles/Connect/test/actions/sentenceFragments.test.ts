@@ -26,7 +26,7 @@ describe('Questions actions', () => {
   })
 
   describe('submitNewQuestion', () => {
-    it('should call QuestionApi.getAll()', () => {
+    it('should call create()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       dispatch(questionActions.submitNewSentenceFragment(MOCK_CONTENT, {}, "123abc"))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_FRAGMENTS_TYPE, MOCK_CONTENT)

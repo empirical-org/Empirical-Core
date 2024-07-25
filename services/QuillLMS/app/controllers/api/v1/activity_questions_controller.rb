@@ -11,7 +11,6 @@ class Api::V1::ActivityQuestionsController < ApplicationController
     end
   end
 
-
   private def cached_questions(activity)
     Rails.cache.fetch(cache_key(activity), expires_in: 1.hour) do
       activity.questions.each_with_object({}) do |question, hash|
