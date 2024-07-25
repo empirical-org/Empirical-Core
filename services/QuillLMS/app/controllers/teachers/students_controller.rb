@@ -92,22 +92,22 @@ class Teachers::StudentsController < ApplicationController
 
   protected def user_params
     params.require(:user).permit(:name,
-                                 :first_name,
-                                 :last_name,
-                                 :password,
-                                 :password_digest,
-                                 :classcode,
-                                 :active,
-                                 :username,
-                                 :token,
-                                 :ip_address,
-                                 :clever_id,
-                                 :signed_up_with_google,
-                                 :google_id,
-                                 :flags,
-                                 :title,
-                                 :time_zone,
-                                 :account_type)
+      :first_name,
+      :last_name,
+      :password,
+      :password_digest,
+      :classcode,
+      :active,
+      :username,
+      :token,
+      :ip_address,
+      :clever_id,
+      :signed_up_with_google,
+      :google_id,
+      :flags,
+      :title,
+      :time_zone,
+      :account_type)
   end
 
   protected def edit_page_variables

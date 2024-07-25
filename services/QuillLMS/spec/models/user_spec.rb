@@ -1258,7 +1258,7 @@ RSpec.describe User, type: :model do
       let(:last_name)  { 'Doe' }
       let(:user) do
         build(:user, first_name: first_name,
-                     last_name: last_name)
+          last_name: last_name)
       end
 
       it 'returns "last, first"' do

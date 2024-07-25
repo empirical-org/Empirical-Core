@@ -119,11 +119,11 @@ class Api::V1::ActivitiesController < Api::ApiController
     @data = params.delete(:data) # the thing likely to be persisted
 
     params.except(:id).permit(:name,
-                              :description,
-                              :activity_classification_uid,
-                              :standard_uid,
-                              :uid,
-                              flags: [])
+      :description,
+      :activity_classification_uid,
+      :standard_uid,
+      :uid,
+      flags: [])
                       .merge(data: @data)
                       .reject { |k,v| v.nil? }
   end

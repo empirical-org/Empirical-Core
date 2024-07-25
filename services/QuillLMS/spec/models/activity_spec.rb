@@ -336,7 +336,7 @@ describe Activity, type: :model, redis: true do
       end
 
       it 'must return the same thing as Activity.user_scope(nil)' do
-        expect(Activity.production).to eq (Activity.user_scope(nil))
+        expect(Activity.production).to eq(Activity.user_scope(nil))
       end
     end
 
@@ -346,7 +346,7 @@ describe Activity, type: :model, redis: true do
       end
 
       it 'must return the same thing as Activity.user_scope(gamma)' do
-        expect(Activity.gamma_user).to eq (Activity.user_scope('gamma'))
+        expect(Activity.gamma_user).to eq(Activity.user_scope('gamma'))
       end
     end
 
@@ -356,7 +356,7 @@ describe Activity, type: :model, redis: true do
       end
 
       it 'must return the same thing as Activity.user_scope(beta)' do
-        expect(Activity.beta_user).to eq (Activity.user_scope('beta'))
+        expect(Activity.beta_user).to eq(Activity.user_scope('beta'))
       end
     end
 
@@ -366,7 +366,7 @@ describe Activity, type: :model, redis: true do
       end
 
       it 'must return the same thing as Activity.user_scope(alpha)' do
-        expect(Activity.alpha_user).to eq (Activity.user_scope('alpha'))
+        expect(Activity.alpha_user).to eq(Activity.user_scope('alpha'))
       end
     end
   end

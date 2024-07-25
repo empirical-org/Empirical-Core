@@ -103,13 +103,13 @@ describe Cms::SchoolsController do
       })
       expect(assigns(:teacher_data)).to eq 'teacher data'
       expect(assigns(:admins)).to eq(SchoolsAdmins.includes(:user).where(school_id: school.id).map do |admin|
-          {
-              name: admin.user.name,
-              email: admin.user.email,
-              school_id: admin.school_id,
-              user_id: admin.user_id
-          }
-        end
+                                       {
+                                           name: admin.user.name,
+                                           email: admin.user.email,
+                                           school_id: admin.school_id,
+                                           user_id: admin.user_id
+                                       }
+                                     end
       )
     end
   end

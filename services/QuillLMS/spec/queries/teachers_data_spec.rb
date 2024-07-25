@@ -18,23 +18,29 @@ describe 'TeachersData' do
   let!(:time2) { Time.current }
   let!(:time1) { time2 - (10.minutes) }
 
-  let!(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id,
-                                                        unit: unit)}
-  let!(:activity_session1) { create(:activity_session_without_concept_results,
-                                                user: student1,
-                                                state: 'finished',
-                                                started_at: time1,
-                                                completed_at: time2,
-                                                classroom_unit: classroom_unit
-                                                ) }
+  let!(:classroom_unit) {
+    create(:classroom_unit, classroom_id: classroom.id,
+      unit: unit)
+  }
+  let!(:activity_session1) {
+    create(:activity_session_without_concept_results,
+      user: student1,
+      state: 'finished',
+      started_at: time1,
+      completed_at: time2,
+      classroom_unit: classroom_unit
+                                                )
+  }
 
-  let!(:activity_session2) { create(:activity_session_without_concept_results,
-                                                user: student1,
-                                                state: 'finished',
-                                                started_at: time1,
-                                                completed_at: time2,
-                                                classroom_unit: classroom_unit
-                                                ) }
+  let!(:activity_session2) {
+    create(:activity_session_without_concept_results,
+      user: student1,
+      state: 'finished',
+      started_at: time1,
+      completed_at: time2,
+      classroom_unit: classroom_unit
+                                                )
+  }
 
   let!(:concept1) { create(:concept) }
   let!(:concept2) { create(:concept) }

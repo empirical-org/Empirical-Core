@@ -100,19 +100,19 @@ module Evidence
 
     def change_logs_for_activity
       @activity = Evidence::Activity.includes(
-                      :change_logs,
-                      passages: [:change_logs],
-                      prompts: [
-                        :change_logs,
-                        rules: [
-                          :change_logs,
-                          feedbacks:
-                            [:change_logs, highlights: [:change_logs]],
-                          regex_rules: [:change_logs],
-                          plagiarism_texts: [:change_logs]
-                        ],
-                      automl_models: [:change_logs]
-                      ]
+        :change_logs,
+        passages: [:change_logs],
+        prompts: [
+          :change_logs,
+          rules: [
+            :change_logs,
+            feedbacks:
+              [:change_logs, highlights: [:change_logs]],
+            regex_rules: [:change_logs],
+            plagiarism_texts: [:change_logs]
+          ],
+        automl_models: [:change_logs]
+        ]
                     ).find(id)
       change_logs = activity_change_logs + passages_change_logs + prompts_change_logs + universal_change_logs
       change_logs.map(&:serializable_hash)

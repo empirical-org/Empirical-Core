@@ -361,7 +361,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   describe 'flag validations' do
     it 'can equal production' do
-      unit_template.update(flag:'production')
+      unit_template.update(flag: 'production')
       expect(unit_template).to be_valid
     end
 
@@ -421,7 +421,7 @@ describe UnitTemplate, redis: true, type: :model do
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(nil)' do
-        expect(UnitTemplate.production).to eq (UnitTemplate.user_scope(nil))
+        expect(UnitTemplate.production).to eq(UnitTemplate.user_scope(nil))
       end
     end
 
@@ -431,7 +431,7 @@ describe UnitTemplate, redis: true, type: :model do
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(gamma)' do
-        expect(UnitTemplate.gamma_user).to eq (UnitTemplate.user_scope('gamma'))
+        expect(UnitTemplate.gamma_user).to eq(UnitTemplate.user_scope('gamma'))
       end
     end
 
@@ -441,7 +441,7 @@ describe UnitTemplate, redis: true, type: :model do
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(beta)' do
-        expect(UnitTemplate.beta_user).to eq (UnitTemplate.user_scope('beta'))
+        expect(UnitTemplate.beta_user).to eq(UnitTemplate.user_scope('beta'))
       end
     end
 
@@ -451,7 +451,7 @@ describe UnitTemplate, redis: true, type: :model do
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(alpha)' do
-        expect(UnitTemplate.alpha_user).to eq (UnitTemplate.user_scope('alpha'))
+        expect(UnitTemplate.alpha_user).to eq(UnitTemplate.user_scope('alpha'))
       end
     end
   end

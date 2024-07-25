@@ -83,7 +83,7 @@ RSpec.describe InvitationsController, type: :controller do
 
     it 'should render the correct json' do
       post :create_coteacher_invitation, params: { classroom_ids: [classroom.id], invitee_email: 'test@test.com' }
-      expect(response.body).to eq ({ invite_id: Invitation.last.id }.to_json)
+      expect(response.body).to eq({ invite_id: Invitation.last.id }.to_json)
       expect(Invitation.last.inviter).to eq user
       expect(Invitation.last.invitee_email).to eq 'test@test.com'
       expect(Invitation.last.invitation_type).to eq Invitation::TYPES[:coteacher]
@@ -94,7 +94,7 @@ RSpec.describe InvitationsController, type: :controller do
 
       invite = Invitation.last
 
-      expect(response.body).to eq ({ invite_id: invite.id }.to_json)
+      expect(response.body).to eq({ invite_id: invite.id }.to_json)
       expect(invite.inviter).to eq user
       expect(invite.invitee_email).to eq 'test@test.com'
       expect(invite.invitation_type).to eq Invitation::TYPES[:coteacher]
@@ -103,12 +103,14 @@ RSpec.describe InvitationsController, type: :controller do
 
   describe '#destroy_pending_invitations_to_specific_invitee' do
     context 'when invitation exists' do
-      let!(:invitation) { create(:invitation,
-        invitation_type: 'some type',
-        invitee_email: 'test@test.com',
-        archived: false,
-        inviter: user
-      )}
+      let!(:invitation) {
+        create(:invitation,
+          invitation_type: 'some type',
+          invitee_email: 'test@test.com',
+          archived: false,
+          inviter: user
+      )
+      }
 
       it 'should destroy the given invitation' do
         delete :destroy_pending_invitations_to_specific_invitee, params: { invitation_type: 'some type', invitee_email: 'test@test.com' }
@@ -128,12 +130,14 @@ RSpec.describe InvitationsController, type: :controller do
   describe '#destroy_pending_invitations_from_specific_inviter' do
     context 'when invitation exists' do
       let(:another_user) { create(:user) }
-      let!(:invitation) { create(:invitation,
-                                 invitation_type: 'some type',
-                                 invitee_email: user.email,
-                                 archived: false,
-                                 inviter: another_user
-      )}
+      let!(:invitation) {
+        create(:invitation,
+          invitation_type: 'some type',
+          invitee_email: user.email,
+          archived: false,
+          inviter: another_user
+      )
+      }
 
       it 'should destroy the given invitation' do
         delete :destroy_pending_invitations_from_specific_inviter, params: { invitation_type: 'some type', inviter_id: another_user.id }

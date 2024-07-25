@@ -11,13 +11,13 @@ describe PopulateActivityHealthWorker do
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:activity) do
       create(:activity,
-       activity_classification_id: connect.id,
-       data: {
-         questions: [
-           { key: question.uid },
-           { key: another_question.uid }
-         ]
-       }
+        activity_classification_id: connect.id,
+        data: {
+          questions: [
+            { key: question.uid },
+            { key: another_question.uid }
+          ]
+        }
      )
     end
 

@@ -150,7 +150,7 @@ describe Api::V1::ActivitiesController, type: :controller do
 
     it 'should render the correct json' do
       get :supporting_info, params: { id: activity.id }, as: :json
-      expect(response.body).to eq ({ supporting_info: activity.supporting_info }.to_json)
+      expect(response.body).to eq({ supporting_info: activity.supporting_info }.to_json)
     end
   end
 

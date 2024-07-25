@@ -16,25 +16,33 @@ shared_context 'profile' do
   let(:activity_1aa) { create(:activity, classification: game2) }
   let!(:activity_1b) { create(:activity, classification: game2) }
   let(:unit1) { create(:unit) }
-  let!(:classroom_activity) { create(:classroom_activity,
-                                                  classroom: classroom2,
-                                                  activity: activity,
-                                                  unit: unit1) }
+  let!(:classroom_activity) {
+    create(:classroom_activity,
+      classroom: classroom2,
+      activity: activity,
+      unit: unit1)
+  }
 
-  let!(:classroom_activity_1a) { create(:classroom_activity,
-                                                    classroom: classroom2,
-                                                    activity: activity_1a,
-                                                    unit: unit1)}
+  let!(:classroom_activity_1a) {
+    create(:classroom_activity,
+      classroom: classroom2,
+      activity: activity_1a,
+      unit: unit1)
+  }
 
-  let!(:classroom_activity_1aa) { create(:classroom_activity,
-                                                    classroom: classroom2,
-                                                    activity: activity_1aa,
-                                                    unit: unit1)}
+  let!(:classroom_activity_1aa) {
+    create(:classroom_activity,
+      classroom: classroom2,
+      activity: activity_1aa,
+      unit: unit1)
+  }
 
-  let!(:classroom_activity_1b) { create(:classroom_activity,
-                                                    classroom: classroom2,
-                                                    activity: activity_1b,
-                                                    unit: unit1)}
+  let!(:classroom_activity_1b) {
+    create(:classroom_activity,
+      classroom: classroom2,
+      activity: activity_1b,
+      unit: unit1)
+  }
 
   let(:activity2) { create(:activity, classification: game2) }
   let(:activity_2a) { create(:activity, classification: game1) }

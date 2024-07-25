@@ -14,26 +14,32 @@ shared_context 'Concept Progress Report' do
   let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:unit) { create(:unit) }
-  let!(:classroom_unit) { create(:classroom_unit,
-                                          classroom: classroom,
-                                          unit: unit) }
-  let!(:unit_activity) { create(:unit_activity,
-    unit: unit,
-    activity: activity
-  )}
+  let!(:classroom_unit) {
+    create(:classroom_unit,
+      classroom: classroom,
+      unit: unit)
+  }
+  let!(:unit_activity) {
+    create(:unit_activity,
+      unit: unit,
+      activity: activity
+  )
+  }
 
   let!(:writing_grandparent_concept) { create(:concept, name: 'Writing Grandparent') }
   let!(:writing_parent_concept) { create(:concept, name: 'Writing Parent', parent: writing_grandparent_concept) }
   let!(:writing_concept) { create(:concept, name: 'Writing Tag', parent: writing_parent_concept) }
   let!(:grammar_tag) { create(:concept, name: 'Grammar Tag') }
 
-  let!(:activity_session) { create(:activity_session,
-                                        classroom_unit: classroom_unit,
-                                        user: student,
-                                        activity: activity,
-                                        state: 'finished',
-                                        percentage: 0.75
-                                        ) }
+  let!(:activity_session) {
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      user: student,
+      activity: activity,
+      state: 'finished',
+      percentage: 0.75
+                                        )
+  }
 
   let!(:correct_writing_result1) do
     create(:concept_result,
@@ -96,10 +102,10 @@ shared_context 'Concept Progress Report' do
 
   let!(:other_activity_session) do
     create(:activity_session,
-     classroom_unit: other_classroom_unit,
-     user: other_student,
-     state: 'finished',
-     percentage: 0.75
+      classroom_unit: other_classroom_unit,
+      user: other_student,
+      state: 'finished',
+      percentage: 0.75
    )
   end
 
