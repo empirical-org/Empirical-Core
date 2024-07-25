@@ -16,8 +16,8 @@ describe AccountCreationWorker do
 
         it 'should track the account creation' do
           expect(analyzer).to receive(:track_chain).with(
-              teacher,
-              [Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
+            teacher,
+            [Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION]
           )
           subject.perform(teacher.id)
         end
@@ -28,11 +28,11 @@ describe AccountCreationWorker do
 
         it 'should track the creation and sign up for newsletter' do
           expect(analyzer).to receive(:track_chain).with(
-              teacher,
-              [
-                Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION,
-                Analytics::SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER
-              ]
+            teacher,
+            [
+              Analytics::SegmentIo::BackgroundEvents::TEACHER_ACCOUNT_CREATION,
+              Analytics::SegmentIo::BackgroundEvents::TEACHER_SIGNED_UP_FOR_NEWSLETTER
+            ]
           )
           subject.perform(teacher.id)
         end

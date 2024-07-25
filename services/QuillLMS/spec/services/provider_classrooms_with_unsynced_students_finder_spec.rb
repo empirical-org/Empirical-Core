@@ -138,10 +138,10 @@ RSpec.describe ProviderClassroomsWithUnsyncedStudentsFinder do
 
     let(:classroom_i_coteach) do
       create(
-       :classroom,
-       :from_canvas,
-       canvas_instance: canvas_instance,
-       students: [unsynced_student2, another_student]
+        :classroom,
+        :from_canvas,
+        canvas_instance: canvas_instance,
+        students: [unsynced_student2, another_student]
       )
     end
 

@@ -6,8 +6,8 @@ namespace :quillwriter do
     # classification
     ac = ActivityClassification.where(key: 'writer').first_or_create!
     ac.update(name: 'Quill Writer', key: 'writer', app_name: :writer,
-                   module_url: 'http://quill-writer.firebaseapp.com/',
-                     form_url: 'http://quill-writer.firebaseapp.com/?form=true')
+      module_url: 'http://quill-writer.firebaseapp.com/',
+      form_url: 'http://quill-writer.firebaseapp.com/?form=true')
 
     # taxonomy
     # CAUTION: Creating a section fails if the db has 0 workbooks.

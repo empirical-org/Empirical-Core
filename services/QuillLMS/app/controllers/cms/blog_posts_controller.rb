@@ -52,22 +52,22 @@ class Cms::BlogPostsController < Cms::CmsController
   private def blog_post_params
     params.require(:blog_post)
             .permit(:id,
-                    :body,
-                    :title,
-                    :subtitle,
-                    :author_id,
-                    :topic,
-                    :read_count,
-                    :preview_card_content,
-                    :draft,
-                    :premium,
-                    :external_link,
-                    :published_at,
-                    :center_images,
-                    :image_link,
-                    :press_name,
-                    :featured_order_number,
-                    :footer_content
+              :body,
+              :title,
+              :subtitle,
+              :author_id,
+              :topic,
+              :read_count,
+              :preview_card_content,
+              :draft,
+              :premium,
+              :external_link,
+              :published_at,
+              :center_images,
+              :image_link,
+              :press_name,
+              :featured_order_number,
+              :footer_content
                   )
   end
 

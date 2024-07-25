@@ -13,17 +13,17 @@ RSpec.describe QuestionHealthObj, type: :model do
 
     let!(:concept_result1) do
       create(:concept_result,
-       activity_session: activity_session1,
-       question_number: 1,
-       question_score: 1
+        activity_session: activity_session1,
+        question_number: 1,
+        question_score: 1
      )
     end
 
     let!(:concept_result2) do
       create(:concept_result,
-       activity_session: activity_session2,
-       question_number: 1,
-       question_score: 0.75
+        activity_session: activity_session2,
+        question_number: 1,
+        question_score: 0.75
      )
     end
 

@@ -15,8 +15,8 @@ shared_context 'Concept Progress Report' do
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:unit) { create(:unit) }
   let!(:classroom_unit) { create(:classroom_unit,
-                                          classroom: classroom,
-                                          unit: unit) }
+    classroom: classroom,
+    unit: unit) }
   let!(:unit_activity) { create(:unit_activity,
     unit: unit,
     activity: activity
@@ -28,11 +28,11 @@ shared_context 'Concept Progress Report' do
   let!(:grammar_tag) { create(:concept, name: 'Grammar Tag') }
 
   let!(:activity_session) { create(:activity_session,
-                                        classroom_unit: classroom_unit,
-                                        user: student,
-                                        activity: activity,
-                                        state: 'finished',
-                                        percentage: 0.75
+    classroom_unit: classroom_unit,
+    user: student,
+    activity: activity,
+    state: 'finished',
+    percentage: 0.75
                                         ) }
 
   let!(:correct_writing_result1) do
@@ -96,10 +96,10 @@ shared_context 'Concept Progress Report' do
 
   let!(:other_activity_session) do
     create(:activity_session,
-     classroom_unit: other_classroom_unit,
-     user: other_student,
-     state: 'finished',
-     percentage: 0.75
+      classroom_unit: other_classroom_unit,
+      user: other_student,
+      state: 'finished',
+      percentage: 0.75
    )
   end
 

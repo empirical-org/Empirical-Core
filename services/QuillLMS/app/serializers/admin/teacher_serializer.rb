@@ -8,8 +8,8 @@ class Admin::TeacherSerializer < ApplicationSerializer
   TEACHER = 'Teacher'
 
   attributes :id, :name, :email, :last_sign_in, :schools, :admin_info,
-            :number_of_students,
-            :has_valid_subscription
+    :number_of_students,
+    :has_valid_subscription
 
   type :teacher
 

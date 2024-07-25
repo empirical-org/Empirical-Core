@@ -130,13 +130,13 @@ describe Teachers::ClassroomsController, type: :controller do
     # associations which break these specs
     let!(:classrooms_teacher) do
       create(:classrooms_teacher,
-              user_id: current_owner.id,
-              classroom: classroom,
-              role: ClassroomsTeacher::ROLE_TYPES[:owner])
+        user_id: current_owner.id,
+        classroom: classroom,
+        role: ClassroomsTeacher::ROLE_TYPES[:owner])
       create(:classrooms_teacher,
-              user_id: subsequent_owner.id,
-              classroom: classroom,
-              role: ClassroomsTeacher::ROLE_TYPES[:coteacher])
+        user_id: subsequent_owner.id,
+        classroom: classroom,
+        role: ClassroomsTeacher::ROLE_TYPES[:coteacher])
     end
 
     let!(:unaffiliated_user) { create(:teacher) }

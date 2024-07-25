@@ -13,17 +13,17 @@ describe Teachers::UnitsController, type: :controller do
 
   let!(:classroom_unit) do
     create(:classroom_unit,
-     unit: unit,
-     classroom: classroom,
-     assigned_student_ids: [student.id]
+      unit: unit,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
    )
   end
 
   let!(:classroom_unit2) do
     create(:classroom_unit,
-     unit: unit2,
-     classroom: classroom,
-     assigned_student_ids: [student.id]
+      unit: unit2,
+      classroom: classroom,
+      assigned_student_ids: [student.id]
    )
   end
 

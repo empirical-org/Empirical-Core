@@ -70,7 +70,7 @@ class School < ApplicationRecord
   after_save :attach_new_district_school_admins, if: :saved_change_to_district_id?
 
   validate :lower_grade_within_bounds, :upper_grade_within_bounds,
-           :lower_grade_greater_than_upper_grade
+    :lower_grade_greater_than_upper_grade
   validates :zipcode, length: { minimum: 5 }, allow_blank: true
 
   # Lambda has to be wrapped in parens to avoid syntax error in this construction.
