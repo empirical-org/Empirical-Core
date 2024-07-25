@@ -7,12 +7,14 @@ import { NavBar } from './navbar/navbar';
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
+import { ENGLISH, localeToLanguageMap } from '../../Shared/utils/languageList';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { setLanguage } from '../actions.js';
+import { lessonUid } from '../app';
 import { getParameterByName } from '../libs/getParameterByName';
 import { routes } from "../routes";
 
-export const Home = ({playLesson, dispatch}) => {
+export const Home = ({playLesson, lessons, dispatch}) => {
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
@@ -25,6 +27,19 @@ export const Home = ({playLesson, dispatch}) => {
   const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
   const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
   const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
+  const [languageOptions, setLanguageOptions] = React.useState<any>(null);
+  React.useEffect(() => {
+    if (!lessons?.hasreceiveddata) { return }
+    const translations = lessons.data?.[lessonUid]?.translations ?? {};
+    const languageOptions = [
+      { value: ENGLISH, label: ENGLISH },
+      ...Object.keys(translations).map(language => ({
+        value: localeToLanguageMap[language],
+        label: localeToLanguageMap[language]
+      }))
+    ];
+    setLanguageOptions(languageOptions);
+  }, [lessons]);
 
   function handleKeyDown (e: any) {
     if (e.key !== 'Tab') { return }
@@ -74,12 +89,17 @@ export const Home = ({playLesson, dispatch}) => {
       isOnMobile={isOnMobile}
       isTeacher={isTeacherOrAdmin}
       language={playLesson?.language}
+      languageOptions={languageOptions}
       onTogglePreview={handleTogglePreviewMenu}
       previewShowing={previewShowing}
       updateLanguage={handleUpdateLanguage}
     />);
   } else if (!isTeacherOrAdmin && isPlaying) {
-    header = <NavBar language={playLesson?.language} updateLanguage={handleUpdateLanguage} />;
+    header = (<NavBar
+      language={playLesson?.language}
+      languageOptions={languageOptions}
+      updateLanguage={handleUpdateLanguage}
+    />);
   }
   return(
     <div className={className}>
@@ -118,7 +138,8 @@ export const Home = ({playLesson, dispatch}) => {
 
 const select = (state: any, props: any) => {
   return {
-    playLesson: state.playLesson
+    playLesson: state.playLesson,
+    lessons: state.lessons
   };
 }
 
