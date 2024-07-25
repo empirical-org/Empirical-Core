@@ -42,7 +42,7 @@ module Snapshots
       context 'classroom with co teachers' do
         let(:coteacher_classrooms_teachers) { classrooms.map { |classroom| create(:classrooms_teacher, classroom: classroom, role: ClassroomsTeacher::ROLE_TYPES[:coteacher]) } }
         let(:coteachers) { coteacher_classrooms_teachers.map { |ct| ct.user } }
-        let(:coteacher_schools_users) { coteachers.map { |coteacher| create(:schools_users, user: coteacher, school: schools.first)  } }
+        let(:coteacher_schools_users) { coteachers.map { |coteacher| create(:schools_users, user: coteacher, school: schools.first) } }
 
         let(:teacher_ids) { nil }
         let(:cte_records) { base_cte_records + [coteacher_classrooms_teachers, coteachers, coteacher_schools_users] }

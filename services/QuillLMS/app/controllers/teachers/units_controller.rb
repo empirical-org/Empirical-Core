@@ -239,7 +239,7 @@ class Teachers::UnitsController < ApplicationController
   private def formatted_classrooms_data(unit_id)
     # potential refactor into SQL
     cus = ClassroomUnit.where(unit_id: unit_id).select(:classroom_id, :assigned_student_ids)
-    one_cu_per_classroom =  cus.group_by{ |class_unit| class_unit[:classroom_id] }.values.map{ |cu| cu.first }
+    one_cu_per_classroom = cus.group_by{ |class_unit| class_unit[:classroom_id] }.values.map{ |cu| cu.first }
     one_cu_per_classroom.map{ |cu| { id: cu.classroom_id, student_ids: cu.assigned_student_ids } }
   end
 

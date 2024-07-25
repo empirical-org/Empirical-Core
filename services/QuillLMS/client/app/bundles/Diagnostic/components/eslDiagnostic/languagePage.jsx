@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { diagnosticLanguageOptions, ENGLISH, languages } from '../../../Shared/utils/languageList';
 import { TrackAnalyticsEvent } from '../../actions/analytics';
 import { Events } from '../../modules/analytics';
-import { ENGLISH, languages, languageOptions } from '../../../Shared/utils/languageList';
 
 export class LanguagePage extends React.Component {
 
@@ -29,7 +29,7 @@ export class LanguagePage extends React.Component {
         </div>
         <div className="language-button-container english">
           <button className="language-button" onClick={this.handleClickLanguage} type="button" value="english">
-            <img alt="flag" className="language-button-img" src={languageOptions[ENGLISH].flag} />
+            <img alt="flag" className="language-button-img" src={diagnosticLanguageOptions[ENGLISH].flag} />
             <p className="language-label">English</p>
           </button>
         </div>
@@ -46,8 +46,8 @@ export class LanguagePage extends React.Component {
             if(language !== ENGLISH) {
               return(
                 <button className="language-button" key={`${language}-button`} onClick={this.handleClickLanguage} type="button" value={language}>
-                  <img alt="flag" className="language-button-img" src={languageOptions[language].flag} />
-                  <p className="language-label">{languageOptions[language].label}</p>
+                  <img alt="flag" className="language-button-img" src={diagnosticLanguageOptions[language].flag} />
+                  <p className="language-label">{diagnosticLanguageOptions[language].label}</p>
                 </button>
               );
             }

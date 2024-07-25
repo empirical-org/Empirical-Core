@@ -42,7 +42,7 @@ module Student
               AND students_classrooms.student_id = activity_sessions.user_id
               AND activities.id = activity_sessions.activity_id
         SQL
-        )
+              )
     end
 
     def finished_activities(classroom)

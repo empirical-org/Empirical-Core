@@ -20,7 +20,7 @@ class PromptFeedbackHistory
       COUNT(DISTINCT CASE WHEN attempt = 1 AND optimal = false THEN feedback_histories.feedback_session_uid END) AS num_first_attempt_not_optimal,
       AVG(CAST((feedback_histories.metadata->>'api')::json->>'confidence' AS float)) AS avg_confidence
     SELECT
-    )
+                                  )
       .joins('JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .joins('LEFT JOIN feedback_sessions ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
@@ -43,7 +43,7 @@ class PromptFeedbackHistory
         ELSE '0'
       END AS int) AS time_spent
     SELECT
-    )
+                                                 )
       .joins('RIGHT JOIN feedback_sessions ON feedback_sessions.activity_session_uid = activity_sessions.uid')
       .joins('RIGHT JOIN feedback_histories ON feedback_histories.feedback_session_uid = feedback_sessions.uid')
       .joins('RIGHT JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')

@@ -34,7 +34,7 @@ class MilestonesController < ApplicationController
   end
 
   def create_or_touch_dismiss_teacher_info_modal
-    milestone =  Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
+    milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
 
     user_milestone = UserMilestone.find_or_create_by!(milestone: milestone, user: current_user)
     user_milestone.touch

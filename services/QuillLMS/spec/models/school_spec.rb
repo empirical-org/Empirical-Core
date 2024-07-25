@@ -224,7 +224,7 @@ describe School, type: :model do
       context 'district admin is already admin for school' do
         before { create(:schools_admins, user: admin, school: school) }
 
-        it {  expect { school.update(district: district) }.to not_change(SchoolsAdmins, :count) }
+        it { expect { school.update(district: district) }.to not_change(SchoolsAdmins, :count) }
       end
     end
 
@@ -249,7 +249,7 @@ describe School, type: :model do
     end
   end
 
-  describe 'vitally_data'  do
+  describe 'vitally_data' do
     let(:school) { create(:school) }
 
     it 'sends a payload that contains the correct data for vitally' do

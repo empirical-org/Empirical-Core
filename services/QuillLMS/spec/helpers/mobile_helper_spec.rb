@@ -23,7 +23,7 @@ describe MobileHelper do
         </p>
       </video>
     </div>"
-    )
+  )
     end
 
     it 'should return nil if device and type arguments do not match' do

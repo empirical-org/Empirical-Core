@@ -1044,7 +1044,7 @@ RSpec.describe User, type: :model do
 
       it 'is does save for records below the uniqueness constraint minimum' do
         create(:user, id: described_class::EMAIL_UNIQUENESS_CONSTRAINT_MINIMUM_ID - 1, email: 'test@test.lan')
-        user = build(:user,  email: 'test@test.lan')
+        user = build(:user, email: 'test@test.lan')
         expect { user.save!(validate: false) }.to change(User, :count).from(1).to(2)
       end
 
@@ -1054,7 +1054,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'is invalid when there is a space in it' do
-        user = build(:user,  email: 'test@test.lan ')
+        user = build(:user, email: 'test@test.lan ')
         user.save
         expect(user.errors[:email]).to include('That email is not valid because it has a space. Try another.')
       end
@@ -2315,13 +2315,13 @@ RSpec.describe User, type: :model do
       end
 
       context 'auth_credential is not expired' do
-        before { create(:google_auth_credential, user: user)  }
+        before { create(:google_auth_credential, user: user) }
 
         it { is_expected.to eq false }
       end
 
       context 'auth_credential is expired' do
-        before { create(:google_auth_credential, :expired, user: user)  }
+        before { create(:google_auth_credential, :expired, user: user) }
 
         it { is_expected.to eq true }
       end

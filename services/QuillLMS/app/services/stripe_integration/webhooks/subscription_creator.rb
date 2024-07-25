@@ -43,7 +43,7 @@ module StripeIntegration
           purchaser.subscription&.plan == plan
         when Plan.stripe_school_plan
           purchaser.associated_schools.any? do |school|
-            school.subscriptions.active.any?  do |subscription|
+            school.subscriptions.active.any? do |subscription|
               subscription.schools.pluck(:id).sort == school_ids
             end
           end

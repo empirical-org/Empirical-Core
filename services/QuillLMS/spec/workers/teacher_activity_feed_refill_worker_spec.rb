@@ -28,7 +28,7 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
   end
 
   context 'teacher with classrooms, but no activities' do
-    let(:classroom) { create(:classroom)  }
+    let(:classroom) { create(:classroom) }
     let(:teacher) { classroom.owner }
 
     it 'should not reset and refill activity feed' do
@@ -40,7 +40,7 @@ describe TeacherActivityFeedRefillWorker, type: :worker do
   end
 
   context 'teacher with classrooms and activities' do
-    let(:classroom) { create(:classroom)  }
+    let(:classroom) { create(:classroom) }
     let(:teacher) { classroom.owner }
     let!(:student1) { create(:student) }
     let!(:student2) { create(:student) }

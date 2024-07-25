@@ -13,6 +13,6 @@ module PusherTrigger
       channel.to_s,
       event,
       message: message
-     )
+    )
   end
 end

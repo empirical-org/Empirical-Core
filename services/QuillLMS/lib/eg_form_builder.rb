@@ -92,7 +92,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   def choices(attribute, choices, *args)
-    field :choices, *_apply_default_options(args << attribute,  choices: choices)
+    field :choices, *_apply_default_options(args << attribute, choices: choices)
   end
 
   # slider is weird enough that we will not use the default field helper.

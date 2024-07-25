@@ -22,7 +22,7 @@ module Evidence
         validates :dataset_id, presence: true
 
         scope :llms, -> { where(independent_variable: LLM).order(id: :desc) }
-        scope :llm_prompts, -> { where(independent_variable: LLM_PROMPT).order(id: :desc)  }
+        scope :llm_prompts, -> { where(independent_variable: LLM_PROMPT).order(id: :desc) }
 
         store_accessor :results, :accuracy_optimal_sub_optimal, :confusion_matrix
       end

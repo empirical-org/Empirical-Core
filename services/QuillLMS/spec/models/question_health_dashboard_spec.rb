@@ -21,7 +21,7 @@ describe QuestionHealthDashboard, type: :model do
       activity_session: activity_session2,
       question_number: 1,
       question_score: 0.75
-   )
+    )
   end
 
   let!(:concept_result3) do
@@ -79,7 +79,7 @@ describe QuestionHealthDashboard, type: :model do
       ENV['CMS_URL'] = 'https://cms.quill.org'
       question_uid = SecureRandom.uuid
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question_uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75 }.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 50, percent_specified_algos: 75 }.to_json, headers: {})
       dashboard_stats = QuestionHealthDashboard.new(activity.id, 1, question_uid).cms_dashboard_stats
       expect(dashboard_stats['percent_common_unmatched']).to eq(50)
       expect(dashboard_stats['percent_specified_algos']).to eq(75)

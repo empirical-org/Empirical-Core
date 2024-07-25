@@ -12,6 +12,6 @@ module PusherAdminUsersCompleted
       admin_id.to_s,
       'admin-users-found',
       message: "Admin users found for #{admin_id}."
-   )
+    )
   end
 end

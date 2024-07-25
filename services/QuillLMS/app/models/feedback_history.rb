@@ -54,16 +54,16 @@ class FeedbackHistory < ApplicationRecord
   ]
   FILTER_TYPES = [
     FILTER_ALL = 'all',
-    FILTER_SCORED =  'scored',
-    FILTER_UNSCORED =  'unscored',
-    FILTER_WEAK =  'weak',
-    FILTER_COMPLETE =  'complete',
-    FILTER_INCOMPLETE =  'incomplete'
+    FILTER_SCORED = 'scored',
+    FILTER_UNSCORED = 'unscored',
+    FILTER_WEAK = 'weak',
+    FILTER_COMPLETE = 'complete',
+    FILTER_INCOMPLETE = 'incomplete'
   ]
   CONJUNCTIONS = [
     BECAUSE =  'because',
-    BUT =  'but',
-    SO =  'so'
+    BUT = 'but',
+    SO = 'so'
   ]
 
   after_commit :initiate_flag_worker, on: :create
@@ -93,8 +93,8 @@ class FeedbackHistory < ApplicationRecord
   validates :time, presence: true
   validates :used, inclusion: { in: [true, false] }
 
-  scope :used,  -> { where(used: true) }
-  scope :optimal,  -> { where(optimal: true) }
+  scope :used, -> { where(used: true) }
+  scope :optimal, -> { where(optimal: true) }
   scope :suboptimal,  -> { where(optimal: false) }
   scope :autoML, -> { where(feedback_type: AUTO_ML) }
   scope :confidence_greater_than, ->(lower_limit) { where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit) }
@@ -336,7 +336,7 @@ class FeedbackHistory < ApplicationRecord
           THEN true ELSE false END
         ) AS complete
       SQL
-      )
+    )
       .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
@@ -404,7 +404,7 @@ class FeedbackHistory < ApplicationRecord
       <<-SQL
         feedback_histories.feedback_session_uid AS session_uid
       SQL
-      )
+    )
       .joins('LEFT OUTER JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
@@ -431,7 +431,7 @@ class FeedbackHistory < ApplicationRecord
         feedback_histories.feedback_type,
         comprehension_rules.name
       SQL
-      )
+    )
       .joins('LEFT OUTER JOIN comprehension_prompts ON feedback_histories.prompt_id = comprehension_prompts.id')
       .joins('LEFT OUTER JOIN comprehension_rules ON comprehension_rules.uid = feedback_histories.rule_uid')
       .where(used: true)

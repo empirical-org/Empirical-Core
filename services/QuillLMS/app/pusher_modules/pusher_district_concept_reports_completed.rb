@@ -12,6 +12,6 @@ module PusherDistrictConceptReportsCompleted
       admin_id.to_s,
       'district-concept-reports-found',
       message: "District concept reports found for #{admin_id}."
-   )
+    )
   end
 end

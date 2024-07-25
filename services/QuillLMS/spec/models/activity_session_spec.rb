@@ -278,7 +278,7 @@ describe ActivitySession, type: :model, redis: true do
     describe '#invalidate_activity_session_count_if_completed' do
       let!(:student){ create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-      let!(:activity_session){   create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
+      let!(:activity_session){ create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
 
       before do
         $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
@@ -302,7 +302,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:student){ create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
       let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
-      let(:activity_session){   build(:activity_session, classroom_unit: classroom_unit)                     }
+      let(:activity_session){ build(:activity_session, classroom_unit: classroom_unit) }
 
       it "must return the unit activity's activity" do
         activity_session.activity_id=nil
@@ -655,7 +655,7 @@ describe ActivitySession, type: :model, redis: true do
     let(:student) { create(:student) }
     let(:activity) { create(:activity) }
 
-    let(:classroom_unit)   { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
+    let(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let(:previous_final_score) { create(:activity_session, completed_at: Time.current, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity, updated_at: starting_updated_at) }
 
     before { allow(DateTime).to receive(:current).and_return(now) }

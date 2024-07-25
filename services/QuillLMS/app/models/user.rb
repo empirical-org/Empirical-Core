@@ -217,7 +217,7 @@ class User < ApplicationRecord
   validates :name,
     presence: true,
     format: { without: /\t/, message: 'cannot contain tabs' },
-    length: { maximum:  CHAR_FIELD_MAX_LENGTH }
+    length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validates :password,
     presence: { if: :requires_password? },
@@ -260,7 +260,7 @@ class User < ApplicationRecord
   # This is a little weird, but in our current conception, all Admins are Teachers
   scope :teacher, -> { where(role: [ADMIN, TEACHER]) }
   scope :student, -> { where(role: STUDENT) }
-  scope :admin, ->  { where(role: ADMIN) }
+  scope :admin, -> { where(role: ADMIN) }
 
   scope :teachers_in_schools, lambda { |school_ids|
     distinct

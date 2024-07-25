@@ -39,7 +39,7 @@ module GoogleIntegration
       end
     end
 
-    describe '#import_students'  do
+    describe '#import_students' do
       subject { put :import_students, params: params, as: :json }
 
       let(:classroom) { create(:classroom, :from_google, :with_no_teacher) }
@@ -91,7 +91,7 @@ module GoogleIntegration
       context 'user is google authorized' do
         before { allow(teacher).to receive(:google_authorized?).and_return(true) }
 
-        it  do
+        it do
           subject
           expect(response_body).to eq(quill_retrieval_processing: true)
         end

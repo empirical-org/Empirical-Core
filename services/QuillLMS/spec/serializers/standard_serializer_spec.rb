@@ -21,7 +21,7 @@
 require 'rails_helper'
 
 describe StandardSerializer, type: :serializer do
-  let(:standard)      { create(:standard) }
+  let(:standard) { create(:standard) }
   let(:serializer) { StandardSerializer.new(standard) }
 
   describe '#to_json output' do

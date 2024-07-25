@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
 
   def invitation_to_existing_user invitation_email_hash
     invitation_email_hash.stringify_keys!
-    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE,  accept_link: teachers_classrooms_url).stringify_keys
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, accept_link: teachers_classrooms_url).stringify_keys
     mail from: 'The Quill Team <hello@quill.org>', 'reply-to': @email_hash['inviter_email'], to: @email_hash['invitee_email'], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
@@ -83,7 +83,7 @@ class UserMailer < ActionMailer::Base
   def new_admin_email(user, school)
     @user = user
     @school = school
-    mail from: 'The Quill Team <hello@quill.org>',  to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+    mail from: 'The Quill Team <hello@quill.org>', to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
   def activated_referral_email(referrer_hash, referral_hash)

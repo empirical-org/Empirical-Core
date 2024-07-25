@@ -64,7 +64,7 @@ module CanvasIntegration
       let(:canvas_instance) { create(:canvas_instance) }
 
       let(:url) { canvas_instance.url }
-      let(:email)  { Faker::Internet.email }
+      let(:email) { Faker::Internet.email }
       let(:external_id) { Faker::Number.number }
       let(:name) { Faker::Name.custom_name }
       let(:ext_roles) { CanvasIntegration::RoleExtractor::INSTRUCTOR_ROLE }
@@ -94,7 +94,7 @@ module CanvasIntegration
         it { expect(response).to have_http_status(:success) }
         it { expect(response.content_type).to eq 'text/html; charset=utf-8' }
         it { expect(response.body).to include(described_class::LAUNCH_TEXT) }
-        it { expect(response.body).not_to include('<script') }  # LTI does not allow scripts
+        it { expect(response.body).not_to include('<script') } # LTI does not allow scripts
       end
     end
   end

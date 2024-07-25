@@ -11,7 +11,7 @@ describe Evidence::Synthetic::ManualTypes do
   end
 
   let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
-  let(:prompt)  { activity.prompts.first }
+  let(:prompt) { activity.prompts.first }
 
   let(:not_enough_labeled_data) { [['text string', label1], ['other text', label2]] }
 

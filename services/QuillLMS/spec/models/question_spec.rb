@@ -223,7 +223,7 @@ RSpec.describe Question, type: :model do
       expect(question.incorrectSequences).to contain_exactly(
         { 'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar' },
         { 'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar' }
-        )
+      )
     end
   end
 

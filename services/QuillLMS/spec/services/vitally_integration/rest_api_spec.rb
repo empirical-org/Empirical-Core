@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe VitallyIntegration::RestApi do
-  let(:api)  { described_class.new }
+  let(:api) { described_class.new }
   let(:api_key) { 'test api key' }
   let(:id) { 1 }
   let(:type) { 'type' }

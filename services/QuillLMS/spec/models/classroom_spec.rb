@@ -231,7 +231,7 @@ describe Classroom, type: :model do
       before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
       it { expect { subject }.to change { classroom_unit.reload.updated_at } }
-      it { expect { subject }.to change  { activity_session.reload.updated_at } }
+      it { expect { subject }.to change { activity_session.reload.updated_at } }
       it { expect { subject }.to change { unit.reload.updated_at } }
     end
   end
