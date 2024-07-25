@@ -239,7 +239,6 @@ describe TimeTrackingCleaner do
         expect(TimeTrackingCleaner.run(proofreader_data_with_outlier_passage)).to eq(modified_proofreader_data_with_outlier_passage)
       end
     end
-
   end
 
   describe '#median_value' do

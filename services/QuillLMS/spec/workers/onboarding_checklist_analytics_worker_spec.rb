@@ -35,6 +35,5 @@ describe OnboardingChecklistAnalyticsWorker do
       expect(analyzer).not_to receive(:track_event_from_string).with('TEACHER_COMPLETED_ONBOARDING_CHECKLIST', user.id)
       subject.perform(user.id)
     end
-
   end
 end

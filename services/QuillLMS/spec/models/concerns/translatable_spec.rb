@@ -20,7 +20,6 @@ RSpec.describe Translatable do
       end
 
       private def config_file = Rails.root.join('app/models/translation_config/concept_feedback.yml')
-
     end
   end
 
@@ -214,7 +213,7 @@ RSpec.describe Translatable do
       context 'there is not an existing translation' do
         it 'calls OpenAI::TranslateAndSaveText for each English text' do
           translatable_object.english_texts.each do |text|
-            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+            expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:, locale:)
           end
           subject
         end
@@ -232,7 +231,7 @@ RSpec.describe Translatable do
 
           it 'calls OpenAI::TranslateAndSaveText for each English text' do
             translatable_object.english_texts.each do |text|
-              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:)
+              expect(OpenAI::TranslateAndSaveText).to receive(:run).with(text, prompt:, locale:)
             end
             subject
           end
@@ -288,5 +287,4 @@ RSpec.describe Translatable do
       expect(translatable_object.send(:examples)).to match('1. English: "Combine the sentences')
     end
   end
-
 end

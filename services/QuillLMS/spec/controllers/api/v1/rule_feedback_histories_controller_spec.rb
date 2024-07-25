@@ -103,5 +103,4 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       end
     end
   end
-
 end

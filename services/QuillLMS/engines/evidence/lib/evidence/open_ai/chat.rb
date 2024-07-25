@@ -60,7 +60,6 @@ module Evidence
 
       # https://platform.openai.com/docs/api-reference/chat/create
       def request_body = { model:, temperature:, messages:, response_format: }
-
     end
   end
 end

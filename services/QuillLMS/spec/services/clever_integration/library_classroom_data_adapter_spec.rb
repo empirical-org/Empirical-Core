@@ -27,4 +27,3 @@ RSpec.describe CleverIntegration::LibraryClassroomDataAdapter do
     it { expect(subject).to eq classroom2_attrs }
   end
 end
-

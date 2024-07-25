@@ -36,7 +36,6 @@ describe Api::V1::ConceptsController, type: :controller do
         subject
       end
     end
-
   end
 
   context 'GET #index' do
@@ -79,5 +78,4 @@ describe Api::V1::ConceptsController, type: :controller do
       expect(parsed_body['concepts'][1]['name']).to eq('Different | Name | Other')
     end
   end
-
 end

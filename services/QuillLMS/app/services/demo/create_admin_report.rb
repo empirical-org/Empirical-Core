@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Demo::CreateAdminReport
-
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 1..20
   BATCH_DELAY = 10.seconds
   NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
@@ -110,5 +109,4 @@ class Demo::CreateAdminReport
   end
 
   private def sample_grade = GRADES.sample.to_s
-
 end

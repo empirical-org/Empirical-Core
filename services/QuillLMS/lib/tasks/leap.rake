@@ -49,7 +49,6 @@ namespace :leap do
   end
 
   module LeapTaskHelpers
-
     def arg_values(args)
       @email_domain = args[:email_domain]
       @csv_path = args[:csv_path]

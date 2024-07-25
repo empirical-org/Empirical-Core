@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 shared_examples_for 'teacher' do
-
   let(:teacher) { build(:classroom) }
 
   context 'with an email' do
-
     let!(:teacher) { build(:teacher, email: nil) }
 
     it 'requires to be present' do
       teacher.valid?
       expect(teacher.errors[:email]).to include "can't be blank"
     end
-
   end
 
   context "with the ActiveRecords's delegated methods" do
@@ -59,7 +56,5 @@ shared_examples_for 'teacher' do
         expect(teacher).to be_teacher
       end
     end
-
   end
-
 end

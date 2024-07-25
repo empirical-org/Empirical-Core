@@ -13,6 +13,7 @@ class AddFunctionTimespentTeacher < ActiveRecord::Migration[4.2]
       $$ LANGUAGE SQL;
     })
   end
+
   def down
     connection.execute(%q{
       DROP FUNCTION timespent_teacher;

@@ -130,7 +130,6 @@ RSpec.describe Mailer::User do
         user.mailer_user.send_internal_tool_made_district_admin_email(district.name)
       end
     end
-
   end
 
   describe '#send_approved_admin_email' do

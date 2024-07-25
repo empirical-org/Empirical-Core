@@ -82,7 +82,6 @@ describe Classroom, type: :model do
   end
 
   describe '#create_with_join' do
-
     context 'when passed valid classrooms data' do
       it 'creates a classroom' do
         old_count = Classroom.all.count
@@ -121,9 +120,7 @@ describe Classroom, type: :model do
         Classroom.create_with_join(invalid_classroom_attributes, teacher.id)
         expect(ClassroomsTeacher.all.count).to eq(old_count)
       end
-
     end
-
   end
 
   describe '#coteachers' do
@@ -321,7 +318,6 @@ describe Classroom, type: :model do
       classroom = create(:classroom, grade: nil)
       expect(classroom.grade_as_integer).to eq(-1)
     end
-
   end
 
   describe '#reset_teacher_activity_feed' do

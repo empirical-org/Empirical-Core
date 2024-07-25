@@ -9,7 +9,6 @@ namespace :free_lunch do
   end
 
   module CsvParser
-
     def self.parse_csv
       file = File.expand_path('../lunch_column.csv', __FILE__)
       puts 'Rake task beginning'
@@ -29,7 +28,5 @@ namespace :free_lunch do
       n_id.prepend('0') if n_id.length == 11
       n_id
     end
-
   end
-
 end

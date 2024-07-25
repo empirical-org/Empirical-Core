@@ -60,5 +60,4 @@ describe QuillStaffAccountsChangedWorker, type: :worker do
       worker.notify_staff(current_accounts, current_accounts)
     end
   end
-
 end

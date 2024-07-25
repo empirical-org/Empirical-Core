@@ -69,6 +69,7 @@ class AddFunctionTimespentQuestion < ActiveRecord::Migration[4.2]
       $$ LANGUAGE plpgsql;
     })
   end
+
   def down
     connection.execute(%q{
       DROP FUNCTION timespent_question;

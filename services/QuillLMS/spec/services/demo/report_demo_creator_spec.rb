@@ -201,7 +201,6 @@ RSpec.describe Demo::ReportDemoCreator do
 
       subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
 
-
       it 'should create expected counts for untouched account' do
         expect{ subject }
           .to not_change{ teacher.reload.google_id }.from(nil)
@@ -210,7 +209,6 @@ RSpec.describe Demo::ReportDemoCreator do
           .and not_change{ teacher.classrooms_i_teach.map(&:id) }
           .and not_change{ teacher.reload.auth_credential }.from(nil)
       end
-
 
       context 'teacher account has added data' do
         let(:teacher) { create(:teacher, google_id: 1234, clever_id: 5678) }

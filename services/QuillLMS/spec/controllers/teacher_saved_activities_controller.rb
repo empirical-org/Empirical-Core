@@ -55,6 +55,4 @@ describe TeacherSavedActivitiesController do
       end
     end
   end
-
-
 end

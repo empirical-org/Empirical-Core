@@ -90,6 +90,5 @@ module Staff
           #{activity_version_where_clause}
       SQL
     end
-
   end
 end

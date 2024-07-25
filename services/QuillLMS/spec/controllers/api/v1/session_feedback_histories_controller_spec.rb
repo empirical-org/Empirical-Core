@@ -80,7 +80,6 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(20)
-
         end
       end
 
@@ -109,7 +108,6 @@ describe Api::V1::SessionFeedbackHistoriesController, type: :controller do
 
           expect(response).to have_http_status(200)
           expect(parsed_response['activity_sessions'].length).to eq(3)
-
         end
       end
 

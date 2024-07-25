@@ -80,9 +80,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
           get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({ unit_id: unit.id, activity_id: activity.id })
           expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses?unit=#{unit.id}" }.to_json)
         end
-
       end
-
     end
   end
 
@@ -407,7 +405,6 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         subject
       end
     end
-
   end
 
   describe '#student_ids_for_previously_assigned_activity_pack' do

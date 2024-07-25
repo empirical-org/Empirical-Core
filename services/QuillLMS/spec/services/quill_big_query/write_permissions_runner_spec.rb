@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe QuillBigQuery::WritePermissionsRunner do
-
   describe 'run' do
     let(:credentials) { { 'a' => 1 } }
     let(:query) { 'SELECT 1 FROM lms.data' }

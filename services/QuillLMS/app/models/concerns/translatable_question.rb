@@ -15,6 +15,23 @@ module TranslatableQuestion
     end
   end
 
+  def translated_data(locale:)
+    data = { default_translatable_field => translation(locale:) }
+    [INCORRECT_SEQUENCES, FOCUS_POINTS, CMS_RESPONSES].reduce(data) do |acc, type|
+      acc.merge(type => translations_for_prefix(type, locale: locale))
+    end
+  end
+
+  private def translations_for_prefix(prefix, locale:)
+    translated_texts
+      .joins(english_text: :translation_mappings)
+      .where(translation_mappings: { source: self })
+      .where("translation_mappings.field_name LIKE ?", "#{prefix}%")
+      .where(locale: locale)
+      .pluck('translation_mappings.field_name', :translation)
+      .to_h
+  end
+
   private def create_data_translation_mappings(type:)
     data_for_translation_mappings[type].each do |field_name, translatable_text|
       create_translation_mappings_with_text(field_name:, translatable_text:)

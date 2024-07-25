@@ -12,7 +12,6 @@ RSpec.shared_examples 'snapshots period length' do |timeframe_key, length, custo
     # rounding at 6 decimals to make comparison deterministic
     subject { (timeframe.last - timeframe.first).to_f.round(6) }
 
-
     it { expect(subject).to eq length }
   end
 end

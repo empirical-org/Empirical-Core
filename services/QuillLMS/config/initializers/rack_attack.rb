@@ -42,5 +42,4 @@ class Rack::Attack
   Rack::Attack.blocklisted_response = lambda do |request|
     BLOCKLIST_RESPONSE
   end
-
 end

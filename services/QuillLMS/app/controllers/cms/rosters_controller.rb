@@ -4,7 +4,6 @@ class Cms::RostersController < Cms::CmsController
   before_action :signed_in!
 
   def index
-
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -55,5 +54,4 @@ class Cms::RostersController < Cms::CmsController
     render json: { errors: e.message }, status: 422
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
 end

@@ -27,7 +27,6 @@ describe VitallyIntegration::RestApi do
 
   describe '#get' do
     it 'should make a GET call to the Vitally API with the specified type and ID' do
-
       expect(HTTParty).to receive(:get).with("#{described_class::BASE_URL}/#{type}/#{id}",
         headers: {
           Authorization: "Basic #{api_key}",

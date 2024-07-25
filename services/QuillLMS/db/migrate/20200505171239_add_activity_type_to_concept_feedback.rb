@@ -9,6 +9,7 @@ class AddActivityTypeToConceptFeedback < ActiveRecord::Migration[4.2]
     add_index :concept_feedbacks, :activity_type
     change_column_null :concept_feedbacks, :activity_type, false
   end
+
   def down
     remove_index :concept_feedbacks, [:uid, :activity_type]
     remove_column :concept_feedbacks, :activity_type

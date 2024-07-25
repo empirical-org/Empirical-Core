@@ -106,7 +106,6 @@ describe AccountsController, type: :controller do
               expect(response.body).to eq({ redirect: teachers_classrooms_path }.to_json)
             end
           end
-
         end
       end
 

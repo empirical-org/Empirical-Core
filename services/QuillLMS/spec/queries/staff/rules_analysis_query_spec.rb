@@ -143,9 +143,7 @@ module Staff
             expect(results.first[:api_name]).to eq 'autoML'
           end
         end
-
       end
-
     end
   end
 end

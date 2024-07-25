@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'Sign up', type: :request do
-
   def sign_up_succeeds
     expect(response.status).to eq(200)
   end
@@ -97,7 +96,6 @@ describe 'Sign up', type: :request do
       it "creates an association between the student and the teacher's classroom" do
         expect(User.find_by_username_or_email(expected_student_email).classrooms).to include(classroom)
       end
-
     end
   end
 end

@@ -13,7 +13,6 @@ class GetConceptsInUseIndividualConceptWorker
     @d_fib_questions = JSON.parse($redis.get('D_FIB_QUESTIONS'))
     @d_sf_questions = JSON.parse($redis.get('D_SF_QUESTIONS'))
 
-
     activity_rows = get_activity_rows(id)
 
     @organized_concepts = []
@@ -179,5 +178,4 @@ class GetConceptsInUseIndividualConceptWorker
       set_concepts_in_use_cache
     end
   end
-
 end

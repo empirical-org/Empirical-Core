@@ -22,7 +22,6 @@ describe 'Downloading the concepts' do
     expect(@setup.concepts.class).to eq(Array)
   end
 
-
   it 'should successfully make a http request' do
     expect(@response.code).to eq('200')
   end

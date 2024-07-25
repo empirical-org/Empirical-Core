@@ -16,7 +16,6 @@ class RematchUpdatedQuestionsWorker
       .select(:id, :uid, :question_type)
 
     questions.find_each.with_index do |question, index|
-
       body = {
         type: question.rematch_type,
         uid: question.uid,

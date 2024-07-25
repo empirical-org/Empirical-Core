@@ -30,7 +30,6 @@ describe AdminsController  do
     before { allow(controller).to receive(:current_user) { admin_for_admin_info } }
 
     describe 'associated_school_has_premium' do
-
       describe 'when the user is not associated with a school' do
         it 'returns false' do
           get :admin_info, params: { id: admin_for_admin_info.id }
@@ -67,7 +66,6 @@ describe AdminsController  do
             expect(JSON.parse(response.body)['associated_school_has_premium']).to be false
           end
         end
-
       end
     end
 
@@ -108,9 +106,7 @@ describe AdminsController  do
             expect(JSON.parse(response.body)['administers_school_with_premium']).to be false
           end
         end
-
       end
-
     end
 
     describe 'administers_school_with_current_or_expired_premium' do
@@ -150,13 +146,9 @@ describe AdminsController  do
             expect(JSON.parse(response.body)['administers_school_with_current_or_expired_premium']).to be false
           end
         end
-
       end
-
     end
-
   end
-
 
   describe '#sign_in_classroom_manager' do
     it 'should redirect to teachers classrooms path' do
@@ -213,7 +205,6 @@ describe AdminsController  do
   end
 
   describe '#remove_as_admin' do
-
     before do
       create(:schools_admins, school: school, user: teacher)
     end
@@ -226,7 +217,6 @@ describe AdminsController  do
   end
 
   describe '#approve_admin_request' do
-
     [true, false].each do |request_made_during_sign_up|
       describe "when request_made_during_sign_up is #{request_made_during_sign_up}" do
         it 'should update the teacher admin info to be approved, create a school admin record, call the analytics worker, and return a message' do
@@ -244,7 +234,6 @@ describe AdminsController  do
         end
       end
     end
-
   end
 
   describe '#deny_admin_request' do
@@ -269,7 +258,6 @@ describe AdminsController  do
       expect(response.body).to eq({ message: I18n.t('admin.unlink_teacher_from_school') }.to_json)
     end
   end
-
 
   describe '#create_and_link_accounts' do
     describe 'when the current user is not an admin of the school' do
@@ -337,9 +325,7 @@ describe AdminsController  do
               expect(SchoolsAdmins.find_by(school: school, user: existing_teacher)).to be
             end
           end
-
         end
-
       end
 
       describe 'and the submitted role is teacher' do
@@ -392,7 +378,6 @@ describe AdminsController  do
           expect(response.body).to eq({ message: I18n.t('admin_created_account.new_account.teacher') }.to_json)
         end
       end
-
     end
   end
 
@@ -489,5 +474,4 @@ describe AdminsController  do
       end
     end
   end
-
 end

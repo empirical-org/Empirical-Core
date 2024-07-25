@@ -4,7 +4,6 @@ module Evidence
   module Synthetic
     module Generators
       class SpellingPassageSpecific < Synthetic::Generators::Base
-
         LONG_WORDS_LENGTH = 10
         REPEATED_WORD_COUNT = 5
         REPEATED_WORD_MIN_LENGTH = 5

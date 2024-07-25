@@ -155,7 +155,6 @@ describe BlogPostsController, type: :controller do
       get :show_topic, params: { topic: topic.downcase.gsub(' ','-') }
       expect(assigns(:title)).to eq(topic)
     end
-
   end
 
   describe '#search' do

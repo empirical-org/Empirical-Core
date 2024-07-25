@@ -327,7 +327,6 @@ describe SnapshotsController, type: :controller do
           let(:classroom_ids) { ['5', '6', '7'] }
 
           it 'should include school_ids and grades in the call to the cache worker if they are in params' do
-
             allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
             expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
             expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
@@ -398,7 +397,6 @@ describe SnapshotsController, type: :controller do
         expect(json_response['all_classrooms'].map { |c| c['id'] }).to include(classroom.id, other_classroom.id)
       end
     end
-
 
     it 'should return all valid timeframe options with names' do
       get :options
@@ -584,7 +582,6 @@ describe SnapshotsController, type: :controller do
         let(:target_grade) { nil }
 
         it 'should match teachers who teach nil grade classrooms' do
-
           get :options, params: { grades: ['null'] }
 
           json_response = JSON.parse(response.body)

@@ -62,7 +62,6 @@ RSpec.describe Analytics::SegmentAnalytics do
         expect(track_calls[0][:properties][:tool_name]).to eq('Connect')
       end
     end
-
   end
 
   context 'tracking activity completion' do
@@ -124,7 +123,6 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(track_calls[0][:properties][:activity_pack_type]).to eq('Pre-made')
       expect(track_calls[0][:properties][:activity_pack_name]).to eq(unit_template.name)
     end
-
   end
 
   context 'track teacher subscription' do
@@ -358,7 +356,6 @@ RSpec.describe Analytics::SegmentAnalytics do
         expect(track_calls[0][:event]).to eq(Analytics::SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
       end
     end
-
   end
 
   context '#track_admin_invited_by_teacher' do
@@ -440,7 +437,6 @@ RSpec.describe Analytics::SegmentAnalytics do
   end
 
   context '#identify' do
-
     let(:district) { create(:district) }
     let(:school) { create(:school, district: district) }
     let(:school_without_district) { create(:school) }

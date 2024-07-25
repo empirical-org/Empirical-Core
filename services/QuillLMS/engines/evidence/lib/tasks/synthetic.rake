@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 namespace :synthetic do
-
   # set SYNTHETIC_LOCAL_PATH in .env
   # Find an activity_id (262 in this example)
   # Specify a run_number (1 in this example) - for iteration to prevent overwriting older files

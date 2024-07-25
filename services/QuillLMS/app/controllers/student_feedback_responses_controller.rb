@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class StudentFeedbackResponsesController < ApplicationController
-
   def create
     new_student_feedback_response = StudentFeedbackResponse.create(student_feedback_response_params)
     render json: { student_feedback_response: new_student_feedback_response }
@@ -14,5 +13,4 @@ class StudentFeedbackResponsesController < ApplicationController
       grade_levels: []
     )
   end
-
 end

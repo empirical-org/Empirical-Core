@@ -82,6 +82,5 @@ describe SegmentioHelper do
         expect(formatted_properties).to include("custom_#{property}")
       end
     end
-
   end
 end

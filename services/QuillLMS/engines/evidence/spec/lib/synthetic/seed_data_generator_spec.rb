@@ -152,7 +152,6 @@ module Evidence
         expect(batch.label_configs).to eq([label_config])
       end
 
-
       context 'use_passage=false' do
         let(:batch) { create(:seed_prompt_text_batch, use_passage: false, label_configs: [label_config]) }
 

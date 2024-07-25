@@ -10,5 +10,4 @@ namespace :classroom_units do
       ArchiveUnitsUnitActivitiesWorker.perform_async(unit.id)
     }
   end
-
 end

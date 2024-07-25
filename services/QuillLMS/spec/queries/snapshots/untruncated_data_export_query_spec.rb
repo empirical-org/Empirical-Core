@@ -90,10 +90,7 @@ module Snapshots
             expect(row.keys.to_set > expected_fields.to_set).to be true
           end
         end
-
       end
-
-
     end
   end
 end

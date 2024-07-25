@@ -29,6 +29,5 @@ module Evidence
         end
       end
     end
-
   end
 end

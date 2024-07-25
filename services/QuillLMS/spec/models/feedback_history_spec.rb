@@ -33,7 +33,6 @@ require 'rails_helper'
 
 # it { shoulda cheatsheet: https://github.com/thoughtbot/it { shoulda-matchers#activemodel-matchers
 RSpec.describe FeedbackHistory, type: :model do
-
   context 'associations' do
     it { should belong_to(:feedback_session) }
     it { should have_one(:activity_session).through(:feedback_session) }
@@ -409,7 +408,6 @@ RSpec.describe FeedbackHistory, type: :model do
 
       expect(fh1.rule_violation_consecutive_repititions?).to be(false)
     end
-
   end
 
   context 'Session-aggregate FeedbackHistories' do
@@ -709,7 +707,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_history = build(:feedback_history, feedback_type: feedback_type)
         expect(feedback_history.spelling_or_grammar?).to be true
       end
-
     end
 
     it 'returns false for non-spelling or grammar feedback' do
@@ -719,5 +716,4 @@ RSpec.describe FeedbackHistory, type: :model do
       end
     end
   end
-
 end

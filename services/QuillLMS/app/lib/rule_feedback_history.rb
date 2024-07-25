@@ -89,7 +89,6 @@ class RuleFeedbackHistory
           repeated_consecutive_responses: r.repeated_consecutive,
           repeated_non_consecutive_responses: r.repeated_non_consecutive,
       }
-
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity

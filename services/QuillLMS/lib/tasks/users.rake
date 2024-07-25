@@ -48,7 +48,6 @@ namespace :users do
       .where(role: User::ADMIN)
       .where(user_email_verification: { id: nil })
       .each do |user|
-
       verification_method = UserEmailVerification::GOOGLE_VERIFICATION if user.google_id
       verification_method = UserEmailVerification::CLEVER_VERIFICATION if user.clever_id
       user.verify_email(verification_method)

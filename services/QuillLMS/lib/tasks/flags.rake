@@ -78,6 +78,5 @@ namespace :flags do
         user.update!(flags: user.flags - [args[:flag_name]])
       end
     end
-
   end
 end

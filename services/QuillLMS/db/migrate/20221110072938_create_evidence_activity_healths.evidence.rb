@@ -2,7 +2,6 @@
 
 # This migration comes from evidence (originally 20221110063831)
 
-
 class CreateEvidenceActivityHealths < ActiveRecord::Migration[6.1]
   def change
     create_table :evidence_activity_healths do |t|

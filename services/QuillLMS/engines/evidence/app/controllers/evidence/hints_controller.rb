@@ -24,7 +24,6 @@ module Evidence
       end
     end
 
-
     # PATCH/PUT /hints/1.json
     def update
       if @hint.update(hint_params)

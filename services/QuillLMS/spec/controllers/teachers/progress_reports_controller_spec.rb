@@ -155,7 +155,6 @@ describe Teachers::ProgressReportsController do
   end
 
   describe '#coach_demo' do
-
     context 'when demo account exists' do
       it 'sets the user and redirects to scorebook teachers classrooms path when user exists' do
         ap_user = create(:user, email: 'hello+demoteacher+ap@quill.org')

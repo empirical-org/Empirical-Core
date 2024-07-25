@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Cron
-
   # Configured in Heroku Scheduler to run every 10 minutes
   def self.interval_10_min
     run_at_20_minute_mark if now.min.between?(20, 29)

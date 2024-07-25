@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Cms::ImagesController < Cms::CmsController
-
   def index
     @images = Image.all
   end

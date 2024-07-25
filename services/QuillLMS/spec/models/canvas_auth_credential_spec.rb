@@ -53,4 +53,3 @@ describe CanvasAuthCredential, type: :model do
     end
   end
 end
-

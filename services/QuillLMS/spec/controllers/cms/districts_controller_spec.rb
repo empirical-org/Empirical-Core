@@ -116,8 +116,6 @@ describe Cms::DistrictsController do
         expect(assigns(:school_data).length).to eq(1)
       end
     end
-
-
   end
 
   describe '#edit' do

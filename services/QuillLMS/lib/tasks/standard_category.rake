@@ -3,7 +3,6 @@
 namespace :standard_category do
   desc 'create standard category'
   task :seed => :environment do
-
     arr1 = [
 
       {
@@ -196,7 +195,6 @@ namespace :standard_category do
         category:	'Structure'
       },
 
-
       {
         standard: 		'2.2c. Use an Apostrophe to Form Contractions',
         category: 	'Punctuation'
@@ -245,14 +243,12 @@ namespace :standard_category do
       }
     ]
 
-
     arr1.each do |pair|
       puts ''
       puts 'standard to associate : '
       puts pair[:standard]
       puts 'category to associate : '
       puts pair[:category]
-
 
       standard = Standard.find_by_name pair[:standard]
       standard_category = StandardCategory.where(name: pair[:category]).first_or_create!
@@ -267,12 +263,6 @@ namespace :standard_category do
         standard.save
         puts standard.inspect
       end
-
     end
-
-
-
-
-
   end
 end

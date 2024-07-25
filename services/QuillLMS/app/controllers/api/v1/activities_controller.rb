@@ -29,7 +29,6 @@ class Api::V1::ActivitiesController < Api::ApiController
     end
 
     render json: @activity, meta: { status: @status, message: @message, errors: @activity.errors }, serializer: ActivitySerializer
-
   end
 
   def create
@@ -128,5 +127,4 @@ class Api::V1::ActivitiesController < Api::ApiController
                       .merge(data: @data)
                       .reject { |k,v| v.nil? }
   end
-
 end

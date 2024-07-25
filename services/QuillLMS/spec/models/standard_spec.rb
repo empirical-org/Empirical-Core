@@ -21,13 +21,11 @@
 require 'rails_helper'
 
 describe Standard, type: :model do
-
   let!(:standard){ create(:standard, name: 'a') }
 
   it_behaves_like 'uid'
 
   context 'when the default order is by name' do
-
     let!(:standard1){ create(:standard, name: 'c') }
     let!(:standard2){ create(:standard, name: 'b') }
 
@@ -37,7 +35,6 @@ describe Standard, type: :model do
   end
 
   context "when it's updated/created" do
-
     it 'must be valid with valid info' do
       expect(standard.valid?).to be_truthy
     end
@@ -65,7 +62,6 @@ describe Standard, type: :model do
   end
 
   context 'when it is destroyed' do
-
     it 'must nullify associated activity records' do
       activity = create(:activity, standard_id: standard.id)
       standard.destroy!

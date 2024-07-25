@@ -99,7 +99,6 @@ RSpec.describe SegmentIntegration::User do
         expect(admin.segment_user.school_params).to eq params
       end
     end
-
   end
 
   context 'teacher' do
@@ -117,7 +116,6 @@ RSpec.describe SegmentIntegration::User do
     }
 
     describe '#identify_params' do
-
       it 'returns the expected params hash' do
         params = {
           user_id: teacher.id,
@@ -140,7 +138,6 @@ RSpec.describe SegmentIntegration::User do
     end
 
     describe '#common_params' do
-
       it 'returns the expected params hash' do
         params = {
           district: teacher.school&.district&.name,
@@ -158,7 +155,6 @@ RSpec.describe SegmentIntegration::User do
     end
 
     describe '#premium_params' do
-
       it 'returns the expected params hash' do
         params = {
           email: teacher.email,
@@ -176,11 +172,9 @@ RSpec.describe SegmentIntegration::User do
     end
 
     describe '#integration_rules' do
-
       it 'returns the expected params hash for no user' do
         expect(teacher.segment_user.integration_rules).to eq({ all: true, Intercom: true })
       end
     end
-
   end
 end

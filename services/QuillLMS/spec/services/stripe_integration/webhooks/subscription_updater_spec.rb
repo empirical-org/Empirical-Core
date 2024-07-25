@@ -53,5 +53,3 @@ RSpec.describe StripeIntegration::Webhooks::SubscriptionUpdater do
     end
   end
 end
-
-

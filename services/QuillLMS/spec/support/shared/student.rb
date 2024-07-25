@@ -10,6 +10,5 @@ shared_examples_for 'student' do
     it 'should be valid' do
       expect(student).to be_valid
     end
-
   end
 end

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe 'TeachersData' do
-
   let!(:teachers_data_module) { TeachersData }
 
   let!(:classroom) { create(:classroom_with_a_couple_students) }

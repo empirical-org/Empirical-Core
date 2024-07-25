@@ -69,5 +69,4 @@ class CoteacherClassroomInvitation < ApplicationRecord
 
     errors.add(:base, "The maximum limit of #{MAX_COTEACHER_INVITATIONS_PER_CLASS} coteacher invitations have already been issued for class #{classroom_id}")
   end
-
 end

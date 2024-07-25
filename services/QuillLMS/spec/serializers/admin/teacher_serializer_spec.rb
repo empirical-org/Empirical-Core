@@ -64,6 +64,5 @@ describe Admin::TeacherSerializer do
         expect(described_class.new(record_for_user_with_admin_role).schools[0][:role]).to eq('Teacher')
       end
     end
-
   end
 end

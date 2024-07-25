@@ -18,5 +18,4 @@ class AdminInfosController < ApplicationController
   private def admin_info_params
     params.permit(:sub_role, :verification_reason, :verification_url)
   end
-
 end

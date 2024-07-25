@@ -11,7 +11,6 @@ describe Cms::BlogPostsController, type: :controller do
 
   let(:user) { create(:staff) }
 
-
   describe '#index' do
     let!(:post) { create(:blog_post) }
 

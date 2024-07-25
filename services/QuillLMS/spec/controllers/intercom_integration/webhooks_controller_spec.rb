@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
-
   describe '#create' do
     context 'authentication is valid, and payload is valid' do
       let(:user) { create(:user) }
@@ -88,7 +87,6 @@ RSpec.describe IntercomIntegration::WebhooksController, type: :controller do
     end
 
     context 'authentication not valid' do
-
       # Basically, since we're not providing signed headers, this will be invalid
       # by default
       it 'raises error' do

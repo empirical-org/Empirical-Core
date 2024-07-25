@@ -44,7 +44,6 @@ shared_context 'array and hash data fields' do |data_field|
   end
 end
 
-
 RSpec.describe TranslatableQuestion do
   before do
     ENV['CMS_URL'] = 'https://cms.quill.org'
@@ -127,9 +126,68 @@ RSpec.describe TranslatableQuestion do
           expect(translation_map1.text).to eq(feedback1)
           expect(translation_map2.text).to eq(feedback2)
         end
+      end
+    end
+  end
 
+  describe "#translated_data(locale:)" do
+    subject { question.translated_data(locale:) }
+
+    let(:question) { create(:question, :with_all_translations) }
+    let(:locale) { Translatable::DEFAULT_LOCALE }
+
+    shared_examples 'translatable field' do |field_key|
+      let(:translated_field) { subject[field_key] }
+      let(:field_mappings) { question.translation_mappings.where("field_name LIKE ?", "#{field_key}%") }
+
+      it "includes translations for all #{field_key}" do
+        field_mappings.each do |mapping|
+
+          translated_text = mapping.translated_texts.find_by(locale:)
+
+          expect(translated_field).to have_key(mapping.field_name)
+          expect(translated_field[mapping.field_name]).to eq(translated_text.translation)
+        end
       end
 
+      it "does not include untranslated #{field_key}" do
+        untranslated_field_names = field_mappings.map(&:field_name) - translated_field.keys
+
+        expect(untranslated_field_names).to be_empty,
+          "These #{field_key} were not translated: #{untranslated_field_names.join(', ')}"
+      end
+    end
+
+    it 'has all the data types' do
+      expect(subject).to include(
+        Question::FOCUS_POINTS,
+        Question::INCORRECT_SEQUENCES,
+        Question::CMS_RESPONSES,
+        Question.default_translatable_field
+      )
+    end
+
+    context 'focus points' do
+      it_behaves_like 'translatable field', Question::FOCUS_POINTS
+    end
+
+    context 'incorrect sequences' do
+      it_behaves_like 'translatable field', Question::INCORRECT_SEQUENCES
+    end
+
+    context 'CMS responses' do
+      it_behaves_like 'translatable field', Question::CMS_RESPONSES
+    end
+
+    it 'returns the translated instructions' do
+      expect(subject[Question.default_translatable_field]).to eq(question.translation(locale:))
+    end
+
+    it 'returns an empty array when translation is not available' do
+      # Remove one translation to test fallback
+      question.translation_mappings.where(field_name: "#{Question::FOCUS_POINTS}.#{question.data[Question::FOCUS_POINTS].keys.first}").destroy_all
+
+      expect(subject[Question::FOCUS_POINTS].values).to be_empty
     end
   end
 end

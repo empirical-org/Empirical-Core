@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Types::QueryType < Types::BaseObject
-
   field :current_user, Types::UserType, null: true, resolve: ->(obj, args, ctx) { ctx[:current_user] }
 
   field :concept, Types::ConceptType, null: true do

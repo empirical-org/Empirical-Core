@@ -215,5 +215,4 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
       it { is_expected.to eq filter_selections.dig('timeframe', 'value') }
     end
   end
-
 end

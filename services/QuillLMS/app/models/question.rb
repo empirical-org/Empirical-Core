@@ -65,7 +65,6 @@ class Question < ApplicationRecord
   validate :data_must_be_hash
   validate :validate_sequences
 
-
   store_accessor :data, :flag
   store_accessor :data, :focusPoints
   store_accessor :data, :incorrectSequences
@@ -79,7 +78,8 @@ class Question < ApplicationRecord
   scope :production, -> { where("data->>'flag' = ?", FLAG_PRODUCTION) }
 
   def as_json(options=nil)
-    data
+    locale = options&.fetch(:locale, nil)
+    locale.present? ? translated_data(locale:) : data
   end
 
   def self.all_questions_json(question_type)
@@ -156,7 +156,6 @@ class Question < ApplicationRecord
   def delete_incorrect_sequence(id)
     delete_data_for(id:, type: INCORRECT_SEQUENCES)
   end
-
 
   # this attribute is used by the CMS's Rematch All process
   def rematch_type

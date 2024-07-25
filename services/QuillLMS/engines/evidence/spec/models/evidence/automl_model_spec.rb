@@ -83,7 +83,6 @@ module Evidence
           expect(automl_model).not_to be_valid
         end
 
-
         it 'validate state = active if labels_have_associated_rules is true' do
           allow(automl_model).to receive(:labels_have_associated_rules?).and_return(true)
           expect(automl_model).to be_valid

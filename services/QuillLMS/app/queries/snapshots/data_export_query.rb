@@ -2,7 +2,6 @@
 
 module Snapshots
   class DataExportQuery < PeriodQuery
-
     def run
       run_query
     end
@@ -36,7 +35,6 @@ module Snapshots
         datetime_string_with_timezone = row[:completed_at].in_time_zone(user.time_zone)
         row.merge(completed_at: datetime_string_with_timezone)
       end
-
     end
 
     def from_and_join_clauses

@@ -42,7 +42,6 @@ module Evidence
 
         expect { client.post }.to_not raise_error
       end
-
     end
   end
 end

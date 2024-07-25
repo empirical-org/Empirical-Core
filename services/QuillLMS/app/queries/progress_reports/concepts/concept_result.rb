@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ProgressReports::Concepts::ConceptResult
-
   def self.results(teacher, filters)
     query = ::ConceptResult.select(<<-SELECT
       cast(concept_results.correct as int) as is_correct,

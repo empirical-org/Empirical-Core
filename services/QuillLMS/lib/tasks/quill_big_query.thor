@@ -4,7 +4,6 @@ require_relative '../../config/environment'
 
 module QuillBigQuery
   class MaterializedViews < Thor
-
     # e.g. bundle exec thor quill_big_query:materialized_views:refresh reporting_sessions_view
     desc 'refresh view_key', 'Refreshes (drops and creates) a specified Materialized View'
     def refresh(view_key) = mat_view(view_key).refresh!

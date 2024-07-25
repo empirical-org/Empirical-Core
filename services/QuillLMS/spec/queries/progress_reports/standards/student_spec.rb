@@ -4,7 +4,6 @@ require 'rails_helper'
 
 describe ProgressReports::Standards::Student do
   describe 'getting users for the progress reports' do
-
     let!(:teacher) { create(:teacher) }
     let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }
 

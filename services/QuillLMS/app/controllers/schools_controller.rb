@@ -83,7 +83,6 @@ class SchoolsController < ApplicationController
       # longer cache, more general
       $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
     end
-
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

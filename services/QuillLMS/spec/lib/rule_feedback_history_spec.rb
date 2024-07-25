@@ -59,7 +59,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       }
 
       expect(report.first).to eq(expected)
-
     end
   end
 
@@ -145,7 +144,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expect(
         Set[*response_ids] == Set[f_h1.id, f_h2.id]
       ).to be true
-
     end
 
     it 'should include rules that have no related FeedbackHistory records' do
@@ -193,7 +191,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expect(
         Set[*response_ids] == Set[f_h5.id]
       ).to be true
-
     end
 
     it 'should display the most recent feedback history rating, if it exists' do
@@ -233,7 +230,6 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       rated_response = responses.find { |r| r[:response_id] == f_h1.id }
 
       expect(rated_response[:strength]).to eq true
-
     end
   end
 
@@ -254,5 +250,4 @@ RSpec.describe RuleFeedbackHistory, type: :model do
       expect(result).to eq expected
     end
   end
-
 end

@@ -31,7 +31,6 @@ module Evidence
     let!(:low_confidence_feedback) { create(:evidence_feedback, :text => 'here is low confidence feedback', :rule => (low_confidence_rule), :order => 0) }
 
     describe '#create' do
-
       let(:feedback) { double('feedback', response: { key1: 'some value', api: { api_key: 'api_value' } }) }
       let(:session_id) { 99 }
       let(:attempt) { 3 }
@@ -227,7 +226,6 @@ module Evidence
         let!(:grammar_hint) { create(:evidence_hint) }
         let!(:grammar_rule) { create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint) }
 
-
         before do
           allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
             { example_error => example_rule_uid }
@@ -279,7 +277,6 @@ module Evidence
         let!(:opinion_rule) do
           create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => opinion_hint)
         end
-
 
         before do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::Opinion])
@@ -358,7 +355,6 @@ module Evidence
         create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint)
       end
 
-
       before do
         allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
           { example_error => example_rule_uid }
@@ -409,7 +405,6 @@ module Evidence
           })
         end
       end
-
     end
 
     describe '#opinion' do
@@ -438,7 +433,6 @@ module Evidence
       let!(:opinion_rule) do
         create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => opinion_hint)
       end
-
 
       before do
         allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
@@ -490,7 +484,6 @@ module Evidence
           })
         end
       end
-
     end
 
     describe '#prefilter' do
@@ -679,7 +672,6 @@ module Evidence
           end
         end
       end
-
     end
 
     context 'should #spelling' do

@@ -31,6 +31,5 @@ module Evidence
         'oapi_error'
       end
     end
-
   end
 end

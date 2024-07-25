@@ -63,7 +63,6 @@ class ApplicationController < ActionController::Base
     login_failure 'Incorrect username/email or password'
   end
 
-
   def login_failure(error)
     @user = User.new
     flash[:error] = error

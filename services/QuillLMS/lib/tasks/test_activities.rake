@@ -3,7 +3,6 @@
 namespace :test do
   desc 'create test activities A1, A2, A3'
   task :activities => :environment do
-
     a1_data = {
       uid: 'tWwOHnapjOTXqMQOY6p7-g-test',
       name: 'Test A1 (And, Or)',
@@ -21,7 +20,6 @@ namespace :test do
       activity_classification_id: 1,
       standard_id: 47
     }
-
 
     a3_data = {
         uid: 'Pgcl7c_giqeHwWvdgJA3CQ-test',

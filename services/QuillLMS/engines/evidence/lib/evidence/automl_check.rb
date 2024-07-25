@@ -2,7 +2,6 @@
 
 module Evidence
   class AutomlCheck
-
     LOW_CONFIDENCE_THRESHOLD = 0.6
 
     attr_reader :entry, :prompt

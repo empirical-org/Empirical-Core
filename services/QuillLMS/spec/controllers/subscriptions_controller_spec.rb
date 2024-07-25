@@ -130,7 +130,6 @@ describe SubscriptionsController do
   end
 
   context 'without user' do
-
     before { allow(controller).to receive(:current_user) { nil } }
 
     describe '#index' do
@@ -141,5 +140,4 @@ describe SubscriptionsController do
       end
     end
   end
-
 end

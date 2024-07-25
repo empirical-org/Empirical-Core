@@ -15,5 +15,4 @@ module UnitsWithCompletedActivities
     Unit.where(id: relevant_unit_ids)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
 end

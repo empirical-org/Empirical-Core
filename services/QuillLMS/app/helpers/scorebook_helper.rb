@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ScorebookHelper
-
   def percentage_color(score)
     proficiency_cutoff = ProficiencyEvaluator.proficiency_cutoff
     nearly_proficient_cutoff = ProficiencyEvaluator.nearly_proficient_cutoff
@@ -71,5 +70,4 @@ module ScorebookHelper
       'Quill Connect'
     end
   end
-
 end

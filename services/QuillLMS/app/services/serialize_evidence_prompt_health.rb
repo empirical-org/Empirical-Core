@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SerializeEvidencePromptHealth
-
   attr_accessor :prompt, :prompt_feedback_history
 
   def initialize(prompt, prompt_feedback_history)
@@ -85,5 +84,4 @@ class SerializeEvidencePromptHealth
 
     ((repeated_consecutive / total_responses.to_f) * 100).round
   end
-
 end

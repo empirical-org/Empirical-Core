@@ -41,7 +41,6 @@ module Evidence
           get :activity_versions, params: { id: activity.id, include_count: true }
         end
       end
-
     end
 
     context 'should index' do
@@ -401,7 +400,6 @@ module Evidence
         expect(parsed_response.select { |cl| cl['changed_record_type'] == 'Evidence::Activity' }.count).to(eq(2))
         expect(parsed_response.select { |cl| cl['changed_record_type'] == 'Evidence::Prompt' }.count).to(eq(1))
         expect(parsed_response.select { |cl| cl['changed_attribute'] == 'version' }.count).to(eq(1))
-
       end
 
       it 'should return empty array if no change logs exist' do
@@ -567,7 +565,6 @@ module Evidence
         get :topic_optimal_info, params: { id: activity.id }
 
         parsed_response = JSON.parse(response.body)
-
 
         expect(response).to have_http_status(:success)
         expect(parsed_response['concept_uids']).to eq({

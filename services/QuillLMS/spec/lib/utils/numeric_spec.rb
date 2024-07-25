@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Utils::Numeric do
-
   describe '#to_human_string' do
     it 'should format million- and billion-order Numerics correctly' do
       expect(Utils::Numeric.to_human_string(1_000_000)).to eq(

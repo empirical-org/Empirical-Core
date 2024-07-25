@@ -22,7 +22,6 @@ describe PremiumHub::MadeSchoolAdminLinkSchoolEmailWorker, type: :worker do
   end
 
   describe 'user is nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(nil)
       allow(SchoolsAdmins).to receive(:where).and_return([])
@@ -40,7 +39,6 @@ describe PremiumHub::MadeSchoolAdminLinkSchoolEmailWorker, type: :worker do
   end
 
   describe 'user is not nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(teacher, referring_admin)
       allow(SchoolsAdmins).to receive(:where).and_return([school_admin])

@@ -78,7 +78,6 @@ module Pdfs
           it { is_expected.to eq injected_item }
         end
       end
-
     end
   end
 end

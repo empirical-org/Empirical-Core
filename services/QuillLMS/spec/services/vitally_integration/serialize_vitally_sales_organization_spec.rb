@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe VitallyIntegration::SerializeVitallySalesOrganization do
-
   before do
     create(:evidence)
   end
@@ -166,7 +165,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     end
 
     context 'diagnostic completion percentage rollups' do
-
       it 'should calculate completion percentages' do
         student2 = create(:student, student_in_classroom: [classroom1])
         classroom_unit1 = create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])
@@ -341,7 +339,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'gets the number of activites completed' do
-
         it 'in this school year' do
           expect(described_class.new(district).data[:traits][:activities_completed_this_year]).to eq(2)
         end
@@ -356,7 +353,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'gets the number of activites completed per student' do
-
         it 'in this school year' do
           expect(described_class.new(district).data[:traits][:activities_completed_per_student_this_year]).to eq(1.0)
         end
@@ -371,7 +367,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'gets the number of active students' do
-
         it 'in this school year' do
           expect(described_class.new(district).data[:traits][:active_students_this_year]).to eq(2)
         end

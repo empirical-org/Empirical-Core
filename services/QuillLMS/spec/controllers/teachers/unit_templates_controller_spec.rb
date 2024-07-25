@@ -12,7 +12,6 @@ describe Teachers::UnitTemplatesController, type: :controller do
 
   include_context 'Unit Assignments Variables'
 
-
   let(:parsed_body) { JSON.parse(response.body) }
 
   describe '#index, as: :json' do

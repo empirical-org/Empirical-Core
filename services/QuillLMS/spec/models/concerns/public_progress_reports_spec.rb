@@ -141,11 +141,8 @@ describe PublicProgressReports, type: :model do
         it 'responds with a link' do
           expect(FakeReports.new.activity_session_report(unit.id, classroom.id, student.id, activity.id)).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses/#{student.id}?unit=#{unit.id}" })
         end
-
       end
-
     end
-
   end
 
   describe '#classrooms_with_students_for_report' do
@@ -325,7 +322,6 @@ describe PublicProgressReports, type: :model do
       ]
 
       expect(FakeReports.new.generic_questions_for_report(activity).to_json).to eq(expected_response.to_json)
-
     end
   end
 
@@ -381,7 +377,6 @@ describe PublicProgressReports, type: :model do
       # in a convoluted way
       expect(formatted_activity_session[:completed_at].to_datetime.to_i)
         .to eq((activity_session.reload.completed_at + classrooms_teacher.teacher.utc_offset.seconds).to_datetime.to_i)
-
     end
   end
 
@@ -453,7 +448,6 @@ describe PublicProgressReports, type: :model do
 
       expect(FakeReports.new.get_key_target_skill_concept_for_question([incorrect_concept_result], incorrect_concept_result.activity_session)).to eq(expected)
     end
-
   end
 
   describe '#get_final_attempt_feedback' do
@@ -521,7 +515,6 @@ describe PublicProgressReports, type: :model do
           expect(FakeReports.new.get_final_attempt_feedback(activity_session, question_uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK)
         end
       end
-
     end
 
     describe 'connect activity' do
@@ -551,9 +544,7 @@ describe PublicProgressReports, type: :model do
           expect(FakeReports.new.get_final_attempt_feedback(activity_session, question.uid, zero, prompt_text, final_attempt_number)).to eq(FakeReports::CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK)
         end
       end
-
     end
-
   end
 
   describe '#finished_activity_sessions_for_unit_activity_classroom_and_student' do
@@ -587,5 +578,4 @@ describe PublicProgressReports, type: :model do
       expect(result.length).to eq(1)
     end
   end
-
 end

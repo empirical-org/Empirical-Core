@@ -89,7 +89,6 @@ class AdminDiagnosticStudentsController < ApplicationController
   end
 
   private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
-
     Snapshots::CacheKeys.generate_key(CACHE_REPORT_NAME,
       "#{@query}-#{@diagnostic_id}",
       timeframe_name,

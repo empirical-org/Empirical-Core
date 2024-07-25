@@ -19,7 +19,6 @@ RSpec.describe DiagnosticsOrganizedByClassroomFetcher do
   subject { described_class.new(user) }
 
   describe 'record_with_aggregated_activity_sessions' do
-
     context 'there are no completed activity sessions' do
       it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(true) }
     end
@@ -58,7 +57,5 @@ RSpec.describe DiagnosticsOrganizedByClassroomFetcher do
 
       it { expect(subject.record_with_aggregated_activity_sessions(activity.id, classroom.id)['eligible_for_question_scoring']).to eq(false) }
     end
-
   end
-
 end

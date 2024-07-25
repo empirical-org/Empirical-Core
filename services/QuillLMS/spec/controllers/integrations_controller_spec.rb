@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe IntegrationsController do
-
   describe '#amplify' do
     it 'should render the correct template' do
       get :amplify

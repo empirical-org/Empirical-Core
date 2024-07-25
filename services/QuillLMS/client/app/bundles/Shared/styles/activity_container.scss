@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
   }
-  .activity-navbar-content, .student-nav {
+  .activity-navbar-content, .student-nav, .header {
     .header-buttons-container {
       display: flex;
       justify-content: flex-end;
@@ -57,7 +57,10 @@
       font-weight: 600;
     }
   }
-  .student-nav .header-buttons-container .ell-language-selector {
-    height: 40px;
+
+  .student-nav, .header {
+    .header-buttons-container .ell-language-selector {
+      height: 40px;
+    }
   }
 }

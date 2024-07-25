@@ -65,7 +65,6 @@ require 'rails_helper'
 
 # rubocop:disable Metrics/BlockLength
 RSpec.describe User, type: :model do
-
   it { is_expected.to callback(:capitalize_name).before(:save) }
   it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
   it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
@@ -245,7 +244,6 @@ RSpec.describe User, type: :model do
   end
 
   describe 'subscription methods' do
-
     context 'subscription methods' do
       let(:user) { create(:user) }
       let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
@@ -441,7 +439,6 @@ RSpec.describe User, type: :model do
         end
       end
     end
-
   end
 
   describe '#admin?' do
@@ -763,9 +760,7 @@ RSpec.describe User, type: :model do
     let!(:negative_credit_transaction) { create(:credit_transaction, user: user, amount: -5) }
 
     context 'when the user has a positive balance' do
-
       context 'and no existing subscription' do
-
         it "creates a credit transaction that clears the user's credit" do
           user.redeem_credit
           expect(CreditTransaction.last.amount).to eq(-45)
@@ -864,7 +859,6 @@ RSpec.describe User, type: :model do
   end
 
   describe '#safe_role_assignment' do
-
     it "must assign 'user' role by default" do
       expect(user.safe_role_assignment('nil')).to eq('user')
     end
@@ -2061,7 +2055,6 @@ RSpec.describe User, type: :model do
     end
 
     context 'should create new TeacherInfo record' do
-
       it 'should create a record' do
         teacher = build(:teacher)
 
@@ -2074,7 +2067,6 @@ RSpec.describe User, type: :model do
 
         expect(teacher.teacher_info.role_selected_at_signup).to eq(role_selected_at_signup)
       end
-
     end
 
     it 'should create new TeacherNotificationSetting records based on configured defaults' do
@@ -2232,7 +2224,6 @@ RSpec.describe User, type: :model do
 
         it { is_expected.to match_array [canvas_account1.user, canvas_account2.user] }
       end
-
     end
   end
 

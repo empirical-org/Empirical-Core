@@ -4,7 +4,6 @@ require 'httparty'
 require 'evidence'
 
 namespace :import_comprehension do
-
   desc 'Import records from existing Comprehension API with the base URL of the Comprehension API you want to import from as the arg: `rake import_comprehension:activities[https://comprehension-247816.appspot.com]`'
 
   task :activities, [:options] => :environment do |t, args|

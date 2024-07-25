@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module CleverIntegration::Parsers::SchoolAdminFromAuth
-
   def self.run(auth_hash)
     info = auth_hash[:info]
     district_id = info[:district]

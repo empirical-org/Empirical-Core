@@ -64,4 +64,3 @@ module CanvasIntegration
     end
   end
 end
-

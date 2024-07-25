@@ -113,7 +113,6 @@ describe DiagnosticReports do
         expect(@assigned_students).to include(student2, student3)
         expect(@activity_sessions).to include(activity_session2)
       end
-
     end
 
     describe 'if there is no unit_id' do
@@ -154,7 +153,6 @@ describe DiagnosticReports do
         expect(@assigned_students).to eq [student2]
         expect(@activity_sessions.map(&:user_id).uniq).to eq [student2.id]
       end
-
     end
   end
 
@@ -171,5 +169,4 @@ describe DiagnosticReports do
       expect(summarize_student_proficiency_for_skill_per_activity(2, 1)).to eq(DiagnosticReports::PARTIAL_PROFICIENCY)
     end
   end
-
 end

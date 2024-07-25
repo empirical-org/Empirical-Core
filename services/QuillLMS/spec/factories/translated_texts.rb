@@ -23,5 +23,4 @@ FactoryBot.define do
       source_api { Translatable::GENGO_SOURCE }
     end
   end
-
 end

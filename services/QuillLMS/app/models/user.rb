@@ -494,7 +494,6 @@ class User < ApplicationRecord
     schools_admins.count > 1
   end
 
-
   def self.find_by_username_or_email(login_name)
     login_name = login_name.downcase
     User.where('email = ? OR username = ?', login_name, login_name).first

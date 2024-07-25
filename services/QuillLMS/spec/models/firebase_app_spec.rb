@@ -15,7 +15,6 @@
 require 'rails_helper'
 
 describe FirebaseApp, type: :model do
-
   let(:firebase_app){ create(:firebase_app) }
 
   context '#token_for' do
@@ -150,5 +149,4 @@ describe FirebaseApp, type: :model do
       end
     end
   end
-
 end

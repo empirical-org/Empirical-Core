@@ -16,7 +16,6 @@
 require 'rails_helper'
 
 describe CsvExport, type: :model do
-
   include_context 'Activity Progress Report'
   let(:csv_export) { CsvExport.new }
 
@@ -40,7 +39,6 @@ describe CsvExport, type: :model do
   end
 
   describe 'export types' do
-
     context 'invalid type' do
       let(:csv_export1) { CsvExport.new }
 
@@ -139,5 +137,4 @@ describe CsvExport, type: :model do
       end
     end
   end
-
 end

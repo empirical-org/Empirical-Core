@@ -4,7 +4,6 @@ module Evidence
   module Synthetic
     module Generators
       class Base < ApplicationService
-
         class NotImplementedError < StandardError; end
 
         attr_reader :results_hash

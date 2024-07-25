@@ -338,7 +338,6 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       end
     end
 
-
     it 'should update the existing record' do
       data = { 'foo' => 'bar' }
       put :update, params: { id: active_activity_session.uid, active_activity_session: data }, as: :json
@@ -406,7 +405,6 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       expect(update_payload_property_set - result_property_set).to eq []
     end
 
-
     it 'should create a new session if the requested activity session is not found' do
       data = { 'foo' => 'bar' }
       put :update, params: { id: 'doesnotexist', active_activity_session: data }, as: :json
@@ -448,5 +446,4 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       end.to raise_error(err)
     end
   end
-
 end

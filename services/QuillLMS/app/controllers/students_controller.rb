@@ -139,5 +139,4 @@ class StudentsController < ApplicationController
   private def student_params
     params.permit(:name, :email, :username, :time_zone)
   end
-
 end

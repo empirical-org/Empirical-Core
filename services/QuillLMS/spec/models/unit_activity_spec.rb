@@ -28,7 +28,6 @@
 require 'rails_helper'
 
 describe UnitActivity, type: :model, redis: true do
-
   it { should belong_to(:activity) }
   it { should belong_to(:unit) }
   it { should have_many(:classroom_unit_activity_states).dependent(:destroy) }
@@ -77,7 +76,6 @@ describe UnitActivity, type: :model, redis: true do
       activity.classification = activity_classification3
       expect(unit_activity.from_valid_date_for_activity_analysis?).to eq(true)
     end
-
 
     it 'returns true if it was created after 25-10-2016 and the classification is 1 or 2' do
       unit_activity.update(created_at: Date.parse('26-10-2016'))
@@ -156,7 +154,6 @@ describe UnitActivity, type: :model, redis: true do
       unit_activity.update(due_date: existing_due_date)
       expect(unit_activity).not_to receive(:adjust_due_date_for_timezone)
       unit_activity.save_new_attributes_and_adjust_dates!(due_date: existing_due_date)
-
     end
 
     it 'calls the publish date adjustment method if the publish date has changed' do
@@ -339,7 +336,6 @@ describe UnitActivity, type: :model, redis: true do
     end
 
     describe 'publish dates' do
-
       it 'includes unit activities that do not have a publish date' do
         unit_activity.update(publish_date: nil)
         lessons_unit_activity.update(publish_date: nil)
@@ -362,7 +358,6 @@ describe UnitActivity, type: :model, redis: true do
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
         expect(unit_activities.count).to eq(0)
       end
-
     end
 
     describe 'completed dates' do

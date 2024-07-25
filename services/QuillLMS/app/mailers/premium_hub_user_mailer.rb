@@ -74,5 +74,4 @@ class PremiumHubUserMailer < UserMailer
     @link_school_link = "#{ENV['DEFAULT_URL']}/teachers/#{@user.id}/schools/#{@new_school.id}"
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{new_school.name}"
   end
-
 end

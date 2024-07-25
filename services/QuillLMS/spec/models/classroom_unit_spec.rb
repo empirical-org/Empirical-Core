@@ -27,7 +27,6 @@
 require 'rails_helper'
 
 describe ClassroomUnit, type: :model, redis: true do
-
   it { should belong_to(:classroom) }
   it { should belong_to(:unit) }
   it { should have_many(:activity_sessions) }
@@ -81,9 +80,7 @@ describe ClassroomUnit, type: :model, redis: true do
   end
 
   describe '#validate_assigned_student' do
-
     context 'it must return true when' do
-
       it 'assign_on_join is true' do
         classroom_unit.assign_on_join = true
         expect(classroom_unit.validate_assigned_student(student.id)).to be true
@@ -93,7 +90,6 @@ describe ClassroomUnit, type: :model, redis: true do
         classroom_unit.assigned_student_ids = [student.id]
         expect(classroom_unit.validate_assigned_student(student.id)).to be true
       end
-
     end
 
     it 'must return false when assigned_student_ids does not contain the student id and it was not assigned to the entire classroom' do

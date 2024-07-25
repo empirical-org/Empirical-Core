@@ -256,5 +256,4 @@ describe School, type: :model do
       expect(school.vitally_data).to eq({ externalId: school.id.to_s, name: school.name })
     end
   end
-
 end

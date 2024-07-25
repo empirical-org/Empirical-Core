@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 shared_examples_for 'flagged' do
-
   let(:flagged) do
     described_class.new
   end
@@ -59,7 +58,6 @@ shared_examples_for 'flagged' do
       end
     end
 
-
     describe '#unflag!' do
       it 'must pop the flag and save the instance' do
         expect(flagged.unflag!(:alpha)).to eq true
@@ -81,5 +79,4 @@ shared_examples_for 'flagged' do
       end
     end
   end
-
 end

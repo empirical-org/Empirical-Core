@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe ProgressReports::Standards::Unit do
-
   describe 'getting units for the progress report' do
     include_context 'StandardLevel Progress Report'
     let(:standard_level_ids) { [standard_levels[0].id, standard_levels[1].id] }

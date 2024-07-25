@@ -20,7 +20,6 @@ class FakeController < ApplicationController
 end
 
 describe FakeController, type: :controller do
-
   describe '#auth_failed' do
     before do
       Rails.application.routes.draw do
@@ -48,7 +47,6 @@ describe FakeController, type: :controller do
         expect(JSON.parse(response.body)).to eq({ 'redirect' => '/session/new' })
       end
     end
-
   end
 
   describe 'authentication methods' do
@@ -162,7 +160,6 @@ describe FakeController, type: :controller do
         expect(user).not_to receive(:save_user_pack_sequence_items)
         subject
       end
-
     end
 
     context 'admin impersonating user' do

@@ -83,7 +83,6 @@ module Evidence
         'who_s_vs_whose' => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
       }
 
-
       EXCEPTIONS = [
         'cloning mammals',
         'united states',

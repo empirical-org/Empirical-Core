@@ -64,7 +64,6 @@ class LessonPlanner::UnitSerializer < ApplicationSerializer
     end
   end
 
-
   private def all_students_selected(students)
     students.map do |student|
       { id: student.id, name: student.name, isSelected: true }

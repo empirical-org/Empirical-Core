@@ -15,4 +15,3 @@ describe QuillBigQuery::MaterializedViewRefreshWorker do
     end
   end
 end
-

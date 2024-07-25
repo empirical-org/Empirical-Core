@@ -54,5 +54,4 @@ module VitallyTeacherStats
   def diagnostic_id
     ActivityClassification.diagnostic.id
   end
-
 end

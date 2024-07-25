@@ -21,7 +21,6 @@ describe ClearUserDataWorker, type: :worker do
   it { expect { subject }.to change { user.reload.ip_location }.to(nil) }
   it { expect { subject }.to change { StudentsClassrooms.where(student_id: user.id).count }.to(0) }
 
-
   it 'removes student from related classroom_units' do
     subject
     classroom_units.each { |cu| expect(cu.assigned_student_ids).not_to include(user.id) }

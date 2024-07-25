@@ -225,7 +225,6 @@ describe Subscription, type: :model do
     end
 
     context 'when the expiration is missing' do
-
       it 'adds at least a year (or more, depending on promotions) to other accounts' do
         attributes = { account_type: 'Teacher Paid' }
         new_sub = Subscription.create_and_attach_subscriber(attributes, user)
@@ -480,7 +479,6 @@ describe Subscription, type: :model do
         let(:account_type) { described_class::SCHOOL_SPONSORED_FREE }
 
         it { expect(subject).to be nil }
-
       end
     end
 

@@ -60,6 +60,4 @@ module LessonsCache
 
     cuas.flatten.map { |cua| lessons_cache_info_formatter(cua) }
   end
-
-
 end

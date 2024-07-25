@@ -257,6 +257,5 @@ describe ResultsSummary do
       skill_groups_for_session([skill_group_activity.skill_group], activity_session1.concept_results, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq [student1.name]
     end
-
   end
 end

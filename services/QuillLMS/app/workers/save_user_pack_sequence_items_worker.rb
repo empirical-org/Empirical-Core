@@ -12,4 +12,3 @@ class SaveUserPackSequenceItemsWorker
     UserPackSequenceItemSaver.run(classroom_id, user_id)
   end
 end
-

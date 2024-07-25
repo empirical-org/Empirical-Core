@@ -336,7 +336,6 @@ class Teachers::ClassroomManagerController < ApplicationController
     { classroom: classroom, students: classroom.students.sort_by(&:sorting_name) }
   end
 
-
   private def classrooms_with_data
     RawSqlRunner.execute(
       <<-SQL
@@ -386,5 +385,4 @@ class Teachers::ClassroomManagerController < ApplicationController
     @alternative_schools = School.where(name: School::ALTERNATIVE_SCHOOL_NAMES)
     @alternative_schools_name_map = School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP
   end
-
 end

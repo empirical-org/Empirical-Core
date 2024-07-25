@@ -35,9 +35,7 @@
 #
 require 'rails_helper'
 
-
 describe ActivitySession, type: :model, redis: true do
-
   it { should belong_to(:classroom_unit).touch(true) }
   it { should belong_to(:activity) }
   it { should have_one(:classification).through(:activity) }
@@ -268,16 +266,13 @@ describe ActivitySession, type: :model, redis: true do
   let(:activity_session) { build(:activity_session, completed_at: 5.minutes.ago) }
 
   describe '#activity' do
-
     context 'when there is a direct activity association' do
-
     let(:activity){ create(:activity) }
     let(:activity_session){ build(:activity_session,activity_id: activity.id) }
 
     it 'must return the associated activity' do
        expect(activity_session.activity).to eq activity
      end
-
   end
 
     describe '#invalidate_activity_session_count_if_completed' do
@@ -300,11 +295,9 @@ describe ActivitySession, type: :model, redis: true do
         activity_session.invalidate_activity_session_count_if_completed
         expect($redis.get("classroom_id:#{student.classrooms.first.id}_completed_activity_count")).to eq('10')
       end
-
     end
 
     context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
-
       let!(:activity){ create(:activity) }
       let!(:student){ create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
@@ -316,13 +309,10 @@ describe ActivitySession, type: :model, redis: true do
          unit_activity.unit.reload
          expect(activity_session.activity).to eq unit_activity.activity
        end
-
     end
-
   end
 
   describe '#activity_uid=' do
-
     let(:activity){ create(:activity) }
 
     it 'must associate activity by uid' do
@@ -330,7 +320,6 @@ describe ActivitySession, type: :model, redis: true do
       activity_session.activity_uid=activity.uid
       expect(activity_session.activity_id).to eq activity.id
     end
-
   end
 
   describe '#formatted_due_date' do
@@ -502,11 +491,9 @@ end
   end
 
   describe '#activity_uid' do
-
     it 'must return an uid when activity is present' do
       expect(activity_session.activity_uid).to be_present
     end
-
   end
 
   describe 'search_sort_sql' do
@@ -564,7 +551,6 @@ end
     it 'must be equal to percentage' do
       expect(activity_session.grade).to eq activity_session.percentage
     end
-
   end
 
   describe '#anonymous=' do
@@ -578,10 +564,8 @@ end
     end
   end
 
-
   context 'when before_create is fired' do
     describe '#set_state' do
-
       it 'must set state as unstarted' do
         activity_session.state=nil
         activity_session.save!
@@ -591,7 +575,6 @@ end
   end
 
   context 'when before_save is triggered' do
-
     describe '#set_completed_at when state = finished' do
       before do
         activity_session.save!
@@ -621,7 +604,6 @@ end
         end
       end
     end
-
   end
 
   context 'when completed scope' do
@@ -1004,7 +986,6 @@ end
       expect(activity_session.timespent).to eq(99)
     end
   end
-
 
   describe '#teacher_activity_feed' do
     let(:activity_session) { create(:activity_session, :unstarted) }

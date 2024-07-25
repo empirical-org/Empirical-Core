@@ -26,7 +26,6 @@ describe Cms::UsersController do
   end
 
   describe '#search' do
-
     it 'should search for the users with given flagset' do
       get :search, params: { flagset: 'alpha' }
       expect(response.body).to eq({ numberOfPages: 0, userSearchQueryResults: [], userSearchQuery: { flagset: 'alpha' } }.to_json)

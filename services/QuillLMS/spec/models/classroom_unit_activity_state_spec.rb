@@ -28,7 +28,6 @@
 require 'rails_helper'
 
 describe ClassroomUnitActivityState, type: :model, redis: true do
-
   it { should belong_to(:unit_activity) }
   it { should belong_to(:classroom_unit) }
 
@@ -114,5 +113,4 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
     end
   end
-
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module NameGenerator
-
   def generate
     "#{sample('noun_1.db')}-#{sample('noun_2.db')}"
   end
