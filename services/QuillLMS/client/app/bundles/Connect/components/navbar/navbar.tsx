@@ -28,7 +28,7 @@ export const NavBar: React.SFC<NavBarProps> = ({ isOnMobile, isTeacher, previewS
         {isTeacher && !previewShowing && !isOnMobile && <TeacherPreviewMenuButton handleTogglePreview={handleTogglePreview} />}
         <a className="focus-on-dark" href={process.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
         <div className='header-buttons-container'>
-          {showTranslations && <LanguagePicker language={language} languageOptions={languageOptions} updateLanguage={updateLanguage}/>}
+          {showTranslations && <LanguagePicker language={language} languageOptions={languageOptions} updateLanguage={updateLanguage} />}
           <a className="quill-button medium contained white focus-on-dark" href={process.env.DEFAULT_URL}>Save and exit</a>
         </div>
       </div>

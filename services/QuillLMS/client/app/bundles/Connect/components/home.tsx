@@ -100,7 +100,7 @@ export const Home = ({playLesson, lessons, dispatch}) => {
       language={playLesson?.language}
       languageOptions={languageOptions}
       updateLanguage={handleUpdateLanguage}
-      />);
+    />);
   }
   return(
     <div className={className}>
