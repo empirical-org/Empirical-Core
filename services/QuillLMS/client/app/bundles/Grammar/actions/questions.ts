@@ -22,7 +22,7 @@ export const startListeningToQuestions = (activityUID?: string, sessionID?: stri
       ? QuestionApi.getAll(activityUID)
       : QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE);
 
-    fetchQuestions.then((questions: Questions) => {
+    fetchQuestions.then((questions: Array<Question>) => {
       if (questions) {
         if (sessionID) {
           populateQuestions(questions)

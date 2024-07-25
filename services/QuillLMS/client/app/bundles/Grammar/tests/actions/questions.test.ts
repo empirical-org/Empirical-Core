@@ -30,9 +30,15 @@ import {
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
-    it('should call QuestionApi.getAll()', () => {
+    it('should call QuestionApi.getAllForType()', () => {
       dispatch(startListeningToQuestions())
-      expect(mockQuestionApi.getAll).toHaveBeenLastCalledWith(GRAMMAR_QUESTION_TYPE)
+      expect(mockQuestionApi.getAllForType).toHaveBeenLastCalledWith(GRAMMAR_QUESTION_TYPE)
+    })
+
+    it('should call QuestionApi.getAll if an activity ID is passd in', () => {
+      const MOCK_UID = "23"
+      dispatch(startListeningToQuestions(MOCK_UID))
+      expect(mockQuestionApi.getAll).toHaveBeenLastCalledWith(MOCK_UID)
     })
   })
 
