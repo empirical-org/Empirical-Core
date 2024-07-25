@@ -6,17 +6,17 @@ class ProgressReports::Standards::StandardSerializer < ApplicationSerializer
   attr_accessor :classroom_id
 
   attributes :name,
-             :id,
-             :standard_level_name,
-             :total_student_count,
-             :proficient_student_count,
-             :not_proficient_student_count,
-             :total_activity_count,
-             :timespent,
-             :average_score,
-             :standard_students_href,
-             :mastery_status,
-             :is_evidence
+    :id,
+    :standard_level_name,
+    :total_student_count,
+    :proficient_student_count,
+    :not_proficient_student_count,
+    :total_activity_count,
+    :timespent,
+    :average_score,
+    :standard_students_href,
+    :mastery_status,
+    :is_evidence
 
   # rubocop:disable Naming/PredicateName
   def is_evidence

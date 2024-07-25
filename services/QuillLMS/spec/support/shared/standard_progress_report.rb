@@ -27,20 +27,20 @@ shared_context 'Standard Progress Report' do
   let!(:activity_for_second_grade_standard) { create(:activity,
     name: '2nd Grade Activity', standard: second_grade_standard) }
   let!(:classroom_unit1) { create(:classroom_unit,
-                                            classroom: full_classroom,
-                                            assign_on_join: true,
-                                            unit: unit1) }
+    classroom: full_classroom,
+    assign_on_join: true,
+    unit: unit1) }
   let!(:unit_activity1) {
     create(:unit_activity,
-    activity: activity_for_second_grade_standard,
-    unit: unit1)
+      activity: activity_for_second_grade_standard,
+      unit: unit1)
   }
   let!(:activity_for_first_grade_standard) { create(:activity,
     name: '1st Grade Activity', standard: first_grade_standard) }
   let!(:unit_activity2) {
     create(:unit_activity,
-    activity: activity_for_first_grade_standard,
-    unit: unit1)
+      activity: activity_for_first_grade_standard,
+      unit: unit1)
   }
 
   # NOTE: ClassroomActivity.create does not create new activity sessions for every student in the classroom.

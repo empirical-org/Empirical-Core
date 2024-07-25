@@ -12,10 +12,10 @@ namespace :concepts do
         level_2_concept = Concept.find_or_create_by!(name: level_2_name)
         ap level_2_concept
         level_1_concept = Concept.find_or_create_by!(name: level_1_name,
-                                                     parent_id: level_2_concept.id)
+          parent_id: level_2_concept.id)
         ap level_1_concept
         level_0_concept = Concept.find_or_create_by!(name: level_0_name,
-                                                     parent_id: level_1_concept.id)
+          parent_id: level_1_concept.id)
         ap level_0_concept
       end
     end

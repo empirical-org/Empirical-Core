@@ -54,11 +54,11 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
       data = { 'text' => 'text', 'feedback'=>'feedback' }
       incorrect_sequence_uid = question.incorrectSequences.keys.first
       put :update,
-       params: {
-         question_id: question.uid,
-         id: incorrect_sequence_uid,
-         incorrect_sequence: data
-        },
+        params: {
+          question_id: question.uid,
+          id: incorrect_sequence_uid,
+          incorrect_sequence: data
+         },
         as: :json
 
       question.reload

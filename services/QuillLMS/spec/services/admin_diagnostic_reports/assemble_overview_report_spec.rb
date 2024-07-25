@@ -215,17 +215,17 @@ module AdminDiagnosticReports
                 .first[:aggregate_rows]
                 .select { |aggregate_row| aggregate_row[:aggregate_id] == pre_assigned_aggregate_row1[:aggregate_id] }
                 .first).to include(
-                {
-                  pre_students_assigned: pre_assigned_aggregate_row1[:pre_students_assigned],
-                  pre_students_completed: pre_completed_aggregate_row1[:pre_students_completed],
-                  pre_average_score: pre_completed_aggregate_row1[:pre_average_score],
-                  students_completed_practice: recommendations_aggregate_row1[:students_completed_practice],
-                  average_practice_activities_count: recommendations_aggregate_row1[:average_practice_activities_count],
-                  average_time_spent_seconds: recommendations_aggregate_row1[:average_time_spent_seconds],
-                  post_students_assigned: post_assigned_aggregate_row1[:post_students_assigned],
-                  post_students_completed: post_completed_aggregate_row1[:post_students_completed],
-                  overall_skill_growth: post_completed_aggregate_row1[:overall_skill_growth]
-                }
+                  {
+                    pre_students_assigned: pre_assigned_aggregate_row1[:pre_students_assigned],
+                    pre_students_completed: pre_completed_aggregate_row1[:pre_students_completed],
+                    pre_average_score: pre_completed_aggregate_row1[:pre_average_score],
+                    students_completed_practice: recommendations_aggregate_row1[:students_completed_practice],
+                    average_practice_activities_count: recommendations_aggregate_row1[:average_practice_activities_count],
+                    average_time_spent_seconds: recommendations_aggregate_row1[:average_time_spent_seconds],
+                    post_students_assigned: post_assigned_aggregate_row1[:post_students_assigned],
+                    post_students_completed: post_completed_aggregate_row1[:post_students_completed],
+                    overall_skill_growth: post_completed_aggregate_row1[:overall_skill_growth]
+                  }
               )
             end
           end

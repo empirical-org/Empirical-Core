@@ -160,30 +160,30 @@ describe Teachers::ClassroomManagerController, type: :controller do
               }
             ]
           },
-          {
-            id: intermediate_pre_test.id,
-            post_test_id: intermediate_post_test.id,
-            assigned_classroom_ids: [],
-            all_classrooms: [
-              {
-                id: user.classrooms_i_teach.last.id,
-                completed_pre_test_student_ids: [],
-                completed_post_test_student_ids: []
-              }
-            ]
-          },
-          {
-            id: advanced_pre_test.id,
-            post_test_id: advanced_post_test.id,
-            assigned_classroom_ids: [],
-            all_classrooms: [
-              {
-                id: user.classrooms_i_teach.last.id,
-                completed_pre_test_student_ids: [],
-                completed_post_test_student_ids: []
-              }
-            ]
-          })
+            {
+              id: intermediate_pre_test.id,
+              post_test_id: intermediate_post_test.id,
+              assigned_classroom_ids: [],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [],
+                  completed_post_test_student_ids: []
+                }
+              ]
+            },
+            {
+              id: advanced_pre_test.id,
+              post_test_id: advanced_post_test.id,
+              assigned_classroom_ids: [],
+              all_classrooms: [
+                {
+                  id: user.classrooms_i_teach.last.id,
+                  completed_pre_test_student_ids: [],
+                  completed_post_test_student_ids: []
+                }
+              ]
+            })
         end
       end
 

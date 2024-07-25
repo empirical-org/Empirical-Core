@@ -4,12 +4,12 @@ class CreateSchools < ActiveRecord::Migration[4.2]
   def change
     create_table :schools do |t|
       t.string  :nces_id, :lea_id, :leanm, :name, :phone, :mail_street, :mail_city,
-                :mail_state, :mail_zipcode, :street, :city, :state, :zipcode,
-                :nces_type_code, :nces_status_code, :magnet, :charter,
-                :ethnic_group
+        :mail_state, :mail_zipcode, :street, :city, :state, :zipcode,
+        :nces_type_code, :nces_status_code, :magnet, :charter,
+        :ethnic_group
       t.decimal :longitude, :latitude, precision: 9, scale: 6
       t.integer :ulocal, :fte_classroom_teacher, :lower_grade, :upper_grade,
-                :school_level, :free_lunches, :total_students
+        :school_level, :free_lunches, :total_students
       t.timestamps
     end
 

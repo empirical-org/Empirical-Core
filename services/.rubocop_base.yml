@@ -55,6 +55,11 @@ Gemspec/RequireMFA:
 Layout/ArrayAlignment:
   Enabled: true
 
+Layout/ArgumentAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 2
+
 Layout/AssignmentIndentation:
   Enabled: true
 

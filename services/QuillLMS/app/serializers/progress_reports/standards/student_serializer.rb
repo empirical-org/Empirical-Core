@@ -8,16 +8,16 @@ class ProgressReports::Standards::StudentSerializer < ApplicationSerializer
   type :student
 
   attributes :name,
-             :id,
-             :sorting_name,
-             :total_standard_count,
-             :proficient_standard_count,
-             :not_proficient_standard_count,
-             :total_activity_count,
-             :timespent,
-             :average_score,
-             :student_standards_href,
-             :mastery_status
+    :id,
+    :sorting_name,
+    :total_standard_count,
+    :proficient_standard_count,
+    :not_proficient_standard_count,
+    :total_activity_count,
+    :timespent,
+    :average_score,
+    :student_standards_href,
+    :mastery_status
 
   def average_score
     object.average_score&.round(2) || 0

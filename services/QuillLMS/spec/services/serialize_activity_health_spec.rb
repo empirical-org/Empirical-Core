@@ -48,9 +48,9 @@ describe 'SerializeActivityHealth' do
 
   let!(:concept_result1) do
     create(:concept_result,
-     activity_session: activity_session1,
-     question_number: 1,
-     question_score: 1
+      activity_session: activity_session1,
+      question_number: 1,
+      question_score: 1
    )
   end
 
