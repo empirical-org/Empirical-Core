@@ -1,43 +1,25 @@
-export const ENGLISH = 'english';
-export const CHINESE = 'chinese';
-export const HINDI = 'hindi';
-export const SPANISH = 'spanish';
-export const FRENCH = 'french';
-export const ARABIC = 'arabic';
-export const RUSSIAN = 'russian';
-export const PORTUGUESE = 'portuguese';
-export const URDU = 'urdu';
-export const GERMAN = 'german';
-export const JAPANESE = 'japanese';
-export const KOREAN = 'korean';
-export const VIETNAMESE = 'vietnamese';
-export const THAI = 'thai';
-export const UKRAINIAN = 'ukrainian';
-export const TAGALOG = 'tagalog';
-export const DARI = 'dari';
-export const localeToLanguageMap = {
-  "en": ENGLISH,
-  "zh-cn": CHINESE,
-  "zh-tw": CHINESE,
-  "hi": HINDI,
-  "es": SPANISH,
-  "es-la": SPANISH,
-  "fr": FRENCH,
-  "ar": ARABIC,
-  "ru": RUSSIAN,
-  "pt": PORTUGUESE,
-  "pt-br": PORTUGUESE,
-  "ur": URDU,
-  "de": GERMAN,
-  "ja": JAPANESE,
-  "ko": KOREAN,
-  "vi": VIETNAMESE,
-  "th": THAI,
-  "uk": UKRAINIAN,
-  "tl": TAGALOG,
-  "fil": TAGALOG,
-  "prs": DARI
-};
+import languageConstants from '../../../../../config/locales/languageConstants.json';
+
+export const {
+  ENGLISH,
+  CHINESE,
+  HINDI,
+  SPANISH,
+  FRENCH,
+  ARABIC,
+  RUSSIAN,
+  PORTUGUESE,
+  URDU,
+  GERMAN,
+  JAPANESE,
+  KOREAN,
+  VIETNAMESE,
+  THAI,
+  UKRAINIAN,
+  TAGALOG,
+  DARI
+} = languageConstants;
+
 export const languages = [ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI];
 export const rightToLeftLanguages = [ARABIC, URDU, DARI];
 

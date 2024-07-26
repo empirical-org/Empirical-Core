@@ -266,7 +266,11 @@ class Activity < ApplicationRecord
     translations = translated_texts.pluck(:locale, :translation).to_h
     return data unless translations.present?
 
-    data.merge('translations' => translations)
+    language_translations = translations.transform_keys do |locale|
+      Translatable::LOCALE_TO_LANGUAGE[locale] || locale
+    end
+
+    data.merge('translations' => language_translations)
   end
 
   def add_question(question)

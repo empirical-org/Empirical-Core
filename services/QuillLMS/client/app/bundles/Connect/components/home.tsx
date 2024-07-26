@@ -7,7 +7,7 @@ import { NavBar } from './navbar/navbar';
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
 import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
-import { ENGLISH, localeToLanguageMap } from '../../Shared/utils/languageList';
+import { ENGLISH } from '../../Shared/utils/languageList';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { setLanguage } from '../actions.js';
 import { lessonUid } from '../app';
@@ -34,8 +34,8 @@ export const Home = ({playLesson, lessons, dispatch}) => {
     const languageOptions = [
       { value: ENGLISH, label: ENGLISH },
       ...Object.keys(translations).map(language => ({
-        value: localeToLanguageMap[language],
-        label: localeToLanguageMap[language]
+        value: language,
+        label: language
       }))
     ];
     setLanguageOptions(languageOptions);
