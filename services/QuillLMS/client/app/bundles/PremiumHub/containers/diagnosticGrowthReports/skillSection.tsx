@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
+import { getDiagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 import { aggregateSkillsData, growthResultsTooltipText, postSkillScoreTooltipText, preSkillScoreTooltipText, studentsImprovedSkillTooltipText, studentsMaintainedProficiencyTooltipText, studentsWithoutImprovementTooltipText } from './helpers'
 
@@ -122,7 +122,18 @@ export const SkillSection = ({
   React.useEffect(() => {
     if (!passedData && groupByValue && diagnosticTypeValue) {
       // this is for testing purposes; this value will always be null in a non-testing environment
-      getData()
+
+      // If the timeframe has changed, we may be re-populating the selectedDiagnosticType drop-downs
+      // In these cases, we need to re-select the appropriate value from the drop-down for the new timeframe
+      // The re-selection will re-trigger this effect by changing the value of diagnosticTypeValue
+      const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
+      if (!diagnosticTypeDropdownOptions.includes(diagnosticTypeValue)) {
+        const selectedDiagnosticType = diagnosticTypeDropdownOptions.find((option) => option.label === diagnosticTypeValue.label)
+
+        handleSetSelectedDiagnosticType(selectedDiagnosticType)
+      } else {
+        getData()
+      }
     }
   }, [searchCount, groupByValue, diagnosticTypeValue])
 
@@ -217,7 +228,7 @@ export const SkillSection = ({
           handleChange={handleDiagnosticTypeOptionChange}
           isSearchable={true}
           label="Diagnostic:"
-          options={diagnosticTypeDropdownOptions}
+          options={getDiagnosticTypeDropdownOptions(selectedTimeframe)}
           value={diagnosticTypeValue}
         />
         <DropdownInput

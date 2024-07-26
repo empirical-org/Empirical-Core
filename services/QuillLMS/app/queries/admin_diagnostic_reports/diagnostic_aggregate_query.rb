@@ -13,12 +13,18 @@ module AdminDiagnosticReports
       'classroom'
     ]
     DIAGNOSTIC_ORDER_BY_ID = [
-      1663, # Starter Baseline Diagnostic (Pre)
-      1668, # Intermediate Baseline Diagnostic (Pre)
-      1678, # Advanced Baseline Diagnostic (Pre)
-      1161, # ELL Starter Baseline Diagnostic (Pre)
-      1568, # ELL Intermediate Baseline Diagnostic (Pre)
-      1590, # ELL Advanced Baseline Diagnostic (Pre)
+      2537, # Starter Baseline Diagnostic (Pre)
+      2539, # Intermediate Baseline Diagnostic (Pre)
+      2541, # Advanced Baseline Diagnostic (Pre)
+      2550, # ELL Starter Baseline Diagnostic (Pre)
+      2555, # ELL Intermediate Tenses Baseline Diagnostic (Pre)
+      2563, # ELL Advanced Baseline Diagnostic (Pre)
+      1663, # (Old 2023-2024) Starter Baseline Diagnostic (Pre)
+      1668, # (Old 2023-2024) Intermediate Baseline Diagnostic (Pre)
+      1678, # (Old 2023-2024) Advanced Baseline Diagnostic (Pre)
+      1161, # (Old 2023-2024) ELL Starter Baseline Diagnostic (Pre)
+      1568, # (Old 2023-2024) ELL Intermediate Baseline Diagnostic (Pre)
+      1590, # (Old 2023-2024) ELL Advanced Baseline Diagnostic (Pre)
       992,  # AP Writing Skills Survey
       1229, # Pre-AP Writing Skills Survey 1
       1230, # Pre-AP Writing Skills Survey 2

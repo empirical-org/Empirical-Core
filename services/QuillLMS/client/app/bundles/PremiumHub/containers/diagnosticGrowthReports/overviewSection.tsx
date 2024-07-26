@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
-import { SKILL, STUDENT, diagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
+import { SKILL, STUDENT, getDiagnosticTypeDropdownOptions, groupByDropdownOptions, hashPayload } from '../../shared'
 import { requestPost, } from '../../../../modules/request';
 import { aggregateOverviewData, averageActivitiesAndTimeSpentTooltipText, completedActivitiesTooltipText, diagnosticNameTooltipText, overallSkillGrowthTooltipText, postDiagnosticCompletedTooltipText, preDiagnosticCompletedTooltipText } from './helpers';
 
@@ -272,12 +272,14 @@ export const OverviewSection = ({
   }
 
   function handlePreDiagnosticChipClick(id: number) {
+    const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
     const diagnosticType = diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === id)[0]
     handleSetSelectedDiagnosticType(diagnosticType)
     handleTabChangeFromDataChip(STUDENT)
   }
 
   function handleGrowthChipClick(id: number) {
+    const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
     const diagnosticType = diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === id)[0]
     handleSetSelectedDiagnosticType(diagnosticType)
     handleSetSelectedGroupByValue(groupByValue)
