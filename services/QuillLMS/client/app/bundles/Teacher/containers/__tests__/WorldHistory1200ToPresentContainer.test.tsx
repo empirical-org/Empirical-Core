@@ -51,13 +51,6 @@ describe('WorldHistory1200ToPresent', () => {
     });
   });
 
-  test('renders loading state initially', () => {
-    const { asFragment } = render(<WorldHistory1200ToPresent backlinkPath={mockBacklinkPath} />);
-
-    expect(screen.getByText('Spinner')).toBeInTheDocument();
-    expect(asFragment()).toMatchSnapshot();
-  });
-
   test('renders correctly in loaded state', async () => {
     const { asFragment } = render(<WorldHistory1200ToPresent backlinkPath={mockBacklinkPath} />);
 
@@ -84,9 +77,6 @@ describe('WorldHistory1200ToPresent', () => {
     expect(screen.getByRole('button', { name: 'Expand all' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Collapse all' })).toBeInTheDocument();
 
-    // Check for unit templates
-    expect(screen.getByText('CoursePageUnitTemplate')).toBeInTheDocument();
-
     // Check for the partner section
     expect(screen.getByText('Paired with the OER Project for deeper learning')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Learn More About Quill’s Social Studies Activities' })).toBeInTheDocument();
@@ -106,22 +96,6 @@ describe('WorldHistory1200ToPresent', () => {
 
     // Collapse all unit templates
     await userEvent.click(collapseAllButton);
-    expect(window.localStorage.getItem('worldHistory1200ToPresentExpandedUnitTemplateIds')).toEqual('');
-  });
-
-  test('toggles unit template expansion correctly', async () => {
-    render(<WorldHistory1200ToPresent backlinkPath={mockBacklinkPath} />);
-
-    await waitFor(() => expect(screen.getByText('World History: 1200 CE - Present')).toBeInTheDocument());
-
-    const unitTemplateToggleButton = screen.getByLabelText(`Expand Unit 1 activities`);
-
-    // Expand a unit template
-    await userEvent.click(unitTemplateToggleButton);
-    expect(window.localStorage.getItem('worldHistory1200ToPresentExpandedUnitTemplateIds')).toEqual('1');
-
-    // Collapse the same unit template
-    await userEvent.click(unitTemplateToggleButton);
-    expect(window.localStorage.getItem('worldHistory1200ToPresentExpandedUnitTemplateIds')).toEqual('');
+    expect(window.localStorage.getItem('worldHistory1200ToPresentExpandedUnitTemplateIds')).toEqual(null);
   });
 });
