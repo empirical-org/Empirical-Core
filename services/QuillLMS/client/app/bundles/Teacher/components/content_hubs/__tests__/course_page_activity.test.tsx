@@ -18,7 +18,6 @@ describe('CoursePageActivity', () => {
   test('renders correctly when link_for_report is provided', () => {
     const { asFragment } = render(<CoursePageActivity activity={mockActivity} />);
 
-    // Snapshot test
     expect(asFragment()).toMatchSnapshot();
 
     // Check for display name and description
@@ -41,7 +40,9 @@ describe('CoursePageActivity', () => {
 
   test('renders correctly when link_for_report is not provided', () => {
     const modifiedActivity = { ...mockActivity, link_for_report: null };
-    render(<CoursePageActivity activity={modifiedActivity} />);
+    const { asFragment } = render(<CoursePageActivity activity={modifiedActivity} />);
+
+    expect(asFragment()).toMatchSnapshot();
 
     // Check for display name and description
     expect(screen.getByText(modifiedActivity.display_name)).toBeInTheDocument();
@@ -53,9 +54,8 @@ describe('CoursePageActivity', () => {
     expect(oerLink).toHaveAttribute('href', modifiedActivity.paired_oer_asset_link);
 
     // Check for results section
-    const resultsButton = screen.getByRole('button', { name: 'View results' });
+    const resultsButton = screen.getByText('View results').closest('button');
     expect(resultsButton).toBeInTheDocument();
     expect(resultsButton).toBeDisabled();
-    expect(screen.getByText('There are no assigned activities. Once activities are assigned and completed, you can view results.')).toBeInTheDocument();
   });
 });

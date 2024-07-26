@@ -19,10 +19,7 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
   let expandOrCollapseButton
 
   if (unit_template_id) {
-    let previewAndAssignButtonClassName = "quill-button medium green focus-on-light "
-    previewAndAssignButtonClassName += isExpanded ? 'contained' : 'outlined'
-
-    previewAndAssignButton = <a className={previewAndAssignButtonClassName} href={`/assign/featured-activity-packs/${unit_template_id}`}>Preview & assign</a>
+    previewAndAssignButton = <a className="quill-button medium green focus-on-light contained" href={`/assign/featured-activity-packs/${unit_template_id}`}>Preview & assign</a>
 
     const expandOrCollapseButtonImageSrc = isExpanded ? collapseImgSrc : expandImgSrc
     const expandOrCollapseButtonAriaLabel = isExpanded ? `Collapse ${display_name} activities` : `Expand ${display_name} activities`

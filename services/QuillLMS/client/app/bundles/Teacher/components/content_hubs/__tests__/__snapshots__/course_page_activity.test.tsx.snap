@@ -1,5 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CoursePageActivity renders correctly when link_for_report is not provided 1`] = `
+<DocumentFragment>
+  <div
+    class="course-page-activity"
+  >
+    <img
+      alt=""
+      class="evidence-img"
+      src="undefined/images/icons/s/tool-evidence.svg"
+    />
+    <div
+      class="activity-information"
+    >
+      <h5>
+        Test Activity
+      </h5>
+      <p>
+        This is a test activity
+      </p>
+      <p
+        class="oer-asset-line"
+      >
+        Optional Paired OER Activity: 
+        <a
+          href="https://example.com/oer"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Test OER Asset
+        </a>
+      </p>
+    </div>
+    <div
+      class="results-section"
+    >
+      <span
+        aria-hidden="false"
+        class="quill-tooltip-trigger "
+        role="tooltip"
+      >
+        <span
+          class="undefined"
+          role="button"
+          tabindex="0"
+        >
+          <button
+            class="quill-button focus-on-light small contained disabled"
+            disabled=""
+          >
+            View results
+          </button>
+        </span>
+        <span
+          class="quill-tooltip-wrapper"
+        >
+          <span
+            aria-live="polite"
+            class="quill-tooltip"
+          />
+        </span>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`CoursePageActivity renders correctly when link_for_report is provided 1`] = `
 <DocumentFragment>
   <div
