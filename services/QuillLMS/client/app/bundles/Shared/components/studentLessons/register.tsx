@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { ENGLISH, localeToLanguageMap } from '../../utils/languageList';
-
 class Register extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -77,25 +75,10 @@ class Register extends React.Component<any, any> {
   }
 
   translatedText = (): string => {
-    function getTranslation( translations, targetLanguage): string | undefined {
-      const targetLocale = Object.entries(localeToLanguageMap).find(
-        ([_, language]) => language === targetLanguage
-      )?.[0];
 
-      if (targetLocale && targetLocale in translations) {
-        return translations[targetLocale];
-      }
-
-      // If the exact locale isn't found, try to find a matching language
-      const matchingLocale = Object.keys(translations).find(locale =>
-        localeToLanguageMap[locale] === targetLanguage
-      );
-
-      return matchingLocale ? translations[matchingLocale] : undefined;
-    }
-    const { lesson, language} = this.props
-    const { translations, } = lesson
-    return getTranslation(translations, language)
+    const { lesson, language} = this.props;
+    const { translations, } = lesson;
+    return translations[language];
   }
 
 
