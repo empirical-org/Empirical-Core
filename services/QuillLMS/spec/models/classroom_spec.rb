@@ -52,12 +52,12 @@ describe Classroom, type: :model do
   let(:teacher) { create(:teacher) }
 
   describe '#destroy' do
-    let(:teacher2) { create(:teacher)}
+    let(:teacher2) { create(:teacher) }
     let(:classroom_to_destroy) { create(:classroom) }
     let!(:classrooms_teacher) { create(:classrooms_teacher, user_id: teacher2.id, classroom_id: classroom_to_destroy.id) }
 
     let(:unit1) { create(:unit) }
-    let!(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, classroom_id: classroom_to_destroy.id ) }
+    let!(:classroom_unit1) { create(:classroom_unit, unit_id: unit1.id, classroom_id: classroom_to_destroy.id) }
     let!(:unrelated_classroom_unit) { create(:classroom_unit) }
 
     let(:student1) { create(:student) }
@@ -82,7 +82,6 @@ describe Classroom, type: :model do
   end
 
   describe '#create_with_join' do
-
     context 'when passed valid classrooms data' do
       it 'creates a classroom' do
         old_count = Classroom.all.count
@@ -121,9 +120,7 @@ describe Classroom, type: :model do
         Classroom.create_with_join(invalid_classroom_attributes, teacher.id)
         expect(ClassroomsTeacher.all.count).to eq(old_count)
       end
-
     end
-
   end
 
   describe '#coteachers' do
@@ -223,7 +220,7 @@ describe Classroom, type: :model do
     let(:owner) { create(:teacher) }
     let(:classroom) { create(:classroom, classrooms_teachers: [build(:classrooms_teacher, user: owner, role: 'owner')]) }
     let(:unit) { create(:unit, user: owner) }
-    let(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, classroom_id: classroom.id ) }
+    let(:classroom_unit) { create(:classroom_unit, unit_id: unit.id, classroom_id: classroom.id) }
     let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit) }
 
     it { expect { subject }.to change { classroom_unit.reload.visible }.from(true).to(false) }
@@ -234,7 +231,7 @@ describe Classroom, type: :model do
       before { allow(DateTime).to receive(:current).and_return(1.day.from_now) }
 
       it { expect { subject }.to change { classroom_unit.reload.updated_at } }
-      it { expect { subject }.to change  { activity_session.reload.updated_at } }
+      it { expect { subject }.to change { activity_session.reload.updated_at } }
       it { expect { subject }.to change { unit.reload.updated_at } }
     end
   end
@@ -243,7 +240,7 @@ describe Classroom, type: :model do
     let(:classroom) { create(:classroom) }
 
     it 'should return the attributes with student ids' do
-      expect(classroom.with_students_ids).to eq(classroom.attributes.merge({student_ids: classroom.students.ids}))
+      expect(classroom.with_students_ids).to eq(classroom.attributes.merge({ student_ids: classroom.students.ids }))
     end
   end
 
@@ -251,7 +248,7 @@ describe Classroom, type: :model do
     let(:classroom) { create(:classroom) }
 
     it 'should return the attributes with the students' do
-      expect(classroom.with_students).to eq(classroom.attributes.merge({students: classroom.students}))
+      expect(classroom.with_students).to eq(classroom.attributes.merge({ students: classroom.students }))
     end
   end
 
@@ -321,7 +318,6 @@ describe Classroom, type: :model do
       classroom = create(:classroom, grade: nil)
       expect(classroom.grade_as_integer).to eq(-1)
     end
-
   end
 
   describe '#reset_teacher_activity_feed' do

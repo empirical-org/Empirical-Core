@@ -139,7 +139,7 @@ describe Topic, type: :model do
   describe '#genealogy' do
     subject { topic.genealogy }
 
-    let(:topic) { create(:topic, level: level)}
+    let(:topic) { create(:topic, level: level) }
 
     context 'when topic is level 1' do
       let(:level) { 1 }

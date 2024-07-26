@@ -37,6 +37,7 @@ class ReplaceFunctionOldTimespentTeacher < ActiveRecord::Migration[4.2]
       $$ LANGUAGE SQL;
     })
   end
+
   def down
     connection.execute(%q{
       DROP FUNCTION old_timespent_teacher;

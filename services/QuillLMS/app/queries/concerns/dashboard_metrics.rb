@@ -18,5 +18,4 @@ module DashboardMetrics
   def school_year_start
     @school_year_start ||= School.school_year_start(today)
   end
-
 end

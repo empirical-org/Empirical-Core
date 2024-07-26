@@ -24,4 +24,3 @@ class BonusDaysCalculator < ApplicationService
     end
   end
 end
-

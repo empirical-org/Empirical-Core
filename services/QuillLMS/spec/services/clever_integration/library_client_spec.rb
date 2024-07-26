@@ -21,25 +21,25 @@ RSpec.describe CleverIntegration::LibraryClient do
     context 'classroom 1' do
       let(:code) { 200 }
       let(:parsed_response) { classroom1_students_data }
-      let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
+      let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
       let(:students_attrs) { [student1_attrs, student2_attrs] }
 
-      it { is_expected.to eq students_attrs}
+      it { is_expected.to eq students_attrs }
     end
 
     context 'classroom 2' do
       let(:code) { 200 }
       let(:parsed_response) { classroom2_students_data }
-      let(:classroom_external_id)  { classroom2_attrs[:classroom_external_id] }
+      let(:classroom_external_id) { classroom2_attrs[:classroom_external_id] }
       let(:students_attrs) { [student3_attrs] }
 
-      it { is_expected.to eq students_attrs}
+      it { is_expected.to eq students_attrs }
     end
 
     context 'unauthorized token' do
       let(:code) { 401 }
-      let(:parsed_response) { {'error' => 'Unrecognized token string' } }
-      let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
+      let(:parsed_response) { { 'error' => 'Unrecognized token string' } }
+      let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
       it { not_expected_to_report_error? }
@@ -47,8 +47,8 @@ RSpec.describe CleverIntegration::LibraryClient do
 
     context 'resource not found' do
       let(:code) { 404 }
-      let(:parsed_response) { {'error' => 'Resource not found' } }
-      let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
+      let(:parsed_response) { { 'error' => 'Resource not found' } }
+      let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
       it { not_expected_to_report_error? }
@@ -56,8 +56,8 @@ RSpec.describe CleverIntegration::LibraryClient do
 
     context 'unknown error' do
       let(:code) { 500 }
-      let(:parsed_response) { {'error' => 'Unknown error' } }
-      let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
+      let(:parsed_response) { { 'error' => 'Unknown error' } }
+      let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
       it { expected_to_report_error? }
@@ -72,7 +72,7 @@ RSpec.describe CleverIntegration::LibraryClient do
     context 'successful response' do
       let(:code) { 200 }
       let(:parsed_response) { classrooms_data }
-      let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs]}
+      let(:classrooms_attrs) { [classroom1_attrs, classroom2_attrs] }
 
       it { is_expected.to eq classrooms_attrs }
       it { not_expected_to_report_error? }
@@ -80,8 +80,8 @@ RSpec.describe CleverIntegration::LibraryClient do
 
     context 'unauthorized token' do
       let(:code) { 401 }
-      let(:parsed_response) { {'error' => 'Unrecognized token string' } }
-      let(:classroom_external_id)  { classroom1_attrs[:classroom_external_id] }
+      let(:parsed_response) { { 'error' => 'Unrecognized token string' } }
+      let(:classroom_external_id) { classroom1_attrs[:classroom_external_id] }
 
       it { is_expected.to eq [] }
       it { not_expected_to_report_error? }
@@ -89,7 +89,7 @@ RSpec.describe CleverIntegration::LibraryClient do
 
     context 'resource not found' do
       let(:code) { 404 }
-      let(:parsed_response) { {'error' => 'Resource not found' } }
+      let(:parsed_response) { { 'error' => 'Resource not found' } }
 
       it { is_expected.to eq [] }
       it { not_expected_to_report_error? }
@@ -97,7 +97,7 @@ RSpec.describe CleverIntegration::LibraryClient do
 
     context 'unknown error' do
       let(:code) { 500 }
-      let(:parsed_response) { {'error' => 'Unknown error' } }
+      let(:parsed_response) { { 'error' => 'Unknown error' } }
 
       it { is_expected.to eq [] }
       it { expected_to_report_error? }

@@ -122,7 +122,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   private def activity_session_authorize_teacher!
-    return if  AuthorizedTeacherForActivity.new(current_user, @activity_session).call
+    return if AuthorizedTeacherForActivity.new(current_user, @activity_session).call
 
     render_error(404)
   end
@@ -161,5 +161,4 @@ class ActivitySessionsController < ApplicationController
   private def allow_iframe
     response.headers.delete 'X-Frame-Options'
   end
-
 end

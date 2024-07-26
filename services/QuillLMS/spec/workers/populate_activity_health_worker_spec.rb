@@ -6,22 +6,22 @@ describe PopulateActivityHealthWorker do
   subject { described_class.new }
 
   describe '#perform' do
-    let!(:question) { create(:question)}
-    let!(:another_question) { create(:question)}
+    let!(:question) { create(:question) }
+    let!(:another_question) { create(:question) }
     let!(:connect) { create(:activity_classification, key: ActivityClassification::CONNECT_KEY) }
     let!(:activity) do
       create(:activity,
-       activity_classification_id: connect.id,
-       data: {
-         questions: [
-           {key: question.uid},
-           {key: another_question.uid}
-         ]
-       }
-     )
+        activity_classification_id: connect.id,
+        data: {
+          questions: [
+            { key: question.uid },
+            { key: another_question.uid }
+          ]
+        }
+      )
     end
 
-    let!(:content_partner) { create(:content_partner, activities: [activity])}
+    let!(:content_partner) { create(:content_partner, activities: [activity]) }
     let!(:activity_session1) do
       create(:activity_session_without_concept_results,
         activity: activity,
@@ -46,12 +46,12 @@ describe PopulateActivityHealthWorker do
       )
     end
 
-    let!(:diagnostic) { create(:diagnostic_activity)}
-    let!(:unit_template) { create(:unit_template, flag: 'production')}
-    let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity)}
-    let!(:sample_unit) { create(:unit, unit_template: unit_template)}
-    let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity)}
-    let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template)}
+    let!(:diagnostic) { create(:diagnostic_activity) }
+    let!(:unit_template) { create(:unit_template, flag: 'production') }
+    let!(:activities_unit_template) { create(:activities_unit_template, unit_template: unit_template, activity: activity) }
+    let!(:sample_unit) { create(:unit, unit_template: unit_template) }
+    let!(:unit_activity) { create(:unit_activity, unit: sample_unit, activity: activity) }
+    let!(:recommendation) { create(:recommendation, activity: diagnostic, unit_template: unit_template) }
 
     let!(:concept_result1) do
       create(:concept_result,
@@ -89,9 +89,9 @@ describe PopulateActivityHealthWorker do
       ENV['DEFAULT_URL'] = 'https://quill.org'
       ENV['CMS_URL'] = 'https://cms.quill.org'
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 50,  percent_specified_algos: 75}.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 50, percent_specified_algos: 75 }.to_json, headers: {})
       stub_request(:get, "#{ENV['CMS_URL']}/questions/#{another_question.uid}/question_dashboard_data")
-        .to_return(status: 200, body: { percent_common_unmatched: 100,  percent_specified_algos: 75}.to_json, headers: {})
+        .to_return(status: 200, body: { percent_common_unmatched: 100, percent_specified_algos: 75 }.to_json, headers: {})
     end
 
     it 'should create a new Activity Health object' do
@@ -118,7 +118,6 @@ describe PopulateActivityHealthWorker do
     it 'should create a new Activity Health object with a bad activity' do
       bad_activity = create(:activity, activity_classification_id: connect.id, flags: ['nonflag'])
       expect { subject.perform(bad_activity.id) }.not_to raise_error
-
     end
   end
 end

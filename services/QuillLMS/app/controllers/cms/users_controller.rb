@@ -17,7 +17,7 @@ class Cms::UsersController < Cms::CmsController
   USERS_PER_PAGE = 30.0
 
   def index
-    @user_search_query = {sort: 'last_sign_in', sort_direction: 'desc'}
+    @user_search_query = { sort: 'last_sign_in', sort_direction: 'desc' }
     @user_search_query_results = []
     @user_flags = User::VALID_FLAGS
     @number_of_pages = 0
@@ -28,7 +28,7 @@ class Cms::UsersController < Cms::CmsController
     user_search_query_results = user_query(user_query_params)
     user_search_query_results ||= []
     number_of_pages = (user_search_query_results.size / USERS_PER_PAGE).ceil
-    render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
+    render json: { numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query }
   end
 
   def new
@@ -148,7 +148,7 @@ class Cms::UsersController < Cms::CmsController
 
   protected def user_params
     params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :admin_sub_role, :classcode, :password, :password_confirmation, :email_verification_status, :flags =>[]] + default_params
-    )
+                                )
   end
 
   protected def user_query_params

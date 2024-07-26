@@ -23,7 +23,6 @@
 #  index_activity_classifications_on_uid  (uid) UNIQUE
 #
 class ActivityClassification < ApplicationRecord
-
   include Uid
 
   has_many :activities, dependent: :destroy
@@ -44,7 +43,7 @@ class ActivityClassification < ApplicationRecord
     EVIDENCE_KEY
   ]
 
-  scope :connect_or_grammar, -> {where(key: [CONNECT_KEY, GRAMMAR_KEY])}
+  scope :connect_or_grammar, -> { where(key: [CONNECT_KEY, GRAMMAR_KEY]) }
 
   def self.unscored?(key)
     UNSCORED_KEYS.include?(key)

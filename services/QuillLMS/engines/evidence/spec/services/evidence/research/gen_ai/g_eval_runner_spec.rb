@@ -16,9 +16,9 @@ module Evidence
 
         let(:llm_example) do
           create(
-           :evidence_research_gen_ai_llm_example,
-           test_example: test_example,
-           llm_feedback: test_example.staff_feedback
+            :evidence_research_gen_ai_llm_example,
+            test_example: test_example,
+            llm_feedback: test_example.staff_feedback
           )
         end
 

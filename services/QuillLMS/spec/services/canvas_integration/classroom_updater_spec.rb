@@ -56,13 +56,13 @@ RSpec.describe CanvasIntegration::ClassroomUpdater do
     before { ClassroomsTeacher.where(classroom: classroom).delete_all }
 
     context 'classroom has no owner or coteachers' do
-      it  { expect(subject.owner).to eq teacher }
+      it { expect(subject.owner).to eq teacher }
     end
 
     context 'teacher owns classroom' do
       before { create(:classrooms_teacher, classroom: classroom, user: teacher) }
 
-      it  { expect(subject.owner).to eq teacher }
+      it { expect(subject.owner).to eq teacher }
     end
 
     context 'another teacher owns classroom' do
@@ -83,7 +83,7 @@ RSpec.describe CanvasIntegration::ClassroomUpdater do
     let(:other_name) { 'other canvas_classroom classroom' }
     let(:classroom1) { create(:classroom, :from_canvas, :with_no_teacher, name: other_name) }
 
-    let(:name) { 'canvas_classroom classroom'}
+    let(:name) { 'canvas_classroom classroom' }
     let(:synced_name) { name }
     let(:data_name) { other_name }
 

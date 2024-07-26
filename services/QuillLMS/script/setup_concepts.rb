@@ -16,4 +16,3 @@ end
 concepts_from_api.each do |con|
   Concept.create(con)
 end
-

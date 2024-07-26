@@ -20,5 +20,4 @@ class ConvertActivitySessionDataColumnFromHstoreToJsonb < ActiveRecord::Migratio
     SQL
     change_column :activity_sessions, :data, 'hstore USING my_jsonb_to_hstore(data)'
   end
-
 end

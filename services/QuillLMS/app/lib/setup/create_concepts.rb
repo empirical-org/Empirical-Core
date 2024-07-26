@@ -9,7 +9,7 @@ module Setup
     end
 
     def find_parent_concept_from_concepts(child)
-      concepts.select{|con| con['id'] == child['parent_id']}.first
+      concepts.select{ |con| con['id'] == child['parent_id'] }.first
     end
 
     def find_or_create_parent_in_db(child)

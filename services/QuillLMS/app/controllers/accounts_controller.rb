@@ -35,7 +35,7 @@ class AccountsController < ApplicationController
       render json: redirect_json
     else
       errors = @user.errors
-      render json: {errors: errors}, status: 422
+      render json: { errors: errors }, status: 422
     end
   end
 
@@ -52,22 +52,21 @@ class AccountsController < ApplicationController
       render json: redirect_json
     else
       errors = @user.errors
-      render json: {errors: errors}, status: 422
+      render json: { errors: errors }, status: 422
     end
-
   end
 
   protected def user_params
     params.require(:user).permit(
-                                 :account_type,
-                                 :classcode,
-                                 :email,
-                                 :name,
-                                 :password,
-                                 :school_ids,
-                                 :send_newsletter,
-                                 :terms_of_service,
-                                 :username)
+      :account_type,
+      :classcode,
+      :email,
+      :name,
+      :password,
+      :school_ids,
+      :send_newsletter,
+      :terms_of_service,
+      :username)
   end
 
   protected def update_user_params

@@ -35,5 +35,5 @@
 #
 class ActivitySessionSerializer < ApplicationSerializer
   attributes :uid, :percentage, :state, :completed_at, :data, :temporary,
-              :activity_uid, :anonymous
+    :activity_uid, :anonymous
 end

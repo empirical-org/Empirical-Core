@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CleverIntegration::DistrictTeacherIntegration do
   let(:teacher) { create(:teacher, :signed_up_with_clever) }
-  let(:district_id) { '1abcdefg'}
+  let(:district_id) { '1abcdefg' }
   let(:district) { create(:district, clever_id: district_id) }
   let(:auth_credential_class) { CleverDistrictAuthCredential }
 

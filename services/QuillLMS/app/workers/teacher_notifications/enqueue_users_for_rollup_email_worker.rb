@@ -11,4 +11,3 @@ module TeacherNotifications
     end
   end
 end
-

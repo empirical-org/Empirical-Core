@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Creators::StudentCreator
-
   USERNAME_TAKEN = 'Validation failed: Username That username is taken. Try another.'
 
   def self.check_names(params)

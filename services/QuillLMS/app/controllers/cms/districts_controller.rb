@@ -19,7 +19,7 @@ class Cms::DistrictsController < Cms::CmsController
     district_search_query_results = district_query(district_query_params)
     district_search_query_results ||= []
     number_of_pages = (district_search_query_results.size / DISTRICTS_PER_PAGE.to_f).ceil
-    render json: {numberOfPages: number_of_pages, districtSearchQueryResults: district_search_query_results}
+    render json: { numberOfPages: number_of_pages, districtSearchQueryResults: district_search_query_results }
   end
 
   def show

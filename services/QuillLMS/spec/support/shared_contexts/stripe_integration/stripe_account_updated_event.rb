@@ -3,7 +3,7 @@
 RSpec.shared_context 'Stripe Account Updated Event' do
   include_context 'Stripe Account'
 
-  let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
+  let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
   let(:stripe_event_type) { 'account.updated' }
 
   let(:stripe_event) do

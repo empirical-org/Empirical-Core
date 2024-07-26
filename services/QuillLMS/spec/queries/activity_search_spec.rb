@@ -14,14 +14,14 @@ describe ActivitySearch do
     let!(:content_partner) { create(:content_partner) }
     let!(:content_partner_activity) { create(:content_partner_activity, content_partner: content_partner, activity: activity) }
     let!(:topic) { create(:topic, level: 1) }
-    let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity)}
+    let!(:activity_topic) { create(:activity_topic, topic: topic, activity: activity) }
 
     context 'beta flagset input' do
       it 'should get the correct attributes based on the flag given' do
         expect(described_class.search('beta').first).to eq(
           {
             'activity_name' => activity.name,
-            'activity_description' => activity.description ,
+            'activity_description' => activity.description,
             'activity_flag' => '{beta,production}',
             'activity_id' => activity.id,
             'activity_maximum_grade_level' => activity.maximum_grade_level,
@@ -54,6 +54,5 @@ describe ActivitySearch do
         expect(results.first['activity_name']).to_not eq beta_flagset_activity.name
       end
     end
-
   end
 end

@@ -133,7 +133,6 @@ class Scorebook::Query
       begin_date ? "acts.started_at >= '#{to_offset_datetime(begin_date, offset)}'" : nil,
       end_date ? "acts.started_at <= '#{to_offset_datetime(end_date, offset)}'" : nil
     ].reject(&:nil?).join(' AND ')
-
   end
 
   def self.date_substring_for_ca_created_at(begin_date, end_date, offset)
@@ -142,5 +141,4 @@ class Scorebook::Query
       end_date ? "cu.created_at <= '#{to_offset_datetime(end_date, offset)}'" : nil
     ].reject(&:nil?).join(' AND ')
   end
-
 end

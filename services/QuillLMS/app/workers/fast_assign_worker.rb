@@ -6,7 +6,7 @@ class FastAssignWorker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
   def perform(teacher_id, unit_template_id)
-    unit_template  = UnitTemplate.find(unit_template_id)
+    unit_template = UnitTemplate.find(unit_template_id)
     unit = User.find(teacher_id).units_with_same_name(unit_template.name).first
 
     if unit

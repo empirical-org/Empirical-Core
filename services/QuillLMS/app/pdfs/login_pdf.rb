@@ -202,5 +202,4 @@ class LoginPdf < Prawn::Document
       text content, inline_format: true
     end
   end
-
 end

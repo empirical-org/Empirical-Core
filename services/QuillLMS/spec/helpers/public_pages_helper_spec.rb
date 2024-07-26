@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe PublicPagesHelper do
-
   describe '#render_react_component?' do
     subject { helper.render_react_component?(current_user) }
 

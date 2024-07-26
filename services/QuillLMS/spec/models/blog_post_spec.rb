@@ -102,7 +102,7 @@ describe BlogPost, type: :model do
     context 'when the article is premium' do
       let(:paid_article) { create(:blog_post, :premium) }
       let(:free_user)    { create(:teacher) }
-      let(:premium_user) { create(:teacher, :premium)}
+      let(:premium_user) { create(:teacher, :premium) }
 
       it 'should be accessible to premium users' do
         expect(paid_article.can_be_accessed_by(premium_user)).to be(true)

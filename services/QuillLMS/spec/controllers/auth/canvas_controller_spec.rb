@@ -9,7 +9,7 @@ describe Auth::CanvasController, type: :request do
   let(:uid) { canvas_account.external_id }
   let(:url) { canvas_instance.url }
 
-  let(:auth_hash) { create(:canvas_auth_hash, uid: uid, url: url ) }
+  let(:auth_hash) { create(:canvas_auth_hash, uid: uid, url: url) }
 
   before { OmniAuth.config.mock_auth[:canvas] = auth_hash }
 

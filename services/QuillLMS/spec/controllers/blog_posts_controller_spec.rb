@@ -155,12 +155,11 @@ describe BlogPostsController, type: :controller do
       get :show_topic, params: { topic: topic.downcase.gsub(' ','-') }
       expect(assigns(:title)).to eq(topic)
     end
-
   end
 
   describe '#search' do
     let(:blog_posts) { create_list(:blog_post, 3) }
-    let(:in_the_news_post) { create(:blog_post, title: 'Press', topic: BlogPost::IN_THE_NEWS)}
+    let(:in_the_news_post) { create(:blog_post, title: 'Press', topic: BlogPost::IN_THE_NEWS) }
 
     it 'should redirect back if no query is present' do
       request.env['HTTP_REFERER'] = 'https://example.org'

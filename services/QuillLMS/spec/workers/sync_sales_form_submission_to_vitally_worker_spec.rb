@@ -78,7 +78,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     it 'should create a Vitally user if none exists' do
       expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(false)
 
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({'id' => district.id})
+      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({ 'id' => district.id })
       expect(stub_api).to receive(:create).with(SalesFormSubmission::VITALLY_USERS_TYPE, subject.send(:vitally_user_create_data))
 
       subject.create_vitally_user_if_none_exists
@@ -87,7 +87,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     it 'should update a Vitally user if one already exists' do
       expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
 
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({'id' => district.id})
+      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({ 'id' => district.id })
       expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
 
       subject.create_vitally_user_if_none_exists
@@ -100,8 +100,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
         create(:schools_users, school: school, user: user)
 
         expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
-        expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, other_district.id).and_return({'id' => other_district.id})
-        expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({'id' => district.id})
+        expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, other_district.id).and_return({ 'id' => other_district.id })
+        expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({ 'id' => district.id })
         expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
 
         subject.create_vitally_user_if_none_exists
@@ -117,8 +117,8 @@ describe SyncSalesFormSubmissionToVitallyWorker do
         subject.sales_form_submission = school_sales_form_submission
 
         expect(stub_api).to receive(:exists?).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id).and_return(true)
-        expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => school.id})
-        expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, other_school.id).and_return({'id' => other_school.id})
+        expect(stub_api).to receive(:get).twice.with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({ 'id' => school.id })
+        expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, other_school.id).and_return({ 'id' => other_school.id })
         expect(stub_api).to receive(:update).with(SalesFormSubmission::VITALLY_USERS_TYPE, user.id, subject.send(:vitally_user_update_data))
 
         subject.create_vitally_user_if_none_exists
@@ -130,7 +130,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     it 'should send the appropriate payload for forms with a school collection type' do
       school = create(:school)
       vitally_school_id = '123'
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => vitally_school_id})
+      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({ 'id' => vitally_school_id })
 
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
 
@@ -165,7 +165,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       sales_form_submission.update(collection_type: SalesFormSubmission::DISTRICT_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', district_name: district.name)
 
       vitally_organization_id = '123'
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({'id' => vitally_organization_id})
+      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_DISTRICTS_TYPE, district.id).and_return({ 'id' => vitally_organization_id })
 
       payload = {
         templateId: SalesFormSubmission::SCHOOL_QUOTE_REQUEST_TEMPLATE_ID,
@@ -197,9 +197,9 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, submission_type: 'quote request', school_name: 'nonexistent school name', source: SalesFormSubmission::FORM_SOURCE)
 
       vitally_school_id = '123'
-      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({'id' => vitally_school_id})
+      expect(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({ 'id' => vitally_school_id })
 
-      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({id: 'schoolId'})
+      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({ id: 'schoolId' })
 
       payload = {
         templateId: SalesFormSubmission::SCHOOL_QUOTE_REQUEST_TEMPLATE_ID,
@@ -231,7 +231,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       vitally_school_id = '123'
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
 
-      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({"id": vitally_school_id})
+      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({ "id": vitally_school_id })
       allow(stub_api).to receive(:create)
 
       has_opportunity_payload = { traits: { "vitally.custom.hasOpportunity": true } }
@@ -245,7 +245,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
       vitally_school_id = '123'
       sales_form_submission.update(collection_type: SalesFormSubmission::SCHOOL_COLLECTION_TYPE, source: SalesFormSubmission::FORM_SOURCE, submission_type: 'quote request', school_name: school.name)
 
-      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({"id": vitally_school_id})
+      allow(stub_api).to receive(:get).with(SalesFormSubmission::VITALLY_SCHOOLS_TYPE, school.id).and_return({ "id": vitally_school_id })
       allow(stub_api).to receive(:create)
 
       has_opportunity_payload = { traits: { "vitally.custom.hasOpportunity": true } }

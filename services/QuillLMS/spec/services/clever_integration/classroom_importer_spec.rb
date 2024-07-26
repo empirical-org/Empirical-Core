@@ -19,7 +19,7 @@ RSpec.describe CleverIntegration::ClassroomImporter do
 
   context 'classroom exists with classroom_external_id' do
     let(:classroom_external_id) { '123_abc' }
-    let(:synced_name) { "original #{name}"}
+    let(:synced_name) { "original #{name}" }
 
     let!(:classroom) { create(:classroom, synced_name: synced_name, clever_id: classroom_external_id) }
 

@@ -9,7 +9,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
 
   let!(:current_time) { Time.current }
   let!(:school) { create(:school) }
-  let!(:teacher) { create(:teacher, school: school)}
+  let!(:teacher) { create(:teacher, school: school) }
   let!(:classroom) { create(:classroom) }
   let!(:old_classroom) { create(:classroom, created_at: current_time - 1.year) }
   let!(:unit) { create(:unit, user_id: teacher.id) }
@@ -93,7 +93,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
   describe 'when the user is an admin' do
     let(:admin) { create(:admin) }
     let(:admin_info) { create(:admin_info, admin: admin) }
-    let(:user_email_verification ) { create(:user_email_verification, user: admin, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION) }
+    let(:user_email_verification) { create(:user_email_verification, user: admin, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION) }
     let(:schools) { create_list(:school, 3) }
     let(:districts) { create_list(:district, 3) }
 
@@ -417,7 +417,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     context 'enrolled courses' do
       before { create(:learn_worlds_account_enrolled_course_event, learn_worlds_account: learn_worlds_account) }
 
-      it { expect(subject[:learn_worlds_enrolled_courses]).to eq learn_worlds_account.enrolled_courses.titles_string}
+      it { expect(subject[:learn_worlds_enrolled_courses]).to eq learn_worlds_account.enrolled_courses.titles_string }
       it { expect(subject[:learn_worlds_num_enrolled_courses]).to eq 1 }
     end
 

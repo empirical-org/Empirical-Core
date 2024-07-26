@@ -13,5 +13,4 @@ class ConceptReplacementProofreaderWorker
       end
     end
   end
-
 end

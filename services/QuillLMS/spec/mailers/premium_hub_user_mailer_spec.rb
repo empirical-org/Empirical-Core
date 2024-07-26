@@ -131,5 +131,4 @@ describe PremiumHubUserMailer, type: :mailer do
       expect(body_contains_expected_content).to eq(true)
     end
   end
-
 end

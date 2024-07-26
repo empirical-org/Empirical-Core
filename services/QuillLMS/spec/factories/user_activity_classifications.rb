@@ -29,4 +29,3 @@ FactoryBot.define do
     count { 0 }
   end
 end
-

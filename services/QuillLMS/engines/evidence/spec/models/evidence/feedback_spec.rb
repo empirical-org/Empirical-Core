@@ -16,7 +16,6 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Feedback, :type => :model) do
-
     context 'should validations' do
       subject { build(:evidence_feedback) }
 
@@ -32,7 +31,6 @@ module Evidence
     end
 
     context 'should relationships' do
-
       it { should belong_to(:rule) }
     end
   end

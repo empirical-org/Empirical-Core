@@ -39,7 +39,6 @@ RSpec.describe CanvasClassroom, type: :model do
 
     subject { canvas_classroom.classroom_external_id }
 
-
     it { is_expected.to eq [canvas_instance_id, external_id].join(':') }
   end
 
@@ -88,7 +87,7 @@ RSpec.describe CanvasClassroom, type: :model do
         context 'canvas_classroom does notexist' do
           let(:external_id) { Faker::Number.number }
 
-          it { is_expected.to be_nil}
+          it { is_expected.to be_nil }
         end
       end
     end

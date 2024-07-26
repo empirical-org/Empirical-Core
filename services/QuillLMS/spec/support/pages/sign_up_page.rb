@@ -32,7 +32,7 @@ class SignUpPage < Page
     # so that the form appears to be filled out from
     # top to bottom
 
-    fill_in 'first_name', with:  first_name
+    fill_in 'first_name', with: first_name
     fill_in 'last_name', with: last_name
     fill_in 'username', with: username if type == :student
     fill_in 'password', with: password
@@ -65,5 +65,4 @@ class SignUpPage < Page
   def self.submit_target_path
     '/account'
   end
-
 end

@@ -11,7 +11,7 @@ describe UserWithProviderSerializer, type: :serializer do
     let(:parsed) { JSON.parse(json) }
     let(:parsed_user) { parsed['user'] }
 
-    it { expect(parsed.keys).to include('user')}
+    it { expect(parsed.keys).to include('user') }
     it { expect(parsed_user.keys).to include('provider') }
     it { expect(parsed_user.keys).to include('user_external_id') }
 
@@ -20,8 +20,8 @@ describe UserWithProviderSerializer, type: :serializer do
 
       before { user.update(google_id: google_id) }
 
-      it { expect(parsed_user['provider']).to eq User::GOOGLE_PROVIDER  }
-      it { expect(parsed_user['user_external_id']).to eq google_id  }
+      it { expect(parsed_user['provider']).to eq User::GOOGLE_PROVIDER }
+      it { expect(parsed_user['user_external_id']).to eq google_id }
     end
 
     context 'when user is a clever user' do
@@ -29,8 +29,8 @@ describe UserWithProviderSerializer, type: :serializer do
 
       before { user.update(clever_id: clever_id) }
 
-      it { expect(parsed_user['provider']).to eq User::CLEVER_PROVIDER  }
-      it { expect(parsed_user['user_external_id']).to eq clever_id  }
+      it { expect(parsed_user['provider']).to eq User::CLEVER_PROVIDER }
+      it { expect(parsed_user['user_external_id']).to eq clever_id }
     end
 
     # The canvas user construction is different since we can't uniquely identify

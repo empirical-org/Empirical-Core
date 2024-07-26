@@ -294,7 +294,7 @@ class Subscription < ApplicationRecord
       start_date = existing_sub.expiration + 1
       expiration = start_date + 30
     end
-    {expiration: expiration, start_date: start_date}
+    { expiration: expiration, start_date: start_date }
   end
 
   def self.set_cb_lifetime_expiration_and_start_date

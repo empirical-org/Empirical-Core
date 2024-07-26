@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 module Evidence
-
   RSpec.describe 'FeedbackAssembler' do
     describe '#run' do
       let(:example_error) { 'example_error' }
@@ -30,7 +29,7 @@ module Evidence
         it 'should return optimal=true' do
           expect(
             FeedbackAssembler.run(
-              client_response.merge({'abstract_error' => ''})
+              client_response.merge({ 'abstract_error' => '' })
             )[:optimal]
           ).to eq true
         end
@@ -99,8 +98,6 @@ module Evidence
           end.to raise_error(KeyError)
         end
       end
-
     end
   end
-
 end

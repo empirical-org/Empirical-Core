@@ -4,7 +4,6 @@ class InvitationEmailWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-
   def perform(invitation_id)
     invitation = Invitation.find_by(id: invitation_id)
     return unless invitation&.inviter

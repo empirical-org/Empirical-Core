@@ -19,7 +19,5 @@
 #  index_ip_locations_on_zip      (zip)
 #
 class IpLocation < ApplicationRecord
-
   belongs_to :user
-
 end

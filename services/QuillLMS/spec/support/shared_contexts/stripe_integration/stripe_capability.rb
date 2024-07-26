@@ -7,8 +7,7 @@ RSpec.shared_context 'Stripe Capability' do
         id: 'treasury',
         object: 'capability',
         account: 'acct_abc123def456',
-        future_requirements: {
-        },
+        future_requirements: {},
         requested: true,
         requested_at: 1232423423,
         requirements: {

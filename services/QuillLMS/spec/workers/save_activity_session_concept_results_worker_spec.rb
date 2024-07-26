@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe SaveActivitySessionConceptResultsWorker, type: :worker do
-
   context '#perform' do
     let(:activity_session) { create(:activity_session_without_concept_results) }
     let(:concept) { create(:concept) }

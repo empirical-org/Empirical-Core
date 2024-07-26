@@ -9,7 +9,7 @@ describe UpdateStudentLastActiveWorker do
     let!(:user) { create(:user) }
     let(:new_date) { Time.at(100).utc }
 
-    it 'should update the users last seen with the given date time'  do
+    it 'should update the users last seen with the given date time' do
       subject.perform(user.id, new_date)
       expect(user.reload.last_active).to eq new_date
     end

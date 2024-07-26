@@ -22,8 +22,8 @@ module Teachers
     end
 
     [['Activity Planner', :activity_planner],
-     ['Classes',    :classes],
-     ['Student Reports',        :student_reports]].each do |pair|
+     ['Classes', :classes],
+     ['Student Reports', :student_reports]].each do |pair|
       text, sym = pair
 
       module_eval_str __LINE__, %{

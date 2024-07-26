@@ -37,7 +37,7 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
     }.to_json
   end
 
-  let(:response_school) { JSON.parse(response_body)['results'][0]}
+  let(:response_school) { JSON.parse(response_body)['results'][0] }
 
   before do
     stub_request(:get, url).to_return(body: response_body, headers: { 'Content-Type' => 'application/json' })

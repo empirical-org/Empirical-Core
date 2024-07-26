@@ -3,7 +3,6 @@
 namespace :standard_category do
   desc 'create standard category'
   task :seed => :environment do
-
     arr1 = [
 
       {
@@ -12,12 +11,12 @@ namespace :standard_category do
       },
 
       {
-        standard: '1.1c. Use Singular and Plural Nouns with Matching Verbs in Basic Sentences'	,
+        standard: '1.1c. Use Singular and Plural Nouns with Matching Verbs in Basic Sentences',
         category: 'Verbs'
       },
 
       {
-        standard: '1.1e. Use Verbs to Convey a Sense of Past, Present, and Future'	,
+        standard: '1.1e. Use Verbs to Convey a Sense of Past, Present, and Future',
         category: 'Verbs'
       },
 
@@ -37,12 +36,12 @@ namespace :standard_category do
       },
 
       {
-        standard: '1.2a. Capitalize Dates and Names of People'	,
+        standard: '1.2a. Capitalize Dates and Names of People',
         category: 'Capitalization'
       },
 
       {
-        standard: '1.2c. Use Commas for Dates and Lists.'	,
+        standard: '1.2c. Use Commas for Dates and Lists.',
         category: 'Comma Usage'
       },
 
@@ -52,7 +51,7 @@ namespace :standard_category do
       },
 
       {
-        standard: '2.1c. Use Reflexive Pronouns'	,
+        standard: '2.1c. Use Reflexive Pronouns',
         category: 'Nouns and Pronouns'
       },
 
@@ -75,13 +74,13 @@ namespace :standard_category do
 
       {
 
-        standard:	'3.1g. Form and Use Comparative and Superlative Adjectives'	,
+        standard:	'3.1g. Form and Use Comparative and Superlative Adjectives',
         category:	'Adjectives & Adverbs'
       },
 
       {
 
-        standard:	'3.2a. Capitalize Words in Titles'	,
+        standard:	'3.2a. Capitalize Words in Titles',
         category:	'Capitalization'
       },
 
@@ -127,7 +126,7 @@ namespace :standard_category do
       },
 
       {
-        standard:	'4.2a. Use Correct Capitalization'	,
+        standard:	'4.2a. Use Correct Capitalization',
         category:	'Capitalization'
       },
 
@@ -152,7 +151,7 @@ namespace :standard_category do
       },
 
       {
-        standard:	'5.2c. Use a Comma to Set off the Words "Yes" and "No"'	,
+        standard:	'5.2c. Use a Comma to Set off the Words "Yes" and "No"',
         category:	'Comma Usage'
       },
 
@@ -195,7 +194,6 @@ namespace :standard_category do
         standard:	'9.1a. Use Parallel Structure',
         category:	'Structure'
       },
-
 
       {
         standard: 		'2.2c. Use an Apostrophe to Form Contractions',
@@ -245,14 +243,12 @@ namespace :standard_category do
       }
     ]
 
-
     arr1.each do |pair|
       puts ''
       puts 'standard to associate : '
       puts pair[:standard]
       puts 'category to associate : '
       puts pair[:category]
-
 
       standard = Standard.find_by_name pair[:standard]
       standard_category = StandardCategory.where(name: pair[:category]).first_or_create!
@@ -267,12 +263,6 @@ namespace :standard_category do
         standard.save
         puts standard.inspect
       end
-
     end
-
-
-
-
-
   end
 end

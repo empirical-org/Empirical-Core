@@ -145,7 +145,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -160,11 +160,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -188,11 +188,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -207,7 +207,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -2644,6 +2644,41 @@ CREATE TABLE public.districts_users (
     district_id integer,
     user_id integer
 );
+
+
+--
+-- Name: email_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_subscriptions (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    frequency character varying NOT NULL,
+    subscription_type character varying NOT NULL,
+    cancel_token character varying DEFAULT md5((random())::text) NOT NULL,
+    params jsonb,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: email_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_subscriptions_id_seq OWNED BY public.email_subscriptions.id;
 
 
 --
@@ -5920,7 +5955,8 @@ CREATE TABLE public.translation_mappings (
     source_type character varying NOT NULL,
     source_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    field_name character varying NOT NULL
 );
 
 
@@ -6845,6 +6881,13 @@ ALTER TABLE ONLY public.district_subscriptions ALTER COLUMN id SET DEFAULT nextv
 --
 
 ALTER TABLE ONLY public.districts ALTER COLUMN id SET DEFAULT nextval('public.districts_id_seq'::regclass);
+
+
+--
+-- Name: email_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.email_subscriptions_id_seq'::regclass);
 
 
 --
@@ -8138,6 +8181,14 @@ ALTER TABLE ONLY public.district_subscriptions
 
 ALTER TABLE ONLY public.districts
     ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_subscriptions email_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_subscriptions
+    ADD CONSTRAINT email_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -12076,8 +12127,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240625142619'),
 ('20240625205613'),
 ('20240626142949'),
+('20240626193615'),
 ('20240627001654'),
 ('20240627002601'),
-('20240701180742');
+('20240701180742'),
+('20240710195857');
 
 

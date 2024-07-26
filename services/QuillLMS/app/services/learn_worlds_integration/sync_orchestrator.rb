@@ -2,7 +2,6 @@
 
 module LearnWorldsIntegration
   class SyncOrchestrator < ApplicationService
-
     # NOTE: this worker 'smears' API calls over time to avoid hitting
     # the LearnWorlds 30 requests / 10 seconds rate limit.
     SMEAR_RATE_IN_SECONDS = 1
@@ -16,9 +15,9 @@ module LearnWorldsIntegration
     end
 
     def run
-      enqueue_jobs(users_to_unsuspend, UnsuspendUserWorker) {|u| [u.external_id]}
-      enqueue_jobs(users_to_suspend, SuspendUserWorker) {|u| [u.external_id]}
-      enqueue_jobs(userwise_subject_areas_relation, SyncUserTagsWorker) {|u| SyncOrchestrator.marshal(u) }
+      enqueue_jobs(users_to_unsuspend, UnsuspendUserWorker) { |u| [u.external_id] }
+      enqueue_jobs(users_to_suspend, SuspendUserWorker) { |u| [u.external_id] }
+      enqueue_jobs(userwise_subject_areas_relation, SyncUserTagsWorker) { |u| SyncOrchestrator.marshal(u) }
     end
 
     def users_to_suspend
@@ -35,7 +34,7 @@ module LearnWorldsIntegration
 
     def enqueue_jobs(users, worker, &block)
       users.each_with_index do |user, idx|
-        worker.perform_in((counter + (idx * SMEAR_RATE_IN_SECONDS)).seconds, *yield(user) )
+        worker.perform_in((counter + (idx * SMEAR_RATE_IN_SECONDS)).seconds, *yield(user))
       end
 
       self.counter += users.count * SMEAR_RATE_IN_SECONDS
@@ -43,8 +42,8 @@ module LearnWorldsIntegration
 
     def userwise_subject_areas_relation
       @users_memo ||= LearnWorldsAccount.all
-        .includes(user: { teacher_info: [:subject_areas] } )
-        .filter {|row| row&.user }
+        .includes(user: { teacher_info: [:subject_areas] })
+        .filter { |row| row&.user }
     end
 
     def self.marshal(user_subject_area_relation)
@@ -68,6 +67,5 @@ module LearnWorldsIntegration
         .map{ |x| string_to_subject_area_tag(x.name) }
         .append(user_account_type)
     end
-
   end
 end

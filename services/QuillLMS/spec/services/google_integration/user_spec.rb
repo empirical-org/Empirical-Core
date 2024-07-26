@@ -11,7 +11,7 @@ module GoogleIntegration
         allow_any_instance_of(Profile).to receive(:expires_at).and_return('the future')
       end
 
-      let!(:teacher) { create(:teacher, google_id: 234)}
+      let!(:teacher) { create(:teacher, google_id: 234) }
 
       it 'returns a user with the passed-in role if initializing a new user' do
         @profile1 = Profile.new({}, {})

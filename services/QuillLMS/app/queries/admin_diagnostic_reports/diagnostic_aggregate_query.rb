@@ -159,9 +159,9 @@ module AdminDiagnosticReports
         .map do |row|
           # Make grade information more human-readable than simple integers
           next row unless grade_aggregation?
-          next row.merge({name: 'No grade selected'}) if row[:name].nil?
+          next row.merge({ name: 'No grade selected' }) if row[:name].nil?
           # to_i returns 0 for non-numeric strings, so this will only apply to numbered grades
-          next row.merge({name: "Grade #{row[:name]}"}) if row[:name].to_i > 0
+          next row.merge({ name: "Grade #{row[:name]}" }) if row[:name].to_i > 0
 
           row
         end

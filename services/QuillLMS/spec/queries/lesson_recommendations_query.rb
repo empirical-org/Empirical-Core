@@ -14,7 +14,7 @@ describe LessonRecommendationsQuery do
     let!(:activity_unit_template) { create(:activities_unit_template, activity: activity, unit_template: unit_template) }
 
     it 'should return the right activity' do
-      expect(subject.rec_activities(unit_template.id).first).to eq (
+      expect(subject.rec_activities(unit_template.id).first).to eq(
         {
           name: activity.name,
           url: "#{activity_classification.form_url}customize/#{activity.uid}?&preview=true",
@@ -315,9 +315,8 @@ describe LessonRecommendationsQuery do
                   ]
               }
           ]
-        )
+          )
         end
-
       end
     end
 

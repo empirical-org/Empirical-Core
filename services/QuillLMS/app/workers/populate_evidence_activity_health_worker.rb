@@ -17,7 +17,7 @@ class PopulateEvidenceActivityHealthWorker
     return unless activity_health.valid?
 
     serializer.prompt_data&.each do |prompt_data|
-      Evidence::PromptHealth.create!(prompt_data.merge({evidence_activity_health_id: activity_health.id}))
+      Evidence::PromptHealth.create!(prompt_data.merge({ evidence_activity_health_id: activity_health.id }))
     end
   end
 end

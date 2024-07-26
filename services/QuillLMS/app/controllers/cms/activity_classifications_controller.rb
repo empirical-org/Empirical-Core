@@ -15,7 +15,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
     if activity_classification.save!
       render json: activity_classification
     else
-      render json: {errors: activity_classification.errors}, status: 422
+      render json: { errors: activity_classification.errors }, status: 422
     end
   end
 
@@ -28,14 +28,14 @@ class Cms::ActivityClassificationsController < Cms::CmsController
     if activity_classification.update(filtered_activity_classification_params)
       render json: activity_classification
     else
-      render json: {errors: activity_classification.errors}, status: 422
+      render json: { errors: activity_classification.errors }, status: 422
     end
   end
 
   def update_order_numbers
     activity_classifications = params[:activity_classifications]
     activity_classifications.each { |ac| ActivityClassification.find(ac['id']).update(order_number: ac['order_number']) }
-    render json: {activity_classifications: ActivityClassification.order(order_number: :asc)}
+    render json: { activity_classifications: ActivityClassification.order(order_number: :asc) }
   end
 
   def destroy
@@ -46,18 +46,18 @@ class Cms::ActivityClassificationsController < Cms::CmsController
 
   protected def activity_classification_params
     params.require(:activity_classification).permit(:name,
-                                                    :key,
-                                                    :form_url,
-                                                    :uid,
-                                                    :module_url,
-                                                    :app_name,
-                                                    :order_number,
-                                                    :instructor_mode,
-                                                    :locked_by_default,
-                                                    :scored,
-                                                    :id,
-                                                    :created_at,
-                                                    :updated_at)
+      :key,
+      :form_url,
+      :uid,
+      :module_url,
+      :app_name,
+      :order_number,
+      :instructor_mode,
+      :locked_by_default,
+      :scored,
+      :id,
+      :created_at,
+      :updated_at)
   end
 
   protected def filtered_activity_classification_params

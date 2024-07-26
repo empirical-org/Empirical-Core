@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
-  let!(:user) { create(:user)}
+  let!(:user) { create(:user) }
   let!(:activity) { create(:evidence_lms_activity) }
   let!(:because_prompt) { create(:evidence_prompt, activity: activity, conjunction: 'because', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
   let!(:but_prompt) { create(:evidence_prompt, activity: activity, conjunction: 'but', text: 'Some feedback text', max_attempts_feedback: 'Feedback') }
@@ -21,14 +21,13 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
   let!(:csv_file_path) { Rails.root.join('public', "feedback_history_#{activity.id}_#{time_current.to_i}.csv") }
 
   describe 'called with only activity id' do
-
     before do
       allow(UserMailer).to receive(:feedback_history_session_csv_download).and_return(double(:email, deliver_now!: true))
       allow(Time).to receive(:current).and_return(time_current)
     end
 
     it 'should fetch all feedback history sessions for that activity' do
-      feedback_histories = FeedbackHistory.session_data_for_csv({activity_id: activity.id})
+      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id })
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
@@ -40,7 +39,7 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
     it 'should fetch all feedback history sessions for that activity and between designated dates' do
       start_date = '2021-04-06T20:43:27.698Z'
       end_date = '2021-04-08T20:43:27.698Z'
-      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, start_date: start_date, end_date: end_date})
+      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, start_date: start_date, end_date: end_date })
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
@@ -50,7 +49,7 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
     end
 
     it 'should fetch all feedback history sessions for that activity that qualify for scoring' do
-      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true})
+      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true })
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
@@ -60,7 +59,7 @@ describe InternalTool::EmailFeedbackHistorySessionDataWorker, type: :worker do
     end
 
     it 'should write to a csv with the results data' do
-      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true})
+      feedback_histories = FeedbackHistory.session_data_for_csv({ activity_id: activity.id, responses_for_scoring: true })
       results = []
       feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
       results.sort! { |a,b| b['datetime'] <=> a['datetime'] }
@@ -88,5 +87,4 @@ def csv(results)
       ]
     end
   end
-
 end

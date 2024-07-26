@@ -244,7 +244,7 @@ class UnitActivity < ApplicationRecord
           ua.due_date ASC,
           ua.id ASC
      SQL
-    )
+   )
 
     # we could also do this with a HAVING clause, but it is pretty difficult to read because the logic for computing those values is complex
     data.filter { |ua| ua['finished'] || !ua['closed'] }

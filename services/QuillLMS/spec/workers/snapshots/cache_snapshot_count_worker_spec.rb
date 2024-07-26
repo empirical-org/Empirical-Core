@@ -119,7 +119,7 @@ module Snapshots
         cache_ttl = 1
         previous_count = 100
         current_count = 50
-        current_timeframe_query_result = { count: current_count}
+        current_timeframe_query_result = { count: current_count }
         payload = { count: current_count }
 
         expect(subject).to receive(:cache_expiry).and_return(cache_ttl)

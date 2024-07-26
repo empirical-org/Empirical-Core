@@ -29,7 +29,6 @@ module Evidence
       end
     end
 
-
     # PATCH/PUT /turking_round_activity_sessions/1.json
     def update
       if @turking_round_activity_session.update(turking_round_activity_session_params)

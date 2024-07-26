@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-class ProgressReports::ActivitySessionSerializer  < ApplicationSerializer
+class ProgressReports::ActivitySessionSerializer < ApplicationSerializer
   attributes :id,
-             :activity_classification_name,
-             :activity_classification_id,
-             :activity_name,
-             :completed_at,
-             :percentage,
-             :display_score,
-             :display_completed_at,
-             :classroom_id,
-             :unit_id,
-             :student_name,
-             :student_id,
-             :standard
+    :activity_classification_name,
+    :activity_classification_id,
+    :activity_name,
+    :completed_at,
+    :percentage,
+    :display_score,
+    :display_completed_at,
+    :classroom_id,
+    :unit_id,
+    :student_name,
+    :student_id,
+    :standard
 
   def activity_classification_name
     object.activity.classification.name

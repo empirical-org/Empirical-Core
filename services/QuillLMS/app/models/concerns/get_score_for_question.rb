@@ -10,5 +10,4 @@ module GetScoreForQuestion
       concept_results.max_by { |cr| cr.attempt_number || 0 }&.correct ? 100 : 0
     end
   end
-
 end

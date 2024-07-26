@@ -42,7 +42,7 @@ module Evidence
         # to allow only alphanumeric characters and underscores which is what we've seen thus far from the LLM
         rule(:string) { quote.maybe >> alnum_or_underscores.as(:string) >> quote.maybe }
 
-        rule(:alnum_or_underscores) { ( match['[:alnum:]'] | str('_') ).repeat(1) }
+        rule(:alnum_or_underscores) { (match['[:alnum:]'] | str('_')).repeat(1) }
         rule(:comma) { spaces? >> str(',') >> spaces? }
         rule(:colon) { spaces? >> str(':') >> spaces? }
         rule(:quote) { spaces? >> str('"') >> spaces? }

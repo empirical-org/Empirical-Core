@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module CleverIntegration::Importers::SchoolAdminSchools
-
   def self.run(user, district_token)
     schools_for_admin_user = CleverIntegration::Requesters.schools_for_school_admin(user.clever_id, district_token)
     parsed_response = schools_for_admin_user.data.map do |school|
@@ -15,5 +14,4 @@ module CleverIntegration::Importers::SchoolAdminSchools
       end
     end
   end
-
 end

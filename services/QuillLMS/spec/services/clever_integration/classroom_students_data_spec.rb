@@ -18,4 +18,3 @@ RSpec.describe CleverIntegration::ClassroomStudentsData do
 
   it { expect(subject.to_a).to match_array classroom_students_data }
 end
-

@@ -2,7 +2,6 @@
 
 module QuillBigQuery
   class MaterializedViewQuery < Query
-
     BROKEN_MATERIALIZED_VIEW_ERRORS = [
       ::Google::Cloud::NotFoundError,
       ::Google::Cloud::InvalidArgumentError

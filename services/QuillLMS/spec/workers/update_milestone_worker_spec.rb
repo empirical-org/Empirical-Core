@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe UpdateMilestonesWorker do
-
   describe '#perform' do
     it 'returns nil when activity session is not found' do
       expect(described_class.new.perform('wrong_uid')).to eq nil

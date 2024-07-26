@@ -15,7 +15,6 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(TurkingRound, :type => :model) do
-
     context 'should validations' do
       before { create(:evidence_turking_round) }
 

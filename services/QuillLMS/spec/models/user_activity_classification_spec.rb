@@ -24,9 +24,7 @@
 #
 require 'rails_helper'
 
-
 RSpec.describe UserActivityClassification, type: :model do
-
   context 'associations' do
     it { should belong_to(:user) }
     it { should belong_to(:activity_classification) }
@@ -98,7 +96,6 @@ RSpec.describe UserActivityClassification, type: :model do
     let(:user_activity_classification) { create(:user_activity_classification, count: start_count) }
 
     it 'should increment the value of count by 1' do
-
       user_activity_classification.increment_count
       user_activity_classification.reload
       expect(user_activity_classification.count).to eq(start_count + 1)

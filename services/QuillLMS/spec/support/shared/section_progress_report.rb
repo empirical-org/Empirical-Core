@@ -21,16 +21,15 @@ shared_context 'StandardLevel Progress Report' do
       standards << standard
       activity = create(:activity, standard: standard)
       classroom_unit = create(:classroom_unit,
-                                              classroom: classroom,
-                                              unit: unit)
+        classroom: classroom,
+        unit: unit)
       3.times do |j|
         activity_session = create(:activity_session,
-                                              classroom_unit: classroom_unit,
-                                              user: student,
-                                              activity: activity,
-                                              percentage: i / 3.0)
+          classroom_unit: classroom_unit,
+          user: student,
+          activity: activity,
+          percentage: i / 3.0)
       end
-
     end
   end
 end

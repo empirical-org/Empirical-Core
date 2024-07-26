@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe CsvExportMailer, type: :mailer do
-
   describe 'csv_download' do
     let(:csv_export) { create(:csv_export, teacher: teacher) }
     let(:teacher) { create(:teacher) }

@@ -64,7 +64,7 @@
 FactoryBot.define do
   factory :simple_user, class: 'User' do
     sequence(:id) { |n| n + User::UNIQUENESS_CONSTRAINT_MINIMUM_ID }
-    name { 'Jane Doe'}
+    name { 'Jane Doe' }
     email { 'fake@example.com' }
     password { 'password' }
     time_zone { 'UTC' }
@@ -84,7 +84,7 @@ FactoryBot.define do
     factory(:admin) { role { User::ADMIN } }
 
     factory :teacher do
-      role { User::TEACHER}
+      role { User::TEACHER }
 
       factory :teacher_with_one_classroom do
         after(:create) do |teacher|
@@ -165,21 +165,21 @@ FactoryBot.define do
                   create(:unit_activity, unit: unit1, activity: a)
                 end
                 unless ClassroomUnit.find_by(unit: unit1, classroom: c)
-                  create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                  create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id] })
                 end
               elsif i < 6
                 unless UnitActivity.find_by(unit: unit2, activity: a)
                   create(:unit_activity, unit: unit2, activity: a)
                 end
                 unless ClassroomUnit.find_by(unit: unit2, classroom: c)
-                  create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                  create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id] })
                 end
               else
                 unless UnitActivity.find_by(unit: unit3, activity: a)
                   create(:unit_activity, unit: unit3, activity: a)
                 end
                 unless ClassroomUnit.find_by(unit: unit3, classroom: c)
-                  create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
+                  create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id] })
                 end
               end
             end
@@ -196,7 +196,7 @@ FactoryBot.define do
     end
 
     factory :student do
-      role { User::STUDENT}
+      role { User::STUDENT }
 
       trait :signed_up_with_google do
         signed_up_with_google { true }

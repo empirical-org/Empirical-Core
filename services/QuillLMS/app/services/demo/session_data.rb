@@ -26,7 +26,7 @@ module Demo
     ]
 
     ACTIVITY_USER_PAIRS = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES
-      .map {|hash| hash[:activity_sessions].map(&:to_a)}
+      .map { |hash| hash[:activity_sessions].map(&:to_a) }
       .flatten(2)
 
     def activity_sessions
@@ -75,7 +75,7 @@ module Demo
       write_to_file(concept_result_question_types, FILE_CONCEPT_RESULT_QUESTION_TYPES)
 
       # storing a calculated metadata to avoid copying 5 more tables
-      concept_result_metadata = concept_results.to_h {|cr| [cr.id, cr.send(:legacy_format_metadata)]}
+      concept_result_metadata = concept_results.to_h { |cr| [cr.id, cr.send(:legacy_format_metadata)] }
 
       write_to_file(concept_result_metadata, FILE_CONCEPT_RESULT_LEGACY_METADATA)
     end

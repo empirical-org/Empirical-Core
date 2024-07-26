@@ -51,8 +51,8 @@ module Snapshots
         value: 'all-time',
         name: 'All time',
         # A nil previous start passed to the worker results in the previous-period query being skipped
-        previous_start: proc { },
-        previous_end: proc { },
+        previous_start: proc {},
+        previous_end: proc {},
         current_start: proc { DateTime.new(2010,1,1) }, # This is well before any data exists in our system, so works for "all time"
         current_end: proc { |reference_time| reference_time },
       }, {

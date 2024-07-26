@@ -27,7 +27,6 @@ module Evidence
       end
     end
 
-
     # PATCH/PUT /turking_rounds/1.json
     def update
       if @turking_round.update(turking_round_params)

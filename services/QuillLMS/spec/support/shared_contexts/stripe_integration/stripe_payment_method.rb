@@ -3,7 +3,7 @@
 RSpec.shared_context 'Stripe Payment Method' do
   include_context 'Stripe Card'
 
-  let(:stripe_payment_method_id) { "pm_#{SecureRandom.hex}"}
+  let(:stripe_payment_method_id) { "pm_#{SecureRandom.hex}" }
 
   let(:stripe_payment_method) {
     Stripe::PaymentMethod.construct_from(

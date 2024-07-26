@@ -7,10 +7,10 @@ describe UnitTemplatePseudoSerializer do
   let(:lesson) { create(:lesson_activity) }
   let(:grammar) { create(:grammar_activity) }
   let(:archived_activity) { create(:activity, flags: ['archived']) }
-  let(:unit_template) { create(:unit_template, unit_template_category_id: 0, activities: [grammar] ) }
-  let(:unit_template_with_diagnostic) { create(:unit_template, activities: [diagnostic] ) }
-  let(:unit_template_with_lesson) { create(:unit_template, activities: [lesson] ) }
-  let(:unit_template_with_archived_activity) { create(:unit_template, activities: [archived_activity])}
+  let(:unit_template) { create(:unit_template, unit_template_category_id: 0, activities: [grammar]) }
+  let(:unit_template_with_diagnostic) { create(:unit_template, activities: [diagnostic]) }
+  let(:unit_template_with_lesson) { create(:unit_template, activities: [lesson]) }
+  let(:unit_template_with_archived_activity) { create(:unit_template, activities: [archived_activity]) }
 
   it('will have nil values for the unit template category attributes if there is no unit template category') do
     serialized_ut = UnitTemplatePseudoSerializer.new(unit_template)

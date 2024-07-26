@@ -44,7 +44,7 @@ class SubscriptionsController < ApplicationController
 
   def purchaser_name
     if subscription_is_associated_with_current_user?
-      render json: {name: @subscription.purchaser.name}
+      render json: { name: @subscription.purchaser.name }
     else
       auth_failed
     end
@@ -92,7 +92,7 @@ class SubscriptionsController < ApplicationController
   private def set_index_variables
     @current_user_email = current_user.email
     @subscriptions = current_user.subscriptions
-    @premium_credits = current_user.credit_transactions.map {|x| x.serializable_hash(methods: :action)}.compact
+    @premium_credits = current_user.credit_transactions.map { |x| x.serializable_hash(methods: :action) }.compact
     @subscription_status = current_user.subscription_status
     @school_subscription_types = Subscription::OFFICIAL_SCHOOL_TYPES
     @trial_types = Subscription::TRIAL_TYPES

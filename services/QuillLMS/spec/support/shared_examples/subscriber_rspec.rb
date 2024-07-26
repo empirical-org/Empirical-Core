@@ -26,4 +26,3 @@ RSpec.shared_examples 'a subscriber' do
     end
   end
 end
-

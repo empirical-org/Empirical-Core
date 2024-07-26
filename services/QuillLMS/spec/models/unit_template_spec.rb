@@ -25,7 +25,7 @@
 require 'rails_helper'
 
 describe UnitTemplate, redis: true, type: :model do
-  let!(:unit_template) {create(:unit_template)}
+  let!(:unit_template) { create(:unit_template) }
 
   it { should belong_to(:unit_template_category) }
   it { should belong_to(:author) }
@@ -33,7 +33,7 @@ describe UnitTemplate, redis: true, type: :model do
   it { should have_many(:activities).through(:activities_unit_templates) }
   it { should have_many(:units) }
   it { should serialize(:grades).as(Array) }
-  it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :gamma, :production])}
+  it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :gamma, :production]) }
 
   describe '#activity_ids=' do
     let(:activity) { create(:activity) }
@@ -47,7 +47,6 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#readability' do
-
     it 'calculates readability range across activities by merging the lowest readability grade level and highest readability grade level' do
       raw_score_one = create(:raw_score, :four_hundred_to_five_hundred)
       raw_score_two = create(:raw_score, :eight_hundred_to_nine_hundred)
@@ -82,9 +81,7 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#grade_level_range' do
-
     it 'calculates grade_level_range range across activities as the highest included grade level' do
-
       activity_one = create(:activity, minimum_grade_level: 4, maximum_grade_level: 12)
       activity_two = create(:activity, minimum_grade_level: 10, maximum_grade_level: 12)
 
@@ -142,11 +139,11 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#meta_description' do
-    let(:standard1) {create(:standard, name: '7.1b writing sentences')}
-    let(:standard2) {create(:standard, name: 'CCSS Grade 9')}
+    let(:standard1) { create(:standard, name: '7.1b writing sentences') }
+    let(:standard2) { create(:standard, name: 'CCSS Grade 9') }
     let(:activity1) { create(:activity, standard: standard1) }
     let(:activity2) { create(:activity, standard: standard2) }
-    let(:description) {'Free online writing activity pack "Template Name" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9.'}
+    let(:description) { 'Free online writing activity pack "Template Name" for teachers of school students. Standards: 7.1b writing sentences and CCSS Grade 9.' }
 
     subject { create(:unit_template, name: 'Template Name', activities: [activity1, activity2]) }
 
@@ -155,7 +152,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'with grades' do
-      let(:description) {'Free online writing activity pack "Template Name" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9.'}
+      let(:description) { 'Free online writing activity pack "Template Name" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9.' }
 
       subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
 
@@ -165,7 +162,7 @@ describe UnitTemplate, redis: true, type: :model do
     end
 
     context 'no activities' do
-      let(:description) {'Free online writing activity pack "Template Name" for teachers of school students. '}
+      let(:description) { 'Free online writing activity pack "Template Name" for teachers of school students. ' }
 
       subject { create(:unit_template, name: 'Template Name') }
 
@@ -178,10 +175,10 @@ describe UnitTemplate, redis: true, type: :model do
   describe '#get_cached_serialized_unit_template' do
     let(:category) { create(:unit_template_category) }
     let(:author) { create(:author) }
-    let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred )}
+    let(:raw_score) { create(:raw_score, :five_hundred_to_six_hundred) }
     let(:activity) { create(:activity, raw_score: raw_score) }
     let(:first_topic) { create(:topic, level: 1) }
-    let(:second_topic) { create(:topic, level: 1)}
+    let(:second_topic) { create(:topic, level: 1) }
     let!(:activity_topic) { create(:activity_topic, topic: first_topic, activity: activity) }
     let!(:activity_topic_two) { create(:activity_topic, topic: second_topic, activity: activity) }
     let(:unit_template1) { create(:unit_template, author: author, unit_template_category: category, activities: [activity]) }
@@ -273,8 +270,8 @@ describe UnitTemplate, redis: true, type: :model do
 
     let!(:current_user) { create(:teacher_with_a_couple_classrooms_with_one_student_each) }
     let!(:classroom) { current_user.classrooms_i_teach.first }
-    let!(:unit_one) {create(:unit, user_id: current_user.id)}
-    let!(:unit_two) {create(:unit, user_id: current_user.id)}
+    let!(:unit_one) { create(:unit, user_id: current_user.id) }
+    let!(:unit_two) { create(:unit, user_id: current_user.id) }
     let!(:activity_one) { create(:activity) }
     let!(:activity_two) { create(:activity) }
     let!(:activity_three) { create(:activity) }
@@ -325,7 +322,6 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe '#around_save callback' do
-
     before do
       $redis.redis.flushdb
       $redis.multi{
@@ -363,11 +359,9 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
-
   describe 'flag validations' do
-
     it 'can equal production' do
-      unit_template.update(flag:'production')
+      unit_template.update(flag: 'production')
       expect(unit_template).to be_valid
     end
 
@@ -405,7 +399,6 @@ describe UnitTemplate, redis: true, type: :model do
       expect($redis.get('alpha_unit_templates')).to eq nil
       expect($redis.get('private_unit_templates')).to eq nil
     end
-
   end
 
   describe 'scope results' do
@@ -413,69 +406,53 @@ describe UnitTemplate, redis: true, type: :model do
     let!(:gamma_unit_template){ create(:unit_template, flag: 'gamma') }
     let!(:beta_unit_template){ create(:unit_template, flag: 'beta') }
     let!(:alpha_unit_template){ create(:unit_template, flag: 'alpha') }
-    let!(:all_types){[production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template]}
+    let!(:all_types){ [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
 
     context 'the default scope' do
-
       it 'must show all types of flagged activities when default scope' do
-
         default_results = UnitTemplate.all
         expect(all_types - default_results).to eq []
       end
-
     end
 
     context 'the production scope' do
-
       it 'must show only production flagged activities' do
         expect(all_types - UnitTemplate.production).to eq [gamma_unit_template, beta_unit_template, alpha_unit_template]
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(nil)' do
-        expect(UnitTemplate.production).to eq (UnitTemplate.user_scope(nil))
+        expect(UnitTemplate.production).to eq(UnitTemplate.user_scope(nil))
       end
-
     end
 
     context 'the gamma_user scope' do
-
       it 'must show only production and gamma flagged activities' do
         expect(all_types - UnitTemplate.gamma_user).to eq [beta_unit_template, alpha_unit_template]
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(gamma)' do
-        expect(UnitTemplate.gamma_user).to eq (UnitTemplate.user_scope('gamma'))
+        expect(UnitTemplate.gamma_user).to eq(UnitTemplate.user_scope('gamma'))
       end
-
-
     end
 
     context 'the beta_user scope' do
-
       it 'must show only production and beta and gamma flagged activities' do
         expect(all_types - UnitTemplate.beta_user).to eq [alpha_unit_template]
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(beta)' do
-        expect(UnitTemplate.beta_user).to eq (UnitTemplate.user_scope('beta'))
+        expect(UnitTemplate.beta_user).to eq(UnitTemplate.user_scope('beta'))
       end
-
-
     end
 
     context 'the alpha_user scope' do
-
       it 'must show all types of flags except for archived with alpha_user scope' do
         expect(all_types - UnitTemplate.alpha_user).to eq []
       end
 
       it 'must return the same thing as UnitTemplate.user_scope(alpha)' do
-        expect(UnitTemplate.alpha_user).to eq (UnitTemplate.user_scope('alpha'))
+        expect(UnitTemplate.alpha_user).to eq(UnitTemplate.user_scope('alpha'))
       end
-
     end
-
   end
-
-
 end

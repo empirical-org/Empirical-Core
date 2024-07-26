@@ -48,7 +48,7 @@ function extractLessonUIDFromLocation() {
   return (matches) ? matches[2] : null;
 }
 
-const lessonUid = extractLessonUIDFromLocation();
+export const lessonUid = extractLessonUIDFromLocation();
 
 if (lessonUid) {
   setTimeout(() => {

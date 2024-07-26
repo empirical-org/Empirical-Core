@@ -12,43 +12,54 @@ shared_context 'Student Concept Progress Report' do
   let(:hidden_concept) { create(:concept, name: 'Hidden') }
 
   # Boilerplate
-  let(:classroom) { create(:classroom,
-    name: 'Bacon Weaving',
-    students: [alice, fred, zojirushi]) }
-  let(:teacher) {classroom.owner}
+  let(:classroom) {
+    create(:classroom,
+      name: 'Bacon Weaving',
+      students: [alice, fred, zojirushi])
+  }
+  let(:teacher) { classroom.owner }
   let(:activity) { create(:activity) }
-  let(:unit) { create(:unit, user: teacher ) }
-  let(:classroom_unit) { create(:classroom_unit,
-                                          classroom: classroom,
-                                          assign_on_join: true,
-                                          unit: unit,
-                                          assigned_student_ids: [alice.id, fred.id, zojirushi.id]
-                                          ) }
-  let(:unit_activity) { create(:unit_activity,
-                                activity: activity,
-                                unit: unit)}
-
+  let(:unit) { create(:unit, user: teacher) }
+  let(:classroom_unit) {
+    create(:classroom_unit,
+      classroom: classroom,
+      assign_on_join: true,
+      unit: unit,
+      assigned_student_ids: [alice.id, fred.id, zojirushi.id]
+    )
+  }
+  let(:unit_activity) {
+    create(:unit_activity,
+      activity: activity,
+      unit: unit)
+  }
 
   # Create 2 activity session for each student, one with the concept tags, one without
-  let(:alice_session) { create(:activity_session,
-                                      classroom_unit: classroom_unit,
-                                      user: alice,
-                                      activity: activity,
-                                      percentage: 0.75) }
+  let(:alice_session) {
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      user: alice,
+      activity: activity,
+      percentage: 0.75)
+  }
 
-  let(:fred_session) { create(:activity_session,
-                                      classroom_unit: classroom_unit,
-                                      user: fred,
-                                      activity: activity,
-                                      percentage: 0.75) }
+  let(:fred_session) {
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      user: fred,
+      activity: activity,
+      percentage: 0.75)
+  }
 
   # Zojirushi has no concept tag results, so should not display
   # in the progress report
-  let(:zojirushi_session) { create(:activity_session,
-                                      classroom_unit: classroom_unit,
-                                      user: zojirushi,
-                                      activity: activity,
-                                      percentage: 0.75) }
+  let(:zojirushi_session) {
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      user: zojirushi,
+      activity: activity,
+      percentage: 0.75)
+  }
 
   let(:visible_students) { [alice, fred] }
   let(:classrooms) { [classroom] }

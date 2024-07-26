@@ -34,7 +34,6 @@ class ClassificationSerializer < ApplicationSerializer
     end
   end
 
-
   def scorebook_icon_class
     case object.id
     when 1
@@ -51,5 +50,4 @@ class ClassificationSerializer < ApplicationSerializer
       ''
     end
   end
-
 end

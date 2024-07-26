@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-
 RSpec.describe String do
   describe '#strip_zero_width' do
     it 'removes zero-width space characters from the string' do

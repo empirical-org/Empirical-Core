@@ -2,7 +2,6 @@
 
 module Mailer
   class User < SimpleDelegator
-
     def send_premium_hub_teacher_account_created_email(admin_name, school_name, is_reminder)
       PremiumHubUserMailer.teacher_account_created_email(self, admin_name, school_name, is_reminder).deliver_now! if email.present?
     end

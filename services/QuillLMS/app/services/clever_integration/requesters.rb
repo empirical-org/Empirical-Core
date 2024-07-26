@@ -3,7 +3,6 @@
 require 'clever-ruby'
 
 module CleverIntegration::Requesters
-
   def self.teacher(clever_id, district_token=nil)
     api_instance(district_token).get_teacher(clever_id)
   end

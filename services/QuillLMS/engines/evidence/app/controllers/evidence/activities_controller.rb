@@ -76,7 +76,7 @@ module Evidence
     # params [:id, :rule_type]
     def rules
       @activity = Evidence::Activity.includes(
-        prompts: { rules: [:plagiarism_texts, { feedbacks: :highlights }, :label, :regex_rules, :hint, :prompts]}
+        prompts: { rules: [:plagiarism_texts, { feedbacks: :highlights }, :label, :regex_rules, :hint, :prompts] }
       ).find(params[:id])
 
       render json: activity_rules_by_rule_type(@activity, rules_params[:rule_type])

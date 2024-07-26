@@ -74,7 +74,7 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if the uid is not unique and question type is the same' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
+      new_question = Question.new(uid: question.uid, data: { foo: 'bar' }, question_type: question.question_type)
       expect(new_question.valid?).to be false
     end
 
@@ -84,19 +84,19 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if a focus point has no text' do
-      question.data = {Question::FOCUS_POINTS=>{'0'=>{'feedback'=>'foo'}}}
+      question.data = { Question::FOCUS_POINTS=>{ '0'=>{ 'feedback'=>'foo' } } }
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if a focus point has no feedback' do
-      question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'foo'}}}
+      question.data = { Question::FOCUS_POINTS=>{ '0'=>{ 'text'=>'foo' } } }
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if a focus point text is invalid regex' do
-      question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
+      question.data = { Question::FOCUS_POINTS=>{ '0'=>{ 'text'=>'(foo|', 'feedback'=>'bar' } } }
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
@@ -105,7 +105,7 @@ RSpec.describe Question, type: :model do
       data = {
         Question::FOCUS_POINTS =>
         [
-          {'text'=>'(foo|bar)', 'feedback'=>'bar'}
+          { 'text'=>'(foo|bar)', 'feedback'=>'bar' }
         ]
       }
       question.data = data
@@ -113,18 +113,18 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be valid if focus point has valid regex and feedback' do
-      question.data = {Question::FOCUS_POINTS=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
+      question.data = { Question::FOCUS_POINTS=>{ '0'=>{ 'text'=>'(foo|bar)', 'feedback'=>'bar' } } }
       expect(question.valid?).to be true
     end
 
     it 'should be invalid if an incorrect sequence has no text' do
-      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'feedback'=>'foo'}}}
+      question.data = { Question::INCORRECT_SEQUENCES=>{ '0'=>{ 'feedback'=>'foo' } } }
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
 
     it 'should be invalid if an incorrect sequence has no feedback' do
-      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'foo'}}}
+      question.data = { Question::INCORRECT_SEQUENCES=>{ '0'=>{ 'text'=>'foo' } } }
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('Focus Points and Incorrect Sequences must have text and feedback.')
     end
@@ -133,7 +133,7 @@ RSpec.describe Question, type: :model do
       data = {
         Question::INCORRECT_SEQUENCES =>
         [
-          {'text'=>'(foo|bar)', 'feedback'=>'bar'}
+          { 'text'=>'(foo|bar)', 'feedback'=>'bar' }
         ]
       }
       question.data = data
@@ -141,13 +141,13 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if an incorrect sequence is invalid regex' do
-      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'(foo|', 'feedback'=>'bar'}}}
+      question.data = { Question::INCORRECT_SEQUENCES=>{ '0'=>{ 'text'=>'(foo|', 'feedback'=>'bar' } } }
       expect(question.valid?).to be false
       expect(question.errors[:data]).to include('There is incorrectly formatted regex: (foo|')
     end
 
     it 'should be valid if an incorrect sequence has valid regex and feedback' do
-      question.data = {Question::INCORRECT_SEQUENCES=>{'0'=>{'text'=>'(foo|bar)', 'feedback'=>'bar'}}}
+      question.data = { Question::INCORRECT_SEQUENCES=>{ '0'=>{ 'text'=>'(foo|bar)', 'feedback'=>'bar' } } }
       expect(question.valid?).to be true
     end
   end
@@ -170,7 +170,7 @@ RSpec.describe Question, type: :model do
   describe '#set_focus_point' do
     it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_focus_point(uid, {'text'=>'text','feedback'=>'feedback'})
+      response = question.set_focus_point(uid, { 'text'=>'text','feedback'=>'feedback' })
       expect(response).to eq(true)
     end
 
@@ -184,7 +184,7 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#update_focus_points' do
-    let(:update_data) { {'foo' => {'text'=>'text', 'feedback'=>'bar'} } }
+    let(:update_data) { { 'foo' => { 'text'=>'text', 'feedback'=>'bar' } } }
 
     it 'should change the contents of focusPoints' do
       question.update_focus_points(update_data)
@@ -212,18 +212,18 @@ RSpec.describe Question, type: :model do
 
     it 'should remove the specified incorrectSequence if stored in an array' do
       data = [
-        {'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar'},
-        {'uid' => 'uid2', 'text'=>'text', 'feedback'=>'bar'},
-        {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}
+        { 'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar' },
+        { 'uid' => 'uid2', 'text'=>'text', 'feedback'=>'bar' },
+        { 'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar' }
 ]
       question.update_incorrect_sequences(data)
       first_incorrect_sequence_key = '1'
       question.delete_incorrect_sequence(first_incorrect_sequence_key)
       question.reload
       expect(question.incorrectSequences).to contain_exactly(
-        {'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar'},
-        {'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar'}
-        )
+        { 'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar' },
+        { 'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar' }
+      )
     end
   end
 
@@ -247,19 +247,19 @@ RSpec.describe Question, type: :model do
 
   describe '#get_incorrect_sequence' do
     it 'should retrieve the incorrect sequence if it is a hash' do
-      data = { 'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       question.update_incorrect_sequences(data)
       expect(question.get_incorrect_sequence('foo')).to eq('bar')
     end
 
     it 'should retrieve the incorrect sequence if it is an array' do
-      sequence = {'uid' => '1', 'text' => 'foo', 'feedback' => 'bar'}
+      sequence = { 'uid' => '1', 'text' => 'foo', 'feedback' => 'bar' }
       question.update_incorrect_sequences([sequence])
       expect(question.get_incorrect_sequence(0)).to eq(sequence)
     end
 
     it 'should retrieve the incorrect sequence if it is an array even if the passed id is a string' do
-      sequence = {'uid' => '1', 'text' => 'foo', 'feedback' => 'bar'}
+      sequence = { 'uid' => '1', 'text' => 'foo', 'feedback' => 'bar' }
       question.update_incorrect_sequences([sequence])
       expect(question.get_incorrect_sequence('0')).to eq(sequence)
     end
@@ -282,9 +282,9 @@ RSpec.describe Question, type: :model do
     context 'incorrectSequence is an array' do
       let(:original_incorrect_sequences) {
         [
-          {'text'=>'text', 'feedback'=>'bar'},
-          {'text'=>'text', 'feedback'=>'bar'},
-          {'text'=>'text', 'feedback'=>'bar'}
+          { 'text'=>'text', 'feedback'=>'bar' },
+          { 'text'=>'text', 'feedback'=>'bar' },
+          { 'text'=>'text', 'feedback'=>'bar' }
         ]
       }
       let(:length) { original_incorrect_sequences.length }
@@ -310,7 +310,7 @@ RSpec.describe Question, type: :model do
   describe '#set_incorrect_sequence' do
     it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_incorrect_sequence(uid, {'text'=>'Text','feedback'=>'feedback'})
+      response = question.set_incorrect_sequence(uid, { 'text'=>'Text','feedback'=>'feedback' })
       expect(response).to eq(true)
     end
 
@@ -324,16 +324,16 @@ RSpec.describe Question, type: :model do
     context 'array' do
       before do
         question.data['incorrectSequences'] = [
-          {'text'=>'text1','feedback'=>'feedback1', 'uid' => 'uid1'},
-          {'text'=>'text2','feedback'=>'feedback2', 'uid' => 'uid2'},
-          {'text'=>'text3','feedback'=>'feedback3', 'uid' => 'uid3'}
+          { 'text'=>'text1','feedback'=>'feedback1', 'uid' => 'uid1' },
+          { 'text'=>'text2','feedback'=>'feedback2', 'uid' => 'uid2' },
+          { 'text'=>'text3','feedback'=>'feedback3', 'uid' => 'uid3' }
         ]
         question.save
       end
 
       it 'should set the value of the specified incorrectSequence' do
         replace_uid = 0
-        new_incorrect_sequence = {'text' => 't4', 'feedback' => 'f4', 'uid' => 'u4'}
+        new_incorrect_sequence = { 'text' => 't4', 'feedback' => 'f4', 'uid' => 'u4' }
         question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
         question.reload
         new_data = question.incorrectSequences[replace_uid]
@@ -349,7 +349,7 @@ RSpec.describe Question, type: :model do
       end
 
       it 'does not replace an existing uid' do
-        new_incorrect_sequence = {'text' => 'foo', 'feedback' => 'bar', 'uid' => 'uid1'}
+        new_incorrect_sequence = { 'text' => 'foo', 'feedback' => 'bar', 'uid' => 'uid1' }
         replace_uid = 0
         question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
         question.reload
@@ -363,7 +363,7 @@ RSpec.describe Question, type: :model do
     subject { question.update_incorrect_sequences(update_data) }
 
     context 'the update data is an array' do
-      let(:update_data) { [{'text'=>'text', 'feedback'=>'bar'}]}
+      let(:update_data) { [{ 'text'=>'text', 'feedback'=>'bar' }] }
 
       it 'should add uids to each of the sequences' do
         subject
@@ -386,7 +386,7 @@ RSpec.describe Question, type: :model do
     end
 
     context 'the update data is a hash' do
-      let(:update_data) { {'foo' => {'text'=>'text', 'feedback'=>'bar'} }}
+      let(:update_data) { { 'foo' => { 'text'=>'text', 'feedback'=>'bar' } } }
 
       it 'should change the contents of incorrectSequences' do
         subject
@@ -397,31 +397,45 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#as_json' do
+    subject { question.as_json(options) }
+
+    let(:options) { nil }
+
     it 'should just be the data attribute' do
-      expect(question.as_json).to eq(question.data)
+      expect(subject).to eq(question.data)
+    end
+
+    context 'a locale is passed in' do
+      let(:locale) { "ch-zn" }
+      let(:options) { { locale: } }
+
+      it 'should return translated_data(locale:)' do
+        expect(question).to receive(:translated_data).with(locale:)
+        subject
+      end
     end
   end
 
   describe '#refresh_cache' do
-    let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
+    let!(:question) { create(:question, uid: '1234', data: { 'foo' => 'initial_value' }) }
 
     it 'should queue a cache refresh job on update' do
       expect(Rails.cache).to receive(:delete).with(Question::CACHE_KEY_QUESTION + question.uid)
       expect(Rails.cache).to receive(:delete).with(Question::CACHE_KEY_ALL + question.question_type)
       expect(RefreshQuestionCacheWorker).to receive(:perform_async).with(question.question_type, question.uid)
 
-      question.update(data: {'foo' => 'new_value'})
+      question.update(data: { 'foo' => 'new_value' })
     end
   end
 
   describe 'question cache methods' do
-    let!(:question) {create(:question, uid: '1234', data: {'foo' => 'initial_value'})}
+    let!(:question) { create(:question, uid: '1234', data: { 'foo' => 'initial_value' }) }
 
     it 'should refresh cache for all questions, when refresh: true is passed' do
       json = JSON.parse(Question.all_questions_json_cached(question.question_type))
       expect(json['1234']['foo']).to eq('initial_value')
 
-      question.update(data: {'foo' => 'new_value'})
+      question.update(data: { 'foo' => 'new_value' })
       Question.all_questions_json_cached(question.question_type, refresh: true)
 
       new_json = JSON.parse(Question.all_questions_json_cached(question.question_type))
@@ -432,7 +446,7 @@ RSpec.describe Question, type: :model do
       json = JSON.parse(Question.question_json_cached(question.uid))
       expect(json['foo']).to eq('initial_value')
 
-      question.update(data: {'foo' => 'new_value'})
+      question.update(data: { 'foo' => 'new_value' })
       Question.question_json_cached(question.uid, refresh: true)
 
       new_json = JSON.parse(Question.question_json_cached(question.uid))
@@ -451,15 +465,15 @@ RSpec.describe Question, type: :model do
     it 'should raise for an invalid type' do
       question = build(:question, question_type: 'non-existent key')
 
-      expect {question.rematch_type }.to raise_error(KeyError)
+      expect { question.rematch_type }.to raise_error(KeyError)
     end
   end
 
   describe '#save_uids_for(type)' do
     subject { question.save_uids_for(type) }
 
-    let(:type1) { {'text' => 'foo', 'feedback' => 'bar'} }
-    let(:type2) { {'text' => 'baz', 'feedback' => 'qux'} }
+    let(:type1) { { 'text' => 'foo', 'feedback' => 'bar' } }
+    let(:type2) { { 'text' => 'baz', 'feedback' => 'qux' } }
 
     before do
       question.data[type] = data
@@ -480,12 +494,12 @@ RSpec.describe Question, type: :model do
         end
 
         context 'the uid already exists for a data point' do
-          let(:type1) { {'uid' => 'uid1', 'text' => 'foo', 'feedback' => 'bar'} }
-          let(:type2) { {'uid' => 'uid2', 'text' => 'baz', 'feedback' => 'qux'} }
+          let(:type1) { { 'uid' => 'uid1', 'text' => 'foo', 'feedback' => 'bar' } }
+          let(:type2) { { 'uid' => 'uid2', 'text' => 'baz', 'feedback' => 'qux' } }
 
           it 'does not change the uid if it already exists' do
             subject
-            uids = question.reload.data[type].map{|i| i['uid']}
+            uids = question.reload.data[type].map{ |i| i['uid'] }
             expect(uids).to eq(['uid1', 'uid2'])
           end
         end
@@ -525,5 +539,4 @@ RSpec.describe Question, type: :model do
       end
     end
   end
-
 end

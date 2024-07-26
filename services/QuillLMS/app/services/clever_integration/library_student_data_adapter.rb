@@ -17,7 +17,6 @@ module CleverIntegration
       }
     end
 
-
     private def data
       @data ||= student_data['data'].deep_symbolize_keys
     end

@@ -12,10 +12,11 @@ function startListeningToTitleCards() {
 function loadTitleCards(): (any) => void {
   return (dispatch) => {
     TitleCardApi.getAll(DIAGNOSTIC_TITLE_CARD_TYPE).then((body) => {
-      const titleCards = body.title_cards.reduce((obj, item) => {
+      let titleCards = body.title_cards || []
+      const titleCardsObject = titleCards.reduce((obj, item) => {
         return Object.assign(obj, {[item.uid]: item});
       }, {});
-      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: titleCards, });
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: titleCardsObject, });
     });
   };
 }

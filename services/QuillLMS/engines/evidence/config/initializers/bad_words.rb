@@ -6,4 +6,3 @@ io = File.read(path)
 module BadWords; end
 
 BadWords::ALL = JSON.parse(io)['words'].map(&:downcase)
-

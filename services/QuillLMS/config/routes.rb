@@ -5,7 +5,6 @@ require 'sidekiq/pro/web'
 require 'staff_constraint'
 
 EmpiricalGrammar::Application.routes.draw do
-
   if Rails.env.development?
     mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql'
   end
@@ -146,7 +145,6 @@ EmpiricalGrammar::Application.routes.draw do
       post :hide
       post :unhide
     end
-
   end
   resources :unit_templates, only: [:index, :show], format: 'json'
 
@@ -155,7 +153,6 @@ EmpiricalGrammar::Application.routes.draw do
     get :play, on: :member
     put :play, on: :member
   end
-
 
   # 3rd party apps depend on the below, do not change :
   get 'activity_sessions/classroom_units/:classroom_unit_id/activities/:activity_id' => 'activity_sessions#activity_session_from_classroom_unit_and_activity',
@@ -242,7 +239,6 @@ EmpiricalGrammar::Application.routes.draw do
   get :teacher_dashboard_metrics, controller: 'teachers/classroom_manager', action: 'teacher_dashboard_metrics'
 
   namespace :teachers do
-
     resources :units, as: 'units_path' do
       get :classrooms_with_students_and_classroom_units, on: :member
       put :update_classroom_unit_assigned_students, on: :member
@@ -405,7 +401,6 @@ EmpiricalGrammar::Application.routes.draw do
       end
       #this can't go in with member because the id is outside of the default scope
 
-
       resources :activities, controller: 'classroom_activities'
 
       resources :students do
@@ -419,7 +414,6 @@ EmpiricalGrammar::Application.routes.draw do
       %w(accounts import).each do |page|
         get page => "classroom_manager##{page}"
       end
-
     end
   end
 
@@ -465,7 +459,9 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activity_health' => 'rule_feedback_histories#activity_health'
       post 'email_csv_data' => 'session_feedback_histories#email_csv_data'
 
-      resources :activities, only: [:create, :show, :update, :destroy]
+      resources :activities, only: [:create, :show, :update, :destroy] do
+        resources :questions, only: [:index], controller: 'activity_questions'
+      end
       resources :activity_flags, only: [:index]
       resources :activity_sessions, only: [:create, :show, :update, :destroy]
       resources :feedback_histories, only: [:index, :show, :create]
@@ -487,7 +483,7 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
 
-      resources :classroom_units,         only: [] do
+      resources :classroom_units, only: [] do
         collection do
           get 'student_names'
           put 'finish_lesson'
@@ -530,7 +526,11 @@ EmpiricalGrammar::Application.routes.draw do
       end
       resources :shared_cache, only: [:show, :update, :destroy]
       scope 'activity_type/:activity_type' do
-        resources :concept_feedback
+        resources :concept_feedback do
+          collection do
+            get 'translations/:locale', action: :translations
+          end
+        end
       end
 
       resources :questions, only: [:index, :show, :new, :create, :edit, :update] do
@@ -727,7 +727,6 @@ EmpiricalGrammar::Application.routes.draw do
     resources :attributes_manager, only: [:index], as: 'attributes_manager'
     get 'attributes_manager/:attribute/:tab' => 'attributes_manager#index'
     get 'attributes_manager/:attribute' => 'attributes_manager#index'
-
   end
 
   resources :referrals, only: [:index] do
@@ -935,7 +934,6 @@ EmpiricalGrammar::Application.routes.draw do
   get 'amplify/all' => 'integrations#amplify_all'
   get 'amplify/section/:section_id', to: redirect('amplify/standard_level/%{section_id}')
   get 'amplify/standard_level/:standard_level_id' => 'integrations#amplify_all', as: 'amplify_browse_section'
-
 
   # Count route to get quantities
   get 'count/featured_packs' => 'teachers/unit_templates#count'

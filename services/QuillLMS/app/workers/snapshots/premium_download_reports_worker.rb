@@ -38,6 +38,5 @@ module Snapshots
 
       DateTime.parse(value)
     end
-
   end
 end

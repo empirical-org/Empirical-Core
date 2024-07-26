@@ -3,7 +3,6 @@
 require 'csv'
 
 namespace :plagiarized_responses do
-
   desc 'Reads a csv of responses and returns a csv with plagiarized responses filtered out'
 
   task :filter, [:passage, :responses] => :environment do |t, args|
@@ -44,7 +43,6 @@ namespace :plagiarized_responses do
   #     ON comprehension_prompts_rules.rule_id = comprehension_plagiarism_texts.rule_id
 
   task :test, [:input_csv_path] => :environment do |t, args|
-
     # Derived from lib/evidence/evidence/plagiarism_check.rb 'match_entry_on_passage'
     def minimum_edit_distance_per_slice(entry, plagiarism_text)
       match_minimum = 10

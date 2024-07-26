@@ -186,4 +186,3 @@ RSpec.describe UserPackSequenceItemSaver do
     expect(worker_class.jobs.map { |job| job['args'] }).to eq expected_job_args
   end
 end
-

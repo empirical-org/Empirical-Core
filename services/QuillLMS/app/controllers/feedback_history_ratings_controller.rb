@@ -13,9 +13,9 @@ class FeedbackHistoryRatingsController < ApplicationController
 
     if rating.valid?
       rating.save!
-      render(json: {status: 200})
+      render(json: { status: 200 })
     else
-      render(json: {status: 406, message: rating.errors})
+      render(json: { status: 406, message: rating.errors })
     end
   end
 
@@ -25,9 +25,9 @@ class FeedbackHistoryRatingsController < ApplicationController
     if ratings.all? { |r| r.valid? }
       ratings.each { |r| r.save! }
     else
-      render json: {error_messages: records.map { |r| r.errors }.join('; ')}, status: :unprocessable_entity
+      render json: { error_messages: records.map { |r| r.errors }.join('; ') }, status: :unprocessable_entity
     end
-    render(json: {status: 200})
+    render(json: { status: 200 })
   end
 
   private def create_or_update_feedback_history_rating(id, value)

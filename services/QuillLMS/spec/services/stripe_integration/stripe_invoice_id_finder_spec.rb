@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe StripeIntegration::StripeInvoiceIdFinder do
-
   subject { described_class.run(checkout_session_id) }
 
   context 'nil checkout_session_id' do
@@ -40,7 +39,7 @@ RSpec.describe StripeIntegration::StripeInvoiceIdFinder do
       end
 
       context 'subscription exists' do
-        let(:stripe_invoice_id) { "in_#{SecureRandom.hex}"}
+        let(:stripe_invoice_id) { "in_#{SecureRandom.hex}" }
         let(:stripe_subscription) { double(:stripe_subscription, latest_invoice: stripe_invoice_id) }
 
         before { retrieve_subscription.and_return(stripe_subscription) }

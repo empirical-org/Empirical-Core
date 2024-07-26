@@ -56,9 +56,9 @@ class Topic < ApplicationRecord
     case level
     when 3
       grandchild_topics = child_topics.map { |child| Topic.where(parent_id: child.id) }.flatten
-      grandchild_topics.map { |grandchild| grandchild.activities.count}.sum
+      grandchild_topics.map { |grandchild| grandchild.activities.count }.sum
     when 2
-      child_topics.map { |child| child.activities.count}.sum
+      child_topics.map { |child| child.activities.count }.sum
     else
       activities.count
     end

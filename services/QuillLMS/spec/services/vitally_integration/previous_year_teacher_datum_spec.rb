@@ -7,23 +7,23 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
     let!(:year) { 2016 }
     let!(:teacher) { create(:user, role: 'teacher') }
     let!(:active_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: true) }
-    let!(:archived_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: false)}
-    let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1))}
-    let!(:student1) { create(:user, role: 'student')}
-    let!(:student2) { create(:user, role: 'student')}
-    let!(:student3) { create(:user, role: 'student')}
-    let!(:student4) { create(:user, role: 'student')}
+    let!(:archived_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: false) }
+    let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1)) }
+    let!(:student1) { create(:user, role: 'student') }
+    let!(:student2) { create(:user, role: 'student') }
+    let!(:student3) { create(:user, role: 'student') }
+    let!(:student4) { create(:user, role: 'student') }
     let!(:unit) { create(:unit, user_id: teacher.id) }
-    let!(:unit3) { create(:unit, user_id: teacher.id)}
+    let!(:unit3) { create(:unit, user_id: teacher.id) }
     let!(:unit2) { create(:unit, user_id: teacher.id) }
-    let!(:unit4) { create(:unit, user_id: teacher.id)}
-    let!(:classroom_unit1) { create(:classroom_unit, classroom: active_classroom, unit: unit, created_at: Date.new(year, 10, 1), assigned_student_ids: [student1.id, student2.id])}
-    let!(:classroom_unit2) { create(:classroom_unit, classroom: archived_classroom, unit: unit3, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id])}
-    let!(:classroom_unit3) { create(:classroom_unit, classroom: current_classroom, unit: unit2, created_at: Date.new(2021, 10, 1), assigned_student_ids: [student3.id])}
-    let!(:classroom_unit4) { create(:classroom_unit, classroom: current_classroom, unit: unit4, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id])}
-    let!(:diagnostic) { create(:diagnostic_activity)}
-    let!(:connect) { create(:connect_activity)}
-    let!(:evidence) { create(:evidence_lms_activity)}
+    let!(:unit4) { create(:unit, user_id: teacher.id) }
+    let!(:classroom_unit1) { create(:classroom_unit, classroom: active_classroom, unit: unit, created_at: Date.new(year, 10, 1), assigned_student_ids: [student1.id, student2.id]) }
+    let!(:classroom_unit2) { create(:classroom_unit, classroom: archived_classroom, unit: unit3, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id]) }
+    let!(:classroom_unit3) { create(:classroom_unit, classroom: current_classroom, unit: unit2, created_at: Date.new(2021, 10, 1), assigned_student_ids: [student3.id]) }
+    let!(:classroom_unit4) { create(:classroom_unit, classroom: current_classroom, unit: unit4, created_at: Date.new(year, 10, 1), assigned_student_ids: [student4.id]) }
+    let!(:diagnostic) { create(:diagnostic_activity) }
+    let!(:connect) { create(:connect_activity) }
+    let!(:evidence) { create(:evidence_lms_activity) }
     let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic, created_at: Date.new(year, 10, 1)) }
     let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: diagnostic, created_at: Date.new(2021, 10, 1)) }
     let!(:unit_activity3) { create(:unit_activity, unit: unit3, activity: connect, created_at: Date.new(year, 10, 1)) }

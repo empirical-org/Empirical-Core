@@ -6,17 +6,16 @@ class RematchUpdatedQuestionsWorker
   sidekiq_options queue: SidekiqQueue::CRITICAL, retry: false
 
   REMATCH_URL = "#{ENV['CMS_URL']}/responses/rematch_all"
-  JSON_HEADERS = {'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+  JSON_HEADERS = { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
   DELAY_PER_QUESTION = 1.minutes.to_i
 
-  def perform(start_time = 1.day.ago, end_time = Time.current, delay =  DELAY_PER_QUESTION)
+  def perform(start_time = 1.day.ago, end_time = Time.current, delay = DELAY_PER_QUESTION)
     questions = Question
       .production
       .where(updated_at: start_time..end_time)
       .select(:id, :uid, :question_type)
 
     questions.find_each.with_index do |question, index|
-
       body = {
         type: question.rematch_type,
         uid: question.uid,

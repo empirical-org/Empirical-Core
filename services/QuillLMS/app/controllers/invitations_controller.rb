@@ -4,7 +4,6 @@ class InvitationsController < ApplicationController
   before_action :verify_current_user_owns_classrooms, only: :create_coteacher_invitation
   before_action :set_classroom_ids_and_invitee_email, only: :create_coteacher_invitation
 
-
   def create_coteacher_invitation
     validate_email_and_classroom_ids
     @pending_invite = find_or_create_coteacher_invite_from_current_user
@@ -62,7 +61,6 @@ class InvitationsController < ApplicationController
     @classroom_ids = params[:classroom_ids]
     @invitee_email = params[:invitee_email]&.strip_whitespace&.strip_zero_width
   end
-
 
   private def verify_current_user_owns_classrooms
     multiple_classroom_owner?(params[:classroom_ids])

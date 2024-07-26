@@ -6,9 +6,9 @@ describe OpenAI::TranslateWorker, type: :worker do
   let(:worker) { described_class.new }
 
   context 'Activity' do
-    let(:activity) { create(:activity)}
+    let(:activity) { create(:activity) }
 
-    subject{worker.perform(activity.id, 'Activity')}
+    subject{ worker.perform(activity.id, 'Activity') }
 
     it 'should call translate on the activity' do
       allow(Activity).to receive(:find_by).with(id: activity.id).and_return(activity)
@@ -18,9 +18,9 @@ describe OpenAI::TranslateWorker, type: :worker do
   end
 
   context 'Question' do
-    let(:question) { create(:question)}
+    let(:question) { create(:question) }
 
-    subject{worker.perform(question.id, 'Question')}
+    subject{ worker.perform(question.id, 'Question') }
 
     it 'should call translate on the question' do
       allow(Question).to receive(:find_by).with(id: question.id).and_return(question)
@@ -30,9 +30,9 @@ describe OpenAI::TranslateWorker, type: :worker do
   end
 
   context 'ConceptFeedback' do
-    let(:concept_feedback) { create(:concept_feedback)}
+    let(:concept_feedback) { create(:concept_feedback) }
 
-    subject{worker.perform(concept_feedback.id, 'ConceptFeedback')}
+    subject{ worker.perform(concept_feedback.id, 'ConceptFeedback') }
 
     it 'should call translate on the concept_feedback' do
       allow(ConceptFeedback).to receive(:find_by).with(id: concept_feedback.id).and_return(concept_feedback)
@@ -42,7 +42,7 @@ describe OpenAI::TranslateWorker, type: :worker do
   end
 
   context 'translatable not found' do
-    subject{ worker.perform(1298, 'Activity')}
+    subject{ worker.perform(1298, 'Activity') }
 
     it { expect { subject }.not_to raise_error }
   end

@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe UniversalRuleLoader do
-
   describe '#update_from_csv' do
     context 'grammar rules' do
       let(:rule_type) { 'grammar' }
@@ -48,7 +47,6 @@ RSpec.describe UniversalRuleLoader do
           .and change(Evidence::Feedback, :count).by(0)
       end
 
-
       it 'should update existing rule and update feedback' do
         rule = create(:evidence_rule, uid: '1d66a', rule_type: rule_type, universal: true)
         create(:evidence_feedback, rule: rule, order: 0)
@@ -79,9 +77,6 @@ RSpec.describe UniversalRuleLoader do
           [rule.id, 'the feedback']
         )
       end
-
     end
   end
-
-
 end

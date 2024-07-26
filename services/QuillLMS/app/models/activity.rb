@@ -100,17 +100,16 @@ class Activity < ApplicationRecord
 
   FLAGS_ATTRIBUTE = 'flags'
 
-
-  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
-  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
-  scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)")}
+  scope :gamma_user, -> { where("'#{GAMMA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)") }
+  scope :beta_user, -> { where("'#{BETA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)") }
+  scope :alpha_user, -> { where("'#{ALPHA}' = ANY(activities.flags) OR '#{BETA}' = ANY(activities.flags) OR '#{GAMMA}' = ANY(activities.flags) OR '#{PRODUCTION}' = ANY(activities.flags)") }
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
   scope :evidence, -> { where(classification: ActivityClassification.evidence) }
   scope :evidence_beta1, -> { where(flags: [Flags::EVIDENCE_BETA1]) }
   scope :evidence_beta2, -> { where(flags: [Flags::EVIDENCE_BETA2]) }
 
-  scope :evidence_live_flags, -> {where("activities.flags && '{\"#{PRODUCTION}\",\"#{Flags::EVIDENCE_BETA1}\",\"#{Flags::EVIDENCE_BETA2}\",\"#{GAMMA}\"}'") }
+  scope :evidence_live_flags, -> { where("activities.flags && '{\"#{PRODUCTION}\",\"#{Flags::EVIDENCE_BETA1}\",\"#{Flags::EVIDENCE_BETA2}\",\"#{GAMMA}\"}'") }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
@@ -198,13 +197,13 @@ class Activity < ApplicationRecord
   def module_url(activity_session)
     @activity_session = activity_session
     classification_count = @activity_session&.user_activity_classifications&.find_by(user_id: @activity_session.user_id)&.count
-    initial_params = {student: activity_session.uid}
+    initial_params = { student: activity_session.uid }
     initial_params[:activities] = classification_count if classification_count
     module_url_helper(initial_params)
   end
 
   def anonymous_module_url
-    initial_params = {anonymous: true}
+    initial_params = { anonymous: true }
     module_url_helper(initial_params)
   end
 
@@ -232,7 +231,7 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    User::FLAGSETS.keys.map{|x| "#{x}_"}.push('').each do |flagset|
+    User::FLAGSETS.keys.map{ |x| "#{x}_" }.push('').each do |flagset|
       $redis.del("default_#{flagset}activity_search")
     end
   end
@@ -260,7 +259,15 @@ class Activity < ApplicationRecord
     data
   end
 
-  def self.translatable_field_name = 'landingPageHtml'
+  # translatable
+  def self.default_translatable_field = 'landingPageHtml'
+
+  def json_with_translations
+    translations = translated_texts.pluck(:locale, :translation).to_h
+    return data unless translations.present?
+
+    data.merge('translations' => translations)
+  end
 
   def add_question(question)
     return if !validate_question(question)
@@ -322,7 +329,7 @@ class Activity < ApplicationRecord
   end
 
   def serialize_with_topics_and_publication_date
-    serializable_hash.merge({topics: topics&.map(&:genealogy), publication_date: publication_date})
+    serializable_hash.merge({ topics: topics&.map(&:genealogy), publication_date: publication_date })
   end
 
   def update_questions_flag_status_if_necessary!
@@ -335,7 +342,7 @@ class Activity < ApplicationRecord
 
   def questions = Question.where(uid: question_uids)
 
-  private def question_uids = data["questions"]&.map{|q| q["key"]}
+  private def question_uids = data["questions"]&.map{ |q| q["key"] }
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
@@ -439,5 +446,4 @@ class Activity < ApplicationRecord
   private def populate_question_count
     self.question_count = QuestionCounter.run(self)
   end
-
 end

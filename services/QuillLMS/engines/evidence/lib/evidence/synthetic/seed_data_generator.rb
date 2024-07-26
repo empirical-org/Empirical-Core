@@ -18,7 +18,7 @@ module Evidence
       TEMP_NOUN = 0.8
       TEMP_SECTION = 0.4 # give a lower temp (creativity) when it has less info
       TEMP_PARAPHRASE = 1
-      OPTIONS_PARAPHRASE = {max_tokens: 40}
+      OPTIONS_PARAPHRASE = { max_tokens: 40 }
 
       STEM_KEY = '%<stem>s'
       CONJUNCTIONS = [
@@ -194,13 +194,13 @@ module Evidence
 
       private def parse_generator_api_results(api_results, current_texts:, generator:)
         api_results
-          .map {|s| lowercaser.run(s) }
-          .map {|s| [generator.noun, s].join(SPACE).strip }
+          .map { |s| lowercaser.run(s) }
+          .map { |s| [generator.noun, s].join(SPACE).strip }
           .uniq
-          .reject {|s| s.in?(current_texts)}
-          .reject {|s| regex_exclude?(s) }
-          .reject {|s| opinion_api_flagged?(s) }
-          .map {|s| batch.prompt_texts.new(text: s, text_generation: generator)}
+          .reject { |s| s.in?(current_texts) }
+          .reject { |s| regex_exclude?(s) }
+          .reject { |s| opinion_api_flagged?(s) }
+          .map { |s| batch.prompt_texts.new(text: s, text_generation: generator) }
       end
 
       private def lowercaser
@@ -217,17 +217,17 @@ module Evidence
         passage
           .split(SPACE)
           .each_slice(size)
-          .map{|s| s.join(SPACE)}
-          .map{|s| s.last == PERIOD ? s : (s + PERIOD)} # end it in a period, so stem is new sentence.
+          .map{ |s| s.join(SPACE) }
+          .map{ |s| s.last == PERIOD ? s : (s + PERIOD) } # end it in a period, so stem is new sentence.
       end
 
       private def stem_variants_hash
-        {conjunction => stem}.merge(stem_alternates_hash)
+        { conjunction => stem }.merge(stem_alternates_hash)
       end
 
       private def stem_alternates_hash
         CONJUNCTION_SUBS[conjunction]
-          .to_h {|alternate| [alternate, create_alternate_stem(stem, conjunction, alternate)]}
+          .to_h { |alternate| [alternate, create_alternate_stem(stem, conjunction, alternate)] }
       end
 
       private def create_alternate_stem(stem, conjunction, alternate)
@@ -243,7 +243,7 @@ module Evidence
       private def regex_exclude?(text)
         return false if conjunction_exclusions.empty?
 
-        conjunction_exclusions.any?{|regex| regex.match(text.strip) }
+        conjunction_exclusions.any?{ |regex| regex.match(text.strip) }
       end
 
       private def opinion_api_flagged?(text)

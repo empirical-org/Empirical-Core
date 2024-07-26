@@ -10,5 +10,4 @@ class ArchiveUnitsUnitActivitiesWorker
       unit_act.update(visible: false)
     end
   end
-
 end

@@ -26,5 +26,4 @@
 #
 class ClassroomSerializer < ApplicationSerializer
   attributes :id, :name, :code, :grade, :updated_at
-
 end

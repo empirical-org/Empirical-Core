@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module GoogleIntegration
   RSpec.describe ClassroomStudentImporter do
-    let(:name) { 'The Student'}
+    let(:name) { 'The Student' }
     let(:classroom) { create(:classroom, :from_google) }
     let(:user_external_id) { Faker::Number.number }
 

@@ -9,10 +9,10 @@ describe IpLocationWorker do
     let!(:user) { create(:user) }
     let(:api_key) { '12345' }
     let(:api_base) { 'https://testurl.com' }
-    let(:ip_address) {'12.34.56.78'}
-    let(:api_url) { "#{api_base}/#{api_key}/json/#{ip_address}"}
+    let(:ip_address) { '12.34.56.78' }
+    let(:api_url) { "#{api_base}/#{api_key}/json/#{ip_address}" }
     # This is needed for proper HTTParty stubbing
-    let(:response_headers) { {content_type: 'application/json'} }
+    let(:response_headers) { { content_type: 'application/json' } }
 
     before do
       stub_const('IpLocationWorker::API_KEY', api_key)
@@ -51,7 +51,7 @@ describe IpLocationWorker do
     end
 
     context 'errored API response' do
-      let(:response_body) { {'error'=>'Invalid API key'}.to_json}
+      let(:response_body) { { 'error'=>'Invalid API key' }.to_json }
 
       before do
         stub_request(:get, api_url)

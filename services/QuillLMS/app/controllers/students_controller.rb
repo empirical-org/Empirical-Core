@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
     if current_user.update(student_params.slice(:email, :name, :username, :time_zone))
       render json: current_user, serializer: UserSerializer
     else
-      render json: {errors: current_user.errors.messages}, status: 422
+      render json: { errors: current_user.errors.messages }, status: 422
     end
   end
 
@@ -60,7 +60,7 @@ class StudentsController < ApplicationController
     else
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
-    return render json: {errors: errors}, status: 422 if errors.any?
+    return render json: { errors: errors }, status: 422 if errors.any?
 
     render json: current_user, serializer: UserSerializer
   end
@@ -139,5 +139,4 @@ class StudentsController < ApplicationController
   private def student_params
     params.permit(:name, :email, :username, :time_zone)
   end
-
 end

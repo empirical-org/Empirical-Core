@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe 'StudentOverview' do
-  let!(:classroom) {create(:classroom_with_classroom_units)}
-  let!(:student) {User.find(ActivitySession.first.user_id)}
+  let!(:classroom) { create(:classroom_with_classroom_units) }
+  let!(:student) { User.find(ActivitySession.first.user_id) }
 
   before { ClassroomUnit.update_all(assigned_student_ids: classroom.students.ids) }
 
