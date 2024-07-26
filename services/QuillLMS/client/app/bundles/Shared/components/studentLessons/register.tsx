@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ENGLISH, localeToLanguageMap } from '../../utils/languageList';
 
 class Register extends React.Component<any, any> {
   constructor(props) {
@@ -75,13 +76,45 @@ class Register extends React.Component<any, any> {
     );
   }
 
+  translatedText = (): string => {
+    function getTranslation( translations, targetLanguage): string | undefined {
+      const targetLocale = Object.entries(localeToLanguageMap).find(
+        ([_, language]) => language === targetLanguage
+      )?.[0];
+
+      if (targetLocale && targetLocale in translations) {
+        return translations[targetLocale];
+      }
+
+      // If the exact locale isn't found, try to find a matching language
+      const matchingLocale = Object.keys(translations).find(locale =>
+        localeToLanguageMap[locale] === targetLanguage
+      );
+
+      return matchingLocale ? translations[matchingLocale] : undefined;
+    }
+    const { lesson, language} = this.props
+    const { translations, } = lesson
+    const translation = getTranslation(translations, language)
+
+    return translation
+  }
+
+
   renderIntro = () => {
     const { lesson, } = this.props
     const { showIntro, hasSentenceFragment, } = this.state
+    const translatedText = this.translatedText()
     if (showIntro) {
       return (
         <div className="container">
           <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: lesson.landingPageHtml, }} />
+          {translatedText && (
+            <React.Fragment>
+              <hr />
+              <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
+            </React.Fragment>
+          )}
           <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
         </div>
       );
@@ -139,4 +172,3 @@ class Register extends React.Component<any, any> {
 }
 
 export { Register };
-
