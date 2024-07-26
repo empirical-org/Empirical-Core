@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoursePageActivity renders correctly when link_for_report is provided 1`] = `
+<DocumentFragment>
+  <div
+    class="course-page-activity"
+  >
+    <img
+      alt=""
+      class="evidence-img"
+      src="undefined/images/icons/s/tool-evidence.svg"
+    />
+    <div
+      class="activity-information"
+    >
+      <h5>
+        Test Activity
+      </h5>
+      <p>
+        This is a test activity
+      </p>
+      <p
+        class="oer-asset-line"
+      >
+        Optional Paired OER Activity: 
+        <a
+          href="https://example.com/oer"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Test OER Asset
+        </a>
+      </p>
+    </div>
+    <div
+      class="results-section"
+    >
+      <a
+        class="quill-button focus-on-light small contained green"
+        href="https://example.com/report"
+      >
+        View results
+      </a>
+      <p>
+        <svg
+          class="course-page-pie-chart"
+          viewBox="-1 -1 2 2"
+        >
+          <path
+            d="M 1 0 A 1 1 0 0 1 -1 1.2246467991473532e-16 L 0 0"
+            fill="#348fdf"
+          />
+        </svg>
+         5 of 10 students completed
+      </p>
+      <p>
+        Average score: 85%
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

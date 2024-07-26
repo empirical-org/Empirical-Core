@@ -13,7 +13,7 @@ const LOCAL_STORAGE_KEY = 'worldHistory1200ToPresentExpandedUnitTemplateIds'
 
 const SLUG = 'world-history-1200-to-present'
 
-const WorldHistory1200ToPresent = ({ hideBacklink, }) => {
+const WorldHistory1200ToPresent = ({ backlinkPath, }) => {
   const [unitTemplates, setUnitTemplates] = React.useState(null)
   const [expandedUnitTemplateIds, setExpandedUnitTemplateIds] = React.useState(window.localStorage.getItem(LOCAL_STORAGE_KEY)?.split(',').map(id => Number(id)))
 
@@ -48,9 +48,9 @@ const WorldHistory1200ToPresent = ({ hideBacklink, }) => {
     setExpandedUnitTemplateIds(newExpandedUnitTemplateIds)
   }
 
-  const socialStudiesContentPage = window.location.href.split(SLUG)[0]
+  const socialStudiesContentPage = backlinkPath || window.location.href.split(SLUG)[0]
 
-  const backLink = hideBacklink ? null : <a className="quill-button medium outlined grey icon focus-on-light" href={socialStudiesContentPage}><img alt="" src={chevronLeftImgSrc} />View all social studies activities</a>
+  const backLink = <a className="quill-button medium outlined grey icon focus-on-light" href={socialStudiesContentPage}><img alt="" src={chevronLeftImgSrc} />View all social studies activities</a>
 
   if (!unitTemplates || !expandedUnitTemplateIds) {
     return (
@@ -103,7 +103,7 @@ const WorldHistory1200ToPresent = ({ hideBacklink, }) => {
       <div className="partner-section">
         <h2>Paired with the OER Project for deeper learning</h2>
         <p>OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. Want to learn more? Visit <a href="www.oerproject.com" rel="noopener noreferrer" target="_blank">www.oerproject.com</a>!</p>
-        <a className="quill-button medium outlined grey focus-on-light" href="/social_studies">Learn More About Quill’s Social Studies Activities</a>
+        <a className="quill-button medium outlined grey focus-on-light" href={socialStudiesContentPage}>Learn More About Quill’s Social Studies Activities</a>
       </div>
 
     </div>
