@@ -75,10 +75,9 @@ class Register extends React.Component<any, any> {
   }
 
   translatedText = (): string => {
-
     const { lesson, language} = this.props;
     const { translations, } = lesson;
-    return translations[language];
+    return translations && translations[language];
   }
 
 
