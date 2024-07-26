@@ -837,7 +837,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 2250,
+                "activityId": 2550,
                 "name": "ELL Starter Baseline Diagnostic (Pre)",
                 "unitTemplateId": 643,
                 "what": "Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions",
@@ -858,10 +858,10 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=2250"
+              buttonLink="/activity_sessions/anonymous?activity_id=2550"
               buttonText="Preview"
               header="ELL Starter Baseline Diagnostic (Pre)"
-              key="2250"
+              key="2550"
               selectCard={[Function]}
             >
               <div
@@ -887,7 +887,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   >
                     <a
                       className="interactive-wrapper focus-on-light"
-                      href="/activity_sessions/anonymous?activity_id=2250"
+                      href="/activity_sessions/anonymous?activity_id=2550"
                       onClick={[Function]}
                       target="_blank"
                     >
