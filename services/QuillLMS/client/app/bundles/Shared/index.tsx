@@ -149,6 +149,7 @@ export {
   extractConceptResultsFromResponse,
   findFeedbackForReport,
   formatAnswerStringForReport,
+  getlanguageOptions
 } from './libs/index'
 
 export {
@@ -267,5 +268,7 @@ export {
   DEFAULT,
   HOVER
 } from './utils/constants'
+
+export { ENGLISH } from './utils/languageList'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'
