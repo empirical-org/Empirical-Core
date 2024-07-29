@@ -14,12 +14,14 @@ import UnitTemplateAssigned from '../components/assignment_flow/unit_template_as
 import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx';
 import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager';
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx';
+import AssignWorldHistory1200ToPresent from '../components/assignment_flow/create_unit/assign_world_history_1200_to_present.tsx';
 
 const AssignActivitiesRouter = props => (
   <BrowserRouter>
     <CompatRouter>
       <Route component={AssignActivitiesContainer} path="/assign" />
       <Switch>
+        <Route component={routerProps => <AssignWorldHistory1200ToPresent {...props} {...routerProps} />} path="/assign/social-studies/world-history-1200-to-present" />
         <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />
         <Route component={routerProps => <AssignPreAp {...props} {...routerProps} />} path="/assign/pre-ap" />
         <Route component={routerProps => <AssignAp {...props} {...routerProps} />} path="/assign/ap" />

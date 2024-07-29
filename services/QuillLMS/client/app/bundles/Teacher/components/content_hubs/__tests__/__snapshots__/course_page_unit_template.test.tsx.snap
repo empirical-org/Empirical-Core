@@ -1,0 +1,261 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
+<DocumentFragment>
+  <section
+    class="course-page-unit-template"
+  >
+    <div
+      class="unit-template-header"
+    >
+      <div
+        class="name-and-buttons"
+      >
+        <h3>
+          Test Unit
+        </h3>
+        <div>
+          <a
+            class="quill-button medium green focus-on-light contained"
+            href="/assign/featured-activity-packs/unit-template-1"
+          >
+            Preview & Assign
+          </a>
+          <button
+            aria-label="Collapse Test Unit activities"
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/s/collapse.svg"
+            />
+          </button>
+        </div>
+      </div>
+      <p
+        class="unit-template-description"
+      >
+        This is a test unit template
+      </p>
+      <div
+        class="quill-resource-links"
+      >
+        <a
+          class="quill-button focus-on-light outlined medium grey"
+          href="https://example.com/quill-teacher-guide"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Quill Teacher Guide
+        </a>
+        <a
+          class="quill-button focus-on-light outlined medium grey"
+          href="https://example.com/quill-articles"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Download all unit texts
+        </a>
+      </div>
+    </div>
+    <div
+      class="activities-section"
+    >
+      <h4>
+        Activities
+      </h4>
+      <div
+        class="course-page-activity"
+      >
+        <img
+          alt=""
+          class="evidence-img"
+          src="undefined/images/icons/s/tool-evidence.svg"
+        />
+        <div
+          class="activity-information"
+        >
+          <h5>
+            Activity 1
+          </h5>
+          <p>
+            Activity 1 description
+          </p>
+          <p
+            class="oer-asset-line"
+          >
+            Optional Paired OER Activity: 
+            <a
+              href="https://example.com/oer1"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              OER 1
+            </a>
+          </p>
+        </div>
+        <div
+          class="results-section"
+        >
+          <a
+            class="quill-button focus-on-light small contained green"
+            href="https://example.com/report1"
+          >
+            View results
+          </a>
+          <p>
+            <svg
+              class="course-page-pie-chart"
+              viewBox="-1 -1 2 2"
+            >
+              <path
+                d="M 1 0 A 1 1 0 0 1 -1 1.2246467991473532e-16 L 0 0"
+                fill="#348fdf"
+              />
+            </svg>
+             5 of 10 students completed
+          </p>
+          <p>
+            Average score: 85%
+          </p>
+        </div>
+      </div>
+      <div
+        class="course-page-activity"
+      >
+        <img
+          alt=""
+          class="evidence-img"
+          src="undefined/images/icons/s/tool-evidence.svg"
+        />
+        <div
+          class="activity-information"
+        >
+          <h5>
+            Activity 2
+          </h5>
+          <p>
+            Activity 2 description
+          </p>
+          <p
+            class="oer-asset-line"
+          >
+            Optional Paired OER Activity: 
+            <a
+              href="https://example.com/oer2"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              OER 2
+            </a>
+          </p>
+        </div>
+        <div
+          class="results-section"
+        >
+          <a
+            class="quill-button focus-on-light small contained green"
+            href="https://example.com/report2"
+          >
+            View results
+          </a>
+          <p>
+            <svg
+              class="course-page-pie-chart"
+              viewBox="-1 -1 2 2"
+            >
+              <path
+                d="M 1 0 A 1 1 0 0 1 -1 1.2246467991473532e-16 L 0 0"
+                fill="#348fdf"
+              />
+            </svg>
+             10 of 20 students completed
+          </p>
+          <p>
+            Average score: 90%
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="oer-resources-section"
+    >
+      <h4>
+        OER Project Unit 123 Resources
+      </h4>
+      <div
+        class="links"
+      >
+        <a
+          class="quill-button focus-on-light small outlined grey"
+          href="https://example.com/oer-website"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          OER Unit 123 website
+        </a>
+        <a
+          class="quill-button focus-on-light small outlined grey"
+          href="https://example.com/oer-teacher-guide"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          OER Unit 123 teacher guide
+        </a>
+        <a
+          class="quill-button focus-on-light small outlined grey"
+          href="https://example.com/oer-articles"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Download all OER Unit 123 articles
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`CoursePageUnitTemplate renders correctly in unexpanded state 1`] = `
+<DocumentFragment>
+  <section
+    class="course-page-unit-template"
+  >
+    <div
+      class="unit-template-header"
+    >
+      <div
+        class="name-and-buttons"
+      >
+        <h3>
+          Test Unit
+        </h3>
+        <div>
+          <a
+            class="quill-button medium green focus-on-light contained"
+            href="/assign/featured-activity-packs/unit-template-1"
+          >
+            Preview & Assign
+          </a>
+          <button
+            aria-label="Expand Test Unit activities"
+            class="interactive-wrapper focus-on-light"
+            type="button"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/s/expand.svg"
+            />
+          </button>
+        </div>
+      </div>
+      <p
+        class="unit-template-description"
+      >
+        This is a test unit template
+      </p>
+    </div>
+  </section>
+</DocumentFragment>
+`;

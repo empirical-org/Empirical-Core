@@ -43,6 +43,7 @@ module NavigationHelper
   CONCEPTS = 'Concepts'
   MY_SUBSCRIPTIONS = 'My Subscriptions'
   STANDARDS = 'Standards'
+  SOCIAL_STUDIES_DASHBOARD = 'Social Studies Dashboard'
 
   # primary/secondary navigation tabs
   ABOUT_US_TAB = { name: ABOUT_US, url: '/about' }
@@ -124,6 +125,12 @@ module NavigationHelper
 
   def data_export_tab
     @data_export_tab ||= { name: DATA_EXPORT, url: teachers_progress_reports_activity_sessions_path }
+  end
+
+  def social_studies_dashboard_tab(current_user)
+    return nil unless show_social_studies_dashboard_tab?(current_user)
+
+    @social_studies_dashboard_tab ||= { name: SOCIAL_STUDIES_DASHBOARD, url: teachers_progress_reports_social_studies_world_history_1200_to_present_path }
   end
 
   def home_tab
@@ -336,9 +343,15 @@ module NavigationHelper
         activity_scores_tab,
         concepts_tab,
         standards_tab,
-        data_export_tab
-      ]
+        data_export_tab,
+        social_studies_dashboard_tab(current_user)
+      ].compact
     end
+  end
+
+  def show_social_studies_dashboard_tab?(current_user)
+    unit_activities = current_user.unit_activities_for_classrooms_i_teach
+    unit_activities_include_social_studies_activities?(unit_activities)
   end
 
   private def overview_tab_access?

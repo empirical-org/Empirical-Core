@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
+<DocumentFragment>
+  <div
+    class="container content-hub-course-page-container white-background-accommodate-footer"
+  >
+    <a
+      class="quill-button medium outlined grey icon focus-on-light"
+      href="/social-studies"
+    >
+      <img
+        alt=""
+        src="undefined/images/icons/xs/chevron-left.svg"
+      />
+      View all social studies activities
+    </a>
+    <div
+      class="overview"
+    >
+      <div>
+        <h1>
+          World History: 1200 CE - Present
+        </h1>
+        <p
+          class="overview-description"
+        >
+          World history, or the story of our past, belongs to everyone: it helps us understand where we've come from, how we got here, and where we might go next. In this course, students explore that shared human story beginning with the rise of complex, connected societies and ending with the emergence of the globalized world in which we live today.
+        </p>
+        <p
+          class="overview-description"
+        >
+          Quill Reading for Evidence activities provide a deep dive into key moments and movements from the period spanning 1200 CE to the present, helping students expand their content knowledge while building core reading and writing skills.
+        </p>
+      </div>
+      <div>
+        <img
+          alt=""
+          src="undefined/images/pages/content_hub/world_history_1200_to_present@2x.png"
+        />
+        <span
+          aria-hidden="false"
+          class="quill-tooltip-trigger "
+          role="tooltip"
+        >
+          <span
+            class="image-attribution-tooltip"
+            role="button"
+            tabindex="0"
+          >
+            Image credit
+          </span>
+          <span
+            class="quill-tooltip-wrapper"
+          >
+            <span
+              aria-live="polite"
+              class="quill-tooltip"
+            />
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      class="section-header"
+    >
+      <h2>
+        Reading for Evidence Activities
+      </h2>
+      <div
+        class="toggle-buttons"
+      >
+        <button
+          class="quill-button focus-on-light medium grey outlined"
+          type="button"
+        >
+          Expand all
+        </button>
+        <button
+          class="quill-button focus-on-light medium grey outlined"
+          type="button"
+        >
+          Collapse all
+        </button>
+      </div>
+    </div>
+    <section
+      class="course-page-unit-template"
+    >
+      <div
+        class="unit-template-header"
+      >
+        <div
+          class="name-and-buttons"
+        >
+          <h3>
+            Unit 1
+          </h3>
+          <div>
+            <a
+              class="quill-button medium green focus-on-light contained"
+              href="/assign/featured-activity-packs/1"
+            >
+              Preview & Assign
+            </a>
+            <button
+              aria-label="Collapse Unit 1 activities"
+              class="interactive-wrapper focus-on-light"
+              type="button"
+            >
+              <img
+                alt=""
+                src="undefined/images/icons/s/collapse.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <p
+          class="unit-template-description"
+        >
+          Description of Unit 1
+        </p>
+        <div
+          class="quill-resource-links"
+        >
+          <a
+            class="quill-button focus-on-light outlined medium grey"
+            href="https://example.com/quill-teacher-guide"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Quill Teacher Guide
+          </a>
+          <a
+            class="quill-button focus-on-light outlined medium grey"
+            href="https://example.com/quill-articles"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Download all unit texts
+          </a>
+        </div>
+      </div>
+      <div
+        class="activities-section"
+      >
+        <h4>
+          Activities
+        </h4>
+        <div
+          class="course-page-activity"
+        >
+          <img
+            alt=""
+            class="evidence-img"
+            src="undefined/images/icons/s/tool-evidence.svg"
+          />
+          <div
+            class="activity-information"
+          >
+            <h5>
+              Activity 1
+            </h5>
+            <p>
+              Activity 1 description
+            </p>
+            <p
+              class="oer-asset-line"
+            >
+              Optional Paired OER Activity: 
+              <a
+                href="https://example.com/oer1"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                OER 1
+              </a>
+            </p>
+          </div>
+          <div
+            class="results-section"
+          >
+            <a
+              class="quill-button focus-on-light small contained green"
+              href="https://example.com/report1"
+            >
+              View results
+            </a>
+            <p>
+              <svg
+                class="course-page-pie-chart"
+                viewBox="-1 -1 2 2"
+              >
+                <path
+                  d="M 1 0 A 1 1 0 0 1 -1 1.2246467991473532e-16 L 0 0"
+                  fill="#348fdf"
+                />
+              </svg>
+               5 of 10 students completed
+            </p>
+            <p>
+              Average score: 85%
+            </p>
+          </div>
+        </div>
+        <div
+          class="course-page-activity"
+        >
+          <img
+            alt=""
+            class="evidence-img"
+            src="undefined/images/icons/s/tool-evidence.svg"
+          />
+          <div
+            class="activity-information"
+          >
+            <h5>
+              Activity 2
+            </h5>
+            <p>
+              Activity 2 description
+            </p>
+            <p
+              class="oer-asset-line"
+            >
+              Optional Paired OER Activity: 
+              <a
+                href="https://example.com/oer2"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                OER 2
+              </a>
+            </p>
+          </div>
+          <div
+            class="results-section"
+          >
+            <a
+              class="quill-button focus-on-light small contained green"
+              href="https://example.com/report2"
+            >
+              View results
+            </a>
+            <p>
+              <svg
+                class="course-page-pie-chart"
+                viewBox="-1 -1 2 2"
+              >
+                <path
+                  d="M 1 0 A 1 1 0 0 1 -1 1.2246467991473532e-16 L 0 0"
+                  fill="#348fdf"
+                />
+              </svg>
+               10 of 20 students completed
+            </p>
+            <p>
+              Average score: 90%
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="oer-resources-section"
+      >
+        <h4>
+          OER Project Unit 123 Resources
+        </h4>
+        <div
+          class="links"
+        >
+          <a
+            class="quill-button focus-on-light small outlined grey"
+            href="https://example.com/oer-website"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            OER Unit 123 website
+          </a>
+          <a
+            class="quill-button focus-on-light small outlined grey"
+            href="https://example.com/oer-teacher-guide"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            OER Unit 123 teacher guide
+          </a>
+          <a
+            class="quill-button focus-on-light small outlined grey"
+            href="https://example.com/oer-articles"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Download all OER Unit 123 articles
+          </a>
+        </div>
+      </div>
+    </section>
+    <div
+      class="partner-section"
+    >
+      <h2>
+        Paired with the OER Project for deeper learning
+      </h2>
+      <p>
+        OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. Want to learn more? Visit 
+        <a
+          href="www.oerproject.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          www.oerproject.com
+        </a>
+        !
+      </p>
+      <a
+        class="quill-button medium outlined grey focus-on-light"
+        href="/social-studies"
+      >
+        Learn More About Quill’s Social Studies Activities
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
