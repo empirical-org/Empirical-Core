@@ -48,6 +48,7 @@ exports[`CoursePageActivity renders correctly when link_for_report is not provid
           <button
             class="quill-button focus-on-light small contained disabled"
             disabled=""
+            type="button"
           >
             View results
           </button>
