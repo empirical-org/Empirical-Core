@@ -17,7 +17,7 @@ classDiagram
     }
     class Guideline {
         text
-        staff_assigned_status
+        curriculum_assigned_status
     }
     class Dataset {
         optimal_count
@@ -26,14 +26,14 @@ classDiagram
     }
     class TestExample {
           student_response
-          staff_assigned_status
-          staff_feedback
+          curriculum_assigned_status
+          curriculum_proposed_feedback
           highlight
     }
     class PromptExample {
           student_response
-          staff_assigned_status
-          staff_feedback
+          curriculum_assigned_status
+          curriculum_proposed_feedback
     }
     Activity --|> StemVault
     StemVault --|> Guideline
@@ -62,7 +62,8 @@ classDiagram
     }
     class LLMPromptTemplate {
          contents
-         description
+         name
+         notes
     }
 
     Dataset --|> Trial

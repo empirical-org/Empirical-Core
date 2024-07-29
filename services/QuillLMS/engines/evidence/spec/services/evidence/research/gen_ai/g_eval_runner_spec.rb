@@ -18,7 +18,7 @@ module Evidence
           create(
             :evidence_research_gen_ai_llm_example,
             test_example: test_example,
-            llm_feedback: test_example.staff_feedback
+            llm_feedback: test_example.curriculum_proposed_feedback
           )
         end
 

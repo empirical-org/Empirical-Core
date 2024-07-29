@@ -4,12 +4,12 @@
 #
 # Table name: evidence_research_gen_ai_guidelines
 #
-#  id                    :bigint           not null, primary key
-#  staff_assigned_status :string           not null
-#  text                  :text             not null
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  stem_vault_id         :integer          not null
+#  id                         :bigint           not null, primary key
+#  curriculum_assigned_status :string           not null
+#  text                       :text             not null
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  stem_vault_id              :integer          not null
 #
 module Evidence
   module Research
@@ -19,13 +19,13 @@ module Evidence
 
         belongs_to :stem_vault
 
-        attr_readonly :staff_assigned_status, :stem_vault_id, :text
+        attr_readonly :curriculum_assigned_status, :stem_vault_id, :text
 
-        validates :staff_assigned_status, presence: true
+        validates :curriculum_assigned_status, presence: true
         validates :stem_vault_id, presence: true
         validates :text, presence: true
 
-        def self.assigned_status_column = :staff_assigned_status
+        def self.assigned_status_column = :curriculum_assigned_status
 
         def to_s = text
       end
