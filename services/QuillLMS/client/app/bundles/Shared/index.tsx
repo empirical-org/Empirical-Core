@@ -105,7 +105,8 @@ export {
 } from './components/titleCards/index'
 
 export {
-  LanguagePicker
+  LanguagePicker,
+  LanguageSelectionPage
 } from './components/translations/index'
 
 export {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { DropdownInput } from '../../index';
-import { diagnosticLanguageOptions, languages } from "../../utils/languageList";
+import { defaultLanguageOptions, defaultLanguages } from "../../utils/languageList";
 
 interface LanguagePickerProps {
   language: string,
@@ -11,9 +11,9 @@ interface LanguagePickerProps {
 
 const LanguagePicker = ({ language, updateLanguage, languageOptions }: LanguagePickerProps) => {
   const options = (): Array<{value: string, label: string}> =>
-    languageOptions ?? languages.map(language => ({
+    languageOptions ?? defaultLanguages.map(language => ({
       value: language,
-      label: diagnosticLanguageOptions[language].label
+      label: defaultLanguageOptions[language].label
     }));
 
   const onChange = (option: { value: string}) => {
