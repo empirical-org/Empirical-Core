@@ -75,7 +75,7 @@ module Evidence
 
         def guidelines_count = optimal_guidelines_count + suboptimal_guidelines_count
 
-        def to_s = name.truncate(40)
+        def to_s = name
       end
     end
   end
