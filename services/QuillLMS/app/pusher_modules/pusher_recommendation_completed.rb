@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 module PusherRecommendationCompleted
-
   def self.run(classroom, unit_template_id, lesson)
     pusher_client = Pusher::Client.new(
-        app_id: ENV['PUSHER_APP_ID'],
-        key: ENV['PUSHER_KEY'],
-        secret: ENV['PUSHER_SECRET'],
-        use_tls: true
+      app_id: ENV['PUSHER_APP_ID'],
+      key: ENV['PUSHER_KEY'],
+      secret: ENV['PUSHER_SECRET'],
+      use_tls: true
     )
     if lesson
       pusher_client.trigger(
         classroom.id.to_s,
-       'lessons-recommendations-assigned',
-       message: "Lessons recommendations assigned to #{classroom.name}."
-     )
+        'lessons-recommendations-assigned',
+        message: "Lessons recommendations assigned to #{classroom.name}."
+      )
     else
       pusher_client.trigger(
         classroom.id.to_s,
@@ -23,5 +22,4 @@ module PusherRecommendationCompleted
       )
     end
   end
-
 end

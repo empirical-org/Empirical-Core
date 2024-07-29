@@ -17,5 +17,4 @@ class Profile::ActivitySessionSerializer < ApplicationSerializer
   def due_date
     object.formatted_due_date
   end
-
 end

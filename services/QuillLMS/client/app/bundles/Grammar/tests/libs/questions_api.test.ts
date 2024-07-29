@@ -12,6 +12,7 @@ jest.mock('../../../../modules/request/index', () => ({
 }))
 
 import {
+  activityApiBaseUrl,
   FocusPointApi,
   IncorrectSequenceApi,
   QuestionApi,
@@ -19,11 +20,20 @@ import {
 } from '../../libs/questions_api'
 
 describe('QuestionApi calls', () => {
-  describe('getAll', () => {
+  describe('getAllForActivity', () => {
+    it('should call requestGet', () => {
+      const MOCK_UID = 'uid'
+      const url = `${activityApiBaseUrl}/${MOCK_UID}/questions.json`
+      QuestionApi.getAllForActivity(MOCK_UID)
+      expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
+    })
+  })
+
+  describe('getAllForType', () => {
     it('should call requestGet', () => {
       const MOCK_TYPE = 'TYPE'
       const url = `${questionApiBaseUrl}.json?question_type=${MOCK_TYPE}`
-      QuestionApi.getAll(MOCK_TYPE)
+      QuestionApi.getAllForType(MOCK_TYPE)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url, null, expect.anything())
     })
   })

@@ -1,7 +1,7 @@
+import Pusher from 'pusher-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Pusher from 'pusher-js';
 
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import Finished from './finished.jsx';
@@ -220,7 +220,7 @@ export class Lesson extends React.Component {
       window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     }
     const channel = window.pusher.subscribe(activitySessionUid);
-    
+
     channel.bind('concept-results-saved', () => {
       document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
       this.setState({ saved: true, });
@@ -528,6 +528,7 @@ export class Lesson extends React.Component {
     } else {
       component = (
         <Register
+          language={this.props.playLesson?.language}
           lesson={this.getLesson()}
           previewMode={previewMode}
           resumeActivity={this.resumeSession}

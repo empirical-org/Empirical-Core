@@ -72,6 +72,5 @@ module GoogleIntegration
 
       it { is_expected.to eq expected_results }
     end
-
   end
 end

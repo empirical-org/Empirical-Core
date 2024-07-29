@@ -42,4 +42,3 @@ module Snapshots
     end
   end
 end
-

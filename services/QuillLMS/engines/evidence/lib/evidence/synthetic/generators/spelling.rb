@@ -4,7 +4,6 @@ module Evidence
   module Synthetic
     module Generators
       class Spelling < Synthetic::Generators::Base
-
         SPELLING_SUBSTITUTES = Evidence::Configs.from_yml(:spelling_substitutes)
         WORD_BOUNDARY = '\b'
 

@@ -6,24 +6,24 @@ describe AboutUsHelper do
   describe '#about_us_tabs' do
     let(:large_tabs) {
       [
-        {id: 'About Us', name: 'About Us', url: '/about'},
-        {id: 'Impact', name: 'Impact', url: '/impact'},
-        {id: 'Pathways Initiative', name: 'Pathways Initiative', url: '/pathways'},
-        {id: 'Team', name: 'Team', url: '/team'},
-        {id: 'Careers', name: 'Careers', url: '/careers'},
-        {id: 'Press', name: 'Press', url: '/press'},
-        {id: 'Contact Us', name: 'Contact Us', url: '/contact'}
+        { id: 'About Us', name: 'About Us', url: '/about' },
+        { id: 'Impact', name: 'Impact', url: '/impact' },
+        { id: 'Pathways Initiative', name: 'Pathways Initiative', url: '/pathways' },
+        { id: 'Team', name: 'Team', url: '/team' },
+        { id: 'Careers', name: 'Careers', url: '/careers' },
+        { id: 'Press', name: 'Press', url: '/press' },
+        { id: 'Contact Us', name: 'Contact Us', url: '/contact' }
       ]
     }
-    let(:small_tabs)  {
+    let(:small_tabs) {
       [
-        {id: 'About Us', name: 'About', url: '/about'},
-        {id: 'Impact', name: 'Impact', url: '/impact'},
-        {id: 'Pathways Initiative', name: 'Pathways', url: '/pathways'},
-        {id: 'Team', name: 'Team', url: '/team'},
-        {id: 'Careers', name: 'Careers', url: '/careers'},
-        {id: 'Press', name: 'Press', url: '/press'},
-        {id: 'Contact Us', name: 'Contact Us', url: '/contact'}
+        { id: 'About Us', name: 'About', url: '/about' },
+        { id: 'Impact', name: 'Impact', url: '/impact' },
+        { id: 'Pathways Initiative', name: 'Pathways', url: '/pathways' },
+        { id: 'Team', name: 'Team', url: '/team' },
+        { id: 'Careers', name: 'Careers', url: '/careers' },
+        { id: 'Press', name: 'Press', url: '/press' },
+        { id: 'Contact Us', name: 'Contact Us', url: '/contact' }
       ]
     }
 

@@ -22,15 +22,29 @@ export const STUDENT = 'student'
 export const FETCH_ACTION = 'fetch'
 export const RESET_ACTION = 'reset'
 
+export const OLD_DIAGNOSTIC_TIMEFRAME = 'last-school-year'
+
 export const DIAGNOSTIC_REPORT_DEFAULT_CELL_WIDTH = '182px'
 export const groupByDropdownOptions = [{ label: 'Grade', value: 'grade' }, { label: 'Teacher', value: 'teacher' }, { label: 'Classroom', value: 'classroom' }]
-export const diagnosticTypeDropdownOptions = [
+export const oldDiagnosticTypeDropdownOptions = [
   { label: 'Starter Diagnostic', value: 1663 },
   { label: 'Intermediate Diagnostic', value: 1668 },
   { label: 'Advanced Diagnostic', value: 1678 },
   { label: 'ELL Starter Diagnostic', value: 1161 },
   { label: 'ELL Intermediate Diagnostic', value: 1568 },
   { label: 'ELL Advanced Diagnostic', value: 1590 },
+  { label: 'AP Writing Skills Survey', value: 992 },
+  { label: 'Pre-AP Writing Skills Survey 1', value: 1229 },
+  { label: 'Pre-AP Writing Skills Survey 2', value: 1230 },
+  { label: 'SpringBoard Writing Skills Survey', value: 1432 }
+]
+export const diagnosticTypeDropdownOptions = [
+  { label: 'Starter Diagnostic', value: 2537 },
+  { label: 'Intermediate Diagnostic', value: 2539 },
+  { label: 'Advanced Diagnostic', value: 2541 },
+  { label: 'ELL Starter Diagnostic', value: 2550 },
+  { label: 'ELL Intermediate Diagnostic', value: 2555 },
+  { label: 'ELL Advanced Diagnostic', value: 2563 },
   { label: 'AP Writing Skills Survey', value: 992 },
   { label: 'Pre-AP Writing Skills Survey 1', value: 1229 },
   { label: 'Pre-AP Writing Skills Survey 2', value: 1230 },
@@ -56,6 +70,12 @@ export const restrictedPage = (
 )
 
 export const RESTRICTED_TEXT = "Sorry, only verified admins with a subscription to School or District Premium can access this feature."
+
+export function getDiagnosticTypeDropdownOptions(timeframe) {
+  if (timeframe === OLD_DIAGNOSTIC_TIMEFRAME) return oldDiagnosticTypeDropdownOptions;
+
+  return diagnosticTypeDropdownOptions
+}
 
 export function selectionsEqual(firstSelection, secondSelection) {
   return (

@@ -26,10 +26,6 @@
         "header": "आपने आधा काम कर लिया है!",
         "text": "शानदार काम करना जारी रखें!"
     },
-    "ELL Halfway": {
-        "header": "आपने आधा काम कर लिया है!",
-        "text": "शानदार काम करना जारी रखें!"
-    },
     "ELL Starter Questions": {
         "header": "प्रश्न",
         "text": "इस भाग में, आपके पास प्रश्न होंगे। याद रखें कि प्रश्नों के अंत में प्रश्न चिह्न (?) है। आप इसे कर सकते हैं!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "वाक्य को फिर से लिखें। रेखांकित क्रिया शब्द को सही करें ताकि वह शेष वाक्य से मेल खाने के लिए सही काल में हो।",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "वाक्य को फिर से लिखें। रेखांकित शब्दों को सही करें ताकि वे भविष्य काल में हों।",
         "Respond to the question. Fill in the blank with one of the choices.": "प्रश्न का उत्तर दें। किसी एक विकल्प से रिक्त स्थान की पूर्ति करें।",
-        "Use the joining word to combine the sentences into one sentence.": "वाक्यों को मिलाकर एक वाक्य बनाने के लिए जोड़ने वाले शब्द का उपयोग करें।"
+        "Use the joining word to combine the sentences into one sentence.": "वाक्यों को मिलाकर एक वाक्य बनाने के लिए जोड़ने वाले शब्द का उपयोग करें।",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "पीले शब्दों के साथ कुछ रिक्त स्थान भरें। आप रिक्त स्थानों को खाली छोड़ सकते हैं।",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "दो सही उत्तर हैं। प्रत्येक रिक्त स्थान को किसी एक सही उत्तर के साथ भरें। एक ही उत्तर को दो बार न लिखें।",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "प्रत्येक रिक्त स्थान को किसी एक शब्द के साथ भरें। आप एक ही शब्द का एक से अधिक बार उपयोग कर सकते हैं।",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "वाक्य लिखें। रेखांकित शब्दों को ऐसे बदलें कि वे कई लोगों के बारे में बात करें।",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "प्रश्न लिखें। रेखांकित शब्दों को ऐसे बदलें कि प्रश्न सही ढंग से लिखे जाएं।",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "इन वाक्यों को सही ढंग से लिखें। केवल रेखांकित शब्दों को बदलें। प्रत्येक वाक्य में “not” शब्द बनाए रखें।",
+        "Write the words in the correct order. There are multiple correct answers.": "शब्दों को सही क्रम में लिखें। इनके एकाधिक सही उत्तर हैं।",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "वाक्य लिखें। रेखांकित शब्द को बदलें ताकि वह वाक्य के अनुरूप हो जाए। कोई नया शब्द न जोड़ें।",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "वाक्य लिखें। रेखांकित शब्द को बदलें ताकि वह वाक्य के अनुरूप हो जाए। आप इसे 1 या 2 शब्दों में बदल सकते हैं।",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "वाक्य लिखें। रेखांकित शब्दों के प्रत्येक सेट को एक शब्द में बदलें। एपोस्ट्रोफ़ (') का उपयोग करें।",
+        "Fill in the blank with the correct option.": "रिक्त स्थान को सही विकल्प के साथ भरें।",
+        "Fill in each blank with the correct option. You may use an option more than once.": "प्रत्येक रिक्त स्थान को सही विकल्प के साथ भरें। आप एक विकल्प का उपयोग एक से अधिक बार कर सकते हैं।",
+        "Fill in the blank with the most natural option.": "रिक्त स्थान को सबसे स्वाभाविक विकल्प के साथ भरें।",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "प्रत्येक रिक्त स्थान को किसी एक विकल्प के साथ भरें। आपको एक ही विकल्प का कई बार उपयोग करने की अनुमति है, लेकिन आपको ऐसा करने की ज़रूरत नहीं है।",
+        "Fill in the blank with the most natural sentence.": "सबसे स्वाभाविक वाक्य के साथ रिक्त स्थान भरें।",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "उन रिक्त स्थानों को भरें जिन्हें शब्दों की आवश्यकता है। आप रिक्त स्थानों को खाली छोड़ सकते हैं। आपको एक ही विकल्प का कई बार उपयोग करने की अनुमति है, लेकिन आपको ऐसा करने की ज़रूरत नहीं है।",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "प्रत्येक रिक्त स्थान को एक विकल्प के साथ भरें। आपको एक ही विकल्प का कई बार उपयोग करने की अनुमति है, लेकिन आपको ऐसा करने की ज़रूरत नहीं है।",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "प्रत्येक रिक्त स्थान को एक शब्द के साथ भरें। आपको एक ही शब्द का कई बार उपयोग करने की अनुमति है, लेकिन आपको ऐसा करने की ज़रूरत नहीं है।",
+        "Fill in each blank with one of the words.": "प्रत्येक रिक्त स्थान को किसी एक शब्द के साथ भरें।",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "दो सही विकल्प हैं। प्रत्येक रिक्त स्थान को किसी एक सही विकल्प के साथ भरें। एक ही उत्तर को दो बार न लिखें।",
+        "Fill in each blank with one of the options.": "प्रत्येक रिक्त स्थान को किसी एक विकल्प के साथ भरें।",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "वाक्य को दोबारा लिखें। उन रेखांकित शब्दों को बदलें जो गलत हैं। उन शब्दों को न बदलें जो पहले से ही सही हैं।"
     },
     "cues": {
         "type one": "type one / एक टाइप करें",
@@ -76,7 +94,12 @@
         "choose one": "choose one / एक चुनो",
         "choose three": "choose three / तीन चुनें",
         "choose two or three" : "choose two or three / दो या तीन का चयन करें",
-        "joining word": "joining word / जोड़ने वाला शब्द"
+        "joining word": "joining word / जोड़ने वाला शब्द",
+        "words": "words / शब्द",
+        "type two": "type two / प्रकार दो",
+        "options": "options / विकल्प",
+        "sentences": "sentences / वाक्य",
+        "answers": "answers / उत्तर"
     },
     "feedback": {
         "blank": "नीचे दिए गए विकल्पों में से एक का उपयोग करें या खाली छोड़ दें।",

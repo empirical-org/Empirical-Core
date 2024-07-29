@@ -83,7 +83,6 @@ module Evidence
         'who_s_vs_whose' => 'b4d8997f-736b-41fc-92c5-b410981b43cb'
       }
 
-
       EXCEPTIONS = [
         'cloning mammals',
         'united states',
@@ -111,12 +110,12 @@ module Evidence
       def self.contains_exception?(client_response)
         highlights = client_response[Evidence::Grammar::Client::HIGHLIGHT_KEY]
 
-        highlight_texts(highlights).any?{|h| EXCEPTIONS.any? {|e| h.match(e.downcase)}}
+        highlight_texts(highlights).any?{ |h| EXCEPTIONS.any? { |e| h.match(e.downcase) } }
       end
 
       def self.highlight_texts(highlights)
         highlights
-          &.map {|hash| hash['text']}
+          &.map { |hash| hash['text'] }
           &.compact
           &.map(&:downcase)
       end
@@ -126,7 +125,7 @@ module Evidence
       end
 
       def self.default_payload
-        super.merge({'feedback_type' => 'grammar'})
+        super.merge({ 'feedback_type' => 'grammar' })
       end
 
       def self.error_name

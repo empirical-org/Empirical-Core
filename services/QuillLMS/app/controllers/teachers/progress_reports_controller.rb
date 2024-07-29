@@ -70,7 +70,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   private def set_admin_user
     @admin_user = User.find_by(email: teacher_email) ||
-      Demo::CreateAdminReport.new(teacher_email).call
+                  Demo::CreateAdminReport.new(teacher_email).call
   end
 
   private def teacher_email

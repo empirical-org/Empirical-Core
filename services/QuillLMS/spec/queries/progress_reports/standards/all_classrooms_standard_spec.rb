@@ -23,7 +23,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
     end
 
     it 'should return the correctly shaped payload' do
-      expected_keys =  [
+      expected_keys = [
         'id',
         'name',
         'standard_level_name',
@@ -46,7 +46,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
         create(:standard_category, id: 99999)
       end
       let!(:non_evidence_standard) { create(:standard, standard_category: non_evidence_standard_category) }
-      let!(:non_evidence_activity) { create(:activity, standard: non_evidence_standard)}
+      let!(:non_evidence_activity) { create(:activity, standard: non_evidence_standard) }
       let!(:activity_session_non_evidence) do
         create(
           :activity_session,
@@ -68,7 +68,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
         create(:standard_category, id: ::Constants::EVIDENCE_STANDARD_CATEGORY)
       end
       let!(:evidence_standard) { create(:standard, standard_category: evidence_standard_category) }
-      let!(:evidence_activity) { create(:activity, standard: evidence_standard)}
+      let!(:evidence_activity) { create(:activity, standard: evidence_standard) }
       let!(:activity_session_evidence) do
         create(
           :activity_session,
@@ -81,10 +81,9 @@ describe ProgressReports::Standards::AllClassroomsStandard do
       it 'should indicate evidence activities via the is_evidence property' do
         results = ProgressReports::Standards::AllClassroomsStandard.new(teacher1)
         .results(sample_student_data[:classroom_unit].classroom_id, nil)
-        result = results.find {|r| r['id'] == evidence_standard.id}
+        result = results.find { |r| r['id'] == evidence_standard.id }
         expect(result['is_evidence']).to eq true
       end
     end
   end
-
 end

@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe GoogleClassroomUser, type: :model do
-  subject { create(:google_classroom_user)}
+  subject { create(:google_classroom_user) }
 
   it_behaves_like 'a provider classroom user'
 

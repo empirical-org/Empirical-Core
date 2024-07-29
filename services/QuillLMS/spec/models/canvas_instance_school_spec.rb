@@ -32,6 +32,6 @@ RSpec.describe CanvasInstanceSchool, type: :model do
   it { should belong_to(:school) }
 
   context 'uniqueness' do
-    it { expect { subject.dup.save!}.to raise_error ActiveRecord::RecordNotUnique }
+    it { expect { subject.dup.save! }.to raise_error ActiveRecord::RecordNotUnique }
   end
 end

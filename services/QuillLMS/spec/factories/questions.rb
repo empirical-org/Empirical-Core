@@ -17,27 +17,8 @@
 #  index_questions_on_uid            (uid) UNIQUE
 #
 FactoryBot.define do
-  data = {
-    'conceptID' => 'Jl4ByYtUfo4VhIKpMt23yA',
-    'cues' => [''],
-    'cuesLabel' => '',
-    'flag' => 'production',
-    Question::FOCUS_POINTS => {
-      '-LNLfzKfwaoZUVeSIH8o' => {
-        'conceptResults' => {
-          'Jl4ByYtUfo4VhIKpMt23yA' => {
-            'conceptUID' => 'Jl4ByYtUfo4VhIKpMt23yA',
-            'correct' => false,
-            'name' => 'Structure | Compound Subjects, Objects, and Predicates | Compound Subjects'
-          }
-        },
-        'feedback' => '<p>Revise your work. Use the hint as an example of how to combine the sentences.</p>',
-        'order' => 1,
-        'text' => 'and'
-      }
-    },
-    Question::INCORRECT_SEQUENCES => {
-      '0' => {
+  incorrect_sequences = {
+    '0' => {
         'conceptResults' => {
           'GiUZ6KPkH958AT8S413nJg' => {
             'conceptUID' => 'GiUZ6KPkH958AT8S413nJg',
@@ -125,15 +106,84 @@ FactoryBot.define do
         'feedback' => '<p>Revise your work. Make your sentence more concise by only saying <em>reefs </em>once.</p>',
         'text' => 'but (some|most) ree&&ral re'
       }
-    },
+  }
+  focus_points = {
+    '-LNLfzKfwaoZUVeSIH8o' => {
+      'conceptResults' => {
+        'Jl4ByYtUfo4VhIKpMt23yA' => {
+          'conceptUID' => 'Jl4ByYtUfo4VhIKpMt23yA',
+          'correct' => false,
+          'name' => 'Structure | Compound Subjects, Objects, and Predicates | Compound Subjects'
+        }
+      },
+      'feedback' => '<p>Revise your work. Use the hint as an example of how to combine the sentences.</p>',
+      'order' => 1,
+      'text' => 'and'
+    }
+  }
+  data = {
+    'conceptID' => 'Jl4ByYtUfo4VhIKpMt23yA',
+    'cues' => [''],
+    'cuesLabel' => '',
+    'flag' => 'production',
+    Question::FOCUS_POINTS => focus_points,
+    Question::INCORRECT_SEQUENCES => incorrect_sequences,
     'instructions' => '',
     'itemLevel' => '',
     'modelConceptUID' => 'Jl4ByYtUfo4VhIKpMt23yA',
     'prompt' => '<p>The moon is smaller than the sun.</p><p>Earth is smaller than the sun.</p>'
   }
+
   factory :question do
     uid { SecureRandom.uuid }
     data { data }
     question_type { 'connect_sentence_combining' }
+
+    trait :with_translated_text do
+      after(:create) do |question|
+        create(:translation_mapping_with_translation,
+          source: question,
+          field_name: question.default_translatable_field
+        )
+      end
+    end
+
+    trait :with_translated_focus_points do
+      after(:create) do |question|
+        focus_points.each do |key, value|
+          create(:translation_mapping_with_translation,
+            source: question,
+            field_name: "#{Question::FOCUS_POINTS}.#{key}"
+          )
+        end
+      end
+    end
+
+    trait :with_translated_incorrect_sequences do
+      after(:create) do |question|
+        incorrect_sequences.each do |key, value|
+          create(:translation_mapping_with_translation,
+            source: question,
+            field_name: "#{Question::INCORRECT_SEQUENCES}.#{key}"
+          )
+        end
+      end
+    end
+
+    trait :with_translated_cms_response do
+      after(:create) do |question|
+        create(:translation_mapping_with_translation,
+          source: question,
+          field_name: "#{Question::CMS_RESPONSES}.283992"
+        )
+      end
+    end
+  end
+
+  trait :with_all_translations do
+    with_translated_text
+    with_translated_focus_points
+    with_translated_incorrect_sequences
+    with_translated_cms_response
   end
 end

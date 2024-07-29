@@ -3,7 +3,7 @@
   <body>
     <%= render partial: 'application/webinar_banner' %>
     <%= render partial: 'application/demo_account_banner' %>
-    <%= render partial: 'header', media: 'all', 'data-turbolinks-track' => true %>
+    <%= render partial: 'header', media: 'all' %>
     <%= render partial: 'premium_hub_header' %>
     <%= render partial: 'teachers/shared/scorebook_tabs' %>
     <%= react_component('ProgressReportApp', props: { currentUser: current_user, premiumStatus: current_user.premium_state, classrooms: current_user.classrooms_i_teach })%>
@@ -12,12 +12,12 @@
 
     <%= yield %>
 
-    <%= render partial: 'pages/shared/footer', media: 'all', 'data-turbolinks-track' => true %>
+    <%= render partial: 'pages/shared/footer', media: 'all' %>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>

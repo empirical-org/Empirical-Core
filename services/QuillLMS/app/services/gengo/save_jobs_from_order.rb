@@ -13,7 +13,7 @@ module Gengo
     end
 
     def run
-      response = GengoAPI.getTranslationJobs({order_id:})
+      response = GengoAPI.getTranslationJobs({ order_id: })
       raise FetchTranslationOrderError unless response.present?
 
       response[RESPONSE]&.each do |job|

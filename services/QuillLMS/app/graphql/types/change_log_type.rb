@@ -25,5 +25,4 @@ class Types::ChangeLogType < Types::BaseObject
   def user
     User.find(object['user_id'])
   end
-
 end

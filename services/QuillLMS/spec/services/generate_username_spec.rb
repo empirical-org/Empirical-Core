@@ -32,11 +32,11 @@ describe GenerateUsername do
   end
 
   it 'will find the next available number and assign the number' do
-    create(:student, username: 'john.smith@student' )
-    create(:student, username: 'john.smith1@student' )
-    create(:student, username: 'john.smith2@student' )
-    create(:student, username: 'john.smith3@student' )
-    create(:student, username: 'john.smith567@student' )
+    create(:student, username: 'john.smith@student')
+    create(:student, username: 'john.smith1@student')
+    create(:student, username: 'john.smith2@student')
+    create(:student, username: 'john.smith3@student')
+    create(:student, username: 'john.smith567@student')
 
     expect(subject).to eq 'john.smith4@student'
   end

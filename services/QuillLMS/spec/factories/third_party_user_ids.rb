@@ -26,4 +26,3 @@ FactoryBot.define do
     third_party_id { rand(100000000) }
   end
 end
-

@@ -6,10 +6,10 @@ module TeacherNotifications
   describe SendCompleteAllDiagnosticRecommendationsNotificationWorker, type: :worker do
     subject { described_class.new }
 
-    let(:classroom) { create(:classroom, :with_no_teacher)}
-    let(:student) { create(:student, classrooms: [classroom])}
+    let(:classroom) { create(:classroom, :with_no_teacher) }
+    let(:student) { create(:student, classrooms: [classroom]) }
     let(:activity) { create(:activity) }
-    let(:unit_template) { create(:unit_template, activities: [activity])}
+    let(:unit_template) { create(:unit_template, activities: [activity]) }
     let(:unit) { create(:unit, unit_template: unit_template, activities: unit_template.activities) }
     let(:classroom_unit) do
       create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
@@ -19,7 +19,7 @@ module TeacherNotifications
     describe '#send_complete_all_diagnostic_recommendations' do
       let!(:recommendation) { create(:recommendation, unit_template: unit_template) }
       let(:diagnostic_activity) { create(:diagnostic_activity) }
-      let(:diagnostic_unit_template) { create(:unit_template, activities: [diagnostic_activity])}
+      let(:diagnostic_unit_template) { create(:unit_template, activities: [diagnostic_activity]) }
       let(:diagnostic_unit) { create(:unit, unit_template: diagnostic_unit_template, activities: diagnostic_unit_template.activities) }
       let(:diagnostic_classroom_unit) do
         create(:classroom_unit, unit: diagnostic_unit, classroom: classroom, assigned_student_ids: [student.id])

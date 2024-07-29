@@ -1,4 +1,6 @@
-<%= link_to 'Back to Activity', @stem_vault.activity %>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
+<% end %>
 
 <div>
   <h2><%= @stem_vault.model_name.human.titleize %></h2>
@@ -17,11 +19,33 @@
     Datasets
     <%= link_to 'new', new_research_gen_ai_stem_vault_dataset_path(stem_vault_id: @stem_vault), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </h3>
-   <ul>
-    <% @stem_vault.datasets.order(id: :desc).each.with_index(1) do |dataset, index| %>
-      <li><%= link_to [:v, dataset.version].join, dataset %></li>
-    <% end %>
-  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dataset</th>
+        <th>Created</th>
+        <th>Total Evaluation Responses</th>
+        <th>Optimal</th>
+        <th>Sub-optimal</th>
+        <th>Trials</th>
+        <th>Access</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @datasets.each do |dataset| %>
+        <tr>
+          <td><%= "Dataset #{dataset.version}" %></td>
+          <td><%= date_helper(dataset.created_at) %></td>
+          <td><%= dataset.optimal_count + dataset.suboptimal_count %></td>
+          <td><%= dataset.optimal_count %></td>
+          <td><%= dataset.suboptimal_count %></td>
+          <td><%= dataset.trials.count %></td>
+          <td><%= link_to "View", research_gen_ai_dataset_path(dataset) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <h3>
     Optimal Guidelines

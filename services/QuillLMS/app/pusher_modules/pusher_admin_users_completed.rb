@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
 module PusherAdminUsersCompleted
-
   def self.run(admin_id)
     pusher_client = Pusher::Client.new(
-        app_id: ENV['PUSHER_APP_ID'],
-        key: ENV['PUSHER_KEY'],
-        secret: ENV['PUSHER_SECRET'],
-        use_tls: true
+      app_id: ENV['PUSHER_APP_ID'],
+      key: ENV['PUSHER_KEY'],
+      secret: ENV['PUSHER_SECRET'],
+      use_tls: true
     )
     pusher_client.trigger(
       admin_id.to_s,
-     'admin-users-found',
-     message: "Admin users found for #{admin_id}."
-   )
+      'admin-users-found',
+      message: "Admin users found for #{admin_id}."
+    )
   end
-
 end

@@ -25,22 +25,20 @@ namespace :grammar_api_rules_and_feedback do
         created_rule.save!
 
         feedback = Evidence::Feedback.find_or_initialize_by(
-            rule_id: created_rule.id,
-            order: 0,
-            text: r['Feedback V3 [HM 4/21]']
+          rule_id: created_rule.id,
+          order: 0,
+          text: r['Feedback V3 [HM 4/21]']
         )
 
         feedback.save!
 
         all_prompts.each do |p|
           p_r = Evidence::PromptsRule.find_or_initialize_by(
-              prompt_id: p.id, rule_id: created_rule.id
+            prompt_id: p.id, rule_id: created_rule.id
           )
           p_r.save!
         end
-
       end
     end
-
   end
 end

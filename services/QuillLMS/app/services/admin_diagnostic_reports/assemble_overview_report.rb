@@ -37,7 +37,7 @@ module AdminDiagnosticReports
 
         aggregate_rows = merge_aggregate_rows(left_data.delete(:aggregate_rows), right_data.delete(:aggregate_rows))
 
-        left_data.merge(right_data).merge({aggregate_rows:})
+        left_data.merge(right_data).merge({ aggregate_rows: })
       end
     end
 
@@ -55,19 +55,19 @@ module AdminDiagnosticReports
     end
 
     private def find_row_or_fallback(data, key, value, fallback)
-      data&.find{|row| row[key] == value} || fallback
+      data&.find{ |row| row[key] == value } || fallback
     end
 
     private def extract_unique_ids(base_data, supplemental_data, key)
-      ((base_data&.map{|row| row[key]} || []) + (supplemental_data&.map{|row| row[key]} || [])).compact.uniq
+      ((base_data&.map{ |row| row[key] } || []) + (supplemental_data&.map{ |row| row[key] } || [])).compact.uniq
     end
 
     private def generate_fallback_hashes(base_data, supplemental_data, ensure_base_keys = [], ensure_supplemental_keys = [])
       unique_base_keys = calculate_unique_keys(base_data, supplemental_data, ensure_base_keys)
       unique_supplemental_keys = calculate_unique_keys(supplemental_data, base_data, ensure_supplemental_keys)
 
-      base_data_fallback = unique_base_keys.index_with{nil}
-      supplemental_data_fallback = unique_supplemental_keys.index_with{nil}
+      base_data_fallback = unique_base_keys.index_with{ nil }
+      supplemental_data_fallback = unique_supplemental_keys.index_with{ nil }
 
       [base_data_fallback, supplemental_data_fallback]
     end

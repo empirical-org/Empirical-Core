@@ -28,7 +28,7 @@ describe StudentDashboardMetrics do
   let(:today_timespent) { 30 }
   let(:yesterday_timespent) { 45 }
   let(:first_of_month_timespent) { 60 }
-  let(:july_second_timespent) { 90}
+  let(:july_second_timespent) { 90 }
 
   let!(:student) { create(:student) }
   let!(:classroom) { create(:classroom) }

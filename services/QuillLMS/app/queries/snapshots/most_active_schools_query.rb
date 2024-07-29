@@ -2,7 +2,6 @@
 
 module Snapshots
   class MostActiveSchoolsQuery < ReportingSessionTopXQuery
-
     def select_clause
       <<~SQL
         SELECT school_name AS value,

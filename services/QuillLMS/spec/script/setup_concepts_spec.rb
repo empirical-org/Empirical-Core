@@ -22,7 +22,6 @@ describe 'Downloading the concepts' do
     expect(@setup.concepts.class).to eq(Array)
   end
 
-
   it 'should successfully make a http request' do
     expect(@response.code).to eq('200')
   end
@@ -51,8 +50,8 @@ end
 describe 'Creating the concepts' do
   context 'when there is a child and parent concept' do
     before do
-      @parent = {'id'=>1, 'name'=>'Capitalization', 'uid'=>'BRTGfOy7FGG4LB49eIxJQg', 'parent_id'=>nil, 'level'=>2}
-      @child = {'id'=>2, 'name'=>'Greece', 'uid'=>'GPzZYKvZ2nSKmu7zC540bA', 'parent_id'=>1, 'level'=>0}
+      @parent = { 'id'=>1, 'name'=>'Capitalization', 'uid'=>'BRTGfOy7FGG4LB49eIxJQg', 'parent_id'=>nil, 'level'=>2 }
+      @child = { 'id'=>2, 'name'=>'Greece', 'uid'=>'GPzZYKvZ2nSKmu7zC540bA', 'parent_id'=>1, 'level'=>0 }
       @creator = Setup::CreateConcepts.new([@child, @parent])
     end
 
@@ -82,9 +81,9 @@ describe 'Creating the concepts' do
 
   context 'when there is a child, parent and grandparent concept' do
     before do
-      @grandparent = {'id'=>3, 'name'=>'Alphabet', 'uid'=>'BRTGfOy7FGG4LB49eIxJQf', 'parent_id'=>nil, 'level'=>1}
-      @parent = {'id'=>1, 'name'=>'Capitalization', 'uid'=>'BRTGfOy7FGG4LB49eIxJQg', 'parent_id'=>3, 'level'=>2}
-      @child = {'id'=>2, 'name'=>'Greece', 'uid'=>'GPzZYKvZ2nSKmu7zC540bA', 'parent_id'=>1, 'level'=>0}
+      @grandparent = { 'id'=>3, 'name'=>'Alphabet', 'uid'=>'BRTGfOy7FGG4LB49eIxJQf', 'parent_id'=>nil, 'level'=>1 }
+      @parent = { 'id'=>1, 'name'=>'Capitalization', 'uid'=>'BRTGfOy7FGG4LB49eIxJQg', 'parent_id'=>3, 'level'=>2 }
+      @child = { 'id'=>2, 'name'=>'Greece', 'uid'=>'GPzZYKvZ2nSKmu7zC540bA', 'parent_id'=>1, 'level'=>0 }
       @creator = Setup::CreateConcepts.new([@child, @parent, @grandparent])
     end
 

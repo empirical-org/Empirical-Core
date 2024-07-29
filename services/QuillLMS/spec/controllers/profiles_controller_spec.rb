@@ -23,7 +23,7 @@ describe ProfilesController, type: :controller do
   end
 
   context 'as a student' do
-    let!(:classroom) {create(:classroom)}
+    let!(:classroom) { create(:classroom) }
     let!(:student) { create(:student) }
     let!(:students_classrooms) do
       create(:students_classrooms,
@@ -35,7 +35,8 @@ describe ProfilesController, type: :controller do
     let!(:units) { create_list(:unit, 2) }
     let!(:post_test) { create(:activity) }
 
-    let!(:activities) do [
+    let!(:activities) do
+      [
         create(:activity),
         create(:activity, follow_up_activity_id: post_test.id),
         create(:activity),
@@ -44,7 +45,8 @@ describe ProfilesController, type: :controller do
       ]
     end
 
-    let!(:unit_activities) do [
+    let!(:unit_activities) do
+      [
         create(:unit_activity, unit: units[0], activity: activities[0], order_number: 3),
         create(:unit_activity, unit: units[0], activity: activities[1], order_number: 2),
         create(:unit_activity, unit: units[0], activity: activities[2], order_number: 1),
@@ -53,7 +55,8 @@ describe ProfilesController, type: :controller do
       ]
     end
 
-    let!(:classroom_units) do [
+    let!(:classroom_units) do
+      [
         create(:classroom_unit,
           unit: units[0],
           classroom: classroom,
@@ -109,7 +112,6 @@ describe ProfilesController, type: :controller do
     end
 
     context '#student_profile_data' do
-
       it 'returns an error when the current user has no classrooms' do
         session[:user_id] = other_student.id
         get :student_profile_data
@@ -338,9 +340,7 @@ describe ProfilesController, type: :controller do
             expect(session.keys).to include('percentage', 'id', 'description', 'due_date', 'completed_at')
           end
         end
-
       end
     end
-
   end
 end

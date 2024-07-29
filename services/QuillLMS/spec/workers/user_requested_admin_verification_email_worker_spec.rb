@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe UserRequestedAdminVerificationEmailWorker do
-  let(:job) { described_class.new}
+  let(:job) { described_class.new }
   let(:admin) { create(:admin) }
 
   describe '#perform' do

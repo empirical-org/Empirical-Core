@@ -26,10 +26,6 @@
         "header": "คุณมาถึงครึ่งทางแล้ว!",
         "text": "ทำได้ดีมาก จงทำต่อไป!"
     },
-    "ELL Halfway": {
-        "header": "คุณมาถึงครึ่งทางแล้ว!",
-        "text": "ทำได้ดีมาก จงทำต่อไป!"
-    },
     "ELL Starter Questions": {
         "header": "คำถาม",
         "text": "ในส่วนนี้ คุณจะต้องเขียนประโยคคำถาม อย่าลืมว่าประโยคคำถามต้องมีเครื่องหมายคำถาม (?) ในส่วนท้ายของประโยค คุณทำได้อยู่แล้ว!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "เขียนประโยคอีกครั้ง แก้ไขคำศัพท์แสดงการกระทำที่ขีดเส้นใต้ เพื่อให้คำนั้นเป็นคำกริยาที่ถูกต้องเพื่อให้สอดคล้องกับส่วนอื่น ๆ ของประโยค",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "เขียนประโยคอีกครั้ง แก้ไขคำศัพท์แสดงการกระทำที่ขีดเส้นใต้ เพื่อให้คำเหล่านั้นเป็นคำกริยาแสดงอนาคต",
         "Respond to the question. Fill in the blank with one of the choices.": "ตอบสนองต่อคำถาม เติมคำในช่องว่างโดยใช้หนึ่งในตัวเลือกเหล่านี้",
-        "Use the joining word to combine the sentences into one sentence.": "ใช้คำเชื่อมเพื่อรวมประโยคให้เป็นประโยคเดียว"
+        "Use the joining word to combine the sentences into one sentence.": "ใช้คำเชื่อมเพื่อรวมประโยคให้เป็นประโยคเดียว",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "เติมคําสีเหลืองลงในช่องว่าง ช่องว่างสามารถเว้นว่างไว้ได้",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "มีคำตอบถูกต้องสองข้อ เติมคำตอบที่ถูกต้องลงในช่องว่างแต่ละช่อง อย่าเขียนคําตอบเดียวกันสองครั้ง",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "เติมคำใดคำหนึ่งลงในช่องว่างแต่ละช่อง คุณอาจใช้คําเดียวกันมากกว่าหนึ่งครั้ง",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "เขียนหลายประโยค เปลี่ยนคําที่ขีดเส้นใต้เป็นคำที่พูดถึงหลายคน",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "เขียนคําถาม เปลี่ยนคําที่ขีดเส้นใต้เพื่อเขียนคำถามให้ถูกต้อง",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "เขียนประโยคเหล่านี้อย่างถูกต้อง เปลี่ยนคําที่ขีดเส้นใต้เท่านั้น เก็บคําว่า “not” ในแต่ละประโยค",
+        "Write the words in the correct order. There are multiple correct answers.": "เขียนคําในลําดับที่ถูกต้อง มีคําตอบที่ถูกต้องหลายข้อ",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "เขียนประโยค เปลี่ยนคําที่ขีดเส้นใต้ให้เหมาะกับประโยค ไม่ต้องเพิ่มคำใหม่",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "เขียนประโยค เปลี่ยนคําที่ขีดเส้นใต้ให้เหมาะกับประโยค คุณสามารถเปลี่ยน 1 หรือ 2 คํา",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "เขียนหลายประโยค เปลี่ยนคําขีดเส้นใต้แต่ละชุดเป็นคําเดียว ใช้เครื่องหมายอะพอสทรอฟี (')",
+        "Fill in the blank with the correct option.": "เติมตัวเลือกที่ถูกต้องลงในช่องว่าง",
+        "Fill in each blank with the correct option. You may use an option more than once.": "เติมตัวเลือกที่ถูกต้องลงในช่องว่างแต่ละช่อง คุณอาจใช้ตัวเลือกมากกว่าหนึ่งครั้ง",
+        "Fill in the blank with the most natural option.": "เติมตัวเลือกที่เป็นธรรมชาติที่สุดลงในช่องว่าง",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "เติมตัวเลือกใดตัวเลือกหนึ่งลงในช่องว่างแต่ละช่อง คุณสามารถใช้ตัวเลือกเดียวกันได้หลายครั้งแต่ไม่ได้บังคับ",
+        "Fill in the blank with the most natural sentence.": "เติมประโยคที่เป็นธรรมชาติที่สุดลงในช่องว่าง",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "เติมคำลงในช่องว่างที่ต้องการคำ ช่องว่างสามารถเว้นว่างไว้ได้ คุณสามารถใช้ตัวเลือกเดียวกันได้หลายครั้งแต่ไม่ได้บังคับ",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "เติมตัวเลือกลงในช่องว่างแต่ละช่อง คุณสามารถใช้ตัวเลือกเดียวกันได้หลายครั้งแต่ไม่ได้บังคับ",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "เติมหนึ่งคำลงในช่องว่างแต่ละช่อง คุณสามารถใช้คำเดียวกันได้หลายครั้งแต่ไม่ได้บังคับ",
+        "Fill in each blank with one of the words.": "เติมคำใดคำหนึ่งลงในช่องว่างแต่ละช่อง",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "มีตัวเลือกที่ถูกต้องสองข้อ เติมตัวเลือกที่ถูกต้องข้อใดข้อหนนึ่งลงในช่องว่างแต่ละช่อง อย่าเขียนคําตอบเดียวกันสองครั้ง",
+        "Fill in each blank with one of the options.": "เติมตัวเลือกใดตัวเลือกหนึ่งลงในช่องว่างแต่ละช่อง",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "เขียนประโยคใหม่ เปลี่ยนคําขีดเส้นใต้ที่ไม่ถูกต้อง อย่าเปลี่ยนคําที่ถูกต้องแล้ว"
     },
     "cues": {
         "type one": "type one / พิมพ์หนึ่งคำ",
@@ -76,7 +94,12 @@
         "choose one": "choose one / เลือกหนึ่งคำ",
         "choose three": "choose three / เลือกสามคำ",
         "choose two or three" : "choose two or three / เลือกสองหรือสามคำ",
-        "joining word": "joining word / คำเชื่อม"
+        "joining word": "joining word / คำเชื่อม",
+        "words": "words / คํา",
+        "type two": "type two / พิมพ์สอง",
+        "options": "options / ตัวเลือก",
+        "sentences": "sentences / ประโยค",
+        "answers": "answers / คำตอบ"
     },
     "feedback": {
         "blank": "ใช้หนึ่งในตัวเลือกด้านล่างนี้หรือปล่อยว่างไว้",

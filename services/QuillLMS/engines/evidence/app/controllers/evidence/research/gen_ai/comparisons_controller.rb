@@ -6,6 +6,7 @@ module Evidence
       class ComparisonsController < ApplicationController
         def show
           @comparison = Comparison.find(params[:id])
+          @dataset = @comparison.dataset
           @trials = @comparison.trials.order(id: :asc)
           @test_examples = @trials.first.dataset.test_examples
         end

@@ -55,5 +55,4 @@ class ActivitySerializer < ApplicationSerializer
       .to_a
       .first
   end
-
 end

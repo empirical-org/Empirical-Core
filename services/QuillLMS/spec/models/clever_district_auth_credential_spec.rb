@@ -47,4 +47,3 @@ describe CleverDistrictAuthCredential, type: :model do
     it { is_expected.not_to be_clever_authorized }
   end
 end
-

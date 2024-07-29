@@ -30,7 +30,7 @@ module AdminDiagnosticReports
           { name: '2nd', label: '2nd', value: '2' }
         ],
         schools: [
-          {"id": premium_schools.first.id, "name": premium_schools.first.name, "label": premium_schools.first.name, "value": premium_schools.first.id}
+          { "id": premium_schools.first.id, "name": premium_schools.first.name, "label": premium_schools.first.name, "value": premium_schools.first.id }
         ],
         timeframe: {
           name: 'This school year',

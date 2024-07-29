@@ -13,7 +13,7 @@ module PublicProgressReports
   PROOFREADER_SUBOPTIMAL_FINAL_ATTEMPT_FEEDBACK = 'Incorrect'
   CONNECT_OPTIMAL_FINAL_ATTEMPT_FEEDBACK = "That's a strong sentence!"
   CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_SENTENCE_COMBINING_FEEDBACK = "Nice try. Let's try a multiple choice question."
-  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK =  'Good try! Compare your response to the strong responses, and then go to on to the next question.'
+  CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK = 'Good try! Compare your response to the strong responses, and then go to on to the next question.'
 
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
@@ -30,7 +30,7 @@ module PublicProgressReports
       unit_query_string = "?unit=#{unit_id}"
       { url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity_id}/classroom/#{classroom_id}/responses/#{user_id}#{unit_query_string}" }
     elsif unit_id && activity_id && classroom_id
-      {url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/#{user_id}"}
+      { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/#{user_id}" }
     end
   end
 
@@ -56,7 +56,7 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
-    questions = Hash.new{|h,k| h[k]={} }
+    questions = Hash.new{ |h,k| h[k]={} }
 
     all_answers = @activity_sessions.map(&:concept_results).flatten
 
@@ -122,7 +122,7 @@ module PublicProgressReports
 
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
-      h.map{|k,v| v}
+      h.map{ |k,v| v }
     else
       []
     end
@@ -287,11 +287,10 @@ module PublicProgressReports
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
-    concept_results.group_by{|cr| cr.question_number}.map { |key, cr|
-
+    concept_results.group_by{ |cr| cr.question_number }.map { |key, cr|
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
-      cr.sort!{|x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0)}
+      cr.sort!{ |x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ''
       prompt_text = cr.first.concept_result_prompt&.text
       score = get_score_for_question(cr)
@@ -366,7 +365,7 @@ module PublicProgressReports
     if formatted_results.empty?
       100
     else
-      (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+      (formatted_results.inject(0) { |sum, crs| sum + crs[:score] } / formatted_results.length).round()
     end
   end
 
@@ -377,10 +376,10 @@ module PublicProgressReports
     activity_sessions_counted = activity_sessions_with_counted_concepts(@activity_sessions)
     students = @assigned_students.map do |s|
       completed = @activity_sessions.any? { |session| session.user_id == s&.id }
-      {id: s&.id, name: s&.name || 'Unknown Student', completed: completed }
+      { id: s&.id, name: s&.name || 'Unknown Student', completed: completed }
     end
 
-    sorted_students = students.compact.sort_by {|stud| stud[:name].split().second || ''}
+    sorted_students = students.compact.sort_by { |stud| stud[:name].split().second || '' }
 
     recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
       student_ids = []
@@ -528,5 +527,4 @@ module PublicProgressReports
 
     CONNECT_SUBOPTIMAL_FINAL_ATTEMPT_FILL_IN_BLANKS_FEEDBACK
   end
-
 end

@@ -20,7 +20,7 @@ class PasswordResetController < ApplicationController
         flash[:notice] = 'We sent you an email with instructions on how to reset your password.'
         flash.keep(:notice)
         ExpirePasswordTokenWorker.perform_in(24.hours, user.id)
-        render json: { redirect: '/password_reset'}
+        render json: { redirect: '/password_reset' }
       end
     else
       @user = User.new
@@ -43,7 +43,7 @@ class PasswordResetController < ApplicationController
     sign_in @user
     flash[:notice] = 'Your password has been updated.'
     flash.keep(:notice)
-    render json: { redirect: '/profile'}
+    render json: { redirect: '/profile' }
   end
 
   private def set_title

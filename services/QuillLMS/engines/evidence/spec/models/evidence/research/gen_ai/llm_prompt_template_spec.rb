@@ -4,11 +4,12 @@
 #
 # Table name: evidence_research_gen_ai_llm_prompt_templates
 #
-#  id          :bigint           not null, primary key
-#  contents    :text             not null
-#  description :text             not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id         :bigint           not null, primary key
+#  contents   :text             not null
+#  name       :text             not null
+#  notes      :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 require 'rails_helper'
 
@@ -20,9 +21,9 @@ module Evidence
 
         it { expect(build(factory)).to be_valid }
 
-        it { should validate_presence_of(:description) }
+        it { should validate_presence_of(:name) }
         it { should validate_presence_of(:contents) }
-        it { should have_readonly_attribute(:description) }
+        it { should have_readonly_attribute(:name) }
         it { should have_readonly_attribute(:contents) }
 
         it { should have_many(:llm_prompts).dependent(:destroy) }

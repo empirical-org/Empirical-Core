@@ -94,9 +94,8 @@ class BlogPost < ApplicationRecord
   def set_order_number
     return if order_number.present?
 
-    self.order_number =  BlogPost.where(topic: topic).count
+    self.order_number = BlogPost.where(topic: topic).count
   end
-
 
   def increment_read_count
     self.read_count += 1

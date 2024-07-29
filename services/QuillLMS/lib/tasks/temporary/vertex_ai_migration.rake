@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :vertex_ai  do
+namespace :vertex_ai do
   desc 'Populate prompt endpoint and model IDs (note these need to be run locally as files are not available on the server))'
   task populate_prompt_endpoint_and_model_ids: :environment do
     pipe_data = $stdin.read unless $stdin.tty?

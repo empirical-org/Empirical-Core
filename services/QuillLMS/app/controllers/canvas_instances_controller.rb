@@ -103,5 +103,4 @@ class CanvasInstancesController < ApplicationController
       }
     end
   end
-
 end

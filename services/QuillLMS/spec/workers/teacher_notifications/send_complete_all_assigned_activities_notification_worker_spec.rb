@@ -6,10 +6,10 @@ module TeacherNotifications
   describe SendCompleteAllAssignedActivitiesNotificationWorker, type: :worker do
     subject { described_class.new }
 
-    let(:classroom) { create(:classroom, :with_no_teacher)}
-    let(:student) { create(:student, classrooms: [classroom])}
+    let(:classroom) { create(:classroom, :with_no_teacher) }
+    let(:student) { create(:student, classrooms: [classroom]) }
     let(:activity) { create(:activity) }
-    let(:unit_template) { create(:unit_template, activities: [activity])}
+    let(:unit_template) { create(:unit_template, activities: [activity]) }
     let(:unit) { create(:unit, unit_template: unit_template, activities: unit_template.activities) }
     let(:classroom_unit) do
       create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])
@@ -17,7 +17,6 @@ module TeacherNotifications
     let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: classroom_unit) }
 
     describe '#send_complete_all_assigned_activities' do
-
       it 'should return early if the student still has any incomplete activities assigned to them' do
         incomplete_activity = create(:activity)
         unit_template.activities_unit_templates.create!(activity: incomplete_activity)

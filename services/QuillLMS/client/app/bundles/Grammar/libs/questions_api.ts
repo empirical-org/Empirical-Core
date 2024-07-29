@@ -4,10 +4,15 @@ import { FocusPoint, IncorrectSequence, Question } from '../interfaces/questions
 const GRAMMAR_QUESTION_TYPE = 'grammar'
 
 const questionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/questions`;
+const activityApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/activities`;
 
 class QuestionApi {
-  static getAll(questionType: string): Promise<Array<Question>> {
+  static getAllForType(questionType: string): Promise<Array<Question>> {
     return requestGet(`${questionApiBaseUrl}.json?question_type=${questionType}`, null, (error) => {throw(error)});
+  }
+
+  static getAllForActivity(activity_uid: string): Promise<Array<Question>> {
+    return requestGet(`${activityApiBaseUrl}/${activity_uid}/questions.json`, null, (error) => {throw(error)});
   }
 
   static get(uid: string): Promise<Question> {
@@ -83,7 +88,4 @@ class IncorrectSequenceApi {
   }
 }
 
-export {
-  FocusPointApi, GRAMMAR_QUESTION_TYPE, IncorrectSequenceApi, QuestionApi, questionApiBaseUrl
-};
-
+export { activityApiBaseUrl, FocusPointApi, GRAMMAR_QUESTION_TYPE, IncorrectSequenceApi, QuestionApi, questionApiBaseUrl };

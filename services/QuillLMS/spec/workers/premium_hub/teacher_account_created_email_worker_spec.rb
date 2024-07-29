@@ -10,7 +10,7 @@ describe PremiumHub::TeacherAccountCreatedEmailWorker, type: :worker do
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { PremiumHubUserMailer }
-  let!(:mailer_method) { :teacher_account_created_email}
+  let!(:mailer_method) { :teacher_account_created_email }
   let!(:analytics) { double(:analytics).as_null_object }
   let!(:is_reminder) { false }
 
@@ -22,7 +22,6 @@ describe PremiumHub::TeacherAccountCreatedEmailWorker, type: :worker do
   end
 
   describe 'user is nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(nil)
     end
@@ -39,7 +38,6 @@ describe PremiumHub::TeacherAccountCreatedEmailWorker, type: :worker do
   end
 
   describe 'user is not nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(teacher, referring_admin)
     end

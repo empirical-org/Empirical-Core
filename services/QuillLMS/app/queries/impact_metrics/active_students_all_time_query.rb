@@ -2,7 +2,6 @@
 
 module ImpactMetrics
   class ActiveStudentsAllTimeQuery < ::QuillBigQuery::Query
-
     def run
       run_query
     end

@@ -54,7 +54,6 @@ FactoryBot.define do
     end
 
     factory :blog_post_with_author do
-
       after(:create) do |blog_post|
         author = create(:author)
         blog_post.author = author

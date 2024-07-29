@@ -101,5 +101,4 @@ module ResultsSummary
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
 end

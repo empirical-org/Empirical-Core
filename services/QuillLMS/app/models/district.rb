@@ -53,5 +53,4 @@ class District < ApplicationRecord
   def premium?
     subscription&.present?
   end
-
 end

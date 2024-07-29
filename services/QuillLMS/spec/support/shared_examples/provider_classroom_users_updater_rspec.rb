@@ -62,4 +62,3 @@ RSpec.shared_examples 'a provider classroom users updater' do
     end
   end
 end
-

@@ -14,5 +14,4 @@ class ConceptReplacementWorker
     ConceptReplacementProofreaderWorker.perform_async(original_concept.uid, new_concept.uid)
     ConceptReplacementConnectWorker.perform_async(original_concept.uid, new_concept.uid)
   end
-
 end

@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class RecurringBanner < WebinarBanner
-
   OFFICE_HOURS_TITLE = 'Quill Office Hours are live now!'
 
   # ONE-OFFS have the key format Month-Day-Hour
   # RECURRING have the key format DayOfWeek-Hour
 
-  WEBINARS = {
-  }
+  WEBINARS = {}
 
   private def values
     WEBINARS[key]
@@ -17,5 +15,4 @@ class RecurringBanner < WebinarBanner
   private def key
     "#{time.wday}-#{time.hour}"
   end
-
 end

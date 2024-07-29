@@ -22,11 +22,6 @@ exports[`ConceptExplanation it should render 1`] = `
       Combine two describing words using and.
     </div>
     <div
-      class="concept-explanation-translation"
-    >
-      Combinar dos palabras usando and.
-    </div>
-    <div
       class="concept-explanation-see-write"
     >
       <div

@@ -45,7 +45,7 @@ describe UserMailer, type: :mailer do
 
   describe 'email_verification_email' do
     let!(:user) { create(:user) }
-    let!(:user_email_verification) { create(:user_email_verification, user: user, verification_token: 'valid-token')}
+    let!(:user_email_verification) { create(:user_email_verification, user: user, verification_token: 'valid-token') }
 
     it 'should set the subject, receiver and the sender' do
       mail = described_class.email_verification_email(user)
@@ -126,7 +126,6 @@ describe UserMailer, type: :mailer do
         expect(mail.from).to eq(['hello@quill.org'])
       end
     end
-
   end
 
   describe 'declined_renewal_email' do
@@ -140,7 +139,7 @@ describe UserMailer, type: :mailer do
 
   describe 'user_requested_admin_verification_email' do
     let(:user) { create(:admin) }
-    let!(:admin_info) { create(:admin_info, user: user)}
+    let!(:admin_info) { create(:admin_info, user: user) }
     let(:school) { create(:school) }
     let!(:schools_user) { create(:schools_users, user: user, school: school) }
     let(:mail) { described_class.user_requested_admin_verification_email(user) }
@@ -154,7 +153,7 @@ describe UserMailer, type: :mailer do
   end
 
   describe 'daily_stats_email' do
-    let(:date) { Time.current.getlocal('-05:00').yesterday.to_s}
+    let(:date) { Time.current.getlocal('-05:00').yesterday.to_s }
     let(:user) { build(:user) }
 
     before do
@@ -235,7 +234,6 @@ describe UserMailer, type: :mailer do
     end
 
     it 'should set the subject, receiver and the sender' do
-
       expect(subject.to).to eq [email]
 
       # Refer to constants to make coupling with string explicit

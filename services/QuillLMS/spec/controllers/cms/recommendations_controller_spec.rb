@@ -79,7 +79,6 @@ describe Cms::RecommendationsController do
       end
     end
 
-
     it 'should create the recommendation with the given activity and next order number' do
       post :create, params: { activity_id: activity.id, activity_classification_id: activity_classification.id, category: 'independent_practice', recommendation: {
                name: 'some_name',

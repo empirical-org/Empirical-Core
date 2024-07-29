@@ -145,5 +145,4 @@ module GrowthResultsSummary
       acquired_skills ? GAINED_SOME_PROFICIENCY : PARTIAL_PROFICIENCY
     end
   end
-
 end

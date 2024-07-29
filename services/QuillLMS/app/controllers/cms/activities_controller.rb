@@ -31,7 +31,7 @@ class Cms::ActivitiesController < Cms::CmsController
     if @activity.save
       render json: { activity: @activity }
     else
-      render json: { }
+      render json: {}
     end
   end
 
@@ -39,7 +39,7 @@ class Cms::ActivitiesController < Cms::CmsController
     if @activity.update!(activity_params)
       render json: { activity: @activity }
     else
-      render json: { }
+      render json: {}
     end
   end
 
@@ -100,22 +100,22 @@ class Cms::ActivitiesController < Cms::CmsController
 
   protected def activity_params
     params.require(:activity).permit(:name,
-                                     :description,
-                                     :uid,
-                                     :data,
-                                     :activity_classification_id,
-                                     :standard_id,
-                                     :flag,
-                                     :repeatable,
-                                     :follow_up_activity_id,
-                                     :supporting_info,
-                                     :raw_score_id,
-                                     :minimum_grade_level,
-                                     :maximum_grade_level,
-                                     topic_ids: [],
-                                     activity_category_ids: [],
-                                     content_partner_ids: [],
-                                     flags: []
-                                   )
+      :description,
+      :uid,
+      :data,
+      :activity_classification_id,
+      :standard_id,
+      :flag,
+      :repeatable,
+      :follow_up_activity_id,
+      :supporting_info,
+      :raw_score_id,
+      :minimum_grade_level,
+      :maximum_grade_level,
+      topic_ids: [],
+      activity_category_ids: [],
+      content_partner_ids: [],
+      flags: []
+    )
   end
 end

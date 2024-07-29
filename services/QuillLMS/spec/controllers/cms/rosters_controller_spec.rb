@@ -10,7 +10,7 @@ describe Cms::RostersController do
   it { should use_before_action :signed_in! }
 
   describe '#upload_teachers_and_students' do
-    let!(:school) { create(:school)}
+    let!(:school) { create(:school) }
     let!(:existing_student) { create(:student) }
     let!(:existing_teacher) { create(:teacher) }
 
@@ -127,7 +127,7 @@ describe Cms::RostersController do
           expect(response.status).to eq 200
         end
 
-        it { expect { subject }.to not_change { existing_student.authenticate(new_password) }}
+        it { expect { subject }.to not_change { existing_student.authenticate(new_password) } }
       end
     end
 

@@ -97,6 +97,5 @@ module Evidence
         .require(:automl_model)
         .permit(:name, :notes, :prompt_id, :project)
     end
-
   end
 end

@@ -111,7 +111,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     if teacher_ids
       teacher_ids_h = teacher_ids.to_h { |item| [item, true] }
     end
-    render json: {teacher_ids: teacher_ids_h || {}}
+    render json: { teacher_ids: teacher_ids_h || {} }
   end
 
   private def authorize!

@@ -7,9 +7,9 @@ describe DiagnosticReports do
 
   describe '#data_for_question_by_activity_session' do
     let!(:activity_session) { create(:activity_session_without_concept_results) }
-    let!(:skill_group_activity) { create(:skill_group_activity, activity: activity_session.activity)}
+    let!(:skill_group_activity) { create(:skill_group_activity, activity: activity_session.activity) }
     let!(:diagnostic_question_skill) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
-    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill.question.uid } ) }
+    let!(:correct_concept_result) { create(:concept_result, activity_session: activity_session, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill.question.uid }) }
 
     it 'should return data with the name of the skill, number of correct concept results, number of incorrect concept results, and a summary' do
       expect(data_for_question_by_activity_session(activity_session.concept_results, diagnostic_question_skill)).to eq({
@@ -78,12 +78,12 @@ describe DiagnosticReports do
     describe 'if there is a unit_id' do
       let!(:unit) { create(:unit) }
       let!(:classroom) { create(:classroom) }
-      let!(:student1) { create(:student, name: 'Alphabetical A')}
-      let!(:student2) { create(:student, name: 'Alphabetical B')}
-      let!(:student3) { create(:student, name: 'Alphabetical C')}
-      let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
-      let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
-      let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3)}
+      let!(:student1) { create(:student, name: 'Alphabetical A') }
+      let!(:student2) { create(:student, name: 'Alphabetical B') }
+      let!(:student3) { create(:student, name: 'Alphabetical C') }
+      let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1) }
+      let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2) }
+      let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3) }
       let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id, student3.id]) }
       let!(:unit_activity) { create(:unit_activity, unit: unit) }
       let!(:unrelated_unit_activity) { create(:unit_activity) }
@@ -103,7 +103,7 @@ describe DiagnosticReports do
       it 'should only return activity sessions belonging to the specified activity' do
         set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(unit_activity.activity_id, classroom.id, unit.id)
         expect(@activity_sessions.count).to eq 2
-        expect(@activity_sessions.filter {|as| as.id == unrelated_activity_session.id}).to eq []
+        expect(@activity_sessions.filter { |as| as.id == unrelated_activity_session.id }).to eq []
       end
 
       it 'should not include a student or their activity session if they are no longer in the assigned student ids array' do
@@ -113,19 +113,18 @@ describe DiagnosticReports do
         expect(@assigned_students).to include(student2, student3)
         expect(@activity_sessions).to include(activity_session2)
       end
-
     end
 
     describe 'if there is no unit_id' do
       let!(:unit1) { create(:unit) }
       let!(:unit2) { create(:unit, user: unit1.user) }
       let!(:classroom) { create(:classroom) }
-      let!(:student1) { create(:student, name: 'Alphabetical A')}
-      let!(:student2) { create(:student, name: 'Alphabetical B')}
-      let!(:student3) { create(:student, name: 'Alphabetical C')}
-      let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
-      let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
-      let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3)}
+      let!(:student1) { create(:student, name: 'Alphabetical A') }
+      let!(:student2) { create(:student, name: 'Alphabetical B') }
+      let!(:student3) { create(:student, name: 'Alphabetical C') }
+      let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1) }
+      let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2) }
+      let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3) }
       let!(:classroom_unit1) { create(:classroom_unit, unit: unit1, classroom: classroom, assigned_student_ids: [student1.id, student2.id]) }
       let!(:classroom_unit2) { create(:classroom_unit, unit: unit2, classroom: classroom, assigned_student_ids: [student2.id, student3.id]) }
       let!(:unit_activity1) { create(:unit_activity, unit: unit1) }
@@ -154,7 +153,6 @@ describe DiagnosticReports do
         expect(@assigned_students).to eq [student2]
         expect(@activity_sessions.map(&:user_id).uniq).to eq [student2.id]
       end
-
     end
   end
 
@@ -171,5 +169,4 @@ describe DiagnosticReports do
       expect(summarize_student_proficiency_for_skill_per_activity(2, 1)).to eq(DiagnosticReports::PARTIAL_PROFICIENCY)
     end
   end
-
 end

@@ -31,7 +31,6 @@ RSpec.describe LearnWorldsAccount, type: :model do
   it { expect(subject).to be_valid }
 
   context 'scopes' do
-
     context 'enrolled courses' do
       before { create(:learn_worlds_account_enrolled_course_event, learn_worlds_account: subject) }
 

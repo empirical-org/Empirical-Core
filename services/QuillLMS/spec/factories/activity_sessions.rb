@@ -68,7 +68,7 @@ FactoryBot.define do
     after(:create) do |activity_session|
       classroom_unit = activity_session.classroom_unit
       UnitActivity.find_or_create_by(activity: activity_session.activity, unit_id: classroom_unit.unit_id)
-      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id )
+      StudentsClassrooms.find_or_create_by(student_id: activity_session.user_id, classroom_id: classroom_unit.classroom_id)
       ConceptResult.find_or_create_by(activity_session: activity_session)
     end
 
@@ -91,7 +91,7 @@ FactoryBot.define do
     end
 
     trait :finished do
-      percentage {0.50}
+      percentage { 0.50 }
       state { 'finished' }
       completed_at { Time.current }
       is_final_score { true }

@@ -25,6 +25,5 @@ module Evidence
     private def lms_user_id
       session[:user_id]
     end
-
   end
 end

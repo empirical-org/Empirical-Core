@@ -35,7 +35,7 @@ module Snapshots
 
       context 'all activity_sessions' do
         let(:expected_result) do
-          (0..9).map { |i| { value: schools[i].name, count: activity_sessions[i].length} }
+          (0..9).map { |i| { value: schools[i].name, count: activity_sessions[i].length } }
         end
         let(:cte_records) { [runner_context, activity_sessions] }
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class OrderRecommendations
-
   def initialize(recommendation_ids)
     @recommendation_ids = recommendation_ids
   end

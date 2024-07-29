@@ -27,7 +27,7 @@ module Evidence
     def self.default_payload
       {
         'feedback_type': '',
-        'labels': '',       # not currently used, but part of Evidence payload spec
+        'labels': '', # not currently used, but part of Evidence payload spec
         'concept_uid': '',
         'feedback': '<p></p>',
         'optimal': true,

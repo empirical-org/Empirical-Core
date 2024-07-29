@@ -29,7 +29,7 @@ RSpec.describe CleverIntegration::TeachersController do
     end
   end
 
-  describe '#import_students'  do
+  describe '#import_students' do
     subject { put :import_students, params: params, as: :json }
 
     let(:classroom) { create(:classroom, :from_clever, :with_no_teacher) }
@@ -54,7 +54,7 @@ RSpec.describe CleverIntegration::TeachersController do
 
     context 'import classes flow' do
       let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
-      let(:params) { { selected_classroom_ids: selected_classroom_ids} }
+      let(:params) { { selected_classroom_ids: selected_classroom_ids } }
 
       it 'should kick off background job that imports students' do
         expect(CleverIntegration::TeacherClassroomsCache)
@@ -87,7 +87,7 @@ RSpec.describe CleverIntegration::TeachersController do
     context 'user is clever authorized' do
       before { expect(teacher).to receive(:clever_authorized?).and_return(true) }
 
-      it  do
+      it do
         subject
         expect(response_body).to eq(quill_retrieval_processing: true)
       end
@@ -95,9 +95,9 @@ RSpec.describe CleverIntegration::TeachersController do
       context 'teacher classrooms cache has data' do
         let(:data) { [] }
 
-        before { CleverIntegration::TeacherClassroomsCache.write(teacher.id, data.to_json)}
+        before { CleverIntegration::TeacherClassroomsCache.write(teacher.id, data.to_json) }
 
-        it  do
+        it do
           subject
           expect(response_body).to eq(classrooms: data)
         end

@@ -28,7 +28,6 @@ describe Cms::UsersHelper do
       it 'should return completed' do
         expect(action_column(stage)).to eq 'Completed'
       end
-
     end
 
     context 'when stage has user trigger' do

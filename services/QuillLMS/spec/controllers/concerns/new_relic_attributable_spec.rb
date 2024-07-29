@@ -20,7 +20,7 @@ describe NewRelicAttributable, type: :controller do
   context 'with current user' do
     it 'should pass user_id to NewRelic' do
       allow(controller).to receive(:current_user) { user }
-      expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({user_id: user.id})
+      expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({ user_id: user.id })
 
       get :index
     end
@@ -29,7 +29,7 @@ describe NewRelicAttributable, type: :controller do
   context 'without current user' do
     it 'should pass nil user_id to NewRelic' do
       allow(controller).to receive(:current_user) { nil }
-      expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({user_id: nil})
+      expect(::NewRelic::Agent).to receive(:add_custom_attributes).with({ user_id: nil })
 
       get :index
     end

@@ -37,11 +37,11 @@ tr:nth-child(even) {
 }
 
 .feedback-column {
-  width: 20%;
+  width: 30%;
 }
 
 .match-column {
-  width: 5%;
+  width: 2%;
 }
 
 .g-eval-column {
@@ -60,8 +60,11 @@ tr:nth-child(even) {
   background-color: #0056b3; /* Darker blue on hover */
 }
 
-.red { background-color: lightcoral; }
-.green { background-color: lightgreen; }
+.white { background-color: white; }
+.light-gray { background-color: #f2f2f2 }
+.light-green { background-color: lightgreen; }
+.light-red { background-color: lightcoral; }
+.dark-red { background-color: firebrick; }
 
 .link-button {
     background: none!important;

@@ -113,7 +113,7 @@ module Evidence
       def results_training
         return results unless manual_types
 
-        results.select {|r| r.type == TYPE_TRAIN}
+        results.select { |r| r.type == TYPE_TRAIN }
       end
 
       def test_generators
@@ -123,7 +123,7 @@ module Evidence
       def results_test_validation
         return results unless manual_types
 
-        results.select {|r| r.type == TYPE_VALIDATION || r.type == TYPE_TEST}
+        results.select { |r| r.type == TYPE_VALIDATION || r.type == TYPE_TEST }
       end
 
       LABEL_FILE = 'synthetic'

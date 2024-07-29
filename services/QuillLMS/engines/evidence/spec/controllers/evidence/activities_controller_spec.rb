@@ -10,7 +10,7 @@ module Evidence
       it 'should increment version and persist new changelog with note' do
         changelog_note_text = 'a note'
         activity = create(:evidence_activity, version: 1)
-        put :increment_version, params: {note: changelog_note_text, id: activity.id }
+        put :increment_version, params: { note: changelog_note_text, id: activity.id }
         expect(response.status).to eq(204)
         expect(Evidence::Activity.find(activity.id).version).to eq 2
 
@@ -41,7 +41,6 @@ module Evidence
           get :activity_versions, params: { id: activity.id, include_count: true }
         end
       end
-
     end
 
     context 'should index' do
@@ -92,7 +91,7 @@ module Evidence
       end
 
       it 'should make a change log record after creating the Activity record' do
-        post :create, params: { activity: { parent_activity_id: activity.parent_activity_id, scored_level: activity.scored_level, target_level: activity.target_level, title: activity.title, notes: activity.notes }}
+        post :create, params: { activity: { parent_activity_id: activity.parent_activity_id, scored_level: activity.scored_level, target_level: activity.target_level, title: activity.title, notes: activity.notes } }
 
         new_activity = Activity.last
         change_log = Evidence.change_log_class.last
@@ -151,7 +150,7 @@ module Evidence
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
-              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'because'}]
+              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'because' }]
             }
           }
         parsed_response = JSON.parse(response.body)
@@ -173,7 +172,7 @@ module Evidence
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
-              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'so'}]
+              prompts_attributes: [{ text: 'meat is bad for you.', conjunction: 'so' }]
             }
           }
         parsed_response = JSON.parse(response.body)
@@ -197,9 +196,9 @@ module Evidence
               title: activity.title,
               notes: activity.notes,
               prompts_attributes: [
-                { text: 'meat is bad for you.', conjunction: 'because'},
-                { text: 'meat is bad for you.', conjunction: 'but'},
-                { text: 'meat is bad for you.', conjunction: 'so'}
+                { text: 'meat is bad for you.', conjunction: 'because' },
+                { text: 'meat is bad for you.', conjunction: 'but' },
+                { text: 'meat is bad for you.', conjunction: 'so' }
               ]
             }
           }
@@ -257,7 +256,7 @@ module Evidence
 
       it 'should make a change log record after updating Passage text' do
         old_text = passage.text
-        put :update, params: {id: activity.id, activity: { passages_attributes: [{id: passage.id, text: ('Goodbye' * 20)}] }}
+        put :update, params: { id: activity.id, activity: { passages_attributes: [{ id: passage.id, text: ('Goodbye' * 20) }] } }
 
         change_log = Evidence.change_log_class.last
         expect(change_log.serializable_hash['full_action']).to(eq('Evidence Passage Text - updated'))
@@ -270,7 +269,7 @@ module Evidence
 
       it 'should make a change log record after creating Passage text' do
         new_activity = create(:evidence_activity)
-        put :update, params: {id: activity.id, activity: { passages_attributes: [{text: ('Goodbye' * 20)}] }}
+        put :update, params: { id: activity.id, activity: { passages_attributes: [{ text: ('Goodbye' * 20) }] } }
 
         change_log = Evidence.change_log_class.last
         expect(change_log.serializable_hash['full_action']).to(eq('Evidence Passage Text - created'))
@@ -284,7 +283,7 @@ module Evidence
         new_activity = create(:evidence_activity)
         parent_activity = Evidence.parent_activity_class.find_by_name(new_activity.title)
         parent_activity.update!(flag: 'beta')
-        put :update, params: {id: new_activity.id, activity: { flag: 'alpha' }}
+        put :update, params: { id: new_activity.id, activity: { flag: 'alpha' } }
 
         change_log = Evidence.change_log_class.last
         expect(change_log.action).to eq('updated')
@@ -314,7 +313,7 @@ module Evidence
 
       it 'should make a change log record after updating Prompt text' do
         old_text = prompt.text
-        put :update, params: { id: activity.id, activity: { prompts_attributes: [{id: prompt.id, text: 'this is a good thing.'}] }}
+        put :update, params: { id: activity.id, activity: { prompts_attributes: [{ id: prompt.id, text: 'this is a good thing.' }] } }
 
         change_log = Evidence.change_log_class.last
         expect(change_log.serializable_hash['full_action']).to(eq('Evidence Stem - updated'))
@@ -326,7 +325,7 @@ module Evidence
       end
 
       it 'should make a change log record after creating Prompt text through update call' do
-        put :update, params: { id: activity.id, activity: { prompts_attributes: [{text: 'this is a new prompt.', conjunction: 'because'}] }}
+        put :update, params: { id: activity.id, activity: { prompts_attributes: [{ text: 'this is a new prompt.', conjunction: 'because' }] } }
 
         new_prompt = Evidence::Prompt.last
         change_log = Evidence.change_log_class.last
@@ -366,9 +365,9 @@ module Evidence
         session[:user_id] = 1
       end
 
-      let!(:activity) {build(:evidence_activity, parent_activity_id: 1, title: 'First Activity', target_level: 8, scored_level: '4th grade', notes: 'First Activity - Notes')}
-      let!(:prompt) {build(:evidence_prompt)}
-      let!(:passage) {build(:evidence_passage)}
+      let!(:activity) { build(:evidence_activity, parent_activity_id: 1, title: 'First Activity', target_level: 8, scored_level: '4th grade', notes: 'First Activity - Notes') }
+      let!(:prompt) { build(:evidence_prompt) }
+      let!(:passage) { build(:evidence_passage) }
 
       Evidence.parent_activity_classification_class.create(key: 'evidence')
 
@@ -393,15 +392,14 @@ module Evidence
         }
 
         activity = Evidence::Activity.last
-        get :change_logs, params: {id: activity.id}
+        get :change_logs, params: { id: activity.id }
         parsed_response = JSON.parse(response.body)
 
         expect(response.code.to_i).to(eq(200))
-        expect(parsed_response.select {|cl| cl['changed_record_type'] == 'Evidence::Passage'}.count).to(eq(1))
-        expect(parsed_response.select {|cl| cl['changed_record_type'] == 'Evidence::Activity'}.count).to(eq(2))
-        expect(parsed_response.select {|cl| cl['changed_record_type'] == 'Evidence::Prompt'}.count).to(eq(1))
-        expect(parsed_response.select {|cl| cl['changed_attribute'] == 'version'}.count).to(eq(1))
-
+        expect(parsed_response.select { |cl| cl['changed_record_type'] == 'Evidence::Passage' }.count).to(eq(1))
+        expect(parsed_response.select { |cl| cl['changed_record_type'] == 'Evidence::Activity' }.count).to(eq(2))
+        expect(parsed_response.select { |cl| cl['changed_record_type'] == 'Evidence::Prompt' }.count).to(eq(1))
+        expect(parsed_response.select { |cl| cl['changed_attribute'] == 'version' }.count).to(eq(1))
       end
 
       it 'should return empty array if no change logs exist' do
@@ -455,30 +453,30 @@ module Evidence
 
     context '#seed_data' do
       let(:activity) { create(:evidence_activity) }
-      let(:label_configs) {{}}
+      let(:label_configs) { {} }
 
       it 'should call background worker' do
         expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
-        post :seed_data, params: { id: activity.id, nouns: ''}
+        post :seed_data, params: { id: activity.id, nouns: '' }
 
         expect(response).to have_http_status(:success)
       end
 
       it 'should call background worker with noun string converted to array' do
         expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs, true)
-        post :seed_data, params: { id: activity.id, nouns: 'noun1, noun two,,noun3'}
+        post :seed_data, params: { id: activity.id, nouns: 'noun1, noun two,,noun3' }
 
         expect(response).to have_http_status(:success)
       end
 
       context 'with label_configs' do
-        let(:label1) {'label1'}
-        let(:label2) {'label2'}
-        let(:example1) {'some sentence'}
-        let(:example2) {'sentence other'}
-        let(:label_config1) {{'label' => label1, 'examples' => [example1, example2]}}
-        let(:label_config2) {{'label' => label2, 'examples' => [example1, example2]}}
-        let(:label_configs) {{'so' => [label_config1, label_config2], 'because' => [label_config2]}}
+        let(:label1) { 'label1' }
+        let(:label2) { 'label2' }
+        let(:example1) { 'some sentence' }
+        let(:example2) { 'sentence other' }
+        let(:label_config1) { { 'label' => label1, 'examples' => [example1, example2] } }
+        let(:label_config2) { { 'label' => label2, 'examples' => [example1, example2] } }
+        let(:label_configs) { { 'so' => [label_config1, label_config2], 'because' => [label_config2] } }
 
         it 'should call background worker' do
           expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
@@ -488,8 +486,8 @@ module Evidence
         end
 
         context 'blank example' do
-          let(:label_config1_blank) {{'label' => label1, 'examples' => [example1, example2, ' ', "\n", '']}}
-          let(:label_configs_with_blanks) {{'so' => [label_config1_blank, label_config2], 'because' => [label_config2]}}
+          let(:label_config1_blank) { { 'label' => label1, 'examples' => [example1, example2, ' ', "\n", ''] } }
+          let(:label_configs_with_blanks) { { 'so' => [label_config1_blank, label_config2], 'because' => [label_config2] } }
 
           it 'should call background worker with no blank examples' do
             expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, [], label_configs, true)
@@ -521,12 +519,12 @@ module Evidence
 
     context '#labeled_synthetic_data' do
       let(:activity) { create(:evidence_activity) }
-      let(:because) {create(:evidence_prompt, conjunction: 'because', activity: activity)}
-      let(:but) {create(:evidence_prompt, conjunction: 'but', activity: activity)}
-      let(:so) {create(:evidence_prompt, conjunction: 'so', activity: activity)}
+      let(:because) { create(:evidence_prompt, conjunction: 'because', activity: activity) }
+      let(:but) { create(:evidence_prompt, conjunction: 'but', activity: activity) }
+      let(:so) { create(:evidence_prompt, conjunction: 'so', activity: activity) }
 
-      let(:blank_prompts) {{'because' => [], 'but' => [], 'so' => []}}
-      let(:prompt_files) {{'because' => ['one'], 'but' => ['two'], 'so' => ['three', 'four']}}
+      let(:blank_prompts) { { 'because' => [], 'but' => [], 'so' => [] } }
+      let(:prompt_files) { { 'because' => ['one'], 'but' => ['two'], 'so' => ['three', 'four'] } }
 
       it 'should NOT call background worker if no filenames' do
         expect(Evidence::SyntheticLabeledDataWorker).to_not receive(:perform_async)
@@ -568,7 +566,6 @@ module Evidence
 
         parsed_response = JSON.parse(response.body)
 
-
         expect(response).to have_http_status(:success)
         expect(parsed_response['concept_uids']).to eq({
           because_prompt.id.to_s => because_concept,
@@ -601,7 +598,7 @@ module Evidence
       let(:activity) { create(:evidence_activity, prompts: [because_prompt]) }
       let(:invalid_highlights) {
         [
-          {rule_id: because_rule.id, rule_type: because_rule.rule_type, prompt_id: because_prompt.id}
+          { rule_id: because_rule.id, rule_type: because_rule.rule_type, prompt_id: because_prompt.id }
         ]
       }
       let(:expected_response) {

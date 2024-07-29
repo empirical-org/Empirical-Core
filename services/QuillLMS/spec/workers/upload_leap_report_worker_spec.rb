@@ -38,4 +38,3 @@ describe UploadLeapReportWorker, type: :worker do
     end
   end
 end
-

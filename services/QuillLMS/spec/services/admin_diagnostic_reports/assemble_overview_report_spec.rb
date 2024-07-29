@@ -6,7 +6,7 @@ module AdminDiagnosticReports
   describe AssembleOverviewReport do
     subject { described_class.run(payload) }
 
-    let(:payload) { {example: 'payload'} }
+    let(:payload) { { example: 'payload' } }
     let(:diagnostic_id) { 1663 }
     let(:aggregate_id) { 1 }
 
@@ -18,7 +18,7 @@ module AdminDiagnosticReports
         aggregate_rows: pre_assigned_aggregate_rows
       }
     end
-    let(:pre_assigned_aggregate_row1) { {aggregate_id:, pre_students_assigned: 1} }
+    let(:pre_assigned_aggregate_row1) { { aggregate_id:, pre_students_assigned: 1 } }
     let(:pre_assigned_aggregate_rows) { [pre_assigned_aggregate_row1] }
 
     let(:pre_completed_results) { [pre_completed_result1] }
@@ -30,7 +30,7 @@ module AdminDiagnosticReports
         aggregate_rows: pre_completed_aggregate_rows
       }
     end
-    let(:pre_completed_aggregate_row1) { {aggregate_id:, pre_students_completed: 1, pre_average_score: 1.0} }
+    let(:pre_completed_aggregate_row1) { { aggregate_id:, pre_students_completed: 1, pre_average_score: 1.0 } }
     let(:pre_completed_aggregate_rows) { [pre_completed_aggregate_row1] }
 
     let(:recommendations_results) { [recommendations_result1] }
@@ -43,7 +43,7 @@ module AdminDiagnosticReports
         aggregate_rows: recommendations_aggregate_rows
       }
     end
-    let(:recommendations_aggregate_row1) { {aggregate_id:, students_completed_practice: 1, average_practice_activities_count: 5, average_time_spent_seconds: 600} }
+    let(:recommendations_aggregate_row1) { { aggregate_id:, students_completed_practice: 1, average_practice_activities_count: 5, average_time_spent_seconds: 600 } }
     let(:recommendations_aggregate_rows) { [recommendations_aggregate_row1] }
 
     let(:post_assigned_results) { [post_assigned_result1] }
@@ -54,7 +54,7 @@ module AdminDiagnosticReports
         aggregate_rows: post_assigned_aggregate_rows
       }
     end
-    let(:post_assigned_aggregate_row1) { {aggregate_id:, post_students_assigned: 1} }
+    let(:post_assigned_aggregate_row1) { { aggregate_id:, post_students_assigned: 1 } }
     let(:post_assigned_aggregate_rows) { [post_assigned_aggregate_row1] }
 
     let(:post_completed_results) { [post_completed_result1] }
@@ -66,7 +66,7 @@ module AdminDiagnosticReports
         aggregate_rows: post_completed_aggregate_rows
       }
     end
-    let(:post_completed_aggregate_row1) { {aggregate_id:, post_students_completed: 1, overall_skill_growth: 0} }
+    let(:post_completed_aggregate_row1) { { aggregate_id:, post_students_completed: 1, overall_skill_growth: 0 } }
     let(:post_completed_aggregate_rows) { [post_completed_aggregate_row1] }
 
     let(:expected_keys) do
@@ -190,10 +190,10 @@ module AdminDiagnosticReports
         context 'multiple aggregate rows' do
           let(:aggregate_id2) { 2 }
 
-          let(:pre_assigned_aggregate_row2) { {aggregate_id: aggregate_id2, pre_students_assigned: 1} }
+          let(:pre_assigned_aggregate_row2) { { aggregate_id: aggregate_id2, pre_students_assigned: 1 } }
           let(:pre_assigned_aggregate_rows) { [pre_assigned_aggregate_row1, pre_assigned_aggregate_row2] }
 
-          let(:pre_completed_aggregate_row2) { {aggregate_id: aggregate_id2, pre_students_completed: 1, pre_average_score: 1.0} }
+          let(:pre_completed_aggregate_row2) { { aggregate_id: aggregate_id2, pre_students_completed: 1, pre_average_score: 1.0 } }
           let(:pre_completed_aggregate_rows) { [pre_completed_aggregate_row1, pre_completed_aggregate_row2] }
 
           let(:recommendations_aggregate_row2) { {} }
@@ -202,7 +202,7 @@ module AdminDiagnosticReports
           let(:post_assigned_aggregate_row2) { {} }
           let(:post_assigned_aggregate_rows) { [post_assigned_aggregate_row1, post_assigned_aggregate_row2] }
 
-          let(:post_completed_aggregate_row2) { {aggregate_id: aggregate_id2, post_students_completed: 1, overall_skill_growth: 0} }
+          let(:post_completed_aggregate_row2) { { aggregate_id: aggregate_id2, post_students_completed: 1, overall_skill_growth: 0 } }
           let(:post_completed_aggregate_rows) { [post_completed_aggregate_row1, post_completed_aggregate_row2] }
 
           it { expect(subject.map { |row| row[:aggregate_rows].length }).to eq([2, 2]) }
@@ -215,18 +215,18 @@ module AdminDiagnosticReports
                 .first[:aggregate_rows]
                 .select { |aggregate_row| aggregate_row[:aggregate_id] == pre_assigned_aggregate_row1[:aggregate_id] }
                 .first).to include(
-                {
-                  pre_students_assigned: pre_assigned_aggregate_row1[:pre_students_assigned],
-                  pre_students_completed: pre_completed_aggregate_row1[:pre_students_completed],
-                  pre_average_score: pre_completed_aggregate_row1[:pre_average_score],
-                  students_completed_practice: recommendations_aggregate_row1[:students_completed_practice],
-                  average_practice_activities_count: recommendations_aggregate_row1[:average_practice_activities_count],
-                  average_time_spent_seconds: recommendations_aggregate_row1[:average_time_spent_seconds],
-                  post_students_assigned: post_assigned_aggregate_row1[:post_students_assigned],
-                  post_students_completed: post_completed_aggregate_row1[:post_students_completed],
-                  overall_skill_growth: post_completed_aggregate_row1[:overall_skill_growth]
-                }
-              )
+                  {
+                    pre_students_assigned: pre_assigned_aggregate_row1[:pre_students_assigned],
+                    pre_students_completed: pre_completed_aggregate_row1[:pre_students_completed],
+                    pre_average_score: pre_completed_aggregate_row1[:pre_average_score],
+                    students_completed_practice: recommendations_aggregate_row1[:students_completed_practice],
+                    average_practice_activities_count: recommendations_aggregate_row1[:average_practice_activities_count],
+                    average_time_spent_seconds: recommendations_aggregate_row1[:average_time_spent_seconds],
+                    post_students_assigned: post_assigned_aggregate_row1[:post_students_assigned],
+                    post_students_completed: post_completed_aggregate_row1[:post_students_completed],
+                    overall_skill_growth: post_completed_aggregate_row1[:overall_skill_growth]
+                  }
+                )
             end
           end
         end

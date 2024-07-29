@@ -27,7 +27,6 @@
 require 'rails_helper'
 
 describe ClassroomUnit, type: :model, redis: true do
-
   it { should belong_to(:classroom) }
   it { should belong_to(:unit) }
   it { should have_many(:activity_sessions) }
@@ -43,13 +42,13 @@ describe ClassroomUnit, type: :model, redis: true do
   let!(:student2) { create(:student) }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:classroom2) { create(:classroom) }
-  let!(:teacher) {classroom.owner}
+  let!(:teacher) { classroom.owner }
   let!(:unit) { create(:unit) }
   let!(:unit2) { create(:unit) }
   let!(:unit3) { create(:unit) }
   let!(:assigned_student_ids) { [student.id] }
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: assigned_student_ids) }
-  let!(:activity_session) {create(:activity_session, :unstarted, classroom_unit: classroom_unit, user: student) }
+  let!(:activity_session) { create(:activity_session, :unstarted, classroom_unit: classroom_unit, user: student) }
 
   describe '#assigned_students' do
     let(:classroom_unit_with_no_assigned_students) { create(:classroom_unit, unit: unit2, classroom: classroom2, assigned_student_ids: []) }
@@ -76,14 +75,12 @@ describe ClassroomUnit, type: :model, redis: true do
 
   describe '#teacher_and_classroom_name' do
     it 'returns a hash with the name of the owner and the classroom' do
-      expect(classroom_unit.teacher_and_classroom_name).to eq({teacher: teacher.name, classroom: classroom.name})
+      expect(classroom_unit.teacher_and_classroom_name).to eq({ teacher: teacher.name, classroom: classroom.name })
     end
   end
 
   describe '#validate_assigned_student' do
-
     context 'it must return true when' do
-
       it 'assign_on_join is true' do
         classroom_unit.assign_on_join = true
         expect(classroom_unit.validate_assigned_student(student.id)).to be true
@@ -93,7 +90,6 @@ describe ClassroomUnit, type: :model, redis: true do
         classroom_unit.assigned_student_ids = [student.id]
         expect(classroom_unit.validate_assigned_student(student.id)).to be true
       end
-
     end
 
     it 'must return false when assigned_student_ids does not contain the student id and it was not assigned to the entire classroom' do
@@ -125,7 +121,7 @@ describe ClassroomUnit, type: :model, redis: true do
 
   describe '#check_for_assign_on_join_and_update_students_array_if_true callback' do
     context 'when assign_on_join is false' do
-      let(:classroom_with_two_students) { create(:classroom, students: [student, student2])}
+      let(:classroom_with_two_students) { create(:classroom, students: [student, student2]) }
       let(:other_classroom_unit) { create(:classroom_unit, unit: unit3, classroom: classroom_with_two_students, assigned_student_ids: []) }
 
       describe 'when the assigned students contain all the students in the classroom' do
@@ -171,8 +167,8 @@ describe ClassroomUnit, type: :model, redis: true do
 
   describe '#touch_classroom_without_callbacks' do
     let!(:classroom) { create(:classroom) }
-    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
-    let(:initial_time) { 1.day.ago}
+    let!(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
+    let(:initial_time) { 1.day.ago }
 
     it 'should updated classrooms updated_at on classroom_unit save' do
       classroom.update_columns(updated_at: initial_time)
@@ -194,10 +190,10 @@ describe ClassroomUnit, type: :model, redis: true do
 
     context 'with a hidden classroom' do
       let(:classroom) { create(:classroom, visible: false) }
-      let(:classroom_unit) { create(:classroom_unit, classroom: classroom)}
+      let(:classroom_unit) { create(:classroom_unit, classroom: classroom) }
 
       it 'should not raise an error' do
-        expect {classroom_unit.save}.to_not raise_error
+        expect { classroom_unit.save }.to_not raise_error
       end
     end
   end
@@ -215,7 +211,7 @@ describe ClassroomUnit, type: :model, redis: true do
       end
 
       context 'new student was added' do
-        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+        let(:new_assigned_student_ids) { [student.id, another_student.id] }
 
         it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
       end
@@ -233,19 +229,19 @@ describe ClassroomUnit, type: :model, redis: true do
       end
 
       context 'new student was added' do
-        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+        let(:new_assigned_student_ids) { [student.id, another_student.id] }
 
         it { expect { subject }.to change(UserPackSequenceItem, :count).from(1).to(2) }
 
         context 'but already has a user_pack_sequence_item' do
           before { create(:user_pack_sequence_item, user: another_student, pack_sequence_item: pack_sequence_item) }
 
-          it { expect { subject }.not_to change(UserPackSequenceItem, :count)}
+          it { expect { subject }.not_to change(UserPackSequenceItem, :count) }
         end
       end
 
       context 'race condition exists with user_pack_sequence_item creation' do
-        let(:new_assigned_student_ids) { [student.id, another_student.id]}
+        let(:new_assigned_student_ids) { [student.id, another_student.id] }
 
         before do
           allow(UserPackSequenceItem)

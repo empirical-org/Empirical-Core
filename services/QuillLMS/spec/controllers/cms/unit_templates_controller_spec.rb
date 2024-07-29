@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Cms::UnitTemplatesController, type: :controller do
-  let!(:staff) { create(:staff)}
+  let!(:staff) { create(:staff) }
   let(:parsed_body) { JSON.parse(response.body) }
 
   before { allow(controller).to receive(:current_user) { staff } }
@@ -105,7 +105,7 @@ RSpec.describe Cms::UnitTemplatesController, type: :controller do
   describe '#update_order_numbers' do
     subject { put :update_order_numbers, params:, as: :json }
 
-    let(:params) { { unit_templates: [{id: unit_template.id, order_number: 47}] } }
+    let(:params) { { unit_templates: [{ id: unit_template.id, order_number: 47 }] } }
 
     let(:unit_template) { create(:unit_template) }
 

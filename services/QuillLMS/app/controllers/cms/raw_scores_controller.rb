@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Cms::RawScoresController < Cms::CmsController
-
   def index
     raw_scores = RawScore.order_by_name
     activity_classification_conversion_charts = {}
@@ -41,5 +40,4 @@ class Cms::RawScoresController < Cms::CmsController
   def raw_score_params
     params.require(:raw_score).permit(:name, :order)
   end
-
 end

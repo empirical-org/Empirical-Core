@@ -43,10 +43,9 @@ Evidence::Engine.routes.draw do
 
   namespace :research do
     namespace :gen_ai do
-
       resources :llms, only: [:new, :create, :show, :index]
       resources :llm_prompts, only: [:show]
-      resources :llm_prompt_templates, only: [:new, :create, :show, :index]
+      resources :llm_prompt_templates, only: [:new, :create, :show, :index, :edit, :update]
 
       resources :stem_vaults, only: [] do
         resources :guidelines, only: [:new, :create]
@@ -59,6 +58,7 @@ Evidence::Engine.routes.draw do
         end
 
         resources :comparisons, only: [:create, :show]
+        resources :prompt_examples, only: [:new, :create]
       end
 
       resources :activities, only: [:new, :create, :show, :index] do

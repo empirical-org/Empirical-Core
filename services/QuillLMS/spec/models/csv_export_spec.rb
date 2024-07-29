@@ -16,7 +16,6 @@
 require 'rails_helper'
 
 describe CsvExport, type: :model do
-
   include_context 'Activity Progress Report'
   let(:csv_export) { CsvExport.new }
 
@@ -40,7 +39,6 @@ describe CsvExport, type: :model do
   end
 
   describe 'export types' do
-
     context 'invalid type' do
       let(:csv_export1) { CsvExport.new }
 
@@ -84,7 +82,7 @@ describe CsvExport, type: :model do
     end
 
     context 'standards: students by standard' do
-      let!(:standard) { create(:standard)}
+      let!(:standard) { create(:standard) }
       let(:filters) { { standard_id: standard.id } }
       let(:export_type) { 'standards_standard_students' }
 
@@ -139,5 +137,4 @@ describe CsvExport, type: :model do
       end
     end
   end
-
 end

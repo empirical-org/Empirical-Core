@@ -6,14 +6,14 @@ RSpec.describe Analytics::CacheSegmentSchoolData do
   let(:school) { create(:school) }
   let(:teacher1) { create(:teacher, last_sign_in: Time.zone.today - 366.days) }
   let(:teacher2) { create(:teacher, last_sign_in: Time.zone.today + 1.day) }
-  let!(:schools_users1) { create(:schools_users, school: school, user: teacher1 )}
-  let!(:schools_users2) { create(:schools_users, school: school, user: teacher2 )}
+  let!(:schools_users1) { create(:schools_users, school: school, user: teacher1) }
+  let!(:schools_users2) { create(:schools_users, school: school, user: teacher2) }
   let(:classrooms_teachers1) { create(:classrooms_teacher, user: teacher1) }
   let(:classrooms_teachers2) { create(:classrooms_teacher, user: teacher2) }
-  let(:students_classrooms1) { create_list(:students_classrooms, 10, classroom: classrooms_teachers1.classroom)}
-  let(:students_classrooms2) { create_list(:students_classrooms, 10, classroom: classrooms_teachers2.classroom)}
-  let!(:activity_sessions1) { create_list(:activity_session, 20, user: students_classrooms1.map(&:student).sample, completed_at: Time.zone.today - 367.days ) }
-  let!(:activity_sessions2) { create_list(:activity_session, 20, user: students_classrooms2.map(&:student).sample, completed_at: Time.zone.today + 1.day ) }
+  let(:students_classrooms1) { create_list(:students_classrooms, 10, classroom: classrooms_teachers1.classroom) }
+  let(:students_classrooms2) { create_list(:students_classrooms, 10, classroom: classrooms_teachers2.classroom) }
+  let!(:activity_sessions1) { create_list(:activity_session, 20, user: students_classrooms1.map(&:student).sample, completed_at: Time.zone.today - 367.days) }
+  let!(:activity_sessions2) { create_list(:activity_session, 20, user: students_classrooms2.map(&:student).sample, completed_at: Time.zone.today + 1.day) }
 
   before do
     students_classrooms1.each do |sc|
@@ -100,5 +100,4 @@ RSpec.describe Analytics::CacheSegmentSchoolData do
     end
   end
   # rubocop:enable RSpec/SubjectStub
-
 end

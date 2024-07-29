@@ -38,5 +38,3 @@ class UserPackSequenceItemQuery
       .order('pack_sequences.id, pack_sequence_items.order')
   end
 end
-
-

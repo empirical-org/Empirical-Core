@@ -7,7 +7,7 @@ module GoogleIntegration
     before { allow(controller).to receive(:current_user) { teacher } }
 
     it { should use_before_action :authorize_owner! }
-    it { should use_before_action :teacher!}
+    it { should use_before_action :teacher! }
 
     let(:response_body) { JSON.parse(response.body).deep_symbolize_keys }
     let(:teacher) { create(:teacher, :signed_up_with_google) }
@@ -39,7 +39,7 @@ module GoogleIntegration
       end
     end
 
-    describe '#import_students'  do
+    describe '#import_students' do
       subject { put :import_students, params: params, as: :json }
 
       let(:classroom) { create(:classroom, :from_google, :with_no_teacher) }
@@ -64,7 +64,7 @@ module GoogleIntegration
 
       context 'import classes flow' do
         let(:selected_classroom_ids) { create_list(:classroom, 2).map(&:id) }
-        let(:params) { { selected_classroom_ids: selected_classroom_ids} }
+        let(:params) { { selected_classroom_ids: selected_classroom_ids } }
 
         it 'should kick off background job that imports students' do
           expect(TeacherClassroomsCache)
@@ -91,7 +91,7 @@ module GoogleIntegration
       context 'user is google authorized' do
         before { allow(teacher).to receive(:google_authorized?).and_return(true) }
 
-        it  do
+        it do
           subject
           expect(response_body).to eq(quill_retrieval_processing: true)
         end

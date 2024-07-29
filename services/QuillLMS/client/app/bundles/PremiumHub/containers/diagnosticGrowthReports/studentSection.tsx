@@ -4,7 +4,7 @@ import { aggregateStudentData, preToPostImprovedSkillsTooltipText, preQuestionsC
 
 import { Spinner, DataTable, noResultsMessage, DropdownInput } from '../../../Shared/index'
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { diagnosticTypeDropdownOptions, hashPayload } from '../../shared'
+import { getDiagnosticTypeDropdownOptions, hashPayload } from '../../shared'
 import { requestPost } from '../../../../modules/request'
 
 const STUDENTS_QUERY_KEY = "diagnostic-students"
@@ -131,9 +131,20 @@ export const StudentSection = ({
   React.useEffect(() => {
     // this is for testing purposes; these values will always be null in a non-testing environment
     if (!passedVisibleData && diagnosticTypeValue) {
-      handleSetDiagnosticIdForStudentCount(Number(diagnosticTypeValue.value))
-      resetToDefault()
-      getData()
+
+      // If the timeframe has changed, we may be re-populating the selectedDiagnosticType drop-downs
+      // In these cases, we need to re-select the appropriate value from the drop-down for the new timeframe
+      // The re-selection will re-trigger this effect by changing the value of diagnosticTypeValue
+      const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
+      if (!diagnosticTypeDropdownOptions.includes(diagnosticTypeValue)) {
+        const selectedDiagnosticType = diagnosticTypeDropdownOptions.find((option) => option.label === diagnosticTypeValue.label)
+
+        handleSetSelectedDiagnosticType(selectedDiagnosticType)
+      } else {
+        handleSetDiagnosticIdForStudentCount(Number(diagnosticTypeValue.value))
+        resetToDefault()
+        getData()
+      }
     }
   }, [searchCount, diagnosticTypeValue])
 
@@ -275,6 +286,7 @@ export const StudentSection = ({
   }
 
   function getInitialDiagnosticType() {
+    const diagnosticTypeDropdownOptions = getDiagnosticTypeDropdownOptions(selectedTimeframe)
     if(selectedDiagnosticId) {
       return diagnosticTypeDropdownOptions.filter(diagnosticType => diagnosticType.value === selectedDiagnosticId)[0]
     }
@@ -329,7 +341,7 @@ export const StudentSection = ({
         handleChange={handleDiagnosticTypeOptionChange}
         isSearchable={true}
         label="Diagnostic:"
-        options={diagnosticTypeDropdownOptions}
+        options={getDiagnosticTypeDropdownOptions(selectedTimeframe)}
         value={diagnosticTypeValue}
       />
       {renderContent()}

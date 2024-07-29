@@ -26,5 +26,4 @@ class Checkbox < ApplicationRecord
 
     OnboardingChecklistAnalyticsWorker.perform_async(user_id)
   end
-
 end

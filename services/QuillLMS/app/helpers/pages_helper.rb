@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PagesHelper
-
   # rubocop:disable Metrics/CyclomaticComplexity
   def pages_tab_class(tabname)
     about_actions = ['mission', 'develop', 'faq']
@@ -45,7 +44,6 @@ module PagesHelper
     when 'premium'
       action_name == 'premium_from_discover' ? 'premium-tab active' : ''
     end
-
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

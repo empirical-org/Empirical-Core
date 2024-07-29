@@ -159,5 +159,4 @@ class Auth::GoogleController < ApplicationController
 
     render 'accounts/new'
   end
-
 end

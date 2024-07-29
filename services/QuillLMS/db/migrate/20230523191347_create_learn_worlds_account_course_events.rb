@@ -11,7 +11,7 @@ class CreateLearnWorldsAccountCourseEvents < ActiveRecord::Migration[6.1]
       t.references :learn_worlds_course,
         foreign_key: true,
         null: false,
-        index: { name: 'learn_worlds_account_course_events_on_course_id'}
+        index: { name: 'learn_worlds_account_course_events_on_course_id' }
 
       t.string :event_type, null: false
 

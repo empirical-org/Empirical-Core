@@ -3,7 +3,7 @@
 RSpec.shared_context 'Stripe Checkout Session Completed Event' do
   include_context 'External Checkout Session'
 
-  let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
+  let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
   let(:stripe_event_type) { 'checkout.session.completed' }
   let(:stripe_checkout_session_status) { 'complete' }
 

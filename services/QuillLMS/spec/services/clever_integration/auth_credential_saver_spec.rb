@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe CleverIntegration::AuthCredentialSaver do
   let(:teacher) { create(:teacher, :signed_up_with_clever) }
-  let(:access_token) { 'asfUI213bda2j'}
+  let(:access_token) { 'asfUI213bda2j' }
 
   subject do
     described_class.run(

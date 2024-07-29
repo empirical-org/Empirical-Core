@@ -151,7 +151,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
             <a
               className="quill-button-archived medium primary outlined view-button focus-on-light"
-              href="/activities/packs/154"
+              href="/activities/packs/643"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -201,7 +201,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
             <a
               className="quill-button-archived medium primary outlined view-button focus-on-light"
-              href="/activities/packs/299"
+              href="/activities/packs/645"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -251,7 +251,7 @@ exports[`Ap component should render when it is not part of the assignment flow 1
             </p>
             <a
               className="quill-button-archived medium primary outlined view-button focus-on-light"
-              href="/activities/packs/300"
+              href="/activities/packs/647"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -1614,7 +1614,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
             <a
               className="quill-button-archived medium primary outlined view-button focus-on-light"
-              href="/assign/featured-activity-packs/154?college-board=ap"
+              href="/assign/featured-activity-packs/643?college-board=ap"
               rel="noopener noreferrer"
               target=""
             >
@@ -1664,7 +1664,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
             <a
               className="quill-button-archived medium primary outlined view-button focus-on-light"
-              href="/assign/featured-activity-packs/299?college-board=ap"
+              href="/assign/featured-activity-packs/645?college-board=ap"
               rel="noopener noreferrer"
               target=""
             >
@@ -1714,7 +1714,7 @@ exports[`Ap component should render when it is part of the assignment flow 1`] =
             </p>
             <a
               className="quill-button-archived medium primary outlined view-button focus-on-light"
-              href="/assign/featured-activity-packs/300?college-board=ap"
+              href="/assign/featured-activity-packs/647?college-board=ap"
               rel="noopener noreferrer"
               target=""
             >

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UpdateSalesContact
-
   def initialize(user_id, stage_number, current_user = nil, notifier = nil)
     @user_id      = user_id
     @stage_number = stage_number

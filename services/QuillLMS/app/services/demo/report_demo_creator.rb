@@ -4,7 +4,8 @@ module Demo::ReportDemoCreator
   EMAIL = 'hello+demoteacher@quill.org'
   STAFF_DEMO_EMAIL = 'hello+demoteacher+staff@quill.org'
 
-  STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 1663
+  STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID = 2537
+  STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID = 2538
 
   ANGIE_ID = 14862320
   NIC_ID = 14862321
@@ -18,7 +19,7 @@ module Demo::ReportDemoCreator
   ACTIVITY_PACKS_TEMPLATES = [
     {
       name: 'Starter Baseline Diagnostic (Pre)',
-      unit_template_id: 99,
+      unit_template_id: 636,
       activity_sessions: [
         {
           STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID => KEN_ID
@@ -39,69 +40,78 @@ module Demo::ReportDemoCreator
     },
     {
       name: 'Capitalization (Starter Baseline Recommendation)',
-      unit_template_id: 308,
+      unit_template_id: 655,
       activity_sessions: [
-        {}, # Ken Liu
         {
-          886 => TAHEREH_ID,
-          887 => TAHEREH_ID,
-          801 => TAHEREH_ID,
-          885 => TAHEREH_ID,
-          804 => TAHEREH_ID,
-          181 => TAHEREH_ID,
-          802 => TAHEREH_ID
+          2672 => KEN_ID,
+          2677 => KEN_ID,
+          2679 => KEN_ID,
+          2680 => KEN_ID,
+          2678 => KEN_ID,
+          2673 => KEN_ID,
+          2681 => KEN_ID
+        },
+        {
+          2672 => TAHEREH_ID,
+          2677 => TAHEREH_ID,
+          2679 => TAHEREH_ID,
+          2680 => TAHEREH_ID,
+          2678 => TAHEREH_ID,
+          2673 => TAHEREH_ID,
+          2681 => TAHEREH_ID
         },
         {}, # Jason Reynolds
         {
-          801 => NIC_ID,
-          887 => NIC_ID,
-          804 => NIC_ID,
-          885 => NIC_ID,
-          886 => NIC_ID,
-          181 => NIC_ID,
-          802 => NIC_ID
+          2672 => NIC_ID,
+          2677 => NIC_ID,
+          2679 => NIC_ID,
+          2680 => NIC_ID,
+          2678 => NIC_ID,
+          2673 => NIC_ID,
+          2681 => NIC_ID
         },
+        {} # Angie Thomas
+      ]
+    },
+    {
+      name: 'Pronouns (Starter Baseline Recommendation)',
+      unit_template_id: 657,
+      activity_sessions: [
+        {}, # Ken Liu
+        {}, # Tahereh Mafi
+        {}, # Jason Reynolds
+        {}, # Nic Stone
         {
-          804 => ANGIE_ID,
-          886 => ANGIE_ID,
-          887 => ANGIE_ID,
-          801 => ANGIE_ID,
-          885 => ANGIE_ID,
-          181 => ANGIE_ID,
-          802 => ANGIE_ID
+          1486 => ANGIE_ID,
+          2670 => ANGIE_ID,
+          1452 => ANGIE_ID,
+          2671 => ANGIE_ID,
+          1487 => ANGIE_ID,
+          2764 => ANGIE_ID,
+          2765 => ANGIE_ID,
+          2766 => ANGIE_ID,
+          2767 => ANGIE_ID,
+          2768 => ANGIE_ID
         }
       ]
     },
     {
-      name: 'Plural and Possessive Nouns (Starter Baseline Recommendation)',
-      unit_template_id: 310,
-      activity_sessions: [
-        {
-          1440 => KEN_ID,
-          283 => KEN_ID,
-          252 => KEN_ID,
-          808 => KEN_ID,
-          1308 => KEN_ID,
-          803 => KEN_ID
-        },
-        {}, # Tahereh Mafi
-        {}, # Jason Reynolds
-        {}, # Nic Stone
-        {}  # Angie Thomas
-      ]
-    },
-    {
-      name: 'Prepositional Phrases (Starter Baseline Recommendation)',
-      unit_template_id: 314,
+      name: 'Subject-Verb Agreement (Starter Baseline Recommendation)',
+      unit_template_id: 656,
       activity_sessions: [
         {}, # Ken Liu
         {}, # Tahereh Mafi
         {
-          846 => JASON_ID,
-          600 => JASON_ID,
-          712 => JASON_ID,
-          599 => JASON_ID,
-          765 => JASON_ID
+          2506 => JASON_ID,
+          2507 => JASON_ID,
+          2663 => JASON_ID,
+          767  => JASON_ID,
+          2666 => JASON_ID,
+          2667 => JASON_ID,
+          2668 => JASON_ID,
+          2669 => JASON_ID,
+          2664 => JASON_ID,
+          2665 => JASON_ID
         },
         {}, # Nic Stone
         {}  # Angie Thomas
@@ -109,22 +119,22 @@ module Demo::ReportDemoCreator
     },
     {
       name: 'Starter Growth Diagnostic (Post)',
-      unit_template_id: 217,
+      unit_template_id: 651,
       activity_sessions: [
         {
-          1664 => KEN_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => KEN_ID
         },
         {
-          1664 => TAHEREH_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => TAHEREH_ID
         },
         {
-          1664 => JASON_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => JASON_ID
         },
         {
-          1664 => NIC_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => NIC_ID
         },
         {
-          1664 => ANGIE_ID
+          STARTER_GROWTH_DIAGNOSTIC_POST_ACTIVITY_ID => ANGIE_ID
         }
       ]
     },
@@ -210,7 +220,7 @@ module Demo::ReportDemoCreator
 
     return unless teacher
 
-    non_demo_classrooms(teacher).each {|c| c.update(visible: false)}
+    non_demo_classrooms(teacher).each { |c| c.update(visible: false) }
     teacher.auth_credential&.destroy
     teacher.update(google_id: nil, clever_id: nil)
 
@@ -282,11 +292,11 @@ module Demo::ReportDemoCreator
   end
 
   def self.demo_classroom(teacher)
-    teacher.unscoped_classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.find { |c| c.code == classcode(teacher.id) }
   end
 
   def self.non_demo_classrooms(teacher)
-    teacher.unscoped_classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.reject { |c| c.code == classcode(teacher.id) }
   end
 
   def self.create_units(teacher, is_teacher_demo)
@@ -345,9 +355,9 @@ module Demo::ReportDemoCreator
     # won't raise a validation error.
     # This is important as we have /student_demo set to go to the Angie Thomas email
     STUDENT_TEMPLATES
-      .select {|template| template.email_eligible }
-      .reject {|template| template.email.nil? }
-      .each {|template| User.find_by(email: template.email)&.destroy }
+      .select { |template| template.email_eligible }
+      .reject { |template| template.email.nil? }
+      .each { |template| User.find_by(email: template.email)&.destroy }
   end
 
   def self.create_classroom_units(classroom, units)
@@ -362,15 +372,15 @@ module Demo::ReportDemoCreator
   def self.clone_activity_sessions(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
     session_data
       .activity_sessions
-      .filter {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+      .filter { |session| session.activity_id == clone_activity_id && session.user_id == clone_user_id }
       .each { |session| clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session, session_data) }
   end
 
   def self.clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data)
     act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
-    concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
+    concept_results = session_data.concept_results.select { |cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
-      question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
+      question_type = session_data.concept_result_question_types.first { |qt| qt.id == cr.concept_result_question_type_id }
       SaveActivitySessionConceptResultsWorker.perform_async({
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
@@ -378,7 +388,6 @@ module Demo::ReportDemoCreator
         question_type: question_type&.text
       })
     end
-
   end
 
   def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)

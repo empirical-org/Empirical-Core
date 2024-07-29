@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe Evidence::Synthetic::Generators::Spelling do
-  let(:text1) {'their text'}
-  let(:text2) {'no spelling'}
+  let(:text1) { 'their text' }
+  let(:text2) { 'no spelling' }
 
   describe '#generate' do
-    let(:spelling) { described_class.new([text1, text2])}
+    let(:spelling) { described_class.new([text1, text2]) }
 
     subject { spelling.run }
 

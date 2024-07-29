@@ -7,7 +7,6 @@ class FakeController < ApplicationController
 end
 
 describe FakeController, type: :controller do
-
   describe 'show_school_selection_reminders' do
     let!(:milestone) { create(:dismiss_school_selection_reminder) }
     let!(:user) { create(:teacher) }
@@ -43,8 +42,6 @@ describe FakeController, type: :controller do
         UserMilestone.create(milestone: milestone, user: user)
         expect(controller.show_school_selection_reminders).to be(false)
       end
-
     end
-
   end
 end

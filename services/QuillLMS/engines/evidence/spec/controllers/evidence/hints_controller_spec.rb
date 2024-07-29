@@ -7,7 +7,6 @@ module Evidence
     before { @routes = Engine.routes }
 
     context 'should index' do
-
       it 'should return successfully with no records' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -48,7 +47,7 @@ module Evidence
 
       it 'should not create an invalid record and return errors as json' do
         expect do
-          post(:create, :params => ({ :hint => { :name => 'New Hint'} }))
+          post(:create, :params => ({ :hint => { :name => 'New Hint' } }))
           parsed_response = JSON.parse(response.body)
           expect(response.code.to_i).to(eq(422))
           expect(parsed_response['image_link']).to(include("can't be blank"))

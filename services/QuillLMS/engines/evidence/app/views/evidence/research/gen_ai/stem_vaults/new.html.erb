@@ -1,5 +1,8 @@
-<h1>New <%= @stem_vault.model_name.human.titleize %></h1>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
+<% end %>
 
+<h1>New <%= @stem_vault.model_name.human.titleize %></h1>
 
 <%= form_for @stem_vault, url: research_gen_ai_activity_stem_vaults_path(@activity) do |f| %>
   <%= render 'errors', object: @stem_vault %>

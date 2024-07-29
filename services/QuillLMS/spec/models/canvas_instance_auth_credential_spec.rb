@@ -36,4 +36,3 @@ describe CanvasInstanceAuthCredential, type: :model do
     }.to raise_error(ActiveRecord::RecordNotUnique)
   end
 end
-

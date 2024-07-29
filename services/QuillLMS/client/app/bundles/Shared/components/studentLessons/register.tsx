@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 class Register extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -75,13 +74,27 @@ class Register extends React.Component<any, any> {
     );
   }
 
+  translatedText = (): string => {
+    const { lesson, language} = this.props;
+    const { translations, } = lesson;
+    return translations && translations[language];
+  }
+
+
   renderIntro = () => {
     const { lesson, } = this.props
     const { showIntro, hasSentenceFragment, } = this.state
+    const translatedText = this.translatedText()
     if (showIntro) {
       return (
         <div className="container">
           <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: lesson.landingPageHtml, }} />
+          {translatedText && (
+            <React.Fragment>
+              <hr />
+              <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
+            </React.Fragment>
+          )}
           <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
         </div>
       );
@@ -139,4 +152,3 @@ class Register extends React.Component<any, any> {
 }
 
 export { Register };
-

@@ -3,10 +3,9 @@
 require 'rails_helper'
 
 describe CopySingleConceptResultWorker, type: :worker do
-
   context '#perform' do
     let(:question) { create(:question) }
-    let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+    let(:activity) { create(:activity, data: { questions: [{ key: question.uid }] }) }
     let(:activity_session) { create(:activity_session_without_concept_results, activity: activity) }
     let(:metadata) do
       {

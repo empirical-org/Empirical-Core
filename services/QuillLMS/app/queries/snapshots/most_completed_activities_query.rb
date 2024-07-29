@@ -2,7 +2,6 @@
 
 module Snapshots
   class MostCompletedActivitiesQuery < ReportingSessionTopXQuery
-
     def select_clause
       <<-SQL
         SELECT activity_name AS value,
