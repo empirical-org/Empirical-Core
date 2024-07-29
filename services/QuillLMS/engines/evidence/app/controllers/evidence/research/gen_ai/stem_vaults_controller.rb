@@ -19,7 +19,10 @@ module Evidence
           end
         end
 
-        def show = @stem_vault = StemVault.find(params[:id])
+        def show
+          @stem_vault = StemVault.find(params[:id])
+          @datasets = @stem_vault.datasets.order(id: :desc)
+        end
 
         private def activity = @activity ||= Activity.find(params[:activity_id])
 

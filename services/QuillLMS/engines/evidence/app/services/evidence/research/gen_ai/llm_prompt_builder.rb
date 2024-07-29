@@ -40,20 +40,21 @@ module Evidence
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples
+        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples, :text
 
         validates :dataset_id, presence: true
         validates :guidelines, presence: true, allow_blank: true
         validates :llm_prompt_template_id, presence: true
         validates :prompt_examples, presence: true, allow_blank: true
 
-        delegate :contents, to: :llm_prompt_template
+        def self.activity_substitutions = ACTIVITY_SUBSTITUTIONS.keys.map { |key| "#{DELIMITER}#{key}#{DELIMITER}" }
 
-        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:)
+        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:, text: nil)
           @dataset_id = dataset_id
           @guidelines = guidelines
           @llm_prompt_template_id = llm_prompt_template_id
           @prompt_examples = prompt_examples
+          @text = text
 
           validate!
         end
@@ -65,6 +66,8 @@ module Evidence
             end
           end
         end
+
+        def contents = text || llm_prompt_template.contents
 
         def optimal_examples = prompt_examples.optimal.map(&:response_feedback_status).join("\n")
         def suboptimal_examples = prompt_examples.suboptimal.map(&:response_feedback_status).join("\n")

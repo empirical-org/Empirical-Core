@@ -11,7 +11,7 @@ module Evidence
           @llm_example = llm_example
         end
 
-        def run = JSON.parse(g_eval_output)[g_eval.metric]
+        def run = JSON.parse(g_eval_output)[g_eval.metric]&.to_i
 
         private def g_eval_output = llm.completion(prompt).strip
 
@@ -23,7 +23,7 @@ module Evidence
 
         private def stem = test_example.dataset.stem_vault.stem
 
-        private def ideal_feedback = test_example.staff_feedback
+        private def ideal_feedback = test_example.curriculum_proposed_feedback
 
         private def test_example = @test_example ||= llm_example.test_example
 

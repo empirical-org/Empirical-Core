@@ -1,6 +1,9 @@
-<div>
-  <p><%= link_to 'Back to Stem Vault', @stem_vault %></p>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+<% end %>
 
+<div>
   <h2><%= @dataset.model_name.human.titleize %></h2>
   <p><%= @dataset %></p>
 
@@ -23,31 +26,40 @@
 
   <% if @trials.any? %>
     <%= form_with url: research_gen_ai_dataset_comparisons_path(@dataset), method: :post do %>
+      <%= submit_tag 'Compare', id: 'compare-button', disabled: true, class: 'compare-button' %>
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>LLM</th>
-            <th>Activity</th>
-            <th>Conjunction</th>
-            <th>LLM Prompt Description</th>
-            <th># of Test Results</th>
+            <th>Trial Number</th>
+            <th>Created</th>
+            <th>Prompt Template</th>
+            <th>Optimal Examples</th>
+            <th>Sub-Optimal Feedback Examples</th>
+            <th>Guidelines</th>
+            <th>Optimal Accuracy</th>
+            <th>Sub-Optimal Accuracy</th>
+            <th>Model</th>
+            <th>GEval Average</th>
             <th>Status</th>
             <th>Actions</th>
             <th>Compare</th>
           </tr>
         </thead>
         <tbody>
-          <% @trials.each do |trial| %>
+          <% num_trials = @trials.count %>
+          <% @trials.each.with_index(0) do |trial, index| %>
+            <% llm_prompt = trial.llm_prompt %>
             <tr>
-              <td><%= trial.id %></td>
-              <td><%= trial.created_at.strftime("%m/%d/%y, %H:%M") %></td>
-              <td><%= trial.llm %></td>
-              <td><%= trial.stem_vault.name %></td>
-              <td><%= trial.conjunction %></td>
-              <td><%= trial.llm_prompt.description %></td>
-              <td><%= trial.dataset.test_examples_count %></td>
+              <td><%= "Trial #{num_trials - index}" %></td>
+              <td><%= date_helper(trial.created_at) %></td>
+              <td><%= llm_prompt.name %></td>
+              <td><%= llm_prompt.optimal_examples_count %></td>
+              <td><%= llm_prompt.suboptimal_examples_count %></td>
+              <td><%= llm_prompt.guidelines_count %></td>
+              <td><%= percent_accuracy(trial.optimal_correct, trial.optimal_count) %></td>
+              <td><%= percent_accuracy(trial.suboptimal_correct, trial.suboptimal_count) %></td>
+              <td><%= trial.llm.version %></td>
+              <td><%= trial.average_g_eval_score %></td>
               <td><%= trial.status %></td>
               <td><%= link_to "View", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
               <td><%= check_box_tag 'trial_ids[]', trial.id, false, class: 'compare-checkbox' %></td>
@@ -65,13 +77,20 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const checkboxes = document.querySelectorAll('.compare-checkbox');
-    const compareButton = document.getElementById('compare-button');
+    const compareButtons = document.querySelectorAll('.compare-button');
+
+    function updateCompareButtons() {
+      const selectedCheckboxes = document.querySelectorAll('.compare-checkbox:checked');
+      const isDisabled = selectedCheckboxes.length < 2;
+      compareButtons.forEach(button => {
+        button.disabled = isDisabled;
+      });
+    }
 
     checkboxes.forEach(function(checkbox) {
-      checkbox.addEventListener('change', function() {
-        const selectedCheckboxes = document.querySelectorAll('.compare-checkbox:checked');
-        compareButton.disabled = selectedCheckboxes.length < 2;
-      });
+      checkbox.addEventListener('change', updateCompareButtons);
     });
+
+    updateCompareButtons();
   });
 </script>

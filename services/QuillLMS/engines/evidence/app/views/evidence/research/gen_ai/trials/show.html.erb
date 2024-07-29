@@ -1,4 +1,8 @@
-<%= link_to 'Back to Dataset', @dataset %>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+<% end %>
 
 <div class="container">
   <div class="column">
@@ -12,7 +16,7 @@
         %>
       <% end %>
     </h2>
-    <p><%= @trial.created_at.strftime("%B %d, %Y %H:%M") %></p>
+    <p><%= datetime_helper(@trial.created_at) %></p>
 
     <h3>Stem Vault</h3>
     <p><%= @trial.stem_vault %></p>
@@ -23,7 +27,7 @@
 
 
     <h3>LLM Prompt</h3>
-    <p><%= link_to @trial.llm_prompt.description, @trial.llm_prompt %></p>
+    <p><%= link_to @trial.llm_prompt.name, @trial.llm_prompt %></p>
 
     <% if @g_evals %>
       <h3>G-eval</h3>
@@ -32,20 +36,35 @@
       <% end %>
     <% end %>
   </div>
+
   <div class="column">
-    <h3>Results</h3>
+    <h3>
+      Status:
+      <%= @trial.status.capitalize %>
+    </h3>
+    <% if @trial.pending? %>
+      <p>Trial is queued. You can check its place in queue <a href="<%= research_gen_ai_dataset_path(@dataset) %>">here</a></p>
+      <p>Refreshing page does not stop the process of generating the results.</p>
+    <% elsif @trial.running? %>
+      <p><%= progress(@trial) %></p>
+      <p>Refreshing page does not stop the process of generating the results.</p>
+      <p>You can make a comparison with another trial <a href="<%= research_gen_ai_dataset_path(@dataset) %>">here</a></p>
+    <% elsif @trial.completed? %>
+      <p>You can make a comparison with another trial <a href="<%= research_gen_ai_dataset_path(@dataset) %>">here</a></p>
+      <% if @trial.api_call_times %>
+        <p>Trial duration: <%= trial_duration(@trial) %></p>
+        <p>Evaluation duration: <%= evaluation_duration(@trial) %></p>
 
-    <% if @trial.api_call_times %>
-      <p>Optimal match: <%= @trial.accuracy_optimal_suboptimal&.round(2) %></p>
-      <p>Trial duration: <%= trial_duration(@trial) %></p>
-      <p>Evaluation duration: <%= evaluation_duration(@trial) %></p>
+        <% if @histogram %>
+          <%= render 'histogram', histogram: @histogram %>
+        <% end %>
 
-      <% if @histogram %>
-        <p>Api call times: <%= @trial.api_call_times %></p>
-        <%= render 'histogram', histogram: @histogram %>
+        <div style="width: 500px">
+          <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
+        </div>
       <% end %>
-
-      <%= render 'confusion_matrix', matrix: @trial.confusion_matrix %>
+    <% elsif @trial.failed? %>
+      <p>The trial had some errors.</p>
     <% end %>
   </div>
 </div>
@@ -57,41 +76,35 @@
     <table>
       <thead>
         <tr>
-          <th class='match-column'>Optimal match</th>
-          <th class='g-eval-column'>BertScore (F1)</th>
+          <th class='match-column'>Match</th>
           <% if @trial.g_evals %>
             <% @g_evals.each do |g_eval| %>
               <th class='g-eval-column'>G-Eval (<%= g_eval %>)</th>
             <% end %>
           <% end %>
           <th>Student Response</th>
-          <th class='feedback-column'>Staff Feedback</th>
+          <th class='feedback-column'>Curriculum Feedback</th>
           <th class='feedback-column'>LLM Feedback</th>
         </tr>
       </thead>
       <tbody>
         <% @trial.llm_examples.each.with_index do |llm_example, index| %>
           <tr>
-            <td class="<%= llm_example.optimal_or_suboptimal_match? ? 'green' : 'red' %>"></td>
-            <td><%= @trial.results.dig('misc_metrics', 'bert_score', 'f1', index)&.round(2) %></td>
+            <% background_color = llm_example_match_color(llm_example) %>
+            <td class=<%= background_color %>></td>
             <% if @trial.g_evals %>
               <% @trial.g_evals.keys.each do |g_eval_id| %>
-                <td><%= @trial.g_evals[g_eval_id][index] %></td>
+                <td><%= @trial.g_evals[g_eval_id][index]&.to_i %></td>
               <% end %>
             <% end %>
             <td><%= llm_example.student_response %></td>
-            <td><%= llm_example.staff_feedback %></td>
+            <td><%= llm_example.curriculum_proposed_feedback %></td>
             <td><%= llm_example.llm_feedback  %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  <% else %>
-    <p><%= progress(@trial) %></p>
   <% end %>
-
-  <h3>Status</h3>
-  <p><%= @trial.status.capitalize %></p>
 
   <% if @trial.trial_errors&.any? %>
   <h3>Trial Errors</h3>

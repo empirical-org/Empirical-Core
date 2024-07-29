@@ -1,0 +1,57 @@
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+<% end %>
+
+<h1>New Prompt Example</h1>
+
+<%= form_for @prompt_example, url: research_gen_ai_dataset_prompt_examples_path(@dataset), html: { multipart: true } do |f| %>
+  <%= render 'errors', object: @prompt_example %>
+
+  <div class="field-spacing">
+    <% @prompt_example.class::ASSIGNED_STATUSES.each do |status| %>
+      <%= f.radio_button :curriculum_assigned_status, status %>
+      <%= f.label "curriculum_assigned_status_#{status}", status.capitalize %>
+    <% end %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :student_response %><br>
+    <%= f.text_area :student_response, rows: 4, cols: 100, required: true %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :curriculum_label %><br>
+    <%= f.text_field :curriculum_label %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :curriculum_proposed_feedback %><br>
+    <%= f.text_area :curriculum_proposed_feedback, rows: 4, cols: 100 %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :automl_label %><br>
+    <%= f.text_field :automl_label %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :automl_primary_feedback %><br>
+    <%= f.text_area :automl_primary_feedback, rows: 4, cols: 100 %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :automl_secondary_feedback %><br>
+    <%= f.text_area :automl_secondary_feedback, rows: 4, cols: 100 %>
+  </div>
+
+  <div class="field-spacing">
+    <%= f.label :highlight %><br>
+    <%= f.text_area :highlight, rows: 3, cols: 100 %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create" %>
+  </div>
+<% end %>
