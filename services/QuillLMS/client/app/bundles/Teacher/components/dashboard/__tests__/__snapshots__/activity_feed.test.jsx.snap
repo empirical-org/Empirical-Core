@@ -679,32 +679,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag not-yet-proficient"
@@ -718,6 +718,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -810,9 +812,16 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "284px",
@@ -820,16 +829,10 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                           "width": "284px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section undefined"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "284px",
@@ -837,7 +840,6 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                             "width": "284px",
                           }
                         }
-                        tabIndex={0}
                       >
                         Capitalize Names of People and the Pronoun "I"
                       </span>
@@ -847,6 +849,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -888,32 +892,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag proficient"
@@ -927,6 +931,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1045,32 +1051,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag proficient"
@@ -1084,6 +1090,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1202,32 +1210,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag nearly-proficient"
@@ -1241,6 +1249,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1359,32 +1369,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag proficient"
@@ -1398,6 +1408,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1516,32 +1528,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag nearly-proficient"
@@ -1555,6 +1567,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1673,32 +1687,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag proficient"
@@ -1712,6 +1726,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1831,32 +1847,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag completed"
@@ -1870,6 +1886,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1989,32 +2007,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag completed"
@@ -2028,6 +2046,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -2147,32 +2167,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag completed"
@@ -2186,6 +2206,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -2305,32 +2327,32 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                     }
                   >
                     <span
-                      aria-hidden={false}
+                      aria-expanded={false}
+                      aria-haspopup="true"
                       className="quill-tooltip-trigger "
-                      role="tooltip"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      role="button"
                       style={
                         Object {
                           "minWidth": "210px",
                           "width": "210px",
                         }
                       }
+                      tabIndex={0}
                     >
                       <span
                         className="data-table-row-section"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onMouseEnter={[Function]}
-                        onMouseLeave={[Function]}
-                        role="button"
                         style={
                           Object {
                             "minWidth": "210px",
                             "width": "210px",
                           }
                         }
-                        tabIndex={0}
                       >
                         <span
                           className="score-tag completed"
@@ -2344,6 +2366,8 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                         <span
                           aria-live="polite"
                           className="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -2620,32 +2644,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag not-yet-proficient"
@@ -2659,6 +2683,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -2744,32 +2770,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag proficient"
@@ -2783,6 +2809,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -2868,32 +2896,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag proficient"
@@ -2907,6 +2935,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -2992,32 +3022,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag nearly-proficient"
@@ -3031,6 +3061,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3116,32 +3148,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag proficient"
@@ -3155,6 +3187,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3240,32 +3274,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag nearly-proficient"
@@ -3279,6 +3313,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3364,32 +3400,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag proficient"
@@ -3403,6 +3439,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3490,32 +3528,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag completed"
@@ -3529,6 +3567,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3616,32 +3656,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag completed"
@@ -3655,6 +3695,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3742,32 +3784,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag completed"
@@ -3781,6 +3823,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -3868,32 +3912,32 @@ exports[`ActivityFeed component on mobile should render when there are activitie
             }
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
               style={
                 Object {
                   "minWidth": "210px",
                   "width": "210px",
                 }
               }
+              tabIndex={0}
             >
               <span
                 className="data-table-row-section"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
                 style={
                   Object {
                     "minWidth": "210px",
                     "width": "210px",
                   }
                 }
-                tabIndex={0}
               >
                 <span
                   className="score-tag completed"
@@ -3907,6 +3951,8 @@ exports[`ActivityFeed component on mobile should render when there are activitie
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>

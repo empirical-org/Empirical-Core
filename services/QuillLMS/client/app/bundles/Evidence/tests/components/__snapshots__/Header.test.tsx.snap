@@ -51,20 +51,20 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
             tooltipTriggerTextClass="hide-on-mobile beta-tag focus-on-dark"
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <span
                 className="hide-on-mobile beta-tag focus-on-dark"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
-                tabIndex={0}
               >
                 <div>
                   <img
@@ -85,6 +85,8 @@ exports[`StudentViewContainer component when the activity has loaded renders 1`]
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>

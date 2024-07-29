@@ -4291,9 +4291,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -4301,16 +4308,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -4318,7 +4319,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -4326,6 +4326,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -4721,9 +4723,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -4731,16 +4740,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -4748,7 +4751,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -4756,6 +4758,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -5110,9 +5114,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "400px",
@@ -5120,16 +5131,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "400px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section undefined"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "400px",
@@ -5137,7 +5142,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "400px",
                                       }
                                     }
-                                    tabIndex={0}
                                   >
                                     Michele Ellis uses Quill to Facilitate a Dialogue with her 7th Grade Language Arts Class
                                   </span>
@@ -5147,6 +5151,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -5211,9 +5217,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -5221,16 +5234,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -5238,7 +5245,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -5246,6 +5252,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -5641,9 +5649,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -5651,16 +5666,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -5668,7 +5677,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -5676,6 +5684,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -6030,9 +6040,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "400px",
@@ -6040,16 +6057,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "400px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section undefined"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "400px",
@@ -6057,7 +6068,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "400px",
                                       }
                                     }
-                                    tabIndex={0}
                                   >
                                     📋 PDF | Introducing Quill Reading for Evidence: One-Pager 
                                   </span>
@@ -6067,6 +6077,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -6131,9 +6143,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -6141,16 +6160,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -6158,7 +6171,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -6166,6 +6178,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -6520,9 +6534,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "400px",
@@ -6530,16 +6551,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "400px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section undefined"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "400px",
@@ -6547,7 +6562,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "400px",
                                       }
                                     }
-                                    tabIndex={0}
                                   >
                                     📋 PDF | Quill and Beyond: Recommended Tools to Support Remote Learning
                                   </span>
@@ -6557,6 +6571,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -6621,9 +6637,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -6631,16 +6654,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -6648,7 +6665,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -6656,6 +6672,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -7051,9 +7069,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -7061,16 +7086,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -7078,7 +7097,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -7086,6 +7104,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -7481,9 +7501,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -7491,16 +7518,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -7508,7 +7529,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -7516,6 +7536,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -7911,9 +7933,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -7921,16 +7950,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -7938,7 +7961,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -7946,6 +7968,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -8300,9 +8324,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "400px",
@@ -8310,16 +8341,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "400px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section undefined"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "400px",
@@ -8327,7 +8352,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "400px",
                                       }
                                     }
-                                    tabIndex={0}
                                   >
                                     Best Practices: Using Quill to Support Mastery-Based Learning
                                   </span>
@@ -8337,6 +8361,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -8401,9 +8427,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -8411,16 +8444,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -8428,7 +8455,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -8436,6 +8462,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -8831,9 +8859,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -8841,16 +8876,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -8858,7 +8887,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -8866,6 +8894,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -9261,9 +9291,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -9271,16 +9308,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -9288,7 +9319,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -9296,6 +9326,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -9650,9 +9682,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "400px",
@@ -9660,16 +9699,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "400px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section undefined"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "400px",
@@ -9677,7 +9710,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "400px",
                                       }
                                     }
-                                    tabIndex={0}
                                   >
                                     What activities will be recommended after students complete a Pre-AP® Writing Skills Survey?
                                   </span>
@@ -9687,6 +9719,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -9751,9 +9785,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -9761,16 +9802,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -9778,7 +9813,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -9786,6 +9820,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -10181,9 +10217,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -10191,16 +10234,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -10208,7 +10245,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -10216,6 +10252,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -10611,9 +10649,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -10621,16 +10666,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -10638,7 +10677,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -10646,6 +10684,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>
@@ -11041,9 +11081,16 @@ exports[`BlogPostTable component renders 1`] = `
                                 }
                               >
                                 <span
-                                  aria-hidden={false}
+                                  aria-expanded={false}
+                                  aria-haspopup="true"
                                   className="quill-tooltip-trigger "
-                                  role="tooltip"
+                                  onBlur={[Function]}
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="button"
                                   style={
                                     Object {
                                       "minWidth": "50px",
@@ -11051,16 +11098,10 @@ exports[`BlogPostTable component renders 1`] = `
                                       "width": "50px",
                                     }
                                   }
+                                  tabIndex={0}
                                 >
                                   <span
                                     className="data-table-row-section left-align"
-                                    onBlur={[Function]}
-                                    onClick={[Function]}
-                                    onFocus={[Function]}
-                                    onKeyDown={[Function]}
-                                    onMouseEnter={[Function]}
-                                    onMouseLeave={[Function]}
-                                    role="button"
                                     style={
                                       Object {
                                         "minWidth": "50px",
@@ -11068,7 +11109,6 @@ exports[`BlogPostTable component renders 1`] = `
                                         "width": "50px",
                                       }
                                     }
-                                    tabIndex={0}
                                   />
                                   <span
                                     className="quill-tooltip-wrapper"
@@ -11076,6 +11116,8 @@ exports[`BlogPostTable component renders 1`] = `
                                     <span
                                       aria-live="polite"
                                       className="quill-tooltip"
+                                      id="tooltip"
+                                      role="tooltip"
                                     />
                                   </span>
                                 </span>

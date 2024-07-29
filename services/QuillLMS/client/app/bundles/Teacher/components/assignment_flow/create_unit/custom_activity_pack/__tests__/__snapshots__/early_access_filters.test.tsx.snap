@@ -2932,21 +2932,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
         }
       >
         <span
-          aria-hidden={true}
+          aria-expanded={false}
+          aria-haspopup="true"
           className="quill-tooltip-trigger "
-          role="tooltip"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
         >
-          <span
-            className="undefined"
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            role="button"
-            tabIndex={null}
-          >
+          <span>
             <div
               className="individual-row-tooltip-trigger"
             >
@@ -2980,6 +2977,8 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             <span
               aria-live="polite"
               className="quill-tooltip"
+              id="tooltip"
+              role="tooltip"
             />
           </span>
         </span>
@@ -4464,21 +4463,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
         }
       >
         <span
-          aria-hidden={true}
+          aria-expanded={false}
+          aria-haspopup="true"
           className="quill-tooltip-trigger "
-          role="tooltip"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
         >
-          <span
-            className="undefined"
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            role="button"
-            tabIndex={null}
-          >
+          <span>
             <div
               className="individual-row-tooltip-trigger"
             >
@@ -4512,6 +4508,8 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             <span
               aria-live="polite"
               className="quill-tooltip"
+              id="tooltip"
+              role="tooltip"
             />
           </span>
         </span>
@@ -7453,21 +7451,18 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
         }
       >
         <span
-          aria-hidden={true}
+          aria-expanded={false}
+          aria-haspopup="true"
           className="quill-tooltip-trigger "
-          role="tooltip"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
         >
-          <span
-            className="undefined"
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            role="button"
-            tabIndex={null}
-          >
+          <span>
             <div
               className="individual-row-tooltip-trigger"
             >
@@ -7501,6 +7496,8 @@ Combine simple sentences to create 5 new compound or complex sentences that incl
             <span
               aria-live="polite"
               className="quill-tooltip"
+              id="tooltip"
+              role="tooltip"
             />
           </span>
         </span>
