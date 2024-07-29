@@ -30,6 +30,7 @@ class UnitActivity < ApplicationRecord
 
   belongs_to :unit, touch: true
   belongs_to :activity
+  has_many :classroom_units, through: :unit
   has_many :classroom_unit_activity_states, dependent: :destroy
 
   after_save :hide_appropriate_activity_sessions, :teacher_checkbox

@@ -148,6 +148,25 @@ describe User, type: :model do
       end
     end
 
+    describe '#unit_activities_for_classrooms_i_teach' do
+      let!(:co_taught_classroom) {create(:classroom)}
+      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+
+      let!(:unit_for_co_taught_classroom) { create(:unit, user: co_taught_classroom.owner) }
+      let!(:classroom_unit_for_co_taught_classroom) { create(:classroom_unit, unit: unit_for_co_taught_classroom, classroom: co_taught_classroom) }
+      let!(:unit_activity_for_co_taught_classroom) { create(:unit_activity, unit: unit_for_co_taught_classroom) }
+
+      let!(:unit_for_owned_classroom) { create(:unit, user: teacher) }
+      let!(:classroom_unit_for_owned_classroom) { create(:classroom_unit, unit: unit_for_owned_classroom, classroom: classroom) }
+      let!(:unit_activity_for_owned_classroom) { create(:unit_activity, unit: unit_for_owned_classroom) }
+
+      it 'returns unit activities assigned to both owned and co-taught classrooms' do
+        result = teacher.unit_activities_for_classrooms_i_teach
+        expect(result).to include(unit_activity_for_co_taught_classroom)
+        expect(result).to include(unit_activity_for_owned_classroom)
+      end
+    end
+
     describe '#ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of' do
       let!(:co_taught_classroom) { create(:classroom, :with_no_teacher) }
       let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }

@@ -550,7 +550,7 @@ exports[`LandingPage component matches the snapshot when the user has assigned b
           class="generic-mini"
         >
           <a
-            href=" "
+            href="/teachers/progress_reports/social-studies/world-history-1200-to-present"
           >
             <span
               class="new-tag"
@@ -577,7 +577,7 @@ exports[`LandingPage component matches the snapshot when the user has assigned b
           class="generic-mini"
         >
           <a
-            href=" "
+            href="/teachers/progress_reports/interdisciplinary-science"
           >
             <span
               class="new-tag"

@@ -7,24 +7,97 @@ module ContentHubsHelper
   end
 
   def unit_activities_include_social_studies_activities?(unit_activities)
-    activity_ids = world_history_1200_to_present.map { |unit_template| unit_template[:activities].map { |act| act[:activity_id] } }.flatten
+    activity_ids = world_history_1200_to_present_data
+      .map do |unit_template|
+        unit_template[:activities].map { |act| act[:activity_id] }
+      end
+      .flatten
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
   def unit_activities_include_science_activities?(unit_activities) = false
 
-  def world_history_1200_to_present
+  def course_with_assignment_data(course_data, classrooms)
+    return course_data if !classrooms || classrooms.empty?
+
+    classroom_ids_as_string = classrooms.map(&:id).join(',')
+
+    course_data.map { |unit_template| assignment_data_for_unit_template(unit_template, classroom_ids_as_string) }
+  end
+
+  def assignment_data_for_unit_template(unit_template, classroom_ids_as_string)
+    unit_template[:activities].map do |activity|
+
+      unit_activities = UnitActivity
+        .joins(:classroom_units)
+        .where(activity_id: activity[:activity_id])
+        .where("classroom_units.classroom_id IN (#{classroom_ids_as_string})")
+
+      classroom_units = ClassroomUnit.where(unit_id: unit_activities.pluck(:unit_id))
+      activity_sessions = ActivitySession.completed.where(classroom_unit: classroom_units.ids, activity_id: activity[:activity_id], is_final_score: true)
+      activity_sessions_with_scores = activity_sessions.where.not(percentage: nil)
+
+      activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
+      activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
+      activity[:link_for_report] = get_link_for_report(activity, classroom_units, activity_sessions)
+      activity[:average_score] = activity_sessions_with_scores.empty? ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
+
+      activity
+    end
+
+    unit_template
+  end
+
+  def get_link_for_report(activity, classroom_units, activity_sessions)
+    last_classroom_unit = classroom_units.last
+    last_activity_session = activity_sessions.last
+
+    unit_id = unit_id_for_report(last_classroom_unit, last_activity_session)
+    classroom_id = classroom_id_for_report(last_classroom_unit, last_activity_session)
+
+    return nil if !(unit_id && classroom_id)
+
+    "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity[:activity_id]}/c/#{classroom_id}/students"
+  end
+
+  def activities_with_preview_link(activities)
+    activities.map do |activity|
+      activity[:preview_href] = get_link_for_activitiy_preview(activity)
+      activity
+    end
+  end
+
+  def get_link_for_activitiy_preview(activity)
+    return nil unless activity[:activity_id]
+
+    evidence_activity = Evidence::Activity.find_by(parent_activity_id: activity[:activity_id])
+
+    return nil unless evidence_activity
+
+    return "/evidence/#/play?anonymous=true&uid=#{evidence_activity.id}"
+  end
+
+  def unit_id_for_report(last_classroom_unit, last_activity_session)
+    last_activity_session&.unit&.id || last_classroom_unit&.unit_id
+  end
+
+  def classroom_id_for_report(last_classroom_unit, last_activity_session)
+    last_activity_session&.classroom&.id || last_classroom_unit&.classroom_id
+  end
+
+  def world_history_1200_to_present_data
     [
       {
         display_name: "The Global Tapestry (1200-1450 CE)",
         description: "From 1200 to 1450 CE, diverse societies emerged and expanded around the world. Although these societies had many similarities, they also had important differences. As interactions increased, unique ideas, resources, and technology spread farther than ever before. New trade networks—and new conflicts—arose as societies made contact across Europe, Asia, and Africa.",
-        unit_template_id: nil,
+        unit_template_id: 470,
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-2",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Unit-2-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1Q62sQb8H4aWMqNxn2V525s4d2B6YryxS/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 2,
         all_quill_articles_href: "",
         quill_teacher_guide_href: '',
-        activities: global_tapestry_activities
+        activities: activities_with_preview_link(global_tapestry_activities)
       },
       {
         display_name: "Transoceanic Connections (1450-1750 CE)",
@@ -34,8 +107,9 @@ module ContentHubsHelper
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/Unit-3-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1oURXhjxIaxhY6r48c9RJto8Z7bzXkx3y/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: "https://docs.google.com/document/d/1LzcMDsFlbW_gifr-s-I5gY7ajiHOVTbsojM4WJqmV-A/edit",
+        oer_unit_number: 3,
         quill_teacher_guide_href: '',
-        activities: transoceanic_connection_activities
+        activities: activities_with_preview_link(transoceanic_connection_activities)
       },
       {
         display_name: "Revolutions (1750-1914 CE)",
@@ -45,8 +119,9 @@ module ContentHubsHelper
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit4/Unit-4-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1amKT62b-New9kEKG4URZ7pAx8AfKzcQ8/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: 'https://docs.google.com/document/d/1ndNVZX8P0F8wzxIS07wBWZgxoTTJY73-fv-WePcQDvo/edit',
+        oer_unit_number: 4,
         quill_teacher_guide_href: '',
-        activities: revolution_activities
+        activities: activities_with_preview_link(revolution_activities)
       },
       {
         display_name: "Industrialization (1750-1914 CE)",
@@ -56,8 +131,9 @@ module ContentHubsHelper
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Unit-5-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1cnifbOcrkCxq_ZgnODUxZdNWzIQMVyoQ/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         all_quill_articles_href: 'https://docs.google.com/document/d/1gioQZdIV3ush2QWzSdtrz8sUsDADGAniorXCmBLWghc/edit',
+        oer_unit_number: 5,
         quill_teacher_guide_href: '',
-        activities: industrialization_activities
+        activities: activities_with_preview_link(industrialization_activities)
       },
       {
         display_name: "'New' Imperialism & Resistance (1850-1950 CE)",
@@ -66,9 +142,10 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-6",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit6/Unit-6-Guide",
         all_oer_articles: "https://docs.google.com/document/d/18Ou6glUW6QdbpaFxgszFLuq7iuhIUNF8/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 6,
         all_quill_articles_href: 'https://docs.google.com/document/d/1K-8Nxau9IBCXgu8vEoIzwwzTmaK6fLiJvb0xO_gUs_M/edit?usp=sharing',
         quill_teacher_guide_href: '',
-        activities: new_imperialism_and_resistance_activities
+        activities: activities_with_preview_link(new_imperialism_and_resistance_activities)
       },
       {
         display_name: "Global Conflict (1914-1945 CE)",
@@ -77,9 +154,10 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-7",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit7/Unit-7-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1nO78eUYRNORQQwnWy9jUmwTbxmk1dNNd/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 7,
         all_quill_articles_href: 'https://docs.google.com/document/d/14mnkQ75WILd6WsGch6AfG4XxKaiY_u8LHR9ZQyg2DD8/edit?usp=sharing',
         quill_teacher_guide_href: '',
-        activities: global_conflict_activities
+        activities: activities_with_preview_link(global_conflict_activities)
       },
       {
         display_name: "Cold War and Decolonization (1945-1990 CE)",
@@ -88,9 +166,10 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-8",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit8/Unit-8-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1tHmlCgf8FgIoS0Ipdvj2Zuw3AKDYPU14/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 8,
         all_quill_articles_href: 'https://docs.google.com/document/d/1Cg7ShOIbYoMa3NYUSh_l2Fx5B4CiZODEW1_vSVTagCw/edit?usp=sharing',
         quill_teacher_guide_href: '',
-        activities: cold_war_and_decolonization_activities
+        activities: activities_with_preview_link(cold_war_and_decolonization_activities)
       },
       {
         display_name: "Globalization (1990-Present)",
@@ -99,9 +178,10 @@ module ContentHubsHelper
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-9",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit9/Unit-9-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1UN4K3X6LgfhhU8ET0tagon92pYxMebAL/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
+        oer_unit_number: 9,
         all_quill_articles_href: '',
         quill_teacher_guide_href: '',
-        activities: globalization_activities
+        activities: activities_with_preview_link(globalization_activities)
       }
     ]
   end
@@ -110,22 +190,22 @@ module ContentHubsHelper
     [
       {
         activity_id: 2750,
-        display_name: 'Wokou Pirates',
-        description: '',
+        display_name: 'How Did Pirates Disrupt Sea Routes in East Asia?',
+        description: 'Students will read and write about how Korean leaders addressed the growing threat of piracy along major trade routes in East Asia.',
         paired_oer_asset_name: 'Archipelago of Trade',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Archipelago-of-Trade'
       },
       {
         activity_id: nil,
-        display_name: 'Early Inquisition',
-        description: 'Coming Spring 2025!',
+        display_name: 'Early Inquisition — Coming Soon!',
+        description: 'Students will read and write about the Catholic Church’s response to the rise of the Cathars, a non-Catholic Christian group, in southern France.',
         paired_oer_asset_name: 'Christendom',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Christendom'
       },
       {
         activity_id: nil,
-        display_name: 'Mamluk Sultanate',
-        description: 'Coming Spring 2025!',
+        display_name: 'Mamluk Sultanate — Coming Soon!',
+        description: 'Students will read and write about how Shajar al-Durr became the first Muslim woman to lead Egypt and sparked the rise of the Mamluk Sultanate.',
         paired_oer_asset_name: 'The Caliphate',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/The-Caliphate'
       }
