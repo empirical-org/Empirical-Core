@@ -145,7 +145,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          
+
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -160,11 +160,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
+
                 RETURN COALESCE(time_spent,0);
           END IF;
-          
-          
+
+
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -188,11 +188,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-          
+
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-          
+
           RETURN time_spent;
         END;
       $$;
@@ -207,7 +207,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student 
+          WHERE activity_sessions.user_id = student
           GROUP BY id) as as_ids;
 
       $$;
@@ -3150,7 +3150,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
-    staff_assigned_status character varying NOT NULL,
+    curriculum_assigned_status character varying NOT NULL,
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -3283,10 +3283,11 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq
 
 CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
     id bigint NOT NULL,
-    description text NOT NULL,
+    name text NOT NULL,
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    notes text
 );
 
 
@@ -3386,10 +3387,15 @@ CREATE TABLE public.evidence_research_gen_ai_prompt_examples (
     id bigint NOT NULL,
     dataset_id integer NOT NULL,
     student_response text NOT NULL,
-    staff_assigned_status character varying NOT NULL,
-    staff_feedback text,
+    curriculum_assigned_status character varying NOT NULL,
+    curriculum_proposed_feedback text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    curriculum_label character varying,
+    highlight text,
+    automl_label text,
+    automl_primary_feedback text,
+    automl_secondary_feedback text
 );
 
 
@@ -3552,14 +3558,15 @@ CREATE TABLE public.evidence_research_gen_ai_test_examples (
     id bigint NOT NULL,
     dataset_id integer NOT NULL,
     student_response text NOT NULL,
-    staff_assigned_status character varying NOT NULL,
-    staff_feedback text,
+    curriculum_assigned_status character varying NOT NULL,
+    curriculum_proposed_feedback text,
     highlight text,
-    automl_feedback text,
-    automl_status character varying,
-    topic_tag character varying,
+    automl_primary_feedback text,
+    automl_label character varying,
+    curriculum_label character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    automl_secondary_feedback text
 );
 
 
@@ -12130,7 +12137,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240626193615'),
 ('20240627001654'),
 ('20240627002601'),
+('20240710195857'),
 ('20240701180742'),
-('20240710195857');
-
+('20240713144717'),
+('20240714215711');
 
