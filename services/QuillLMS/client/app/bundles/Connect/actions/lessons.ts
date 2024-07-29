@@ -1,13 +1,12 @@
 import { pickBy } from 'lodash';
 import { push } from 'react-router-redux';
+import { CONNECT } from '../../Shared';
+import { reloadQuestionsIfNecessary } from '../../Shared/actions/questions';
 import C from '../constants';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
-import fillInBlankActions from './fillInBlank';
+import { FILL_IN_BLANKS_TYPE, QuestionApi, SENTENCE_COMBINING_TYPE, SENTENCE_FRAGMENTS_TYPE } from '../libs/questions_api';
 import questionActions from './questions';
-import sentenceFragmentActions from './sentenceFragments';
-import titleCardActions from './titleCards.ts';
-import { reloadQuestionsIfNecessary } from '../../Shared/actions/questions';
-import { CONNECT } from '../../Shared';
+import { CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api';
 
 // called when the app starts. this means we immediately download all quotes, and
 // then receive all quotes again as soon as anyone changes anything.
@@ -35,28 +34,37 @@ const loadLesson = (uid) => {
   }
 }
 
+const filterQuestionType = (data, key) => {
+  return Object.fromEntries(
+    Object.entries(data).filter(([_, value]) =>
+      value['question_type'] === key
+    )
+  );
+}
+
 const loadLessonWithQuestions = (uid) => {
   return (dispatch, getState) => {
     dispatch(loadLesson(uid)).then(() => {
-      const fetchedLesson = getState().lessons.data[uid];
-      const questionTypes = ['questions', 'fillInBlank', 'titleCards', 'sentenceFragments'];
-      questionTypes.forEach((questionType) => {
-        const questionUids = fetchedLesson.questions.filter((q) => q.questionType == questionType).map((q) => q.key);
-        switch (questionType) {
-          case 'questions':
-            dispatch(questionActions.loadSpecifiedQuestions(questionUids));
-            break
-          case 'fillInBlank':
-            dispatch(fillInBlankActions.loadSpecifiedQuestions(questionUids));
-            break
-          case 'titleCards':
-            dispatch(titleCardActions.loadSpecifiedTitleCards(questionUids));
-            break
-          case 'sentenceFragments':
-            dispatch(sentenceFragmentActions.loadSpecifiedSentenceFragments(questionUids));
-        }
-      });
-    });
+      const questions = QuestionApi.getAllForActivity(uid).then((questions: Array<any>) => {
+        if (!questions) { return }
+        dispatch({
+          type: C.RECEIVE_QUESTIONS_DATA,
+          data: filterQuestionType(questions, SENTENCE_COMBINING_TYPE)
+        })
+        dispatch({
+          type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA,
+          data: filterQuestionType(questions, FILL_IN_BLANKS_TYPE)
+        })
+        dispatch({
+          type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA,
+          data: filterQuestionType(questions, SENTENCE_FRAGMENTS_TYPE)
+        })
+        dispatch({
+          type: C.RECEIVE_TITLE_CARDS_DATA,
+          data: filterQuestionType(questions, CONNECT_TITLE_CARD_TYPE)
+        })
+      })
+    })
   }
 }
 
