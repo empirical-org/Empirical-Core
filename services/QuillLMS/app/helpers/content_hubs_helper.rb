@@ -60,6 +60,23 @@ module ContentHubsHelper
     "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity[:activity_id]}/c/#{classroom_id}/students"
   end
 
+  def activities_with_preview_link(activities)
+    activities.map do |activity|
+      activity[:preview_href] = get_link_for_activitiy_preview(activity)
+      activity
+    end
+  end
+
+  def get_link_for_activitiy_preview(activity)
+    return nil unless activity[:activity_id]
+
+    evidence_activity = Evidence::Activity.find_by(parent_activity_id: activity[:activity_id])
+
+    return nil unless evidence_activity
+
+    return "/evidence/#/play?anonymous=true&uid=#{evidence_activity.id}"
+  end
+
   def unit_id_for_report(last_classroom_unit, last_activity_session)
     last_activity_session&.unit&.id || last_classroom_unit&.unit_id
   end
@@ -73,14 +90,14 @@ module ContentHubsHelper
       {
         display_name: "The Global Tapestry (1200-1450 CE)",
         description: "From 1200 to 1450 CE, diverse societies emerged and expanded around the world. Although these societies had many similarities, they also had important differences. As interactions increased, unique ideas, resources, and technology spread farther than ever before. New trade networks—and new conflicts—arose as societies made contact across Europe, Asia, and Africa.",
-        unit_template_id: nil,
+        unit_template_id: 470,
         oer_unit_website: "https://www.oerproject.com/1200-to-the-Present/Unit-2",
         oer_unit_teacher_guide: "https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Unit-2-Guide",
         all_oer_articles: "https://docs.google.com/document/d/1Q62sQb8H4aWMqNxn2V525s4d2B6YryxS/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true",
         oer_unit_number: 2,
         all_quill_articles_href: "",
         quill_teacher_guide_href: '',
-        activities: global_tapestry_activities
+        activities: activities_with_preview_link(global_tapestry_activities)
       },
       {
         display_name: "Transoceanic Connections (1450-1750 CE)",
@@ -92,7 +109,7 @@ module ContentHubsHelper
         all_quill_articles_href: "https://docs.google.com/document/d/1LzcMDsFlbW_gifr-s-I5gY7ajiHOVTbsojM4WJqmV-A/edit",
         oer_unit_number: 3,
         quill_teacher_guide_href: '',
-        activities: transoceanic_connection_activities
+        activities: activities_with_preview_link(transoceanic_connection_activities)
       },
       {
         display_name: "Revolutions (1750-1914 CE)",
@@ -104,7 +121,7 @@ module ContentHubsHelper
         all_quill_articles_href: 'https://docs.google.com/document/d/1ndNVZX8P0F8wzxIS07wBWZgxoTTJY73-fv-WePcQDvo/edit',
         oer_unit_number: 4,
         quill_teacher_guide_href: '',
-        activities: revolution_activities
+        activities: activities_with_preview_link(revolution_activities)
       },
       {
         display_name: "Industrialization (1750-1914 CE)",
@@ -116,7 +133,7 @@ module ContentHubsHelper
         all_quill_articles_href: 'https://docs.google.com/document/d/1gioQZdIV3ush2QWzSdtrz8sUsDADGAniorXCmBLWghc/edit',
         oer_unit_number: 5,
         quill_teacher_guide_href: '',
-        activities: industrialization_activities
+        activities: activities_with_preview_link(industrialization_activities)
       },
       {
         display_name: "'New' Imperialism & Resistance (1850-1950 CE)",
@@ -128,7 +145,7 @@ module ContentHubsHelper
         oer_unit_number: 6,
         all_quill_articles_href: 'https://docs.google.com/document/d/1K-8Nxau9IBCXgu8vEoIzwwzTmaK6fLiJvb0xO_gUs_M/edit?usp=sharing',
         quill_teacher_guide_href: '',
-        activities: new_imperialism_and_resistance_activities
+        activities: activities_with_preview_link(new_imperialism_and_resistance_activities)
       },
       {
         display_name: "Global Conflict (1914-1945 CE)",
@@ -140,7 +157,7 @@ module ContentHubsHelper
         oer_unit_number: 7,
         all_quill_articles_href: 'https://docs.google.com/document/d/14mnkQ75WILd6WsGch6AfG4XxKaiY_u8LHR9ZQyg2DD8/edit?usp=sharing',
         quill_teacher_guide_href: '',
-        activities: global_conflict_activities
+        activities: activities_with_preview_link(global_conflict_activities)
       },
       {
         display_name: "Cold War and Decolonization (1945-1990 CE)",
@@ -152,7 +169,7 @@ module ContentHubsHelper
         oer_unit_number: 8,
         all_quill_articles_href: 'https://docs.google.com/document/d/1Cg7ShOIbYoMa3NYUSh_l2Fx5B4CiZODEW1_vSVTagCw/edit?usp=sharing',
         quill_teacher_guide_href: '',
-        activities: cold_war_and_decolonization_activities
+        activities: activities_with_preview_link(cold_war_and_decolonization_activities)
       },
       {
         display_name: "Globalization (1990-Present)",
@@ -164,7 +181,7 @@ module ContentHubsHelper
         oer_unit_number: 9,
         all_quill_articles_href: '',
         quill_teacher_guide_href: '',
-        activities: globalization_activities
+        activities: activities_with_preview_link(globalization_activities)
       }
     ]
   end
@@ -173,22 +190,22 @@ module ContentHubsHelper
     [
       {
         activity_id: 2750,
-        display_name: 'Wokou Pirates',
-        description: '',
+        display_name: 'How Did Pirates Disrupt Sea Routes in East Asia?',
+        description: 'Students will read and write about how Korean leaders addressed the growing threat of piracy along major trade routes in East Asia.',
         paired_oer_asset_name: 'Archipelago of Trade',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Archipelago-of-Trade'
       },
       {
         activity_id: nil,
-        display_name: 'Early Inquisition',
-        description: 'Coming Spring 2025!',
+        display_name: 'Early Inquisition — Coming Soon!',
+        description: 'Students will read and write about the Catholic Church’s response to the rise of the Cathars, a non-Catholic Christian group, in southern France.',
         paired_oer_asset_name: 'Christendom',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Christendom'
       },
       {
         activity_id: nil,
-        display_name: 'Mamluk Sultanate',
-        description: 'Coming Spring 2025!',
+        display_name: 'Mamluk Sultanate — Coming Soon!',
+        description: 'Students will read and write about how Shajar al-Durr became the first Muslim woman to lead Egypt and sparked the rise of the Mamluk Sultanate.',
         paired_oer_asset_name: 'The Caliphate',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/The-Caliphate'
       }

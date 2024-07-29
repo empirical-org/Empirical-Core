@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import CoursePageUnitTemplate from '../course_page_unit_template';
 
 const mockUnitTemplate = {
@@ -54,7 +55,7 @@ describe('CoursePageUnitTemplate', () => {
     // Check initial elements
     expect(screen.getByText(mockUnitTemplate.display_name)).toBeInTheDocument();
     expect(screen.getByText(mockUnitTemplate.description)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Preview & assign' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Preview & Assign' })).toHaveAttribute(
       'href',
       `/assign/featured-activity-packs/${mockUnitTemplate.unit_template_id}`
     );
@@ -75,7 +76,7 @@ describe('CoursePageUnitTemplate', () => {
     // Check expanded elements
     expect(screen.getByText(mockUnitTemplate.display_name)).toBeInTheDocument();
     expect(screen.getByText(mockUnitTemplate.description)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Preview & assign' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Preview & Assign' })).toHaveAttribute(
       'href',
       `/assign/featured-activity-packs/${mockUnitTemplate.unit_template_id}`
     );
@@ -91,7 +92,7 @@ describe('CoursePageUnitTemplate', () => {
     expect(screen.getByText('Activity 2')).toBeInTheDocument();
 
     // Check OER resources section
-    expect(screen.getByText('OER Project Aligned Resources')).toBeInTheDocument();
+    expect(screen.getByText(`OER Project Unit ${mockUnitTemplate.oer_unit_number} Resources`)).toBeInTheDocument();
     expect(screen.getByText(`OER Unit ${mockUnitTemplate.oer_unit_number} website`)).toBeInTheDocument();
     expect(screen.getByText(`OER Unit ${mockUnitTemplate.oer_unit_number} teacher guide`)).toBeInTheDocument();
     expect(screen.getByText(`Download all OER Unit ${mockUnitTemplate.oer_unit_number} articles`)).toBeInTheDocument();

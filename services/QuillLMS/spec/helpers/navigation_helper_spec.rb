@@ -405,8 +405,8 @@ describe NavigationHelper do
     end
   end
 
-  describe '#should_show_social_studies_dashboard_tab?' do
-    subject { helper.should_show_social_studies_dashboard_tab?(current_user) }
+  describe '#show_social_studies_dashboard_tab?' do
+    subject { helper.show_social_studies_dashboard_tab?(current_user) }
 
     context 'when user has unit activities including social studies activities' do
       before do

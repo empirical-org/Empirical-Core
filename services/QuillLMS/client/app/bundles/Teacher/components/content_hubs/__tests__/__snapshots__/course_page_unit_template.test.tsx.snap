@@ -19,7 +19,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
             class="quill-button medium green focus-on-light contained"
             href="/assign/featured-activity-packs/unit-template-1"
           >
-            Preview & assign
+            Preview & Assign
           </a>
           <button
             aria-label="Collapse Test Unit activities"
@@ -182,7 +182,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
       class="oer-resources-section"
     >
       <h4>
-        OER Project Aligned Resources
+        OER Project Unit 123 Resources
       </h4>
       <div
         class="links"
@@ -236,7 +236,7 @@ exports[`CoursePageUnitTemplate renders correctly in unexpanded state 1`] = `
             class="quill-button medium green focus-on-light contained"
             href="/assign/featured-activity-packs/unit-template-1"
           >
-            Preview & assign
+            Preview & Assign
           </a>
           <button
             aria-label="Expand Test Unit activities"

@@ -128,7 +128,7 @@ module NavigationHelper
   end
 
   def social_studies_dashboard_tab(current_user)
-    return nil unless should_show_social_studies_dashboard_tab?(current_user)
+    return nil unless show_social_studies_dashboard_tab?(current_user)
 
     @social_studies_dashboard_tab ||= { name: SOCIAL_STUDIES_DASHBOARD, url: teachers_progress_reports_social_studies_world_history_1200_to_present_path }
   end
@@ -349,7 +349,7 @@ module NavigationHelper
     end
   end
 
-  def should_show_social_studies_dashboard_tab?(current_user)
+  def show_social_studies_dashboard_tab?(current_user)
     unit_activities = current_user.unit_activities_for_classrooms_i_teach
     unit_activities_include_social_studies_activities?(unit_activities)
   end

@@ -5,7 +5,7 @@ import { Tooltip, } from '../../../Shared/index'
 const evidenceImgSrc = `${process.env.CDN_URL}/images/icons/s/tool-evidence.svg`
 
 const CoursePageActivity = ({ activity, }) => {
-  const { display_name, description, paired_oer_asset_name, paired_oer_asset_link, assigned_student_count, completed_student_count, link_for_report, average_score, } = activity
+  const { display_name, description, paired_oer_asset_name, paired_oer_asset_link, assigned_student_count, completed_student_count, link_for_report, average_score, preview_href, } = activity
 
   const renderPieChart = () => {
     const rawPercent = completed_student_count / assigned_student_count;
@@ -23,7 +23,7 @@ const CoursePageActivity = ({ activity, }) => {
     <div className="results-section">
       <Tooltip
         tooltipText="There are no assigned activities. Once activities are assigned and completed, you can view results."
-        tooltipTriggerText={<button className="quill-button focus-on-light small contained disabled" disabled={true}>View results</button>}
+        tooltipTriggerText={<button className="quill-button focus-on-light small contained disabled" disabled={true} type="button">View results</button>}
       />
     </div>
   )
@@ -42,7 +42,7 @@ const CoursePageActivity = ({ activity, }) => {
     <div className="course-page-activity">
       <img alt="" className="evidence-img" src={evidenceImgSrc} />
       <div className="activity-information">
-        <h5>{display_name}</h5>
+        <h5>{preview_href ? <a href={preview_href} rel="noopener noreferrer" target="_blank">{display_name}</a> : display_name}</h5>
         <p>{description}</p>
         {paired_oer_asset_link && paired_oer_asset_name && (
           <p className="oer-asset-line">Optional Paired OER Activity: <a href={paired_oer_asset_link} rel="noopener noreferrer" target="_blank">{paired_oer_asset_name}</a></p>

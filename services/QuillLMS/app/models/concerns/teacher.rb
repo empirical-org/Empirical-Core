@@ -81,10 +81,11 @@ module Teacher
   end
 
   def unit_activities_for_classrooms_i_teach
-    classroom_ids_as_string = classrooms_i_teach.map(&:id).join(',')
-    UnitActivity.joins(:classroom_units).where("classroom_units.classroom_id IN (#{classroom_ids_as_string})")
+    UnitActivity
+      .joins(:classroom_units)
+      .where(classroom_units: { classroom_id: classrooms_i_teach.pluck(:id) })
   end
-
+  
   # rubocop:disable Metrics/CyclomaticComplexity
   def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?

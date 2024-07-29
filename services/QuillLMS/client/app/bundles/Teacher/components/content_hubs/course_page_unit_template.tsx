@@ -15,11 +15,11 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
 
   const isExpanded = expandedUnitTemplateIds.includes(unit_template_id)
 
-  let previewAndAssignButton = <button className="quill-button medium contained disabled focus-on-light" disabled={true}>Coming Soon</button>
+  let previewAndAssignButton = <button className="quill-button medium contained disabled focus-on-light" disabled={true} type="button">Coming Soon</button>
   let expandOrCollapseButton
 
   if (unit_template_id) {
-    previewAndAssignButton = <a className="quill-button medium green focus-on-light contained" href={`/assign/featured-activity-packs/${unit_template_id}`}>Preview & assign</a>
+    previewAndAssignButton = <a className="quill-button medium green focus-on-light contained" href={`/assign/featured-activity-packs/${unit_template_id}`}>Preview & Assign</a>
 
     const expandOrCollapseButtonImageSrc = isExpanded ? collapseImgSrc : expandImgSrc
     const expandOrCollapseButtonAriaLabel = isExpanded ? `Collapse ${display_name} activities` : `Expand ${display_name} activities`
@@ -57,7 +57,7 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
 
     oerResourcesSection = oer_unit_number && (
       <div className="oer-resources-section">
-        <h4>OER Project Aligned Resources</h4>
+        <h4>OER Project Unit {oer_unit_number} Resources</h4>
         <div className="links">
           <a className="quill-button focus-on-light small outlined grey" href={oer_unit_website} rel="noopener noreferrer" target="_blank">OER Unit {oer_unit_number} website</a>
           <a className="quill-button focus-on-light small outlined grey" href={oer_unit_teacher_guide} rel="noopener noreferrer" target="_blank">OER Unit {oer_unit_number} teacher guide</a>

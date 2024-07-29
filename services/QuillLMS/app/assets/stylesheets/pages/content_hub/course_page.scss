@@ -144,12 +144,16 @@
     .activity-information {
       width: 100%;
 
-      h5 {
+      h5, h5 a {
         font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         color: $quill-green;
+      }
+
+      h5 a {
+        text-decoration: underline;
       }
 
       p {

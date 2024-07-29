@@ -32,12 +32,6 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
         >
           Quill Reading for Evidence activities provide a deep dive into key moments and movements from the period spanning 1200 CE to the present, helping students expand their content knowledge while building core reading and writing skills.
         </p>
-        <a
-          class="quill-button contained medium green focus-on-light"
-          href=""
-        >
-          View Teacher Resources
-        </a>
       </div>
       <div>
         <img
@@ -107,7 +101,7 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
               class="quill-button medium green focus-on-light contained"
               href="/assign/featured-activity-packs/1"
             >
-              Preview & assign
+              Preview & Assign
             </a>
             <button
               aria-label="Collapse Unit 1 activities"
@@ -270,7 +264,7 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
         class="oer-resources-section"
       >
         <h4>
-          OER Project Aligned Resources
+          OER Project Unit 123 Resources
         </h4>
         <div
           class="links"
