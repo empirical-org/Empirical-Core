@@ -402,7 +402,7 @@ RSpec.describe Question, type: :model do
     let(:options) { nil }
 
     it 'should just be the data attribute + the question type' do
-      expect(subject).to eq(question.data.merge({question_type: question.question_type}))
+      expect(subject).to eq(question.data.merge({ question_type: question.question_type }))
     end
 
     context 'a locale is passed in' do
