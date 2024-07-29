@@ -46,7 +46,7 @@ Evidence::Engine.routes.draw do
 
       resources :llms, only: [:new, :create, :show, :index]
       resources :llm_prompts, only: [:show]
-      resources :llm_prompt_templates, only: [:new, :create, :show, :index]
+      resources :llm_prompt_templates, only: [:new, :create, :show, :index, :edit, :update]
 
       resources :stem_vaults, only: [] do
         resources :guidelines, only: [:new, :create]

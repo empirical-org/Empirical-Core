@@ -65,10 +65,10 @@ module Evidence
         def suboptimal_correct = confusion_matrix ? confusion_matrix[1][1] : 0
 
         def average_g_eval_score
-          scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
+          scores = g_evals&.values&.flatten&.compact&.map(&:to_i)
           return 0 if scores.blank?
 
-          (scores.sum / scores.size).round(2)
+          (1.0 * scores.sum / scores.size).round(2)
         end
 
         def run

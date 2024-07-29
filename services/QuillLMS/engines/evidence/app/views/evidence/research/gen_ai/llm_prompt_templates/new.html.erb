@@ -8,8 +8,13 @@
   <div class="form-container">
     <div class="form-column">
       <div class="field-spacing">
-        <%= f.label :description %><br>
-        <%= f.text_field :description, size: 100, required: true %>
+        <%= f.label :name %><br>
+        <%= f.text_field :name, size: 100, required: true %>
+      </div>
+
+      <div class="field-spacing">
+        <%= f.label :notes %><br>
+        <%= f.text_area :notes, cols: 100, rows: 5 %>
       </div>
 
       <div class="field-spacing">
