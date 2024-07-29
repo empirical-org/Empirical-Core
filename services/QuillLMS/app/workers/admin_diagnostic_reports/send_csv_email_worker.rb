@@ -15,8 +15,10 @@ module AdminDiagnosticReports
       skills_link = generate_skills_link(user_id, shared_filter_report_name, skills_filter_report_name)
       students_link = generate_students_link(user_id, shared_filter_report_name, students_filter_report_name)
 
-      ReportMailer.csv_download_email(user_id, overview_link, skills_link, students_link).deliver_now!
+      mailer.csv_download_email(user_id, overview_link, skills_link, students_link).deliver_now!
     end
+
+    private def mailer = ReportMailer
 
     private def generate_overview_link(user_id, shared_filter_report_name, overview_filter_report_name)
       overview_payload = ConstructOverviewQueryPayload.run(user_id, shared_filter_report_name, overview_filter_report_name)
