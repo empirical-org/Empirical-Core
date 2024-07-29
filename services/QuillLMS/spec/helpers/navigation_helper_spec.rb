@@ -438,5 +438,4 @@ describe NavigationHelper do
       it { is_expected.to eq false }
     end
   end
-
 end

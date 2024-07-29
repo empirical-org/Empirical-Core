@@ -51,8 +51,8 @@ describe ContentHubsHelper, type: :helper do
     let(:activity) { create(:activity) }
     let(:unit_template) { { activities: [{ activity_id: activity.id }] } }
     let(:classroom) { create(:classroom) }
-    let(:classroom_student1) { create(:students_classrooms, classroom: ) }
-    let(:classroom_student2) { create(:students_classrooms, classroom: ) }
+    let(:classroom_student1) { create(:students_classrooms, classroom:) }
+    let(:classroom_student2) { create(:students_classrooms, classroom:) }
     let(:classroom_ids_as_string) { classroom.id.to_s }
 
     it 'returns unit template with assignment data' do
@@ -132,7 +132,6 @@ describe ContentHubsHelper, type: :helper do
       expect(result).to eq(1)
     end
   end
-
 
   describe '#world_history_1200_to_present_data' do
     it 'returns an array of world history units with the expected structure' do

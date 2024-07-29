@@ -149,8 +149,8 @@ describe User, type: :model do
     end
 
     describe '#unit_activities_for_classrooms_i_teach' do
-      let!(:co_taught_classroom) {create(:classroom)}
-      let!(:co_taught_classrooms_teacher) {create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher')}
+      let!(:co_taught_classroom) { create(:classroom) }
+      let!(:co_taught_classrooms_teacher) { create(:classrooms_teacher, classroom: co_taught_classroom, user: teacher, role: 'coteacher') }
 
       let!(:unit_for_co_taught_classroom) { create(:unit, user: co_taught_classroom.owner) }
       let!(:classroom_unit_for_co_taught_classroom) { create(:classroom_unit, unit: unit_for_co_taught_classroom, classroom: co_taught_classroom) }

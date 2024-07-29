@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module ContentHubsHelper
-
   def unit_activities_include_content_activities?(unit_activities, content_activity_ids)
     unit_activities.where(activity_id: content_activity_ids).any?
   end
@@ -27,7 +26,6 @@ module ContentHubsHelper
 
   def assignment_data_for_unit_template(unit_template, classroom_ids_as_string)
     unit_template[:activities].map do |activity|
-
       unit_activities = UnitActivity
         .joins(:classroom_units)
         .where(activity_id: activity[:activity_id])
@@ -236,7 +234,6 @@ module ContentHubsHelper
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/Oceanic-Empires-1450-to-1750'
       }
     ]
-
   end
 
   def revolution_activities

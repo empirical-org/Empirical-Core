@@ -111,7 +111,8 @@
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-      max-width: 980px;
+      max-width: 900px;
+      width: 100%;
       padding: 0px 24px;
       margin-top: 16px;
     }
@@ -159,11 +160,14 @@
       p {
         line-height: normal;
         margin: 16px 0px;
+        max-width: 852px;
+        width: 100%;
       }
 
       .oer-asset-line {
         font-weight: 700;
         margin-bottom: 0px;
+        color: $quill-grey-50;
         a {
           font-weight: 400;
           text-decoration-line: underline;
