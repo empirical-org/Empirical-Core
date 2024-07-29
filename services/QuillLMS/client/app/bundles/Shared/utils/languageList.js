@@ -20,10 +20,10 @@ export const {
   DARI
 } = languageConstants;
 
-export const languages = [ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI];
+export const defaultLanguages = [ENGLISH, CHINESE, HINDI, SPANISH, FRENCH, ARABIC, RUSSIAN, PORTUGUESE, URDU, GERMAN, JAPANESE, KOREAN, VIETNAMESE, THAI, UKRAINIAN, TAGALOG, DARI];
 export const rightToLeftLanguages = [ARABIC, URDU, DARI];
 
-export const diagnosticLanguageOptions = {
+export const defaultLanguageOptions = {
   [ENGLISH]: {
     flag: 'https://assets.quill.org/images/flags/usa.png',
     label: 'English'
