@@ -29,6 +29,8 @@ module Evidence
         validates :stem_vault, presence: true
         validates :version, presence: true
 
+        validate :validate_file_content
+
         attr_readonly :locked, :stem_vault_id, :optimal_count, :suboptimal_count, :version
 
         delegate :stem_and_conjunction, to: :stem_vault
@@ -45,6 +47,13 @@ module Evidence
         def test_examples_count = optimal_count + suboptimal_count
 
         def to_s = "Dataset v#{version}"
+
+        def validate_file_content
+          return unless file.present?
+
+          errors_message = DatasetValidator.run(file:)
+          errors.add(:file, errors_message) if errors_message.present?
+        end
       end
     end
   end

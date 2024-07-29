@@ -1,10 +1,7 @@
-<header>
-  <h2>LLM Prompt Templates</h2>
-</header>
-
-<%= link_to 'New LLM Prompt Template', new_research_gen_ai_llm_prompt_template_path %>
-<br>
-<br>
+<h2>
+  LLM Prompt Templates
+  <%= link_to 'new', new_research_gen_ai_llm_prompt_template_path, style: 'font-size: 0.7em;' %>
+</h2>
 
 <% if @llm_prompt_templates.any? %>
   <table>

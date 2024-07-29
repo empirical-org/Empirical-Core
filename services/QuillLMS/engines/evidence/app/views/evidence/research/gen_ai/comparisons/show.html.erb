@@ -69,7 +69,7 @@
             <% if llm_example %>
               <% llm_example_index = trial.llm_examples.index(llm_example) %>
               <% g_eval_id = trial.g_evals&.keys&.first %>
-              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index)&.round || '' %>
+              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index)&.to_i || '' %>
               <td class="dark-border-top-bottom-left <%= llm_example_match_color(llm_example) %>">
                 <%= llm_example.optimal? ? :O : :S %>
               </td>
