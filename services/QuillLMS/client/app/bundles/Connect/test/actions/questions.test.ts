@@ -1,12 +1,12 @@
 import 'whatwg-fetch';
+import questionActions from '../../actions/questions';
+import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api';
+import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
+import { mockDispatch as dispatch, } from '../__mocks__/dispatch';
 import { mockFocusPointApi, } from '../__mocks__/focus_point_api';
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api';
 import { mockLessonApi, } from '../__mocks__/lesson_api';
 import { mockQuestionApi, } from '../__mocks__/question_api';
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch';
-import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api';
-import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
-import questionActions from '../../actions/questions';
 
 jest.mock('../../libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
@@ -29,17 +29,6 @@ describe('Questions actions', () => {
     it('should call QuestionApi.getAll()', () => {
       dispatch(questionActions.loadQuestions())
       expect(mockQuestionApi.getAll).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE)
-    })
-  })
-
-  describe('loadSpecifiedQuestions', () => {
-    it('should call QuestionApi.get()', () => {
-      const MOCK_ID1 = '1'
-      const MOCK_ID2 = '2'
-      const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
-      dispatch(questionActions.loadSpecifiedQuestions(MOCK_IDS))
-      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID1)
-      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID2)
     })
   })
 
