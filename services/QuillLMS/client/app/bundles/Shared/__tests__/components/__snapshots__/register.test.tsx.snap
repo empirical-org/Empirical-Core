@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register it should render with translations 1`] = `
+<DocumentFragment>
+  <section
+    class="student"
+    style="padding-top: 20px;"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="landing-page-html"
+      >
+        Joining sentences
+      </div>
+      <hr />
+      <div
+        class="landing-page-html"
+      >
+        Conjunto oraciones
+      </div>
+      <button
+        class="quill-button-archived focus-on-light large primary contained"
+        type="button"
+      >
+        Start activity
+      </button>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Register it should render without translations 1`] = `
+<DocumentFragment>
+  <section
+    class="student"
+    style="padding-top: 20px;"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="landing-page-html"
+      >
+        Joining sentences
+      </div>
+      <button
+        class="quill-button-archived focus-on-light large primary contained"
+        type="button"
+      >
+        Start activity
+      </button>
+    </div>
+  </section>
+</DocumentFragment>
+`;
