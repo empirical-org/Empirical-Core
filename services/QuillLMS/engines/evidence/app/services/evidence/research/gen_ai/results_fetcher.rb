@@ -21,7 +21,7 @@ module Evidence
           end
         end
 
-        private def confusion_matrix = @confusion_matrix  ||= ConfusionMatrixBuilder.run(llm_examples)
+        private def confusion_matrix = @confusion_matrix ||= ConfusionMatrixBuilder.run(llm_examples)
       end
     end
   end
