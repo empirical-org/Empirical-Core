@@ -19,17 +19,10 @@ module Evidence
         def run
           [[0, 0], [0, 0]].tap do |matrix|
             llm_examples.each do |llm_example|
-              if llm_example.test_optimal?
-                if llm_example.optimal?
-                  matrix[OPTIMAL][OPTIMAL] += 1
-                else
-                  matrix[OPTIMAL][SUBOPTIMAL] += 1
-                end
-              elsif llm_example.optimal?
-                matrix[SUBOPTIMAL][OPTIMAL] += 1
-              else
-                matrix[SUBOPTIMAL][SUBOPTIMAL] += 1
-              end
+              row = llm_example.test_optimal? ? OPTIMAL : SUBOPTIMAL
+              column = llm_example.optimal? ? OPTIMAL : SUBOPTIMAL
+
+              matrix[row][column] += 1
             end
           end
         end
