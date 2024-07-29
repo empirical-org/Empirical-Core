@@ -35,6 +35,8 @@ module Evidence
 
         def self.assigned_status_column = :curriculum_assigned_status
 
+        def feedback = curriculum_proposed_feedback || automl_primary_feedback
+
         def response_feedback_status = {student_response:, feedback: curriculum_proposed_feedback, optimal: optimal? }
       end
     end

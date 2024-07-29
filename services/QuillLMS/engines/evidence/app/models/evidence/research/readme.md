@@ -62,7 +62,8 @@ classDiagram
     }
     class LLMPromptTemplate {
          contents
-         description
+         name
+         notes
     }
 
     Dataset --|> Trial
