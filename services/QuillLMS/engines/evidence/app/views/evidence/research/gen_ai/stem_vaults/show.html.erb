@@ -1,4 +1,6 @@
-<%= link_to 'Back to Activity', @stem_vault.activity %>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
+<% end %>
 
 <div>
   <h2><%= @stem_vault.model_name.human.titleize %></h2>
@@ -22,7 +24,7 @@
     <thead>
       <tr>
         <th>Dataset</th>
-        <th>Date Created</th>
+        <th>Created</th>
         <th>Total Evaluation Responses</th>
         <th>Optimal</th>
         <th>Sub-optimal</th>
@@ -34,7 +36,7 @@
       <% @datasets.each do |dataset| %>
         <tr>
           <td><%= "Dataset #{dataset.version}" %></td>
-          <td><%= dataset.created_at.strftime('%m/%d/%Y') %></td>
+          <td><%= date_helper(dataset.created_at) %></td>
           <td><%= dataset.optimal_count + dataset.suboptimal_count %></td>
           <td><%= dataset.optimal_count %></td>
           <td><%= dataset.suboptimal_count %></td>

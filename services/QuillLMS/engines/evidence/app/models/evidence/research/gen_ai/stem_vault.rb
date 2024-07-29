@@ -48,6 +48,8 @@ module Evidence
         def relevant_text = send(RELEVANT_TEXTS[conjunction])
 
         def to_s = "#{name} - #{conjunction}"
+
+        def stem_and_conjunction = "#{stem} #{conjunction}"
       end
     end
   end

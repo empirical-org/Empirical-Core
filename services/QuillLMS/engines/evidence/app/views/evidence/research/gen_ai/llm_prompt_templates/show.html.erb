@@ -1,11 +1,54 @@
 <div>
   <h2>LLM Prompt Template</h2>
 
-  <h3>Description</h3>
-  <p><%= @llm_prompt_template.description %></p>
+  <h3>Name</h3>
+  <p><%= @llm_prompt_template.name %></p>
 
-  <h3>Contents</h3>
-  <p><%= simple_format(@llm_prompt_template.contents) %></p>
+  <% if @llm_prompt_template.notes.present? %>
+    <h3>Notes</h3>
+    <p><%= simple_format(@llm_prompt_template.notes) %></p>
+  <% end %>
+
+  <h3>
+    Contents
+    <label for="toggle_checkbox" class="small-checkbox-label">
+      <input type="checkbox" id="toggle_checkbox" class="small-checkbox" onchange="togglePreview()">Preview
+    </label>
+  </h3>
+
+  <div id="colored_contents">
+    <%== @colored_contents %>
+  </div>
+
+  <div id="previewed_contents" style="display: none;">
+    <%== @previewed_contents %>
+  </div>
+
 </div>
 
-<br>
+<script>
+  function togglePreview() {
+    var coloredContents = document.getElementById('colored_contents');
+    var previewedContents = document.getElementById('previewed_contents');
+    var checkbox = document.getElementById('toggle_checkbox');
+
+    if (checkbox.checked) {
+      coloredContents.style.display = 'none';
+      previewedContents.style.display = 'block';
+    } else {
+      coloredContents.style.display = 'block';
+      previewedContents.style.display = 'none';
+    }
+  }
+</script>
+
+<style>
+  .small-checkbox {
+    width: 12px;
+    height: 12px;
+  }
+
+  .small-checkbox-label {
+    font-size: 14px;
+  }
+</style>

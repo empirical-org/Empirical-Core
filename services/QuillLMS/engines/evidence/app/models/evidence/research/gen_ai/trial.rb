@@ -41,15 +41,13 @@ module Evidence
         delegate :conjunction, :name, to: :stem_vault
         delegate :vendor, :version, to: :llm
         delegate :llm_prompt_template_id, to: :llm_prompt
-        delegate :test_examples_count, to: :dataset
+        delegate :test_examples_count, :optimal_count, :suboptimal_count, to: :dataset
 
         scope :completed, -> { where(status: COMPLETED) }
         scope :failed, -> { where(status: FAILED) }
 
         store_accessor :results,
           :api_call_times,
-          :accuracy_identical,
-          :accuracy_optimal_suboptimal,
           :confusion_matrix,
           :g_eval_ids,
           :g_evals
@@ -62,6 +60,17 @@ module Evidence
         def failed? = status == FAILED
         def running? = status == RUNNING
         def completed? = status == COMPLETED
+
+        def optimal_correct = confusion_matrix ? confusion_matrix[0][0] : 0
+        def suboptimal_correct = confusion_matrix ? confusion_matrix[1][1] : 0
+
+        def average_g_eval_score
+          return 0 if scores.blank?
+
+          (1.0 * scores.sum / scores.size).round(2)
+        end
+
+        def scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
 
         def run
           start_time = Time.zone.now

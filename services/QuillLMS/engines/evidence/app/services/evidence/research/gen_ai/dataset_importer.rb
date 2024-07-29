@@ -4,9 +4,10 @@ module Evidence
   module Research
     module GenAI
       class DatasetImporter < ApplicationService
-        BUCKET_NAME = ENV['AWS_S3_EVIDENCE_RESEARCH_GEN_AI_BUCKET']
-
         attr_reader :dataset, :file
+
+        OPTIMAL = HasAssignedStatus::OPTIMAL
+        SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
         def initialize(dataset:, file:)
           @dataset = dataset
@@ -19,7 +20,7 @@ module Evidence
 
           CSV.parse(file.read, headers: true) do |row|
             curriculum_assigned_optimal_status = row['Curriculum Assigned Optimal Status'] == 'TRUE'
-            curriculum_assigned_status = curriculum_assigned_optimal_status ? HasAssignedStatus::OPTIMAL : HasAssignedStatus::SUBOPTIMAL
+            curriculum_assigned_status = curriculum_assigned_optimal_status ? OPTIMAL : SUBOPTIMAL
             data_partition = row['Data Partition']
 
             example_attrs = {
