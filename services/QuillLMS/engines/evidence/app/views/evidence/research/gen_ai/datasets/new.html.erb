@@ -1,3 +1,8 @@
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+<% end %>
+
 <h1>New Dataset</h1>
 
 <%= form_for @dataset, url: research_gen_ai_stem_vault_datasets_path(@stem_vault), html: { multipart: true } do |f| %>

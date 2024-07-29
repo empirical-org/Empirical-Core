@@ -11,7 +11,7 @@ module Evidence
           @llm_example = llm_example
         end
 
-        def run = JSON.parse(g_eval_output)[g_eval.metric]
+        def run = JSON.parse(g_eval_output)[g_eval.metric]&.to_i
 
         private def g_eval_output = llm.completion(prompt).strip
 

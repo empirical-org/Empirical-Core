@@ -44,7 +44,7 @@ module Evidence
           :optimal_examples_count,
           :suboptimal_examples_count
 
-        delegate :description, to: :llm_prompt_template
+        delegate :name, to: :llm_prompt_template
 
         def self.create_from_template!(dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:)
           guidelines = Guideline.where(id: guideline_ids)
@@ -75,7 +75,7 @@ module Evidence
 
         def guidelines_count = optimal_guidelines_count + suboptimal_guidelines_count
 
-        def to_s = description.truncate(40)
+        def to_s = name
       end
     end
   end

@@ -1,6 +1,6 @@
 <% content_for :all_activities_breadcrumbs do %>
-  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
-  / <%= link_to "#{@stem_vault.conjunction.capitalize} Stem Vault", @stem_vault %></p>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
 <% end %>
 
 <div>
@@ -52,7 +52,7 @@
             <tr>
               <td><%= "Trial #{num_trials - index}" %></td>
               <td><%= date_helper(trial.created_at) %></td>
-              <td><%= llm_prompt.description %></td>
+              <td><%= llm_prompt.name %></td>
               <td><%= llm_prompt.optimal_examples_count %></td>
               <td><%= llm_prompt.suboptimal_examples_count %></td>
               <td><%= llm_prompt.guidelines_count %></td>

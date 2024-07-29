@@ -1,5 +1,10 @@
-<h1>New Prompt Example</h1>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+<% end %>
 
+<h1>New Prompt Example</h1>
 
 <%= form_for @prompt_example, url: research_gen_ai_dataset_prompt_examples_path(@dataset), html: { multipart: true } do |f| %>
   <%= render 'errors', object: @prompt_example %>

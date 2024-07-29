@@ -1207,10 +1207,11 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq
 
 CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
     id bigint NOT NULL,
-    description text NOT NULL,
+    name text NOT NULL,
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    notes text
 );
 
 
@@ -2647,6 +2648,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240627001402'),
 ('20240627002301'),
 ('20240701180438'),
-('20240713141016');
+('20240713141016'),
+('20240714214900');
 
 
