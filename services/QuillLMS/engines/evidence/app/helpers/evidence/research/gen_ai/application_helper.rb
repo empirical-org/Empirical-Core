@@ -5,6 +5,9 @@ module Evidence
     module GenAI
       module ApplicationHelper
         EASTERN_TIME_ZONE = 'Eastern Time (US & Canada)'
+        DARK_RED = 'dark-red'
+        LIGHT_GREEN = 'light-green'
+        LIGHT_RED = 'light-red'
 
         def date_helper(datetime, time_zone = EASTERN_TIME_ZONE)
           datetime.in_time_zone(time_zone).strftime("%m/%d/%y")
@@ -12,6 +15,12 @@ module Evidence
 
         def datetime_helper(datetime, time_zone = EASTERN_TIME_ZONE)
           datetime.in_time_zone(time_zone).strftime("%m/%d/%y, %I:%M %p")
+        end
+
+        def llm_example_match_color(llm_example)
+          return LIGHT_GREEN if llm_example.optimal_or_suboptimal_match?
+          return LIGHT_RED if llm_example.optimal?
+          return DARK_RED if llm_example.suboptimal?
         end
 
         def percent_accuracy(numerator, denominator)

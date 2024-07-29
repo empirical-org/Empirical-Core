@@ -1,3 +1,9 @@
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+<% end %>
+
 <div class="container">
   <div class="column">
     <p><%= datetime_helper(@comparison.created_at) %></p>
@@ -63,9 +69,8 @@
             <% if llm_example %>
               <% llm_example_index = trial.llm_examples.index(llm_example) %>
               <% g_eval_id = trial.g_evals&.keys&.first %>
-              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index) || '' %>
-              <% background_color = llm_example.optimal_or_suboptimal_match? ? 'green' : (llm_example.optimal? ? 'light-red' : 'red') %>
-              <td class="dark-border-top-bottom-left <%= background_color %>">
+              <% g_eval_score = trial.g_evals&.dig(g_eval_id, llm_example_index)&.to_i || '' %>
+              <td class="dark-border-top-bottom-left <%= llm_example_match_color(llm_example) %>">
                 <%= llm_example.optimal? ? :O : :S %>
               </td>
               <td class='dark-border-top-bottom'>
@@ -146,7 +151,7 @@
 
     rows.forEach(row => {
       const checkbox = row.querySelector('.response-checkbox');
-      const hasRedCell = row.querySelector('td[class*="red"], td[class*="light-red"]');
+      const hasRedCell = row.querySelector('td[class*="dark-red"], td[class*="light-red"]');
 
       switch(filterValue) {
         case 'all':

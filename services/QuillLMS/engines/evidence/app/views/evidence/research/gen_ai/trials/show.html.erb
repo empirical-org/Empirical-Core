@@ -1,4 +1,8 @@
-<%= link_to 'Back to Dataset', @dataset %>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+<% end %>
 
 <div class="container">
   <div class="column">
@@ -23,7 +27,7 @@
 
 
     <h3>LLM Prompt</h3>
-    <p><%= link_to @trial.llm_prompt.description, @trial.llm_prompt %></p>
+    <p><%= link_to @trial.llm_prompt.name, @trial.llm_prompt %></p>
 
     <% if @g_evals %>
       <h3>G-eval</h3>
@@ -86,10 +90,11 @@
       <tbody>
         <% @trial.llm_examples.each.with_index do |llm_example, index| %>
           <tr>
-            <td class="<%= llm_example.optimal_or_suboptimal_match? ? 'green' : 'red' %>"></td>
+            <% background_color = llm_example_match_color(llm_example) %>
+            <td class=<%= background_color %>></td>
             <% if @trial.g_evals %>
               <% @trial.g_evals.keys.each do |g_eval_id| %>
-                <td><%= @trial.g_evals[g_eval_id][index] %></td>
+                <td><%= @trial.g_evals[g_eval_id][index]&.to_i %></td>
               <% end %>
             <% end %>
             <td><%= llm_example.student_response %></td>

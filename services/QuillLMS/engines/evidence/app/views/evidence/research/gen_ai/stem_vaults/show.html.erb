@@ -1,4 +1,6 @@
-<%= link_to 'Back to Activity', @stem_vault.activity %>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @stem_vault.activity.name, @stem_vault.activity %>
+<% end %>
 
 <div>
   <h2><%= @stem_vault.model_name.human.titleize %></h2>
