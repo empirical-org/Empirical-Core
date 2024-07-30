@@ -87,8 +87,8 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
   describe '#feedback_data_tuples' do
     let(:feedback_data) do
       [
-        Struct.new(conjunction: 'because', primary: 'Primary feedback 1', secondary: 'Secondary feedback 1'),
-        Struct.new(conjunction: 'but', primary: 'Primary feedback 2', secondary: 'Secondary feedback 2')
+        double(conjunction: 'because', primary: 'Primary feedback 1', secondary: 'Secondary feedback 1'),
+        double(conjunction: 'but', primary: 'Primary feedback 2', secondary: 'Secondary feedback 2')
       ]
     end
 
@@ -103,7 +103,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
   end
 
   describe '#feedback_data' do
-    let(:feedback_data) { [Struct.new(conjunction: 'because')] }
+    let(:feedback_data) { [double(conjunction: 'because')] }
 
     before do
       allow(Evidence::GenAI::SecondaryFeedbackDataFetcher).to receive(:run).and_return(feedback_data)
