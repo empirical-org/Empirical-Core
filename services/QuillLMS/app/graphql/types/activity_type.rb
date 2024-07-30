@@ -10,5 +10,4 @@ class Types::ActivityType < Types::BaseObject
   field :activity_classification_id, ID, null: false
   field :flags, [String], null: false
   field :repeatable, Boolean, null: false
-
 end

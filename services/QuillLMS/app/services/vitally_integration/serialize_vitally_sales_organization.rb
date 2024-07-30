@@ -131,8 +131,8 @@ module VitallyIntegration
             }
           }
         }
-      }).where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
-        .where(classroom_units: {created_at: start..stop})
+      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
+        .where(classroom_units: { created_at: start..stop })
         .map(&:assigned_students).reject(&:blank?).sum
     end
 

@@ -10,7 +10,5 @@ class CreateHomepageNewsSlides < ActiveRecord::Migration[4.2]
       t.belongs_to :author
       t.timestamps
     end
-
-
   end
 end

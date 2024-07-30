@@ -18,7 +18,6 @@ module Evidence
     end
 
     context 'should index' do
-
       it 'should return successfully - no rule' do
         get :index, params: { rule_type: Rule::TYPE_REGEX_ONE }
         parsed_response = JSON.parse(response.body)
@@ -124,7 +123,7 @@ module Evidence
       end
 
       it 'make a change log record after creating a regex Rule record' do
-        post :create, params: {rule: { concept_uid: rule.concept_uid, note: rule.note, name: rule.name, optimal: rule.optimal, state: rule.state, suborder: rule.suborder, rule_type: rule.rule_type, universal: rule.universal, prompt_ids: [prompt.id] }}
+        post :create, params: { rule: { concept_uid: rule.concept_uid, note: rule.note, name: rule.name, optimal: rule.optimal, state: rule.state, suborder: rule.suborder, rule_type: rule.rule_type, universal: rule.universal, prompt_ids: [prompt.id] } }
 
         change_log = Evidence.change_log_class.last
         new_rule = Evidence::Rule.last
@@ -138,7 +137,7 @@ module Evidence
       end
 
       it 'make a change log record after creating a universal Rule record' do
-        post :create, params: {rule: { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: universal_rule.name, optimal: universal_rule.optimal, state: universal_rule.state, suborder: universal_rule.suborder, rule_type: universal_rule.rule_type, universal: universal_rule.universal, prompt_ids: [prompt.id] }}
+        post :create, params: { rule: { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: universal_rule.name, optimal: universal_rule.optimal, state: universal_rule.state, suborder: universal_rule.suborder, rule_type: universal_rule.rule_type, universal: universal_rule.universal, prompt_ids: [prompt.id] } }
 
         new_rule = Evidence::Rule.last
         change_log = Evidence.change_log_class.last
@@ -326,7 +325,6 @@ module Evidence
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['hint']['id']).to(eq(hint.id))
       end
-
     end
 
     context 'should show' do
@@ -432,7 +430,7 @@ module Evidence
         universal_rule = create(:evidence_rule, prompt_ids: [prompt.id], universal: true, rule_type: 'spelling')
         old_name = universal_rule.name
         new_name = 'new rule name'
-        put :update, :params => { :id=> universal_rule.id, :rule => { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name }}
+        put :update, :params => { :id=> universal_rule.id, :rule => { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name } }
 
         universal_rule.reload
         change_log = Evidence.change_log_class.last
@@ -470,7 +468,7 @@ module Evidence
         regex_rule = create(:evidence_rule, prompt_ids: [prompt.id], rule_type: 'rules-based-1')
         old_name = regex_rule.name
         new_name = 'new rule name'
-        patch :update, params: {id: regex_rule.id, rule: { concept_uid: regex_rule.concept_uid, name: new_name, state: regex_rule.state }}
+        patch :update, params: { id: regex_rule.id, rule: { concept_uid: regex_rule.concept_uid, name: new_name, state: regex_rule.state } }
 
         regex_rule.reload
         change_log = Evidence.change_log_class.last
@@ -493,7 +491,7 @@ module Evidence
       it 'make a change log record after creating new plagiarism text through update call' do
         plagiarism_text = 'New plagiarism text'
         rule.update(rule_type: 'plagiarism')
-        patch :update, params: {id: rule.id, rule: { plagiarism_texts_attributes: [{text: plagiarism_text}]}}
+        patch :update, params: { id: rule.id, rule: { plagiarism_texts_attributes: [{ text: plagiarism_text }] } }
 
         rule.reload
         plagiarism_text_obj = Evidence::PlagiarismText.last
@@ -512,7 +510,7 @@ module Evidence
         new_text = 'new feedback'
         old_text = feedback.text
 
-        post :update, params: {id: rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
+        post :update, params: { id: rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, text: new_text }] } }
 
         feedback = Evidence::Feedback.last
         change_log = Evidence.change_log_class.last
@@ -531,7 +529,7 @@ module Evidence
         new_text = 'new highlight'
         old_text = highlight.text
 
-        post :update, params: {id: rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: {id: highlight.id, text: new_text}}]}}
+        post :update, params: { id: rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, highlights_attributes: { id: highlight.id, text: new_text } }] } }
 
         highlight = Evidence::Highlight.last
         change_log = Evidence.change_log_class.last
@@ -565,7 +563,7 @@ module Evidence
         feedback = create(:evidence_feedback, order: 0, rule: automl_rule)
         old_text = feedback.text
         new_text = 'new test feedback text is some new test feedback'
-        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
+        post :update, params: { id: automl_rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, text: new_text }] } }
 
         automl_rule.reload
         change_log = Evidence.change_log_class.last
@@ -583,7 +581,7 @@ module Evidence
         feedback = create(:evidence_feedback, order: 1, rule: automl_rule)
         old_text = feedback.text
         new_text = 'new test feedback text is some new test feedback'
-        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
+        post :update, params: { id: automl_rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, text: new_text }] } }
 
         automl_rule.reload
         change_log = Evidence.change_log_class.last
@@ -614,7 +612,7 @@ module Evidence
         old_text = highlight.text
         new_text = 'New text to highlight'
 
-        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}}
+        post :update, params: { id: automl_rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, highlights_attributes: [{ id: highlight.id, text: new_text }] }] } }
 
         automl_rule.reload
         change_log = Evidence.change_log_class.last
@@ -634,7 +632,7 @@ module Evidence
         old_text = highlight.text
         new_text = 'New text to highlight'
 
-        post :update, params: {id: automl_rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: [{id: highlight.id, text: new_text}]}]}}
+        post :update, params: { id: automl_rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, highlights_attributes: [{ id: highlight.id, text: new_text }] }] } }
 
         automl_rule.reload
         change_log = Evidence.change_log_class.last
@@ -660,7 +658,7 @@ module Evidence
         new_text = 'new regex text'
         old_text = regex_rule.regex_text
 
-        post :update, params: {id: rule.id, rule: { regex_rules_attributes: [{id: regex_rule.id, regex_text: new_text}]}}
+        post :update, params: { id: rule.id, rule: { regex_rules_attributes: [{ id: regex_rule.id, regex_text: new_text }] } }
 
         regex_rule = Evidence::RegexRule.last
         change_log = Evidence.change_log_class.last
@@ -677,7 +675,7 @@ module Evidence
         new_text = 'new feedback'
         old_text = feedback.text
 
-        post :update, params: {id: rule.id, rule: { feedbacks_attributes: [{id: feedback.id, text: new_text}]}}
+        post :update, params: { id: rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, text: new_text }] } }
 
         feedback = Evidence::Feedback.last
         change_log = Evidence.change_log_class.last
@@ -695,7 +693,7 @@ module Evidence
         new_text = 'new highlight'
         old_text = highlight.text
 
-        post :update, params: {id: rule.id, rule: { feedbacks_attributes: [{id: feedback.id, highlights_attributes: {id: highlight.id, text: new_text}}]}}
+        post :update, params: { id: rule.id, rule: { feedbacks_attributes: [{ id: feedback.id, highlights_attributes: { id: highlight.id, text: new_text } }] } }
 
         highlight = Evidence::Highlight.last
         change_log = Evidence.change_log_class.last
@@ -710,7 +708,7 @@ module Evidence
       it 'make a change log record after creating a nested regex rule through update call' do
         new_text = 'new regex text'
 
-        post :update, params: {id: rule.id, rule: { regex_rules_attributes: [{regex_text: new_text}]}}
+        post :update, params: { id: rule.id, rule: { regex_rules_attributes: [{ regex_text: new_text }] } }
 
         regex_rule = Evidence::RegexRule.last
         change_log = Evidence.change_log_class.last
@@ -747,7 +745,7 @@ module Evidence
         old_name = automl_rule.name
         new_name = 'new name'
 
-        put :update, params: {id: automl_rule.id, rule: { name: 'new name'}}
+        put :update, params: { id: automl_rule.id, rule: { name: 'new name' } }
 
         automl_rule.reload
         change_log = Evidence.change_log_class.last

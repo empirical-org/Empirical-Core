@@ -25,13 +25,12 @@ describe SendAttachmentMailer, type: :mailer do
     end
   end
 
-
   describe '#send_multiple_files' do
-    let(:file_name1) {'file_name1.csv'}
-    let(:file_name2) {'file_name2.csv'}
-    let(:file_contents1) {'the contents of the file as a string'}
-    let(:file_contents2) {'the contents of the file as a string 2'}
-    let(:file_hash) { {file_name1 => file_contents1, file_name2 => file_contents2} }
+    let(:file_name1) { 'file_name1.csv' }
+    let(:file_name2) { 'file_name2.csv' }
+    let(:file_contents1) { 'the contents of the file as a string' }
+    let(:file_contents2) { 'the contents of the file as a string 2' }
+    let(:file_hash) { { file_name1 => file_contents1, file_name2 => file_contents2 } }
 
     subject { described_class.send_multiple_files(recipient, email_subject, file_hash) }
 

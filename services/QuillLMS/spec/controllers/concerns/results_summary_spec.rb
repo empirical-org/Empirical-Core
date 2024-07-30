@@ -7,22 +7,22 @@ describe ResultsSummary do
 
   let!(:unit) { create(:unit) }
   let!(:classroom) { create(:classroom) }
-  let!(:student1) { create(:student, name: 'Alphabetical A')}
-  let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1)}
-  let!(:student2) { create(:student, name: 'Alphabetical B')}
-  let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2)}
-  let!(:student3) { create(:student, name: 'Alphabetical C')}
-  let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3)}
+  let!(:student1) { create(:student, name: 'Alphabetical A') }
+  let!(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student1) }
+  let!(:student2) { create(:student, name: 'Alphabetical B') }
+  let!(:students_classroom2) { create(:students_classrooms, classroom: classroom, student: student2) }
+  let!(:student3) { create(:student, name: 'Alphabetical C') }
+  let!(:students_classroom3) { create(:students_classrooms, classroom: classroom, student: student3) }
   let!(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student1.id, student2.id, student3.id]) }
   let!(:unit_activity) { create(:unit_activity, unit: unit) }
-  let!(:skill_group_activity) { create(:skill_group_activity, activity: unit_activity.activity)}
+  let!(:skill_group_activity) { create(:skill_group_activity, activity: unit_activity.activity) }
   let!(:activity_session1) { create(:activity_session_without_concept_results, :finished, user: student1, classroom_unit: classroom_unit, activity: unit_activity.activity) }
   let!(:activity_session2) { create(:activity_session_without_concept_results, :finished, user: student3, classroom_unit: classroom_unit, activity: unit_activity.activity) }
   let!(:diagnostic_question_skill1) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
   let!(:diagnostic_question_skill2) { create(:diagnostic_question_skill, skill_group: skill_group_activity.skill_group) }
-  let!(:correct_concept_result1) { create(:concept_result, activity_session: activity_session1, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid } ) }
-  let!(:correct_concept_result2) { create(:concept_result, activity_session: activity_session2, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid } ) }
-  let!(:incorrect_concept_result) { create(:concept_result, activity_session: activity_session1, correct: false, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill2.question.uid } ) }
+  let!(:correct_concept_result1) { create(:concept_result, activity_session: activity_session1, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid }) }
+  let!(:correct_concept_result2) { create(:concept_result, activity_session: activity_session2, correct: true, question_number: 1, extra_metadata: { question_uid: diagnostic_question_skill1.question.uid }) }
+  let!(:incorrect_concept_result) { create(:concept_result, activity_session: activity_session1, correct: false, question_number: 2, extra_metadata: { question_uid: diagnostic_question_skill2.question.uid }) }
 
   describe '#results_summary' do
     it 'should return data with the student results and skill group summaries' do
@@ -257,6 +257,5 @@ describe ResultsSummary do
       skill_groups_for_session([skill_group_activity.skill_group], activity_session1.concept_results, student1.name)
       expect(@skill_group_summaries[0][:not_yet_proficient_student_names]).to eq [student1.name]
     end
-
   end
 end

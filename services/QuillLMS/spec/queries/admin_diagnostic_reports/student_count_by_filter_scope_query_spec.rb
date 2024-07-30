@@ -11,7 +11,7 @@ module AdminDiagnosticReports
       # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
       let(:reference_activity_session) { create(:activity_session, :finished) }
       # Some of our tests expect no concept_results to exist, but BigQuery needs to know what one is shaped like in order to build temporary queries
-      let(:reference_concept_results) { create(:concept_result, extra_metadata: {question_uid: SecureRandom.uuid}) }
+      let(:reference_concept_results) { create(:concept_result, extra_metadata: { question_uid: SecureRandom.uuid }) }
 
       let(:query_args) do
         {

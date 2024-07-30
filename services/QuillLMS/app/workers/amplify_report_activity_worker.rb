@@ -27,5 +27,4 @@ class AmplifyReportActivityWorker
     # They think they might start working on their end in April or May
     logger.debug(payload)
   end
-
 end

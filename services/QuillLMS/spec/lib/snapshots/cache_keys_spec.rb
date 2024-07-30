@@ -40,7 +40,6 @@ module Snapshots
           current_end,
           "school-ids-#{school_ids.sort.join('-')}"
         ])
-
       end
 
       it 'should compile a valid cache key with additional filters' do

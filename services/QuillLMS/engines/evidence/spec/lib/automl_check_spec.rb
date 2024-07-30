@@ -14,7 +14,6 @@ module Evidence
     let(:automl_confidence) { 1 }
 
     context 'should #initialize' do
-
       it 'should should have working accessor methods for all initialized fields' do
         automl_check = Evidence::AutomlCheck.new('entry', prompt)
         expect(automl_check.entry).to(eq('entry'))
@@ -23,7 +22,6 @@ module Evidence
     end
 
     context 'should #feedback_object' do
-
       it 'should return nil if there is no matched rule' do
         AutomlModel.stub_any_instance(:classify_text, ["NOT#{label.name}", automl_confidence]) do
           automl_check = Evidence::AutomlCheck.new('entry', prompt)
@@ -41,7 +39,7 @@ module Evidence
         AutomlModel.stub_any_instance(:classify_text, [label.name, automl_confidence]) do
           entry = 'entry'
           automl_check = Evidence::AutomlCheck.new(entry, prompt)
-          expect(:feedback => feedback.text, :feedback_type => 'autoML', :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or '')), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => {:confidence => automl_confidence}).to(eq(automl_check.feedback_object))
+          expect(:feedback => feedback.text, :feedback_type => 'autoML', :optimal => rule.optimal,  :entry => entry, :concept_uid => ((rule&.concept_uid or '')), :rule_uid => (rule&.uid), :highlight => ([]), :hint => nil, :api => { :confidence => automl_confidence }).to(eq(automl_check.feedback_object))
         end
       end
 
@@ -83,7 +81,6 @@ module Evidence
           expect(hint).to(eq(automl_check.feedback_object[:hint]))
         end
       end
-
     end
   end
 end

@@ -3,7 +3,7 @@
 RSpec.shared_context 'Stripe Invoice Paid Event' do
   include_context 'Stripe Invoice'
 
-  let(:stripe_event_id) { "evt_#{SecureRandom.hex}"}
+  let(:stripe_event_id) { "evt_#{SecureRandom.hex}" }
   let(:stripe_event_type) { 'invoice.paid' }
 
   let(:stripe_event) do

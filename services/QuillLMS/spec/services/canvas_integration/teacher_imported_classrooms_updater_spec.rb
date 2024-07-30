@@ -13,7 +13,7 @@ RSpec.describe CanvasIntegration::TeacherImportedClassroomsUpdater do
   let(:new_external_id) { Faker::Number.number }
   let(:new_classroom_external_id) { CanvasClassroom.build_classroom_external_id(canvas_instance_id, new_external_id) }
 
-  let(:updated_name) { "new_#{imported_classroom.name}"}
+  let(:updated_name) { "new_#{imported_classroom.name}" }
 
   let(:data) do
     [

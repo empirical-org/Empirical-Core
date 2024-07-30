@@ -5,11 +5,11 @@ require 'rails_helper'
 module Evidence
   module OpenAI
     RSpec.describe EmbeddingFetcher do
-      subject { described_class.run(dimension:, input:, model:)}
+      subject { described_class.run(dimension:, input:, model:) }
 
       let(:class_with_embedding) { Evidence::PromptResponse }
       let(:dimension) { class_with_embedding::DIMENSION }
-      let(:model) { class_with_embedding::MODEL}
+      let(:model) { class_with_embedding::MODEL }
       let(:input) { 'Test input' }
       let(:stubbed_embedding) { Array.new(3) { rand(-1.0..1.0) } }
       let(:endpoint) { "#{described_class::BASE_URI}#{described_class::ENDPOINT}" }
@@ -59,7 +59,7 @@ module Evidence
         let(:num_iterations) { 1000 }
         let(:texts) { num_iterations.times.map { Faker::Lorem.sentence } }
 
-        {'text-embedding-3-small' => 1536, 'text-embedding-3-large' => 3072 }.each_pair do |model, dimension|
+        { 'text-embedding-3-small' => 1536, 'text-embedding-3-large' => 3072 }.each_pair do |model, dimension|
           it "checks for performance with #{model} with dimension #{dimension}" do
             [].tap do |times|
               texts.each { |text| times << Benchmark.realtime { described_class.run(dimension:, input: text, model:) } }

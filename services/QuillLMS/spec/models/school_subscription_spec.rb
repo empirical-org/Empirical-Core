@@ -18,7 +18,7 @@
 require 'rails_helper'
 
 describe SchoolSubscription, type: :model do
-  let!(:school_sub) {create(:school_subscription)}
+  let!(:school_sub) { create(:school_subscription) }
 
   it { should validate_presence_of(:school_id) }
   it { should validate_presence_of(:subscription_id) }
@@ -29,17 +29,17 @@ describe SchoolSubscription, type: :model do
 
   describe 'presence of' do
     it 'school_id' do
-      expect{school_sub.update!(school_id: nil)}.to raise_error(ActiveRecord::RecordInvalid)
+      expect{ school_sub.update!(school_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
   context '#update_schools_users' do
     let(:user) { create(:user) }
     let!(:queens_teacher) { create(:teacher, name: 'queens teacher') }
-    let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385', users: [queens_teacher, user]}
+    let!(:queens_school) { create :school, name: 'Queens Charter School', zipcode: '11385', users: [queens_teacher, user] }
 
-    let!(:subscription) {create(:subscription, account_type: 'School Paid')}
-    let!(:school_sub) {create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id)}
+    let!(:subscription) { create(:subscription, account_type: 'School Paid') }
+    let!(:school_sub) { create(:school_subscription, subscription_id: subscription.id, school_id: queens_school.id) }
 
     it "connects a new premium account to school's users if they do not have one" do
       queens_teacher.user_subscriptions.destroy_all

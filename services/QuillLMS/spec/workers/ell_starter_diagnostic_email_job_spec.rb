@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe ELLStarterDiagnosticEmailJob do
-  let(:job) { described_class.new}
+  let(:job) { described_class.new }
 
   describe '#perform' do
     it 'should send ELL Starter Diagnostic information' do

@@ -22,6 +22,5 @@ class AddCaseInsensitiveUniqueIndicesOnConceptTables < ActiveRecord::Migration[4
 
     execute 'DROP INDEX index_concept_classes_on_lowercase_name;'
     # add_index :concept_classes, :name
-
   end
 end

@@ -136,7 +136,6 @@ RSpec.describe PdfSubscriptionsController, type: :controller do
     end
   end
 
-
   describe 'GET #unsubscribe' do
     subject { get :unsubscribe, params: { token: } }
 

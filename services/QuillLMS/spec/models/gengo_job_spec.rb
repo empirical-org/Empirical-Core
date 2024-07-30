@@ -41,7 +41,7 @@ RSpec.describe GengoJob, type: :model do
   end
 
   describe 'fetch_translation!' do
-    subject {gengo_job.fetch_translation!}
+    subject { gengo_job.fetch_translation! }
 
     let(:gengo_job) { create(:gengo_job) }
 

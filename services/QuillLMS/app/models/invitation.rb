@@ -24,8 +24,8 @@ class Invitation < ApplicationRecord
   validate :validate_invitation_limit
   before_save :downcase_fields
 
-  TYPES = {coteacher: 'coteacher', school: 'school'}
-  STATUSES = {pending: 'pending', accepted: 'accepted', rejected: 'rejected'}
+  TYPES = { coteacher: 'coteacher', school: 'school' }
+  STATUSES = { pending: 'pending', accepted: 'accepted', rejected: 'rejected' }
   MAX_COTEACHER_INVITATIONS_PER_TIME = 50
   MAX_COTEACHER_INVITATIONS_PER_TIME_LIMIT_RESET_HOURS = 24
 
@@ -42,5 +42,4 @@ class Invitation < ApplicationRecord
 
     errors.add(:base, "User #{inviter_id} has reached the maximum of #{MAX_COTEACHER_INVITATIONS_PER_TIME} coteacher invitations that they can issue in a #{MAX_COTEACHER_INVITATIONS_PER_TIME_LIMIT_RESET_HOURS} hour period")
   end
-
 end

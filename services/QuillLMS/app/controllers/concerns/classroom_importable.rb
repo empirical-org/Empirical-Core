@@ -37,4 +37,3 @@ module ClassroomImportable
     provider_namespace::TeacherClassroomsData.new(current_user, params[:selected_classrooms].to_json)
   end
 end
-

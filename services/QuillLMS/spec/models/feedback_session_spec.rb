@@ -17,7 +17,6 @@ require 'rails_helper'
 
 # it { shoulda cheatsheet: https://github.com/thoughtbot/it { shoulda-matchers#activemodel-matchers
 RSpec.describe FeedbackSession, type: :model do
-
   context 'associations' do
     it { should have_one(:activity_session) }
     it { should have_many(:feedback_history) }
@@ -50,4 +49,3 @@ RSpec.describe FeedbackSession, type: :model do
     end
   end
 end
-

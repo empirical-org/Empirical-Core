@@ -25,4 +25,3 @@ class PlanSerializer < ApplicationSerializer
     object.price / 100.0
   end
 end
-

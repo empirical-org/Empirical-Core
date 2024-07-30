@@ -553,7 +553,7 @@ class PagesController < ApplicationController
   end
 
   private def add_cards(list_response)
-    list_response.each{|list| list['cards'] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url")}
+    list_response.each{ |list| list['cards'] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url") }
     list_response
   end
 

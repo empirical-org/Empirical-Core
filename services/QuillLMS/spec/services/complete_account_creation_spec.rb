@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe CompleteAccountCreation do
-
   it 'triggers account creation when user is a teacher' do
     user = create(:user, role: 'teacher')
 
@@ -29,7 +28,6 @@ RSpec.describe CompleteAccountCreation do
   end
 
   context 'when the user is an admin' do
-
     it 'creates an admin info record' do
       user = create(:admin)
       CompleteAccountCreation.new(user, 'some_ip').call
@@ -42,7 +40,6 @@ RSpec.describe CompleteAccountCreation do
       let(:google_id) { nil }
       let(:user) { create(:admin, clever_id: clever_id, google_id: google_id) }
       let(:verification_email_double) { double(deliver_now!: nil) }
-
 
       describe 'when the user is not a google or clever user' do
         it 'creates a user email verification record' do
@@ -91,6 +88,5 @@ RSpec.describe CompleteAccountCreation do
         end
       end
     end
-
   end
 end

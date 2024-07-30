@@ -21,7 +21,6 @@ end
 namespace :schools do
   desc 'Import schools from CSV'
   task import: :environment do
-
     puts 'Beginning school import...'
     total_updated = 0
     total_new = 0
@@ -82,7 +81,6 @@ namespace :schools do
 
   desc 'Update Clever IDs for existing schools based on a CSV file'
   task :update_clever_ids => :environment do
-
     QUILL_ID_KEY = 'Quill ID'
     CLEVER_ID_KEY = 'Clever School ID'
 
@@ -117,7 +115,6 @@ namespace :schools do
   # move any users from the duplicates to the original schools.
   desc 'Move users assigned to duplicate schools to the original schools in prep for cleanup'
   task :reassign_users_from_duplicates => :environment do
-
     teachers_assigned_to_duplicates = <<-SQL
       SELECT original.id AS original_school_id,
             schools_users.id AS schools_users_id,
@@ -158,7 +155,6 @@ namespace :schools do
   # to actually remove the duplicate schools
   desc 'Clean up duplicate schools based on 0-left-padded NCES ID'
   task :clean_up_duplicates => :environment do
-
     schools_with_duplicates = <<-SQL
       SELECT original.id AS original_school_id,
             duplicate.id AS duplicate_school_id

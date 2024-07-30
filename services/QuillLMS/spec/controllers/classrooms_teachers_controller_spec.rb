@@ -10,7 +10,6 @@ describe ClassroomsTeachersController, type: :controller do
 
   let(:user) { create(:user) }
 
-
   describe '#edit_coteacher_form' do
     let(:classroom) { create(:classroom) }
     let(:edit_info_for_teacher) do
@@ -77,7 +76,7 @@ describe ClassroomsTeachersController, type: :controller do
     it 'should destroy the given classroom teacher' do
       delete :destroy, params: { classroom_id: classroom.id }
       expect{ ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
-      expect(response.body).to eq({message: 'Deletion Succeeded!'}.to_json)
+      expect(response.body).to eq({ message: 'Deletion Succeeded!' }.to_json)
     end
   end
 end

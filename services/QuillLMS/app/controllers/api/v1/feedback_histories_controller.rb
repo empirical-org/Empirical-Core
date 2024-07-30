@@ -54,5 +54,4 @@ class Api::V1::FeedbackHistoriesController < Api::ApiController
       ]
     )
   end
-
 end

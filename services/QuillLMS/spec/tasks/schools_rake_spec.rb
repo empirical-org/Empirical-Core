@@ -12,7 +12,6 @@ describe 'schools.rake', type: :task do
   let!(:duplicate_school) { create(:school, nces_id: nces_id, name: new_name) }
 
   context 'reassign_users_from_duplicates' do
-
     # Originally I tried to do this as three different `it` blocks, but
     # whichever one ran first would pass, and the other two would fail.
     # Not sure what was up with that, but this test at least works?

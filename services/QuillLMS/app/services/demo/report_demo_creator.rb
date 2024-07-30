@@ -210,7 +210,7 @@ module Demo::ReportDemoCreator
 
     return unless teacher
 
-    non_demo_classrooms(teacher).each {|c| c.update(visible: false)}
+    non_demo_classrooms(teacher).each { |c| c.update(visible: false) }
     teacher.auth_credential&.destroy
     teacher.update(google_id: nil, clever_id: nil)
 
@@ -282,11 +282,11 @@ module Demo::ReportDemoCreator
   end
 
   def self.demo_classroom(teacher)
-    teacher.unscoped_classrooms_i_teach.find {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.find { |c| c.code == classcode(teacher.id) }
   end
 
   def self.non_demo_classrooms(teacher)
-    teacher.unscoped_classrooms_i_teach.reject {|c| c.code == classcode(teacher.id) }
+    teacher.unscoped_classrooms_i_teach.reject { |c| c.code == classcode(teacher.id) }
   end
 
   def self.create_units(teacher, is_teacher_demo)
@@ -345,9 +345,9 @@ module Demo::ReportDemoCreator
     # won't raise a validation error.
     # This is important as we have /student_demo set to go to the Angie Thomas email
     STUDENT_TEMPLATES
-      .select {|template| template.email_eligible }
-      .reject {|template| template.email.nil? }
-      .each {|template| User.find_by(email: template.email)&.destroy }
+      .select { |template| template.email_eligible }
+      .reject { |template| template.email.nil? }
+      .each { |template| User.find_by(email: template.email)&.destroy }
   end
 
   def self.create_classroom_units(classroom, units)
@@ -362,15 +362,15 @@ module Demo::ReportDemoCreator
   def self.clone_activity_sessions(student_id, classroom_unit_id, clone_user_id, clone_activity_id, session_data)
     session_data
       .activity_sessions
-      .filter {|session| session.activity_id == clone_activity_id && session.user_id == clone_user_id}
+      .filter { |session| session.activity_id == clone_activity_id && session.user_id == clone_user_id }
       .each { |session| clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session, session_data) }
   end
 
   def self.clone_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone, session_data)
     act_session = create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)
-    concept_results = session_data.concept_results.select {|cr| cr.activity_session_id == session_to_clone.id }
+    concept_results = session_data.concept_results.select { |cr| cr.activity_session_id == session_to_clone.id }
     concept_results.each do |cr|
-      question_type = session_data.concept_result_question_types.first {|qt| qt.id == cr.concept_result_question_type_id}
+      question_type = session_data.concept_result_question_types.first { |qt| qt.id == cr.concept_result_question_type_id }
       SaveActivitySessionConceptResultsWorker.perform_async({
         activity_session_id: act_session.id,
         concept_id: cr.concept_id,
@@ -378,7 +378,6 @@ module Demo::ReportDemoCreator
         question_type: question_type&.text
       })
     end
-
   end
 
   def self.create_activity_session(student_id, classroom_unit_id, clone_activity_id, session_to_clone)

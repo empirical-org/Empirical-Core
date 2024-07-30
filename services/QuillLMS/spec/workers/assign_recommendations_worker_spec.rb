@@ -140,7 +140,6 @@ RSpec.describe AssignRecommendationsWorker do
     subject
   end
 
-
   def should_not_track_that_all_recommendations_are_being_assigned
     expect(analyzer).not_to receive(:track).with(teacher, Analytics::SegmentIo::BackgroundEvents::ASSIGN_ALL_RECOMMENDATIONS)
     subject

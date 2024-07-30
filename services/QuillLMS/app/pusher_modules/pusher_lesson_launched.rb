@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module PusherLessonLaunched
-
   def self.run(classroom)
     pusher_client = Pusher::Client.new(
         app_id: ENV['PUSHER_APP_ID'],
@@ -11,5 +10,4 @@ module PusherLessonLaunched
     )
     pusher_client.trigger(classroom.id.to_s, 'lesson-launched', message: "Lesson launched for #{classroom.name}.")
   end
-
 end

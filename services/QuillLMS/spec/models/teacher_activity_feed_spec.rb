@@ -4,9 +4,8 @@ require 'rails_helper'
 
 describe TeacherActivityFeed, type: :model do
   describe 'redis feed model without callback' do
-
-    let(:activity_session) {create(:activity_session, percentage: 0.90, completed_at: 5.minutes.ago)}
-    let(:activity_session2) {create(:activity_session, percentage: 0.66, completed_at: 2.minutes.ago)}
+    let(:activity_session) { create(:activity_session, percentage: 0.90, completed_at: 5.minutes.ago) }
+    let(:activity_session2) { create(:activity_session, percentage: 0.66, completed_at: 2.minutes.ago) }
 
     context 'Storing and retrieving a session' do
       it 'should add and return activity sessions by order completed DESC' do
@@ -52,9 +51,9 @@ describe TeacherActivityFeed, type: :model do
   describe 'feed integration test' do
     include_context 'Unit Assignments Variables'
 
-    let!(:classroom_unit1) { create(:classroom_unit, classroom_id: classroom.id, assigned_student_ids: [student1.id, student2.id], assign_on_join: false)}
-    let!(:activity_session1) {create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student1.id, completed_at: 1.day.ago)}
-    let!(:activity_session2) {create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student2.id, completed_at: 2.days.ago)}
+    let!(:classroom_unit1) { create(:classroom_unit, classroom_id: classroom.id, assigned_student_ids: [student1.id, student2.id], assign_on_join: false) }
+    let!(:activity_session1) { create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student1.id, completed_at: 1.day.ago) }
+    let!(:activity_session2) { create(:activity_session, classroom_unit_id: classroom_unit1.id, activity_id: activity.id, user_id: student2.id, completed_at: 2.days.ago) }
 
     describe '#data_for_activity_feed' do
       it "has all activity sessions completed for that teacher's classroom, in reverse chronological order" do
@@ -79,7 +78,6 @@ describe TeacherActivityFeed, type: :model do
         expect(data[2][:id]).to eq(activity_session2.id)
       end
     end
-
   end
 
   describe '#text_for_score' do
@@ -139,7 +137,6 @@ describe TeacherActivityFeed, type: :model do
         expect(text).to eq(ActivitySession::RARELY_DEMONSTRATED_SKILL)
       end
     end
-
   end
 
   describe '#text_for_completed' do

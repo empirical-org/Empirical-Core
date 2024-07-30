@@ -21,18 +21,18 @@ describe AdminDiagnosticReports::SendCsvEmailWorker do
         students_filter_report_name
       ]
     end
-    let(:overview_payload) { {overview_arg: 'foo'} }
-    let(:overview_report) { [{row1: 'overview'}] }
+    let(:overview_payload) { { overview_arg: 'foo' } }
+    let(:overview_report) { [{ row1: 'overview' }] }
     let(:overview_csv) { 'overview,csv,string' }
     let(:overview_url) { 'https://overview.example.com' }
 
-    let(:skills_payload) { {skills_arg: 'foo'} }
-    let(:skills_report) { [{row1: 'skills'}] }
+    let(:skills_payload) { { skills_arg: 'foo' } }
+    let(:skills_report) { [{ row1: 'skills' }] }
     let(:skills_csv) { 'skills,csv,string' }
     let(:skills_url) { 'https://skills.example.com' }
 
-    let(:students_payload) { {students_arg: 'foo'} }
-    let(:students_report) { [{row1: 'students'}] }
+    let(:students_payload) { { students_arg: 'foo' } }
+    let(:students_report) { [{ row1: 'students' }] }
     let(:students_csv) { 'students,csv,string' }
     let(:students_url) { 'https://students.example.com' }
 

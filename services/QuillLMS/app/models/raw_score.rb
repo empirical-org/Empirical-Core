@@ -46,5 +46,4 @@ class RawScore < ApplicationRecord
       ''
     end
   end
-
 end

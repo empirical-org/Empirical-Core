@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 shared_examples_for 'flagged' do
-
   let(:flagged) do
     described_class.new
   end
@@ -38,12 +37,12 @@ shared_examples_for 'flagged' do
 
       it 'must pop the passed flag as argument' do
         flagged.unflag :alpha
-        expect( flagged.flags ).to eq [:betha]
+        expect(flagged.flags).to eq [:betha]
       end
 
       it 'must to contains 1 elements' do
         flagged.unflag :alpha
-        expect( flagged.flags.count ).to eq 1
+        expect(flagged.flags.count).to eq 1
       end
     end
   end
@@ -58,7 +57,6 @@ shared_examples_for 'flagged' do
         expect(flagged.flag!(:alpha)).to eq true
       end
     end
-
 
     describe '#unflag!' do
       it 'must pop the flag and save the instance' do
@@ -81,5 +79,4 @@ shared_examples_for 'flagged' do
       end
     end
   end
-
 end

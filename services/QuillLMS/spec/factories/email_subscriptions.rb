@@ -20,7 +20,6 @@ FactoryBot.define do
     user
 
     trait(:weekly) { frequency { EmailSubscription::WEEKLY } }
-    trait(:monthly) { frequency { EmailSubscription::MONTHLY }}
+    trait(:monthly) { frequency { EmailSubscription::MONTHLY } }
   end
 end
-

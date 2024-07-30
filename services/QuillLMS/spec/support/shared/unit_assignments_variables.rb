@@ -3,16 +3,16 @@
 shared_context 'Unit Assignments Variables' do
   let!(:author) { create(:author) }
   let!(:classroom) { create(:classroom)  }
-  let!(:teacher) { classroom.owner}
-  let!(:student) {create(:student)}
-  let!(:student1) {create(:student)}
-  let!(:student2) {create(:student)}
-  let!(:activity) {create(:activity)}
-  let!(:activity1) {create(:activity)}
-  let(:activity2) {create(:activity)}
-  let(:activity3) {create(:activity)}
-  let(:activity4) {create(:activity)}
-  let!(:unit_template1) { create(:unit_template, activities: [activity1], author: author )}
+  let!(:teacher) { classroom.owner }
+  let!(:student) { create(:student) }
+  let!(:student1) { create(:student) }
+  let!(:student2) { create(:student) }
+  let!(:activity) { create(:activity) }
+  let!(:activity1) { create(:activity) }
+  let(:activity2) { create(:activity) }
+  let(:activity3) { create(:activity) }
+  let(:activity4) { create(:activity) }
+  let!(:unit_template1) { create(:unit_template, activities: [activity1], author: author) }
   let!(:unit_template2) { create(:unit_template, activities: [activity2], author: author) }
   let!(:unit_template3) { create(:unit_template, activities: [activity3], author: author) }
   let!(:unit_template4) { create(:unit_template, activities: [activity4], author: author) }
@@ -25,7 +25,7 @@ shared_context 'Unit Assignments Variables' do
     )
   end
 
-  let!(:unit_activity) { create(:unit_activity, activity_id: activity.id)}
+  let!(:unit_activity) { create(:unit_activity, activity_id: activity.id) }
 
   let(:activity_session) do
     create(:activity_session,

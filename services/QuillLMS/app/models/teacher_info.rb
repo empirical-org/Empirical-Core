@@ -23,7 +23,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class TeacherInfo < ApplicationRecord
-
   NOTIFICATION_EMAIL_FREQUENCIES = [
     NEVER_EMAIL = 'never',
     HOURLY_EMAIL = 'hourly',
@@ -41,7 +40,7 @@ class TeacherInfo < ApplicationRecord
   validates :show_students_exact_score, inclusion: [true, false]
   validates :user_id, presence: true, uniqueness: true
 
-  validates :notification_email_frequency, inclusion: {in: NOTIFICATION_EMAIL_FREQUENCIES}, allow_blank: true
+  validates :notification_email_frequency, inclusion: { in: NOTIFICATION_EMAIL_FREQUENCIES }, allow_blank: true
 
   KINDERGARTEN_DISPLAY_STRING = 'K'
   KINDERGARTEN_DATABASE_INTEGER = 0

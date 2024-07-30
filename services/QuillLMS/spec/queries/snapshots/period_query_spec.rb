@@ -4,7 +4,6 @@ require 'rails_helper'
 
 module Snapshots
   describe PeriodQuery do
-
     let(:test_period_query) do
       Class.new(described_class) do
         def run
@@ -47,7 +46,6 @@ module Snapshots
 
         let(:teacher_ids) { nil }
         let(:cte_records) { base_cte_records + [coteacher_classrooms_teachers, coteachers, coteacher_schools_users] }
-
 
         it { expect(results).to match_array(classroom_ids) }
       end

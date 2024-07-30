@@ -125,7 +125,7 @@ class EgFormBuilder < CMS::FormBuilder
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'form-actions', save_class: 'btn btn-primary'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
-      actions << submit(options[:save], data: {disable_with: options[:saving]}, class: options[:save_class])
+      actions << submit(options[:save], data: { disable_with: options[:saving] }, class: options[:save_class])
       actions << status
       actions << @template.capture(&block) if block_given?
       actions
@@ -136,7 +136,7 @@ class EgFormBuilder < CMS::FormBuilder
     options.reverse_merge! save: 'Save', saving: 'Saving...', class: 'modal-footer'
     @template.content_tag(:div, class: options.delete(:class)) do
       actions = ''.html_safe
-      actions << @template.link_to('Close', '#close', class: 'btn', data: {dismiss: 'modal'})
+      actions << @template.link_to('Close', '#close', class: 'btn', data: { dismiss: 'modal' })
       actions << submit(options[:save], disable_with: options[:saving], class: 'btn btn-primary')
     end
   end
@@ -274,7 +274,7 @@ ActionView::Base.field_error_proc = proc do |html, instance|
   if html =~ /<label/
     html
   else
-    message = instance.error_message.map{|m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}"}.join(', ')
+    message = instance.error_message.map{ |m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}" }.join(', ')
     "#{html}<div class=\"help-inline\">#{message}</div>".html_safe
   end
 end

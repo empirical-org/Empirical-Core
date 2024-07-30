@@ -17,7 +17,7 @@ class Api::V1::SharedCacheController < Api::ApiController
 
   def update
     data = params[:data]
-    $redis.set(cache_key, data.to_json, {ex: SHARED_CACHE_EXPIRY})
+    $redis.set(cache_key, data.to_json, { ex: SHARED_CACHE_EXPIRY })
     render(json: data)
   end
 

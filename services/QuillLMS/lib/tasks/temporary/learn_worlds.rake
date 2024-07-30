@@ -5,11 +5,10 @@ namespace :learn_worlds do
   task :backfill_usernames => :environment do
     lw_users = LearnWorldsAccount.all
       .includes(:user)
-      .filter {|row| row&.user }
+      .filter { |row| row&.user }
 
     lw_users.each do |row|
-      body = {username: LearnWorldsIntegration::Helpers.to_username(row.user.username.presence || row.user.name) }
-
+      body = { username: LearnWorldsIntegration::Helpers.to_username(row.user.username.presence || row.user.name) }
 
       result = HTTParty.put(
         "#{LearnWorldsIntegration::USER_TAGS_ENDPOINT}/#{row.external_id}",
@@ -20,6 +19,5 @@ namespace :learn_worlds do
       puts "Backfilling user: #{row.user.name}, HTTP response: #{result.code}"
       sleep 1
     end
-
   end
 end

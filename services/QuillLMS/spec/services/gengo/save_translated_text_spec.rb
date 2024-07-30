@@ -3,7 +3,7 @@
 require 'rails_helper'
 RSpec.describe Gengo::SaveTranslatedText, type: :service do
   describe 'run' do
-    subject { described_class.run(job_id)}
+    subject { described_class.run(job_id) }
 
     let(:status) { 'available' }
     let(:order_id) { '123' }
@@ -11,7 +11,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
     let(:english_text_id) { '1493' }
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let(:job_payload) do
-      {'job_id'=> job_id,
+      { 'job_id'=> job_id,
             'order_id'=> order_id,
             'slug'=> english_text_id,
             'body_src'=>
@@ -30,22 +30,21 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
             'auto_approve'=>'0',
             'position'=>0,
             'file_download_ready'=>false,
-            'translator_ids'=>['1']}
+            'translator_ids'=>['1'] }
     end
 
     let(:response_job) { job_payload }
-    let(:response ) do
-      {'opstat'=>'ok',
+    let(:response) do
+      { 'opstat'=>'ok',
         'response'=>
-          {'job'=> response_job } }
+          { 'job'=> response_job } }
     end
 
     before do
       allow(GengoAPI).to receive(:getTranslationJob).and_return(response)
     end
 
-
-    it { expect{subject}.to change{GengoJob.where(english_text_id:, locale:, translation_job_id: job_id).count}.by(1) }
+    it { expect{ subject }.to change{ GengoJob.where(english_text_id:, locale:, translation_job_id: job_id).count }.by(1) }
 
     context 'the gengo_job already exists in our database' do
       let(:translated_text_id) { nil }
@@ -53,7 +52,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
 
       before { gengo_job }
 
-      it { expect{subject}.to not_change(GengoJob, :count) }
+      it { expect{ subject }.to not_change(GengoJob, :count) }
 
       context 'the gengo_job already has a translation' do
         let(:translated_text) { create(:gengo_translated_text) }
@@ -65,7 +64,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
         end
 
         it do
-          expect{subject}.to not_change(TranslatedText, :count)
+          expect{ subject }.to not_change(TranslatedText, :count)
             .and not_change(gengo_job, :translated_text_id)
         end
       end
@@ -74,18 +73,18 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
         context 'the response status is available' do
           let(:status) { 'available' }
 
-          it { expect{subject}.to not_change(TranslatedText, :count) }
+          it { expect{ subject }.to not_change(TranslatedText, :count) }
 
           context 'gengo payload contains translated text' do
             let(:translation) { 'Usa una letra mayuscula para indicar que es un nombre.' }
             let(:response_job) do
-              job_payload.merge({'body_tgt' => translation })
+              job_payload.merge({ 'body_tgt' => translation })
             end
 
-            it { expect{subject}.to change(TranslatedText, :count).by(1) }
+            it { expect{ subject }.to change(TranslatedText, :count).by(1) }
 
             it do
-              expect{subject}.to change{TranslatedText.where(translation:, source_api: Translatable::GENGO_SOURCE).count}
+              expect{ subject }.to change{ TranslatedText.where(translation:, source_api: Translatable::GENGO_SOURCE).count }
                 .from(0)
                 .to(1)
             end
@@ -93,10 +92,9 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
             it do
               translated_text = create(:gengo_translated_text, translation:)
               expect(TranslatedText).to receive(:create).and_return(translated_text)
-              expect{subject}.to change{ gengo_job.reload.translated_text_id}.to(translated_text.id)
+              expect{ subject }.to change{ gengo_job.reload.translated_text_id }.to(translated_text.id)
             end
           end
-
         end
 
         context 'the response status is deleted' do
@@ -120,7 +118,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
         context 'the response is nil' do
           let(:response) { nil }
 
-          it { expect{subject}.to raise_error(described_class::FetchTranslationJobError)}
+          it { expect{ subject }.to raise_error(described_class::FetchTranslationJobError) }
         end
       end
     end

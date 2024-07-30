@@ -4,7 +4,6 @@ module TeacherNotifications
   class SendCompleteDiagnosticNotificationWorker < SendNotificationWorker
     include Sidekiq::Worker
 
-
     private def should_send_notification?
       @activity_session.activity.is_diagnostic?
     end

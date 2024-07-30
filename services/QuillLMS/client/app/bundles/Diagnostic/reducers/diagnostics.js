@@ -4,7 +4,6 @@ import { SubmitActions } from '../actions/diagnostics.js';
 const initialState = {
   answeredQuestions: [],
   unansweredQuestions: [],
-  languageMenuOpen: false,
   diagnosticID: null
 };
 
@@ -101,10 +100,6 @@ function question(state = initialState, action) {
       return Object.assign({}, state, changes);
     case SubmitActions.RESUME_PREVIOUS_DIAGNOSTIC_SESSION:
       return Object.assign({}, state, action.data);
-    case SubmitActions.OPEN_DIAGNOSTIC_LANGUAGE_MENU:
-      return Object.assign({}, state, { languageMenuOpen: true, });
-    case SubmitActions.CLOSE_DIAGNOSTIC_LANGUAGE_MENU:
-      return Object.assign({}, state, { languageMenuOpen: false, });
     case SubmitActions.SET_DIAGNOSTIC_ID:
       return Object.assign({}, state, action.data);
     default:

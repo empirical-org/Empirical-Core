@@ -5,7 +5,7 @@ require 'rails_helper'
 describe CoreExtensions::Array do
   describe '#median' do
     let(:odd_sized_letters) { %w{e a b c d} }
-    let(:even_sized_letters) {%w{f e a b c d} }
+    let(:even_sized_letters) { %w{f e a b c d} }
     let(:odd_sized_numbers) { [3,2,1] }
     let(:even_sized_numbers) { [4,3,2,1] }
     let(:one_number) { [1] }
@@ -37,7 +37,7 @@ describe CoreExtensions::Array do
     end
 
     it 'should raise an error for mixed type lists' do
-      expect {mixed_types.median}.to raise_error(ArgumentError)
+      expect { mixed_types.median }.to raise_error(ArgumentError)
     end
   end
 end

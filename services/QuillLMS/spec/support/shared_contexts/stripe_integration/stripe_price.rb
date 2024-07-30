@@ -34,4 +34,3 @@ RSpec.shared_context 'Stripe Price' do
     )
   end
 end
-

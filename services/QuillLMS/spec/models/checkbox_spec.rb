@@ -30,12 +30,11 @@ RSpec.describe Checkbox, type: :model do
     it 'should allow creating a checkbox object' do
       checkbox1.objective = objective
       expect(checkbox1.save).to eq false
-      expect(checkbox1.errors.messages).to eq({:objective_id=>['should only be checked once per user']})
+      expect(checkbox1.errors.messages).to eq({ :objective_id=>['should only be checked once per user'] })
     end
   end
 
   describe 'callbacks' do
-
     describe '#track_onboarding_checklist_analytics' do
       let(:user) { create(:user) }
 
@@ -47,7 +46,6 @@ RSpec.describe Checkbox, type: :model do
           expect(OnboardingChecklistAnalyticsWorker).to receive(:perform_async).with(checkbox.user_id)
           checkbox.save
         end
-
       end
 
       context 'the objective is one of the onboarding objectives and the checkbox is not new' do
@@ -58,7 +56,6 @@ RSpec.describe Checkbox, type: :model do
           expect(OnboardingChecklistAnalyticsWorker).not_to receive(:perform_async).with(checkbox.user_id)
           checkbox.save
         end
-
       end
 
       context 'the objective is not one of the onboarding objectives' do
@@ -69,11 +66,7 @@ RSpec.describe Checkbox, type: :model do
           expect(OnboardingChecklistAnalyticsWorker).not_to receive(:perform_async).with(checkbox.user_id)
           checkbox.save
         end
-
       end
-
     end
-
   end
-
 end

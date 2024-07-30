@@ -52,7 +52,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
       classification.update(order_number: 19)
       put :update_order_numbers, params: { activity_classifications: [{ id: classification.id, order_number: 20 }] }
       expect(classification.reload.order_number).to eq 20
-      expect(response.body).to eq({activity_classifications: ActivityClassification.order(order_number: :asc)}.to_json)
+      expect(response.body).to eq({ activity_classifications: ActivityClassification.order(order_number: :asc) }.to_json)
     end
   end
 
@@ -61,7 +61,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
 
     it 'should destroy the given classification' do
       delete :destroy, params: { id: classification.id }
-      expect{ActivityClassification.find(classification.id)}.to raise_exception(ActiveRecord::RecordNotFound)
+      expect{ ActivityClassification.find(classification.id) }.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
 end

@@ -7,7 +7,6 @@ describe VerifyEmailsController do
   let(:user) { create(:user) }
 
   describe '#resend_verification_email' do
-
     before do
       allow(controller).to receive(:current_user) { user }
     end
@@ -21,9 +20,7 @@ describe VerifyEmailsController do
     end
   end
 
-
   describe '#require_email_verification' do
-
     before do
       allow(controller).to receive(:current_user) { user }
     end
@@ -33,7 +30,7 @@ describe VerifyEmailsController do
         expect(response.status).to be(200)
         expect(user).to receive(:require_email_verification)
 
-        post :require_email_verification, params: { }, format: :json
+        post :require_email_verification, params: {}, format: :json
 
         expect(response.body).to eq({ redirect: '/sign-up/verify-email' }.to_json)
       end
@@ -48,7 +45,7 @@ describe VerifyEmailsController do
         expect(response.status).to be(200)
         expect(user).to receive(:verify_email).with(UserEmailVerification::CLEVER_VERIFICATION)
 
-        post :require_email_verification, params: { }, format: :json
+        post :require_email_verification, params: {}, format: :json
       end
     end
 
@@ -61,10 +58,9 @@ describe VerifyEmailsController do
         expect(response.status).to be(200)
         expect(user).to receive(:verify_email).with(UserEmailVerification::GOOGLE_VERIFICATION)
 
-        post :require_email_verification, params: { }, format: :json
+        post :require_email_verification, params: {}, format: :json
       end
     end
-
   end
 
   context 'with an existing verification record' do

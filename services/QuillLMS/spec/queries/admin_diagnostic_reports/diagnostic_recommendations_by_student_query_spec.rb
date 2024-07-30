@@ -28,7 +28,6 @@ module AdminDiagnosticReports
     #  let(:units) { recommended_unit_templates.map { |ut| create(:unit, unit_template: ut) } }
     #  let(:recommendations) { recommended_unit_templates.map { |ut| create(:recommendation, activity: pre_diagnostic, unit_template: ut, category: 0) } }
 
-
     #  let(:recommended_classroom_units) do
     #    classrooms.map do |classroom|
     #      units.map { |unit| create(:classroom_unit, classroom: classroom, unit: unit) }

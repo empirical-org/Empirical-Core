@@ -26,5 +26,4 @@ class Admin::TeacherSerializer < ApplicationSerializer
     x = object.try(:number_of_students)
     x.present? ? x : 0
   end
-
 end

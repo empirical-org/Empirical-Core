@@ -17,7 +17,6 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(RegexRule, :type => :model) do
-
     context 'relationships' do
       it { should belong_to(:rule) }
     end
@@ -76,7 +75,6 @@ module Evidence
     end
 
     context 'should incorrect_sequence?' do
-
       it 'should be true if regex rule is incorrect sequence_type' do
         incorrect_rule = create(:evidence_regex_rule, :sequence_type => 'incorrect')
         expect(incorrect_rule.incorrect_sequence?).to(eq(true))

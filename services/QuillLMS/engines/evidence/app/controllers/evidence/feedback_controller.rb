@@ -45,6 +45,5 @@ module Evidence
         api_metadata: api_metadata
       })
     end
-
   end
 end

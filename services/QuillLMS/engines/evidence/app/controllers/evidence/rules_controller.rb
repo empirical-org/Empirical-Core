@@ -8,7 +8,7 @@ module Evidence
     # GET /rules.json
     def index
       @rules = Evidence::Rule
-      @rules = @rules.includes(:prompts_rules).where(comprehension_prompts_rules: {prompt_id: params[:prompt_id].split(',')}) if params[:prompt_id]
+      @rules = @rules.includes(:prompts_rules).where(comprehension_prompts_rules: { prompt_id: params[:prompt_id].split(',') }) if params[:prompt_id]
       @rules = @rules.where(rule_type: index_params['rule_type'])
 
       # some rules will apply to multiple prompts so we only want to return them once
@@ -32,7 +32,6 @@ module Evidence
         render json: @rule.errors, status: :unprocessable_entity
       end
     end
-
 
     # PATCH/PUT /rules/1.json
     def update
@@ -61,9 +60,9 @@ module Evidence
 
       if ordered_rules.all? { |r| r&.valid? }
         ordered_rules.each { |r| r.save! }
-        render(json: {status: 200})
+        render(json: { status: 200 })
       else
-        render json: {error_messages: ordered_rules.map { |r| r&.errors }.join('; ')}, status: :unprocessable_entity
+        render json: { error_messages: ordered_rules.map { |r| r&.errors }.join('; ') }, status: :unprocessable_entity
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity

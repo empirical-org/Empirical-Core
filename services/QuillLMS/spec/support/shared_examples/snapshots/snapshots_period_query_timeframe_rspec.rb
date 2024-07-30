@@ -10,4 +10,3 @@ RSpec.shared_examples 'snapshots period query with a timeframe' do |timeframe_st
     it { expect(results).to eq expected_results }
   end
 end
-

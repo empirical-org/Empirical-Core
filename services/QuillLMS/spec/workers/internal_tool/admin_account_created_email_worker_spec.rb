@@ -9,7 +9,7 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
   let!(:school) { create(:school) }
   let!(:mailer_user) { Mailer::User.new(teacher) }
   let!(:mailer_class)  { InternalToolUserMailer }
-  let!(:mailer_method) { :admin_account_created_email}
+  let!(:mailer_method) { :admin_account_created_email }
   let!(:analytics) { double(:analytics).as_null_object }
 
   before do
@@ -20,7 +20,6 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
   end
 
   describe 'user is nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(nil)
     end
@@ -37,7 +36,6 @@ describe InternalTool::AdminAccountCreatedEmailWorker, type: :worker do
   end
 
   describe 'user is not nil' do
-
     before do
       allow(User).to receive(:find_by).and_return(teacher)
     end

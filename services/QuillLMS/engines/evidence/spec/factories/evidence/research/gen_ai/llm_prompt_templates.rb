@@ -15,7 +15,7 @@ module Evidence
     module GenAI
       FactoryBot.define do
         factory :evidence_research_gen_ai_llm_prompt_template, class: 'Evidence::Research::GenAI::LLMPromptTemplate' do
-          contents { 'This is the prompt template'}
+          contents { 'This is the prompt template' }
           description { 'The best prompt engineering ever' }
         end
       end

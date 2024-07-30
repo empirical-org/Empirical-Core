@@ -16,7 +16,6 @@ module Evidence
           it { is_expected.to eq fixed_text }
         end
 
-
         context 'wrapped in Feedback preamble' do
           let(:raw_text) { 'Feedback: {"key1":"val2"}' }
 
@@ -24,7 +23,7 @@ module Evidence
         end
 
         context 'wrapped in triple backticks and json preamble' do
-          let(:raw_text) {"```json\n{\"key1\":\"val2\"}\n```"}
+          let(:raw_text) { "```json\n{\"key1\":\"val2\"}\n```" }
 
           it { is_expected.to eq fixed_text }
         end

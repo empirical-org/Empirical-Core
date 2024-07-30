@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 describe Teachers::UnitActivitiesController, type: :controller do
-  let(:classroom) { create(:classroom)}
+  let(:classroom) { create(:classroom) }
   let(:teacher) { classroom.owner }
-  let(:unit_activity) { create(:unit_activity)}
-  let(:unit_activity2) { create(:unit_activity, unit_id: unit_activity.unit.id)}
-  let(:unit_activity3) { create(:unit_activity, unit_id: unit_activity.unit.id)}
-  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit_id: unit_activity.unit.id)}
+  let(:unit_activity) { create(:unit_activity) }
+  let(:unit_activity2) { create(:unit_activity, unit_id: unit_activity.unit.id) }
+  let(:unit_activity3) { create(:unit_activity, unit_id: unit_activity.unit.id) }
+  let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit_id: unit_activity.unit.id) }
 
   before { allow(controller).to receive(:current_user) { teacher } }
 
@@ -40,7 +40,7 @@ describe Teachers::UnitActivitiesController, type: :controller do
   describe '#update' do
     it 'should be able to update due dates' do
       new_due_date = '01-01-2020'
-      put :update, params: { id: unit_activity.id, unit_activity: {due_date: new_due_date} }
+      put :update, params: { id: unit_activity.id, unit_activity: { due_date: new_due_date } }
       expect(Date.parse(JSON.parse(response.body).first['due_date'])).to eq Date.parse(new_due_date)
     end
   end
@@ -62,5 +62,4 @@ describe Teachers::UnitActivitiesController, type: :controller do
       expect(unit_activity3.reload.publish_date).to eq new_publish_date
     end
   end
-
 end

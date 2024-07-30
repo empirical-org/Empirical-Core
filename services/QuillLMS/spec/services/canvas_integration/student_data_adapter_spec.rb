@@ -37,4 +37,3 @@ RSpec.describe CanvasIntegration::StudentDataAdapter do
     it { expect(subject).to eq student_attrs }
   end
 end
-

@@ -21,7 +21,7 @@ describe Api::V1::QuestionsController, type: :controller do
       it 'should return early without exception on nil question_type' do
         get :index, as: :json
         expect(JSON.parse(response.body)).to eq(
-          {'error'=>'Bad Request', 'message'=>'question_type is a required param'}
+          { 'error'=>'Bad Request', 'message'=>'question_type is a required param' }
         )
         expect(response.status).to eq 400
       end
@@ -58,7 +58,7 @@ describe Api::V1::QuestionsController, type: :controller do
   describe '#create' do
     it 'should create a new Question record' do
       uuid = SecureRandom.uuid
-      data = {foo: 'bar'}
+      data = { foo: 'bar' }
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = Question.count
       post :create, params: { question_type: 'connect_sentence_combining', question: data }, as: :json
@@ -68,7 +68,7 @@ describe Api::V1::QuestionsController, type: :controller do
 
   describe '#update' do
     it 'should update the existing record' do
-      data = {'foo' => 'bar'}
+      data = { 'foo' => 'bar' }
       put :update, params: { id: question.uid, question: data }, as: :json
       question.reload
       expect(question.data).to eq(data)

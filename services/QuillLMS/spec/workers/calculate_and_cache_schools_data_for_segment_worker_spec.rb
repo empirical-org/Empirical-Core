@@ -7,7 +7,7 @@ describe CalculateAndCacheSchoolsDataForSegmentWorker do
 
   describe '#perform' do
     let!(:schools_admins) { create_list(:schools_admins, 5) }
-    let!(:random_other_school) { create(:school)}
+    let!(:random_other_school) { create(:school) }
 
     it 'should kick off a worker for the school of every school admin' do
       schools_admins.each do |sa|

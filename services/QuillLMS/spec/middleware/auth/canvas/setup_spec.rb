@@ -67,4 +67,3 @@ RSpec.describe Auth::Canvas::Setup do
     expect { subject }.to change { strategy.options[:client_options].site }.to(canvas_instance.url)
   end
 end
-

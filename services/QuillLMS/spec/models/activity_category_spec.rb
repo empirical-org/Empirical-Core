@@ -13,7 +13,7 @@
 require 'rails_helper'
 
 RSpec.describe ActivityCategory, type: :model do
-  let(:activity_category) {build(:activity_category, order_number: nil)}
+  let(:activity_category) { build(:activity_category, order_number: nil) }
 
   describe('#set_order_number') do
     it('sets the order number to the count of activity categories that already exist if there is no order number') do
@@ -37,7 +37,5 @@ RSpec.describe ActivityCategory, type: :model do
       expect(created_activity_category).not_to receive(:set_order_number)
       created_activity_category.update(name: 'Different')
     end
-
   end
-
 end

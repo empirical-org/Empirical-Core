@@ -33,7 +33,6 @@ require 'rails_helper'
 
 # it { shoulda cheatsheet: https://github.com/thoughtbot/it { shoulda-matchers#activemodel-matchers
 RSpec.describe FeedbackHistory, type: :model do
-
   context 'associations' do
     it { should belong_to(:feedback_session) }
     it { should have_one(:activity_session).through(:feedback_session) }
@@ -101,7 +100,7 @@ RSpec.describe FeedbackHistory, type: :model do
       expect(concept_results_hash[:activity_session_id]).to eq(@feedback_history.activity_session.id)
       expect(concept_results_hash[:activity_classification_id]).to eq(7)
       expect(concept_results_hash[:concept_id]).to eq(@feedback_history.concept.id)
-      expect(concept_results_hash[:metadata]).to eq({correct: 1, answer: @feedback_history.entry, feedback_type: @feedback_history.feedback_type})
+      expect(concept_results_hash[:metadata]).to eq({ correct: 1, answer: @feedback_history.entry, feedback_type: @feedback_history.feedback_type })
     end
 
     it 'should return empty hash when there is no concept' do
@@ -154,7 +153,7 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback: 'write better',
         feedback_type: 'grammar',
         optimal: false,
-        highlight: [{text: 'some', type: 'entry', category: 'grammar', character: 0}],
+        highlight: [{ text: 'some', type: 'entry', category: 'grammar', character: 0 }],
         hint: 'a hint'
       }
     }
@@ -171,7 +170,7 @@ RSpec.describe FeedbackHistory, type: :model do
       }
     }
 
-    let(:highlight) {'some highlight'}
+    let(:highlight) { 'some highlight' }
 
     it 'should store the data properly' do
       feedback = FeedbackHistory.save_feedback(**{
@@ -229,7 +228,7 @@ RSpec.describe FeedbackHistory, type: :model do
     end
 
     it 'should save special "api" key to metadata if passed an api_metadata argument' do
-      api_metadata = {'confidence' => 1}
+      api_metadata = { 'confidence' => 1 }
       feedback = FeedbackHistory.save_feedback(**{
         feedback_hash_raw: feedback_hash,
         entry: entry,
@@ -409,7 +408,6 @@ RSpec.describe FeedbackHistory, type: :model do
 
       expect(fh1.rule_violation_consecutive_repititions?).to be(false)
     end
-
   end
 
   context 'Session-aggregate FeedbackHistories' do
@@ -487,8 +485,8 @@ RSpec.describe FeedbackHistory, type: :model do
       end
 
       it 'should identify a session as complete if all prompts have optimal responses or too many attempts' do
-        5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
-        5.times {|i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
+        5.times { |i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @but_prompt2.id, attempt: i + 1, optimal: false) }
+        5.times { |i| create(:feedback_history, feedback_session_uid: @activity_session2_uid, prompt_id: @so_prompt2.id, attempt: i + 1, optimal: false) }
         expect(FeedbackHistory.list_by_activity_session[0].complete).to be
       end
     end
@@ -709,7 +707,6 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback_history = build(:feedback_history, feedback_type: feedback_type)
         expect(feedback_history.spelling_or_grammar?).to be true
       end
-
     end
 
     it 'returns false for non-spelling or grammar feedback' do
@@ -719,5 +716,4 @@ RSpec.describe FeedbackHistory, type: :model do
       end
     end
   end
-
 end

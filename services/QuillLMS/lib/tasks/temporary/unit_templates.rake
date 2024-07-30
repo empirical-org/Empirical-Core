@@ -11,7 +11,7 @@ namespace :unit_templates do
       units = unit_template.units.where(name: original_name)
       next if units.empty?
 
-      temp_file.puts({ unit_template_id: unit_template.id, units: units.pluck(:id), original_name:}.to_json)
+      temp_file.puts({ unit_template_id: unit_template.id, units: units.pluck(:id), original_name: }.to_json)
       units.update_all(name: unit_template.name)
     end
 

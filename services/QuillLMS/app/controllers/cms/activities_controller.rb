@@ -31,7 +31,7 @@ class Cms::ActivitiesController < Cms::CmsController
     if @activity.save
       render json: { activity: @activity }
     else
-      render json: { }
+      render json: {}
     end
   end
 
@@ -39,7 +39,7 @@ class Cms::ActivitiesController < Cms::CmsController
     if @activity.update!(activity_params)
       render json: { activity: @activity }
     else
-      render json: { }
+      render json: {}
     end
   end
 

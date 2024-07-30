@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Cms::TopicsController < Cms::CmsController
-
   def index
     change_logs = []
     topics = Topic.includes(:activities, change_logs: :user).all.map do |t|
@@ -18,7 +17,6 @@ class Cms::TopicsController < Cms::CmsController
     end
     render json: { topics: topics, change_logs: change_logs }
   end
-
 
   def create
     topic = topic_params
@@ -66,5 +64,4 @@ class Cms::TopicsController < Cms::CmsController
       ]
     )
   end
-
 end

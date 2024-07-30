@@ -22,13 +22,12 @@ module Evidence
           it 'should return optimal=true' do
             expect(
               FeedbackAssembler.run(
-                client_response.merge({FeedbackAssembler.error_name => ''})
+                client_response.merge({ FeedbackAssembler.error_name => '' })
               )[:optimal]
             ).to eq true
           end
         end
       end
     end
-
   end
 end

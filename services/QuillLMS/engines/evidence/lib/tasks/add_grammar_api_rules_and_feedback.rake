@@ -38,9 +38,7 @@ namespace :grammar_api_rules_and_feedback do
           )
           p_r.save!
         end
-
       end
     end
-
   end
 end

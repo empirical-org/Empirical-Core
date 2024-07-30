@@ -65,5 +65,4 @@ class ProgressReports::DistrictConceptReports
       FROM results;
     SQL
   end
-
 end

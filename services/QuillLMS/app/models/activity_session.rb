@@ -34,7 +34,6 @@
 #  new_activity_sessions_user_id_idx            (user_id)
 #
 class ActivitySession < ApplicationRecord
-
   class ConceptResultSubmittedWithoutActivitySessionError < StandardError; end
   class StudentNotAssignedActivityError < StandardError; end
 
@@ -68,7 +67,7 @@ class ActivitySession < ApplicationRecord
   TIME_TRACKING_KEY = 'time_tracking'
   TIME_TRACKING_EDITS_KEY = 'time_tracking_edits'
 
-  default_scope { where(visible: true)}
+  default_scope { where(visible: true) }
 
   has_many :feedback_sessions, foreign_key: :activity_session_uid, primary_key: :uid
   has_many :feedback_histories, through: :feedback_sessions
@@ -111,14 +110,14 @@ class ActivitySession < ApplicationRecord
   scope :visible,  -> { where(visible: true) }
 
   scope :for_teacher, lambda { |teacher_id|
-    joins(classroom_unit: {classroom: :teachers})
-    .where(users: { id: teacher_id})
+    joins(classroom_unit: { classroom: :teachers })
+    .where(users: { id: teacher_id })
   }
 
-  scope :averages_for_user_ids, lambda {|user_ids|
+  scope :averages_for_user_ids, lambda { |user_ids|
     select('user_id, AVG(percentage) as avg')
     .joins(activity: :classification)
-    .where.not(activity_classifications: {key: ActivityClassification::UNSCORED_KEYS})
+    .where.not(activity_classifications: { key: ActivityClassification::UNSCORED_KEYS })
     .where(user_id: user_ids)
     .group(:user_id)
   }
@@ -470,7 +469,7 @@ class ActivitySession < ApplicationRecord
   def correct_skills
     @correct_skills ||= begin
       skills.select do |skill|
-        results = concept_results.select {|cr| cr.concept_id.in?(skill.concept_ids)}
+        results = concept_results.select { |cr| cr.concept_id.in?(skill.concept_ids) }
 
         results.length && results.all?(&:correct)
       end

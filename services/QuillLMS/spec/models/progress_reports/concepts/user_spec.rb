@@ -19,7 +19,7 @@ describe ProgressReports::Concepts::User do
   end
 
   context 'classrooms' do
-    let(:filters) { {classroom_id: classroom.id} }
+    let(:filters) { { classroom_id: classroom.id } }
 
     it 'can retrieve users based on classroom_id' do
       expect(subject.size).to eq(1)
@@ -27,7 +27,7 @@ describe ProgressReports::Concepts::User do
   end
 
   context 'units' do
-    let(:filters) { {unit_id: unit.id} }
+    let(:filters) { { unit_id: unit.id } }
 
     it 'can retrieve users based on unit_id' do
       expect(subject.size).to eq(1)

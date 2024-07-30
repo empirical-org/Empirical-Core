@@ -14,11 +14,10 @@ describe AddUuidToQuestionDataWorker do
         expect(question).not_to receive(:save_uids_for)
         subject.perform(type, 0, 1)
       end
-
     end
 
     context 'question with an array type' do
-      let(:data) { [{'text' => 'foo', 'feedback' => 'bar'}]}
+      let(:data) { [{ 'text' => 'foo', 'feedback' => 'bar' }] }
 
       before do
         question.data[type] = data
@@ -27,7 +26,7 @@ describe AddUuidToQuestionDataWorker do
 
       it 'saves the uids for the question' do
         subject.perform(type, 0, 1)
-        uids = question.reload.data[type].map{|seq| seq['uid']}.compact
+        uids = question.reload.data[type].map{ |seq| seq['uid'] }.compact
         expect(uids.length).to eq(1)
       end
 
@@ -36,6 +35,5 @@ describe AddUuidToQuestionDataWorker do
         subject.perform(type, 0, 1)
       end
     end
-
   end
 end

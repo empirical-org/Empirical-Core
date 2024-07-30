@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class VerifyEmailsController < ApplicationController
-
   def resend_verification_email
     if current_user.user_email_verification
       current_user.user_email_verification.set_new_token
@@ -42,14 +41,14 @@ class VerifyEmailsController < ApplicationController
 
     verification = UserEmailVerification.find_by(verification_token: token)
 
-    return render json: {'error': 'Invalid verification token'}, status: 400 unless token && verification
+    return render json: { 'error': 'Invalid verification token' }, status: 400 unless token && verification
 
     verification.verify(UserEmailVerification::EMAIL_VERIFICATION, token)
     sign_in(verification.user)
 
     render json: {}, status: :ok
   rescue UserEmailVerification::UserEmailVerificationError => e
-    render json: {'error': e}, status: 400
+    render json: { 'error': e }, status: 400
   end
 
   private def staff_verification_params

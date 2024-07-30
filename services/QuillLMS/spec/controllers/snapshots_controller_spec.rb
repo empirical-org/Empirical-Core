@@ -264,7 +264,7 @@ describe SnapshotsController, type: :controller do
             expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
             expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
 
-            get :count, params: { query:, timeframe: timeframe_name, school_ids:, previous_timeframe: previous_timeframe_flag}
+            get :count, params: { query:, timeframe: timeframe_name, school_ids:, previous_timeframe: previous_timeframe_flag }
 
             json_response = JSON.parse(response.body)
 
@@ -327,7 +327,6 @@ describe SnapshotsController, type: :controller do
           let(:classroom_ids) { ['5', '6', '7'] }
 
           it 'should include school_ids and grades in the call to the cache worker if they are in params' do
-
             allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)
             expect(Rails.cache).to receive(:read).with(cache_key).and_return(nil)
             expect(Snapshots::CacheSnapshotCountWorker).to receive(:perform_async).with(*expected_worker_params)
@@ -367,7 +366,7 @@ describe SnapshotsController, type: :controller do
       let(:initial_load) { 'true' }
 
       let(:other_school) { create(:school) }
-      let!(:schools_admins) { create(:schools_admins, school: other_school, user: user )}
+      let!(:schools_admins) { create(:schools_admins, school: other_school, user: user) }
       let(:other_teacher) { create(:teacher, school: other_school) }
       let(:other_classroom) { create(:classroom, grade: target_grade) }
       let!(:other_classrooms_teacher) { create(:classrooms_teacher, user: other_teacher, classroom: other_classroom, role: 'owner') }
@@ -399,7 +398,6 @@ describe SnapshotsController, type: :controller do
       end
     end
 
-
     it 'should return all valid timeframe options with names' do
       get :options
 
@@ -409,13 +407,13 @@ describe SnapshotsController, type: :controller do
     end
 
     context 'report is Admin Diagnostic Report' do
-      let(:params) { {report: '/diagnostic_growth_report'} }
+      let(:params) { { report: '/diagnostic_growth_report' } }
       let(:json_response) { JSON.parse(response.body) }
       let(:expected_timeframe_values) { ['this-school-year', 'last-school-year'] }
 
       before { get :options, params: }
 
-      it { expect(json_response['timeframes'].map{|t| t['value']}).to eq(expected_timeframe_values) }
+      it { expect(json_response['timeframes'].map{ |t| t['value'] }).to eq(expected_timeframe_values) }
     end
 
     it 'should return a list of all schools and their ids tied to the current_user' do
@@ -423,7 +421,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['schools']).to eq([{'id' => school.id, 'name' => school.name}])
+      expect(json_response['schools']).to eq([{ 'id' => school.id, 'name' => school.name }])
     end
 
     it 'should return a static list of grade options' do
@@ -439,7 +437,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
+      expect(json_response['teachers']).to eq([{ 'id' => teacher.id, 'name' => teacher.name }])
     end
 
     context 'teachers with no classrooms' do
@@ -453,7 +451,7 @@ describe SnapshotsController, type: :controller do
 
       it do
         subject
-        expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
+        expect(json_response['teachers']).to eq([{ 'id' => teacher.id, 'name' => teacher.name }])
       end
     end
 
@@ -478,7 +476,7 @@ describe SnapshotsController, type: :controller do
 
       it do
         subject
-        expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
+        expect(json_response['teachers']).to eq([{ 'id' => teacher.id, 'name' => teacher.name }])
       end
     end
 
@@ -487,7 +485,7 @@ describe SnapshotsController, type: :controller do
 
       json_response = JSON.parse(response.body)
 
-      expect(json_response['classrooms']).to eq([{'id' => classroom.id, 'name' => classroom.name}])
+      expect(json_response['classrooms']).to eq([{ 'id' => classroom.id, 'name' => classroom.name }])
     end
 
     context 'classrooms with visible = false' do
@@ -498,8 +496,8 @@ describe SnapshotsController, type: :controller do
         get :options
       end
 
-      it { expect(result['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}]) }
-      it { expect(result['classrooms']).to eq([{'id' => classroom.id, 'name' => classroom.name}]) }
+      it { expect(result['teachers']).to eq([{ 'id' => teacher.id, 'name' => teacher.name }]) }
+      it { expect(result['classrooms']).to eq([{ 'id' => classroom.id, 'name' => classroom.name }]) }
     end
 
     context 'teachers in multiple classrooms' do
@@ -584,12 +582,11 @@ describe SnapshotsController, type: :controller do
         let(:target_grade) { nil }
 
         it 'should match teachers who teach nil grade classrooms' do
-
           get :options, params: { grades: ['null'] }
 
           json_response = JSON.parse(response.body)
 
-          expect(json_response['teachers']).to eq([{'id' => teacher.id, 'name' => teacher.name}])
+          expect(json_response['teachers']).to eq([{ 'id' => teacher.id, 'name' => teacher.name }])
         end
       end
     end

@@ -23,7 +23,7 @@ RSpec.shared_context 'Snapshots Period CTE' do
   let(:teachers) { classrooms.map(&:teachers).flatten }
   let(:users) { teachers }
   let(:classrooms_teachers) { teachers.map(&:classrooms_teachers).flatten }
-  let(:schools_users) { teachers.map { |teacher| create(:schools_users, user: teacher)} }
+  let(:schools_users) { teachers.map { |teacher| create(:schools_users, user: teacher) } }
   let(:schools) { schools_users.map(&:school).flatten.uniq }
   let(:school_ids) { schools.pluck(:id) }
   let(:teacher_ids) { teachers.pluck(:id) }

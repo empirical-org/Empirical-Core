@@ -4,12 +4,12 @@ require 'rails_helper'
 
 describe QuillBigQuery::MaterializedViewQuery do
   let(:view_key) { 'reporting_sessions_view' }
-  let(:name_with_dataset) {'lms.recent_reporting_sessions_view'}
-  let(:name_fallback) {'recent_reporting_sessions_local'}
-  let(:query_fallback) { 'WITH recent_reporting_sessions_local AS (SELECT 2) SELECT 1 FROM recent_reporting_sessions_local'}
-  let(:query) {'SELECT 1 FROM lms.recent_reporting_sessions_view'}
-  let(:result) {'result'}
-  let(:runner) {double(:execute)}
+  let(:name_with_dataset) { 'lms.recent_reporting_sessions_view' }
+  let(:name_fallback) { 'recent_reporting_sessions_local' }
+  let(:query_fallback) { 'WITH recent_reporting_sessions_local AS (SELECT 2) SELECT 1 FROM recent_reporting_sessions_local' }
+  let(:query) { 'SELECT 1 FROM lms.recent_reporting_sessions_view' }
+  let(:result) { 'result' }
+  let(:runner) { double(:execute) }
   let(:klass) do
     Class.new(QuillBigQuery::MaterializedViewQuery) do
       def materialized_views = [view]

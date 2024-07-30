@@ -7,14 +7,14 @@ module Snapshots
     context '#frontend_options' do
       it do
         expect(described_class.frontend_options).to eq([
-          {default: false, name: 'Last 30 days', value: 'last-30-days'},
-          {default: false, name: 'Last 90 days', value: 'last-90-days'},
-          {default: false, name: 'This month', value: 'this-month'},
-          {default: false, name: 'Last month', value: 'last-month'},
-          {default: true, name: 'This school year', value: 'this-school-year'},
-          {default: false, name: 'Last school year', value: 'last-school-year'},
-          {default: false, name: 'All time', value: 'all-time'},
-          {default: false, name: 'Custom', value: 'custom'}
+          { default: false, name: 'Last 30 days', value: 'last-30-days' },
+          { default: false, name: 'Last 90 days', value: 'last-90-days' },
+          { default: false, name: 'This month', value: 'this-month' },
+          { default: false, name: 'Last month', value: 'last-month' },
+          { default: true, name: 'This school year', value: 'this-school-year' },
+          { default: false, name: 'Last school year', value: 'last-school-year' },
+          { default: false, name: 'All time', value: 'all-time' },
+          { default: false, name: 'Custom', value: 'custom' }
         ])
       end
     end
@@ -74,7 +74,7 @@ module Snapshots
 
       # all time has nil previous timeframe, so testing times of day manually
       context "'all-time' time of day" do
-        subject { described_class.calculate_timeframes('all-time')}
+        subject { described_class.calculate_timeframes('all-time') }
 
         context 'current start' do
           it { expect(subject.first).to be_start_of_day }
@@ -112,6 +112,5 @@ module Snapshots
     it_behaves_like 'snapshots period length, previous within threshold', 'last-school-year', 1
     it_behaves_like 'snapshots period length, previous within threshold', 'this-month', 1, 3
     it_behaves_like 'snapshots period length, previous within threshold', 'last-month', 1, 3
-
   end
 end

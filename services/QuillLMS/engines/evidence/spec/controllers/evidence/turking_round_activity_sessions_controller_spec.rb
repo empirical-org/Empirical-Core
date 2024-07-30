@@ -7,7 +7,6 @@ module Evidence
     before { @routes = Engine.routes }
 
     context 'should index' do
-
       it 'should return successfully - no turking_round_activity_session' do
         get(:index)
         parsed_response = JSON.parse(response.body)
@@ -99,11 +98,11 @@ module Evidence
       let!(:archived_activity) { Evidence.parent_activity_class.create(:name => 'Archived Activity', :flags => (['archived'])) }
       let!(:unarchived_activity) { Evidence.parent_activity_class.create(:name => 'Unarchived Activity') }
       let!(:turking_round) { create(:evidence_turking_round, expires_at: 1.second.from_now) }
-      let!(:activity) { create(:evidence_activity, parent_activity_id: unarchived_activity.id)}
+      let!(:activity) { create(:evidence_activity, parent_activity_id: unarchived_activity.id) }
 
       it 'should return false if turking round is expired' do
         sleep(2.seconds)
-        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }))
         expect(JSON.parse(response.body)).to(eq(false))
         expect(response.code.to_i).to(eq(200))
       end
@@ -111,14 +110,14 @@ module Evidence
       it 'should return false if the parent activity is archived' do
         turking_round.update(expires_at: 1.day.from_now)
         activity.update(parent_activity_id: archived_activity.id)
-        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }))
         expect(JSON.parse(response.body)).to(eq(false))
         expect(response.code.to_i).to(eq(200))
       end
 
       it 'should return true if turking round is not expired and parent activity is not archived' do
         turking_round.update(expires_at: 1.day.from_now)
-        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }) )
+        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }))
         expect(JSON.parse(response.body)).to(eq(true))
         expect(response.code.to_i).to(eq(200))
       end

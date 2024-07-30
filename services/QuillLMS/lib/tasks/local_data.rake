@@ -70,7 +70,7 @@ namespace :local_data do
     end
 
     def dump_command(tables: NONUSER_TABLES, file: FILE_NAME)
-      table_flags = tables.map {|table| "--table=#{table} "}.join(' ')
+      table_flags = tables.map { |table| "--table=#{table} " }.join(' ')
 
       "pg_dump -h #{DB_HOST} -p 5432 -U #{DB_USER} -W #{table_flags} --data-only #{DB_NAME} > #{file}"
     end

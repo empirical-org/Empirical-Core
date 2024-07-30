@@ -7,7 +7,6 @@ module Evidence
     before { @routes = Engine.routes }
 
     context 'should index' do
-
       it 'should return successfully - no turking_round' do
         get(:index)
         parsed_response = JSON.parse(response.body)

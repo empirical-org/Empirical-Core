@@ -46,9 +46,9 @@ module Evidence
 
     validates :model_external_id, presence: true, uniqueness: true
     validates :endpoint_external_id, presence: true, uniqueness: true
-    validates :labels, presence: true, length: {minimum: MIN_LABELS_LENGTH}
+    validates :labels, presence: true, length: { minimum: MIN_LABELS_LENGTH }
     validates :name, presence: true
-    validates :state, inclusion: {in: STATES}
+    validates :state, inclusion: { in: STATES }
 
     def serializable_hash(options = nil)
       options ||= {}

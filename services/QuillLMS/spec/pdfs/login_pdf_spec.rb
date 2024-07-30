@@ -62,7 +62,6 @@ describe LoginPdf do
     it 'registers a pdf Mime Type' do
       expect(Mime::Type.lookup_by_extension(:pdf)).to_not be_nil
     end
-
   end
 
   describe 'student name is not whitespace delineable' do
@@ -75,7 +74,7 @@ describe LoginPdf do
   end
 
   describe 'when given a student with a username containing non-Windows-1252 characters' do
-    let(:student_with_weird_username) { create(:student, username: 'studentツ' )}
+    let(:student_with_weird_username) { create(:student, username: 'studentツ') }
     let(:students) { [student, clever_student, google_student, normal_student] }
     let(:classroom) { create(:classroom, students: students) }
 

@@ -23,7 +23,7 @@ shared_context 'Concept Progress Report' do
   )}
 
   let!(:writing_grandparent_concept) { create(:concept, name: 'Writing Grandparent') }
-  let!(:writing_parent_concept) { create(:concept, name: 'Writing Parent', parent: writing_grandparent_concept)}
+  let!(:writing_parent_concept) { create(:concept, name: 'Writing Parent', parent: writing_grandparent_concept) }
   let!(:writing_concept) { create(:concept, name: 'Writing Tag', parent: writing_parent_concept) }
   let!(:grammar_tag) { create(:concept, name: 'Grammar Tag') }
 
@@ -34,7 +34,6 @@ shared_context 'Concept Progress Report' do
                                         state: 'finished',
                                         percentage: 0.75
                                         ) }
-
 
   let!(:correct_writing_result1) do
     create(:concept_result,

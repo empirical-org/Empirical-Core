@@ -23,7 +23,7 @@ describe ProfilesController, type: :controller do
   end
 
   context 'as a student' do
-    let!(:classroom) {create(:classroom)}
+    let!(:classroom) { create(:classroom) }
     let!(:student) { create(:student) }
     let!(:students_classrooms) do
       create(:students_classrooms,
@@ -109,7 +109,6 @@ describe ProfilesController, type: :controller do
     end
 
     context '#student_profile_data' do
-
       it 'returns an error when the current user has no classrooms' do
         session[:user_id] = other_student.id
         get :student_profile_data
@@ -338,9 +337,7 @@ describe ProfilesController, type: :controller do
             expect(session.keys).to include('percentage', 'id', 'description', 'due_date', 'completed_at')
           end
         end
-
       end
     end
-
   end
 end

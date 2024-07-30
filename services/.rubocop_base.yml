@@ -457,10 +457,6 @@ Security/Open:
 Security/YAMLLoad:
   Enabled: true
 
-StringLiterals:
-  EnforcedStyle: single_quotes
-  Enabled: true
-
 #######################################################################################################################
 # STYLE
 #######################################################################################################################
@@ -694,6 +690,10 @@ Style/StderrPuts:
   Enabled: true
 
 Style/StringChars:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
   Enabled: true
 
 Style/StringLiteralsInInterpolation:

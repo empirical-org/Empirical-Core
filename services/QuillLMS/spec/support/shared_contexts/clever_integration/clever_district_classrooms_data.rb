@@ -48,7 +48,7 @@ RSpec.shared_context 'Clever District Classrooms Data' do
   let(:classroom2_already_imported) { false }
   let(:classroom2_grade) { '4' }
   let(:classroom2_clever_id) { '5b2c569c7a68e009745801ac' }
-  let(:classroom2_name) { 'Fourth grade - Price - '}
+  let(:classroom2_name) { 'Fourth grade - Price - ' }
   let(:classroom2_students) { [student3_clever_id] }
 
   let(:classroom2_clever_data) do

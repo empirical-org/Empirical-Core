@@ -153,7 +153,7 @@ module Evidence
     end
 
     def feedbacks_change_logs(rule)
-      rule.feedbacks.map {|f|
+      rule.feedbacks.map { |f|
         (f.change_logs || []) + highlights_change_logs(f)
       }.flatten! || []
     end

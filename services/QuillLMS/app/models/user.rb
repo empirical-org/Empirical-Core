@@ -218,11 +218,11 @@ class User < ApplicationRecord
   validates :name,
     presence: true,
     format: { without: /\t/, message: 'cannot contain tabs' },
-    length: { maximum:  CHAR_FIELD_MAX_LENGTH}
+    length: { maximum:  CHAR_FIELD_MAX_LENGTH }
 
   validates :password,
     presence: { if: :requires_password? },
-    length: { maximum: CHAR_FIELD_MAX_LENGTH}
+    length: { maximum: CHAR_FIELD_MAX_LENGTH }
 
   validates :email,
     presence: { if: :email_required? },
@@ -495,7 +495,6 @@ class User < ApplicationRecord
     schools_admins.count > 1
   end
 
-
   def self.find_by_username_or_email(login_name)
     login_name = login_name.downcase
     User.where('email = ? OR username = ?', login_name, login_name).first
@@ -559,7 +558,7 @@ class User < ApplicationRecord
     schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{|school| school.users.ids + school.admins.ids }.flatten.uniq
+    schools.map{ |school| school.users.ids + school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!

@@ -6,7 +6,7 @@ describe Teachers::ProgressReports::Standards::ClassroomStandardsController, typ
   include_context 'Standard Progress Report'
 
   it_behaves_like 'Progress Report' do
-    let(:default_filters) { {classroom_id: full_classroom.id }}
+    let(:default_filters) { { classroom_id: full_classroom.id } }
     let(:result_key) { 'standards' }
     let(:expected_result_count) { visible_standards.size }
 
