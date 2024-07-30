@@ -45,21 +45,19 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
       }
     >
       <span
-        aria-hidden={false}
+        aria-expanded={false}
+        aria-haspopup="true"
         className="quill-tooltip-trigger "
-        role="tooltip"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="button"
+        tabIndex={0}
       >
-        <span
-          className="undefined"
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="button"
-          tabIndex={0}
-        >
+        <span>
           <button
             className="interactive-wrapper focus-on-light"
             onClick={[MockFunction]}
@@ -80,6 +78,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
           <span
             aria-live="polite"
             className="quill-tooltip"
+            id="tooltip"
+            role="tooltip"
           />
         </span>
       </span>
@@ -104,21 +104,19 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
       }
     >
       <span
-        aria-hidden={false}
+        aria-expanded={false}
+        aria-haspopup="true"
         className="quill-tooltip-trigger "
-        role="tooltip"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="button"
+        tabIndex={0}
       >
-        <span
-          className="undefined"
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="button"
-          tabIndex={0}
-        >
+        <span>
           <button
             className="interactive-wrapper focus-on-light"
             onClick={[MockFunction]}
@@ -139,6 +137,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is closed 1`]
           <span
             aria-live="polite"
             className="quill-tooltip"
+            id="tooltip"
+            role="tooltip"
           />
         </span>
       </span>
@@ -205,21 +205,19 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
       }
     >
       <span
-        aria-hidden={false}
+        aria-expanded={false}
+        aria-haspopup="true"
         className="quill-tooltip-trigger "
-        role="tooltip"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="button"
+        tabIndex={0}
       >
-        <span
-          className="undefined"
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="button"
-          tabIndex={0}
-        >
+        <span>
           <button
             className="interactive-wrapper focus-on-light"
             onClick={[MockFunction]}
@@ -240,6 +238,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
           <span
             aria-live="polite"
             className="quill-tooltip"
+            id="tooltip"
+            role="tooltip"
           />
         </span>
       </span>
@@ -264,21 +264,19 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
       }
     >
       <span
-        aria-hidden={false}
+        aria-expanded={false}
+        aria-haspopup="true"
         className="quill-tooltip-trigger "
-        role="tooltip"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="button"
+        tabIndex={0}
       >
-        <span
-          className="undefined"
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="button"
-          tabIndex={0}
-        >
+        <span>
           <button
             className="interactive-wrapper focus-on-light"
             onClick={[MockFunction]}
@@ -299,6 +297,8 @@ exports[`ActivityPackUpdateButtons component renders when the pack is open 1`] =
           <span
             aria-live="polite"
             className="quill-tooltip"
+            id="tooltip"
+            role="tooltip"
           />
         </span>
       </span>

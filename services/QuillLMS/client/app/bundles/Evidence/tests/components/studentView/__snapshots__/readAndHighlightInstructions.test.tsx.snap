@@ -90,21 +90,19 @@ exports[`ReadAndHighlightInstructions component when the student has not started
           }
         >
           <span
-            aria-hidden={false}
+            aria-expanded={false}
+            aria-haspopup="true"
             className="quill-tooltip-trigger "
-            role="tooltip"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            role="button"
+            tabIndex={0}
           >
-            <span
-              className="undefined"
-              onBlur={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              role="button"
-              tabIndex={0}
-            >
+            <span>
               <img
                 alt="Question mark icon"
                 src="undefined/images/icons/icons-help.svg"
@@ -116,6 +114,8 @@ exports[`ReadAndHighlightInstructions component when the student has not started
               <span
                 aria-live="polite"
                 className="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>
@@ -227,21 +227,19 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
           }
         >
           <span
-            aria-hidden={false}
+            aria-expanded={false}
+            aria-haspopup="true"
             className="quill-tooltip-trigger "
-            role="tooltip"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            role="button"
+            tabIndex={0}
           >
-            <span
-              className="undefined"
-              onBlur={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              role="button"
-              tabIndex={0}
-            >
+            <span>
               <img
                 alt="Question mark icon"
                 src="undefined/images/icons/icons-help.svg"
@@ -253,6 +251,8 @@ exports[`ReadAndHighlightInstructions component when the student has started mak
               <span
                 aria-live="polite"
                 className="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>

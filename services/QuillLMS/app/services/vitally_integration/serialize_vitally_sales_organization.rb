@@ -124,7 +124,7 @@ module VitallyIntegration
     def diagnostics_assigned_between_count(start, stop)
       district.schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
         .joins(users: {
-        classrooms_i_teach: {
+        unscoped_classrooms_i_teach: {
           classroom_units: {
             unit_activities: {
             activity: :classification
@@ -138,7 +138,7 @@ module VitallyIntegration
 
     def diagnostics_completed_between(start, stop)
       district.schools.joins(users: {
-        classrooms_i_teach: {
+        unscoped_classrooms_i_teach: {
           classroom_units: {
             activity_sessions: {
               activity: :classification
@@ -147,7 +147,6 @@ module VitallyIntegration
         }
       }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
         .where(activity_sessions: { completed_at: start..stop })
-        .distinct
         .count
     end
 
@@ -183,7 +182,7 @@ module VitallyIntegration
       User.select('students.last_sign_in')
         .includes(schools_users: [school: :district])
         .where('districts.id = ?', district.id).references(:district)
-        .includes(classrooms_teachers: [classroom: :students_classrooms])
+        .includes(classrooms_teachers: [classroom_unscoped: :students_classrooms])
         .joins('JOIN users students ON students.id = students_classrooms.student_id')
         .order('students.last_sign_in DESC')
         .first
@@ -193,20 +192,20 @@ module VitallyIntegration
     def activities_completed_all_time
       @activities_completed ||= ClassroomsTeacher.select('students.id')
         .joins([user: [schools_users: [school: :district]]])
-        .joins([classroom: [classroom_units: :activity_sessions]])
+        .joins([classroom_unscoped: [classroom_units: :activity_sessions]])
         .joins("JOIN users students on students.id = activity_sessions.user_id")
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
 
     def activities_assigned_query
-      ClassroomUnit.joins(classroom: { teachers: { school: :district } }, unit: :activities)
+      ClassroomUnit.joins(classroom_unscoped: { teachers: { school: :district } }, unit: :activities)
         .where('districts.id = ?', district.id)
         .select('assigned_student_ids', 'activities.id', 'unit_activities.created_at')
     end
 
     def activities_finished_query
-      ClassroomsTeacher.joins(user: { schools_users: { school: :district } }, classroom: [{ classroom_units: { unit: :activities } }, { classroom_units: :activity_sessions }])
+      ClassroomsTeacher.joins(user: { schools_users: { school: :district } }, classroom_unscoped: [{ classroom_units: { unit: :activities } }, { classroom_units: :activity_sessions }])
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end

@@ -132,7 +132,7 @@ const activityUID = (): string => { return getParameterByName('uid', window.loca
 const handleGrammarSession = (session) => {
   return dispatch => {
     if (session && Object.keys(session).length > 1 && !session.error) {
-      QuestionApi.getAllForActivity(activityUID).then((allQuestions) => {
+      QuestionApi.getAllForActivity(activityUID()).then((allQuestions) => {
         if (session.currentQuestion) {
           if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
             const currentQuestion = allQuestions[session.currentQuestion.uid]
