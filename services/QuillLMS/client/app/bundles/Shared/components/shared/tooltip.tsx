@@ -37,6 +37,8 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
   }
 
   showTooltip() {
+    if (this.tooltip.classList.value.includes(VISIBLE)) { return }
+
     const { tooltipText, averageItemHeight } = this.props;
     const activeTooltips = document.getElementsByClassName('visible quill-tooltip');
     Array.from(activeTooltips).forEach(tooltip => tooltip.classList.remove('visible'));
@@ -107,31 +109,32 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
   }
 
   render() {
-    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props
-    const { tooltipVisible, } = this.state
-    const tabIndex = isTabbable ? 0 : null;
+    const { tooltipTriggerText, tooltipTriggerTextClass, tooltipTriggerStyle, tooltipTriggerTextStyle, isTabbable } = this.props;
+    const { tooltipVisible } = this.state;
+    const tabIndex = isTabbable ? 0 : undefined;
 
-    const triggerClass = `quill-tooltip-trigger ${tooltipVisible ? 'active' : ''}`
+    const triggerClass = `quill-tooltip-trigger ${tooltipVisible ? 'active' : ''}`;
 
     return (
       <span
-        aria-hidden={!isTabbable}
+        aria-describedby={tooltipVisible ? 'tooltip' : undefined}
+        aria-expanded={tooltipVisible}
+        aria-haspopup="true"
         className={triggerClass}
+        onBlur={this.hideTooltip}
+        onClick={this.handleTooltipClick}
+        onFocus={this.showTooltip}
+        onKeyDown={this.handleTooltipKeyDown}
+        onMouseEnter={this.showTooltip}
+        onMouseLeave={this.hideTooltip}
         ref={node => this.tooltipTrigger = node}
-        role="tooltip"
+        role="button"
         style={tooltipTriggerStyle}
+        tabIndex={tabIndex}
       >
         <span
-          className={`${tooltipTriggerTextClass}`}
-          onBlur={this.hideTooltip}
-          onClick={this.handleTooltipClick}
-          onFocus={this.showTooltip}
-          onKeyDown={this.handleTooltipKeyDown}
-          onMouseEnter={this.showTooltip}
-          onMouseLeave={this.hideTooltip}
-          role="button"
+          className={tooltipTriggerTextClass}
           style={tooltipTriggerTextStyle}
-          tabIndex={tabIndex}
         >
           {tooltipTriggerText}
         </span>
@@ -139,11 +142,13 @@ class Tooltip extends React.Component<TooltipProps, { clickedFromMobile: boolean
           <span
             aria-live="polite"
             className="quill-tooltip"
+            id="tooltip"
             ref={node => this.tooltip = node}
+            role="tooltip"
           />
         </span>
       </span>
-    )
+    );
   }
 }
 

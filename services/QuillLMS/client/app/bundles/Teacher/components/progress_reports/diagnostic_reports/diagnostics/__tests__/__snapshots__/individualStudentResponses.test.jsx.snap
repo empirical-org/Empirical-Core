@@ -361,15 +361,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 1
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -381,6 +379,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -409,16 +409,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -428,6 +428,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -600,15 +602,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 2
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -620,6 +620,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -648,16 +650,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -667,6 +669,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -839,15 +843,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 3
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -859,6 +861,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -887,16 +891,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -906,6 +910,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1098,15 +1104,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 4
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -1118,6 +1122,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1146,16 +1152,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -1165,6 +1171,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1337,15 +1345,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 5
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -1357,6 +1363,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1385,16 +1393,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -1404,6 +1412,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1596,15 +1606,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 6
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -1616,6 +1624,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1644,16 +1654,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -1663,6 +1673,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1835,15 +1847,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 7
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -1855,6 +1865,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1883,16 +1895,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -1902,6 +1914,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2074,15 +2088,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 12
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -2094,6 +2106,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2122,16 +2136,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -2141,6 +2155,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2313,15 +2329,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 13
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -2333,6 +2347,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2361,16 +2377,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -2380,6 +2396,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2552,15 +2570,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 14
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -2572,6 +2588,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2600,16 +2618,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -2619,6 +2637,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2791,15 +2811,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 17
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -2811,6 +2829,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -2839,16 +2859,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -2858,6 +2878,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3030,15 +3052,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 18
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -3050,6 +3070,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3078,16 +3100,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -3097,6 +3119,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3289,15 +3313,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 8
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -3309,6 +3331,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3337,16 +3361,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -3356,6 +3380,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3528,15 +3554,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 9
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -3548,6 +3572,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3576,16 +3602,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -3595,6 +3621,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3787,15 +3815,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 10
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -3807,6 +3833,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -3835,16 +3863,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -3854,6 +3882,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4026,15 +4056,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 11
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -4046,6 +4074,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4074,16 +4104,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -4093,6 +4123,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4285,15 +4317,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 15
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -4305,6 +4335,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4333,16 +4365,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -4352,6 +4384,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4524,15 +4558,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 16
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -4544,6 +4576,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4572,16 +4606,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -4591,6 +4625,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4783,15 +4819,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 19
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -4803,6 +4837,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -4831,16 +4867,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -4850,6 +4886,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5022,15 +5060,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 20
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -5042,6 +5078,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5070,16 +5108,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -5089,6 +5127,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5261,15 +5301,13 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                   Question 21
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -5281,6 +5319,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5309,16 +5349,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -5328,6 +5368,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5358,16 +5400,16 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
               />
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 720px; min-width: 720px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 720px; min-width: 720px; text-align: left;"
-                    tabindex="0"
                   >
                     Flan is a dessert made with sugar. Flan is a dessert made with evaporated milk. Flan is a dessert made with eggs.
                   </span>
@@ -5377,6 +5419,8 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5667,15 +5711,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 1
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -5687,6 +5729,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5715,16 +5759,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -5734,6 +5778,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5906,15 +5952,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 2
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -5926,6 +5970,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -5954,16 +6000,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -5973,6 +6019,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6145,15 +6193,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 3
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -6165,6 +6211,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6193,16 +6241,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -6212,6 +6260,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6404,15 +6454,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 4
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -6424,6 +6472,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6452,16 +6502,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -6471,6 +6521,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6643,15 +6695,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 5
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -6663,6 +6713,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6691,16 +6743,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -6710,6 +6762,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6902,15 +6956,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 6
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -6922,6 +6974,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -6950,16 +7004,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -6969,6 +7023,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7141,15 +7197,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 7
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -7161,6 +7215,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7189,16 +7245,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -7208,6 +7264,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7380,15 +7438,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 12
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -7400,6 +7456,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7428,16 +7486,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -7447,6 +7505,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7619,15 +7679,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 13
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -7639,6 +7697,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7667,16 +7727,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -7686,6 +7746,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7858,15 +7920,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 14
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -7878,6 +7938,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -7906,16 +7968,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -7925,6 +7987,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8097,15 +8161,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 17
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -8117,6 +8179,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8145,16 +8209,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -8164,6 +8228,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8336,15 +8402,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 18
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -8356,6 +8420,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8384,16 +8450,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -8403,6 +8469,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8595,15 +8663,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 8
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -8615,6 +8681,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8643,16 +8711,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -8662,6 +8730,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8834,15 +8904,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 9
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -8854,6 +8922,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -8882,16 +8952,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -8901,6 +8971,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9093,15 +9165,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 10
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -9113,6 +9183,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9141,16 +9213,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -9160,6 +9232,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9332,15 +9406,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 11
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -9352,6 +9424,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9380,16 +9454,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -9399,6 +9473,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9591,15 +9667,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 15
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -9611,6 +9685,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9639,16 +9715,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -9658,6 +9734,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9830,15 +9908,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 16
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -9850,6 +9926,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -9878,16 +9956,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -9897,6 +9975,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -10089,15 +10169,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 19
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -10109,6 +10187,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -10137,16 +10217,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -10156,6 +10236,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -10328,15 +10410,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 20
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -10348,6 +10428,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -10376,16 +10458,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -10395,6 +10477,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -10567,15 +10651,13 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                   Question 21
                 </span>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
+                  tabindex="0"
                 >
-                  <span
-                    class="undefined"
-                    role="button"
-                    tabindex="0"
-                  >
+                  <span>
                     <img
                       alt="Question mark icon"
                       src="undefined/images/icons/icons-help.svg"
@@ -10587,6 +10669,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -10615,16 +10699,16 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             >
               <td>
                 <span
-                  aria-hidden="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
                   class="quill-tooltip-trigger "
-                  role="tooltip"
+                  role="button"
                   style="width: 66px; min-width: 66px; text-align: left;"
+                  tabindex="0"
                 >
                   <span
                     class="data-table-row-section undefined"
-                    role="button"
                     style="width: 66px; min-width: 66px; text-align: left;"
-                    tabindex="0"
                   >
                     Directions
                   </span>
@@ -10634,6 +10718,8 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
                     <span
                       aria-live="polite"
                       class="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
