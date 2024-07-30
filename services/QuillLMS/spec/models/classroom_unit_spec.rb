@@ -28,6 +28,7 @@ require 'rails_helper'
 
 describe ClassroomUnit, type: :model, redis: true do
   it { should belong_to(:classroom) }
+  it { should belong_to(:classroom_unscoped) }
   it { should belong_to(:unit) }
   it { should have_many(:activity_sessions) }
   it { should have_many(:classroom_unit_activity_states).dependent(:destroy) }

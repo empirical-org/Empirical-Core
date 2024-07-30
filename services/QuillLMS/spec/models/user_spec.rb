@@ -84,6 +84,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:teacher_notification_settings) }
   it { should have_many(:activities).through(:teacher_saved_activities) }
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
+  it { should have_many(:unscoped_classrooms_i_teach).through(:classrooms_teachers).source(:classroom_unscoped) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
