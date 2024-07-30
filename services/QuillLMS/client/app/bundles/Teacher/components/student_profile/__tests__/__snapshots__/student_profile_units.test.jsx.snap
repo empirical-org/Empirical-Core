@@ -648,21 +648,19 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -675,6 +673,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -761,21 +761,19 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -788,6 +786,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -874,21 +874,19 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -901,6 +899,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -2622,21 +2622,19 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -2649,6 +2647,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -2735,21 +2735,19 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -2762,6 +2760,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -2848,21 +2848,19 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -2875,6 +2873,8 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -5814,21 +5814,19 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -5841,6 +5839,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -5927,21 +5927,19 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -5954,6 +5952,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -6040,21 +6040,19 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -6067,6 +6065,8 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -7996,21 +7996,19 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -8023,6 +8021,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -8109,21 +8109,19 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -8136,6 +8134,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -8222,21 +8222,19 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -8249,6 +8247,8 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -10178,21 +10178,19 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -10205,6 +10203,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -10291,21 +10291,19 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -10318,6 +10316,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -10404,21 +10404,19 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         }
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
-                          <span
-                            className="undefined"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
-                          >
+                          <span>
                             <span
                               className="needs-teacher"
                             >
@@ -10431,6 +10429,8 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>

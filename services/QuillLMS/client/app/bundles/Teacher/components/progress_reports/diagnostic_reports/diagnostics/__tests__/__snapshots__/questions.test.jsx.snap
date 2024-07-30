@@ -114,14 +114,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Prompt
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Tornadoes can pick up trees while they spin. Tornadoes can rip off roofs while they spin.
                       </span>
@@ -131,6 +131,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -630,14 +632,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Combine the sentences. Use the joining word that best shows the relationship between the ideas.
                       </span>
@@ -647,6 +649,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -691,14 +695,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Combine the sentences. Use the joining word that best shows the relationship between the ideas.
                       </span>
@@ -708,6 +712,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -921,14 +927,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Use one of the joining words to connect the sentences. Your response may be one sentence or two.
                       </span>
@@ -938,6 +944,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -949,14 +957,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Prompt
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Levees were built to keep New Orleans from flooding. They were not strong enough to withstand Hurricane Katrina.
                       </span>
@@ -966,6 +974,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1000,14 +1010,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Use one of the joining words to connect the ideas. Your response may be one sentence or two.
                       </span>
@@ -1017,6 +1027,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1028,14 +1040,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Prompt
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         A cello is a large instrument with four strings. A violin has four strings that can be played by hand or with a bow.
                       </span>
@@ -1045,6 +1057,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1249,14 +1263,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Combine the sentences into one sentence that includes a list. You may change the form of the action words and remove unnecessary words.
                       </span>
@@ -1266,6 +1280,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -1494,14 +1510,14 @@ exports[`Questions component should render when there is no student data 1`] = `
                       Prompt
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         every summer, my dad teaches a biology class about sea turtles that live in the atlantic ocean.
                       </span>
@@ -1511,6 +1527,8 @@ exports[`Questions component should render when there is no student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -2796,14 +2814,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Fill in the blank with the action word that matches the rest of the sentence. (Doesn't, Don't)
                       </span>
@@ -2813,6 +2831,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -2863,14 +2883,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Fill in the blank with the action word that matches the rest of the sentence. (Kicks, Kick)
                       </span>
@@ -2880,6 +2900,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -2930,14 +2952,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Fill in the blank with the action word that matches the rest of the sentence. (Are, Is)
                       </span>
@@ -2947,6 +2969,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -3212,14 +3236,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Choose which word fits best in each blank. You may use the same word twice. (You're, Your)
                       </span>
@@ -3229,6 +3253,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -3279,14 +3305,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Choose which word fits best in each blank. You may use the same word twice. (They’re, There, Their)
                       </span>
@@ -3296,6 +3322,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -3518,14 +3546,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Fill in the blank with the correct word or words. (More easier, More easy, Easiest, Easier)
                       </span>
@@ -3535,6 +3563,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -3585,14 +3615,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Directions
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Fill in the blank with the correct word or words. (More brighter, More bright, Brightest, Brighter)
                       </span>
@@ -3602,6 +3632,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -4883,14 +4915,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Prompt
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         He is going on vacation. He is going to a beach. The beach is beautiful. The beach is in San Diego.
                       </span>
@@ -4900,6 +4932,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>
@@ -5220,14 +5254,14 @@ exports[`Questions component should render when there is student data 1`] = `
                       Prompt
                     </span>
                     <span
-                      aria-hidden="false"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                       class="quill-tooltip-trigger "
-                      role="tooltip"
+                      role="button"
+                      tabindex="0"
                     >
                       <span
                         class="directions-or-prompt"
-                        role="button"
-                        tabindex="0"
                       >
                         Pho is a soup made with herbs. Pho is a soup made with bone broth. Pho is a soup made with noodles.
                       </span>
@@ -5237,6 +5271,8 @@ exports[`Questions component should render when there is student data 1`] = `
                         <span
                           aria-live="polite"
                           class="quill-tooltip"
+                          id="tooltip"
+                          role="tooltip"
                         />
                       </span>
                     </span>

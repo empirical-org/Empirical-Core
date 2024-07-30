@@ -106,15 +106,13 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -126,6 +124,8 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -155,15 +155,13 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -175,6 +173,8 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -197,15 +197,13 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -217,6 +215,8 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -246,15 +246,13 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -266,6 +264,8 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -295,15 +295,13 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -315,6 +313,8 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -344,15 +344,13 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -364,6 +362,8 @@ exports[`OverviewSection loaded state clicking toggle button should expand aggre
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -692,15 +692,13 @@ exports[`OverviewSection loaded state it should render the expected data when da
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -712,6 +710,8 @@ exports[`OverviewSection loaded state it should render the expected data when da
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -741,15 +741,13 @@ exports[`OverviewSection loaded state it should render the expected data when da
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -761,6 +759,8 @@ exports[`OverviewSection loaded state it should render the expected data when da
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -783,15 +783,13 @@ exports[`OverviewSection loaded state it should render the expected data when da
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -803,6 +801,8 @@ exports[`OverviewSection loaded state it should render the expected data when da
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -832,15 +832,13 @@ exports[`OverviewSection loaded state it should render the expected data when da
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -852,6 +850,8 @@ exports[`OverviewSection loaded state it should render the expected data when da
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -881,15 +881,13 @@ exports[`OverviewSection loaded state it should render the expected data when da
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -901,6 +899,8 @@ exports[`OverviewSection loaded state it should render the expected data when da
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -930,15 +930,13 @@ exports[`OverviewSection loaded state it should render the expected data when da
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -950,6 +948,8 @@ exports[`OverviewSection loaded state it should render the expected data when da
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1278,15 +1278,13 @@ exports[`OverviewSection loaded state it should render the expected header compo
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -1298,6 +1296,8 @@ exports[`OverviewSection loaded state it should render the expected header compo
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1327,15 +1327,13 @@ exports[`OverviewSection loaded state it should render the expected header compo
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -1347,6 +1345,8 @@ exports[`OverviewSection loaded state it should render the expected header compo
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1369,15 +1369,13 @@ exports[`OverviewSection loaded state it should render the expected header compo
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -1389,6 +1387,8 @@ exports[`OverviewSection loaded state it should render the expected header compo
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1418,15 +1418,13 @@ exports[`OverviewSection loaded state it should render the expected header compo
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -1438,6 +1436,8 @@ exports[`OverviewSection loaded state it should render the expected header compo
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1467,15 +1467,13 @@ exports[`OverviewSection loaded state it should render the expected header compo
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -1487,6 +1485,8 @@ exports[`OverviewSection loaded state it should render the expected header compo
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1516,15 +1516,13 @@ exports[`OverviewSection loaded state it should render the expected header compo
               class="sort-tooltip-container"
             >
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
+                tabindex="0"
               >
-                <span
-                  class="undefined"
-                  role="button"
-                  tabindex="0"
-                >
+                <span>
                   <img
                     alt="Question mark icon"
                     src="undefined/images/icons/icons-help.svg"
@@ -1536,6 +1534,8 @@ exports[`OverviewSection loaded state it should render the expected header compo
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
