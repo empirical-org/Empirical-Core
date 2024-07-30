@@ -1,5 +1,4 @@
 import { getCurrentQuestion, getFilteredQuestions, getQuestionsWithAttempts } from '../../Shared/index';
-import { ENGLISH } from '../../Shared/utils/languageList';
 import { SubmitActions } from '../actions';
 /// make this playLessonsReducer.
 const initialState = {

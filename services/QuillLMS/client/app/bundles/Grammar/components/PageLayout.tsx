@@ -87,7 +87,9 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
           questionToPreview: questionToPreview,
-          skippedToQuestionFromIntro: skippedToQuestionFromIntro
+          skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+          languageOptions: languageOptions,
+          updateLanguage: handleUpdateLanguage
         })}</div>
       </main>
     );
