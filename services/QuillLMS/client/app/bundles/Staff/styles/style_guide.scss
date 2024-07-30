@@ -12,6 +12,12 @@
 
 .style-guide {
   padding: 15px;
+  p {
+    max-width: 900px;
+  }
+  a {
+    text-decoration: underline;
+  }
   .style-guide-h2 {
     padding: 30px 0px;
   }
