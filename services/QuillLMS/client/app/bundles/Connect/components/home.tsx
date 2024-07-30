@@ -122,7 +122,9 @@ export const Home = ({playLesson, lessons, dispatch}) => {
             handleTogglePreview: handleTogglePreviewMenu,
             previewMode: showPreview,
             questionToPreview: questionToPreview,
-            skippedToQuestionFromIntro: skippedToQuestionFromIntro
+            skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+            languageOptions: languageOptions,
+            updateLanguage: handleUpdateLanguage
           })}</div>
         </main>
       </div>

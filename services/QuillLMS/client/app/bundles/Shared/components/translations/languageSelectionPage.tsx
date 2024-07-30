@@ -35,7 +35,7 @@ export const LanguageSelectionPage = ({
   return (
     <div className="language-page">
       <div className="introductory-text">
-        <p>{`Hello there! You are about to start a ${questionCount} question placement activity.`}</p>
+        {questionCount && <p>{`Hello there! You are about to start a ${questionCount} question placement activity.`}</p>}
         <p>First, let's set up your language preference. All the directions are in English by default.</p>
         <p>Show directions in English only.</p>
       </div>

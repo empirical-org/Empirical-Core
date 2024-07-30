@@ -60,7 +60,10 @@
 
   .student-nav, .header {
     .header-buttons-container .ell-language-selector {
-      height: 40px;
+      height: 50px;
+      .dropdown__input-container {
+        height: 40px;
+      }
     }
   }
 }
