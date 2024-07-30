@@ -145,8 +145,8 @@ module VitallyIntegration
             }
           }
         }
-      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY } )
-        .where(activity_sessions: { completed_at: start..stop } )
+      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
+        .where(activity_sessions: { completed_at: start..stop })
         .count
     end
 
