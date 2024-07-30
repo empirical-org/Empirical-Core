@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import C from '../constants';
+import { receiveQuestionData, receiveQuestionsData } from './shared.ts';
 
 const initialState = {
   sentenceFragments: {
@@ -14,16 +15,9 @@ export default function(currentstate,action){
   let newstate;
   switch(action.type){
     case C.RECEIVE_SENTENCE_FRAGMENTS_DATA:
-      return Object.assign({},currentstate,{
-        hasreceiveddata: true,
-        data: action.data,
-      });
+      return receiveQuestionsData(currentstate, action)
     case C.RECEIVE_SENTENCE_FRAGMENT_DATA:
-      return Object.assign({}, currentstate, {
-        data: Object.assign({}, currentstate.data, {
-          [action.uid]: action.data,
-        })
-      });
+      return receiveQuestionData(currentstate, action)
     case C.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE:
       return Object.assign({},currentstate,{
         submittingnew: true

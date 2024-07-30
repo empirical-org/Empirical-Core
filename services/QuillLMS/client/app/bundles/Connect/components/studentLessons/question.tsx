@@ -1,6 +1,6 @@
-import { Response } from '../../../Shared/quill-marking-logic/src/main';
 import * as React from 'react';
 import * as _ from 'underscore';
+import { Response } from '../../../Shared/quill-marking-logic/src/main';
 
 import {
   ConceptExplanation,
@@ -39,6 +39,7 @@ interface PlayLessonQuestionProps {
   question: any;
   questionToPreview: any;
   key: any;
+  translation: any;
 }
 
 interface PlayLessonQuestionState {

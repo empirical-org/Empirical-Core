@@ -78,9 +78,14 @@ class Question < ApplicationRecord
   scope :production, -> { where("data->>'flag' = ?", FLAG_PRODUCTION) }
 
   def as_json(options=nil)
-    locale = options&.fetch(:locale, nil)
+    language = options&.fetch(:language, nil)
+    locale = language_to_locale(language)
     json = locale.present? ? translated_data(locale:) : data
     json.merge(question_type:)
+  end
+  def language_to_locale(language)
+    language_to_locale_map = LOCALE_TO_LANGUAGE.invert
+    language_to_locale_map[language]
   end
 
   def self.all_questions_json(question_type)
