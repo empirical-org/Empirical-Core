@@ -45,7 +45,7 @@ const filterQuestionType = (data, key) => {
 const loadLessonWithQuestions = (uid) => {
   return (dispatch, getState) => {
     dispatch(loadLesson(uid)).then(() => {
-      const questions = QuestionApi.getAllForActivity(uid).then((questions: Array<any>) => {
+      const questions = QuestionApi.getAllForActivity(uid).then((questions) => {
         if (!questions) { return }
         dispatch({
           type: C.RECEIVE_QUESTIONS_DATA,
