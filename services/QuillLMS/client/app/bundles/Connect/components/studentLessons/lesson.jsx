@@ -442,7 +442,6 @@ export class Lesson extends React.Component {
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
     const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile, languageOptions, updateLanguage } = this.props
-    console.log("🚀 ~ Lesson ~ render ~ languageOptions:", languageOptions)
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
