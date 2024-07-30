@@ -24,7 +24,8 @@ export const LanguageSelectionPage = ({
 
   function handleClickLanguage (e) {
     const language = e.currentTarget.value;
-    if (language !== ENGLISH) {
+    const isDiagnosticActivity = window.location.href.includes('diagnostic')
+    if (isDiagnosticActivity && language !== ENGLISH) {
       dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
     }
     setLanguage(language);
