@@ -145,8 +145,8 @@ module VitallyIntegration
             }
           }
         }
-      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY} )
-        .where(activity_sessions: { completed_at: start..stop} )
+      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY } )
+        .where(activity_sessions: { completed_at: start..stop } )
         .count
     end
 
@@ -205,7 +205,7 @@ module VitallyIntegration
     end
 
     def activities_finished_query
-      ClassroomsTeacher.joins(user: { schools_users: { school: :district }}, classroom_unscoped: [{ classroom_units: { unit: :activities } }, { classroom_units: :activity_sessions }])
+      ClassroomsTeacher.joins(user: { schools_users: { school: :district } }, classroom_unscoped: [{ classroom_units: { unit: :activities } }, { classroom_units: :activity_sessions }])
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end
