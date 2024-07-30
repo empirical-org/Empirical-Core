@@ -215,7 +215,7 @@ RSpec.describe Question, type: :model do
         { 'uid' => 'uid1', 'text'=>'text', 'feedback'=>'bar' },
         { 'uid' => 'uid2', 'text'=>'text', 'feedback'=>'bar' },
         { 'uid' => 'uid3', 'text'=>'text', 'feedback'=>'bar' }
-]
+      ]
       question.update_incorrect_sequences(data)
       first_incorrect_sequence_key = '1'
       question.delete_incorrect_sequence(first_incorrect_sequence_key)

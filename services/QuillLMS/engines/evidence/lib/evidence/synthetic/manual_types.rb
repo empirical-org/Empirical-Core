@@ -20,9 +20,9 @@ module Evidence
 
       # After hitting minimums, assign 80% of data to TRAIN, 10% to TEST, 10% to VALIDATION
       TYPE_ALLOCATION = [
-         Array.new(8, TYPE_TRAIN),
-         Array.new(1, TYPE_TEST),
-         Array.new(1, TYPE_VALIDATION)
+        Array.new(8, TYPE_TRAIN),
+        Array.new(1, TYPE_TEST),
+        Array.new(1, TYPE_VALIDATION)
       ].flatten
 
       included do

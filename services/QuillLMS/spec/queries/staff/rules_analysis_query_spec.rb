@@ -55,7 +55,7 @@ module Staff
             create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule2),
             create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule3),
             create(:evidence_prompts_rule, prompt: so_prompt1, rule: so_rule4)
-         ]
+          ]
         end
 
         context 'without activity versions' do
@@ -64,7 +64,7 @@ module Staff
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: '2021-04-07T19:02:54', feedback_session_uid: 'def'),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: '2021-05-07T19:02:54', feedback_session_uid: 'ghi'),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: '2021-06-07T19:02:54', feedback_session_uid: 'abc')
-           ]
+            ]
           end
 
           let(:feedback_history_flags) { [create(:feedback_history_flag, feedback_history: feedback_histories.first)] }
@@ -80,7 +80,7 @@ module Staff
               feedback_history_flags,
               feedback_history_ratings,
               users
-           ]
+            ]
           }
 
           let(:cte_records) { [runner_context] }
@@ -106,7 +106,7 @@ module Staff
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule2.uid, time: '2021-04-07T19:02:54', feedback_session_uid: 'def', activity_version: 2),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule3.uid, time: '2021-05-07T19:02:54', feedback_session_uid: 'ghi', activity_version: 2),
               create(:feedback_history, prompt: so_prompt1, rule_uid: so_rule4.uid, time: '2021-06-07T19:02:54', feedback_session_uid: 'abc', activity_version: 1)
-           ]
+            ]
           end
 
           let(:feedback_history_flags) { [create(:feedback_history_flag, feedback_history: feedback_histories.first)] }
@@ -122,7 +122,7 @@ module Staff
               feedback_history_flags,
               feedback_history_ratings,
               users
-           ]
+            ]
           }
 
           let(:cte_records) { [runner_context] }

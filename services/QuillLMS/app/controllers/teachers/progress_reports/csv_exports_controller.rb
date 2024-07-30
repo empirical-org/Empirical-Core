@@ -26,7 +26,7 @@ class Teachers::ProgressReports::CsvExportsController < Teachers::ProgressReport
       :unit_id,
       :standard_id,
       sort: [:field, :direction]
-])
+    ])
   end
 
   private def extra_url_params

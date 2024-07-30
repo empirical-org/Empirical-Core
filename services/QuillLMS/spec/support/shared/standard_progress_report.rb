@@ -81,12 +81,12 @@ shared_context 'Standard Progress Report' do
   let!(:visible_students) { [alice, fred, zojirushi] }
   let!(:visible_activity_sessions) {
     [
-    alice_second_grade_standard_session,
-    alice_first_grade_standard_session,
-    fred_second_grade_standard_session,
-    fred_first_grade_standard_session,
-    zojirushi_second_grade_standard_session
-  ]
+      alice_second_grade_standard_session,
+      alice_first_grade_standard_session,
+      fred_second_grade_standard_session,
+      fred_first_grade_standard_session,
+      zojirushi_second_grade_standard_session
+    ]
   }
 
   let(:best_activity_sessions) { visible_activity_sessions }
