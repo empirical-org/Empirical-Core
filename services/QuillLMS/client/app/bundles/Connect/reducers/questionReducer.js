@@ -4,8 +4,7 @@ import { SubmitActions } from '../actions';
 /// make this playLessonsReducer.
 const initialState = {
   answeredQuestions: [],
-  unansweredQuestions: [],
-  language: ENGLISH
+  unansweredQuestions: []
 }
 
 function question(state = initialState, action) {

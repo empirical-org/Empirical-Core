@@ -13,6 +13,7 @@ import {
   CLICK,
   KEYDOWN,
   KEYPRESS,
+  LanguageSelectionPage,
   MOUSEDOWN,
   MOUSEMOVE,
   PlayTitleCard,
@@ -440,7 +441,8 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile, languageOptions, updateLanguage } = this.props
+    console.log("🚀 ~ Lesson ~ render ~ languageOptions:", languageOptions)
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -525,6 +527,15 @@ export class Lesson extends React.Component {
           saveToLMS={this.saveToLMS}
         />
       );
+    } else if (languageOptions) {
+      const languages = languageOptions.map(language => language.value)
+      component = (<LanguageSelectionPage
+        begin={this.startActivity}
+        dispatch={dispatch}
+        languages={languages}
+        previewMode={previewMode}
+        setLanguage={updateLanguage}
+      />);
     } else {
       component = (
         <Register

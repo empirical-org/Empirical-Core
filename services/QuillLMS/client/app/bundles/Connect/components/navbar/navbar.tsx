@@ -20,7 +20,7 @@ export const NavBar: React.SFC<NavBarProps> = ({ isOnMobile, isTeacher, previewS
 
   const showTranslations = (): boolean => {
     if (urlParams.get('showTranslations') !== 'true') return false;
-    return !!languageOptions && Object.keys(languageOptions).length > 1;
+    return !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
   };
 
   // Temporary feature flag until we are ready to ship this.
