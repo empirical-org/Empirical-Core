@@ -99,6 +99,10 @@ Layout/EmptyLinesAroundExceptionHandlingKeywords:
 Layout/EndAlignment:
   Enabled: false
 
+Layout/FirstArrayElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
 Layout/MultilineHashBraceLayout:
   Enabled: true
 

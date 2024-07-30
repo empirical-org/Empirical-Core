@@ -259,12 +259,12 @@ module NavigationHelper
 
   def playing_activity?
     activity_actions = [
-        ApplicationController::EVIDENCE,
-        ApplicationController::PROOFREADER,
-        ApplicationController::GRAMMAR,
-        ApplicationController::LESSONS,
-        ApplicationController::DIAGNOSTIC,
-        ApplicationController::CONNECT
+      ApplicationController::EVIDENCE,
+      ApplicationController::PROOFREADER,
+      ApplicationController::GRAMMAR,
+      ApplicationController::LESSONS,
+      ApplicationController::DIAGNOSTIC,
+      ApplicationController::CONNECT
     ]
     controller.class == PagesController && activity_actions.include?(action_name)
   end
