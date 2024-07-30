@@ -395,7 +395,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'includes archived classrooms in the roundup' do
-
         before do
           classroom1.update(visible: false)
         end

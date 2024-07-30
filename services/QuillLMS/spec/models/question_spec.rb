@@ -416,8 +416,6 @@ RSpec.describe Question, type: :model do
     end
   end
 
-
-
   describe '#refresh_cache' do
     let!(:question) { create(:question, uid: '1234', data: { 'foo' => 'initial_value' }) }
 

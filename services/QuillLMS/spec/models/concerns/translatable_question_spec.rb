@@ -142,7 +142,6 @@ RSpec.describe TranslatableQuestion do
 
       it "includes translations for all #{field_key}" do
         field_mappings.each do |mapping|
-
           translated_text = mapping.translated_texts.find_by(locale:)
 
           expect(translated_field).to have_key(mapping.field_name)

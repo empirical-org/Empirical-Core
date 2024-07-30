@@ -145,7 +145,6 @@ FactoryBot.define do
           source: question,
           field_name: question.default_translatable_field
         )
-
       end
     end
 
