@@ -14,6 +14,7 @@ import {
   CLICK,
   KEYDOWN,
   KEYPRESS,
+  LanguageSelectionPage,
   MOUSEDOWN,
   MOUSEMOVE,
   SCROLL,
@@ -40,6 +41,7 @@ import { ConceptsFeedbackState } from '../../reducers/conceptsFeedbackReducer';
 import { GrammarActivityState } from '../../reducers/grammarActivitiesReducer';
 import { SessionState } from '../../reducers/sessionReducer';
 import LoadingSpinner from '../shared/loading_spinner';
+import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 
 interface PlayGrammarContainerState {
   showTurkCode: boolean;
@@ -64,6 +66,8 @@ interface PlayGrammarContainerProps {
   skippedToQuestionFromIntro: boolean;
   isOnMobile: boolean;
   handleTogglePreviewMenu: () => void;
+  updateLanguage: () => void;
+  languageOptions: DropdownObjectInterface[];
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -331,7 +335,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, languageOptions, updateLanguage } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -360,6 +364,20 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           )
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
+
+        if(languageOptions) {
+          const languages = languageOptions.map(language => language.value)
+          return (
+            <LanguageSelectionPage
+              begin={this.goToNextQuestion}
+              dispatch={dispatch}
+              languages={languages}
+              previewMode={previewMode}
+              setLanguage={updateLanguage}
+            />
+          );
+        }
+
         return(
           <Intro
             activity={grammarActivities.currentActivity}

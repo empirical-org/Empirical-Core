@@ -33,7 +33,7 @@ export const Header: React.SFC<HeaderProps> = ({
 
   const showTranslations = (): boolean => {
     if (urlParams.get('showTranslations') !== 'true') return false;
-    return !!languageOptions && Object.keys(languageOptions).length > 1;
+    return !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
   };
 
   return (
