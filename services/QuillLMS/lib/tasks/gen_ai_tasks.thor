@@ -163,6 +163,7 @@ class GenAITasks < Thor
       results << [
         prompt.id,
         prompt.text,
+        feedback_set.sample_entry,
         feedback_set.primary,
         response[KEY_SECONDARY_FEEDBACK],
         feedback_set.secondary,
@@ -173,11 +174,12 @@ class GenAITasks < Thor
     end
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
-      csv << ['Prompt ID', 'Stem', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match','LLM Highlight', 'Curriculum Highlight']
+      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match','LLM Highlight', 'Curriculum Highlight']
       results.each { |result| csv << result }
     end
   end
 
+  # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
   desc "generate_secondary_data_files", 'Create a csv for training and test.'
   def generate_secondary_data_files
     file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
@@ -202,7 +204,7 @@ class GenAITasks < Thor
     end
   end
 
-  # bundle exec thor gen_a_i_tasks:econdary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
+  # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
   desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
@@ -222,14 +224,15 @@ class GenAITasks < Thor
     KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
     KEY_HIGHLIGHT = 'highlight'
     TEST_SET_ACTIVITY_IDS = [467,460,442,435,431,387]
-    SECONDARY_CSV_HEADERS = %w[activity_id prompt_id rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
+    SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
+    GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root + "lib/data/")
 
     private def output_file(conjunction, limit)
       Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"
     end
 
     private def secondary_output_file(limit)
-      Rails.root + "lib/data/secondary_feedback_#{limit}_#{Time.now.to_i}.csv"
+      GEN_AI_OUTPUT_FOLDER + "secondary_feedback_#{limit}_#{Time.now.to_i}.csv"
     end
 
     private def prompt_csv_row(prompt)
@@ -259,8 +262,6 @@ class GenAITasks < Thor
         'Suboptimal 2'
       ]
     end
-
-    private def secondary_result(row) = row
 
     private def activity_link_string(activity_id) = format('https://www.quill.org/cms/evidence#/activities/%<activity_id>s/settings', activity_id:)
 

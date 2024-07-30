@@ -3,9 +3,9 @@
 module Evidence
   module GenAI
     class SecondaryFeedbackDataFetcher < ApplicationService
-      FeedbackSet = Struct.new(:activity_id, :prompt_id, :rule_id, :primary, :label, :secondary, :highlights, :sample_entry, keyword_init: true) do
+      FeedbackSet = Struct.new(:activity_id, :prompt_id, :rule_id, :label, :conjunction, :primary, :secondary, :highlights, :sample_entry, keyword_init: true) do
         def to_a
-          [activity_id, prompt_id, rule_id, label, sample_entry, primary,secondary, highlights.join(ARRAY_DELIMITER)]
+          [activity_id, prompt_id, conjunction, rule_id, label, sample_entry, primary,secondary, highlights.join(ARRAY_DELIMITER)]
         end
       end
 
@@ -33,6 +33,7 @@ module Evidence
           rule_id: row['rule_id']&.to_i,
           prompt_id: row['prompt_id']&.to_i,
           label: row['label'],
+          conjunction: row['conjunction'],
           primary: row['feedback_primary'],
           secondary: row['feedback_secondary'],
           highlights: row['highlights_secondary']&.split(ARRAY_DELIMITER) || [],

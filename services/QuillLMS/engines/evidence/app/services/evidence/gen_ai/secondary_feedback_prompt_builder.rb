@@ -24,6 +24,7 @@ module Evidence
 
       private def feedback_data_tuples
         feedback_data
+          .select {|fd| fd.conjunction == prompt.conjunction }
           .first(EXAMPLE_LIMIT)
           .map {|f| [f.primary, f.secondary]}
       end
