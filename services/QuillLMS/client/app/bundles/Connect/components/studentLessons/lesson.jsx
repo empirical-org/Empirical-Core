@@ -23,6 +23,7 @@ import {
   Spinner,
   TeacherPreviewMenuButton,
   VISIBILITYCHANGE,
+  hasTranslationFlag,
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
@@ -526,7 +527,7 @@ export class Lesson extends React.Component {
           saveToLMS={this.saveToLMS}
         />
       );
-    } else if (languageOptions) {
+    } else if (languageOptions && hasTranslationFlag()) {
       const languages = languageOptions.map(language => language.value)
       component = (<LanguageSelectionPage
         begin={this.startActivity}
