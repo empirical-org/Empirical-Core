@@ -26,7 +26,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
 
   describe '#run' do
     before do
-      allow(builder).to receive(:template).and_return('Template content with %{highlight_texts}, %{primary_secondary_examples}, %{plagiarism_text}')
+      allow(builder).to receive(:template).and_return('Template content with %<highlight_texts>s, %<primary_secondary_examples>s, %<plagiarism_text>s')
       allow(builder).to receive(:template_variables).and_return(
         highlight_texts: 'Highlight texts',
         primary_secondary_examples: 'Primary and secondary examples',
@@ -87,8 +87,8 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
   describe '#feedback_data_tuples' do
     let(:feedback_data) do
       [
-        OpenStruct.new(conjunction: 'because', primary: 'Primary feedback 1', secondary: 'Secondary feedback 1'),
-        OpenStruct.new(conjunction: 'but', primary: 'Primary feedback 2', secondary: 'Secondary feedback 2')
+        Struct.new(conjunction: 'because', primary: 'Primary feedback 1', secondary: 'Secondary feedback 1'),
+        Struct.new(conjunction: 'but', primary: 'Primary feedback 2', secondary: 'Secondary feedback 2')
       ]
     end
 
@@ -103,7 +103,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
   end
 
   describe '#feedback_data' do
-    let(:feedback_data) { [OpenStruct.new(conjunction: 'because')] }
+    let(:feedback_data) { [Struct.new(conjunction: 'because')] }
 
     before do
       allow(Evidence::GenAI::SecondaryFeedbackDataFetcher).to receive(:run).and_return(feedback_data)
