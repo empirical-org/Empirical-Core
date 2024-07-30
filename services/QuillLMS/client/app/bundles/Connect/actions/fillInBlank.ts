@@ -40,24 +40,6 @@ function loadQuestion(uid) {
   }
 }
 
-function loadSpecifiedQuestions(uids) {
-  return (dispatch, getState) => {
-    const requestPromises: Promise<any>[] = [];
-    uids.forEach((uid) => {
-      requestPromises.push(QuestionApi.get(uid));
-    });
-    const allPromises = Promise.all(requestPromises);
-    const questionData = {};
-    allPromises.then((results) => {
-      results.forEach((result, index) => {
-        questionData[uids[index]] = result;
-      });
-      dispatch({ type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA, data: questionData, });
-    });
-  }
-}
-
-
 function startQuestionEdit(qid) {
   return { type: C.START_FILL_IN_BLANK_QUESTION_EDIT, qid, };
 }
@@ -186,7 +168,6 @@ export default {
   startListeningToQuestions,
   loadQuestions,
   loadQuestion,
-  loadSpecifiedQuestions,
   startQuestionEdit,
   cancelQuestionEdit,
   submitQuestionEdit,

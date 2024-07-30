@@ -6,10 +6,15 @@ const SENTENCE_COMBINING_TYPE = 'connect_sentence_combining',
   FILL_IN_BLANKS_TYPE = 'connect_fill_in_blanks'
 
 const questionApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/questions`;
+const activityApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/activities`;
 
 class QuestionApi {
   static getAll(questionType: string): Promise<Array<Question>> {
     return requestGet(`${questionApiBaseUrl}.json?question_type=${questionType}`, null, (error) => {throw(error)});
+  }
+
+  static getAllForActivity(activityUID: string): Promise<Array<Question>> {
+    return requestGet(`${activityApiBaseUrl}/${activityUID}/questions.json`, null, (error) => {throw(error)});
   }
 
   static get(uid: string): Promise<Question> {
@@ -89,9 +94,6 @@ export {
   FILL_IN_BLANKS_TYPE,
   FocusPointApi,
   IncorrectSequenceApi,
-  QuestionApi,
-  SENTENCE_COMBINING_TYPE,
-  SENTENCE_FRAGMENTS_TYPE,
-  questionApiBaseUrl
+  QuestionApi, questionApiBaseUrl, SENTENCE_COMBINING_TYPE,
+  SENTENCE_FRAGMENTS_TYPE
 };
-
