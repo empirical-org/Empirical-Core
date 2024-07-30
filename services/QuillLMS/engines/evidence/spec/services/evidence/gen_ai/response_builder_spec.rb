@@ -70,7 +70,7 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
 
     describe '#highlight_text' do
       it 'returns the correct highlight text based on the highlight key' do
-        expect(subject.send(:highlight_text)).to eq('Highlight text 1')
+        expect(subject.send(:highlight_array)).to eq(['Highlight text 1'])
       end
     end
 
