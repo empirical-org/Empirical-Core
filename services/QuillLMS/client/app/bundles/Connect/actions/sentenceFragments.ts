@@ -30,23 +30,6 @@ function loadSentenceFragment(uid) {
   }
 }
 
-function loadSpecifiedSentenceFragments(uids) {
-  return (dispatch, getState) => {
-    const requestPromises: Promise<any>[] = [];
-    uids.forEach((uid) => {
-      requestPromises.push(QuestionApi.get(uid));
-    });
-    const allPromises = Promise.all(requestPromises);
-    const questionData = {};
-    allPromises.then((results) => {
-      results.forEach((result, index) => {
-        questionData[uids[index]] = result;
-      });
-      dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA, data: questionData, });
-    });
-  }
-}
-
 function startSentenceFragmentEdit(sfid) {
   return { type: C.START_SENTENCE_FRAGMENT_EDIT, sfid, };
 }
@@ -198,7 +181,6 @@ export default {
   startListeningToSentenceFragments,
   loadSentenceFragments,
   loadSentenceFragment,
-  loadSpecifiedSentenceFragments,
   startSentenceFragmentEdit,
   cancelSentenceFragmentEdit,
   submitSentenceFragmentEdit,

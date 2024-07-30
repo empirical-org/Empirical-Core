@@ -32,17 +32,6 @@ describe('Questions actions', () => {
     })
   })
 
-  describe('loadSpecifiedQuestions', () => {
-    it('should call QuestionApi.get()', () => {
-      const MOCK_ID1 = '1'
-      const MOCK_ID2 = '2'
-      const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
-      dispatch(questionActions.loadSpecifiedQuestions(MOCK_IDS))
-      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID1)
-      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID2)
-    })
-  })
-
   describe('updateFlag', () => {
     it('should call QuestionApi.updateFlag()', () => {
       const MOCK_ID = 'id'
