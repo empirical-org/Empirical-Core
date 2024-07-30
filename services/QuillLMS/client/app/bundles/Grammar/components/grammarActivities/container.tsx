@@ -19,6 +19,7 @@ import {
   MOUSEMOVE,
   SCROLL,
   VISIBILITYCHANGE,
+  hasTranslationFlag,
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { startListeningToConcepts } from '../../actions/concepts';
@@ -365,7 +366,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if(languageOptions) {
+        if (languageOptions && hasTranslationFlag()) {
           const languages = languageOptions.map(language => language.value)
           return (
             <LanguageSelectionPage

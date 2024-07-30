@@ -150,7 +150,9 @@ export {
   extractConceptResultsFromResponse,
   findFeedbackForReport,
   formatAnswerStringForReport,
-  getlanguageOptions
+  getlanguageOptions,
+  hasTranslationFlag,
+  showTranslations
 } from './libs/index'
 
 export {
