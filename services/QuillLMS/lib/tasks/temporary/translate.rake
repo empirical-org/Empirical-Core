@@ -37,6 +37,25 @@ namespace :translate do
     end
   end
 
+  desc 'translate hard-coded feedback_strings'
+  task :feedback_strings, [:locale] => :environment do |t, args|
+    locale = args[:locale] || Translatable::DEFAULT_LOCALE
+    prompt = Prompts.feedback_strings_prompt(locale:)
+    english_text = feedback_data
+    result = OpenAI::Translate.run(english_text:, prompt:)
+    filename = "#{fileroot}.#{locale}.#{fileformat}"
+    puts result
+    File.write(Rails.root.join(filefolder, filename), result)
+  end
+
+  def fileroot = 'feedback_strings'
+  def fileformat = 'json'
+  def filefolder = 'config/locales'
+  def feedback_data
+    file_path = Rails.root.join(filefolder, 'translations', "#{fileroot}.#{fileformat}")
+    File.read(file_path)
+  end
+
   def activity_uids
     %w(
       -LsTRP0gFdy-d5lIfifn

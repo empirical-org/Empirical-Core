@@ -1,0 +1,33 @@
+{
+  "feedbackStrings": {
+    "punctuationError": "Revisa tu trabajo. Checa tu puntuación.",
+    "punctuationEndError": "Revisa tu trabajo. Checa tu puntuación al final.",
+    "punctuationAndCaseError": "Revisa tu trabajo. Checa tu puntuación y mayúsculas.",
+    "quotationMarkError": "Parece que usaste dos apóstrofes para hacer una comilla. <br/><br/> En lugar de presionar la tecla de apóstrofe dos veces para hacer una comilla, mantén presionada la tecla shift y presiona la tecla de apóstrofe una vez. <br/><br/> <img alt=\"teclado con comillas dobles resaltadas\" src=\"https://quill-cdn.s3.amazonaws.com/images/illustrations/Illustration+-+Keyboard+(Chromebook).svg\">",
+    "typingError": "Revisa tu trabajo. Checa tu ortografía.",
+    "caseError": "Revisa tu trabajo. Checa tus mayúsculas.",
+    "minLengthError": "Revisa tu trabajo. ¿Tienes toda la información del enunciado?",
+    "maxLengthError": "Revisa tu trabajo. ¿Cómo puede ser tu respuesta más corta y concisa?",
+    "modifiedWordError": "Revisa tu trabajo. Puede que hayas mezclado una palabra.",
+    "additionalWordError": "Revisa tu trabajo. Puede que hayas añadido una o dos palabras extra.",
+    "missingWordError": "Revisa tu trabajo. Puede que hayas olvidado una o dos palabras importantes.",
+    "missingWhitespaceError": "Checa tus espacios. Puede que te hayas olvidado de un espacio entre dos palabras.",
+    "extraWhitespaceError": "Checa tus espacios. Puede que hayas añadido un espacio extra en medio de una palabra.",
+    "flexibleModifiedWordError": "Revisa tu trabajo. Puede que hayas mezclado una palabra.",
+    "flexibleAdditionalWordError": "Revisa tu trabajo. Puede que hayas añadido una o dos palabras extra.",
+    "flexibleMissingWordError": "Revisa tu trabajo. Puede que hayas olvidado una o dos palabras importantes.",
+    "spacingAfterCommaError": "Revisa tu trabajo. Siempre pon un espacio después de una coma.",
+    "wordsOutOfOrderError": "Revisa tu frase. Puede que hayas mezclado el orden de algunas palabras."
+  },
+  "spellingFeedbackStrings": {
+    "Capitalization Hint": "Revisa tu trabajo. Checa tus mayúsculas y ortografía.",
+    "Punctuation Hint": "Revisa tu trabajo. Checa tu puntuación y ortografía.",
+    "Punctuation and Case Hint": "Revisa tu trabajo. Checa tu puntuación y ortografía.",
+    "Spelling Hint": "Revisa tu trabajo. Checa tu ortografía.",
+    "Modified Word Hint": "Revisa tu trabajo. Puede que hayas mezclado o escrito mal una palabra.",
+    "Additional Word Hint": "Puede que hayas añadido una o dos palabras extra. Revisa tu trabajo y checa tu ortografía.",
+    "Missing Word Hint": "Puede que hayas olvidado una o dos palabras importantes. Revisa tu trabajo y luego checa tu ortografía.",
+    "Whitespace Hint": "Revisa tu trabajo. Puede que te hayas olvidado de un espacio entre dos palabras. También checa tu ortografía.",
+    "Spacing After Comma Hint": "Revisa tu trabajo. Siempre pon un espacio después de una coma."
+  }
+}
