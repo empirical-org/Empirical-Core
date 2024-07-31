@@ -22,7 +22,6 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Rule, :type => :model) do
-
     context 'should validations' do
       subject { build(:evidence_rule) }
 
@@ -40,7 +39,6 @@ module Evidence
     end
 
     context 'should relationships' do
-
       it { should have_one(:label) }
       it { should have_many(:plagiarism_texts) }
       it { should have_many(:feedbacks) }
@@ -51,9 +49,7 @@ module Evidence
     end
 
     context 'should before_validation' do
-
       context 'should assign_uid_if_missing' do
-
         it 'should keep existing uid if already set' do
           rule = build(:evidence_rule)
           old_uid = rule.uid
@@ -90,7 +86,6 @@ module Evidence
     end
 
     context 'should display_name' do
-
       it 'should correspond to the correct display name' do
         rule = create(:evidence_rule, :rule_type => 'rules-based-2')
         expect(rule.display_name).to(be_truthy)
@@ -137,7 +132,6 @@ module Evidence
     end
 
     context 'should regex_is_passing?' do
-
       context 'when the regex rules are not conditional' do
         let!(:rule) { create(:evidence_rule) }
         let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Hello', :sequence_type => 'incorrect', :conditional => false) }
@@ -210,7 +204,6 @@ module Evidence
           expect(rule.regex_is_passing?('Non-conditional start that does not contain the right end.')).to(eq(true))
           expect(rule.regex_is_passing?('Conditional-start that does contain the required-end.')).to(eq(true))
         end
-
       end
     end
 
@@ -265,9 +258,7 @@ module Evidence
     end
 
     context 'should #after_create' do
-
       context 'should #assign_to_all_prompts' do
-
         it 'should assign newly created rule to all prompts if the rule is universal' do
           prompt = create(:evidence_prompt)
           rule = create(:evidence_rule, :universal => true)

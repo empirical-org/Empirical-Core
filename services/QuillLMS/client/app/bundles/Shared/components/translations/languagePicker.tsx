@@ -1,29 +1,20 @@
 import * as React from 'react';
 
-import useWindowSize from '../../hooks/useWindowSize';
 import { DropdownInput } from '../../index';
-import { languages, languageOptions } from "../../utils/languageList"
+import { defaultLanguageOptions, defaultLanguages } from "../../utils/languageList";
 
 interface LanguagePickerProps {
   language: string,
-  updateLanguage(language: string): any,
-  handleClickOpenMobileLanguageMenu(): any
+  languageOptions: any,
+  updateLanguage(language: string): any
 }
 
-const languageIconSrc = `${process.env.CDN_URL}/images/icons/language.svg`
-
-const MAX_VIEW_WIDTH_FOR_MOBILE = 895
-
-const options = (): Array<{value: string, label: string}> => {
-  return languages.map(language => ({
-    value: language,
-    label: (`<p><img alt={${languageOptions[language].label} flag} src=${languageOptions[language].flag} /><span>${languageOptions[language].label}</span></p>`)
-  }))
-}
-
-const LanguagePicker = ({ language, handleClickOpenMobileLanguageMenu, updateLanguage, }: LanguagePickerProps) => {
-  const size = useWindowSize();
-  const onMobile = () => size.width <= MAX_VIEW_WIDTH_FOR_MOBILE
+const LanguagePicker = ({ language, updateLanguage, languageOptions }: LanguagePickerProps) => {
+  const options = (): Array<{value: string, label: string}> =>
+    languageOptions ?? defaultLanguages.map(language => ({
+      value: language,
+      label: defaultLanguageOptions[language].label
+    }));
 
   const onChange = (option: { value: string}) => {
     const language = option.value;
@@ -31,22 +22,12 @@ const LanguagePicker = ({ language, handleClickOpenMobileLanguageMenu, updateLan
   }
 
   const value = options().find(opt => language === opt.value)
-  if (onMobile()) {
-    return (
-      <button className="passthrough-button focus-on-light" onClick={handleClickOpenMobileLanguageMenu} type="button">
-        <img alt="" src={languageIconSrc} />
-        <span>Change directions language</span>
-      </button>
-    )
-  }
 
   return (
     <DropdownInput
-      className="ell-language-selector"
+      className="ell-language-selector medium borderless"
       handleChange={onChange}
-      label="Directions language"
       options={options()}
-      usesCustomOption
       value={value}
     />
   )

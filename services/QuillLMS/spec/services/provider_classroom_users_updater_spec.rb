@@ -51,7 +51,7 @@ RSpec.describe ProviderClassroomUsersUpdater do
   end
 
   context 'when classroom is from canvas' do
-    let(:classroom_external_id) { Faker::Number.number}
+    let(:classroom_external_id) { Faker::Number.number }
     let(:klass) { GoogleClassroomUser }
 
     it_behaves_like 'a provider classroom users updater'

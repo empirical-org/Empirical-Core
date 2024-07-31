@@ -19,7 +19,6 @@
 #
 
 class AppSetting < ApplicationRecord
-
   COMPREHENSION = 'comprehension'
   LEARN_WORLDS_ACCESS_OVERRIDE = 'learn_worlds_access_override'
 
@@ -64,5 +63,4 @@ class AppSetting < ApplicationRecord
   def user_in_rollout_bucket?(user_id)
     Zlib.crc32(name + user_id.to_s).digits.take(2).join.to_i < percent_active
   end
-
 end

@@ -50,7 +50,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
       end
 
       context 'with nested export params' do
-        let(:filters) { {'sort' => {'baz' => 'blah', 'bar' => 'bar'}} }
+        let(:filters) { { 'sort' => { 'baz' => 'blah', 'bar' => 'bar' } } }
 
         it 'continues to work properly' do
           subject

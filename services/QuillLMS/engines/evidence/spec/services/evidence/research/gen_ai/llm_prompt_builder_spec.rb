@@ -49,25 +49,25 @@ module Evidence
 
         context 'contents with substitutions' do
           context 'stem' do
-            let(:contents)  { delimit('stem') }
+            let(:contents) { delimit('stem') }
 
             it { is_expected.to eq stem }
           end
 
           context 'conjunction' do
-            let(:contents)  { delimit('conjunction') }
+            let(:contents) { delimit('conjunction') }
 
             it { is_expected.to eq conjunction }
           end
 
           context 'because_text' do
-            let(:contents)  { delimit('because_text') }
+            let(:contents) { delimit('because_text') }
 
             it { is_expected.to eq because_text }
           end
 
           context 'but_text' do
-            let(:contents)  { delimit('but_text') }
+            let(:contents) { delimit('but_text') }
 
             it { is_expected.to eq but_text }
           end
@@ -79,7 +79,7 @@ module Evidence
           end
 
           context 'full_text' do
-            let(:contents)  { delimit('full_text') }
+            let(:contents) { delimit('full_text') }
 
             it { is_expected.to eq full_text }
           end
@@ -109,7 +109,7 @@ module Evidence
           end
 
           context 'multiple substitutions' do
-            let(:filler) { '...some filler here...'}
+            let(:filler) { '...some filler here...' }
             let(:contents) { "#{delimit('stem')} #{filler} #{delimit('conjunction')}" }
 
             it { is_expected.to eq "#{stem} #{filler} #{conjunction}" }

@@ -14,139 +14,6 @@ Bundler/OrderedGems:
   Exclude:
     - 'Gemfile'
 
-# Offense count: 382
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/ArgumentAlignment:
-  Enabled: false
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_element, with_fixed_indentation
-Layout/ArrayAlignment:
-  Exclude:
-    - 'script/map_concepts_to_activities_across_apps.rb'
-
-# Offense count: 13
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
-  Exclude:
-    - 'lib/tasks/add_user_id_to_units.rake'
-    - 'lib/tasks/handle_units_without_classroom_activities.rake'
-    - 'lib/tasks/migrate_flag_to_flags.rake'
-    - 'spec/controllers/cms/schools_controller_spec.rb'
-    - 'spec/models/activity_session_spec.rb'
-    - 'spec/services/units/updater_spec.rb'
-
-# Offense count: 24
-# This cop supports safe autocorrection (--autocorrect).
-Layout/BlockEndNewline:
-  Exclude:
-    - 'db/migrate/20140916143956_make_username_downcase.rb'
-    - 'spec/controllers/invitations_controller_spec.rb'
-    - 'spec/controllers/teachers/units_controller_spec.rb'
-    - 'spec/queries/teachers_data_spec.rb'
-    - 'spec/support/shared/concept_progress_report.rb'
-    - 'spec/support/shared/profile/profile.rb'
-    - 'spec/support/shared/standard_progress_report.rb'
-    - 'spec/support/shared/student_concept_progress_report.rb'
-
-# Offense count: 58
-# This cop supports safe autocorrection (--autocorrect).
-Layout/ClosingParenthesisIndentation:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment.
-Layout/CommentIndentation:
-  Exclude:
-    - 'app/controllers/schools_controller.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'engines/evidence/lib/generators/quill_model/quill_model_generator.rb'
-    - 'engines/evidence/spec/dummy/app/models/activity.rb'
-
-# Offense count: 34
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EmptyLineBetweenMethodDefs, EmptyLineBetweenClassDefs, EmptyLineBetweenModuleDefs, DefLikeMacros, AllowAdjacentOneLineDefs, NumberOfEmptyLines.
-Layout/EmptyLineBetweenDefs:
-  Enabled: false
-
-# Offense count: 153
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLines:
-  Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: around, only_before
-Layout/EmptyLinesAroundAccessModifier:
-  Exclude:
-    - 'engines/evidence/lib/generators/model_tests/model_tests_generator.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowAliasSyntax, AllowedMethods.
-# AllowedMethods: alias_method, public, protected, private
-Layout/EmptyLinesAroundAttributeAccessor:
-  Exclude:
-    - 'engines/evidence/spec/dummy/app/models/activity.rb'
-
-# Offense count: 627
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
-
-# Offense count: 184
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
-
-# Offense count: 36
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLinesAroundMethodBody:
-  Enabled: false
-
-# Offense count: 72
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: false
-
-# Offense count: 163
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Enabled: false
-
-# Offense count: 25
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: consistent, consistent_relative_to_receiver, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/FirstArgumentIndentation:
-  Enabled: false
-
-# Offense count: 86
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/FirstArrayElementIndentation:
-  Enabled: false
-
 # Offense count: 409
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -163,32 +30,11 @@ Layout/FirstHashElementIndentation:
 Layout/HashAlignment:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Width, AllowedPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'client/node_modules/xmlhttprequest-ssl/autotest.watchr'
-
 # Offense count: 26
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.
 Layout/LeadingCommentSpace:
   Enabled: false
-
-# Offense count: 27
-# This cop supports safe autocorrection (--autocorrect).
-Layout/MultilineBlockLayout:
-  Exclude:
-    - 'spec/controllers/invitations_controller_spec.rb'
-    - 'spec/controllers/profiles_controller_spec.rb'
-    - 'spec/controllers/teachers/units_controller_spec.rb'
-    - 'spec/queries/teachers_data_spec.rb'
-    - 'spec/support/shared/concept_progress_report.rb'
-    - 'spec/support/shared/profile/profile.rb'
-    - 'spec/support/shared/standard_progress_report.rb'
-    - 'spec/support/shared/student_concept_progress_report.rb'
-    - 'spec/workers/lesson_plan_email_worker_spec.rb'
 
 # Offense count: 177
 # This cop supports safe autocorrection (--autocorrect).
@@ -203,27 +49,6 @@ Layout/MultilineMethodCallBraceLayout:
 # SupportedStyles: aligned, indented, indented_relative_to_receiver
 Layout/MultilineMethodCallIndentation:
   Enabled: false
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'app/controllers/teachers/progress_reports_controller.rb'
-    - 'app/helpers/navigation_helper.rb'
-    - 'app/models/user.rb'
-    - 'config/puma.rb'
-
-# Offense count: 7
-# This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceAfterColon:
-  Exclude:
-    - 'app/controllers/api/v1/questions_controller.rb'
-    - 'lib/tasks/build_objectives.rake'
-    - 'lib/tasks/milestones.rake'
-    - 'spec/models/title_card_spec.rb'
-    - 'spec/models/unit_template_spec.rb'
 
 # Offense count: 309
 # This cop supports safe autocorrection (--autocorrect).
@@ -252,57 +77,6 @@ Layout/SpaceAroundOperators:
 Layout/SpaceBeforeBlockBraces:
   Enabled: false
 
-# Offense count: 16
-# This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceBeforeComma:
-  Exclude:
-    - 'lib/tasks/standard_category.rake'
-    - 'spec/models/classroom_unit_activity_state_spec.rb'
-    - 'spec/models/unit_activity_spec.rb'
-    - 'spec/models/unit_spec.rb'
-    - 'spec/queries/activity_search_spec.rb'
-    - 'spec/queries/profile/query.rb'
-    - 'spec/workers/user_login_worker_spec.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBrackets: space, no_space
-Layout/SpaceInsideArrayLiteralBrackets:
-  Exclude:
-    - 'engines/evidence/lib/generators/quill_scaffold_controller/quill_scaffold_controller_generator.rb'
-
-# Offense count: 1838
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Enabled: false
-
-# Offense count: 2238
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
-
-# Offense count: 120
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, compact, no_space
-Layout/SpaceInsideParens:
-  Enabled: false
-
-# Offense count: 125
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingEmptyLines:
-  Enabled: false
-
 # Offense count: 2
 Lint/DuplicateMethods:
   Exclude:
@@ -315,19 +89,6 @@ Lint/EmptyClass:
   Exclude:
     - 'engines/evidence/spec/dummy/app/models/file_uploader.rb'
 
-# Offense count: 22
-# This cop supports safe autocorrection (--autocorrect).
-Lint/ParenthesesAsGroupedExpression:
-  Exclude:
-    - 'spec/controllers/api/v1/activities_controller_spec.rb'
-    - 'spec/controllers/invitations_controller_spec.rb'
-    - 'spec/controllers/password_reset_controller_spec.rb'
-    - 'spec/controllers/teachers/classroom_manager_controller_spec.rb'
-    - 'spec/models/activity_session_spec.rb'
-    - 'spec/models/activity_spec.rb'
-    - 'spec/models/change_log_spec.rb'
-    - 'spec/models/unit_template_spec.rb'
-    - 'spec/queries/lesson_recommendations_query.rb'
 
 # Offense count: 2
 # This cop supports unsafe autocorrection (--autocorrect-all).

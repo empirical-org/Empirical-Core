@@ -34,7 +34,7 @@ RSpec.describe ValidNameBuilder do
   end
 
   context 'name is longer than MAX_LENGTH' do
-    let(:name) { 'a' * (described_class::MAX_LENGTH + 1)  }
+    let(:name) { 'a' * (described_class::MAX_LENGTH + 1) }
     let(:existing_names) { [] }
     let(:truncated_name) { name.truncate(described_class::MAX_LENGTH - described_class::RANDOM_STRING_SUFFIX_LENGTH) }
 

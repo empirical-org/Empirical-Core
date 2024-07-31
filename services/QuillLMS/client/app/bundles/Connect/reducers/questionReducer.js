@@ -54,6 +54,8 @@ function question(state = initialState, action) {
     case SubmitActions.UPDATE_NAME:
       var changes = {name: action.data}
       return Object.assign({}, state, changes)
+    case SubmitActions.SET_LANGUAGE:
+      return Object.assign({}, state, {language: action.data})
     case SubmitActions.UPDATE_CURRENT_QUESTION:
       var changes = {currentQuestion:
       Object.assign({}, state.currentQuestion, {

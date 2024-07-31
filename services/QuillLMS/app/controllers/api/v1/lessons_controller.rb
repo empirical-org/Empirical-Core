@@ -12,24 +12,24 @@ class Api::V1::LessonsController < Api::ApiController
   }
 
   def index
-    all_lessons = Activity.where(classification: @classification).reduce({}) { |agg, q| agg.update({q.uid => q.data_as_json}) }
+    all_lessons = Activity.where(classification: @classification).reduce({}) { |agg, q| agg.update({ q.uid => q.data_as_json }) }
     render(json: all_lessons)
   end
 
   def show
-    render(json: @lesson.data_as_json)
+    render(json: @lesson.json_with_translations)
   end
 
   def create
     uid = SecureRandom.uuid
     name = valid_params[:name] || valid_params[:title]
     @lesson = Activity.create!(uid: uid, classification: @classification, data: valid_params, name: name, flag: valid_params[:flag])
-    render(json: {@lesson.uid => @lesson.data_as_json})
+    render(json: { @lesson.uid => @lesson.data_as_json })
   end
 
   def update
     name = valid_params[:name] || valid_params[:title]
-    @lesson.update!({data: valid_params, name: name, flag: valid_params[:flag]})
+    @lesson.update!({ data: valid_params, name: name, flag: valid_params[:flag] })
     @lesson.update_questions_flag_status_if_necessary!
     render(json: @lesson.data_as_json)
   end

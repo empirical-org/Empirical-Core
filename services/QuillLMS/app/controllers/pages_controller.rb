@@ -503,12 +503,6 @@ class PagesController < ApplicationController
     @style_file = "#{ApplicationController::STAFF}.scss"
   end
 
-  def translations
-    return redirect_to profile_path unless staff?
-
-    @translations = TranslationMapping.all.includes(:english_text, :translated_texts).page(params[:page]).per(50)
-  end
-
   def quill_academy
     redirect_to root_path unless current_user
   end
@@ -559,7 +553,7 @@ class PagesController < ApplicationController
   end
 
   private def add_cards(list_response)
-    list_response.each{|list| list['cards'] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url")}
+    list_response.each{ |list| list['cards'] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url") }
     list_response
   end
 

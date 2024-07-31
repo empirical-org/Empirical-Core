@@ -16,9 +16,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(Highlight, :type => :model) do
-
     context 'should validations' do
-
       it { should validate_presence_of(:text) }
 
       it { should validate_length_of(:text).is_at_least(1).is_at_most(5000) }
@@ -31,7 +29,6 @@ module Evidence
     end
 
     context 'should relationships' do
-
       it { should belong_to(:feedback) }
     end
 
@@ -39,7 +36,7 @@ module Evidence
       let(:activity) { create(:evidence_activity, :with_prompt_and_passage) }
       let(:rule) { create(:evidence_rule, prompts: [activity.prompts.first]) }
       let(:feedback) { create(:evidence_feedback, rule: rule) }
-      let(:highlight) { create(:evidence_highlight, feedback: feedback,  highlight_type: 'passage', text: activity.passages.first.text) }
+      let(:highlight) { create(:evidence_highlight, feedback: feedback, highlight_type: 'passage', text: activity.passages.first.text) }
 
       it 'should return nil if the highlight_type is not "passage"' do
         highlight.update(highlight_type: 'prompt')

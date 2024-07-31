@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe Utils::Numeric do
-
   describe '#to_human_string' do
     it 'should format million- and billion-order Numerics correctly' do
       expect(Utils::Numeric.to_human_string(1_000_000)).to eq(
@@ -65,11 +64,11 @@ RSpec.describe Utils::Numeric do
     it 'should format times under one minute correctly' do
       expect(Utils::Numeric.human_readable_time_to_seconds('00:02')).to eq(
        2
-      )
+     )
 
       expect(Utils::Numeric.human_readable_time_to_seconds('00:59')).to eq(
        59
-      )
+     )
     end
 
     it 'should format times over one minute correctly' do

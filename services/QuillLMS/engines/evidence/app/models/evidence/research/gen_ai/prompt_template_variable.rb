@@ -25,6 +25,8 @@ module Evidence
         validates :value, presence: true
         attr_readonly :name, :value
 
+        def self.general_substitutions = all.map(&:substitution)
+
         def substitution = "#{LLMPromptBuilder::DELIMITER}#{name},#{id}#{LLMPromptBuilder::DELIMITER}"
       end
     end

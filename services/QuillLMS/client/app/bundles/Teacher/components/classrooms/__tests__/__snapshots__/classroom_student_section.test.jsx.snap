@@ -42,7 +42,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     Object {
       "clever_id": null,
       "code": "demo-2851865",
-      "created_at": "2019-05-21T17: 49: 57.695Z",
+      "created_at": "2019-05-21T17:49:57",
       "google_classroom_id": null,
       "grade": "9",
       "grade_level": null,
@@ -54,7 +54,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "active": false,
           "classcode": null,
           "clever_id": null,
-          "created_at": "2019-05-21T17: 49: 59.521Z",
+          "created_at": "2019-05-21T17:49:59",
           "email": "maya_angelou_demo@quill.org",
           "flags": Array [],
           "google_id": null,
@@ -64,8 +64,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "family": 2,
             "mask_addr": 4294967295,
           },
-          "last_active": "2019-05-28T20: 53: 05.000Z",
-          "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+          "last_active": "2019-05-28T20:53:05",
+          "last_sign_in": "2019-05-29T19:56:16",
           "name": "Maya Angelou",
           "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
           "role": "student",
@@ -75,7 +75,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "time_zone": null,
           "title": null,
           "token": null,
-          "updated_at": "2019-05-29T19: 56: 16.412Z",
+          "updated_at": "2019-05-29T19:56:16",
           "username": "maya.angelou.285383@demo-teacher",
         },
         Object {
@@ -83,7 +83,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "active": false,
           "classcode": null,
           "clever_id": null,
-          "created_at": "2019-05-21T17: 49: 58.400Z",
+          "created_at": "2019-05-21T17:49:58",
           "email": null,
           "flags": Array [],
           "google_id": null,
@@ -100,7 +100,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "time_zone": null,
           "title": null,
           "token": null,
-          "updated_at": "2019-05-21T17: 49: 58.400Z",
+          "updated_at": "2019-05-21T17:49:58",
           "username": "william.shakespeare.285383@demo-teacher",
         },
       ],
@@ -112,7 +112,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "classcode": null,
           "classroom_relation": "owner",
           "clever_id": null,
-          "created_at": "2019-05-21T17: 49: 57.461Z",
+          "created_at": "2019-05-21T17:49:57",
           "email": "hello+demoteacher@quill.org",
           "flags": Array [],
           "google_id": null,
@@ -123,7 +123,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "mask_addr": 4294967295,
           },
           "last_active": null,
-          "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+          "last_sign_in": "2019-07-19T13:10:19",
           "name": "Demo Teacher",
           "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
           "role": "teacher",
@@ -134,7 +134,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "time_zone": null,
           "title": null,
           "token": null,
-          "updated_at": "2019-07-19T13: 10: 19.194Z",
+          "updated_at": "2019-07-19T13:10:19",
           "username": null,
         },
         Object {
@@ -152,7 +152,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
           "status": "Pending",
         },
       ],
-      "updated_at": "2019-05-21T17: 49: 57.695Z",
+      "updated_at": "2019-05-21T17:49:57",
       "visible": true,
     }
   }
@@ -161,7 +161,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       Object {
         "clever_id": null,
         "code": "pool-safe",
-        "created_at": "2019-07-19T13: 21: 08.151Z",
+        "created_at": "2019-07-19T13:21:08",
         "google_classroom_id": null,
         "grade": "4",
         "grade_level": null,
@@ -176,7 +176,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "classcode": null,
             "classroom_relation": "owner",
             "clever_id": null,
-            "created_at": "2019-05-21T17: 49: 57.461Z",
+            "created_at": "2019-05-21T17:49:57",
             "email": "hello+demoteacher@quill.org",
             "flags": Array [],
             "google_id": null,
@@ -187,7 +187,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "mask_addr": 4294967295,
             },
             "last_active": null,
-            "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+            "last_sign_in": "2019-07-19T13:10:19",
             "name": "Demo Teacher",
             "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
             "role": "teacher",
@@ -198,7 +198,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "time_zone": null,
             "title": null,
             "token": null,
-            "updated_at": "2019-07-19T13: 10: 19.194Z",
+            "updated_at": "2019-07-19T13:10:19",
             "username": null,
           },
           Object {
@@ -216,13 +216,13 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "status": "Pending",
           },
         ],
-        "updated_at": "2019-07-19T13: 21: 08.151Z",
+        "updated_at": "2019-07-19T13:21:08",
         "visible": true,
       },
       Object {
         "clever_id": null,
         "code": "till-concert",
-        "created_at": "2019-07-19T13: 12: 23.375Z",
+        "created_at": "2019-07-19T13:12:23",
         "google_classroom_id": null,
         "grade": "5",
         "grade_level": null,
@@ -237,7 +237,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "classcode": null,
             "classroom_relation": "owner",
             "clever_id": null,
-            "created_at": "2019-05-21T17: 49: 57.461Z",
+            "created_at": "2019-05-21T17:49:57",
             "email": "hello+demoteacher@quill.org",
             "flags": Array [],
             "google_id": null,
@@ -259,7 +259,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "time_zone": null,
             "title": null,
             "token": null,
-            "updated_at": "2019-07-19T13: 10: 19.194Z",
+            "updated_at": "2019-07-19T13:10:19",
             "username": null,
           },
           Object {
@@ -277,13 +277,13 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "status": "Pending",
           },
         ],
-        "updated_at": "2019-07-19T13: 12: 23.375Z",
+        "updated_at": "2019-07-19T13:12:23",
         "visible": true,
       },
       Object {
         "clever_id": null,
         "code": "demo-2851865",
-        "created_at": "2019-05-21T17: 49: 57.695Z",
+        "created_at": "2019-05-21T17:49:57",
         "google_classroom_id": null,
         "grade": "9",
         "grade_level": null,
@@ -295,7 +295,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "active": false,
             "classcode": null,
             "clever_id": null,
-            "created_at": "2019-05-21T17: 49: 59.521Z",
+            "created_at": "2019-05-21T17:49:59",
             "email": "maya_angelou_demo@quill.org",
             "flags": Array [],
             "google_id": null,
@@ -305,8 +305,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "family": 2,
               "mask_addr": 4294967295,
             },
-            "last_active": "2019-05-28T20: 53: 05.000Z",
-            "last_sign_in": "2019-05-29T19: 56: 16.394Z",
+            "last_active": "2019-05-28T20:53:05",
+            "last_sign_in": "2019-05-29T19:56:16",
             "name": "Maya Angelou",
             "password_digest": "$2a$10$8lVZ3JEY9ghzQi9AYvDjDe7gQ1REsA3BmQS.p.1Qc57lE9VJfDbiO",
             "role": "student",
@@ -316,7 +316,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "time_zone": null,
             "title": null,
             "token": null,
-            "updated_at": "2019-05-29T19: 56: 16.412Z",
+            "updated_at": "2019-05-29T19:56:16",
             "username": "maya.angelou.285383@demo-teacher",
           },
           Object {
@@ -324,7 +324,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "active": false,
             "classcode": null,
             "clever_id": null,
-            "created_at": "2019-05-21T17: 49: 58.400Z",
+            "created_at": "2019-05-21T17:49:58",
             "email": null,
             "flags": Array [],
             "google_id": null,
@@ -341,7 +341,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "time_zone": null,
             "title": null,
             "token": null,
-            "updated_at": "2019-05-21T17: 49: 58.400Z",
+            "updated_at": "2019-05-21T17:49:58",
             "username": "william.shakespeare.285383@demo-teacher",
           },
         ],
@@ -353,7 +353,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "classcode": null,
             "classroom_relation": "owner",
             "clever_id": null,
-            "created_at": "2019-05-21T17: 49: 57.461Z",
+            "created_at": "2019-05-21T17:49:57",
             "email": "hello+demoteacher@quill.org",
             "flags": Array [],
             "google_id": null,
@@ -364,7 +364,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               "mask_addr": 4294967295,
             },
             "last_active": null,
-            "last_sign_in": "2019-07-19T13: 10: 19.172Z",
+            "last_sign_in": "2019-07-19T13:10:19",
             "name": "Demo Teacher",
             "password_digest": "$2a$10$n8UFjrvzM9N3ZvmMxaKZj.QFTEFrb2AilAgMGHwpD20Q8FQJZehn.",
             "role": "teacher",
@@ -375,7 +375,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "time_zone": null,
             "title": null,
             "token": null,
-            "updated_at": "2019-07-19T13: 10: 19.194Z",
+            "updated_at": "2019-07-19T13:10:19",
             "username": null,
           },
           Object {
@@ -393,7 +393,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "status": "Pending",
           },
         ],
-        "updated_at": "2019-05-21T17: 49: 57.695Z",
+        "updated_at": "2019-05-21T17:49:57",
         "visible": true,
       },
     ]
@@ -406,7 +406,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       "active": false,
       "classcode": null,
       "clever_id": null,
-      "created_at": "2019-05-21T17:49:57.461Z",
+      "created_at": "2019-05-21T17:49:57",
       "email": "hello+demoteacher@quill.org",
       "flags": Array [],
       "google_id": null,
@@ -427,7 +427,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
       "time_zone": null,
       "title": null,
       "token": null,
-      "updated_at": "2019-07-19T13:10:19.194Z",
+      "updated_at": "2019-07-19T13:10:19",
       "username": null,
     }
   }
@@ -4631,21 +4631,19 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
         }
       >
         <span
-          aria-hidden={false}
+          aria-expanded={false}
+          aria-haspopup="true"
           className="quill-tooltip-trigger "
-          role="tooltip"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          role="button"
+          tabIndex={0}
         >
-          <span
-            className="undefined"
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            role="button"
-            tabIndex={0}
-          >
+          <span>
             <img
               alt="Warning icon"
               src="undefined/images/icons/warning-icon.svg"
@@ -4657,6 +4655,8 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             <span
               aria-live="polite"
               className="quill-tooltip"
+              id="tooltip"
+              role="tooltip"
             />
           </span>
         </span>
@@ -4727,7 +4727,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             "activities": undefined,
             "checked": false,
             "id": 2851870,
-            "lastActive": "Invalid date",
+            "lastActive": "05/28/19 20:53",
             "logInMethod": "Username or email",
             "name": "Maya Angelou",
             "synced": "",
@@ -4957,7 +4957,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
               }
             >
               <TableCellContentWrapper>
-                Invalid date
+                05/28/19 20:53
               </TableCellContentWrapper>
             </td>
             <td

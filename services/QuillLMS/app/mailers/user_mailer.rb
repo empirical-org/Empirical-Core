@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
 
   def invitation_to_existing_user invitation_email_hash
     invitation_email_hash.stringify_keys!
-    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE,  accept_link: teachers_classrooms_url).stringify_keys
+    @email_hash = invitation_email_hash.merge(support_article_link: COTEACHER_SUPPORT_ARTICLE, accept_link: teachers_classrooms_url).stringify_keys
     mail from: 'The Quill Team <hello@quill.org>', 'reply-to': @email_hash['inviter_email'], to: @email_hash['invitee_email'], subject: "#{@email_hash['inviter_name']} has invited you to co-teach on Quill.org!"
   end
 
@@ -83,7 +83,7 @@ class UserMailer < ActionMailer::Base
   def new_admin_email(user, school)
     @user = user
     @school = school
-    mail from: 'The Quill Team <hello@quill.org>',  to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+    mail from: 'The Quill Team <hello@quill.org>', to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
   def activated_referral_email(referrer_hash, referral_hash)
@@ -127,7 +127,7 @@ class UserMailer < ActionMailer::Base
     subject_date = date_object.strftime('%m/%d/%Y')
 
     teacher_count = User.teacher.count
-    new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: {created_at: start_time..end_time}).count
+    new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: { created_at: start_time..end_time }).count
     conversion_rate = new_premium_accounts/teacher_count.to_f
 
     @current_date = date_object.strftime('%A, %B %d')
@@ -191,5 +191,4 @@ class UserMailer < ActionMailer::Base
     }
     @set_password_link = "#{ENV['DEFAULT_URL']}/account/#{@user.token}/finish_set_up?#{params.to_query}"
   end
-
 end

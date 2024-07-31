@@ -10,7 +10,7 @@ module Evidence
     def initialize(passage = '')
       passage_lowercase_words = passage
         .scan(WORD_REGEX)
-        .select {|i| i[0] == i[0].downcase}
+        .select { |i| i[0] == i[0].downcase }
         .map(&:downcase)
 
       @word_list = (COMMON_WORD_LIST + passage_lowercase_words).to_set

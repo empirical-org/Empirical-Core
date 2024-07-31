@@ -71,25 +71,6 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
       <h1>
         Which diagnostic covers the skills you want to assess?
       </h1>
-      <DisabledDiagnosticsBanner
-        className="assignment-flow"
-      >
-        <div
-          className="disabled-diagnostic-banner assignment-flow"
-        >
-          <p>
-            New diagnostics for the 2024-2025 school year are coming August 1st.
-          </p>
-          <a
-            className="focus-on-dark"
-            href="https://www.quill.org/teacher-center/important-update-to-diagnostics"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Learn more
-          </a>
-        </div>
-      </DisabledDiagnosticsBanner>
       <section
         className="filter-tabs"
       >
@@ -172,10 +153,10 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1663,
-                "name": "Starter Baseline Diagnostic (Pre)",
-                "unitTemplateId": 99,
-                "what": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+                "activityId": 2537,
+                "name": "Starter Diagnostic (Baseline Pre)",
+                "unitTemplateId": 636,
+                "what": "Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words",
                 "when": "Your students are working on basic grammar concepts.",
               }
             }
@@ -185,7 +166,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words",
+                    "text": "Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words",
                   },
                   Object {
                     "key": "When",
@@ -193,15 +174,15 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1663"
+              buttonLink="/activity_sessions/anonymous?activity_id=2537"
               buttonText="Preview"
-              header="Starter Baseline Diagnostic (Pre)"
-              key="1663"
+              header="Starter Diagnostic (Baseline Pre)"
+              key="2537"
               selectCard={[Function]}
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={null}
+                onClick={[Function]}
               >
                 <div
                   className="top-row"
@@ -213,18 +194,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Starter Baseline Diagnostic (Pre)
+                        Starter Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2537"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -243,7 +239,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Plural and possessive nouns, verbs, adjectives, adverbs of manner, commas, prepositions, basic capitalization, and commonly confused words
+                      Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words
                     </p>
                   </div>
                   <div
@@ -268,16 +264,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1664,
+                "activityId": 2538,
                 "lockedText": "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "Starter Growth Diagnostic (Post)",
-                "unitTemplateId": 217,
+                "name": "Starter Diagnostic (Growth Post)",
+                "unitTemplateId": 651,
                 "what": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
                 "when": "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            lockedText={false}
-            showNewTag={true}
           >
             <AssignmentCard
               bodyArray={
@@ -292,23 +286,16 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1664"
+              buttonLink="/activity_sessions/anonymous?activity_id=2538"
               buttonText="Preview"
-              header="Starter Growth Diagnostic (Post)"
-              key="1664"
-              lockedText={false}
+              header="Starter Diagnostic (Growth Post)"
+              key="2538"
               selectCard={[Function]}
-              showNewTag={true}
             >
               <div
-                className="show-new-tag assignment-card quill-card"
-                onClick={null}
+                className=" assignment-card quill-card"
+                onClick={[Function]}
               >
-                <span
-                  className="new-tag"
-                >
-                  NEW
-                </span>
                 <div
                   className="top-row"
                 >
@@ -319,18 +306,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Starter Growth Diagnostic (Post)
+                        Starter Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2538"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -379,10 +381,10 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1668,
-                "name": "Intermediate Baseline Diagnostic (Pre)",
-                "unitTemplateId": 100,
-                "what": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                "activityId": 2539,
+                "name": "Intermediate Diagnostic (Baseline Pre)",
+                "unitTemplateId": 638,
+                "what": "Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs",
                 "when": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
               }
             }
@@ -392,7 +394,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization",
+                    "text": "Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs",
                   },
                   Object {
                     "key": "When",
@@ -400,15 +402,15 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1668"
+              buttonLink="/activity_sessions/anonymous?activity_id=2539"
               buttonText="Preview"
-              header="Intermediate Baseline Diagnostic (Pre)"
-              key="1668"
+              header="Intermediate Diagnostic (Baseline Pre)"
+              key="2539"
               selectCard={[Function]}
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={null}
+                onClick={[Function]}
               >
                 <div
                   className="top-row"
@@ -420,18 +422,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Intermediate Baseline Diagnostic (Pre)
+                        Intermediate Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2539"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -450,7 +467,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Compound sentences, complex sentences, conjunctive adverbs, pronouns, and advanced capitalization
+                      Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs
                     </p>
                   </div>
                   <div
@@ -475,16 +492,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1669,
+                "activityId": 2540,
                 "lockedText": "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "Intermediate Growth Diagnostic (Post)",
-                "unitTemplateId": 237,
+                "name": "Intermediate Diagnostic (Growth Post)",
+                "unitTemplateId": 639,
                 "what": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
                 "when": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
-            showNewTag={true}
           >
             <AssignmentCard
               bodyArray={
@@ -499,23 +514,16 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1669"
+              buttonLink="/activity_sessions/anonymous?activity_id=2540"
               buttonText="Preview"
-              header="Intermediate Growth Diagnostic (Post)"
-              key="1669"
-              lockedText="This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
+              header="Intermediate Diagnostic (Growth Post)"
+              key="2540"
               selectCard={[Function]}
-              showNewTag={true}
             >
               <div
-                className="show-new-tag assignment-card quill-card"
-                onClick={null}
+                className=" assignment-card quill-card"
+                onClick={[Function]}
               >
-                <span
-                  className="new-tag"
-                >
-                  NEW
-                </span>
                 <div
                   className="top-row"
                 >
@@ -526,18 +534,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Intermediate Growth Diagnostic (Post)
+                        Intermediate Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2540"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -586,11 +609,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1678,
-                "name": "Advanced Baseline Diagnostic (Pre)",
-                "unitTemplateId": 126,
-                "what": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
-                "when": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+                "activityId": 2541,
+                "name": "Advanced Diagnostic (Baseline Pre)",
+                "unitTemplateId": 641,
+                "what": "Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining",
+                "when": "Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.",
               }
             }
           >
@@ -599,23 +622,23 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure",
+                    "text": "Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.",
+                    "text": "Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.",
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1678"
+              buttonLink="/activity_sessions/anonymous?activity_id=2541"
               buttonText="Preview"
-              header="Advanced Baseline Diagnostic (Pre)"
-              key="1678"
+              header="Advanced Diagnostic (Baseline Pre)"
+              key="2541"
               selectCard={[Function]}
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={null}
+                onClick={[Function]}
               >
                 <div
                   className="top-row"
@@ -627,18 +650,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Advanced Baseline Diagnostic (Pre)
+                        Advanced Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2541"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -657,7 +695,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Compound-complex sentences, appositive phrases, relative clauses, participial phrases, and parallel structure
+                      Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining
                     </p>
                   </div>
                   <div
@@ -672,7 +710,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are experienced with Quill, understand sentence combining, and are ready to develop multi-clause sentences.
+                      Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.
                     </p>
                   </div>
                 </div>
@@ -682,16 +720,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1680,
+                "activityId": 2542,
                 "lockedText": "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "Advanced Growth Diagnostic (Post)",
-                "unitTemplateId": 409,
+                "name": "Advanced Diagnostic (Growth Post)",
+                "unitTemplateId": 642,
                 "what": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
                 "when": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
-            showNewTag={true}
           >
             <AssignmentCard
               bodyArray={
@@ -706,23 +742,16 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1680"
+              buttonLink="/activity_sessions/anonymous?activity_id=2542"
               buttonText="Preview"
-              header="Advanced Growth Diagnostic (Post)"
-              key="1680"
-              lockedText="This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics."
+              header="Advanced Diagnostic (Growth Post)"
+              key="2542"
               selectCard={[Function]}
-              showNewTag={true}
             >
               <div
-                className="show-new-tag assignment-card quill-card"
-                onClick={null}
+                className=" assignment-card quill-card"
+                onClick={[Function]}
               >
-                <span
-                  className="new-tag"
-                >
-                  NEW
-                </span>
                 <div
                   className="top-row"
                 >
@@ -733,18 +762,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Advanced Growth Diagnostic (Post)
+                        Advanced Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2542"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -793,11 +837,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1161,
-                "name": "ELL Starter Baseline Diagnostic (Pre)",
-                "unitTemplateId": 154,
-                "what": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
-                "when": "Your students are newcomer English language learners who are working on basic foundational grammar skills.",
+                "activityId": 2550,
+                "name": "ELL Starter Diagnostic (Baseline Pre)",
+                "unitTemplateId": 643,
+                "what": "Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions",
+                "when": "Your students are newcomer or beginner English learners working on basic English grammar concepts.",
               }
             }
           >
@@ -806,23 +850,23 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
+                    "text": "Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are newcomer English language learners who are working on basic foundational grammar skills.",
+                    "text": "Your students are newcomer or beginner English learners working on basic English grammar concepts.",
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1161"
+              buttonLink="/activity_sessions/anonymous?activity_id=2550"
               buttonText="Preview"
-              header="ELL Starter Baseline Diagnostic (Pre)"
-              key="1161"
+              header="ELL Starter Diagnostic (Baseline Pre)"
+              key="2550"
               selectCard={[Function]}
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={null}
+                onClick={[Function]}
               >
                 <div
                   className="top-row"
@@ -834,18 +878,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Starter Baseline Diagnostic (Pre)
+                        ELL Starter Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2550"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -864,7 +923,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement
+                      Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions
                     </p>
                   </div>
                   <div
@@ -879,7 +938,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are newcomer English language learners who are working on basic foundational grammar skills.
+                      Your students are newcomer or beginner English learners working on basic English grammar concepts.
                     </p>
                   </div>
                 </div>
@@ -889,15 +948,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1774,
+                "activityId": 2551,
                 "lockedText": "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "ELL Starter Growth Diagnostic (Post)",
-                "unitTemplateId": 411,
+                "name": "ELL Starter Diagnostic (Growth Post)",
+                "unitTemplateId": 644,
                 "what": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
                 "when": "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            showNewTag={true}
           >
             <AssignmentCard
               bodyArray={
@@ -912,22 +970,16 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1774"
+              buttonLink="/activity_sessions/anonymous?activity_id=2551"
               buttonText="Preview"
-              header="ELL Starter Growth Diagnostic (Post)"
-              key="1774"
+              header="ELL Starter Diagnostic (Growth Post)"
+              key="2551"
               selectCard={[Function]}
-              showNewTag={true}
             >
               <div
-                className="show-new-tag assignment-card quill-card"
-                onClick={null}
+                className=" assignment-card quill-card"
+                onClick={[Function]}
               >
-                <span
-                  className="new-tag"
-                >
-                  NEW
-                </span>
                 <div
                   className="top-row"
                 >
@@ -938,18 +990,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Starter Growth Diagnostic (Post)
+                        ELL Starter Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2551"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -998,11 +1065,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1568,
-                "name": "ELL Intermediate Baseline Diagnostic (Pre)",
-                "unitTemplateId": 299,
-                "what": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
-                "when": "Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.",
+                "activityId": 2555,
+                "name": "ELL Intermediate Diagnostic (Baseline Pre)",
+                "unitTemplateId": 645,
+                "what": "Simple tenses, progressive tenses, perfect tenses, and modality",
+                "when": "Your students are beginner, intermediate, or advanced English learners working on English tenses.",
               }
             }
           >
@@ -1011,23 +1078,23 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions",
+                    "text": "Simple tenses, progressive tenses, perfect tenses, and modality",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.",
+                    "text": "Your students are beginner, intermediate, or advanced English learners working on English tenses.",
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1568"
+              buttonLink="/activity_sessions/anonymous?activity_id=2555"
               buttonText="Preview"
-              header="ELL Intermediate Baseline Diagnostic (Pre)"
-              key="1568"
+              header="ELL Intermediate Diagnostic (Baseline Pre)"
+              key="2555"
               selectCard={[Function]}
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={null}
+                onClick={[Function]}
               >
                 <div
                   className="top-row"
@@ -1039,18 +1106,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Intermediate Baseline Diagnostic (Pre)
+                        ELL Intermediate Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2555"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -1069,7 +1151,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Subject-verb agreement, possessives, prepositions, future tense, articles, and intermediate questions
+                      Simple tenses, progressive tenses, perfect tenses, and modality
                     </p>
                   </div>
                   <div
@@ -1084,7 +1166,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are newcomer or beginner English language learners who have an understanding of simple sentence structure but need practice with tenses, prepositions, and other foundational skills.
+                      Your students are beginner, intermediate, or advanced English learners working on English tenses.
                     </p>
                   </div>
                 </div>
@@ -1094,15 +1176,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1814,
+                "activityId": 2557,
                 "lockedText": "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "ELL Intermediate Growth Diagnostic (Post)",
-                "unitTemplateId": 444,
+                "name": "ELL Intermediate Diagnostic (Growth Post)",
+                "unitTemplateId": 646,
                 "what": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
                 "when": "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            showNewTag={true}
           >
             <AssignmentCard
               bodyArray={
@@ -1117,22 +1198,16 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1814"
+              buttonLink="/activity_sessions/anonymous?activity_id=2557"
               buttonText="Preview"
-              header="ELL Intermediate Growth Diagnostic (Post)"
-              key="1814"
+              header="ELL Intermediate Diagnostic (Growth Post)"
+              key="2557"
               selectCard={[Function]}
-              showNewTag={true}
             >
               <div
-                className="show-new-tag assignment-card quill-card"
-                onClick={null}
+                className=" assignment-card quill-card"
+                onClick={[Function]}
               >
-                <span
-                  className="new-tag"
-                >
-                  NEW
-                </span>
                 <div
                   className="top-row"
                 >
@@ -1143,18 +1218,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Intermediate Growth Diagnostic (Post)
+                        ELL Intermediate Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2557"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -1203,11 +1293,11 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1590,
-                "name": "ELL Advanced Baseline Diagnostic (Pre)",
-                "unitTemplateId": 300,
-                "what": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
-                "when": "Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+                "activityId": 2563,
+                "name": "ELL Advanced Diagnostic (Baseline Pre)",
+                "unitTemplateId": 647,
+                "what": "Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions",
+                "when": "Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.",
               }
             }
           >
@@ -1216,23 +1306,23 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                 Array [
                   Object {
                     "key": "What",
-                    "text": "Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words",
+                    "text": "Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions",
                   },
                   Object {
                     "key": "When",
-                    "text": "Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.",
+                    "text": "Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.",
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1590"
+              buttonLink="/activity_sessions/anonymous?activity_id=2563"
               buttonText="Preview"
-              header="ELL Advanced Baseline Diagnostic (Pre)"
-              key="1590"
+              header="ELL Advanced Diagnostic (Baseline Pre)"
+              key="2563"
               selectCard={[Function]}
             >
               <div
                 className=" assignment-card quill-card"
-                onClick={null}
+                onClick={[Function]}
               >
                 <div
                   className="top-row"
@@ -1244,18 +1334,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Advanced Baseline Diagnostic (Pre)
+                        ELL Advanced Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2563"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -1274,7 +1379,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Regular and irregular past tense, progressive tenses, phrasal verbs, choosing between prepositions, responding to questions, and commonly confused words
+                      Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions
                     </p>
                   </div>
                   <div
@@ -1289,7 +1394,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     <p
                       className="text"
                     >
-                      Your students are beginner or intermediate English language learners who have a foundational understanding of basic English grammar but need more practice with certain concepts.
+                      Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.
                     </p>
                   </div>
                 </div>
@@ -1299,15 +1404,14 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
           <DiagnosticAssignmentCard
             diagnostic={
               Object {
-                "activityId": 1818,
+                "activityId": 2564,
                 "lockedText": "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "ELL Advanced Growth Diagnostic (Post)",
-                "unitTemplateId": 445,
+                "name": "ELL Advanced Diagnostic (Growth Post)",
+                "unitTemplateId": 649,
                 "what": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",
                 "when": "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
               }
             }
-            showNewTag={true}
           >
             <AssignmentCard
               bodyArray={
@@ -1322,22 +1426,16 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                   },
                 ]
               }
-              buttonLink="/activity_sessions/anonymous?activity_id=1818"
+              buttonLink="/activity_sessions/anonymous?activity_id=2564"
               buttonText="Preview"
-              header="ELL Advanced Growth Diagnostic (Post)"
-              key="1818"
+              header="ELL Advanced Diagnostic (Growth Post)"
+              key="2564"
               selectCard={[Function]}
-              showNewTag={true}
             >
               <div
-                className="show-new-tag assignment-card quill-card"
-                onClick={null}
+                className=" assignment-card quill-card"
+                onClick={[Function]}
               >
-                <span
-                  className="new-tag"
-                >
-                  NEW
-                </span>
                 <div
                   className="top-row"
                 >
@@ -1348,18 +1446,33 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Advanced Growth Diagnostic (Post)
+                        ELL Advanced Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
                   <div
                     className="button-container"
                   >
+                    <a
+                      className="interactive-wrapper focus-on-light"
+                      href="/activity_sessions/anonymous?activity_id=2564"
+                      onClick={[Function]}
+                      target="_blank"
+                    >
+                      <img
+                        alt="Eye icon"
+                        src="undefined/images/icons/icons-preview.svg"
+                      />
+                      <span>
+                        Preview
+                      </span>
+                    </a>
                     <button
-                      className="quill-button small disabled contained"
+                      className="quill-button-archived fun contained primary focus-on-light"
+                      onClick={[Function]}
                       type="button"
                     >
-                      Coming Aug 1
+                      Select
                     </button>
                   </div>
                 </div>
@@ -1468,7 +1581,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button fun contained primary focus-on-light"
+                    className="quill-button-archived fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >
@@ -1580,7 +1693,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button fun contained primary focus-on-light"
+                    className="quill-button-archived fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >
@@ -1692,7 +1805,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button fun contained primary focus-on-light"
+                    className="quill-button-archived fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >
@@ -1804,7 +1917,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                     </span>
                   </a>
                   <button
-                    className="quill-button fun contained primary focus-on-light"
+                    className="quill-button-archived fun contained primary focus-on-light"
                     onClick={[Function]}
                     type="button"
                   >

@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class ProgressReports::Concepts::ConceptResult
-
   def self.results(teacher, filters)
     query = ::ConceptResult.select(<<-SELECT
       cast(concept_results.correct as int) as is_correct,
       activity_sessions.user_id,
       concept_results.concept_id
     SELECT
-  ).joins({activity_session: {classroom_unit: :classroom}})
+                                  ).joins({ activity_session: { classroom_unit: :classroom } })
      .joins('INNER JOIN classrooms_teachers ON classrooms.id = classrooms_teachers.classroom_id')
       .where('activity_sessions.state = ? AND classrooms_teachers.user_id = ?', 'finished', teacher.id)
 

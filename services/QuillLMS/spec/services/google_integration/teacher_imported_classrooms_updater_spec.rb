@@ -9,7 +9,7 @@ module GoogleIntegration
     let(:imported_classroom) { create(:classroom, :from_google) }
     let(:user) { imported_classroom.owner }
     let(:new_classroom_external_id) { 345 }
-    let(:updated_name) { "new_#{imported_classroom.name}"}
+    let(:updated_name) { "new_#{imported_classroom.name}" }
 
     let(:data) do
       [

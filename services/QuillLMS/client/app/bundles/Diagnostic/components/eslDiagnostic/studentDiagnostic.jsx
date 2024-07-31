@@ -3,9 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import Footer from './footer';
 import LandingPage from './landingPage.jsx';
-import LanguagePage from './languagePage.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayTitleCard from './titleCard.tsx';
@@ -16,6 +14,7 @@ import {
   CarouselAnimation,
   KEYDOWN,
   KEYPRESS,
+  LanguageSelectionPage,
   MOUSEDOWN,
   MOUSEMOVE,
   ProgressBar,
@@ -28,7 +27,6 @@ import {
   clearData,
   loadData,
   nextQuestion,
-  openLanguageMenu,
   resumePreviousDiagnosticSession,
   setCurrentQuestion,
   setDiagnosticID,
@@ -45,7 +43,7 @@ import {
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
-import { ENGLISH } from '../../../Shared/utils/languageList';
+import { ENGLISH, defaultLanguages } from '../../../Shared/utils/languageList';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
@@ -360,12 +358,6 @@ export class ELLStudentDiagnostic extends React.Component {
     dispatch(updateLanguage(language));
   }
 
-  onClickOpenMobileLanguageMenu = () => {
-    const { dispatch, } = this.props
-    dispatch(openLanguageMenu())
-    window.scrollTo(0, 0)
-  }
-
   language = () => {
     const { playDiagnostic, } = this.props
 
@@ -380,16 +372,12 @@ export class ELLStudentDiagnostic extends React.Component {
     return data[diagnosticID].landingPageHtml
   }
 
-  renderFooter = () => {
-    if (!this.language()) { return }
-
-    return (
-      <Footer
-        handleClickOpenMobileLanguageMenu={this.onClickOpenMobileLanguageMenu}
-        language={this.language()}
-        updateLanguage={this.updateLanguage}
-      />
-    )
+  getQuestionCount = () => {
+    const { playDiagnostic, } = this.props
+    if (playDiagnostic.questionSet && playDiagnostic.questionSet.length) {
+      const { questionSet } = playDiagnostic
+      return questionSet.filter(question => question.type !== 'TL').length
+    }
   }
 
   renderProgressBar = () => {
@@ -451,11 +439,12 @@ export class ELLStudentDiagnostic extends React.Component {
 
       />);
     } else {
-      component = (<LanguagePage
-        begin={this.startActivity}
+      component = (<LanguageSelectionPage
+        beginActivity={this.startActivity}
         dispatch={dispatch}
+        languages={defaultLanguages}
         previewMode={previewMode}
-        questionCount={playDiagnostic.questionSet && playDiagnostic.questionSet.length}
+        questionCount={this.getQuestionCount()}
         setLanguage={this.updateLanguage}
       />);
     }
@@ -470,7 +459,6 @@ export class ELLStudentDiagnostic extends React.Component {
             </CarouselAnimation>
           </div>
         </section>
-        {this.renderFooter()}
       </div>
     );
   }

@@ -52,7 +52,7 @@ namespace :diagnostic_question_optimal_concepts do
       question = fetch_question_from_row(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ''}.uniq
+      full_concept_names = concepts_row.split(DELIMITER).reject{ |concept| concept == '' }.uniq
       concepts = full_concept_names.map do |concept_name|
         concept = fetch_concept(concept_name)
         if concept.length > 1
@@ -79,7 +79,7 @@ namespace :diagnostic_question_optimal_concepts do
   end
 
   module SeedDiagnosticQuestionOptimalConcepts
-    def diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values {|id| Activity.find(id)}
+    def diagnostics = DIAGNOSTIC_ID_LOOKUP.transform_values { |id| Activity.find(id) }
 
     def pipe_data
       @pipe_data ||= $stdin.read unless $stdin.tty?
@@ -99,16 +99,16 @@ namespace :diagnostic_question_optimal_concepts do
       concepts = Concept.left_outer_joins(:parent)
         .joins('LEFT OUTER JOIN concepts AS grandparent ON parent.parent_id = grandparent.id')
         .where(visible: true)
-        .where.not(parent: {parent_id: nil})
-      concepts = concepts.where(parent: {name: level1}) if level1
-      concepts = concepts.where(grandparent: {name: level2}) if level2
+        .where.not(parent: { parent_id: nil })
+      concepts = concepts.where(parent: { name: level1 }) if level1
+      concepts = concepts.where(grandparent: { name: level2 }) if level2
       concepts.where(name: level0)
     end
 
     def fetch_question_from_row(row)
       activity = diagnostics[row[DIAGNOSTIC_INDEX]]
       # Filter out titleCards from the questions array
-      activity_questions = activity.data['questions'].filter {|d| d['questionType'] != 'titleCards' }
+      activity_questions = activity.data['questions'].filter { |d| d['questionType'] != 'titleCards' }
       question_number = row[QUESTION_NUMBER_INDEX].to_i
       # Use -1 to go from 1-indexed data in the CSV to 0-indexed data in the database
       question_uid = activity_questions[question_number - 1]['key']
@@ -129,13 +129,13 @@ namespace :diagnostic_question_optimal_concepts do
     def question_valid?(row)
       question = fetch_question_from_row(row)
 
-      sanitize_question(question.data['prompt']) == sanitize_question(row[QUESTION_INDEX])
+      sanitize_question(question.prompt) == sanitize_question(row[QUESTION_INDEX])
     end
 
     def concepts_valid?(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      full_concept_names = concepts_row.split(DELIMITER).reject{|concept| concept == ''}.uniq
+      full_concept_names = concepts_row.split(DELIMITER).reject{ |concept| concept == '' }.uniq
       concepts = full_concept_names.map { |concept_name| fetch_concept(concept_name) }.flatten
 
       full_concept_names.length == concepts.length

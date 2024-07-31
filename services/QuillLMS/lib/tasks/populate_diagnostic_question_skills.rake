@@ -15,6 +15,5 @@ namespace :diagnostic_question_skills do
         end
       end
     end
-
   end
 end

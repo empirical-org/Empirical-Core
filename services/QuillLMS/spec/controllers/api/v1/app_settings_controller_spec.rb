@@ -9,7 +9,6 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
 
   describe 'GET #index' do
     it 'returns a success response' do
-
       create(:app_setting, name: 'first', enabled: true)
       create(:app_setting, name: 'second', enabled: true)
       create(:app_setting, name: 'third', enabled: true)
@@ -60,7 +59,6 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
       expect(JSON.parse(response.body)['users_without_emails']).to eq([user2.name])
     end
   end
-
 
   describe 'GET #show' do
     it 'returns a success response' do

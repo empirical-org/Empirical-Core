@@ -8,5 +8,4 @@ class SetTeacherLessonCache
     @user = User.find_by(id: teacher_id)
     @user.set_lessons_cache if @user
   end
-
 end

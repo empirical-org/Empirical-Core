@@ -167,7 +167,7 @@ describe Subscription, type: :model do
   describe '.redemption_start_date' do
     let!(:school) { create(:school) }
     let!(:subscription) { create(:subscription, expiration: Date.tomorrow) }
-    let!(:school_subscription) {create(:school_subscription, school: school, subscription: subscription)}
+    let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
 
     it 'fetches the expiration date of current subscription' do
       expect(Subscription.redemption_start_date(school)).to eq(subscription.expiration)
@@ -225,7 +225,6 @@ describe Subscription, type: :model do
     end
 
     context 'when the expiration is missing' do
-
       it 'adds at least a year (or more, depending on promotions) to other accounts' do
         attributes = { account_type: 'Teacher Paid' }
         new_sub = Subscription.create_and_attach_subscriber(attributes, user)
@@ -236,7 +235,7 @@ describe Subscription, type: :model do
     context 'when the subscription type is TEACHER_TRIAL' do
       let!(:user_with_existing_subscription) { create(:user) }
 
-      let!(:existing_subscription ) do
+      let!(:existing_subscription) do
         Subscription.create_and_attach_subscriber(
           { expiration: 365.days.from_now.to_date, account_type: 'Teacher Paid' },
           user_with_existing_subscription
@@ -246,7 +245,7 @@ describe Subscription, type: :model do
       let!(:user_with_no_existing_subscription) { create(:user) }
       let!(:user_with_expired_existing_subscription) { create(:user) }
 
-      let!(:existing_expired_subscription ) do
+      let!(:existing_expired_subscription) do
         Subscription.create_and_attach_subscriber(
           { expiration: 1.day.ago.to_date, account_type: 'Teacher Paid' },
           user_with_expired_existing_subscription
@@ -480,7 +479,6 @@ describe Subscription, type: :model do
         let(:account_type) { described_class::SCHOOL_SPONSORED_FREE }
 
         it { expect(subject).to be nil }
-
       end
     end
 

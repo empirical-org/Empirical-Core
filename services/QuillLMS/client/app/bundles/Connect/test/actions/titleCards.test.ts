@@ -30,17 +30,6 @@ describe('TitleCards actions', () => {
     })
   })
 
-  describe('loadSpecifiedTitleCards', () => {
-    it('should call TitleCardApi.get()', () => {
-      const MOCK_ID1 = '1'
-      const MOCK_ID2 = '2'
-      const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
-      dispatch(titleCardActions.loadSpecifiedTitleCards(MOCK_IDS))
-      expect(mockTitleCardApi.get).toHaveBeenCalledWith(CONNECT_TITLE_CARD_TYPE, MOCK_ID1)
-      expect(mockTitleCardApi.get).toHaveBeenCalledWith(CONNECT_TITLE_CARD_TYPE, MOCK_ID2)
-    })
-  })
-
   describe('submitNewTitleCard', () => {
     it('should call TitleCardApi.create()', () => {
       const MOCK_CONTENT = { mock: 'content' }

@@ -28,7 +28,5 @@ class Ability
   end
 
   def temporary
-
   end
-
 end

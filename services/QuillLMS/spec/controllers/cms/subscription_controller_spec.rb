@@ -58,7 +58,7 @@ describe Cms::SubscriptionsController do
   describe '#edit' do
     context 'stripe' do
       let(:subscription) { create(:subscription, :stripe) }
-      let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}"}
+      let(:stripe_subscription_id) { "sub_#{SecureRandom.hex}" }
       let(:stripe_invoice_id) { subscription.stripe_invoice_id }
       let(:stripe_invoice) { double(:stripe_invoice, subscription: stripe_subscription_id) }
 

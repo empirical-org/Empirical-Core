@@ -19,7 +19,5 @@ describe Api::V1::ActivitySurveyResponsesController, type: :controller do
       expect(new_activity_survey_response.multiple_choice_selections).to eq(data[:multiple_choice_selections])
       expect(new_activity_survey_response.survey_question).to eq(data[:survey_question])
     end
-
   end
-
 end

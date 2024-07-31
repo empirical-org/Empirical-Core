@@ -10,7 +10,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
       format.json do
         unit_templates =
           UnitTemplate
-            .includes(activities: [:raw_score, {standard: :standard_category}])
+            .includes(activities: [:raw_score, { standard: :standard_category }])
             .includes(:unit_template_category)
             .order(order_number: :asc)
 
@@ -28,26 +28,29 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   def create
-    @unit_template = UnitTemplate.new(unit_template_params)
+    @unit_template = UnitTemplate.new(unit_template_params.except(:activity_ids))
     if @unit_template.save!
+      unit_template_params[:activity_ids].each_with_index do |activity_id, order_number|
+        ActivitiesUnitTemplate.create(activity_id:, order_number:, unit_template_id: @unit_template.id)
+      end
+
       render json: @unit_template
     else
-      render json: {errors: @unit_template.errors}, status: 422
+      render json: { errors: @unit_template.errors }, status: 422
     end
   end
 
   def update
-    params = unit_template_params
-    @unit_template.activities = []
-    @unit_template.save
-    if @unit_template.update(params)
-      @unit_template.activities_unit_templates.each do |aut|
-        order_number = params['activity_ids'].index(aut.activity_id)
-        aut.update(order_number: order_number)
+    if @unit_template.update(unit_template_params.except(:activity_ids))
+      @unit_template.activities_unit_templates.destroy_all
+
+      unit_template_params[:activity_ids].each_with_index do |activity_id, order_number|
+        ActivitiesUnitTemplate.create(activity_id:, order_number:, unit_template_id: @unit_template.id)
       end
+
       render json: @unit_template
     else
-      render json: {errors: @unit_template.errors}, status: 422
+      render json: { errors: @unit_template.errors }, status: 422
     end
   end
 
@@ -55,7 +58,7 @@ class Cms::UnitTemplatesController < Cms::CmsController
     unit_templates = params[:unit_templates]
     unit_templates.each { |ut| UnitTemplate.find(ut['id']).update(order_number: ut['order_number']) }
     UnitTemplate.delete_all_caches
-    render json: {unit_templates: UnitTemplate.order(order_number: :asc)}
+    render json: { unit_templates: UnitTemplate.order(order_number: :asc) }
   end
 
   def destroy
@@ -68,18 +71,21 @@ class Cms::UnitTemplatesController < Cms::CmsController
   end
 
   private def unit_template_params
-    params.require(:unit_template)
-            .permit(:id,
-                    :authenticity_token,
-                    :name,
-                    :flag,
-                    :author_id,
-                    :activity_info,
-                    :time,
-                    :order_number,
-                    :unit_template_category_id,
-                    :image_link,
-                    grades: [],
-                    activity_ids: [])
+    params
+      .require(:unit_template)
+      .permit(
+        :id,
+        :authenticity_token,
+        :name,
+        :flag,
+        :author_id,
+        :activity_info,
+        :time,
+        :order_number,
+        :unit_template_category_id,
+        :image_link,
+        grades: [],
+        activity_ids: []
+      )
   end
 end

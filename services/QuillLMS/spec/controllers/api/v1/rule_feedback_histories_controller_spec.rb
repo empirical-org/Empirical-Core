@@ -36,7 +36,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
     it 'should return successfully' do
       get :rule_detail, params: { rule_uid: 1, prompt_id: 1 }, as: :json
       expect(response.status).to eq 200
-      expect(JSON.parse(response.body)).to eq({'1'=>{'responses'=>[]}})
+      expect(JSON.parse(response.body)).to eq({ '1'=>{ 'responses'=>[] } })
     end
   end
 
@@ -58,7 +58,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
           conjunction: 'so',
           activity: main_activity,
           max_attempts: 3
-         )
+        )
 
         as1 = create(:activity_session, activity_id: main_activity.id)
 
@@ -90,7 +90,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
           conjunction: 'so',
           activity: main_activity,
           max_attempts: 3
-         )
+        )
 
         as1 = create(:activity_session, state: 'finished', activity_id: main_activity.id, timespent: 61)
 
@@ -103,5 +103,4 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
       end
     end
   end
-
 end

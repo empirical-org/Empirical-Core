@@ -64,7 +64,6 @@ describe InternalToolUserMailer, type: :mailer do
     end
   end
 
-
   describe 'district_admin_account_created_email' do
     let(:user) { build(:user) }
     let(:district) { build(:district) }
@@ -92,5 +91,4 @@ describe InternalToolUserMailer, type: :mailer do
       expect(body_contains_expected_content).to eq(true)
     end
   end
-
 end

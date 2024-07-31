@@ -43,7 +43,6 @@ module Evidence
           redirect_to research_gen_ai_dataset_trials_path(dataset_id:)
         end
 
-
         private def dataset = @dataset ||= Dataset.find(dataset_id)
 
         private def dataset_id = params[:dataset_id]

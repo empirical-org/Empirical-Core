@@ -7,6 +7,7 @@ class AddTypeToTitleCard < ActiveRecord::Migration[4.2]
     TitleCard.update_all(title_card_type: 'connect_title_card')
     change_column_null :title_cards, :title_card_type, false
   end
+
   def down
     remove_column :title_cards, :title_card_type
   end

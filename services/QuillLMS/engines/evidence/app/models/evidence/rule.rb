@@ -82,17 +82,17 @@ module Evidence
     accepts_nested_attributes_for :regex_rules
 
     validates :uid, presence: true, uniqueness: true
-    validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
+    validates :name, presence: true, length: { maximum: MAX_NAME_LENGTH }
     validates :universal, inclusion: ALLOWED_BOOLEANS
     validates :optimal, inclusion: ALLOWED_BOOLEANS
-    validates :rule_type, inclusion: {in: TYPES}
-    validates :state, inclusion: {in: STATES}
-    validates :suborder, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to: 0}
+    validates :rule_type, inclusion: { in: TYPES }
+    validates :state, inclusion: { in: STATES }
+    validates :suborder, numericality: { allow_blank: true, only_integer: true, greater_than_or_equal_to: 0 }
 
-    scope :active, -> {where(state: STATE_ACTIVE)}
-    scope :auto_ml, -> {where(rule_type: TYPE_AUTOML)}
-    scope :optimal, -> {where(optimal: true)}
-    scope :suboptimal, -> {where(optimal: false)}
+    scope :active, -> { where(state: STATE_ACTIVE) }
+    scope :auto_ml, -> { where(rule_type: TYPE_AUTOML) }
+    scope :optimal, -> { where(optimal: true) }
+    scope :suboptimal, -> { where(optimal: false) }
 
     def serializable_hash(options = nil)
       options ||= {}

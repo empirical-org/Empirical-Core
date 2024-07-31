@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module UnitQueries
-
   extend ActiveSupport::Concern
 
   def get_classrooms_with_students_and_classroom_units(unit, current_user)
@@ -43,5 +42,4 @@ module UnitQueries
       classroom_unit_hash
     end
   end
-
 end

@@ -49,7 +49,6 @@ namespace :leap do
   end
 
   module LeapTaskHelpers
-
     def arg_values(args)
       @email_domain = args[:email_domain]
       @csv_path = args[:csv_path]
@@ -69,7 +68,7 @@ namespace :leap do
       user = User.find_by(email: email)
       if user
         district_id = ThirdPartyUserId.find_or_create_by(user: user,
-                                                         source: @id_source)
+          source: @id_source)
         district_id.third_party_id = row[@district_id_column_name].strip
         district_id.save!
       else

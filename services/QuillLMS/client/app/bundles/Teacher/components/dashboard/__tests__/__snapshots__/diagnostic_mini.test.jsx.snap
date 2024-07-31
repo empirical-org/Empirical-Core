@@ -412,9 +412,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   }
                 >
                   <span
-                    aria-hidden={false}
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     className="quill-tooltip-trigger "
-                    role="tooltip"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -422,16 +429,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                         "width": "290px",
                       }
                     }
+                    tabIndex={0}
                   >
                     <span
                       className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
                       style={
                         Object {
                           "minWidth": "290px",
@@ -439,7 +440,6 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                           "width": "290px",
                         }
                       }
-                      tabIndex={0}
                     >
                       Quill Classroom Extremely Long So Long SUper Duper
                     </span>
@@ -449,6 +449,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       <span
                         aria-live="polite"
                         className="quill-tooltip"
+                        id="tooltip"
+                        role="tooltip"
                       />
                     </span>
                   </span>
@@ -620,9 +622,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   }
                 >
                   <span
-                    aria-hidden={false}
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     className="quill-tooltip-trigger "
-                    role="tooltip"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -630,16 +639,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                         "width": "290px",
                       }
                     }
+                    tabIndex={0}
                   >
                     <span
                       className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
                       style={
                         Object {
                           "minWidth": "290px",
@@ -647,7 +650,6 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                           "width": "290px",
                         }
                       }
-                      tabIndex={0}
                     >
                       Quill Classroom Extremely Long So Long SUper Duper
                     </span>
@@ -657,6 +659,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       <span
                         aria-live="polite"
                         className="quill-tooltip"
+                        id="tooltip"
+                        role="tooltip"
                       />
                     </span>
                   </span>
@@ -750,9 +754,16 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                   }
                 >
                   <span
-                    aria-hidden={false}
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     className="quill-tooltip-trigger "
-                    role="tooltip"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -760,16 +771,10 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                         "width": "290px",
                       }
                     }
+                    tabIndex={0}
                   >
                     <span
                       className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
                       style={
                         Object {
                           "minWidth": "290px",
@@ -777,7 +782,6 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                           "width": "290px",
                         }
                       }
-                      tabIndex={0}
                     >
                       Quill Classroom Extremely Long So Long SUper Duper
                     </span>
@@ -787,6 +791,8 @@ exports[`DiagnosticMini component not on mobile should render when there are dia
                       <span
                         aria-live="polite"
                         className="quill-tooltip"
+                        id="tooltip"
+                        role="tooltip"
                       />
                     </span>
                   </span>

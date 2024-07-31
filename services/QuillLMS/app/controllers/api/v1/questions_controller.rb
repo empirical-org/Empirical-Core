@@ -22,11 +22,11 @@ class Api::V1::QuestionsController < Api::ApiController
   def create
     uid = SecureRandom.uuid
     @question = Question.create!(uid: uid, data: valid_params, question_type: @question_type)
-    render(json: {@question.uid => @question.as_json})
+    render(json: { @question.uid => @question.as_json })
   end
 
   def update
-    @question.update!({data:valid_params})
+    @question.update!({ data: valid_params })
     render(json: @question.as_json)
   end
 

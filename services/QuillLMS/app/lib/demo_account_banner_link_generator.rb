@@ -66,5 +66,4 @@ module DemoAccountBannerLinkGenerator
 
     true
   end
-
 end

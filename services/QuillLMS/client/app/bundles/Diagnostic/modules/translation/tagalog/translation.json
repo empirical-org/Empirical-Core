@@ -26,10 +26,6 @@
         "header": "Halos nasa kalahati ka na!",
         "text": "Ituloy mo lang, magaling!"
     },
-    "ELL Halfway": {
-        "header": "Halos nasa kalahati ka na!",
-        "text": "Ituloy mo lang, magaling!"
-    },
     "ELL Starter Questions": {
         "header": "Mga Tanong",
         "text": "Sa bahaging ito, magsusulat ka ng mga tanong. Tandaaan na ang mga tanong ay may tandang pananong (?) sa dulo. Kaya mo iyan!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Isulat muli ang pangungusap. Itama ang may salungguhit na salitang kilos nang sa gayon ay nasa tamang panahunan ito para tumugma sa natitirang bahagi ng pangungusap.",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Isulat muli ang pangungusap. Itama ang mga may salungguhit na salita nang sa gayon ay nasa panahunang panghihinarap ang mga ito.",
         "Respond to the question. Fill in the blank with one of the choices.": "Sumagot sa tanong. Punan ang blangko ng isa sa mga pagpipilian.",
-        "Use the joining word to combine the sentences into one sentence.": "Gamitin ang salita para pagsamahin ang mga pangungusap at gawing isang pangungusap."
+        "Use the joining word to combine the sentences into one sentence.": "Gamitin ang salita para pagsamahin ang mga pangungusap at gawing isang pangungusap.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Punan ang ilan sa mga blangko gamit ang dilaw na mga salita. Maaari mong iwanan ang mga blangko na walang laman.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Mayroong dalawang tamang sagot. Punan ang bawat blangko gamit ang isa sa mga tamang sagot. Huwag isulat ang parehong sagot nang dalawang beses.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Punan ang bawat blangko gamit ang isa sa mga salita. Maaari mong gamitin ang parehong salita nang higit sa isang beses.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "Isulat ang mga pangungusap. Baguhin ang mga salita na nakasalungguhit na salita upang magmukha ito nag-uusao tungkol sa iba't ibang tao.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Isulat ang mga katanungan. Baguhin ang mga salita na nakasalungguhit upang ang mga katanungan ay nakasulat nang tama.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Isulat nang tama ang mga pangungusap na ito. Baguhin lamang ang mga nakasalungguhit na salita. Panatilihin ang salitang “not” sa bawat pangungusap.",
+        "Write the words in the correct order. There are multiple correct answers.": "Isulat ang mga salita sa tamang pagkakasunud-sunod. Mayroong maraming tamang sagot.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Isulat ang pangungusap. Baguhin ang nakasalungguhit na salita upang umangkop sa pangungusap. Huwag magdagdag ng anumang mga bagong salita.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Isulat ang pangungusap. Baguhin ang nakasalungguhit na salita upang umangkop sa pangungusap. Maaari mong baguhin ito sa 1 o 2 salita.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Isulat ang mga pangungusap. Gawing isang salita ang bawat grupo ng mga nakasalungguhit na salita. Gumamit ng apostrophe (').",
+        "Fill in the blank with the correct option.": "Punan ang blangko gamit ang tamang pagpipilian.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Punan ang bawat blangko gamit ang tamang pagpipilian. Maaari kang gumamit ng isang pagpipilian nang higit sa isang beses.",
+        "Fill in the blank with the most natural option.": "Punan ang blangko gamit ang pinaka-natural na pagpipilian.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "Punan ang bawat blangko gamit ang isa sa mga pagpipilian. Pinapayagan kang gumamit ng parehong pagpipilian nang maraming beses, ngunit hindi mo ito kailangang gawin.",
+        "Fill in the blank with the most natural sentence.": "Punan ang blangko gamit ang pinaka-natural na pangungusap.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "Punan ang mga blangko na nangangailangan ng mga salita. Maaari mong iwan ang mga blangko na walang laman. Pinapayagan kang gumamit ng parehong pagpipilian nang maraming beses, ngunit hindi mo kailangang gawin.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Punan ang bawat blangko gamit ang isang pagpipilian. Pinapayagan kang gumamit ng parehong pagpipilian nang maraming beses, ngunit hindi mo kailangang gawin.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Punan ang bawat blangko gamit ang isang salita. Pinapayagan kang gumamit ng parehong salita nang maraming beses, ngunit hindi mo kailangang gawin.",
+        "Fill in each blank with one of the words.": "Punan ang bawat blangko gamit ang isa sa mga salita.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Mayroong dalawang tamang pagpipilian. Punan ang bawat blangko gamit ang isa sa mga tamang pagpipilian. Huwag isulat ang parehong sagot nang dalawang beses.",
+        "Fill in each blank with one of the options.": "Punan ang bawat blangko gamit ang isa sa mga pagpipilian.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Isulat muli ang pangungusap. Baguhin ang mga nakasalungguhit na salitang hindi tama. Huwag baguhin ang mga salitang tama na."
     },
     "cues": {
         "type one": "type one / mag-type ng isa",
@@ -76,7 +94,12 @@
         "choose one": "choose one / pumili ng isa",
         "choose three": "choose three / pumili ng tatlo",
         "choose two or three" : "choose two or three / pumili ng dalawa o tatlo",
-        "joining word": "joining word / salita para pagsamahin"
+        "joining word": "joining word / salita para pagsamahin",
+        "words": "words / mga salita",
+        "type two": "type two / mag-type ng dalawa",
+        "options": "options / mga pagpipilian",
+        "sentences": "sentences / mga pangungusap",
+        "answers": "answers / mga sagot"
     },
     "feedback": {
         "blank": "Gamitin ang isa sa mga opsyon sa ibaba o iwang blanko.",

@@ -55,6 +55,11 @@ Gemspec/RequireMFA:
 Layout/ArrayAlignment:
   Enabled: true
 
+Layout/ArgumentAlignment:
+  Enabled: true
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 2
+
 Layout/AssignmentIndentation:
   Enabled: true
 
@@ -93,6 +98,10 @@ Layout/EmptyLinesAroundExceptionHandlingKeywords:
 
 Layout/EndAlignment:
   Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
 
 Layout/MultilineHashBraceLayout:
   Enabled: true
@@ -457,10 +466,6 @@ Security/Open:
 Security/YAMLLoad:
   Enabled: true
 
-StringLiterals:
-  EnforcedStyle: single_quotes
-  Enabled: true
-
 #######################################################################################################################
 # STYLE
 #######################################################################################################################
@@ -694,6 +699,10 @@ Style/StderrPuts:
   Enabled: true
 
 Style/StringChars:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
   Enabled: true
 
 Style/StringLiteralsInInterpolation:

@@ -101,8 +101,6 @@ gem 'redis-rack-cache'
 gem 'actionpack-action_caching'
 
 # JS/APP/UI
-gem 'turbolinks'
-gem 'jquery-turbolinks'
 gem 'jbuilder'
 gem 'active_link_to'
 
@@ -132,7 +130,6 @@ gem 'vite_rails', '~> 3.0.14'
 # ASSET/UI
 gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
-gem 'sprockets-rails', '~> 3.2.2'
 
 # MIDDLEWARE
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'

@@ -4,6 +4,47 @@ module Translatable
   extend ActiveSupport::Concern
 
   SPANISH_LOCALE = 'es-la'
+  ENGLISH_LOCALE = 'en'
+  CHINESE_LOCALE = 'zh-cn'
+  HINDI_LOCALE = 'hi'
+  FRENCH_LOCALE = 'fr'
+  ARABIC_LOCALE = 'ar'
+  RUSSIAN_LOCALE = 'ru'
+  PORTUGUESE_LOCALE = 'pt-br'
+  URDU_LOCALE = 'ur'
+  GERMAN_LOCALE = 'de'
+  JAPANESE_LOCALE = 'ja'
+  KOREAN_LOCALE = 'ko'
+  VIETNAMESE_LOCALE = 'vi'
+  THAI_LOCALE = 'th'
+  UKRAINIAN_LOCALE = 'uk'
+  TAGALOG_LOCALE = 'tl'
+  FILIPINO_LOCALE = 'fil'
+  DARI_LOCALE = 'prs'
+
+  LANGUAGE_CONSTANTS = JSON.parse(File.read(Rails.root.join('config/locales/languageConstants.json')))
+
+  LOCALE_TO_LANGUAGE = {
+    ENGLISH_LOCALE => LANGUAGE_CONSTANTS['ENGLISH'],
+    CHINESE_LOCALE => LANGUAGE_CONSTANTS['CHINESE'],
+    HINDI_LOCALE => LANGUAGE_CONSTANTS['HINDI'],
+    SPANISH_LOCALE => LANGUAGE_CONSTANTS['SPANISH'],
+    FRENCH_LOCALE => LANGUAGE_CONSTANTS['FRENCH'],
+    ARABIC_LOCALE => LANGUAGE_CONSTANTS['ARABIC'],
+    RUSSIAN_LOCALE => LANGUAGE_CONSTANTS['RUSSIAN'],
+    PORTUGUESE_LOCALE => LANGUAGE_CONSTANTS['PORTUGUESE'],
+    URDU_LOCALE => LANGUAGE_CONSTANTS['URDU'],
+    GERMAN_LOCALE => LANGUAGE_CONSTANTS['GERMAN'],
+    JAPANESE_LOCALE => LANGUAGE_CONSTANTS['JAPANESE'],
+    KOREAN_LOCALE => LANGUAGE_CONSTANTS['KOREAN'],
+    VIETNAMESE_LOCALE => LANGUAGE_CONSTANTS['VIETNAMESE'],
+    THAI_LOCALE => LANGUAGE_CONSTANTS['THAI'],
+    UKRAINIAN_LOCALE => LANGUAGE_CONSTANTS['UKRAINIAN'],
+    TAGALOG_LOCALE => LANGUAGE_CONSTANTS['TAGALOG'],
+    FILIPINO_LOCALE => LANGUAGE_CONSTANTS['TAGALOG'],
+    DARI_LOCALE => LANGUAGE_CONSTANTS['DARI']
+  }
+
   DEFAULT_LOCALE = SPANISH_LOCALE
   GENGO_SOURCE = 'gengo'
   OPEN_AI_SOURCE = 'open_ai'
@@ -15,27 +56,23 @@ module Translatable
     has_many :translated_texts, through: :english_texts
     has_many :gengo_jobs, through: :english_texts
 
-    class_attribute :translatable_field_name, default: nil
-  end
-
-  def translated_json(options = {})
-    source_api = options&.dig(:source_api) || Translatable::OPEN_AI_SOURCE
-    translation_text = translation(source_api: source_api)
-    return data unless translation_text.present?
-
-    data.merge({"translated#{translatable_field_name.capitalize}" => translation_text})
+    class_attribute :default_translatable_field, default: nil
   end
 
   def create_translation_mappings
-    return if translatable_text.nil?
-    return unless translation_mappings.empty?
+    create_translation_mappings_with_text(translatable_text:)
+  end
+
+  def create_translation_mappings_with_text(translatable_text:, field_name: default_translatable_field)
+    return unless translatable_text.is_a?(String) && translatable_text.present?
+    return unless translation_mappings.where(field_name:).empty?
 
     english_text = EnglishText.find_or_create_by(text: translatable_text)
-    translation_mappings.create(english_text: english_text)
+    translation_mappings.create(english_text:, field_name:)
   end
 
   def translation(locale: DEFAULT_LOCALE, source_api: OPEN_AI_SOURCE)
-    translations(locale: locale, source_api: source_api)&.first&.translation
+    @translation ||= translations(locale: locale, source_api: source_api)&.first&.translation
   end
 
   def translations(locale:, source_api:)
@@ -48,8 +85,8 @@ module Translatable
     when GENGO_SOURCE
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
-      texts = force ? english_texts : english_texts.reject {|e| e.translated?(locale:)}
-      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: prompt(locale:)) }
+      texts = force ? english_texts : english_texts.reject { |e| e.translated?(locale:) }
+      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: open_ai_prompt(locale:), locale:) }
     end
     translation(locale:, source_api:)
   end
@@ -58,7 +95,7 @@ module Translatable
     gengo_jobs.each(&:fetch_translation!)
   end
 
-  def prompt(locale:)
+  def open_ai_prompt(locale:)
     "#{prompt_start(locale:)}#{custom_prompt}#{examples}\n text to translate: "
   end
 
@@ -92,6 +129,6 @@ module Translatable
   end
 
   private def translatable_text
-    data[self.class.translatable_field_name]
+    data[default_translatable_field]
   end
 end

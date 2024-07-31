@@ -26,10 +26,6 @@
         "header": "Bạn đã đi được nửa chặng đường rồi!",
         "text": "Cứ phát huy nhé!"
     },
-    "ELL Halfway": {
-        "header": "Bạn đã đi được nửa chặng đường rồi!",
-        "text": "Cứ phát huy nhé!"
-    },
     "ELL Starter Questions": {
         "header": "Câu hỏi",
         "text": "Trong phần này, bạn sẽ viết câu hỏi. Hãy nhớ rằng các câu hỏi có một dấu hỏi (?) ở cuối. Bạn có thể làm được!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Viết lại câu. Sửa lại từ chỉ hành động được gạch dưới để thì của từ đó phù hợp với phần còn lại của câu.",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Viết lại câu. Sửa lại các từ được gạch dưới để các từ đó thuộc thì tương lai.",
         "Respond to the question. Fill in the blank with one of the choices.": "Trả lời câu hỏi. Chọn một từ và điền vào chỗ trống.",
-        "Use the joining word to combine the sentences into one sentence.": "Sử dụng từ nối để kết hợp các câu thành một câu."
+        "Use the joining word to combine the sentences into one sentence.": "Sử dụng từ nối để kết hợp các câu thành một câu.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Điền vào một số chỗ trống bằng các từ màu vàng. Bạn có thể bỏ trống.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Có hai đáp án đúng. Điền vào mỗi chỗ trống bằng một trong những đáp án đúng. Không viết cùng một đáp án hai lần.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Điền vào mỗi chỗ trống bằng một trong các từ. Bạn có thể sử dụng cùng một từ nhiều lần.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "Viết câu. Thay đổi các từ được gạch chân để từ đó nói về nhiều người.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Viết câu hỏi. Thay đổi các từ được gạch chân để câu hỏi được viết đúng.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Viết các câu này cho đúng. Chỉ thay đổi các từ được gạch chân. Giữ nguyên từ “not” trong mỗi câu.",
+        "Write the words in the correct order. There are multiple correct answers.": "Viết các từ theo đúng thứ tự. Có nhiều đáp án đúng.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Viết câu. Thay đổi từ được gạch chân để phù hợp với câu. Không thêm bất kỳ từ mới nào.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Viết câu. Thay đổi từ được gạch chân để phù hợp với câu. Bạn có thể thay đổi thành 1 hoặc 2 từ.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Viết câu. Chuyển mỗi cụm từ được gạch chân thành một từ.  Sử dụng dấu nháy đơn ( ' ).",
+        "Fill in the blank with the correct option.": "Điền vào chỗ trống bằng tùy chọn đúng.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Điền vào mỗi chỗ trống bằng tùy chọn đúng. Bạn có thể sử dụng một tùy chọn nhiều lần.",
+        "Fill in the blank with the most natural option.": "Điền vào chỗ trống bằng tùy chọn tự nhiên nhất.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "Điền vào mỗi chỗ trống bằng một trong các tùy chọn. Bạn được phép sử dụng cùng một tùy chọn nhiều lần, nhưng không bắt buộc.",
+        "Fill in the blank with the most natural sentence.": "Điền vào chỗ trống bằng câu tự nhiên nhất.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "Điền vào những chỗ trống cần thêm từ. Bạn có thể bỏ trống. Bạn được phép sử dụng cùng một tùy chọn nhiều lần, nhưng không bắt buộc.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Điền vào mỗi chỗ trống bằng một tùy chọn. Bạn được phép sử dụng cùng một tùy chọn nhiều lần, nhưng không bắt buộc.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Điền vào mỗi chỗ trống bằng một từ. Bạn được phép sử dụng cùng một từ nhiều lần, nhưng không bắt buộc.",
+        "Fill in each blank with one of the words.": "Điền vào mỗi chỗ trống bằng một trong các từ.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Có hai tùy chọn đúng. Điền vào mỗi chỗ trống bằng một trong các tùy chọn đúng. Không viết cùng một đáp án hai lần.",
+        "Fill in each blank with one of the options.": "Điền vào mỗi chỗ trống bằng một trong các tùy chọn.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Viết lại câu. Thay đổi các từ được gạch chân bị sai. Không thay đổi các từ đã đúng."
     },
     "cues": {
         "type one": "type one / nhập một từ",
@@ -76,7 +94,12 @@
         "choose one": "choose one / chọn một",
         "choose three": "choose three / chọn ba",
         "choose two or three" : " choose two or three / chọn hai hoặc ba",
-        "joining word": "joinging word / từ nối"
+        "joining word": "joinging word / từ nối",
+        "words": "words / từ",
+        "type two": "type two / loại hai",
+        "options": "options / tùy chọn",
+        "sentences": "sentences / câu",
+        "answers": "answers / đáp án"
     },
     "feedback": {
         "blank": "Dùng một trong những lựa chọn bên dưới hoặc để trống.",

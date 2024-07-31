@@ -45,9 +45,9 @@ module Evidence
       TYPE_TRANSLATION = 'Translation'
     ]
 
-    validates :type, presence: true, inclusion: {in: TYPES}
+    validates :type, presence: true, inclusion: { in: TYPES }
 
-    scope :original, -> {where(type: TYPE_ORIGINAL)}
+    scope :original, -> { where(type: TYPE_ORIGINAL) }
 
     def seed_descriptor
       seed_descriptor_fields.compact.join('_').downcase

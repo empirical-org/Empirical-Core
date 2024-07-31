@@ -27,24 +27,23 @@ class ConceptReplacementConnectWorker
         data['modelConceptUID'] = new_concept_uid
       end
 
-      if q['focusPoints']
-        focus_points = replace_focus_points_for_question(q['focusPoints'], original_concept_uid, new_concept_uid)
+      if q.focusPoints
+        focus_points = replace_focus_points_for_question(q.focusPoints, original_concept_uid, new_concept_uid)
         if focus_points
-          data['focusPoints'] = focus_points
+          data[Question::FOCUS_POINTS] = focus_points
         end
       end
 
-      if q['incorrectSequences']
-        incorrect_sequences = replace_incorrect_sequences_for_question(q['incorrectSequences'], original_concept_uid, new_concept_uid)
+      if q.incorrectSequences
+        incorrect_sequences = replace_incorrect_sequences_for_question(q.incorrectSequences, original_concept_uid, new_concept_uid)
         if incorrect_sequences
-          data['incorrectSequences'] = incorrect_sequences
+          data[Question::INCORRECT_SEQUENCES] = incorrect_sequences
         end
       end
 
       if !data.empty?
         HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}/#{key}.json", body: data.to_json)
       end
-
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity

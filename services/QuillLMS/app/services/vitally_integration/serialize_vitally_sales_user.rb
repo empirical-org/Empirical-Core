@@ -9,6 +9,11 @@ module VitallyIntegration
 
     def initialize(user)
       @user = user
+      @vitally_entity = user
+
+      current_time = Time.current
+      @school_year_start = School.school_year_start(current_time)
+      @school_year_end = school_year_start + 1.year
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -17,21 +22,20 @@ module VitallyIntegration
       current_time = Time.current
       school_year_start = School.school_year_start(current_time)
       school_year_end = school_year_start + 1.year
-      active_students = active_students_query(@user).count
-      active_students_this_year = active_students_query(@user).where('activity_sessions.completed_at >= ?', school_year_start).count
-      activities_finished = activities_finished_query(@user).count
-      activities_finished_this_year = activities_finished_query(@user).where('activity_sessions.completed_at >= ?', school_year_start).count
-      activities_assigned = activities_assigned_count(@user)
-      activities_assigned_this_year = activities_assigned_in_year_count(@user, school_year_start, school_year_end)
-      diagnostics_assigned = diagnostics_assigned_count(@user)
-      diagnostics_assigned_this_year = diagnostics_assigned_in_year_count(@user, school_year_start, school_year_end)
-      diagnostics_finished = diagnostics_finished(@user).count
-      diagnostics_finished_this_year = diagnostics_finished(@user).where('activity_sessions.completed_at >=?', school_year_start).count
-      evidence_activities_assigned_all_time = evidence_assigned_count(@user)
-      evidence_activities_assigned_this_year = evidence_assigned_in_year_count(@user, school_year_start, school_year_end)
-      evidence_activities_completed_all_time = evidence_finished(@user).count
-      evidence_activities_completed_this_year = evidence_completed_in_year_count(@user, school_year_start, school_year_end)
-      date_of_last_completed_evidence_activity = evidence_finished(@user).order('activity_sessions.completed_at DESC').select('activity_sessions.completed_at').first&.completed_at&.strftime('%F') || 'N/A'
+      active_students = active_students_query.count
+      active_students_this_year = active_students_query.where('activity_sessions.completed_at >= ?', school_year_start).count
+      activities_finished = activities_finished_query.count
+      activities_finished_this_year = activities_finished_query.where('activity_sessions.completed_at >= ?', school_year_start).count
+      activities_assigned = activities_assigned_count
+      activities_assigned_this_year = activities_assigned_in_year_count
+      diagnostics_assigned = diagnostics_assigned_count
+      diagnostics_assigned_this_year = diagnostics_assigned_in_year_count
+      diagnostics_finished_this_year = diagnostics_finished.where('activity_sessions.completed_at >=?', school_year_start).count
+      evidence_activities_assigned_all_time = evidence_assigned_count
+      evidence_activities_assigned_this_year = evidence_assigned_in_year_count
+      evidence_activities_completed_all_time = evidence_finished.count
+      evidence_activities_completed_this_year = evidence_completed_in_year_count
+      date_of_last_completed_evidence_activity = evidence_finished.order('activity_sessions.completed_at DESC').select('activity_sessions.completed_at').first&.completed_at&.strftime('%F') || 'N/A'
       learn_worlds_account = @user.learn_worlds_account
       learn_worlds_enrolled_courses = learn_worlds_account&.enrolled_courses
       learn_worlds_completed_courses = learn_worlds_account&.completed_courses
@@ -75,9 +79,9 @@ module VitallyIntegration
           percent_completed_activities: activities_assigned > 0 ? (activities_finished.to_f / activities_assigned).round(2) : 'N/A',
           completed_activities_per_student: activities_per_student(active_students, activities_finished),
           diagnostics_assigned: diagnostics_assigned,
-          diagnostics_finished: diagnostics_finished,
-          percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.to_f / diagnostics_assigned).round(2) : 'N/A',
-          total_students_this_year: total_students_in_year(@user, school_year_start, school_year_end),
+          diagnostics_finished: diagnostics_finished.count,
+          percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.count.to_f / diagnostics_assigned).round(2) : 'N/A',
+          total_students_this_year: total_students_in_year,
           total_students_last_year: get_from_cache('total_students'),
           active_students_this_year: active_students_this_year,
           active_students_last_year: get_from_cache('active_students'),
@@ -175,12 +179,12 @@ module VitallyIntegration
       end
     end
 
-    private def activities_assigned_count(user)
-      sum_students(activities_assigned_query(user))
+    private def activities_assigned_count
+      sum_students(activities_assigned_query)
     end
 
-    private def diagnostics_assigned_count(user)
-      sum_students(filter_diagnostics(activities_assigned_query(user)))
+    private def diagnostics_assigned_count
+      sum_students(filter_diagnostics(activities_assigned_query))
     end
 
     private def premium_status
@@ -236,6 +240,5 @@ module VitallyIntegration
     private def number_of_districts_administered
       @user.district_admins.count || nil
     end
-
   end
 end

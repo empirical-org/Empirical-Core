@@ -17,5 +17,4 @@ class Api::V1::ActivitySurveyResponsesController < Api::ApiController
   private def activity_session_by_uid
     @activity_session = ActivitySession.find_by!(uid: params[:activity_session_uid])
   end
-
 end

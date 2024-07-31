@@ -5,13 +5,16 @@
   position: relative;
 
   &.dropdown-container {
+    .helper-text {
+      margin-top: 8px;
+    }
     .dropdown {
       .dropdown__control {
         display: flex;
         align-items: center;
         height: 100%;
         .dropdown__single-value {
-          line-height: 0;
+          line-height: normal;
           margin-top: 2px;
         }
         .html-dropdown-option {
@@ -87,10 +90,6 @@
 
     .dropdown {
       margin-bottom: 0px;
-    }
-
-    .helper-text {
-      margin-top: 8px;
     }
 
     &.active {

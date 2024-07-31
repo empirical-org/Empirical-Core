@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CompleteAccountCreation
-
   def initialize(user, ip)
     @user = user
     @ip = ip

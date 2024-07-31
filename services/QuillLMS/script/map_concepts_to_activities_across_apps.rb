@@ -83,7 +83,7 @@ sf_questions = HTTParty.get('https://quillconnect.firebaseio.com/v2/sentenceFrag
 #
 #
 def find_rule_number(uid, grammar_concepts)
-  concept = grammar_concepts.values.find { |c| c['concept_level_0']['uid'] == uid}
+  concept = grammar_concepts.values.find { |c| c['concept_level_0']['uid'] == uid }
   return unless concept
 
   concept['ruleNumber']
@@ -129,8 +129,8 @@ concepts.each do |c|
     index = organized_concepts.find_index(existing_oc)
     organized_concepts[index] = new_oc
   else
-    grandparent_name = c['grandparent_name'] ?  "#{c['grandparent_name']} | " : ''
-    parent_name = c['parent_name'] ?  "#{c['parent_name']} | " : ''
+    grandparent_name = c['grandparent_name'] ? "#{c['grandparent_name']} | " : ''
+    parent_name = c['parent_name'] ? "#{c['parent_name']} | " : ''
     new_oc = {}
     new_oc['grades_connect_activities'] = [],
     new_oc['grades_grammar_activities'] = [],

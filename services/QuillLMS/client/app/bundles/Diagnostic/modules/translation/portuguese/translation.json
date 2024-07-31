@@ -26,10 +26,6 @@
         "header": "Você já está no meio do caminho!",
         "text": "Continue, você está indo muito bem!"
     },
-    "ELL Halfway": {
-        "header": "Você já está no meio do caminho!",
-        "text": "Continue, você está indo muito bem!"
-    },
     "ELL Starter Questions": {
         "header": "Perguntas",
         "text": "Nesta seção, você vai escrever perguntas. Lembre-se que as perguntas têm um ponto de interrogação (?) no final. Você consegue!"
@@ -66,7 +62,29 @@
         "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Reescreva a frase. Corrija a palavra de ação sublinhada para que fique no tempo correto para corresponder ao resto da frase.",
         "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Reescreva a frase. Corrija as palavras sublinhadas para que fiquem no tempo futuro.",
         "Respond to the question. Fill in the blank with one of the choices.": "Responda à questão. Preencha a lacuna com uma das opções.",
-        "Use the joining word to combine the sentences into one sentence.": "Use a palavra de ligação para combinar as frases e formar uma frase só."
+        "Use the joining word to combine the sentences into one sentence.": "Use a palavra de ligação para combinar as frases e formar uma frase só.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Preencha alguns dos espaços em branco com as palavras amarelas. Você pode deixar os espaços em branco vazios.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Há duas respostas corretas. Preencha cada espaço em branco com uma das respostas corretas. Não escreva a mesma resposta duas vezes.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Preencha cada espaço em branco com uma das palavras. Você pode usar a mesma palavra mais de uma vez.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "Escreva as frases. Modifique as palavras sublinhadas para que elas se refiram a várias pessoas.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Escreva as perguntas. Modifique as palavras sublinhadas para que as perguntas sejam escritas corretamente.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Escreva essas frases corretamente. Só altere as palavras sublinhadas. Mantenha a palavra “not” em cada frase.",
+        "Write the words in the correct order. There are multiple correct answers.": "Escreva as palavras na ordem correta. Há várias respostas corretas.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Escreva a frase. Modifique a palavra sublinhada para que se ajuste à frase. Não acrescente nenhuma palavra nova.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Escreva a frase. Modifique a palavra sublinhada para que se ajuste à frase. Você pode modificá-la em uma ou duas palavras.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Escreva as frases. Transforme cada conjunto de palavras sublinhadas em uma palavra. Use um apóstrofo (').",
+        "Fill in the blank with the correct option.": "Preencha o espaço em branco com a alternativa correta.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Preencha cada espaço em branco com a alternativa correta. Você pode usar as alternativas mais de uma vez.",
+        "Fill in the blank with the most natural option.": "Preencha o espaço em branco com a alternativa mais natural.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "Preencha cada espaço em branco com uma das alternativas. Você pode usar a mesma alternativa mais de uma vez, mas isso não é obrigatório.",
+        "Fill in the blank with the most natural sentence.": "Preencha o espaço em branco com a frase mais natural.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "Preencha os espaços em branco em que há necessidade de palavras. Você pode deixar os espaços em branco vazios. Você pode usar a mesma alternativa mais de uma vez, mas isso não é obrigatório.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Preencha cada espaço em branco com uma alternativa. Você pode usar a mesma alternativa mais de uma vez, mas isso não é obrigatório.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Preencha cada espaço em branco com uma palavra. Você pode usar a mesma alternativa mais de uma vez, mas isso não é obrigatório.",
+        "Fill in each blank with one of the words.": "Preencha cada espaço em branco com uma das palavras.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Há duas opções corretas. Preencha cada espaço em branco com uma das opções corretas. Não escreva a mesma resposta duas vezes.",
+        "Fill in each blank with one of the options.": "Preencha cada espaço em branco com uma das alternativas.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Reescreva a frase. Modifique as palavras sublinhadas que estão incorretas. Não modifique as palavras que já estão corretas."
     },
     "cues": {
         "type one": "type one / digite uma",
@@ -76,7 +94,12 @@
         "choose one": "choose one / escolha uma",
         "choose three": "choose three / escolha três",
         "choose two or three" : "choose two or three / escolha duas ou três",
-        "joining word": "joining word / ligando palavras"
+        "joining word": "joining word / ligando palavras",
+        "words": "words / palavras",
+        "type two": "type two / digite dois",
+        "options": "options / alternativas",
+        "sentences": "sentences / frases",
+        "answers": "answers / respostas"
     },
     "feedback": {
         "blank": "Use uma das opções abaixo ou deixe em branco.",

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class ProgressReports::Concepts::StudentSerializer  < ApplicationSerializer
+class ProgressReports::Concepts::StudentSerializer < ApplicationSerializer
   include Rails.application.routes.url_helpers
 
   attributes :name,
-             :concepts_href,
-             :total_result_count,
-             :correct_result_count,
-             :incorrect_result_count,
-             :percentage,
-             :id
+    :concepts_href,
+    :total_result_count,
+    :correct_result_count,
+    :incorrect_result_count,
+    :percentage,
+    :id
 
   type :student
 

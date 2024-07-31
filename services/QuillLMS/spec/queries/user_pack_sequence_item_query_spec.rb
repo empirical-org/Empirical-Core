@@ -94,4 +94,3 @@ RSpec.describe UserPackSequenceItemQuery do
     }
   end
 end
-

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MilestonesController < ApplicationController
-
   def complete_view_lesson_tutorial
     complete_milestone('View Lessons Tutorial')
   end
@@ -35,7 +34,7 @@ class MilestonesController < ApplicationController
   end
 
   def create_or_touch_dismiss_teacher_info_modal
-    milestone =  Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
+    milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_teacher_info_modal])
 
     user_milestone = UserMilestone.find_or_create_by!(milestone: milestone, user: current_user)
     user_milestone.touch
@@ -52,5 +51,4 @@ class MilestonesController < ApplicationController
     end
     render json: {}
   end
-
 end

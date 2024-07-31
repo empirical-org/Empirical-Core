@@ -7,7 +7,7 @@ module LearnWorldsIntegration
 
     attr_reader :user
 
-    delegate :email, :learn_worlds_account, :username, to: :user
+    delegate :email, :learn_worlds_account, :name, :username, to: :user
 
     def initialize(user)
       @user = user
@@ -39,9 +39,8 @@ module LearnWorldsIntegration
       {
         email: email,
         redirectURL: COURSES_ENDPOINT,
-        username: username.presence || email
+        username: LearnWorldsIntegration::Helpers.to_username(username.presence || name)
       }
     end
-
   end
 end

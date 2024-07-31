@@ -6,7 +6,7 @@ module AdminDiagnosticReports
   describe AssembleStudentsReport do
     subject { described_class.run(payload) }
 
-    let(:payload) { {example: 'payload'} }
+    let(:payload) { { example: 'payload' } }
     let(:student_id) { 1 }
 
     let(:performance_result) do
@@ -60,7 +60,7 @@ module AdminDiagnosticReports
              post_skills_maintained: 0,
              post_skills_improved_or_maintained: 0
           }
-        ]
+         ]
       }
     end
     let(:performance_results) { [performance_result] }
@@ -71,7 +71,7 @@ module AdminDiagnosticReports
         time_spent_seconds: 1485
       }
     end
-    let(:recommendations_results) { {student_id => recommendations_result} }
+    let(:recommendations_results) { { student_id => recommendations_result } }
 
     before do
       allow(AdminDiagnosticReports::DiagnosticPerformanceByStudentViewQuery).to receive(:run).with(**payload).and_return(performance_results)

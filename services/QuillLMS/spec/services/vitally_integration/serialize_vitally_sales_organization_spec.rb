@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 describe VitallyIntegration::SerializeVitallySalesOrganization do
-
   before do
     create(:evidence)
   end
@@ -110,30 +109,44 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           diagnostics_assigned_last_year: 0
         )
       end
+
+      it 'should roll up data for archived classrooms' do
+        classroom2 = create(:classroom, visible: false)
+        create(:classrooms_teacher, user: teacher1, classroom: classroom2)
+        student3 = create(:student)
+        create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])
+
+        expect(described_class.new(district).data[:traits]).to include(
+          diagnostics_assigned_this_year: 4
+        )
+      end
     end
 
     context 'diagnostic completion rollups' do
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
       let!(:activity_session1) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
+      let!(:activity_session2) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student2, completed_at: Time.current) }
 
       it 'should roll up diagnostic completions this year' do
         expect(described_class.new(district).data[:traits]).to include(
-          diagnostics_completed_this_year: 1,
+          diagnostics_completed_this_year: 2,
           diagnostics_completed_last_year: 0
         )
       end
 
       it 'should roll up diagnostic completions from last year' do
         activity_session1.update(completed_at: 1.year.ago)
+        activity_session2.update(completed_at: 1.year.ago)
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0,
-          diagnostics_completed_last_year: 1
+          diagnostics_completed_last_year: 2
         )
       end
 
       it 'should not count activity_session records that are not completed' do
         activity_session1.update(completed_at: nil, state: 'started')
+        activity_session2.update(completed_at: nil, state: 'started')
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0
@@ -151,7 +164,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit2, user: student2, completed_at: Time.current)
 
         expect(described_class.new(district).data[:traits]).to include(
-          diagnostics_completed_this_year: 2
+          diagnostics_completed_this_year: 3
         )
       end
 
@@ -166,7 +179,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     end
 
     context 'diagnostic completion percentage rollups' do
-
       it 'should calculate completion percentages' do
         student2 = create(:student, student_in_classroom: [classroom1])
         classroom_unit1 = create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])
@@ -196,7 +208,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         student_three = create(:user, role: 'student')
 
         classroom = create(:classroom)
-        classroom_two = create(:classroom)
+        classroom_two = create(:classroom, visible: false)
         create(:classrooms_teacher, user: teacher, classroom: classroom)
         create(:classrooms_teacher, user: teacher_two, classroom: classroom_two)
         create(:students_classrooms, student: student, classroom: classroom)
@@ -319,18 +331,18 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     end
 
     describe '#activities_and_students_rollups' do
-      let!(:classroom_unit) {create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id])}
+      let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
       let!(:connect_activity) { create(:connect_activity) }
       let!(:last_school_year) { Time.zone.today - 1.year }
-      let!(:session1) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session2) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session3) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session4) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: diagnostic)}
-      let!(:session5) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: connect_activity)}
-      let!(:session6) { create(:activity_session, state: 'started', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic)}
+      let!(:session1) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student1, classroom_unit: classroom_unit, activity: diagnostic) }
+      let!(:session2) { create(:activity_session, state: 'finished', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic) }
+      let!(:session3) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student2, classroom_unit: classroom_unit, activity: diagnostic) }
+      let!(:session4) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: diagnostic) }
+      let!(:session5) { create(:activity_session, state: 'finished', completed_at: last_school_year, user: student1, classroom_unit: classroom_unit, activity: connect_activity) }
+      let!(:session6) { create(:activity_session, state: 'started', completed_at: Time.current, user: student2, classroom_unit: classroom_unit, activity: diagnostic) }
 
-      let!(:other_district_student) { create(:student)}
-      let!(:session7) { create(:activity_session, state: 'finished', completed_at: Time.current, user: other_district_student)}
+      let!(:other_district_student) { create(:student) }
+      let!(:session7) { create(:activity_session, state: 'finished', completed_at: Time.current, user: other_district_student) }
 
       it 'gets the last sign in date of the most recent student' do
         last_active = Time.zone.today- 1.month
@@ -341,7 +353,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'gets the number of activites completed' do
-
         it 'in this school year' do
           expect(described_class.new(district).data[:traits][:activities_completed_this_year]).to eq(2)
         end
@@ -356,7 +367,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'gets the number of activites completed per student' do
-
         it 'in this school year' do
           expect(described_class.new(district).data[:traits][:activities_completed_per_student_this_year]).to eq(1.0)
         end
@@ -371,7 +381,6 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       context 'gets the number of active students' do
-
         it 'in this school year' do
           expect(described_class.new(district).data[:traits][:active_students_this_year]).to eq(2)
         end
@@ -384,6 +393,24 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
         end
       end
+
+      context 'includes archived classrooms in the roundup' do
+        before do
+          classroom1.update(visible: false)
+        end
+
+        it 'activities completed all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_all_time]).to eq(5)
+        end
+
+        it 'activities completed per student all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(2.5)
+        end
+
+        it 'active students all time' do
+          expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
+        end
+      end
     end
   end
 
@@ -391,7 +418,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
     let!(:district) { create(:district) }
     let!(:connect_activity) { create(:connect_activity) }
     let!(:last_school_year) { Time.zone.today - 1.year }
-    let!(:schools) { create_list(:school, 80, district: district)}
+    let!(:schools) { create_list(:school, 80, district: district) }
 
     it 'run benchmarking on a district with 80 schools and 10000 activities' do
       schools.each do |school|
@@ -408,25 +435,25 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       end
 
       runtime = Benchmark.realtime { expect(described_class.new(district).active_students).to eq(2000) }
-      puts format('Average runtime for active students all time: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for active students all time: %<runtime>.3f seconds', { runtime: runtime })
 
       runtime = Benchmark.realtime { expect(described_class.new(district).active_students(Time.zone.today - 1.year)).to eq(2000) }
-      puts format('Average runtime for active students this year: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for active students this year: %<runtime>.3f seconds', { runtime: runtime })
 
       runtime = Benchmark.realtime { expect(described_class.new(district).active_students(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
-      puts format('Average runtime for active students last year: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for active students last year: %<runtime>.3f seconds', { runtime: runtime })
 
       runtime = Benchmark.realtime { expect(described_class.new(district).activities_completed).to eq(10000) }
-      puts format('Average runtime for activities completed all time: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for activities completed all time: %<runtime>.3f seconds', { runtime: runtime })
 
       runtime = Benchmark.realtime { expect(described_class.new(district).activities_completed(Time.zone.today - 1.year)).to eq(10000) }
-      puts format('Average runtime for activities completed this year: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for activities completed this year: %<runtime>.3f seconds', { runtime: runtime })
 
       runtime = Benchmark.realtime { expect(described_class.new(district).activities_completed(Time.zone.today - 2.years, Time.zone.today - 1.year)).to eq(0) }
-      puts format('Average runtime for activities completed last year: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for activities completed last year: %<runtime>.3f seconds', { runtime: runtime })
 
       runtime = Benchmark.realtime { expect(described_class.new(district).last_active_time).to eq(Time.zone.today) }
-      puts format('Average runtime for last sign in: %<runtime>.3f seconds', {runtime: runtime })
+      puts format('Average runtime for last sign in: %<runtime>.3f seconds', { runtime: runtime })
     end
   end
 end

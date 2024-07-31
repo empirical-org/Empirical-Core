@@ -11,7 +11,6 @@ describe Cms::UnitTemplateCategoriesController do
 
   let(:user) { create(:staff) }
 
-
   describe '#index' do
     let!(:category) { create(:unit_template_category) }
 

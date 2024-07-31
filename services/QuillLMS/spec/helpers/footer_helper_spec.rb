@@ -101,5 +101,4 @@ describe FooterHelper do
       expect(helper.about_us_links).to eq about_us_links
     end
   end
-
 end

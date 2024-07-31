@@ -16,8 +16,8 @@ module Evidence
     end
 
     let(:activity_version) { 2 }
-    let(:entry) {'hello you'}
-    let(:activity) { create(:evidence_activity, version: activity_version)}
+    let(:entry) { 'hello you' }
+    let(:activity) { create(:evidence_activity, version: activity_version) }
     let!(:prompt) { create(:evidence_prompt, activity: activity) }
     let!(:hint) { create(:evidence_hint) }
     let!(:rule) { create(:evidence_rule, :rule_type => 'plagiarism', :hint => hint) }
@@ -31,8 +31,7 @@ module Evidence
     let!(:low_confidence_feedback) { create(:evidence_feedback, :text => 'here is low confidence feedback', :rule => (low_confidence_rule), :order => 0) }
 
     describe '#create' do
-
-      let(:feedback) { double('feedback', response: {key1: 'some value', api: {api_key: 'api_value'}} ) }
+      let(:feedback) { double('feedback', response: { key1: 'some value', api: { api_key: 'api_value' } }) }
       let(:session_id) { 99 }
       let(:attempt) { 3 }
 
@@ -48,14 +47,14 @@ module Evidence
           api_metadata: feedback.response[:api]
         )
 
-        post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
+        post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['key1']).to eq('some value')
       end
 
       it 'should return 404 when the entry is empty' do
-        post :create, params: {prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
+        post :create, params: { prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 
         expect(response.status).to eq 404
       end
@@ -75,7 +74,7 @@ module Evidence
           expect(Check::Spelling).not_to receive(:run)
           expect(Check::RegexTypo).not_to receive(:run)
 
-          post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt, feedback_types: ['Prefilter', 'Plagiarism'] }, as: :json
+          post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt, feedback_types: ['Prefilter', 'Plagiarism'] }, as: :json
         end
       end
 
@@ -85,7 +84,7 @@ module Evidence
         it 'should return an empty json response if check_all returns nil' do
           expect(Check).to receive(:get_feedback).with(entry, prompt, [], session_id, nil).and_return(fallback_feedback)
 
-          post :create, params: {entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
+          post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response).to eq(fallback_feedback.stringify_keys)
@@ -95,7 +94,7 @@ module Evidence
       context 'spelling test' do
         let(:entry) { 'no spelling error' }
         let(:entry_with_error) { 'speling error' }
-        let(:error_context) { {entry: entry, prompt_id: prompt.id, prompt_text: prompt.text}}
+        let(:error_context) { { entry: entry, prompt_id: prompt.id, prompt_text: prompt.text } }
 
         before do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::Spelling])
@@ -127,7 +126,7 @@ module Evidence
       context 'regex1 test' do
         it 'should return successfully when there is regex1 feedback' do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::RegexSentence])
-          post :create, params: {entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -141,7 +140,7 @@ module Evidence
 
         it 'should return successfully when there is regex2 feedback' do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::RegexPostTopic])
-          post :create, params: {entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -155,7 +154,7 @@ module Evidence
 
         it 'should return successfully when there is regex3 feedback' do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::RegexTypo])
-          post :create, params: {entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -181,7 +180,7 @@ module Evidence
       end
 
       context 'prefilter test' do
-        let!(:profanity_rule) { create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb')}
+        let!(:profanity_rule) { create(:evidence_rule, rule_type: 'prefilter', uid: 'fdee458a-f017-4f9a-a7d4-a72d1143abeb') }
 
         before do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::Prefilter])
@@ -225,8 +224,7 @@ module Evidence
         end
 
         let!(:grammar_hint) { create(:evidence_hint) }
-        let!(:grammar_rule) {create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint)}
-
+        let!(:grammar_rule) { create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint) }
 
         before do
           allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
@@ -279,7 +277,6 @@ module Evidence
         let!(:opinion_rule) do
           create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => opinion_hint)
         end
-
 
         before do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::Opinion])
@@ -358,7 +355,6 @@ module Evidence
         create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => grammar_hint)
       end
 
-
       before do
         allow(Grammar::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
           { example_error => example_rule_uid }
@@ -409,7 +405,6 @@ module Evidence
           })
         end
       end
-
     end
 
     describe '#opinion' do
@@ -438,7 +433,6 @@ module Evidence
       let!(:opinion_rule) do
         create(:evidence_rule, uid: example_rule_uid, optimal: false, concept_uid: 'xyz', :hint => opinion_hint)
       end
-
 
       before do
         allow(Opinion::FeedbackAssembler).to receive(:error_to_rule_uid).and_return(
@@ -490,7 +484,6 @@ module Evidence
           })
         end
       end
-
     end
 
     describe '#prefilter' do
@@ -679,7 +672,6 @@ module Evidence
           end
         end
       end
-
     end
 
     context 'should #spelling' do

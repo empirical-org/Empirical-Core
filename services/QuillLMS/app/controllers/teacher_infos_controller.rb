@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TeacherInfosController < ApplicationController
-
   before_action :set_teacher_info, only: [:update]
 
   def update
@@ -56,5 +55,4 @@ class TeacherInfosController < ApplicationController
   private def show_students_exact_score
     ActiveModel::Type::Boolean.new.cast(teacher_info_params[:show_students_exact_score]) # handles case where true and false are passed as strings
   end
-
 end

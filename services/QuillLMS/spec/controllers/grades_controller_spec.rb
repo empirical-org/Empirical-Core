@@ -12,7 +12,7 @@ describe GradesController do
   describe '#index' do
     it 'should render the correct json' do
       get :index
-      expect(JSON.parse(response.body)).to eq({'grades' => Classroom::GRADES})
+      expect(JSON.parse(response.body)).to eq({ 'grades' => Classroom::GRADES })
     end
   end
 
@@ -44,7 +44,6 @@ describe GradesController do
       # in a convoluted way
       expect(json_response[:sessions].first[:completed_at].to_datetime.to_i)
         .to eq((activity_session.reload.completed_at + teacher.utc_offset.seconds).to_datetime.to_i)
-
     end
   end
 end

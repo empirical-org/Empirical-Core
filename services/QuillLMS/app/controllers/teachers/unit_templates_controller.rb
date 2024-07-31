@@ -28,7 +28,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def fast_assign
     if current_user.classrooms_i_teach.empty?
-      render json: { error_message: 'You must create a classroom before you can assign an activity pack. You can create a new classroom on the classes page.'}, status: 400
+      render json: { error_message: 'You must create a classroom before you can assign an activity pack. You can create a new classroom on the classes page.' }, status: 400
     else
       FastAssignWorker.perform_async(current_user.id, params[:id])
       render json: {}
@@ -45,7 +45,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def count
     @count = UnitTemplate.count
-    render json: {count: @count}
+    render json: { count: @count }
   end
 
   def profile_info

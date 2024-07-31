@@ -41,9 +41,9 @@ RSpec.describe CanvasInstancesController do
         let(:params) { valid_params }
 
         it { should_return_created }
-        it { expect { subject}.to change(CanvasInstance, :count).from(0).to(1) }
-        it { expect { subject}.to change(CanvasConfig, :count).from(0).to(1) }
-        it { expect { subject}.to change(CanvasInstanceSchool, :count).from(0).to(1) }
+        it { expect { subject }.to change(CanvasInstance, :count).from(0).to(1) }
+        it { expect { subject }.to change(CanvasConfig, :count).from(0).to(1) }
+        it { expect { subject }.to change(CanvasInstanceSchool, :count).from(0).to(1) }
       end
 
       context 'invalid params' do

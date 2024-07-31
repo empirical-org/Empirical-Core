@@ -5,9 +5,7 @@ require 'rails_helper'
 require('webmock/minitest')
 module Evidence
   RSpec.describe(SpellingCheck, :type => :model) do
-
     context 'should #feedback_object' do
-
       it 'should return appropriate feedback attributes if there is a spelling error' do
         stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=there%20is%20a%20spelin%20error%20here").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => 'spelin' }]) }.to_json, :headers => ({}))
         entry = 'there is a spelin error here'
@@ -70,7 +68,7 @@ module Evidence
         entry = 'there is no spelling error here'
         spelling_check = Evidence::SpellingCheck.new(entry)
 
-        expect {spelling_check.feedback_object}.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
+        expect { spelling_check.feedback_object }.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
       end
 
       it 'should raise error if the Bing API request times out with a Net::ReadTimeout' do
@@ -78,9 +76,8 @@ module Evidence
         entry = 'there is no spelling error here'
         spelling_check = Evidence::SpellingCheck.new(entry)
 
-        expect {spelling_check.feedback_object}.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
+        expect { spelling_check.feedback_object }.to raise_error(Evidence::SpellingCheck::BingTimeoutError, 'request took longer than 5 seconds')
       end
-
 
       it 'should return appropriate error if the endpoint returns an error' do
         stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
@@ -92,7 +89,6 @@ module Evidence
     end
 
     context 'should #non_optimal_feedback_string' do
-
       it 'should use the fallback feedback if there is no spelling Rule with feedback' do
         spelling_check = Evidence::SpellingCheck.new('')
         expect(Evidence::SpellingCheck::FALLBACK_INCORRECT_FEEDBACK).to(eq(spelling_check.non_optimal_feedback_string))

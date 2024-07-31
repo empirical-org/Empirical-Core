@@ -726,9 +726,16 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   }
                 >
                   <span
-                    aria-hidden={false}
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     className="quill-tooltip-trigger "
-                    role="tooltip"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -736,16 +743,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                         "width": "290px",
                       }
                     }
+                    tabIndex={0}
                   >
                     <span
                       className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
                       style={
                         Object {
                           "minWidth": "290px",
@@ -753,7 +754,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                           "width": "290px",
                         }
                       }
-                      tabIndex={0}
                     >
                       Advanced Combining: Complex Sentences with Modifiers
                     </span>
@@ -763,6 +763,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                       <span
                         aria-live="polite"
                         className="quill-tooltip"
+                        id="tooltip"
+                        role="tooltip"
                       />
                     </span>
                   </span>
@@ -1027,9 +1029,16 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                   }
                 >
                   <span
-                    aria-hidden={false}
+                    aria-expanded={false}
+                    aria-haspopup="true"
                     className="quill-tooltip-trigger "
-                    role="tooltip"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    role="button"
                     style={
                       Object {
                         "minWidth": "290px",
@@ -1037,16 +1046,10 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                         "width": "290px",
                       }
                     }
+                    tabIndex={0}
                   >
                     <span
                       className="data-table-row-section undefined"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      role="button"
                       style={
                         Object {
                           "minWidth": "290px",
@@ -1054,7 +1057,6 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                           "width": "290px",
                         }
                       }
-                      tabIndex={0}
                     >
                       Lesson 1: Conjunctions of Time (After, Until, Before, etc.)
                     </span>
@@ -1064,6 +1066,8 @@ exports[`LessonsMini component not on mobile should render when there are lesson
                       <span
                         aria-live="polite"
                         className="quill-tooltip"
+                        id="tooltip"
+                        role="tooltip"
                       />
                     </span>
                   </span>

@@ -15,11 +15,12 @@ export interface SessionState {
   proofreaderSession?: any;
   error?: string;
   pending: boolean;
+  language?: string;
 }
 
 type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
 
-const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], questionSet: [], currentQuestion: null, pending: true}
+const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], questionSet: [], currentQuestion: null, pending: true }
 
 export default (
   currentState: SessionState = initialState,
@@ -57,6 +58,8 @@ export default (
       return Object.assign({}, currentState, {pending: action.pending})
     case ActionTypes.START_NEW_SESSION:
       return Object.assign({}, initialState, { pending: false, })
+    case ActionTypes.SET_LANGUAGE:
+      return Object.assign({}, currentState, { language: action.language })
     case ActionTypes.SET_CURRENT_QUESTION:
       const newState = _.cloneDeep(currentState);
       const { questionSet, unansweredQuestions } = newState;

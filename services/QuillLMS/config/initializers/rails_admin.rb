@@ -16,7 +16,7 @@ RailsAdmin.config do |config|
     dashboard do
       statistics false
     end
-    index                         # mandatory
+    index # mandatory
     new
     export
     # Turn off bulk delete, seems dangerous

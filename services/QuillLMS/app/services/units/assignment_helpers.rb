@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Units::AssignmentHelpers
-
   def self.find_unit_from_units(units)
     if units.length > 1
       visible_units = units.where(visible: true)
@@ -59,5 +58,4 @@ module Units::AssignmentHelpers
       classroom_unit.update(visible: true, assigned_student_ids: [])
     end
   end
-
 end

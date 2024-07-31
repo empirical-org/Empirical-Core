@@ -7,4 +7,3 @@ module HasProviderNamespace
     self.class.module_parent
   end
 end
-

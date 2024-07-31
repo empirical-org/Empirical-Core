@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module OpenAI
   class TranslateActivityAndQuestionsWorker
     include Sidekiq::Worker

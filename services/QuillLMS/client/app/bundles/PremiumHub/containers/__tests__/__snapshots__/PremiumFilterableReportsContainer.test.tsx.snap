@@ -51,15 +51,13 @@ exports[`PremiumFilterableReportsContainer it should render 1`] = `
               Timeframe
             </span>
             <span
-              aria-hidden="false"
+              aria-expanded="false"
+              aria-haspopup="true"
               class="quill-tooltip-trigger "
-              role="tooltip"
+              role="button"
+              tabindex="0"
             >
-              <span
-                class="undefined"
-                role="button"
-                tabindex="0"
-              >
+              <span>
                 <img
                   alt="Question mark icon"
                   src="undefined/images/icons/icons-help.svg"
@@ -71,6 +69,8 @@ exports[`PremiumFilterableReportsContainer it should render 1`] = `
                 <span
                   aria-live="polite"
                   class="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>

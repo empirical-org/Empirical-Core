@@ -6,13 +6,13 @@ module LessonsCache
   def lessons_cache_info_formatter(cua)
     classroom_unit = cua.classroom_unit
     activity = cua.unit_activity.activity
-    {'classroom_unit_id' => classroom_unit.id,
+    { 'classroom_unit_id' => classroom_unit.id,
       'classroom_unit_activity_state_id' => cua.id,
       'activity_id' => activity.id,
       'activity_name' => activity.name,
       'unit_id' => classroom_unit.unit_id,
       'completed' => ActivitySession.has_a_completed_session?(activity.id, classroom_unit.id) || cua.completed,
-      'visible' => cua.unit_activity.visible}
+      'visible' => cua.unit_activity.visible }
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -32,7 +32,7 @@ module LessonsCache
       if lessons_cache
         lessons_cache = JSON.parse(lessons_cache)
         formatted_lesson = lessons_cache_info_formatter(cua)
-        lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_unit_activity_state_id'] == formatted_lesson['classroom_unit_activity_state_id']}
+        lesson_index_in_cache = lessons_cache.find_index { |l| l['classroom_unit_activity_state_id'] == formatted_lesson['classroom_unit_activity_state_id'] }
         if cua.visible == true && !lesson_index_in_cache
           lessons_cache.push(formatted_lesson)
         elsif cua.visible == false && lesson_index_in_cache
@@ -58,8 +58,6 @@ module LessonsCache
       end
     end
 
-    cuas.flatten.map { |cua| lessons_cache_info_formatter(cua)}
+    cuas.flatten.map { |cua| lessons_cache_info_formatter(cua) }
   end
-
-
 end

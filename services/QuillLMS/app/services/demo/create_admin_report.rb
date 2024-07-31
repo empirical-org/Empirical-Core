@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Demo::CreateAdminReport
-
   RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY = 1..20
-  BATCH_DELAY = 1.minute
+  BATCH_DELAY = 10.seconds
   NUMBER_OF_STUDENTS_PER_CLASSROOM = 25
 
   GRADE_MIN = 5
@@ -26,7 +25,7 @@ class Demo::CreateAdminReport
   end
 
   def reset
-    User.find_by_email(@teacher_email)&.destroy
+    User.find_by_email(teacher_email)&.destroy
     School.where(mail_street: school_street).destroy_all
     create_demo
   end
@@ -36,7 +35,7 @@ class Demo::CreateAdminReport
   end
 
   private def find_or_create_school(school_name)
-    School.find_or_create_by(name: school_name, mail_street: school_street)
+    School.find_or_create_by!(name: school_name, mail_street: school_street)
   end
 
   private def find_or_create_teacher_data(teacher_name, school, subscription)
@@ -102,7 +101,7 @@ class Demo::CreateAdminReport
     all_classrooms.each do |classroom|
       ActivitySession
         .joins(:classroom_unit)
-        .where(classroom_units: {classroom_id: classroom.id})
+        .where(classroom_units: { classroom_id: classroom.id })
         .where.not(activity_id: Activity::PRE_TEST_DIAGNOSTIC_IDS)
         .sample(rand(RANGE_OF_NUMBER_OF_SESSIONS_TO_DESTROY))
         .each(&:delete)
@@ -110,5 +109,4 @@ class Demo::CreateAdminReport
   end
 
   private def sample_grade = GRADES.sample.to_s
-
 end

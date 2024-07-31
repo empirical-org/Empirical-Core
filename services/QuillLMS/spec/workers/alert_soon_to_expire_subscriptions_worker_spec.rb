@@ -10,21 +10,21 @@ describe AlertSoonToExpireSubscriptionsWorker do
   describe '#perform' do
     let(:analytics) { double(:analytics).as_null_object }
     let!(:user) { create(:user) }
-    let(:school) { create(:school)}
-    let!(:renewing_teacher_subscription30) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days)}
-    let!(:renewing_school_subscription30) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days)}
-    let!(:renewing_teacher_subscription7) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 7.days)}
-    let!(:renewing_school_subscription7) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 7.days)}
-    let!(:expiring_30_teacher_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 30.days)}
-    let!(:expiring_30_school_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 30.days)}
-    let!(:expiring_14_teacher_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 14.days)}
-    let!(:expiring_14_school_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 14.days)}
-    let(:user_subscription) { create(:user_subscription, user: user, subscription: renewing_teacher_subscription30)}
-    let(:school_subscription) { create(:school_subscription, school: school, subscription: renewing_school_subscription30)}
-    let(:user_subscription_two) { create(:user_subscription, user: user, subscription: expiring_30_teacher_subscription)}
-    let(:school_subscription_two) { create(:school_subscription, school: school, subscription: expiring_30_school_subscription)}
-    let(:user_subscription_three) { create(:user_subscription, user: user, subscription: expiring_14_teacher_subscription)}
-    let(:school_subscription_three) { create(:school_subscription, school: school, subscription: expiring_14_school_subscription)}
+    let(:school) { create(:school) }
+    let!(:renewing_teacher_subscription30) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days) }
+    let!(:renewing_school_subscription30) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days) }
+    let!(:renewing_teacher_subscription7) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 7.days) }
+    let!(:renewing_school_subscription7) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 7.days) }
+    let!(:expiring_30_teacher_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 30.days) }
+    let!(:expiring_30_school_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 30.days) }
+    let!(:expiring_14_teacher_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 14.days) }
+    let!(:expiring_14_school_sub) { create(:subscription, payment_method: 'Credit Card', account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 14.days) }
+    let(:user_subscription) { create(:user_subscription, user: user, subscription: renewing_teacher_subscription30) }
+    let(:school_subscription) { create(:school_subscription, school: school, subscription: renewing_school_subscription30) }
+    let(:user_subscription_two) { create(:user_subscription, user: user, subscription: expiring_30_teacher_subscription) }
+    let(:school_subscription_two) { create(:school_subscription, school: school, subscription: expiring_30_school_subscription) }
+    let(:user_subscription_three) { create(:user_subscription, user: user, subscription: expiring_14_teacher_subscription) }
+    let(:school_subscription_three) { create(:school_subscription, school: school, subscription: expiring_14_school_subscription) }
 
     before { allow(Analytics::SegmentAnalytics).to receive(:new) { analytics } }
 

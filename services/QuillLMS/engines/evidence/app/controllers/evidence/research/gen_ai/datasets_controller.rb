@@ -12,7 +12,7 @@ module Evidence
           @dataset = stem_vault.datasets.new(dataset_params)
 
           if @dataset.save
-            DatasetImporter.run(dataset: @dataset, file: dataset_params[:file])
+            DatasetImporter.run(dataset: @dataset, file:)
             redirect_to @dataset
           else
             render :new
@@ -26,7 +26,7 @@ module Evidence
         end
 
         private def dataset_params = params.require(:research_gen_ai_dataset).permit(:file)
-
+        private def file = dataset_params[:file]
         private def stem_vault = @stem_vault ||= StemVault.find(params[:stem_vault_id])
       end
     end

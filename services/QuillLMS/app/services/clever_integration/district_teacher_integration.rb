@@ -45,4 +45,3 @@ module CleverIntegration
     end
   end
 end
-

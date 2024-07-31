@@ -47,5 +47,4 @@ class InternalToolUserMailer < UserMailer
     @set_password_link = link_for_setting_password('district admin')
     mail to: user.email, subject: "#{user.first_name}, you are now a Quill admin for #{district_name}"
   end
-
 end

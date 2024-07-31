@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Evidence
   RSpec.describe(HTMLTagRemover, type: :module) do
-    let(:html) {' <p><strong>&quot;It&#x27;s</strong> a good day&quot;, he said.</p>  '}
+    let(:html) { ' <p><strong>&quot;It&#x27;s</strong> a good day&quot;, he said.</p>  ' }
 
     describe '#run' do
       it 'should remove html tags' do

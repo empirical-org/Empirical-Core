@@ -25,7 +25,7 @@ FactoryBot.define do
   factory :sales_form_submission do
     first_name { 'Haruki' }
     last_name { 'Murakami' }
-    email { 'test@email.com'}
+    email { 'test@email.com' }
     phone_number { '5554443333' }
     zipcode { '10009' }
     collection_type { 'school' }

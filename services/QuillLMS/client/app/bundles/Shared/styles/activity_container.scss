@@ -11,4 +11,59 @@
     justify-content: space-between;
     align-items: center;
   }
+  .activity-navbar-content, .student-nav, .header {
+    .header-buttons-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-width: 286px;
+
+      .ell-language-selector {
+        width: max-content;
+        height: 80px;
+        margin-right: 14px;
+        min-width: 120px;
+
+        .dropdown__control {
+          background-color: transparent;
+
+          .dropdown__value-container {
+            min-width: 104px;
+          }
+          .dropdown__single-value {
+            color: $quill-white;
+          }
+        }
+
+        .dropdown__dropdown-indicator {
+          background: url("https://assets.quill.org/images/icons/xs/dropdown-white.svg");
+        }
+
+        .dropdown__menu {
+          width: max-content;
+          position: initial;
+          margin-top: 14px;
+          min-width: 120px;
+          .dropdown__option {
+            display: flex;
+            align-items: center;
+            height: 44px;
+          }
+        }
+      }
+    }
+    .quill-button {
+      border: none;
+      font-weight: 600;
+    }
+  }
+
+  .student-nav, .header {
+    .header-buttons-container .ell-language-selector {
+      height: 50px;
+      .dropdown__input-container {
+        height: 40px;
+      }
+    }
+  }
 }

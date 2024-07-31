@@ -4,30 +4,30 @@ require 'rails_helper'
 
 RSpec.describe Demo::ReportDemoCreator do
   context 'ACTIVITY_PACKS_TEMPLATES config' do
-    let(:expected_keys) {[:activity_sessions, :name, :unit_template_id]}
+    let(:expected_keys) { [:activity_sessions, :name, :unit_template_id] }
 
     subject { described_class::ACTIVITY_PACKS_TEMPLATES }
 
     it { expect(subject.class).to be Array }
-    it { expect(subject.all? {|template| template.keys.sort == expected_keys}).to be true }
-    it { expect(subject.all? {|template| template[:activity_sessions].instance_of?(Array)}).to be true }
-    it { expect(subject.all? {|template| template[:activity_sessions].map(&:keys).flatten.all? {|k| k.instance_of?(Integer)}}).to be true }
-    it { expect(subject.all? {|template| template[:activity_sessions].map(&:values).flatten.all? {|v| v.instance_of?(Integer)}}).to be true }
+    it { expect(subject.all? { |template| template.keys.sort == expected_keys }).to be true }
+    it { expect(subject.all? { |template| template[:activity_sessions].instance_of?(Array) }).to be true }
+    it { expect(subject.all? { |template| template[:activity_sessions].map(&:keys).flatten.all? { |k| k.instance_of?(Integer) } }).to be true }
+    it { expect(subject.all? { |template| template[:activity_sessions].map(&:values).flatten.all? { |v| v.instance_of?(Integer) } }).to be true }
   end
 
   context 'full data set' do
     before do
       described_class::ACTIVITY_PACKS_TEMPLATES
-        .map {|template| described_class.activity_ids_for_config(template) }
+        .map { |template| described_class.activity_ids_for_config(template) }
         .flatten
         .uniq
-        .each {|activity_id|  create(:activity, id: activity_id) }
+        .each { |activity_id| create(:activity, id: activity_id) }
 
       Demo::SessionData.new
         .concept_results
         .map(&:concept_id)
         .uniq
-        .each {|concept_id| create(:concept, id: concept_id)}
+        .each { |concept_id| create(:concept, id: concept_id) }
     end
 
     describe 'create_demo' do
@@ -48,7 +48,7 @@ RSpec.describe Demo::ReportDemoCreator do
   end
 
   context 'demo data set' do
-    let!(:teacher) {create(:teacher)}
+    let!(:teacher) { create(:teacher) }
     let(:session_data) { Demo::SessionData.new }
     # essentially using these as fixtures to test the demo data
     let(:activity_id) { described_class::STARTER_BASELINE_DIAGNOSTIC_PRE_ACTIVITY_ID }
@@ -56,18 +56,18 @@ RSpec.describe Demo::ReportDemoCreator do
     let!(:activity) { create(:activity, id: activity_id) }
 
     let(:concept_ids) { [566, 506, 508, 641, 640, 671, 239, 551, 488, 385, 524, 540, 664, 83, 673, 450] }
-    let!(:concepts) { concept_ids.map {|id|  create(:concept, id: id)} }
+    let!(:concepts) { concept_ids.map { |id| create(:concept, id: id) } }
 
     let(:demo_config) do
       [
         {
           name: 'Quill Activity Pack',
           activity_sessions: [
-            {activity_id => user_id},
-            {activity_id => user_id},
-            {activity_id => user_id},
-            {activity_id => user_id},
-            {activity_id => user_id}
+            { activity_id => user_id },
+            { activity_id => user_id },
+            { activity_id => user_id },
+            { activity_id => user_id },
+            { activity_id => user_id }
           ]
         }
       ]
@@ -93,7 +93,7 @@ RSpec.describe Demo::ReportDemoCreator do
 
     it 'creates a classroom for the teacher' do
       Demo::ReportDemoCreator.create_classroom(teacher)
-      classroom = teacher.classrooms_i_teach.find {|c| c.name == 'Quill Classroom'}
+      classroom = teacher.classrooms_i_teach.find { |c| c.name == 'Quill Classroom' }
 
       expect(classroom.code).to eq("demo-#{teacher.id}")
       expect(classroom.grade).to eq('9')
@@ -130,10 +130,10 @@ RSpec.describe Demo::ReportDemoCreator do
     end
 
     context 'create students' do
-      let(:classroom) {create(:classroom)}
-      let(:student_names) { ['Angie Thomas', 'Jason Reynolds', 'Ken Liu', 'Nic Stone', 'Tahereh Mafi']}
+      let(:classroom) { create(:classroom) }
+      let(:student_names) { ['Angie Thomas', 'Jason Reynolds', 'Ken Liu', 'Nic Stone', 'Tahereh Mafi'] }
       let(:angie_email) { 'angie_thomas_demo@quill.org' }
-      let(:demo_password) {described_class::PASSWORD}
+      let(:demo_password) { described_class::PASSWORD }
 
       subject { classroom.students }
 
@@ -143,7 +143,7 @@ RSpec.describe Demo::ReportDemoCreator do
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
         it { expect(subject.find_by(name: 'Angie Thomas').username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
-        it { expect(subject.all?{|s| s.authenticate(demo_password) }).to be true }
+        it { expect(subject.all?{ |s| s.authenticate(demo_password) }).to be true }
         it { expect(subject.exists?(email: angie_email)).to be true }
       end
 
@@ -153,15 +153,15 @@ RSpec.describe Demo::ReportDemoCreator do
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
         it { expect(subject.find_by(name: 'Angie Thomas').username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
-        it { expect(subject.all?{|s| s.authenticate(demo_password) }).to be true }
-        it { expect(subject.exists?(email: angie_email)).to be false}
+        it { expect(subject.all?{ |s| s.authenticate(demo_password) }).to be true }
+        it { expect(subject.exists?(email: angie_email)).to be false }
       end
     end
 
     it 'creates activity sessions' do
       Sidekiq::Testing.inline! do
         session_clone = session_data.activity_sessions
-          .find {|session| session.activity_id == activity_id && session.user_id == user_id}
+          .find { |session| session.activity_id == activity_id && session.user_id == user_id }
 
         student = create(:student)
         classroom = create(:classroom, :with_no_teacher)
@@ -171,10 +171,10 @@ RSpec.describe Demo::ReportDemoCreator do
 
         Demo::ReportDemoCreator.create_classroom_units(classroom, units)
 
-        total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map {|ap| ap[:activity_sessions][0].keys.count}.sum
+        total_act_sesh_count = Demo::ReportDemoCreator::ACTIVITY_PACKS_TEMPLATES.map { |ap| ap[:activity_sessions][0].keys.count }.sum
 
-        expect {Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data, is_teacher_demo)}
-          .to change {ActivitySession.count}
+        expect { Demo::ReportDemoCreator.create_activity_sessions([student], classroom, session_data, is_teacher_demo) }
+          .to change { ActivitySession.count }
           .by(total_act_sesh_count)
 
         activity_session = ActivitySession.last
@@ -186,9 +186,9 @@ RSpec.describe Demo::ReportDemoCreator do
 
         expect(activity_session.percentage).to eq(session_clone.percentage)
         expect(activity_session.timespent).to eq(session_clone.timespent || Demo::ReportDemoCreator::DEFAULT_TIMESPENT)
-        expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['question_uid', 'question_concept_uid']
+        expect(activity_session.concept_results.first.extra_metadata.keys).to match_array ['cues', 'question_uid', 'question_concept_uid']
         # Taken from actual concept_result
-        expect(activity_session.concept_results.first.answer).to eq('Pho is a soup made with herbs bone broth and noodles.')
+        expect(activity_session.concept_results.first.answer).to eq("Even though it's cover is torn and it's pages are yellowed, the book is very valuable because it's three hundred years old and very rare.")
       end
     end
 
@@ -201,32 +201,30 @@ RSpec.describe Demo::ReportDemoCreator do
 
       subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
 
-
       it 'should create expected counts for untouched account' do
         expect{ subject }
-          .to not_change{teacher.reload.google_id}.from(nil)
-          .and not_change{teacher.reload.clever_id}.from(nil)
-          .and not_change{teacher.classrooms_i_teach.count}.from(1)
-          .and not_change{teacher.classrooms_i_teach.map(&:id)}
-          .and not_change{teacher.reload.auth_credential}.from(nil)
+          .to not_change{ teacher.reload.google_id }.from(nil)
+          .and not_change{ teacher.reload.clever_id }.from(nil)
+          .and not_change{ teacher.classrooms_i_teach.count }.from(1)
+          .and not_change{ teacher.classrooms_i_teach.map(&:id) }
+          .and not_change{ teacher.reload.auth_credential }.from(nil)
       end
 
-
       context 'teacher account has added data' do
-        let(:teacher) {create(:teacher, google_id: 1234, clever_id: 5678)}
-        let!(:auth_credential) {create(:google_auth_credential, user: teacher) }
-        let(:classroom) {create(:classroom)}
-        let!(:classrooms_teacher) {create(:classrooms_teacher, classroom: classroom, user: teacher)}
+        let(:teacher) { create(:teacher, google_id: 1234, clever_id: 5678) }
+        let!(:auth_credential) { create(:google_auth_credential, user: teacher) }
+        let(:classroom) { create(:classroom) }
+        let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
 
         it 'should create expected counts' do
           expect{ subject }
-            .to change{teacher.reload.google_id}.from('1234').to(nil)
-            .and change{teacher.reload.clever_id}.from('5678').to(nil)
-            .and change {teacher.reload.classrooms_i_teach.count}.from(2).to(1)
+            .to change{ teacher.reload.google_id }.from('1234').to(nil)
+            .and change{ teacher.reload.clever_id }.from('5678').to(nil)
+            .and change { teacher.reload.classrooms_i_teach.count }.from(2).to(1)
             .and change(AuthCredential, :count).from(1).to(0)
             .and change(Classroom.where(id: classroom.id), :count).from(1).to(0)
             .and not_change(Classroom.unscoped.where(id: classroom.id), :count).from(1)
-            .and not_change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id}
+            .and not_change{ Demo::ReportDemoCreator.demo_classroom(teacher.reload).id }
         end
       end
 
@@ -236,14 +234,14 @@ RSpec.describe Demo::ReportDemoCreator do
           demo_classroom.update(name: 'my classroom name')
         end
 
-        it { expect{ subject }.to change{Demo::ReportDemoCreator.demo_classroom(teacher.reload).id} }
+        it { expect{ subject }.to change{ Demo::ReportDemoCreator.demo_classroom(teacher.reload).id } }
 
         it 'should not raise an error with two occurences running at once' do
           threads = Array.new(2) do
-            Thread.new { subject }.tap {|thread| thread.report_on_exception = false}
+            Thread.new { subject }.tap { |thread| thread.report_on_exception = false }
           end
 
-          expect{threads.map(&:join)}.to_not raise_error
+          expect{ threads.map(&:join) }.to_not raise_error
         end
       end
     end

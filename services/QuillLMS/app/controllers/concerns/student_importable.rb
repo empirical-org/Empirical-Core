@@ -33,4 +33,3 @@ module StudentImportable
     ::Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
   end
 end
-

@@ -9,7 +9,6 @@ class DualGoogleIdAndCleverIdResolver < ApplicationService
     resolve_by_last_classroom
   ].freeze
 
-
   def initialize(user)
     @user = user
   end

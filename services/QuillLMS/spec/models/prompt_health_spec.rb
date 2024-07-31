@@ -23,16 +23,15 @@
 require 'rails_helper'
 
 describe PromptHealth, type: :model, redis: true do
+  it { should belong_to(:activity_health) }
 
-  it { should belong_to(:activity_health)}
-
-  it { should validate_inclusion_of(:flag).in_array(PromptHealth::FLAGS)}
-  it { should validate_numericality_of(:incorrect_sequences).is_greater_than_or_equal_to(0)}
-  it { should validate_numericality_of(:focus_points).is_greater_than_or_equal_to(0)}
-  it { should validate_inclusion_of(:percent_common_unmatched).in_range(0..100)}
-  it { should validate_inclusion_of(:percent_specified_algorithms).in_range(0..100)}
-  it { should validate_inclusion_of(:percent_reached_optimal).in_range(0..100)}
-  it { should validate_inclusion_of(:difficulty).in_range(0..5)}
+  it { should validate_inclusion_of(:flag).in_array(PromptHealth::FLAGS) }
+  it { should validate_numericality_of(:incorrect_sequences).is_greater_than_or_equal_to(0) }
+  it { should validate_numericality_of(:focus_points).is_greater_than_or_equal_to(0) }
+  it { should validate_inclusion_of(:percent_common_unmatched).in_range(0..100) }
+  it { should validate_inclusion_of(:percent_specified_algorithms).in_range(0..100) }
+  it { should validate_inclusion_of(:percent_reached_optimal).in_range(0..100) }
+  it { should validate_inclusion_of(:difficulty).in_range(0..5) }
 
   context '#serializable_hash' do
     it 'serialize into the expected shape' do
@@ -51,5 +50,4 @@ describe PromptHealth, type: :model, redis: true do
       }.stringify_keys)
     end
   end
-
 end

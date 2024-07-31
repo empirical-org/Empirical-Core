@@ -15,5 +15,4 @@ namespace :cron do
   task interval_1_day: :environment do
     Cron.interval_1_day
   end
-
 end

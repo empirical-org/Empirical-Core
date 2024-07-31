@@ -38,7 +38,7 @@ module Evidence
       private def api_request
         HTTParty.post(
           API_ENDPOINT,
-          headers:  {'Content-Type': 'application/json'},
+          headers:  { 'Content-Type': 'application/json' },
           body:     {
             entry: @entry,
             prompt_text: @prompt_text
@@ -46,7 +46,6 @@ module Evidence
           timeout: API_TIMEOUT
         )
       end
-
     end
   end
 end

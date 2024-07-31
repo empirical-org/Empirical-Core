@@ -43,3 +43,4 @@ export {
   sortByLevenshteinAndOptimal,
   extractConceptResultsFromResponse
 } from './responseTools'
+export { getlanguageOptions, hasTranslationFlag, showTranslations } from './translations'

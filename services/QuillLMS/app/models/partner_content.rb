@@ -29,10 +29,10 @@ class PartnerContent < ApplicationRecord
 
   belongs_to :content, polymorphic: true
 
-  validates :partner, presence: true, length: {maximum: MAX_PARTNER_LENGTH}, inclusion: {in: PARTNERS}
-  validates :content_type, presence: true, length: {maximum: MAX_TYPE_LENGTH}, inclusion: {in: CONTENT_TYPES}
-  validates :content_id, presence: true, uniqueness: {scope: [:content_type, :partner]}
+  validates :partner, presence: true, length: { maximum: MAX_PARTNER_LENGTH }, inclusion: { in: PARTNERS }
+  validates :content_type, presence: true, length: { maximum: MAX_TYPE_LENGTH }, inclusion: { in: CONTENT_TYPES }
+  validates :content_id, presence: true, uniqueness: { scope: [:content_type, :partner] }
 
-  scope :amplify, -> {where(partner: AMPLIFY)}
-  scope :only_unit_templates, -> {where(content_type: UNIT_TEMPLATE_TYPE)}
+  scope :amplify, -> { where(partner: AMPLIFY) }
+  scope :only_unit_templates, -> { where(content_type: UNIT_TEMPLATE_TYPE) }
 end

@@ -18,13 +18,12 @@ class QuestionHealthObj
   # rubocop:disable Metrics/CyclomaticComplexity
   def run
     health_dashboard = QuestionHealthDashboard.new(@activity.id, @question_number, @question.uid)
-    data = @question.data
     {
       url: "#{ENV['DEFAULT_URL']&.to_s}/#{@tool}/#/admin/#{question_url}/#{@question&.uid}/responses",
-      text: data['prompt'],
-      flag: data['flag'],
-      incorrect_sequences: data['incorrectSequences']&.length,
-      focus_points: data['focusPoints']&.length,
+      text: @question.prompt,
+      flag: @question.flag,
+      incorrect_sequences: @question.incorrectSequences&.length,
+      focus_points: @question.focusPoints&.length,
       percent_common_unmatched: health_dashboard.cms_dashboard_stats['percent_common_unmatched']&.round(2),
       percent_specified_algorithms: health_dashboard.cms_dashboard_stats['percent_specified_algos']&.round(2),
       difficulty: health_dashboard.average_attempts_for_question&.round(2),

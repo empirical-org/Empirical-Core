@@ -8,12 +8,12 @@ INSTANCES = {
     tables: 'concept_results (prefix: special)',
   },
   2 => {
-    name: 'airbyte-pink',
+    name: 'airbyte-indigo',
     port: 8002,
     tables: 'classrooms classroom_units provider_classroom_users  students_classrooms unit_activities'
   },
   3 => {
-    name: 'airbyte-0-43-0',
+    name: 'airbyte-ivory',
     port: 8003,
     tables: 'all_other_tables'
   },
@@ -25,7 +25,7 @@ INSTANCES = {
 }
 
 # To avoid nested string interpolation farther down
-INSTANCES_PRINTOUT = INSTANCES.map{|idx, instance| "#{idx}. #{instance[:tables]}\n" }.join
+INSTANCES_PRINTOUT = INSTANCES.map{ |idx, instance| "#{idx}. #{instance[:tables]}\n" }.join
 
 prompt0 = <<~STR
   What would you like to do?
@@ -43,8 +43,8 @@ STR
 Step = Struct.new(:prompt, :valid?, :current_value)
 
 MACHINE = {
-  0 => Step.new(prompt0, ->(input){ [1,2].include?(input.to_i)}, nil),
-  1 => Step.new(prompt1, ->(input){ INSTANCES.keys.include?(input.to_i)}, nil)
+  0 => Step.new(prompt0, ->(input){ [1,2].include?(input.to_i) }, nil),
+  1 => Step.new(prompt1, ->(input){ INSTANCES.keys.include?(input.to_i) }, nil)
 }
 
 SSH_SUBCOMMAND = '2'

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module CleverIntegration::SignUp::SubMain
-
   # we have to send district_success, district_failure, user_success, user_failure back to controller
 
   def self.run(auth_hash)
@@ -32,5 +31,4 @@ module CleverIntegration::SignUp::SubMain
   def self.school_admin(auth_hash)
     CleverIntegration::SignUp::SchoolAdmin.run(auth_hash)
   end
-
 end

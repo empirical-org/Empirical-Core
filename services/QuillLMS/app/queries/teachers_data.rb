@@ -55,6 +55,5 @@ module TeachersData
 
       user
     end
-
   end
 end

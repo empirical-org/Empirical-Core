@@ -23,15 +23,15 @@ class SessionsController < ApplicationController
   # rubocop:disable Metrics/CyclomaticComplexity
   def login_through_ajax
     email_or_username = params[:user][:email].downcase.strip unless params[:user][:email].nil?
-    @user =  User.find_by_username_or_email(email_or_username)
+    @user = User.find_by_username_or_email(email_or_username)
     if @user.nil? || @user.sales_contact?
-      render json: {message: 'An account with this email or username does not exist. Try again.', type: 'email'}, status: :unauthorized
+      render json: { message: 'An account with this email or username does not exist. Try again.', type: 'email' }, status: :unauthorized
     elsif @user.google_id && @user.password_digest.nil?
-      render json: {message: "Your account is linked to Google. To sign in with your email address, create a password by clicking 'Forgot password'.", type: 'email'}, status: :unauthorized
+      render json: { message: "Your account is linked to Google. To sign in with your email address, create a password by clicking 'Forgot password'.", type: 'email' }, status: :unauthorized
     elsif @user.clever_id
-      render json: {message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email'}, status: :unauthorized
+      render json: { message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email' }, status: :unauthorized
     elsif @user.password_digest.nil?
-      render json: {message: 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.', type: 'email'}, status: :unauthorized
+      render json: { message: 'Something went wrong verifying your password. Please use the "Forgot password?" link below to reset it.', type: 'email' }, status: :unauthorized
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
 
@@ -40,18 +40,18 @@ class SessionsController < ApplicationController
       if session[ApplicationController::POST_AUTH_REDIRECT].present?
         url = session[ApplicationController::POST_AUTH_REDIRECT]
         session.delete(ApplicationController::POST_AUTH_REDIRECT)
-        render json: {redirect: url}
+        render json: { redirect: url }
       elsif params[:redirect].present?
-        render json: {redirect: URI.parse(params[:redirect]).path}
+        render json: { redirect: URI.parse(params[:redirect]).path }
       elsif session[:attempted_path]
-        render json: {redirect: URI.parse(session.delete(:attempted_path)).path}
+        render json: { redirect: URI.parse(session.delete(:attempted_path)).path }
       elsif @user.auditor? && @user.subscription&.school_subscription?
-        render json: {redirect: '/subscriptions'}
+        render json: { redirect: '/subscriptions' }
       else
-        render json: {redirect: '/'}
+        render json: { redirect: '/' }
       end
     else
-      render json: {message: "Wrong password. Try again or click 'Forgot password' to reset it.", type: 'password'}, status: :unauthorized
+      render json: { message: "Wrong password. Try again or click 'Forgot password' to reset it.", type: 'password' }, status: :unauthorized
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity

@@ -24,13 +24,12 @@ module Evidence
       end
 
       def self.default_payload
-        super.merge({'feedback_type' => 'opinion'})
+        super.merge({ 'feedback_type' => 'opinion' })
       end
 
       def self.error_name
         'oapi_error'
       end
     end
-
   end
 end

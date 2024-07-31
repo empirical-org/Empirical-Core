@@ -3,8 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe FeedbackHistoryRatingsController, type: :controller do
-
-  let(:user) {create(:user)}
+  let(:user) { create(:user) }
 
   before do
     allow(controller).to receive(:current_user) { user }
@@ -12,7 +11,6 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
 
   describe 'PUT #create_or_update' do
     context 'updating a record' do
-
       context 'with valid params that have a nil rating' do
         it 'should update an existing record' do
           f_h = create(:feedback_history)
@@ -76,7 +74,6 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
         end
       end
 
-
       context 'with invalid params' do
         it 'should raise ParameterMissing' do
           expect do
@@ -85,7 +82,6 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
         end
       end
     end
-
   end
 
   describe 'PUT #mass_mark' do
@@ -107,8 +103,5 @@ RSpec.describe FeedbackHistoryRatingsController, type: :controller do
         feedback_history_id: f_h2.id
       ).rating).to eq false
     end
-
-
   end
-
 end

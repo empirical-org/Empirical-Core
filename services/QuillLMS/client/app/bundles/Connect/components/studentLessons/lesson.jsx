@@ -1,7 +1,7 @@
+import Pusher from 'pusher-js';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Pusher from 'pusher-js';
 
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import Finished from './finished.jsx';
@@ -13,6 +13,7 @@ import {
   CLICK,
   KEYDOWN,
   KEYPRESS,
+  LanguageSelectionPage,
   MOUSEDOWN,
   MOUSEMOVE,
   PlayTitleCard,
@@ -22,6 +23,7 @@ import {
   Spinner,
   TeacherPreviewMenuButton,
   VISIBILITYCHANGE,
+  hasTranslationFlag,
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
@@ -220,7 +222,7 @@ export class Lesson extends React.Component {
       window.pusher = new Pusher(process.env.PUSHER_KEY, { cluster: process.env.PUSHER_CLUSTER });
     }
     const channel = window.pusher.subscribe(activitySessionUid);
-    
+
     channel.bind('concept-results-saved', () => {
       document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${activitySessionUid}`;
       this.setState({ saved: true, });
@@ -440,7 +442,7 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile, languageOptions, updateLanguage, language } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -525,9 +527,19 @@ export class Lesson extends React.Component {
           saveToLMS={this.saveToLMS}
         />
       );
+    } else if (languageOptions && hasTranslationFlag() && !language) {
+      const languages = languageOptions.map(language => language.value)
+      component = (<LanguageSelectionPage
+        dispatch={dispatch}
+        handlePageLoaded={this.onLanguagePageLoad}
+        languages={languages}
+        previewMode={previewMode}
+        setLanguage={updateLanguage}
+      />);
     } else {
       component = (
         <Register
+          language={this.props.playLesson?.language}
           lesson={this.getLesson()}
           previewMode={previewMode}
           resumeActivity={this.resumeSession}

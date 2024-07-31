@@ -24,6 +24,16 @@
       margin: 4px 0px 20px;
     }
 
+    .unit-template-profile-activities {
+      .activity-name {
+        white-space: nowrap;
+        max-width: 450px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        text-align: left;
+      }
+    }
+
     a:hover {
       text-decoration: none;
     }

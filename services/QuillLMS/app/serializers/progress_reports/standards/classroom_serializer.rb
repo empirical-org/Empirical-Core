@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-class ProgressReports::Standards::ClassroomSerializer  < ApplicationSerializer
+class ProgressReports::Standards::ClassroomSerializer < ApplicationSerializer
   include Rails.application.routes.url_helpers
 
   attributes :name,
-             :total_student_count,
-             :proficient_student_count,
-             :not_proficient_student_count,
-             :total_standard_count,
-             :students_href,
-             :standards_href
+    :total_student_count,
+    :proficient_student_count,
+    :not_proficient_student_count,
+    :total_standard_count,
+    :students_href,
+    :standards_href
 
   def total_standard_count
     object.unique_standard_count

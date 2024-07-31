@@ -52,7 +52,6 @@ module QuillAuthentication
     auth_failed
   end
 
-
   def require_user
     signed_in!
   end

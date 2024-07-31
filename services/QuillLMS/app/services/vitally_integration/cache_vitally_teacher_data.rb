@@ -15,7 +15,7 @@ module VitallyIntegration
     end
 
     def self.set(teacher_id, year, data)
-      $redis.set(cache_key(teacher_id, year), data, {ex: 1.year})
+      $redis.set(cache_key(teacher_id, year), data, { ex: 1.year })
     end
   end
 end

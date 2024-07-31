@@ -6,6 +6,7 @@ class ChangeArchivedDefaultForClassrooms < ActiveRecord::Migration[4.2]
       t.change :archived, :boolean, default: false
     end
   end
+
   def self.down
     change_table :tablename do |t|
       t.change :archived, :boolean, default: true

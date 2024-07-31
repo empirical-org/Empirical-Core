@@ -3,6 +3,11 @@ import { mockFocusPointApi, } from '../__mocks__/focus_point_api';
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api';
 import { mockLessonApi, } from '../__mocks__/lesson_api';
 import { mockQuestionApi, } from '../__mocks__/question_api';
+import { mockDispatch as dispatch, } from '../__mocks__/dispatch';
+import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api';
+import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
+import questionActions from '../../actions/questions';
+
 jest.mock('../../libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,
@@ -11,13 +16,6 @@ jest.mock('../../libs/questions_api', () => ({
 jest.mock('../../libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
 }))
-
-import { mockDispatch as dispatch, } from '../__mocks__/dispatch';
-
-import { TYPE_CONNECT_LESSON } from '../../libs/lessons_api';
-import { SENTENCE_COMBINING_TYPE } from '../../libs/questions_api';
-
-import questionActions from '../../actions/questions';
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
@@ -34,17 +32,6 @@ describe('Questions actions', () => {
     })
   })
 
-  describe('loadSpecifiedQuestions', () => {
-    it('should call QuestionApi.get()', () => {
-      const MOCK_ID1 = '1'
-      const MOCK_ID2 = '2'
-      const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
-      dispatch(questionActions.loadSpecifiedQuestions(MOCK_IDS))
-      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID1)
-      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID2)
-    })
-  })
-
   describe('updateFlag', () => {
     it('should call QuestionApi.updateFlag()', () => {
       const MOCK_ID = 'id'
@@ -57,7 +44,7 @@ describe('Questions actions', () => {
   describe('submitNewQuestion', () => {
     it('should call QuestionApi.create()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
-      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, "", "123abc"))
+      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, {}, "123abc"))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE, MOCK_CONTENT)
     })
 
@@ -84,7 +71,7 @@ describe('Questions actions', () => {
     it('should call IncorrectSequenceApi.create()', () => {
       const MOCK_ID = 1
       const MOCK_CONTENT = { mock: 'content' }
-      dispatch(questionActions.submitNewIncorrectSequence(MOCK_ID, MOCK_CONTENT))
+      dispatch(questionActions.submitNewIncorrectSequence(MOCK_ID, MOCK_CONTENT, jest.fn()))
       expect(mockIncorrectSequenceApi.create).toHaveBeenLastCalledWith(MOCK_ID, MOCK_CONTENT)
     })
   })

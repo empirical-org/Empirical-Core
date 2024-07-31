@@ -62,7 +62,6 @@ RSpec.describe Analytics::SegmentAnalytics do
         expect(track_calls[0][:properties][:tool_name]).to eq('Connect')
       end
     end
-
   end
 
   context 'tracking activity completion' do
@@ -89,7 +88,7 @@ RSpec.describe Analytics::SegmentAnalytics do
     it 'sends one event with information about the activity pack when it is a diagnostic activity pack' do
       diagnostic_activity = create(:diagnostic_activity)
       diagnostic_unit_template = create(:unit_template)
-      diagnostic_unit = create(:unit, unit_template_id: diagnostic_unit_template.id )
+      diagnostic_unit = create(:unit, unit_template_id: diagnostic_unit_template.id)
       unit_activity = create(:unit_activity, unit: diagnostic_unit, activity: diagnostic_activity)
       analytics.track_activity_pack_assignment(teacher.id, diagnostic_unit.id)
       expect(identify_calls.size).to eq(0)
@@ -124,15 +123,14 @@ RSpec.describe Analytics::SegmentAnalytics do
       expect(track_calls[0][:properties][:activity_pack_type]).to eq('Pre-made')
       expect(track_calls[0][:properties][:activity_pack_name]).to eq(unit_template.name)
     end
-
   end
 
   context 'track teacher subscription' do
     let(:teacher) { create(:teacher) }
-    let(:subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days)}
-    let(:other_subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 30.days)}
-    let!(:user_subscription) { create(:user_subscription, user: teacher, subscription: subscription)}
-    let!(:other_user_subscription) { create(:user_subscription, user: teacher, subscription: other_subscription)}
+    let(:subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: true, expiration: Time.zone.today + 30.days) }
+    let(:other_subscription) { create(:subscription, account_type: 'Teacher Paid', recurring: false, expiration: Time.zone.today + 30.days) }
+    let!(:user_subscription) { create(:user_subscription, user: teacher, subscription: subscription) }
+    let!(:other_user_subscription) { create(:user_subscription, user: teacher, subscription: other_subscription) }
 
     it 'sends an event with information about the subscription for recurring subscriptions' do
       analytics.track_teacher_subscription(subscription, Analytics::SegmentIo::BackgroundEvents::TEACHER_SUB_WILL_RENEW_IN_30)
@@ -153,10 +151,10 @@ RSpec.describe Analytics::SegmentAnalytics do
 
   context 'track school subscription' do
     let(:school) { create(:school) }
-    let(:subscription) { create(:subscription, account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days)}
-    let(:other_subscription) { create(:subscription, account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 30.days, purchaser_id: 'test')}
-    let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription)}
-    let!(:other_school_subscription) { create(:school_subscription, school: school, subscription: other_subscription)}
+    let(:subscription) { create(:subscription, account_type: 'School Paid', recurring: true, expiration: Time.zone.today + 30.days) }
+    let(:other_subscription) { create(:subscription, account_type: 'School Paid', recurring: false, expiration: Time.zone.today + 30.days, purchaser_id: 'test') }
+    let!(:school_subscription) { create(:school_subscription, school: school, subscription: subscription) }
+    let!(:other_school_subscription) { create(:school_subscription, school: school, subscription: other_subscription) }
 
     it 'sends an event with information about the subscription for recurring subscriptions' do
       analytics.track_school_subscription(subscription, Analytics::SegmentIo::BackgroundEvents::SCHOOL_SUB_WILL_RENEW_IN_30)
@@ -247,7 +245,7 @@ RSpec.describe Analytics::SegmentAnalytics do
     let(:student) { create(:student) }
 
     it 'sends events to Intercom when the user is a teacher' do
-      analytics.track({user_id: teacher.id})
+      analytics.track({ user_id: teacher.id })
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
@@ -257,7 +255,7 @@ RSpec.describe Analytics::SegmentAnalytics do
     end
 
     it 'does not send events to Intercom when user is not a teacher' do
-      analytics.track({user_id: student.id})
+      analytics.track({ user_id: student.id })
       expect(identify_calls.size).to eq(0)
       expect(track_calls.size).to eq(1)
       expect(track_calls[0][:integrations]).to eq({
@@ -279,7 +277,7 @@ RSpec.describe Analytics::SegmentAnalytics do
     let(:student) { create(:student) }
     let(:unit) { create(:unit) }
     let(:classroom) { create(:classroom) }
-    let(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student)}
+    let(:students_classroom1) { create(:students_classrooms, classroom: classroom, student: student) }
     let(:classroom_unit) { create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id]) }
     let(:unit_activity1) { create(:unit_activity, unit: unit) }
     let(:unit_activity2) { create(:unit_activity, unit: unit) }
@@ -358,7 +356,6 @@ RSpec.describe Analytics::SegmentAnalytics do
         expect(track_calls[0][:event]).to eq(Analytics::SegmentIo::BackgroundEvents::ADMIN_RECEIVED_ADMIN_UPGRADE_REQUEST_FROM_TEACHER)
       end
     end
-
   end
 
   context '#track_admin_invited_by_teacher' do
@@ -440,7 +437,6 @@ RSpec.describe Analytics::SegmentAnalytics do
   end
 
   context '#identify' do
-
     let(:district) { create(:district) }
     let(:school) { create(:school, district: district) }
     let(:school_without_district) { create(:school) }

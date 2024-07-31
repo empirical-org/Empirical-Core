@@ -189,7 +189,7 @@ module NavigationHelper
     (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||
     action_name == 'invite_students') &&
-    controller.class.module_parent != Teachers::ProgressReports::Concepts
+      controller.class.module_parent != Teachers::ProgressReports::Concepts
   end
 
   def assign_activity_page_active?
@@ -259,12 +259,12 @@ module NavigationHelper
 
   def playing_activity?
     activity_actions = [
-        ApplicationController::EVIDENCE,
-        ApplicationController::PROOFREADER,
-        ApplicationController::GRAMMAR,
-        ApplicationController::LESSONS,
-        ApplicationController::DIAGNOSTIC,
-        ApplicationController::CONNECT
+      ApplicationController::EVIDENCE,
+      ApplicationController::PROOFREADER,
+      ApplicationController::GRAMMAR,
+      ApplicationController::LESSONS,
+      ApplicationController::DIAGNOSTIC,
+      ApplicationController::CONNECT
     ]
     controller.class == PagesController && activity_actions.include?(action_name)
   end

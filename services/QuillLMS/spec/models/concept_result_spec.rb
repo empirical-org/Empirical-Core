@@ -44,7 +44,7 @@ RSpec.describe ConceptResult, type: :model do
   context 'methods' do
     context 'self.create_from_json' do
       let(:question) { create(:question) }
-      let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+      let(:activity) { create(:activity, data: { questions: [{ key: question.uid }] }) }
       let(:activity_session) { create(:activity_session_without_concept_results, activity: activity) }
       let(:concept) { create(:concept) }
       let(:metadata) do
@@ -95,7 +95,7 @@ RSpec.describe ConceptResult, type: :model do
 
       it 'should create NormalizedText records when new text is provided' do
         expect do
-          cr =  ConceptResult.create_from_json(json)
+          cr = ConceptResult.create_from_json(json)
           expect(cr.extra_metadata).to be(nil)
         end.to change(ConceptResultDirections, :count).by(1)
           .and change(ConceptResultPreviousFeedback, :count).by(1)
@@ -112,7 +112,7 @@ RSpec.describe ConceptResult, type: :model do
       end
 
       it 'should not link to records when the value in the key is an empty string' do
-        concept_result = ConceptResult.create_from_json(json.merge({question_type: nil}))
+        concept_result = ConceptResult.create_from_json(json.merge({ question_type: nil }))
 
         expect(concept_result.reload.concept_result_question_type).to be_nil
       end
@@ -140,7 +140,7 @@ RSpec.describe ConceptResult, type: :model do
       end
 
       it 'should extra_metadata containing any keys not part of the normalization process' do
-        extra_metadata = {'foo' => 'bar', 'baz' => 'qux'}
+        extra_metadata = { 'foo' => 'bar', 'baz' => 'qux' }
         metadata.merge!(extra_metadata)
 
         concept_result = ConceptResult.create_from_json(json)
@@ -156,7 +156,7 @@ RSpec.describe ConceptResult, type: :model do
     context 'self.bulk_create_from_json' do
       let(:question1) { create(:question) }
       let(:question2) { create(:question) }
-      let(:activity) { create(:activity, data: {questions: [{key: question1.uid},{key: question2.uid}]}) }
+      let(:activity) { create(:activity, data: { questions: [{ key: question1.uid },{ key: question2.uid }] }) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
       let(:metadata) do
@@ -194,7 +194,7 @@ RSpec.describe ConceptResult, type: :model do
 
     context 'self.legacy_format' do
       let(:question) { create(:question) }
-      let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+      let(:activity) { create(:activity, data: { questions: [{ key: question.uid }] }) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
       let(:metadata) do
@@ -209,7 +209,7 @@ RSpec.describe ConceptResult, type: :model do
           "questionScore": 0.8
         }
       end
-      let(:concept_result) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
+      let(:concept_result) { ConceptResult.create_from_json({ concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining' }) }
 
       it 'should return data in the same shape as a legacy ConceptResult model' do
         expect(concept_result.legacy_format.except(:id)).to eq({
@@ -224,7 +224,7 @@ RSpec.describe ConceptResult, type: :model do
 
     context 'question_score_for_correct_count' do
       let(:question) { create(:question) }
-      let(:activity) { create(:activity, data: {questions: [{key: question.uid}]}) }
+      let(:activity) { create(:activity, data: { questions: [{ key: question.uid }] }) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
       let(:metadata1) do
@@ -261,9 +261,9 @@ RSpec.describe ConceptResult, type: :model do
           "questionNumber": 1,
         }
       end
-      let(:concept_result1) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata1, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
-      let(:concept_result2) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata2, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
-      let(:concept_result3) { ConceptResult.create_from_json({concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata3, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining'}) }
+      let(:concept_result1) { ConceptResult.create_from_json({ concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata1, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining' }) }
+      let(:concept_result2) { ConceptResult.create_from_json({ concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata2, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining' }) }
+      let(:concept_result3) { ConceptResult.create_from_json({ concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata3, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining' }) }
 
       it 'should return the expected value' do
         expect(concept_result1.question_score_for_correct_count).to eq(0.8)

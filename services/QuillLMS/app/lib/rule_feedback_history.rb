@@ -22,7 +22,7 @@ class RuleFeedbackHistory
       count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_consecutive,
       count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_non_consecutive
     SELECT
-    )
+                                 )
     .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
     .joins('INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id')
     .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
@@ -89,7 +89,6 @@ class RuleFeedbackHistory
           repeated_consecutive_responses: r.repeated_consecutive,
           repeated_non_consecutive_responses: r.repeated_non_consecutive,
       }
-
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
