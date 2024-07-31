@@ -55,7 +55,7 @@ module Evidence
         prompt.distinct_automl_highlight_arrays[highlight_key.to_i - 1]
       end
 
-      private def highlight = highlight_array.map {|text| {type:, text:, category: ''} }
+      private def highlight = highlight_array.map { |text| { type:, text:, category: '' } }
 
       private def type = Evidence::Highlight::TYPE_PASSAGE
 

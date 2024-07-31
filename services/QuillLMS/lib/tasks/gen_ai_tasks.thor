@@ -189,8 +189,8 @@ class GenAITasks < Thor
     file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file_test).send(:file_path)
     file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file_train).send(:file_path)
 
-    test_set = full_set.select {|f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS)}
-    train_set = full_set.reject {|f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS)}
+    test_set = full_set.select { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
+    train_set = full_set.reject { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
 
     CSV.open(file_test, 'wb') do |csv|
       csv << SECONDARY_CSV_HEADERS
@@ -224,7 +224,7 @@ class GenAITasks < Thor
     KEY_HIGHLIGHT = 'highlight'
     TEST_SET_ACTIVITY_IDS = [467,460,442,435,431,387]
     SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
-    GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER',  Rails.root.join('/lib/data/'))
+    GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root.join('/lib/data/'))
 
     private def output_file(conjunction, limit)
       Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"

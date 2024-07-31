@@ -34,9 +34,9 @@ module Evidence
       private def plagiarism_text = markdown_ul(prompt.plagiarism_texts)
       private def stem = prompt.text
 
-      private def markdown_ul(array) = array.map {|i| "- #{i}"}.join("\n")
+      private def markdown_ul(array) = array.map { |i| "- #{i}" }.join("\n")
       private def markdown_table_rows(array_of_arrays)
-        array_of_arrays.map {|array| "#{PIPE}#{array.join(PIPE)}#{PIPE}"}.join("\n")
+        array_of_arrays.map { |array| "#{PIPE}#{array.join(PIPE)}#{PIPE}" }.join("\n")
       end
 
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
@@ -46,7 +46,7 @@ module Evidence
       private def highlight_texts
         prompt
           .distinct_automl_highlight_arrays
-          .map.with_index {|text_array,i| "#{i+1}. #{text_array.join(' ')}" }
+          .map.with_index { |text_array,i| "#{i+1}. #{text_array.join(' ')}" }
           .join("\n")
       end
     end

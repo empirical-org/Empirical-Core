@@ -22,8 +22,8 @@ module Evidence
 
       def run
         csv_data
-          .map {|row| dataset_from_row(row)}
-          .select {|data| data.conjunction.in?(conjunctions)}
+          .map { |row| dataset_from_row(row) }
+          .select { |data| data.conjunction.in?(conjunctions) }
           .first(limit)
       end
 
