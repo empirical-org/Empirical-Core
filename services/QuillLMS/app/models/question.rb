@@ -80,9 +80,9 @@ class Question < ApplicationRecord
   def as_json(options=nil)
     language = options&.fetch(:language, nil)
     locale = language_to_locale(language)
-    json = locale.present? ? translated_data(locale:) : data
-    json.merge(question_type:)
+    locale.present? ? translated_data(locale:) : data.merge(question_type:)
   end
+
   def language_to_locale(language)
     language_to_locale_map = LOCALE_TO_LANGUAGE.invert
     language_to_locale_map[language]
