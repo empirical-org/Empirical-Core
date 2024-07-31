@@ -105,7 +105,8 @@ export {
 } from './components/titleCards/index'
 
 export {
-  LanguagePicker
+  LanguagePicker,
+  LanguageSelectionPage
 } from './components/translations/index'
 
 export {
@@ -149,6 +150,9 @@ export {
   extractConceptResultsFromResponse,
   findFeedbackForReport,
   formatAnswerStringForReport,
+  getlanguageOptions,
+  hasTranslationFlag,
+  showTranslations
 } from './libs/index'
 
 export {
@@ -267,5 +271,7 @@ export {
   DEFAULT,
   HOVER
 } from './utils/constants'
+
+export { ENGLISH } from './utils/languageList'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

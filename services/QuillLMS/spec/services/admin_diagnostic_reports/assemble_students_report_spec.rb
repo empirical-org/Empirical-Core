@@ -60,7 +60,7 @@ module AdminDiagnosticReports
              post_skills_maintained: 0,
              post_skills_improved_or_maintained: 0
           }
-        ]
+         ]
       }
     end
     let(:performance_results) { [performance_result] }

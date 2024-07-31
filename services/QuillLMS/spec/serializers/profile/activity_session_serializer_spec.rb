@@ -8,14 +8,14 @@ describe Profile::ActivitySessionSerializer do
 
     let(:expected_serialized_keys) do
       %w{
-          id
-          percentage
-          link
-          due_date_or_completed_at_date
-          due_date
-          state
-          activity
-        }
+        id
+        percentage
+        link
+        due_date_or_completed_at_date
+        due_date
+        state
+        activity
+      }
     end
   end
 end

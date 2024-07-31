@@ -154,7 +154,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 2537,
-                "name": "Starter Baseline Diagnostic (Pre)",
+                "name": "Starter Diagnostic (Baseline Pre)",
                 "unitTemplateId": 636,
                 "what": "Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words",
                 "when": "Your students are working on basic grammar concepts.",
@@ -176,7 +176,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2537"
               buttonText="Preview"
-              header="Starter Baseline Diagnostic (Pre)"
+              header="Starter Diagnostic (Baseline Pre)"
               key="2537"
               selectCard={[Function]}
             >
@@ -194,7 +194,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Starter Baseline Diagnostic (Pre)
+                        Starter Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
@@ -266,7 +266,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               Object {
                 "activityId": 2538,
                 "lockedText": "This is locked because you haven't assigned the Starter Baseline Diagnostic yet. Assign it to unlock the Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "Starter Growth Diagnostic (Post)",
+                "name": "Starter Diagnostic (Growth Post)",
                 "unitTemplateId": 651,
                 "what": "The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.",
                 "when": "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -288,7 +288,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2538"
               buttonText="Preview"
-              header="Starter Growth Diagnostic (Post)"
+              header="Starter Diagnostic (Growth Post)"
               key="2538"
               selectCard={[Function]}
             >
@@ -306,7 +306,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Starter Growth Diagnostic (Post)
+                        Starter Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
@@ -382,7 +382,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 2539,
-                "name": "Intermediate Baseline Diagnostic (Pre)",
+                "name": "Intermediate Diagnostic (Baseline Pre)",
                 "unitTemplateId": 638,
                 "what": "Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs",
                 "when": "Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.",
@@ -404,7 +404,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2539"
               buttonText="Preview"
-              header="Intermediate Baseline Diagnostic (Pre)"
+              header="Intermediate Diagnostic (Baseline Pre)"
               key="2539"
               selectCard={[Function]}
             >
@@ -422,7 +422,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Intermediate Baseline Diagnostic (Pre)
+                        Intermediate Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
@@ -494,7 +494,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               Object {
                 "activityId": 2540,
                 "lockedText": "This is locked because you haven't assigned the Intermediate Baseline Diagnostic yet. Assign it to unlock the Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "Intermediate Growth Diagnostic (Post)",
+                "name": "Intermediate Diagnostic (Growth Post)",
                 "unitTemplateId": 639,
                 "what": "The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.",
                 "when": "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -516,7 +516,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2540"
               buttonText="Preview"
-              header="Intermediate Growth Diagnostic (Post)"
+              header="Intermediate Diagnostic (Growth Post)"
               key="2540"
               selectCard={[Function]}
             >
@@ -534,7 +534,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Intermediate Growth Diagnostic (Post)
+                        Intermediate Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
@@ -610,7 +610,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 2541,
-                "name": "Advanced Baseline Diagnostic (Pre)",
+                "name": "Advanced Diagnostic (Baseline Pre)",
                 "unitTemplateId": 641,
                 "what": "Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining",
                 "when": "Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.",
@@ -632,7 +632,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2541"
               buttonText="Preview"
-              header="Advanced Baseline Diagnostic (Pre)"
+              header="Advanced Diagnostic (Baseline Pre)"
               key="2541"
               selectCard={[Function]}
             >
@@ -650,7 +650,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Advanced Baseline Diagnostic (Pre)
+                        Advanced Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
@@ -722,7 +722,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               Object {
                 "activityId": 2542,
                 "lockedText": "This is locked because you haven't assigned the Advanced Baseline Diagnostic yet. Assign it to unlock the Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "Advanced Growth Diagnostic (Post)",
+                "name": "Advanced Diagnostic (Growth Post)",
                 "unitTemplateId": 642,
                 "what": "The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.",
                 "when": "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -744,7 +744,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2542"
               buttonText="Preview"
-              header="Advanced Growth Diagnostic (Post)"
+              header="Advanced Diagnostic (Growth Post)"
               key="2542"
               selectCard={[Function]}
             >
@@ -762,7 +762,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        Advanced Growth Diagnostic (Post)
+                        Advanced Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
@@ -838,7 +838,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 2550,
-                "name": "ELL Starter Baseline Diagnostic (Pre)",
+                "name": "ELL Starter Diagnostic (Baseline Pre)",
                 "unitTemplateId": 643,
                 "what": "Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions",
                 "when": "Your students are newcomer or beginner English learners working on basic English grammar concepts.",
@@ -860,7 +860,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2550"
               buttonText="Preview"
-              header="ELL Starter Baseline Diagnostic (Pre)"
+              header="ELL Starter Diagnostic (Baseline Pre)"
               key="2550"
               selectCard={[Function]}
             >
@@ -878,7 +878,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Starter Baseline Diagnostic (Pre)
+                        ELL Starter Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
@@ -950,7 +950,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               Object {
                 "activityId": 2551,
                 "lockedText": "This is locked because you haven't assigned the ELL Starter Baseline Diagnostic yet. Assign it to unlock the ELL Starter Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "ELL Starter Growth Diagnostic (Post)",
+                "name": "ELL Starter Diagnostic (Growth Post)",
                 "unitTemplateId": 644,
                 "what": "The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.",
                 "when": "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -972,7 +972,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2551"
               buttonText="Preview"
-              header="ELL Starter Growth Diagnostic (Post)"
+              header="ELL Starter Diagnostic (Growth Post)"
               key="2551"
               selectCard={[Function]}
             >
@@ -990,7 +990,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Starter Growth Diagnostic (Post)
+                        ELL Starter Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
@@ -1066,7 +1066,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 2555,
-                "name": "ELL Intermediate Baseline Diagnostic (Pre)",
+                "name": "ELL Intermediate Diagnostic (Baseline Pre)",
                 "unitTemplateId": 645,
                 "what": "Simple tenses, progressive tenses, perfect tenses, and modality",
                 "when": "Your students are beginner, intermediate, or advanced English learners working on English tenses.",
@@ -1088,7 +1088,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2555"
               buttonText="Preview"
-              header="ELL Intermediate Baseline Diagnostic (Pre)"
+              header="ELL Intermediate Diagnostic (Baseline Pre)"
               key="2555"
               selectCard={[Function]}
             >
@@ -1106,7 +1106,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Intermediate Baseline Diagnostic (Pre)
+                        ELL Intermediate Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
@@ -1178,7 +1178,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               Object {
                 "activityId": 2557,
                 "lockedText": "This is locked because you haven't assigned the ELL Intermediate Baseline Diagnostic yet. Assign it to unlock the ELL Intermediate Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "ELL Intermediate Growth Diagnostic (Post)",
+                "name": "ELL Intermediate Diagnostic (Growth Post)",
                 "unitTemplateId": 646,
                 "what": "The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.",
                 "when": "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -1200,7 +1200,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2557"
               buttonText="Preview"
-              header="ELL Intermediate Growth Diagnostic (Post)"
+              header="ELL Intermediate Diagnostic (Growth Post)"
               key="2557"
               selectCard={[Function]}
             >
@@ -1218,7 +1218,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Intermediate Growth Diagnostic (Post)
+                        ELL Intermediate Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>
@@ -1294,7 +1294,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
             diagnostic={
               Object {
                 "activityId": 2563,
-                "name": "ELL Advanced Baseline Diagnostic (Pre)",
+                "name": "ELL Advanced Diagnostic (Baseline Pre)",
                 "unitTemplateId": 647,
                 "what": "Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions",
                 "when": "Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.",
@@ -1316,7 +1316,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2563"
               buttonText="Preview"
-              header="ELL Advanced Baseline Diagnostic (Pre)"
+              header="ELL Advanced Diagnostic (Baseline Pre)"
               key="2563"
               selectCard={[Function]}
             >
@@ -1334,7 +1334,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Advanced Baseline Diagnostic (Pre)
+                        ELL Advanced Diagnostic (Baseline Pre)
                       </h2>
                     </div>
                   </div>
@@ -1406,7 +1406,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               Object {
                 "activityId": 2564,
                 "lockedText": "This is locked because you haven't assigned the ELL Advanced Baseline Diagnostic yet. Assign it to unlock the ELL Advanced Growth Diagnostic. If you are a co-teacher, please ask the classroom's owner to assign the diagnostics.",
-                "name": "ELL Advanced Growth Diagnostic (Post)",
+                "name": "ELL Advanced Diagnostic (Growth Post)",
                 "unitTemplateId": 649,
                 "what": "The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.",
                 "when": "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -1428,7 +1428,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
               }
               buttonLink="/activity_sessions/anonymous?activity_id=2564"
               buttonText="Preview"
-              header="ELL Advanced Growth Diagnostic (Post)"
+              header="ELL Advanced Diagnostic (Growth Post)"
               key="2564"
               selectCard={[Function]}
             >
@@ -1446,7 +1446,7 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
                       className="header-wrapper"
                     >
                       <h2>
-                        ELL Advanced Growth Diagnostic (Post)
+                        ELL Advanced Diagnostic (Growth Post)
                       </h2>
                     </div>
                   </div>

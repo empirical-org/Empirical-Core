@@ -7,21 +7,21 @@ describe EmailApiHelper do
   end_time = Time.current.yesterday.end_of_day
   mock_nps_response = {
     'data': [
-            {
-                'attributes': {
-                    'nps': 73.33333333333333,
-                    'promoters': 11,
-                    'passives': 4,
-                    'detractors': 0
-                }
-            }
-        ]
+      {
+          'attributes': {
+              'nps': 73.33333333333333,
+              'promoters': 11,
+              'passives': 4,
+              'detractors': 0
+          }
+      }
+    ]
     }
   mock_comment_response = {
        'responses': [
-           { 'feedback': 'this is great!', 'rating': 10 },
-           { 'feedback': nil, 'rating': 7 },
-           { 'feedback': 'meh', 'rating': 5 }
+         { 'feedback': 'this is great!', 'rating': 10 },
+         { 'feedback': nil, 'rating': 7 },
+         { 'feedback': 'meh', 'rating': 5 }
        ]
    }
 
@@ -40,8 +40,8 @@ describe EmailApiHelper do
   describe '#parse_comment_response' do
     it 'should return the parsed response for the Satismeter responses API' do
       mock_result = ([
-          { 'feedback': 'this is great!', 'rating': 10 },
-          { 'feedback': 'meh', 'rating': 5 }
+        { 'feedback': 'this is great!', 'rating': 10 },
+        { 'feedback': 'meh', 'rating': 5 }
       ]).as_json
 
       result = parse_comment_response(mock_comment_response.as_json)

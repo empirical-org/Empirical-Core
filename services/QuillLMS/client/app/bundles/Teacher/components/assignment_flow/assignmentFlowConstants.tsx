@@ -39,7 +39,7 @@ export const DISABLED_DIAGNOSTIC_RECOMMENDATIONS_IDS = [1663, 1668, 1678, 1161, 
 
 export const starterPreTest = {
   activityId: 2537,
-  name: 'Starter Baseline Diagnostic (Pre)',
+  name: 'Starter Diagnostic (Baseline Pre)',
   unitTemplateId: STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Plural nouns, possessive nouns, capitalization, subject-verb agreement, pronouns, and commonly confused words',
   when: 'Your students are working on basic grammar concepts.'
@@ -47,7 +47,7 @@ export const starterPreTest = {
 
 export const starterPostTest = {
   activityId: 2538,
-  name: 'Starter Growth Diagnostic (Post)',
+  name: 'Starter Diagnostic (Growth Post)',
   unitTemplateId: STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The Starter Growth Diagnostic has different questions but covers the same skills as the Starter Baseline Diagnostic.',
   when: "Your students have completed the Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -56,7 +56,7 @@ export const starterPostTest = {
 
 export const intermediatePreTest = {
   activityId: 2539,
-  name: 'Intermediate Baseline Diagnostic (Pre)',
+  name: 'Intermediate Diagnostic (Baseline Pre)',
   unitTemplateId: INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Compound subjects, compound objects, compound predicates, compound sentences, complex sentences, compound-complex sentences, and conjunctive adverbs',
   when: 'Your students have practiced the basics of grammar and are ready to develop their sentence construction skills.'
@@ -64,7 +64,7 @@ export const intermediatePreTest = {
 
 export const intermediatePostTest = {
   activityId: 2540,
-  name: 'Intermediate Growth Diagnostic (Post)',
+  name: 'Intermediate Diagnostic (Growth Post)',
   unitTemplateId: INTERMEDIATE_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The Intermediate Growth Diagnostic has different questions but covers the same skills as the Intermediate Baseline Diagnostic.',
   when: "Your students have completed the Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -73,7 +73,7 @@ export const intermediatePostTest = {
 
 export const advancedPreTest = {
   activityId: 2541,
-  name: 'Advanced Baseline Diagnostic (Pre)',
+  name: 'Advanced Diagnostic (Baseline Pre)',
   unitTemplateId: ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Relative clauses, appositive phrases, participial phrases, parallel structure, and open sentence combining',
   when: 'Your students are experienced with Quill, understand sentence combining, and are ready to develop advanced multi-clause sentences.'
@@ -81,7 +81,7 @@ export const advancedPreTest = {
 
 export const advancedPostTest = {
   activityId: 2542,
-  name: 'Advanced Growth Diagnostic (Post)',
+  name: 'Advanced Diagnostic (Growth Post)',
   unitTemplateId: ADVANCED_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The Advanced Growth Diagnostic has different questions but covers the same skills as the Advanced Baseline Diagnostic.',
   when: "Your students have completed the Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -90,7 +90,7 @@ export const advancedPostTest = {
 
 export const ellStarterPreTest = {
   activityId: 2550,
-  name: 'ELL Starter Baseline Diagnostic (Pre)',
+  name: 'ELL Starter Diagnostic (Baseline Pre)',
   unitTemplateId: ELL_STARTER_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Articles, plurals, possessives, pronouns, adjectives, adverbs, negation, questions, and prepositions',
   when: 'Your students are newcomer or beginner English learners working on basic English grammar concepts.'
@@ -98,7 +98,7 @@ export const ellStarterPreTest = {
 
 export const ellStarterPostTest = {
   activityId: 2551,
-  name: 'ELL Starter Growth Diagnostic (Post)',
+  name: 'ELL Starter Diagnostic (Growth Post)',
   unitTemplateId: ELL_STARTER_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Starter Growth Diagnostic has different questions but covers the same skills as the ELL Starter Baseline Diagnostic.',
   when: "Your students have completed the ELL Starter Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -107,7 +107,7 @@ export const ellStarterPostTest = {
 
 export const ellIntermediatePreTest = {
   activityId: 2555,
-  name: 'ELL Intermediate Baseline Diagnostic (Pre)',
+  name: 'ELL Intermediate Diagnostic (Baseline Pre)',
   unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Simple tenses, progressive tenses, perfect tenses, and modality',
   when: 'Your students are beginner, intermediate, or advanced English learners working on English tenses.'
@@ -115,7 +115,7 @@ export const ellIntermediatePreTest = {
 
 export const ellIntermediatePostTest = {
   activityId: 2557,
-  name: 'ELL Intermediate Growth Diagnostic (Post)',
+  name: 'ELL Intermediate Diagnostic (Growth Post)',
   unitTemplateId: ELL_INTERMEDIATE_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Intermediate Growth Diagnostic has different questions but covers the same skills as the ELL Intermediate Baseline Diagnostic.',
   when: "Your students have completed the ELL Intermediate Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",
@@ -124,7 +124,7 @@ export const ellIntermediatePostTest = {
 
 export const ellAdvancedPreTest = {
   activityId: 2563,
-  name: 'ELL Advanced Baseline Diagnostic (Pre)',
+  name: 'ELL Advanced Diagnostic (Baseline Pre)',
   unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_UNIT_TEMPLATE_ID,
   what: 'Challenging articles, countable vs. uncountable nouns, challenging pronouns, commonly confused words, gerunds vs. infinitives, -ed vs -ing adjectives, embedded questions, and responding to questions',
   when: 'Your students are upper-intermediate or advanced English learners who understand the basics of English but need practice correcting errors based on transfer from their home language(s) to English.'
@@ -132,7 +132,7 @@ export const ellAdvancedPreTest = {
 
 export const ellAdvancedPostTest = {
   activityId: 2564,
-  name: 'ELL Advanced Growth Diagnostic (Post)',
+  name: 'ELL Advanced Diagnostic (Growth Post)',
   unitTemplateId: ELL_ADVANCED_DIAGNOSTIC_POST_UNIT_TEMPLATE_ID,
   what: 'The ELL Advanced Growth Diagnostic has different questions but covers the same skills as the ELL Advanced Baseline Diagnostic.',
   when: "Your students have completed the ELL Advanced Baseline Diagnostic, you've assigned the recommended practice, and now you're ready to measure their growth.",

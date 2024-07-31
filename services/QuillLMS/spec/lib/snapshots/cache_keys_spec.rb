@@ -33,13 +33,13 @@ module Snapshots
           current_end,
           school_ids)
               ).to eq([
-          report,
-          query,
-          timeframe_value,
-          current_start,
-          current_end,
-          "school-ids-#{school_ids.sort.join('-')}"
-        ])
+                report,
+                query,
+                timeframe_value,
+                current_start,
+                current_end,
+                "school-ids-#{school_ids.sort.join('-')}"
+              ])
       end
 
       it 'should compile a valid cache key with additional filters' do
@@ -51,16 +51,16 @@ module Snapshots
           school_ids,
           additional_filters: additional_filters)
               ).to eq([
-          report,
-          query,
-          timeframe_value,
-          current_start,
-          current_end,
-          "school-ids-#{school_ids.sort.join('-')}",
-          "grades-#{grades.map(&:to_s).sort.join('-')}",
-          "teacher-ids-#{teacher_ids.sort.join('-')}",
-          "classroom-ids-#{classroom_ids.sort.join('-')}"
-        ])
+                report,
+                query,
+                timeframe_value,
+                current_start,
+                current_end,
+                "school-ids-#{school_ids.sort.join('-')}",
+                "grades-#{grades.map(&:to_s).sort.join('-')}",
+                "teacher-ids-#{teacher_ids.sort.join('-')}",
+                "classroom-ids-#{classroom_ids.sort.join('-')}"
+              ])
       end
 
       it 'should compile a valid cache key when there is a custom timeframe' do
@@ -76,16 +76,16 @@ module Snapshots
           school_ids,
           additional_filters: additional_filters)
               ).to eq([
-          report,
-          query,
-          calculated_previous_start,
-          custom_start,
-          custom_end,
-          "school-ids-#{school_ids.sort.join('-')}",
-          "grades-#{grades.map(&:to_s).sort.join('-')}",
-          "teacher-ids-#{teacher_ids.sort.join('-')}",
-          "classroom-ids-#{classroom_ids.sort.join('-')}"
-        ])
+                report,
+                query,
+                calculated_previous_start,
+                custom_start,
+                custom_end,
+                "school-ids-#{school_ids.sort.join('-')}",
+                "grades-#{grades.map(&:to_s).sort.join('-')}",
+                "teacher-ids-#{teacher_ids.sort.join('-')}",
+                "classroom-ids-#{classroom_ids.sort.join('-')}"
+              ])
       end
 
       it 'should generate the same cache key when arrays are in different orders' do
