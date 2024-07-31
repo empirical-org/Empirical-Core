@@ -360,7 +360,15 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           )
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
-        return <Intro activity={grammarActivities.currentActivity} previewMode={previewMode} session={session} startActivity={this.goToNextQuestion} />
+        return(
+          <Intro
+            activity={grammarActivities.currentActivity}
+            language={session?.language}
+            previewMode={previewMode}
+            session={session}
+            startActivity={this.goToNextQuestion}
+          />
+        )
       }
 
       if (session.error) {
