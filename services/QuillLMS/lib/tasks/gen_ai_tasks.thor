@@ -117,6 +117,7 @@ class GenAITasks < Thor
     sample_test(conjunction, limit, false, template_file)
   end
 
+  # bundle exec prompt_entry 256 'some answer from student'
   desc "prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def prompt_entry(prompt_id, entry, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
@@ -139,13 +140,98 @@ class GenAITasks < Thor
     end
   end
 
+  # bundle exec thor gen_a_i_tasks:secondary_feedback_test 2
+  desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
+  def secondary_feedback_test(limit = 2)
+    test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
+    test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: test_file)
+
+    results = []
+    # Pull a random sample, but use the same seed so examples are consistent.
+    test_subset = test_set.sample(limit.to_i, random: Random.new(1))
+    test_subset.each do |feedback_set|
+      prompt = Evidence::Prompt.find(feedback_set.prompt_id)
+      system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
+
+      response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_set.primary, model: 'gpt-4o-mini')
+      highlight_key = response[KEY_HIGHLIGHT] || 99
+      llm_highlight = prompt.distinct_automl_highlight_arrays[highlight_key - 1]
+
+      highlight_match = feedback_set.highlights == llm_highlight
+
+      results << [
+        prompt.id,
+        prompt.text,
+        feedback_set.sample_entry,
+        feedback_set.primary,
+        response[KEY_SECONDARY_FEEDBACK],
+        feedback_set.secondary,
+        highlight_match,
+        llm_highlight.join('|'),
+        feedback_set.highlights.join('|')
+      ]
+    end
+
+    CSV.open(secondary_output_file(limit), 'wb') do |csv|
+      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match','LLM Highlight', 'Curriculum Highlight']
+      results.each { |result| csv << result }
+    end
+  end
+
+  # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
+  desc "generate_secondary_data_files", 'Create a csv for training and test.'
+  def generate_secondary_data_files
+    file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
+    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TRAIN
+    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
+
+    full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
+    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file: file_test).send(:file_path)
+    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file: file_train).send(:file_path)
+
+    test_set = full_set.select { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
+    train_set = full_set.reject { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
+
+    CSV.open(file_test, 'wb') do |csv|
+      csv << SECONDARY_CSV_HEADERS
+      test_set.each { |result| csv << result.to_a }
+    end
+
+    CSV.open(file_train, 'wb') do |csv|
+      csv << SECONDARY_CSV_HEADERS
+      train_set.each { |result| csv << result.to_a }
+    end
+  end
+
+  # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
+  desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
+  def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
+    prompt = Evidence::Prompt.find(prompt_id)
+    system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:, template_file:)
+
+    puts system_prompt
+    print_line
+    puts "Original Feedback: #{feedback_primary}"
+    print_line
+    puts Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_primary, model: 'gpt-4o-mini')
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
     KEY_FEEDBACK = 'feedback'
+    KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
+    KEY_HIGHLIGHT = 'highlight'
+    TEST_SET_ACTIVITY_IDS = [467,460,442,435,431,387]
+    SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
+    GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root.join('/lib/data/'))
 
     private def output_file(conjunction, limit)
       Rails.root + "lib/data/gen_ai_test_csv_#{conjunction}_#{limit}.csv"
+    end
+
+    private def secondary_output_file(limit)
+      "#{GEN_AI_OUTPUT_FOLDER}secondary_feedback_#{limit}_#{Time.now.to_i}.csv"
     end
 
     private def prompt_csv_row(prompt)
