@@ -39,14 +39,14 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
           src="undefined/images/pages/content_hub/world_history_1200_to_present@2x.png"
         />
         <span
-          aria-hidden="false"
+          aria-expanded="false"
+          aria-haspopup="true"
           class="quill-tooltip-trigger "
-          role="tooltip"
+          role="button"
+          tabindex="0"
         >
           <span
             class="image-attribution-tooltip"
-            role="button"
-            tabindex="0"
           >
             Image credit
           </span>
@@ -56,6 +56,8 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
             <span
               aria-live="polite"
               class="quill-tooltip"
+              id="tooltip"
+              role="tooltip"
             />
           </span>
         </span>

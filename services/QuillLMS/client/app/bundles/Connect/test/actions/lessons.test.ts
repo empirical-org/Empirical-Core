@@ -63,14 +63,6 @@ describe('Lessons actions', () => {
     })
   })
 
-  describe('loadLessonsWithQuestions', () => {
-    it('should call LessonApi.get()', () => {
-      const MOCK_ID = '1'
-      dispatch(lessonActions.loadLesson(MOCK_ID))
-      expect(mockLessonApi.get).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_ID)
-    })
-  })
-
   describe('setLessonFlag', () => {
     const expectedActions = [{
       'type': 'SET_LESSON_FLAG',

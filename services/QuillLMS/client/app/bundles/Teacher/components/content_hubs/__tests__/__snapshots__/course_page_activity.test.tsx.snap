@@ -36,15 +36,13 @@ exports[`CoursePageActivity renders correctly when link_for_report is not provid
       class="results-section"
     >
       <span
-        aria-hidden="false"
+        aria-expanded="false"
+        aria-haspopup="true"
         class="quill-tooltip-trigger "
-        role="tooltip"
+        role="button"
+        tabindex="0"
       >
-        <span
-          class="undefined"
-          role="button"
-          tabindex="0"
-        >
+        <span>
           <button
             class="quill-button focus-on-light small contained disabled"
             disabled=""
@@ -59,6 +57,8 @@ exports[`CoursePageActivity renders correctly when link_for_report is not provid
           <span
             aria-live="polite"
             class="quill-tooltip"
+            id="tooltip"
+            role="tooltip"
           />
         </span>
       </span>

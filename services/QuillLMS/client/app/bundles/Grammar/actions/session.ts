@@ -325,3 +325,9 @@ export const setCurrentQuestion = (question: Question) => {
     dispatch({ type: ActionTypes.SET_CURRENT_QUESTION, question })
   }
 }
+
+export const setLanguage = (language: string) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_LANGUAGE, language })
+  }
+}

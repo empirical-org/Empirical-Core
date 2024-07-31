@@ -22,23 +22,6 @@ function loadTitleCards(): (any) => void {
   };
 }
 
-function loadSpecifiedTitleCards(uids) {
-  return (dispatch, getState) => {
-    const requestPromises: Promise<TitleCardProps>[] = [];
-    uids.forEach((uid) => {
-      requestPromises.push(TitleCardApi.get(CONNECT_TITLE_CARD_TYPE, uid));
-    });
-    const allPromises: Promise<TitleCardProps[]> = Promise.all(requestPromises);
-    const questionData = {};
-    allPromises.then((results) => {
-      results.forEach((result) => {
-        questionData[result.uid] = result;
-      });
-      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
-    });
-  }
-}
-
 function submitNewTitleCard(content, response, lessonID) {
   return (dispatch) => {
     TitleCardApi.create(CONNECT_TITLE_CARD_TYPE, content).then((body) => {
@@ -81,7 +64,6 @@ function submitTitleCardEdit(uid, content) {
 export default {
   submitNewTitleCard,
   loadTitleCards,
-  loadSpecifiedTitleCards,
   startListeningToTitleCards,
   submitTitleCardEdit,
 }

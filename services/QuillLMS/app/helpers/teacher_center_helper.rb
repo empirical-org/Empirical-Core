@@ -68,22 +68,22 @@ module TeacherCenterHelper
 
   def student_center_tabs
     [
-     {
-       id: BlogPost::ALL_RESOURCES,
-       name: BlogPost::ALL_RESOURCES,
-       url: '/student-center'
-     },
-     {
-       id: BlogPost::GETTING_STARTED,
-       name: BlogPost::GETTING_STARTED,
-       url: '/student-center/topic/student-getting-started'
-     },
-     {
-       id: BlogPost::HOW_TO,
-       name: BlogPost::HOW_TO,
-       url: '/student-center/topic/student-how-to'
-     }
-   ]
+      {
+        id: BlogPost::ALL_RESOURCES,
+        name: BlogPost::ALL_RESOURCES,
+        url: '/student-center'
+      },
+      {
+        id: BlogPost::GETTING_STARTED,
+        name: BlogPost::GETTING_STARTED,
+        url: '/student-center/topic/student-getting-started'
+      },
+      {
+        id: BlogPost::HOW_TO,
+        name: BlogPost::HOW_TO,
+        url: '/student-center/topic/student-how-to'
+      }
+    ]
   end
 
   def explore_curriculum_tabs
