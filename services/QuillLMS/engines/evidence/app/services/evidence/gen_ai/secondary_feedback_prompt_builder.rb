@@ -18,19 +18,14 @@ module Evidence
       private def default_template = DEFAULT_TEMPLATE
       private def template_folder = TEMPLATE_FOLDER
 
-      private def primary_secondary_examples
-        markdown_table_rows(feedback_data_tuples)
-      end
-
-      private def feedback_data_tuples
-        feedback_data.map {|f| [f.primary, f.secondary]}
-      end
+      private def primary_secondary_examples = markdown_table_rows(feedback_data_tuples)
+      private def feedback_data_tuples = feedback_data.map {|f| [f.primary, f.secondary]}
 
       private def conjunctions = [prompt.conjunction]
       private def limit = EXAMPLE_LIMIT
 
       private def feedback_data
-        Evidence::GenAI::SecondaryFeedbackDataFetcher.run(conjunctions:, limit:)
+        @feedback_data ||= Evidence::GenAI::SecondaryFeedbackDataFetcher.run(conjunctions:, limit:)
       end
     end
   end
