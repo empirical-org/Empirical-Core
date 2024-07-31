@@ -10,9 +10,12 @@ class Register extends React.Component<any, any> {
   }
 
   componentDidMount() {
-    const { previewMode } = this.props;
+    const { previewMode, lesson } = this.props;
     if(previewMode) {
       this.startActivity();
+    }
+    if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
+      this.setState({ showIntro: true, });
     }
   }
 
