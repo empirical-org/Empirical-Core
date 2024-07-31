@@ -527,7 +527,7 @@ export class Lesson extends React.Component {
           saveToLMS={this.saveToLMS}
         />
       );
-    } else if (languageOptions && !language) {
+    } else if (languageOptions && hasTranslationFlag() && !language) {
       const languages = languageOptions.map(language => language.value)
       component = (<LanguageSelectionPage
         dispatch={dispatch}
