@@ -51,6 +51,7 @@ namespace :translate do
   def fileroot = 'feedback_strings'
   def fileformat = 'json'
   def filefolder = 'config/locales'
+
   def feedback_data
     file_path = Rails.root.join(filefolder, 'translations', "#{fileroot}.#{fileformat}")
     File.read(file_path)
