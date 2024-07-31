@@ -9,8 +9,9 @@ interface LanguageSelectionPageProps {
   dispatch: (any) => void,
   setLanguage: (language: string) => void,
   previewMode: boolean,
-  begin: () => void,
-  languages: string[]
+  beginActivity?: () => void,
+  languages: string[],
+  handlePageLoaded?: () => void
 }
 
 export const LanguageSelectionPage = ({
@@ -18,20 +19,22 @@ export const LanguageSelectionPage = ({
   dispatch,
   setLanguage,
   previewMode,
-  begin,
-  languages
+  beginActivity,
+  languages,
+  handlePageLoaded
 }: LanguageSelectionPageProps) => {
 
   function handleClickLanguage (e) {
+    if (handlePageLoaded) {
+      handlePageLoaded()
+    }
     const language = e.currentTarget.value;
     const isDiagnosticActivity = window.location.href.includes('diagnostic')
     if (isDiagnosticActivity && language !== ENGLISH) {
       dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
     }
     setLanguage(language);
-    if (previewMode) {
-      begin();
-    }
+    if (previewMode && beginActivity) { beginActivity() }
   }
   return (
     <div className="language-page">

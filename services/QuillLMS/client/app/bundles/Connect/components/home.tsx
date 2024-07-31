@@ -124,7 +124,8 @@ export const Home = ({playLesson, lessons, dispatch}) => {
             questionToPreview: questionToPreview,
             skippedToQuestionFromIntro: skippedToQuestionFromIntro,
             languageOptions: languageOptions,
-            updateLanguage: handleUpdateLanguage
+            updateLanguage: handleUpdateLanguage,
+            language: playLesson?.language
           })}</div>
         </main>
       </div>

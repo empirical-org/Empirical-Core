@@ -440,7 +440,7 @@ export class ELLStudentDiagnostic extends React.Component {
       />);
     } else {
       component = (<LanguageSelectionPage
-        begin={this.startActivity}
+        beginActivity={this.startActivity}
         dispatch={dispatch}
         languages={defaultLanguages}
         previewMode={previewMode}

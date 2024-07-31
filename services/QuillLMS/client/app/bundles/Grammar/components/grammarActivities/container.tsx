@@ -336,7 +336,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, languageOptions, updateLanguage } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, languageOptions, updateLanguage, language } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -366,11 +366,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if (languageOptions && hasTranslationFlag()) {
+        if (languageOptions && hasTranslationFlag() && !language) {
           const languages = languageOptions.map(language => language.value)
           return (
             <LanguageSelectionPage
-              begin={this.goToNextQuestion}
               dispatch={dispatch}
               languages={languages}
               previewMode={previewMode}

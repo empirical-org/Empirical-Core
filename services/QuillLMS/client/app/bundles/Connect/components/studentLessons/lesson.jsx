@@ -442,7 +442,7 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, isLastQuestion } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile, languageOptions, updateLanguage } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match, previewMode, handleToggleQuestion, questionToPreview, handleTogglePreview, isOnMobile, languageOptions, updateLanguage, language } = this.props
     const { data, hasreceiveddata, } = lessons
     const { params } = match
     const { lessonID, } = params;
@@ -527,16 +527,17 @@ export class Lesson extends React.Component {
           saveToLMS={this.saveToLMS}
         />
       );
-    } else if (languageOptions && hasTranslationFlag()) {
+    } else if (languageOptions && hasTranslationFlag() && !language) {
       const languages = languageOptions.map(language => language.value)
       component = (<LanguageSelectionPage
-        begin={this.startActivity}
         dispatch={dispatch}
+        handlePageLoaded={this.onLanguagePageLoad}
         languages={languages}
         previewMode={previewMode}
         setLanguage={updateLanguage}
       />);
     } else {
+      console.log('in register')
       component = (
         <Register
           language={this.props.playLesson?.language}
