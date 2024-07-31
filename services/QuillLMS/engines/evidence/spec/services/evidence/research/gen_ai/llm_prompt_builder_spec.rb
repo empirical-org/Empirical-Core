@@ -108,6 +108,18 @@ module Evidence
             it { is_expected.to eq suboptimal_examples.map(&:response_feedback_status).join("\n") }
           end
 
+          context 'optimal_student_responses' do
+            let(:contents) { delimit('optimal_student_responses') }
+
+            it { is_expected.to eq optimal_examples.map(&:student_response).join("\n- ") }
+          end
+
+          context 'suboptimal_student_responses' do
+            let(:contents) { delimit('suboptimal_student_responses') }
+
+            it { is_expected.to eq suboptimal_examples.map(&:student_response).join("\n- ") }
+          end
+
           context 'multiple substitutions' do
             let(:filler) { '...some filler here...' }
             let(:contents) { "#{delimit('stem')} #{filler} #{delimit('conjunction')}" }
