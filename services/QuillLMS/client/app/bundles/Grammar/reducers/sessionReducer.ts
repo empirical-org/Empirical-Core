@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import { Action } from "redux";
 
 import { getCurrentQuestion, getFilteredQuestions, getQuestionsWithAttempts } from '../../Shared/index';
-import { ENGLISH } from '../../Shared/index';
 import { ActionTypes } from "../actions/actionTypes";
 import { Question } from '../interfaces/questions';
 
@@ -21,7 +20,7 @@ export interface SessionState {
 
 type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
 
-const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], questionSet: [], currentQuestion: null, pending: true, language: ENGLISH }
+const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], questionSet: [], currentQuestion: null, pending: true }
 
 export default (
   currentState: SessionState = initialState,

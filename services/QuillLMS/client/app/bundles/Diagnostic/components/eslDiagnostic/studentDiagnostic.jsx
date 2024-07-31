@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import LandingPage from './landingPage.jsx';
-import LanguagePage from './languagePage.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayTitleCard from './titleCard.tsx';
@@ -15,6 +14,7 @@ import {
   CarouselAnimation,
   KEYDOWN,
   KEYPRESS,
+  LanguageSelectionPage,
   MOUSEDOWN,
   MOUSEMOVE,
   ProgressBar,
@@ -43,7 +43,7 @@ import {
 } from '../../libs/calculateProgress';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
-import { ENGLISH } from '../../../Shared/utils/languageList';
+import { ENGLISH, defaultLanguages } from '../../../Shared/utils/languageList';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
 
 const TITLE_CARD_TYPE = "TL"
@@ -439,9 +439,10 @@ export class ELLStudentDiagnostic extends React.Component {
 
       />);
     } else {
-      component = (<LanguagePage
-        begin={this.startActivity}
+      component = (<LanguageSelectionPage
+        beginActivity={this.startActivity}
         dispatch={dispatch}
+        languages={defaultLanguages}
         previewMode={previewMode}
         questionCount={this.getQuestionCount()}
         setLanguage={this.updateLanguage}
