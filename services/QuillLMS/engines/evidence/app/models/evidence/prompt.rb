@@ -94,11 +94,13 @@ module Evidence
         .uniq
     end
 
+    # TODO add caching for demo, very slow
     def optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
       Evidence.feedback_history_class
         .optimal_sample(prompt_id: id, limit:)
     end
 
+    # TODO add caching for demo, very slow
     def suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT, offset: 0)
       Evidence.feedback_history_class
         .suboptimal_sample(prompt_id: id, limit:, offset:)
