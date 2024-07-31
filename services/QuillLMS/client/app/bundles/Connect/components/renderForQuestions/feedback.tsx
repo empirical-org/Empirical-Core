@@ -63,6 +63,7 @@ class FeedbackComponent extends React.Component<any, any> {
         returnVal = (<p>Fill in the blank with the correct option.</p>);
         break;
       case "default-with-cues":
+        debugger;
         const cues = question.cues
         if (cues.length === 1) {
           returnVal = (<p>Combine the sentences into one sentence. Use the joining word.</p>)
