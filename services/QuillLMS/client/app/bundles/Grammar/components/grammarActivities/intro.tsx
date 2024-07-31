@@ -27,8 +27,12 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
       this.handleNextClick();
     }
     if (activity && activity.landingPageHtml && this.landingPageHtmlHasText()) {
-      this.setState({ showLandingPage: true, });
+      this.handleSetShowLandingPage();
     }
+  }
+
+  handleSetShowLandingPage = () => {
+    this.setState({ showLandingPage: true, });
   }
 
   landingPageHtmlHasText = () => {
@@ -69,7 +73,6 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     const { activity, } = this.props
     const { showLandingPage, } = this.state
     const translatedText = this.translatedText()
-    console.log("🚀 ~ Intro ~ translatedText:", translatedText)
     if (showLandingPage) {
       return (
         <div className="intro landing-page">

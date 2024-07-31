@@ -15,8 +15,12 @@ class Register extends React.Component<any, any> {
       this.startActivity();
     }
     if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
-      this.setState({ showIntro: true, });
+      this.handleSetShowIntro();
     }
+  }
+
+  handleSetShowIntro = () => {
+    this.setState({ showIntro: true, });
   }
 
   landingPageHtmlHasText(){
@@ -87,7 +91,9 @@ class Register extends React.Component<any, any> {
   renderIntro = () => {
     const { lesson, } = this.props
     const { showIntro, hasSentenceFragment, } = this.state
+    console.log("🚀 ~ Register ~ showIntro:", showIntro)
     const translatedText = this.translatedText()
+    console.log("🚀 ~ Register ~ translatedText:", translatedText)
     if (showIntro) {
       return (
         <div className="container">
