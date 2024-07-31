@@ -537,7 +537,6 @@ export class Lesson extends React.Component {
         setLanguage={updateLanguage}
       />);
     } else {
-      console.log('in register')
       component = (
         <Register
           language={this.props.playLesson?.language}
