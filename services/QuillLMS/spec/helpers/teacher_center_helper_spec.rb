@@ -34,7 +34,7 @@ describe TeacherCenterHelper do
         { id: 'AP Activities', name: 'AP Activities', url: '/ap' },
         { id: 'Pre-AP Activities', name: 'Pre-AP Activities', url: '/preap' },
         { id: 'SpringBoard Activities', name: 'SpringBoard Activities', url: '/springboard' },
-        { id: 'ELA Standards', name: 'ELA Standards', url: '/activities/standard_level/7 '}
+        { id: 'ELA Standards', name: 'ELA Standards', url: '/activities/standard_level/7' }
       ]
     }
 
