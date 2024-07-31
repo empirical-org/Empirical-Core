@@ -216,6 +216,20 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_primary, model: 'gpt-4o-mini')
   end
 
+   # bundle exec thor gen_a_i_tasks:repeated_feedback_prompt_entry 'some feedback' 'feedback in history'
+  desc "repeated_feedback_prompt_entry 'some feedback' 'feedback in history'", 'Run to see system prompt and response'
+  def repeated_feedback_prompt_entry(entry, previous)
+    prompt = Evidence::Prompt.first
+    history_item = Evidence::OpenAI::Chat::HistoryItem.new(user: 'unused', assistant: previous)
+    system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt:, history: [history_item])
+
+    puts system_prompt
+    print_line
+    puts entry
+    print_line
+    puts Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'

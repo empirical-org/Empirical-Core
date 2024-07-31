@@ -18,18 +18,18 @@ module Evidence
       KEY_FEEDBACK = 'feedback'
       KEY_OPTIMAL = 'optimal'
       KEY_HIGHLIGHT = 'highlight'
+      KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
 
-      attr_reader :chat_response, :entry, :prompt
+      attr_reader :primary_response, :secondary_response, :entry, :prompt
 
-      def initialize(chat_response:, entry:, prompt:)
-        @chat_response = chat_response
+      def initialize(primary_response:, secondary_response:, entry:, prompt:)
+        @primary_response = primary_response
+        @secondary_response = secondary_response
         @entry = entry
         @prompt = prompt
       end
 
-      def run
-        response_object
-      end
+      def run = response_object
 
       private def response_object
         {
@@ -50,7 +50,7 @@ module Evidence
       private def rule_set = optimal ? RULES_OPTIMAL : RULES_SUBOPTIMAL
 
       private def highlight_array
-        return nil if highlight_key.nil?
+        return [] if highlight_key.nil?
 
         prompt.distinct_automl_highlight_arrays[highlight_key.to_i - 1]
       end
@@ -59,9 +59,9 @@ module Evidence
 
       private def type = Evidence::Highlight::TYPE_PASSAGE
 
-      private def highlight_key = chat_response[KEY_HIGHLIGHT]
-      private def optimal = chat_response[KEY_OPTIMAL]
-      private def feedback = chat_response[KEY_FEEDBACK]
+      private def highlight_key = secondary_response[KEY_HIGHLIGHT]
+      private def optimal = primary_response[KEY_OPTIMAL]
+      private def feedback = secondary_response[KEY_SECONDARY_FEEDBACK] || primary_response[KEY_FEEDBACK]
     end
   end
 end
