@@ -26,7 +26,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
 
   describe '#run' do
     before do
-      allow(builder).to receive(:template).and_return('Template content with %{highlight_texts}, %{primary_secondary_examples}, %{plagiarism_text}')
+      allow(builder).to receive(:template).and_return('Template content with %<highlight_texts>s, %<primary_secondary_examples>s, %<plagiarism_text>s')
       allow(builder).to receive(:template_variables).and_return(
         highlight_texts: 'Highlight texts',
         primary_secondary_examples: 'Primary and secondary examples',
