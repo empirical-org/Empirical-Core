@@ -144,7 +144,7 @@ class GenAITasks < Thor
   desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def secondary_feedback_test(limit = 2)
     test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
-    test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(test_file)
+    test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: test_file)
 
     results = []
     # Pull a random sample, but use the same seed so examples are consistent.
@@ -185,9 +185,9 @@ class GenAITasks < Thor
     file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TRAIN
     file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
 
-    full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file_all)
-    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file_test).send(:file_path)
-    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file_train).send(:file_path)
+    full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
+    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file: file_test).send(:file_path)
+    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file: file_train).send(:file_path)
 
     test_set = full_set.select { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
     train_set = full_set.reject { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
