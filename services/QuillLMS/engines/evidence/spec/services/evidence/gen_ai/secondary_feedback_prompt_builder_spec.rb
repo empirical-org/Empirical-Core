@@ -26,7 +26,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
 
   describe '#run' do
     before do
-      allow(builder).to receive(:template).and_return('Template content with %<highlight_texts>s, %<primary_secondary_examples>s, %<plagiarism_text>s')
+      allow(builder).to receive(:template).and_return('Template content with %{highlight_texts}, %{primary_secondary_examples}, %{plagiarism_text}')
       allow(builder).to receive(:template_variables).and_return(
         highlight_texts: 'Highlight texts',
         primary_secondary_examples: 'Primary and secondary examples',
@@ -87,8 +87,8 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
   describe '#feedback_data_tuples' do
     let(:feedback_data) do
       [
-        double(conjunction: 'because', primary: 'Primary feedback 1', secondary: 'Secondary feedback 1'),
-        double(conjunction: 'but', primary: 'Primary feedback 2', secondary: 'Secondary feedback 2')
+        double(primary: 'Primary feedback 1', secondary: 'Secondary feedback 1'),
+        double(primary: 'Primary feedback 2', secondary: 'Secondary feedback 2')
       ]
     end
 
@@ -96,20 +96,20 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
       allow(builder).to receive(:feedback_data).and_return(feedback_data)
     end
 
-    it 'returns tuples of primary and secondary feedback examples filtered by conjunction and limited by EXAMPLE_LIMIT' do
+    it 'returns tuples of primary and secondary feedback examples' do
       result = builder.send(:feedback_data_tuples)
-      expect(result).to eq([['Primary feedback 1', 'Secondary feedback 1']])
+      expect(result).to eq([['Primary feedback 1', 'Secondary feedback 1'], ['Primary feedback 2', 'Secondary feedback 2']])
     end
   end
 
   describe '#feedback_data' do
-    let(:feedback_data) { [double(conjunction: 'because')] }
+    let(:feedback_data) { [double(primary: 'Primary feedback 1', secondary: 'Secondary feedback 1')] }
 
     before do
-      allow(Evidence::GenAI::SecondaryFeedbackDataFetcher).to receive(:run).and_return(feedback_data)
+      allow(Evidence::GenAI::SecondaryFeedbackDataFetcher).to receive(:run).with(conjunctions: [prompt.conjunction], limit: described_class::EXAMPLE_LIMIT).and_return(feedback_data)
     end
 
-    it 'fetches feedback data from SecondaryFeedbackDataFetcher' do
+    it 'fetches feedback data from SecondaryFeedbackDataFetcher with correct parameters' do
       result = builder.send(:feedback_data)
       expect(result).to eq(feedback_data)
     end

@@ -27,9 +27,6 @@ module Evidence
         raise NotImplementedError, 'Must implement default_template'
       end
 
-      # Template priority order
-      # 1. Passed in template_file
-      # 2. Default template_file
       private def template = File.read(template_file_path)
       private def template_file_path = Evidence::Engine.root.join(template_folder, template_file)
 

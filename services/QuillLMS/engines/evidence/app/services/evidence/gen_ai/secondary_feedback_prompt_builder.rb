@@ -23,14 +23,14 @@ module Evidence
       end
 
       private def feedback_data_tuples
-        feedback_data
-          .select {|fd| fd.conjunction == prompt.conjunction }
-          .first(EXAMPLE_LIMIT)
-          .map {|f| [f.primary, f.secondary]}
+        feedback_data.map {|f| [f.primary, f.secondary]}
       end
 
+      private def conjunctions = [prompt.conjunction]
+      private def limit = EXAMPLE_LIMIT
+
       private def feedback_data
-        @feedback_data ||= Evidence::GenAI::SecondaryFeedbackDataFetcher.run
+        Evidence::GenAI::SecondaryFeedbackDataFetcher.run(conjunctions:, limit:)
       end
     end
   end
