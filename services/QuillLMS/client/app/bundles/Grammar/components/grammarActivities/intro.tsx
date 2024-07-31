@@ -5,6 +5,7 @@ interface IntroProps {
   activity: any;
   previewMode: boolean;
   session: any;
+  language: string;
 }
 
 interface IntroState {
@@ -35,6 +36,12 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     return activity.landingPageHtml.replace(/(<([^>]+)>)/ig, "").length > 0;
   }
 
+  translatedText = () => {
+    const { activity, language } = this.props;
+    const { translations, } = activity;
+    return translations && translations[language];
+  }
+
   handleNextClick = () => {
     const { activity, startActivity, } = this.props
     if (activity && activity.landingPageHtml && this.landingPageHtmlHasText()) {
@@ -58,10 +65,17 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
   renderIntro = () => {
     const { activity, } = this.props
     const { showLandingPage, } = this.state
+    const translatedText = this.translatedText()
     if (showLandingPage) {
       return (
         <div className="intro landing-page">
           <div dangerouslySetInnerHTML={{ __html: activity.landingPageHtml, }} />
+          {translatedText && (
+            <React.Fragment>
+              <hr />
+              <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
+            </React.Fragment>
+          )}
           <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
         </div>
       );
