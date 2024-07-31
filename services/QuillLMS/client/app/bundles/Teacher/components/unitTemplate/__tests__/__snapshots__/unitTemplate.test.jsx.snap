@@ -135,15 +135,13 @@ exports[`<UnitTemplate /> matches the component snapshot 1`] = `
           for="pack-type-dropdown"
         >
           <span
-            aria-hidden="false"
+            aria-expanded="false"
+            aria-haspopup="true"
             class="quill-tooltip-trigger "
-            role="tooltip"
+            role="button"
+            tabindex="0"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
+            <span>
               Pack Type
             </span>
             <span
@@ -152,6 +150,8 @@ exports[`<UnitTemplate /> matches the component snapshot 1`] = `
               <span
                 aria-live="polite"
                 class="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>

@@ -90,15 +90,13 @@ exports[`NoClassroomsToImportModal component it should render when there is an a
             </a>
           </b>
           <span
-            aria-hidden="false"
+            aria-expanded="false"
+            aria-haspopup="true"
             class="quill-tooltip-trigger "
-            role="tooltip"
+            role="button"
+            tabindex="0"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
+            <span>
               <img
                 alt="Question mark icon"
                 src="undefined/images/icons/icons-help.svg"
@@ -110,6 +108,8 @@ exports[`NoClassroomsToImportModal component it should render when there is an a
               <span
                 aria-live="polite"
                 class="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>
@@ -172,15 +172,13 @@ exports[`NoClassroomsToImportModal component it should render when there is an u
           </b>
            you have access to, but don't own
           <span
-            aria-hidden="false"
+            aria-expanded="false"
+            aria-haspopup="true"
             class="quill-tooltip-trigger "
-            role="tooltip"
+            role="button"
+            tabindex="0"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
+            <span>
               <img
                 alt="Question mark icon"
                 src="undefined/images/icons/icons-help.svg"
@@ -192,6 +190,8 @@ exports[`NoClassroomsToImportModal component it should render when there is an u
               <span
                 aria-live="polite"
                 class="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>
@@ -258,15 +258,13 @@ exports[`NoClassroomsToImportModal component it should render when there is both
             </a>
           </b>
           <span
-            aria-hidden="false"
+            aria-expanded="false"
+            aria-haspopup="true"
             class="quill-tooltip-trigger "
-            role="tooltip"
+            role="button"
+            tabindex="0"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
+            <span>
               <img
                 alt="Question mark icon"
                 src="undefined/images/icons/icons-help.svg"
@@ -278,6 +276,8 @@ exports[`NoClassroomsToImportModal component it should render when there is both
               <span
                 aria-live="polite"
                 class="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>
@@ -289,15 +289,13 @@ exports[`NoClassroomsToImportModal component it should render when there is both
           </b>
            you have access to, but don't own
           <span
-            aria-hidden="false"
+            aria-expanded="false"
+            aria-haspopup="true"
             class="quill-tooltip-trigger "
-            role="tooltip"
+            role="button"
+            tabindex="0"
           >
-            <span
-              class="undefined"
-              role="button"
-              tabindex="0"
-            >
+            <span>
               <img
                 alt="Question mark icon"
                 src="undefined/images/icons/icons-help.svg"
@@ -309,6 +307,8 @@ exports[`NoClassroomsToImportModal component it should render when there is both
               <span
                 aria-live="polite"
                 class="quill-tooltip"
+                id="tooltip"
+                role="tooltip"
               />
             </span>
           </span>

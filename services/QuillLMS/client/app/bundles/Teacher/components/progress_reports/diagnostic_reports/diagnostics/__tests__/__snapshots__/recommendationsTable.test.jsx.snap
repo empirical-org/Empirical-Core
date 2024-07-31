@@ -400,21 +400,19 @@ exports[`RecommendationsTable component should render when no students have comp
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -433,6 +431,8 @@ exports[`RecommendationsTable component should render when no students have comp
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -498,21 +498,19 @@ exports[`RecommendationsTable component should render when no students have comp
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -531,6 +529,8 @@ exports[`RecommendationsTable component should render when no students have comp
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -596,21 +596,19 @@ exports[`RecommendationsTable component should render when no students have comp
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -629,6 +627,8 @@ exports[`RecommendationsTable component should render when no students have comp
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -694,21 +694,19 @@ exports[`RecommendationsTable component should render when no students have comp
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -727,6 +725,8 @@ exports[`RecommendationsTable component should render when no students have comp
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -792,21 +792,19 @@ exports[`RecommendationsTable component should render when no students have comp
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -825,6 +823,8 @@ exports[`RecommendationsTable component should render when no students have comp
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -890,21 +890,19 @@ exports[`RecommendationsTable component should render when no students have comp
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -923,6 +921,8 @@ exports[`RecommendationsTable component should render when no students have comp
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -5524,20 +5524,20 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Gabriel De La Concordia Garcia
                           </span>
@@ -5547,6 +5547,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -8004,20 +8006,20 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
                           </span>
@@ -8027,6 +8029,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -9224,20 +9228,20 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Dehab Lee Kassis-washington
                           </span>
@@ -9247,6 +9251,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -11497,20 +11503,20 @@ exports[`RecommendationsTable component should render when no students have comp
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Henry Wadsworth Longfellow
                           </span>
@@ -11520,6 +11526,8 @@ exports[`RecommendationsTable component should render when no students have comp
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -12264,21 +12272,19 @@ exports[`RecommendationsTable component should render when there are recommendat
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -12297,6 +12303,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -12362,21 +12370,19 @@ exports[`RecommendationsTable component should render when there are recommendat
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -12395,6 +12401,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -12460,21 +12468,19 @@ exports[`RecommendationsTable component should render when there are recommendat
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -12493,6 +12499,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -12558,21 +12566,19 @@ exports[`RecommendationsTable component should render when there are recommendat
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -12591,6 +12597,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -12656,21 +12664,19 @@ exports[`RecommendationsTable component should render when there are recommendat
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -12689,6 +12695,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -12754,21 +12762,19 @@ exports[`RecommendationsTable component should render when there are recommendat
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -12787,6 +12793,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -20916,20 +20924,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Gabriel De La Concordia Garcia
                           </span>
@@ -20939,6 +20947,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -25250,20 +25260,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
                           </span>
@@ -25273,6 +25283,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -27319,20 +27331,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Dehab Lee Kassis-washington
                           </span>
@@ -27342,6 +27354,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -30996,20 +31010,20 @@ exports[`RecommendationsTable component should render when there are recommendat
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Henry Wadsworth Longfellow
                           </span>
@@ -31019,6 +31033,8 @@ exports[`RecommendationsTable component should render when there are recommendat
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -31938,21 +31954,19 @@ exports[`RecommendationsTable component should render when there is data to assi
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -31971,6 +31985,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -32036,21 +32052,19 @@ exports[`RecommendationsTable component should render when there is data to assi
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -32069,6 +32083,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -32134,21 +32150,19 @@ exports[`RecommendationsTable component should render when there is data to assi
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -32167,6 +32181,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -32232,21 +32248,19 @@ exports[`RecommendationsTable component should render when there is data to assi
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -32265,6 +32279,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -32330,21 +32346,19 @@ exports[`RecommendationsTable component should render when there is data to assi
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -32363,6 +32377,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -32428,21 +32444,19 @@ exports[`RecommendationsTable component should render when there is data to assi
                       }
                     >
                       <span
-                        aria-hidden={false}
+                        aria-expanded={false}
+                        aria-haspopup="true"
                         className="quill-tooltip-trigger "
-                        role="tooltip"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        role="button"
+                        tabIndex={0}
                       >
-                        <span
-                          className="undefined"
-                          onBlur={[Function]}
-                          onClick={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          onMouseEnter={[Function]}
-                          onMouseLeave={[Function]}
-                          role="button"
-                          tabIndex={0}
-                        >
+                        <span>
                           <button
                             aria-label="Select all column"
                             className="interactive-wrapper"
@@ -32461,6 +32475,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                           <span
                             aria-live="polite"
                             className="quill-tooltip"
+                            id="tooltip"
+                            role="tooltip"
                           />
                         </span>
                       </span>
@@ -40570,20 +40586,20 @@ exports[`RecommendationsTable component should render when there is data to assi
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Gabriel De La Concordia Garcia
                           </span>
@@ -40593,6 +40609,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -44904,20 +44922,20 @@ exports[`RecommendationsTable component should render when there is data to assi
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Judy Heier-hammond Name Keeps Going For A Long Long Tim
                           </span>
@@ -44927,6 +44945,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -46973,20 +46993,20 @@ exports[`RecommendationsTable component should render when there is data to assi
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Dehab Lee Kassis-washington
                           </span>
@@ -46996,6 +47016,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>
@@ -50650,20 +50672,20 @@ exports[`RecommendationsTable component should render when there is data to assi
                         tooltipTriggerTextClass="student-name"
                       >
                         <span
-                          aria-hidden={false}
+                          aria-expanded={false}
+                          aria-haspopup="true"
                           className="quill-tooltip-trigger "
-                          role="tooltip"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onMouseEnter={[Function]}
+                          onMouseLeave={[Function]}
+                          role="button"
+                          tabIndex={0}
                         >
                           <span
                             className="student-name"
-                            onBlur={[Function]}
-                            onClick={[Function]}
-                            onFocus={[Function]}
-                            onKeyDown={[Function]}
-                            onMouseEnter={[Function]}
-                            onMouseLeave={[Function]}
-                            role="button"
-                            tabIndex={0}
                           >
                             Henry Wadsworth Longfellow
                           </span>
@@ -50673,6 +50695,8 @@ exports[`RecommendationsTable component should render when there is data to assi
                             <span
                               aria-live="polite"
                               className="quill-tooltip"
+                              id="tooltip"
+                              role="tooltip"
                             />
                           </span>
                         </span>

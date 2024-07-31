@@ -79,7 +79,8 @@ class Question < ApplicationRecord
 
   def as_json(options=nil)
     locale = options&.fetch(:locale, nil)
-    locale.present? ? translated_data(locale:) : data
+    json = locale.present? ? translated_data(locale:) : data
+    json.merge(question_type:)
   end
 
   def self.all_questions_json(question_type)

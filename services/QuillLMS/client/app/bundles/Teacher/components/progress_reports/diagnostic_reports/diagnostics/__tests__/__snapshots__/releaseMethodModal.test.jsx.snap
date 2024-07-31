@@ -67,21 +67,19 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -93,6 +91,8 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -153,21 +153,19 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -179,6 +177,8 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -297,21 +297,19 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -323,6 +321,8 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -383,21 +383,19 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -409,6 +407,8 @@ exports[`ReleaseMethodModal component with IMMEDIATE as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -527,21 +527,19 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -553,6 +551,8 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -613,21 +613,19 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -639,6 +637,8 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -757,21 +757,19 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -783,6 +781,8 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -843,21 +843,19 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -869,6 +867,8 @@ exports[`ReleaseMethodModal component with STAGGERED as the original release met
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -985,21 +985,19 @@ exports[`ReleaseMethodModal component with no original release method should ren
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -1011,6 +1009,8 @@ exports[`ReleaseMethodModal component with no original release method should ren
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1071,21 +1071,19 @@ exports[`ReleaseMethodModal component with no original release method should ren
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -1097,6 +1095,8 @@ exports[`ReleaseMethodModal component with no original release method should ren
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1212,21 +1212,19 @@ exports[`ReleaseMethodModal component with no original release method should ren
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -1238,6 +1236,8 @@ exports[`ReleaseMethodModal component with no original release method should ren
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1298,21 +1298,19 @@ exports[`ReleaseMethodModal component with no original release method should ren
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -1324,6 +1322,8 @@ exports[`ReleaseMethodModal component with no original release method should ren
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1439,21 +1439,19 @@ exports[`ReleaseMethodModal component with no original release method should ren
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -1465,6 +1463,8 @@ exports[`ReleaseMethodModal component with no original release method should ren
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>
@@ -1525,21 +1525,19 @@ exports[`ReleaseMethodModal component with no original release method should ren
                 }
               >
                 <span
-                  aria-hidden={false}
+                  aria-expanded={false}
+                  aria-haspopup="true"
                   className="quill-tooltip-trigger "
-                  role="tooltip"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <span
-                    className="undefined"
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    onMouseEnter={[Function]}
-                    onMouseLeave={[Function]}
-                    role="button"
-                    tabIndex={0}
-                  >
+                  <span>
                     <img
                       alt=""
                       src="undefined/images/icons/info.svg"
@@ -1551,6 +1549,8 @@ exports[`ReleaseMethodModal component with no original release method should ren
                     <span
                       aria-live="polite"
                       className="quill-tooltip"
+                      id="tooltip"
+                      role="tooltip"
                     />
                   </span>
                 </span>

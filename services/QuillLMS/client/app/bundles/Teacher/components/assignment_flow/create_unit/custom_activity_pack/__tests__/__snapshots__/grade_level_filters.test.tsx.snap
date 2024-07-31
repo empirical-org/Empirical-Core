@@ -79,21 +79,18 @@ exports[`gradeLevelFilters component should render 1`] = `
       }
     >
       <span
-        aria-hidden={true}
+        aria-expanded={false}
+        aria-haspopup="true"
         className="quill-tooltip-trigger "
-        role="tooltip"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        role="button"
       >
-        <span
-          className="undefined"
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="button"
-          tabIndex={null}
-        >
+        <span>
           <div
             className="tooltip-trigger-filter-section-content"
           >
@@ -490,6 +487,8 @@ exports[`gradeLevelFilters component should render 1`] = `
           <span
             aria-live="polite"
             className="quill-tooltip"
+            id="tooltip"
+            role="tooltip"
           />
         </span>
       </span>
