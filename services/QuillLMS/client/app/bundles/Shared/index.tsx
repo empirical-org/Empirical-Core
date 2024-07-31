@@ -105,7 +105,8 @@ export {
 } from './components/titleCards/index'
 
 export {
-  LanguagePicker
+  LanguagePicker,
+  LanguageSelectionPage
 } from './components/translations/index'
 
 export {
@@ -149,7 +150,9 @@ export {
   extractConceptResultsFromResponse,
   findFeedbackForReport,
   formatAnswerStringForReport,
-  getlanguageOptions
+  getlanguageOptions,
+  hasTranslationFlag,
+  showTranslations
 } from './libs/index'
 
 export {

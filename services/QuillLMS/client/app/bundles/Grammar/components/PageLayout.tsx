@@ -21,6 +21,7 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
   const isPlaying = window.location.href.includes('play');
   const { data } = useQuery("user-role", fetchUserRole);
   const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+  const language = session?.language
 
   const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurkOrProofreader);
@@ -87,7 +88,10 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
           questionToPreview: questionToPreview,
-          skippedToQuestionFromIntro: skippedToQuestionFromIntro
+          skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+          languageOptions: languageOptions,
+          updateLanguage: handleUpdateLanguage,
+          language: language
         })}</div>
       </main>
     );
@@ -95,7 +99,6 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
 
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
   const isOnMobile = window.innerWidth < 1100;
-  const language = session?.language
   let className = "ant-layout ";
   className += showFocusState ? '' : 'hide-focus-outline';
   let header;

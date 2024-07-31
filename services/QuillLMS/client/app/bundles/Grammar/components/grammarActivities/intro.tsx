@@ -22,10 +22,17 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
   }
 
   componentDidMount() {
-    const { previewMode } = this.props;
+    const { activity, previewMode } = this.props;
     if(previewMode) {
       this.handleNextClick();
     }
+    if (activity && activity.landingPageHtml && this.landingPageHtmlHasText()) {
+      this.handleSetShowLandingPage();
+    }
+  }
+
+  handleSetShowLandingPage = () => {
+    this.setState({ showLandingPage: true, });
   }
 
   landingPageHtmlHasText = () => {
