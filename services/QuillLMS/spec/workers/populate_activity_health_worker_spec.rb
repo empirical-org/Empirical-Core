@@ -25,24 +25,21 @@ describe PopulateActivityHealthWorker do
       create(:activity_session_without_concept_results,
         activity: activity,
         started_at: DateTime.new(2021, 1, 1, 4, 0, 0),
-        completed_at: DateTime.new(2021, 1, 1, 4, 5, 0)
-      )
+        completed_at: DateTime.new(2021, 1, 1, 4, 5, 0))
     end
 
     let!(:activity_session2) do
       create(:activity_session_without_concept_results,
         activity: activity,
         started_at: DateTime.new(2021, 1, 2, 4, 0, 0),
-        completed_at: DateTime.new(2021, 1, 2, 4, 10, 0)
-      )
+        completed_at: DateTime.new(2021, 1, 2, 4, 10, 0))
     end
 
     let!(:activity_session3) do
       create(:activity_session_without_concept_results,
         activity: activity,
         started_at: DateTime.new(2021, 1, 3, 4, 0, 0),
-        completed_at: DateTime.new(2021, 1, 3, 4, 20, 0)
-      )
+        completed_at: DateTime.new(2021, 1, 3, 4, 20, 0))
     end
 
     let!(:diagnostic) { create(:diagnostic_activity) }
