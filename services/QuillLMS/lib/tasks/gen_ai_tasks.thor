@@ -17,21 +17,19 @@ class GenAITasks < Thor
       system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
 
       prompt.example_sets(optimal:).each do |entry|
-        begin
-          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
-          total += 1
+        response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+        total += 1
 
-          if response[KEY_OPTIMAL] == optimal
-            print '.'
-            correct_count += 1
-          else
-            print 'F'
-            incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
-          end
-        rescue => e
-          error_count += 1
-          error_examples.append([prompt, entry])
+        if response[KEY_OPTIMAL] == optimal
+          print '.'
+          correct_count += 1
+        else
+          print 'F'
+          incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
         end
+      rescue => e
+        error_count += 1
+        error_examples.append([prompt, entry])
       end
     end
     puts '' # new line after prints
@@ -57,21 +55,19 @@ class GenAITasks < Thor
 
       test_data = optimal ? dataset.optimals : dataset.suboptimals
       test_data.each do |entry|
-        begin
-          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
-          total += 1
+        response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+        total += 1
 
-          if response[KEY_OPTIMAL] == optimal
-            print '.'
-            correct_count += 1
-          else
-            print 'F'
-            incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
-          end
-        rescue => e
-          error_count += 1
-          error_examples.append([prompt, entry])
+        if response[KEY_OPTIMAL] == optimal
+          print '.'
+          correct_count += 1
+        else
+          print 'F'
+          incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
         end
+      rescue => e
+        error_count += 1
+        error_examples.append([prompt, entry])
       end
     end
     puts '' # new line after prints

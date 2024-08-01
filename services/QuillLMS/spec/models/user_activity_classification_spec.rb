@@ -64,30 +64,28 @@ RSpec.describe UserActivityClassification, type: :model do
     end
 
     it 'should handle race conditions gracefully' do
-      begin
-        call_count = 2
-        wait_to_start = true
-        failure_in_thread = false
+      call_count = 2
+      wait_to_start = true
+      failure_in_thread = false
 
-        threads = call_count.times.map do |i|
-          Thread.new do
-            true while wait_to_start
-            begin
-              UserActivityClassification.count_for(user, activity_classification)
-            rescue ActiveRecord::RecordNotUnique
-              failure_in_thread = true
-            end
+      threads = call_count.times.map do |i|
+        Thread.new do
+          true while wait_to_start
+          begin
+            UserActivityClassification.count_for(user, activity_classification)
+          rescue ActiveRecord::RecordNotUnique
+            failure_in_thread = true
           end
         end
-        wait_to_start = false
-        threads.each(&:join)
-
-        expect(failure_in_thread).to be(false)
-        record = UserActivityClassification.find_by(user: user, activity_classification: activity_classification)
-        expect(record.count).to eq(call_count)
-      ensure
-        ActiveRecord::Base.connection_pool.disconnect!
       end
+      wait_to_start = false
+      threads.each(&:join)
+
+      expect(failure_in_thread).to be(false)
+      record = UserActivityClassification.find_by(user: user, activity_classification: activity_classification)
+      expect(record.count).to eq(call_count)
+    ensure
+      ActiveRecord::Base.connection_pool.disconnect!
     end
   end
 

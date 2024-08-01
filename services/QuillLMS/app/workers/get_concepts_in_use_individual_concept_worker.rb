@@ -74,9 +74,8 @@ class GetConceptsInUseIndividualConceptWorker
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def get_activity_rows(id)
-    begin
-      RawSqlRunner.execute(
-        <<-SQL
+    RawSqlRunner.execute(
+      <<-SQL
           SELECT
             concepts.name AS concept_name,
             concepts.uid AS concept_uid,
@@ -117,11 +116,10 @@ class GetConceptsInUseIndividualConceptWorker
             parent_concepts.name,
             concept_name,
             classification_name
-        SQL
-      ).to_a
-    rescue => e
-      get_activity_rows(id)
-    end
+      SQL
+    ).to_a
+  rescue => e
+    get_activity_rows(id)
   end
 
   def find_categorized_connect_questions(uid)
@@ -159,23 +157,21 @@ class GetConceptsInUseIndividualConceptWorker
   end
 
   def set_concepts_in_use_cache
-    begin
-      $redis.watch('CONCEPTS_IN_USE')
-      concepts_in_use = JSON.parse($redis.get('CONCEPTS_IN_USE'))
-      headers = %w(name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions part_of_diagnostic_recommendations last_retrieved)
-      @organized_concepts.each do |oc|
-        concepts_in_use << headers.map do |attr|
-          if oc[attr].is_a?(Array)
-            oc[attr].flatten.uniq.join(', ')
-          else
-            oc[attr]
-          end
+    $redis.watch('CONCEPTS_IN_USE')
+    concepts_in_use = JSON.parse($redis.get('CONCEPTS_IN_USE'))
+    headers = %w(name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions part_of_diagnostic_recommendations last_retrieved)
+    @organized_concepts.each do |oc|
+      concepts_in_use << headers.map do |attr|
+        if oc[attr].is_a?(Array)
+          oc[attr].flatten.uniq.join(', ')
+        else
+          oc[attr]
         end
       end
-      $redis.set('CONCEPTS_IN_USE', concepts_in_use.to_json)
-      $redis.unwatch
-    rescue => e
-      set_concepts_in_use_cache
     end
+    $redis.set('CONCEPTS_IN_USE', concepts_in_use.to_json)
+    $redis.unwatch
+  rescue => e
+    set_concepts_in_use_cache
   end
 end

@@ -806,11 +806,6 @@ Style/NumericPredicate:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
-# Offense count: 35
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
-  Enabled: false
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantCapitalW:
