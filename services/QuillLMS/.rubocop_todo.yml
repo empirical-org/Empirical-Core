@@ -806,11 +806,7 @@ Style/NumericPredicate:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantCapitalW:
-  Exclude:
-    - 'config/initializers/sentry.rb'
+
 
 # Offense count: 23
 # This cop supports safe autocorrection (--autocorrect).
