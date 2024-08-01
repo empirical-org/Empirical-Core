@@ -57,7 +57,7 @@ module Translatable
     has_many :gengo_jobs, through: :english_texts
 
     class_attribute :default_translatable_field, default: nil
-    include TranslationPrompts
+    include TranslatablePrompts
   end
 
   def create_translation_mappings

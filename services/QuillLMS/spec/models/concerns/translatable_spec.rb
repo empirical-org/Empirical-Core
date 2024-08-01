@@ -270,7 +270,7 @@ RSpec.describe Translatable do
     let(:locale) { Translatable::DEFAULT_LOCALE }
 
     it 'returns the expected prompt' do
-      expected = TranslatableTestModel.prompt_start(locale:)
+      expected = TranslationPrompts.prompt_start(locale:)
       expected += "Test prompt\n text to translate: "
       expect(TranslatableTestModel.open_ai_prompt(locale:)).to eq(expected)
     end
