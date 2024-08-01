@@ -282,7 +282,7 @@ module PublicProgressReports
   def get_time_in_minutes(activity_session)
     return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
 
-    time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
+    time = ((activity_session.completed_at - activity_session.started_at) / 60).round
     time > 60 ? '> 60' : time
   end
 
@@ -366,7 +366,7 @@ module PublicProgressReports
     if formatted_results.empty?
       100
     else
-      (formatted_results.inject(0) { |sum, crs| sum + crs[:score] } / formatted_results.length).round()
+      (formatted_results.inject(0) { |sum, crs| sum + crs[:score] } / formatted_results.length).round
     end
   end
 
@@ -380,7 +380,7 @@ module PublicProgressReports
       { id: s&.id, name: s&.name || 'Unknown Student', completed: completed }
     end
 
-    sorted_students = students.compact.sort_by { |stud| stud[:name].split().second || '' }
+    sorted_students = students.compact.sort_by { |stud| stud[:name].split.second || '' }
 
     recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
       student_ids = []

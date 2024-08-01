@@ -771,17 +771,6 @@ Style/IdenticalConditionalBranches:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 9
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'app/controllers/integrations_controller.rb'
-    - 'app/controllers/schools_controller.rb'
-    - 'app/models/concerns/public_progress_reports.rb'
-    - 'app/models/invitation.rb'
-    - 'spec/models/activity_spec.rb'
-    - 'spec/script/setup_concepts_spec.rb'
 
 # Offense count: 28
 # This cop supports safe autocorrection (--autocorrect).

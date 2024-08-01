@@ -199,12 +199,12 @@ describe Activity, type: :model, redis: true do
 
     it "must add uid param of it's a valid student session" do
       activity.valid?
-      expect(activity.module_url(student.activity_sessions.build()).to_s).to include 'uid='
+      expect(activity.module_url(student.activity_sessions.build).to_s).to include 'uid='
     end
 
     it "must add student param of it's a valid student session" do
       activity.valid?
-      expect(activity.module_url(student.activity_sessions.build()).to_s).to include 'student'
+      expect(activity.module_url(student.activity_sessions.build).to_s).to include 'student'
     end
 
     it "must add 'activities' param if the student has completed previous sessions of this activity classification" do
