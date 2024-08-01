@@ -14,11 +14,11 @@ module Evidence
         'object' => 'edit',
         'created' => 1665765865,
         'choices' => [
-          { 'text'=>"The weather is not bad today.\nThe sun is shining and the sky is blue.\n", 'index'=>0 },
-          { 'text'=>"The weather is good today.\nIt is sunny.\n", 'index'=>1 },
-          { 'text'=>"The weather is ok today.\nI want to go out to play.\n", 'index'=>2 }
+          { 'text' => "The weather is not bad today.\nThe sun is shining and the sky is blue.\n", 'index' => 0 },
+          { 'text' => "The weather is good today.\nIt is sunny.\n", 'index' => 1 },
+          { 'text' => "The weather is ok today.\nI want to go out to play.\n", 'index' => 2 }
         ],
-        'usage' => { 'prompt_tokens'=>22, 'completion_tokens'=>22, 'total_tokens'=>44 }
+        'usage' => { 'prompt_tokens' => 22, 'completion_tokens' => 22, 'total_tokens' => 44 }
       }
     end
     # include headers in response for proper parsing by HTTParty

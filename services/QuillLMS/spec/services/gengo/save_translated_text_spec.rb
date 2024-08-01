@@ -37,7 +37,7 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
     let(:response) do
       { 'opstat' => 'ok',
         'response' =>
-          { 'job'=> response_job } }
+          { 'job' => response_job } }
     end
 
     before do

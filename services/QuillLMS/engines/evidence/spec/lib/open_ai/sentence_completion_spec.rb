@@ -22,8 +22,8 @@ module Evidence
             'index' => 0,
             'logprobs' => nil,
             'finish_reason' => 'length' },
-          { 'text'=>' they value their privacy and idea of stigmaly manury', 'index'=>1, 'logprobs'=>nil, 'finish_reason'=>'stop' },
-          { 'text'=>' they are working too hard and becoming too popular', 'index'=>2, 'logprobs'=>nil, 'finish_reason'=>'stop' }
+          { 'text' => ' they value their privacy and idea of stigmaly manury', 'index' => 1, 'logprobs' => nil, 'finish_reason' => 'stop' },
+          { 'text' => ' they are working too hard and becoming too popular', 'index' => 2, 'logprobs' => nil, 'finish_reason' => 'stop' }
         ]
       }
     end

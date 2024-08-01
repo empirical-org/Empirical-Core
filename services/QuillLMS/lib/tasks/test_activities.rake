@@ -25,7 +25,7 @@ namespace :test do
       uid: 'Pgcl7c_giqeHwWvdgJA3CQ-test',
       name: 'Test A3 (So, Because)',
       description: 'Write 10 sentences using the conjunctions so or be...',
-      data: { 'rule_position'=>"---\n- - '423'\n  - '1'\n" },
+      data: { 'rule_position' => "---\n- - '423'\n  - '1'\n" },
       activity_classification_id: 2,
       standard_id: 14
     }
