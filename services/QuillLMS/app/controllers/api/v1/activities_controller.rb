@@ -124,7 +124,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       :standard_uid,
       :uid,
       flags: [])
-                      .merge(data: @data)
-                      .reject { |k,v| v.nil? }
+      .merge(data: @data)
+      .reject { |k,v| v.nil? }
   end
 end

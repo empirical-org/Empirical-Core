@@ -48,7 +48,7 @@ RSpec.describe TranslatableQuestion do
   before do
     ENV['CMS_URL'] = 'https://cms.quill.org'
     stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/responses")
-    .to_return(status: 200, body: [].to_json, headers: {})
+      .to_return(status: 200, body: [].to_json, headers: {})
   end
 
   describe 'create_translation_mappings' do
@@ -118,7 +118,7 @@ RSpec.describe TranslatableQuestion do
 
         before do
           stub_request(:get, "#{ENV['CMS_URL']}/questions/#{question.uid}/responses")
-          .to_return(status: 200, body: response_data.to_json, headers: {})
+            .to_return(status: 200, body: response_data.to_json, headers: {})
         end
 
         it 'makes translation mappings with the results' do

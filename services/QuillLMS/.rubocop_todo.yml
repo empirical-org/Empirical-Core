@@ -36,13 +36,6 @@ Layout/HashAlignment:
 Layout/LeadingCommentSpace:
   Enabled: false
 
-# Offense count: 470
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented, indented_relative_to_receiver
-Layout/MultilineMethodCallIndentation:
-  Enabled: false
-
 # Offense count: 309
 # This cop supports safe autocorrection (--autocorrect).
 Layout/SpaceAfterComma:

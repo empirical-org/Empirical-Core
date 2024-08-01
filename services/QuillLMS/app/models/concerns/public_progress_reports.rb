@@ -18,11 +18,11 @@ module PublicProgressReports
   def last_completed_diagnostic
     diagnostic_activity_ids = Activity.diagnostic_activity_ids
     current_user.classroom_units
-                .joins(activity_sessions: :classroom_unit)
-                .where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids)
-                .order('created_at DESC')
-                .limit(1)
-                .first
+      .joins(activity_sessions: :classroom_unit)
+      .where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids)
+      .order('created_at DESC')
+      .limit(1)
+      .first
   end
 
   def activity_session_report(unit_id, classroom_id, user_id, activity_id)

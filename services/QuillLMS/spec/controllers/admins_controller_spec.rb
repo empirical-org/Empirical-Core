@@ -395,8 +395,8 @@ describe AdminsController do
       context 'when the user administers a district' do
         before do
           allow(api_stub).to receive(:get)
-          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
-          .and_return(vitally_district)
+            .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+            .and_return(vitally_district)
         end
 
         it 'retrieves professional learning manager info and renders it as json' do
@@ -410,8 +410,8 @@ describe AdminsController do
       context 'when the user administers a school' do
         before do
           allow(api_stub).to receive(:get)
-          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
-          .and_return(vitally_district)
+            .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+            .and_return(vitally_district)
         end
 
         it 'retrieves professional learning manager info and renders it as json' do
@@ -427,8 +427,8 @@ describe AdminsController do
       context 'when the user belongs to a school' do
         before do
           allow(api_stub).to receive(:get)
-          .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
-          .and_return(vitally_district)
+            .with(VitallyIntegration::RestApi::ENDPOINT_ORGANIZATIONS, anything)
+            .and_return(vitally_district)
         end
 
         it 'retrieves professional learning manager info and renders it as json' do

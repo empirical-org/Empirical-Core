@@ -902,7 +902,7 @@ describe ActivitySession, type: :model, redis: true do
 
     it 'returns a url including the activity id' do
       expect(ActivitySession.generate_activity_url(classroom_unit.id, activity.id))
-      .to include("activities/#{activity.id}")
+        .to include("activities/#{activity.id}")
     end
   end
 

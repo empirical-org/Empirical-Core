@@ -121,6 +121,10 @@ Layout/LineEndStringConcatenationIndentation: # new in 1.18
 Layout/MultilineArrayBraceLayout:
   Enabled: true
 
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
 Layout/SpaceAfterColon:
   Enabled: true
 
