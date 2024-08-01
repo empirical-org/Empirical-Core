@@ -51,7 +51,7 @@ class RuleFeedbackHistory
   end
 
   def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil)
-    rule_uid = rule_uid.to_s
+    rule_uid = rule_uid.to_sym
     prompt_id = prompt_id.to_i
 
     query = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
