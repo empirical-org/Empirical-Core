@@ -15,7 +15,7 @@
 require 'rails_helper'
 
 describe FirebaseApp, type: :model do
-  let(:firebase_app){ create(:firebase_app) }
+  let(:firebase_app) { create(:firebase_app) }
 
   context '#token_for' do
     let(:generator) { double('Firebase::FirebaseTokenGenerator') }

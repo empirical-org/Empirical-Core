@@ -84,7 +84,7 @@ class UnitTemplate < ApplicationRecord
 
     levels = grades
       .sort_by(&:to_i)
-      .map{ |g| School::GRADE_DESCRIPTIONS[g.to_i] }
+      .map { |g| School::GRADE_DESCRIPTIONS[g.to_i] }
       .compact
       .uniq
 

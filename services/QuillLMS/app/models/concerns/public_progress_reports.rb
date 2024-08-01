@@ -56,7 +56,7 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
-    questions = Hash.new{ |h, k| h[k] = {} }
+    questions = Hash.new { |h, k| h[k] = {} }
 
     all_answers = @activity_sessions.map(&:concept_results).flatten
 
@@ -122,7 +122,7 @@ module PublicProgressReports
 
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
-      h.map{ |k, v| v }
+      h.map { |k, v| v }
     else
       []
     end
@@ -287,10 +287,10 @@ module PublicProgressReports
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
-    concept_results.group_by{ |cr| cr.question_number }.map { |key, cr|
+    concept_results.group_by { |cr| cr.question_number }.map { |key, cr|
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
-      cr.sort!{ |x, y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
+      cr.sort! { |x, y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ''
       prompt_text = cr.first.concept_result_prompt&.text
       score = get_score_for_question(cr)

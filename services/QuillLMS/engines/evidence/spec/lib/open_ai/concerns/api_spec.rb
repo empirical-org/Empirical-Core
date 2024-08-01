@@ -24,7 +24,7 @@ module Evidence
 
     context '#class_without_defined_methods' do
       it 'should raise an error on run' do
-        expect{ class_without_defined_methods.new.run }.to raise_error(NotImplementedError)
+        expect { class_without_defined_methods.new.run }.to raise_error(NotImplementedError)
       end
     end
 

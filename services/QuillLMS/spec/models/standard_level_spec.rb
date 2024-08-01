@@ -15,7 +15,7 @@
 require 'rails_helper'
 
 describe StandardLevel, type: :model do
-  let(:standard_level){ build(:standard_level) }
+  let(:standard_level) { build(:standard_level) }
 
   it_behaves_like 'uid'
 

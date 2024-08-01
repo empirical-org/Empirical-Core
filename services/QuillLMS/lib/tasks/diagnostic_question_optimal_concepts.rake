@@ -52,7 +52,7 @@ namespace :diagnostic_question_optimal_concepts do
       question = fetch_question_from_row(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      full_concept_names = concepts_row.split(DELIMITER).reject{ |concept| concept == '' }.uniq
+      full_concept_names = concepts_row.split(DELIMITER).reject { |concept| concept == '' }.uniq
       concepts = full_concept_names.map do |concept_name|
         concept = fetch_concept(concept_name)
         if concept.length > 1
@@ -135,7 +135,7 @@ namespace :diagnostic_question_optimal_concepts do
     def concepts_valid?(row)
       concepts_row = row[OPTIMAL_CONCEPTS_INDEX]
 
-      full_concept_names = concepts_row.split(DELIMITER).reject{ |concept| concept == '' }.uniq
+      full_concept_names = concepts_row.split(DELIMITER).reject { |concept| concept == '' }.uniq
       concepts = full_concept_names.map { |concept_name| fetch_concept(concept_name) }.flatten
 
       full_concept_names.length == concepts.length

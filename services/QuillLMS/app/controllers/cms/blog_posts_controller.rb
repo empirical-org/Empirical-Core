@@ -7,7 +7,7 @@ class Cms::BlogPostsController < Cms::CmsController
   before_action :authors, :topics, only: [:index, :edit, :new]
 
   def index
-    @blog_posts_name_and_id = BlogPost.all.map{ |bp| bp.attributes.merge({ 'rating' => bp.average_rating }) }
+    @blog_posts_name_and_id = BlogPost.all.map { |bp| bp.attributes.merge({ 'rating' => bp.average_rating }) }
   end
 
   def new; end

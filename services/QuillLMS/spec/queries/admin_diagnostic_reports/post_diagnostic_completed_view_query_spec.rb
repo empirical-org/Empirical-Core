@@ -101,18 +101,18 @@ module AdminDiagnosticReports
 
         let(:classroom_count) { 2 }
 
-        it { expect(aggregate_row_results.map{ |r| r[:aggregate_id] }).to match_array(classrooms.map(&:grade)) }
+        it { expect(aggregate_row_results.map { |r| r[:aggregate_id] }).to match_array(classrooms.map(&:grade)) }
 
         context 'aggregate by teacher' do
           let(:aggregation_arg) { 'teacher' }
 
-          it { expect(aggregate_row_results.map{ |r| r[:aggregate_id] }).to match_array(classrooms.map(&:teachers).flatten.map(&:id)) }
+          it { expect(aggregate_row_results.map { |r| r[:aggregate_id] }).to match_array(classrooms.map(&:teachers).flatten.map(&:id)) }
         end
 
         context 'aggregate by classroom' do
           let(:aggregation_arg) { 'classroom' }
 
-          it { expect(aggregate_row_results.map{ |r| r[:aggregate_id] }).to match_array(classrooms.map(&:id)) }
+          it { expect(aggregate_row_results.map { |r| r[:aggregate_id] }).to match_array(classrooms.map(&:id)) }
         end
       end
 

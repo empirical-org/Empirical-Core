@@ -42,7 +42,7 @@ RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
     context 'there is no gengo API response' do
       let(:translation_job_response) { nil }
 
-      it { expect{ subject }.to raise_error(described_class::FetchTranslationOrderError) }
+      it { expect { subject }.to raise_error(described_class::FetchTranslationOrderError) }
     end
   end
 end

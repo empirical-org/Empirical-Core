@@ -324,7 +324,7 @@ describe UnitTemplate, redis: true, type: :model do
   describe '#around_save callback' do
     before do
       $redis.redis.flushdb
-      $redis.multi{
+      $redis.multi {
         $redis.set('beta_unit_templates', 'a')
         $redis.set('production_unit_templates', 'a')
         $redis.set('gamma_unit_templates', 'a')
@@ -402,11 +402,11 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe 'scope results' do
-    let!(:production_unit_template){ create(:unit_template, flag: 'production') }
-    let!(:gamma_unit_template){ create(:unit_template, flag: 'gamma') }
-    let!(:beta_unit_template){ create(:unit_template, flag: 'beta') }
-    let!(:alpha_unit_template){ create(:unit_template, flag: 'alpha') }
-    let!(:all_types){ [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
+    let!(:production_unit_template) { create(:unit_template, flag: 'production') }
+    let!(:gamma_unit_template) { create(:unit_template, flag: 'gamma') }
+    let!(:beta_unit_template) { create(:unit_template, flag: 'beta') }
+    let!(:alpha_unit_template) { create(:unit_template, flag: 'alpha') }
+    let!(:all_types) { [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
 
     context 'the default scope' do
       it 'must show all types of flagged activities when default scope' do

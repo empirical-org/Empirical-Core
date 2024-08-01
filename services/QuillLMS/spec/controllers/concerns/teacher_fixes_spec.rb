@@ -355,7 +355,7 @@ describe TeacherFixes do
           create(:classroom_unit_activity_state, classroom_unit: cu1, unit_activity: ua, updated_at: today)
 
         TeacherFixes::merge_two_classroom_units(cu1.reload, cu2.reload)
-        expect{ older_cuas.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { older_cuas.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(newer_cuas.reload.classroom_unit).to eq(cu2)
       end
 

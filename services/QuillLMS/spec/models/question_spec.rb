@@ -503,7 +503,7 @@ RSpec.describe Question, type: :model do
 
           it 'does not change the uid if it already exists' do
             subject
-            uids = question.reload.data[type].map{ |i| i['uid'] }
+            uids = question.reload.data[type].map { |i| i['uid'] }
             expect(uids).to eq(['uid1', 'uid2'])
           end
         end

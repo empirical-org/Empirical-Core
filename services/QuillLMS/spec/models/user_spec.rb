@@ -152,7 +152,7 @@ RSpec.describe User, type: :model do
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
-          expect{ user.update(flags: user.flags.push(flag)) }.not_to raise_error
+          expect { user.update(flags: user.flags.push(flag)) }.not_to raise_error
         end
       end
 
@@ -791,7 +791,7 @@ RSpec.describe User, type: :model do
           subscription = create(:subscription, expiration: 3.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: subscription)
 
-          expect{ user.redeem_credit }.to change(Subscription, :count).by(1)
+          expect { user.redeem_credit }.to change(Subscription, :count).by(1)
         end
 
         it 'creates a new subscription with the start date equal to last subscription expiration' do
@@ -2059,7 +2059,7 @@ RSpec.describe User, type: :model do
       it 'should create a record' do
         teacher = build(:teacher)
 
-        expect{ teacher.save }.to change(TeacherInfo, :count).by(1)
+        expect { teacher.save }.to change(TeacherInfo, :count).by(1)
       end
 
       it 'should save the role_selected_at_signup attribute to TeacherInfo record' do

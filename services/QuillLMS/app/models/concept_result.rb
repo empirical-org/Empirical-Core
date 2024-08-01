@@ -101,7 +101,7 @@ class ConceptResult < ApplicationRecord
     metadata
       .deep_symbolize_keys
       .except(*KNOWN_METADATA_KEYS)
-      .reject{ |_, v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
+      .reject { |_, v| v.nil? || (v.is_a?(Enumerable) && v.empty?) }
   end
 
   def legacy_format

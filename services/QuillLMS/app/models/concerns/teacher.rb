@@ -193,19 +193,19 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.map{ |classroom| classroom.with_students }
+    classrooms_i_teach.map { |classroom| classroom.with_students }
   end
 
   def classrooms_i_teach_with_student_ids
-    classrooms_i_teach.map{ |classroom| classroom.with_students_ids }
+    classrooms_i_teach.map { |classroom| classroom.with_students_ids }
   end
 
   def classrooms_i_own_with_students
-    classrooms_i_own.map{ |classroom| classroom.with_students }
+    classrooms_i_own.map { |classroom| classroom.with_students }
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(specified_teacher_id)
-    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map{ |classroom| classroom.with_students }
+    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map { |classroom| classroom.with_students }
   end
 
   def classrooms_i_own_that_have_coteachers

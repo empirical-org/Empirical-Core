@@ -22,7 +22,7 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
 
   def resolve(inputs)
     concept = Concept.find(inputs[:id])
-    values = inputs.reject{ |k, v| k == :id || k === :change_logs }
+    values = inputs.reject { |k, v| k == :id || k === :change_logs }
     if concept.update(values)
       # Successful update, return the updated object with no errors
       change_logs = inputs[:change_logs].map do |cl|

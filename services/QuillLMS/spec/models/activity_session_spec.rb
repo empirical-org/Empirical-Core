@@ -267,8 +267,8 @@ describe ActivitySession, type: :model, redis: true do
 
   describe '#activity' do
     context 'when there is a direct activity association' do
-      let(:activity){ create(:activity) }
-      let(:activity_session){ build(:activity_session, activity_id: activity.id) }
+      let(:activity) { create(:activity) }
+      let(:activity_session) { build(:activity_session, activity_id: activity.id) }
 
       it 'must return the associated activity' do
         expect(activity_session.activity).to eq activity
@@ -276,9 +276,9 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     describe '#invalidate_activity_session_count_if_completed' do
-      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:student) { create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-      let!(:activity_session){ create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
+      let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
 
       before do
         $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
@@ -298,11 +298,11 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
-      let!(:activity){ create(:activity) }
-      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:activity) { create(:activity) }
+      let!(:student) { create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
       let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
-      let(:activity_session){ build(:activity_session, classroom_unit: classroom_unit) }
+      let(:activity_session) { build(:activity_session, classroom_unit: classroom_unit) }
 
       it "must return the unit activity's activity" do
         activity_session.activity_id = nil
@@ -313,7 +313,7 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#activity_uid=' do
-    let(:activity){ create(:activity) }
+    let(:activity) { create(:activity) }
 
     it 'must associate activity by uid' do
       activity_session.activity_id = nil
@@ -736,10 +736,10 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#validations' do
-    let!(:assigned_student){ create(:student) }
-    let!(:unassigned_student){ create(:student) }
-    let!(:classroom){ create(:classroom, students: [assigned_student, unassigned_student]) }
-    let!(:activity){ create(:activity) }
+    let!(:assigned_student) { create(:student) }
+    let!(:unassigned_student) { create(:student) }
+    let!(:classroom) { create(:classroom, students: [assigned_student, unassigned_student]) }
+    let!(:activity) { create(:activity) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [assigned_student.id], assign_on_join: false) }
 
     it 'ensures that the student was correctly assigned' do

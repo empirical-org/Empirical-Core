@@ -75,7 +75,7 @@ describe ClassroomsTeachersController, type: :controller do
 
     it 'should destroy the given classroom teacher' do
       delete :destroy, params: { classroom_id: classroom.id }
-      expect{ ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response.body).to eq({ message: 'Deletion Succeeded!' }.to_json)
     end
   end

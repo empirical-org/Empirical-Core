@@ -49,7 +49,7 @@ class SerializeActivityHealth
       .where(activity: @activity, state: 'finished')
       .last(MAX_SESSIONS_VIEWED)
       .map(&:minutes_to_complete)
-      .reject{ |b| !b || b == 0 }
+      .reject { |b| !b || b == 0 }
     all_session_lengths.empty? ? nil : (all_session_lengths.sum.to_f / all_session_lengths.size).round(2)
   end
 
@@ -64,7 +64,7 @@ class SerializeActivityHealth
 
   # rubocop:disable Metrics/CyclomaticComplexity
   private def diagnostics
-    @activity.unit_templates&.map { |ut| ut.recommendations }&.map{ |r| r.map{ |rr| rr.activity.name } }&.reject{ |n| n == '' }&.flatten
+    @activity.unit_templates&.map { |ut| ut.recommendations }&.map { |r| r.map { |rr| rr.activity.name } }&.reject { |n| n == '' }&.flatten
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

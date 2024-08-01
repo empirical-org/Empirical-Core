@@ -25,13 +25,13 @@ RSpec.describe TranslatedText, type: :model do
     let!(:open_ai_text) { create(:translated_text).translation }
 
     context 'no source API' do
-      subject{ TranslatedText.ordered_by_source_api }
+      subject { TranslatedText.ordered_by_source_api }
 
       it { expect(subject.map(&:translation)).to eq([open_ai_text, gengo_text]) }
     end
 
     context 'with a source API' do
-      subject{ TranslatedText.ordered_by_source_api(source_api) }
+      subject { TranslatedText.ordered_by_source_api(source_api) }
 
       context 'open_ai' do
         let(:source_api) { Translatable::OPEN_AI_SOURCE }

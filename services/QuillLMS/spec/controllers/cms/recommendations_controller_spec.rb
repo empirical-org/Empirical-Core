@@ -106,7 +106,7 @@ describe Cms::RecommendationsController do
 
     it 'should destroy the recommendation' do
       delete :destroy, params: { id: recommendation.id, activity_id: activity.id, activity_classification_id: activity_classification.id }
-      expect{ Recommendation.find(recommendation.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { Recommendation.find(recommendation.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end
 end

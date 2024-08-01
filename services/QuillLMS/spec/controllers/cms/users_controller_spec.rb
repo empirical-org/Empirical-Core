@@ -175,7 +175,7 @@ describe Cms::UsersController do
 
     it 'should destroy the schoolsadmins' do
       put :remove_admin, params: { user_id: admin.id, school_id: school.id }
-      expect{ SchoolsAdmins.find(schools_admin.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { SchoolsAdmins.find(schools_admin.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to 'http://example.com'
     end
   end

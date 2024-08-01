@@ -448,7 +448,7 @@ class User < ApplicationRecord
   end
 
   def safe_role_assignment role
-    sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
+    sanitized_role = SAFE_ROLES.find { |r| r == role.strip }
     self.role = sanitized_role || 'user'
   end
 
@@ -558,7 +558,7 @@ class User < ApplicationRecord
     schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{ |school| school.users.ids + school.admins.ids }.flatten.uniq
+    schools.map { |school| school.users.ids + school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!

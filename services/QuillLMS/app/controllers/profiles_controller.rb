@@ -108,8 +108,8 @@ class ProfilesController < ApplicationController
       .includes(:unit, concept_results: :concept, activity: :classification)
       .where(
         user_id: user_id,
-        activity_id: data.map{ |h| h[ACTIVITY_ID] },
-        classroom_unit_id: data.map{ |h| h[CLASSROOM_UNIT_ID] },
+        activity_id: data.map { |h| h[ACTIVITY_ID] },
+        classroom_unit_id: data.map { |h| h[CLASSROOM_UNIT_ID] },
         state: ActivitySession::STATE_FINISHED
       )
       .order('activity_sessions.completed_at ASC')

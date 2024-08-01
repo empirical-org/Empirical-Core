@@ -97,7 +97,7 @@ describe 'SerializeActivityHealth' do
     expect(data[:activity_categories]).to eq(activity.activity_categories.pluck(:name).sort)
     expect(data[:content_partners]).to eq([content_partner.name])
     expect(data[:tool]).to eq('connect')
-    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: 'production').map { |ut| { id: ut.id, name: ut.name } }.sort_by{ |h| h[:name] })
+    expect(data[:activity_packs]).to eq(activity.unit_templates.where(flag: 'production').map { |ut| { id: ut.id, name: ut.name } }.sort_by { |h| h[:name] })
     expect(data[:diagnostics]).to eq([diagnostic.name])
   end
 

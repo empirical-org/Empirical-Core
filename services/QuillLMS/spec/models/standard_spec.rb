@@ -21,16 +21,16 @@
 require 'rails_helper'
 
 describe Standard, type: :model do
-  let!(:standard){ create(:standard, name: 'a') }
+  let!(:standard) { create(:standard, name: 'a') }
 
   it_behaves_like 'uid'
 
   context 'when the default order is by name' do
-    let!(:standard1){ create(:standard, name: 'c') }
-    let!(:standard2){ create(:standard, name: 'b') }
+    let!(:standard1) { create(:standard, name: 'c') }
+    let!(:standard2) { create(:standard, name: 'b') }
 
     it 'must be ordered correctly' do
-      expect(Standard.all.map{ |x| x.name }).to eq ['a', 'b', 'c']
+      expect(Standard.all.map { |x| x.name }).to eq ['a', 'b', 'c']
     end
   end
 
