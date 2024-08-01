@@ -844,12 +844,6 @@ Style/RescueStandardError:
 Style/SafeNavigation:
   Enabled: false
 
-# Offense count: 6453
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
 
 # Offense count: 284
 # This cop supports safe autocorrection (--autocorrect).

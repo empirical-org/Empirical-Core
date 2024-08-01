@@ -211,7 +211,7 @@ class Activity < ApplicationRecord
     return nil unless is_evidence?
 
     created_time = child_activity.last_flags_change_log_record&.created_at || created_at
-    created_time.strftime("%Y-%m-%dT%H:%M:%S")
+    created_time.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   # TODO: cleanup
@@ -346,7 +346,7 @@ class Activity < ApplicationRecord
 
   def questions = Question.where(uid: question_uids)
 
-  private def question_uids = data["questions"]&.map { |q| q["key"] }
+  private def question_uids = data['questions']&.map { |q| q['key'] }
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?

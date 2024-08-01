@@ -122,7 +122,7 @@ module VitallyIntegration
     end
 
     def diagnostics_assigned_between_count(start, stop)
-      district.schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
+      district.schools.select('array_length(classroom_units.assigned_student_ids, 1) AS assigned_students')
         .joins(users: {
           unscoped_classrooms_i_teach: {
             classroom_units: {
@@ -193,7 +193,7 @@ module VitallyIntegration
       @activities_completed ||= ClassroomsTeacher.select('students.id')
         .joins([user: [schools_users: [school: :district]]])
         .joins([classroom_unscoped: [classroom_units: :activity_sessions]])
-        .joins("JOIN users students on students.id = activity_sessions.user_id")
+        .joins('JOIN users students on students.id = activity_sessions.user_id')
         .where('districts.id = ?', district.id)
         .where('activity_sessions.state = ?', 'finished')
     end

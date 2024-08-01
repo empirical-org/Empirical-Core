@@ -38,7 +38,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:static_sample_test 2
-  desc "static_sample_test 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  desc 'static_sample_test 2', 'Run to see if examplar optimals are labeled optimal by the prompt'
   def static_sample_test(limit = 10, optimal = true, template_file = nil)
     correct_count = 0
     total = 0
@@ -76,20 +76,20 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:static_full_test 2
-  desc "static_full_test  2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  desc 'static_full_test  2', 'Run to see if examplar optimals are labeled optimal by the prompt'
   def static_full_test(limit = 50, template_file = nil)
     static_sample_test(limit, true, template_file)
     static_sample_test(limit, false, template_file)
   end
 
   # bundle exec thor gen_a_i_tasks:static_optimal_test 2
-  desc "static_optimal_test  2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  desc 'static_optimal_test  2', 'Run to see if examplar optimals are labeled optimal by the prompt'
   def static_optimal_test(limit = 50, template_file = nil)
     static_sample_test(limit, true, template_file)
   end
 
   # bundle exec thor gen_a_i_tasks:static_suboptimal_test 'because' 2
-  desc "static_suboptimal_test 2", 'Run to see if examplar suboptimals are labeled suboptimal by the prompt'
+  desc 'static_suboptimal_test 2', 'Run to see if examplar suboptimals are labeled suboptimal by the prompt'
   def static_suboptimal_test(limit = 50, template_file = nil)
     static_sample_test(limit, false, template_file)
   end
@@ -175,7 +175,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
-  desc "generate_secondary_data_files", 'Create a csv for training and test.'
+  desc 'generate_secondary_data_files', 'Create a csv for training and test.'
   def generate_secondary_data_files
     file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
     file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TRAIN

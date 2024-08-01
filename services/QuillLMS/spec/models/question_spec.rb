@@ -406,7 +406,7 @@ RSpec.describe Question, type: :model do
     end
 
     context 'a locale is passed in' do
-      let(:locale) { "ch-zn" }
+      let(:locale) { 'ch-zn' }
       let(:options) { { locale: } }
 
       it 'should return translated_data(locale:)' do
