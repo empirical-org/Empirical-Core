@@ -230,6 +230,33 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
   end
 
+  desc 'populate_concepts_and_rules', 'Seed the 3 GenAI concepts, the 6 rules needed by the system'
+  def populate_concepts_and_rules
+    concept_mapping = {
+      'because' => 'qkjnIjFfXdTuKO7FgPzsIg',
+      'but'     => 'KwspxuelfGZQCq7yX6ThPQ',
+      'so'      => 'IBdOFpAWi42LgfXvcz0scQ'
+    }
+    rules_uids_optimal = Evidence::GenAI::ResponseBuilder::RULES_OPTIMAL
+    rule_uids_suboptimal = Evidence::GenAI::ResponseBuilder::RULES_SUBOPTIMAL
+
+    Evidence::Prompt::CONJUNCTIONS.each do |conjunction|
+      [true, false].each do |optimal|
+        uid_mapping = optimal ? rules_uids_optimal : rule_uids_suboptimal
+
+        Evidence::Rule.create(
+          uid: uid_mapping[conjunction],
+          concept_uid: concept_mapping[conjunction],
+          universal: true,
+          rule_type: Evidence::Rule::TYPE_GEN_AI,
+          optimal:,
+          state: 'active',
+          name: "GenAI universal #{conjunction} - #{optimal ? 'optimal' : 'suboptimal'}"
+        )
+      end
+    end
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'
