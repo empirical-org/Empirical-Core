@@ -36,7 +36,7 @@ describe Admin::TeacherSerializer do
     let!(:schools_admins2) { create(:schools_admins, user: teacher, school: school2) }
     let!(:unit) { create(:unit, user_id: teacher.id) }
     let!(:time2) { Time.current }
-    let!(:time1) { time2 - (10.minutes) }
+    let!(:time1) { time2 - 10.minutes }
     let!(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id, unit: unit, assigned_student_ids: classroom.students.ids) }
     let!(:activity_session1) { create(:activity_session_without_concept_results, user: student1, state: 'finished', started_at: time1, completed_at: time2, classroom_unit: classroom_unit) }
     let!(:activity_session2) { create(:activity_session_without_concept_results, user: student1, state: 'finished', started_at: time1, completed_at: time2, classroom_unit: classroom_unit) }

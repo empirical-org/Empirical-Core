@@ -56,14 +56,14 @@ module Evidence
       context 'should with filter params' do
         let!(:prompt1) { create(:evidence_prompt) }
         let!(:prompt2) { create(:evidence_prompt) }
-        let!(:rule1) { create(:evidence_rule, :prompts => ([prompt1]), :rule_type => (Rule::TYPE_AUTOML)) }
-        let!(:rule2) { create(:evidence_rule, :prompts => ([prompt1]), :rule_type => (Rule::TYPE_GRAMMAR)) }
-        let!(:rule3) { create(:evidence_rule, :prompts => ([prompt2]), :rule_type => (Rule::TYPE_AUTOML)) }
-        let!(:rule4) { create(:evidence_rule, :prompts => ([prompt2]), :rule_type => (Rule::TYPE_GRAMMAR)) }
-        let!(:rule5) { create(:evidence_rule, :prompts => ([prompt1, prompt2]), :rule_type => (Rule::TYPE_REGEX_ONE)) }
+        let!(:rule1) { create(:evidence_rule, :prompts => [prompt1], :rule_type => Rule::TYPE_AUTOML) }
+        let!(:rule2) { create(:evidence_rule, :prompts => [prompt1], :rule_type => Rule::TYPE_GRAMMAR) }
+        let!(:rule3) { create(:evidence_rule, :prompts => [prompt2], :rule_type => Rule::TYPE_AUTOML) }
+        let!(:rule4) { create(:evidence_rule, :prompts => [prompt2], :rule_type => Rule::TYPE_GRAMMAR) }
+        let!(:rule5) { create(:evidence_rule, :prompts => [prompt1, prompt2], :rule_type => Rule::TYPE_REGEX_ONE) }
 
         it 'should only get Rules for specified prompt when provided' do
-          get(:index, :params => ({ prompt_id: prompt1.id, rule_type: Rule::TYPE_AUTOML }))
+          get(:index, :params => { prompt_id: prompt1.id, rule_type: Rule::TYPE_AUTOML })
           parsed_response = JSON.parse(response.body)
           expect(parsed_response.length).to(eq(1))
           parsed_response.each do |r|
@@ -72,20 +72,20 @@ module Evidence
         end
 
         it 'should only get unique Rules for specified prompts when provided' do
-          get(:index, :params => ({ prompt_id: "#{prompt1.id}, #{prompt2.id}", rule_type: Rule::TYPE_AUTOML }))
+          get(:index, :params => { prompt_id: "#{prompt1.id}, #{prompt2.id}", rule_type: Rule::TYPE_AUTOML })
           parsed_response = JSON.parse(response.body)
           expect(parsed_response.length).to(eq(2))
         end
 
         it 'should only get Rules for specified rule type when provided' do
-          get(:index, :params => ({ :rule_type => (Rule::TYPE_AUTOML) }))
+          get(:index, :params => { :rule_type => Rule::TYPE_AUTOML })
           parsed_response = JSON.parse(response.body)
           expect(parsed_response.length).to(eq(2))
           parsed_response.each { |r| expect(Rule::TYPE_AUTOML).to(eq(r['rule_type'])) }
         end
 
         it 'should only get Rules for the intersection of prompt and rule type when both are provided' do
-          get(:index, :params => ({ :prompt_id => prompt1.id, :rule_type => (Rule::TYPE_AUTOML) }))
+          get(:index, :params => { :prompt_id => prompt1.id, :rule_type => Rule::TYPE_AUTOML })
           parsed_response = JSON.parse(response.body)
           expect(parsed_response.length).to(eq(1))
           expect(parsed_response[0]['prompt_ids'].include?(prompt1.id)).to(eq(true))
@@ -107,7 +107,7 @@ module Evidence
 
       it 'should create a valid record and return it as json' do
         expect(Rule.count).to(eq(0))
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :prompt_ids => rule.prompt_ids }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :prompt_ids => rule.prompt_ids } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['name']).to(eq(rule.name))
@@ -192,7 +192,7 @@ module Evidence
       end
 
       it 'should not create an invalid record and return errors as json' do
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => nil, :suborder => -1, :rule_type => rule.rule_type, :universal => rule.universal }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => nil, :suborder => -1, :rule_type => rule.rule_type, :universal => rule.universal } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['suborder'].include?('must be greater than or equal to 0')).to(eq(true))
@@ -236,7 +236,7 @@ module Evidence
       end
 
       it 'should return an error if regex is invalid' do
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :suborder => 1, :rule_type => rule.rule_type, :universal => rule.universal, :state => (Rule::STATE_INACTIVE), :regex_rules_attributes => ([{ :regex_text => '(invalid|', :case_sensitive => false }]) }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :suborder => 1, :rule_type => rule.rule_type, :universal => rule.universal, :state => Rule::STATE_INACTIVE, :regex_rules_attributes => [{ :regex_text => '(invalid|', :case_sensitive => false }] } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['invalid_regex'][0].include?('end pattern with unmatched parenthesis')).to(eq(true))
@@ -244,15 +244,15 @@ module Evidence
 
       it 'should create a valid record with plagiarism_text attributes' do
         plagiarism_text = 'Here is some text to be checked for plagiarism.'
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :plagiarism_texts_attributes => ([{ :text => plagiarism_text }]) }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :plagiarism_texts_attributes => [{ :text => plagiarism_text }] } })
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['name']).to(eq(rule.name))
         expect(parsed_response['plagiarism_texts'][0]['text']).to(eq(plagiarism_text))
       end
 
       it 'should return an error if plagiarism rule already exists for prompt' do
-        plagiarism_rule = create(:evidence_rule, :prompt_ids => ([prompt.id]), :rule_type => (Rule::TYPE_PLAGIARISM))
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :suborder => 1, :rule_type => (Rule::TYPE_PLAGIARISM), :universal => false, :state => (Rule::STATE_ACTIVE), :prompt_ids => ([prompt.id]) }) }))
+        plagiarism_rule = create(:evidence_rule, :prompt_ids => [prompt.id], :rule_type => Rule::TYPE_PLAGIARISM)
+        post(:create, :params => { :rule => { :concept_uid => rule.uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :suborder => 1, :rule_type => Rule::TYPE_PLAGIARISM, :universal => false, :state => Rule::STATE_ACTIVE, :prompt_ids => [prompt.id] } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['prompts'][0].include?("prompt #{prompt.id} already has a plagiarism rule")).to(eq(true))
@@ -261,7 +261,7 @@ module Evidence
       it 'should create nested feedback record when present in params' do
         expect(Feedback.count).to(eq(0))
         feedback = build(:evidence_feedback)
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :feedbacks_attributes => ([{ :text => feedback.text, :description => feedback.description, :order => feedback.order }]) }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :feedbacks_attributes => [{ :text => feedback.text, :description => feedback.description, :order => feedback.order }] } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['feedbacks'][0]['text']).to(eq(feedback.text))
@@ -272,9 +272,9 @@ module Evidence
 
       it 'should create nested highlight record when nested in feedback_attributes' do
         expect(Highlight.count).to(eq(0))
-        feedback = create(:evidence_feedback, :rule => (rule))
+        feedback = create(:evidence_feedback, :rule => rule)
         highlight = build(:evidence_highlight, :starting_index => 2)
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :feedbacks_attributes => ([{ :text => feedback.text, :description => feedback.description, :order => feedback.order, :highlights_attributes => ([{ :text => highlight.text, :highlight_type => highlight.highlight_type, :starting_index => highlight.starting_index }]) }]) }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :feedbacks_attributes => [{ :text => feedback.text, :description => feedback.description, :order => feedback.order, :highlights_attributes => [{ :text => highlight.text, :highlight_type => highlight.highlight_type, :starting_index => highlight.starting_index }] }] } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['feedbacks'][0]['highlights'][0]['text']).to(eq(highlight.text))
@@ -286,7 +286,7 @@ module Evidence
       it 'should create nested label record when present in params' do
         expect(Label.count).to(eq(0))
         label = build(:evidence_label)
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :label_attributes => ({ :name => label.name }) }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :label_attributes => { :name => label.name } } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['label']['name']).to(eq(label.name))
@@ -296,7 +296,7 @@ module Evidence
       it 'should create nested regex rule record when present in params' do
         expect(RegexRule.count).to(eq(0))
         regex_rule = build(:evidence_regex_rule, conditional: true)
-        post(:create, :params => ({ :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :regex_rules_attributes => ([{ :regex_text => regex_rule.regex_text, :case_sensitive => regex_rule.case_sensitive, :conditional => regex_rule.conditional }]) }) }))
+        post(:create, :params => { :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :regex_rules_attributes => [{ :regex_text => regex_rule.regex_text, :case_sensitive => regex_rule.case_sensitive, :conditional => regex_rule.conditional }] } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['regex_rules'][0]['regex_text']).to(eq(regex_rule.regex_text))
@@ -308,8 +308,8 @@ module Evidence
       it 'should connect a Hint when a hint_id is passed' do
         hint = create(:evidence_hint)
 
-        post(:create, :params => ({
-          :rule => ({
+        post(:create, :params => {
+          :rule => {
             :concept_uid => rule.concept_uid,
             :note => rule.note,
             :name => rule.name,
@@ -319,8 +319,8 @@ module Evidence
             :rule_type => rule.rule_type,
             :universal => rule.universal,
             :hint_id => hint.id
-          })
-        }))
+          }
+        })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['hint']['id']).to(eq(hint.id))
@@ -331,7 +331,7 @@ module Evidence
       let!(:rule) { create(:evidence_rule) }
 
       it 'should return json if found by id' do
-        get(:show, :params => ({ :id => rule.id }))
+        get(:show, :params => { :id => rule.id })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response['uid']).to(eq(rule.uid))
@@ -345,7 +345,7 @@ module Evidence
       end
 
       it 'should return json if found by uid' do
-        get(:show, :params => ({ :id => rule.uid }))
+        get(:show, :params => { :id => rule.uid })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response['uid']).to(eq(rule.uid))
@@ -359,7 +359,7 @@ module Evidence
       end
 
       it 'should not raise exception if not found (to be handled by parent app)' do
-        get(:show, :params => ({ :id => 99999 }))
+        get(:show, :params => { :id => 99999 })
         parsed_response = JSON.parse(response.body)
         expect(parsed_response).to eq(nil)
       end
@@ -367,7 +367,7 @@ module Evidence
 
     context 'should update' do
       let!(:prompt) { create(:evidence_prompt) }
-      let!(:rule) { create(:evidence_rule, :prompt_ids => ([prompt.id])) }
+      let!(:rule) { create(:evidence_rule, :prompt_ids => [prompt.id]) }
 
       before do
         session[:user_id] = 1
@@ -375,7 +375,7 @@ module Evidence
 
       it 'should update record if valid, return nothing' do
         new_prompt = create(:evidence_prompt)
-        patch(:update, :params => ({ :id => rule.id, :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :prompt_ids => ([new_prompt.id]) }) }))
+        patch(:update, :params => { :id => rule.id, :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => rule.suborder, :rule_type => rule.rule_type, :universal => rule.universal, :prompt_ids => [new_prompt.id] } })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect([new_prompt.id]).to(eq(rule.reload.prompt_ids))
@@ -482,7 +482,7 @@ module Evidence
       end
 
       it 'should not update record and return errors as json' do
-        patch(:update, :params => ({ :id => rule.id, :rule => ({ :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => -1, :rule_type => rule.rule_type, :universal => rule.universal }) }))
+        patch(:update, :params => { :id => rule.id, :rule => { :concept_uid => rule.concept_uid, :note => rule.note, :name => rule.name, :optimal => rule.optimal, :state => rule.state, :suborder => -1, :rule_type => rule.rule_type, :universal => rule.universal } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['suborder'].include?('must be greater than or equal to 0')).to(eq(true))
@@ -543,14 +543,14 @@ module Evidence
 
       it 'should update a valid record with plagiarism_text attributes' do
         plagiarism_text = 'New plagiarism text'
-        patch(:update, :params => ({ :id => rule.id, :rule => ({ :plagiarism_texts_attributes => ([{ :text => plagiarism_text }]) }) }))
+        patch(:update, :params => { :id => rule.id, :rule => { :plagiarism_texts_attributes => [{ :text => plagiarism_text }] } })
         expect(plagiarism_text).to(eq(rule.reload.plagiarism_texts.first.text))
       end
 
       it 'should update nested feedback attributes if present' do
-        feedback = create(:evidence_feedback, :rule => (rule))
+        feedback = create(:evidence_feedback, :rule => rule)
         new_text = 'new text for the feedbacks object'
-        patch(:update, :params => ({ :id => rule.id, :rule => ({ :feedbacks_attributes => ([{ :id => feedback.id, :text => new_text }]) }) }))
+        patch(:update, :params => { :id => rule.id, :rule => { :feedbacks_attributes => [{ :id => feedback.id, :text => new_text }] } })
         expect(response.code.to_i).to(eq(204))
         expect(response.body).to(eq(''))
         feedback.reload
@@ -594,10 +594,10 @@ module Evidence
       end
 
       it 'should update nested highlight attributes in feedback if present' do
-        feedback = create(:evidence_feedback, :rule => (rule))
+        feedback = create(:evidence_feedback, :rule => rule)
         highlight = create(:evidence_highlight, :feedback => feedback)
         new_text = 'New text to highlight'
-        post(:update, :params => ({ :id => rule.id, :rule => ({ :feedbacks_attributes => ([{ :id => feedback.id, :highlights_attributes => ([{ :id => highlight.id, :text => new_text }]) }]) }) }))
+        post(:update, :params => { :id => rule.id, :rule => { :feedbacks_attributes => [{ :id => feedback.id, :highlights_attributes => [{ :id => highlight.id, :text => new_text }] }] } })
         expect(response.code.to_i).to(eq(204))
         expect(response.body).to(eq(''))
         highlight.reload
@@ -645,9 +645,9 @@ module Evidence
       end
 
       it 'should not update read-only nested label name' do
-        label = create(:evidence_label, :rule => (rule))
+        label = create(:evidence_label, :rule => rule)
         new_name = 'can not be updated'
-        post(:update, :params => ({ :id => rule.id, :rule => ({ :label_attributes => ({ :id => label.id, :name => new_name }) }) }))
+        post(:update, :params => { :id => rule.id, :rule => { :label_attributes => { :id => label.id, :name => new_name } } })
         expect(response.code.to_i).to(eq(204))
         label.reload
         expect((label.name != new_name)).to(be_truthy)
@@ -721,9 +721,9 @@ module Evidence
       end
 
       it 'should update nested regex rule attributes if present' do
-        regex_rule = create(:evidence_regex_rule, :rule => (rule))
+        regex_rule = create(:evidence_regex_rule, :rule => rule)
         new_text = 'new regex text'
-        post(:update, :params => ({ :id => rule.id, :rule => ({ :regex_rules_attributes => ([{ :id => regex_rule.id, :regex_text => new_text }]) }) }))
+        post(:update, :params => { :id => rule.id, :rule => { :regex_rules_attributes => [{ :id => regex_rule.id, :regex_text => new_text }] } })
         expect(response.code.to_i).to(eq(204))
         expect(response.body).to(eq(''))
         regex_rule.reload
@@ -731,9 +731,9 @@ module Evidence
       end
 
       it 'should return an error if regex is invalid' do
-        regex_rule = create(:evidence_regex_rule, :rule => (rule))
+        regex_rule = create(:evidence_regex_rule, :rule => rule)
         new_text = '(invalid|'
-        post(:update, :params => ({ :id => rule.id, :rule => ({ :regex_rules_attributes => ([{ :id => regex_rule.id, :regex_text => new_text }]) }) }))
+        post(:update, :params => { :id => rule.id, :rule => { :regex_rules_attributes => [{ :id => regex_rule.id, :regex_text => new_text }] } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['invalid_regex'][0].include?('end pattern with unmatched parenthesis')).to(eq(true))
@@ -762,7 +762,7 @@ module Evidence
       let!(:rule) { create(:evidence_rule) }
 
       it 'should destroy record at id' do
-        delete(:destroy, :params => ({ :id => rule.id }))
+        delete(:destroy, :params => { :id => rule.id })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect(rule.id).to(be_truthy)
@@ -771,7 +771,7 @@ module Evidence
 
       it 'should not error if provided an ID that does not exist' do
         expect do
-          delete(:destroy, :params => ({ :id => 'not_a_real_id' }))
+          delete(:destroy, :params => { :id => 'not_a_real_id' })
         end.not_to raise_error
       end
     end
@@ -782,7 +782,7 @@ module Evidence
       let!(:rule3) { create(:evidence_rule, :suborder => 77) }
 
       it 'should update the rules to have the suborders in the order of their ids' do
-        put(:update_rule_order, :params => ({ :ordered_rule_ids => ([rule2.id, rule3.id, rule1.id]) }))
+        put(:update_rule_order, :params => { :ordered_rule_ids => [rule2.id, rule3.id, rule1.id] })
         expect(response.code.to_i).to(eq(200))
         expect(rule2.reload.suborder).to(eq(0))
         expect(rule3.reload.suborder).to(eq(1))
@@ -790,7 +790,7 @@ module Evidence
       end
 
       it 'should return an error if any of the updated rules are invalid' do
-        put(:update_rule_order, :params => ({ :ordered_rule_ids => ([rule2.id, nil, rule1.id]) }))
+        put(:update_rule_order, :params => { :ordered_rule_ids => [rule2.id, nil, rule1.id] })
         expect(response.code.to_i).to(eq(422))
       end
     end

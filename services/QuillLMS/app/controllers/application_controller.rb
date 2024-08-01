@@ -90,12 +90,10 @@ class ApplicationController < ActionController::Base
   end
 
   def non_standard_route_redirect?(route)
-    (
-      route_redirects_to_my_account?(route) ||
+    route_redirects_to_my_account?(route) ||
       route_redirects_to_assign?(route) ||
       route_redirects_to_classrooms_index?(route) ||
       route_redirects_to_diagnostic?(route)
-    )
   end
 
   private def handle_invalid_authenticity_token

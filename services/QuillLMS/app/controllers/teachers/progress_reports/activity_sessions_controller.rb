@@ -42,7 +42,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     student_filter = params[:student_id].blank? ? '' : " AND activity_sessions.user_id = #{params[:student_id].to_i}"
     unit_filter = params[:unit_id].blank? ? '' : " AND classroom_units.unit_id = #{params[:unit_id].to_i}"
 
-    case (params[:sort_param])
+    case params[:sort_param]
     when 'student_id'
       sort_field = 'sorting_name'
     when 'activity_name'

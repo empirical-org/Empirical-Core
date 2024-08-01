@@ -94,9 +94,9 @@ module Evidence
 
     context 'should #determine_feedback_from_history' do
       let!(:rule) { create(:evidence_rule) }
-      let!(:feedback1) { create(:evidence_feedback, :rule => (rule), :order => 0, :text => 'Example feedback 1') }
-      let!(:feedback2) { create(:evidence_feedback, :rule => (rule), :order => 1, :text => 'Example feedback 2') }
-      let!(:feedback3) { create(:evidence_feedback, :rule => (rule), :order => 2, :text => 'Example feedback 3') }
+      let!(:feedback1) { create(:evidence_feedback, :rule => rule, :order => 0, :text => 'Example feedback 1') }
+      let!(:feedback2) { create(:evidence_feedback, :rule => rule, :order => 1, :text => 'Example feedback 2') }
+      let!(:feedback3) { create(:evidence_feedback, :rule => rule, :order => 2, :text => 'Example feedback 3') }
 
       it 'should fetch lowest order feedback if feedback history is empty' do
         feedback_history = []
@@ -134,8 +134,8 @@ module Evidence
     context 'should regex_is_passing?' do
       context 'when the regex rules are not conditional' do
         let!(:rule) { create(:evidence_rule) }
-        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Hello', :sequence_type => 'incorrect', :conditional => false) }
-        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Something', :sequence_type => 'incorrect', :conditional => false) }
+        let!(:regex_rule) { create(:evidence_regex_rule, :rule => rule, :regex_text => '^Hello', :sequence_type => 'incorrect', :conditional => false) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => rule, :regex_text => '^Something', :sequence_type => 'incorrect', :conditional => false) }
 
         it 'should be true if sequence_type is incorrect and entry does not match the regex text' do
           expect(rule.regex_is_passing?('Nope, I dont start with hello.')).to(eq(true))
@@ -184,16 +184,16 @@ module Evidence
           dual_rule = create(:evidence_rule)
           regex_rule_three = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => 'you need this sequence', :sequence_type => 'required', :case_sensitive => false)
           regex_rule_four = create(:evidence_regex_rule, :rule => dual_rule, :regex_text => 'but not this one', :sequence_type => 'incorrect', :case_sensitive => false)
-          expect((dual_rule.regex_is_passing?('you need this sequence but not this one'))).to(eq(false))
-          expect((dual_rule.regex_is_passing?('you need this sequence and this should pass'))).to(eq(true))
-          expect((dual_rule.regex_is_passing?("this fails because you don't have the needed sequence"))).to(eq(false))
+          expect(dual_rule.regex_is_passing?('you need this sequence but not this one')).to(eq(false))
+          expect(dual_rule.regex_is_passing?('you need this sequence and this should pass')).to(eq(true))
+          expect(dual_rule.regex_is_passing?("this fails because you don't have the needed sequence")).to(eq(false))
         end
       end
 
       context 'when the regex rules are conditional' do
         let!(:rule) { create(:evidence_rule) }
-        let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Conditional-start', :sequence_type => 'incorrect', :conditional => true) }
-        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => (rule), :regex_text => 'required-end.$', :sequence_type => 'required', :conditional => true) }
+        let!(:regex_rule) { create(:evidence_regex_rule, :rule => rule, :regex_text => '^Conditional-start', :sequence_type => 'incorrect', :conditional => true) }
+        let!(:regex_rule_two) { create(:evidence_regex_rule, :rule => rule, :regex_text => 'required-end.$', :sequence_type => 'required', :conditional => true) }
 
         it 'should require the required sequence if the incorrect sequence is present' do
           expect(rule.regex_is_passing?('Conditional-start that does not contain the right end.')).to(eq(false))
@@ -210,24 +210,24 @@ module Evidence
     context 'should one_plagiarism_per_prompt' do
       let!(:prompt1) { create(:evidence_prompt) }
       let!(:prompt2) { create(:evidence_prompt) }
-      let!(:plagiarism_rule) { create(:evidence_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([prompt1.id])) }
+      let!(:plagiarism_rule) { create(:evidence_rule, :rule_type => Rule::TYPE_PLAGIARISM, :prompt_ids => [prompt1.id]) }
 
       it 'should creates plagiarism rule if first rule for prompt' do
         expect(plagiarism_rule.valid?).to(eq(true))
       end
 
       it 'should does not create plagiarism rule if plagiarism rule already exists for prompt' do
-        invalid_plagiarism_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([prompt1.id]))
-        expect((invalid_plagiarism_rule.valid?)).to(eq(false))
+        invalid_plagiarism_rule = build(:evidence_rule, :rule_type => Rule::TYPE_PLAGIARISM, :prompt_ids => [prompt1.id])
+        expect(invalid_plagiarism_rule.valid?).to(eq(false))
       end
 
       it 'should creates subsequent plagiarism rule for different prompt' do
-        second_plagiarism_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_PLAGIARISM), :prompt_ids => ([prompt2.id]))
+        second_plagiarism_rule = build(:evidence_rule, :rule_type => Rule::TYPE_PLAGIARISM, :prompt_ids => [prompt2.id])
         expect(second_plagiarism_rule.valid?).to(eq(true))
       end
 
       it 'should create a different type of rule if it is not plagiarism' do
-        valid_automl_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompt_ids => ([prompt1.id]))
+        valid_automl_rule = build(:evidence_rule, :rule_type => Rule::TYPE_AUTOML, :prompt_ids => [prompt1.id])
         expect(valid_automl_rule.valid?).to(eq(true))
       end
     end
@@ -235,24 +235,24 @@ module Evidence
     context 'should one_low_confidence_per_prompt' do
       let!(:prompt1) { create(:evidence_prompt) }
       let!(:prompt2) { create(:evidence_prompt) }
-      let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt1.id])) }
+      let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => Rule::TYPE_LOW_CONFIDENCE, :prompt_ids => [prompt1.id]) }
 
       it 'should creates low_confidence rule if first rule for prompt' do
         expect(low_confidence_rule.valid?).to(eq(true))
       end
 
       it 'should does not create low_confidence rule if low_confidence rule already exists for prompt' do
-        invalid_low_confidence_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt1.id]))
+        invalid_low_confidence_rule = build(:evidence_rule, :rule_type => Rule::TYPE_LOW_CONFIDENCE, :prompt_ids => [prompt1.id])
         expect(invalid_low_confidence_rule.valid?).to(eq(false))
       end
 
       it 'should creates subsequent low_confidence rule for different prompt' do
-        second_low_confidence_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_LOW_CONFIDENCE), :prompt_ids => ([prompt2.id]))
+        second_low_confidence_rule = build(:evidence_rule, :rule_type => Rule::TYPE_LOW_CONFIDENCE, :prompt_ids => [prompt2.id])
         expect(second_low_confidence_rule.valid?).to(eq(true))
       end
 
       it 'should create a different type of rule if it is not low_confidence' do
-        valid_automl_rule = build(:evidence_rule, :rule_type => (Rule::TYPE_AUTOML), :prompt_ids => ([prompt1.id]))
+        valid_automl_rule = build(:evidence_rule, :rule_type => Rule::TYPE_AUTOML, :prompt_ids => [prompt1.id])
         expect(valid_automl_rule.valid?).to(eq(true))
       end
     end
@@ -275,7 +275,7 @@ module Evidence
 
         it 'should not assign newly created rules to prompts that somehow already have them assigned' do
           prompt = create(:evidence_prompt)
-          rule = create(:evidence_rule, :universal => true, :prompts => ([prompt]))
+          rule = create(:evidence_rule, :universal => true, :prompts => [prompt])
           expect(prompt.reload.rules.length).to eq 1
           expect(rule.reload.prompts).to include prompt
         end

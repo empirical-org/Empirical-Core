@@ -812,11 +812,6 @@ Style/RedundantCapitalW:
   Exclude:
     - 'config/initializers/sentry.rb'
 
-# Offense count: 380
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantParentheses:
-  Enabled: false
-
 # Offense count: 23
 # This cop supports safe autocorrection (--autocorrect).
 Style/RedundantPercentQ:

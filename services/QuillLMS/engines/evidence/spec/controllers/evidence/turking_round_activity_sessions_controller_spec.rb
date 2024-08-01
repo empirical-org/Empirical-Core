@@ -33,14 +33,14 @@ module Evidence
 
       it 'should create a valid record and return it as json' do
         turking_round = create(:evidence_turking_round)
-        post(:create, :params => ({ :turking_round_activity_session => ({ :turking_round_id => turking_round.id, :activity_session_uid => SecureRandom.uuid }) }))
+        post(:create, :params => { :turking_round_activity_session => { :turking_round_id => turking_round.id, :activity_session_uid => SecureRandom.uuid } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(TurkingRoundActivitySession.count).to(eq(1))
       end
 
       it 'should not create an invalid record and return errors as json' do
-        post(:create, :params => ({ :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
+        post(:create, :params => { :turking_round_activity_session => { :activity_session_uid => nil } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['activity_session_uid'].include?("can't be blank")).to(eq(true))
@@ -52,13 +52,13 @@ module Evidence
       let!(:turking_round_activity_session) { create(:evidence_turking_round_activity_session) }
 
       it 'should return json if found' do
-        get(:show, :params => ({ :id => turking_round_activity_session.id }))
+        get(:show, :params => { :id => turking_round_activity_session.id })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
       end
 
       it 'should raise if not found (to be handled by parent app)' do
-        expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
+        expect { get(:show, :params => { :id => 99999 }) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
 
@@ -67,7 +67,7 @@ module Evidence
 
       it 'should update record if valid, return nothing' do
         new_session_uid = SecureRandom.uuid
-        patch(:update, :params => ({ :id => turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => new_session_uid }) }))
+        patch(:update, :params => { :id => turking_round_activity_session.id, :turking_round_activity_session => { :activity_session_uid => new_session_uid } })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         turking_round_activity_session.reload
@@ -75,7 +75,7 @@ module Evidence
       end
 
       it 'should not update record and return errors as json' do
-        patch(:update, :params => ({ :id => turking_round_activity_session.id, :turking_round_activity_session => ({ :activity_session_uid => nil }) }))
+        patch(:update, :params => { :id => turking_round_activity_session.id, :turking_round_activity_session => { :activity_session_uid => nil } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['activity_session_uid'].include?("can't be blank")).to(eq(true))
@@ -86,7 +86,7 @@ module Evidence
       let!(:turking_round_activity_session) { create(:evidence_turking_round_activity_session) }
 
       it 'should destroy record at id' do
-        delete(:destroy, :params => ({ :id => turking_round_activity_session.id }))
+        delete(:destroy, :params => { :id => turking_round_activity_session.id })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect(turking_round_activity_session.id).to(be_truthy)
@@ -95,14 +95,14 @@ module Evidence
     end
 
     context 'should validate' do
-      let!(:archived_activity) { Evidence.parent_activity_class.create(:name => 'Archived Activity', :flags => (['archived'])) }
+      let!(:archived_activity) { Evidence.parent_activity_class.create(:name => 'Archived Activity', :flags => ['archived']) }
       let!(:unarchived_activity) { Evidence.parent_activity_class.create(:name => 'Unarchived Activity') }
       let!(:turking_round) { create(:evidence_turking_round, expires_at: 1.second.from_now) }
       let!(:activity) { create(:evidence_activity, parent_activity_id: unarchived_activity.id) }
 
       it 'should return false if turking round is expired' do
         sleep(2.seconds)
-        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }))
+        get(:validate, :params => { :turking_round_id => turking_round.id, :activity_id => activity.id })
         expect(JSON.parse(response.body)).to(eq(false))
         expect(response.code.to_i).to(eq(200))
       end
@@ -110,14 +110,14 @@ module Evidence
       it 'should return false if the parent activity is archived' do
         turking_round.update(expires_at: 1.day.from_now)
         activity.update(parent_activity_id: archived_activity.id)
-        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }))
+        get(:validate, :params => { :turking_round_id => turking_round.id, :activity_id => activity.id })
         expect(JSON.parse(response.body)).to(eq(false))
         expect(response.code.to_i).to(eq(200))
       end
 
       it 'should return true if turking round is not expired and parent activity is not archived' do
         turking_round.update(expires_at: 1.day.from_now)
-        get(:validate, :params => ({ :turking_round_id => turking_round.id, :activity_id => activity.id }))
+        get(:validate, :params => { :turking_round_id => turking_round.id, :activity_id => activity.id })
         expect(JSON.parse(response.body)).to(eq(true))
         expect(response.code.to_i).to(eq(200))
       end

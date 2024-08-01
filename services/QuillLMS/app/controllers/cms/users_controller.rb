@@ -233,21 +233,21 @@ class Cms::UsersController < Cms::CmsController
 
     case param
     when 'user_name'
-      "users.name ILIKE #{(sanitized_fuzzy_param_value)}"
+      "users.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'user_role'
-      "users.role = #{(sanitized_param_value)}"
+      "users.role = #{sanitized_param_value}"
     when 'user_username'
-      "users.username ILIKE #{(sanitized_fuzzy_param_value)}"
+      "users.username ILIKE #{sanitized_fuzzy_param_value}"
     when 'user_email_exact'
-      "users.email = LOWER(TRIM(#{(sanitized_param_value)}))"
+      "users.email = LOWER(TRIM(#{sanitized_param_value}))"
     when 'user_email'
-      "users.email ILIKE #{(sanitized_fuzzy_param_value)}"
+      "users.email ILIKE #{sanitized_fuzzy_param_value}"
     when 'flagset'
-      "users.flagset = #{(sanitized_param_value)}"
+      "users.flagset = #{sanitized_param_value}"
     when 'user_ip'
-      "users.ip_address = #{(sanitized_param_value)}"
+      "users.ip_address = #{sanitized_param_value}"
     when 'school_name'
-      "schools.name ILIKE #{(sanitized_fuzzy_param_value)}"
+      "schools.name ILIKE #{sanitized_fuzzy_param_value}"
     when 'user_premium_status'
       "subscriptions.account_type IN (#{sanitized_param_value})"
     else

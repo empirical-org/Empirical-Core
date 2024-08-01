@@ -16,7 +16,6 @@ module PublicPagesHelper
   EVIDENCE_HANDBOOK_URL = 'https://docsend.com/view/29vcfdqa5aupkmfp'
 
   def render_react_component?(current_user)
-    (current_user)
     !!(current_user && current_user.email != Demo::ReportDemoCreator::EMAIL)
   end
 

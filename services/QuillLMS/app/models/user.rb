@@ -997,7 +997,7 @@ class User < ApplicationRecord
   end
 
   private def school_type_account_info
-    return (School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME) if school&.name
+    return School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME if school&.name
 
     School::US_K12_SCHOOL_DISPLAY_NAME
   end

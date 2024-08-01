@@ -186,7 +186,7 @@ class Activity < ApplicationRecord
     url = Addressable::URI.parse(classification.form_url)
 
     if uid.present?
-      params = (url.query_values || {})
+      params = url.query_values || {}
       params[:uid] = uid
       url.query_values = params
     end
@@ -406,7 +406,7 @@ class Activity < ApplicationRecord
 
   private def construct_redirect_url(base_url, initial_params)
     @url = Addressable::URI.parse(base_url)
-    params = (@url.query_values || {})
+    params = @url.query_values || {}
     params.merge!(initial_params)
     @url.query_values = params
     fix_angular_fragment!
@@ -418,7 +418,7 @@ class Activity < ApplicationRecord
     return evidence_url_helper(initial_params) if classification.key == ActivityClassification::EVIDENCE_KEY
 
     @url = Addressable::URI.parse(classification.module_url)
-    params = (@url.query_values || {})
+    params = @url.query_values || {}
     params.merge!(initial_params)
     params[:uid] = uid if uid.present?
     @url.query_values = params

@@ -56,9 +56,9 @@ module VitallyIntegration
         activities_completed_this_year: activities_completed_this_year,
         activities_completed_last_year: activities_completed_last_year,
         activities_completed_all_time: activities_completed_all_time,
-        activities_completed_per_student_this_year: active_students_this_year > 0 ? ((activities_completed_this_year.to_f / active_students_this_year).round(2)) : 0,
-        activities_completed_per_student_last_year: active_students_last_year > 0 ? ((activities_completed_last_year.to_f / active_students_last_year).round(2)) : 0,
-        activities_completed_per_student_all_time: active_students_all_time > 0 ? ((activities_completed_all_time.to_f / active_students_all_time).round(2)) : 0,
+        activities_completed_per_student_this_year: active_students_this_year > 0 ? (activities_completed_this_year.to_f / active_students_this_year).round(2) : 0,
+        activities_completed_per_student_last_year: active_students_last_year > 0 ? (activities_completed_last_year.to_f / active_students_last_year).round(2) : 0,
+        activities_completed_per_student_all_time: active_students_all_time > 0 ? (activities_completed_all_time.to_f / active_students_all_time).round(2) : 0,
         last_active_time: last_active_time,
       }
     end
