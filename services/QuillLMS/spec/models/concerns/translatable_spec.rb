@@ -11,7 +11,7 @@ RSpec.describe Translatable do
         'TranslatableTestModel'
       end
 
-      def self.custom_prompt
+      def custom_prompt
         'Test prompt'
       end
 
@@ -19,7 +19,7 @@ RSpec.describe Translatable do
         'test_text'
       end
 
-      def self.config_file = Rails.root.join('app/models/translation_config/concept_feedback.yml')
+      private def config_file = Rails.root.join('app/models/translation_config/concept_feedback.yml')
     end
   end
 
@@ -208,7 +208,7 @@ RSpec.describe Translatable do
 
     context 'when using OpenAI as the source' do
       let(:source_api) { Translatable::OPEN_AI_SOURCE }
-      let(:prompt) { TranslatableTestModel.open_ai_prompt(locale:) }
+      let(:prompt) { translatable_object.open_ai_prompt(locale:) }
 
       context 'there is not an existing translation' do
         it 'calls OpenAI::TranslateAndSaveText for each English text' do
@@ -272,15 +272,15 @@ RSpec.describe Translatable do
     it 'returns the expected prompt' do
       expected = TranslationPrompts.prompt_start(locale:)
       expected += "Test prompt\n text to translate: "
-      expect(TranslatableTestModel.open_ai_prompt(locale:)).to eq(expected)
+      expect(translatable_object.open_ai_prompt(locale:)).to eq(expected)
     end
 
     it 'adds in the example_json' do
       filename = 'question.yml'
-      allow(TranslatableTestModel).to receive(:config_file).and_return(Rails.root.join('app/models/translation_config', filename))
-      prompt = TranslatableTestModel.open_ai_prompt(locale:)
-      expect(prompt).to match(TranslatableTestModel.send(:examples))
-      expect(TranslatableTestModel.send(:examples)).to match('1. English: "Combine the sentences')
+      allow(translatable_object).to receive(:config_file).and_return(Rails.root.join('app/models/translation_config', filename))
+      prompt = translatable_object.open_ai_prompt(locale:)
+      expect(prompt).to match(translatable_object.send(:examples))
+      expect(translatable_object.send(:examples)).to match('1. English: "Combine the sentences')
     end
   end
 end

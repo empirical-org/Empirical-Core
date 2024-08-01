@@ -57,7 +57,6 @@ module Translatable
     has_many :gengo_jobs, through: :english_texts
 
     class_attribute :default_translatable_field, default: nil
-    include TranslatablePrompts
   end
 
   def create_translation_mappings
@@ -87,13 +86,37 @@ module Translatable
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
       texts = force ? english_texts : english_texts.reject { |e| e.translated?(locale:) }
-      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: self.class.open_ai_prompt(locale:), locale:) }
+      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: open_ai_prompt(locale:), locale:) }
     end
     translation(locale:, source_api:)
   end
 
   def fetch_translations!
     gengo_jobs.each(&:fetch_translation!)
+  end
+
+  def open_ai_prompt(locale:)
+    "#{TranslationPrompts.prompt_start(locale:)}#{custom_prompt}#{examples}\n text to translate: "
+  end
+
+  private def custom_prompt
+    config_yaml['custom_prompt']
+  end
+
+  private def config_filename = "#{self.class.name.underscore}.yml"
+  private def config_file = Rails.root.join('app/models/translation_config', config_filename)
+  private def config_yaml = YAML.load_file(config_file)
+
+  private def examples
+    examples = config_yaml['examples']
+    return '' unless examples.present?
+
+    formatted_examples = "Examples: \n"
+    examples.each_with_index do |example, index|
+      formatted_examples += "#{index + 1}. English: \"#{example['english']}\"\n"
+      formatted_examples += "   Spanish: \"#{example['spanish']}\"\n\n"
+    end
+    formatted_examples
   end
 
   private def translatable_text
