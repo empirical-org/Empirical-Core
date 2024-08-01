@@ -786,23 +786,6 @@ Style/MixinUsage:
 Style/MutableConstant:
   Enabled: false
 
-# Offense count: 13
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'app/helpers/email_api_helper.rb'
-    - 'app/models/concerns/public_progress_reports.rb'
-    - 'app/models/concerns/student.rb'
-    - 'app/queries/progress_reports/activities_scores_by_classroom.rb'
-    - 'app/workers/concept_replacement_connect_worker.rb'
-    - 'app/workers/concept_replacement_grammar_worker.rb'
-    - 'db/migrate/20201023212528_populate_topics.rb'
-    - 'lib/tasks/add_user_id_to_units.rake'
-    - 'lib/tasks/convert_activity_session_timetracking_data.rake'
-    - 'lib/tasks/convert_to_markdown.rake'
-    - 'lib/tasks/reset_admin_caches.rake'
 
 # Offense count: 243
 # This cop supports safe autocorrection (--autocorrect).

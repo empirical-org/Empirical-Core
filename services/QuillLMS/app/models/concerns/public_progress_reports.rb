@@ -107,15 +107,15 @@ module PublicProgressReports
         cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
         classroom = cu.classroom.attributes
         activity_sessions = cu.completed_activity_sessions
-        if activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
-          class_id = classroom['id']
-          h[class_id] ||= classroom
-          h[class_id][:classroom_unit_id] = cu.id
-          activity_sessions.each do |activity_session|
-            h[class_id][:students] ||= []
-            if h[class_id][:students].exclude? activity_session.user
-              h[class_id][:students] << activity_session.user
-            end
+        next unless activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+
+        class_id = classroom['id']
+        h[class_id] ||= classroom
+        h[class_id][:classroom_unit_id] = cu.id
+        activity_sessions.each do |activity_session|
+          h[class_id][:students] ||= []
+          if h[class_id][:students].exclude? activity_session.user
+            h[class_id][:students] << activity_session.user
           end
         end
       end

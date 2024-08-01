@@ -18,12 +18,12 @@ module EmailApiHelper
     if response['responses']
       response['responses'].each do |resp|
         # only collect feedback responses if there was a comment left
-        if resp['feedback']
-          result = {}
-          result['rating'] = resp['rating']
-          result['feedback'] = resp['feedback']
-          results << result
-        end
+        next unless resp['feedback']
+
+        result = {}
+        result['rating'] = resp['rating']
+        result['feedback'] = resp['feedback']
+        results << result
       end
     end
     results
