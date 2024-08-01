@@ -98,27 +98,27 @@ module PagesHelper
           },
           {
             name: 'Shannon Browne',
-            title: 'Professional Learning Manager',
+            title: 'Director of Partner Success',
             img: 'team-shannon-browne.webp'
           },
           {
             name: 'Rachel Calabrese',
-            title: 'Lead Curriculum Developer',
+            title: 'Language Skills Curriculum Manager II',
             img: 'team-rachel-calabrese.webp'
           },
           {
             name: 'Nattalie Dai',
-            title: 'Senior Partnerships Specialist',
+            title: 'Lead Implementation Specialist',
             img: 'team-nattalie-dai.webp'
           },
           {
             name: 'Ellie Dean',
-            title: 'Finance & Operations Manager I',
+            title: 'Finance & Operations Manager II',
             img: 'team-ellie-dean.webp'
           },
           {
             name: 'Nikki DeMichael',
-            title: 'Partnerships Specialist I',
+            title: 'Implementation Specialist I',
             img: 'team-nikki-demichael.webp'
           },
           {
@@ -143,12 +143,12 @@ module PagesHelper
           },
           {
             name: 'Charlie Looper',
-            title: 'Partnerships Specialist II',
+            title: 'Lead Partnerships Specialist',
             img: 'team-charlie-looper.webp'
           },
           {
             name: 'Stephanee McCadney',
-            title: 'Senior Curriculum Developer',
+            title: 'Lead Curriculum Developer',
             img: 'team-stephanee-mccadney.webp'
           },
           {
@@ -158,12 +158,12 @@ module PagesHelper
           },
           {
             name: 'Scarlet Melo',
-            title: 'Instructional Coach',
+            title: 'Professional Learning Specialist II',
             img: 'team-scarlet-melo.webp'
           },
           {
             name: 'Jamie Monville',
-            title: 'Associate Curriculum Product Manager',
+            title: 'Senior Product Manager I',
             img: 'team-jamie-monville.webp',
             srcset: {
               '2x' => 'team-jamie-monville.webp'
@@ -171,17 +171,17 @@ module PagesHelper
           },
           {
             name: 'Katie Moylan',
-            title: 'Lead Social Studies Curriculum Developer',
+            title: 'Social Studies Curriculum Director',
             img: 'team-katie-moylan.webp'
           },
           {
             name: 'Alex Otstott',
-            title: 'Director of District Partnerships',
+            title: 'Sales Director',
             img: 'team-alex-otstott.webp'
           },
           {
             name: 'Erika Parker-Havens',
-            title: 'Professional Learning Manager',
+            title: 'Director of Professional Learning',
             img: 'team-erika-parker-havens.webp'
           },
           {
