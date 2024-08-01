@@ -59,6 +59,7 @@ const TeacherCenterArticleCard = ({ blogPostId, }) => {
 
     return(
       <PreviewCard
+        color="teal"
         content={preview_card_content}
         externalLink={!!external_link}
         key={title}
@@ -92,7 +93,7 @@ const overview = (
             <h2>World History</h2>
             <span>1750 CE - Present</span>
           </div>
-          <button className="quill-button focus-on-light medium disabled grey" disabled={true} type="button">View activities</button>
+          <button className="quill-button focus-on-light medium disabled contained" disabled={true} type="button">View activities</button>
         </div>
       </div>
     </div>
@@ -148,9 +149,9 @@ const teacherQuotes = (
 )
 
 const oerProject = (
-  <section className="oer-project">
+  <section className="oer-project container">
     <img alt="Quill logo plus OER Project logo" src={quillPlusOERProjectLogoSrc} />
-    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER curriculum, these resources are a valuable addition to any high school world history classroom.</p>
+    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
   </section>
 )
 
@@ -180,7 +181,7 @@ const tryItOutForYourself = (
 
 const SocialStudiesSubjectPage = ({}) => {
   return (
-    <div className="social-studies-subject-page">
+    <div className="social-studies-subject-page subject-page">
       {overview}
       {summary}
       {teacherQuotes}

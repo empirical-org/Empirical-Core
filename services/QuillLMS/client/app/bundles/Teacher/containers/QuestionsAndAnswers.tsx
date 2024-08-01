@@ -75,7 +75,7 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
-          <h1>Questions and Answers</h1>
+          <h2>Questions and Answers</h2>
           {this.renderQuestionsAndAnswers()}
           <a className={style} href={supportLink}>View all questions and answers</a>
         </div>

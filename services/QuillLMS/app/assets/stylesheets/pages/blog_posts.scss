@@ -37,7 +37,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 }
 
 .topic-section, .preview-card-link {
-  .quill-button-archived:hover, .quill-button-archived:focus {
+  .quill-button:hover, .quill-button:focus {
     filter: brightness(110%) !important;
   }
   &.green {
@@ -47,13 +47,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightgreen;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostgreen;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostgreen;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostgreen;
     }
   }
@@ -64,13 +64,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightpurple;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostpurple;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostpurple !important;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostpurple;
     }
   }
@@ -81,13 +81,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightblue;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostblue;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostblue !important;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostblue;
     }
   }
@@ -98,13 +98,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightgold;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostgold;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostgold !important;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostgold;
     }
   }
@@ -115,13 +115,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightred;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostred;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostred !important;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostred;
     }
   }
@@ -132,13 +132,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightviolet;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostviolet;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostviolet !important;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostviolet;
     }
   }
@@ -149,13 +149,13 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     h3 {
       background-color: $blogpostlightteal;
     }
-    .quill-button-archived {
+    .quill-button {
       background-color: $blogpostteal;
     }
-    .quill-button-archived:hover, .quill-button-archived:focus {
+    .quill-button:hover, .quill-button:focus {
       background-color: $blogpostteal !important;
     }
-    .quill-button-archived:focus {
+    .quill-button:focus {
       outline: dashed 2px $blogpostteal;
     }
   }
@@ -208,8 +208,8 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 
 .preview-card-link {
   position: relative;
-  height: 326px;
-  .quill-button-archived {
+  height: 312px;
+  .quill-button {
     position: absolute;
     bottom: 16px;
     right: 16px;
@@ -319,12 +319,12 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
 }
 
 .preview-card {
-  height: 326px;
+  height: 312px;
   margin: 0 0 20px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   background-color: white;
-  padding: 16px;
-  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+  border-radius: 16px;
+  border: 1px solid $quill-grey-10;
 
   .video-holder {
     border-radius: 6px 6px 0 0;
@@ -341,6 +341,7 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
     padding-bottom: 16px;
     border-bottom: 1px solid $quill-grey-15;
     overflow: hidden;
+    border-radius: 16px 16px 0px 0px;
 
     .button-container {
       display: flex;
@@ -354,14 +355,16 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
-      line-height: 20px;
       margin-top: 16px;
       height: 80px;
-      color: #565656;
+      color: $quill-grey-50;
       -webkit-line-clamp: 4;
       text-overflow: ellipsis;
       overflow: hidden;
       line-clamp: 4;
+      padding: 0px 16px;
+      line-height: normal;
+
     }
 
     h3 {
@@ -370,21 +373,23 @@ $blogpostlightteal: rgba(44, 127, 155, 0.08);
       letter-spacing: 0.2px;
       height: 132px;
       padding: 16px;
-      border-radius: 8px;
-      font-weight: 600;
+      border-radius: 8px 8px 0px 0px;
+      font-weight: 700;
       font-size: 20px;
       line-height: 23px;
       letter-spacing: 0.2px;
+      box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid $quill-grey-10;
     }
 
   }
 
   .preview-card-footer {
-    padding: 23.5px 0px;
-    color: #565656;
+    padding: 23.5px 16px;
+    font-size: 13px;
     font-weight: 600;
-    font-size: 14px;
-    line-height: 16px;
+    line-height: normal;
+    color: $quill-grey-90;
   }
 }
 
@@ -658,7 +663,7 @@ a.all-blog-posts-back-button {
       }
     }
     .preview-card, .preview-card-link {
-      min-height: 326px;
+      min-height: 312px;
       height: min-content;
       margin-bottom: 0px;
       .preview-card-body {
