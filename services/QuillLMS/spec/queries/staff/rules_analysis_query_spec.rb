@@ -15,13 +15,13 @@ module Staff
 
         example_bigquery_result = [
           {
-            :id => rule.id,
+            :id => rule.id
           }
         ]
 
         expected = {
           first_feedback: 'a' * 10,
-          second_feedback: 'b' * 10,
+          second_feedback: 'b' * 10
         }
 
         expect(

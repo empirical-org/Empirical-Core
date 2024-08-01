@@ -34,7 +34,7 @@ module Evidence
           temperature: temperature,
           input: input,
           instruction: instruction,
-          n: [count.to_i, Evidence::OpenAI::MAX_COUNT].min,
+          n: [count.to_i, Evidence::OpenAI::MAX_COUNT].min
         }
       end
     end

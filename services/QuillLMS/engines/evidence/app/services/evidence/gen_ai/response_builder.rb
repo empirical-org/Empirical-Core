@@ -39,7 +39,7 @@ module Evidence
           concept_uid: rule&.concept_uid,
           rule_uid:,
           hint: nil,
-          highlight:,
+          highlight:
         }
       end
 

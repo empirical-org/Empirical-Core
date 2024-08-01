@@ -35,7 +35,7 @@ module AdminDiagnosticReports
         {
           name: aggregate_row_name1,
           pre_students_assigned: assigned1,
-          pre_students_completed: completed1,
+          pre_students_completed: completed1
         }
       ]
     end

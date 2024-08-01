@@ -61,7 +61,7 @@ def evidence_text_helper
     },
     third_attempt: {
       large: '<p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane. Since the key ideas are in place, Quill now provides a mini-lesson on the grammar errors in their response. Quill only provides grammar and spelling feedback once the student has written a strong response with the key ideas from the text.</p>'.html_safe,
-      small: '<p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane.</p>'.html_safe,
+      small: '<p>The student strengthened their evidence by adding a precise statistic from the text that explains how significantly seaweed impacts methane.</p>'.html_safe
     },
     fourth_attempt: {
       large: '<p>At this point the student has now written a precise, textually-supported sentence. Students often come into the tool writing vague or inaccurate statements, and through multiple rounds of practice, feedback, and revision, students gain the ability to utilize precise evidence in their responses.</p>'.html_safe,

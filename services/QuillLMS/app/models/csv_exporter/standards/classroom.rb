@@ -23,7 +23,7 @@ module CsvExporter::Standards
         json_hash[:total_student_count],
         json_hash[:proficient_student_count],
         json_hash[:not_proficient_student_count],
-        json_hash[:total_standard_count],
+        json_hash[:total_standard_count]
       ]
     end
 

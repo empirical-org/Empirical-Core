@@ -66,7 +66,7 @@ describe TimeTrackingCleaner do
       },
       'time_tracking_edits' => {
         'since' => 99999,
-        'so' => 9999999,
+        'so' => 9999999
       }
     }
   end
@@ -93,7 +93,7 @@ describe TimeTrackingCleaner do
       },
       'time_tracking_edits' => {
         'so' => 9999999,
-        'but' => 999999,
+        'but' => 999999
       }
     }
   end

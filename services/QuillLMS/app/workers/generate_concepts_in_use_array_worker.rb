@@ -10,7 +10,7 @@ class GenerateConceptsInUseArrayWorker
     'SF_QUESTIONS' => 'connect_sentence_fragments',
     'D_QUESTIONS' => 'diagnostic_sentence_combining',
     'D_FIB_QUESTIONS' => 'diagnostic_fill_in_blanks',
-    'D_SF_QUESTIONS' => 'diagnostic_sentence_fragments',
+    'D_SF_QUESTIONS' => 'diagnostic_sentence_fragments'
   }.freeze
 
   CONCEPTS_IN_USE = [%w(

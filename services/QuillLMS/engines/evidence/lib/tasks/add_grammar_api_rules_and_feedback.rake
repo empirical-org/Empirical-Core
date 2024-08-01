@@ -20,7 +20,7 @@ namespace :grammar_api_rules_and_feedback do
           rule_type: r['Module'] == 'Grammar API' ? 'grammar' : 'opinion',
           optimal: false,
           suborder: r['Rule Suborder'],
-          state: 'active',
+          state: 'active'
         }
         created_rule.save!
 

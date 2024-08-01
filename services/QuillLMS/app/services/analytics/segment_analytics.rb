@@ -290,7 +290,7 @@ module Analytics
         track({
           user_id: admin.id,
           event: Analytics::SegmentIo::BackgroundEvents::ADMIN_INVITED_BY_TEACHER,
-          properties: properties,
+          properties: properties
         })
       else
         identify_anonymous_user({ anonymous_id: admin_email, traits: { email: admin_email, name: admin_name } })

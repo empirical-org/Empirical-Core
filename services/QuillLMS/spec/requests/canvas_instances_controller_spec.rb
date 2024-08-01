@@ -164,7 +164,7 @@ RSpec.describe CanvasInstancesController do
 
       let(:valid_params) do
         {
-          id: canvas_instance.id,
+          id: canvas_instance.id
         }
       end
 

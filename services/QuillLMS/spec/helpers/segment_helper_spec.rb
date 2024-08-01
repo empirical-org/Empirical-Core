@@ -75,7 +75,7 @@ describe SegmentioHelper do
       request = RequestStruct.new(nil, nil)
       properties = {
         'test1': 1,
-        'test2': 2,
+        'test2': 2
       }
       formatted_properties = format_analytics_properties(request, properties)
       properties.keys.each do |property|

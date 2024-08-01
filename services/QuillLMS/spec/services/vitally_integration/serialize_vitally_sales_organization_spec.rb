@@ -63,7 +63,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           activities_completed_per_student_this_year: 0,
           activities_completed_per_student_last_year: 0,
           activities_completed_per_student_all_time: 0,
-          last_active_time: nil,
+          last_active_time: nil
         }
       })
     end

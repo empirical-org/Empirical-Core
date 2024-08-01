@@ -17,7 +17,7 @@ describe LessonRecommendationsQuery do
       expect(subject.rec_activities(unit_template.id).first).to eq(
         {
           name: activity.name,
-          url: "#{activity_classification.form_url}customize/#{activity.uid}?&preview=true",
+          url: "#{activity_classification.form_url}customize/#{activity.uid}?&preview=true"
         }
       )
     end
@@ -74,7 +74,7 @@ describe LessonRecommendationsQuery do
                     },
                     {
                       concept_id: 'QNkNRs8zbCXU7nLBeo4mgA',
-                      count: 1,
+                      count: 1
                     }
                   ],
                 previously_assigned: true
@@ -87,7 +87,7 @@ describe LessonRecommendationsQuery do
                   [
                     {
                       concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
-                      count: 1,
+                      count: 1
                     }
                   ],
                 previously_assigned: true
@@ -210,7 +210,7 @@ describe LessonRecommendationsQuery do
                     },
                     {
                       concept_id: 'QNkNRs8zbCXU7nLBeo4mgA',
-                      count: 1,
+                      count: 1
                     }
                   ]
               },
@@ -222,7 +222,7 @@ describe LessonRecommendationsQuery do
                   [
                     {
                       concept_id: 'oCQCO1_eVXQ2zqw_7QOuBw',
-                      count: 1,
+                      count: 1
                     }
                   ]
               },
@@ -346,7 +346,7 @@ describe LessonRecommendationsQuery do
                   concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
                   count: 1,
                   noIncorrect: true
-                },
+                }
 
               ],
               previously_assigned: true

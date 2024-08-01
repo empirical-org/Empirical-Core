@@ -42,7 +42,7 @@ class Demo::CreateAdminReport
     email_safe_last_name = teacher_name.split.last.downcase.gsub(/[^a-zA-Z\d]/, '').gsub(/\s/, '')
     user = User.find_or_initialize_by(
       name: teacher_name,
-      email: "hello+admindemo-#{email_safe_last_name}.#{school.id}@quill.org",
+      email: "hello+admindemo-#{email_safe_last_name}.#{school.id}@quill.org"
     )
     user.update(password: SecureRandom.urlsafe_base64, role: User::TEACHER)
 

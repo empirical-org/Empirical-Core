@@ -26,7 +26,7 @@ class SerializeActivityHealth
       avg_mins_to_complete: avg_mins_to_complete,
       avg_difficulty: average(prompt_data, :difficulty),
       avg_common_unmatched: average(prompt_data, :percent_common_unmatched),
-      standard_dev_difficulty: standard_deviation(prompt_data, :difficulty),
+      standard_dev_difficulty: standard_deviation(prompt_data, :difficulty)
     }
   end
 

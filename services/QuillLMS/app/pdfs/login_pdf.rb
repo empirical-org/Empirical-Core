@@ -12,7 +12,7 @@ class LoginPdf < Prawn::Document
         :normal => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans.ttf",
         :bold => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-Bold.ttf",
         :italic => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-Oblique.ttf",
-        :bold_italic => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-BoldOblique.ttf",
+        :bold_italic => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-BoldOblique.ttf"
       }
     )
     render_login_pdf

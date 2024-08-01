@@ -26,7 +26,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
       create(:classroom_unit,
         classroom: classroom,
         assigned_student_ids: [],
-        unit: unit,)
+        unit: unit)
     end
 
     let!(:unit_activity) do

@@ -166,7 +166,7 @@ RSpec.describe FeedbackHistory, type: :model do
         feedback: 'write better',
         feedback_type: 'grammar',
         optimal: false,
-        highlight: [],
+        highlight: []
       }
     }
 

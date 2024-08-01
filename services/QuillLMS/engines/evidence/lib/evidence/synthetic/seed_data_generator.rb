@@ -42,7 +42,7 @@ module Evidence
       CONJUNCTION_EXCLUSIONS = {
         SO => [/^that/],
         BUT => [],
-        BECAUSE => [/^of/],
+        BECAUSE => [/^of/]
       }
 
       attr_reader :passage, :stem, :conjunction, :nouns, :results, :label_configs, :use_passage, :batch

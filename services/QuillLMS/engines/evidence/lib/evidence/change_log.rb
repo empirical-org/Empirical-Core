@@ -67,7 +67,7 @@ module Evidence
           note: row.explanation,
           start_date: row.created_at,
           end_date: next_version ? next_version.created_at : Time.current,
-          new_value: row.new_value,
+          new_value: row.new_value
         }
 
         include_count ? version_data.merge(session_count: session_count(row, id)) : version_data

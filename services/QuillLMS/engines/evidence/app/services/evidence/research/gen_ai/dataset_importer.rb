@@ -31,7 +31,7 @@ module Evidence
               curriculum_label: row['Optional - Curriculum Label'],
               curriculum_proposed_feedback: row['Curriculum Proposed Feedback'],
               highlight: row['Optional - Highlight'],
-              student_response: row['Student Response'],
+              student_response: row['Student Response']
             }
 
             if data_partition == 'test'

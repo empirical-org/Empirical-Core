@@ -20,7 +20,7 @@ module GoogleIntegration
         first_name: first_name,
         last_name: last_name,
         name: name,
-        user_external_id: user_external_id,
+        user_external_id: user_external_id
       }
     end
 

@@ -88,7 +88,7 @@ class RuleFeedbackHistory
         strong_responses: r.total_strong,
         weak_responses: r.total_weak,
         repeated_consecutive_responses: r.repeated_consecutive,
-        repeated_non_consecutive_responses: r.repeated_non_consecutive,
+        repeated_non_consecutive_responses: r.repeated_non_consecutive
       }
     end
   end

@@ -110,7 +110,7 @@ describe Api::V1::FeedbackHistoriesController, type: :controller do
             metadata: {
               foo: 'bar'
             }
-          },
+          }
         },
         as: :json
 

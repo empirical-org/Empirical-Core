@@ -5,7 +5,7 @@ INSTANCES = {
   1 => {
     name: 'airbyte2',
     port: 8001,
-    tables: 'concept_results (prefix: special)',
+    tables: 'concept_results (prefix: special)'
   },
   2 => {
     name: 'airbyte-indigo',

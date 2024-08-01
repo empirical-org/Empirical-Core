@@ -39,7 +39,7 @@ describe ResultsSummary do
               student1.name => 0.5,
               student3.name => 1.0
             },
-            question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
+            question_uids: skill_group_activity.skill_group.questions.pluck(:uid)
           }
         ],
         student_results: [
@@ -78,14 +78,14 @@ describe ResultsSummary do
                 id: skill_group_activity.skill_group.id,
                 number_correct: 1,
                 number_incorrect: 1,
-                summary: ResultsSummary::PARTIALLY_CORRECT,
+                summary: ResultsSummary::PARTIALLY_CORRECT
               }
             ],
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 0,
             total_possible_questions_count: 2,
             correct_question_text: '1 of 2 Questions Correct',
-            correct_skill_groups_text: '0 of 1 Skills',
+            correct_skill_groups_text: '0 of 1 Skills'
           },
           {
             name: student2.name
@@ -116,14 +116,14 @@ describe ResultsSummary do
                 id: skill_group_activity.skill_group.id,
                 number_correct: 1,
                 number_incorrect: 0,
-                summary: ResultsSummary::FULLY_CORRECT,
+                summary: ResultsSummary::FULLY_CORRECT
               }
             ],
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 1,
             total_possible_questions_count: 1,
             correct_question_text: '1 of 1 Questions Correct',
-            correct_skill_groups_text: '1 of 1 Skills',
+            correct_skill_groups_text: '1 of 1 Skills'
           }
         ]
       })
@@ -161,7 +161,7 @@ describe ResultsSummary do
                     number_incorrect: 0,
                     proficiency_score: 1,
                     summary: ResultsSummary::FULLY_CORRECT,
-                    question_uid: diagnostic_question_skill1.question.uid,
+                    question_uid: diagnostic_question_skill1.question.uid
                   },
                   {
                     id: diagnostic_question_skill2.id,
@@ -170,7 +170,7 @@ describe ResultsSummary do
                     number_incorrect: 1,
                     proficiency_score: 0,
                     summary: ResultsSummary::NOT_CORRECT,
-                    question_uid: diagnostic_question_skill2.question.uid,
+                    question_uid: diagnostic_question_skill2.question.uid
                   }
                 ],
                 skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],
@@ -181,14 +181,14 @@ describe ResultsSummary do
                 proficiency_text: ResultsSummary::PARTIAL_PROFICIENCY,
                 question_uids: skill_group_activity.skill_group.questions.pluck(:uid),
                 id: skill_group_activity.skill_group.id,
-                summary: ResultsSummary::PARTIALLY_CORRECT,
+                summary: ResultsSummary::PARTIALLY_CORRECT
               }
             ],
             total_correct_questions_count: 1,
             total_correct_skill_groups_count: 0,
             total_possible_questions_count: 2,
             correct_question_text: '1 of 2 Questions Correct',
-            correct_skill_groups_text: '0 of 1 Skills',
+            correct_skill_groups_text: '0 of 1 Skills'
           },
           {
             name: student2.name
@@ -220,7 +220,7 @@ describe ResultsSummary do
               number_incorrect: 0,
               proficiency_score: 1,
               summary: ResultsSummary::FULLY_CORRECT,
-              question_uid: diagnostic_question_skill1.question.uid,
+              question_uid: diagnostic_question_skill1.question.uid
             },
             {
               id: diagnostic_question_skill2.id,
@@ -229,7 +229,7 @@ describe ResultsSummary do
               number_incorrect: 1,
               proficiency_score: 0,
               summary: ResultsSummary::NOT_CORRECT,
-              question_uid: diagnostic_question_skill2.question.uid,
+              question_uid: diagnostic_question_skill2.question.uid
             }
           ],
           skill_ids: [diagnostic_question_skill1.id, diagnostic_question_skill2.id],

@@ -50,7 +50,7 @@ describe ProfilesController, type: :controller do
         create(:unit_activity, unit: units[0], activity: activities[1], order_number: 2),
         create(:unit_activity, unit: units[0], activity: activities[2], order_number: 1),
         create(:unit_activity, unit: units[1], activity: activities[3], order_number: 2),
-        create(:unit_activity, unit: units[1], activity: activities[4], order_number: 1),
+        create(:unit_activity, unit: units[1], activity: activities[4], order_number: 1)
       ]
     end
 

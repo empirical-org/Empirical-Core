@@ -18,7 +18,7 @@ module CanvasIntegration
         alreadyImported: already_imported?,
         classroom_external_id: CanvasClassroom.build_classroom_external_id(canvas_instance_id, section_id),
         name: classroom_name,
-        studentCount: students.count,
+        studentCount: students.count
       }
     end
 

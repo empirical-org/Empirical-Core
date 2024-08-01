@@ -70,7 +70,7 @@ module AdminDiagnosticReports
       {
         timeframe_start: timeframe_start,
         timeframe_end: timeframe_end,
-        school_ids: school_ids,
+        school_ids: school_ids
       }
     end
     let(:results) { test_admin_diagnostic_query.run(**query_args, aggregation: aggregation_arg, runner: runner) }

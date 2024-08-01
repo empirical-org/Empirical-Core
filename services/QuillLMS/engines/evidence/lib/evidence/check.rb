@@ -19,7 +19,7 @@ module Evidence
     FALLBACK_RESPONSE = {
       feedback: '<p>Thank you for your response! Something went wrong on our end and our feedback system doesn’t understand your response. Move on to the next prompt!</p>',
       feedback_type: Rule::TYPE_ERROR,
-      optimal: true,
+      optimal: true
     }
 
     def self.get_feedback(entry, prompt, previous_feedback, session_uid = nil, feedback_types = nil)
@@ -56,7 +56,7 @@ module Evidence
       feedback = {
         feedback: @error_rule.feedbacks.first&.text || FALLBACK_RESPONSE[:feedback],
         feedback_type: @error_rule.rule_type,
-        optimal: @error_rule.optimal,
+        optimal: @error_rule.optimal
       }
 
       return feedback.merge({ debug: debug }) if debug

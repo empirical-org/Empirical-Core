@@ -51,7 +51,7 @@ module SegmentIntegration
       {
         email: email,
         premium_state: premium_state,
-        premium_type: subscription&.account_type,
+        premium_type: subscription&.account_type
       }.reject { |_, v| v.nil? }
     end
 

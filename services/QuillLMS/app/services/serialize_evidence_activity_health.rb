@@ -20,7 +20,7 @@ class SerializeEvidenceActivityHealth
       because_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::BECAUSE),
       but_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::BUT),
       so_final_optimal: percent_final_optimal_for_conjunction(FeedbackHistory::SO),
-      avg_completion_time: activity_feedback_history[:average_time_spent] ? Utils::Numeric.human_readable_time_to_seconds(activity_feedback_history[:average_time_spent]) : nil,
+      avg_completion_time: activity_feedback_history[:average_time_spent] ? Utils::Numeric.human_readable_time_to_seconds(activity_feedback_history[:average_time_spent]) : nil
     }
   end
 

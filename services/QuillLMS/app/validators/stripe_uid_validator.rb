@@ -32,7 +32,7 @@ class StripeUidValidator < ActiveModel::EachValidator
     PROD => 'Product',
     SETI => 'Setup Intent',
     SI => 'Subscription Item',
-    SUB => 'Subscription',
+    SUB => 'Subscription'
   }.freeze
 
   def check_validity!

@@ -26,7 +26,7 @@ class ActivitySearchWrapper
       activities: @activities,
       activity_classifications: @activity_classifications,
       activity_categories: @activity_categories,
-      standard_levels: @standard_levels,
+      standard_levels: @standard_levels
     }
   end
 

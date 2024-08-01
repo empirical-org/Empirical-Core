@@ -25,7 +25,7 @@ describe IpLocationWorker do
           'country_name' => 'country',
           'region_name' => 'region',
           'city_name' => 'city',
-          'postcode' => '110011',
+          'postcode' => '110011'
         }.to_json
       }
 

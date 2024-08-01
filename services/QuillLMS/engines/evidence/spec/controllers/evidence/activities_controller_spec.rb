@@ -387,7 +387,7 @@ module Evidence
               conjunction: prompt.conjunction,
               max_attempts: prompt.max_attempts,
               max_attempts_feedback: prompt.max_attempts_feedback
-            }],
+            }]
           }
         }
 

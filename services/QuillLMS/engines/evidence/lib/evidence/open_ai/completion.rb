@@ -28,7 +28,7 @@ module Evidence
           model: llm.version,
           messages: [
             { role: 'user', content: prompt }
-          ],
+          ]
         }.merge(llm.request_body_customizations)
       end
     end

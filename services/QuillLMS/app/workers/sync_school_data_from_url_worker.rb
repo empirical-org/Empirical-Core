@@ -50,7 +50,7 @@ class SyncSchoolDataFromUrlWorker
       fte_classroom_teacher: school_data['teachers_fte'].to_i,
       free_lunches: school_data['enrollment'].to_i > 0 ? (school_data['free_or_reduced_price_lunch'].to_i / school_data['enrollment'].to_f * 100).to_i : nil, # we receive free_or_reduced_price_lunch as an integer but want to store it as a percentage,
       direct_certification: school_data['enrollment'].to_i > 0 ? (school_data['direct_certification'].to_i / school_data['enrollment'].to_f * 100).to_i : nil, # we receive direct_certification as an integer but want to store it as a percentage
-      total_students: school_data['enrollment'],
+      total_students: school_data['enrollment']
     }
   end
 end

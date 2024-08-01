@@ -12,7 +12,7 @@ describe Teachers::ProgressReports::CsvExportsController, type: :controller do
     subject do
       post :create, params: { report_url: "/teachers/progress_reports/standards/classrooms/#{classroom_one.id}/students", csv_export: {
         export_type: export_type,
-        filters: filters,
+        filters: filters
       } }
     end
 

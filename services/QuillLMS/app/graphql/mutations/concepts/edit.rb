@@ -41,7 +41,7 @@ class Mutations::Concepts::Edit < Mutations::BaseMutation
 
       {
         concept: concept,
-        errors: [],
+        errors: []
       }
     else
       # Failed save, return the errors to the client

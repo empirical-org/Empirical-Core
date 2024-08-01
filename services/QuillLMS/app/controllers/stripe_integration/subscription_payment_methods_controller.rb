@@ -17,8 +17,8 @@ module StripeIntegration
         customer: customer,
         setup_intent_data: {
           metadata: {
-            subscription_id: subscription_id,
-          },
+            subscription_id: subscription_id
+          }
         },
         success_url: success_url,
         cancel_url: subscriptions_url

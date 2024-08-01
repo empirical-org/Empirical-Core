@@ -25,7 +25,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
       classroom_unit: classroom_unit,
       percentage: 0.7547,
       state: 'finished',
-      completed_at: 5.minutes.ago,
+      completed_at: 5.minutes.ago
     )
     activity_session.concept_results.create!(concept: concept, correct: true)
     activity_session.concept_results.create!(concept: concept, correct: false)

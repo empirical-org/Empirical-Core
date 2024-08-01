@@ -22,13 +22,13 @@ module SegmentioHelper
     {
       first_name: user.first_name,
       last_name: user.last_name,
-      email: user.email,
+      email: user.email
     }
   end
 
   def format_analytics_properties(request, properties)
     common_properties = { path: request.fullpath,
-                          referrer: request.referrer, }
+                          referrer: request.referrer }
     custom_properties = properties.to_h { |k, v| ["custom_#{k}", v] }
     custom_properties.merge(common_properties)
   end

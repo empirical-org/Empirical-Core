@@ -38,7 +38,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       percent_completed_diagnostics: 1.0,
       evidence_activities_assigned: 2,
       evidence_activities_completed: 1,
-      completed_evidence_activities_per_student: 0.5,
+      completed_evidence_activities_per_student: 0.5
     }
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)

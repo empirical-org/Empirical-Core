@@ -24,7 +24,7 @@ class GoogleIntegration::User
     @user_params ||= begin
       params = {
         signed_up_with_google: true,
-        auth_credential_attributes: auth_credential_attributes(user),
+        auth_credential_attributes: auth_credential_attributes(user)
       }
 
       params[:name]      = profile.name      if profile.name.present?

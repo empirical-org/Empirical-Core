@@ -357,7 +357,7 @@ class ActivitySession < ApplicationRecord
         concept_id: concept_result[:concept_id],
         question_type: concept_result[:question_type],
         activity_session_id: concept_result[:activity_session_id],
-        metadata: concept_result[:metadata],
+        metadata: concept_result[:metadata]
       })
     end
     report_invalid_concept_results(concept_results)
@@ -413,7 +413,7 @@ class ActivitySession < ApplicationRecord
 
     state = ClassroomUnitActivityState.find_or_create_by(
       unit_activity: unit_activity,
-      classroom_unit: classroom_unit,
+      classroom_unit: classroom_unit
     )
 
     state.update(locked: false)
@@ -493,7 +493,7 @@ class ActivitySession < ApplicationRecord
   def self.search_sort_sql(sort)
     if sort.blank? or sort[:field].blank?
       sort = {
-        field: 'student_name',
+        field: 'student_name'
       }
     end
 

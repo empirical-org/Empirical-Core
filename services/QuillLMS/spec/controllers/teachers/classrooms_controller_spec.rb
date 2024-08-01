@@ -38,7 +38,7 @@ describe Teachers::ClassroomsController, type: :controller do
       post :remove_students,
         params: {
           classroom_id: classroom.id,
-          student_ids: [students_classroom.student_id],
+          student_ids: [students_classroom.student_id]
         },
         as: :json
       students_classroom.reload

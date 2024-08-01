@@ -18,35 +18,35 @@ module Snapshots
         previous_start: proc { |reference_time| (reference_time - 178.days).beginning_of_day },
         previous_end: proc { |reference_time| (reference_time - 89.days).end_of_day },
         current_start: proc { |reference_time| (reference_time - 89.days).beginning_of_day },
-        current_end: proc { |reference_time| reference_time.end_of_day },
+        current_end: proc { |reference_time| reference_time.end_of_day }
       }, {
         value: 'this-month',
         name: 'This month',
         previous_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
         previous_end: proc { |reference_time| reference_time - 1.month },
         current_start: proc { |reference_time| reference_time.beginning_of_month },
-        current_end: proc { |reference_time| reference_time },
+        current_end: proc { |reference_time| reference_time }
       }, {
         value: 'last-month',
         name: 'Last month',
         previous_start: proc { |reference_time| (reference_time.beginning_of_month - 2.months) },
         previous_end: proc { |reference_time| (reference_time - 2.months).end_of_month },
         current_start: proc { |reference_time| reference_time.beginning_of_month - 1.month },
-        current_end: proc { |reference_time| (reference_time - 1.month).end_of_month },
+        current_end: proc { |reference_time| (reference_time - 1.month).end_of_month }
       }, {
         value: 'this-school-year',
         name: 'This school year',
         previous_start: proc { |reference_time| (School.school_year_start(reference_time) - 1.year).beginning_of_day },
         previous_end: proc { |reference_time| (reference_time - 1.year).end_of_day },
         current_start: proc { |reference_time| School.school_year_start(reference_time).beginning_of_day },
-        current_end: proc { |reference_time| reference_time.end_of_day },
+        current_end: proc { |reference_time| reference_time.end_of_day }
       }, {
         value: 'last-school-year',
         name: 'Last school year',
         previous_start: proc { |reference_time| (School.school_year_start(reference_time) - 2.years).beginning_of_day },
         previous_end: proc { |reference_time| (School.school_year_start(reference_time) - 1.year).end_of_day },
         current_start: proc { |reference_time| (School.school_year_start(reference_time) - 1.year).beginning_of_day },
-        current_end: proc { |reference_time| (School.school_year_start(reference_time) - 1.day).end_of_day },
+        current_end: proc { |reference_time| (School.school_year_start(reference_time) - 1.day).end_of_day }
       }, {
         value: 'all-time',
         name: 'All time',
@@ -54,7 +54,7 @@ module Snapshots
         previous_start: proc {},
         previous_end: proc {},
         current_start: proc { DateTime.new(2010, 1, 1) }, # This is well before any data exists in our system, so works for "all time"
-        current_end: proc { |reference_time| reference_time },
+        current_end: proc { |reference_time| reference_time }
       }, {
         value: 'custom',
         name: 'Custom',

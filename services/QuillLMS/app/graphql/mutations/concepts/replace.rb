@@ -40,7 +40,7 @@ class Mutations::Concepts::Replace < Mutations::BaseMutation
       # Successful update, return the updated object with no errors
       {
         concept: replacement,
-        errors: [],
+        errors: []
       }
     else
       # Failed save, return the errors to the client

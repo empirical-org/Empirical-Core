@@ -966,39 +966,6 @@ Style/SymbolArray:
 Style/SymbolProc:
   Enabled: false
 
-# Offense count: 9
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInArguments:
-  Exclude:
-    - 'app/models/activity_session.rb'
-    - 'app/services/demo/create_admin_report.rb'
-    - 'spec/models/activity_session_spec.rb'
-    - 'spec/serializers/lesson_planner/unit_serializer_spec.rb'
-    - 'spec/serializers/progress_reports/activity_session_serializer_spec.rb'
-    - 'spec/serializers/progress_reports/concepts/student_serializer_spec.rb'
-
-# Offense count: 19
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInArrayLiteral:
-  Exclude:
-    - 'app/helpers/pages_helper.rb'
-    - 'app/models/csv_exporter/standards/classroom.rb'
-    - 'lib/tasks/create_lesson_recommendations.rake'
-    - 'script/recommendations/00_import_independent_practice_recommendations.rb'
-    - 'spec/controllers/profiles_controller_spec.rb'
-    - 'spec/queries/lesson_recommendations_query.rb'
-
-# Offense count: 111
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Enabled: false
-
 # Offense count: 89
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, MinSize, WordRegex.

@@ -49,7 +49,7 @@ class Question < ApplicationRecord
     TYPE_DIAGNOSTIC_SENTENCE_COMBINING => 'diagnostic_questions',
     TYPE_DIAGNOSTIC_SENTENCE_FRAGMENTS => 'diagnostic_sentenceFragments',
     TYPE_DIAGNOSTIC_FILL_IN_BLANKS => 'diagnostic_fillInBlankQuestions',
-    TYPE_GRAMMAR_QUESTION => 'grammar_questions',
+    TYPE_GRAMMAR_QUESTION => 'grammar_questions'
   }
 
   INCORRECT_SEQUENCES = TranslatableQuestion::INCORRECT_SEQUENCES

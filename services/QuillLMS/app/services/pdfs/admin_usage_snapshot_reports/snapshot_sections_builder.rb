@@ -24,7 +24,7 @@ module Pdfs
                 queryKey: 'active-classrooms',
                 singularLabel: 'Active classroom',
                 size: SMALL,
-                type: COUNT,
+                type: COUNT
               },
               {
                 label: 'Average active classrooms per teacher',
@@ -37,7 +37,7 @@ module Pdfs
                 queryKey: 'classrooms-created',
                 singularLabel: 'Classroom created',
                 size: SMALL,
-                type: COUNT,
+                type: COUNT
               },
               {
                 label: 'Average active students per classroom',
@@ -54,7 +54,7 @@ module Pdfs
                 headers: ['Grade', 'Activities completed'],
                 label: 'Most active grades',
                 queryKey: 'most-active-grades',
-                type: RANKING,
+                type: RANKING
               }
             ]
           }
@@ -118,7 +118,7 @@ module Pdfs
                 queryKey: 'activity-packs-completed',
                 singularLabel: 'Activity pack completed',
                 size: SMALL,
-                type: COUNT,
+                type: COUNT
               }
             ]
           },
@@ -234,9 +234,9 @@ module Pdfs
                 queryKey: 'student-accounts-created',
                 singularLabel: 'Student account created',
                 size: SMALL,
-                type: COUNT,
+                type: COUNT
               }
-            ],
+            ]
           },
           {
             className: RANKING,

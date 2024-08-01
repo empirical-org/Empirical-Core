@@ -17,7 +17,7 @@ module SlackTasks
     response = HTTParty.post(
       webhook_url,
       body: {
-        text: message,
+        text: message
       }.to_json
     )
   end

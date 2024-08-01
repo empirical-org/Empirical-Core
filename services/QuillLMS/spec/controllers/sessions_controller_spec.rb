@@ -80,7 +80,7 @@ describe SessionsController, type: :controller do
                 email: user.email,
                 password: 'test123'
               },
-              redirect: root_path,
+              redirect: root_path
             },
             as: :json
 

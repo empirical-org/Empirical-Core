@@ -52,7 +52,7 @@ module LessonsRecommendations
       name: lessons_rec[:recommendation],
       students_needing_instruction: students_needing_instruction,
       percentage_needing_instruction: percentage_needing_instruction(fail_count),
-      activities: lessons_rec[:activities],
+      activities: lessons_rec[:activities]
     }
   end
 

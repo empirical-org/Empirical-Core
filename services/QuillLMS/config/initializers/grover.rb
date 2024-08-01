@@ -7,6 +7,6 @@ Grover.configure do |config|
     margin: {
       top: '54px',
       bottom: '54px'
-    },
+    }
   }
 end

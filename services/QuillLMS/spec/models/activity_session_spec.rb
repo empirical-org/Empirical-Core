@@ -79,7 +79,7 @@ describe ActivitySession, type: :model, redis: true do
       it 'should return false' do
         result = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
-          activity.uid,
+          activity.uid
         )
 
         expect(result).to eq(false)
@@ -100,7 +100,7 @@ describe ActivitySession, type: :model, redis: true do
       it 'should create the unit_activity and the classroom unit activity state' do
         unit_activity = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
-          activity.id,
+          activity.id
         )
         expect(unit_activity.activity_id).to eq(follow_up_activity.id)
         expect(unit_activity.unit_id).to eq(unit.id)
@@ -124,7 +124,7 @@ describe ActivitySession, type: :model, redis: true do
       it 'should return the unit_activity and create a classroom activity unit state' do
         follow_up_unit_activity = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
-          activity.id,
+          activity.id
         )
         expect(follow_up_unit_activity.id).to eq(unit_activity.id)
         expect(unit_activity.classroom_unit_activity_states.first).to be
@@ -146,7 +146,7 @@ describe ActivitySession, type: :model, redis: true do
       it 'should return the unit_activity, make it visible, and create a classroom activity unit state' do
         follow_up_unit_activity = ActivitySession.assign_follow_up_lesson(
           classroom_unit.id,
-          activity.id,
+          activity.id
         )
         expect(follow_up_unit_activity.id).to eq(unit_activity.id)
         expect(follow_up_unit_activity.visible).to eq(true)

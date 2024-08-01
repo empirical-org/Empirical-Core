@@ -26,7 +26,7 @@ RSpec.describe SegmentIntegration::User do
           last_name: admin.last_name,
           email: admin.email,
           flags: admin.flags&.join(', '),
-          flagset: admin.flagset,
+          flagset: admin.flagset
         }.reject { |_, v| v.nil? },
         integrations: admin.segment_user.integration_rules
       }

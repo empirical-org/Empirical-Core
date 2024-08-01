@@ -247,7 +247,7 @@ RSpec.describe ConceptResult, type: :model do
           "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
           "answer": 'Deserts are very dry, and years go by without rain.',
-          "questionNumber": 1,
+          "questionNumber": 1
         }
       end
       let(:metadata3) do
@@ -258,7 +258,7 @@ RSpec.describe ConceptResult, type: :model do
           "prompt": 'Deserts are very dry. Years go by without rain.',
           "attemptNumber": 2,
           "answer": 'Deserts are very dry, and years go by without rain.',
-          "questionNumber": 1,
+          "questionNumber": 1
         }
       end
       let(:concept_result1) { ConceptResult.create_from_json({ concept_id: concept.id, activity_session_id: activity_session.id, metadata: metadata1, activity_classification_id: activity.activity_classification_id, question_type: 'sentence-combining' }) }

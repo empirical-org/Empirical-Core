@@ -128,7 +128,7 @@ class School < ApplicationRecord
     9 => HIGH,
     10 => HIGH,
     11 => HIGH,
-    12 => HIGH,
+    12 => HIGH
   }
 
   LEAP_CSV_HEADERS = %w[

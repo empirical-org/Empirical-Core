@@ -304,7 +304,7 @@ activities = {
           noIncorrect: true
         }
       ]
-    },
+    }
   ],
   '602' => [
     {
@@ -406,7 +406,7 @@ activities = {
         {
           concept_id: 'mandatory',
           count: 1
-        },
+        }
       ]
     },
     {
@@ -416,7 +416,7 @@ activities = {
         {
           concept_id: 'mandatory',
           count: 1
-        },
+        }
       ]
     }
   ]

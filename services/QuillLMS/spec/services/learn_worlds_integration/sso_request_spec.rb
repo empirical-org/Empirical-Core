@@ -26,7 +26,7 @@ RSpec.describe LearnWorldsIntegration::SSORequest do
         user_id: user_id,
         url: url,
         errors: [],
-        success: true,
+        success: true
       }.stringify_keys
     end
 

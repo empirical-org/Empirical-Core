@@ -84,9 +84,9 @@ module UserFlagset
           Flags::COLLEGE_BOARD =>     { display_name: 'College Board' },
           Flags::PRODUCTION =>        { display_name: 'Production' },
           Flags::PRIVATE =>           { display_name: 'Private' },
-          Flags::GAMMA =>             { display_name: 'Gamma' },
+          Flags::GAMMA =>             { display_name: 'Gamma' }
         }
-      },
+      }
 
     }
 

@@ -36,7 +36,7 @@ module Evidence
                 guideline_ids:,
                 llm_id:,
                 llm_prompt_template_id:,
-                prompt_example_ids:,
+                prompt_example_ids:
               }
             }
           end

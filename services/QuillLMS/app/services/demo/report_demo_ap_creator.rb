@@ -21,7 +21,7 @@ module Demo::ReportDemoAPCreator
       email: email,
       role: User::TEACHER,
       password: 'password',
-      password_confirmation: 'password',
+      password_confirmation: 'password'
     }
 
     teacher = User.create(values)
@@ -131,28 +131,28 @@ module Demo::ReportDemoAPCreator
         username: "william.shakespeare.#{classroom.id}@demo-teacher",
         role: 'student',
         password: 'password',
-        password_confirmation: 'password',
+        password_confirmation: 'password'
       },
       {
         name: 'Harper Lee',
         username: "harper.lee.#{classroom.id}@demo-teacher",
         role: 'student',
         password: 'password',
-        password_confirmation: 'password',
+        password_confirmation: 'password'
       },
       {
         name: 'Charles Dickens',
         username: "charles.dickens.#{classroom.id}@demo-teacher",
         role: 'student',
         password: 'password',
-        password_confirmation: 'password',
+        password_confirmation: 'password'
       },
       {
         name: 'James Joyce',
         username: "james.joyce.#{classroom.id}@demo-teacher",
         role: 'student',
         password: 'password',
-        password_confirmation: 'password',
+        password_confirmation: 'password'
       },
       {
         name: 'Bell Hooks',
@@ -178,7 +178,7 @@ module Demo::ReportDemoAPCreator
   def self.create_unit(teacher, unit_name)
     values = {
       name: unit_name,
-      user: teacher,
+      user: teacher
     }
     unit = Unit.create(values)
   end
@@ -195,7 +195,7 @@ module Demo::ReportDemoAPCreator
     activities.each do |act_id|
       values = {
         activity_id: act_id,
-        unit: unit,
+        unit: unit
       }
       ua = UnitActivity.create(values)
     end

@@ -307,7 +307,7 @@ namespace :recommendations do
               noIncorrect: true
             }
           ]
-        },
+        }
       ],
       '602' => [
         {
@@ -409,7 +409,7 @@ namespace :recommendations do
             {
               concept_id: 'mandatory',
               count: 1
-            },
+            }
           ]
         },
         {
@@ -419,7 +419,7 @@ namespace :recommendations do
             {
               concept_id: 'mandatory',
               count: 1
-            },
+            }
           ]
         }
       ]

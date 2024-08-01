@@ -26,7 +26,7 @@ module AdminDiagnosticReports
         {
           skill_group_name: skill_group_name2,
           pre_score: pre_score2,
-          post_score: post_score2,
+          post_score: post_score2
         }
       ]
     end
@@ -35,7 +35,7 @@ module AdminDiagnosticReports
         {
           name: aggregate_row_name1,
           pre_score: pre_score1,
-          post_score: post_score1,
+          post_score: post_score1
         }
       ]
     end

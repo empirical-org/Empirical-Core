@@ -55,7 +55,7 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         total_responses: 2,
         weak_responses: 1,
         repeated_consecutive_responses: 1,
-        repeated_non_consecutive_responses: 1,
+        repeated_non_consecutive_responses: 1
       }
 
       expect(report.first).to eq(expected)

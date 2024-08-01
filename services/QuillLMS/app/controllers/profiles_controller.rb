@@ -139,7 +139,7 @@ class ProfilesController < ApplicationController
         teacher: {
           name: @current_classroom&.owner&.name
         }
-      },
+      }
     }
   end
 

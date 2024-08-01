@@ -23,7 +23,7 @@ module CanvasIntegration
       INSTRUCTOR_INST_ROLE => USER_TEACHER_ROLE,
       INSTRUCTOR_ROLE => USER_TEACHER_ROLE,
       LEARNER_ROLE => USER_STUDENT_ROLE,
-      STUDENT_INST_ROLE => USER_STUDENT_ROLE,
+      STUDENT_INST_ROLE => USER_STUDENT_ROLE
     }
 
     def initialize(canvas_roles)

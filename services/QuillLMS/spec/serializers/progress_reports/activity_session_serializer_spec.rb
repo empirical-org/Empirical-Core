@@ -7,7 +7,7 @@ describe ProgressReports::ActivitySessionSerializer, type: :serializer do
     create(:activity_session,
       started_at: started_at,
       completed_at: completed_at,
-      percentage: 0.25,)
+      percentage: 0.25)
   end
   let(:classroom) { create(:classroom) }
   let(:standard) { create(:standard) }

@@ -19,7 +19,7 @@ module Snapshots
       school_name:      { csv_header: 'School', formatter: Formatter::DEFAULT },
       classroom_grade:  { csv_header: 'Grade', formatter: Formatter::DEFAULT },
       teacher_name:     { csv_header: 'Teacher', formatter: Formatter::DEFAULT },
-      classroom_name:   { csv_header: 'Class', formatter: Formatter::DEFAULT },
+      classroom_name:   { csv_header: 'Class', formatter: Formatter::DEFAULT }
     }.freeze
 
     def ordered_columns = ORDERED_COLUMNS

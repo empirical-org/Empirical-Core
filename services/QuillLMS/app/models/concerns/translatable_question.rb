@@ -42,7 +42,7 @@ module TranslatableQuestion
     {
       CMS_RESPONSES => cms_responses,
       INCORRECT_SEQUENCES => translatable_data(type: INCORRECT_SEQUENCES),
-      FOCUS_POINTS => translatable_data(type: FOCUS_POINTS),
+      FOCUS_POINTS => translatable_data(type: FOCUS_POINTS)
     }
   end
 

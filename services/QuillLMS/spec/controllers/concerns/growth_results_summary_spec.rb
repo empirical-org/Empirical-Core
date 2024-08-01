@@ -47,7 +47,7 @@ describe GrowthResultsSummary do
                 post: 1.0
               }
             },
-            question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid),
+            question_uids: pre_test_skill_group_activity.skill_group.questions.pluck(:uid)
           }
         ],
         student_results: [
@@ -138,7 +138,7 @@ describe GrowthResultsSummary do
             total_maintained_skill_group_proficiency_count: 0,
             total_possible_questions_count: 2,
             correct_question_text: '2 of 2 Questions Correct',
-            correct_skill_groups_text: '1 of 1 Skills',
+            correct_skill_groups_text: '1 of 1 Skills'
           },
           {
             name: student2.name
@@ -253,7 +253,7 @@ describe GrowthResultsSummary do
             total_pre_possible_questions_count: 2,
             total_possible_questions_count: 2,
             correct_question_text: '2 of 2 Questions Correct',
-            correct_skill_groups_text: '1 of 1 Skills',
+            correct_skill_groups_text: '1 of 1 Skills'
           },
           {
             name: student2.name

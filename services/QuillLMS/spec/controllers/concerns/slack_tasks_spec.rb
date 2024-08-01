@@ -20,7 +20,7 @@ describe SlackTasks do
     it 'should post a sales form submission to slack' do
       expect(HTTParty).to receive(:post).with('slack-test.com',
         body: {
-          text: "Sales Form submitted\n #{sales_form_submission.attributes.map { |key, value| "#{key}: #{value}\n" }.join}",
+          text: "Sales Form submitted\n #{sales_form_submission.attributes.map { |key, value| "#{key}: #{value}\n" }.join}"
         }.to_json)
       post_sales_form_submission(sales_form_submission)
     end

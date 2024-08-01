@@ -41,7 +41,7 @@ class OneOffBanner < WebinarBanner
     '8-09-16' => WEBINAR_EVIDENCE,
     '8-23-11' => WEBINAR_EVIDENCE,
     '9-06-16' => WEBINAR_EVIDENCE,
-    '9-20-11' => WEBINAR_EVIDENCE,
+    '9-20-11' => WEBINAR_EVIDENCE
   }
 
   private def values

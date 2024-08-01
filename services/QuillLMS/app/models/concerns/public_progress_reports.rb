@@ -274,7 +274,7 @@ module PublicProgressReports
         {
           name: key_target_skill_group.first[:name],
           correct: key_target_skill_group.filter { |ktsc| ktsc[:correct] }.length,
-          incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length,
+          incorrect: key_target_skill_group.filter { |ktsc| ktsc[:correct] == false }.length
         }
       end
   end

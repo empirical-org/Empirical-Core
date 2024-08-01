@@ -416,7 +416,7 @@ module PagesHelper
                 description: 'Explore narrative revelations with sudden character shifts',
                 unit_template_id: '220',
                 cb_anchor_tag: 'lamb-to-the-slaughter'
-              },
+              }
             ]
           },
           {
@@ -447,7 +447,7 @@ module PagesHelper
                 description: 'Explore poetic contrast and human truths',
                 unit_template_id: '223',
                 cb_anchor_tag: 'the-fight'
-              },
+              }
             ]
           },
           {
@@ -463,7 +463,7 @@ module PagesHelper
                 description: 'Explore the application of hip-hop storytelling to a historical figure',
                 unit_template_id: '225',
                 cb_anchor_tag: 'the-hamilton-mixtape'
-              },
+              }
             ]
           },
           {
@@ -473,7 +473,7 @@ module PagesHelper
                 description: 'Explore dramatic characterization and Shakepearean turns of phrase',
                 unit_template_id: '226',
                 cb_anchor_tag: 'romeo-and-juliet'
-              },
+              }
             ]
           }
         ]
@@ -494,7 +494,7 @@ module PagesHelper
                 description: 'Explore how seemingly menial work may lead to meaningful life lessons',
                 unit_template_id: '228',
                 cb_anchor_tag: 'drowning-in-dishes-but-finding-a-home'
-              },
+              }
             ]
           },
           {
@@ -510,7 +510,7 @@ module PagesHelper
                 description: 'Explore evolving perspectives of the summer job and its value to teens’ lives',
                 unit_template_id: '230',
                 cb_anchor_tag: 'the-decline-of-the-american-teenagers-summer-job'
-              },
+              }
             ]
           },
           {
@@ -520,7 +520,7 @@ module PagesHelper
                 description: 'Explore multiple views of a controversial issue using data to inform perspectives',
                 unit_template_id: '231',
                 cb_anchor_tag: 'teenagers-have-stopped-getting-summer-jobs-why'
-              },
+              }
             ]
           }
         ]
@@ -541,7 +541,7 @@ module PagesHelper
                 description: 'Explore how second-person point of view sets up a fantastical world',
                 unit_template_id: '233',
                 cb_anchor_tag: 'the-night-circus'
-              },
+              }
             ]
           },
           {
@@ -557,7 +557,7 @@ module PagesHelper
                 description: 'Explore how omniscient point of view shines a light on multiple characters’ experiences of a threatening world',
                 unit_template_id: '235',
                 cb_anchor_tag: 'all-the-light-we-cannot-see'
-              },
+              }
             ]
           },
           {
@@ -567,7 +567,7 @@ module PagesHelper
                 description: 'Explore how a present-tense narrative moment establishes a child’s perspective',
                 unit_template_id: '236',
                 cb_anchor_tag: 'the-girl-who-fell-from-the-sky'
-              },
+              }
             ]
           }
         ]

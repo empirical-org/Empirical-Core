@@ -49,7 +49,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'metadata' => {
             'foo' => 'bar',
             'correct' => true
-          },
+          }
         }
       end
 
@@ -61,7 +61,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'metadata' => {
             'baz' => 'foo',
             'correct' => true
-          },
+          }
         }
       end
 
@@ -72,7 +72,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_uid' => another_concept.uid,
           'metadata' => {
             'correct' => true
-          },
+          }
         }
       end
 
@@ -116,7 +116,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           {
             concept_uid: 'Non-existent UID',
             metadata: {
-              foo: 'bar',
+              foo: 'bar'
             }
           }
         ]
