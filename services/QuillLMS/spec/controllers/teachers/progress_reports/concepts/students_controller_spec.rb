@@ -20,7 +20,7 @@ describe Teachers::ProgressReports::Concepts::StudentsController, type: :control
       it 'includes a list of students in the JSON' do
         crs = alice.activity_sessions.map(&:concept_results).flatten
         crs_correct = 0
-        crs.each{ |cr| crs_correct += cr.correct ? 1 : 0 }
+        crs.each { |cr| crs_correct += cr.correct ? 1 : 0 }
         subject
         alice_json = json['students'][0]
         expect(alice_json['name']).to eq(alice.name)

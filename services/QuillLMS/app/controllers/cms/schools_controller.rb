@@ -262,7 +262,7 @@ class Cms::SchoolsController < Cms::CmsController
     # This converts all of the search inputs into strings so we can iterate
     # over them and grab the value from params. The weird ternary here is in
     # case we have arrays as inputs (e.g. the 'premium_status' field).
-    all_search_inputs.map{ |i| i.instance_of?(Symbol) ? i.to_s : i.keys[0].to_s }.each do |param|
+    all_search_inputs.map { |i| i.instance_of?(Symbol) ? i.to_s : i.keys[0].to_s }.each do |param|
       param_value = school_query_params[param]
       if param_value && !param_value.empty?
         conditions << where_query_string_clause_for(param, param_value)

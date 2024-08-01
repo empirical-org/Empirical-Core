@@ -430,7 +430,7 @@ module Evidence
         universal_rule = create(:evidence_rule, prompt_ids: [prompt.id], universal: true, rule_type: 'spelling')
         old_name = universal_rule.name
         new_name = 'new rule name'
-        put :update, :params => { :id=> universal_rule.id, :rule => { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name } }
+        put :update, :params => { :id => universal_rule.id, :rule => { concept_uid: universal_rule.concept_uid, note: universal_rule.note, name: new_name } }
 
         universal_rule.reload
         change_log = Evidence.change_log_class.last

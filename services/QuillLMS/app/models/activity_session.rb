@@ -284,11 +284,11 @@ class ActivitySession < ApplicationRecord
   end
 
   def percentage_as_percent
-    percentage.nil? ? 'no percentage' : "#{(percentage*100).round}%"
+    percentage.nil? ? 'no percentage' : "#{(percentage * 100).round}%"
   end
 
   def score
-    (percentage*100).round
+    (percentage * 100).round
   end
 
   def uses_feedback_history?
@@ -378,12 +378,12 @@ class ActivitySession < ApplicationRecord
   def self.save_timetracking_data_from_active_activity_session(activity_sessions)
     activity_sessions.each do |as|
       time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch('timeTracking')
-      as.data['time_tracking'] = time_tracking&.transform_values{ |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.data['time_tracking'] = time_tracking&.transform_values { |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
       as.save
     end
   end
 
-  def self.mark_all_activity_sessions_complete(activity_sessions, data={})
+  def self.mark_all_activity_sessions_complete(activity_sessions, data = {})
     activity_sessions.each do |as|
       as.update(
         state: 'finished',
@@ -453,7 +453,7 @@ class ActivitySession < ApplicationRecord
   def minutes_to_complete
     return nil unless completed_at && started_at
 
-    ((completed_at - started_at)/60).round
+    ((completed_at - started_at) / 60).round
   end
 
   def skills

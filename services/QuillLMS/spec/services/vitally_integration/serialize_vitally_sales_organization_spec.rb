@@ -337,7 +337,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       let!(:session7) { create(:activity_session, state: 'finished', completed_at: Time.current, user: other_district_student) }
 
       it 'gets the last sign in date of the most recent student' do
-        last_active = Time.zone.today- 1.month
+        last_active = Time.zone.today - 1.month
         student1.update(last_sign_in: last_active)
         student2.update(last_sign_in: Time.zone.today - 1.year)
 

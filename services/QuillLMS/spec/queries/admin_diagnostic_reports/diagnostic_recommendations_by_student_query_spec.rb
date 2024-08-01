@@ -8,7 +8,7 @@ module AdminDiagnosticReports
     include_context 'Pre Post Diagnostic Skill Group Performance View'
 
     # TODO: Some of these specs fail intermittently.  In the interest of getting the code out the door, we're commenting them out, but we should come back and fix that soon
-    #context 'big_query_snapshot', :big_query_snapshot do
+    # context 'big_query_snapshot', :big_query_snapshot do
     #  let(:query_args) do
     #    {
     #      timeframe_start: timeframe_start,
@@ -104,6 +104,6 @@ module AdminDiagnosticReports
     #    it { expect(results.length).to eq(students.length) }
     #    it { expect(results.values.map{|v| v[:completed_activities]}.sum).to eq(recommended_activity_sessions.length) }
     #  end
-    #end
+    # end
   end
 end

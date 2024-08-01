@@ -73,7 +73,7 @@ module Evidence
           feedback_history = [{
             'feedback_type' => feedback.rule.rule_type,
             'feedback' => feedback.text
-          },{
+          }, {
             'feedback_type' => feedback2.rule.rule_type,
             'feedback' => feedback2.text
           }]
@@ -93,8 +93,8 @@ module Evidence
         it 'should raise KeyError' do
           expect do
             FeedbackAssembler.run({
-               'abstract_error' => 'unknown'
-             })
+              'abstract_error' => 'unknown'
+            })
           end.to raise_error(KeyError)
         end
       end

@@ -5,8 +5,8 @@ namespace :gen_ai do
   task populate_genai_concepts: :environment do
     concept_mapping = {
       'because' => 'qkjnIjFfXdTuKO7FgPzsIg',
-      'but'     => 'KwspxuelfGZQCq7yX6ThPQ',
-      'so'      => 'IBdOFpAWi42LgfXvcz0scQ'
+      'but' => 'KwspxuelfGZQCq7yX6ThPQ',
+      'so' => 'IBdOFpAWi42LgfXvcz0scQ'
     }
     rules_uids_optimal = Evidence::GenAI::ResponseBuilder::RULES_OPTIMAL
     rule_uids_suboptimal = Evidence::GenAI::ResponseBuilder::RULES_SUBOPTIMAL

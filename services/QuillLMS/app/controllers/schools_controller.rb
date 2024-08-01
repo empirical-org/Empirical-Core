@@ -14,7 +14,7 @@ class SchoolsController < ApplicationController
     @lat = params[:lat]
     @lng = params[:lng]
     @search = params[:search]
-    @prefix,@zipcode = get_prefix_and_zipcode(@search)
+    @prefix, @zipcode = get_prefix_and_zipcode(@search)
     @limit = @prefix || @zipcode ? nil : params[:limit].presence || 10
     @schools = []
 
@@ -66,7 +66,7 @@ class SchoolsController < ApplicationController
           .limit(@limit)
         $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map { |s| s.id }.to_json)
         # short cache, highly specific
-        $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
+        $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60 * 5)
       end
     end
 
@@ -81,7 +81,7 @@ class SchoolsController < ApplicationController
         .limit(@limit)
       $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map { |s| s.id }.to_json)
       # longer cache, more general
-      $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
+      $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60 * 60)
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity
@@ -94,7 +94,7 @@ class SchoolsController < ApplicationController
       format.html
       format.json {
         @js_file = 'session'
-        #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
+        # if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
         if School.find_by_id(school_params[:school_id_or_type])
           school = School.find(school_params[:school_id_or_type])
         else
@@ -122,7 +122,7 @@ class SchoolsController < ApplicationController
     array_encoder = PG::TextEncoder::Array.new
     literal_encoder = PG::TextEncoder::QuotedLiteral.new
     r = array_encoder.encode(ruby_array.map { |v| literal_encoder.encode(v) })
-    r.sub('{','(').sub('}', ')')
+    r.gsub('{', '(').gsub('}', ')')
   end
 
   private def get_prefix_and_zipcode(search)

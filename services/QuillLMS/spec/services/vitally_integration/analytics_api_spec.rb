@@ -26,13 +26,13 @@ describe VitallyIntegration::AnalyticsApi do
     context 'RateLimit error' do
       let(:response) { sample_response.merge(status: 429) }
 
-      it { expect{ subject }.to raise_error(described_class::RateLimitError) }
+      it { expect { subject }.to raise_error(described_class::RateLimitError) }
     end
 
     context 'Other error' do
       let(:response) { sample_response.merge(status: 500) }
 
-      it { expect{ subject }.to raise_error(described_class::ApiError) }
+      it { expect { subject }.to raise_error(described_class::ApiError) }
     end
   end
 
@@ -49,13 +49,13 @@ describe VitallyIntegration::AnalyticsApi do
     context 'RateLimit error' do
       let(:response) { sample_response.merge(status: 429) }
 
-      it { expect{ subject }.to raise_error(described_class::RateLimitError) }
+      it { expect { subject }.to raise_error(described_class::RateLimitError) }
     end
 
     context 'Other error' do
       let(:response) { sample_response.merge(status: 500) }
 
-      it { expect{ subject }.to raise_error(described_class::ApiError).with_message('500') }
+      it { expect { subject }.to raise_error(described_class::ApiError).with_message('500') }
     end
   end
 end

@@ -113,7 +113,7 @@ RSpec.describe InvitationsController, type: :controller do
 
       it 'should destroy the given invitation' do
         delete :destroy_pending_invitations_to_specific_invitee, params: { invitation_type: 'some type', invitee_email: 'test@test.com' }
-        expect{ Invitation.find(invitation.id) }.to raise_exception ActiveRecord::RecordNotFound
+        expect { Invitation.find(invitation.id) }.to raise_exception ActiveRecord::RecordNotFound
       end
     end
 
@@ -139,7 +139,7 @@ RSpec.describe InvitationsController, type: :controller do
 
       it 'should destroy the given invitation' do
         delete :destroy_pending_invitations_from_specific_inviter, params: { invitation_type: 'some type', inviter_id: another_user.id }
-        expect{ Invitation.find(invitation.id) }.to raise_exception ActiveRecord::RecordNotFound
+        expect { Invitation.find(invitation.id) }.to raise_exception ActiveRecord::RecordNotFound
       end
     end
 

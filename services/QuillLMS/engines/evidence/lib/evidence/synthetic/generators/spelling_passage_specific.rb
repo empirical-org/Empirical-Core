@@ -64,7 +64,7 @@ module Evidence
         def repeated_words
           @repeated_words ||= passage_words
             .tally
-            .select { |_,count| count >= REPEATED_WORD_COUNT }
+            .select { |_, count| count >= REPEATED_WORD_COUNT }
             .keys
             .select { |w| w.length >= REPEATED_WORD_MIN_LENGTH }
         end

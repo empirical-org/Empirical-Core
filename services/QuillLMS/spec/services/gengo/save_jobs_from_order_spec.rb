@@ -10,11 +10,11 @@ RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
     let(:job_id2) { '4637670' }
     let(:translation_job_response) do
       {
-        'opstat'=>'ok',
-        'response'=>
+        'opstat' => 'ok',
+        'response' =>
         [
-          { 'job_id'=>job_id1, 'ctime'=>1718145986 },
-          { 'job_id'=>job_id2, 'ctime'=>1718145986 }
+          { 'job_id' => job_id1, 'ctime' => 1718145986 },
+          { 'job_id' => job_id2, 'ctime' => 1718145986 }
         ]
       }
     end
@@ -42,7 +42,7 @@ RSpec.describe Gengo::SaveJobsFromOrder, type: :service do
     context 'there is no gengo API response' do
       let(:translation_job_response) { nil }
 
-      it { expect{ subject }.to raise_error(described_class::FetchTranslationOrderError) }
+      it { expect { subject }.to raise_error(described_class::FetchTranslationOrderError) }
     end
   end
 end

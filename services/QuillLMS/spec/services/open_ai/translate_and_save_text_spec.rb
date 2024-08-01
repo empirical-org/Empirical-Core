@@ -58,7 +58,7 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
     context 'the response is nil' do
       let(:response) { nil }
 
-      it { expect{ subject }.to raise_error(described_class::OpenAITranslationError) }
+      it { expect { subject }.to raise_error(described_class::OpenAITranslationError) }
     end
   end
 end

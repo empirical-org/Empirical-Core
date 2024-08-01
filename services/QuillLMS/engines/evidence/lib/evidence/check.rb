@@ -22,7 +22,7 @@ module Evidence
       optimal: true,
     }
 
-    def self.get_feedback(entry, prompt, previous_feedback, session_uid=nil, feedback_types=nil)
+    def self.get_feedback(entry, prompt, previous_feedback, session_uid = nil, feedback_types = nil)
       normalized_entry = StringNormalizer.new(entry).run
 
       triggered_check = find_triggered_check(normalized_entry, prompt, previous_feedback, session_uid, feedback_types)
@@ -31,7 +31,7 @@ module Evidence
     end
 
     # returns first nonoptimal feedback, and if all are optimal, returns automl feedback
-    def self.find_triggered_check(entry, prompt, previous_feedback, session_uid=nil, feedback_types=nil)
+    def self.find_triggered_check(entry, prompt, previous_feedback, session_uid = nil, feedback_types = nil)
       optimal_feedback_check = nil
 
       checks_to_run(feedback_types).reduce(nil) do |response, check_to_run|
@@ -51,7 +51,7 @@ module Evidence
       fallback_feedback(e.message)
     end
 
-    def self.fallback_feedback(debug=nil)
+    def self.fallback_feedback(debug = nil)
       @error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
       feedback = {
         feedback: @error_rule.feedbacks.first&.text || FALLBACK_RESPONSE[:feedback],

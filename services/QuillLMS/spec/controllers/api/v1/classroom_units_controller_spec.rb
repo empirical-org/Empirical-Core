@@ -83,7 +83,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       session[:user_id] = teacher.id
       get :teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id }, as: :json
       expect(JSON.parse(response.body))
-        .to eq({ 'teacher'=>teacher.name, 'classroom'=>classroom.name })
+        .to eq({ 'teacher' => teacher.name, 'classroom' => classroom.name })
     end
   end
 
@@ -188,7 +188,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         },
         as: :json
 
-      expect(JSON.parse(response.body)).to eq({ 'follow_up_url'=> (ENV['DEFAULT_URL']).to_s })
+      expect(JSON.parse(response.body)).to eq({ 'follow_up_url' => (ENV['DEFAULT_URL']).to_s })
     end
 
     it 'destroys ActivitySessions with no ConceptResults related to them' do

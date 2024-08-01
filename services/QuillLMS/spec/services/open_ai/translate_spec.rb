@@ -49,7 +49,7 @@ RSpec.describe OpenAI::Translate, type: :service do
   describe 'system_prompt' do
     subject { translate.system_prompt }
 
-    let(:translate) { described_class.new(english_text:,prompt:) }
+    let(:translate) { described_class.new(english_text:, prompt:) }
 
     let(:english_text) { Faker::Quotes::Shakespeare.romeo_and_juliet }
 

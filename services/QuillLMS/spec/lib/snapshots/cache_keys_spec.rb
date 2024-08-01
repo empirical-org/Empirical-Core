@@ -8,10 +8,10 @@ module Snapshots
     let(:timeframe_value) { 'last-30-days' }
     let(:current_start) { DateTime.current.end_of_day - 31.days }
     let(:current_end) { DateTime.current.end_of_day - 1.day }
-    let(:school_ids) { [1,2,3] }
-    let(:grades) { ['Kindergarten',1,2,3,4] }
-    let(:teacher_ids) { [4,5,6] }
-    let(:classroom_ids) { [7,8,9] }
+    let(:school_ids) { [1, 2, 3] }
+    let(:grades) { ['Kindergarten', 1, 2, 3, 4] }
+    let(:teacher_ids) { [4, 5, 6] }
+    let(:classroom_ids) { [7, 8, 9] }
     let(:additional_filters) do
       {
         grades: grades,

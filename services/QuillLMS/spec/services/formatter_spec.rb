@@ -21,7 +21,7 @@ describe Formatter do
 
   context 'as_list' do
     let(:selected_format) { described_class::AS_LIST }
-    let(:value) { [1,2,3] }
+    let(:value) { [1, 2, 3] }
 
     it { is_expected.to eq(value.join(', ')) }
   end
@@ -44,7 +44,7 @@ describe Formatter do
 
   context 'as_ratio' do
     let(:selected_format) { described_class::AS_RATIO }
-    let(:value) { [1,4] }
+    let(:value) { [1, 4] }
 
     it { is_expected.to eq("#{value[0]} of #{value[1]}") }
   end

@@ -8,10 +8,10 @@ describe Api::V1::FocusPointsController, type: :controller do
     create(:question,
       data: {
         Question::FOCUS_POINTS => {
-          '0' => { 'text' => 'text', 'feedback'=>'fff' }
+          '0' => { 'text' => 'text', 'feedback' => 'fff' }
         },
-        'incorrectSequences'=> [
-          { 'text'=>'foo', 'feedback'=>'bar', 'uid' => 'uid1' }
+        'incorrectSequences' => [
+          { 'text' => 'foo', 'feedback' => 'bar', 'uid' => 'uid1' }
         ]
       })
   end
@@ -52,7 +52,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe '#create' do
     it 'should add a new focus point to the question data' do
-      data = { 'text' => 'foo', 'feedback'=>'bar' }
+      data = { 'text' => 'foo', 'feedback' => 'bar' }
       focus_point_count = question.focusPoints.keys.length
       post :create, params: { question_id: question.uid, focus_point: data }, as: :json
       question.reload
@@ -68,7 +68,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe '#update' do
     it 'should update an existing focus point in the question data' do
-      data = { 'text' => 'foo', 'feedback'=>'bar' }
+      data = { 'text' => 'foo', 'feedback' => 'bar' }
       focus_point_uid = question.focusPoints.keys.first
       put :update,
         params: {
@@ -95,7 +95,7 @@ describe Api::V1::FocusPointsController, type: :controller do
     end
 
     it 'should return a 404 if the focus point is not valid' do
-      data = { 'key'=>'-Lp-tB4rOx6sGVpm2AG3','text'=>'(and|','feedback'=>'feedback' }
+      data = { 'key' => '-Lp-tB4rOx6sGVpm2AG3', 'text' => '(and|', 'feedback' => 'feedback' }
 
       focus_point_uid = new_q.focusPoints.keys.first
 
@@ -130,7 +130,7 @@ describe Api::V1::FocusPointsController, type: :controller do
 
   describe '#update_all' do
     it 'should replace all focusPoints' do
-      data = { '0' => { 'text'=>'text', 'feedback'=>'feedback' } }
+      data = { '0' => { 'text' => 'text', 'feedback' => 'feedback' } }
       put :update_all, params: { question_id: question.uid, focus_point: data }, as: :json
       question.reload
       expect(question.focusPoints).to eq(data)

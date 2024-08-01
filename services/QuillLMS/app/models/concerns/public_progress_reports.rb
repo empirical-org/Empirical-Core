@@ -56,7 +56,7 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
-    questions = Hash.new{ |h,k| h[k]={} }
+    questions = Hash.new { |h, k| h[k] = {} }
 
     all_answers = @activity_sessions.map(&:concept_results).flatten
 
@@ -76,15 +76,15 @@ module PublicProgressReports
     end
     # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
     # being converted to an array because that is what the diagnostic reports expect
-    questions_arr = questions.map do |k,v|
+    questions_arr = questions.map do |k, v|
       {
         question_id: k,
         question_number: v[:question_number],
         question_uid: v[:question_uid],
-        score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
+        score: activity.is_evidence? ? nil : ((v[:correct].to_f / v[:total]) * 100).round,
         prompt: v[:prompt],
         instructions: v[:instructions]
-     }
+      }
     end
 
     return questions_arr unless questions_arr.empty?
@@ -99,7 +99,7 @@ module PublicProgressReports
     unit = Unit.find_by(id: unit_id)
     if unit
       class_ids = current_user.classrooms_i_teach.map(&:id)
-      #without definining class ids, it may default to a classroom activity from a non-existant classroom
+      # without definining class ids, it may default to a classroom activity from a non-existant classroom
       class_units = unit.classroom_units.where(classroom_id: class_ids).includes(completed_activity_sessions: :user)
       unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 
@@ -122,7 +122,7 @@ module PublicProgressReports
 
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
-      h.map{ |k,v| v }
+      h.map { |k, v| v }
     else
       []
     end
@@ -218,7 +218,7 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(activity_session, classification, student, average_score_on_quill=0)
+  def formatted_score_obj(activity_session, classification, student, average_score_on_quill = 0)
     formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
@@ -288,10 +288,10 @@ module PublicProgressReports
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
-    concept_results.group_by{ |cr| cr.question_number }.map { |key, cr|
+    concept_results.group_by { |cr| cr.question_number }.map { |key, cr|
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
-      cr.sort!{ |x,y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
+      cr.sort! { |x, y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
       directfirst = cr.first.concept_result_directions&.text || cr.first.concept_result_instructions&.text || ''
       prompt_text = cr.first.concept_result_prompt&.text
       score = get_score_for_question(cr)

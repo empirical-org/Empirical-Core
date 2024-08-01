@@ -10,7 +10,7 @@ module Student
   end
 
   included do
-    #TODO: move these relationships into the users model
+    # TODO: move these relationships into the users model
 
     has_many :students_classrooms,
       foreign_key: 'student_id',
@@ -147,7 +147,7 @@ module Student
       .update_all(visible: false, updated_at: DateTime.current)
   end
 
-  def merge_student_account(secondary_account, teacher_id=nil)
+  def merge_student_account(secondary_account, teacher_id = nil)
     if same_classrooms_as_other_student(secondary_account.id, teacher_id)
       merge_activity_sessions(secondary_account, teacher_id)
       secondary_account.remove_student_classrooms(teacher_id)
@@ -164,7 +164,7 @@ module Student
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def merge_activity_sessions(secondary_account, teacher_id=nil)
+  def merge_activity_sessions(secondary_account, teacher_id = nil)
     primary_account_activity_sessions = activity_sessions
     secondary_account_activity_sessions = secondary_account.activity_sessions
 
@@ -190,7 +190,7 @@ module Student
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def remove_student_classrooms(teacher_id=nil)
+  def remove_student_classrooms(teacher_id = nil)
     students_classrooms = StudentsClassrooms.where(student_id: id)
     if teacher_id
       students_classrooms = students_classrooms.select { |sc| sc&.classroom&.owner&.id == teacher_id }
@@ -198,7 +198,7 @@ module Student
     students_classrooms.each { |sc| sc.update(visible: false) }
   end
 
-  def same_classrooms_as_other_student(other_student_id, teacher_id=nil)
+  def same_classrooms_as_other_student(other_student_id, teacher_id = nil)
     shared_classroom_length = classrooms_shared_with_other_student(other_student_id, teacher_id).length
     other_students_classrooms = StudentsClassrooms.where(student_id: other_student_id)
     if teacher_id
@@ -207,7 +207,7 @@ module Student
     shared_classroom_length == other_students_classrooms.length
   end
 
-  def classrooms_shared_with_other_student(other_student_id, teacher_id=nil)
+  def classrooms_shared_with_other_student(other_student_id, teacher_id = nil)
     classroom_ids = RawSqlRunner.execute(
       <<-SQL
         SELECT A.classroom_id

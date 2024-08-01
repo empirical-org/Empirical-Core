@@ -33,7 +33,7 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   def create
     activity = Activity.new(activity_params)
-    activity.owner=(current_user) if activity.ownable?
+    activity.owner = (current_user) if activity.ownable?
 
     if activity.valid? && activity.save
       @status = :success
@@ -124,7 +124,7 @@ class Api::V1::ActivitiesController < Api::ApiController
       :standard_uid,
       :uid,
       flags: [])
-      .merge(data: @data)
-      .reject { |k,v| v.nil? }
+                      .merge(data: @data)
+                      .reject { |k, v| v.nil? }
   end
 end

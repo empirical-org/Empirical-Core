@@ -40,13 +40,13 @@ class RuleFeedbackHistory
 
   def self.feedback_history_to_json(f_h)
     {
-        response_id: f_h.id,
-        datetime: f_h.updated_at,
-        entry: f_h.entry,
-        highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
-        session_uid: f_h.feedback_session_uid,
-        strength: f_h.feedback_history_ratings.max_by(&:updated_at)&.rating,
-        api: f_h.metadata.instance_of?(Hash) ? f_h.metadata['api'] || {} : {}
+      response_id: f_h.id,
+      datetime: f_h.updated_at,
+      entry: f_h.entry,
+      highlight: f_h.metadata.instance_of?(Hash) ? f_h.metadata['highlight'] : '',
+      session_uid: f_h.feedback_session_uid,
+      strength: f_h.feedback_history_ratings.max_by(&:updated_at)&.rating,
+      api: f_h.metadata.instance_of?(Hash) ? f_h.metadata['api'] || {} : {}
     }
   end
 
@@ -76,19 +76,19 @@ class RuleFeedbackHistory
     relations.map do |r|
       first_feedback, second_feedback = r.feedbacks.sort_by(&:order)
       {
-          rule_uid: r.rules_uid,
-          api_name: r.rule_type,
-          rule_order: r.rule_suborder,
-          first_feedback: first_feedback&.text || '',
-          second_feedback: second_feedback&.text || '',
-          rule_note: r.rule_note,
-          rule_name: r.rule_name,
-          avg_confidence: r.avg_confidence ? (r.avg_confidence * 100).round : nil,
-          total_responses: r.total_responses,
-          strong_responses: r.total_strong,
-          weak_responses: r.total_weak,
-          repeated_consecutive_responses: r.repeated_consecutive,
-          repeated_non_consecutive_responses: r.repeated_non_consecutive,
+        rule_uid: r.rules_uid,
+        api_name: r.rule_type,
+        rule_order: r.rule_suborder,
+        first_feedback: first_feedback&.text || '',
+        second_feedback: second_feedback&.text || '',
+        rule_note: r.rule_note,
+        rule_name: r.rule_name,
+        avg_confidence: r.avg_confidence ? (r.avg_confidence * 100).round : nil,
+        total_responses: r.total_responses,
+        strong_responses: r.total_strong,
+        weak_responses: r.total_weak,
+        repeated_consecutive_responses: r.repeated_consecutive,
+        repeated_non_consecutive_responses: r.repeated_non_consecutive,
       }
     end
   end

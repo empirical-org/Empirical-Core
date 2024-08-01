@@ -9,7 +9,7 @@ class RollupMailerPreview < ActionMailer::Preview
     )
 
     teacher_info = TeacherInfo.find_or_initialize_by(user: teacher)
-    teacher_notification = TeacherNotifications::StudentCompletedDiagnostic.find_or_initialize_by(user: teacher).tap{ |row| row.student_name = 'John' }
+    teacher_notification = TeacherNotifications::StudentCompletedDiagnostic.find_or_initialize_by(user: teacher).tap { |row| row.student_name = 'John' }
     TeacherNotifications::RollupMailer.rollup(teacher, [teacher_notification])
   end
   end

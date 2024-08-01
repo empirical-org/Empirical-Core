@@ -29,7 +29,7 @@ class CopySingleConceptResultWorker
       extra_metadata = ConceptResult.parse_extra_metadata(metadata)
 
       answer = metadata['answer']
-      answer = answer.gsub(/\u0000/,'')
+      answer = answer.gsub(/\u0000/, '')
 
       ConceptResult.create!({
         answer: answer,

@@ -6,9 +6,9 @@ RSpec.describe Demo::CreateAdminReport do
   let!(:teacher_email) { 'hello+demoadmin-admindemoschool@quill.org' }
   let!(:passed_data) {
     [
-      { 'School'=>'MLK Middle School', 'Teacher'=>'Maya Angelou', 'Classroom'=>'Period 1a' },
-      { 'School'=>'Douglass High School', 'Teacher'=>'Kevin Kwan', 'Classroom'=>'Period 4' },
-      { 'School'=>'Douglass High School', 'Teacher'=>'Kevin Kwan', 'Classroom'=>'Period 5' }
+      { 'School' => 'MLK Middle School', 'Teacher' => 'Maya Angelou', 'Classroom' => 'Period 1a' },
+      { 'School' => 'Douglass High School', 'Teacher' => 'Kevin Kwan', 'Classroom' => 'Period 4' },
+      { 'School' => 'Douglass High School', 'Teacher' => 'Kevin Kwan', 'Classroom' => 'Period 5' }
     ]
   }
   let(:admin) { User.find_by(email: teacher_email, role: User::ADMIN) }

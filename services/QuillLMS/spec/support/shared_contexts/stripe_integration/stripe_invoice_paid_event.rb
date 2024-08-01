@@ -12,7 +12,7 @@ RSpec.shared_context 'Stripe Invoice Paid Event' do
       object: 'event',
       api_version: '2020-08-27',
       created: 1648487559,
-      data:  {
+      data: {
         object: stripe_invoice
       },
       livemode: false,

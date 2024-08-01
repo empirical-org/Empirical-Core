@@ -340,15 +340,15 @@ describe Teachers::UnitsController, type: :controller do
   describe '#update' do
     it 'sends a 200 status code when a unique name is sent over' do
       put :update, params: { id: unit.id, unit: {
-                      name: 'Super Unique Unit Name'
-                    } }
+        name: 'Super Unique Unit Name'
+      } }
       expect(response.status).to eq(200)
     end
 
     it 'sends a 422 error code when a non-unique name is sent over' do
       put :update, params: { id: unit.id, unit: {
-                      name: unit2.name
-                    } }
+        name: unit2.name
+      } }
       expect(response.status).to eq(422)
     end
   end
@@ -373,15 +373,15 @@ describe Teachers::UnitsController, type: :controller do
   describe '#update_classroom_unit_assigned_students' do
     it 'sends a 200 status code when it is passed valid data' do
       put :update_classroom_unit_assigned_students, params: { id: unit.id, unit: {
-            classrooms: [{ id: classroom.id, student_ids: [student.id] }]
-          } }
+        classrooms: [{ id: classroom.id, student_ids: [student.id] }]
+      } }
       expect(response.status).to eq(200)
     end
 
     it 'sends a 422 status code when it is passed invalid data' do
       put :update_classroom_unit_assigned_students, params: { id: unit.id + 500, unit: {
-            classrooms: [{ id: classroom.id, student_ids: [] }]
-          } }
+        classrooms: [{ id: classroom.id, student_ids: [] }]
+      } }
       expect(response.status).to eq(422)
     end
   end
@@ -420,9 +420,9 @@ describe Teachers::UnitsController, type: :controller do
     it 'sends a 422 status code when it is passed invalid data' do
       activity = unit_activity.activity
       put :update_activities, params: { id: unit.id + 500, data: {
-            unit_id: unit.id + 500,
-            activities_data: [{ id: activity.id, due_date: nil }]
-          }.to_json }
+        unit_id: unit.id + 500,
+        activities_data: [{ id: activity.id, due_date: nil }]
+      }.to_json }
       expect(response.status).to eq(422)
     end
   end
