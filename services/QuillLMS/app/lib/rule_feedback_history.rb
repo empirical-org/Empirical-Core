@@ -51,22 +51,29 @@ class RuleFeedbackHistory
   end
 
   def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil)
+    rule_uid = rule_uid.to_s
+    prompt_id = prompt_id.to_i
+
     start_filter = start_date ? ['feedback_histories.created_at >= ?', start_date] : []
     end_filter = end_date ? ['feedback_histories.created_at <= ?', end_date] : []
 
-    feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true).includes(:feedback_history_ratings)
-      .where(start_filter)
+    query = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
+      .includes(:feedback_history_ratings)
+
+    query = query.where(start_filter)
       .where(end_filter)
 
-    response_jsons = []
-    feedback_histories.each do |f_h|
-      response_jsons.append(feedback_history_to_json(f_h))
-    end
+    query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
+
+    feedback_histories = query.to_a
+
+    response_jsons = feedback_histories.map { |f_h| feedback_history_to_json(f_h) }
 
     {
-        "#{rule_uid}": {
-            responses: response_jsons
-        }
+      rule_uid => {
+        responses: response_jsons
+      }
     }
   end
 
