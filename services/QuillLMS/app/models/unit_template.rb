@@ -135,7 +135,7 @@ class UnitTemplate < ApplicationRecord
     USER_SCOPES.fetch(user_flag, UnitTemplate.production)
   end
 
-  def get_cached_serialized_unit_template(flag=nil)
+  def get_cached_serialized_unit_template(flag = nil)
     cache_expiration_time = 600
     cached = $redis.get("unit_template_id:#{id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
@@ -154,7 +154,7 @@ class UnitTemplate < ApplicationRecord
     end
   end
 
-  def self.student_counts_for_previously_assigned_activity(unit=nil, classrooms=[])
+  def self.student_counts_for_previously_assigned_activity(unit = nil, classrooms = [])
     classrooms.map do |classroom|
       classroom_unit = unit.classroom_units.find_by(classroom_id: classroom[:id])
       {
@@ -164,7 +164,7 @@ class UnitTemplate < ApplicationRecord
     end
   end
 
-  def self.previously_assigned_activity_data(activity_ids=[], current_user=nil)
+  def self.previously_assigned_activity_data(activity_ids = [], current_user = nil)
     results = {}
     activity_ids.map do |id|
       units = Unit.joins(:classroom_units, :unit_activities)

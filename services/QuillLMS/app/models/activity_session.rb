@@ -383,7 +383,7 @@ class ActivitySession < ApplicationRecord
     end
   end
 
-  def self.mark_all_activity_sessions_complete(activity_sessions, data={})
+  def self.mark_all_activity_sessions_complete(activity_sessions, data = {})
     activity_sessions.each do |as|
       as.update(
         state: 'finished',

@@ -166,7 +166,7 @@ class ProfilesController < ApplicationController
     ).to_a
   end
 
-  protected def student_profile_data_sql(classroom_id=nil)
+  protected def student_profile_data_sql(classroom_id = nil)
     @current_classroom = current_classroom(classroom_id)
     if @current_classroom && current_user
       @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id)

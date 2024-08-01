@@ -217,7 +217,7 @@ module PublicProgressReports
     :not_completed_names
   end
 
-  def formatted_score_obj(activity_session, classification, student, average_score_on_quill=0)
+  def formatted_score_obj(activity_session, classification, student, average_score_on_quill = 0)
     formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)

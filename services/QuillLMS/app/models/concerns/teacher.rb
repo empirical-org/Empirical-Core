@@ -81,7 +81,7 @@ module Teacher
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
+  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check = nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
       coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
@@ -160,7 +160,7 @@ module Teacher
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
+  def handle_negative_classrooms_from_update_coteachers(classroom_ids = nil)
     return unless classroom_ids && classroom_ids.any?
 
     # destroy the existing invitation and teacher relationships
@@ -541,7 +541,7 @@ module Teacher
     lessons_cache
   end
 
-  def set_lessons_cache(lessons_data=nil)
+  def set_lessons_cache(lessons_data = nil)
     if !lessons_data
       lessons_data = data_for_lessons_cache
     end
@@ -603,7 +603,7 @@ module Teacher
     ).to_a
   end
 
-  def ids_and_names_of_affiliated_students(classroom_id=nil)
+  def ids_and_names_of_affiliated_students(classroom_id = nil)
     students_classrooms_filter = classroom_id.blank? ? '' : " AND students_classrooms.classroom_id = #{classroom_id.to_i}"
 
     RawSqlRunner.execute(

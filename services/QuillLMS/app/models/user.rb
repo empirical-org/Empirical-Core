@@ -718,7 +718,7 @@ class User < ApplicationRecord
     teacher? && !school && previous_changes['id']
   end
 
-  def generate_username(classroom_id=nil)
+  def generate_username(classroom_id = nil)
     self.username = GenerateUsername.run(first_name, last_name, get_class_code(classroom_id))
   end
 

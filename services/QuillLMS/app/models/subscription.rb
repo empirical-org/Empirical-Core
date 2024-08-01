@@ -286,7 +286,7 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def self.set_trial_expiration_and_start_date(user=nil)
+  def self.set_trial_expiration_and_start_date(user = nil)
     start_date = Date.current
     expiration = start_date + 30
     existing_sub = user&.subscription

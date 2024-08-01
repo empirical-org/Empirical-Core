@@ -8,7 +8,7 @@ class Profile::Mobile::ActivitySessionsByUnit
     prepare_json(grouped_sessions)
   end
 
-  private def student_profile_data_sql(classroom_id=nil, student_id=nil)
+  private def student_profile_data_sql(classroom_id = nil, student_id = nil)
     RawSqlRunner.execute(
       <<-SQL
         SELECT
