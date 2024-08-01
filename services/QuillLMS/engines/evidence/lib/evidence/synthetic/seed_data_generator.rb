@@ -217,8 +217,8 @@ module Evidence
         passage
           .split(SPACE)
           .each_slice(size)
-          .map{ |s| s.join(SPACE) }
-          .map{ |s| s.last == PERIOD ? s : (s + PERIOD) } # end it in a period, so stem is new sentence.
+          .map { |s| s.join(SPACE) }
+          .map { |s| s.last == PERIOD ? s : (s + PERIOD) } # end it in a period, so stem is new sentence.
       end
 
       private def stem_variants_hash
@@ -243,7 +243,7 @@ module Evidence
       private def regex_exclude?(text)
         return false if conjunction_exclusions.empty?
 
-        conjunction_exclusions.any?{ |regex| regex.match(text.strip) }
+        conjunction_exclusions.any? { |regex| regex.match(text.strip) }
       end
 
       private def opinion_api_flagged?(text)

@@ -10,7 +10,7 @@ module CanvasIntegration
           id: id,
           name: name,
           account_id: account_id,
-          uuid:  uuid,
+          uuid: uuid,
           start_at: nil,
           grading_standard_id: nil,
           is_public: nil,

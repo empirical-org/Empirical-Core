@@ -44,7 +44,7 @@ describe Unit, type: :model do
 
   describe 'user_id field' do
     it 'should not raise an error' do
-      expect{ unit.user_id }.not_to raise_error
+      expect { unit.user_id }.not_to raise_error
     end
   end
 
@@ -79,17 +79,17 @@ describe Unit, type: :model do
         let!(:non_uniq_unit) { Unit.new(name: unit.name, user: teacher, visible: true) }
 
         it 'when visibile == true it must be unique' do
-          expect{ non_uniq_unit.save! }.to raise_error(ActiveRecord::RecordInvalid)
+          expect { non_uniq_unit.save! }.to raise_error(ActiveRecord::RecordInvalid)
         end
 
         it 'unless visibility == false' do
           non_uniq_unit.visible = false
-          expect{ non_uniq_unit.save! }.to_not raise_error
+          expect { non_uniq_unit.save! }.to_not raise_error
         end
 
         it "unless the original unit's visibility == false" do
           unit.update(visible: false)
-          expect{ non_uniq_unit.save! }.to_not raise_error
+          expect { non_uniq_unit.save! }.to_not raise_error
         end
       end
 
@@ -165,7 +165,7 @@ describe Unit, type: :model do
     end
 
     it 'should kick off background job for the lesson plan email' do
-      expect{ unit.email_lesson_plan }.to change(LessonPlanEmailWorker.jobs, :size).by 1
+      expect { unit.email_lesson_plan }.to change(LessonPlanEmailWorker.jobs, :size).by 1
     end
   end
 

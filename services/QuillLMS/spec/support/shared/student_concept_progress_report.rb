@@ -25,8 +25,7 @@ shared_context 'Student Concept Progress Report' do
       classroom: classroom,
       assign_on_join: true,
       unit: unit,
-      assigned_student_ids: [alice.id, fred.id, zojirushi.id]
-    )
+      assigned_student_ids: [alice.id, fred.id, zojirushi.id])
   }
   let(:unit_activity) {
     create(:unit_activity,
@@ -68,21 +67,25 @@ shared_context 'Student Concept Progress Report' do
     # Incorrect result for Alice
     alice_session.concept_results.create!(
       concept: create(:concept_with_grandparent),
-      correct: false)
+      correct: false
+    )
 
     # Correct result for Alice
     alice_session.concept_results.create!(
       concept: concept,
-      correct: true)
+      correct: true
+    )
 
     # Incorrect result for Fred
     fred_session.concept_results.create!(
       concept: concept,
-      correct: true)
+      correct: true
+    )
 
     # Correct result for Fred for hidden tag (not displayed)
     fred_session.concept_results.create!(
       concept: hidden_concept,
-      correct: true)
+      correct: true
+    )
   end
 end

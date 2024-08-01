@@ -8,7 +8,7 @@ class Profile::Mobile::ActivitySessionsByUnit
     prepare_json(grouped_sessions)
   end
 
-  private def student_profile_data_sql(classroom_id=nil, student_id=nil)
+  private def student_profile_data_sql(classroom_id = nil, student_id = nil)
     RawSqlRunner.execute(
       <<-SQL
         SELECT
@@ -98,6 +98,6 @@ class Profile::Mobile::ActivitySessionsByUnit
   end
 
   private def group_by_unit(all)
-    all.select{ |s| s['unit_name'].present? }.group_by{ |s| s['unit_name'] }
+    all.select { |s| s['unit_name'].present? }.group_by { |s| s['unit_name'] }
   end
 end

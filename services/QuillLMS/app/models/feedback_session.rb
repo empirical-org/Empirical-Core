@@ -20,7 +20,7 @@ class FeedbackSession < ApplicationRecord
   validates :activity_session_uid, presence: true, uniqueness: true
   validates :uid, presence: true, uniqueness: true
 
-  scope :history_texts, -> { feedback_history.select(:entry,:feedback_text).order(attempt: :asc) }
+  scope :history_texts, -> { feedback_history.select(:entry, :feedback_text).order(attempt: :asc) }
 
   def serializable_hash(options = nil)
     options ||= {}

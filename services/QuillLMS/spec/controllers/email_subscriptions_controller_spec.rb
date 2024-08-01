@@ -45,7 +45,7 @@ RSpec.describe EmailSubscriptionsController, type: :controller do
       let(:new_freq) { EmailSubscription::MONTHLY }
       let(:email_subscription) { create(:email_subscription, user:, frequency: old_freq) }
 
-      it { expect{ subject }.to change { email_subscription.reload.frequency }.from(old_freq).to(new_freq) }
+      it { expect { subject }.to change { email_subscription.reload.frequency }.from(old_freq).to(new_freq) }
     end
   end
 
@@ -86,7 +86,7 @@ RSpec.describe EmailSubscriptionsController, type: :controller do
         let(:email_subscription) { nil }
 
         it 'should not change anything in the database and 404' do
-          expect{ subject }.not_to change(EmailSubscription, :count)
+          expect { subject }.not_to change(EmailSubscription, :count)
           expect(response).to have_http_status(:not_found)
         end
       end

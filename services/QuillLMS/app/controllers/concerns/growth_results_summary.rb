@@ -47,7 +47,7 @@ module GrowthResultsSummary
         total_acquired_skill_groups_count = skill_groups.select { |sg| GAINED_PROFICIENCY_TEXTS.include?(sg[:proficiency_text]) }.flatten.uniq.count
         total_correct_questions_count = post_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
         total_pre_correct_questions_count = pre_test_concept_results_grouped_by_question.reduce(0) { |sum, crs| sum += get_score_for_question(crs) > 0 ? 1 : 0 }
-        total_maintained_skill_group_proficiency_count = skill_groups.select{ |skill_group| skill_group[:proficiency_text] == MAINTAINED_PROFICIENCY }.flatten.uniq.count
+        total_maintained_skill_group_proficiency_count = skill_groups.select { |skill_group| skill_group[:proficiency_text] == MAINTAINED_PROFICIENCY }.flatten.uniq.count
         total_acquired_or_maintained_proficiency_count = total_acquired_skill_groups_count + total_maintained_skill_group_proficiency_count
         {
           name: assigned_student.name,

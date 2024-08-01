@@ -34,7 +34,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
       Lesson.all.each do |lesson|
         activity = Activity.find_by(uid: lesson.uid)
         if activity.blank?
-          activity = Activity.new(:name=> lesson[:data]['name'], :uid=>lesson.uid, :flags=>[lesson[:data]['flag']])
+          activity = Activity.new(:name => lesson[:data]['name'], :uid => lesson.uid, :flags => [lesson[:data]['flag']])
 
           case lesson.lesson_type
           when Lesson::TYPE_CONNECT_LESSON
@@ -61,7 +61,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
       end
     end
 
-    Activity.where(:data=> nil).each do |a|
+    Activity.where(:data => nil).each do |a|
       data = {}
       data['flag'] = a.flags[0]
       a.data = data

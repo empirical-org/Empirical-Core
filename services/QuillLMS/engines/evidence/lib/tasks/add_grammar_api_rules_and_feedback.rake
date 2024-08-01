@@ -14,13 +14,13 @@ namespace :grammar_api_rules_and_feedback do
       valid_rules.each do |r|
         created_rule = Evidence::Rule.find_or_initialize_by(uid: r['Rule UID'])
         created_rule.attributes = {
-            name: r['Rule'],
-            note: r['Rule Description'],
-            universal: true,
-            rule_type: r['Module'] == 'Grammar API' ? 'grammar' : 'opinion',
-            optimal: false,
-            suborder: r['Rule Suborder'],
-            state: 'active',
+          name: r['Rule'],
+          note: r['Rule Description'],
+          universal: true,
+          rule_type: r['Module'] == 'Grammar API' ? 'grammar' : 'opinion',
+          optimal: false,
+          suborder: r['Rule Suborder'],
+          state: 'active',
         }
         created_rule.save!
 

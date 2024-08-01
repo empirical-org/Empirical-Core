@@ -5,34 +5,34 @@ source 'https://rubygems.org'
 ruby File.read('.ruby-version').chomp
 
 # CORE DEPS
-gem 'rails', '7.0.6'
 gem 'puma', '~> 5.6.8'
+gem 'rails', '7.0.6'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails', '~> 2.6'
 
 # DB/MODEL
-gem 'pg', '1.4.2'
 gem 'ancestry', '~> 3.0.5'
-gem 'ranked-model', '~> 0.4.3'
-gem 'rails_admin', '~> 3.1.2'
-gem 'bulk_insert', '~> 1.7'
 gem 'atomic_arrays', '~> 1.1.0'
+gem 'bulk_insert', '~> 1.7'
+gem 'pg', '1.4.2'
+gem 'rails_admin', '~> 3.1.2'
+gem 'ranked-model', '~> 0.4.3'
 
 # USER AUTH, ETC
 gem 'bcrypt', '~> 3.1.12'
-gem 'omniauth'
-gem 'omniauth-canvas'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-clever', git: 'https://github.com/Pioneer-Valley-Books/omniauth-clever'
-gem 'omniauth-rails_csrf_protection'
 gem 'cancancan', '~> 2.3'
 gem 'firebase_token_generator'
+gem 'omniauth'
+gem 'omniauth-canvas'
+gem 'omniauth-clever', git: 'https://github.com/Pioneer-Valley-Books/omniauth-clever'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 gem 'rack-attack', '~> 6.3'
 
 # EMAIL
-gem 'premailer-rails'
 gem 'nokogiri', '>= 1.13.2'
+gem 'premailer-rails'
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -46,35 +46,35 @@ gem 'carrierwave', '~> 1.3.2'
 gem 'fog-aws'
 
 # TIME
+gem 'geocoder'
+gem 'maxminddb'
 gem 'tzinfo'
 gem 'tzinfo-data'
 gem 'ziptz'
-gem 'geocoder'
-gem 'maxminddb'
 
 # OTHERS
-gem 'global'
-gem 'lms-api', require: 'lms_api'
-gem 'google-cloud-bigquery', '~> 1.43.0'
-gem 'google-apis-classroom_v1', '~> 0.27.0'
+gem 'cgi', '~> 0.3.6'
+gem 'configs'
+gem 'faker'
 gem 'faraday_middleware'
-gem 'newrelic_rpm', '~> 9.3.1'
-gem 'stripe', '~> 9.4'
-gem 'prawn'
-gem 'prawn-table'
-gem 'pdf-core'
+gem 'global'
+gem 'google-apis-classroom_v1', '~> 0.27.0'
+gem 'google-cloud-bigquery', '~> 1.43.0'
 gem 'grover'
-gem 'pdf-inspector'
-gem 'ttfunk'
-gem 'rubyzip', '~> 1.3.0'
+gem 'haversine'
 gem 'httparty', '~> 0.16'
 gem 'intercom', '~> 3.5.23'
-gem 'haversine'
-gem 'configs'
+gem 'lms-api', require: 'lms_api'
+gem 'newrelic_rpm', '~> 9.3.1'
+gem 'pdf-core'
+gem 'pdf-inspector'
+gem 'prawn'
+gem 'prawn-table'
 gem 'rack-test', '~> 0.6.3'
+gem 'rubyzip', '~> 1.3.0'
 gem 'secure_headers', '6.3.2'
-gem 'faker'
-gem 'cgi', '~> 0.3.6'
+gem 'stripe', '~> 9.4'
+gem 'ttfunk'
 
 # Engines
 gem 'evidence', path: 'engines/evidence'
@@ -84,25 +84,25 @@ gem 'pusher', '~> 2.0.3'
 gem 'websocket-driver', '0.6.5'
 
 # PARSING
+gem 'addressable'
 gem 'parslet'
 gem 'redcarpet', '~> 3.5.1'
-gem 'addressable'
 
 # QUEUE/CACHE
 source 'https://gems.contribsys.com/' do
   gem 'sidekiq-pro'
 end
-gem 'sidekiq', '~> 5.2.10'
-gem 'sidekiq-retries', require: false
+gem 'actionpack-action_caching'
 gem 'redis', '~> 4.5'
 gem 'redis-namespace', '~> 1.8'
-gem 'redis-rails'
 gem 'redis-rack-cache'
-gem 'actionpack-action_caching'
+gem 'redis-rails'
+gem 'sidekiq', '~> 5.2.10'
+gem 'sidekiq-retries', require: false
 
 # JS/APP/UI
-gem 'jbuilder'
 gem 'active_link_to'
+gem 'jbuilder'
 
 # METRICS
 gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
@@ -112,9 +112,9 @@ gem 'active_model_serializers', '~> 0.10.13'
 gem 'graphql'
 
 # UI HELPERS
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sass'
 gem 'sass-rails'
-gem 'bootstrap-sass', '~> 3.4.1'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails', '~> 5.0.5'
@@ -128,20 +128,20 @@ gem 'react_on_rails', '= 13.3.3'
 gem 'vite_rails', '~> 3.0.14'
 
 # ASSET/UI
-gem 'uglifier', require: false
 gem 'kaminari', '~> 1.2.1'
+gem 'uglifier', require: false
 
 # MIDDLEWARE
+gem 'rack-affiliates', '= 0.4.0'
 gem 'rack-cache', '~> 1.6.1', require: 'rack/cache'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rack-host-redirect'
-gem 'rack-affiliates', '= 0.4.0'
 
 # DEPLOYMENT
-gem 'sentry-ruby'
-gem 'sentry-rails'
-gem 'sentry-sidekiq'
 gem 'rack-heartbeat'
+gem 'sentry-rails'
+gem 'sentry-ruby'
+gem 'sentry-sidekiq'
 
 # INTEGRATIONS
 gem 'commonlit-clever-ruby'
@@ -154,50 +154,50 @@ gem 'puma_worker_killer'
 gem 'paperclip'
 
 # TBD
-gem 'rb-readline'
 gem 'awesome_print'
+gem 'rb-readline'
 
 gem 'capitalize-names', require: 'capitalize_names'
 
 gem 'rexml'
 
 group :production, :staging do
-  gem 'rails-autoscale-web'
-  gem 'rails-autoscale-sidekiq'
   gem 'lograge'
   gem 'matrix', '~> 0.4.2'
+  gem 'rails-autoscale-sidekiq'
+  gem 'rails-autoscale-web'
   gem 'scout_apm'
 end
 
 group :development do
-  gem 'bullet'
+  gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
   gem 'foreman'
   gem 'graphiql-rails'
   gem 'letter_opener'
   gem 'spring'
   gem 'spring-commands-rspec'
-  gem 'annotate'
 end
 
 group :test, :development do
-  gem 'parallel_tests'
-  gem 'pry'
-  gem 'pry-rails'
-  gem 'pry-byebug'
-  gem 'rspec-rails'
-  gem 'factory_bot_rails', require: false
-  gem 'timecop', '~> 0.9.8'
-  gem 'byebug'
-  gem 'rspec-retry'
-  gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
+  gem 'byebug'
+  gem 'factory_bot_rails', require: false
   gem 'memory_profiler'
   gem 'mini_racer', '= 0.8.0'
+  gem 'parallel_tests'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'rspec-redis_helper'
+  gem 'rspec-retry'
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'timecop', '~> 0.9.8'
 end
 
 group :test, :development, :cypress do
@@ -210,8 +210,8 @@ group :test do
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver', '~> 4.11.0'
-  gem 'shoulda-matchers', '~> 4'
   gem 'shoulda-callback-matchers', '~> 1.1.1'
+  gem 'shoulda-matchers', '~> 4'
   gem 'super_diff', require: false
   gem 'vcr', '~> 6.2.0'
   gem 'webmock', '~> 3.19'

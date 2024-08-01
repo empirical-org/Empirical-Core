@@ -34,7 +34,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
         'is_evidence'
       ]
       result = ProgressReports::Standards::AllClassroomsStandard.new(teacher1)
-      .results(sample_student_data[:classroom_unit].classroom_id, nil)
+        .results(sample_student_data[:classroom_unit].classroom_id, nil)
       expect(result.first.keys).to eq expected_keys
     end
 
@@ -58,7 +58,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
 
       it 'should indicate evidence activities via the is_evidence property' do
         result = ProgressReports::Standards::AllClassroomsStandard.new(teacher1)
-        .results(sample_student_data[:classroom_unit].classroom_id, nil)
+          .results(sample_student_data[:classroom_unit].classroom_id, nil)
         expect(result.first['is_evidence']).to eq false
       end
     end
@@ -80,7 +80,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
 
       it 'should indicate evidence activities via the is_evidence property' do
         results = ProgressReports::Standards::AllClassroomsStandard.new(teacher1)
-        .results(sample_student_data[:classroom_unit].classroom_id, nil)
+          .results(sample_student_data[:classroom_unit].classroom_id, nil)
         result = results.find { |r| r['id'] == evidence_standard.id }
         expect(result['is_evidence']).to eq true
       end

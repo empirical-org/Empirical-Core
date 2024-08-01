@@ -268,7 +268,7 @@ class Subscription < ApplicationRecord
       exp_month_and_day = "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
     end
 
-    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}",'%d-%m-%Y') }
+    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}", '%d-%m-%Y') }
   end
 
   def self.set_premium_expiration_and_start_date(subscriber)
@@ -286,7 +286,7 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def self.set_trial_expiration_and_start_date(user=nil)
+  def self.set_trial_expiration_and_start_date(user = nil)
     start_date = Date.current
     expiration = start_date + 30
     existing_sub = user&.subscription
@@ -321,7 +321,7 @@ class Subscription < ApplicationRecord
       'purchaser_name' => purchaser&.name,
       'renewal_stripe_price_id' => renewal_stripe_price_id,
       'renewal_price' => plan && PlanSerializer.new(plan).price_in_dollars,
-      'school_ids' =>  schools.pluck(:id),
+      'school_ids' => schools.pluck(:id),
       'stripe_customer_id' => purchaser&.stripe_customer_id,
       'stripe_subscription_id' => stripe_subscription_id
     )

@@ -2,7 +2,7 @@
 
 # SUM(CASE WHEN acts.is_final_score = true THEN acts.id ELSE 0 END) AS act_id
 class Scorebook::Query
-  def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, utc_offset=0)
+  def self.run(classroom_id, current_page = 1, unit_id = nil, begin_date = nil, end_date = nil, utc_offset = 0)
     first_unit = units(unit_id) ? units(unit_id).first : nil
     last_unit = units(unit_id) ? units(unit_id).last : nil
     user_timezone_offset = "+ INTERVAL '#{utc_offset}' SECOND"

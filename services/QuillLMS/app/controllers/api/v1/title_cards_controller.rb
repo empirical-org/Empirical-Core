@@ -42,6 +42,6 @@ class Api::V1::TitleCardsController < Api::ApiController
 
   private def validate_params
     params.require(:title_card)
-          .permit(:uid, :content, :title)
+      .permit(:uid, :content, :title)
   end
 end

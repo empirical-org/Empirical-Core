@@ -19,7 +19,7 @@ module Subscriber
   end
 
   def promotional_dates?
-    is_a?(School)|| is_a?(District)
+    is_a?(School) || is_a?(District)
   end
 
   def subscription

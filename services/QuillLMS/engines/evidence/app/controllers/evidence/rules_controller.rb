@@ -87,8 +87,7 @@ module Evidence
         regex_rules_attributes: [:id, :regex_text, :case_sensitive, :sequence_type, :conditional],
         label_attributes: [:id, :name, :state],
         hint_attributes: [:id, :explanation, :image_link, :image_alt_text, :_destroy],
-        feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index, :_destroy]]
-      )
+        feedbacks_attributes: [:id, :text, :description, :order, highlights_attributes: [:id, :text, :highlight_type, :starting_index, :_destroy]])
     end
 
     private def ordered_rules_params

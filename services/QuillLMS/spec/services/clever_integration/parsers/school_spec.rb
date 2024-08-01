@@ -10,7 +10,7 @@ describe 'CleverIntegration::Parsers::School' do
 
   let!(:expected) {
     { nces_id: 'school1',
-     id: 'clever1' }
+      id: 'clever1' }
   }
 
   def subject

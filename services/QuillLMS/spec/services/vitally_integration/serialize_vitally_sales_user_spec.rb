@@ -57,8 +57,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       name: 'Pops McGee',
       role: 'teacher',
       email: 'teach@teaching.edu',
-      school: school
-    )
+      school: school)
     ip_location = create(:ip_location, user: teacher)
 
     teacher_data = described_class.new(teacher).data
@@ -138,8 +137,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     account_data = described_class.new(teacher).account_data
 
     expect(account_data).to include(accountId: school.id.to_s,
-      type: 'account'
-    )
+      type: 'account')
     expect(account_data[:traits][:basic_subscription]).to be_within(1.second)
       .of(current_time)
   end
@@ -239,22 +237,19 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       classroom_unit: classroom_unit,
       activity: unit_activity.activity,
       user: student,
-      state: 'finished'
-    )
+      state: 'finished')
     create(:activity_session,
       classroom_unit: old_classroom_unit,
       activity: old_unit_activity.activity,
       user: old_student,
       state: 'finished',
       created_at: current_time - 1.year,
-      completed_at: current_time - 1.year
-    )
+      completed_at: current_time - 1.year)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: diagnostic_unit_activity.activity,
       user: student,
-      state: 'started'
-    )
+      state: 'started')
     teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
@@ -282,16 +277,14 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       classroom_unit: classroom_unit,
       activity: diagnostic_unit_activity.activity,
       user: student,
-      state: 'finished'
-    )
+      state: 'finished')
     create(:activity_session,
       classroom_unit: old_classroom_unit,
       activity: old_diagnostic_unit_activity.activity,
       user: old_student,
       state: 'finished',
       created_at: current_time - 1.year,
-      completed_at: current_time - 1.year
-    )
+      completed_at: current_time - 1.year)
 
     teacher_data = described_class.new(teacher).data
 
@@ -322,31 +315,27 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: middle_of_school_year - 10.days
-    )
+      completed_at: middle_of_school_year - 10.days)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: middle_of_school_year - 3.days
-    )
+      completed_at: middle_of_school_year - 3.days)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: new_student,
       state: 'finished',
       created_at: middle_of_school_year - 1.year,
-      completed_at: middle_of_school_year - 1.year
-    )
+      completed_at: middle_of_school_year - 1.year)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: new_student,
       state: 'started',
       created_at: middle_of_school_year - 1.year,
-      completed_at: middle_of_school_year - 1.year
-    )
+      completed_at: middle_of_school_year - 1.year)
 
     teacher_data = described_class.new(teacher).data
 

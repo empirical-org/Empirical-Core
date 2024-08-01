@@ -36,8 +36,7 @@ FactoryBot.define do
       after(:create) do |auth_credential|
         create(:canvas_instance_auth_credential,
           auth_credential: auth_credential,
-          canvas_instance: auth_credential.user.canvas_instances.first
-        )
+          canvas_instance: auth_credential.user.canvas_instances.first)
       end
     end
 

@@ -19,9 +19,9 @@ RSpec.describe CanvasIntegration::TeacherClassroomsStudentsImporter do
 
   before do
     allow(CanvasIntegration::ClassroomStudentsData)
-    .to receive(:new)
-    .with(canvas_classroom, client)
-    .and_return(classroom_students_data)
+      .to receive(:new)
+      .with(canvas_classroom, client)
+      .and_return(classroom_students_data)
   end
 
   it 'runs the importer only on canvas classrooms' do

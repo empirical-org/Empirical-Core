@@ -274,7 +274,7 @@ ActionView::Base.field_error_proc = proc do |html, instance|
   if html =~ /<label/
     html
   else
-    message = instance.error_message.map{ |m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}" }.join(', ')
+    message = instance.error_message.map { |m| "#{instance.instance_variable_get(:@method_name).humanize} #{m}" }.join(', ')
     "#{html}<div class=\"help-inline\">#{message}</div>".html_safe
   end
 end

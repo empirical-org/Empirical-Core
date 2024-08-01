@@ -26,7 +26,7 @@ module Analytics
       track({
         user_id: user_id,
         event: "Analytics::SegmentIo::BackgroundEvents::#{event_name}".constantize
-        })
+      })
     end
 
     def track_activity_assignment(teacher_id, activity_id)

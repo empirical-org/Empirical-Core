@@ -156,7 +156,7 @@ RSpec.describe ConceptResult, type: :model do
     context 'self.bulk_create_from_json' do
       let(:question1) { create(:question) }
       let(:question2) { create(:question) }
-      let(:activity) { create(:activity, data: { questions: [{ key: question1.uid },{ key: question2.uid }] }) }
+      let(:activity) { create(:activity, data: { questions: [{ key: question1.uid }, { key: question2.uid }] }) }
       let(:activity_session) { create(:activity_session, activity: activity) }
       let(:concept) { create(:concept) }
       let(:metadata) do

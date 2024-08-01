@@ -12,8 +12,8 @@ module OpenAI
     }.freeze
     def perform(translatable_id, translatable_type, locale = Translatable::DEFAULT_LOCALE)
       TRANSLATABLE_TYPES[translatable_type]
-      &.find_by(id: translatable_id)
-      &.translate!(locale:)
+        &.find_by(id: translatable_id)
+        &.translate!(locale:)
     end
   end
 end

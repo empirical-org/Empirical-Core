@@ -25,14 +25,14 @@ module Evidence
           raise APIError, "Encountered upstream error: #{response}"
         end
 
-        response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+        response.filter { |k, v| ALLOWED_PAYLOAD_KEYS.include?(k) }
       end
 
       private def api_request
         HTTParty.post(
           API_ENDPOINT,
-          headers:  { 'Content-Type': 'application/json' },
-          body:     {
+          headers: { 'Content-Type': 'application/json' },
+          body: {
             entry: @entry,
             prompt_text: @prompt_text
           }.to_json,

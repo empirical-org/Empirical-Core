@@ -340,14 +340,14 @@ describe UnitActivity, type: :model, redis: true do
         unit_activity.update(publish_date: nil)
         lessons_unit_activity.update(publish_date: nil)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.map{ |ua| ua['ua_id'] }).to include(unit_activity.id, lessons_unit_activity.id)
+        expect(unit_activities.map { |ua| ua['ua_id'] }).to include(unit_activity.id, lessons_unit_activity.id)
       end
 
       it 'includes unit activities that have a publish date that has already passed' do
         unit_activity.update(publish_date: Time.now.utc - 1.hour)
         lessons_unit_activity.update(publish_date: Time.now.utc - 1.minute)
         unit_activities = UnitActivity.get_classroom_user_profile(classroom.id, student.id)
-        expect(unit_activities.map{ |ua| ua['ua_id'] }).to include(unit_activity.id, lessons_unit_activity.id)
+        expect(unit_activities.map { |ua| ua['ua_id'] }).to include(unit_activity.id, lessons_unit_activity.id)
       end
 
       it 'does not include unit activities that have a publish date that has not yet passed' do

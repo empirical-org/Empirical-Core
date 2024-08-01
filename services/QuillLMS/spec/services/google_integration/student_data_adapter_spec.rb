@@ -11,11 +11,11 @@ module GoogleIntegration
 
     let(:expected_result) do
       {
-          email: profile.email_address.downcase,
-          first_name: profile.name.given_name,
-          last_name: profile.name.family_name,
-          name: profile.name.full_name,
-          user_external_id: profile.id
+        email: profile.email_address.downcase,
+        first_name: profile.name.given_name,
+        last_name: profile.name.family_name,
+        name: profile.name.full_name,
+        user_external_id: profile.id
       }
     end
 

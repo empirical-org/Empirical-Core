@@ -17,33 +17,29 @@ describe PopulateActivityHealthWorker do
             { key: question.uid },
             { key: another_question.uid }
           ]
-        }
-      )
+        })
     end
 
     let!(:content_partner) { create(:content_partner, activities: [activity]) }
     let!(:activity_session1) do
       create(:activity_session_without_concept_results,
         activity: activity,
-        started_at: DateTime.new(2021,1,1,4,0,0),
-        completed_at: DateTime.new(2021,1,1,4,5,0)
-      )
+        started_at: DateTime.new(2021, 1, 1, 4, 0, 0),
+        completed_at: DateTime.new(2021, 1, 1, 4, 5, 0))
     end
 
     let!(:activity_session2) do
       create(:activity_session_without_concept_results,
         activity: activity,
-        started_at: DateTime.new(2021,1,2,4,0,0),
-        completed_at: DateTime.new(2021,1,2,4,10,0)
-      )
+        started_at: DateTime.new(2021, 1, 2, 4, 0, 0),
+        completed_at: DateTime.new(2021, 1, 2, 4, 10, 0))
     end
 
     let!(:activity_session3) do
       create(:activity_session_without_concept_results,
         activity: activity,
-        started_at: DateTime.new(2021,1,3,4,0,0),
-        completed_at: DateTime.new(2021,1,3,4,20,0)
-      )
+        started_at: DateTime.new(2021, 1, 3, 4, 0, 0),
+        completed_at: DateTime.new(2021, 1, 3, 4, 20, 0))
     end
 
     let!(:diagnostic) { create(:diagnostic_activity) }
@@ -57,32 +53,28 @@ describe PopulateActivityHealthWorker do
       create(:concept_result,
         activity_session: activity_session1,
         question_number: 1,
-        question_score: 1
-      )
+        question_score: 1)
     end
 
     let!(:concept_result2) do
       create(:concept_result,
         activity_session: activity_session2,
         question_number: 1,
-        question_score: 0.75
-      )
+        question_score: 0.75)
     end
 
     let!(:concept_result3) do
       create(:concept_result,
         activity_session: activity_session3,
         question_number: 1,
-        question_score: 0
-      )
+        question_score: 0)
     end
 
     let!(:concept_result4) do
       create(:concept_result,
         activity_session: activity_session1,
         question_number: 2,
-        question_score: 1
-      )
+        question_score: 1)
     end
 
     before do

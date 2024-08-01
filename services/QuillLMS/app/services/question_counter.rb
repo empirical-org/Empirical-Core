@@ -7,19 +7,19 @@ class QuestionCounter < ApplicationService
   LESSONS_COUNTS = Configs[:lessons_question_counts]
 
   TOOL_CALCULATORS = {
-    passage:    ->(a) { a.data['passage']&.scan(PROOFREADER_REGEX)&.size },
-    sentence:   ->(a) { grammar_calculator(a) },
-    connect:    ->(a) { question_array_size(a) },
+    passage: ->(a) { a.data['passage']&.scan(PROOFREADER_REGEX)&.size },
+    sentence: ->(a) { grammar_calculator(a) },
+    connect: ->(a) { question_array_size(a) },
     diagnostic: ->(a) { question_array_size(a) },
-    lessons:    ->(a) { LESSONS_COUNTS[a.uid] },
-    evidence:   ->(_) { 3 }
+    lessons: ->(a) { LESSONS_COUNTS[a.uid] },
+    evidence: ->(_) { 3 }
   }
   TOOL_DEFAULTS = {
     passage: 10,
     sentence: 10,
-    connect:  10,
+    connect: 10,
     diagnostic: 25,
-    lessons:  5,
+    lessons: 5,
     evidence: 3
   }
   DEFAULT = 10

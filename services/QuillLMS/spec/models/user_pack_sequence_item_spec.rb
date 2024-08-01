@@ -40,8 +40,7 @@ RSpec.describe UserPackSequenceItem, type: :model do
       let(:duplicate_user_pack_sequence_item) do
         create(:user_pack_sequence_item,
           pack_sequence_item: user_pack_sequence_item.pack_sequence_item,
-          user: user_pack_sequence_item.user
-        )
+          user: user_pack_sequence_item.user)
       end
 
       it { expect { duplicate_user_pack_sequence_item }.to raise_error ActiveRecord::RecordNotUnique }

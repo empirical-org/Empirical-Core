@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
   before do
-    allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1,2]
+    allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1, 2]
   end
 
   context 'suspend and unsuspending users' do
@@ -141,8 +141,8 @@ RSpec.describe LearnWorldsIntegration::SyncOrchestrator do
 
   describe '#initialize' do
     it 'should populate learnworlds_suspended_ids via SuspenedUsersRequest' do
-      allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1,2]
-      expect(subject.learnworlds_suspended_ids).to eq [1,2]
+      allow(LearnWorldsIntegration::SuspendedUsersRequest).to receive(:run).and_return [1, 2]
+      expect(subject.learnworlds_suspended_ids).to eq [1, 2]
     end
   end
 end
