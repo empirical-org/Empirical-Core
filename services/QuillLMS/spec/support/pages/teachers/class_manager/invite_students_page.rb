@@ -18,7 +18,7 @@ module Teachers
     end
 
     def class_code
-      find(:xpath, %q(//*[@class='class-code']/following-sibling::input)).value
+      find(:xpath, "//*[@class='class-code']/following-sibling::input").value
     end
 
     def class_menu

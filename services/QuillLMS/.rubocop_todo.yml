@@ -823,7 +823,6 @@ Style/RedundantPercentQ:
     - 'db/migrate/20180824185130_replace_function_timepent_activity_session.rb'
     - 'db/migrate/20180824195642_replace_function_timepent_activity_session_again.rb'
     - 'db/migrate/20180831194810_add_function_timespent_question.rb'
-    - 'spec/support/pages/teachers/class_manager/invite_students_page.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
