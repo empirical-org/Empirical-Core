@@ -18,7 +18,7 @@ class IntegrationsController < ApplicationController
     @js_file = 'public'
     @active_tab = 'Explore All Activities'
     @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
-    @standards = @standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
+    @standards = @standard_level.standards.map { |standard| [standard, standard.activities.production] }.select { |group| group.second.any? }
     render :template => 'integrations/amplify'
   end
 

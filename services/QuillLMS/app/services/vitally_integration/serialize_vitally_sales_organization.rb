@@ -150,7 +150,7 @@ module VitallyIntegration
         .count
     end
 
-    def active_students(start_date=nil, end_date=nil)
+    def active_students(start_date = nil, end_date = nil)
       return activities_completed_all_time.group('students.id').length if start_date.blank? && end_date.blank?
 
       if start_date.present?
@@ -164,7 +164,7 @@ module VitallyIntegration
       filtered_results.length
     end
 
-    def activities_completed(start_date=nil, end_date=nil)
+    def activities_completed(start_date = nil, end_date = nil)
       return activities_completed_all_time.count if start_date.blank? && end_date.blank?
 
       if start_date.present?

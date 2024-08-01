@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 shared_examples_for 'ownable' do
-  let(:owner_name){ described_class.owner_name }
-  let(:owner){ create(owner_name) }
+  let(:owner_name) { described_class.owner_name }
+  let(:owner) { create(owner_name) }
 
   let(:parent) do
     described_class.new(:"#{owner_name}_id" => owner.id)
@@ -29,7 +29,7 @@ shared_examples_for 'ownable' do
 
     describe '#owner=' do
       it 'must change the owner' do
-        parent.owner= owner
+        parent.owner = owner
         expect(parent.send(owner_name)).to eq owner
       end
     end
@@ -50,7 +50,7 @@ shared_examples_for 'ownable' do
       end
 
       it 'must return false if owner is not present' do
-        parent.send("#{owner_name}=",nil)
+        parent.send("#{owner_name}=", nil)
         expect(parent).to_not be_owned_by owner
       end
 

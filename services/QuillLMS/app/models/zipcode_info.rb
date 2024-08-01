@@ -42,8 +42,8 @@ class ZipcodeInfo < ApplicationRecord
 
     dist_btwn_lat_deg = 69.172
     dist_btwn_lng_deg = Math.cos(point[0]) * 69.172
-    lat_degr_rad = distance.to_f/dist_btwn_lat_deg
-    lng_degr_rad = distance.to_f/dist_btwn_lng_deg
+    lat_degr_rad = distance.to_f / dist_btwn_lat_deg
+    lng_degr_rad = distance.to_f / dist_btwn_lng_deg
 
     latmin = point[0] - lat_degr_rad
     latmax = point[0] + lat_degr_rad

@@ -4,7 +4,7 @@ class IdentifyStripeInvoicesWithoutSubscriptionsWorker
   include Sidekiq::Worker
 
   FAILED_CHARGE = 'failed'
-  INVOICE_START_EPOCH = DateTime.new(2023,1,1).to_i # Date we began using this workflow
+  INVOICE_START_EPOCH = DateTime.new(2023, 1, 1).to_i # Date we began using this workflow
 
   def perform
     StripeIntegration::Mailer

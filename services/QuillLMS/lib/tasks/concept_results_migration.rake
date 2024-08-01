@@ -22,7 +22,7 @@ namespace :concept_results_migration do
 
   desc 'Enqueue all ConceptResult records for clean-up of their possibly duplicated "instructions" values'
   task clean_up_instructions: :environment do
-    BATCH_SIZE=1_000_000
+    BATCH_SIZE = 1_000_000
 
     start = 1
     finish = ConceptResult.maximum(:id)

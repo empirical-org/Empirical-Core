@@ -396,7 +396,7 @@ class PagesController < ApplicationController
   def activities
     @body_class = 'full-width-page white-page'
     @standard_level = params[:standard_level_id].present? ? StandardLevel.find(params[:standard_level_id]) : StandardLevel.first
-    @standards = @standard_level.standards.map{ |standard| [standard, standard.activities.production] }.select{ |group| group.second.any? }
+    @standards = @standard_level.standards.map { |standard| [standard, standard.activities.production] }.select { |group| group.second.any? }
   end
 
   # for link to premium within 'about' (discover) pages
@@ -553,7 +553,7 @@ class PagesController < ApplicationController
   end
 
   private def add_cards(list_response)
-    list_response.each{ |list| list['cards'] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url") }
+    list_response.each { |list| list['cards'] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url") }
     list_response
   end
 

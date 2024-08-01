@@ -10,8 +10,8 @@ module Staff
       let(:rule) { create(:evidence_rule, name: 'so_rule1', rule_type: 'autoML') }
 
       it 'should format correctly' do
-        create(:evidence_feedback, rule: rule, order: 1, text: 'a'*10)
-        create(:evidence_feedback, rule: rule, order: 2, text: 'b'*10)
+        create(:evidence_feedback, rule: rule, order: 1, text: 'a' * 10)
+        create(:evidence_feedback, rule: rule, order: 2, text: 'b' * 10)
 
         example_bigquery_result = [
           {
@@ -20,8 +20,8 @@ module Staff
         ]
 
         expected = {
-          first_feedback: 'a'*10,
-          second_feedback: 'b'*10,
+          first_feedback: 'a' * 10,
+          second_feedback: 'b' * 10,
         }
 
         expect(

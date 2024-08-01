@@ -175,7 +175,7 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
       end
 
       context 'when school ids are present in filter selections' do
-        let(:selected_schools) { [{ 'id'=> school.id, 'name'=> school.name, 'label'=> school.name, 'value'=> school.id }] }
+        let(:selected_schools) { [{ 'id' => school.id, 'name' => school.name, 'label' => school.name, 'value' => school.id }] }
 
         before { filter_selections['schools'] = selected_schools }
 

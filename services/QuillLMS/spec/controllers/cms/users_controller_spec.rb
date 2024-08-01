@@ -72,18 +72,18 @@ describe Cms::UsersController do
       get :search, params: { class_code: class_code }
       expect(JSON.parse(response.body)).to eq(
         {
-          'numberOfPages'=> 1,
-          'userSearchQueryResults'=> [
+          'numberOfPages' => 1,
+          'userSearchQueryResults' => [
             {
-              'name'=> teacher.name,
-              'email'=> teacher.email,
-              'role'=> teacher.role,
-              'last_sign_in'=> nil,
-              'subscription'=> nil,
+              'name' => teacher.name,
+              'email' => teacher.email,
+              'role' => teacher.role,
+              'last_sign_in' => nil,
+              'subscription' => nil,
               'last_sign_in_text' => nil,
-              'school'=> nil,
-              'school_id'=> nil,
-              'id'=> teacher.id
+              'school' => nil,
+              'school_id' => nil,
+              'id' => teacher.id
             },
             {
               'name' => student.name,
@@ -97,8 +97,8 @@ describe Cms::UsersController do
               'id' => student.id
             }
           ],
-          'userSearchQuery'=> {
-            'class_code'=> class_code
+          'userSearchQuery' => {
+            'class_code' => class_code
           }
         })
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
@@ -175,7 +175,7 @@ describe Cms::UsersController do
 
     it 'should destroy the schoolsadmins' do
       put :remove_admin, params: { user_id: admin.id, school_id: school.id }
-      expect{ SchoolsAdmins.find(schools_admin.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { SchoolsAdmins.find(schools_admin.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to 'http://example.com'
     end
   end

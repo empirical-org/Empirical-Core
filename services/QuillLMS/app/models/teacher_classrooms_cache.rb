@@ -11,7 +11,7 @@ class TeacherClassroomsCache
     Rails.cache.delete(teacher_id, namespace: self::CACHE_NAMESPACE)
   end
 
-  def self.write(teacher_id, data, expires_in=CACHE_LIFE)
+  def self.write(teacher_id, data, expires_in = CACHE_LIFE)
     Rails.cache.write(teacher_id, data, expires_in: expires_in, namespace: self::CACHE_NAMESPACE)
   end
 end

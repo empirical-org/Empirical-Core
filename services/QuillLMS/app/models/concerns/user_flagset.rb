@@ -54,7 +54,7 @@ module UserFlagset
       college_board: {
         display_name: 'College Board',
         flags: {
-          Flags::COLLEGE_BOARD  =>    { display_name: 'College Board' },
+          Flags::COLLEGE_BOARD => { display_name: 'College Board' },
           Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },
@@ -92,19 +92,19 @@ module UserFlagset
   end
 
   def self.decorated
-    FLAGSETS.map{ |key, value| { value: key.to_s, label: value[:display_name] } }
+    FLAGSETS.map { |key, value| { value: key.to_s, label: value[:display_name] } }
   end
 
   def self.flags_for_flagset(flagset)
     return nil unless flagset
 
-    FLAGSETS[flagset.to_sym][:flags].keys.map{ |k| "'#{k}'" }.join(',')
+    FLAGSETS[flagset.to_sym][:flags].keys.map { |k| "'#{k}'" }.join(',')
   end
 
   def activity_viewable?(activity)
     return false unless activity.is_a?(::Activity)
 
-    user_flagset = FLAGSETS.fetch(flagset.to_sym){ return false }
+    user_flagset = FLAGSETS.fetch(flagset.to_sym) { return false }
 
     # NOTE: We coerce activity.flags to strings here, even though they are
     # persisted as strings, because Activity.rb coerces them to symbols at the moment.

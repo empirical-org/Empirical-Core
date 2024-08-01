@@ -110,7 +110,7 @@ module Evidence
       def self.contains_exception?(client_response)
         highlights = client_response[Evidence::Grammar::Client::HIGHLIGHT_KEY]
 
-        highlight_texts(highlights).any?{ |h| EXCEPTIONS.any? { |e| h.match(e.downcase) } }
+        highlight_texts(highlights).any? { |h| EXCEPTIONS.any? { |e| h.match(e.downcase) } }
       end
 
       def self.highlight_texts(highlights)

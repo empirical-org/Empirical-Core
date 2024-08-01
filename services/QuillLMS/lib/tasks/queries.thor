@@ -16,7 +16,7 @@ class Queries < Thor
 
     snapshot_queries_to_run.each do |key, query|
       sql = query
-        .new(**{ timeframe_start:,timeframe_end:,school_ids: })
+        .new(**{ timeframe_start:, timeframe_end:, school_ids: })
         .query
 
       puts sql
@@ -39,7 +39,7 @@ class Queries < Thor
     query = snapshot_queries_to_run[query_key]
 
     sql = query
-      .new(**{ timeframe_start:,timeframe_end:,school_ids: })
+      .new(**{ timeframe_start:, timeframe_end:, school_ids: })
       .query
     metadata = query_metadata(sql)
 
@@ -63,7 +63,7 @@ class Queries < Thor
         row = [key]
         options[:ids].each do |user_id|
           school_ids = school_ids_for_user(user_id)
-          result = query.run(**{ timeframe_start:,timeframe_end:,school_ids: })
+          result = query.run(**{ timeframe_start:, timeframe_end:, school_ids: })
           row.append(parse_result(result))
         end
         csv << row
@@ -97,7 +97,7 @@ class Queries < Thor
 
     timeframe_start = DateTime.parse(DEFAULT_START)
     timeframe_end = DateTime.parse(DEFAULT_END)
-    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    school_ids = [38811, 38804, 38801, 38800, 38779, 38784, 38780, 38773, 38765, 38764]
     aggregation = 'classroom'
 
     multi_args = {
@@ -141,7 +141,7 @@ class Queries < Thor
     timeframe_end = DateTime.parse(DEFAULT_END)
     # The values defined below are "magical".  More specifically, they are hard-coded from a specific test user.
     # This is the list of schools admin-ed by `liz.domingue@cpsb.org`
-    school_ids = [38811,38804,38801,38800,38779,38784,38780,38773,38765,38764]
+    school_ids = [38811, 38804, 38801, 38800, 38779, 38784, 38780, 38773, 38765, 38764]
     # These are two arbitrary grades with data for admin `liz.domingue@cpsb.org`
     grades = ['6', '9']
     # These are two teachers assigned to each of the above grades: "desiree.mott@cpsb.org", "samuel.orsot@cpsb.org", "jamie.sargent@cpsb.org", "trista.johnston@cpsb.org"

@@ -140,7 +140,7 @@ class BlogPostsController < ApplicationController
   private def topics(topic_names)
     topics = []
     topic_names.each do |name|
-      topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-')) })
+      topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ', '-')) })
     end
     topics
   end

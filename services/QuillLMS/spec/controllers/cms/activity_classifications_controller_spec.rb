@@ -61,7 +61,7 @@ describe Cms::ActivityClassificationsController, type: :controller do
 
     it 'should destroy the given classification' do
       delete :destroy, params: { id: classification.id }
-      expect{ ActivityClassification.find(classification.id) }.to raise_exception(ActiveRecord::RecordNotFound)
+      expect { ActivityClassification.find(classification.id) }.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
 end

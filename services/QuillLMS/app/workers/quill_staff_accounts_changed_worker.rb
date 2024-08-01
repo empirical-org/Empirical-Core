@@ -39,7 +39,7 @@ class QuillStaffAccountsChangedWorker
     existing_ids = current_ids & previous_ids
 
     new_ids.each do |id|
-      body << "New Account: #{current_staff_accounts.find{ |acc| acc['id'] == id }['name']} (ID ##{id})\n\n"
+      body << "New Account: #{current_staff_accounts.find { |acc| acc['id'] == id }['name']} (ID ##{id})\n\n"
     end
 
     existing_ids.each do |id|

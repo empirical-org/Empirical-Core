@@ -6,7 +6,7 @@ module Evidence
 
     attr_reader :entry, :prompt
 
-    def initialize(entry, prompt, previous_feedback=[])
+    def initialize(entry, prompt, previous_feedback = [])
       @entry = entry
       @prompt = prompt
       @automl_model = prompt&.automl_models&.where(state: AutomlModel::STATE_ACTIVE)&.first

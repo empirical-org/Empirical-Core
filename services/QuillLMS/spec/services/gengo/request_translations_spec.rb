@@ -84,7 +84,7 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
       context 'there is no response' do
         let(:resp) { nil }
 
-        it { expect{ subject }.to raise_error(described_class::RequestTranslationError) }
+        it { expect { subject }.to raise_error(described_class::RequestTranslationError) }
       end
     end
 

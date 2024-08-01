@@ -103,7 +103,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     UnitTemplate.user_scope(related_models_flag)
     .includes(:author, :unit_template_category)
     .order(:order_number)
-    .map{ |ut| ut.get_cached_serialized_unit_template }
+    .map { |ut| ut.get_cached_serialized_unit_template }
   end
 
   private def cached_formatted_unit_templates

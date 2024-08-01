@@ -166,7 +166,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     # that by deleting their related ActivitySession.  So if a student submitted no
     # ConceptResults, we delete their ActivitySession for reporting purposes.
     activity_session_uids = activity_sessions.map(&:uid)
-    activity_session_uids_with_concept_results = concept_results.map{ |cr| cr[:activity_session_uid] }.uniq
+    activity_session_uids_with_concept_results = concept_results.map { |cr| cr[:activity_session_uid] }.uniq
     activity_session_uids_without_concept_results = activity_session_uids - activity_session_uids_with_concept_results
     ActivitySession.where(uid: activity_session_uids_without_concept_results).destroy_all
   end

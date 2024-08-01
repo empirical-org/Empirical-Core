@@ -73,7 +73,7 @@ class User < ApplicationRecord
   include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
-  STAFF_SESSION_DURATION= 12.hours
+  STAFF_SESSION_DURATION = 12.hours
   USER_INACTIVITY_DURATION = 30.days
   USER_SESSION_DURATION = 30.days
 
@@ -448,7 +448,7 @@ class User < ApplicationRecord
   end
 
   def safe_role_assignment role
-    sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
+    sanitized_role = SAFE_ROLES.find { |r| r == role.strip }
     self.role = sanitized_role || 'user'
   end
 
@@ -558,7 +558,7 @@ class User < ApplicationRecord
     schools = administered_schools.includes(:users, :admins)
     return if schools.none?
 
-    schools.map{ |school| school.users.ids + school.admins.ids }.flatten.uniq
+    schools.map { |school| school.users.ids + school.admins.ids }.flatten.uniq
   end
 
   def refresh_token!
@@ -602,7 +602,7 @@ class User < ApplicationRecord
     # first we need to replace any existing spaces with hyphens
     last_name_with_spaces_replaced_by_hyphens = last_name.split.join('-')
     # then we want to capitalize the first letter
-    self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0,1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
+    self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0, 1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
   end
 
   def generate_student(classroom_id)
@@ -718,7 +718,7 @@ class User < ApplicationRecord
     teacher? && !school && previous_changes['id']
   end
 
-  def generate_username(classroom_id=nil)
+  def generate_username(classroom_id = nil)
     self.username = GenerateUsername.run(first_name, last_name, get_class_code(classroom_id))
   end
 
@@ -930,7 +930,7 @@ class User < ApplicationRecord
 
   private def prep_authentication_terms
     self.email = email.downcase unless email.blank?
-    self.username= username.downcase unless username.blank?
+    self.username = username.downcase unless username.blank?
   end
 
   private def check_for_school

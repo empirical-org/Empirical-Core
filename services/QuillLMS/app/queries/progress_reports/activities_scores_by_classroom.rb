@@ -4,7 +4,7 @@ class ProgressReports::ActivitiesScoresByClassroom
   # params:
   # => timezone: string | nil.
   #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
-  def self.results(classroom_ids, timezone=nil)
+  def self.results(classroom_ids, timezone = nil)
     ids = classroom_ids.join(', ')
     result = RawSqlRunner.execute(query(ids)).to_a
     transform_timestamps!(result, timezone)

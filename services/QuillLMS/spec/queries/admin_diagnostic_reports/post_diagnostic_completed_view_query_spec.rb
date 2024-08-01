@@ -101,23 +101,23 @@ module AdminDiagnosticReports
 
         let(:classroom_count) { 2 }
 
-        it { expect(aggregate_row_results.map{ |r| r[:aggregate_id] }).to match_array(classrooms.map(&:grade)) }
+        it { expect(aggregate_row_results.map { |r| r[:aggregate_id] }).to match_array(classrooms.map(&:grade)) }
 
         context 'aggregate by teacher' do
           let(:aggregation_arg) { 'teacher' }
 
-          it { expect(aggregate_row_results.map{ |r| r[:aggregate_id] }).to match_array(classrooms.map(&:teachers).flatten.map(&:id)) }
+          it { expect(aggregate_row_results.map { |r| r[:aggregate_id] }).to match_array(classrooms.map(&:teachers).flatten.map(&:id)) }
         end
 
         context 'aggregate by classroom' do
           let(:aggregation_arg) { 'classroom' }
 
-          it { expect(aggregate_row_results.map{ |r| r[:aggregate_id] }).to match_array(classrooms.map(&:id)) }
+          it { expect(aggregate_row_results.map { |r| r[:aggregate_id] }).to match_array(classrooms.map(&:id)) }
         end
       end
 
-      #TODO: Write specs to cover the edge case in https://github.com/empirical-org/Empirical-Core/pull/11662
-      #TODO: Write specs to cover rounding order for growth score aggregation, the Teacher report averages all skills, then rounds the value to the nearest whole percentage
+      # TODO: Write specs to cover the edge case in https://github.com/empirical-org/Empirical-Core/pull/11662
+      # TODO: Write specs to cover rounding order for growth score aggregation, the Teacher report averages all skills, then rounds the value to the nearest whole percentage
     end
   end
 end

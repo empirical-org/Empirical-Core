@@ -157,13 +157,13 @@ module Demo::ReportDemoCreator
 
   StudentTemplate = Struct.new(:name, :email_eligible, keyword_init: true) do
     def username(classroom_id)
-      "#{name.downcase.gsub(' ','.')}.#{classroom_id}@demo-teacher"
+      "#{name.downcase.gsub(' ', '.')}.#{classroom_id}@demo-teacher"
     end
 
     def email
       return nil unless email_eligible
 
-      "#{name.downcase.gsub(' ','_')}_demo@quill.org"
+      "#{name.downcase.gsub(' ', '_')}_demo@quill.org"
     end
   end
 

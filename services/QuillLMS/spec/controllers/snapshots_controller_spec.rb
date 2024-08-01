@@ -413,7 +413,7 @@ describe SnapshotsController, type: :controller do
 
       before { get :options, params: }
 
-      it { expect(json_response['timeframes'].map{ |t| t['value'] }).to eq(expected_timeframe_values) }
+      it { expect(json_response['timeframes'].map { |t| t['value'] }).to eq(expected_timeframe_values) }
     end
 
     it 'should return a list of all schools and their ids tied to the current_user' do
@@ -543,7 +543,7 @@ describe SnapshotsController, type: :controller do
 
         json_response = JSON.parse(response.body)
 
-        expect(json_response['teachers'].map{ |t| t['name'] }).to eq(teacher_names.sort)
+        expect(json_response['teachers'].map { |t| t['name'] }).to eq(teacher_names.sort)
       end
     end
 

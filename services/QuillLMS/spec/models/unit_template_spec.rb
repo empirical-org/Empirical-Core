@@ -154,7 +154,7 @@ describe UnitTemplate, redis: true, type: :model do
     context 'with grades' do
       let(:description) { 'Free online writing activity pack "Template Name" for teachers of middle school students grades 6, 7, and 8. Standards: 7.1b writing sentences and CCSS Grade 9.' }
 
-      subject { create(:unit_template, name: 'Template Name', grades: ['6','7','8'], activities: [activity1, activity2]) }
+      subject { create(:unit_template, name: 'Template Name', grades: ['6', '7', '8'], activities: [activity1, activity2]) }
 
       it 'populate a meta decription' do
         expect(subject.meta_description).to eq description
@@ -324,7 +324,7 @@ describe UnitTemplate, redis: true, type: :model do
   describe '#around_save callback' do
     before do
       $redis.redis.flushdb
-      $redis.multi{
+      $redis.multi {
         $redis.set('beta_unit_templates', 'a')
         $redis.set('production_unit_templates', 'a')
         $redis.set('gamma_unit_templates', 'a')
@@ -402,11 +402,11 @@ describe UnitTemplate, redis: true, type: :model do
   end
 
   describe 'scope results' do
-    let!(:production_unit_template){ create(:unit_template, flag: 'production') }
-    let!(:gamma_unit_template){ create(:unit_template, flag: 'gamma') }
-    let!(:beta_unit_template){ create(:unit_template, flag: 'beta') }
-    let!(:alpha_unit_template){ create(:unit_template, flag: 'alpha') }
-    let!(:all_types){ [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
+    let!(:production_unit_template) { create(:unit_template, flag: 'production') }
+    let!(:gamma_unit_template) { create(:unit_template, flag: 'gamma') }
+    let!(:beta_unit_template) { create(:unit_template, flag: 'beta') }
+    let!(:alpha_unit_template) { create(:unit_template, flag: 'alpha') }
+    let!(:all_types) { [production_unit_template, gamma_unit_template, beta_unit_template, alpha_unit_template] }
 
     context 'the default scope' do
       it 'must show all types of flagged activities when default scope' do

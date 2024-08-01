@@ -267,8 +267,8 @@ describe ActivitySession, type: :model, redis: true do
 
   describe '#activity' do
     context 'when there is a direct activity association' do
-      let(:activity){ create(:activity) }
-      let(:activity_session){ build(:activity_session,activity_id: activity.id) }
+      let(:activity) { create(:activity) }
+      let(:activity_session) { build(:activity_session, activity_id: activity.id) }
 
       it 'must return the associated activity' do
         expect(activity_session.activity).to eq activity
@@ -276,9 +276,9 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     describe '#invalidate_activity_session_count_if_completed' do
-      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:student) { create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, classroom_id: student.classrooms.first.id, assigned_student_ids: [student.id]) }
-      let!(:activity_session){ create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
+      let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, state: 'not validated') }
 
       before do
         $redis.set("classroom_id:#{student.classrooms.first.id}_completed_activity_count", 10)
@@ -298,14 +298,14 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     context "when there's not an associated activity but there's a classroom unit and only one unit activity" do
-      let!(:activity){ create(:activity) }
-      let!(:student){ create(:student, :in_one_classroom) }
+      let!(:activity) { create(:activity) }
+      let!(:student) { create(:student, :in_one_classroom) }
       let!(:classroom_unit) { create(:classroom_unit, assigned_student_ids: [student.id], classroom_id: student.classrooms.first.id) }
       let!(:unit_activity) { create(:unit_activity, activity: activity, unit: classroom_unit.unit) }
-      let(:activity_session){ build(:activity_session, classroom_unit: classroom_unit) }
+      let(:activity_session) { build(:activity_session, classroom_unit: classroom_unit) }
 
       it "must return the unit activity's activity" do
-        activity_session.activity_id=nil
+        activity_session.activity_id = nil
         unit_activity.unit.reload
         expect(activity_session.activity).to eq unit_activity.activity
       end
@@ -313,11 +313,11 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#activity_uid=' do
-    let(:activity){ create(:activity) }
+    let(:activity) { create(:activity) }
 
     it 'must associate activity by uid' do
-      activity_session.activity_id=nil
-      activity_session.activity_uid=activity.uid
+      activity_session.activity_id = nil
+      activity_session.activity_uid = activity.uid
       expect(activity_session.activity_id).to eq activity.id
     end
   end
@@ -461,7 +461,7 @@ describe ActivitySession, type: :model, redis: true do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
 
     it 'should return the percentage' do
-      expect(activity_session.score).to eq((activity_session.percentage*100).round)
+      expect(activity_session.score).to eq((activity_session.percentage * 100).round)
     end
   end
 
@@ -516,7 +516,7 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     it 'must be false when cmopleted_at is not present' do
-      activity_session.completed_at=nil
+      activity_session.completed_at = nil
       expect(activity_session).to_not be_completed
     end
   end
@@ -555,11 +555,11 @@ describe ActivitySession, type: :model, redis: true do
 
   describe '#anonymous=' do
     it 'must be equal to temporary' do
-      expect(activity_session.anonymous=true).to eq activity_session.temporary
+      expect(activity_session.anonymous = true).to eq activity_session.temporary
     end
 
     it 'must return temporary' do
-      activity_session.anonymous=true
+      activity_session.anonymous = true
       expect(activity_session.anonymous).to eq activity_session.temporary
     end
   end
@@ -567,7 +567,7 @@ describe ActivitySession, type: :model, redis: true do
   context 'when before_create is fired' do
     describe '#set_state' do
       it 'must set state as unstarted' do
-        activity_session.state=nil
+        activity_session.state = nil
         activity_session.save!
         expect(activity_session.state).to eq 'unstarted'
       end
@@ -578,7 +578,7 @@ describe ActivitySession, type: :model, redis: true do
     describe '#set_completed_at when state = finished' do
       before do
         activity_session.save!
-        activity_session.state='finished'
+        activity_session.state = 'finished'
       end
 
       context 'when completed_at is already set' do
@@ -621,7 +621,7 @@ describe ActivitySession, type: :model, redis: true do
       end
 
       it 'must order by date desc' do
-        #TODO: This test is not passing cause the ordering is wrong
+        # TODO: This test is not passing cause the ordering is wrong
         # p completed=ActivitySession.completed
         # current_date=completed.first.completed_at
         # completed.each do |item|
@@ -736,10 +736,10 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#validations' do
-    let!(:assigned_student){ create(:student) }
-    let!(:unassigned_student){ create(:student) }
-    let!(:classroom){ create(:classroom, students: [assigned_student, unassigned_student]) }
-    let!(:activity){ create(:activity) }
+    let!(:assigned_student) { create(:student) }
+    let!(:unassigned_student) { create(:student) }
+    let!(:classroom) { create(:classroom, students: [assigned_student, unassigned_student]) }
+    let!(:activity) { create(:activity) }
     let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [assigned_student.id], assign_on_join: false) }
 
     it 'ensures that the student was correctly assigned' do
@@ -818,8 +818,8 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#calculate_timespent' do
-    let(:time_tracking) { { '1'=>1, '2'=>2, '3'=>3, '4' => 4 } }
-    let(:time_tracking_with_nulls) { { '1'=>188484, '2'=>94405, '3'=>89076, '4'=>120504, 'onboarding'=>nil } }
+    let(:time_tracking) { { '1' => 1, '2' => 2, '3' => 3, '4' => 4 } }
+    let(:time_tracking_with_nulls) { { '1' => 188484, '2' => 94405, '3' => 89076, '4' => 120504, 'onboarding' => nil } }
 
     it 'should return nil for nil' do
       expect(ActivitySession.calculate_timespent(nil, nil)).to be_nil
@@ -977,12 +977,12 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     it "should calculate time using the values of the keys in the data['time_tracking'] hash" do
-      activity_session = build(:activity_session, data: { 'time_tracking'=>{ 'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1 } })
+      activity_session = build(:activity_session, data: { 'time_tracking' => { 'so' => 9, 'but' => 2, 'because' => 9, 'reading' => 1 } })
       expect(activity_session.timespent).to eq(21)
     end
 
     it 'should have calculation overridden by DB value' do
-      activity_session = build(:activity_session, state: 'finished', data: { 'time_tracking'=>{ 'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1 } }, timespent: 99)
+      activity_session = build(:activity_session, state: 'finished', data: { 'time_tracking' => { 'so' => 9, 'but' => 2, 'because' => 9, 'reading' => 1 } }, timespent: 99)
       expect(activity_session.timespent).to eq(99)
     end
   end

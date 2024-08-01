@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   RSpec.describe(OpenAI::Concerns::Api, type: :model) do
     let(:endpoint) { 'https://api.openai.com/v1/some_endpoint' }
-    let(:sample_response_body) { { 'key'=>'value' } }
+    let(:sample_response_body) { { 'key' => 'value' } }
 
     # include headers in response for proper parsing by HTTParty
     let(:sample_response) { { body: sample_response_body.to_json, headers: { content_type: 'application/json' } } }
@@ -24,7 +24,7 @@ module Evidence
 
     context '#class_without_defined_methods' do
       it 'should raise an error on run' do
-        expect{ class_without_defined_methods.new.run }.to raise_error(NotImplementedError)
+        expect { class_without_defined_methods.new.run }.to raise_error(NotImplementedError)
       end
     end
 
