@@ -16,8 +16,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       free_lunches: 0,
       ppin: nil,
       nces_id: '111111111',
-      ulocal: '41'
-    )
+      ulocal: '41')
   end
   let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
 
@@ -115,22 +114,18 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       expiration: Date.tomorrow,
       payment_amount: '1800',
       stripe_invoice_id: 'in_12345678',
-      purchase_order_number: 'PO-1234'
-    )
+      purchase_order_number: 'PO-1234')
     create(:school_subscription,
       subscription_id: school_subscription.id,
-      school_id: school.id
-    )
+      school_id: school.id)
 
     old_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
       expiration: Time.zone.today - 1.year,
-      start_date: Time.zone.today - 2.years
-    )
+      start_date: Time.zone.today - 2.years)
     create(:school_subscription,
       subscription_id: old_subscription.id,
-      school_id: school.id
-    )
+      school_id: school.id)
 
     school_data = described_class.new(school).data
 
@@ -149,21 +144,17 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
   it 'fetches the subscription with latest expiration date' do
     school_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
-      expiration: Date.tomorrow
-    )
+      expiration: Date.tomorrow)
     next_school_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
       expiration: Date.tomorrow + 1.year,
-      start_date: Date.tomorrow
-    )
+      start_date: Date.tomorrow)
     create(:school_subscription,
       subscription_id: school_subscription.id,
-      school_id: school.id
-    )
+      school_id: school.id)
     create(:school_subscription,
       subscription_id: next_school_subscription.id,
-      school_id: school.id
-    )
+      school_id: school.id)
 
     school_data = described_class.new(school).data
 
@@ -177,13 +168,11 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
 
   it 'generates teacher data' do
     teacher_subscription = create(:subscription,
-      account_type: 'Teacher Paid'
-    )
+      account_type: 'Teacher Paid')
     teacher_with_subscription = create(:user, role: 'teacher')
     create(:user_subscription,
       subscription: teacher_subscription,
-      user: teacher_with_subscription
-    )
+      user: teacher_with_subscription)
     school.users << teacher_with_subscription
     school.users << create(:user, role: 'teacher')
 
@@ -306,45 +295,39 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: middle_of_school_year - 10.days
-    )
+      completed_at: middle_of_school_year - 10.days)
     create(:activity_session,
       classroom_unit: classroom_unit_two,
       activity: evidence_unit_activity_two.activity,
       user: student_three,
       state: 'finished',
-      completed_at: middle_of_school_year - 10.days
-    )
+      completed_at: middle_of_school_year - 10.days)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: middle_of_school_year - 3.days
-    )
+      completed_at: middle_of_school_year - 3.days)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student,
       state: 'finished',
-      completed_at: middle_of_school_year - 5.days
-    )
+      completed_at: middle_of_school_year - 5.days)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student_two,
       state: 'finished',
       created_at: middle_of_school_year - 1.year,
-      completed_at: middle_of_school_year - 1.year
-    )
+      completed_at: middle_of_school_year - 1.year)
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: evidence_unit_activity.activity,
       user: student_two,
       state: 'started',
       created_at: middle_of_school_year - 1.year,
-      completed_at: middle_of_school_year - 1.year
-    )
+      completed_at: middle_of_school_year - 1.year)
 
     school_data = described_class.new(school).data
 

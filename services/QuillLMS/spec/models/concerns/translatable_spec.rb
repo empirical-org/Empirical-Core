@@ -102,8 +102,7 @@ RSpec.describe Translatable do
           translation: translation,
           locale: locale,
           source_api: source_api,
-          english_text: translatable_object.english_texts.first
-        )
+          english_text: translatable_object.english_texts.first)
       end
 
       it 'returns the translation' do
@@ -117,8 +116,7 @@ RSpec.describe Translatable do
             translation: 'Other translation',
             locale: other_locale,
             source_api: source_api,
-            english_text: translatable_object.english_texts.first
-          )
+            english_text: translatable_object.english_texts.first)
         end
 
         it 'returns the translation for the specified locale' do
@@ -150,8 +148,7 @@ RSpec.describe Translatable do
           translation: 'OpenAI translation',
           locale: locale,
           source_api: Translatable::OPEN_AI_SOURCE,
-          english_text: translatable_object.english_texts.first
-        )
+          english_text: translatable_object.english_texts.first)
       end
 
       let!(:gengo_translation) do
@@ -159,8 +156,7 @@ RSpec.describe Translatable do
           translation: 'Gengo translation',
           locale: locale,
           source_api: Translatable::GENGO_SOURCE,
-          english_text: translatable_object.english_texts.first
-        )
+          english_text: translatable_object.english_texts.first)
       end
 
       it 'returns translations ordered by source_api' do

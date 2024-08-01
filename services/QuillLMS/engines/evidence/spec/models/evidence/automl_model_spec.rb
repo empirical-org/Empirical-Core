@@ -141,9 +141,9 @@ module Evidence
 
       before do
         allow(VertexAI::TextClassifier)
-         .to receive(:run)
-         .with(endpoint_external_id: automl_model.endpoint_external_id, project: automl_model.project, text:)
-         .and_return([label, score])
+          .to receive(:run)
+          .with(endpoint_external_id: automl_model.endpoint_external_id, project: automl_model.project, text:)
+          .and_return([label, score])
       end
 
       it { is_expected.to eq [label, score] }

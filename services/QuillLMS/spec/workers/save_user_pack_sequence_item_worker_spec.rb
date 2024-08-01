@@ -56,8 +56,7 @@ RSpec.describe SaveUserPackSequenceItemWorker do
       create(:user_pack_sequence_item,
         pack_sequence_item_id: pack_sequence_item_id,
         status: locked,
-        user_id: user_id
-      )
+        user_id: user_id)
     end
 
     context 'status does not change' do

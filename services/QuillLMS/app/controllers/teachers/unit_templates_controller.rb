@@ -101,9 +101,9 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   private def unit_templates_by_user_testing_flag
     UnitTemplate.user_scope(related_models_flag)
-    .includes(:author, :unit_template_category)
-    .order(:order_number)
-    .map { |ut| ut.get_cached_serialized_unit_template }
+      .includes(:author, :unit_template_category)
+      .order(:order_number)
+      .map { |ut| ut.get_cached_serialized_unit_template }
   end
 
   private def cached_formatted_unit_templates

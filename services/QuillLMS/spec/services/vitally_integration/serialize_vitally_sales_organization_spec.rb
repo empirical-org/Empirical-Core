@@ -226,45 +226,39 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           activity: evidence_unit_activity.activity,
           user: student,
           state: 'finished',
-          completed_at: middle_of_school_year - 10.days
-        )
+          completed_at: middle_of_school_year - 10.days)
         create(:activity_session,
           classroom_unit: classroom_unit_two,
           activity: evidence_unit_activity_two.activity,
           user: student_three,
           state: 'finished',
-          completed_at: middle_of_school_year - 10.days
-        )
+          completed_at: middle_of_school_year - 10.days)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student,
           state: 'finished',
-          completed_at: middle_of_school_year - 3.days
-        )
+          completed_at: middle_of_school_year - 3.days)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student,
           state: 'finished',
-          completed_at: middle_of_school_year - 5.days
-        )
+          completed_at: middle_of_school_year - 5.days)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student_two,
           state: 'finished',
           created_at: middle_of_school_year - 1.year,
-          completed_at: middle_of_school_year - 1.year
-        )
+          completed_at: middle_of_school_year - 1.year)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student_two,
           state: 'started',
           created_at: middle_of_school_year - 1.year,
-          completed_at: middle_of_school_year - 1.year
-        )
+          completed_at: middle_of_school_year - 1.year)
       end
 
       it 'should roll up evidence assignments this year and last year and all time' do
@@ -297,16 +291,14 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           districts: [district],
           payment_amount: 1800,
           stripe_invoice_id: 'in_12345678',
-          purchase_order_number: 'PO-1234'
-        )
+          purchase_order_number: 'PO-1234')
       }
 
       let!(:old_subscription) {
         create(:subscription,
           districts: [district],
           expiration: Time.zone.today - 1.year,
-          start_date: Time.zone.today - 2.years
-        )
+          start_date: Time.zone.today - 2.years)
       }
 
       it 'pulls current subscription data' do

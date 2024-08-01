@@ -111,15 +111,15 @@ class ActivitySession < ApplicationRecord
 
   scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: { classroom: :teachers })
-    .where(users: { id: teacher_id })
+      .where(users: { id: teacher_id })
   }
 
   scope :averages_for_user_ids, lambda { |user_ids|
     select('user_id, AVG(percentage) as avg')
-    .joins(activity: :classification)
-    .where.not(activity_classifications: { key: ActivityClassification::UNSCORED_KEYS })
-    .where(user_id: user_ids)
-    .group(:user_id)
+      .joins(activity: :classification)
+      .where.not(activity_classifications: { key: ActivityClassification::UNSCORED_KEYS })
+      .where(user_id: user_ids)
+      .group(:user_id)
   }
 
   def self.paginate(current_page, per_page)
@@ -241,7 +241,7 @@ class ActivitySession < ApplicationRecord
     end
 
     a = ActivitySession.where(classroom_unit: classroom_unit, user: user, is_final_score: true, activity: activity)
-                       .where.not(id: id).first
+      .where.not(id: id).first
     if a.nil?
       update_columns is_final_score: true, updated_at: DateTime.current
     elsif a.percentage.nil? || percentage >= a.percentage

@@ -21,8 +21,7 @@ shared_context 'Unit Assignments Variables' do
     create(:classroom_unit,
       classroom_id: classroom.id,
       assigned_student_ids: [student.id],
-      assign_on_join: false
-    )
+      assign_on_join: false)
   end
 
   let!(:unit_activity) { create(:unit_activity, activity_id: activity.id) }
@@ -32,8 +31,7 @@ shared_context 'Unit Assignments Variables' do
       classroom_unit_id: classroom_unit.id,
       activity_id: activity.id,
       user_id: student.id,
-      state: 'finished'
-    )
+      state: 'finished')
   end
 
   def unit_templates_have_a_corresponding_unit?(unit_template_ids)

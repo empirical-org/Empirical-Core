@@ -45,8 +45,7 @@ describe TeacherFixes do
       completed_at: Time.current - 5,
       state: 'finished',
       percentage: 0.7,
-      activity: activity
-    )
+      activity: activity)
   end
 
   let!(:completed_later) do
@@ -56,8 +55,7 @@ describe TeacherFixes do
       completed_at: Time.current,
       state: 'finished',
       percentage: 0.7,
-      activity: activity
-    )
+      activity: activity)
   end
 
   let!(:classroom_unit_with_activity_sessions1) { create(:classroom_unit_with_activity_sessions) }
@@ -90,8 +88,7 @@ describe TeacherFixes do
           activity: activity,
           user: student1,
           updated_at: a_year_ago,
-          state: 'started'
-        )
+          state: 'started')
 
       finished_activity_session =
         create(:activity_session,
@@ -99,8 +96,7 @@ describe TeacherFixes do
           activity: activity,
           user: student1,
           updated_at: today,
-          state: 'finished'
-        )
+          state: 'finished')
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
         classroom_unit_with_activity_sessions1.reload,
@@ -118,8 +114,7 @@ describe TeacherFixes do
           activity: activity,
           user: student1,
           updated_at: a_year_ago,
-          state: 'finished'
-        )
+          state: 'finished')
 
       started_activity_session =
         create(:activity_session,
@@ -127,8 +122,7 @@ describe TeacherFixes do
           activity: activity,
           user: student1,
           updated_at: today,
-          state: 'started'
-        )
+          state: 'started')
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
         classroom_unit_with_activity_sessions1.reload,
@@ -146,16 +140,14 @@ describe TeacherFixes do
           classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1,
-          updated_at: a_year_ago
-        )
+          updated_at: a_year_ago)
 
       newer_activity_session =
         create(:activity_session,
           classroom_unit: classroom_unit_with_activity_sessions2,
           activity: activity,
           user: student1,
-          updated_at: today
-        )
+          updated_at: today)
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
         classroom_unit_with_activity_sessions1.reload,
@@ -171,16 +163,14 @@ describe TeacherFixes do
           classroom_unit: classroom_unit_with_activity_sessions2,
           activity: activity,
           user: student1,
-          updated_at: a_year_ago
-        )
+          updated_at: a_year_ago)
 
       newer_activity_session =
         create(:activity_session,
           classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
           user: student1,
-          updated_at: today
-        )
+          updated_at: today)
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
         classroom_unit_with_activity_sessions1.reload,
         classroom_unit_with_activity_sessions2.reload
@@ -195,8 +185,7 @@ describe TeacherFixes do
         create(:activity_session,
           classroom_unit: classroom_unit_with_activity_sessions1,
           activity: activity,
-          user: student1
-        )
+          user: student1)
 
       TeacherFixes::merge_activity_sessions_between_two_classroom_units(
         classroom_unit_with_activity_sessions1.reload,
@@ -283,15 +272,13 @@ describe TeacherFixes do
     let(:activity_session1) do
       create(:activity_session,
         classroom_unit: classroom_with_classroom_units.classroom_units.first,
-        user_id: student_a.id
-      )
+        user_id: student_a.id)
     end
 
     let(:activity_session2) do
       create(:activity_session,
         classroom_unit: classroom_with_classroom_units.classroom_units.last,
-        user_id: student_b.id
-      )
+        user_id: student_b.id)
     end
 
     let(:cu1) { classroom_with_classroom_units.classroom_units.first }

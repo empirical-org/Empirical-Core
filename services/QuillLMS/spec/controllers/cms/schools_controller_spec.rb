@@ -109,8 +109,7 @@ describe Cms::SchoolsController do
                                          school_id: admin.school_id,
                                          user_id: admin.user_id
                                        }
-                                     end
-                                    )
+                                     end)
     end
   end
 

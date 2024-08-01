@@ -365,7 +365,8 @@ module Demo::ReportDemoCreator
       ClassroomUnit.create!(
         classroom: classroom,
         unit: unit,
-        assign_on_join: true)
+        assign_on_join: true
+      )
     end
   end
 

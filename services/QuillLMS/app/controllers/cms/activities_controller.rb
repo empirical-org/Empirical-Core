@@ -115,7 +115,6 @@ class Cms::ActivitiesController < Cms::CmsController
       topic_ids: [],
       activity_category_ids: [],
       content_partner_ids: [],
-      flags: []
-    )
+      flags: [])
   end
 end

@@ -26,8 +26,8 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
         expect { subject }
           .to change {
                 TranslatedText
-                .where(english_text_id: english_text.id)
-                .count
+                  .where(english_text_id: english_text.id)
+                  .count
               }.by(1)
       end
 
@@ -35,8 +35,8 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
         expect { subject }
           .to change {
                 TranslatedText
-                .where(locale:)
-                .count
+                  .where(locale:)
+                  .count
               }.by(1)
       end
 
@@ -49,8 +49,7 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
         translated_text = create(:translated_text,
           english_text_id: english_text.id,
           translation: 'Foo',
-          locale:
-        )
+          locale:)
         subject
         expect(translated_text.reload.translation).to eq(response)
       end

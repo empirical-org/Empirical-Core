@@ -108,8 +108,7 @@ RSpec.describe InvitationsController, type: :controller do
           invitation_type: 'some type',
           invitee_email: 'test@test.com',
           archived: false,
-          inviter: user
-        )
+          inviter: user)
       }
 
       it 'should destroy the given invitation' do
@@ -135,8 +134,7 @@ RSpec.describe InvitationsController, type: :controller do
           invitation_type: 'some type',
           invitee_email: user.email,
           archived: false,
-          inviter: another_user
-        )
+          inviter: another_user)
       }
 
       it 'should destroy the given invitation' do

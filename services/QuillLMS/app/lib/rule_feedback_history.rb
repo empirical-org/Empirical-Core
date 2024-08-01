@@ -23,15 +23,15 @@ class RuleFeedbackHistory
       count(DISTINCT CASE WHEN feedback_history_flags.flag = '#{FeedbackHistoryFlag::FLAG_REPEATED_RULE_NON_CONSECUTIVE}' THEN feedback_history_flags.id END) AS repeated_non_consecutive
     SELECT
                                  )
-    .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
-    .joins('INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id')
-    .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
-    .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
-    .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
-    .where('(feedback_histories.used = ? OR feedback_histories.id IS NULL)', true)
-    .where('prompts.conjunction = ? AND activity_id = ?', conjunction, activity_id)
-    .group('comprehension_rules.id, rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
-    .includes(:feedbacks)
+      .joins('INNER JOIN comprehension_prompts_rules as prompts_rules ON comprehension_rules.id = prompts_rules.rule_id')
+      .joins('INNER JOIN comprehension_prompts as prompts ON prompts_rules.prompt_id = prompts.id')
+      .joins('LEFT JOIN feedback_histories ON feedback_histories.rule_uid = comprehension_rules.uid AND feedback_histories.prompt_id = prompts.id')
+      .joins('LEFT JOIN feedback_history_ratings ON feedback_histories.id = feedback_history_ratings.feedback_history_id')
+      .joins('LEFT JOIN feedback_history_flags ON feedback_histories.id = feedback_history_flags.feedback_history_id')
+      .where('(feedback_histories.used = ? OR feedback_histories.id IS NULL)', true)
+      .where('prompts.conjunction = ? AND activity_id = ?', conjunction, activity_id)
+      .group('comprehension_rules.id, rules_uid, activity_id, rule_type, rule_suborder, rule_name, rule_note')
+      .includes(:feedbacks)
     query = query.where('feedback_histories.time >= ?', start_date) if start_date
     query = query.where('feedback_histories.time <= ?', end_date) if end_date
     query = query.where('feedback_histories.activity_version = ?', activity_version) if activity_version
@@ -51,20 +51,21 @@ class RuleFeedbackHistory
   end
 
   def self.generate_rulewise_report(rule_uid:, prompt_id:, start_date: nil, end_date: nil)
-    start_filter = start_date ? ['feedback_histories.created_at >= ?', start_date] : []
-    end_filter = end_date ? ['feedback_histories.created_at <= ?', end_date] : []
+    rule_uid = rule_uid.to_sym
+    prompt_id = prompt_id.to_i
 
-    feedback_histories = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true).includes(:feedback_history_ratings)
-    .where(start_filter)
-    .where(end_filter)
+    query = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
+      .includes(:feedback_history_ratings)
 
-    response_jsons = []
-    feedback_histories.each do |f_h|
-      response_jsons.append(feedback_history_to_json(f_h))
-    end
+    query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
+    query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
+
+    feedback_histories = query.to_a
+
+    response_jsons = feedback_histories.map { |f_h| feedback_history_to_json(f_h) }
 
     {
-      "#{rule_uid}": {
+      rule_uid => {
         responses: response_jsons
       }
     }

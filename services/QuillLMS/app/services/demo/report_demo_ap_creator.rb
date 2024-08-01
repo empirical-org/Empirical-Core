@@ -187,7 +187,8 @@ module Demo::ReportDemoAPCreator
     ClassroomUnit.create(
       classroom: classroom,
       unit: unit,
-      assign_on_join: true)
+      assign_on_join: true
+    )
   end
 
   def self.create_unit_activities(unit, activities)
