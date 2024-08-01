@@ -662,15 +662,6 @@ Style/AndOr:
     - 'app/models/zipcode_info.rb'
     - 'lib/tasks/create_concepts.rake'
 
-# Offense count: 141
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, AllowedMethods, AllowedPatterns, AllowBracesOnProceduralOneLiners, BracesRequiredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining, always_braces
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# AllowedMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Enabled: false
 
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).

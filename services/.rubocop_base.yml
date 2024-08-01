@@ -494,6 +494,9 @@ Style/BarePercentLiterals:
 Style/BlockComments:
   Enabled: true
 
+Style/BlockDelimiters:
+  Enabled: false
+
 Style/ClassEqualityComparison:
   Enabled: true
 
