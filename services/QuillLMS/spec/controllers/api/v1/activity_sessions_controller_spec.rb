@@ -245,10 +245,10 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       get :show, params: { id: session.uid }, as: :json
 
       expect(JSON.parse(response.body)['meta']).to eq({
-          'status' => 'success',
-          'message' => nil,
-          'errors' => nil
-        })
+        'status' => 'success',
+        'message' => nil,
+        'errors' => nil
+      })
       expect(JSON.parse(response.body)['activity_session']['uid']).to eq session.uid
       expect(JSON.parse(response.body)['activity_session']['percentage']).to eq session.percentage
       expect(JSON.parse(response.body)['activity_session']['state']).to eq session.state

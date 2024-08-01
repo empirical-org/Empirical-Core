@@ -68,7 +68,7 @@ RSpec.shared_context 'Stripe Invoice' do
             period: {
               end: 1649090228,
               start: 1649090228
-              },
+            },
             plan: nil,
             price: stripe_price,
             proration: false,

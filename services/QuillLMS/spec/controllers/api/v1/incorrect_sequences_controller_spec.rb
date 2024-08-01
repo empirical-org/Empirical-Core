@@ -58,7 +58,7 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
           question_id: question.uid,
           id: incorrect_sequence_uid,
           incorrect_sequence: data
-         },
+        },
         as: :json
 
       question.reload

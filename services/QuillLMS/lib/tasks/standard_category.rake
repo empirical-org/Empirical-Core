@@ -196,49 +196,49 @@ namespace :standard_category do
       },
 
       {
-        standard: 		'2.2c. Use an Apostrophe to Form Contractions',
-        category: 	'Punctuation'
+        standard: '2.2c. Use an Apostrophe to Form Contractions',
+        category: 'Punctuation'
       },
 
       {
-        standard:		'CCSS Grade 1 Summative Assessments',
+        standard:	'CCSS Grade 1 Summative Assessments',
         category:	'Summative Assessments'
       },
 
       {
-        standard:		'CCSS Grade 2 Summative Assessments',
+        standard:	'CCSS Grade 2 Summative Assessments',
         category:	'Summative Assessments'
       },
 
       {
-        standard:		'M1. Using Spaces With Quotation Marks',
+        standard:	'M1. Using Spaces With Quotation Marks',
         category:	'Punctuation'
       },
 
       {
-        standard:		'M2. Using Spaces with Punctuation',
-        category:	'Punctuation'
-      },
-
-      {
-
-        standard:		'Quill Tutorial Lessons',
+        standard:	'M2. Using Spaces with Punctuation',
         category:	'Punctuation'
       },
 
       {
 
-        standard:		'University: Commonly Confused Words',
+        standard:	'Quill Tutorial Lessons',
+        category:	'Punctuation'
+      },
+
+      {
+
+        standard:	'University: Commonly Confused Words',
         category:	'Commonly Confused Words'
       },
 
       {
-        standard:		'University Grammar Test: A Man and His Mouse',
+        standard:	'University Grammar Test: A Man and His Mouse',
         category:	'Summative Assessments'
       },
 
       {
-        standard:		'University Grammar Test: The First Spacewalk',
+        standard:	'University Grammar Test: The First Spacewalk',
         category:	'Summative Assessments'
       }
     ]

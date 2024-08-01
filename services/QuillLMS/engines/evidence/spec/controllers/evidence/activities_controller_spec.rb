@@ -144,9 +144,9 @@ module Evidence
       it 'should create a new default regex rule for the because prompt' do
         post :create,
           params: {
-            activity:  {
+            activity: {
               parent_activity_id: activity.parent_activity_id,
-              scored_level:  activity.scored_level,
+              scored_level: activity.scored_level,
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
@@ -166,9 +166,9 @@ module Evidence
       it 'should create a new default regex rule for the so prompt' do
         post :create,
           params: {
-            activity:  {
+            activity: {
               parent_activity_id: activity.parent_activity_id,
-              scored_level:  activity.scored_level,
+              scored_level: activity.scored_level,
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
@@ -189,9 +189,9 @@ module Evidence
       it 'should create a new default regex rule for repeating the stem' do
         post :create,
           params: {
-            activity:  {
+            activity: {
               parent_activity_id: activity.parent_activity_id,
-              scored_level:  activity.scored_level,
+              scored_level: activity.scored_level,
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,

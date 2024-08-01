@@ -44,7 +44,7 @@ class IndependentPracticePacksAssigner < ApplicationService
     PackSequence.find_or_create_by!(
       classroom_id: classroom_id,
       diagnostic_activity_id: diagnostic_activity_id,
-      release_method:  release_method
+      release_method: release_method
     )
   end
 

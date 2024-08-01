@@ -24,11 +24,11 @@ describe Cms::ContentPartnersController do
   describe '#create' do
     it 'creates a new content_partner' do
       post :create, params: { content_partner: {
-          name: 'New ContentPartner',
-          level: 3,
-          visible: true,
-          description: 'Blah da blah'
-        } }
+        name: 'New ContentPartner',
+        level: 3,
+        visible: true,
+        description: 'Blah da blah'
+      } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response['content_partner']['id']
       expect(id).to be
@@ -41,9 +41,9 @@ describe Cms::ContentPartnersController do
       new_name = 'New Content Partner Name'
       id = content_partners[0].id
       put :update, params: { id: id, content_partner: {
-          name: new_name,
-          id: id
-        } }
+        name: new_name,
+        id: id
+      } }
       expect(ContentPartner.find_by_id(id).name).to eq(new_name)
     end
   end

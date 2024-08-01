@@ -105,7 +105,7 @@ module Demo::ReportDemoCreator
           2506 => JASON_ID,
           2507 => JASON_ID,
           2663 => JASON_ID,
-          767  => JASON_ID,
+          767 => JASON_ID,
           2666 => JASON_ID,
           2667 => JASON_ID,
           2668 => JASON_ID,

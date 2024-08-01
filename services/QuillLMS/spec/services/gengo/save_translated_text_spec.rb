@@ -12,25 +12,25 @@ RSpec.describe Gengo::SaveTranslatedText, type: :service do
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let(:job_payload) do
       { 'job_id' => job_id,
-            'order_id' => order_id,
-            'slug' => english_text_id,
-            'body_src' =>
+        'order_id' => order_id,
+        'slug' => english_text_id,
+        'body_src' =>
               '<p>Use to + an action word (<em>to go</em>, <em>to eat</em>, <em>to love</em>) before a group of words to tell more about something. </p><br/><p>In this example, <em>to go on a trip</em> tells more about why I saved up money. </p>',
-            'lc_src' => 'en',
-            'lc_tgt' => locale,
-            'unit_count' => '37',
-            'tier' => 'standard',
-            'credits' => '1.85',
-            'currency' => 'USD',
-            'status' => status,
-            'eta' => -1,
-            'type' => 'text',
-            'ctime' => 1718145667,
-            'services' => ['translation'],
-            'auto_approve' => '0',
-            'position' => 0,
-            'file_download_ready' => false,
-            'translator_ids' => ['1'] }
+        'lc_src' => 'en',
+        'lc_tgt' => locale,
+        'unit_count' => '37',
+        'tier' => 'standard',
+        'credits' => '1.85',
+        'currency' => 'USD',
+        'status' => status,
+        'eta' => -1,
+        'type' => 'text',
+        'ctime' => 1718145667,
+        'services' => ['translation'],
+        'auto_approve' => '0',
+        'position' => 0,
+        'file_download_ready' => false,
+        'translator_ids' => ['1'] }
     end
 
     let(:response_job) { job_payload }

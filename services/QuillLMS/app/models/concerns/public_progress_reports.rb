@@ -84,7 +84,7 @@ module PublicProgressReports
         score: activity.is_evidence? ? nil : ((v[:correct].to_f / v[:total]) * 100).round,
         prompt: v[:prompt],
         instructions: v[:instructions]
-     }
+      }
     end
 
     return questions_arr unless questions_arr.empty?

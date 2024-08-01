@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Layout/HashAlignment
+
 # This concern is only intended to be included in the User model
 module UserFlagset
   extend ActiveSupport::Concern
@@ -112,3 +114,5 @@ module UserFlagset
     intersections.count > 0
   end
 end
+
+# rubocop:enable Layout/HashAlignment

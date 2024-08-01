@@ -86,7 +86,7 @@ class Queries < Thor
     }
 
     single_queries = {
-       'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
+      'diagnostic-skills-view' => ::AdminDiagnosticReports::DiagnosticPerformanceBySkillViewQuery
     }
 
     student_queries = {

@@ -96,7 +96,7 @@ class PromptFeedbackHistory
       payload.merge(
         'avg_attempts' => avg_attempts,
         'avg_confidence' => avg_confidence,
-        'num_sessions_with_consecutive_repeated_rule' =>  result.num_sessions_consecutive_repeated,
+        'num_sessions_with_consecutive_repeated_rule' => result.num_sessions_consecutive_repeated,
         'num_sessions_with_non_consecutive_repeated_rule' => result.num_sessions_non_consecutive_repeated,
         'avg_time_spent' => time_spent && Utils::Numeric.seconds_to_human_readable_time(time_spent)
       )
