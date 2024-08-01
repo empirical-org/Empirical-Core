@@ -54,14 +54,8 @@ class RuleFeedbackHistory
     rule_uid = rule_uid.to_s
     prompt_id = prompt_id.to_i
 
-    start_filter = start_date ? ['feedback_histories.created_at >= ?', start_date] : []
-    end_filter = end_date ? ['feedback_histories.created_at <= ?', end_date] : []
-
     query = FeedbackHistory.where(rule_uid: rule_uid, prompt_id: prompt_id, used: true)
       .includes(:feedback_history_ratings)
-
-    query = query.where(start_filter)
-      .where(end_filter)
 
     query = query.where('feedback_histories.created_at >= ?', start_date) if start_date
     query = query.where('feedback_histories.created_at <= ?', end_date) if end_date
