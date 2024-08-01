@@ -878,11 +878,6 @@ Style/NumericLiterals:
 Style/NumericPredicate:
   Enabled: false
 
-# Offense count: 108
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Enabled: false
 
 # Offense count: 35
 # This cop supports safe autocorrection (--autocorrect).

@@ -60,7 +60,7 @@ module Evidence
 
       super(options.reverse_merge(
         only:
-          %i(
+          %i[
             id
             current_version
             version_responses
@@ -78,14 +78,14 @@ module Evidence
             avg_time_spent_per_prompt
             prompt_id
             activity_short_name
-          ),
+          ],
         methods:
-          %i(
+          %i[
             conjunction
             activity_id
             flag
             poor_health_flag
-          )
+          ]
       ))
     end
 

@@ -8,7 +8,7 @@ describe Cms::UnitTemplateSerializer do
     let(:result_key) { 'unit_template' }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         activities
         id
         name
@@ -23,7 +23,7 @@ describe Cms::UnitTemplateSerializer do
         readability
         diagnostic_names
         unit_template_category
-      }
+      ]
     end
   end
 end

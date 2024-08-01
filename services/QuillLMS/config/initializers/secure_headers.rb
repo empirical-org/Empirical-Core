@@ -24,7 +24,7 @@ SecureHeaders::Configuration.default do |config|
       'https://td.doubleclick.net/'
     ],
 
-    object_src: %w('none'),                                       # addresses <embed>, <object>, and <applet>
+    object_src: %w['none'],                                       # addresses <embed>, <object>, and <applet>
 
     media_src: [
       '*',
@@ -87,7 +87,7 @@ SecureHeaders::Configuration.default do |config|
       'blob:'
     ],
 
-    base_uri: %w('self'),                                         # used for relative URLs
+    base_uri: %w['self'],                                         # used for relative URLs
 
     style_src: [
       "'self'",

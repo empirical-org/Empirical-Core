@@ -358,8 +358,8 @@ RSpec.describe User, type: :model do
 
   describe 'constants' do
     it 'should give the correct value for all the constants' do
-      expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
-      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
+      expect(User::ROLES).to eq(%w[teacher student staff sales-contact admin])
+      expect(User::SAFE_ROLES).to eq(%w[student teacher sales-contact admin])
     end
   end
 
@@ -685,7 +685,7 @@ RSpec.describe User, type: :model do
   describe 'User scope' do
     describe '::ROLES' do
       it 'must contain all roles' do
-        %w(student teacher staff).each do |role|
+        %w[student teacher staff].each do |role|
           expect(User::ROLES).to include role
         end
       end
@@ -693,7 +693,7 @@ RSpec.describe User, type: :model do
 
     describe '::SAFE_ROLES' do
       it 'must contain safe roles' do
-        %w(student teacher).each do |role|
+        %w[student teacher].each do |role|
           expect(User::SAFE_ROLES).to include role
         end
       end
@@ -718,11 +718,11 @@ RSpec.describe User, type: :model do
       user.authenticate(password)
     end
 
-    %i(email username).each do |cred_base|
+    %i[email username].each do |cred_base|
       context "with #{cred_base}" do
         let(:password_val) { send(:"#{cred_base}_password") }
 
-        %i(original swapped).each do |name_case|
+        %i[original swapped].each do |name_case|
           case_mod = if name_case == :swapped
                        :swapcase # e.g., "a B c" => "A b C"
                      else

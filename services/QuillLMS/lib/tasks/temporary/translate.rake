@@ -58,7 +58,7 @@ namespace :translate do
   end
 
   def activity_uids
-    %w(
+    %w[
       -LsTRP0gFdy-d5lIfifn
       22409f4f-c2d7-4b10-84c9-3fd046eb9a41
       -LuZ7PvG10DtLrdJDPvw
@@ -343,6 +343,6 @@ namespace :translate do
       72c938f8-ac9f-45dc-9eeb-8cab93f85dc7
       ae5fd428-0922-47f8-b9f8-c98679f1b4f1
       8f401c3f-4f75-4141-a41d-42d5643e7f72
-    )
+    ]
   end
 end

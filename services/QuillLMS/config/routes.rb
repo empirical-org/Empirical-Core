@@ -411,7 +411,7 @@ EmpiricalGrammar::Application.routes.draw do
       end
 
       # TODO: abstract this list as well. Duplicated in nav in layout.
-      %w(accounts import).each do |page|
+      %w[accounts import].each do |page|
         get page => "classroom_manager##{page}"
       end
     end
@@ -788,7 +788,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(
+  other_pages = %w[
     beta
     board
     press
@@ -825,7 +825,7 @@ EmpiricalGrammar::Application.routes.draw do
     locker
     quill_academy
     teacher_premium
-  )
+  ]
 
   all_pages = other_pages
   all_pages.each do |page|
@@ -844,12 +844,12 @@ EmpiricalGrammar::Application.routes.draw do
   get 'partners', to: redirect('/about')
   # End legacy route redirects.
 
-  tools = %w(diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool evidence_tool)
+  tools = %w[diagnostic_tool connect_tool grammar_tool proofreader_tool lessons_tool evidence_tool]
   tools.each do |tool|
     get "tools/#{tool.chomp('_tool')}" => "pages##{tool}"
   end
 
-  tutorials = %w(lessons)
+  tutorials = %w[lessons]
   tutorials.each do |tool|
     get "tutorials/#{tool}" => 'pages#tutorials'
     get "tutorials/#{tool}/:slide_number" => 'pages#tutorials'

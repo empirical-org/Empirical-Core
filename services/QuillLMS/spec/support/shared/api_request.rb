@@ -31,7 +31,7 @@ shared_examples 'an api request' do
       context 'meta node' do
         let(:meta) { parsed_body['meta'] }
 
-        it { expect(meta.keys).to match_array(%w(status message errors)) }
+        it { expect(meta.keys).to match_array(%w[status message errors]) }
       end
     end
   end

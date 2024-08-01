@@ -107,7 +107,7 @@ class User < ApplicationRecord
   ARCHIVED = 'archived'
   COLLEGE_BOARD = 'college_board'
   TESTING_FLAGS = [ALPHA, BETA, GAMMA, PRIVATE, ARCHIVED, COLLEGE_BOARD]
-  PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
+  PERMISSIONS_FLAGS = %w[auditor purchaser school_point_of_contact]
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
   CANVAS_ACCOUNT = 'Canvas'
@@ -120,7 +120,7 @@ class User < ApplicationRecord
 
   SCHOOL_CHANGELOG_ATTRIBUTE = 'school_id'
 
-  LEADING_CAPITALIZE_NAMES = %w(van dit)
+  LEADING_CAPITALIZE_NAMES = %w[van dit]
 
   attr_accessor :newsletter,
     :require_password_confirmation_when_password_present,

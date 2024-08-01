@@ -12,7 +12,7 @@ describe UserAdminSerializer do
     let!(:schools_admins) { create(:schools_admins, school: school, user: record_instance) }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         associated_school
         id
         name
@@ -20,7 +20,7 @@ describe UserAdminSerializer do
         teachers
         schools
         admin_approval_requests
-      }
+      ]
     end
   end
 
