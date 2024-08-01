@@ -99,7 +99,7 @@ module PublicProgressReports
     unit = Unit.find_by(id: unit_id)
     if unit
       class_ids = current_user.classrooms_i_teach.map(&:id)
-      #without definining class ids, it may default to a classroom activity from a non-existant classroom
+      # without definining class ids, it may default to a classroom activity from a non-existant classroom
       class_units = unit.classroom_units.where(classroom_id: class_ids).includes(completed_activity_sessions: :user)
       unit_activity = UnitActivity.find_by(activity_id: activity_id, unit: unit)
 

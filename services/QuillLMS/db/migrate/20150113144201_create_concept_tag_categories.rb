@@ -6,6 +6,6 @@ class CreateConceptTagCategories < ActiveRecord::Migration[4.2]
       t.string :name
     end
 
-    add_column :concept_tags, :concept_tag_category_id, :integer, null: false #Always belongs to a category
+    add_column :concept_tags, :concept_tag_category_id, :integer, null: false # Always belongs to a category
   end
 end

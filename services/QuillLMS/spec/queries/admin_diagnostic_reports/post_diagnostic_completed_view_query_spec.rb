@@ -116,8 +116,8 @@ module AdminDiagnosticReports
         end
       end
 
-      #TODO: Write specs to cover the edge case in https://github.com/empirical-org/Empirical-Core/pull/11662
-      #TODO: Write specs to cover rounding order for growth score aggregation, the Teacher report averages all skills, then rounds the value to the nearest whole percentage
+      # TODO: Write specs to cover the edge case in https://github.com/empirical-org/Empirical-Core/pull/11662
+      # TODO: Write specs to cover rounding order for growth score aggregation, the Teacher report averages all skills, then rounds the value to the nearest whole percentage
     end
   end
 end

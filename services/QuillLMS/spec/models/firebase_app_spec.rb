@@ -102,7 +102,7 @@ describe FirebaseApp, type: :model do
 
     before do
       allow(Time).to receive(:now).and_return(time)
-      #to decode the encrypted payload
+      # to decode the encrypted payload
       allow(OpenSSL::PKey::RSA).to receive(:new).and_return(key)
     end
 

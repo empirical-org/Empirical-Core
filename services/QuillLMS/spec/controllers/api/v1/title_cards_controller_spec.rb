@@ -101,12 +101,12 @@ describe Api::V1::TitleCardsController, type: :controller do
 
     # Disabling these security tests until we figure out a way to secure the
     # endpoints
-    #it 'should 403 FORBIDDEN if a non-staff user calls it' do
+    # it 'should 403 FORBIDDEN if a non-staff user calls it' do
     #  @request.session['user_id'] = nil
     #  put :update, title_card_type: 'connect_title_card', id: title_card.uid
     #  expect(response.status).to eq(403)
     #  expect(response.body).to eq('Only available to authorized "staff" users')
-    #end
+    # end
   end
 
   describe '#create' do
@@ -165,17 +165,17 @@ describe Api::V1::TitleCardsController, type: :controller do
 
     # Disabling these security tests until we figure out a way to secure the
     # endpoints
-    #it 'should 403 FORBIDDEN if a non-staff user calls it' do
+    # it 'should 403 FORBIDDEN if a non-staff user calls it' do
     #  @request.session['user_id'] = nil
     #  post :create, title_card_type: 'connect_title_card'
     #  expect(response.status).to eq(403)
     #  expect(response.body).to eq('Only available to authorized "staff" users')
-    #end
+    # end
   end
 
   # Disabling destroy endpoints since we've turned them off while we don't have
   # any auth in place
-  #describe "#destroy" do
+  # describe "#destroy" do
   #  before do
   #    @request.session['user_id'] = staff.id
   #  end
@@ -200,5 +200,5 @@ describe Api::V1::TitleCardsController, type: :controller do
   #  #  expect(response.status).to eq(403)
   #  #  expect(response.body).to eq('Only available to authorized "staff" users')
   #  #end
-  #end
+  # end
 end

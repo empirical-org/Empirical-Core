@@ -30,12 +30,6 @@ Layout/FirstHashElementIndentation:
 Layout/HashAlignment:
   Enabled: false
 
-# Offense count: 26
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.
-Layout/LeadingCommentSpace:
-  Enabled: false
-
 # Offense count: 177
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.

@@ -320,7 +320,7 @@ class Cms::UsersController < Cms::CmsController
   private def log_attribute_change
     previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json
 
-    #omit password field if password not filled in
+    # omit password field if password not filled in
     if user_params[:password].blank?
       new_user_params = user_params.except('password', 'password_confirmation')
     else

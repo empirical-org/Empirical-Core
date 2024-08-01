@@ -621,7 +621,7 @@ describe ActivitySession, type: :model, redis: true do
       end
 
       it 'must order by date desc' do
-        #TODO: This test is not passing cause the ordering is wrong
+        # TODO: This test is not passing cause the ordering is wrong
         # p completed=ActivitySession.completed
         # current_date=completed.first.completed_at
         # completed.each do |item|

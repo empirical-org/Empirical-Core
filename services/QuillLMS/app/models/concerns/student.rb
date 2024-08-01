@@ -10,7 +10,7 @@ module Student
   end
 
   included do
-    #TODO: move these relationships into the users model
+    # TODO: move these relationships into the users model
 
     has_many :students_classrooms,
       foreign_key: 'student_id',

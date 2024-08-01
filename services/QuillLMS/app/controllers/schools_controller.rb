@@ -94,7 +94,7 @@ class SchoolsController < ApplicationController
       format.html
       format.json {
         @js_file = 'session'
-        #if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
+        # if the school does not specifically have a name, we send the type (e.g. not listed, international, etc..)
         if School.find_by_id(school_params[:school_id_or_type])
           school = School.find(school_params[:school_id_or_type])
         else

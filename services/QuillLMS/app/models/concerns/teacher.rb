@@ -460,7 +460,7 @@ module Teacher
     }
     if checkbox_data[:completed].count < checkbox_data[:potential].count
       checkbox_data
-    else #checkbox data unnecessary
+    else # checkbox data unnecessary
       false
     end
   end
