@@ -90,8 +90,7 @@ class Cms::UsersController < Cms::CmsController
     redirect_back(fallback_location: cms_users_path)
   end
 
-  def edit
-  end
+  def edit; end
 
   def edit_subscription
     @subscription = @user.subscription

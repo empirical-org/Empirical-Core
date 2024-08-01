@@ -13,8 +13,7 @@ module ApplicationHelper
        aggregation)
   end
 
-  def question_section
-  end
+  def question_section; end
 
   def combine(array1, array2)
     array1 + array2

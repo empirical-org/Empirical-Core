@@ -86,8 +86,7 @@ class SchoolsController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def new
-  end
+  def new; end
 
   def select_school
     respond_to do |format|
