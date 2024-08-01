@@ -111,13 +111,13 @@ module Evidence
           context 'optimal_student_responses' do
             let(:contents) { delimit('optimal_student_responses') }
 
-            it { is_expected.to eq optimal_examples.map(&:student_response).join("\n- ") }
+            it { is_expected.to eq optimal_examples.map { |eg| "- #{eg.student_response}" }.join("\n") }
           end
 
           context 'suboptimal_student_responses' do
             let(:contents) { delimit('suboptimal_student_responses') }
 
-            it { is_expected.to eq suboptimal_examples.map(&:student_response).join("\n- ") }
+            it { is_expected.to eq suboptimal_examples.map { |eg| "- #{eg.student_response}" }.join("\n") }
           end
 
           context 'multiple substitutions' do
