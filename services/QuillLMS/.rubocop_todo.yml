@@ -844,14 +844,6 @@ Style/RescueStandardError:
 Style/SafeNavigation:
   Enabled: false
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'app/controllers/teachers/progress_reports/activity_sessions_controller.rb'
-    - 'spec/support/pages/teachers/class_manager/invite_students_page.rb'
-
 # Offense count: 6453
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.

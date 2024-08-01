@@ -699,6 +699,10 @@ Style/RegexpLiteral:
 Style/SelectByRegexp:
   Enabled: true
 
+Style/Semicolon:
+  Enabled: true
+  AllowAsExpressionSeparator: true
+
 Style/SignalException:
   Enabled: true
 

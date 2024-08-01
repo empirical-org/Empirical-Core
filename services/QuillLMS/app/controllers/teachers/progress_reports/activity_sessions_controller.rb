@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Teachers::ProgressReports::ActivitySessionsController < Teachers::ProgressReportsController
-  PAGE_SIZE = 25;
+  PAGE_SIZE = 25
 
   def index
     respond_to do |format|
