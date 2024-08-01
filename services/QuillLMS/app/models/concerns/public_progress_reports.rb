@@ -186,7 +186,8 @@ module PublicProgressReports
         user_id: students.map(&:id),
         is_final_score: true,
         classroom_unit_id: classroom_unit.id,
-        activity_id: activity_id)
+        activity_id: activity_id
+      )
       .order('activity_sessions.user_id')
       .group_by(&:user_id)
 

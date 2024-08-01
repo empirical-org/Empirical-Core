@@ -57,8 +57,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
           text: 'foobarbazbat',
           conjunction: 'so',
           activity: main_activity,
-          max_attempts: 3
-        )
+          max_attempts: 3)
 
         as1 = create(:activity_session, activity_id: main_activity.id)
 
@@ -89,8 +88,7 @@ describe Api::V1::RuleFeedbackHistoriesController, type: :controller do
           text: 'foobarbazbat',
           conjunction: 'so',
           activity: main_activity,
-          max_attempts: 3
-        )
+          max_attempts: 3)
 
         as1 = create(:activity_session, state: 'finished', activity_id: main_activity.id, timespent: 61)
 

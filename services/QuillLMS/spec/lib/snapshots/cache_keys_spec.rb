@@ -31,15 +31,14 @@ module Snapshots
           timeframe_value,
           current_start,
           current_end,
-          school_ids)
-              ).to eq([
-                report,
-                query,
-                timeframe_value,
-                current_start,
-                current_end,
-                "school-ids-#{school_ids.sort.join('-')}"
-              ])
+          school_ids)).to eq([
+            report,
+            query,
+            timeframe_value,
+            current_start,
+            current_end,
+            "school-ids-#{school_ids.sort.join('-')}"
+          ])
       end
 
       it 'should compile a valid cache key with additional filters' do
@@ -49,18 +48,17 @@ module Snapshots
           current_start,
           current_end,
           school_ids,
-          additional_filters: additional_filters)
-              ).to eq([
-                report,
-                query,
-                timeframe_value,
-                current_start,
-                current_end,
-                "school-ids-#{school_ids.sort.join('-')}",
-                "grades-#{grades.map(&:to_s).sort.join('-')}",
-                "teacher-ids-#{teacher_ids.sort.join('-')}",
-                "classroom-ids-#{classroom_ids.sort.join('-')}"
-              ])
+          additional_filters: additional_filters)).to eq([
+            report,
+            query,
+            timeframe_value,
+            current_start,
+            current_end,
+            "school-ids-#{school_ids.sort.join('-')}",
+            "grades-#{grades.map(&:to_s).sort.join('-')}",
+            "teacher-ids-#{teacher_ids.sort.join('-')}",
+            "classroom-ids-#{classroom_ids.sort.join('-')}"
+          ])
       end
 
       it 'should compile a valid cache key when there is a custom timeframe' do
@@ -74,18 +72,17 @@ module Snapshots
           custom_start,
           custom_end,
           school_ids,
-          additional_filters: additional_filters)
-              ).to eq([
-                report,
-                query,
-                calculated_previous_start,
-                custom_start,
-                custom_end,
-                "school-ids-#{school_ids.sort.join('-')}",
-                "grades-#{grades.map(&:to_s).sort.join('-')}",
-                "teacher-ids-#{teacher_ids.sort.join('-')}",
-                "classroom-ids-#{classroom_ids.sort.join('-')}"
-              ])
+          additional_filters: additional_filters)).to eq([
+            report,
+            query,
+            calculated_previous_start,
+            custom_start,
+            custom_end,
+            "school-ids-#{school_ids.sort.join('-')}",
+            "grades-#{grades.map(&:to_s).sort.join('-')}",
+            "teacher-ids-#{teacher_ids.sort.join('-')}",
+            "classroom-ids-#{classroom_ids.sort.join('-')}"
+          ])
       end
 
       it 'should generate the same cache key when arrays are in different orders' do
@@ -95,18 +92,17 @@ module Snapshots
           current_start,
           current_end,
           school_ids,
-          additional_filters: additional_filters)
-              ).to eq(Snapshots::CacheKeys.generate_key(report,
-                query,
-                timeframe_value,
-                current_start,
-                current_end,
-                school_ids.reverse,
-                additional_filters: {
-                  grades: grades.reverse,
-                  teacher_ids: teacher_ids.reverse,
-                  classroom_ids: classroom_ids.reverse
-                }))
+          additional_filters: additional_filters)).to eq(Snapshots::CacheKeys.generate_key(report,
+            query,
+            timeframe_value,
+            current_start,
+            current_end,
+            school_ids.reverse,
+            additional_filters: {
+              grades: grades.reverse,
+              teacher_ids: teacher_ids.reverse,
+              classroom_ids: classroom_ids.reverse
+            }))
       end
     end
   end

@@ -143,8 +143,7 @@ FactoryBot.define do
       after(:create) do |question|
         create(:translation_mapping_with_translation,
           source: question,
-          field_name: question.default_translatable_field
-        )
+          field_name: question.default_translatable_field)
       end
     end
 
@@ -153,8 +152,7 @@ FactoryBot.define do
         focus_points.each do |key, value|
           create(:translation_mapping_with_translation,
             source: question,
-            field_name: "#{Question::FOCUS_POINTS}.#{key}"
-          )
+            field_name: "#{Question::FOCUS_POINTS}.#{key}")
         end
       end
     end
@@ -164,8 +162,7 @@ FactoryBot.define do
         incorrect_sequences.each do |key, value|
           create(:translation_mapping_with_translation,
             source: question,
-            field_name: "#{Question::INCORRECT_SEQUENCES}.#{key}"
-          )
+            field_name: "#{Question::INCORRECT_SEQUENCES}.#{key}")
         end
       end
     end
@@ -174,8 +171,7 @@ FactoryBot.define do
       after(:create) do |question|
         create(:translation_mapping_with_translation,
           source: question,
-          field_name: "#{Question::CMS_RESPONSES}.283992"
-        )
+          field_name: "#{Question::CMS_RESPONSES}.283992")
       end
     end
   end

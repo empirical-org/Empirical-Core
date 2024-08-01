@@ -73,8 +73,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity_session) do
         create(:activity_session,
           activity: activity,
-          classroom_unit: classroom_unit
-        )
+          classroom_unit: classroom_unit)
       end
 
       it 'should return false' do
@@ -95,8 +94,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity_session) do
         create(:activity_session,
           activity: activity,
-          classroom_unit: classroom_unit
-        )
+          classroom_unit: classroom_unit)
       end
 
       it 'should create the unit_activity and the classroom unit activity state' do
@@ -120,8 +118,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity_session) do
         create(:activity_session,
           activity: activity,
-          classroom_unit: classroom_unit
-        )
+          classroom_unit: classroom_unit)
       end
 
       it 'should return the unit_activity and create a classroom activity unit state' do
@@ -143,8 +140,7 @@ describe ActivitySession, type: :model, redis: true do
       let!(:activity_session) do
         create(:activity_session,
           activity: activity,
-          classroom_unit: classroom_unit
-        )
+          classroom_unit: classroom_unit)
       end
 
       it 'should return the unit_activity, make it visible, and create a classroom activity unit state' do

@@ -49,8 +49,7 @@ RSpec.describe OpenAI::TranslateAndSaveText, type: :service do
         translated_text = create(:translated_text,
           english_text_id: english_text.id,
           translation: 'Foo',
-          locale:
-        )
+          locale:)
         subject
         expect(translated_text.reload.translation).to eq(response)
       end

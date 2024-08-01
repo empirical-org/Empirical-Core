@@ -36,13 +36,6 @@ Layout/HashAlignment:
 Layout/LeadingCommentSpace:
   Enabled: false
 
-# Offense count: 177
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineMethodCallBraceLayout:
-  Enabled: false
-
 # Offense count: 470
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.

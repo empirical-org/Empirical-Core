@@ -10,8 +10,7 @@ describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
   let(:classroom_unit) do
     create(:classroom_unit,
       classroom: classroom,
-      assigned_student_ids: [student.id]
-    )
+      assigned_student_ids: [student.id])
   end
   let(:classroom_for_report) do
     ProgressReports::Standards::Classroom.new(teacher).results({}).first

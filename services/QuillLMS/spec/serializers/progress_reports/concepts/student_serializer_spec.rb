@@ -13,8 +13,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
     create(:classroom_unit,
       unit: unit,
       classroom: classroom,
-      assigned_student_ids: [student.id]
-    )
+      assigned_student_ids: [student.id])
   end
 
   let(:student_for_report) { ProgressReports::Concepts::User.results(teacher, {}).first }

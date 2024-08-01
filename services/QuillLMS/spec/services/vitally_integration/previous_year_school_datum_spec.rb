@@ -31,8 +31,7 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         state: 'finished',
         completed_at: Date.new(year, 10, 2),
         updated_at: Date.new(year, 10, 2),
-        activity: evidence_activity
-      )
+        activity: evidence_activity)
     end
 
     it 'should raise error if the year is the current year' do

@@ -59,7 +59,8 @@ describe AdminDiagnosticStudentsController, type: :controller do
             grades: grades,
             teacher_ids: teacher_ids,
             classroom_ids: classroom_ids
-          })
+          }
+        )
 
         post :report, params: { query: query_name, diagnostic_id:, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end

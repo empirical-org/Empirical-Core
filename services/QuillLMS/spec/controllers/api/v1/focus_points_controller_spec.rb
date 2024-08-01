@@ -13,8 +13,7 @@ describe Api::V1::FocusPointsController, type: :controller do
         'incorrectSequences'=> [
           { 'text'=>'foo', 'feedback'=>'bar', 'uid' => 'uid1' }
         ]
-      }
-    )
+      })
   end
 
   describe '#index' do

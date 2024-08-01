@@ -18,16 +18,14 @@ shared_context 'Activity Progress Report' do
     create(:classroom_unit,
       classroom: classroom_one,
       unit: unit_one,
-      assigned_student_ids: [student_in_classroom_one.id]
-    )
+      assigned_student_ids: [student_in_classroom_one.id])
   end
 
   let(:classroom_unit_two) do
     create(:classroom_unit,
       classroom: classroom_two,
       unit: unit_two,
-      assigned_student_ids: [student_in_classroom_two.id]
-    )
+      assigned_student_ids: [student_in_classroom_two.id])
   end
 
   let(:student_one_session) do
@@ -36,8 +34,7 @@ shared_context 'Activity Progress Report' do
       percentage: 0.777778,
       user: student_in_classroom_one,
       classroom_unit: classroom_unit_one,
-      completed_at: Time.current
-    )
+      completed_at: Time.current)
   end
 
   let(:student_two_session) do
@@ -46,8 +43,7 @@ shared_context 'Activity Progress Report' do
       percentage: 0.75,
       user: student_in_classroom_two,
       classroom_unit: classroom_unit_two,
-      completed_at: Time.current
-    )
+      completed_at: Time.current)
   end
 
   let(:classroom_one_sessions) { [student_one_session] }

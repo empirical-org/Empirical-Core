@@ -133,7 +133,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_uid: so_rule1.uid,
         prompt_id: 1,
         start_date: nil,
-        end_date: nil)
+        end_date: nil
+      )
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
@@ -153,7 +154,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_uid: so_rule1.uid,
         prompt_id: 1,
         start_date: nil,
-        end_date: nil)
+        end_date: nil
+      )
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
@@ -179,7 +181,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_uid: so_rule1.uid,
         prompt_id: 1,
         start_date: '2021-03-07T19:02:54.814Z',
-        end_date: '2021-04-07T19:02:54.814Z')
+        end_date: '2021-04-07T19:02:54.814Z'
+      )
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid
@@ -220,7 +223,8 @@ RSpec.describe RuleFeedbackHistory, type: :model do
         rule_uid: so_rule1.uid,
         prompt_id: 1,
         start_date: nil,
-        end_date: nil)
+        end_date: nil
+      )
 
       expect(result.keys.length).to eq 1
       expect(result.keys.first.to_s).to eq so_rule1.uid

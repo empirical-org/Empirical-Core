@@ -61,7 +61,8 @@ describe AdminDiagnosticSkillsController, type: :controller do
             grades: grades,
             teacher_ids: teacher_ids,
             classroom_ids: classroom_ids
-          })
+          }
+        )
 
         post :report, params: { query: query_name, group_by: group_by, diagnostic_id: diagnostic_id, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end

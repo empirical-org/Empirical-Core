@@ -38,8 +38,7 @@ RSpec.describe IndependentPracticePacksAssigner do
     create(:pack_sequence,
       classroom_id: classroom.id,
       diagnostic_activity_id: diagnostic_activity.id,
-      release_method: PackSequence::STAGGERED_RELEASE
-    )
+      release_method: PackSequence::STAGGERED_RELEASE)
   end
 
   context 'user does not teach classroom being assigned' do

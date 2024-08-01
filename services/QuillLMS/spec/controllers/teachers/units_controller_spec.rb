@@ -15,16 +15,14 @@ describe Teachers::UnitsController, type: :controller do
     create(:classroom_unit,
       unit: unit,
       classroom: classroom,
-      assigned_student_ids: [student.id]
-    )
+      assigned_student_ids: [student.id])
   end
 
   let!(:classroom_unit2) do
     create(:classroom_unit,
       unit: unit2,
       classroom: classroom,
-      assigned_student_ids: [student.id]
-    )
+      assigned_student_ids: [student.id])
   end
 
   let!(:diagnostic) { create(:diagnostic) }
@@ -36,8 +34,7 @@ describe Teachers::UnitsController, type: :controller do
     create(:activity_session,
       user: student,
       activity: diagnostic_activity,
-      classroom_unit: classroom_unit
-    )
+      classroom_unit: classroom_unit)
   end
 
   before { session[:user_id] = teacher.id }
@@ -80,8 +77,7 @@ describe Teachers::UnitsController, type: :controller do
       create(:classroom_unit,
         unit: unit3,
         classroom: classroom2,
-        assigned_student_ids: [student.id]
-      )
+        assigned_student_ids: [student.id])
 
       get :prohibited_unit_names, as: :json
       expect(JSON.parse(response.body)['prohibitedUnitNames']).not_to include(unit3.name.downcase)
@@ -175,8 +171,7 @@ describe Teachers::UnitsController, type: :controller do
       create(:activity_session,
         user: student,
         activity: diagnostic_activity,
-        classroom_unit: classroom_unit
-      )
+        classroom_unit: classroom_unit)
 
       get :diagnostic_units
 
@@ -471,8 +466,7 @@ describe Teachers::UnitsController, type: :controller do
         classroom_unit: classroom_unit,
         is_final_score: true,
         percentage: 0.17,
-        visible: true
-      )
+        visible: true)
     }
 
     it 'no classroom_unit_id should return empty hash' do

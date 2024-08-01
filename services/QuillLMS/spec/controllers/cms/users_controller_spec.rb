@@ -100,7 +100,8 @@ describe Cms::UsersController do
           'userSearchQuery'=> {
             'class_code'=> class_code
           }
-        })
+        }
+      )
       expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
       expect(ChangeLog.last.explanation).to include('class_code')
     end

@@ -28,8 +28,7 @@ describe ProfilesController, type: :controller do
     let!(:students_classrooms) do
       create(:students_classrooms,
         student: student,
-        classroom: classroom
-      )
+        classroom: classroom)
     end
     let!(:other_student) { create(:student) }
     let!(:units) { create_list(:unit, 2) }
@@ -60,13 +59,11 @@ describe ProfilesController, type: :controller do
         create(:classroom_unit,
           unit: units[0],
           classroom: classroom,
-          assigned_student_ids: [student.id]
-        ),
+          assigned_student_ids: [student.id]),
         create(:classroom_unit,
           unit: units[1],
           classroom: classroom,
-          assigned_student_ids: [student.id]
-        )
+          assigned_student_ids: [student.id])
       ]
     end
 

@@ -85,7 +85,8 @@ class AdminDiagnosticStudentsController < ApplicationController
     Snapshots::Timeframes.calculate_timeframes(
       permitted_params[:timeframe],
       custom_start: permitted_params[:timeframe_custom_start],
-      custom_end: permitted_params[:timeframe_custom_end])
+      custom_end: permitted_params[:timeframe_custom_end]
+    )
   end
 
   private def cache_key_for_timeframe(timeframe_name, timeframe_start, timeframe_end)
