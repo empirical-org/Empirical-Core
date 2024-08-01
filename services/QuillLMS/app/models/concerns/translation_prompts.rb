@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Prompts
+module TranslationPrompts
   extend ActiveSupport::Concern
   module ClassMethods
     def prompt_start(locale:)

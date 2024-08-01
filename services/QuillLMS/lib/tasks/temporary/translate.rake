@@ -40,7 +40,7 @@ namespace :translate do
   desc 'translate hard-coded feedback_strings'
   task :feedback_strings, [:locale] => :environment do |t, args|
     locale = args[:locale] || Translatable::DEFAULT_LOCALE
-    prompt = Prompts.feedback_strings_prompt(locale:)
+    prompt = TranslationPrompts.feedback_strings_prompt(locale:)
     english_text = feedback_data
     result = OpenAI::Translate.run(english_text:, prompt:)
     filename = "#{fileroot}.#{locale}.#{fileformat}"
