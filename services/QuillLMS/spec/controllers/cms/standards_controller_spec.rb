@@ -28,19 +28,19 @@ describe Cms::StandardsController do
   describe '#create' do
     it 'creates a new standard with the nested change logs' do
       post :create, params: { standard: {
-          name: 'New Standard',
-          level: 3,
-          visible: true,
-          standard_level_id: standard_level.id,
-          standard_category_id: standard_category.id,
-          change_logs_attributes: [
-            {
-              action: 'Created',
-              changed_record_type: 'Standard',
-              explanation: 'Here is an explanation'
-            }
-          ]
-        } }
+        name: 'New Standard',
+        level: 3,
+        visible: true,
+        standard_level_id: standard_level.id,
+        standard_category_id: standard_category.id,
+        change_logs_attributes: [
+          {
+            action: 'Created',
+            changed_record_type: 'Standard',
+            explanation: 'Here is an explanation'
+          }
+        ]
+      } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response['standard']['id']
       expect(id).to be
@@ -54,17 +54,17 @@ describe Cms::StandardsController do
       new_name = 'New Standard Name'
       id = standards[0].id
       put :update, params: { id: id, standard: {
-          name: new_name,
-          id: id,
-          change_logs_attributes: [
-            {
-              action: 'Renamed',
-              changed_record_type: 'Standard',
-              changed_record_id: id,
-              explanation: 'Here is an explanation'
-            }
-          ]
-        } }
+        name: new_name,
+        id: id,
+        change_logs_attributes: [
+          {
+            action: 'Renamed',
+            changed_record_type: 'Standard',
+            changed_record_id: id,
+            explanation: 'Here is an explanation'
+          }
+        ]
+      } }
       expect(Standard.find_by_id(id).name).to eq(new_name)
       expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'Standard', action: 'Renamed')).to be
     end

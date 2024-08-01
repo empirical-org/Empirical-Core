@@ -64,7 +64,7 @@ module Evidence
           it 'should return secondary feedback' do
             mocked_feedback_history = {
               'feedback_type' => 'grammar',
-              'feedback'      => feedback1.text
+              'feedback' => feedback1.text
             }
 
             result = FeedbackAssembler.run(
@@ -88,9 +88,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type' => 'response',
-                'text' => exceptions.first,
-                'character' => 0
+                  'type' => 'response',
+                  'text' => exceptions.first,
+                  'character' => 0
                 }]
               }
             end
@@ -104,9 +104,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type' => 'response',
-                'text' => exceptions.first.upcase,
-                'character' => 0
+                  'type' => 'response',
+                  'text' => exceptions.first.upcase,
+                  'character' => 0
                 }]
               }
             end
@@ -120,9 +120,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type' => 'response',
-                'text' => exceptions.first.split.first,
-                'character' => 0
+                  'type' => 'response',
+                  'text' => exceptions.first.split.first,
+                  'character' => 0
                 }]
               }
             end
@@ -137,9 +137,9 @@ module Evidence
             let(:client_response) do
               {
                 'highlight' => [{
-                'type' => 'response',
-                'text' => exceptions.first,
-                'character' => 0
+                  'type' => 'response',
+                  'text' => exceptions.first,
+                  'character' => 0
                 }]
               }
             end

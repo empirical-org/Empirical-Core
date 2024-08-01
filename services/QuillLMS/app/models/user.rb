@@ -226,7 +226,7 @@ class User < ApplicationRecord
 
   validates :email,
     presence: { if: :email_required? },
-    uniqueness:  { message: :taken, if: :email_required_or_present? },
+    uniqueness: { message: :taken, if: :email_required_or_present? },
     format: { without: /\s/, message: :no_spaces_allowed },
     length: { maximum: CHAR_FIELD_MAX_LENGTH }
 

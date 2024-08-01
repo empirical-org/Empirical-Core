@@ -124,14 +124,14 @@ module VitallyIntegration
     def diagnostics_assigned_between_count(start, stop)
       district.schools.select("array_length(classroom_units.assigned_student_ids, 1) AS assigned_students")
         .joins(users: {
-        unscoped_classrooms_i_teach: {
-          classroom_units: {
-            unit_activities: {
-            activity: :classification
+          unscoped_classrooms_i_teach: {
+            classroom_units: {
+              unit_activities: {
+                activity: :classification
+              }
             }
           }
-        }
-      }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
+        }).where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
         .where(classroom_units: { created_at: start..stop })
         .map(&:assigned_students).reject(&:blank?).sum
     end

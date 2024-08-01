@@ -53,7 +53,7 @@ class FirebaseApp < ApplicationRecord
       iat: now_seconds,
       exp: now_seconds + (60 * 60), # Maximum expiration time is one hour,
       claims: {}
-  }
+    }
 
     if user.nil?
       payload[:claims][:anonymous] = true

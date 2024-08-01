@@ -4,6 +4,7 @@
 # NOTE: are sensitive to local FS writes, and besides -- it's just not proper
 # NOTE: to have a dev-mode tool do its thing in production.
 if Rails.env.development?
+  # rubocop:disable Layout/HashAlignment
   require 'annotate'
   task :set_annotation_options do
     # You can override any of these by setting an environment variable of the
@@ -59,3 +60,5 @@ if Rails.env.development?
 
   Annotate.load_tasks
 end
+
+# rubocop:enable Layout/HashAlignment

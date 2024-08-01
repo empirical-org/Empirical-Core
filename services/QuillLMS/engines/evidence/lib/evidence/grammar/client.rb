@@ -31,8 +31,8 @@ module Evidence
       private def api_request
         HTTParty.post(
           API_ENDPOINT,
-          headers:  { 'Content-Type': 'application/json' },
-          body:     {
+          headers: { 'Content-Type': 'application/json' },
+          body: {
             entry: @entry,
             prompt_text: @prompt_text
           }.to_json,

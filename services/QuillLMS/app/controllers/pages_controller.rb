@@ -195,21 +195,21 @@ class PagesController < ApplicationController
             question: "How are Quill's activities linked to Common Core Standards?",
             answer: "
               <p>Each activity is assigned a Common Core State Standard that aligns with the grammar target of the activity. Because we recognize that the Common Core State Standards do not always map to the needs of students, we recommend deciding what's right for your students based on the grammar concept of the activity rather than the grade level indicated by the activity's CCSS. For example, we have found that many of our 4th grade CCSS activities, such as those that explore relative pronouns and clauses, are actually more appropriate for middle or high school students.</p>"
-            },
+          },
           {
             question: 'How are Quill activities named?',
             answer: "<p>We have a lot of activities in our library! Most of these activities are named based on the specific grammar concept they cover and the topic they discuss.</p>
               <br />
               <p>Some activities also include a number. If an activity includes a number, that means there are other activities that cover the same grammar concept at the same level. For example, if your students complete Parallel Structure 1 but you feel they need additional practice at that level, you can assign Parallel Structure 2.</p>"
-            },
+          },
           {
             question: 'What does it mean if an activity is labeled as "Advanced Combining"?',
             answer: '<p>Many of our activities cover a specific grammar concept, but some of our activities are categorized as "Advanced Combining" instead. These activities are ones that allow students to combine sentences using any grammatically correct method. Students will receive feedback based on the structure they chose to use. Advanced combining activities are a great way to give your students opportunities to problem solve and be creative in their sentence construction. Because they provide little direction for students, we recommend having students complete a few activities with a clear grammar target before doing advanced combining activities, especially if they are new to sentence combining.</p>'
-            },
+          },
           {
             question: 'What happens if a student answers a question incorrectly?',
             answer: "<p>Our goal is to build strong writers who have made revising an essential part of their writing process. For that reason, we provide students with the opportunity to revise each response up to five times until they have written a strong, grammatically correct sentence. After each revision, students receive feedback that guides them towards a stronger response. If after five revisions the response is still not considered strong, we'll show a few sample responses and ask the student to choose the strongest one before moving on to the next question.</p>"
-            },
+          },
           {
             question: 'Can students retry an activity?',
             answer: '<p>Students can retry an activity as many times as they want. Once a student has completed an activity, it remains on their dashboard, available to retry at any time.</p>'

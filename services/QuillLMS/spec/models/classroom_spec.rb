@@ -194,7 +194,7 @@ describe Classroom, type: :model do
         ownerName: classroom.owner.name,
         from_google: !!classroom.google_classroom_id,
         coteachers: []
-        })
+      })
     end
   end
 

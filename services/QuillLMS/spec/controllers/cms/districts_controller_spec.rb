@@ -80,17 +80,17 @@ describe Cms::DistrictsController do
       expect(assigns(:school_data)).to eq([])
       expect(assigns(:admins)).to eq(DistrictAdmin.includes(:user).where(district_id: district.id).map do |admin|
         {
-            name: admin.user.name,
-            email: admin.user.email,
-            district_id: admin.district_id,
-            user_id: admin.user_id
+          name: admin.user.name,
+          email: admin.user.email,
+          district_id: admin.district_id,
+          user_id: admin.user_id
         }
       end
                                     )
       expect(assigns(:district_subscription_info)).to eq({
         'District Premium Type' => district.subscription.account_type,
         'Expiration' => district.subscription.expiration.strftime('%b %d, %Y')
-       })
+      })
     end
 
     context 'when the district has schools with some expired subscriptions' do
@@ -125,16 +125,16 @@ describe Cms::DistrictsController do
       get :edit, params: { id: district.id }
       expect(assigns(:district)).to eq district
       expect(assigns(:editable_attributes)).to eq({
-          'District Name' => :name,
-          'District City' => :city,
-          'District State' => :state,
-          'District ZIP' => :zipcode,
-          'District Phone' => :phone,
-          'NCES ID' => :nces_id,
-          'Clever ID' => :clever_id,
-          'Total Schools' => :total_schools,
-          'Total Students' => :total_students,
-          'Grade Range' => :grade_range
+        'District Name' => :name,
+        'District City' => :city,
+        'District State' => :state,
+        'District ZIP' => :zipcode,
+        'District Phone' => :phone,
+        'NCES ID' => :nces_id,
+        'Clever ID' => :clever_id,
+        'Total Schools' => :total_schools,
+        'Total Students' => :total_students,
+        'Grade Range' => :grade_range
       })
     end
   end

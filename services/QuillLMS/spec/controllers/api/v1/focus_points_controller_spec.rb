@@ -11,7 +11,7 @@ describe Api::V1::FocusPointsController, type: :controller do
           '0' => { 'text' => 'text', 'feedback' => 'fff' }
         },
         'incorrectSequences' => [
-          { 'text' => 'foo', 'feedback' => 'bar', 'uid' => 'uid1' }
+          { 'text'=>'foo', 'feedback'=>'bar', 'uid' => 'uid1' }
         ]
       }
     )
