@@ -34,7 +34,7 @@ module Evidence
           'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines }
         }.freeze
 
-        GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
+        GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |_name|
           ->(builder, id) { builder.prompt_template_variable(id) }
         end
 

@@ -37,7 +37,7 @@ module QuillBigQuery
       cte_records
         .flatten
         .group_by { |record| record.class.table_name }
-        .reject { |table_name, records| records.empty? }
+        .reject { |_table_name, records| records.empty? }
         .map { |table_name, records| "#{table_name} AS ( #{cte_query(records)} )" }
         .join(",\n\t")
     end

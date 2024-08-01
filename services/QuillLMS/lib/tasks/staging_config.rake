@@ -5,7 +5,7 @@ require 'open3'
 namespace :staging_config do
   # bundle exec rake staging_config:copy_from_staging_to_personals\[SOME_KEY\]
   desc 'copy a config from main staging to all other staging envs'
-  task :copy_from_staging_to_personals, [:config] => :environment do |t, args|
+  task :copy_from_staging_to_personals, [:config] => :environment do |_t, args|
     include StagingConfigCommands
 
     config = args[:config]
@@ -20,7 +20,7 @@ namespace :staging_config do
 
   # bundle exec rake staging_config:set_all\[TEST_KEY='some_value'\]
   desc 'set a config key/value on all staging envs'
-  task :set_all, [:config_setting] => :environment do |t, args|
+  task :set_all, [:config_setting] => :environment do |_t, args|
     include StagingConfigCommands
     config_setting = args[:config_setting]
 
@@ -31,7 +31,7 @@ namespace :staging_config do
 
   # bundle exec rake staging_config:remove_all\[TEST_KEY\]
   desc 'delete a config from all staging envs'
-  task :remove_all, [:config] => :environment do |t, args|
+  task :remove_all, [:config] => :environment do |_t, args|
     include StagingConfigCommands
     config = args[:config]
 

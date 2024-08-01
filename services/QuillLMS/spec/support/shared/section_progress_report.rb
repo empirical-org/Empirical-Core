@@ -23,7 +23,7 @@ shared_context 'StandardLevel Progress Report' do
       classroom_unit = create(:classroom_unit,
         classroom: classroom,
         unit: unit)
-      3.times do |j|
+      3.times do |_j|
         activity_session = create(:activity_session,
           classroom_unit: classroom_unit,
           user: student,

@@ -177,7 +177,7 @@ module QuillAuthentication
     signed_in? && current_user.role.staff?
   end
 
-  def signed_in_path source
+  def signed_in_path _source
     session[:attempted_path] || current_user.role.admin? ? cms_path : root_path
   end
 

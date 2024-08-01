@@ -178,7 +178,7 @@ class Cms::SchoolsController < Cms::CmsController
     params.permit(default_params + all_search_inputs)
   end
 
-  private def school_query(params)
+  private def school_query(_params)
     # This should return an array of hashes that look like this:
     # [
     #   {

@@ -8,7 +8,7 @@ module Snapshots
 
     QUERIES = ::Snapshots::PREMIUM_REPORTS_QUERY_MAPPING
 
-    def perform(cache_key, query, user_id, timeframe, school_ids, filters, previous_timeframe)
+    def perform(cache_key, query, user_id, timeframe, school_ids, filters, _previous_timeframe)
       user = User.find(user_id)
       payload = generate_payload(query, timeframe, school_ids, user, filters)
       Rails.cache.write(cache_key, payload.to_a, expires_in: cache_expiry)

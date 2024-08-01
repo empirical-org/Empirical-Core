@@ -49,7 +49,7 @@ class Plan < ApplicationRecord
   validates :interval, presence: true, inclusion: { in: INTERVAL_TYPES }
   validates :interval_count, numericality: { greater_than_or_equal_to: 0 }
 
-  before_destroy { |record| raise ActiveRecord::ReadOnlyRecord }
+  before_destroy { |_record| raise ActiveRecord::ReadOnlyRecord }
 
   def self.find_stripe_plan!(stripe_price_id)
     find_by!(name: STRIPE_PRICE_ID_TO_NAME[stripe_price_id])
