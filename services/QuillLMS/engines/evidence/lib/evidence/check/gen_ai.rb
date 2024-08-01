@@ -47,7 +47,8 @@ module Evidence
       private def history
         return [] if session.nil?
         @history ||= session
-          .history_texts
+          .feedback_history
+          .sort_by(&:id)
           .map { |fh| Evidence::OpenAI::Chat::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
       end
 
