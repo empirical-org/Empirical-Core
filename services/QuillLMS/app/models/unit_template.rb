@@ -117,7 +117,7 @@ class UnitTemplate < ApplicationRecord
     diagnostics_recommended_by.pluck(:name)
   end
 
-  def activity_ids= activity_ids
+  def activity_ids=(activity_ids)
     # getting around rails defaulting to activities being set in order of the activity id rather than the selected order
     new_activities = activity_ids.map { |id| Activity.find(id) }
     self.activities = new_activities

@@ -307,7 +307,7 @@ class ActivitySession < ApplicationRecord
     self['data'] = data.to_h.update(input.except('activity_session'))
   end
 
-  def activity_uid= uid
+  def activity_uid=(uid)
     self.activity_id = Activity.find_by_uid!(uid).id
   end
 
@@ -326,7 +326,7 @@ class ActivitySession < ApplicationRecord
   alias owner user
 
   # TODO: legacy fix
-  def anonymous= anonymous
+  def anonymous=(anonymous)
     self.temporary = anonymous
   end
 

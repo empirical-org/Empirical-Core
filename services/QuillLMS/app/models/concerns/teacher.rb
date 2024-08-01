@@ -366,7 +366,7 @@ module Teacher
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def update_teacher params
+  def update_teacher(params)
     return if !teacher?
 
     params.permit(

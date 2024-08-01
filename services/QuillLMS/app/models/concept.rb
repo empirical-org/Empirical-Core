@@ -40,11 +40,11 @@ class Concept < ApplicationRecord
   end
 
   # need the below because those making POST requests to /api/v1/concepts know only uids, not ids
-  def parent_uid= uid
+  def parent_uid=(uid)
     self.parent_id = Concept.find_by(uid: uid).id
   end
 
-  def replacement_uid= uid
+  def replacement_uid=(uid)
     self.replacement_id = Concept.find_by(uid: uid).id
   end
 

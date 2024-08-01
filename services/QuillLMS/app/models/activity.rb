@@ -153,11 +153,11 @@ class Activity < ApplicationRecord
     find_by(uid: arg) || find(arg)
   end
 
-  def standard_uid= uid
+  def standard_uid=(uid)
     self.standard_id = Standard.find_by_uid(uid).id
   end
 
-  def activity_classification_uid= uid
+  def activity_classification_uid=(uid)
     self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
   end
 
@@ -174,7 +174,7 @@ class Activity < ApplicationRecord
     end
   end
 
-  def classification_key= key
+  def classification_key=(key)
     self.classification = ActivityClassification.find_by_key(key)
   end
 
