@@ -111,7 +111,7 @@ module Teacher
     )
 
     all_ids.each do |row|
-      row.each do |k,v|
+      row.each do |k, v|
         case k
         when 'coteacher_classroom_invitation_id'
           coteacher_classroom_invitation_ids << v
@@ -164,7 +164,7 @@ module Teacher
     return unless classroom_ids && classroom_ids.any?
 
     # destroy the existing invitation and teacher relationships
-    ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
+    ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k, v|
       case k
       when :classrooms_teachers_ids
         ClassroomsTeacher.where(id: v).map(&:destroy)

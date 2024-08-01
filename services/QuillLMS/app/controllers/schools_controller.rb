@@ -14,7 +14,7 @@ class SchoolsController < ApplicationController
     @lat = params[:lat]
     @lng = params[:lng]
     @search = params[:search]
-    @prefix,@zipcode = get_prefix_and_zipcode(@search)
+    @prefix, @zipcode = get_prefix_and_zipcode(@search)
     @limit = @prefix || @zipcode ? nil : params[:limit].presence || 10
     @schools = []
 
@@ -122,7 +122,7 @@ class SchoolsController < ApplicationController
     array_encoder = PG::TextEncoder::Array.new
     literal_encoder = PG::TextEncoder::QuotedLiteral.new
     r = array_encoder.encode(ruby_array.map { |v| literal_encoder.encode(v) })
-    r.sub('{','(').sub('}', ')')
+    r.sub('{', '(').sub('}', ')')
   end
 
   private def get_prefix_and_zipcode(search)

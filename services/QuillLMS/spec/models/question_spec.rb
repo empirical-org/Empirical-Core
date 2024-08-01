@@ -170,7 +170,7 @@ RSpec.describe Question, type: :model do
   describe '#set_focus_point' do
     it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_focus_point(uid, { 'text'=>'text','feedback'=>'feedback' })
+      response = question.set_focus_point(uid, { 'text'=>'text', 'feedback'=>'feedback' })
       expect(response).to eq(true)
     end
 
@@ -310,7 +310,7 @@ RSpec.describe Question, type: :model do
   describe '#set_incorrect_sequence' do
     it 'should return true on success' do
       uid = SecureRandom.uuid
-      response = question.set_incorrect_sequence(uid, { 'text'=>'Text','feedback'=>'feedback' })
+      response = question.set_incorrect_sequence(uid, { 'text'=>'Text', 'feedback'=>'feedback' })
       expect(response).to eq(true)
     end
 
@@ -324,9 +324,9 @@ RSpec.describe Question, type: :model do
     context 'array' do
       before do
         question.data['incorrectSequences'] = [
-          { 'text'=>'text1','feedback'=>'feedback1', 'uid' => 'uid1' },
-          { 'text'=>'text2','feedback'=>'feedback2', 'uid' => 'uid2' },
-          { 'text'=>'text3','feedback'=>'feedback3', 'uid' => 'uid3' }
+          { 'text'=>'text1', 'feedback'=>'feedback1', 'uid' => 'uid1' },
+          { 'text'=>'text2', 'feedback'=>'feedback2', 'uid' => 'uid2' },
+          { 'text'=>'text3', 'feedback'=>'feedback3', 'uid' => 'uid3' }
         ]
         question.save
       end

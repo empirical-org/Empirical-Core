@@ -6,8 +6,8 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
   context '#calculate_data' do
     let!(:year) { 2016 }
     let!(:teacher) { create(:user, role: 'teacher') }
-    let!(:active_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: true) }
-    let!(:archived_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: false) }
+    let!(:active_classroom) { create(:classroom, created_at: Date.new(year, 10, 1), visible: true) }
+    let!(:archived_classroom) { create(:classroom, created_at: Date.new(year, 10, 1), visible: false) }
     let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1)) }
     let!(:student1) { create(:user, role: 'student') }
     let!(:student2) { create(:user, role: 'student') }

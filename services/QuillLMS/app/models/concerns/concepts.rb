@@ -14,11 +14,11 @@ module Concepts
 
   private def human_readable_question_type question_type
     # return question_type with '-' changed to space, and each word capitalized, or just return 'Results'
-    question_type ? question_type.gsub('-',' ').split.map(&:capitalize).join(' ') : 'Results'
+    question_type ? question_type.gsub('-', ' ').split.map(&:capitalize).join(' ') : 'Results'
   end
 
   private def organize_by_type
-    hash_object = Hash.new { |h,k| h[k] = [] }
+    hash_object = Hash.new { |h, k| h[k] = [] }
     @concepts.map do |concept|
       @concept_results_by_question_type.map do |cr|
         if cr.any?

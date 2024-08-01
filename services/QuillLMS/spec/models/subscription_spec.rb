@@ -105,12 +105,12 @@ describe Subscription, type: :model do
 
   describe '#credit_user_and_de_activate' do
     let!(:user) { create(:user) }
-    let!(:subscription) { create(:subscription, expiration: Date.new(2018,4,6), purchaser: user) }
+    let!(:subscription) { create(:subscription, expiration: Date.new(2018, 4, 6), purchaser: user) }
     let!(:user_subscription) { create(:user_subscription, subscription: subscription, user: user) }
 
     subject { subscription.credit_user_and_de_activate }
 
-    before { allow(Date).to receive(:current).and_return Date.new(2018,4,4) }
+    before { allow(Date).to receive(:current).and_return Date.new(2018, 4, 4) }
 
     context 'it does nothing to the subscription when' do
       let(:user_subscription2) { create(:user_subscription, subscription: subscription, user: user) }
@@ -177,11 +177,11 @@ describe Subscription, type: :model do
   describe '.promotional_dates' do
     context 'when called on a day prior to July, 1' do
       before do
-        allow(Date).to receive(:current).and_return Date.new(2018,4,4)
+        allow(Date).to receive(:current).and_return Date.new(2018, 4, 4)
       end
 
       it 'returns an expiration date of July 31 the next year when called on a day prior to July' do
-        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,7,31))
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019, 7, 31))
       end
 
       it 'returns a start date one year from the day it was called' do
@@ -190,10 +190,10 @@ describe Subscription, type: :model do
     end
 
     context 'when called on a day after June 30' do
-      before { allow(Date).to receive(:current).and_return Date.new(2018,10,4) }
+      before { allow(Date).to receive(:current).and_return Date.new(2018, 10, 4) }
 
       it 'returns an expiration date of December 31 the next year when called on a day prior to July' do
-        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019,12,31))
+        expect(Subscription.promotional_dates[:expiration]).to eq(Date.new(2019, 12, 31))
       end
 
       it 'returns a start date one year from the day it was called' do

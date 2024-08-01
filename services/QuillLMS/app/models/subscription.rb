@@ -268,7 +268,7 @@ class Subscription < ApplicationRecord
       exp_month_and_day = "#{WINTER_EXPIRATION_DAY}-#{WINTER_EXPIRATION_MONTH}"
     end
 
-    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}",'%d-%m-%Y') }
+    { start_date: today, expiration: Date::strptime("#{exp_month_and_day}-#{today.year + 1}", '%d-%m-%Y') }
   end
 
   def self.set_premium_expiration_and_start_date(subscriber)

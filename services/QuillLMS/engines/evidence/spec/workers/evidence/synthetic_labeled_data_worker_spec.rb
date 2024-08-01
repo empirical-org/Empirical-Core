@@ -18,7 +18,7 @@ module Evidence
       let(:filename) { 'test.csv' }
       let(:mock_uploader) { double(file: file) }
       let(:file) { fixture_file_upload(filename) }
-      let(:file_as_array) { [['hello', 'world'], ['data','here']] }
+      let(:file_as_array) { [['hello', 'world'], ['data', 'here']] }
 
       let(:generator_response) { double }
 

@@ -43,7 +43,7 @@ STR
 Step = Struct.new(:prompt, :valid?, :current_value)
 
 MACHINE = {
-  0 => Step.new(prompt0, ->(input){ [1,2].include?(input.to_i) }, nil),
+  0 => Step.new(prompt0, ->(input){ [1, 2].include?(input.to_i) }, nil),
   1 => Step.new(prompt1, ->(input){ INSTANCES.keys.include?(input.to_i) }, nil)
 }
 

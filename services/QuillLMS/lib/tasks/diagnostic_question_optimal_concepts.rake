@@ -119,7 +119,7 @@ namespace :diagnostic_question_optimal_concepts do
       question
         .gsub('&#x27;', "'")
         .gsub('’', "'")
-        .gsub(/<[^>]*>/,'')
+        .gsub(/<[^>]*>/, '')
         .gsub(/\./, '. ')
         .gsub(/\s+/, ' ')
         .gsub(/_[_]+/, '___')

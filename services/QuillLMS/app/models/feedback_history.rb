@@ -189,7 +189,7 @@ class FeedbackHistory < ApplicationRecord
       api: api_metadata,
       highlight: feedback_hash['highlight'],
       hint: feedback_hash['hint']
-    }.reject { |_,v| v.blank? }
+    }.reject { |_, v| v.blank? }
 
     # NB, there is a before_create that swaps activity_session_uid for a feedback_session.uid
     create(

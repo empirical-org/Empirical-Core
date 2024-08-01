@@ -242,7 +242,7 @@ describe TimeTrackingCleaner do
   end
 
   describe '#median_value' do
-    let(:time_tracking) { { 'time_tracking' => { 'a'=>1,'b'=> 2 } } }
+    let(:time_tracking) { { 'time_tracking' => { 'a'=>1, 'b'=> 2 } } }
 
     it 'should round median to integer' do
       expect(TimeTrackingCleaner.new(time_tracking).send(:median_value)).to eq(1)

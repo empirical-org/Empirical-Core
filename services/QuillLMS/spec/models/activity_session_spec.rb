@@ -268,7 +268,7 @@ describe ActivitySession, type: :model, redis: true do
   describe '#activity' do
     context 'when there is a direct activity association' do
       let(:activity){ create(:activity) }
-      let(:activity_session){ build(:activity_session,activity_id: activity.id) }
+      let(:activity_session){ build(:activity_session, activity_id: activity.id) }
 
       it 'must return the associated activity' do
         expect(activity_session.activity).to eq activity

@@ -113,7 +113,7 @@ class Activity < ApplicationRecord
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
-  ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
+  ACTIVITY_TYPES_WITH_QUESTIONS = [2, 4, 5]
 
   STARTER_DIAGNOSTIC_ACTIVITY_ID = 2537
   INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 2539

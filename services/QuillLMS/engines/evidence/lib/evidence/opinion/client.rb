@@ -22,7 +22,7 @@ module Evidence
           raise APIError, "Encountered upstream error: #{response}"
         end
 
-        response.filter { |k,v| ALLOWED_PAYLOAD_KEYS.include?(k) }
+        response.filter { |k, v| ALLOWED_PAYLOAD_KEYS.include?(k) }
       end
 
       private def api_request_with_retry

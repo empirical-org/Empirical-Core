@@ -50,7 +50,7 @@ shared_examples_for 'ownable' do
       end
 
       it 'must return false if owner is not present' do
-        parent.send("#{owner_name}=",nil)
+        parent.send("#{owner_name}=", nil)
         expect(parent).to_not be_owned_by owner
       end
 

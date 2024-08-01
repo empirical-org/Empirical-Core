@@ -96,7 +96,7 @@ describe Api::V1::FocusPointsController, type: :controller do
     end
 
     it 'should return a 404 if the focus point is not valid' do
-      data = { 'key'=>'-Lp-tB4rOx6sGVpm2AG3','text'=>'(and|','feedback'=>'feedback' }
+      data = { 'key'=>'-Lp-tB4rOx6sGVpm2AG3', 'text'=>'(and|', 'feedback'=>'feedback' }
 
       focus_point_uid = new_q.focusPoints.keys.first
 

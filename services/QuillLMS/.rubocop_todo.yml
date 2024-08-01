@@ -44,10 +44,6 @@ Layout/MultilineMethodCallBraceLayout:
 Layout/MultilineMethodCallIndentation:
   Enabled: false
 
-# Offense count: 309
-# This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceAfterComma:
-  Enabled: false
 
 # Offense count: 69
 # This cop supports safe autocorrection (--autocorrect).
