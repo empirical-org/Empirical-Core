@@ -76,13 +76,15 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
     end
 
     it 'caches data about the assignment' do
-      lesson_data = { 'classroom_unit_id' => cua.classroom_unit.id,
-                      'classroom_unit_activity_state_id' => cua.id,
-                      'activity_id' => cua.unit_activity.activity.id,
-                      'activity_name' => cua.unit_activity.activity.name,
-                      'unit_id' => cua.classroom_unit.unit_id,
-                      'completed' => cua.completed,
-                      'visible' => cua.unit_activity.visible }
+      lesson_data = {
+        'classroom_unit_id' => cua.classroom_unit.id,
+        'classroom_unit_activity_state_id' => cua.id,
+        'activity_id' => cua.unit_activity.activity.id,
+        'activity_name' => cua.unit_activity.activity.name,
+        'unit_id' => cua.classroom_unit.unit_id,
+        'completed' => cua.completed,
+        'visible' => cua.unit_activity.visible
+      }
       expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
     end
 
