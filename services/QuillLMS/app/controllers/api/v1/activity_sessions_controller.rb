@@ -80,7 +80,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
   end
 
   private def handle_concept_results
-    return if !@concept_results
+    return unless @concept_results
 
     BatchSaveActivitySessionConceptResultsWorker.perform_async(@concept_results, @activity_session.id, @activity_session.uid)
   end

@@ -18,7 +18,7 @@ class InternalTool::EmailFeedbackHistorySessionDataWorker
     results = []
     feedback_histories.find_each(batch_size: 10_000) { |feedback_history| results << feedback_history.serialize_csv_data }
     results.sort! { |a, b| b['datetime'] <=> a['datetime'] }
-    return if !results
+    return unless results
 
     csv_file_path = Rails.root.join('public', "feedback_history_#{activity_id}_#{Time.current.to_i}.csv")
 

@@ -32,7 +32,7 @@ class SerializeActivityHealth
 
   def prompt_data
     questions = @activity.data['questions']
-    return [] if !questions.present?
+    return [] unless questions.present?
 
     @questions_arr ||= questions.each.with_index(1).map { |q, question_number|
       question = Question.find_by(uid: q['key'])

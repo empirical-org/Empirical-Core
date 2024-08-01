@@ -147,7 +147,7 @@ class Subscription < ApplicationRecord
   scope :expiring, ->(date) { where(expiration: date) }
 
   def self.create_and_attach_subscriber(subscription_attrs, subscriber)
-    if !subscription_attrs[:expiration]
+    unless subscription_attrs[:expiration]
       case subscription_attrs[:account_type]
       when TEACHER_TRIAL
         subscription_attrs = subscription_attrs.merge(set_trial_expiration_and_start_date(subscriber))

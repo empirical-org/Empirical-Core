@@ -771,7 +771,6 @@ Style/IdenticalConditionalBranches:
 Style/IfUnlessModifier:
   Enabled: false
 
-
 # Offense count: 5
 Style/MixinUsage:
   Exclude:
@@ -785,13 +784,6 @@ Style/MixinUsage:
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: literals, strict
 Style/MutableConstant:
-  Enabled: false
-
-# Offense count: 49
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
   Enabled: false
 
 # Offense count: 13

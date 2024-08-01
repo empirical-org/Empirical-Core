@@ -32,7 +32,7 @@ class FeedbackSession < ApplicationRecord
 
   def self.get_uid_for_activity_session(activity_session_uid)
     find_or_create_by!(activity_session_uid: activity_session_uid) do |item|
-      item.uid = SecureRandom.uuid if !item.uid
+      item.uid = SecureRandom.uuid unless item.uid
     end.uid
   end
 end

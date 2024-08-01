@@ -99,7 +99,7 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
       .uniq { |activity_session| activity_session.user_id }
 
     record = records[0]
-    return if !record
+    return unless record
 
     record['eligible_for_question_scoring'] = activity_sessions.empty? || activity_sessions.last.completed_at > QUESTION_SCORING_ELIGIBILITY_CUTOFF_DATE
     record['completed_count'] = activity_sessions.size

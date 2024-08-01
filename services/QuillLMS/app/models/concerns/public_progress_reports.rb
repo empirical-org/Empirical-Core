@@ -135,7 +135,7 @@ module PublicProgressReports
       unit_id: unit_id
     )
 
-    return [] if !classroom_unit
+    return [] unless classroom_unit
 
     activity_sessions = ActivitySession
       .includes(concept_results: :concept)
@@ -194,7 +194,7 @@ module PublicProgressReports
     average_scores = ActivitySession.average_scores_by_student(students.map(&:id))
 
     students.each do |student|
-      next if !student.students_classrooms.map(&:classroom_id).include?(classroom.id)
+      next unless student.students_classrooms.map(&:classroom_id).include?(classroom.id)
 
       finished_session = final_sessions_by_user[student.id]&.first
       if finished_session.present?
@@ -280,7 +280,7 @@ module PublicProgressReports
   end
 
   def get_time_in_minutes(activity_session)
-    return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
+    return 'Untracked' unless activity_session.started_at && activity_session.completed_at
 
     time = ((activity_session.completed_at - activity_session.started_at) / 60).round
     time > 60 ? '> 60' : time
@@ -423,7 +423,7 @@ module PublicProgressReports
       unit_template_id = recommendation[:activityPackId]
       # teachers may rename and reassign activity packs so we check all
       units = Unit.where(user_id: teacher_id, unit_template_id: unit_template_id, visible: true)
-      if !units
+      unless units
         name = UnitTemplate.find_by(id: unit_template_id).name
         units = Unit.where(user_id: teacher_id, name: name, visible: true)
       end
@@ -497,7 +497,7 @@ module PublicProgressReports
     questions = activity.data['questions'].map { |q| Question.find_by_uid(q['key']) }
 
     questions.compact.each do |q|
-      next if !q.prompt
+      next unless q.prompt
 
       question_array.push({
         question_id: question_array.length + 1,

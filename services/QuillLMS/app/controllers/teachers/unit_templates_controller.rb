@@ -40,7 +40,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     @title = "Activity Pack: #{unit_template&.name}"
     @image_link = @unit_template.image_link
     @unit_template_id = @unit_template.id
-    render 'public_show' if !@is_teacher
+    render 'public_show' unless @is_teacher
   end
 
   def count

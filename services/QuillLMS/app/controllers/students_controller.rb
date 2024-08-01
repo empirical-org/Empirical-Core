@@ -120,7 +120,7 @@ class StudentsController < ApplicationController
     unit = Unit.find(params['unit_id'])
     classroom_id = params['classroom']
 
-    if !unit.open
+    unless unit.open
       flash[:error] = t('activity_link.errors.activity_pack_closed')
       flash.keep(:error)
       redirect_to(classes_path) and return

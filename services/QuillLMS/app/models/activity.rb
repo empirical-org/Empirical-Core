@@ -274,9 +274,9 @@ class Activity < ApplicationRecord
   end
 
   def add_question(question)
-    return if !validate_question(question)
+    return unless validate_question(question)
 
-    if !ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
+    unless ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
       errors.add(:activity, "You can't add questions to this type of activity.")
       return
     end

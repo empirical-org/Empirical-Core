@@ -10,7 +10,7 @@ module SchoolSelectionReminderMilestone
   end
 
   def show_school_selection_reminders
-    return false if !current_user
+    return false unless current_user
 
     dismiss_school_selection_reminder_milestone = Milestone.find_by_name(Milestone::TYPES[:dismiss_school_selection_reminder])
     UserMilestone.find_by(milestone_id: dismiss_school_selection_reminder_milestone&.id, user_id: current_user.id).nil? && [nil, School::NO_SCHOOL_SELECTED_SCHOOL_NAME].include?(current_user.school&.name)

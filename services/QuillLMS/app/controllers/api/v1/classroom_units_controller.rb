@@ -59,7 +59,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     if params[:edition_id]
       milestone = Milestone.find_by_name('Complete Customized Lesson')
-      if !UserMilestone.find_by(user_id: current_user.id, milestone_id: milestone.id)
+      unless UserMilestone.find_by(user_id: current_user.id, milestone_id: milestone.id)
         UserMilestone.create(user_id: current_user.id, milestone_id: milestone.id)
       end
     end

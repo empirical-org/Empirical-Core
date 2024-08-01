@@ -8,7 +8,7 @@ class Api::V1::SharedCacheController < Api::ApiController
 
   def show
     cached_data = $redis.get(cache_key)
-    if !cached_data
+    unless cached_data
       return not_found
     end
 

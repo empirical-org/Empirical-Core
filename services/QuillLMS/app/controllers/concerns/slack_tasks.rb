@@ -4,7 +4,7 @@ module SlackTasks
   LIVE = Rails.env.production?
 
   def post_sales_form_submission(sales_form_submission)
-    return if !should_post_to_slack?
+    return unless should_post_to_slack?
 
     webhook_url = ENV.fetch('SLACK_API_WEBHOOK_SALES', '')
     return unless webhook_url.present?

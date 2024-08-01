@@ -57,7 +57,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
         end
 
         activity.data = lesson.data
-        activity.save! if !lesson[:data]['flag'].blank?
+        activity.save! unless lesson[:data]['flag'].blank?
       end
     end
 

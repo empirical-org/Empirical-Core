@@ -18,7 +18,7 @@ if defined?(Sprockets)
           puts "stderr:\n#{stderr}" if stderr.present?
         end
 
-        if !status.success?
+        unless status.success?
           # print everything in the case of an error
           puts stdout
           abort 'error: could not execute command.'

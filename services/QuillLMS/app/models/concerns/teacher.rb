@@ -367,7 +367,7 @@ module Teacher
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def update_teacher(params)
-    return if !teacher?
+    return unless teacher?
 
     params.permit(
       :id,
@@ -399,7 +399,7 @@ module Teacher
         find_or_create_checkbox('Add School', self)
       end
     end
-    if !are_there_school_related_errors
+    unless are_there_school_related_errors
       if update(
         username: params.key?(:username) ? params[:username] : username,
         email: params.key?(:email) ? params[:email] : email,
@@ -542,9 +542,7 @@ module Teacher
   end
 
   def set_lessons_cache(lessons_data = nil)
-    if !lessons_data
-      lessons_data = data_for_lessons_cache
-    end
+    lessons_data ||= data_for_lessons_cache
     $redis.set("user_id:#{id}_lessons_array", lessons_data.to_json)
   end
 

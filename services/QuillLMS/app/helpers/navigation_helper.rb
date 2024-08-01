@@ -316,7 +316,7 @@ module NavigationHelper
   end
 
   def determine_mobile_navbar_tabs(current_user)
-    return UNAUTHED_USER_TABS if !current_user
+    return UNAUTHED_USER_TABS unless current_user
 
     return STUDENT_TABS if current_user.student?
 

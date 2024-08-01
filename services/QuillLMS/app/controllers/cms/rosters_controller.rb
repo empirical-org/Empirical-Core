@@ -39,7 +39,7 @@ class Cms::RostersController < Cms::CmsController
         teacher = User.find_by(email: teacher_email)
         classroom = Classroom.joins(:classrooms_teachers).where('classrooms_teachers.user_id = ?', teacher.id).where(name: s[:classroom]).first
 
-        if !classroom
+        unless classroom
           classroom = Classroom.create!(name: s[:classroom])
           ClassroomsTeacher.create!(user: teacher, classroom: classroom, role: 'owner')
         end

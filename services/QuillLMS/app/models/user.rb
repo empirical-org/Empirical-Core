@@ -664,7 +664,7 @@ class User < ApplicationRecord
   end
 
   def generate_student_username_if_absent
-    return if !student?
+    return unless student?
     return if username.present?
 
     classroom_id = classrooms.any? ? classrooms.first.id : nil
@@ -952,7 +952,7 @@ class User < ApplicationRecord
   end
 
   private def clever_id_present_and_has_changed?
-    return false if !clever_id
+    return false unless clever_id
     return true if new_record?
 
     existing_user = User.find_by_id(id)

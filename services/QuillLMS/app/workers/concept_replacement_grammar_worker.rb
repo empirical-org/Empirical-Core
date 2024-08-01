@@ -41,7 +41,7 @@ class ConceptReplacementGrammarWorker
         end
       end
 
-      if !data.empty?
+      unless data.empty?
         HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v3/questions/#{key}.json", body: data.to_json)
       end
     end

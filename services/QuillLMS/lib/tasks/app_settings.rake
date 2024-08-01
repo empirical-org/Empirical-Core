@@ -28,7 +28,7 @@ namespace :app_settings do
     emails = CSV.parse(iostream, headers: true).map { |row| row['email'] }
     user_ids = emails.map do |email|
       user = User.find_by_email(email)
-      if !user
+      unless user
         puts "User with email #{email} not found"
         next
       end

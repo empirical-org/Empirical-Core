@@ -59,7 +59,7 @@ class ClassroomUnit < ApplicationRecord
   def validate_assigned_student(student_id)
     if assign_on_join
       if !assigned_student_ids || assigned_student_ids.exclude?(student_id)
-        if !assigned_student_ids.is_a?(Array)
+        unless assigned_student_ids.is_a?(Array)
           update(assigned_student_ids: [])
         end
         update(assigned_student_ids: StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id))

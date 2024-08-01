@@ -41,7 +41,7 @@ class ConceptReplacementConnectWorker
         end
       end
 
-      if !data.empty?
+      unless data.empty?
         HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}/#{key}.json", body: data.to_json)
       end
     end

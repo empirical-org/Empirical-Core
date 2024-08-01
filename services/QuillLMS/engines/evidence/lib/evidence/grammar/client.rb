@@ -21,7 +21,7 @@ module Evidence
       def post
         response = api_request
 
-        if !response.success?
+        unless response.success?
           raise APIError, "Encountered upstream error: #{response}"
         end
 

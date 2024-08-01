@@ -85,7 +85,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     ) do
       activity_session = find_activity_session_for_student_activity_and_classroom(student_id, activity_id, classroom_id, unit_id)
 
-      if !activity_session
+      unless activity_session
         return {}
       end
 

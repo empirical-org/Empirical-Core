@@ -13,7 +13,7 @@ class IpLocationWorker
     user = User.find(id)
     response = HTTParty.get(pinpoint_url(ip_address))
 
-    if !response.success?
+    unless response.success?
       raise PinpointAPIError, "#{response.code}: #{response}"
     end
 
