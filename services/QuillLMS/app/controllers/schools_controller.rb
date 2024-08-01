@@ -122,7 +122,7 @@ class SchoolsController < ApplicationController
     array_encoder = PG::TextEncoder::Array.new
     literal_encoder = PG::TextEncoder::QuotedLiteral.new
     r = array_encoder.encode(ruby_array.map { |v| literal_encoder.encode(v) })
-    r.sub('{', '(').sub('}', ')')
+    r.gsub('{', '(').gsub('}', ')')
   end
 
   private def get_prefix_and_zipcode(search)
