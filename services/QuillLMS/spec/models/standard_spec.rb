@@ -41,20 +41,20 @@ describe Standard, type: :model do
 
     context 'when it runs validations' do
       it 'must have a name' do
-        standard.name=nil
+        standard.name = nil
         standard.valid?
         expect(standard.errors[:name]).to include "can't be blank"
       end
 
       it 'must have a unique name' do
-        t=Standard.first
-        n=build(:standard, name: t.name)
+        t = Standard.first
+        n = build(:standard, name: t.name)
         n.valid?
         expect(n.errors[:name]).to include 'has already been taken'
       end
 
       it 'must have a standard_level' do
-        standard.standard_level_id=nil
+        standard.standard_level_id = nil
         standard.valid?
         expect(standard.errors[:standard_level]).to include "can't be blank"
       end

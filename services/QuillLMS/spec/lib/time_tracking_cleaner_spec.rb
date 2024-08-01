@@ -147,82 +147,82 @@ describe TimeTrackingCleaner do
     context 'ignored keys' do
       let(:proofreader_data_no_outlier) do
         {
-          'time_tracking'=> {
-          'landing'=>4,
-           'prompt_1'=>60,
-           'prompt_2'=>65,
-           'prompt_3'=>25,
-           'prompt_4'=>23,
-           'prompt_5'=>17,
-           'prompt_6'=>42,
-           'proofreading_the_passage'=>176
+          'time_tracking' => {
+          'landing' => 4,
+           'prompt_1' => 60,
+           'prompt_2' => 65,
+           'prompt_3' => 25,
+           'prompt_4' => 23,
+           'prompt_5' => 17,
+           'prompt_6' => 42,
+           'proofreading_the_passage' => 176
          }
         }
       end
 
       let(:proofreader_data_with_outlier) do
         {
-          'time_tracking'=> {
-          'landing'=>4,
-           'prompt_1'=>60,
-           'prompt_2'=>65,
-           'prompt_3'=>9999999,
-           'prompt_4'=>23,
-           'prompt_5'=>17,
-           'prompt_6'=>42,
-           'proofreading_the_passage'=>176
+          'time_tracking' => {
+          'landing' => 4,
+           'prompt_1' => 60,
+           'prompt_2' => 65,
+           'prompt_3' => 9999999,
+           'prompt_4' => 23,
+           'prompt_5' => 17,
+           'prompt_6' => 42,
+           'proofreading_the_passage' => 176
          }
         }
       end
 
       let(:modified_proofreader_data_with_outlier) do
         {
-          'time_tracking'=> {
-          'landing'=>4,
-           'prompt_1'=>60,
-           'prompt_2'=>65,
-           'prompt_3'=>51,
-           'prompt_4'=>23,
-           'prompt_5'=>17,
-           'prompt_6'=>42,
-           'proofreading_the_passage'=>176
+          'time_tracking' => {
+          'landing' => 4,
+           'prompt_1' => 60,
+           'prompt_2' => 65,
+           'prompt_3' => 51,
+           'prompt_4' => 23,
+           'prompt_5' => 17,
+           'prompt_6' => 42,
+           'proofreading_the_passage' => 176
           },
           'time_tracking_edits' => {
-            'prompt_3'=>9999999
+            'prompt_3' => 9999999
           }
         }
       end
 
       let(:proofreader_data_with_outlier_passage) do
         {
-          'time_tracking'=> {
-          'landing'=>4,
-           'prompt_1'=>60,
-           'prompt_2'=>65,
-           'prompt_3'=>9999999,
-           'prompt_4'=>23,
-           'prompt_5'=>17,
-           'prompt_6'=>42,
-           'proofreading_the_passage'=>99999
+          'time_tracking' => {
+          'landing' => 4,
+           'prompt_1' => 60,
+           'prompt_2' => 65,
+           'prompt_3' => 9999999,
+           'prompt_4' => 23,
+           'prompt_5' => 17,
+           'prompt_6' => 42,
+           'proofreading_the_passage' => 99999
          }
         }
       end
 
       let(:modified_proofreader_data_with_outlier_passage) do
         {
-          'time_tracking'=> {
-          'landing'=>4,
-           'prompt_1'=>60,
-           'prompt_2'=>65,
-           'prompt_3'=>51,
-           'prompt_4'=>23,
-           'prompt_5'=>17,
-           'prompt_6'=>42,
-           'proofreading_the_passage'=>600
+          'time_tracking' => {
+          'landing' => 4,
+           'prompt_1' => 60,
+           'prompt_2' => 65,
+           'prompt_3' => 51,
+           'prompt_4' => 23,
+           'prompt_5' => 17,
+           'prompt_6' => 42,
+           'proofreading_the_passage' => 600
          },
           'time_tracking_edits' => {
-            'prompt_3'=>9999999,
-            'proofreading_the_passage'=>99999
+            'prompt_3' => 9999999,
+            'proofreading_the_passage' => 99999
           }
         }
       end
@@ -242,7 +242,7 @@ describe TimeTrackingCleaner do
   end
 
   describe '#median_value' do
-    let(:time_tracking) { { 'time_tracking' => { 'a'=>1, 'b'=> 2 } } }
+    let(:time_tracking) { { 'time_tracking' => { 'a' => 1, 'b' => 2 } } }
 
     it 'should round median to integer' do
       expect(TimeTrackingCleaner.new(time_tracking).send(:median_value)).to eq(1)

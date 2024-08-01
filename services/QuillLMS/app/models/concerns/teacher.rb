@@ -321,7 +321,7 @@ module Teacher
       classy
     end
     # TODO: move setter to background worker
-    classroom_minis_cache=(info)
+    classroom_minis_cache = (info)
     info
   end
 

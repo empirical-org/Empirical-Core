@@ -51,7 +51,7 @@ class FirebaseApp < ApplicationRecord
       uid: user_id,
       aud: 'https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit',
       iat: now_seconds,
-      exp: now_seconds+(60*60), # Maximum expiration time is one hour,
+      exp: now_seconds + (60 * 60), # Maximum expiration time is one hour,
       claims: {}
   }
 

@@ -47,8 +47,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_id' => writing_concept.id,
           'concept_uid' => writing_concept.uid,
           'metadata' => {
-            'foo'=>'bar',
-            'correct'=>true
+            'foo' => 'bar',
+            'correct' => true
           },
         }
       end
@@ -59,8 +59,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_id' => writing_concept.id,
           'concept_uid' => writing_concept.uid,
           'metadata' => {
-            'baz'=>'foo',
-            'correct'=>true
+            'baz' => 'foo',
+            'correct' => true
           },
         }
       end
@@ -71,7 +71,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_id' => another_concept.id,
           'concept_uid' => another_concept.uid,
           'metadata' => {
-            'correct'=>true
+            'correct' => true
           },
         }
       end

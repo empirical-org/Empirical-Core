@@ -164,16 +164,16 @@ describe Activity, type: :model, redis: true do
   describe '#classification_key' do
     describe '#classification_key=' do
       it 'must set classification relationship' do
-        activity.classification=nil
+        activity.classification = nil
         expect(activity.classification).to_not be_present
-        expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
+        expect(activity.classification_key = ActivityClassification.first.key || create(:classification).key).to be_present
       end
     end
 
     describe '#classification_key' do
       before do
-        activity.classification=nil
-        activity.classification_key=ActivityClassification.first.key || create(:classification).key
+        activity.classification = nil
+        activity.classification_key = ActivityClassification.first.key || create(:classification).key
       end
 
       it 'must set classification relationship' do
@@ -302,12 +302,12 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'must have a setter' do
-      expect(activity.flag=:alpha).to eq :alpha
+      expect(activity.flag = :alpha).to eq :alpha
     end
 
     context 'when is set it must preserve the value' do
       before do
-        activity.flag=:alpha
+        activity.flag = :alpha
       end
 
       it 'must return the correct value' do
@@ -441,7 +441,7 @@ describe Activity, type: :model, redis: true do
     let(:classification) { create(:activity_classification) }
 
     it 'should set the activity_classification_uid' do
-      activity.activity_classification_uid= classification.uid
+      activity.activity_classification_uid = classification.uid
       expect(activity.activity_classification_id).to eq(classification.id)
     end
   end

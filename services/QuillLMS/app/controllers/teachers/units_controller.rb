@@ -9,7 +9,7 @@ class Teachers::UnitsController < ApplicationController
 
   def create
     units_with_same_name = current_user.units_with_same_name(params[:unit][:name])
-    includes_ell_starter_diagnostic = params[:unit][:activities].include?({ 'id'=>1161 })
+    includes_ell_starter_diagnostic = params[:unit][:activities].include?({ 'id' => 1161 })
 
     if units_with_same_name.any?
       activities_data = unit_params[:activities].map(&:to_h)

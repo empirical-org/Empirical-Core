@@ -73,7 +73,7 @@ class User < ApplicationRecord
   include UserFlagset
 
   CHAR_FIELD_MAX_LENGTH = 255
-  STAFF_SESSION_DURATION= 12.hours
+  STAFF_SESSION_DURATION = 12.hours
   USER_INACTIVITY_DURATION = 30.days
   USER_SESSION_DURATION = 30.days
 
@@ -930,7 +930,7 @@ class User < ApplicationRecord
 
   private def prep_authentication_terms
     self.email = email.downcase unless email.blank?
-    self.username= username.downcase unless username.blank?
+    self.username = username.downcase unless username.blank?
   end
 
   private def check_for_school

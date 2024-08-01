@@ -66,7 +66,7 @@ class SchoolsController < ApplicationController
          .limit(@limit)
         $redis.set("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", @schools.map { |s| s.id }.to_json)
         # short cache, highly specific
-        $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60*5)
+        $redis.expire("#{cache_id}_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}", 60 * 5)
       end
     end
 
@@ -81,7 +81,7 @@ class SchoolsController < ApplicationController
        .limit(@limit)
       $redis.set("PREFIX_TO_SCHOOL_#{@prefix}", @schools.map { |s| s.id }.to_json)
       # longer cache, more general
-      $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60*60)
+      $redis.expire("PREFIX_TO_SCHOOL_#{@prefix}", 60 * 60)
     end
   end
   # rubocop:enable Metrics/CyclomaticComplexity

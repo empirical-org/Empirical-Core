@@ -105,7 +105,7 @@ describe FakeController, type: :controller do
 
       describe 'if passed a student id' do
         it 'should set the session preview_student_id and the current user to the student' do
-          controller.preview_student_id=(student.id)
+          controller.preview_student_id = (student.id)
           expect(session[:preview_student_id]).to eq(student.id)
           expect(controller.current_user).to eq(student)
         end
@@ -114,7 +114,7 @@ describe FakeController, type: :controller do
       describe 'if passed a nil student id' do
         it 'should set the session preview_student_id to nil and the current user to the one saved in the session' do
           session[:user_id] = teacher.id
-          controller.preview_student_id=nil
+          controller.preview_student_id = nil
           expect(session[:preview_student_id]).to eq(nil)
           expect(controller.current_user).to eq(teacher)
         end

@@ -111,7 +111,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     let(:text2) { 'the dancing' }
     let(:text3) { 'the dancing other' }
 
-    let(:passage_text) { "passage text goes here #{'dancing '* 5}" }
+    let(:passage_text) { "passage text goes here #{'dancing ' * 5}" }
     let(:activity) { create(:evidence_activity) }
     let!(:passage) { create(:evidence_passage, text: passage_text, activity: activity) }
     let(:prompt) { create(:evidence_prompt, activity: activity) }

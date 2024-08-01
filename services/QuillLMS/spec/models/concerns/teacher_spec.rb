@@ -80,7 +80,7 @@ describe User, type: :model do
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms with pending coteacher invitation' do
         coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
         teacher = coteacher_classroom_invitation.invitation.inviter
-        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(['name'=> coteacher_classroom_invitation.classroom.name, 'coteacher_email'=>coteacher_classroom_invitation.invitation.invitee_email])
+        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(['name' => coteacher_classroom_invitation.classroom.name, 'coteacher_email' => coteacher_classroom_invitation.invitation.invitee_email])
       end
     end
 

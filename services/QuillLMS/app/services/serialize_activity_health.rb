@@ -49,7 +49,7 @@ class SerializeActivityHealth
       .where(activity: @activity, state: 'finished')
       .last(MAX_SESSIONS_VIEWED)
       .map(&:minutes_to_complete)
-      .reject{ |b| !b || b==0 }
+      .reject{ |b| !b || b == 0 }
     all_session_lengths.empty? ? nil : (all_session_lengths.sum.to_f / all_session_lengths.size).round(2)
   end
 
@@ -79,7 +79,7 @@ class SerializeActivityHealth
 
     list = list.map { |p| p[attribute] }
     mean = list.sum(0.0) / list.size
-    squares = list.map { |m| (m - mean) ** 2 }
+    squares = list.map { |m| (m - mean)**2 }
     Math.sqrt(squares.sum(0.0) / list.size).round(2)
   end
 end

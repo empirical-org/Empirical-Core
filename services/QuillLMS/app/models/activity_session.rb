@@ -284,11 +284,11 @@ class ActivitySession < ApplicationRecord
   end
 
   def percentage_as_percent
-    percentage.nil? ? 'no percentage' : "#{(percentage*100).round}%"
+    percentage.nil? ? 'no percentage' : "#{(percentage * 100).round}%"
   end
 
   def score
-    (percentage*100).round
+    (percentage * 100).round
   end
 
   def uses_feedback_history?
@@ -453,7 +453,7 @@ class ActivitySession < ApplicationRecord
   def minutes_to_complete
     return nil unless completed_at && started_at
 
-    ((completed_at - started_at)/60).round
+    ((completed_at - started_at) / 60).round
   end
 
   def skills

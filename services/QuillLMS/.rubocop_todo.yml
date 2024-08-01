@@ -44,16 +44,6 @@ Layout/MultilineMethodCallBraceLayout:
 Layout/MultilineMethodCallIndentation:
   Enabled: false
 
-
-
-
-# Offense count: 441
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, EnforcedStyleForExponentOperator.
-# SupportedStylesForExponentOperator: space, no_space
-Layout/SpaceAroundOperators:
-  Enabled: false
-
 # Offense count: 183
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.

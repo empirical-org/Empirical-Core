@@ -56,7 +56,7 @@ module PublicProgressReports
   # rubocop:disable Metrics/CyclomaticComplexity
   def results_by_question(activity_id)
     activity = Activity.includes(:classification).find(activity_id)
-    questions = Hash.new{ |h, k| h[k]={} }
+    questions = Hash.new{ |h, k| h[k] = {} }
 
     all_answers = @activity_sessions.map(&:concept_results).flatten
 
@@ -81,7 +81,7 @@ module PublicProgressReports
         question_id: k,
         question_number: v[:question_number],
         question_uid: v[:question_uid],
-        score: activity.is_evidence? ? nil : ((v[:correct].to_f/v[:total]) * 100).round,
+        score: activity.is_evidence? ? nil : ((v[:correct].to_f / v[:total]) * 100).round,
         prompt: v[:prompt],
         instructions: v[:instructions]
      }

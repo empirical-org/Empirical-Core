@@ -305,7 +305,7 @@ describe ActivitySession, type: :model, redis: true do
       let(:activity_session){ build(:activity_session, classroom_unit: classroom_unit) }
 
       it "must return the unit activity's activity" do
-        activity_session.activity_id=nil
+        activity_session.activity_id = nil
         unit_activity.unit.reload
         expect(activity_session.activity).to eq unit_activity.activity
       end
@@ -316,8 +316,8 @@ describe ActivitySession, type: :model, redis: true do
     let(:activity){ create(:activity) }
 
     it 'must associate activity by uid' do
-      activity_session.activity_id=nil
-      activity_session.activity_uid=activity.uid
+      activity_session.activity_id = nil
+      activity_session.activity_uid = activity.uid
       expect(activity_session.activity_id).to eq activity.id
     end
   end
@@ -461,7 +461,7 @@ describe ActivitySession, type: :model, redis: true do
     let(:activity_session) { create(:activity_session, percentage: 0.4) }
 
     it 'should return the percentage' do
-      expect(activity_session.score).to eq((activity_session.percentage*100).round)
+      expect(activity_session.score).to eq((activity_session.percentage * 100).round)
     end
   end
 
@@ -516,7 +516,7 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     it 'must be false when cmopleted_at is not present' do
-      activity_session.completed_at=nil
+      activity_session.completed_at = nil
       expect(activity_session).to_not be_completed
     end
   end
@@ -555,11 +555,11 @@ describe ActivitySession, type: :model, redis: true do
 
   describe '#anonymous=' do
     it 'must be equal to temporary' do
-      expect(activity_session.anonymous=true).to eq activity_session.temporary
+      expect(activity_session.anonymous = true).to eq activity_session.temporary
     end
 
     it 'must return temporary' do
-      activity_session.anonymous=true
+      activity_session.anonymous = true
       expect(activity_session.anonymous).to eq activity_session.temporary
     end
   end
@@ -567,7 +567,7 @@ describe ActivitySession, type: :model, redis: true do
   context 'when before_create is fired' do
     describe '#set_state' do
       it 'must set state as unstarted' do
-        activity_session.state=nil
+        activity_session.state = nil
         activity_session.save!
         expect(activity_session.state).to eq 'unstarted'
       end
@@ -578,7 +578,7 @@ describe ActivitySession, type: :model, redis: true do
     describe '#set_completed_at when state = finished' do
       before do
         activity_session.save!
-        activity_session.state='finished'
+        activity_session.state = 'finished'
       end
 
       context 'when completed_at is already set' do
@@ -818,8 +818,8 @@ describe ActivitySession, type: :model, redis: true do
   end
 
   describe '#calculate_timespent' do
-    let(:time_tracking) { { '1'=>1, '2'=>2, '3'=>3, '4' => 4 } }
-    let(:time_tracking_with_nulls) { { '1'=>188484, '2'=>94405, '3'=>89076, '4'=>120504, 'onboarding'=>nil } }
+    let(:time_tracking) { { '1' => 1, '2' => 2, '3' => 3, '4' => 4 } }
+    let(:time_tracking_with_nulls) { { '1' => 188484, '2' => 94405, '3' => 89076, '4' => 120504, 'onboarding' => nil } }
 
     it 'should return nil for nil' do
       expect(ActivitySession.calculate_timespent(nil, nil)).to be_nil
@@ -977,12 +977,12 @@ describe ActivitySession, type: :model, redis: true do
     end
 
     it "should calculate time using the values of the keys in the data['time_tracking'] hash" do
-      activity_session = build(:activity_session, data: { 'time_tracking'=>{ 'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1 } })
+      activity_session = build(:activity_session, data: { 'time_tracking' => { 'so' => 9, 'but' => 2, 'because' => 9, 'reading' => 1 } })
       expect(activity_session.timespent).to eq(21)
     end
 
     it 'should have calculation overridden by DB value' do
-      activity_session = build(:activity_session, state: 'finished', data: { 'time_tracking'=>{ 'so'=>9, 'but'=>2, 'because'=>9, 'reading'=>1 } }, timespent: 99)
+      activity_session = build(:activity_session, state: 'finished', data: { 'time_tracking' => { 'so' => 9, 'but' => 2, 'because' => 9, 'reading' => 1 } }, timespent: 99)
       expect(activity_session.timespent).to eq(99)
     end
   end

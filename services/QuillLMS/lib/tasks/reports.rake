@@ -49,7 +49,7 @@ namespace :reports do
         number_incorrect = concept_results.reject(&:correct).length
         number_of_correct_skills += 1 if number_incorrect == 0 && number_correct > 0
       end
-      row['Score'] = ((number_of_correct_skills/skills.count.to_f) * 100).round(2)
+      row['Score'] = ((number_of_correct_skills / skills.count.to_f) * 100).round(2)
       row
     end
 

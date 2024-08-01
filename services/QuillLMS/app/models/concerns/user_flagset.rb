@@ -54,7 +54,7 @@ module UserFlagset
       college_board: {
         display_name: 'College Board',
         flags: {
-          Flags::COLLEGE_BOARD  =>    { display_name: 'College Board' },
+          Flags::COLLEGE_BOARD => { display_name: 'College Board' },
           Flags::PRODUCTION =>        { display_name: 'Production' }
         }
       },

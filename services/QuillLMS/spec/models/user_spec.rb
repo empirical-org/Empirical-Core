@@ -1814,14 +1814,14 @@ RSpec.describe User, type: :model do
       let!(:admin_info) { create(:admin_info, user: user) }
 
       it 'sets the admin info to have the new sub role' do
-        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        user.admin_sub_role = AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
         expect(user.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
       end
     end
 
     context 'user has no admin info' do
       it 'creates a new admin info record with the specified sub role' do
-        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        user.admin_sub_role = AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
         expect(user.reload.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
       end
     end
@@ -1942,14 +1942,14 @@ RSpec.describe User, type: :model do
       create(:user_email_verification, user: user)
 
       expect(user).to receive(:verify_email).with(UserEmailVerification::STAFF_VERIFICATION)
-      user.email_verification_status= UserEmailVerification::VERIFIED
+      user.email_verification_status = UserEmailVerification::VERIFIED
     end
 
     it 'should call require_email_verification if the passed status is Pending and update the verification record to have verified_at and verification_method as nil' do
       user_email_verification = create(:user_email_verification, user: user, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION)
 
       expect(user).to receive(:require_email_verification)
-      user.email_verification_status= UserEmailVerification::PENDING
+      user.email_verification_status = UserEmailVerification::PENDING
       expect(user_email_verification.reload.verified_at).not_to be
       expect(user_email_verification.reload.verification_method).not_to be
     end

@@ -15,7 +15,7 @@ module CoreExtensions
       return dup[mid] if dup.size.odd?
       return dup[mid] if !dup[0].is_a?(Numeric)
 
-      (dup[mid] + dup[mid - 1])/2.0
+      (dup[mid] + dup[mid - 1]) / 2.0
     end
   end
 end

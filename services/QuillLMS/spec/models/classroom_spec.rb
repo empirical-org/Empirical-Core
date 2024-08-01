@@ -258,7 +258,7 @@ describe Classroom, type: :model do
     end
 
     it 'must generate a code after validations' do
-      classroom=create(:classroom)
+      classroom = create(:classroom)
       expect(classroom.code).to_not be_nil
     end
 

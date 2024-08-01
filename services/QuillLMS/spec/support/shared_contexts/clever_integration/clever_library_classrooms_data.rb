@@ -14,13 +14,13 @@ RSpec.shared_context 'Clever Library Classrooms Data' do
   let(:classroom1_data) do
     {
       'data' => {
-        'grade'=> classroom1_grade,
-        'id'=> classroom1_clever_id,
-        'name'=> classroom1_name,
-        'students'=> classroom1_students,
-        'subject'=>'english',
-        'teacher'=> teacher_clever_id,
-        'teachers'=>[teacher_clever_id]
+        'grade' => classroom1_grade,
+        'id' => classroom1_clever_id,
+        'name' => classroom1_name,
+        'students' => classroom1_students,
+        'subject' => 'english',
+        'teacher' => teacher_clever_id,
+        'teachers' => [teacher_clever_id]
       }
     }
   end
@@ -45,13 +45,13 @@ RSpec.shared_context 'Clever Library Classrooms Data' do
   let(:classroom2_data) do
     {
       'data' => {
-        'grade'=> classroom2_grade,
-        'id'=> classroom2_clever_id,
-        'name'=> classroom2_name,
-        'students'=> classroom2_students,
-        'subject'=>'english',
-        'teacher'=> teacher_clever_id,
-        'teachers'=>[teacher_clever_id]
+        'grade' => classroom2_grade,
+        'id' => classroom2_clever_id,
+        'name' => classroom2_name,
+        'students' => classroom2_students,
+        'subject' => 'english',
+        'teacher' => teacher_clever_id,
+        'teachers' => [teacher_clever_id]
       }
     }
   end
@@ -66,7 +66,7 @@ RSpec.shared_context 'Clever Library Classrooms Data' do
     }
   end
 
-  let(:classrooms_data) { { 'data'=> [classroom1_data, classroom2_data] } }
+  let(:classrooms_data) { { 'data' => [classroom1_data, classroom2_data] } }
 
   let(:classroom1_students_data) { { 'data' => [student1_data, student2_data] } }
   let(:classroom2_students_data) { { 'data' => [student3_data] } }

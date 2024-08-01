@@ -33,7 +33,7 @@ class Api::V1::ActivitiesController < Api::ApiController
 
   def create
     activity = Activity.new(activity_params)
-    activity.owner=(current_user) if activity.ownable?
+    activity.owner = (current_user) if activity.ownable?
 
     if activity.valid? && activity.save
       @status = :success

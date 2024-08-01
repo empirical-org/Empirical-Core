@@ -150,7 +150,7 @@ class Activity < ApplicationRecord
   end
 
   def self.find_by_id_or_uid(arg)
-    find_by(uid: arg)  || find(arg)
+    find_by(uid: arg) || find(arg)
   end
 
   def standard_uid= uid

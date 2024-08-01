@@ -139,7 +139,7 @@ class FeedbackHistory < ApplicationRecord
       activity_classification_id: ActivityClassification.evidence.id,
       concept_id: concept.id,
       metadata: {
-        correct: optimal ? 1: 0,
+        correct: optimal ? 1 : 0,
         answer: entry,
         feedback_type: feedback_type
       }

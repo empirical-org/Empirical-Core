@@ -15,7 +15,7 @@ describe AdminAccessController do
   describe '#index' do
     describe 'has_verified_email' do
       it 'assigns true if the email has already been verified' do
-        user.email_verification_status= UserEmailVerification::VERIFIED
+        user.email_verification_status = UserEmailVerification::VERIFIED
 
         get :index
         expect(assigns(:has_verified_email)).to eq true
