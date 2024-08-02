@@ -1,11 +1,14 @@
 #q-and-a {
   background-color: $quill-white;
-  color: white;
   padding: 50px 86px;
   text-align: left;
 
   @media only screen and (max-width: 800px) {
     padding: 50px 10px;
+  }
+
+  h2, .qa-section {
+    color: $quill-black;
   }
 
   .q-and-a-inner-wrapper {
@@ -15,16 +18,15 @@
     width: 100%;
 
     h2 {
-      color: black;
-      font-size: 34px;
-      font-weight: 600;
-      margin-bottom: 32px;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: normal;
       text-align: center;
+      margin-bottom: 32px;
     }
 
     .qa-section {
       border-bottom: 1px solid $quill-grey-15;
-      color: black;
       display: flex;
       justify-content: space-between;
       text-align: left;
@@ -46,7 +48,7 @@
       }
 
       button {
-        background-color: white;
+        background-color: transparent;
         border: none;
       }
 

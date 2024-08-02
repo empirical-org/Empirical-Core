@@ -1009,6 +1009,12 @@ $tool-grey: #f8f9f9;
 }
 
 .lessons-tool-page {
+  #q-and-a {
+    background-color: #5aaef6;
+    h2, .qa-section {
+      color: $quill-white;
+    }
+  }
   .tool-animation-section {
     background-image: url('https://assets.quill.org/images/tools/lessons/lessons_tool_pattern.svg');
     background-position: center;
