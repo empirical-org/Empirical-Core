@@ -19,6 +19,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       ulocal: '41')
   end
   let(:subscription) { create(:subscription, account_type: Subscription::SCHOOL_PAID) }
+  let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
 
   before do
     create(:evidence)
@@ -29,10 +30,15 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       activities_per_student: 1.0,
       evidence_activities_assigned: 2,
       evidence_activities_completed: 1,
-      completed_evidence_activities_per_student: 1
+      completed_evidence_activities_per_student: 1,
+      pre_diagnostics_assigned: 2,
+      post_diagnostics_assigned: 2,
+      pre_diagnostics_completed: 2,
+      post_diagnostics_completed: 2
     }
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallySchoolData.set(school.id, year, previous_year_data.to_json)
+    stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
   end
 
   it 'includes the accountId' do
@@ -340,6 +346,46 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
       evidence_activities_completed_last_year: 1,
       evidence_activities_completed_per_student_this_year: 2,
       evidence_activities_completed_per_student_last_year: 1
+    )
+  end
+
+  it 'generates diagnostic activity data' do
+    classroom = create(:classroom)
+    teacher = create(:teacher, school: school)
+    create(:classrooms_teacher, user: teacher, classroom: classroom)
+    unit = create(:unit, user_id: teacher.id)
+    student = create(:user, role: 'student')
+    classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id])
+    pre_diagnostic_activity = create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS.first)
+    create(:unit_activity, unit: unit, activity: pre_diagnostic_activity)
+    create(:unit_activity, unit: unit, activity: post_diagnostic_activity)
+
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: pre_diagnostic_activity,
+      user: student,
+      state: 'finished')
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: post_diagnostic_activity,
+      user: student,
+      state: 'finished')
+
+    school_data = described_class.new(school).data
+
+    expect(school_data[:traits]).to include(
+      pre_diagnostics_assigned_this_year: 1,
+      pre_diagnostics_assigned_last_year: 2,
+      pre_diagnostics_assigned_all_time: 1,
+      post_diagnostics_assigned_this_year: 1,
+      post_diagnostics_assigned_last_year: 2,
+      post_diagnostics_assigned_all_time: 1,
+      pre_diagnostics_completed_this_year: 1,
+      pre_diagnostics_completed_last_year: 2,
+      pre_diagnostics_completed_all_time: 1,
+      post_diagnostics_completed_this_year: 1,
+      post_diagnostics_completed_last_year: 2,
+      post_diagnostics_completed_all_time: 1
     )
   end
 end
