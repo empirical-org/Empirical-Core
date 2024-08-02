@@ -5,27 +5,30 @@ module Evidence
     class GenAI < Check::Base
 
       def run
-        system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:)
-
-        primary_response = Evidence::OpenAI::Chat.run(system_prompt:, history:, entry:)
-        primary_feedback = primary_response[Evidence::GenAI::ResponseBuilder::KEY_FEEDBACK]
-
-        secondary_response = has_repeated_feedback?(primary_feedback) ? secondary_feedback_response(primary_feedback) : {}
-
         @response = Evidence::GenAI::ResponseBuilder.run(primary_response:, secondary_response:, entry:, prompt:)
-      end
-
-      def has_repeated_feedback?(feedback)
-        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback:, history: feedback_history)
-      end
-
-      def secondary_feedback_response(feedback)
-        Evidence::OpenAI::Chat.run(system_prompt: secondary_feedback_prompt, entry: feedback, model: 'gpt-4o-mini')
       end
 
       def use_for_optimal_feedback? = true
 
       private def current_entry = entry
+
+      private def primary_feedback = primary_response[Evidence::GenAI::ResponseBuilder::KEY_FEEDBACK]
+
+      private def primary_response
+        @primary_response ||= Evidence::OpenAI::Chat.run(system_prompt:, history:, entry:)
+      end
+
+      private def secondary_response =  has_repeated_feedback? ? secondary_feedback_response : {}
+
+      private def has_repeated_feedback?
+        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history)
+      end
+
+      private def secondary_feedback_response
+        Evidence::OpenAI::Chat.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: 'gpt-4o-mini')
+      end
+
+      private def system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:)
 
       private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
 
