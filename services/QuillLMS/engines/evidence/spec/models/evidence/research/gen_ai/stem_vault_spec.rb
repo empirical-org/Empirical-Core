@@ -31,11 +31,9 @@ module Evidence
 
         it { should belong_to(:activity) }
 
-        it { have_many(:student_responses).dependent(:destroy) }
-        it { have_many(:quill_feedbacks).through(:student_responses) }
-        it { have_many(:llm_feedbacks).through(:student_responses) }
-        it { have_many(:trials).dependent(:destroy) }
         it { have_many(:guidelines).dependent(:destroy) }
+        it { have_many(:datasets).dependent(:destroy) }
+        it { have_many(:trials).through(:datasets) }
 
         describe '#relevant_text' do
           subject { stem_vault.relevant_text }
