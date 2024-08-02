@@ -18,7 +18,7 @@ module VitallySchoolStats
   end
 
   private def activities_finished_query
-    ClassroomsTeacher.joins(user: { schools_users: :school }, classroom: [ { classroom_units: { unit_activities: :activity } }, { classroom_units: :activity_sessions } ])
+    ClassroomsTeacher.joins(user: { schools_users: :school }, classroom: [{ classroom_units: { unit_activities: :activity } }, { classroom_units: :activity_sessions }])
       .where('schools.id = ?', school.id)
       .where('activity_sessions.state = ?', 'finished')
   end
