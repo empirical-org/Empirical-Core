@@ -19,7 +19,7 @@ module VitallySchoolStats
 
   private def activities_finished_query
     @activities_finished ||= ActivitySession.unscoped.select(:id).distinct
-      .joins(classroom_unit: { classroom_unscoped: { classrooms_teachers: { user: :schools_users} } })
+      .joins(classroom_unit: { classroom_unscoped: { classrooms_teachers: { user: :schools_users } } })
       .joins(:activity)
       .where(state: 'finished')
       .where('schools_users.school_id = ?', school.id)
