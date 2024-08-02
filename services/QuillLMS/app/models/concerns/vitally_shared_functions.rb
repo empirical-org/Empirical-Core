@@ -24,15 +24,15 @@ module VitallySharedFunctions
 
   def filter_diagnostics(activities)
     diagnostic_ids = Activity.where(activity_classification_id: ActivityClassification.diagnostic.id).pluck(:id)
-    activities.select {|r| diagnostic_ids.include?(r.id) }
+    activities.select { |r| diagnostic_ids.include?(r.id) }
   end
 
   def filter_pre_diagnostic(activities)
-    activities.select {|r| Activity::PRE_TEST_DIAGNOSTIC_IDS.include?(r.id) }
+    activities.select { |r| Activity::PRE_TEST_DIAGNOSTIC_IDS.include?(r.id) }
   end
 
   def filter_post_diagnostic(activities)
-    activities.select {|r| POST_DIAGNOSTIC_IDS.include?(r.id) }
+    activities.select { |r| POST_DIAGNOSTIC_IDS.include?(r.id) }
   end
 
   def in_school_year(activities, school_year_start, school_year_end)
@@ -68,15 +68,15 @@ module VitallySharedFunctions
   end
 
   def diagnostics_completed
-    activities_finished_query.where(classification: {key: ActivityClassification::DIAGNOSTIC_KEY})
+    activities_finished_query.where(classification: { key: ActivityClassification::DIAGNOSTIC_KEY })
   end
 
   def pre_diagnostics_completed
-    activities_finished_query.where(activity: {id: Activity::PRE_TEST_DIAGNOSTIC_IDS})
+    activities_finished_query.where(activity: { id: Activity::PRE_TEST_DIAGNOSTIC_IDS })
   end
 
   def post_diagnostics_completed
-    activities_finished_query.where(activity: {id: POST_DIAGNOSTIC_IDS})
+    activities_finished_query.where(activity: { id: POST_DIAGNOSTIC_IDS })
   end
 
   private def evidence_assigned_count

@@ -186,8 +186,8 @@ module VitallyIntegration
 
     private def last_active
       School.joins(users: { classrooms_i_teach: :activity_sessions })
-            .where(id: @school.id)
-            .maximum('activity_sessions.completed_at')
+        .where(id: @school.id)
+        .maximum('activity_sessions.completed_at')
     end
 
     private def organization_id
