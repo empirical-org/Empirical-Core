@@ -6,11 +6,11 @@ default:
     name: 'active_user_names_view'
     name_fallback: 'active_user_names_local'
     sql: 'active_user_names_view.sql'
-  pre_post_diagnostic_skill_group_performance_view:
+  pre_post_diagnostic_skill_group_performance_view_v2:
     dataset: 'lms'
-    name: 'pre_post_diagnostic_skill_group_performance_view'
-    name_fallback: 'pre_post_diagnostic_skill_performance_local'
-    sql: 'pre_post_diagnostic_skill_group_performance_view.sql'
+    name: 'pre_post_diagnostic_skill_group_performance_view_v2'
+    name_fallback: 'pre_post_diagnostic_skill_performance_v2_local'
+    sql: 'pre_post_diagnostic_skill_group_performance_view_v2.sql'
     create_options: "OPTIONS(allow_non_incremental_definition = true, enable_refresh = true, max_staleness = INTERVAL '8' HOUR, refresh_interval_minutes = 360)"
   recommendation_count_rollup_view:
     dataset: 'lms'
