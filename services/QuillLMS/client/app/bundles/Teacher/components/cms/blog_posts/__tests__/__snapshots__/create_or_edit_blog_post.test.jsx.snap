@@ -16790,7 +16790,7 @@ exports[`CreateOrEditBlogPost component renders for a new blog post 1`] = `
                 </div>
               </ReactMarkdown>
               <span
-                className="quill-button-archived fun contained primary focus-on-light"
+                className="quill-button small contained focus-on-light red"
               >
                 Read
               </span>
@@ -33604,7 +33604,7 @@ exports[`CreateOrEditBlogPost component renders for an existing blog post 1`] = 
                 />
               </ReactMarkdown>
               <span
-                className="quill-button-archived fun contained primary focus-on-light"
+                className="quill-button small contained focus-on-light purple"
               >
                 Read
               </span>

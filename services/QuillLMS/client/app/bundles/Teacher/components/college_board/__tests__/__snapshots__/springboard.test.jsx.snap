@@ -2145,9 +2145,9 @@ exports[`SpringBoard component should render when it is not part of the assignme
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
+            <h2>
               Questions and Answers
-            </h1>
+            </h2>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -4953,9 +4953,9 @@ exports[`SpringBoard component should render when it is part of the assignment f
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
+            <h2>
               Questions and Answers
-            </h1>
+            </h2>
             <QuestionAndAnswer
               key="0"
               qa={
