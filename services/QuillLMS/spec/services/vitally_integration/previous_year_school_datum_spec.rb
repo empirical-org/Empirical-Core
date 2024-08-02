@@ -10,7 +10,7 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
     let!(:student2) { create(:user, last_sign_in: Date.new(year, 10, 2)) }
     let!(:current_student) { create(:user, last_sign_in: Date.new(2021, 10, 2)) }
     let!(:teacher) { create(:user, role: 'teacher') }
-    let!(:relevent_classroom) { create(:classroom, created_at: Date.new(year, 10, 1), visible: true) }
+    let!(:relevent_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: true) }
     let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1)) }
     let!(:school) { create(:school) }
     let!(:unit) { create(:unit, user_id: teacher.id) }
@@ -31,7 +31,8 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         state: 'finished',
         completed_at: Date.new(year, 10, 2),
         updated_at: Date.new(year, 10, 2),
-        activity: evidence_activity)
+        activity: evidence_activity
+      )
     end
 
     it 'should raise error if the year is the current year' do
@@ -44,9 +45,13 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         active_students: 1,
         activities_finished: 1,
         activities_per_student: 1.0,
-        completed_evidence_activities_per_student: 1,
+        completed_evidence_activities_per_student: 1.0,
         evidence_activities_assigned: 2,
-        evidence_activities_completed: 1
+        evidence_activities_completed: 1,
+        pre_diagnostics_assigned: 0,
+        pre_diagnostics_completed: 0,
+        post_diagnostics_assigned: 0,
+        post_diagnostics_completed: 0
       }
       teacher_data = described_class.new(school, year).calculate_data
       expect(teacher_data).to eq(expected_data)
