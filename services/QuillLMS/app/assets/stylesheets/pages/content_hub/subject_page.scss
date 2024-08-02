@@ -129,6 +129,9 @@
     a {
       text-decoration: underline;
     }
+    img {
+      width: 100%;
+    }
   }
 
   #q-and-a {
@@ -163,6 +166,25 @@
       gap: 8px;
       display: flex;
       justify-content: center;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .course-cards, .summary-items, .quote-boxes {
+      flex-direction: column;
+    }
+    .summary-items, .quote-boxes {
+      max-width: 700px;
+      margin: 48px auto 0px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .articles-wrapper, .links-wrapper, .course-card {
+      flex-direction: column;
+    }
+    .preview-card {
+      margin-bottom: 0px;
     }
   }
 }

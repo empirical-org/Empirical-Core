@@ -14,7 +14,8 @@ const cardData = {
         <p>Each activity has a free paired activity from OER Project that can be used in tandem with Quill activities.</p>
       </div>
     ),
-    logo: <img alt="Quill logo plus OER Project logo" src={`${process.env.CDN_URL}/images/pages/dashboard/quill-and-oer-logo.svg`} />
+    logo: <img alt="Quill logo plus OER Project logo" src={`${process.env.CDN_URL}/images/pages/dashboard/quill-and-oer-logo.svg`} />,
+    href: '/assign/social-studies'
   },
   [AI_KNOWLEDGE]: {
     title: 'AI Knowledge Activities',
@@ -26,19 +27,22 @@ const cardData = {
         <p>Each activity has a free paired activity from our partner nonprofit aiEDU that can be used in tandem with Quill activities.</p>
       </div>
     ),
-    logo: <img alt="Quill logo plus aiEDU: The AI Education Project logo" src={`${process.env.CDN_URL}/images/pages/dashboard/quill-and-ai-edu-logo.svg`} />
+    logo: <img alt="Quill logo plus aiEDU: The AI Education Project logo" src={`${process.env.CDN_URL}/images/pages/dashboard/quill-and-ai-edu-logo.svg`} />,
+    href: '/assign/interdisciplinary-science'
   }
 }
 
 const ContentHubCard = ({ contentHub, }) => {
-  const { title, content, logo, } = cardData[contentHub]
+  const { title, content, logo, href, } = cardData[contentHub]
   return (
     <section className="content-hub-card">
-      <h2>{title}<span className="gold-new-tag">NEW</span></h2>
-      {content}
-      <div className="logo-container">
-        {logo}
-      </div>
+      <a href={href}>
+        <h2>{title}<span className="gold-new-tag">NEW</span></h2>
+        {content}
+        <div className="logo-container">
+          {logo}
+        </div>
+      </a>
     </section>
   )
 }
