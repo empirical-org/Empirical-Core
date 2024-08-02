@@ -70,13 +70,13 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         completed_at: Date.new(year, 10, 2),
         updated_at: Date.new(year, 10, 2),
         activity: pre_diagnostic_activity)
-        create(:activity_session,
-          user: student,
-          classroom_unit: classroom_unit1,
-          state: 'finished',
-          completed_at: Date.new(year, 10, 2),
-          updated_at: Date.new(year, 10, 2),
-          activity: post_diagnostic_activity)
+      create(:activity_session,
+        user: student,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: post_diagnostic_activity)
 
       expected_data = {
         pre_diagnostics_assigned: 2,
