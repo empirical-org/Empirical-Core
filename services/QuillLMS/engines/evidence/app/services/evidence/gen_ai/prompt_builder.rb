@@ -42,7 +42,7 @@ module Evidence
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
-      private def feedback_history = markdown_ul(history.map(&:assistant))
+      private def feedback_history = markdown_ul(history)
       private def highlight_texts
         prompt
           .distinct_automl_highlight_arrays
