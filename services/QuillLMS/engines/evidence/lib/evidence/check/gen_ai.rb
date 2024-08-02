@@ -13,15 +13,16 @@ module Evidence
       private def current_entry = entry
 
       private def primary_feedback = primary_response[Evidence::GenAI::ResponseBuilder::KEY_FEEDBACK]
+      private def primary_optimal = primary_response[Evidence::GenAI::ResponseBuilder::KEY_OPTIMAL]
 
       private def primary_response
-        @primary_response ||= Evidence::OpenAI::Chat.run(system_prompt:, history:, entry:)
+        @primary_response ||= Evidence::OpenAI::Chat.run(system_prompt:, history: session_history, entry:)
       end
 
       private def secondary_response =  has_repeated_feedback? ? secondary_feedback_response : {}
 
       private def has_repeated_feedback?
-        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history)
+        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal)
       end
 
       private def secondary_feedback_response
@@ -39,7 +40,7 @@ module Evidence
 
       # TODO: This is a relative inefficient query. We'd likely want to update the Feedback#create API
       # to save the user entry and feedback history (instead of just feedback history)
-      private def history
+      private def session_history
         return [] if session.nil?
         @history ||= session
           .feedback_history
