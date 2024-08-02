@@ -119,7 +119,7 @@ const summary = (
         <div className="summary-item">
           <img alt="" src={sentenceFundamentalsSrc} />
           <h3>Sentence fundamentals</h3>
-          <p>Practice with conjunctions like because, but, and so provide students with a framework to combine sentences and express complex ideas effectively. Once they’ve clearly captured these ideas in their response, students receive grammar and spelling guidance too.</p>
+          <p>Practice with conjunctions like because, but, and so provides students with a framework to combine sentences and express complex ideas effectively. Once they’ve clearly captured these ideas in their response, students receive grammar and spelling guidance too.</p>
         </div>
       </div>
     </div>
