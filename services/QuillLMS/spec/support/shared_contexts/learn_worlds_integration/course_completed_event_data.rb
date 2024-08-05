@@ -56,7 +56,7 @@ RSpec.shared_context 'LearnWorlds Course Completed Event Data' do
           'location' => 'Athens',
           'phone' => nil,
           'skype' => nil,
-          'twitter' => 'htttps =>//www.twitter.com',
+          'twitter' => 'htttps =>//www.x.com',
           'university' => nil,
           'url' => 'https =>//test.com'
         },
