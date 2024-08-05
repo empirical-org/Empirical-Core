@@ -38,6 +38,7 @@
     "rendering"
   ],
   "dependencies": {
+    "braces": "^3.0.3",
     "foreman": "^3.0.1",
     "lazysizes": "^5.2.0-beta1",
     "puppeteer": "^19.5.2",
