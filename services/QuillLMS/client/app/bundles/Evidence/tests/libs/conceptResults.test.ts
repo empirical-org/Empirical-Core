@@ -61,10 +61,10 @@ describe("Getting concept results from a completed Evidence activity", () => {
 describe('generatePercentageScore', () => {
   it('should calculate the percentage score correctly', () => {
     const conceptResults = [
-      { metadata: { questionNumber: 1, correct: 1 } },
-      { metadata: { questionNumber: 1, correct: 0 } },
-      { metadata: { questionNumber: 2, correct: 1 } },
-      { metadata: { questionNumber: 3, correct: 0 } }
+      { metadata: { questionNumber: 1, correct: 1, questionScore: 1.0 } },
+      { metadata: { questionNumber: 1, correct: 0, questionScore: 1.0 } },
+      { metadata: { questionNumber: 2, correct: 1, questionScore: 1.0 } },
+      { metadata: { questionNumber: 3, correct: 0, questionScore: 0.0 } }
     ];
 
     const percentageScore = generatePercentageScore(conceptResults);
@@ -82,9 +82,9 @@ describe('generatePercentageScore', () => {
 
   it('should handle all questions being incorrect', () => {
     const conceptResults = [
-      { metadata: { questionNumber: 1, correct: 0 } },
-      { metadata: { questionNumber: 2, correct: 0 } },
-      { metadata: { questionNumber: 3, correct: 0 } }
+      { metadata: { questionNumber: 1, questionScore: 0.0 } },
+      { metadata: { questionNumber: 2, questionScore: 0.0 } },
+      { metadata: { questionNumber: 3, questionScore: 0.0 } }
     ];
 
     const percentageScore = generatePercentageScore(conceptResults);
@@ -94,9 +94,9 @@ describe('generatePercentageScore', () => {
 
   it('should handle all questions being correct', () => {
     const conceptResults = [
-      { metadata: { questionNumber: 1, correct: 1 } },
-      { metadata: { questionNumber: 2, correct: 1 } },
-      { metadata: { questionNumber: 3, correct: 1 } }
+      { metadata: { questionNumber: 1, questionScore: 1.0 } },
+      { metadata: { questionNumber: 2, questionScore: 1.0 } },
+      { metadata: { questionNumber: 3, questionScore: 1.0 } }
     ];
 
     const percentageScore = generatePercentageScore(conceptResults);
