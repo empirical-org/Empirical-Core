@@ -17,8 +17,8 @@ module Evidence
         def run
           [].tap do |errors|
             CSV.parse(file.read, headers: true).each.with_index(2) do |row, index|
-              next if row['Data Partition'] == 'test'
               next if row['Curriculum Assigned Optimal Status'] == 'TRUE'
+              next if row['Data Partition'] == 'prompt'
               next if row['Curriculum Proposed Feedback'].present? || row['Optional - AutoML Primary Feedback'].present?
 
               errors << "Row #{index}: #{MISSING_FEEDBACK_ERROR}"

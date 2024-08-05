@@ -28,10 +28,10 @@ module Evidence
           let(:content) do
             <<-CSV
               #{headers.join(',')}
-              TRUE,prompt,label1,primary_feedback1,secondary_feedback1,curriculum_label1,proposed_feedback1,highlight1,response1
-              FALSE,prompt,label2,,secondary_feedback2,curriculum_label2,proposed_feedback2,highlight2,response2
-              TRUE,test,label3,primary_feedback3,secondary_feedback3,curriculum_label3,proposed_feedback3,highlight3,response3
-              FALSE,test,label4,primary_feedback4,secondary_feedback4,curriculum_label4,proposed_feedback4,highlight4,response4
+              TRUE,test,label1,primary_feedback1,secondary_feedback1,curriculum_label1,proposed_feedback1,highlight1,response1
+              FALSE,test,label2,,secondary_feedback2,curriculum_label2,proposed_feedback2,highlight2,response2
+              TRUE,prompt,label3,primary_feedback3,secondary_feedback3,curriculum_label3,proposed_feedback3,highlight3,response3
+              FALSE,prompt,label4,primary_feedback4,secondary_feedback4,curriculum_label4,proposed_feedback4,highlight4,response4
             CSV
           end
 
@@ -42,10 +42,10 @@ module Evidence
           let(:content) do
             <<-CSV
               #{headers.join(',')}
-              TRUE,prompt,label1,primary_feedback1,secondary_feedback1,curriculum_label1,proposed_feedback1,highlight1,response1
-              FALSE,prompt,label2,,secondary_feedback2,curriculum_label2,,highlight2,response2
-              TRUE,test,label3,primary_feedback3,secondary_feedback3,curriculum_label3,proposed_feedback3,highlight3,response3
-              FALSE,test,label4,primary_feedback4,secondary_feedback4,curriculum_label4,proposed_feedback4,highlight4,response4
+              TRUE,test,label1,primary_feedback1,secondary_feedback1,curriculum_label1,proposed_feedback1,highlight1,response1
+              FALSE,test,label2,,secondary_feedback2,curriculum_label2,,highlight2,response2
+              TRUE,prompt,label3,primary_feedback3,secondary_feedback3,curriculum_label3,proposed_feedback3,highlight3,response3
+              FALSE,prompt,label4,primary_feedback4,secondary_feedback4,curriculum_label4,proposed_feedback4,highlight4,response4
             CSV
           end
 
