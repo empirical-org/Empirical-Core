@@ -14,7 +14,7 @@ import { completeActivitySession, fetchActiveActivitySession, getFeedback, proce
 import { everyOtherStepCompleted, getCurrentStepDataForEventTracking, getLastSubmittedResponse, getStrippedPassageHighlights, getUrlParam, onMobile, outOfAttemptsForActivePrompt } from '../../helpers/containerActionHelpers';
 import { renderDirections } from '../../helpers/containerRenderHelpers';
 import getParameterByName from '../../helpers/getParameterByName';
-import { generateConceptResults, } from '../../libs/conceptResults';
+import { generateConceptResults, generatePercentageScore, } from '../../libs/conceptResults';
 import { Events } from '../../modules/analytics';
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer';
 import { SessionReducerState } from '../../reducers/sessionReducer';
@@ -367,8 +367,8 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
   function defaultHandleFinishActivity() {
     const { sessionID, submittedResponses, } = session
     const { currentActivity, topicOptimalData } = activities
-    const percentage = null // We always set percentages to "null"
     const conceptResults = generateConceptResults(currentActivity, submittedResponses, topicOptimalData)
+    const percentage = generatePercentageScore(conceptResults)
     const data = {
       time_tracking: {
         onboarding: roundMillisecondsToSeconds(timeTracking[ONBOARDING]),

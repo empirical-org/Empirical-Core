@@ -10,14 +10,14 @@ export const generateConceptResults = (currentActivity, submittedResponses, topi
   const conceptResults = []
 
   for (const [promptID, responses] of Object.entries(submittedResponses)) {
-    const prompt = Object.values(currentActivity.prompts).filter((prompt) => prompt.id == promptID)[0]
+    const prompt = Object.values(currentActivity.prompts).filter((prompt) => String(prompt.id) === String(promptID))[0]
     responses.forEach((response, index) => {
       const attempt = index + 1
       const conceptResultMetadata = {
         answer: response.entry,
         attemptNumber: attempt,
         correct: response.optimal ? 1 : 0,
-        directions: (attempt == 1) ? DIRECTIONS : responses[index - 1].feedback,
+        directions: (attempt === 1) ? DIRECTIONS : responses[index - 1].feedback,
         prompt: prompt.text,
         questionNumber: conjunctionToQuestionNumber[prompt.conjunction],
         questionScore: responses.some((r) => r.optimal) ? 1.0 : 0.0
@@ -43,3 +43,24 @@ export const generateConceptResults = (currentActivity, submittedResponses, topi
   }
   return conceptResults
 }
+
+export const generatePercentageScore = (conceptResults) => {
+  const questionScores: {[key:number]: number} = {};
+  let totalQuestions = 0;
+
+  conceptResults.forEach(result => {
+    const { questionNumber, correct } = result.metadata;
+    if (!questionScores[questionNumber]) {
+      questionScores[questionNumber] = 0;
+      totalQuestions += 1;
+    }
+    if (correct) {
+      questionScores[questionNumber] = 1;
+    }
+  });
+
+  const totalScore: number = Object.values(questionScores).reduce((acc, score) => acc + score, 0);
+
+  const percentageScore = totalQuestions ? Math.round((totalScore/totalQuestions) * 100) / 100 : null
+  return percentageScore;
+};
