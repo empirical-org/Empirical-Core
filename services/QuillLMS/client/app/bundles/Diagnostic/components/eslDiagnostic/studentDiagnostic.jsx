@@ -20,8 +20,7 @@ import {
   ProgressBar,
   SCROLL,
   TeacherPreviewMenuButton,
-  VISIBILITYCHANGE,
-  roundValuesToSeconds,
+  VISIBILITYCHANGE
 } from '../../../Shared/index';
 import {
   clearData,
@@ -35,7 +34,7 @@ import {
   updateLanguage
 } from '../../actions/diagnostics.js';
 import SessionActions from '../../actions/sessions.js';
-import i18n from '../../i18n';
+import i18n from '../../../Shared/libs/translations/i18n';
 import {
   answeredQuestionCount,
   getProgressPercent,

@@ -13,7 +13,7 @@ import questionActions from './actions/questions';
 import sentenceFragmentActions from './actions/sentenceFragments.ts';
 import * as titleCardActions from './actions/titleCards.ts';
 import Home from './components/home';
-import './i18n';
+import '../Shared/libs/translations/i18n';
 import quillNormalizer from './libs/quillNormalizer';
 import BackOff from './utils/backOff';
 import createStore from './utils/configureStore';

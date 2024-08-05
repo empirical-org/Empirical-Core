@@ -11,7 +11,7 @@ import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/inde
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { getParameterByName } from '../libs/getParameterByName';
 import { routes } from "../routes";
-import i18n from '../i18n';
+import i18n from '../../Shared/libs/translations/i18n';
 import { updateLanguage } from '../actions/diagnostics.js';
 // TODO: standardize Question Typescript interface definitions
 import { Question } from '../../Grammar/interfaces/questions';

@@ -1,4 +1,4 @@
-import { ENGLISH } from '../utils/languageList'
+import { ENGLISH } from '../../utils/languageList'
 
 export const getlanguageOptions = (translations) => ([
   { value: ENGLISH, label: ENGLISH },
@@ -18,4 +18,3 @@ export const hasTranslationFlag = (): boolean => {
 export const showTranslations = (language, languageOptions): boolean => {
   return hasTranslationFlag() && !!languageOptions && !!language && Object.keys(languageOptions).length > 1;
 };
-
