@@ -71,7 +71,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   def scorebook
     @classrooms = classrooms_with_data
     if params['classroom_id']
-      @classroom = @classrooms.find{ |classroom| classroom['id'].to_i == params['classroom_id'].to_i }
+      @classroom = @classrooms.find { |classroom| classroom['id'].to_i == params['classroom_id'].to_i }
     end
     @classrooms = @classrooms.as_json
     @classroom = @classroom.as_json
@@ -233,13 +233,13 @@ class Teachers::ClassroomManagerController < ApplicationController
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
       Analytics::Analyzer.new.track(current_user, Analytics::SegmentIo::BackgroundEvents::VIEWED_AS_STUDENT)
-      self.preview_student_id= params[:student_id]
+      self.preview_student_id = params[:student_id]
     end
     redirect_to '/profile'
   end
 
   def unset_preview_as_student
-    self.preview_student_id= nil
+    self.preview_student_id = nil
     return redirect_to params[:redirect] if params[:redirect]
 
     redirect_to '/profile'

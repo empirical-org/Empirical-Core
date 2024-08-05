@@ -123,7 +123,7 @@ RSpec.describe Cms::UnitTemplatesController, type: :controller do
 
     it 'should destroy the given unit template' do
       delete :destroy, params: { id: unit_template.id }
-      expect{ UnitTemplate.find(unit_template.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { UnitTemplate.find(unit_template.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end
 end

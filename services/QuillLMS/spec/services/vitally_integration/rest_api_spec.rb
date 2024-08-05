@@ -19,8 +19,7 @@ describe VitallyIntegration::RestApi do
           Authorization: "Basic #{api_key}",
           "Content-Type": 'application/json'
         },
-        body: payload.to_json
-      )
+        body: payload.to_json)
       api.create(type, payload)
     end
   end
@@ -31,8 +30,7 @@ describe VitallyIntegration::RestApi do
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": 'application/json'
-        }
-      )
+        })
       api.get(type, id)
     end
   end
@@ -61,8 +59,7 @@ describe VitallyIntegration::RestApi do
         headers: {
           Authorization: "Basic #{api_key}",
           "Content-Type": 'application/json'
-        }
-      ).and_return(httparty_double)
+        }).and_return(httparty_double)
       api.exists?(type, id)
     end
   end
@@ -90,8 +87,7 @@ describe VitallyIntegration::RestApi do
           Authorization: "Basic #{api_key}",
           "Content-Type": 'application/json'
         },
-        body: payload.to_json
-      )
+        body: payload.to_json)
       api.update(type, id, payload)
     end
   end

@@ -80,7 +80,7 @@ describe User, type: :model do
       it 'returns an array with classrooms, email addresses, and names if a user owns classrooms with pending coteacher invitation' do
         coteacher_classroom_invitation = create(:coteacher_classroom_invitation)
         teacher = coteacher_classroom_invitation.invitation.inviter
-        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(['name'=> coteacher_classroom_invitation.classroom.name, 'coteacher_email'=>coteacher_classroom_invitation.invitation.invitee_email])
+        expect(teacher.classrooms_i_own_that_have_pending_coteacher_invitations).to eq(['name' => coteacher_classroom_invitation.classroom.name, 'coteacher_email' => coteacher_classroom_invitation.invitation.invitee_email])
       end
     end
 
@@ -139,7 +139,7 @@ describe User, type: :model do
       let!(:coteacher_classroom_invitation) { create(:coteacher_classroom_invitation, invitation_id: pending_coteacher_invitation.id) }
 
       it 'returns all the cotaught classrooms' do
-        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map{ |c| c.id })
+        cotaught_classroom_ids = Set.new(teacher.classrooms_i_coteach.map { |c| c.id })
         expect(teacher.classroom_ids_i_coteach_or_have_a_pending_invitation_to_coteach.superset?(cotaught_classroom_ids)).to be
       end
 

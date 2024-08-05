@@ -27,7 +27,7 @@ RSpec.describe SegmentIntegration::User do
           email: admin.email,
           flags: admin.flags&.join(', '),
           flagset: admin.flagset,
-        }.reject { |_,v| v.nil? },
+        }.reject { |_, v| v.nil? },
         integrations: admin.segment_user.integration_rules
       }
       expect(admin.segment_user.identify_params).to eq params
@@ -51,7 +51,7 @@ RSpec.describe SegmentIntegration::User do
           admin_linkedin_or_url: admin.admin_verification_url,
           number_of_schools_administered: schools.count,
           number_of_districts_administered: districts.count
-        }.reject { |_,v| v.nil? }
+        }.reject { |_, v| v.nil? }
       end
 
       it { is_expected.to eq common_params }
@@ -130,7 +130,7 @@ RSpec.describe SegmentIntegration::User do
             minimum_grade_level: teacher_info.minimum_grade_level,
             maximum_grade_level: teacher_info.maximum_grade_level,
             subject_areas: teacher_info.subject_areas.map(&:name).join(', ')
-          }.reject { |_,v| v.nil? },
+          }.reject { |_, v| v.nil? },
           integrations: teacher.segment_user.integration_rules
         }
         expect(teacher.segment_user.identify_params).to eq params
@@ -149,7 +149,7 @@ RSpec.describe SegmentIntegration::User do
           maximum_grade_level: teacher_info.maximum_grade_level,
           subject_areas: teacher_info.subject_areas.map(&:name).join(', '),
           role: teacher.role
-        }.reject { |_,v| v.nil? }
+        }.reject { |_, v| v.nil? }
         expect(teacher.segment_user.common_params).to eq params
       end
     end
@@ -160,7 +160,7 @@ RSpec.describe SegmentIntegration::User do
           email: teacher.email,
           premium_state: teacher.premium_state,
           premium_type: teacher.subscription&.account_type
-        }.reject { |_,v| v.nil? }
+        }.reject { |_, v| v.nil? }
         expect(teacher.segment_user.premium_params).to eq params
       end
     end

@@ -295,14 +295,12 @@ describe Teachers::ClassroomsController, type: :controller do
           create(:google_classroom_user,
             :active,
             classroom_external_id: classroom.classroom_external_id,
-            user_external_id: student1.google_id
-          )
+            user_external_id: student1.google_id)
 
           create(:google_classroom_user,
             :deleted,
             classroom_external_id: classroom.classroom_external_id,
-            user_external_id: student2.google_id
-          )
+            user_external_id: student2.google_id)
         end
 
         it 'reports which students are no longer in provider classroom in visible classroom' do

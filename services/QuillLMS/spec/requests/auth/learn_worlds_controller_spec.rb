@@ -63,8 +63,7 @@ RSpec.describe Auth::LearnWorldsController do
             create(:learn_worlds_account,
               external_id: learn_worlds_account_external_id,
               last_login: 1.day.ago.to_datetime,
-              user: user
-            )
+              user: user)
           end
 
           it { expect { subject }.not_to change(user, :learn_worlds_account) }

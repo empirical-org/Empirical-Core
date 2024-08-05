@@ -60,6 +60,6 @@ module LessonsRecommendations
     @total_count ||= @activity_sessions.length
     return 0 if @total_count == 0
 
-    ((fail_count.to_f/@total_count)*100).round
+    ((fail_count.to_f / @total_count) * 100).round
   end
 end

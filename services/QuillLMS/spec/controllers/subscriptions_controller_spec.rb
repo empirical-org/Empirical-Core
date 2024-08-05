@@ -96,7 +96,7 @@ describe SubscriptionsController do
       it 'should destroy the given subscription' do
         subscription = user.subscriptions.first
         delete :destroy, params: { id: subscription.id }
-        expect{ Subscription.find(subscription.id) }.to raise_exception ActiveRecord::RecordNotFound
+        expect { Subscription.find(subscription.id) }.to raise_exception ActiveRecord::RecordNotFound
       end
     end
   end

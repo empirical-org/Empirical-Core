@@ -26,17 +26,17 @@ describe Cms::TopicsController do
   describe '#create' do
     it 'creates a new topic with the nested change logs' do
       post :create, params: { topic: {
-          name: 'New Topic',
-          level: 3,
-          visible: true,
-          change_logs_attributes: [
-            {
-              action: 'Created',
-              changed_record_type: 'Topic',
-              explanation: 'Here is an explanation'
-            }
-          ]
-        } }
+        name: 'New Topic',
+        level: 3,
+        visible: true,
+        change_logs_attributes: [
+          {
+            action: 'Created',
+            changed_record_type: 'Topic',
+            explanation: 'Here is an explanation'
+          }
+        ]
+      } }
       parsed_response = JSON.parse(response.body)
       id = parsed_response['topic']['id']
       expect(id).to be
@@ -50,17 +50,17 @@ describe Cms::TopicsController do
       new_name = 'New Topic Name'
       id = topics[0].id
       put :update, params: { id: id, topic: {
-          name: new_name,
-          id: id,
-          change_logs_attributes: [
-            {
-              action: 'Renamed',
-              changed_record_type: 'Topic',
-              changed_record_id: id,
-              explanation: 'Here is an explanation'
-            }
-          ]
-        } }
+        name: new_name,
+        id: id,
+        change_logs_attributes: [
+          {
+            action: 'Renamed',
+            changed_record_type: 'Topic',
+            changed_record_id: id,
+            explanation: 'Here is an explanation'
+          }
+        ]
+      } }
       expect(Topic.find_by_id(id).name).to eq(new_name)
       expect(ChangeLog.find_by(changed_record_id: id, changed_record_type: 'Topic', action: 'Renamed')).to be
     end

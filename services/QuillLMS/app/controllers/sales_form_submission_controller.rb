@@ -30,11 +30,11 @@ class SalesFormSubmissionController < ApplicationController
     search = params[:search]
     return '' if search.blank?
 
-    search.gsub(/\d*/,'').squish
+    search.gsub(/\d*/, '').squish
   end
 
   private def sales_form_submission_params
-    params.require(:sales_form_submission).permit(:first_name, :last_name, :email, :phone_number,:zipcode, :collection_type, :school_name, :district_name,
+    params.require(:sales_form_submission).permit(:first_name, :last_name, :email, :phone_number, :zipcode, :collection_type, :school_name, :district_name,
       :school_premium_count_estimate, :teacher_premium_count_estimate, :student_premium_count_estimate, :submission_type, :comment)
   end
 end

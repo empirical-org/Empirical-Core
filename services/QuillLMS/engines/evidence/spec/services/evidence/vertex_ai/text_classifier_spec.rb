@@ -66,7 +66,7 @@ module Evidence
               call_count = 0
               allow(prediction_client).to receive(:predict_label_and_score) do
                 call_count += 1
-                call_count == 1 ? raise(error): prediction_response
+                call_count == 1 ? raise(error) : prediction_response
               end
             end
 

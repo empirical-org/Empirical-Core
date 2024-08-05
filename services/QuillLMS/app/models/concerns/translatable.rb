@@ -86,7 +86,7 @@ module Translatable
       Gengo::RequestTranslations.run(english_texts, locale)
     when OPEN_AI_SOURCE
       texts = force ? english_texts : english_texts.reject { |e| e.translated?(locale:) }
-      texts.each{ |text| OpenAI::TranslateAndSaveText.run(text, prompt: open_ai_prompt(locale:), locale:) }
+      texts.each { |text| OpenAI::TranslateAndSaveText.run(text, prompt: open_ai_prompt(locale:), locale:) }
     end
     translation(locale:, source_api:)
   end
@@ -96,7 +96,7 @@ module Translatable
   end
 
   def open_ai_prompt(locale:)
-    "#{prompt_start(locale:)}#{custom_prompt}#{examples}\n text to translate: "
+    "#{TranslationPrompts.prompt_start(locale:)}#{custom_prompt}#{examples}\n text to translate: "
   end
 
   private def custom_prompt
@@ -106,15 +106,6 @@ module Translatable
   private def config_filename = "#{self.class.name.underscore}.yml"
   private def config_file = Rails.root.join('app/models/translation_config', config_filename)
   private def config_yaml = YAML.load_file(config_file)
-
-  private def prompt_start(locale:)
-    <<~STRING
-      You are going to do a translation from english to #{locale} using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
-
-      We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
-
-    STRING
-  end
 
   private def examples
     examples = config_yaml['examples']

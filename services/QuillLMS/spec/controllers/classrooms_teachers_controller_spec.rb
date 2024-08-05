@@ -61,7 +61,7 @@ describe ClassroomsTeachersController, type: :controller do
     it 'should render the correct json' do
       get :specific_coteacher_info, params: { coteacher_id: user.id }, as: :json
       expect(response.body).to eq({
-      selectedTeachersClassroomIds: {
+        selectedTeachersClassroomIds: {
           is_coteacher: [classroom.id],
           invited_to_coteach: [classroom.id]
         }
@@ -75,7 +75,7 @@ describe ClassroomsTeachersController, type: :controller do
 
     it 'should destroy the given classroom teacher' do
       delete :destroy, params: { classroom_id: classroom.id }
-      expect{ ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { ClassroomsTeacher.find(classroom_teacher.id) }.to raise_exception ActiveRecord::RecordNotFound
       expect(response.body).to eq({ message: 'Deletion Succeeded!' }.to_json)
     end
   end

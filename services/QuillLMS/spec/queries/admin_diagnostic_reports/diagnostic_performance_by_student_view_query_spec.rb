@@ -34,7 +34,7 @@ module AdminDiagnosticReports
     end
 
     # TODO: Some of these specs fail intermittently.  In the interest of getting the code out the door, we're commenting them out, but we should come back and fix that soon
-    #context 'big_query_snapshot', :big_query_snapshot do
+    # context 'big_query_snapshot', :big_query_snapshot do
     #  # Some of our tests include activity_sessions having NULL in its timestamps so we need a version that has timestamps with datetime data in them so that WITH in the CTE understands the data type expected
     #  let(:reference_activity_session) { create(:activity_session, :finished) }
     #  # Some of our tests expect no concept_results to exist, but BigQuery needs to know what one is shaped like in order to build temporary queries
@@ -140,6 +140,6 @@ module AdminDiagnosticReports
     #      end
     #    end
     #  end
-    #end
+    # end
   end
 end

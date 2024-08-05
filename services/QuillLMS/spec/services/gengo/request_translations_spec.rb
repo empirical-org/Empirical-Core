@@ -71,20 +71,20 @@ RSpec.describe Gengo::RequestTranslations, type: :service do
 
       it 'takes a list of english_texts and sends them all to gengo' do
         expect(GengoAPI).to receive(:postTranslationJobs)
-        .and_return(resp)
+          .and_return(resp)
         subject
       end
 
       it 'starts a SaveTranslatedTextWorker' do
         expect(Gengo::SaveJobsFromOrderWorker).to receive(:perform_in)
-        .with(1.minute, order_id)
+          .with(1.minute, order_id)
         subject
       end
 
       context 'there is no response' do
         let(:resp) { nil }
 
-        it { expect{ subject }.to raise_error(described_class::RequestTranslationError) }
+        it { expect { subject }.to raise_error(described_class::RequestTranslationError) }
       end
     end
 

@@ -111,12 +111,12 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     let(:text2) { 'the dancing' }
     let(:text3) { 'the dancing other' }
 
-    let(:passage_text) { "passage text goes here #{'dancing '* 5}" }
+    let(:passage_text) { "passage text goes here #{'dancing ' * 5}" }
     let(:activity) { create(:evidence_activity) }
     let!(:passage) { create(:evidence_passage, text: passage_text, activity: activity) }
     let(:prompt) { create(:evidence_prompt, activity: activity) }
 
-    let(:data) { [[text1,label1], [text2,label1], [text3,label1]] }
+    let(:data) { [[text1, label1], [text2, label1], [text3, label1]] }
 
     before do
       stub_const('Evidence::Synthetic::ManualTypes::MIN_TRAIN_PER_LABEL', 1)
@@ -140,7 +140,7 @@ describe Evidence::Synthetic::LabeledDataGenerator do
     end
 
     context 'manual types' do
-      let(:generator) { described_class.run(data,prompt: prompt, generators: [:spelling_passage_specific], manual_types: true) }
+      let(:generator) { described_class.run(data, prompt: prompt, generators: [:spelling_passage_specific], manual_types: true) }
 
       context 'test types' do
         subject { generator.results.find { |r| r.type == 'TEST' } }
@@ -190,10 +190,10 @@ describe Evidence::Synthetic::LabeledDataGenerator do
         expect(data.size).to eq 5
         # every row should have 6 columns
         expect(data.map(&:size).uniq).to eq [6]
-        expect(data[0]).to eq([text1,label1,'','','original', nil])
-        expect(data[1]).to eq([paraphrase1,label1, text1,'','paraphrase', nil])
-        expect(data[2]).to eq([paraphrase2,label1,text1,'','paraphrase', nil])
-        expect(data[3]).to eq(['ther response',label1, text1,'','spelling-their', nil])
+        expect(data[0]).to eq([text1, label1, '', '', 'original', nil])
+        expect(data[1]).to eq([paraphrase1, label1, text1, '', 'paraphrase', nil])
+        expect(data[2]).to eq([paraphrase2, label1, text1, '', 'paraphrase', nil])
+        expect(data[3]).to eq(['ther response', label1, text1, '', 'spelling-their', nil])
       end
     end
   end

@@ -13,17 +13,17 @@ module Evidence
 
     let(:sample_response_body) do
       {
-        'id'=>'cmpl-5Yiq2oA2mneJK4GHLRBIYJ3Nm8oa2',
-        'object'=>'text_completion',
-        'created'=>1658957194,
-        'model'=>'text-ada-001',
-        'choices'=> [
-          { 'text'=>'a text response',
-          'index'=>0,
-          'logprobs'=>nil,
-          'finish_reason'=>'length' },
-          { 'text'=>' they value their privacy and idea of stigmaly manury', 'index'=>1, 'logprobs'=>nil, 'finish_reason'=>'stop' },
-          { 'text'=>' they are working too hard and becoming too popular', 'index'=>2, 'logprobs'=>nil, 'finish_reason'=>'stop' }
+        'id' => 'cmpl-5Yiq2oA2mneJK4GHLRBIYJ3Nm8oa2',
+        'object' => 'text_completion',
+        'created' => 1658957194,
+        'model' => 'text-ada-001',
+        'choices' => [
+          { 'text' => 'a text response',
+            'index' => 0,
+            'logprobs' => nil,
+            'finish_reason' => 'length' },
+          { 'text' => ' they value their privacy and idea of stigmaly manury', 'index' => 1, 'logprobs' => nil, 'finish_reason' => 'stop' },
+          { 'text' => ' they are working too hard and becoming too popular', 'index' => 2, 'logprobs' => nil, 'finish_reason' => 'stop' }
         ]
       }
     end

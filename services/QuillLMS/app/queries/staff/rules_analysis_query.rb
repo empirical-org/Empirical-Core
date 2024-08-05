@@ -61,7 +61,7 @@ module Staff
     def post_query_transform(query_result)
       rules_with_feedbacks = Evidence::Rule.where(id: query_result.pluck(:id)).includes(:feedbacks)
       query_result.map do |row|
-        rule = rules_with_feedbacks.find{ |x| x.id == row[:id] }
+        rule = rules_with_feedbacks.find { |x| x.id == row[:id] }
         first_feedback, second_feedback = find_and_format_feedbacks(rule)
         row.merge(first_feedback:, second_feedback:)
       end

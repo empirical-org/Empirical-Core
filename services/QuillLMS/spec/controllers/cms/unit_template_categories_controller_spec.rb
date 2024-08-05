@@ -43,7 +43,7 @@ describe Cms::UnitTemplateCategoriesController do
 
     it 'should destory the given category' do
       delete :destroy, params: { id: category.id }
-      expect{ UnitTemplateCategory.find(category.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { UnitTemplateCategory.find(category.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end
 end

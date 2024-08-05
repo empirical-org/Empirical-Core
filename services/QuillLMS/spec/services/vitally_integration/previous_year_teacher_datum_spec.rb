@@ -6,8 +6,8 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
   context '#calculate_data' do
     let!(:year) { 2016 }
     let!(:teacher) { create(:user, role: 'teacher') }
-    let!(:active_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: true) }
-    let!(:archived_classroom) { create(:classroom, created_at: Date.new(year,10,1), visible: false) }
+    let!(:active_classroom) { create(:classroom, created_at: Date.new(year, 10, 1), visible: true) }
+    let!(:archived_classroom) { create(:classroom, created_at: Date.new(year, 10, 1), visible: false) }
     let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1)) }
     let!(:student1) { create(:user, role: 'student') }
     let!(:student2) { create(:user, role: 'student') }
@@ -40,41 +40,35 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         classroom_unit: classroom_unit1,
         activity: diagnostic,
         state: 'finished',
-        completed_at: Date.new(year, 10, 2)
-      )
+        completed_at: Date.new(year, 10, 2))
       create(:activity_session,
         user: student1,
         classroom_unit: classroom_unit1,
         state: 'finished',
         activity: diagnostic,
-        completed_at: Date.new(year, 10, 2)
-      )
+        completed_at: Date.new(year, 10, 2))
       create(:activity_session,
         user: student2,
         classroom_unit: classroom_unit1,
         state: 'started',
         activity: diagnostic,
-        completed_at: Date.new(year, 10, 2)
-      )
+        completed_at: Date.new(year, 10, 2))
       create(:activity_session,
         user: student4,
         classroom_unit: classroom_unit2,
         state: 'finished',
-        completed_at: Date.new(year, 10, 2)
-      )
+        completed_at: Date.new(year, 10, 2))
       create(:activity_session,
         user: student4,
         classroom_unit: classroom_unit4,
         state: 'finished',
         activity: evidence,
-        completed_at: Date.new(year, 10, 2)
-      )
+        completed_at: Date.new(year, 10, 2))
       create(:activity_session,
         user: student3,
         classroom_unit: classroom_unit3,
         state: 'finished',
-        completed_at: Date.new(2021, 10, 2)
-      )
+        completed_at: Date.new(2021, 10, 2))
     end
 
     it 'should raise error if the year is the current year' do

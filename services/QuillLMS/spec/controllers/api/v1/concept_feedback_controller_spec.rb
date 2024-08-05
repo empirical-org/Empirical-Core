@@ -43,8 +43,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
         before do
           $redis.del(cache_key)
           get :translations, params: {
-              locale:,
-              activity_type: concept_feedback1.activity_type
+            locale:,
+            activity_type: concept_feedback1.activity_type
           }, as: :json
         end
 
@@ -69,8 +69,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
 
         it 'returns the cache value' do
           get :translations, params: {
-              locale:,
-              activity_type: concept_feedback1.activity_type
+            locale:,
+            activity_type: concept_feedback1.activity_type
           }, as: :json
           expect(response.body).to eq(cache_value)
         end
@@ -85,8 +85,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
 
         it 'returns an empty hash' do
           get :translations, params: {
-              locale:,
-              activity_type: concept_feedback_untranslated.activity_type
+            locale:,
+            activity_type: concept_feedback_untranslated.activity_type
           }, as: :json
           body = JSON.parse(response.body)
           expect(body).to eq({})
@@ -99,8 +99,8 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
         it 'returns the cache value' do
           $redis.set(cache_key, cache_value)
           get :translations, params: {
-              locale:,
-              activity_type: concept_feedback_untranslated.activity_type
+            locale:,
+            activity_type: concept_feedback_untranslated.activity_type
           }, as: :json
           expect(response.body).to eq(cache_value)
         end

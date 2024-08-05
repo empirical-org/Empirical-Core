@@ -79,7 +79,7 @@ class UnitActivity < ApplicationRecord
     classification_id = activity.classification.id
     # if it is passage proofreader or sentence writing, we only want to show ones after this Date in certain reports
     # as previous to that date, concept results were not compatible with reports
-    if [1,2].include?(classification_id)
+    if [1, 2].include?(classification_id)
       created_at > Date.parse('25-10-2016')
     else
       true

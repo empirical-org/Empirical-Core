@@ -51,7 +51,7 @@ module Evidence
       private def result_json_string
         response
           .parsed_response['choices']
-          .map{ |r| r['message']['content'] }
+          .map { |r| r['message']['content'] }
           .first
       end
 

@@ -19,7 +19,7 @@ module ActiveRecord
       module SchemaStatements
         # Resets the sequence of a table's primary key to the maximum value.
         # rubocop:disable Metrics/CyclomaticComplexity
-        def reset_pk_sequence!(table, primary_key = nil, sequence = nil) #:nodoc:
+        def reset_pk_sequence!(table, primary_key = nil, sequence = nil) # :nodoc:
           unless primary_key && sequence
             default_pk, default_sequence = pk_and_sequence_for(table)
 

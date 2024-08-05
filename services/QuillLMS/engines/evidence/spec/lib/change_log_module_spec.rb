@@ -10,7 +10,7 @@ module Evidence
       @rule = create(:evidence_rule, rule_type: Evidence::Rule::TYPE_PLAGIARISM, prompts: [@prompt], suborder: 0)
       @plagiarism_text = create(:evidence_plagiarism_text, rule: @rule)
       @feedback = create(:evidence_feedback, rule: @rule)
-      @automl= create(:evidence_automl_model, prompt: @prompt)
+      @automl = create(:evidence_automl_model, prompt: @prompt)
       @passage = create(:evidence_passage, activity: @activity)
       @highlight = create(:evidence_highlight, feedback: @feedback)
     end

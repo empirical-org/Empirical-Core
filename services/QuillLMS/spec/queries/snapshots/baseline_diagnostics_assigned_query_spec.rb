@@ -7,7 +7,7 @@ module Snapshots
     context 'big_query_snapshot', :big_query_snapshot do
       include_context 'Snapshots Period CTE'
 
-      let(:assigned_student_ids) { [1,2,3] }
+      let(:assigned_student_ids) { [1, 2, 3] }
       let(:classroom_units) { classrooms.map { |classroom| create(:classroom_unit, classroom: classroom, assigned_student_ids: assigned_student_ids) } }
       let(:activity) { create(:activity) }
       let(:unit_activities) { classroom_units.map { |classroom_unit| create(:unit_activity, unit: classroom_unit.unit, activity: activity) } }

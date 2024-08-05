@@ -147,8 +147,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   protected def user_params
-    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :admin_sub_role, :classcode, :password, :password_confirmation, :email_verification_status, :flags =>[]] + default_params
-                                )
+    params.require(:user).permit([:name, :email, :flagset, :username, :title, :role, :admin_sub_role, :classcode, :password, :password_confirmation, :email_verification_status, :flags => []] + default_params)
   end
 
   protected def user_query_params
@@ -320,7 +319,7 @@ class Cms::UsersController < Cms::CmsController
   private def log_attribute_change
     previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json
 
-    #omit password field if password not filled in
+    # omit password field if password not filled in
     if user_params[:password].blank?
       new_user_params = user_params.except('password', 'password_confirmation')
     else

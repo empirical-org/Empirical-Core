@@ -32,7 +32,7 @@ namespace :import_comprehension do
         end,
         rule_sets: source_regex_rules.each_with_index.map do |r, i|
           Evidence::RuleSet.new(
-            name: r['name'][0,100],
+            name: r['name'][0, 100],
             feedback: r['name'],
             priority: i,
             rules: r['rules'].map { |rule| Evidence::Rule.new(regex_text: rule['regex_text'], case_sensitive: rule['case_sensitive']) }

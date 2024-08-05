@@ -54,7 +54,7 @@ describe Cms::BlogPostsController, type: :controller do
 
     it 'should destroy the given blog post' do
       delete :destroy, params: { id: bpost.id }
-      expect{ BlogPost.find(bpost.id) }.to raise_exception(ActiveRecord::RecordNotFound)
+      expect { BlogPost.find(bpost.id) }.to raise_exception(ActiveRecord::RecordNotFound)
     end
   end
 

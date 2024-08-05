@@ -51,7 +51,7 @@ describe IpLocationWorker do
     end
 
     context 'errored API response' do
-      let(:response_body) { { 'error'=>'Invalid API key' }.to_json }
+      let(:response_body) { { 'error' => 'Invalid API key' }.to_json }
 
       before do
         stub_request(:get, api_url)

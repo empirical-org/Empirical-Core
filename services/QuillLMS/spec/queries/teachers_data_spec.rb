@@ -28,8 +28,7 @@ describe 'TeachersData' do
       state: 'finished',
       started_at: time1,
       completed_at: time2,
-      classroom_unit: classroom_unit
-    )
+      classroom_unit: classroom_unit)
   }
 
   let!(:activity_session2) {
@@ -38,8 +37,7 @@ describe 'TeachersData' do
       state: 'finished',
       started_at: time1,
       completed_at: time2,
-      classroom_unit: classroom_unit
-    )
+      classroom_unit: classroom_unit)
   }
 
   let!(:concept1) { create(:concept) }

@@ -108,8 +108,8 @@ class ProfilesController < ApplicationController
       .includes(:unit, concept_results: :concept, activity: :classification)
       .where(
         user_id: user_id,
-        activity_id: data.map{ |h| h[ACTIVITY_ID] },
-        classroom_unit_id: data.map{ |h| h[CLASSROOM_UNIT_ID] },
+        activity_id: data.map { |h| h[ACTIVITY_ID] },
+        classroom_unit_id: data.map { |h| h[CLASSROOM_UNIT_ID] },
         state: ActivitySession::STATE_FINISHED
       )
       .order('activity_sessions.completed_at ASC')
@@ -166,7 +166,7 @@ class ProfilesController < ApplicationController
     ).to_a
   end
 
-  protected def student_profile_data_sql(classroom_id=nil)
+  protected def student_profile_data_sql(classroom_id = nil)
     @current_classroom = current_classroom(classroom_id)
     if @current_classroom && current_user
       @act_sesh_records = UnitActivity.get_classroom_user_profile(@current_classroom.id, current_user.id)

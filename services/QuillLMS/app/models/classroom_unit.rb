@@ -106,7 +106,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def hide_unassigned_activity_sessions
-    #validate or hides any other related activity sessions
+    # validate or hides any other related activity sessions
     return unless activity_sessions.present?
 
     activity_sessions.each do |as|

@@ -20,11 +20,11 @@ describe InvitationEmailWorker do
         # compared to the value as "retrieved" from the db
         db_invitation = Invitation.find_by(id: invitation.id)
         expect_any_instance_of(User).to receive(:send_invitation_to_existing_user).with(db_invitation.attributes.merge({
-           inviter_name: user.name,
-           inviter_email: user.email,
-           classroom_names: ['classroom'],
-           coteacher_classroom_invitation_ids: ['id'],
-           invitee_first_name: friend.first_name
+          inviter_name: user.name,
+          inviter_email: user.email,
+          classroom_names: ['classroom'],
+          coteacher_classroom_invitation_ids: ['id'],
+          invitee_first_name: friend.first_name
         }))
         subject.perform(invitation.id)
       end

@@ -33,7 +33,8 @@ class ProgressReports::Standards::StandardSerializer < ApplicationSerializer
 
     teachers_progress_reports_standards_classroom_standard_students_path(
       standard_id: object.id,
-      classroom_id: classroom_id)
+      classroom_id: classroom_id
+    )
   end
 
   def mastery_status

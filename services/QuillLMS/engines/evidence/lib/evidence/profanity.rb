@@ -6,7 +6,7 @@ module Evidence
     def self.profane(entry)
       # find the badword substrings that exist in the entry
       found_bad_words = BadWords::ALL.select do |word|
-        entry.downcase.include?(word.gsub('*',''))
+        entry.downcase.include?(word.gsub('*', ''))
       end
 
       return nil if found_bad_words.empty?

@@ -47,7 +47,7 @@ class TimeTrackingCleaner < ApplicationService
     @max_outliers ||= begin
       time_tracking
         .except(*median_outliers.keys)
-        .select { |_,v| v > MAX_TIME_SECTION }
+        .select { |_, v| v > MAX_TIME_SECTION }
     end
   end
 

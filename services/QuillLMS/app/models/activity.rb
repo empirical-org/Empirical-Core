@@ -113,7 +113,7 @@ class Activity < ApplicationRecord
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
   # the other two, Proofreader and Lesson, contain passages and other data, not questions
-  ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
+  ACTIVITY_TYPES_WITH_QUESTIONS = [2, 4, 5]
 
   STARTER_DIAGNOSTIC_ACTIVITY_ID = 2537
   INTERMEDIATE_DIAGNOSTIC_ACTIVITY_ID = 2539
@@ -150,7 +150,7 @@ class Activity < ApplicationRecord
   end
 
   def self.find_by_id_or_uid(arg)
-    find_by(uid: arg)  || find(arg)
+    find_by(uid: arg) || find(arg)
   end
 
   def standard_uid= uid
@@ -231,7 +231,7 @@ class Activity < ApplicationRecord
   end
 
   def self.clear_activity_search_cache
-    User::FLAGSETS.keys.map{ |x| "#{x}_" }.push('').each do |flagset|
+    User::FLAGSETS.keys.map { |x| "#{x}_" }.push('').each do |flagset|
       $redis.del("default_#{flagset}activity_search")
     end
   end
@@ -346,7 +346,7 @@ class Activity < ApplicationRecord
 
   def questions = Question.where(uid: question_uids)
 
-  private def question_uids = data["questions"]&.map{ |q| q["key"] }
+  private def question_uids = data["questions"]&.map { |q| q["key"] }
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
