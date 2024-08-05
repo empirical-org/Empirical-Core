@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby "3.1.4"
+ruby File.read('.ruby-version').chomp
 
 # CORE DEPS
 gem 'puma', '~> 5.6.8'
