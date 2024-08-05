@@ -4,7 +4,6 @@ import { EVIDENCE, LESSONS } from '../../Shared'
 import { AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants'
 import admin from '../components/modules/questionsAndAnswers/admin'
 import ap from '../components/modules/questionsAndAnswers/ap'
-import evidence from '../components/modules/questionsAndAnswers/evidence'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
 import preap from '../components/modules/questionsAndAnswers/preap'
 import premium from '../components/modules/questionsAndAnswers/premium'
@@ -45,9 +44,6 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
         break
       case SPRINGBOARD:
         questionsAndAnswers = springboard
-        break
-      case EVIDENCE:
-        questionsAndAnswers = evidence
         break
       case 'socialStudies':
         questionsAndAnswers = socialStudies

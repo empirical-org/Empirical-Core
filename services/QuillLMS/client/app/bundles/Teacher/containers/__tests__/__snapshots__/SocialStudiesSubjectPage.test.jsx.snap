@@ -38,7 +38,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
             </div>
             <a
               class="quill-button focus-on-light contained medium teal"
-              href="http://localhost//world-history-1200-to-present"
+              href="/world-history-1200-to-present"
             >
               View activities
             </a>
@@ -109,7 +109,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               Constructing evidence-based claims
             </h3>
             <p>
-              Every activity begins with a structured highlighting task as an entry point to the text. Then, students read and reread up to ten times in the process of developing their responses.
+              Students receive custom feedback developed by real teachers to help them use what they have read to craft strong sentences.
             </p>
           </div>
           <div
@@ -190,7 +190,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
         >
           OER Project
         </a>
-         to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER curriculum, these resources are a valuable addition to any high school world history classroom.
+         to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history classroom.
       </p>
     </section>
     <div
@@ -378,7 +378,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
           </a>
           <a
             class="quill-button focus-on-dark outlined teal large"
-            href="http://localhost//world-history-1200-to-present"
+            href="/world-history-1200-to-present"
           >
             View 1200 CE - Present activities
           </a>

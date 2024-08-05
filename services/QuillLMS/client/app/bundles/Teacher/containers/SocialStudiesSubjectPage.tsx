@@ -21,7 +21,7 @@ const quillPlusOERProjectLogoSrc = `${pageImgBaseSrc}/quill-plus-oer-project-log
 const GETTING_STARTED_COLLECTION_ID = 477
 const INTEGRATING_QUILL_EVIDENCE_ARTICLE_ID = 666
 
-const WORLD_HISTORY_1200_TO_PRESENT_LINK = `${window.location.href}/world-history-1200-to-present`
+const WORLD_HISTORY_1200_TO_PRESENT_LINK = `${window.location.pathname}/world-history-1200-to-present`.replace('//', '/')
 
 const TeacherCenterArticleCard = ({ blogPostId, }) => {
   const [blogPost, setBlogPost] = React.useState(null);
@@ -114,7 +114,7 @@ const summary = (
         <div className="summary-item">
           <img alt="" src={constructingClaimsSrc} />
           <h3>Constructing evidence-based claims</h3>
-          <p>Every activity begins with a structured highlighting task as an entry point to the text. Then, students read and reread up to ten times in the process of developing their responses.</p>
+          <p>Students receive custom feedback developed by real teachers to help them use what they have read to craft strong sentences.</p>
         </div>
         <div className="summary-item">
           <img alt="" src={sentenceFundamentalsSrc} />
@@ -151,7 +151,7 @@ const teacherQuotes = (
 const oerProject = (
   <section className="oer-project container">
     <img alt="Quill logo plus OER Project logo" src={quillPlusOERProjectLogoSrc} />
-    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
+    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
   </section>
 )
 
