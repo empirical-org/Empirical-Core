@@ -211,6 +211,8 @@ export {
   whiteEmailIcon,
   accountGreenIcon,
   accountGreyIcon,
+  globeIcon,
+  aiIcon,
 } from './images/index'
 
 export {

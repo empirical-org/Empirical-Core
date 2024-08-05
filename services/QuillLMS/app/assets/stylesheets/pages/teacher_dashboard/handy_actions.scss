@@ -6,6 +6,10 @@
     img {
       margin-right: 16px;
     }
+    span:first-of-type {
+      flex: 1;
+      text-align: left;
+    }
   }
   .handy-action-button {
     background-color: white;
