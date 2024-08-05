@@ -64,7 +64,7 @@ module LearnWorldsIntegration
 
       subjects_taught
         .compact
-        .map{ |x| string_to_subject_area_tag(x.name) }
+        .map { |x| string_to_subject_area_tag(x.name) }
         .append(user_account_type)
     end
   end

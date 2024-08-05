@@ -47,8 +47,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_id' => writing_concept.id,
           'concept_uid' => writing_concept.uid,
           'metadata' => {
-            'foo'=>'bar',
-            'correct'=>true
+            'foo' => 'bar',
+            'correct' => true
           },
         }
       end
@@ -59,8 +59,8 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_id' => writing_concept.id,
           'concept_uid' => writing_concept.uid,
           'metadata' => {
-            'baz'=>'foo',
-            'correct'=>true
+            'baz' => 'foo',
+            'correct' => true
           },
         }
       end
@@ -71,7 +71,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
           'concept_id' => another_concept.id,
           'concept_uid' => another_concept.uid,
           'metadata' => {
-            'correct'=>true
+            'correct' => true
           },
         }
       end
@@ -98,7 +98,7 @@ describe Api::V1::ActivitySessionsController, type: :controller do
         Sidekiq::Testing.inline! do
           put :update, params: { id: activity_session.uid, concept_results: concept_results_frontend_json }, as: :json
           activity_session.reload
-          expect(activity_session.concept_results.find{ |x| x.extra_metadata&.dig('foo') == 'bar' }).to be
+          expect(activity_session.concept_results.find { |x| x.extra_metadata&.dig('foo') == 'bar' }).to be
         end
       end
 
@@ -245,10 +245,10 @@ describe Api::V1::ActivitySessionsController, type: :controller do
       get :show, params: { id: session.uid }, as: :json
 
       expect(JSON.parse(response.body)['meta']).to eq({
-          'status' => 'success',
-          'message' => nil,
-          'errors' => nil
-        })
+        'status' => 'success',
+        'message' => nil,
+        'errors' => nil
+      })
       expect(JSON.parse(response.body)['activity_session']['uid']).to eq session.uid
       expect(JSON.parse(response.body)['activity_session']['percentage']).to eq session.percentage
       expect(JSON.parse(response.body)['activity_session']['state']).to eq session.state

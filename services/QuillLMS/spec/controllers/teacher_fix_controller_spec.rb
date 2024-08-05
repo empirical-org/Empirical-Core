@@ -99,7 +99,7 @@ describe TeacherFixController do
     context 'classroom exists' do
       let!(:classroom) { create(:classroom) }
       let!(:unit) { create(:unit, visible: false) }
-      let!(:classroom_unit) { create(:classroom_unit, visible: false,classroom_id: classroom.id, unit_id: unit.id) }
+      let!(:classroom_unit) { create(:classroom_unit, visible: false, classroom_id: classroom.id, unit_id: unit.id) }
 
       it 'should mark the units and activit sessions visible' do
         post :recover_classroom_units, params: { class_code: classroom.code }

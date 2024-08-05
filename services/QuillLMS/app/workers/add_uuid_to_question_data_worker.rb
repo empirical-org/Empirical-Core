@@ -6,8 +6,8 @@ class AddUuidToQuestionDataWorker
 
   def perform(type, offset, batch_size)
     questions = Question.where("jsonb_typeof(data->'#{type}') = 'array'")
-    .offset(offset)
-    .limit(batch_size)
+      .offset(offset)
+      .limit(batch_size)
 
     questions.each do |question|
       # We don't need to refresh the cache for questions as the uid will not be used by the front end yet.

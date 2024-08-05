@@ -7,7 +7,7 @@ class Cms::BlogPostsController < Cms::CmsController
   before_action :authors, :topics, only: [:index, :edit, :new]
 
   def index
-    @blog_posts_name_and_id = BlogPost.all.map{ |bp| bp.attributes.merge({ 'rating' => bp.average_rating }) }
+    @blog_posts_name_and_id = BlogPost.all.map { |bp| bp.attributes.merge({ 'rating' => bp.average_rating }) }
   end
 
   def new; end
@@ -51,24 +51,23 @@ class Cms::BlogPostsController < Cms::CmsController
 
   private def blog_post_params
     params.require(:blog_post)
-            .permit(:id,
-              :body,
-              :title,
-              :subtitle,
-              :author_id,
-              :topic,
-              :read_count,
-              :preview_card_content,
-              :draft,
-              :premium,
-              :external_link,
-              :published_at,
-              :center_images,
-              :image_link,
-              :press_name,
-              :featured_order_number,
-              :footer_content
-            )
+      .permit(:id,
+        :body,
+        :title,
+        :subtitle,
+        :author_id,
+        :topic,
+        :read_count,
+        :preview_card_content,
+        :draft,
+        :premium,
+        :external_link,
+        :published_at,
+        :center_images,
+        :image_link,
+        :press_name,
+        :featured_order_number,
+        :footer_content)
   end
 
   private def set_blog_post

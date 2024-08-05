@@ -120,7 +120,7 @@ module Evidence
         feedback_history = [{
           'feedback_type' => feedback.rule.rule_type,
           'feedback' => feedback.text
-        },{
+        }, {
           'feedback_type' => feedback2.rule.rule_type,
           'feedback' => feedback2.text
         }]

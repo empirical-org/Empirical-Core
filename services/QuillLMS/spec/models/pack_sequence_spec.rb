@@ -41,8 +41,7 @@ RSpec.describe PackSequence, type: :model do
       let(:duplicate_pack_sequence) do
         create(:pack_sequence,
           classroom: pack_sequence.classroom,
-          diagnostic_activity: pack_sequence.diagnostic_activity
-        )
+          diagnostic_activity: pack_sequence.diagnostic_activity)
       end
 
       it { expect { duplicate_pack_sequence }.to raise_error ActiveRecord::RecordNotUnique }

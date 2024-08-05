@@ -14,7 +14,7 @@ class Demo::CreateAdminReport
 
   attr_reader :data, :delay, :teacher_email
 
-  def initialize(teacher_email, passed_data=nil, delay=BATCH_DELAY)
+  def initialize(teacher_email, passed_data = nil, delay = BATCH_DELAY)
     @teacher_email = teacher_email
     @data = passed_data || Demo::SessionData.new.admin_demo_data
     @delay = delay

@@ -7,7 +7,7 @@ module TeacherNotifications
 
     FREQUENCY_WORD_LOOKUP = {
       TeacherInfo::HOURLY_EMAIL => 'hour',
-      TeacherInfo::DAILY_EMAIL  => 'day',
+      TeacherInfo::DAILY_EMAIL => 'day',
       TeacherInfo::WEEKLY_EMAIL => 'week'
     }
 

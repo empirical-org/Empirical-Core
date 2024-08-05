@@ -87,7 +87,7 @@ module Teacher
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check=nil)
+  def ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classrooms_ids_to_check = nil)
     if classrooms_ids_to_check && classrooms_ids_to_check.any?
       # if there are specific ids passed it will only return those that match
       coteacher_classroom_invitation_additional_join = "AND coteacher_classroom_invitations.classroom_id IN (#{classrooms_ids_to_check.map(&:to_i).join(', ')})"
@@ -117,7 +117,7 @@ module Teacher
     )
 
     all_ids.each do |row|
-      row.each do |k,v|
+      row.each do |k, v|
         case k
         when 'coteacher_classroom_invitation_id'
           coteacher_classroom_invitation_ids << v
@@ -166,11 +166,11 @@ module Teacher
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def handle_negative_classrooms_from_update_coteachers(classroom_ids=nil)
+  def handle_negative_classrooms_from_update_coteachers(classroom_ids = nil)
     return unless classroom_ids && classroom_ids.any?
 
     # destroy the existing invitation and teacher relationships
-    ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k,v|
+    ids_of_classroom_teachers_and_coteacher_invitations_that_i_coteach_or_am_the_invitee_of(classroom_ids).each do |k, v|
       case k
       when :classrooms_teachers_ids
         ClassroomsTeacher.where(id: v).map(&:destroy)
@@ -199,19 +199,19 @@ module Teacher
   end
 
   def classrooms_i_teach_with_students
-    classrooms_i_teach.map{ |classroom| classroom.with_students }
+    classrooms_i_teach.map { |classroom| classroom.with_students }
   end
 
   def classrooms_i_teach_with_student_ids
-    classrooms_i_teach.map{ |classroom| classroom.with_students_ids }
+    classrooms_i_teach.map { |classroom| classroom.with_students_ids }
   end
 
   def classrooms_i_own_with_students
-    classrooms_i_own.map{ |classroom| classroom.with_students }
+    classrooms_i_own.map { |classroom| classroom.with_students }
   end
 
   def classrooms_i_am_the_coteacher_for_with_a_specific_teacher_with_students(specified_teacher_id)
-    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map{ |classroom| classroom.with_students }
+    classrooms_i_am_the_coteacher_for_with_a_specific_teacher(specified_teacher_id).map { |classroom| classroom.with_students }
   end
 
   def classrooms_i_own_that_have_coteachers
@@ -327,7 +327,7 @@ module Teacher
       classy
     end
     # TODO: move setter to background worker
-    classroom_minis_cache=(info)
+    classroom_minis_cache = (info)
     info
   end
 
@@ -466,7 +466,7 @@ module Teacher
     }
     if checkbox_data[:completed].count < checkbox_data[:potential].count
       checkbox_data
-    else #checkbox data unnecessary
+    else # checkbox data unnecessary
       false
     end
   end
@@ -481,7 +481,7 @@ module Teacher
 
   def teachers_activity_sessions_since_trial_start_date
     ActivitySession.where(user: students)
-                   .where('completed_at >= ?', TRIAL_START_DATE)
+      .where('completed_at >= ?', TRIAL_START_DATE)
   end
 
   def trial_days_remaining
@@ -547,7 +547,7 @@ module Teacher
     lessons_cache
   end
 
-  def set_lessons_cache(lessons_data=nil)
+  def set_lessons_cache(lessons_data = nil)
     if !lessons_data
       lessons_data = data_for_lessons_cache
     end
@@ -609,7 +609,7 @@ module Teacher
     ).to_a
   end
 
-  def ids_and_names_of_affiliated_students(classroom_id=nil)
+  def ids_and_names_of_affiliated_students(classroom_id = nil)
     students_classrooms_filter = classroom_id.blank? ? '' : " AND students_classrooms.classroom_id = #{classroom_id.to_i}"
 
     RawSqlRunner.execute(
@@ -700,12 +700,12 @@ module Teacher
 
   def assigned_students_per_activity_assigned
     ClassroomUnit.joins('JOIN unit_activities ON classroom_units.unit_id=unit_activities.unit_id')
-    .joins('JOIN activities ON activities.id = unit_activities.activity_id')
-    .joins('JOIN classrooms ON classrooms.id = classroom_units.classroom_id')
-    .joins('JOIN classrooms_teachers ON classrooms.id=classrooms_teachers.classroom_id')
-    .joins('JOIN users on users.id = classrooms_teachers.user_id')
-    .where('users.id = ?', id)
-    .select('assigned_student_ids, activities.id, unit_activities.created_at')
+      .joins('JOIN activities ON activities.id = unit_activities.activity_id')
+      .joins('JOIN classrooms ON classrooms.id = classroom_units.classroom_id')
+      .joins('JOIN classrooms_teachers ON classrooms.id=classrooms_teachers.classroom_id')
+      .joins('JOIN users on users.id = classrooms_teachers.user_id')
+      .where('users.id = ?', id)
+      .select('assigned_student_ids, activities.id, unit_activities.created_at')
   end
 
   private def base_sql_for_teacher_classrooms(only_visible_classrooms: true)

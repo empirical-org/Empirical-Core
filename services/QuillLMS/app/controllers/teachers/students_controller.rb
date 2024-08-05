@@ -37,7 +37,7 @@ class Teachers::StudentsController < ApplicationController
         end
         user_params.merge!(validate_username: validate_username)
         if @student.update(user_params)
-          #head :ok
+          # head :ok
           redirect_to teachers_classroom_students_path(@classroom)
         else
           flash.now[:error] = @student.errors.full_messages.join('. ')

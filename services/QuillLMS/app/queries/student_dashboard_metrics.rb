@@ -12,11 +12,11 @@ class StudentDashboardMetrics
 
   def run
     {
-       day: metrics_from_start_date(today),
-       week: metrics_from_start_date(last_sunday),
-       month: metrics_from_start_date(today.beginning_of_month),
-       year: metrics_from_start_date(school_year_start)
-     }
+      day: metrics_from_start_date(today),
+      week: metrics_from_start_date(last_sunday),
+      month: metrics_from_start_date(today.beginning_of_month),
+      year: metrics_from_start_date(school_year_start)
+    }
   end
 
   def metrics_from_start_date(start_date)

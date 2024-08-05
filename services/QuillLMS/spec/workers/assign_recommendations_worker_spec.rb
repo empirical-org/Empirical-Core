@@ -156,9 +156,9 @@ RSpec.describe AssignRecommendationsWorker do
       .with(
         unit.id,
         {
-            id: classroom.id,
-            student_ids: [student.id],
-            assign_on_join: false
+          id: classroom.id,
+          student_ids: [student.id],
+          assign_on_join: false
         },
         unit_template.id,
         teacher.id,
@@ -175,9 +175,9 @@ RSpec.describe AssignRecommendationsWorker do
         teacher.id,
         unit_template.id,
         {
-            id: classroom.id,
-            student_ids: [student.id],
-            assign_on_join: false
+          id: classroom.id,
+          student_ids: [student.id],
+          assign_on_join: false
         }
       )
 

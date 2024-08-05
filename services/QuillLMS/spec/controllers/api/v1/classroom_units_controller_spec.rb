@@ -9,8 +9,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
   let(:classroom_unit) do
     create(:classroom_unit,
       classroom: classroom,
-      assigned_student_ids: students.map(&:id)
-    )
+      assigned_student_ids: students.map(&:id))
   end
   let(:activity) { create(:lesson_activity, :with_follow_up) }
   let!(:activity_sessions) do
@@ -18,8 +17,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       create(:activity_session,
         classroom_unit: classroom_unit,
         activity: activity,
-        user: student
-      )
+        user: student)
     end
   end
   let(:teacher) { classroom.owner }
@@ -58,8 +56,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       replacement_activity_session = create(:activity_session,
         classroom_unit: removed_activity_session.classroom_unit,
         activity: removed_activity_session.activity,
-        user: removed_activity_session.user
-      )
+        user: removed_activity_session.user)
       session[:user_id] = teacher.id
       get :student_names, params: { activity_id: activity.uid, classroom_unit_id: classroom_unit.id }, as: :json
       expect(JSON.parse(response.body)['activity_sessions_and_names'].keys.count).to eq(5)
@@ -86,7 +83,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
       session[:user_id] = teacher.id
       get :teacher_and_classroom_name, params: { classroom_unit_id: classroom_unit.id }, as: :json
       expect(JSON.parse(response.body))
-        .to eq({ 'teacher'=>teacher.name, 'classroom'=>classroom.name })
+        .to eq({ 'teacher' => teacher.name, 'classroom' => classroom.name })
     end
   end
 
@@ -99,8 +96,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         classroom_unit: classroom_unit,
         unit_activity: unit_activity,
         pinned: true,
-        locked: false
-      )
+        locked: false)
     end
 
     it 'does not authenticate a teacher who does not own the classroom activity' do
@@ -192,7 +188,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         },
         as: :json
 
-      expect(JSON.parse(response.body)).to eq({ 'follow_up_url'=> (ENV['DEFAULT_URL']).to_s })
+      expect(JSON.parse(response.body)).to eq({ 'follow_up_url' => (ENV['DEFAULT_URL']).to_s })
     end
 
     it 'destroys ActivitySessions with no ConceptResults related to them' do
@@ -285,8 +281,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         classroom_unit: classroom_unit,
         unit_activity: unit_activity,
         pinned: true,
-        locked: false
-      )
+        locked: false)
     end
 
     before { session[:user_id] = teacher.id }

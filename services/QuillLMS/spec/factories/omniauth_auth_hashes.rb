@@ -9,7 +9,7 @@ FactoryBot.define do
         OmniAuth::AuthHash.new(
           provider: 'canvas',
           uid: uid,
-          info:  {
+          info: {
             name: name,
             email: email,
             bio: nil,
@@ -18,14 +18,14 @@ FactoryBot.define do
             active_avatar: nil,
             url: url
           },
-          credentials:  {
+          credentials: {
             token: token,
             refresh_token: refresh_token,
             expires_at: expires_at,
             expires: true
           },
-          extra:  {
-            raw_info:  {
+          extra: {
+            raw_info: {
               id: uid,
               name: name,
               short_name: short_name,

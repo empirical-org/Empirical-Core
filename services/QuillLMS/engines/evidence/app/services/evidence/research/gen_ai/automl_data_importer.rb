@@ -32,7 +32,7 @@ module Evidence
                 label = example['label']
                 text = data['feedback'][conjunction][label]
                 example_index = data['examples'][conjunction][label]&.index(response)
-                paraphrase = example_index ? data.dig('evaluation',conjunction,label,example_index) : nil
+                paraphrase = example_index ? data.dig('evaluation', conjunction, label, example_index) : nil
 
                 stem_vault
                   .student_responses

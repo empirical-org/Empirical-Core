@@ -22,7 +22,7 @@ class Teachers::ProgressReports::Standards::ClassroomStandardsController < Teach
         render json: {
           standards: standards_json,
           units: units_with_completed_activities(cus),
-          classroom: current_user.classrooms_i_teach.find{ |classroom| classroom.id == params[:classroom_id].to_i },
+          classroom: current_user.classrooms_i_teach.find { |classroom| classroom.id == params[:classroom_id].to_i },
           teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
         }
       end

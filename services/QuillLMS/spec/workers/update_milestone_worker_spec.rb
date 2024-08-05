@@ -17,8 +17,7 @@ describe UpdateMilestonesWorker do
       activity_session = create(:activity_session,
         state: 'finished',
         classroom_unit: classroom_unit,
-        activity: activity
-      )
+        activity: activity)
       expect(teacher.reload.milestones).to_not include(completed_milestone)
       described_class.new.perform(activity_session.uid)
       expect(teacher.reload.milestones).to include(completed_milestone)

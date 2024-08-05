@@ -12,32 +12,28 @@ describe QuestionHealthDashboard, type: :model do
     create(:concept_result,
       activity_session: activity_session1,
       question_number: 1,
-      question_score: 1
-    )
+      question_score: 1)
   end
 
   let!(:concept_result2) do
     create(:concept_result,
       activity_session: activity_session2,
       question_number: 1,
-      question_score: 0.75
-    )
+      question_score: 0.75)
   end
 
   let!(:concept_result3) do
     create(:concept_result,
       activity_session: activity_session3,
       question_number: 1,
-      question_score: 0
-    )
+      question_score: 0)
   end
 
   let!(:concept_result4) do
     create(:concept_result,
       activity_session: activity_session1,
       question_number: 2,
-      question_score: 1
-    )
+      question_score: 1)
   end
 
   describe '#percent_reached_optimal_for_question' do

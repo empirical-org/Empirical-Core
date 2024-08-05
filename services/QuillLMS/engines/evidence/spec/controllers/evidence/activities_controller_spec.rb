@@ -144,9 +144,9 @@ module Evidence
       it 'should create a new default regex rule for the because prompt' do
         post :create,
           params: {
-            activity:  {
+            activity: {
               parent_activity_id: activity.parent_activity_id,
-              scored_level:  activity.scored_level,
+              scored_level: activity.scored_level,
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
@@ -166,9 +166,9 @@ module Evidence
       it 'should create a new default regex rule for the so prompt' do
         post :create,
           params: {
-            activity:  {
+            activity: {
               parent_activity_id: activity.parent_activity_id,
-              scored_level:  activity.scored_level,
+              scored_level: activity.scored_level,
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
@@ -189,9 +189,9 @@ module Evidence
       it 'should create a new default regex rule for repeating the stem' do
         post :create,
           params: {
-            activity:  {
+            activity: {
               parent_activity_id: activity.parent_activity_id,
-              scored_level:  activity.scored_level,
+              scored_level: activity.scored_level,
               target_level: activity.target_level,
               title: activity.title,
               notes: activity.notes,
@@ -463,7 +463,7 @@ module Evidence
       end
 
       it 'should call background worker with noun string converted to array' do
-        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1','noun two','noun3'], label_configs, true)
+        expect(Evidence::ActivitySeedDataWorker).to receive(:perform_async).with(activity.id, ['noun1', 'noun two', 'noun3'], label_configs, true)
         post :seed_data, params: { id: activity.id, nouns: 'noun1, noun two,,noun3' }
 
         expect(response).to have_http_status(:success)

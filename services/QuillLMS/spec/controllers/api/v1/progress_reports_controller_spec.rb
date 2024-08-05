@@ -24,7 +24,7 @@ describe Api::V1::ProgressReportsController, type: :controller do
     context 'StudentsClassrooms instance does not exist' do
       it 'should not double render' do
         session[:user_id] = teacher.id
-        get :student_overview_data, params: { student_id: unaffiliated_student.id, classroom_id: classroom.id+1 }, as: :json
+        get :student_overview_data, params: { student_id: unaffiliated_student.id, classroom_id: classroom.id + 1 }, as: :json
         expect(response).to redirect_to new_session_path
       end
     end

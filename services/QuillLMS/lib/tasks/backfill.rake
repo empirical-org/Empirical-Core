@@ -5,7 +5,7 @@ namespace :backfill do
   desc 'backfills updated_at so null values do not exist'
   task :updated_at, [:klass, :fill_datetime] => :environment do |t, args|
     klass = args[:klass].constantize
-    fallback_fill_datetime = DateTime.new(2018,4,1)
+    fallback_fill_datetime = DateTime.new(2018, 4, 1)
 
     fill_datetime = args[:fill_datetime] ? DateTime.parse(args[:fill_datetime]) : fallback_fill_datetime
 

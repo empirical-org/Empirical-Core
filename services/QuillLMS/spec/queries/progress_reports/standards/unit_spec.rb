@@ -10,7 +10,7 @@ describe ProgressReports::Standards::Unit do
     let(:teacher) { classrooms.first.owner }
 
     before do
-      ClassroomsTeacher.all.each{ |ct| ct.update(user: teacher) }
+      ClassroomsTeacher.all.each { |ct| ct.update(user: teacher) }
     end
 
     subject { ProgressReports::Standards::Unit.new(teacher).results(filters).to_a }

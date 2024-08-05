@@ -45,6 +45,10 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
 
   translatedText = () => {
     const { activity, language } = this.props;
+
+    // Proofreader does not actually set the activity on props, so bail
+    if (!activity) return false
+
     const { translations, } = activity;
     return translations && translations[language];
   }

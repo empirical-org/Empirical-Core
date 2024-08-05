@@ -76,13 +76,15 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
     end
 
     it 'caches data about the assignment' do
-      lesson_data = { 'classroom_unit_id' => cua.classroom_unit.id,
+      lesson_data = {
+        'classroom_unit_id' => cua.classroom_unit.id,
         'classroom_unit_activity_state_id' => cua.id,
         'activity_id' => cua.unit_activity.activity.id,
         'activity_name' => cua.unit_activity.activity.name,
         'unit_id' => cua.classroom_unit.unit_id,
         'completed' => cua.completed,
-        'visible' => cua.unit_activity.visible }
+        'visible' => cua.unit_activity.visible
+      }
       expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
     end
 
@@ -96,20 +98,24 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
       classroom2.teachers.destroy_all
       create(:classrooms_teacher, user_id: teacher.id, classroom_id: classroom2.id)
       cua2.save
-      lesson_data = { 'classroom_unit_id' => cua.classroom_unit.id,
+      lesson_data = {
+        'classroom_unit_id' => cua.classroom_unit.id,
         'classroom_unit_activity_state_id' => cua.id,
         'activity_id' => cua.unit_activity.activity.id,
         'activity_name' => cua.unit_activity.activity.name,
         'unit_id' => cua.classroom_unit.unit_id,
         'completed' => cua.completed,
-        'visible' => unit_activity.visible }
-      lesson2_data = { 'classroom_unit_id' => cua2.classroom_unit.id,
+        'visible' => unit_activity.visible
+      }
+      lesson2_data = {
+        'classroom_unit_id' => cua2.classroom_unit.id,
         'classroom_unit_activity_state_id' => cua2.id,
         'activity_id' => cua2.unit_activity.activity.id,
         'activity_name' => cua2.unit_activity.activity.name,
         'unit_id' => cua2.classroom_unit.unit_id,
         'completed' => cua2.completed,
-        'visible' => unit_activity.visible }
+        'visible' => unit_activity.visible
+      }
       expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson2_data].to_json)
     end
   end

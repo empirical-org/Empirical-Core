@@ -143,7 +143,7 @@ RSpec.describe Demo::ReportDemoCreator do
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
         it { expect(subject.find_by(name: 'Angie Thomas').username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
-        it { expect(subject.all?{ |s| s.authenticate(demo_password) }).to be true }
+        it { expect(subject.all? { |s| s.authenticate(demo_password) }).to be true }
         it { expect(subject.exists?(email: angie_email)).to be true }
       end
 
@@ -153,7 +153,7 @@ RSpec.describe Demo::ReportDemoCreator do
         it { expect(subject.count).to eq 5 }
         it { expect(subject.map(&:name).sort).to eq student_names }
         it { expect(subject.find_by(name: 'Angie Thomas').username).to eq "angie.thomas.#{classroom.id}@demo-teacher" }
-        it { expect(subject.all?{ |s| s.authenticate(demo_password) }).to be true }
+        it { expect(subject.all? { |s| s.authenticate(demo_password) }).to be true }
         it { expect(subject.exists?(email: angie_email)).to be false }
       end
     end
@@ -202,12 +202,12 @@ RSpec.describe Demo::ReportDemoCreator do
       subject { Demo::ReportDemoCreator.reset_account(teacher.id) }
 
       it 'should create expected counts for untouched account' do
-        expect{ subject }
-          .to not_change{ teacher.reload.google_id }.from(nil)
-          .and not_change{ teacher.reload.clever_id }.from(nil)
-          .and not_change{ teacher.classrooms_i_teach.count }.from(1)
-          .and not_change{ teacher.classrooms_i_teach.map(&:id) }
-          .and not_change{ teacher.reload.auth_credential }.from(nil)
+        expect { subject }
+          .to not_change { teacher.reload.google_id }.from(nil)
+          .and not_change { teacher.reload.clever_id }.from(nil)
+          .and not_change { teacher.classrooms_i_teach.count }.from(1)
+          .and not_change { teacher.classrooms_i_teach.map(&:id) }
+          .and not_change { teacher.reload.auth_credential }.from(nil)
       end
 
       context 'teacher account has added data' do
@@ -217,14 +217,14 @@ RSpec.describe Demo::ReportDemoCreator do
         let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher) }
 
         it 'should create expected counts' do
-          expect{ subject }
-            .to change{ teacher.reload.google_id }.from('1234').to(nil)
-            .and change{ teacher.reload.clever_id }.from('5678').to(nil)
+          expect { subject }
+            .to change { teacher.reload.google_id }.from('1234').to(nil)
+            .and change { teacher.reload.clever_id }.from('5678').to(nil)
             .and change { teacher.reload.classrooms_i_teach.count }.from(2).to(1)
             .and change(AuthCredential, :count).from(1).to(0)
             .and change(Classroom.where(id: classroom.id), :count).from(1).to(0)
             .and not_change(Classroom.unscoped.where(id: classroom.id), :count).from(1)
-            .and not_change{ Demo::ReportDemoCreator.demo_classroom(teacher.reload).id }
+            .and not_change { Demo::ReportDemoCreator.demo_classroom(teacher.reload).id }
         end
       end
 
@@ -234,14 +234,14 @@ RSpec.describe Demo::ReportDemoCreator do
           demo_classroom.update(name: 'my classroom name')
         end
 
-        it { expect{ subject }.to change{ Demo::ReportDemoCreator.demo_classroom(teacher.reload).id } }
+        it { expect { subject }.to change { Demo::ReportDemoCreator.demo_classroom(teacher.reload).id } }
 
         it 'should not raise an error with two occurences running at once' do
           threads = Array.new(2) do
             Thread.new { subject }.tap { |thread| thread.report_on_exception = false }
           end
 
-          expect{ threads.map(&:join) }.to_not raise_error
+          expect { threads.map(&:join) }.to_not raise_error
         end
       end
     end

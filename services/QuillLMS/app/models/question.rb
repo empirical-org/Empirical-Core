@@ -77,7 +77,7 @@ class Question < ApplicationRecord
   scope :live, -> { where("data->>'flag' IN (?)", LIVE_FLAGS) }
   scope :production, -> { where("data->>'flag' = ?", FLAG_PRODUCTION) }
 
-  def as_json(options=nil)
+  def as_json(options = nil)
     locale = options&.fetch(:locale, nil)
     json = locale.present? ? translated_data(locale:) : data
     json.merge(question_type:)

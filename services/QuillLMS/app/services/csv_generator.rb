@@ -51,8 +51,8 @@ class CsvGenerator < ApplicationService
   end
 
   private def columns = specified_columns || ordered_columns.keys
-  private def csv_headers = sym_columns.map{ |col| ordered_columns[col][:csv_header] }
-  private def csv_tooltips = sym_columns.map{ |col| ordered_columns[col][:csv_tooltip] }
+  private def csv_headers = sym_columns.map { |col| ordered_columns[col][:csv_header] }
+  private def csv_tooltips = sym_columns.map { |col| ordered_columns[col][:csv_tooltip] }
   # No pre-processing by default
   private def pre_processed_result = data
   private def sym_columns = columns.map(&:to_sym)

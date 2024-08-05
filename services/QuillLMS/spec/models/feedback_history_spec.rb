@@ -49,9 +49,9 @@ RSpec.describe FeedbackHistory, type: :model do
 
     it do
       expect(subject).to validate_numericality_of(:attempt)
-       .only_integer
-       .is_greater_than_or_equal_to(1)
-       .is_less_than_or_equal_to(5)
+        .only_integer
+        .is_greater_than_or_equal_to(1)
+        .is_less_than_or_equal_to(5)
     end
 
     it { should validate_length_of(:concept_uid).is_equal_to(22) }
