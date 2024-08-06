@@ -4,6 +4,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import * as Redux from "redux";
 import Pusher from 'pusher-js';
+import { withTranslation } from 'react-i18next';
 
 import Intro from './intro';
 import QuestionComponent from './question';
@@ -68,7 +69,9 @@ interface PlayGrammarContainerProps {
   isOnMobile: boolean;
   handleTogglePreviewMenu: () => void;
   updateLanguage: () => void;
-  languageOptions: DropdownObjectInterface[];
+  availableLanguages: string[];
+  language?: string;
+  t: (language: string) => string;
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -336,7 +339,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, languageOptions, updateLanguage, language } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, availableLanguages, updateLanguage, language, t } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -348,6 +351,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             <QuestionComponent
               activity={grammarActivities ? grammarActivities.currentActivity : null}
               answeredQuestions={session.answeredQuestions}
+              availableLanguages={availableLanguages}
               checkAnswer={this.checkAnswer}
               concepts={concepts}
               conceptsFeedback={conceptsFeedback}
@@ -357,21 +361,22 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               handleTogglePreviewMenu={handleTogglePreviewMenu}
               handleToggleQuestion={handleToggleQuestion}
               isOnMobile={isOnMobile}
+              language={language}
               previewMode={previewMode}
               questions={questions}
               questionSet={session.questionSet}
               unansweredQuestions={session.unansweredQuestions}
+              translate={t}
             />
           )
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if (languageOptions && hasTranslationFlag() && !language) {
-          const languages = languageOptions.map(language => language.value)
+        if (availableLanguages && hasTranslationFlag() && !language) {
           return (
             <LanguageSelectionPage
               dispatch={dispatch}
-              languages={languages}
+              languages={availableLanguages}
               previewMode={previewMode}
               setLanguage={updateLanguage}
             />
@@ -415,4 +420,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlayGrammarContainer);
+export default withTranslation()(connect(mapStateToProps, mapDispatchToProps)(PlayGrammarContainer));

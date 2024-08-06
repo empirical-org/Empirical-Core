@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Header } from "./Header";
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
+import i18n from '../../Shared/libs/translations/i18n';
 import { ScreenreaderInstructions, TeacherPreviewMenu, getlanguageOptions, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
@@ -71,6 +72,7 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
   }
 
   function handleUpdateLanguage(language: string) {
+    i18n.changeLanguage(language);
     const action = setLanguage(language)
     dispatch(action)
   }
@@ -89,7 +91,7 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
           previewMode: showPreview,
           questionToPreview: questionToPreview,
           skippedToQuestionFromIntro: skippedToQuestionFromIntro,
-          languageOptions: languageOptions,
+          availableLanguages: languageOptions && languageOptions.map(option => option.value),
           updateLanguage: handleUpdateLanguage,
           language: language
         })}</div>

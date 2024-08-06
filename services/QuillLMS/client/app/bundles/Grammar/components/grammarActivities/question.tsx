@@ -13,12 +13,14 @@ import {
   getLatestAttempt,
   hashToCollection,
   FinalAttemptFeedback,
-  ALLOWED_ATTEMPTS
+  ALLOWED_ATTEMPTS,
+  ENGLISH
 } from '../../../Shared/index';
 import * as responseActions from '../../actions/responses';
 import { setCurrentQuestion } from '../../actions/session';
 import { GrammarActivity } from '../../interfaces/grammarActivities';
 import { Question } from '../../interfaces/questions';
+import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 
 const UNANSWERED = 'unanswered'
 const CORRECTLY_ANSWERED = 'correctly answered'
@@ -28,6 +30,7 @@ const INCORRECTLY_ANSWERED = 'incorrectly answered'
 interface QuestionProps {
   activity: GrammarActivity | null;
   answeredQuestions: Question[] | never;
+  availableLanguages?: string[];
   dispatch: Function;
   unansweredQuestions: Question[] | never;
   currentQuestion: Question;
@@ -41,6 +44,8 @@ interface QuestionProps {
   handleToggleQuestion: (question: Question) => void;
   isOnMobile: boolean;
   handleTogglePreviewMenu: () => void;
+  language?: string;
+  translate: (language: string) => string;
 }
 
 interface QuestionState {
@@ -280,20 +285,29 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   renderCheckAnswerButton(): JSX.Element | void {
     const { questionStatus, responses, response } = this.state
-    const { unansweredQuestions, previewMode } = this.props;
+    const { unansweredQuestions, previewMode, language, availableLanguages, translate } = this.props;
+    let showTranslatedButtonText = false
+    let defaultButtonText = 'Get feedback'
+    if (language && language !== ENGLISH && availableLanguages && availableLanguages.includes(language)) {
+      showTranslatedButtonText = true
+      defaultButtonText = translate(`buttons^${defaultButtonText.toLowerCase()}`)
+    }
     const buttonClassName = "quill-button-archived primary contained large focus-on-light"
 
     if (!Object.keys(responses).length) { return }
 
     if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
-      const buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question';
+      let buttonText = unansweredQuestions.length === 0 ? 'Next' : 'Next question';
+      if(showTranslatedButtonText) {
+        buttonText = translate(`buttons^${buttonText.toLowerCase()}`)
+      }
       const disabledStatus = previewMode && buttonText === 'Next' ? 'disabled' : '';
       return <button className={`${buttonClassName} ${disabledStatus}`} disabled={!!disabledStatus} onClick={this.handleNextProblemClick} type="submit">{buttonText}</button>
     }
     if (!response.length || this.previousResponses().includes(response)) {
-      return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
+      return <button className={`${buttonClassName} disabled`} type="submit">{defaultButtonText}</button>
     }
-    return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
+    return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">{defaultButtonText}</button>
   }
 
   getQuestionCounts = (): object => {

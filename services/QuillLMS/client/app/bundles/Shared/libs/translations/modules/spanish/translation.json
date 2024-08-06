@@ -4,7 +4,9 @@
         "continue": "Continue / Seguir",
         "next": "Next / Seguir",
         "resume": "Resume / Seguir",
-        "submit": "Submit / Enviar"
+        "submit": "Submit / Enviar",
+        "get feedback": "Get feedback / Obtener comentarios",
+        "next question": "Next question / Próxima pregunta"
     },
     "ELL Starter Fill in the Blank": {
         "header": "Rellena el espacio en blanco",

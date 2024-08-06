@@ -40,7 +40,6 @@ import {
   getProgressPercent,
   questionCount
 } from '../../libs/calculateProgress';
-import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { ENGLISH, defaultLanguages } from '../../../Shared/utils/languageList';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
