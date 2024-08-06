@@ -29,8 +29,7 @@ class CacheAdminSnapshotsWorker
       Snapshots::Timeframes::DEFAULT_TIMEFRAME,
       timeframe_start,
       timeframe_end,
-      @school_ids
-    )
+      @school_ids)
 
     [
       cache_key,

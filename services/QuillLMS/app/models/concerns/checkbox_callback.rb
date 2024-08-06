@@ -3,7 +3,7 @@
 module CheckboxCallback
   extend ActiveSupport::Concern
 
-  def find_or_create_checkbox(name, user, activity_id=nil)
+  def find_or_create_checkbox(name, user, activity_id = nil)
     objective = Objective.find_by(name: name)
 
     return unless objective && user

@@ -7,18 +7,18 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
     # spreadsheet are resolved:
     # https://docs.google.com/spreadsheets/d/1mSXhH0K_cI3aKY7pbO15qnDciBqomwMAueJmBIni8Zo/edit#gid=1194313690
     lessons_to_archive = [
-                          '-KSIwNNwPar51hq9bNIw',
-                          '-LJ_F7B64Mn4YtIRE-Sk',
-                          '-LKldebIl3TApTzAWgBM',
-                          '-KKxoMfLSawnlMtZUXC6',
-                          '-LKldaleWFYhQN2eVJ7T',
-                          '-KW_2fEvZBJB3GKYpzK2'
-                        ]
+      '-KSIwNNwPar51hq9bNIw',
+      '-LJ_F7B64Mn4YtIRE-Sk',
+      '-LKldebIl3TApTzAWgBM',
+      '-KKxoMfLSawnlMtZUXC6',
+      '-LKldaleWFYhQN2eVJ7T',
+      '-KW_2fEvZBJB3GKYpzK2'
+    ]
     lessons_to_alpha = [
-                         '-LKldZKSHx3hP9_2Vv5v',
-                         '-LKldYuOrBMBpfujBbjg',
-                         '-LKld_Wf0lzgNnEvY5aA'
-                       ]
+      '-LKldZKSHx3hP9_2Vv5v',
+      '-LKldYuOrBMBpfujBbjg',
+      '-LKld_Wf0lzgNnEvY5aA'
+    ]
 
     if defined?(Lesson)
       Lesson.where(uid: lessons_to_archive).each do |lesson|
@@ -34,7 +34,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
       Lesson.all.each do |lesson|
         activity = Activity.find_by(uid: lesson.uid)
         if activity.blank?
-          activity = Activity.new(:name=> lesson[:data]['name'], :uid=>lesson.uid, :flags=>[lesson[:data]['flag']])
+          activity = Activity.new(:name => lesson[:data]['name'], :uid => lesson.uid, :flags => [lesson[:data]['flag']])
 
           case lesson.lesson_type
           when Lesson::TYPE_CONNECT_LESSON
@@ -61,7 +61,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration[4.2]
       end
     end
 
-    Activity.where(:data=> nil).each do |a|
+    Activity.where(:data => nil).each do |a|
       data = {}
       data['flag'] = a.flags[0]
       a.data = data

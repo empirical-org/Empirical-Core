@@ -7,7 +7,7 @@ describe OpenAI::TranslateActivityAndQuestionsWorker, type: :worker do
   let(:activity) { create(:activity) }
 
   context 'an activity_id is passed in' do
-    subject{ worker.perform(activity.id) }
+    subject { worker.perform(activity.id) }
 
     before do
       allow(OpenAI::Translate).to receive(:run)
@@ -29,7 +29,7 @@ describe OpenAI::TranslateActivityAndQuestionsWorker, type: :worker do
   end
 
   context 'the activity is not present' do
-    subject{ worker.perform("223980") }
+    subject { worker.perform("223980") }
 
     it do
       expect(OpenAI::Translate).not_to receive(:run)

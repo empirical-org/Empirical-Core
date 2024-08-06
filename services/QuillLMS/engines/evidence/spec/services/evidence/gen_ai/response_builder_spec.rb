@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
   let(:chat_response) { { 'feedback' => 'Sample feedback', 'optimal' => true, 'highlight' => '1' } }
   let(:entry) { double('Entry') }
-  let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_texts: ['Highlight text 1']) }
+  let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_arrays: [['Highlight text 1']]) }
   let(:rule) { double('Rule', concept_uid: 'sample_concept_uid') }
 
   before do
@@ -70,7 +70,7 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
 
     describe '#highlight_text' do
       it 'returns the correct highlight text based on the highlight key' do
-        expect(subject.send(:highlight_text)).to eq('Highlight text 1')
+        expect(subject.send(:highlight_array)).to eq(['Highlight text 1'])
       end
     end
 

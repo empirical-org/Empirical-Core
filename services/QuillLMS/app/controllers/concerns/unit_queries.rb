@@ -25,8 +25,7 @@ module UnitQueries
       " JOIN units ON classroom_units.unit_id = units.id
         JOIN unit_activities ON unit_activities.unit_id = units.id
       "
-    ).where('classroom_units.classroom_id IN (?)', current_user.classrooms_i_teach.map(&:id)
-    ).where('unit_activities.activity_id = ?', activity_id)
+    ).where('classroom_units.classroom_id IN (?)', current_user.classrooms_i_teach.map(&:id)).where('unit_activities.activity_id = ?', activity_id)
     classroom_units.map do |cu|
       classroom_unit_hash = cu.attributes
       number_of_assigned_students = cu.assigned_student_ids.length

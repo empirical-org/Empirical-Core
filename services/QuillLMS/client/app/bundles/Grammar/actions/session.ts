@@ -132,7 +132,16 @@ const activityUID = (): string => { return getParameterByName('uid', window.loca
 const handleGrammarSession = (session) => {
   return dispatch => {
     if (session && Object.keys(session).length > 1 && !session.error) {
-      QuestionApi.getAllForActivity(activityUID).then((allQuestions) => {
+
+      // activityUID will not be set in cases where a user is resuming a
+      // Proofreader activity (that feeds into a Grammar activity).  We need
+      // to provide a fallback to load all questions in these cases so that
+      // the activity will fetch data properly
+      const fetchQuestions = activityUID()
+        ? QuestionApi.getAllForActivity(activityUID())
+        : QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE);
+
+      fetchQuestions.then((allQuestions) => {
         if (session.currentQuestion) {
           if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
             const currentQuestion = allQuestions[session.currentQuestion.uid]
@@ -323,5 +332,11 @@ export const startNewSession = () => {
 export const setCurrentQuestion = (question: Question) => {
   return dispatch => {
     dispatch({ type: ActionTypes.SET_CURRENT_QUESTION, question })
+  }
+}
+
+export const setLanguage = (language: string) => {
+  return dispatch => {
+    dispatch({ type: ActionTypes.SET_LANGUAGE, language })
   }
 }

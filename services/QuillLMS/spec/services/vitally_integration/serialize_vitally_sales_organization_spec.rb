@@ -109,30 +109,44 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           diagnostics_assigned_last_year: 0
         )
       end
+
+      it 'should roll up data for archived classrooms' do
+        classroom2 = create(:classroom, visible: false)
+        create(:classrooms_teacher, user: teacher1, classroom: classroom2)
+        student3 = create(:student)
+        create(:classroom_unit, classroom: classroom2, unit: unit, assigned_student_ids: [student2.id, student3.id])
+
+        expect(described_class.new(district).data[:traits]).to include(
+          diagnostics_assigned_this_year: 4
+        )
+      end
     end
 
     context 'diagnostic completion rollups' do
       let!(:classroom_unit) { create(:classroom_unit, classroom: classroom1, unit: unit, assigned_student_ids: [student1.id, student2.id]) }
       let!(:activity_session1) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student1, completed_at: Time.current) }
+      let!(:activity_session2) { create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit, user: student2, completed_at: Time.current) }
 
       it 'should roll up diagnostic completions this year' do
         expect(described_class.new(district).data[:traits]).to include(
-          diagnostics_completed_this_year: 1,
+          diagnostics_completed_this_year: 2,
           diagnostics_completed_last_year: 0
         )
       end
 
       it 'should roll up diagnostic completions from last year' do
         activity_session1.update(completed_at: 1.year.ago)
+        activity_session2.update(completed_at: 1.year.ago)
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0,
-          diagnostics_completed_last_year: 1
+          diagnostics_completed_last_year: 2
         )
       end
 
       it 'should not count activity_session records that are not completed' do
         activity_session1.update(completed_at: nil, state: 'started')
+        activity_session2.update(completed_at: nil, state: 'started')
 
         expect(described_class.new(district).data[:traits]).to include(
           diagnostics_completed_this_year: 0
@@ -150,7 +164,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         create(:activity_session, activity: diagnostic, classroom_unit: classroom_unit2, user: student2, completed_at: Time.current)
 
         expect(described_class.new(district).data[:traits]).to include(
-          diagnostics_completed_this_year: 2
+          diagnostics_completed_this_year: 3
         )
       end
 
@@ -194,7 +208,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         student_three = create(:user, role: 'student')
 
         classroom = create(:classroom)
-        classroom_two = create(:classroom)
+        classroom_two = create(:classroom, visible: false)
         create(:classrooms_teacher, user: teacher, classroom: classroom)
         create(:classrooms_teacher, user: teacher_two, classroom: classroom_two)
         create(:students_classrooms, student: student, classroom: classroom)
@@ -212,45 +226,39 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           activity: evidence_unit_activity.activity,
           user: student,
           state: 'finished',
-          completed_at: middle_of_school_year - 10.days
-        )
+          completed_at: middle_of_school_year - 10.days)
         create(:activity_session,
           classroom_unit: classroom_unit_two,
           activity: evidence_unit_activity_two.activity,
           user: student_three,
           state: 'finished',
-          completed_at: middle_of_school_year - 10.days
-        )
+          completed_at: middle_of_school_year - 10.days)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student,
           state: 'finished',
-          completed_at: middle_of_school_year - 3.days
-        )
+          completed_at: middle_of_school_year - 3.days)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student,
           state: 'finished',
-          completed_at: middle_of_school_year - 5.days
-        )
+          completed_at: middle_of_school_year - 5.days)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student_two,
           state: 'finished',
           created_at: middle_of_school_year - 1.year,
-          completed_at: middle_of_school_year - 1.year
-        )
+          completed_at: middle_of_school_year - 1.year)
         create(:activity_session,
           classroom_unit: classroom_unit,
           activity: evidence_unit_activity.activity,
           user: student_two,
           state: 'started',
           created_at: middle_of_school_year - 1.year,
-          completed_at: middle_of_school_year - 1.year
-        )
+          completed_at: middle_of_school_year - 1.year)
       end
 
       it 'should roll up evidence assignments this year and last year and all time' do
@@ -283,16 +291,14 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
           districts: [district],
           payment_amount: 1800,
           stripe_invoice_id: 'in_12345678',
-          purchase_order_number: 'PO-1234'
-        )
+          purchase_order_number: 'PO-1234')
       }
 
       let!(:old_subscription) {
         create(:subscription,
           districts: [district],
           expiration: Time.zone.today - 1.year,
-          start_date: Time.zone.today - 2.years
-        )
+          start_date: Time.zone.today - 2.years)
       }
 
       it 'pulls current subscription data' do
@@ -331,7 +337,7 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
       let!(:session7) { create(:activity_session, state: 'finished', completed_at: Time.current, user: other_district_student) }
 
       it 'gets the last sign in date of the most recent student' do
-        last_active = Time.zone.today- 1.month
+        last_active = Time.zone.today - 1.month
         student1.update(last_sign_in: last_active)
         student2.update(last_sign_in: Time.zone.today - 1.year)
 
@@ -376,6 +382,24 @@ describe VitallyIntegration::SerializeVitallySalesOrganization do
         end
 
         it 'for all time' do
+          expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
+        end
+      end
+
+      context 'includes archived classrooms in the roundup' do
+        before do
+          classroom1.update(visible: false)
+        end
+
+        it 'activities completed all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_all_time]).to eq(5)
+        end
+
+        it 'activities completed per student all time' do
+          expect(described_class.new(district).data[:traits][:activities_completed_per_student_all_time]).to eq(2.5)
+        end
+
+        it 'active students all time' do
           expect(described_class.new(district).data[:traits][:active_students_all_time]).to eq(2)
         end
       end

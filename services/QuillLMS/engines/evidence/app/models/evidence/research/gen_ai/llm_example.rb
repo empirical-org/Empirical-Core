@@ -31,7 +31,7 @@ module Evidence
 
         attr_readonly :trial_id, :label, :test_example_id, :raw_text, :llm_feedback, :llm_assigned_status
 
-        delegate :staff_feedback, :student_response, to: :test_example
+        delegate :curriculum_proposed_feedback, :student_response, to: :test_example
 
         def self.assigned_status_column = :llm_assigned_status
 

@@ -164,7 +164,7 @@ module Evidence
     # rubocop:disable Metrics/CyclomaticComplexity
     private def get_highlight(text, cleaned_text, matched_slice)
       extra_space_indexes = []
-      cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i+1] == ' ' }
+      cleaned_text.each_char.with_index { |c, i| extra_space_indexes.push(i) if c == ' ' && cleaned_text[i + 1] == ' ' }
 
       space_normalized_text = cleaned_text.split.join(' ')
 

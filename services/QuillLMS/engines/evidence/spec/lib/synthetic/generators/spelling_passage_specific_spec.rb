@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Evidence::Synthetic::Generators::SpellingPassageSpecific do
   let(:text1) { 'the dancing step' }
   let(:random_seed) { double('seed', rand: 1) }
-  let(:passage) { "passage text #{'dancing '* 5}" }
+  let(:passage) { "passage text #{'dancing ' * 5}" }
 
   describe '#generate - repeated word' do
     subject { described_class.new([text1], passage: passage, random_seed: random_seed).run }

@@ -387,19 +387,19 @@ EmpiricalGrammar::Application.routes.draw do
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
 
-        ##DASHBOARD ROUTES
+        # #DASHBOARD ROUTES
         get :classroom_mini, controller: 'classroom_manager', action: 'classroom_mini'
         get :premium, controller: 'classroom_manager', action: 'premium'
       end
 
       member do
         get :units
-        get :hide #I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
+        get :hide # I am not sure why, however the first hide request on a classroom is always a get. Subsequent ones are put.
         post :hide
         get  :students_list, controller: 'classroom_manager', action: 'students_list'
         post :transfer_ownership
       end
-      #this can't go in with member because the id is outside of the default scope
+      # this can't go in with member because the id is outside of the default scope
 
       resources :activities, controller: 'classroom_activities'
 

@@ -16,7 +16,7 @@ module Evidence
 
       def run
         csv_data
-          .group_by{ |r| r['prompt_id'].to_i }
+          .group_by { |r| r['prompt_id'].to_i }
           .transform_values(&:first)
           .transform_values { |row| dataset_from_row(row) }
       end

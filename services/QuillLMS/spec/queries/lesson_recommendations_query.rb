@@ -78,7 +78,7 @@ describe LessonRecommendationsQuery do
                     }
                   ],
                 previously_assigned: true
-          },
+              },
               {
                 recommendation: 'Adjectives Lesson Pack',
                 activityPackId: 39,
@@ -213,7 +213,7 @@ describe LessonRecommendationsQuery do
                       count: 1,
                     }
                   ]
-                },
+              },
               {
                 recommendation: 'Adjectives Lesson Pack',
                 activityPackId: 39,
@@ -233,8 +233,8 @@ describe LessonRecommendationsQuery do
                 requirements:
                   [
                     {
-                        concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
-                        count: 1
+                      concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
+                      count: 1
                     }
                   ]
               },
@@ -244,22 +244,22 @@ describe LessonRecommendationsQuery do
                 activities: 'activities',
                 requirements:
                   [
-                      {
-                          concept_id: 'GiUZ6KPkH958AT8S413nJg',
-                          count: 2
-                      },
-                      {
-                          concept_id: 'Qqn6Td-zR6NIAX43NOHoCg',
-                          count: 1
-                      },
-                      {
-                          concept_id: 'hJKqVOkQQQgfEsmzOWC1xw',
-                          count: 1
-                      },
-                      {
-                          concept_id: 'tSSLMHqX0q-9mKTJHSyung',
-                          count: 1
-                      }
+                    {
+                      concept_id: 'GiUZ6KPkH958AT8S413nJg',
+                      count: 2
+                    },
+                    {
+                      concept_id: 'Qqn6Td-zR6NIAX43NOHoCg',
+                      count: 1
+                    },
+                    {
+                      concept_id: 'hJKqVOkQQQgfEsmzOWC1xw',
+                      count: 1
+                    },
+                    {
+                      concept_id: 'tSSLMHqX0q-9mKTJHSyung',
+                      count: 1
+                    }
                   ]
               },
               {
@@ -268,22 +268,22 @@ describe LessonRecommendationsQuery do
                 activities: 'activities',
                 requirements:
                   [
-                      {
-                          concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
-                          count: 2
-                      },
-                      {
-                          concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
-                          count: 2
-                      },
-                      {
-                          concept_id: 'S8b-N3ZrB50CWgxD5yg8yQ',
-                          count: 1
-                      },
-                      {
-                          concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
-                          count: 1
-                      }
+                    {
+                      concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
+                      count: 2
+                    },
+                    {
+                      concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
+                      count: 2
+                    },
+                    {
+                      concept_id: 'S8b-N3ZrB50CWgxD5yg8yQ',
+                      count: 1
+                    },
+                    {
+                      concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
+                      count: 1
+                    }
                   ]
               },
               {
@@ -314,7 +314,7 @@ describe LessonRecommendationsQuery do
                     }
                   ]
               }
-          ]
+            ]
           )
         end
       end
@@ -337,89 +337,89 @@ describe LessonRecommendationsQuery do
         it 'should return the correct response' do
           expect(subject.recs_for_activity('447', classroom.id)).to eq(
           [
-              {
-                  recommendation: 'Adjectives Lesson Pack',
-                  activityPackId: 39,
-                  activities: 'activities',
-                  requirements: [
-                      {
-                          concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
-                          count: 1,
-                          noIncorrect: true
-                      },
+            {
+              recommendation: 'Adjectives Lesson Pack',
+              activityPackId: 39,
+              activities: 'activities',
+              requirements: [
+                {
+                  concept_id: 'KvF_BYehx-U2Mk5oGbcjBw',
+                  count: 1,
+                  noIncorrect: true
+                },
 
-                  ],
-                  previously_assigned: true
-              },
-              {
-                  recommendation: 'Adverbs Lesson Pack',
-                  activityPackId: 41,
-                  activities: 'activities',
-                  requirements: [
-                      {
-                          concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
-                          count: 1,
-                          noIncorrect: true
-                      },
-                      {
-                          concept_id: 'opY7bPUsNUMBk3FFhZ0wog',
-                          count: 0,
-                          noIncorrect: true
-                      }
-                  ],
-                  previously_assigned: true
-              },
-              {
-                  recommendation: 'Compound Sentences Lesson Pack',
-                  activityPackId: 42,
-                  activities: 'activities',
-                  requirements: [
-                      {
-                          concept_id: 'tSSLMHqX0q-9mKTJHSyung',
-                          count: 1,
-                          noIncorrect: true
-                      },
-                      {
-                          concept_id: 'R3sBcYAvoXP2_oNVXiA98g',
-                          count: 0,
-                          noIncorrect: true
-                      },
-                      {
-                          concept_id: 'GiUZ6KPkH958AT8S413nJg',
-                          count: 1,
-                          noIncorrect: true
-                      }
-                  ],
-                  previously_assigned: true
-              },
-              {
-                  recommendation: 'Complex Sentences Lesson Pack',
-                  activityPackId: 43,
-                  activities: 'activities',
-                  requirements: [
-                      {
-                          concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
-                          count: 1,
-                          noIncorrect: true
-                      },
-                      {
-                          concept_id: '6gQZPREURQQAaSzpIt_EEw',
-                          count: 0,
-                          noIncorrect: true
-                      },
-                      {
-                          concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
-                          count: 0,
-                          noIncorrect: true
-                      },
-                      {
-                          concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
-                          count: 0,
-                          noIncorrect: true
-                      }
-                  ],
-                  previously_assigned: true
-              }
+              ],
+              previously_assigned: true
+            },
+            {
+              recommendation: 'Adverbs Lesson Pack',
+              activityPackId: 41,
+              activities: 'activities',
+              requirements: [
+                {
+                  concept_id: 'GZ04vHSTxWUTzhWMGfwcUQ',
+                  count: 1,
+                  noIncorrect: true
+                },
+                {
+                  concept_id: 'opY7bPUsNUMBk3FFhZ0wog',
+                  count: 0,
+                  noIncorrect: true
+                }
+              ],
+              previously_assigned: true
+            },
+            {
+              recommendation: 'Compound Sentences Lesson Pack',
+              activityPackId: 42,
+              activities: 'activities',
+              requirements: [
+                {
+                  concept_id: 'tSSLMHqX0q-9mKTJHSyung',
+                  count: 1,
+                  noIncorrect: true
+                },
+                {
+                  concept_id: 'R3sBcYAvoXP2_oNVXiA98g',
+                  count: 0,
+                  noIncorrect: true
+                },
+                {
+                  concept_id: 'GiUZ6KPkH958AT8S413nJg',
+                  count: 1,
+                  noIncorrect: true
+                }
+              ],
+              previously_assigned: true
+            },
+            {
+              recommendation: 'Complex Sentences Lesson Pack',
+              activityPackId: 43,
+              activities: 'activities',
+              requirements: [
+                {
+                  concept_id: '7H2IMZvq0VJ4Uvftyrw7Eg',
+                  count: 1,
+                  noIncorrect: true
+                },
+                {
+                  concept_id: '6gQZPREURQQAaSzpIt_EEw',
+                  count: 0,
+                  noIncorrect: true
+                },
+                {
+                  concept_id: 'nb0JW1r5pRB5ouwAzTgMbQ',
+                  count: 0,
+                  noIncorrect: true
+                },
+                {
+                  concept_id: 'Q8FfGSv4Z9L2r1CYOfvO9A',
+                  count: 0,
+                  noIncorrect: true
+                }
+              ],
+              previously_assigned: true
+            }
           ]
         )
         end

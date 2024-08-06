@@ -86,31 +86,30 @@ describe Cms::SchoolsController do
       get :show, params: { id: school.id }
       expect(assigns(:subscription)).to eq school.subscription
       expect(assigns(:school_subscription_info)).to eq({
-       'School Premium Type' => school&.subscription&.account_type,
-       'Expiration' => school&.subscription&.expiration&.strftime('%b %d, %Y')
+        'School Premium Type' => school&.subscription&.account_type,
+        'Expiration' => school&.subscription&.expiration&.strftime('%b %d, %Y')
       })
       expect(assigns(:school)).to eq({
-       'Name' => school.name,
-       'City' => school.city || school.mail_city,
-       'State' => school.state || school.mail_state,
-       'ZIP' => school.zipcode || school.mail_zipcode,
-       'District' => school.district.name,
-       'Free and Reduced Price Lunch' => "#{school.free_lunches}%",
-       'Direct Certification - SNAP' => "#{school.direct_certification}%",
-       'NCES ID' => school.nces_id,
-       'PPIN' => school.ppin,
-       'Clever ID' => school.clever_id
+        'Name' => school.name,
+        'City' => school.city || school.mail_city,
+        'State' => school.state || school.mail_state,
+        'ZIP' => school.zipcode || school.mail_zipcode,
+        'District' => school.district.name,
+        'Free and Reduced Price Lunch' => "#{school.free_lunches}%",
+        'Direct Certification - SNAP' => "#{school.direct_certification}%",
+        'NCES ID' => school.nces_id,
+        'PPIN' => school.ppin,
+        'Clever ID' => school.clever_id
       })
       expect(assigns(:teacher_data)).to eq 'teacher data'
       expect(assigns(:admins)).to eq(SchoolsAdmins.includes(:user).where(school_id: school.id).map do |admin|
                                        {
-                                           name: admin.user.name,
-                                           email: admin.user.email,
-                                           school_id: admin.school_id,
-                                           user_id: admin.user_id
+                                         name: admin.user.name,
+                                         email: admin.user.email,
+                                         school_id: admin.school_id,
+                                         user_id: admin.user_id
                                        }
-                                     end
-                                    )
+                                     end)
     end
   end
 
@@ -121,14 +120,14 @@ describe Cms::SchoolsController do
       get :edit, params: { id: school.id }
       expect(assigns(:school)).to eq school
       expect(assigns(:editable_text_attributes)).to eq({
-          'School Name' => :name,
-          'School City' => :city,
-          'School State' => :state,
-          'School ZIP' => :zipcode,
-          'FRP Lunch' => :free_lunches,
-          'NCES ID' => :nces_id,
-          'Direct Certification - SNAP' => :direct_certification,
-          'Clever ID' => :clever_id
+        'School Name' => :name,
+        'School City' => :city,
+        'School State' => :state,
+        'School ZIP' => :zipcode,
+        'FRP Lunch' => :free_lunches,
+        'NCES ID' => :nces_id,
+        'Direct Certification - SNAP' => :direct_certification,
+        'Clever ID' => :clever_id
       })
     end
   end
@@ -146,11 +145,11 @@ describe Cms::SchoolsController do
   describe '#create' do
     it 'should create the school with the given params' do
       post :create, params: { school: {
-          name: 'test',
-          city: 'test city',
-          state: 'test state',
-          zipcode: '11000',
-          free_lunches: 2
+        name: 'test',
+        city: 'test city',
+        state: 'test state',
+        zipcode: '11000',
+        free_lunches: 2
       } }
       expect(School.last.name).to eq 'test'
       expect(School.last.city).to eq 'test city'
@@ -164,12 +163,12 @@ describe Cms::SchoolsController do
       expect do
         2.times do
           post :create, params: { school: {
-              name: 'test',
-              city: 'test city',
-              state: 'test state',
-              zipcode: '11000',
-              free_lunches: 2,
-              nces_id: '1'
+            name: 'test',
+            city: 'test city',
+            state: 'test state',
+            zipcode: '11000',
+            free_lunches: 2,
+            nces_id: '1'
           } }
         end
       end.to_not raise_error

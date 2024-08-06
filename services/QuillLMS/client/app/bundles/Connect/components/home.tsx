@@ -6,8 +6,7 @@ import { renderRoutes } from "react-router-config";
 import { NavBar } from './navbar/navbar';
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
-import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
-import { ENGLISH } from '../../Shared/utils/languageList';
+import { ScreenreaderInstructions, TeacherPreviewMenu, getlanguageOptions, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { setLanguage } from '../actions.js';
 import { lessonUid } from '../app';
@@ -28,17 +27,12 @@ export const Home = ({playLesson, lessons, dispatch}) => {
   const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
   const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
   const [languageOptions, setLanguageOptions] = React.useState<any>(null);
+
   React.useEffect(() => {
     if (!lessons?.hasreceiveddata) { return }
     const translations = lessons.data?.[lessonUid]?.translations ?? {};
-    const languageOptions = [
-      { value: ENGLISH, label: ENGLISH },
-      ...Object.keys(translations).map(language => ({
-        value: language,
-        label: language
-      }))
-    ];
-    setLanguageOptions(languageOptions);
+    const formattedLanguageOptions = getlanguageOptions(translations)
+    setLanguageOptions(formattedLanguageOptions);
   }, [lessons]);
 
   function handleKeyDown (e: any) {
@@ -128,7 +122,10 @@ export const Home = ({playLesson, lessons, dispatch}) => {
             handleTogglePreview: handleTogglePreviewMenu,
             previewMode: showPreview,
             questionToPreview: questionToPreview,
-            skippedToQuestionFromIntro: skippedToQuestionFromIntro
+            skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+            languageOptions: languageOptions,
+            updateLanguage: handleUpdateLanguage,
+            language: playLesson?.language
           })}</div>
         </main>
       </div>

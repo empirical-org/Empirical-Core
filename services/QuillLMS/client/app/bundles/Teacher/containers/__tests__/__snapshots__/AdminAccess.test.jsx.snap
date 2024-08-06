@@ -169,20 +169,20 @@ exports[`AdminAccounts container when the user does not have a verified email an
             tooltipTriggerTextClass="disabled-link"
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <span
                 className="disabled-link"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
-                tabIndex={0}
               >
                 Contact
               </span>
@@ -192,6 +192,8 @@ exports[`AdminAccounts container when the user does not have a verified email an
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -210,20 +212,20 @@ exports[`AdminAccounts container when the user does not have a verified email an
             tooltipTriggerTextClass="disabled-link"
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <span
                 className="disabled-link"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
-                tabIndex={0}
               >
                 Contact
               </span>
@@ -233,6 +235,8 @@ exports[`AdminAccounts container when the user does not have a verified email an
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -438,20 +442,20 @@ exports[`AdminAccounts container when the user does not have a verified email an
             tooltipTriggerTextClass="disabled-link"
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <span
                 className="disabled-link"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
-                tabIndex={0}
               >
                 Contact
               </span>
@@ -461,6 +465,8 @@ exports[`AdminAccounts container when the user does not have a verified email an
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>
@@ -479,20 +485,20 @@ exports[`AdminAccounts container when the user does not have a verified email an
             tooltipTriggerTextClass="disabled-link"
           >
             <span
-              aria-hidden={false}
+              aria-expanded={false}
+              aria-haspopup="true"
               className="quill-tooltip-trigger "
-              role="tooltip"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <span
                 className="disabled-link"
-                onBlur={[Function]}
-                onClick={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                role="button"
-                tabIndex={0}
               >
                 Contact
               </span>
@@ -502,6 +508,8 @@ exports[`AdminAccounts container when the user does not have a verified email an
                 <span
                   aria-live="polite"
                   className="quill-tooltip"
+                  id="tooltip"
+                  role="tooltip"
                 />
               </span>
             </span>

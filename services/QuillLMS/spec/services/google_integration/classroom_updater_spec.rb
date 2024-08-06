@@ -14,8 +14,7 @@ module GoogleIntegration
         google_classroom_id: classroom_external_id,
         grade: grade,
         name: name,
-        synced_name: synced_name
-      )
+        synced_name: synced_name)
     end
 
     let(:data) do

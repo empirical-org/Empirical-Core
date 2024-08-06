@@ -389,6 +389,11 @@ textarea.submission {
 
 .student-container-diagnostic {
   position: relative;
+  .language-page {
+    .language-button-container {
+      justify-content: center;
+    }
+  }
 }
 
 .student-container-inner-diagnostic {

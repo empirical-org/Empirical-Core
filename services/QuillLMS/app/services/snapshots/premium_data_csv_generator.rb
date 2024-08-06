@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Layout/HashAlignment
+
 require 'csv'
 
 module Snapshots
@@ -23,3 +25,5 @@ module Snapshots
     def ordered_columns = ORDERED_COLUMNS
   end
 end
+
+# rubocop:enable Layout/HashAlignment

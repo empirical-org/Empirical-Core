@@ -54,7 +54,7 @@ module CanvasIntegration
       let(:params) do
         {
           custom_canvas_instance_url: url,
-          custom_canvas_user_email:  email,
+          custom_canvas_user_email: email,
           custom_canvas_user_external_id: external_id,
           custom_canvas_user_name: name,
           ext_roles: ext_roles

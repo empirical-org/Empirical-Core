@@ -111,7 +111,7 @@ module Evidence
             regex_rules: [:change_logs],
             plagiarism_texts: [:change_logs]
           ],
-        automl_models: [:change_logs]
+          automl_models: [:change_logs]
         ]
       ).find(id)
       change_logs = activity_change_logs + passages_change_logs + prompts_change_logs + universal_change_logs

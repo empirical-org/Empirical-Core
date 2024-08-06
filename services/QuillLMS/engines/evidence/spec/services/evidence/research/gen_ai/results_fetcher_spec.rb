@@ -16,7 +16,7 @@ module Evidence
             :evidence_research_gen_ai_llm_example,
             :optimal,
             test_example: test_example1,
-            llm_feedback: test_example1.staff_feedback
+            llm_feedback: test_example1.curriculum_proposed_feedback
           )
         end
 

@@ -70,13 +70,13 @@ describe Classroom, type: :model do
       expect do
         classroom_to_destroy.destroy
       end
-      .to change { Classroom.count }.by(-1)
-      .and change { Unit.count }.by(0)
-      .and change { ClassroomUnit.count }.by(-1)
-      .and change { User.count }.by(0)
-      .and change { StudentsClassrooms.count }.by(-1)
-      .and change { Activity.count }.by(0)
-      .and change { CoteacherClassroomInvitation.count }.by(-1)
+        .to change { Classroom.count }.by(-1)
+        .and change { Unit.count }.by(0)
+        .and change { ClassroomUnit.count }.by(-1)
+        .and change { User.count }.by(0)
+        .and change { StudentsClassrooms.count }.by(-1)
+        .and change { Activity.count }.by(0)
+        .and change { CoteacherClassroomInvitation.count }.by(-1)
       expect(ClassroomsTeacher.where(classroom_id: classroom_to_destroy.id).count).to eq 0
     end
   end
@@ -194,7 +194,7 @@ describe Classroom, type: :model do
         ownerName: classroom.owner.name,
         from_google: !!classroom.google_classroom_id,
         coteachers: []
-        })
+      })
     end
   end
 
@@ -258,7 +258,7 @@ describe Classroom, type: :model do
     end
 
     it 'must generate a code after validations' do
-      classroom=create(:classroom)
+      classroom = create(:classroom)
       expect(classroom.code).to_not be_nil
     end
 
@@ -272,7 +272,7 @@ describe Classroom, type: :model do
 
   describe 'callbacks' do
     it 'should trigger_analytics_events_for_classroom_creation on create commit' do
-      expect{ create(:classroom).run_callbacks(:commit) }.to change(ClassroomCreationWorker.jobs, :size).by 1
+      expect { create(:classroom).run_callbacks(:commit) }.to change(ClassroomCreationWorker.jobs, :size).by 1
     end
 
     it 'should find or create checkbox' do

@@ -10,7 +10,7 @@ module Student
   end
 
   included do
-    #TODO: move these relationships into the users model
+    # TODO: move these relationships into the users model
 
     has_many :students_classrooms,
       foreign_key: 'student_id',
@@ -51,9 +51,9 @@ module Student
 
     def classroom_unit_score_join(classroom)
       started_activities
-      .joins('join unit_activities ON unit_activities.activity_id = activities.id')
-      .joins('join classroom_units ON classroom_units.unit_id = unit_activities.unit_id')
-      .where(classroom_units: { classroom_id: classroom.id })
+        .joins('join unit_activities ON unit_activities.activity_id = activities.id')
+        .joins('join classroom_units ON classroom_units.unit_id = unit_activities.unit_id')
+        .where(classroom_units: { classroom_id: classroom.id })
     end
     protected :classroom_unit_score_join
 
@@ -93,11 +93,11 @@ module Student
       user_id = id
 
       classroom_units = ClassroomUnit
-      .joins('JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id')
-      .joins('JOIN users ON activity_sessions.user_id = users.id')
-      .where('users.id = ?', user_id)
-      .where('classroom_units.classroom_id = ?', old_classroom_id)
-      .group('classroom_units.id')
+        .joins('JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id')
+        .joins('JOIN users ON activity_sessions.user_id = users.id')
+        .where('users.id = ?', user_id)
+        .where('classroom_units.classroom_id = ?', old_classroom_id)
+        .group('classroom_units.id')
 
       if old_classroom.owner.id == new_classroom.owner.id
         classroom_units.each do |cu|
@@ -138,16 +138,16 @@ module Student
 
   def hide_extra_activity_sessions(classroom_unit_id)
     ActivitySession.joins('JOIN users ON activity_sessions.user_id = users.id')
-    .joins('JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id')
-    .where('users.id = ?', id)
-    .where('classroom_units.id = ?', classroom_unit_id)
-    .where('activity_sessions.visible = true')
-    .order('activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at')
-    .offset(1)
-    .update_all(visible: false, updated_at: DateTime.current)
+      .joins('JOIN classroom_units ON activity_sessions.classroom_unit_id = classroom_units.id')
+      .where('users.id = ?', id)
+      .where('classroom_units.id = ?', classroom_unit_id)
+      .where('activity_sessions.visible = true')
+      .order('activity_sessions.is_final_score DESC, activity_sessions.percentage DESC, activity_sessions.started_at')
+      .offset(1)
+      .update_all(visible: false, updated_at: DateTime.current)
   end
 
-  def merge_student_account(secondary_account, teacher_id=nil)
+  def merge_student_account(secondary_account, teacher_id = nil)
     if same_classrooms_as_other_student(secondary_account.id, teacher_id)
       merge_activity_sessions(secondary_account, teacher_id)
       secondary_account.remove_student_classrooms(teacher_id)
@@ -164,7 +164,7 @@ module Student
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def merge_activity_sessions(secondary_account, teacher_id=nil)
+  def merge_activity_sessions(secondary_account, teacher_id = nil)
     primary_account_activity_sessions = activity_sessions
     secondary_account_activity_sessions = secondary_account.activity_sessions
 
@@ -190,7 +190,7 @@ module Student
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def remove_student_classrooms(teacher_id=nil)
+  def remove_student_classrooms(teacher_id = nil)
     students_classrooms = StudentsClassrooms.where(student_id: id)
     if teacher_id
       students_classrooms = students_classrooms.select { |sc| sc&.classroom&.owner&.id == teacher_id }
@@ -198,7 +198,7 @@ module Student
     students_classrooms.each { |sc| sc.update(visible: false) }
   end
 
-  def same_classrooms_as_other_student(other_student_id, teacher_id=nil)
+  def same_classrooms_as_other_student(other_student_id, teacher_id = nil)
     shared_classroom_length = classrooms_shared_with_other_student(other_student_id, teacher_id).length
     other_students_classrooms = StudentsClassrooms.where(student_id: other_student_id)
     if teacher_id
@@ -207,7 +207,7 @@ module Student
     shared_classroom_length == other_students_classrooms.length
   end
 
-  def classrooms_shared_with_other_student(other_student_id, teacher_id=nil)
+  def classrooms_shared_with_other_student(other_student_id, teacher_id = nil)
     classroom_ids = RawSqlRunner.execute(
       <<-SQL
         SELECT A.classroom_id

@@ -1074,7 +1074,7 @@ ALTER SEQUENCE public.evidence_research_gen_ai_g_evals_id_seq OWNED BY public.ev
 
 CREATE TABLE public.evidence_research_gen_ai_guidelines (
     id bigint NOT NULL,
-    staff_assigned_status character varying NOT NULL,
+    curriculum_assigned_status character varying NOT NULL,
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
@@ -1207,10 +1207,11 @@ ALTER SEQUENCE public.evidence_research_gen_ai_llm_prompt_prompt_examples_id_seq
 
 CREATE TABLE public.evidence_research_gen_ai_llm_prompt_templates (
     id bigint NOT NULL,
-    description text NOT NULL,
+    name text NOT NULL,
     contents text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    notes text
 );
 
 
@@ -1310,10 +1311,15 @@ CREATE TABLE public.evidence_research_gen_ai_prompt_examples (
     id bigint NOT NULL,
     dataset_id integer NOT NULL,
     student_response text NOT NULL,
-    staff_assigned_status character varying NOT NULL,
-    staff_feedback text,
+    curriculum_assigned_status character varying NOT NULL,
+    curriculum_proposed_feedback text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    curriculum_label character varying,
+    highlight text,
+    automl_label text,
+    automl_primary_feedback text,
+    automl_secondary_feedback text
 );
 
 
@@ -1366,41 +1372,6 @@ CREATE SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq
 --
 
 ALTER SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq OWNED BY public.evidence_research_gen_ai_prompt_template_variables.id;
-
-
---
--- Name: evidence_research_gen_ai_quill_feedbacks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_research_gen_ai_quill_feedbacks (
-    id bigint NOT NULL,
-    student_response_id integer NOT NULL,
-    text text NOT NULL,
-    label character varying NOT NULL,
-    paraphrase text,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    data_partition character varying
-);
-
-
---
--- Name: evidence_research_gen_ai_quill_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_research_gen_ai_quill_feedbacks_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_research_gen_ai_quill_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_research_gen_ai_quill_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_quill_feedbacks.id;
 
 
 --
@@ -1476,14 +1447,15 @@ CREATE TABLE public.evidence_research_gen_ai_test_examples (
     id bigint NOT NULL,
     dataset_id integer NOT NULL,
     student_response text NOT NULL,
-    staff_assigned_status character varying NOT NULL,
-    staff_feedback text,
+    curriculum_assigned_status character varying NOT NULL,
+    curriculum_proposed_feedback text,
     highlight text,
-    automl_feedback text,
-    automl_status character varying,
-    topic_tag character varying,
+    automl_primary_feedback text,
+    automl_label character varying,
+    curriculum_label character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    automl_secondary_feedback text
 );
 
 
@@ -1914,13 +1886,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables ALTER
 
 
 --
--- Name: evidence_research_gen_ai_quill_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_quill_feedbacks_id_seq'::regclass);
-
-
---
 -- Name: evidence_research_gen_ai_stem_vaults id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2282,14 +2247,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables
 
 
 --
--- Name: evidence_research_gen_ai_quill_feedbacks evidence_research_gen_ai_quill_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks
-    ADD CONSTRAINT evidence_research_gen_ai_quill_feedbacks_pkey PRIMARY KEY (id);
-
-
---
 -- Name: evidence_research_gen_ai_stem_vaults evidence_research_gen_ai_stem_vaults_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2640,6 +2597,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240626142847'),
 ('20240627001402'),
 ('20240627002301'),
-('20240701180438');
+('20240701180438'),
+('20240713141016'),
+('20240714214900'),
+('20240801134328');
 
 

@@ -6,7 +6,7 @@ namespace :reports do
   # Example invocation:
   #   rake 'reports:diagnostic_scores_by_school_and_class[1 2]'
   desc 'Diagnostic scores by school and class'
-  task :diagnostic_scores_by_school_and_class, [:space_separated_school_ids, :space_separated_unit_template_ids] => :environment do |t,args|
+  task :diagnostic_scores_by_school_and_class, [:space_separated_school_ids, :space_separated_unit_template_ids] => :environment do |t, args|
     default_unit_template_ids = '99,100,126,154,193,194,195,299,300,217,237,409,411,444,445'
     unit_template_ids = args[:space_separated_unit_template_ids] ? args[:unit_template_ids].split.join(',') : default_unit_template_ids
     school_ids = args[:space_separated_school_ids].split.join(',')
@@ -49,7 +49,7 @@ namespace :reports do
         number_incorrect = concept_results.reject(&:correct).length
         number_of_correct_skills += 1 if number_incorrect == 0 && number_correct > 0
       end
-      row['Score'] = ((number_of_correct_skills/skills.count.to_f) * 100).round(2)
+      row['Score'] = ((number_of_correct_skills / skills.count.to_f) * 100).round(2)
       row
     end
 

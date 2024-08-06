@@ -69,7 +69,7 @@ module Evidence
       stub_const('Evidence::Synthetic::SeedDataGenerator::FULL_NOUN_COUNT', 1)
       stub_const('Evidence::Synthetic::SeedDataGenerator::SECTION_COUNT', 1)
       stub_const('Evidence::Synthetic::SeedDataGenerator::EXAMPLE_COUNT', 1)
-      stub_const('Evidence::Synthetic::SeedDataGenerator::TEMPS_PASSAGE', [1,0.9])
+      stub_const('Evidence::Synthetic::SeedDataGenerator::TEMPS_PASSAGE', [1, 0.9])
       allow(::Evidence::Check::Opinion).to receive(:run).and_return(double(success?: true, optimal?: true))
     end
 

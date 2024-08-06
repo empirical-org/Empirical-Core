@@ -84,6 +84,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:teacher_notification_settings) }
   it { should have_many(:activities).through(:teacher_saved_activities) }
   it { should have_many(:classrooms_i_teach).through(:classrooms_teachers).source(:classroom) }
+  it { should have_many(:unscoped_classrooms_i_teach).through(:classrooms_teachers).source(:classroom_unscoped) }
   it { should have_and_belong_to_many(:districts) }
   it { should have_one(:ip_location) }
   it { should have_many(:user_activity_classifications).dependent(:destroy) }
@@ -151,7 +152,7 @@ RSpec.describe User, type: :model do
     describe 'validations' do
       it 'does not raise an error when the flags are in the VALID_FLAGS array' do
         User::VALID_FLAGS.each do |flag|
-          expect{ user.update(flags: user.flags.push(flag)) }.not_to raise_error
+          expect { user.update(flags: user.flags.push(flag)) }.not_to raise_error
         end
       end
 
@@ -790,7 +791,7 @@ RSpec.describe User, type: :model do
           subscription = create(:subscription, expiration: 3.days.from_now.to_date)
           create(:user_subscription, user: user, subscription: subscription)
 
-          expect{ user.redeem_credit }.to change(Subscription, :count).by(1)
+          expect { user.redeem_credit }.to change(Subscription, :count).by(1)
         end
 
         it 'creates a new subscription with the start date equal to last subscription expiration' do
@@ -1813,14 +1814,14 @@ RSpec.describe User, type: :model do
       let!(:admin_info) { create(:admin_info, user: user) }
 
       it 'sets the admin info to have the new sub role' do
-        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        user.admin_sub_role = AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
         expect(user.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
       end
     end
 
     context 'user has no admin info' do
       it 'creates a new admin info record with the specified sub role' do
-        user.admin_sub_role=AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
+        user.admin_sub_role = AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST
         expect(user.reload.admin_sub_role).to eq(AdminInfo::LIBRARIAN_SLASH_MEDIA_SPECIALIST)
       end
     end
@@ -1941,14 +1942,14 @@ RSpec.describe User, type: :model do
       create(:user_email_verification, user: user)
 
       expect(user).to receive(:verify_email).with(UserEmailVerification::STAFF_VERIFICATION)
-      user.email_verification_status= UserEmailVerification::VERIFIED
+      user.email_verification_status = UserEmailVerification::VERIFIED
     end
 
     it 'should call require_email_verification if the passed status is Pending and update the verification record to have verified_at and verification_method as nil' do
       user_email_verification = create(:user_email_verification, user: user, verified_at: Time.zone.today, verification_method: UserEmailVerification::EMAIL_VERIFICATION)
 
       expect(user).to receive(:require_email_verification)
-      user.email_verification_status= UserEmailVerification::PENDING
+      user.email_verification_status = UserEmailVerification::PENDING
       expect(user_email_verification.reload.verified_at).not_to be
       expect(user_email_verification.reload.verification_method).not_to be
     end
@@ -2058,7 +2059,7 @@ RSpec.describe User, type: :model do
       it 'should create a record' do
         teacher = build(:teacher)
 
-        expect{ teacher.save }.to change(TeacherInfo, :count).by(1)
+        expect { teacher.save }.to change(TeacherInfo, :count).by(1)
       end
 
       it 'should save the role_selected_at_signup attribute to TeacherInfo record' do

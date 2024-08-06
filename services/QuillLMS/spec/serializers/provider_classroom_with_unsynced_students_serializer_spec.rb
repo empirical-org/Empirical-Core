@@ -14,16 +14,14 @@ describe ProviderClassroomWithUnsyncedStudentsSerializer, type: :serializer do
     create(:google_classroom_user,
       :active,
       classroom_external_id: classroom.classroom_external_id,
-      user_external_id: student1.google_id
-    )
+      user_external_id: student1.google_id)
   end
 
   let!(:unsynced_student) do
     create(:google_classroom_user,
       :deleted,
       classroom_external_id: classroom.classroom_external_id,
-      user_external_id: student2.google_id
-    )
+      user_external_id: student2.google_id)
   end
 
   let(:results) { subject.as_json }

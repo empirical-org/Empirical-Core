@@ -21,7 +21,7 @@ describe Api::V1::QuestionsController, type: :controller do
       it 'should return early without exception on nil question_type' do
         get :index, as: :json
         expect(JSON.parse(response.body)).to eq(
-          { 'error'=>'Bad Request', 'message'=>'question_type is a required param' }
+          { 'error' => 'Bad Request', 'message' => 'question_type is a required param' }
         )
         expect(response.status).to eq 400
       end
@@ -35,7 +35,7 @@ describe Api::V1::QuestionsController, type: :controller do
 
     it 'should return the specified question' do
       get :show, params: { id: question.uid }, as: :json
-      expect(JSON.parse(response.body)).to eq(question.data)
+      expect(JSON.parse(response.body)).to eq(question.as_json.stringify_keys)
     end
 
     it 'should return a 404 if the requested Question is not found' do

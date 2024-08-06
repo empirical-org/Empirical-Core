@@ -23,7 +23,7 @@ class GoogleIntegration::User
   private def user_params(user)
     @user_params ||= begin
       params = {
-        signed_up_with_google:      true,
+        signed_up_with_google: true,
         auth_credential_attributes: auth_credential_attributes(user),
       }
 
@@ -43,8 +43,8 @@ class GoogleIntegration::User
 
   private def auth_credential_attributes(user)
     {
-      access_token:  profile.access_token,
-      expires_at:    profile.expires_at,
+      access_token: profile.access_token,
+      expires_at: profile.expires_at,
       refresh_token: profile.refresh_token || user&.auth_credential&.refresh_token,
       type: GoogleAuthCredential.name
     }

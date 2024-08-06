@@ -110,7 +110,7 @@ describe RedisFeed, type: :model do
         expect(test_instance).to receive(:callback_on_add).with(2)
         expect(test_instance).to receive(:callback_on_add).with(3)
 
-        test_instance.add([1,2,3])
+        test_instance.add([1, 2, 3])
       end
     end
   end

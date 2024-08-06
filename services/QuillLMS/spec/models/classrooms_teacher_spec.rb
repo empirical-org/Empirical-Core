@@ -29,6 +29,7 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
 
   it { should belong_to(:user) }
   it { should belong_to(:classroom) }
+  it { should belong_to(:classroom_unscoped) }
 
   it { is_expected.to callback(:delete_classroom_minis_cache_for_each_teacher_of_this_classroom).after(:create) }
   it { is_expected.to callback(:reset_lessons_cache_for_teacher).after(:create) }
@@ -45,15 +46,15 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: true do
 
   describe 'validations' do
     it 'should prevent saving arbitrary role' do
-      expect{ classrooms_teacher_with_arbitrary_role.save }.to raise_error ActiveRecord::StatementInvalid
+      expect { classrooms_teacher_with_arbitrary_role.save }.to raise_error ActiveRecord::StatementInvalid
     end
 
     it 'should require a user_id that is not null' do
-      expect{ classrooms_teacher_with_null_user_id.save }.to raise_error ActiveRecord::StatementInvalid
+      expect { classrooms_teacher_with_null_user_id.save }.to raise_error ActiveRecord::StatementInvalid
     end
 
     it 'should require a classroom_id that is not null' do
-      expect{ classrooms_teacher_with_null_classroom_id.save }.to raise_error ActiveRecord::StatementInvalid
+      expect { classrooms_teacher_with_null_classroom_id.save }.to raise_error ActiveRecord::StatementInvalid
     end
   end
 

@@ -29,7 +29,7 @@ describe SchoolSubscription, type: :model do
 
   describe 'presence of' do
     it 'school_id' do
-      expect{ school_sub.update!(school_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { school_sub.update!(school_id: nil) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 

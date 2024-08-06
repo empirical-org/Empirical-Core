@@ -31,7 +31,9 @@ module Evidence
           'optimal_examples' => ->(builder, _) { builder.optimal_examples },
           'suboptimal_examples' => ->(builder, _) { builder.suboptimal_examples },
           'optimal_guidelines' => ->(builder, _) { builder.optimal_guidelines },
-          'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines }
+          'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines },
+          'optimal_student_responses' => ->(builder, _) { builder.optimal_student_responses },
+          'suboptimal_student_responses' => ->(builder, _) { builder.suboptimal_student_responses }
         }.freeze
 
         GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
@@ -40,20 +42,21 @@ module Evidence
 
         SUBSTITUTIONS = ACTIVITY_SUBSTITUTIONS.merge(GENERAL_SUBSTITUTIONS).freeze
 
-        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples
+        attr_reader :dataset_id, :guidelines, :llm_prompt_template_id, :prompt_examples, :text
 
         validates :dataset_id, presence: true
         validates :guidelines, presence: true, allow_blank: true
         validates :llm_prompt_template_id, presence: true
         validates :prompt_examples, presence: true, allow_blank: true
 
-        delegate :contents, to: :llm_prompt_template
+        def self.activity_substitutions = ACTIVITY_SUBSTITUTIONS.keys.map { |key| "#{DELIMITER}#{key}#{DELIMITER}" }
 
-        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:)
+        def initialize(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:, text: nil)
           @dataset_id = dataset_id
           @guidelines = guidelines
           @llm_prompt_template_id = llm_prompt_template_id
           @prompt_examples = prompt_examples
+          @text = text
 
           validate!
         end
@@ -66,11 +69,16 @@ module Evidence
           end
         end
 
+        def contents = text || llm_prompt_template.contents
+
         def optimal_examples = prompt_examples.optimal.map(&:response_feedback_status).join("\n")
         def suboptimal_examples = prompt_examples.suboptimal.map(&:response_feedback_status).join("\n")
 
         def optimal_guidelines = guidelines.optimal.map(&:text).join("\n")
         def suboptimal_guidelines = guidelines.suboptimal.map(&:text).join("\n")
+
+        def optimal_student_responses = prompt_examples.optimal.map { |eg| "- #{eg.student_response}" }.join("\n")
+        def suboptimal_student_responses = prompt_examples.suboptimal.map { |eg| "- #{eg.student_response}" }.join("\n")
 
         def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 

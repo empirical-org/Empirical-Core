@@ -1,16 +1,18 @@
 import * as React from "react";
 import { useQuery } from 'react-query';
 import { renderRoutes } from "react-router-config";
+import { connect } from 'react-redux';
 
 import { Header } from "./Header";
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
-import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
+import { ScreenreaderInstructions, TeacherPreviewMenu, getlanguageOptions, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import getParameterByName from '../helpers/getParameterByName';
 import { routes } from "../routes";
+import { setLanguage } from "../actions/session";
 
-export const PageLayout = () => {
+export const PageLayout = ({ dispatch, grammarActivities, session }) => {
 
   const studentSession = getParameterByName('student', window.location.href);
   const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
@@ -19,12 +21,21 @@ export const PageLayout = () => {
   const isPlaying = window.location.href.includes('play');
   const { data } = useQuery("user-role", fetchUserRole);
   const isTeacherOrAdmin = data && data.role && data.role !== 'student';
+  const language = session?.language
 
   const [showFocusState, setShowFocusState] = React.useState<boolean>(false);
   const [previewShowing, setPreviewShowing] = React.useState<boolean>(!studentOrTurkOrProofreader);
   const [questionToPreview, setQuestionToPreview] = React.useState<any>(null);
   const [switchedBackToPreview, setSwitchedBackToPreview] = React.useState<boolean>(false);
   const [skippedToQuestionFromIntro, setSkippedToQuestionFromIntro] = React.useState<boolean>(false);
+  const [languageOptions, setLanguageOptions] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    if (!grammarActivities?.hasreceiveddata) { return }
+    const translations = grammarActivities.currentActivity?.translations || {};
+    const formattedLanguageOptions = getlanguageOptions(translations)
+    setLanguageOptions(formattedLanguageOptions);
+  }, [grammarActivities]);
 
   function handleKeyDown (e: any) {
     if (e.key !== 'Tab') { return }
@@ -59,6 +70,11 @@ export const PageLayout = () => {
     setSkippedToQuestionFromIntro(true);
   }
 
+  function handleUpdateLanguage(language: string) {
+    const action = setLanguage(language)
+    dispatch(action)
+  }
+
   function renderContent (header: JSX.Element, showPreview: boolean, isOnMobile: boolean) {
     return(
       <main style={{ height: '100vh', overflow: 'auto' }}>
@@ -72,7 +88,10 @@ export const PageLayout = () => {
           handleToggleQuestion: handleToggleQuestion,
           previewMode: showPreview,
           questionToPreview: questionToPreview,
-          skippedToQuestionFromIntro: skippedToQuestionFromIntro
+          skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+          languageOptions: languageOptions,
+          updateLanguage: handleUpdateLanguage,
+          language: language
         })}</div>
       </main>
     );
@@ -85,9 +104,25 @@ export const PageLayout = () => {
   let header;
 
   if(isPlaying && isTeacherOrAdmin) {
-    header = <Header isOnMobile={isOnMobile} isTeacher={!studentOrTurkOrProofreader} onTogglePreview={handleTogglePreviewMenu} previewShowing={showPreview} />;
+    header = (
+      <Header
+        isOnMobile={isOnMobile}
+        isTeacher={!studentOrTurkOrProofreader}
+        language={language}
+        languageOptions={languageOptions}
+        onTogglePreview={handleTogglePreviewMenu}
+        previewShowing={showPreview}
+        updateLanguage={handleUpdateLanguage}
+      />
+    );
   } else if(isPlaying) {
-    header = <Header />;
+    header = (
+      <Header
+        language={language}
+        languageOptions={languageOptions}
+        updateLanguage={handleUpdateLanguage}
+      />
+    );
   }
 
   return(
@@ -112,4 +147,11 @@ export const PageLayout = () => {
   );
 }
 
-export default PageLayout;
+const select = (state: any, props: any) => {
+  return {
+    grammarActivities: state.grammarActivities,
+    session: state.session
+  };
+}
+
+export default connect(select)(PageLayout);

@@ -102,8 +102,7 @@ RSpec.describe Translatable do
           translation: translation,
           locale: locale,
           source_api: source_api,
-          english_text: translatable_object.english_texts.first
-        )
+          english_text: translatable_object.english_texts.first)
       end
 
       it 'returns the translation' do
@@ -117,8 +116,7 @@ RSpec.describe Translatable do
             translation: 'Other translation',
             locale: other_locale,
             source_api: source_api,
-            english_text: translatable_object.english_texts.first
-          )
+            english_text: translatable_object.english_texts.first)
         end
 
         it 'returns the translation for the specified locale' do
@@ -150,8 +148,7 @@ RSpec.describe Translatable do
           translation: 'OpenAI translation',
           locale: locale,
           source_api: Translatable::OPEN_AI_SOURCE,
-          english_text: translatable_object.english_texts.first
-        )
+          english_text: translatable_object.english_texts.first)
       end
 
       let!(:gengo_translation) do
@@ -159,8 +156,7 @@ RSpec.describe Translatable do
           translation: 'Gengo translation',
           locale: locale,
           source_api: Translatable::GENGO_SOURCE,
-          english_text: translatable_object.english_texts.first
-        )
+          english_text: translatable_object.english_texts.first)
       end
 
       it 'returns translations ordered by source_api' do
@@ -270,12 +266,8 @@ RSpec.describe Translatable do
     let(:locale) { Translatable::DEFAULT_LOCALE }
 
     it 'returns the expected prompt' do
-      expected = <<~STRING
-        You are going to do a translation from english to es-la using simple words and language at a 5th grade reading level. Use shorter words over longer if possible. The tone should be somewhat casual. Return just the translated text preserving (but not translating) the HTML.
-
-        We are translating the instructions for an English-language grammar activity. The content of the activity itself is not translated.
-      STRING
-      expected += "\nTest prompt\n text to translate: "
+      expected = TranslationPrompts.prompt_start(locale:)
+      expected += "Test prompt\n text to translate: "
       expect(translatable_object.open_ai_prompt(locale:)).to eq(expected)
     end
 

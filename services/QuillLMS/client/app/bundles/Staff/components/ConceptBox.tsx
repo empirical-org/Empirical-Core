@@ -131,7 +131,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     editConcept({ variables: {
       id: concept.id,
       name: concept.name,
-      parentId: concept.parent.id,
+      parentId: concept.parent?.id,
       visible: concept.visible,
       description: concept.description && concept.description.length && concept.description !== '<br/>' ? concept.description : null,
       explanation: concept.explanation && concept.explanation.length && concept.explanation !== '<br/>' ? concept.explanation : null,

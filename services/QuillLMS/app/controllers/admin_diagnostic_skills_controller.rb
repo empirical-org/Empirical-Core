@@ -64,7 +64,8 @@ class AdminDiagnosticSkillsController < ApplicationController
     timeframe_start, timeframe_end = Snapshots::Timeframes.calculate_timeframes(
       permitted_params[:timeframe],
       custom_start: permitted_params[:timeframe_custom_start],
-      custom_end: permitted_params[:timeframe_custom_end])
+      custom_end: permitted_params[:timeframe_custom_end]
+    )
     cache_key = cache_key_for_timeframe(permitted_params[:timeframe], timeframe_start, timeframe_end)
     response = Rails.cache.read(cache_key)
 

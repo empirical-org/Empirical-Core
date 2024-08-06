@@ -29,11 +29,9 @@ module Evidence
 
         belongs_to :activity
 
-        has_many :trials, dependent: :destroy
-        has_many :student_responses, dependent: :destroy
-        has_many :quill_feedbacks, through: :student_responses
         has_many :guidelines, dependent: :destroy
         has_many :datasets, dependent: :destroy
+        has_many :trials, through: :datasets
 
         validates :stem, presence: true
         validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
@@ -48,6 +46,8 @@ module Evidence
         def relevant_text = send(RELEVANT_TEXTS[conjunction])
 
         def to_s = "#{name} - #{conjunction}"
+
+        def stem_and_conjunction = "#{stem} #{conjunction}"
       end
     end
   end

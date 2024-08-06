@@ -26,8 +26,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
       create(:classroom_unit,
         classroom: classroom,
         assigned_student_ids: [],
-        unit: unit,
-      )
+        unit: unit,)
     end
 
     let!(:unit_activity) do
@@ -35,8 +34,7 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
         unit: unit,
         activity: activity,
         due_date: due_date,
-        visible: true
-      )
+        visible: true)
     end
 
     let!(:expected_classrooms) do

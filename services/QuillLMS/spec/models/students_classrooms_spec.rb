@@ -37,7 +37,8 @@ describe StudentsClassrooms, type: :model, redis: true do
           className: classrooms.classroom.name,
           teacherName: classrooms.classroom.owner.name,
           id: classrooms.id
-        })
+        }
+      )
     end
   end
 

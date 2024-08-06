@@ -9,11 +9,11 @@ RSpec.shared_context 'Clever Library Students Data' do
   let(:student1_data) do
     {
       'data' => {
-        'id'=> student1_clever_id,
-        'grade'=>'2',
-        'name'=> {
-          'first'=> student1_first_name,
-          'last'=> student1_last_name
+        'id' => student1_clever_id,
+        'grade' => '2',
+        'name' => {
+          'first' => student1_first_name,
+          'last' => student1_last_name
         }
       }
     }
@@ -36,11 +36,11 @@ RSpec.shared_context 'Clever Library Students Data' do
   let(:student2_data) do
     {
       'data' => {
-        'id'=> student2_clever_id,
-        'grade'=>'2',
-        'name'=> {
-          'first'=> student2_first_name,
-          'last'=> student2_last_name
+        'id' => student2_clever_id,
+        'grade' => '2',
+        'name' => {
+          'first' => student2_first_name,
+          'last' => student2_last_name
         }
       }
     }
@@ -63,11 +63,11 @@ RSpec.shared_context 'Clever Library Students Data' do
   let(:student3_data) do
     {
       'data' => {
-        'id'=> student3_clever_id,
-        'grade'=>'',
-        'name'=> {
-          'first'=> student3_first_name,
-          'last'=> student3_last_name
+        'id' => student3_clever_id,
+        'grade' => '',
+        'name' => {
+          'first' => student3_first_name,
+          'last' => student3_last_name
         }
       }
     }

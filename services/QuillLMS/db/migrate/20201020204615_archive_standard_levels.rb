@@ -6,7 +6,7 @@ class ArchiveStandardLevels < ActiveRecord::Migration[4.2]
   def change
     TO_ARCHIVE.each do |sl|
       begin
-        standard_level = StandardLevel.find_by(:name=> sl)
+        standard_level = StandardLevel.find_by(:name => sl)
         standard_level.visible = false
         standard_level.save!
         standard_level.standards.each do |s|

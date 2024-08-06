@@ -705,16 +705,16 @@ exports[`AssignANewActivity component with suggested activities should render 1`
             </td>
             <td>
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
                 style="min-width: 319px; width: 319px;"
+                tabindex="0"
               >
                 <span
                   class="data-table-row-section topic-section"
-                  role="button"
                   style="min-width: 319px; width: 319px;"
-                  tabindex="0"
                 >
                   <div
                     class="topic"
@@ -762,6 +762,8 @@ exports[`AssignANewActivity component with suggested activities should render 1`
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -827,16 +829,16 @@ exports[`AssignANewActivity component with suggested activities should render 1`
             </td>
             <td>
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
                 style="min-width: 319px; width: 319px;"
+                tabindex="0"
               >
                 <span
                   class="data-table-row-section topic-section"
-                  role="button"
                   style="min-width: 319px; width: 319px;"
-                  tabindex="0"
                 >
                   <div
                     class="topic"
@@ -884,6 +886,8 @@ exports[`AssignANewActivity component with suggested activities should render 1`
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -949,16 +953,16 @@ exports[`AssignANewActivity component with suggested activities should render 1`
             </td>
             <td>
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
                 style="min-width: 319px; width: 319px;"
+                tabindex="0"
               >
                 <span
                   class="data-table-row-section topic-section"
-                  role="button"
                   style="min-width: 319px; width: 319px;"
-                  tabindex="0"
                 >
                   <div
                     class="topic"
@@ -978,6 +982,8 @@ exports[`AssignANewActivity component with suggested activities should render 1`
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1043,16 +1049,16 @@ exports[`AssignANewActivity component with suggested activities should render 1`
             </td>
             <td>
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
                 style="min-width: 319px; width: 319px;"
+                tabindex="0"
               >
                 <span
                   class="data-table-row-section topic-section"
-                  role="button"
                   style="min-width: 319px; width: 319px;"
-                  tabindex="0"
                 >
                   <div
                     class="topic"
@@ -1086,6 +1092,8 @@ exports[`AssignANewActivity component with suggested activities should render 1`
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>
@@ -1151,16 +1159,16 @@ exports[`AssignANewActivity component with suggested activities should render 1`
             </td>
             <td>
               <span
-                aria-hidden="false"
+                aria-expanded="false"
+                aria-haspopup="true"
                 class="quill-tooltip-trigger "
-                role="tooltip"
+                role="button"
                 style="min-width: 319px; width: 319px;"
+                tabindex="0"
               >
                 <span
                   class="data-table-row-section topic-section"
-                  role="button"
                   style="min-width: 319px; width: 319px;"
-                  tabindex="0"
                 >
                   <div
                     class="topic"
@@ -1180,6 +1188,8 @@ exports[`AssignANewActivity component with suggested activities should render 1`
                   <span
                     aria-live="polite"
                     class="quill-tooltip"
+                    id="tooltip"
+                    role="tooltip"
                   />
                 </span>
               </span>

@@ -24,7 +24,7 @@ class Formatter < ApplicationService
     ALL_CAPS => ->(x) { x.upcase },
     AS_LIST => ->(x) { x.join(', ') },
     AS_MINUTES_STRING => ->(x) { x.present? ? "#{x.round / 60}:#{(x.round % 60).to_s.rjust(2, '0')}" : LAMBDAS[BLANK_AS_ZERO].call(x) },
-    AS_RATIO => ->(x) { x.map{ |value| LAMBDAS[BLANK_AS_ZERO].call(value) }.join(' of ') },
+    AS_RATIO => ->(x) { x.map { |value| LAMBDAS[BLANK_AS_ZERO].call(value) }.join(' of ') },
     AS_ROUNDED_INTEGER => ->(x) { x.present? ? x.round : LAMBDAS[BLANK_AS_ZERO].call(x) },
     BLANK_AS_ZERO => ->(x) { x.presence || 0 },
     DATE => ->(x) { x.strftime('%F') },

@@ -28,8 +28,7 @@ namespace :schools do
     CSV.foreach(open('https://assets.quill.org/data/schools.txt'),
       col_sep: "\t",
       headers: true,
-      encoding: 'ISO-8859-1'
-    ) do |row|
+      encoding: 'ISO-8859-1') do |row|
       school_hash = row.to_hash
       school = School.where(nces_id: school_hash['NCESSCH']).first_or_initialize
       school.name = school_hash['SCH_NAME'].titleize
@@ -168,7 +167,7 @@ namespace :schools do
     ActiveRecord::Base.connection.execute(schools_with_duplicates).each do |row|
       ActiveRecord::Base.transaction do
         duplicate = School.find(row['duplicate_school_id'])
-        update_hash = duplicate.as_json.except('id', 'nces_id', 'created_at').select { |_,v| v.present? }
+        update_hash = duplicate.as_json.except('id', 'nces_id', 'created_at').select { |_, v| v.present? }
         School.update(row['original_school_id'], update_hash)
 
         puts duplicate.as_json unless Rails.env.test?

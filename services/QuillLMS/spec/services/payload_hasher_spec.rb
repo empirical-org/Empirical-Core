@@ -12,10 +12,10 @@ describe PayloadHasher do
   context 'with a payload that is shaped like one we expect in production' do
     let(:query) { 'active-classrooms' }
     let(:timeframe_name) { 'last-30-days' }
-    let(:school_ids) { [1,2,3] }
-    let(:grades) { ['Kindergarten',1,2,3,4] }
-    let(:teacher_ids) { [3,4,5] }
-    let(:classroom_ids) { [6,7] }
+    let(:school_ids) { [1, 2, 3] }
+    let(:grades) { ['Kindergarten', 1, 2, 3, 4] }
+    let(:teacher_ids) { [3, 4, 5] }
+    let(:classroom_ids) { [6, 7] }
 
     it do
       expect(PayloadHasher.run([

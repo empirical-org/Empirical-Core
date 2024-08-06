@@ -1,9 +1,18 @@
-<%= link_to 'Back to Dataset', @dataset %>
+<% content_for :all_activities_breadcrumbs do %>
+  / <%= link_to @dataset.stem_vault.activity.name, @dataset.stem_vault.activity %>
+  / <%= link_to "#{@dataset.stem_vault.conjunction.capitalize} Stem Vault", @dataset.stem_vault %>
+  / <%= link_to "#{@dataset} Trials", @dataset %>
+<% end %>
 
 <h1>Trial Runner</h1>
 
 <%= form_for @trial, url: research_gen_ai_dataset_trials_path(@dataset) do |f| %>
   <%= render 'errors', object: @trial %>
+
+  <div class="actions">
+    <%= f.submit "run" %>
+  </div>
+  <br>
 
   <div class="field-spacing">
     <label>LLM:</label>
@@ -29,60 +38,145 @@
     <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, { required: true } %>
   </div>
 
-  <div class="field-spacing">
-    <label>Optimal Guidelines</label>
-    <input type="checkbox" id="select-all-optimal-guidelines" /> Select all
-    <button type="button" id="randomize-optimal-guidelines">Randomize</button>
-    <ul id="optimal-guidelines-list" style="list-style-type: none; padding-left: 0;">
-      <% @guidelines.optimal.each do |guideline| %>
-        <li>
-          <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
-          <%= guideline.text %>
-        </li>
-      <% end %>
-    </ul>
+  <br>
+  <div class="field-spacing optimal-section">
+    <h3>
+      Optimal Guidelines
+      <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
+    </h3>
+    <div>
+      <button type="button" id="randomize-optimal-guidelines">Randomize</button>
+    </div>
+    <table id="optimal-guidelines-table">
+      <thead>
+        <tr>
+          <th class="select-column">
+            Select
+            <input type="checkbox" id="select-all-optimal-guidelines" />
+          </th>
+          <th>Guideline</th>
+          <th class="created-column">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @guidelines.optimal.each do |guideline| %>
+          <tr>
+            <td>
+              <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
+            </td>
+            <td><%= guideline.text %></td>
+            <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
-  <div class="field-spacing">
-    <label>Sub-Optimal Guidelines</label>
-    <input type="checkbox" id="select-all-suboptimal-guidelines" /> Select all
-    <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
-    <ul id="suboptimal-guidelines-list" style="list-style-type: none; padding-left: 0;">
-      <% @guidelines.suboptimal.each do |guideline| %>
-        <li>
-          <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
-          <%= guideline.text %>
-        </li>
-      <% end %>
-    </ul>
+  <br>
+  <div class="field-spacing suboptimal-section">
+    <h3>
+      Sub-Optimal Guidelines
+      <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@dataset.stem_vault), class: 'new-link', target: '_blank' %>
+    </h3>
+    <div>
+      <button type="button" id="randomize-suboptimal-guidelines">Randomize</button>
+    </div>
+    <table id="suboptimal-guidelines-table">
+      <thead>
+        <tr>
+          <th class="select-column">
+            Select
+            <input type="checkbox" id="select-all-suboptimal-guidelines" />
+          </th>
+          <th>Guideline</th>
+          <th class="created-column">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @guidelines.suboptimal.each do |guideline| %>
+          <tr>
+            <td>
+              <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
+            </td>
+            <td><%= guideline.text %></td>
+            <td><%= guideline.created_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
-  <div class="field-spacing">
-    <label>Optimal Examples</label>
-    <input type="checkbox" id="select-all-optimal-examples" /> Select all
-    <button type="button" id="randomize-optimal-examples">Randomize</button>
-    <ul id="optimal-examples-list" style="list-style-type: none; padding-left: 0;">
-      <% @prompt_examples.optimal.each do |prompt_example| %>
-        <li>
-          <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
-          <%= prompt_example.student_response %>
-        </li>
-      <% end %>
-    </ul>
+  <br>
+  <div class="field-spacing optimal-section">
+    <h3>
+      Optimal Examples
+      <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
+    </h3>
+    <div>
+      <button type="button" id="randomize-optimal-examples">Randomize</button>
+    </div>
+    <table id="optimal-examples-table">
+      <thead>
+        <tr>
+          <th class="select-column">
+            Select
+            <input type="checkbox" id="select-all-optimal-examples" />
+          </th>
+          <th>Response</th>
+          <th>Feedback</th>
+          <th class="created-column">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @prompt_examples.optimal.sort_by(&:student_response).each do |prompt_example| %>
+          <tr>
+            <td>
+              <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
+            </td>
+            <td><%= prompt_example.student_response %></td>
+            <td><%= prompt_example.feedback %></td>
+            <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
-  <div class="field-spacing">
-    <label>Sub-optimal Responses with Feedback</label>
-    <input type="checkbox" id="select-all-suboptimal-responses" /> Select all
-    <button type="button" id="randomize-suboptimal-responses">Randomize</button>
-    <ul id="suboptimal-responses-list" style="list-style-type: none; padding-left: 0;">
-      <% @prompt_examples.suboptimal.each do |prompt_example| %>
-        <li>
-          <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
-          <%= prompt_example.student_response %>
-        </li>
-      <% end %>
-    </ul>
+  <br>
+
+  <div class="field-spacing suboptimal-section">
+    <h3>
+      Sub-optimal Responses with Feedback
+      <%= link_to 'new', new_research_gen_ai_dataset_prompt_example_path(@dataset), class: 'new-link', target: '_blank' %>
+    </h3>
+    <div>
+      <button type="button" id="randomize-suboptimal-examples">Randomize</button>
+    </div>
+    <table id="suboptimal-examples-table">
+      <thead>
+        <tr>
+          <th class="select-column">
+            Select
+            <input type="checkbox" id="select-all-suboptimal-examples" />
+          </th>
+          <th>Response</th>
+          <th>Feedback</th>
+          <th class="created-column">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @prompt_examples.suboptimal.sort_by(&:student_response).each do |prompt_example| %>
+          <tr>
+            <td>
+              <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
+            </td>
+            <td><%= prompt_example.student_response %></td>
+            <td><%= prompt_example.feedback %></td>
+            <td><%= prompt_example.created_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
   <div class="actions">
@@ -90,26 +184,85 @@
   </div>
 <% end %>
 
+<style>
+  .select-column {
+    width: 25px;
+  }
+  .created-column {
+    width: 25px;
+  }
+  .optimal-section {
+    background-color: #e6f3e6; /* Light green */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .suboptimal-section {
+    background-color: #fff0e6; /* Light orange */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .optimal-section h3,
+  .suboptimal-section h3 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+  }
+
+  .optimal-section h3 {
+    color: #2e8b57; /* Sea Green */
+  }
+
+  .suboptimal-section h3 {
+    color: #ff8c00; /* Dark Orange */
+  }
+
+  table {
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    function handleSelectAll(selectAllCheckboxId, listId) {
+    function handleSelectAll(selectAllCheckboxId, tableId) {
       const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
-      const list = document.getElementById(listId);
-
+      const table = document.getElementById(tableId);
       selectAllCheckbox.addEventListener('change', function() {
-        const checkboxes = list.querySelectorAll('input[type="checkbox"]');
+        const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
           checkbox.checked = selectAllCheckbox.checked;
         });
       });
+
+      table.querySelector('tbody').addEventListener('change', function(event) {
+        if (event.target.type === 'checkbox') {
+          const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]');
+          selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        }
+      });
     }
 
-    function handleRandomize(randomizeButtonId, listId) {
+    function handleRandomize(randomizeButtonId, tableId, selectAllCheckboxId) {
       const randomizeButton = document.getElementById(randomizeButtonId);
-      const list = document.getElementById(listId);
+      const table = document.getElementById(tableId);
+      const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
 
       randomizeButton.addEventListener('click', function() {
-        const checkboxes = Array.from(list.querySelectorAll('input[type="checkbox"]'));
+        const checkboxes = Array.from(table.querySelectorAll('tbody input[type="checkbox"]'));
         const randomCount = Math.floor(Math.random() * checkboxes.length) + 1;
         checkboxes.forEach(checkbox => checkbox.checked = false);
         for (let i = 0; i < randomCount; i++) {
@@ -117,17 +270,21 @@
           checkboxes[randomIndex].checked = true;
           checkboxes.splice(randomIndex, 1);
         }
+
+        selectAllCheckbox.checked = false;
       });
     }
 
-    handleSelectAll('select-all-optimal-guidelines', 'optimal-guidelines-list');
-    handleSelectAll('select-all-suboptimal-guidelines', 'suboptimal-guidelines-list');
-    handleSelectAll('select-all-optimal-examples', 'optimal-examples-list');
-    handleSelectAll('select-all-suboptimal-responses', 'suboptimal-responses-list');
+    handleSelectAll('select-all-suboptimal-guidelines', 'suboptimal-guidelines-table');
+    handleRandomize('randomize-suboptimal-guidelines', 'suboptimal-guidelines-table', 'select-all-suboptimal-guidelines');
 
-    handleRandomize('randomize-optimal-guidelines', 'optimal-guidelines-list');
-    handleRandomize('randomize-suboptimal-guidelines', 'suboptimal-guidelines-list');
-    handleRandomize('randomize-optimal-examples', 'optimal-examples-list');
-    handleRandomize('randomize-suboptimal-responses', 'suboptimal-responses-list');
+    handleSelectAll('select-all-optimal-guidelines', 'optimal-guidelines-table');
+    handleRandomize('randomize-optimal-guidelines', 'optimal-guidelines-table', 'select-all-optimal-guidelines');
+
+    handleSelectAll('select-all-optimal-examples', 'optimal-examples-table');
+    handleRandomize('randomize-optimal-examples', 'optimal-examples-table', 'select-all-optimal-examples');
+
+    handleSelectAll('select-all-suboptimal-examples', 'suboptimal-examples-table');
+    handleRandomize('randomize-suboptimal-examples', 'suboptimal-examples-table', 'select-all-suboptimal-examples');
   });
 </script>

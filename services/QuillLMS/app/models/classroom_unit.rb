@@ -30,6 +30,7 @@ class ClassroomUnit < ApplicationRecord
 
   belongs_to :unit # Note, there is a touch in the unit -> classroom_unit direction, so don't add one here.
   belongs_to :classroom
+  belongs_to :classroom_unscoped, foreign_key: :classroom_id
 
   has_many :activity_sessions
   has_many :unit_activities, through: :unit
@@ -105,7 +106,7 @@ class ClassroomUnit < ApplicationRecord
   end
 
   private def hide_unassigned_activity_sessions
-    #validate or hides any other related activity sessions
+    # validate or hides any other related activity sessions
     return unless activity_sessions.present?
 
     activity_sessions.each do |as|

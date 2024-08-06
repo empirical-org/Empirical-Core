@@ -22,8 +22,7 @@ shared_context 'Concept Progress Report' do
   let!(:unit_activity) {
     create(:unit_activity,
       unit: unit,
-      activity: activity
-    )
+      activity: activity)
   }
 
   let!(:writing_grandparent_concept) { create(:concept, name: 'Writing Grandparent') }
@@ -37,48 +36,42 @@ shared_context 'Concept Progress Report' do
       user: student,
       activity: activity,
       state: 'finished',
-      percentage: 0.75
-    )
+      percentage: 0.75)
   }
 
   let!(:correct_writing_result1) do
     create(:concept_result,
       activity_session: activity_session,
       concept: writing_concept,
-      correct: true
-    )
+      correct: true)
   end
 
   let!(:correct_writing_result2) do
     create(:concept_result,
       activity_session: activity_session,
       concept: writing_concept,
-      correct: true
-    )
+      correct: true)
   end
 
   let!(:incorrect_writing_result) do
     create(:concept_result,
       activity_session: activity_session,
       concept: writing_concept,
-      correct: false
-    )
+      correct: false)
   end
 
   let!(:correct_grammar_result) do
     create(:concept_result,
       activity_session: activity_session,
       concept: grammar_tag,
-      correct: true
-    )
+      correct: true)
   end
 
   let!(:incorrect_grammar_result) do
     create(:concept_result,
       activity_session: activity_session,
       concept: grammar_tag,
-      correct: false
-    )
+      correct: false)
   end
 
   # Should not be visible on the report
@@ -89,15 +82,13 @@ shared_context 'Concept Progress Report' do
   let!(:other_classroom_unit) do
     create(:classroom_unit,
       classroom: other_classroom,
-      unit: other_unit
-    )
+      unit: other_unit)
   end
 
   let!(:other_unit_activity) do
     create(:unit_activity,
       unit: other_unit,
-      activity: activity
-    )
+      activity: activity)
   end
 
   let!(:other_activity_session) do
@@ -105,16 +96,14 @@ shared_context 'Concept Progress Report' do
       classroom_unit: other_classroom_unit,
       user: other_student,
       state: 'finished',
-      percentage: 0.75
-    )
+      percentage: 0.75)
   end
 
   let!(:other_grammar_result) do
     create(:concept_result,
       activity_session: other_activity_session,
       concept: writing_concept,
-      correct: true
-    )
+      correct: true)
   end
 
   let!(:writing_results) { [correct_writing_result1, correct_writing_result2, incorrect_writing_result] }

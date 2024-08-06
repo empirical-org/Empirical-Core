@@ -13,8 +13,7 @@ module VitallyIntegration
     def create(type, payload)
       HTTParty.post("#{BASE_URL}/#{type}",
         headers: headers,
-        body: payload.to_json
-      )
+        body: payload.to_json)
     end
 
     def exists?(type, id)
@@ -29,15 +28,13 @@ module VitallyIntegration
 
     def get(type, id)
       HTTParty.get("#{BASE_URL}/#{type}/#{id}",
-        headers: headers
-      )
+        headers: headers)
     end
 
     def update(type, id, payload)
       HTTParty.put("#{BASE_URL}/#{type}/#{id}",
         headers: headers,
-        body: payload.to_json
-      )
+        body: payload.to_json)
     end
 
     private def headers

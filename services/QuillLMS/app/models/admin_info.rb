@@ -54,11 +54,11 @@ class AdminInfo < ApplicationRecord
     User::STAFF
   ]
 
-  validates :approval_status, :inclusion=> { :in => APPROVAL_STATUSES }, :allow_nil => true
+  validates :approval_status, :inclusion => { :in => APPROVAL_STATUSES }, :allow_nil => true
 
-  validates :sub_role, :inclusion=> { :in => SUB_ROLES }, :allow_nil => true
+  validates :sub_role, :inclusion => { :in => SUB_ROLES }, :allow_nil => true
 
-  validates :approver_role, :inclusion=> { :in => APPROVER_ROLES }, :allow_nil => true
+  validates :approver_role, :inclusion => { :in => APPROVER_ROLES }, :allow_nil => true
 
   def admin
     user

@@ -3,15 +3,13 @@
 exports[`Tooltip component it should render when it is not searchable 1`] = `
 <DocumentFragment>
   <span
-    aria-hidden="false"
+    aria-expanded="false"
+    aria-haspopup="true"
     class="quill-tooltip-trigger "
-    role="tooltip"
+    role="button"
+    tabindex="0"
   >
-    <span
-      class="undefined"
-      role="button"
-      tabindex="0"
-    >
+    <span>
       I have a lot of text
     </span>
     <span
@@ -20,6 +18,8 @@ exports[`Tooltip component it should render when it is not searchable 1`] = `
       <span
         aria-live="polite"
         class="quill-tooltip"
+        id="tooltip"
+        role="tooltip"
       />
     </span>
   </span>
