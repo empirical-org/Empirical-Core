@@ -94,6 +94,7 @@ class Cron
 
   def self.run_monday
     Pdfs::SendWeeklySubscriptionsWorker.perform_async
+    AdminDiagnosticReports::SendWeeklySubscriptionsWorker.perform_async
   end
 
   def self.run_friday
@@ -109,6 +110,7 @@ class Cron
 
   def self.run_monthly
     Pdfs::SendMonthlySubscriptionsWorker.perform_async
+    AdminDiagnosticReports::SendMonthlySubscriptionsWorker.perform_async
   end
 
   def self.run_school_year_start
