@@ -139,6 +139,7 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
+    base64 (0.2.0)
     bcrypt (3.1.12)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
@@ -348,7 +349,8 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.11.7)
+    graphql (1.13.23)
+      base64
     grover (1.1.5)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
@@ -880,7 +882,7 @@ DEPENDENCIES
   google-apis-classroom_v1 (~> 0.27.0)
   google-cloud-bigquery (~> 1.43.0)
   graphiql-rails
-  graphql
+  graphql (~> 1.13.20)
   grover
   haversine
   httparty (~> 0.16)
@@ -978,7 +980,7 @@ DEPENDENCIES
   ziptz
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.3.17
