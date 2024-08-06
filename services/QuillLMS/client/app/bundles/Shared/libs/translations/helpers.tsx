@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { ENGLISH } from '../../utils/languageList'
 
 export const getlanguageOptions = (translations) => ([
@@ -7,6 +8,15 @@ export const getlanguageOptions = (translations) => ([
     label: language
   }))
 ]);
+
+export function renderSaveAndExitButton({ language, languageOptions, translate }) {
+  const languages = languageOptions && languageOptions.map(option => option.value)
+  let buttonText = 'Save and exit'
+  if (language && languages && languages.includes(language)) {
+    buttonText = translate('buttons^save and exit')
+  }
+  return <a className="quill-button medium contained white focus-on-dark" href={ process.env.DEFAULT_URL}>{buttonText}</a>
+}
 
 // Temporary feature flag until we are ready to ship this.
 export const hasTranslationFlag = (): boolean => {

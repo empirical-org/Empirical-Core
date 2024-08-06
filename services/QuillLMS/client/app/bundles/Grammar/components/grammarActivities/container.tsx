@@ -4,7 +4,6 @@ import * as React from "react";
 import { connect } from "react-redux";
 import * as Redux from "redux";
 import Pusher from 'pusher-js';
-import { withTranslation } from 'react-i18next';
 
 import Intro from './intro';
 import QuestionComponent from './question';
@@ -339,7 +338,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, availableLanguages, updateLanguage, language, t } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, availableLanguages, updateLanguage, language, translate } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -366,7 +365,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               questions={questions}
               questionSet={session.questionSet}
               unansweredQuestions={session.unansweredQuestions}
-              translate={t}
+              translate={translate}
             />
           )
         }
@@ -420,4 +419,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch<any>) => {
   };
 };
 
-export default withTranslation()(connect(mapStateToProps, mapDispatchToProps)(PlayGrammarContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(PlayGrammarContainer);

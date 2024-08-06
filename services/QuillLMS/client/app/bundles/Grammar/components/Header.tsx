@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { LanguagePicker, TeacherPreviewMenuButton, showTranslations } from '../../Shared/index';
+import { LanguagePicker, TeacherPreviewMenuButton, renderSaveAndExitButton, showTranslations } from '../../Shared/index';
 import { DropdownObjectInterface } from "../../Staff/interfaces/evidenceInterfaces";
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`;
 
@@ -11,6 +11,7 @@ interface HeaderProps {
   onTogglePreview?: () => void;
   language?: string;
   languageOptions?: DropdownObjectInterface[]
+  translate: (language: string) => string;
   updateLanguage?: (language: string) => void;
 }
 
@@ -21,10 +22,11 @@ export const Header: React.SFC<HeaderProps> = ({
   onTogglePreview,
   language,
   languageOptions,
+  translate,
   updateLanguage
 }) => {
 
-  const handleTogglePreview = () => {
+  function handleTogglePreview() {
     onTogglePreview();
   }
 
@@ -35,7 +37,7 @@ export const Header: React.SFC<HeaderProps> = ({
         <a className="focus-on-dark" href={process.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
         <div className='header-buttons-container'>
           {showTranslations(language, languageOptions) && <LanguagePicker language={language} languageOptions={languageOptions} updateLanguage={updateLanguage} />}
-          <a className="quill-button medium contained white focus-on-dark" href={process.env.DEFAULT_URL}>Save and exit</a>
+          {renderSaveAndExitButton({ language, languageOptions, translate })}
         </div>
       </div>
     </div>

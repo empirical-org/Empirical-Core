@@ -151,6 +151,7 @@ export {
   findFeedbackForReport,
   formatAnswerStringForReport,
   getlanguageOptions,
+  renderSaveAndExitButton,
   hasTranslationFlag,
   showTranslations
 } from './libs/index'

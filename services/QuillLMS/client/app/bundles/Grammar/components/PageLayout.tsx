@@ -2,6 +2,7 @@ import * as React from "react";
 import { useQuery } from 'react-query';
 import { renderRoutes } from "react-router-config";
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 
 import { Header } from "./Header";
 
@@ -13,7 +14,7 @@ import getParameterByName from '../helpers/getParameterByName';
 import { routes } from "../routes";
 import { setLanguage } from "../actions/session";
 
-export const PageLayout = ({ dispatch, grammarActivities, session }) => {
+export const PageLayout = ({ dispatch, grammarActivities, session, t }) => {
 
   const studentSession = getParameterByName('student', window.location.href);
   const proofreaderSession = getParameterByName('proofreaderSessionId', window.location.href);
@@ -93,7 +94,8 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
           skippedToQuestionFromIntro: skippedToQuestionFromIntro,
           availableLanguages: languageOptions && languageOptions.map(option => option.value),
           updateLanguage: handleUpdateLanguage,
-          language: language
+          language: language,
+          translate: t
         })}</div>
       </main>
     );
@@ -114,6 +116,7 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
         languageOptions={languageOptions}
         onTogglePreview={handleTogglePreviewMenu}
         previewShowing={showPreview}
+        translate={t}
         updateLanguage={handleUpdateLanguage}
       />
     );
@@ -122,6 +125,7 @@ export const PageLayout = ({ dispatch, grammarActivities, session }) => {
       <Header
         language={language}
         languageOptions={languageOptions}
+        translate={t}
         updateLanguage={handleUpdateLanguage}
       />
     );
@@ -156,4 +160,4 @@ const select = (state: any, props: any) => {
   };
 }
 
-export default connect(select)(PageLayout);
+export default withTranslation()(connect(select)(PageLayout));
