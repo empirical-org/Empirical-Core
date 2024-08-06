@@ -18,9 +18,9 @@ module NavigationHelper
   LOG_IN = 'Log In'
   LOG_OUT = 'Log Out'
   MY_ACCOUNT = 'My Account'
-  MY_ACTIVITIES = 'Manage Activities'
-  MY_CLASSES = 'Manage Classes'
-  MY_REPORTS = 'View Reports'
+  MANAGE_ACTIVITIES = 'Manage Activities'
+  MANAGE_CLASSES = 'Manage Classes'
+  VIEW_REPORTS = 'View Reports'
   OVERVIEW = 'Overview'
   PREMIUM = 'Premium'
   PREMIUM_HUB = 'Premium Hub'
@@ -77,9 +77,9 @@ module NavigationHelper
     OVERVIEW => ['dashboard'],
     MY_ACCOUNT => ['my_account', 'subscriptions', 'admin_access'],
     ASSIGN_ACTIVITIES => ['assign'],
-    MY_ACTIVITIES => ['teachers/classrooms/activity_planner'],
-    MY_REPORTS => ['progress_reports', 'scorebook'],
-    MY_CLASSES => ['teachers/classrooms'],
+    MANAGE_ACTIVITIES => ['teachers/classrooms/activity_planner'],
+    VIEW_REPORTS => ['progress_reports', 'scorebook'],
+    MANAGE_CLASSES => ['teachers/classrooms'],
     TEACHER_PREMIUM => ['teacher_premium'],
     PREMIUM_HUB => ['premium_hub'],
     PREMIUM => ['premium'],
@@ -134,16 +134,16 @@ module NavigationHelper
     @my_account_tab ||= { name: MY_ACCOUNT, url: teachers_my_account_path, id: 'my-account-tab' }
   end
 
-  def my_activities_tab
-    @my_activities_tab ||= { name: MY_ACTIVITIES, url: lesson_planner_teachers_classrooms_path }
+  def manage_activities_tab
+    @manage_activities_tab ||= { name: MANAGE_ACTIVITIES, url: lesson_planner_teachers_classrooms_path }
   end
 
-  def my_classes_tab
-    @my_classes_tab ||= { name: MY_CLASSES, url: teachers_classrooms_path }
+  def manage_classes_tab
+    @manage_classes_tab ||= { name: MANAGE_CLASSES, url: teachers_classrooms_path }
   end
 
-  def my_reports_tab
-    @my_reports_tab ||= { name: MY_REPORTS, url: teachers_progress_reports_landing_page_path }
+  def view_reports_tab
+    @view_reports_tab ||= { name: VIEW_REPORTS, url: teachers_progress_reports_landing_page_path }
   end
 
   def my_subscriptions_tab
@@ -196,7 +196,7 @@ module NavigationHelper
     controller.class == Teachers::ClassroomManagerController && action_name == 'assign'
   end
 
-  def my_activities_page_active?
+  def manage_activities_page_active?
     controller.class == Teachers::ClassroomManagerController && action_name == 'lesson_planner'
   end
 
@@ -365,10 +365,10 @@ module NavigationHelper
     tabs = [
       home_tab,
       overview_tab,
-      my_classes_tab,
+      manage_classes_tab,
       ASSIGN_ACTIVITIES_TAB,
-      my_activities_tab,
-      my_reports_tab
+      manage_activities_tab,
+      view_reports_tab
     ]
 
     tabs.push(premium_tab) unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium?
