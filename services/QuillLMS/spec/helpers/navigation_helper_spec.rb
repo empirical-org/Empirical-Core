@@ -325,13 +325,13 @@ describe NavigationHelper do
         expect(helper.determine_active_tab('assign')).to eq(NavigationHelper::ASSIGN_ACTIVITIES)
       end
 
-      it 'should return "My Activities" for relevant paths' do
+      it 'should return "Manage Activities" for relevant paths' do
         expect(helper.determine_active_tab('teachers/classrooms/activity_planner')).to eq(NavigationHelper::MY_ACTIVITIES)
         expect(helper.determine_active_tab('teachers/classrooms/activity_planner/closed')).to eq(NavigationHelper::MY_ACTIVITIES)
         expect(helper.determine_active_tab('teachers/classrooms/activity_planner/lessons')).to eq(NavigationHelper::MY_ACTIVITIES)
       end
 
-      it 'should return "My Reports" for relevant paths' do
+      it 'should return "View Reports" for relevant paths' do
         expect(helper.determine_active_tab('teachers/progress_reports/landing_page')).to eq(NavigationHelper::MY_REPORTS)
         expect(helper.determine_active_tab('teachers/classrooms/scorebook')).to eq(NavigationHelper::MY_REPORTS)
         expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/#/activity_packs')).to eq(NavigationHelper::MY_REPORTS)
@@ -342,7 +342,7 @@ describe NavigationHelper do
         expect(helper.determine_active_tab('teachers/progress_reports/activity_sessions')).to eq(NavigationHelper::MY_REPORTS)
       end
 
-      it 'should return "My Classes" for relevant paths' do
+      it 'should return "Manage Classes" for relevant paths' do
         expect(helper.determine_active_tab('teachers/classrooms')).to eq(NavigationHelper::MY_CLASSES)
         expect(helper.determine_active_tab('teachers/classrooms/archived')).to eq(NavigationHelper::MY_CLASSES)
       end
