@@ -7,7 +7,6 @@ module Evidence
         attr_reader :file
 
         HEADERS = DatasetImporter::HEADERS
-<<<<<<< HEAD
         STUDENT_RESPONSE = DatasetImporter::STUDENT_RESPONSE
         CURRICULUM_ASSIGNED_OPTIMAL_STATUS = DatasetImporter::CURRICULUM_ASSIGNED_OPTIMAL_STATUS
         DATA_PARTITION = DatasetImporter::DATA_PARTITION
@@ -18,13 +17,8 @@ module Evidence
         OPTIMAL = HasAssignedStatus::OPTIMAL
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
-=======
-
-        OPTIMAL = HasAssignedStatus::OPTIMAL
-        SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
->>>>>>> e16b24e440 (Add header and student response validation)
         MISSING_FEEDBACK_ERROR = 'CSV is missing feedback. Please add Curriculum Proposed Feedback or AutoML Primary Feedback.'
-        MISSING_STUDENT_RESPONSE_ERROR = 'is missing a Student Response.'
+        MISSING_STUDENT_RESPONSE_ERROR = 'CSV is missing a Student Response.'
         MISSING_HEADERS_ERROR = 'CSV is missing required headers: %s.'
 
         def initialize(file:)
