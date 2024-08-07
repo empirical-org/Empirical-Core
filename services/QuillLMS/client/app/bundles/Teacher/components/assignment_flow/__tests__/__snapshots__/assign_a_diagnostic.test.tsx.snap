@@ -71,6 +71,25 @@ exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
       <h1>
         Which diagnostic covers the skills you want to assess?
       </h1>
+      <DisabledDiagnosticsBanner
+        className="assignment-flow"
+      >
+        <div
+          className="disabled-diagnostic-banner assignment-flow"
+        >
+          <p>
+            We've made improvements to the diagnostics for the 2024-2025 school year.
+          </p>
+          <a
+            className="focus-on-dark"
+            href="https://www.quill.org/teacher-center/important-update-to-diagnostics"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Learn more
+          </a>
+        </div>
+      </DisabledDiagnosticsBanner>
       <section
         className="filter-tabs"
       >
