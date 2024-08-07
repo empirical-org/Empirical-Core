@@ -8,7 +8,7 @@ import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, group
 import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon, whiteEmailIcon } from '../../../Shared/index'
 import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
-import { requestPost } from '../../../../modules/request'
+import { requestDelete, requestGet, requestPost } from '../../../../modules/request'
 import ReportSubscriptionModal from '../../components/usage_snapshots/reportSubscriptionModal';
 
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
@@ -18,6 +18,7 @@ const groupOfStudentsWhiteIconSrc = `${process.env.CDN_URL}/images/icons/student
 const pencilGreyIconSrc = `${process.env.CDN_URL}/images/pages/administrator/usage_snapshot_report/pencil.svg`
 const pencilWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-pencil-icon.svg`
 
+const ADMIN_DIAGNOSTIC_SUBSCRIPTION = 'admin_diagnostic_report'
 const FILTER_SELECTIONS_REPORT_BASE = 'diagnostic_growth_report_'
 
 const reportButtons = [
@@ -71,6 +72,12 @@ export const DiagnosticGrowthReportsContainer = ({
   const [currentEmailSubscription, setCurrentEmailSubscription] = React.useState(null)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
+
+  React.useEffect(() => {
+    requestGet(`/email_subscriptions/${ADMIN_DIAGNOSTIC_SUBSCRIPTION}/current`, (body) => {
+      setCurrentEmailSubscription(body)
+    })
+  }, [])
 
   React.useEffect(() => {
     // this is for testing purposes; this value will always be null in a non-testing environment
@@ -153,7 +160,6 @@ export const DiagnosticGrowthReportsContainer = ({
   }
 
   function postFilterSelections(tab, filterSelections, successCallback = () => { }) {
-    console.log('postFilterSelections')
     const params = {
       admin_report_filter_selection: {
         filter_selections: filterSelections,
@@ -207,42 +213,41 @@ export const DiagnosticGrowthReportsContainer = ({
   function handleSubscriptionSave(isSubscribed, frequency) {
     setIsSubscriptionModalOpen(false);
     if (isSubscribed) {
-      requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${OVERVIEW}` }, (overviewSelections) => {
-        requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${SKILL}` }, (skillSelections) => {
-          requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${STUDENT}` }, (studentSelections) => {
-            console.log(overviewSelections)
-//            if (overviewSelections) postFilterSelections(`subscription_${OVERVIEW}`, overviewSelections.filterSelections)
-//            if (skillSelections) postFilterSelections(`subscription_${SKILL}`, skillSelections.filterSelections)
-//            if (studentSelections) postFilterSelections(`subscription_${STUDENT}`, studentSelections.filterSelections)
+      requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE.slice(0,-1)}` }, (sharedSelections) => {
+        requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${OVERVIEW}` }, (overviewSelections) => {
+          requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${SKILL}` }, (skillSelections) => {
+            requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${STUDENT}` }, (studentSelections) => {
+              if (sharedSelections) postFilterSelections(`subscription`, sharedSelections.filter_selections)
+              if (overviewSelections) postFilterSelections(`subscription_${OVERVIEW}`, overviewSelections.filter_selections)
+              if (skillSelections) postFilterSelections(`subscription_${SKILL}`, skillSelections.filter_selections)
+              if (studentSelections) postFilterSelections(`subscription_${STUDENT}`, studentSelections.filter_selections)
 
-            // createOrUpdateEmailSubscription
+              createOrUpdateEmailSubscription(frequency)
+            })
           })
         })
       })
 
     } else if (currentEmailSubscription) {
-      deleteEmailSubscription(currentEmailSubscription.id)
+      deleteEmailSubscription()
     }
     showInSnackbar('Subscription settings saved')
   }
 
   function createOrUpdateEmailSubscription(frequency) {
-    if (!adminReportFilterSelection?.id) { return }
-
     const emailSubscriptionParams = {
-      email_subscription: {
-        admin_report_filter_selection_id: adminReportFilterSelection.id,
+      subscription: {
         frequency
       }
     }
 
-    requestPost('/pdf_subscriptions/create_or_update', pdfSubscriptionParams, (pdfSubscription) => {
-      setCurrentPdfSubscription(pdfSubscription)
+    requestPost(`/email_subscriptions/${ADMIN_DIAGNOSTIC_SUBSCRIPTION}/create_or_update`, emailSubscriptionParams, (emailSubscription) => {
+      setCurrentEmailSubscription(emailSubscription)
     })
   }
 
-  function deleteEmailSubscription(subscriptionId) {
-    requestDelete(`/email_subscriptions/${subscriptionId}`, {}, () => setCurrentEmailSubscription(null), error => { throw (error) })
+  function deleteEmailSubscription() {
+    requestDelete(`/email_subscriptions/${ADMIN_DIAGNOSTIC_SUBSCRIPTION}`, {}, () => setCurrentEmailSubscription(null), error => { throw (error) })
   }
 
   function renderButtons() {
