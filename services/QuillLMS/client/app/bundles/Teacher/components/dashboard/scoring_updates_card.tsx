@@ -1,23 +1,26 @@
 import * as React from 'react'
 
-import { arrowPointingRightIcon } from '../../../Shared/index'
+import { PostNavigationBanner } from '../../../Shared'
 
 const closeIconSrc = `${process.env.CDN_URL}/images/pages/dashboard/bulk_archive_close_icon.svg`
 
 const ScoringUpdatesCard = ({ handleCloseCard, }) => {
   return (
-    <section className="scoring-updates-card">
-      <div>
-        <div className="badge-section">
-          <span className="title-tag">UPDATE FOR THE 2023-2024 SCHOOL YEAR</span>
-        </div>
-        <h2>Educators, we have updated our approach to scoring activities</h2>
-        <div className="link-section">
-          <a href={`${process.env.DEFAULT_URL}/teacher-center/quill-scoring-updates-2023`} rel="noopener noreferrer" target="_blank"><span>Learn more about Quill&#39;s updates to activity scores</span><img alt={arrowPointingRightIcon.alt} src={arrowPointingRightIcon.src} /></a>
-        </div>
-      </div>
-      <button aria-label="Hide card until next school year" className="interactive-wrapper close-button" onClick={handleCloseCard} type="button"><img alt="" src={closeIconSrc} /></button>
-    </section>
+    <PostNavigationBanner
+      bannerStyle="premium"
+      bodyText="Quickly archive last year's classes."
+      buttons={[
+        {
+          href: `${process.env.DEFAULT_URL}/teacher-center/quill-scoring-updates-2023`,
+          standardButtonStyle: true,
+          text: "Learn more about Quill's updates to activity scores",
+          target: "_blank"
+        }
+      ]}
+      icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
+      primaryHeaderText="Educators, we have updated our approach to scoring activities"
+      secondaryHeaderText="Update for the 2023-2024 school year"
+    />
   )
 }
 
