@@ -22,7 +22,7 @@ exports[`CoursePageActivity renders correctly when link_for_report is not provid
       <p
         class="oer-asset-line"
       >
-        Optional Paired OER Activity: 
+        Optional Paired OER Project Activity: 
         <a
           href="https://example.com/oer"
           rel="noopener noreferrer"
@@ -89,7 +89,7 @@ exports[`CoursePageActivity renders correctly when link_for_report is provided 1
       <p
         class="oer-asset-line"
       >
-        Optional Paired OER Activity: 
+        Optional Paired OER Project Activity: 
         <a
           href="https://example.com/oer"
           rel="noopener noreferrer"
