@@ -4,18 +4,29 @@ module AdminDiagnosticReports
   class SendCsvEmailWorker
     include Sidekiq::Worker
 
-    attr_reader :user
+    attr_reader :user, :shared_filter_report_name, :overview_filter_report_name, :skills_filter_report_name, :students_filter_report_name
 
     TEMPFILE_NAME = 'temp.csv'
 
     def perform(user_id, shared_filter_report_name, overview_filter_report_name, skills_filter_report_name, students_filter_report_name)
       @user = User.find(user_id)
+      @shared_filter_report_name = shared_filter_report_name
+      @overview_filter_report_name = overview_filter_report_name
+      @skills_filter_report_name = skills_filter_report_name
+      @students_filter_report_name = students_filter_report_name
 
-      overview_link = generate_overview_link(user_id, shared_filter_report_name, overview_filter_report_name)
-      skills_link = generate_skills_link(user_id, shared_filter_report_name, skills_filter_report_name)
-      students_link = generate_students_link(user_id, shared_filter_report_name, students_filter_report_name)
+      mailer.csv_download_email(*email_payload).deliver_now!
+    end
 
-      ReportMailer.csv_download_email(user_id, overview_link, skills_link, students_link).deliver_now!
+    private def mailer = ReportMailer
+
+    private def email_payload
+      @email_payload ||= [
+        user.id,
+        generate_overview_link(user.id, shared_filter_report_name, overview_filter_report_name),
+        generate_skills_link(user.id, shared_filter_report_name, skills_filter_report_name),
+        generate_students_link(user.id, shared_filter_report_name, students_filter_report_name)
+      ]
     end
 
     private def generate_overview_link(user_id, shared_filter_report_name, overview_filter_report_name)
