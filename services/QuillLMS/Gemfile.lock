@@ -139,6 +139,7 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
+    base64 (0.2.0)
     bcrypt (3.1.12)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
@@ -348,7 +349,8 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.11.7)
+    graphql (1.13.23)
+      base64
     grover (1.1.5)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
@@ -659,27 +661,27 @@ GEM
     retriable (3.1.2)
     rexml (3.2.9)
       strscan
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.2)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-rails (6.0.1)
+      rspec-support (~> 3.13.0)
+    rspec-rails (6.0.4)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
-      rspec-core (~> 3.11)
-      rspec-expectations (~> 3.11)
-      rspec-mocks (~> 3.11)
-      rspec-support (~> 3.11)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
     rspec-redis_helper (0.1.2)
       redis
     rspec-retry (0.6.2)
       rspec-core (> 3.3)
-    rspec-support (3.11.1)
+    rspec-support (3.13.1)
     rubocop (1.64.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -880,7 +882,7 @@ DEPENDENCIES
   google-apis-classroom_v1 (~> 0.27.0)
   google-cloud-bigquery (~> 1.43.0)
   graphiql-rails
-  graphql
+  graphql (~> 1.13.20)
   grover
   haversine
   httparty (~> 0.16)
@@ -940,7 +942,8 @@ DEPENDENCIES
   redis-rails
   responders
   rexml
-  rspec-rails
+  rspec-core (~> 3.12)
+  rspec-rails (~> 6.0.4)
   rspec-redis_helper
   rspec-retry
   rubocop
@@ -978,7 +981,7 @@ DEPENDENCIES
   ziptz
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.3.17
