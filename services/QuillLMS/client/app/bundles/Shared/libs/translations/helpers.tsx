@@ -23,7 +23,7 @@ export function renderSaveAndExitButton({ isELLDiagnostic, language, languageOpt
   if (language && language !== ENGLISH && languages && languages.includes(language)) {
     buttonText = translate('buttons^save and exit')
   }
-  return <a className="quill-button medium contained white focus-on-dark" href={ process.env.DEFAULT_URL}>{buttonText}</a>
+  return <a className="quill-button medium contained white focus-on-dark" href={`${process.env.DEFAULT_URL}/profile`}>{buttonText}</a>
 }
 
 // Temporary feature flag until we are ready to ship this.

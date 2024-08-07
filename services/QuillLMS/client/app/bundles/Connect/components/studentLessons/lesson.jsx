@@ -340,6 +340,7 @@ export class Lesson extends React.Component {
   }
 
   resumeSession = (data) => {
+    console.log("🚀 ~ Lesson ~ data:", data)
     const { dispatch, } = this.props
     if (data) {
       dispatch(resumePreviousSession(data));
@@ -488,8 +489,8 @@ export class Lesson extends React.Component {
             previewMode={previewMode}
             question={question}
             questionToPreview={questionToPreview}
-            submitResponse={this.submitResponse}
             showTranslation={showTranslation}
+            submitResponse={this.submitResponse}
             translate={translate}
           />
         );
@@ -545,8 +546,8 @@ export class Lesson extends React.Component {
           lesson={this.getLesson()}
           previewMode={previewMode}
           resumeActivity={this.resumeSession}
-          showTranslation={showTranslation}
           session={session}
+          showTranslation={showTranslation}
           startActivity={this.startActivity}
           translate={translate}
         />
