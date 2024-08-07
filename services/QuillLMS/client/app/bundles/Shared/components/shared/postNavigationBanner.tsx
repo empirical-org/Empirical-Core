@@ -25,8 +25,8 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
   return(
     <div className={`banner-container ${bannerStyle}`}>
       <div className="left-side-container">
-        {tagText && <div className="upper-section">
-          <p className="tag">{tagText}</p>
+        {(tagText || secondaryHeaderText) && <div className="upper-section">
+          {tagText && <p className="tag">{tagText}</p>}
           {secondaryHeaderText && <p className="secondary-header">{secondaryHeaderText}</p>}
         </div>}
         <p className="primary-header">{primaryHeaderText}</p>

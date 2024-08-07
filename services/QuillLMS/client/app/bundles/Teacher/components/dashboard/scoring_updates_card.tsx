@@ -8,7 +8,7 @@ const ScoringUpdatesCard = ({ handleCloseCard, }) => {
   return (
     <PostNavigationBanner
       bannerStyle="premium"
-      bodyText="Quickly archive last year's classes."
+      bodyText=""
       buttons={[
         {
           href: `${process.env.DEFAULT_URL}/teacher-center/quill-scoring-updates-2023`,
