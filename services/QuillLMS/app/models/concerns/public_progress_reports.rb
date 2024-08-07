@@ -222,7 +222,7 @@ module PublicProgressReports
     formatted_concept_results = format_concept_results(activity_session, activity_session.concept_results)
     if [ActivityClassification::LESSONS_KEY, ActivityClassification::DIAGNOSTIC_KEY].include?(classification.key)
       score = get_average_score(formatted_concept_results)
-    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key)
+    elsif [ActivityClassification::EVIDENCE_KEY].include?(classification.key) && activity_session.percentage == nil # handles previous state where evidence sessions didn't get scored
       score = nil
     else
       score = (activity_session.percentage * 100).round

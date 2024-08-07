@@ -244,7 +244,7 @@ export default class StudentProfileUnit extends React.Component {
       </span>
     ) : null
 
-    if (EVIDENCE_ACTIVITY_CLASSIFICATION_KEY === activity_classification_key) {
+    if (EVIDENCE_ACTIVITY_CLASSIFICATION_KEY === activity_classification_key && max_percentage === null) {
       return (<div className="score"><div className="completed">{attemptCountIndicator}</div><span>Completed</span></div>)
     }
 
@@ -327,7 +327,8 @@ export default class StudentProfileUnit extends React.Component {
       const sharedTooltipWrapperProps = {
         activity: act,
         exactScoresData,
-        showExactScores: activity_classification_key === EVIDENCE_ACTIVITY_CLASSIFICATION_KEY ? false : showExactScores }
+        showExactScores,
+      }
 
       if (![DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY, LESSONS_ACTIVITY_CLASSIFICATION_KEY].includes(activity_classification_key) && !exactScoresDataPending) {
         return {
