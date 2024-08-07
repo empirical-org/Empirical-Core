@@ -7,7 +7,7 @@ const closeIconSrc = `${process.env.CDN_URL}/images/pages/dashboard/bulk_archive
 const ScoringUpdatesCard = ({ handleCloseCard, }) => {
   return (
     <PostNavigationBanner
-      bannerStyle="premium"
+      bannerStyle="gold-secondary"
       bodyText=""
       buttons={[
         {

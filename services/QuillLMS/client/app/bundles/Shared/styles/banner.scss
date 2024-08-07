@@ -98,6 +98,21 @@
       color: $quill-gold-dark;
     }
   }
+  &.gold-secondary {
+    background-color: $quill-gold-1;
+    border: 1px solid $quill-gold-dark-10;
+    .tag, .quill-button-archived {
+      background-color: $quill-white !important;
+      color: $quill-gold-dark !important;
+      border: 1px solid $quill-gold-dark-10;
+    }
+    .quill-button-archived:hover {
+      background-color: $quill-white !important;
+    }
+    .secondary-header {
+      color: $quill-gold-dark;
+    }
+  }
   &.viridian {
     background-color: $quill-viridian-1;
     border: 1px solid $quill-viridian-20;
