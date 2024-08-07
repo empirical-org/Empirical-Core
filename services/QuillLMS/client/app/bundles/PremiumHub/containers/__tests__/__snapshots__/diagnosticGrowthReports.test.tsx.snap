@@ -8,9 +8,7 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
     >
       <div
         class="quill-snackbar "
-      >
-        You will receive an email with a download link shortly.
-      </div>
+      />
       <h1>
         <span>
           Diagnostic Growth Report
@@ -32,6 +30,18 @@ exports[`DiagnosticGrowthReports full state it should render the expected header
       <div
         class="header-buttons"
       >
+        <button
+          class="quill-button-archived manage-subscription-button contained primary medium focus-on-light"
+          type="button"
+        >
+          <img
+            alt="Envelope icon"
+            src="undefined/images/icons/email-icon-white.svg"
+          />
+          <span>
+            Subscribe
+          </span>
+        </button>
         <button
           class="quill-button-archived download-report-button contained primary medium focus-on-light"
           type="button"
