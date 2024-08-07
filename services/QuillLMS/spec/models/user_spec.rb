@@ -98,6 +98,7 @@ RSpec.describe User, type: :model do
   it { should have_one(:auth_credential).dependent(:destroy) }
   it { should have_many(:admin_report_filter_selections).dependent(:destroy) }
   it { should have_many(:pdf_subscriptions).through(:admin_report_filter_selections) }
+  it { should have_mahy(:email_subscriptions).dependent(:destroy) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -2446,6 +2447,34 @@ RSpec.describe User, type: :model do
 
         it { is_expected.to eq true }
       end
+    end
+  end
+
+  describe '#segment_admin_report_subscriptions' do
+    subject { user.segment_admin_report_subscriptions }
+
+    it { is_expected.to eq [] }
+
+    context 'has a PDF subscription' do
+      let(:usage_snapshot) { described_class::SEGMENT_MAPPING[pdf_subscription.report] }
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection) }
+      let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
+
+      it { is_expected.to match_array [usage_snapshot] }
+
+      context 'also has an EmailSubscription' do
+        let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
+        let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
+
+        it { is_expected. to match_array [usage_snapshot, admin_diagnostic_report] }
+      end
+    end
+
+    context 'EmailSubscription with no PDF subscription' do
+        let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
+        let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
+
+        it { is_expected. to match_array [admin_diagnostic_report] }
     end
   end
 end
