@@ -7,9 +7,16 @@ module Evidence
         attr_reader :file
 
         HEADERS = DatasetImporter::HEADERS
+        STUDENT_RESPONSE = DatasetImporter::STUDENT_RESPONSE
+        CURRICULUM_ASSIGNED_OPTIMAL_STATUS = DatasetImporter::CURRICULUM_ASSIGNED_OPTIMAL_STATUS
+        DATA_PARTITION = DatasetImporter::DATA_PARTITION
+        CURRICULUM_PROPOSED_FEEDBACK = DatasetImporter::CURRICULUM_PROPOSED_FEEDBACK
+        OPTIONAL_AUTOML_PRIMARY_FEEDBACK = DatasetImporter::OPTIONAL_AUTOML_PRIMARY_FEEDBACK
+        TEST_DATA = DatasetImporter::TEST_DATA
 
         OPTIMAL = HasAssignedStatus::OPTIMAL
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
+
         MISSING_FEEDBACK_ERROR = 'CSV is missing feedback. Please add Curriculum Proposed Feedback or AutoML Primary Feedback.'
         MISSING_STUDENT_RESPONSE_ERROR = 'is missing a Student Response.'
         MISSING_HEADERS_ERROR = 'CSV is missing required headers: %s.'
@@ -39,13 +46,13 @@ module Evidence
 
         private def missing_headers = HEADERS - csv.headers
 
-        private def missing_student_response?(row) = row['Student Response'].blank?
+        private def missing_student_response?(row) = row[STUDENT_RESPONSE].blank?
 
         private def missing_feedback?(row)
-          row['Curriculum Assigned Optimal Status'] == 'FALSE' &&
-          row['Data Partition'] == 'test' &&
-          row['Curriculum Proposed Feedback'].blank? &&
-          row['Optional - AutoML Primary Feedback'].blank?
+          row[CURRICULUM_ASSIGNED_OPTIMAL_STATUS] == 'FALSE' &&
+          row[DATA_PARTITION] == TEST_DATA &&
+          row[CURRICULUM_PROPOSED_FEEDBACK].blank? &&
+          row[OPTIONAL_AUTOML_PRIMARY_FEEDBACK].blank?
         end
       end
     end
