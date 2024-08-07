@@ -19,4 +19,3 @@ module AdminDiagnosticReports
     private def subscriptions = (raise NotImplementedError)
   end
 end
-

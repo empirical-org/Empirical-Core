@@ -5,4 +5,3 @@ module AdminDiagnosticReports
     private def subscriptions = EmailSubscription.weekly
   end
 end
-
