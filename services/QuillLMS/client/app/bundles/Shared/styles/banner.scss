@@ -3,6 +3,7 @@
   justify-content: space-between;
   padding: 20px;
   border-radius: 8px;
+  position: relative;
   .left-side-container {
     .upper-section {
       display: flex;
@@ -15,7 +16,7 @@
         border-radius: 5px;
         font-size: 9px;
         font-weight: 700;
-        margin: 0;
+        margin: 0px 8px 0px 0px;
         text-transform: uppercase;
       }
       .secondary-header {
@@ -71,6 +72,12 @@
         }
       }
     }
+  }
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    filter: brightness(0%);
   }
   &.green {
     background-color: $quill-green-1;

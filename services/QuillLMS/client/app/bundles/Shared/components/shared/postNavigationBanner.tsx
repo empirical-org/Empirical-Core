@@ -7,6 +7,9 @@ interface BannerProps {
   primaryHeaderText: string,
   secondaryHeaderText?: string,
   bodyText: string,
+  closeAria?: string,
+  closeIconSrc?: string,
+  handleCloseCard?: () => void,
   icon: {
     alt: string,
     src: string
@@ -21,7 +24,7 @@ interface BannerProps {
   bannerStyle: string
 }
 
-export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle }: BannerProps) => {
+export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHeaderText, bodyText, icon, buttons, bannerStyle, closeIconSrc, handleCloseCard, closeAria }: BannerProps) => {
   return(
     <div className={`banner-container ${bannerStyle}`}>
       <div className="left-side-container">
@@ -44,6 +47,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
         </div>
       </div>
       <img alt={icon.alt} className="banner-icon" src={icon.src} />
+      {closeIconSrc && <button aria-label={closeAria} className="interactive-wrapper close-button" onClick={handleCloseCard} type="button"><img alt="" src={closeIconSrc} /></button>}
     </div>
   )
 }
