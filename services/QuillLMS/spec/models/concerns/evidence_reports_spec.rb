@@ -100,8 +100,8 @@ describe EvidenceReports, type: :model do
     context 'returns feedback text if feedback history is found' do
       before do
         allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
-                           .with(activity_session, correct_prompt_text, attempt_number)
-                           .and_return(feedback_history_for_prompt)
+          .with(activity_session, correct_prompt_text, attempt_number)
+          .and_return(feedback_history_for_prompt)
       end
 
       let(:prompt_text) { correct_prompt_text }
@@ -112,8 +112,8 @@ describe EvidenceReports, type: :model do
     context 'returns nil if feedback history is not found' do
       before do
         allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
-                           .with(activity_session, wrong_prompt_text, attempt_number)
-                           .and_return(nil)
+          .with(activity_session, wrong_prompt_text, attempt_number)
+          .and_return(nil)
       end
 
       let(:prompt_text) { wrong_prompt_text }
@@ -173,11 +173,11 @@ describe EvidenceReports, type: :model do
 
     before do
       allow(instance).to receive(:get_feedback_history_from_activity_session_prompt_text_and_attempt_number)
-                         .with(activity_session, prompt_text, FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER)
-                         .and_return(feedback_history)
+        .with(activity_session, prompt_text, FakeReports::EVIDENCE_FINAL_ATTEMPT_NUMBER)
+        .and_return(feedback_history)
       allow(instance).to receive(:get_evidence_prompt_from_activity_and_prompt_text)
-                         .with(activity_session, prompt_text)
-                         .and_return(prompt)
+        .with(activity_session, prompt_text)
+        .and_return(prompt)
     end
 
     context 'when feedback history type is GRAMMAR, RULES_BASED_THREE, or SPELLING' do

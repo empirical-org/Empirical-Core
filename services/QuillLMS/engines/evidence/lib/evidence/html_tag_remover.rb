@@ -17,9 +17,9 @@ module Evidence
       html
         .gsub(HTML_TAG_REGEX, SPACE) # remove html tags
         .gsub('&#x27;', "'") # replace html single quotes
-        .gsub(/(‘|’)/,"'") # replace html single curly quotes
-        .gsub('&quot;','"') # replace html double quotes
-        .gsub(/(“|”)/,'"') # replace html double curly quotes
+        .gsub(/(‘|’)/, "'") # replace html single curly quotes
+        .gsub('&quot;', '"') # replace html double quotes
+        .gsub(/(“|”)/, '"') # replace html double curly quotes
         .gsub(/\s+/, SPACE) # replace multiple spaces with single space
         .strip
     end

@@ -22,14 +22,14 @@ class DiagnosticUnitRecordsFetcher < ApplicationService
       classroom_units.id AS classroom_unit_id,
       activities_unit_templates.unit_template_id AS unit_template_id
     ")
-    .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{user.id}")
-    .joins('JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible')
-    .joins('JOIN units ON classroom_units.unit_id = units.id AND units.visible')
-    .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
-    .joins('JOIN activities ON unit_activities.activity_id = activities.id')
-    .joins('LEFT JOIN activities_unit_templates ON activities_unit_templates.activity_id = activities.id')
-    .group('classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at, activities_unit_templates.unit_template_id')
-    .order(Arel.sql('classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC'))
+      .joins("JOIN classrooms ON classrooms_teachers.classroom_id = classrooms.id AND classrooms.visible = TRUE AND classrooms_teachers.user_id = #{user.id}")
+      .joins('JOIN classroom_units ON classroom_units.classroom_id = classrooms.id AND classroom_units.visible')
+      .joins('JOIN units ON classroom_units.unit_id = units.id AND units.visible')
+      .joins("JOIN unit_activities ON unit_activities.unit_id = classroom_units.unit_id AND unit_activities.activity_id IN (#{diagnostic_activity_ids.join(',')}) AND unit_activities.visible")
+      .joins('JOIN activities ON unit_activities.activity_id = activities.id')
+      .joins('LEFT JOIN activities_unit_templates ON activities_unit_templates.activity_id = activities.id')
+      .group('classrooms.name, activities.name, activities.id, classroom_units.unit_id, classroom_units.id, units.name, classrooms.id, classroom_units.assigned_student_ids, unit_activities.created_at, classroom_units.created_at, activities_unit_templates.unit_template_id')
+      .order(Arel.sql('classrooms.name, greatest(classroom_units.created_at, unit_activities.created_at) DESC'))
 
     records.map do |r|
       {

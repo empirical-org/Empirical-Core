@@ -84,7 +84,7 @@ module Evidence
     end
 
     def file_name(filename, file_ending)
-      [filename.gsub('.csv',''), LABEL_FILE, file_ending].join('_')
+      [filename.gsub('.csv', ''), LABEL_FILE, file_ending].join('_')
     end
 
     def labeled_training_csv_string

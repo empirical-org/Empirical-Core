@@ -6,11 +6,11 @@ describe CoreExtensions::Array do
   describe '#median' do
     let(:odd_sized_letters) { %w{e a b c d} }
     let(:even_sized_letters) { %w{f e a b c d} }
-    let(:odd_sized_numbers) { [3,2,1] }
-    let(:even_sized_numbers) { [4,3,2,1] }
+    let(:odd_sized_numbers) { [3, 2, 1] }
+    let(:even_sized_numbers) { [4, 3, 2, 1] }
     let(:one_number) { [1] }
-    let(:two_numbers) { [1,2] }
-    let(:mixed_types) { [3,'a',1] }
+    let(:two_numbers) { [1, 2] }
+    let(:mixed_types) { [3, 'a', 1] }
 
     it 'should return middle in odd-sized letters' do
       expect(odd_sized_letters.median).to eq 'c'

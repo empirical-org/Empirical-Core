@@ -99,6 +99,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       changeLogs
     }})
     this.setState({ concept: { name: '', parent: {}, description: '' }})
+    this.closeChangeLogModal()
   }
 
   closeChangeLogModal = () => {

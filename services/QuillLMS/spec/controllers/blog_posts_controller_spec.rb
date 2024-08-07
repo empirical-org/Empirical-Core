@@ -141,18 +141,18 @@ describe BlogPostsController, type: :controller do
 
     it 'should never return a draft' do
       draft_post
-      get :show_topic, params: { topic: topic.downcase.gsub(' ','-') }
+      get :show_topic, params: { topic: topic.downcase.gsub(' ', '-') }
       expect(assigns(:blog_posts)).not_to include(draft_post)
     end
 
     it 'should return all the posts associated with this topic' do
       blog_posts
-      get :show_topic, params: { topic: topic.downcase.gsub(' ','-') }
+      get :show_topic, params: { topic: topic.downcase.gsub(' ', '-') }
       expect(assigns(:blog_posts)).to match_array(blog_posts)
     end
 
     it 'should return a title' do
-      get :show_topic, params: { topic: topic.downcase.gsub(' ','-') }
+      get :show_topic, params: { topic: topic.downcase.gsub(' ', '-') }
       expect(assigns(:title)).to eq(topic)
     end
   end

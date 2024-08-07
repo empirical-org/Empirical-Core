@@ -108,8 +108,8 @@ class Teachers::ClassroomsController < ApplicationController
     classroom.visible = false
     classroom.save(validate: false)
     respond_to do |format|
-      format.html{ redirect_to teachers_classrooms_path }
-      format.json{ render json: classroom, serializer: ClassroomSerializer }
+      format.html { redirect_to teachers_classrooms_path }
+      format.json { render json: classroom, serializer: ClassroomSerializer }
     end
   end
 

@@ -76,7 +76,7 @@ describe Cms::CriteriaController do
 
     it 'should destroy the given criterion' do
       delete :destroy, params: { activity_classification_id: activity_classification.id, activity_id: activity.id, recommendation_id: recommendation.id, id: criterion.id }
-      expect{ Criterion.find(criterion.id) }.to raise_exception ActiveRecord::RecordNotFound
+      expect { Criterion.find(criterion.id) }.to raise_exception ActiveRecord::RecordNotFound
     end
   end
 end

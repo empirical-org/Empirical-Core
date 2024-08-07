@@ -15,7 +15,7 @@
 require 'rails_helper'
 
 describe StandardLevel, type: :model do
-  let(:standard_level){ build(:standard_level) }
+  let(:standard_level) { build(:standard_level) }
 
   it_behaves_like 'uid'
 
@@ -26,7 +26,7 @@ describe StandardLevel, type: :model do
 
     context 'when it runs validations' do
       it 'must have a name' do
-        standard_level.name=nil
+        standard_level.name = nil
         standard_level.valid?
         expect(standard_level.errors[:name]).to include "can't be blank"
       end

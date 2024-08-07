@@ -69,12 +69,12 @@ describe Concept, type: :model do
     subject { Concept.all_with_level }
 
     it 'assigns level 2 to level_2_concept' do
-      cor = subject.find{ |c| c.name == 'level_2_concept' }
+      cor = subject.find { |c| c.name == 'level_2_concept' }
       expect(cor['level']).to eq(2)
     end
 
     it 'assigns level 1 to level_1_concept' do
-      root = subject.find{ |c| c.name == 'level_1_concept' }
+      root = subject.find { |c| c.name == 'level_1_concept' }
       expect(root['level']).to eq(1)
     end
   end

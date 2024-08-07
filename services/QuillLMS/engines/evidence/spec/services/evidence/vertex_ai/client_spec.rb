@@ -71,8 +71,8 @@ module Evidence
         context 'when a block is given' do
           subject do
             client_subclass
-             .new(project:)
-             .send(:service_client) { |config| config.custom_option = custom_value }
+              .new(project:)
+              .send(:service_client) { |config| config.custom_option = custom_value }
           end
 
           let(:custom_value) { 'custom_value' }

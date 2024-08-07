@@ -47,7 +47,7 @@ module Auth
     end
     # rubocop:enable Metrics/CyclomaticComplexity
 
-    private def user_success(user, redirect=nil)
+    private def user_success(user, redirect = nil)
       CompleteAccountCreation.new(user, request.remote_ip).call if user.previous_changes['id']
       user.update(ip_address: request.remote_ip)
 

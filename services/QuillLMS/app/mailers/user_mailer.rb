@@ -109,8 +109,8 @@ class UserMailer < ActionMailer::Base
     @group_more_than_ten_seconds = $redis.get('lesson_diagnostic_recommendations_over_ten_seconds_count') || 0
     independent_total_recommendations = @independent_more_than_ten_seconds.to_i + @independent_less_than_ten_seconds.to_i
     group_total_recommendations = @group_more_than_ten_seconds.to_i + @group_less_than_ten_seconds.to_i
-    @percentage_of_independent_less_than_ten_seconds = independent_total_recommendations > 0 ? (@independent_less_than_ten_seconds.to_f/independent_total_recommendations) * 100 : 100
-    @percentage_of_group_less_than_ten_seconds = group_total_recommendations > 0 ? (@group_less_than_ten_seconds.to_f/group_total_recommendations) * 100 : 100
+    @percentage_of_independent_less_than_ten_seconds = independent_total_recommendations > 0 ? (@independent_less_than_ten_seconds.to_f / independent_total_recommendations) * 100 : 100
+    @percentage_of_group_less_than_ten_seconds = group_total_recommendations > 0 ? (@group_less_than_ten_seconds.to_f / group_total_recommendations) * 100 : 100
     mail to: ['Dev Tools <devtools@quill.org>', 'Emilia Friedberg <emilia@quill.org>', 'Thomas Robertson <thomasrobertson@quill.org>'], subject: 'Recommendations Assignment Report'
   end
 
@@ -128,7 +128,7 @@ class UserMailer < ActionMailer::Base
 
     teacher_count = User.teacher.count
     new_premium_accounts = User.teacher.joins(:user_subscription).where(user_subscriptions: { created_at: start_time..end_time }).count
-    conversion_rate = new_premium_accounts/teacher_count.to_f
+    conversion_rate = new_premium_accounts / teacher_count.to_f
 
     @current_date = date_object.strftime('%A, %B %d')
     @daily_active_teachers = User.teacher.where(last_sign_in: start_time..end_time).size

@@ -11,7 +11,7 @@ namespace :app_settings do
       enabled: args[:enabled],
       enabled_for_staff: args[:enabled_for_staff],
       percent_active: args[:percent_active],
-      user_ids_allow_list: JSON.parse(args[:user_ids_allow_list].tr(' ',','))
+      user_ids_allow_list: JSON.parse(args[:user_ids_allow_list].tr(' ', ','))
     )
     puts "AppSetting with name #{app_setting.name} created."
   end

@@ -8,28 +8,28 @@ describe EmailApiHelper do
   mock_nps_response = {
     'data': [
       {
-          'attributes': {
-              'nps': 73.33333333333333,
-              'promoters': 11,
-              'passives': 4,
-              'detractors': 0
-          }
+        'attributes': {
+          'nps': 73.33333333333333,
+          'promoters': 11,
+          'passives': 4,
+          'detractors': 0
+        }
       }
     ]
-    }
+  }
   mock_comment_response = {
-       'responses': [
-         { 'feedback': 'this is great!', 'rating': 10 },
-         { 'feedback': nil, 'rating': 7 },
-         { 'feedback': 'meh', 'rating': 5 }
-       ]
-   }
+    'responses': [
+      { 'feedback': 'this is great!', 'rating': 10 },
+      { 'feedback': nil, 'rating': 7 },
+      { 'feedback': 'meh', 'rating': 5 }
+    ]
+  }
 
   describe '#parse_nps_response' do
     it 'should return the parsed response for the Satismeter response statistics API' do
       mock_result = ({
-          'nps': 73.33,
-          'respondents': [11, 4, 0]
+        'nps': 73.33,
+        'respondents': [11, 4, 0]
       }).as_json
 
       result = parse_nps_response(mock_nps_response.as_json)

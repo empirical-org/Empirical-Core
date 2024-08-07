@@ -4,7 +4,7 @@ class AssignRecommendationsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::CRITICAL
 
-  def perform(options={})
+  def perform(options = {})
     assign_on_join = options['assign_on_join'] || false
     assigning_all_recommended_packs = options['assigning_all_recommended_packs'] || false
     classroom_id = options['classroom_id']

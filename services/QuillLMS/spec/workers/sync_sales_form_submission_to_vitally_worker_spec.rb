@@ -12,7 +12,7 @@ describe SyncSalesFormSubmissionToVitallyWorker do
     allow(VitallyIntegration::RestApi).to receive(:new).and_return(stub_api)
     allow(stub_api).to receive(:update)
 
-    subject.sales_form_submission=(sales_form_submission)
+    subject.sales_form_submission = (sales_form_submission)
   end
 
   describe '#perform' do

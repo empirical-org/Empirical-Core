@@ -31,8 +31,8 @@ class CreateLessonsToken
 
   private def data
     {
-      user_id:               user_id,
-      role:                  user_role,
+      user_id: user_id,
+      role: user_role,
       classroom_unit_id: classroom_unit_id
     }
   end

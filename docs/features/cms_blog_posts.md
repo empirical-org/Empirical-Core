@@ -25,7 +25,7 @@ There are six preview card templates to choose from when creating a new blog pos
   - formatted to include a miniature version of the linked video, as well as the video's description and author or published_at date if present.
 
 - Tweet
-  - formatted to include a 300x135 image, as well as the content of the tweet, name of the twitter account, and author or published_at date if present.
+  - formatted to include a 300x135 image, as well as the content of the tweet, name of the X account, and author or published_at date if present.
 
 - Custom HTML
   - completely editable html field.

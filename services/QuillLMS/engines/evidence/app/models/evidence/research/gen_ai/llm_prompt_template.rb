@@ -20,7 +20,7 @@ module Evidence
 
         attr_readonly :name, :contents
 
-        has_many :llm_prompts,dependent: :destroy
+        has_many :llm_prompts, dependent: :destroy
 
         def num_trials = Trial.where(llm_prompt: llm_prompts).count
 

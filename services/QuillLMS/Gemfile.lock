@@ -139,6 +139,7 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
+    base64 (0.2.0)
     bcrypt (3.1.12)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
@@ -150,7 +151,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     brakeman (4.1.1)
-    builder (3.2.4)
+    builder (3.3.0)
     bulk_insert (1.9.0)
       activerecord (>= 3.2.0)
     bullet (7.0.7)
@@ -207,8 +208,8 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    dry-cli (1.0.0)
-    erubi (1.12.0)
+    dry-cli (1.1.0)
+    erubi (1.13.0)
     es5-shim-rails (4.0.1)
       actionpack (>= 3.1)
       railties (>= 3.1)
@@ -348,7 +349,8 @@ GEM
     graphiql-rails (1.7.0)
       railties
       sprockets-rails
-    graphql (1.11.7)
+    graphql (1.13.23)
+      base64
     grover (1.1.5)
       combine_pdf (~> 1.0)
       nokogiri (~> 1.0)
@@ -415,7 +417,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.21.3)
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -427,7 +429,7 @@ GEM
     matrix (0.4.2)
     maxminddb (0.1.22)
     memory_profiler (1.0.1)
-    method_source (1.0.0)
+    method_source (1.1.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2021.0704)
@@ -435,10 +437,10 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
-    mini_portile2 (2.8.4)
+    mini_portile2 (2.8.7)
     mini_racer (0.8.0)
       libv8-node (~> 18.16.0.0)
-    minitest (5.23.1)
+    minitest (5.24.1)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.3.0)
@@ -456,7 +458,7 @@ GEM
       net-protocol
     newrelic_rpm (9.3.1)
     nio4r (2.5.9)
-    nokogiri (1.15.3)
+    nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -544,7 +546,7 @@ GEM
       multi_json (~> 1.15)
       pusher-signature (~> 0.1.8)
     pusher-signature (0.1.8)
-    racc (1.8.0)
+    racc (1.8.1)
     rack (2.2.9)
     rack-affiliates (0.4.0)
       rack
@@ -560,7 +562,7 @@ GEM
       rack
     rack-protection (2.2.0)
       rack
-    rack-proxy (0.7.0)
+    rack-proxy (0.7.7)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -610,7 +612,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.2.1)
     ranked-model (0.4.3)
       activerecord (>= 4.1.16)
     rb-fsevent (0.11.2)
@@ -659,27 +661,27 @@ GEM
     retriable (3.1.2)
     rexml (3.2.9)
       strscan
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.2)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-rails (6.0.1)
+      rspec-support (~> 3.13.0)
+    rspec-rails (6.0.4)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
-      rspec-core (~> 3.11)
-      rspec-expectations (~> 3.11)
-      rspec-mocks (~> 3.11)
-      rspec-support (~> 3.11)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
     rspec-redis_helper (0.1.2)
       redis
     rspec-retry (0.6.2)
       rspec-core (> 3.3)
-    rspec-support (3.11.1)
+    rspec-support (3.13.1)
     rubocop (1.64.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -786,7 +788,7 @@ GEM
     temple (0.8.2)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
-    thor (1.2.2)
+    thor (1.3.1)
     tilt (2.0.10)
     timecop (0.9.8)
     timeout (0.4.0)
@@ -812,10 +814,10 @@ GEM
       i18n
     vcr (6.2.0)
     version_gem (1.1.3)
-    vite_rails (3.0.14)
+    vite_rails (3.0.17)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
-    vite_ruby (3.2.14)
+    vite_ruby (3.7.0)
       dry-cli (>= 0.7, < 2)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
@@ -830,7 +832,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.11)
+    zeitwerk (2.6.17)
     ziptz (3.0.11)
 
 PLATFORMS
@@ -880,7 +882,7 @@ DEPENDENCIES
   google-apis-classroom_v1 (~> 0.27.0)
   google-cloud-bigquery (~> 1.43.0)
   graphiql-rails
-  graphql
+  graphql (~> 1.13.20)
   grover
   haversine
   httparty (~> 0.16)
@@ -940,7 +942,8 @@ DEPENDENCIES
   redis-rails
   responders
   rexml
-  rspec-rails
+  rspec-core (~> 3.12)
+  rspec-rails (~> 6.0.4)
   rspec-redis_helper
   rspec-retry
   rubocop
@@ -978,7 +981,7 @@ DEPENDENCIES
   ziptz
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.3.17

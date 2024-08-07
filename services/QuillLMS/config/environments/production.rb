@@ -62,7 +62,7 @@ EmpiricalGrammar::Application.configure do
   config.cache_store = :redis_store, ENV['REDISCLOUD_URL']
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV['CLOUDFRONT_CACHE_URL'] #'//cdn.quill.org'
+  config.action_controller.asset_host = ENV['CLOUDFRONT_CACHE_URL'] # '//cdn.quill.org'
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -72,11 +72,11 @@ EmpiricalGrammar::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name:      ENV['SENDGRID_USERNAME'],
-    password:       ENV['SENDGRID_PASSWORD'],
-    address:        'smtp.sendgrid.net',
-    port:           '587',
-    domain:         'empirical-grammar.heroku.com',
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD'],
+    address: 'smtp.sendgrid.net',
+    port: '587',
+    domain: 'empirical-grammar.heroku.com',
     authentication: :plain,
     enable_starttls_auto: true
   }

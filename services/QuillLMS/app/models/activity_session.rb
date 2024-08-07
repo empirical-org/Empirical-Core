@@ -111,15 +111,15 @@ class ActivitySession < ApplicationRecord
 
   scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: { classroom: :teachers })
-    .where(users: { id: teacher_id })
+      .where(users: { id: teacher_id })
   }
 
   scope :averages_for_user_ids, lambda { |user_ids|
     select('user_id, AVG(percentage) as avg')
-    .joins(activity: :classification)
-    .where.not(activity_classifications: { key: ActivityClassification::UNSCORED_KEYS })
-    .where(user_id: user_ids)
-    .group(:user_id)
+      .joins(activity: :classification)
+      .where.not(activity_classifications: { key: ActivityClassification::UNSCORED_KEYS })
+      .where(user_id: user_ids)
+      .group(:user_id)
   }
 
   def self.paginate(current_page, per_page)
@@ -241,7 +241,7 @@ class ActivitySession < ApplicationRecord
     end
 
     a = ActivitySession.where(classroom_unit: classroom_unit, user: user, is_final_score: true, activity: activity)
-                       .where.not(id: id).first
+      .where.not(id: id).first
     if a.nil?
       update_columns is_final_score: true, updated_at: DateTime.current
     elsif a.percentage.nil? || percentage >= a.percentage
@@ -284,11 +284,11 @@ class ActivitySession < ApplicationRecord
   end
 
   def percentage_as_percent
-    percentage.nil? ? 'no percentage' : "#{(percentage*100).round}%"
+    percentage.nil? ? 'no percentage' : "#{(percentage * 100).round}%"
   end
 
   def score
-    (percentage*100).round
+    (percentage * 100).round
   end
 
   def uses_feedback_history?
@@ -378,12 +378,12 @@ class ActivitySession < ApplicationRecord
   def self.save_timetracking_data_from_active_activity_session(activity_sessions)
     activity_sessions.each do |as|
       time_tracking = ActiveActivitySession.find_by_uid(as.uid)&.data&.fetch('timeTracking')
-      as.data['time_tracking'] = time_tracking&.transform_values{ |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
+      as.data['time_tracking'] = time_tracking&.transform_values { |milliseconds| (milliseconds / 1000).round } # timetracking is stored in milliseconds for active activity sessions, but seconds on the activity session
       as.save
     end
   end
 
-  def self.mark_all_activity_sessions_complete(activity_sessions, data={})
+  def self.mark_all_activity_sessions_complete(activity_sessions, data = {})
     activity_sessions.each do |as|
       as.update(
         state: 'finished',
@@ -453,7 +453,7 @@ class ActivitySession < ApplicationRecord
   def minutes_to_complete
     return nil unless completed_at && started_at
 
-    ((completed_at - started_at)/60).round
+    ((completed_at - started_at) / 60).round
   end
 
   def skills

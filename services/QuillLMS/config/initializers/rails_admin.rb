@@ -180,7 +180,7 @@ RailsAdmin.config do |config|
     field :school do
       searchable [:name, :zipcode]
       proc { |scope|
-        scope = scope.where(role: ['teacher','admin'])
+        scope = scope.where(role: ['teacher', 'admin'])
       }
     end
     field :subscription do
@@ -193,13 +193,13 @@ RailsAdmin.config do |config|
       searchable [:email, :username]
       sortable :email
       proc { |scope|
-        scope = scope.where(role: ['teacher','admin'])
+        scope = scope.where(role: ['teacher', 'admin'])
       }
     end
     field :school do
       searchable [:name, :zipcode]
       proc { |scope|
-        scope = scope.where(role: ['teacher','admin'])
+        scope = scope.where(role: ['teacher', 'admin'])
       }
     end
   end

@@ -26,11 +26,11 @@ class ActiveActivitySession < ApplicationRecord
   # Should use with a .limit()
   scope :obsolete, lambda {
     joins(:activity_session)
-    .merge(ActivitySession.unscoped.joins(:classroom_unit))
-    .where('classroom_units.visible = false OR activity_sessions.completed_at IS NOT NULL')
+      .merge(ActivitySession.unscoped.joins(:classroom_unit))
+      .where('classroom_units.visible = false OR activity_sessions.completed_at IS NOT NULL')
   }
 
-  def as_json(options=nil)
+  def as_json(options = nil)
     data
   end
 

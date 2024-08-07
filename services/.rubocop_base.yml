@@ -106,6 +106,10 @@ Layout/FirstArrayElementIndentation:
 Layout/MultilineHashBraceLayout:
   Enabled: true
 
+Layout/FirstHashElementIndentation:
+  Enabled: true
+  EnforcedStyle: consistent
+
 Layout/HeredocIndentation:
   Enabled: true
 
@@ -120,6 +124,10 @@ Layout/LineEndStringConcatenationIndentation: # new in 1.18
 
 Layout/MultilineArrayBraceLayout:
   Enabled: true
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: true
+  EnforcedStyle: indented
 
 Layout/SpaceAfterColon:
   Enabled: true

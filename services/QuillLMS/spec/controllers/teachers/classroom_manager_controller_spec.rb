@@ -246,13 +246,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should return the correct json' do
       json = teacher.classrooms_i_own.map { |classroom|
         {
-            classroom: classroom,
-            students: classroom.students.sort_by(&:sorting_name)
+          classroom: classroom,
+          students: classroom.students.sort_by(&:sorting_name)
         }
       }
       get :retrieve_classrooms_for_assigning_activities, as: :json
       expect(response.body).to eq ({
-          classrooms_and_their_students: json
+        classrooms_and_their_students: json
       }).to_json
     end
   end
@@ -269,13 +269,13 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should return the correct json' do
       json = teacher.classrooms_i_teach.map { |classroom|
         {
-            classroom: classroom,
-            students: classroom.students.sort_by(&:sorting_name)
+          classroom: classroom,
+          students: classroom.students.sort_by(&:sorting_name)
         }
       }
       get :retrieve_classrooms_i_teach_for_custom_assigning_activities, as: :json
       expect(response.body).to eq ({
-          classrooms_and_their_students: json
+        classrooms_and_their_students: json
       }).to_json
     end
   end
@@ -291,8 +291,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
     let(:classrooms_json) {
       teacher.classrooms_i_teach.map { |classroom|
         {
-            classroom: classroom,
-            students: classroom.students.sort_by(&:sorting_name)
+          classroom: classroom,
+          students: classroom.students.sort_by(&:sorting_name)
         }
       }
     }
@@ -306,16 +306,16 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should render the expected json with first unit id' do
       get :classrooms_and_classroom_units_for_activity_share, params: { unit_id: unit1.id }
       expect(response.body).to eq ({
-          classrooms: classrooms,
-          classroom_units: [classroom_unit1]
+        classrooms: classrooms,
+        classroom_units: [classroom_unit1]
       }).to_json
     end
 
     it 'should render the expected json with first second id' do
       get :classrooms_and_classroom_units_for_activity_share, params: { unit_id: unit2.id }
       expect(response.body).to eq ({
-          classrooms: classrooms,
-          classroom_units: [classroom_unit2]
+        classrooms: classrooms,
+        classroom_units: [classroom_unit2]
       }).to_json
     end
   end
@@ -523,8 +523,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(response.status).to eq(200)
 
       expect(response.body).to eq({
-        weekly_assigned_activities_count:  0,
-        yearly_assigned_activities_count:  0,
+        weekly_assigned_activities_count: 0,
+        yearly_assigned_activities_count: 0,
         weekly_completed_activities_count: 0,
         yearly_completed_activities_count: 0
       }.to_json)
@@ -547,8 +547,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
         expect(response.status).to eq(200)
 
         expect(response.body).to eq({
-          weekly_assigned_activities_count:  2,
-          yearly_assigned_activities_count:  2,
+          weekly_assigned_activities_count: 2,
+          yearly_assigned_activities_count: 2,
           weekly_completed_activities_count: 1,
           yearly_completed_activities_count: 1
         }.to_json)

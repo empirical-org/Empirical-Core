@@ -46,7 +46,7 @@ module Evidence
       private def highlight_texts
         prompt
           .distinct_automl_highlight_arrays
-          .map.with_index { |text_array,i| "#{i+1}. #{text_array.join(' ')}" }
+          .map.with_index { |text_array, i| "#{i + 1}. #{text_array.join(' ')}" }
           .join("\n")
       end
     end

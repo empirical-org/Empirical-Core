@@ -290,8 +290,7 @@ module Evidence
           text: @entry,
           mode: 'proof'
         },
-        timeout: API_TIMEOUT
-      )
+        timeout: API_TIMEOUT)
       # The rest of this code basically swallows any errors, but we want
       # to avoid swallowing errors around rate limiting, so raise those here
       raise BingRateLimitException if @response.code == 429

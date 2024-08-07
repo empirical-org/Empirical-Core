@@ -25,8 +25,7 @@ module VitallyIntegration
           Authorization: "Basic #{API_KEY}",
           "Content-Type": 'application/json'
         },
-        body: payload.to_json
-      )
+        body: payload.to_json)
 
       return response if response.success?
 

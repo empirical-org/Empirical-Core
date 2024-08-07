@@ -7,9 +7,9 @@ class ClearUserDataWorker
     user = User.find(id)
     ActiveRecord::Base.transaction do
       user.update!(
-        name:      "Deleted User_#{id}",
-        email:     "deleted_user_#{id}@example.com",
-        username:  "deleted_user_#{id}",
+        name: "Deleted User_#{id}",
+        email: "deleted_user_#{id}@example.com",
+        username: "deleted_user_#{id}",
         google_id: nil,
         clever_id: nil,
         ip_address: nil,

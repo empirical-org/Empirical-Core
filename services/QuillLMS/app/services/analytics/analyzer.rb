@@ -12,8 +12,7 @@ module Analytics
       analytics.identify(user)
       analytics.track({ user_id: user.id,
         event: event,
-        context: { ip: user.ip_address } }
-      )
+        context: { ip: user.ip_address } })
     end
 
     def track_with_attributes(user, event, attributes)

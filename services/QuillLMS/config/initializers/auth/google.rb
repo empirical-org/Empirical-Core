@@ -11,7 +11,7 @@ module Auth
 
     REAUTHORIZATION_PATH = ONLINE_ACCESS_PATH
 
-    OFFLINE_ACCESS_NAME ='google/offline_access'
+    OFFLINE_ACCESS_NAME = 'google/offline_access'
     OFFLINE_ACCESS_PATH = "/auth/#{OFFLINE_ACCESS_NAME}"
     OFFLINE_ACCESS_CALLBACK_PATH = "#{OFFLINE_ACCESS_PATH}/callback"
 

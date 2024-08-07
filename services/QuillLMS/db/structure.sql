@@ -3451,41 +3451,6 @@ ALTER SEQUENCE public.evidence_research_gen_ai_prompt_template_variables_id_seq 
 
 
 --
--- Name: evidence_research_gen_ai_quill_feedbacks; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.evidence_research_gen_ai_quill_feedbacks (
-    id bigint NOT NULL,
-    student_response_id integer NOT NULL,
-    text text NOT NULL,
-    label character varying NOT NULL,
-    paraphrase text,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    data_partition character varying
-);
-
-
---
--- Name: evidence_research_gen_ai_quill_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.evidence_research_gen_ai_quill_feedbacks_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: evidence_research_gen_ai_quill_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.evidence_research_gen_ai_quill_feedbacks_id_seq OWNED BY public.evidence_research_gen_ai_quill_feedbacks.id;
-
-
---
 -- Name: evidence_research_gen_ai_stem_vaults; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -7052,13 +7017,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables ALTER
 
 
 --
--- Name: evidence_research_gen_ai_quill_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_quill_feedbacks_id_seq'::regclass);
-
-
---
 -- Name: evidence_research_gen_ai_stem_vaults id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -8372,14 +8330,6 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_examples
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_prompt_template_variables
     ADD CONSTRAINT evidence_research_gen_ai_prompt_template_variables_pkey PRIMARY KEY (id);
-
-
---
--- Name: evidence_research_gen_ai_quill_feedbacks evidence_research_gen_ai_quill_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.evidence_research_gen_ai_quill_feedbacks
-    ADD CONSTRAINT evidence_research_gen_ai_quill_feedbacks_pkey PRIMARY KEY (id);
 
 
 --
@@ -12137,8 +12087,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240626193615'),
 ('20240627001654'),
 ('20240627002601'),
-('20240710195857'),
 ('20240701180742'),
+('20240710195857'),
 ('20240713144717'),
-('20240714215711');
+('20240714215711'),
+('20240801134426');
+
 

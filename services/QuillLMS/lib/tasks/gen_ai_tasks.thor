@@ -173,7 +173,7 @@ class GenAITasks < Thor
     end
 
     CSV.open(secondary_output_file(limit), 'wb') do |csv|
-      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match','LLM Highlight', 'Curriculum Highlight']
+      csv << ['Prompt ID', 'Stem', 'Sample Response', 'Original Feedback', 'LLM Secondary', 'Curriculum Secondary', 'Highlight Match', 'LLM Highlight', 'Curriculum Highlight']
       results.each { |result| csv << result }
     end
   end
@@ -263,7 +263,7 @@ class GenAITasks < Thor
     KEY_FEEDBACK = 'feedback'
     KEY_SECONDARY_FEEDBACK = 'secondary_feedback'
     KEY_HIGHLIGHT = 'highlight'
-    TEST_SET_ACTIVITY_IDS = [467,460,442,435,431,387]
+    TEST_SET_ACTIVITY_IDS = [467, 460, 442, 435, 431, 387]
     SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
     GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root.join('/lib/data/'))
 

@@ -3,7 +3,7 @@
 class UnitTemplatePseudoSerializer
   # attributes :id, :name, :time, :grades, :order_number, :number_of_standards, :activity_info, :unit_template_category, :activities, :standards, :readability, :activities_recommended_by
 
-  def initialize(unit_template, flag=nil)
+  def initialize(unit_template, flag = nil)
     @unit_template = unit_template
   end
 

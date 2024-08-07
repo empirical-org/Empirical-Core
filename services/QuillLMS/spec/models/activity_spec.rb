@@ -78,7 +78,7 @@ describe Activity, type: :model, redis: true do
 
   it { should delegate_method(:form_url).to(:classification) }
 
-  let!(:activity){ build(:activity) }
+  let!(:activity) { build(:activity) }
 
   describe 'validations' do
     it 'requires a unique uid' do
@@ -164,16 +164,16 @@ describe Activity, type: :model, redis: true do
   describe '#classification_key' do
     describe '#classification_key=' do
       it 'must set classification relationship' do
-        activity.classification=nil
+        activity.classification = nil
         expect(activity.classification).to_not be_present
-        expect(activity.classification_key=ActivityClassification.first.key || create(:classification).key).to be_present
+        expect(activity.classification_key = ActivityClassification.first.key || create(:classification).key).to be_present
       end
     end
 
     describe '#classification_key' do
       before do
-        activity.classification=nil
-        activity.classification_key=ActivityClassification.first.key || create(:classification).key
+        activity.classification = nil
+        activity.classification_key = ActivityClassification.first.key || create(:classification).key
       end
 
       it 'must set classification relationship' do
@@ -195,7 +195,7 @@ describe Activity, type: :model, redis: true do
   end
 
   describe '#module_url' do
-    let!(:student){ build(:student) }
+    let!(:student) { build(:student) }
 
     it "must add uid param of it's a valid student session" do
       activity.valid?
@@ -302,12 +302,12 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'must have a setter' do
-      expect(activity.flag=:alpha).to eq :alpha
+      expect(activity.flag = :alpha).to eq :alpha
     end
 
     context 'when is set it must preserve the value' do
       before do
-        activity.flag=:alpha
+        activity.flag = :alpha
       end
 
       it 'must return the correct value' do
@@ -317,12 +317,12 @@ describe Activity, type: :model, redis: true do
   end
 
   describe 'scope results' do
-    let!(:production_activity){ create(:activity, flag: 'production') }
-    let!(:gamma_activity){ create(:activity, flag: 'gamma') }
-    let!(:beta_activity){ create(:activity, flag: 'beta') }
-    let!(:alpha_activity){ create(:activity, flag: 'alpha') }
-    let!(:archived_activity){ create(:activity, flag: 'archived') }
-    let!(:all_types){ [production_activity, gamma_activity, beta_activity, alpha_activity, archived_activity] }
+    let!(:production_activity) { create(:activity, flag: 'production') }
+    let!(:gamma_activity) { create(:activity, flag: 'gamma') }
+    let!(:beta_activity) { create(:activity, flag: 'beta') }
+    let!(:alpha_activity) { create(:activity, flag: 'alpha') }
+    let!(:archived_activity) { create(:activity, flag: 'archived') }
+    let!(:all_types) { [production_activity, gamma_activity, beta_activity, alpha_activity, archived_activity] }
 
     context 'the default scope' do
       it 'must show all types of flagged activities when default scope' do
@@ -387,13 +387,13 @@ describe Activity, type: :model, redis: true do
     end
 
     it 'deletes all redis keys as defined in UserFlagset' do
-      UserFlagset::FLAGSETS.keys.map{ |x| "#{x}_" }.push('').each do |flagset|
+      UserFlagset::FLAGSETS.keys.map { |x| "#{x}_" }.push('').each do |flagset|
         $redis.set("default_#{flagset}activity_search", { a_key: 'a_value' }.to_json)
       end
 
       Activity.clear_activity_search_cache
 
-      UserFlagset::FLAGSETS.keys.map{ |x| "#{x}_" }.push('').each do |flagset|
+      UserFlagset::FLAGSETS.keys.map { |x| "#{x}_" }.push('').each do |flagset|
         expect(
           $redis.del("default_#{flagset}activity_search")
         ).to eq 0
@@ -441,7 +441,7 @@ describe Activity, type: :model, redis: true do
     let(:classification) { create(:activity_classification) }
 
     it 'should set the activity_classification_uid' do
-      activity.activity_classification_uid= classification.uid
+      activity.activity_classification_uid = classification.uid
       expect(activity.activity_classification_id).to eq(classification.id)
     end
   end
@@ -773,8 +773,8 @@ describe Activity, type: :model, redis: true do
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.to change{ q1.reload.flag }.to('production')
-          .and change{ q2.reload.flag }.to('production')
+        end.to change { q1.reload.flag }.to('production')
+          .and change { q2.reload.flag }.to('production')
       end
     end
 
@@ -785,7 +785,7 @@ describe Activity, type: :model, redis: true do
       it do
         expect do
           activity.update_questions_flag_status_if_necessary!
-        end.not_to change{ q1.reload.flag }
+        end.not_to change { q1.reload.flag }
       end
     end
   end
@@ -799,7 +799,7 @@ describe Activity, type: :model, redis: true do
       let(:questions) { create_list(:question, 2) }
 
       before do
-        activity.data["questions"] = questions.map{ |q| { "key" => q.uid } }
+        activity.data["questions"] = questions.map { |q| { "key" => q.uid } }
         activity.save
       end
 

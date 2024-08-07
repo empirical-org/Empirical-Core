@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#Shown below are the defaults for configuration
+# Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
   config.generated_assets_dir = Rails.env.test? ? File.join(%w[public vite-dev]) : File.join(%w[public vite])
   config.build_test_command = 'npm run build:test'

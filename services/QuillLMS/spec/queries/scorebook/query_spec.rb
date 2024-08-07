@@ -85,21 +85,21 @@ describe 'ScorebookQuery' do
       begin_date = activity_session1.completed_at - 1.day
       end_date = activity_session1.completed_at + 1.day
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
-      expect(results.map{ |res| res['id'] }).to include(activity_session1.id)
+      expect(results.map { |res| res['id'] }).to include(activity_session1.id)
     end
 
     it 'does not return activities completed after the specified end date' do
       begin_date = activity_session1.completed_at + 1.day
       end_date = activity_session1.completed_at + 2.days
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
-      expect(results.map{ |res| res['id'] }).not_to include(activity_session1.id)
+      expect(results.map { |res| res['id'] }).not_to include(activity_session1.id)
     end
 
     it 'does not return activities completed before the specified start date' do
       begin_date = activity_session1.completed_at - 2.days
       end_date = activity_session1.completed_at - 1.day
       results = Scorebook::Query.run(classroom.id, 1, nil, begin_date.to_s, end_date.to_s)
-      expect(results.map{ |res| res['id'] }).not_to include(activity_session1.id)
+      expect(results.map { |res| res['id'] }).not_to include(activity_session1.id)
     end
 
     describe 'time zones' do
@@ -131,7 +131,7 @@ describe 'ScorebookQuery' do
         begin_date = (activity_session1.reload.completed_at).to_date.to_s
         end_date = begin_date
         results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date, offset)
-        expect(results.find{ |res| res['id'] == activity_session2.id }).to be
+        expect(results.find { |res| res['id'] == activity_session2.id }).to be
         expect(results.length).to eq(1)
       end
     end

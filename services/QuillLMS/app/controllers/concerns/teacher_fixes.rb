@@ -71,11 +71,11 @@ module TeacherFixes
     classroom2_id = classroom2.id
     user_id = user.id
     classroom_units = ClassroomUnit
-    .joins('JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id')
-    .joins('JOIN users ON activity_sessions.user_id = users.id')
-    .where('users.id = ?', user_id)
-    .where('classroom_units.classroom_id = ?', classroom1_id)
-    .group('classroom_units.id')
+      .joins('JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id')
+      .joins('JOIN users ON activity_sessions.user_id = users.id')
+      .where('users.id = ?', user_id)
+      .where('classroom_units.classroom_id = ?', classroom1_id)
+      .group('classroom_units.id')
     if classroom1.owner.id == classroom2.owner.id
       classroom_units.each do |ca|
         sibling_ca = ClassroomUnit.find_or_create_by(unit_id: ca.unit_id, classroom_id: classroom2_id)
@@ -168,10 +168,10 @@ module TeacherFixes
 
   def self.get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id)
     ActivitySession.joins('JOIN users ON activity_sessions.user_id = users.id')
-    .where('users.id = ?', user_id)
-    .where('activity_sessions.activity_id = ?', activity_id)
-    .where('activity_sessions.visible = true')
-    .where("activity_sessions.state = 'finished'")
+      .where('users.id = ?', user_id)
+      .where('activity_sessions.activity_id = ?', activity_id)
+      .where('activity_sessions.visible = true')
+      .where("activity_sessions.state = 'finished'")
   end
 
   def self.recover_classroom_units_and_associated_activity_sessions(classroom_units)

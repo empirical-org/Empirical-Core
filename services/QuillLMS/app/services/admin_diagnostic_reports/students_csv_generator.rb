@@ -101,8 +101,8 @@ module AdminDiagnosticReports
       end
     end
 
-    def list_skill_names(rows, filter_key) = filter_skills(rows, filter_key).map{ |row| row[:skill_group_name] }
-    def filter_skills(rows, filter_key) = rows.filter{ |row| row[filter_key] > 0 }
+    def list_skill_names(rows, filter_key) = filter_skills(rows, filter_key).map { |row| row[:skill_group_name] }
+    def filter_skills(rows, filter_key) = rows.filter { |row| row[filter_key] > 0 }
 
     def ordered_columns = ORDERED_COLUMNS
   end

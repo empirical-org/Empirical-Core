@@ -33,7 +33,7 @@ RSpec.describe GengoJob, type: :model do
 
     it 'calls fetch_translation! on all the pending translations' do
       expect(GengoJob).to receive(:pending_translation)
-      .and_return([untranslated])
+        .and_return([untranslated])
       expect(untranslated).to receive(:fetch_translation!)
       expect(complete).not_to receive(:fetch_translation!)
       subject
@@ -47,7 +47,7 @@ RSpec.describe GengoJob, type: :model do
 
     it do
       expect(Gengo::SaveTranslatedTextWorker).to receive(:perform_async)
-      .with(gengo_job.translation_job_id)
+        .with(gengo_job.translation_job_id)
       subject
     end
   end
