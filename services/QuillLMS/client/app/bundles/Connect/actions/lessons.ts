@@ -5,8 +5,8 @@ import { reloadQuestionsIfNecessary } from '../../Shared/actions/questions';
 import C from '../constants';
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
 import { FILL_IN_BLANKS_TYPE, QuestionApi, SENTENCE_COMBINING_TYPE, SENTENCE_FRAGMENTS_TYPE } from '../libs/questions_api';
-import questionActions from './questions';
 import { CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api';
+import questionActions from './questions';
 
 // called when the app starts. this means we immediately download all quotes, and
 // then receive all quotes again as soon as anyone changes anything.
@@ -45,27 +45,35 @@ const filterQuestionType = (data, key) => {
 const loadLessonWithQuestions = (uid) => {
   return (dispatch, getState) => {
     dispatch(loadLesson(uid)).then(() => {
-      const questions = QuestionApi.getAllForActivity(uid).then((questions) => {
-        if (!questions) { return }
-        dispatch({
-          type: C.RECEIVE_QUESTIONS_DATA,
-          data: filterQuestionType(questions, SENTENCE_COMBINING_TYPE)
-        })
-        dispatch({
-          type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA,
-          data: filterQuestionType(questions, FILL_IN_BLANKS_TYPE)
-        })
-        dispatch({
-          type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA,
-          data: filterQuestionType(questions, SENTENCE_FRAGMENTS_TYPE)
-        })
-        dispatch({
-          type: C.RECEIVE_TITLE_CARDS_DATA,
-          data: filterQuestionType(questions, CONNECT_TITLE_CARD_TYPE)
-        })
-      })
+      loadQuestions(dispatch, uid)
     })
   }
+}
+
+const loadQuestions = (dispatch, uid, language?)  => {
+  QuestionApi.getAllForActivity(uid, language).then((questions) => {
+    if (!questions) { return }
+    dispatch({
+      type: C.RECEIVE_QUESTIONS_DATA,
+      language: language,
+      data: filterQuestionType(questions, SENTENCE_COMBINING_TYPE)
+    })
+    dispatch({
+      type: C.RECEIVE_FILL_IN_BLANK_QUESTIONS_DATA,
+      language: language,
+      data: filterQuestionType(questions, FILL_IN_BLANKS_TYPE)
+    })
+    dispatch({
+      type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA,
+      language: language,
+      data: filterQuestionType(questions, SENTENCE_FRAGMENTS_TYPE)
+    })
+    dispatch({
+      type: C.RECEIVE_TITLE_CARDS_DATA,
+      language: language,
+      data: filterQuestionType(questions, CONNECT_TITLE_CARD_TYPE)
+    })
+  })
 }
 
 const startLessonEdit = (cid) => {
@@ -155,6 +163,7 @@ export default {
   loadLesson,
   loadLessonWithQuestions,
   loadLessons,
+  loadQuestions,
   startLessonEdit,
   cancelLessonEdit,
   deleteLesson,

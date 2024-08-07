@@ -1,4 +1,5 @@
 import C from '../constants';
+import { receiveQuestionsData } from './shared';
 
 const initialState = {
   titleCards: {
@@ -10,10 +11,7 @@ const initialState = {
 export default function (currentstate, action) {
   switch (action.type) {
     case C.RECEIVE_TITLE_CARDS_DATA:
-      return Object.assign({}, currentstate, {
-        hasreceiveddata: true,
-        data: action.data,
-      });
+      return receiveQuestionsData(currentstate, action)
     case C.RECEIVE_TITLE_CARDS_DATA_UPDATE:
       const updatedData = Object.assign({}, currentstate.data, action.data);
       return Object.assign({}, currentstate, {

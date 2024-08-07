@@ -27,6 +27,7 @@ import {
   roundValuesToSeconds,
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
+import * as LessonActions from '../../actions/lessons.ts';
 import SessionActions from '../../actions/sessions.js';
 import {
   answeredQuestionCount,
@@ -36,6 +37,7 @@ import {
 import { calculateScoreForLesson, getConceptResultsForAllQuestions } from '../../libs/conceptResults/lesson';
 import { permittedFlag } from '../../libs/flagArray';
 import { getParameterByName } from '../../libs/getParameterByName';
+import { translate } from 'react-range/lib/utils';
 
 const TITLE_CARD_TYPE = "TL"
 
@@ -55,7 +57,7 @@ export class Lesson extends React.Component {
       lessonLoaded: false,
       startTime: Date.now(),
       isIdle: false,
-      timeTracking: {}
+      timeTracking: {},
     }
   }
 
@@ -131,6 +133,19 @@ export class Lesson extends React.Component {
       if(previewMode && questionToPreview && playLesson && playLesson.questionSet && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
         this.toggleIsLastQuestion();
       }
+
+      if (this.state.lessonLoaded && this.props.playLesson) {
+        // const language = this.props?.playLesson?.language;
+        const { playLesson, match, dispatch } = this.props
+        const { language } = playLesson
+        const { params } = match
+        const { lessonID } = params
+        if (language != prevProps?.playLesson?.language) {
+          LessonActions.default.loadQuestions(dispatch, lessonID, language)
+        }
+      }
+
+
     }
   }
 
@@ -209,9 +224,19 @@ export class Lesson extends React.Component {
   }
 
   getQuestion = () => {
-    const { playLesson } = this.props;
+    const { playLesson, questions } = this.props;
     const { question } = playLesson.currentQuestion;
-    return question;
+    const { language } = playLesson;
+    const { key } = question;
+    const { translated_data } = questions;
+    if (translated_data) {
+      const translated_questions = translated_data[language];
+      const question_translation = translated_questions[key]
+
+      return { ...question, translation: question_translation } ;
+    } else {
+      return question
+    }
   }
 
   initializeSubscription(activitySessionUid) {
@@ -447,6 +472,7 @@ export class Lesson extends React.Component {
     const { params } = match
     const { lessonID, } = params;
     const studentSession = getParameterByName('student', window.location.href);
+
     let component;
 
     if (!this.dataHasLoaded()) {
