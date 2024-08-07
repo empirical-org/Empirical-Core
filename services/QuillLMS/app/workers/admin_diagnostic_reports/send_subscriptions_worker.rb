@@ -13,10 +13,10 @@ module AdminDiagnosticReports
       subscriptions.find_each do |subscription|
         SendSubscriptionCsvEmailWorker.perform_async(
           subscription.user_id,
-          SHARED_FILTER_REPORT_NAME,
-          OVERVIEW_FILTER_REPORT_NAME,
-          SKILLS_FILTER_REPORT_NAME,
-          STUDENTS_FILTER_REPORT_NAME
+          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SHARED,
+          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW,
+          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS,
+          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENTS
         )
       end
     end

@@ -149,6 +149,11 @@ export const DiagnosticGrowthReportsContainer = ({
       diagnostic_type_value: selectedDiagnosticType
     }
 
+    postFilterSelections(tab, filterSelections, successCallback)
+  }
+
+  function postFilterSelections(tab, filterSelections, successCallback = () => { }) {
+    console.log('postFilterSelections')
     const params = {
       admin_report_filter_selection: {
         filter_selections: filterSelections,
@@ -202,12 +207,19 @@ export const DiagnosticGrowthReportsContainer = ({
   function handleSubscriptionSave(isSubscribed, frequency) {
     setIsSubscriptionModalOpen(false);
     if (isSubscribed) {
-      // Save all four filter selections
-      // createOrUpdateEmailSubscription
+      requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${OVERVIEW}` }, (overviewSelections) => {
+        requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${SKILL}` }, (skillSelections) => {
+          requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${STUDENT}` }, (studentSelections) => {
+            console.log(overviewSelections)
+//            if (overviewSelections) postFilterSelections(`subscription_${OVERVIEW}`, overviewSelections.filterSelections)
+//            if (skillSelections) postFilterSelections(`subscription_${SKILL}`, skillSelections.filterSelections)
+//            if (studentSelections) postFilterSelections(`subscription_${STUDENT}`, studentSelections.filterSelections)
 
-      //saveFilterSelections(PDF_REPORT, (adminReportFilterSelection) => {
-      //  createOrUpdatePdfSubscription(adminReportFilterSelection, frequency)
-      //})
+            // createOrUpdateEmailSubscription
+          })
+        })
+      })
+
     } else if (currentEmailSubscription) {
       deleteEmailSubscription(currentEmailSubscription.id)
     }
@@ -217,8 +229,8 @@ export const DiagnosticGrowthReportsContainer = ({
   function createOrUpdateEmailSubscription(frequency) {
     if (!adminReportFilterSelection?.id) { return }
 
-    const pdfSubscriptionParams = {
-      pdf_subscription: {
+    const emailSubscriptionParams = {
+      email_subscription: {
         admin_report_filter_selection_id: adminReportFilterSelection.id,
         frequency
       }
