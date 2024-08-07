@@ -10,10 +10,10 @@ module AdminDiagnosticReports
       let(:user) { create(:user) }
       let(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
       let(:user_id) { user.id }
-      let(:shared_filter_report_name) { SendSubscriptionsWorker::SHARED_FILTER_REPORT_NAME }
-      let(:overview_filter_report_name) { SendSubscriptionsWorker::OVERVIEW_FILTER_REPORT_NAME }
-      let(:skills_filter_report_name) { SendSubscriptionsWorker::SKILLS_FILTER_REPORT_NAME }
-      let(:students_filter_report_name) { SendSubscriptionsWorker::STUDENTS_FILTER_REPORT_NAME }
+      let(:shared_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SHARED }
+      let(:overview_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW }
+      let(:skills_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS }
+      let(:students_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENTS }
       let(:default_params) do
         [
           user_id,
