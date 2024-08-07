@@ -15,7 +15,7 @@ export default class UnitTemplateProfileShareButtons extends React.Component {
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=${encodeURIComponent(text)}`,
+        href: `http://x.com/home?status=${encodeURIComponent(text)}`,
         title: 'Share on Twitter',
         action: 'Tweet',
       },
