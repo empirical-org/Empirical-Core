@@ -18,6 +18,8 @@ import quillNormalizer from './libs/quillNormalizer';
 import BackOff from './utils/backOff';
 import createStore from './utils/configureStore';
 
+import '../Shared/libs/translations/i18n';
+
 // To add to window
 if (!window.Promise) {
   window.Promise = Promise;

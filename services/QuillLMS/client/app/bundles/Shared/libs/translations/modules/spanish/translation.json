@@ -5,9 +5,11 @@
         "next": "Next / Seguir",
         "resume": "Resume / Seguir",
         "submit": "Submit / Enviar",
+        "recheck work": "Recheck work / Revisar tu respuesta",
         "get feedback": "Get feedback / Obtener comentarios",
         "next question": "Next question / Próxima pregunta",
-        "save and exit": "Save and exit / Guardar y salir"
+        "save and exit": "Save and exit / Guardar y salir",
+        "start activity": "Start activity / Iniciar actividad"
     },
     "ELL Starter Fill in the Blank": {
         "header": "Rellena el espacio en blanco",

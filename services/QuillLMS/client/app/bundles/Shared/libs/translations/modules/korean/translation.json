@@ -4,7 +4,8 @@
         "continue": "Continue / 계속",
         "next": "Next / 계속",
         "resume": "Continue / 계속",
-        "submit": "Submit / 제출"
+        "submit": "Submit / 제출",
+        "save and exit": "Save and exit / 저장 및 종료"
     },
     "ELL Starter Fill in the Blank": {
         "header": "빈칸을 채우세요",

@@ -5,7 +5,7 @@ import { defaultLanguageOptions, defaultLanguages } from "../../utils/languageLi
 
 interface LanguagePickerProps {
   language: string,
-  languageOptions: any,
+  languageOptions?: any,
   updateLanguage(language: string): any
 }
 

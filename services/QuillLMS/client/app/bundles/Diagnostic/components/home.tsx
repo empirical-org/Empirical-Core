@@ -7,7 +7,7 @@ import StudentNavBar from './navbar/studentNavbar';
 import TeacherNavbar from './navbar/teacherNavbar';
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
-import { ScreenreaderInstructions, TeacherPreviewMenu, } from '../../Shared/index';
+import { ScreenreaderInstructions, TeacherPreviewMenu, defaultLanguages } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { getParameterByName } from '../libs/getParameterByName';
 import { routes } from "../routes";
@@ -15,8 +15,9 @@ import i18n from '../../Shared/libs/translations/i18n';
 import { updateLanguage } from '../actions/diagnostics.js';
 // TODO: standardize Question Typescript interface definitions
 import { Question } from '../../Grammar/interfaces/questions';
+import { withTranslation } from 'react-i18next';
 
-export const Home = ({ dispatch, playDiagnostic }) => {
+export const Home = ({ dispatch, playDiagnostic, lessons, t }) => {
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
@@ -72,6 +73,7 @@ export const Home = ({ dispatch, playDiagnostic }) => {
   className = showFocusState ? '' : 'hide-focus-outline'
   const showPreview = previewShowing && isTeacherOrAdmin && isPlaying;
   const isOnMobile = window.innerWidth < 1100;
+  const isELLDiagnostic = lessons?.data && playDiagnostic?.diagnosticID && lessons.data[playDiagnostic.diagnosticID]?.isELL
   return(
     <div className={className}>
       <div className="activity-container">
@@ -91,13 +93,22 @@ export const Home = ({ dispatch, playDiagnostic }) => {
         <main style={{ height: '100vh', overflow: 'auto' }}>
           <ScreenreaderInstructions />
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
-          {isPlaying && !isTeacherOrAdmin && <StudentNavBar language={playDiagnostic?.language} updateLanguage={handleUpdateLanguage} />}
+          {isPlaying && !isTeacherOrAdmin && (
+            <StudentNavBar
+              isELLDiagnostic={isELLDiagnostic}
+              language={playDiagnostic?.language}
+              translate={t}
+              updateLanguage={handleUpdateLanguage}
+            />
+          )}
           {isPlaying && isTeacherOrAdmin &&
             <TeacherNavbar
+              isELLDiagnostic={isELLDiagnostic}
               isOnMobile={isOnMobile}
               language={playDiagnostic?.language}
               onTogglePreview={handleTogglePreviewMenu}
               previewShowing={previewShowing}
+              translate={t}
               updateLanguage={handleUpdateLanguage}
             />}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
@@ -107,7 +118,8 @@ export const Home = ({ dispatch, playDiagnostic }) => {
             handleToggleQuestion: handleToggleQuestion,
             previewMode: showPreview,
             questionToPreview: questionToPreview,
-            skippedToQuestionFromIntro: skippedToQuestionFromIntro
+            skippedToQuestionFromIntro: skippedToQuestionFromIntro,
+            translate: t
           })}</div>
         </main>
       </div>
@@ -117,8 +129,9 @@ export const Home = ({ dispatch, playDiagnostic }) => {
 
 const select = (state: any, props: any) => {
   return {
-    playDiagnostic: state.playDiagnostic
+    playDiagnostic: state.playDiagnostic,
+    lessons: state.lessons
   };
 }
 
-export default connect(select)(Home);
+export default withTranslation()(connect(select)(Home));

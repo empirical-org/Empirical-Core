@@ -4,7 +4,8 @@
         "continue": "Continue / Continuer",
         "next": "Next / Continuer",
         "resume": "Resume / Continuer",
-        "submit": "Submit / Envoyer"
+        "submit": "Submit / Envoyer",
+        "save and exit": "Save and exit / Sauvegarder et quitter"
     },
     "ELL Starter Fill in the Blank": {
         "header": "Remplissez les trous",

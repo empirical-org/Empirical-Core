@@ -4,7 +4,8 @@
         "continue": "Continue / Продолжить",
         "next": "Next / Продолжить",
         "resume": "Resume / Продолжить",
-        "submit": "Submit / Отправить"
+        "submit": "Submit / Отправить",
+        "save and exit": "Save and exit / Cохранить и выйти"
     },
     "ELL Starter Fill in the Blank": {
         "header": "Заполните пробел",

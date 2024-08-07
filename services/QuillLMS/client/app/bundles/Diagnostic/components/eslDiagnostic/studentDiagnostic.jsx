@@ -1,5 +1,4 @@
 import React from 'react';
-import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
@@ -202,7 +201,7 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderQuestionComponent = () => {
-    const { playDiagnostic, dispatch, match, t, previewMode } = this.props
+    const { playDiagnostic, dispatch, match, translate, previewMode } = this.props
     const { params } = match;
     const { diagnosticID } = params;
 
@@ -220,7 +219,7 @@ export class ELLStudentDiagnostic extends React.Component {
         nextQuestion={this.nextQuestion}
         previewMode={previewMode}
         question={playDiagnostic.currentQuestion.data}
-        translate={t}
+        translate={translate}
       />);
     } else if (playDiagnostic.currentQuestion.type === 'SF') {
       component = (<PlaySentenceFragment
@@ -246,7 +245,7 @@ export class ELLStudentDiagnostic extends React.Component {
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
           previewMode={previewMode}
-          translate={t}
+          translate={translate}
         />
       );
     } else if (playDiagnostic.currentQuestion.type === 'FB') {
@@ -260,7 +259,7 @@ export class ELLStudentDiagnostic extends React.Component {
           nextQuestion={this.nextQuestion}
           previewMode={previewMode}
           question={playDiagnostic.currentQuestion.data}
-          translate={t}
+          translate={translate}
         />
       );
     }
@@ -423,7 +422,7 @@ export class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         saved={saved}
         saveToLMS={this.saveToLMS}
-        translate={t}
+        translate={translate}
       />);
     } else if (playDiagnostic.language && !previewMode) {
       component = (<LandingPage
@@ -433,7 +432,7 @@ export class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         resumeActivity={this.resumeSession}
         session={this.getPreviousSessionData()}
-        translate={t}
+        translate={translate}
 
       />);
     } else {
@@ -474,4 +473,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default withTranslation()(connect(select)(ELLStudentDiagnostic));
+export default connect(select)(ELLStudentDiagnostic);

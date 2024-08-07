@@ -6,6 +6,8 @@ interface IntroProps {
   previewMode: boolean;
   session: any;
   language: string;
+  availableLanguages: string[];
+  translate: (language: string) => string;
 }
 
 interface IntroState {
@@ -67,16 +69,23 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     startActivity();
   }
 
-  renderButton = () => {
-    return (
-      <button className="quill-button-archived focus-on-light primary contained large" onClick={this.handleNextClick} type="button">Begin</button>
-    );
+  renderButton = (hasLandingPage: boolean, showTranslatedButton: boolean) => {
+    const { translate } = this.props
+    let buttonText = hasLandingPage ? 'Start activity' : 'Begin'
+    if(showTranslatedButton) {
+      buttonText = translate(`buttons^${buttonText.toLowerCase()}`)
+    }
+    if(hasLandingPage) {
+      return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">{buttonText}</button>
+    }
+    return <button className="quill-button-archived focus-on-light primary contained large" onClick={this.handleNextClick} type="button">{buttonText}</button>
   }
 
   renderIntro = () => {
-    const { activity, } = this.props
+    const { activity, language, availableLanguages } = this.props
     const { showLandingPage, } = this.state
     const translatedText = this.translatedText()
+    const showTranslatedButton = language && availableLanguages && availableLanguages.includes(language)
     if (showLandingPage) {
       return (
         <div className="intro landing-page">
@@ -87,7 +96,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
               <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
             </React.Fragment>
           )}
-          <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
+          {this.renderButton(showLandingPage, showTranslatedButton)}
         </div>
       );
     }
@@ -101,7 +110,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
         <p>Type your sentence into the box.</p>
         <br />
         <p>Remember to use correct spelling, capitalization, and punctuation!</p>
-        {this.renderButton()}
+        {this.renderButton(showLandingPage, showTranslatedButton)}
       </div>
     );
   }

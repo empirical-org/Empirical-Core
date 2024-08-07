@@ -385,10 +385,12 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         return(
           <Intro
             activity={grammarActivities.currentActivity}
+            availableLanguages={availableLanguages}
             language={session?.language}
             previewMode={previewMode}
             session={session}
             startActivity={this.goToNextQuestion}
+            translate={translate}
           />
         )
       }

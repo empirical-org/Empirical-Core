@@ -4,7 +4,8 @@
         "continue": "Continue / 続行",
         "next": "Next / 続行",
         "resume": "Continue / 続行",
-        "submit": "Submit / 送信"
+        "submit": "Submit / 送信",
+        "save and exit": "Save and exit / 保存して終了"
     },
     "ELL Starter Fill in the Blank": {
         "header": "空欄を埋めます",

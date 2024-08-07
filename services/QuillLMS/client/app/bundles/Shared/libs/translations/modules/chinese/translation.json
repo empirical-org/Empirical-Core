@@ -4,7 +4,8 @@
         "continue": "Continue / 继续",
         "next": "Next / 继续",
         "resume": "Resume / 继续",
-        "submit": "Submit / 提交"
+        "submit": "Submit / 提交",
+        "save and exit": "Save and exit / 保存并退出"
     },
     "ELL Starter Fill in the Blank": {
         "header": "填空",
