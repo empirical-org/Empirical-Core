@@ -5,10 +5,11 @@ import SkillSection from './skillSection'
 import StudentSection from './studentSection'
 
 import { FULL, restrictedPage, OVERVIEW, SKILL, STUDENT, mapItemsIfNotAll, groupByDropdownOptions, getDiagnosticTypeDropdownOptions } from '../../shared'
-import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon } from '../../../Shared/index'
+import { LightButtonLoadingSpinner, Snackbar, Spinner, whiteArrowPointingDownIcon, filterIcon, defaultSnackbarTimeout, documentFileIcon, whiteEmailIcon } from '../../../Shared/index'
 import useSnackbarMonitor from '../../../Shared/hooks/useSnackbarMonitor';
 import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces'
 import { requestPost } from '../../../../modules/request'
+import ReportSubscriptionModal from '../../components/usage_snapshots/reportSubscriptionModal';
 
 const barChartGreySrc = `${process.env.CDN_URL}/images/pages/diagnostic_reports/icons-bar-chart.svg`
 const barChartWhiteIconSrc = `${process.env.CDN_URL}/images/icons/white-bar-chart-icon.svg`
@@ -65,6 +66,9 @@ export const DiagnosticGrowthReportsContainer = ({
   const [noDiagnosticDataAvailable, setNoDiagnosticDataAvailable] = React.useState<boolean>(!!passedData)
   const [downloadButtonBusy, setDownloadButtonBusy] = React.useState<boolean>(false)
   const [showSnackbar, setShowSnackbar] = React.useState<boolean>(false);
+  const [snackbarCopy, setSnackbarCopy] = React.useState<boolean>(false);
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = React.useState(false)
+  const [currentEmailSubscription, setCurrentEmailSubscription] = React.useState(null)
 
   useSnackbarMonitor(showSnackbar, setShowSnackbar, defaultSnackbarTimeout)
 
@@ -119,6 +123,11 @@ export const DiagnosticGrowthReportsContainer = ({
     passedStudentData: null,
     passedRecommendationsData: null,
     passedVisibleData: null
+  }
+
+  function showInSnackbar(snackbarCopy: string) {
+    setSnackbarCopy(snackbarCopy)
+    setShowSnackbar(true)
   }
 
   function getFilterSelections(tab) {
@@ -177,9 +186,51 @@ export const DiagnosticGrowthReportsContainer = ({
     setDownloadButtonBusy(true)
 
     requestPost('/admin_diagnostic_reports/download', {}, (body) => {
-      setShowSnackbar(true)
+      showInSnackbar("You will receive an email with a download link shortly.")
       setTimeout(() => { setDownloadButtonBusy(false) }, buttonDisableTime);
     })
+  }
+
+  function handleClickSubscribe() {
+    setIsSubscriptionModalOpen(!isSubscriptionModalOpen);
+  }
+
+  function handleSubscriptionCancel() {
+    setIsSubscriptionModalOpen(false);
+  }
+
+  function handleSubscriptionSave(isSubscribed, frequency) {
+    setIsSubscriptionModalOpen(false);
+    if (isSubscribed) {
+      // Save all four filter selections
+      // createOrUpdateEmailSubscription
+
+      //saveFilterSelections(PDF_REPORT, (adminReportFilterSelection) => {
+      //  createOrUpdatePdfSubscription(adminReportFilterSelection, frequency)
+      //})
+    } else if (currentEmailSubscription) {
+      deleteEmailSubscription(currentEmailSubscription.id)
+    }
+    showInSnackbar('Subscription settings saved')
+  }
+
+  function createOrUpdateEmailSubscription(frequency) {
+    if (!adminReportFilterSelection?.id) { return }
+
+    const pdfSubscriptionParams = {
+      pdf_subscription: {
+        admin_report_filter_selection_id: adminReportFilterSelection.id,
+        frequency
+      }
+    }
+
+    requestPost('/pdf_subscriptions/create_or_update', pdfSubscriptionParams, (pdfSubscription) => {
+      setCurrentPdfSubscription(pdfSubscription)
+    })
+  }
+
+  function deleteEmailSubscription(subscriptionId) {
+    requestDelete(`/email_subscriptions/${subscriptionId}`, {}, () => setCurrentEmailSubscription(null), error => { throw (error) })
   }
 
   function renderButtons() {
@@ -239,7 +290,13 @@ export const DiagnosticGrowthReportsContainer = ({
   return (
     <main>
       <div className="header">
-        <Snackbar text="You will receive an email with a download link shortly." visible={showSnackbar} />
+        <ReportSubscriptionModal
+          cancel={handleSubscriptionCancel}
+          currentSubscription={currentEmailSubscription}
+          isOpen={isSubscriptionModalOpen}
+          save={handleSubscriptionSave}
+        />
+        <Snackbar text={snackbarCopy} visible={showSnackbar} />
         <h1>
           <span>Diagnostic Growth Report</span>
           <a href="https://support.quill.org/en/articles/9084379-how-do-i-navigate-the-diagnostic-growth-report-in-the-premium-hub" rel="noopener noreferrer" target="_blank">
@@ -248,6 +305,14 @@ export const DiagnosticGrowthReportsContainer = ({
           </a>
         </h1>
         <div className="header-buttons">
+          <button
+            className="quill-button-archived manage-subscription-button contained primary medium focus-on-light"
+            onClick={handleClickSubscribe}
+            type="button"
+          >
+            <img alt={whiteEmailIcon.alt} src={whiteEmailIcon.src} />
+            <span>Subscribe</span>
+          </button>
           <button className="quill-button-archived download-report-button contained primary medium focus-on-light" onClick={createCsvReportDownload} type="button">
             {downloadButtonBusy ? <LightButtonLoadingSpinner /> : <img alt={whiteArrowPointingDownIcon.alt} src={whiteArrowPointingDownIcon.src} />}
             <span>Download</span>
