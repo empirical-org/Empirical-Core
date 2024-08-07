@@ -169,7 +169,7 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
             <p
               class="oer-asset-line"
             >
-              Optional Paired OER Activity: 
+              Optional Paired OER Project Activity: 
               <a
                 href="https://example.com/oer1"
                 rel="noopener noreferrer"
@@ -225,7 +225,7 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
             <p
               class="oer-asset-line"
             >
-              Optional Paired OER Activity: 
+              Optional Paired OER Project Activity: 
               <a
                 href="https://example.com/oer2"
                 rel="noopener noreferrer"
