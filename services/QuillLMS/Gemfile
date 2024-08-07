@@ -191,7 +191,7 @@ group :test, :development do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 6.0.4'
   gem 'rspec-redis_helper'
   gem 'rspec-retry'
   gem 'rubocop'
