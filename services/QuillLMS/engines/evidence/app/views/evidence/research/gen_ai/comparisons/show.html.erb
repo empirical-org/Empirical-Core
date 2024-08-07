@@ -44,6 +44,10 @@
                   <%= llm_prompt.optimal_examples_count %> Optimal,
                   <%= llm_prompt.suboptimal_examples_count %> Sub-Optimal
                 </li>
+                <li>
+                  Prompt Template:
+                  <%= link_to llm_prompt.llm_prompt_template, llm_prompt.llm_prompt_template %>
+                </li>
               </ul>
             </div>
             <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>
