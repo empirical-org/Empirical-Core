@@ -27,8 +27,9 @@ RSpec.describe EmailSubscription, type: :model do
   it { should validate_inclusion_of(:subscription_type).in_array(described_class::SUBSCRIPTION_TYPES) }
 
   context 'scopes' do
-    let!(:monthly_subscription) { create(:email_subscription, :monthly) }
-    let!(:weekly_subscription) { create(:email_subscription, :weekly) }
+    let(:user) { create(:admin) }
+    let!(:monthly_subscription) { create(:email_subscription, :monthly, user:) }
+    let!(:weekly_subscription) { create(:email_subscription, :weekly, user:) }
 
     describe '.weekly' do
       subject { described_class.weekly }
@@ -42,6 +43,24 @@ RSpec.describe EmailSubscription, type: :model do
 
       it { is_expected.to include monthly_subscription }
       it { is_expected.not_to include weekly_subscription }
+    end
+
+    context '.premium' do
+      subject { described_class.premium }
+
+      it { is_expected.to eq [] }
+
+      context 'user has a subscription' do
+        let(:school) { create(:school) }
+        let(:subscription) { create(:subscription) }
+
+        before do
+          create(:schools_users, user:, school:)
+          create(:school_subscription, subscription:, school:)
+        end
+
+        it { is_expected.to include(monthly_subscription, weekly_subscription) }
+      end
     end
   end
 end

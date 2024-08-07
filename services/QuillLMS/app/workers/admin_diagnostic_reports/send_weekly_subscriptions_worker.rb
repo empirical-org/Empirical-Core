@@ -2,6 +2,6 @@
 
 module AdminDiagnosticReports
   class SendWeeklySubscriptionsWorker < SendSubscriptionsWorker
-    private def subscriptions = EmailSubscription.weekly
+    private def subscriptions = EmailSubscription.weekly.premium
   end
 end

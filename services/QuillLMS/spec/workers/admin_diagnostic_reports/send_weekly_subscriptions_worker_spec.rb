@@ -9,18 +9,39 @@ module AdminDiagnosticReports
     let(:num_weekly_subscriptions) { 2 }
     let(:num_monthly_subscriptions) { 1 }
 
+    let(:user) { create(:admin) }
+
     before do
-      create_list(:email_subscription, num_weekly_subscriptions, frequency: EmailSubscription::WEEKLY)
-      create_list(:email_subscription, num_monthly_subscriptions, frequency: EmailSubscription::MONTHLY)
+      create_list(:email_subscription, num_weekly_subscriptions, user:, frequency: EmailSubscription::WEEKLY)
+      create_list(:email_subscription, num_monthly_subscriptions, user:, frequency: EmailSubscription::MONTHLY)
     end
+
 
     it 'enqueues a job for each weekly subscription' do
       expect(SendSubscriptionCsvEmailWorker)
-        .to receive(:perform_async)
-        .exactly(num_weekly_subscriptions)
+        .not_to receive(:perform_async)
         .times
 
       subject
+    end
+
+    context 'user is premium' do
+      let(:school) { create(:school) }
+      let(:subscription) { create(:subscription) }
+
+      before do
+        create(:schools_users, school:, user:)
+        create(:school_subscription, school:, subscription:)
+      end
+
+      it 'enqueues a job for each weekly subscription' do
+        expect(SendSubscriptionCsvEmailWorker)
+          .to receive(:perform_async)
+          .exactly(num_weekly_subscriptions)
+          .times
+
+        subject
+      end
     end
   end
 end

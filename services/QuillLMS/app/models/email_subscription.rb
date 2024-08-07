@@ -25,6 +25,7 @@ class EmailSubscription < ApplicationRecord
 
   scope :monthly, -> { where(frequency: MONTHLY) }
   scope :weekly, -> { where(frequency: WEEKLY) }
+  scope :premium, -> { joins(user: :school).merge(School.premium) }
 
   belongs_to :user
 
