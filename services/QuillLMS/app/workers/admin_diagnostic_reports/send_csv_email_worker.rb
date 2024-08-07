@@ -45,8 +45,13 @@ module AdminDiagnosticReports
 
     private def generate_students_link(user_id, shared_filter_report_name, students_filter_report_name)
       students_payload = ConstructStudentsQueryPayload.run(user_id, shared_filter_report_name, students_filter_report_name)
+      puts "    ====    ====    ====    ====    ===="
+      puts students_payload
       students_report = AssembleStudentsReport.run(students_payload)
+      puts students_report.length
       students_csv = StudentsCsvGenerator.run(students_report)
+      puts students_csv.length
+      puts "    ====    ====    ====    ====    ===="
       UploadToS3.run(user, students_csv, UploadToS3::CSV_FORMAT)
     end
   end
