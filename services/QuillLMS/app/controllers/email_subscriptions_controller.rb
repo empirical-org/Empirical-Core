@@ -31,7 +31,7 @@ class EmailSubscriptionsController < ApplicationController
   end
 
   private def html_destroy
-    @current_subscription = email_subscription_by_cancel_token
+    @current_subscription = email_subscription_by_id
 
     return redirect_to root_path, flash: { error: 'Subscription not found' } if @current_subscription.nil?
 
