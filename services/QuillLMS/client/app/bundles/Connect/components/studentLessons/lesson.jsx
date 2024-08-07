@@ -340,7 +340,6 @@ export class Lesson extends React.Component {
   }
 
   resumeSession = (data) => {
-    console.log("🚀 ~ Lesson ~ data:", data)
     const { dispatch, } = this.props
     if (data) {
       dispatch(resumePreviousSession(data));
@@ -448,7 +447,7 @@ export class Lesson extends React.Component {
     const { params } = match
     const { lessonID, } = params;
     const studentSession = getParameterByName('student', window.location.href);
-    const showTranslation = language && availableLanguages && availableLanguages.includes(language)
+    const showTranslation = language && availableLanguages?.includes(language)
     let component;
 
     if (!this.dataHasLoaded()) {

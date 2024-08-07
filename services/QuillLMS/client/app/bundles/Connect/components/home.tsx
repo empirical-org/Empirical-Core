@@ -121,7 +121,7 @@ export const Home = ({ playLesson, lessons, dispatch, t }) => {
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
           {header}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
-            availableLanguages: languageOptions && languageOptions.map(option => option.value),
+            availableLanguages: languageOptions?.map(option => option.value),
             isOnMobile: isOnMobile,
             switchedBackToPreview: switchedBackToPreview,
             handleToggleQuestion: handleToggleQuestion,

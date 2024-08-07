@@ -92,7 +92,7 @@ export const PageLayout = ({ dispatch, grammarActivities, session, t }) => {
           previewMode: showPreview,
           questionToPreview: questionToPreview,
           skippedToQuestionFromIntro: skippedToQuestionFromIntro,
-          availableLanguages: languageOptions && languageOptions.map(option => option.value),
+          availableLanguages: languageOptions?.map(option => option.value),
           updateLanguage: handleUpdateLanguage,
           language: language,
           translate: t

@@ -18,7 +18,7 @@ interface renderSaveAndExitArguments {
 }
 
 export function renderSaveAndExitButton({ isELLDiagnostic, language, languageOptions, translate }: renderSaveAndExitArguments) {
-  const languages = isELLDiagnostic ? defaultLanguages : languageOptions && languageOptions.map(option => option.value)
+  const languages = isELLDiagnostic ? defaultLanguages : languageOptions?.map(option => option.value)
   let buttonText = 'Save and exit'
   if (language && language !== ENGLISH && languages && languages.includes(language)) {
     buttonText = translate('buttons^save and exit')

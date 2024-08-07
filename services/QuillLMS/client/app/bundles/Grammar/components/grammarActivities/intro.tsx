@@ -85,7 +85,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     const { activity, language, availableLanguages } = this.props
     const { showLandingPage, } = this.state
     const translatedText = this.translatedText()
-    const showTranslatedButton = language && availableLanguages && availableLanguages.includes(language)
+    const showTranslatedButton = language && availableLanguages?.includes(language)
     if (showLandingPage) {
       return (
         <div className="intro landing-page">

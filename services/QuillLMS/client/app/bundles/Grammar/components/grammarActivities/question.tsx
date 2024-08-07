@@ -288,7 +288,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const { unansweredQuestions, previewMode, language, availableLanguages, translate } = this.props;
     let showTranslatedButtonText = false
     let defaultButtonText = 'Get feedback'
-    if (language && language !== ENGLISH && availableLanguages && availableLanguages.includes(language)) {
+    if (language && language !== ENGLISH && availableLanguages?.includes(language)) {
       showTranslatedButtonText = true
       defaultButtonText = translate(`buttons^${defaultButtonText.toLowerCase()}`)
     }
