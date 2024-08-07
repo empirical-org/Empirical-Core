@@ -514,6 +514,9 @@ parameters:
   lms-run-queries:
     type: boolean
     default: false
+  lms-run-integration:
+    type: boolean
+    default: false
   lms-run-evidence:
     type: boolean
     default: false
@@ -549,6 +552,9 @@ workflows:
           <<: *default_filter
       - lms_big_query_build:
           should-run: << pipeline.parameters.lms-run-queries >>
+          <<: *default_filter
+      - lms_integration_build:
+          should-run: << pipeline.parameters.lms-run-integration >>
           <<: *default_filter
       - evidence_rails_build:
           should-run: << pipeline.parameters.lms-run-evidence >>
