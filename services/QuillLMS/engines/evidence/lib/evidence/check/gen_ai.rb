@@ -27,7 +27,7 @@ module Evidence
       end
 
       private def secondary_feedback_response
-        Evidence::OpenAI::Chat.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: 'gpt-4o-mini')
+        @secondary_feedback_response ||= Evidence::OpenAI::Chat.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: 'gpt-4o-mini')
       end
 
       private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
