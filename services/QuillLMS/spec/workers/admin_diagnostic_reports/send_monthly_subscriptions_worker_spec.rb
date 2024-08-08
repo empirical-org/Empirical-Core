@@ -19,7 +19,6 @@ module AdminDiagnosticReports
     it 'enqueues a job for each weekly subscription' do
       expect(SendSubscriptionCsvEmailWorker)
         .not_to receive(:perform_async)
-        .times
 
       subject
     end
