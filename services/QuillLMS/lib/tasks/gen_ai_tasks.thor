@@ -230,7 +230,6 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
   end
 
-
   # bundle exec thor gen_a_i_tasks:example_check
   desc "example_check", 'Run to see system prompt and feedback for a given prompt / entry'
   def example_check
@@ -238,9 +237,9 @@ class GenAITasks < Thor
     entry = 'because it is good.'
 
     previous = [
-      {'feedback' => "Clear your response and try again. Think about what specific actions Korean leaders took to remove the pirates. Can you mention a specific strategy they used?"},
-      {'feedback'=> "Clear your response and try again. Think about a specific action or strategy that Korean leaders used to remove Wokou pirates. What did they do to discourage piracy?"},
-      {'feedback' => 'Clear your response and try again. Can you think of a specific way Korean leaders tried to stop the pirates, using information from the text?'}
+      { 'feedback' => "Clear your response and try again. Think about what specific actions Korean leaders took to remove the pirates. Can you mention a specific strategy they used?" },
+      { 'feedback' => "Clear your response and try again. Think about a specific action or strategy that Korean leaders used to remove Wokou pirates. What did they do to discourage piracy?" },
+      { 'feedback' => 'Clear your response and try again. Can you think of a specific way Korean leaders tried to stop the pirates, using information from the text?' }
     ]
 
     check = Evidence::Check::GenAI.new(entry, prompt, previous)
