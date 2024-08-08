@@ -98,7 +98,7 @@ RSpec.describe User, type: :model do
   it { should have_one(:auth_credential).dependent(:destroy) }
   it { should have_many(:admin_report_filter_selections).dependent(:destroy) }
   it { should have_many(:pdf_subscriptions).through(:admin_report_filter_selections) }
-  it { should have_mahy(:email_subscriptions).dependent(:destroy) }
+  it { should have_many(:email_subscriptions).dependent(:destroy) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
