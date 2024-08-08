@@ -31,16 +31,16 @@ class EmailSubscription < ApplicationRecord
       },
       {
         from: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_OVERVIEW,
-        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW
+        to: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW
       },
       {
         from: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_SKILL,
-        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL
+        to: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL
       },
       {
         from: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_STUDENT,
-        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT
-      },
+        to: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT
+      }
     ]
   }
 
