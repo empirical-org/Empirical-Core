@@ -73,14 +73,13 @@ RSpec.describe EmailSubscription, type: :model do
     it { expect { subject }.to not_change(AdminReportFilterSelection, :count) }
 
     context 'filters to copy exist' do
-      let(:copy_from_filter_selection) { {"user_id" => user.id} }
+      let(:copy_from_filter_selection) { { "user_id" => user.id } }
 
       before do
         create(:admin_report_filter_selection,
           user:,
           report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_SKILL,
-          filter_selections: copy_from_filter_selection
-        )
+          filter_selections: copy_from_filter_selection)
       end
 
       it { expect { subject }.to change(AdminReportFilterSelection, :count).by(1) }
@@ -95,8 +94,7 @@ RSpec.describe EmailSubscription, type: :model do
           create(:admin_report_filter_selection,
             user:,
             report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL,
-            filter_selections: {"test" => "intended to be overwritten"}
-          )
+            filter_selections: { "test" => "intended to be overwritten" })
         end
 
         it { expect { subject }.to not_change(AdminReportFilterSelection, :count) }
