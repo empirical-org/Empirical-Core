@@ -2456,7 +2456,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to eq [] }
 
     context 'has a PDF subscription of a type not in SEGMENT_MAPPING' do
-      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:,  report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT) }
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:, report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT) }
       let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
 
       it { is_expected.to eq [] }
@@ -2464,7 +2464,7 @@ RSpec.describe User, type: :model do
 
     context 'has a PDF subscription' do
       let(:usage_snapshot) { described_class::SEGMENT_MAPPING[pdf_subscription.admin_report_filter_selection.report] }
-      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:,  report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT_PDF) }
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:, report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT_PDF) }
       let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
 
       it { is_expected.to match_array [usage_snapshot] }
@@ -2479,15 +2479,15 @@ RSpec.describe User, type: :model do
         let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
         let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
 
-        it { is_expected. to match_array [usage_snapshot, admin_diagnostic_report] }
+        it { is_expected.to match_array [usage_snapshot, admin_diagnostic_report] }
       end
     end
 
     context 'EmailSubscription with no PDF subscription' do
-        let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
-        let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
+      let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
+      let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
 
-        it { is_expected. to match_array [admin_diagnostic_report] }
+      it { is_expected.to match_array [admin_diagnostic_report] }
     end
   end
 end
