@@ -230,6 +230,37 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
   end
 
+
+  # bundle exec thor gen_a_i_tasks:example_check
+  desc "example_check", 'Run to see system prompt and feedback for a given prompt / entry'
+  def example_check
+    prompt = Evidence::Prompt.last
+    entry = 'because it is good.'
+
+    previous = [
+      {'feedback' => "Clear your response and try again. Think about what specific actions Korean leaders took to remove the pirates. Can you mention a specific strategy they used?"},
+      {'feedback'=> "Clear your response and try again. Think about a specific action or strategy that Korean leaders used to remove Wokou pirates. What did they do to discourage piracy?"},
+      {'feedback' => 'Clear your response and try again. Can you think of a specific way Korean leaders tried to stop the pirates, using information from the text?'}
+    ]
+
+    check = Evidence::Check::GenAI.new(entry, prompt, previous)
+    response = check.run
+
+    puts "System Prompt"
+    puts check.send(:system_prompt)
+    print_line
+    puts "Original Response: #{check.send(:primary_response)}"
+    print_line
+    puts "Repeated Feedback?: #{check.send(:repeated_feedback?)}"
+    print_line
+    puts "Secondary Prompt"
+    puts check.send(:secondary_feedback_prompt)
+    print_line
+    puts "Secondary Response: #{check.send(:secondary_feedback_response)}"
+    print_line
+    puts response
+  end
+
   desc 'populate_concepts_and_rules', 'Seed the 3 GenAI concepts, the 6 rules needed by the system'
   def populate_concepts_and_rules
     concept_mapping = {
