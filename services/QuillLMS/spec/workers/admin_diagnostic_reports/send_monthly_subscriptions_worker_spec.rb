@@ -37,7 +37,7 @@ module AdminDiagnosticReports
           .to receive(:perform_async)
           .exactly(num_monthly_subscriptions)
           .times
-  
+
         subject
       end
     end

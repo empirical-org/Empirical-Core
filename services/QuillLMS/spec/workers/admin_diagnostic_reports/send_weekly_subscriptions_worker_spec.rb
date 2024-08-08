@@ -16,7 +16,6 @@ module AdminDiagnosticReports
       create_list(:email_subscription, num_monthly_subscriptions, user:, frequency: EmailSubscription::MONTHLY)
     end
 
-
     it 'enqueues a job for each weekly subscription' do
       expect(SendSubscriptionCsvEmailWorker)
         .not_to receive(:perform_async)
