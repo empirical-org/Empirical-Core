@@ -35,11 +35,11 @@ class EmailSubscription < ApplicationRecord
       },
       {
         from: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_SKILL,
-        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS
+        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL
       },
       {
         from: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_REPORT_STUDENT,
-        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENTS
+        to:  AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT
       },
     ]
   }

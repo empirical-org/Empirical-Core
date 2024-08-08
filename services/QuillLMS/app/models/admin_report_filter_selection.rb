@@ -27,8 +27,8 @@ class AdminReportFilterSelection < ApplicationRecord
     DIAGNOSTIC_GROWTH_REPORT_STUDENT = 'diagnostic_growth_report_student',
     DIAGNOSTIC_GROWTH_SUBSCRIPTION_SHARED = 'diagnostic_growth_report_subscription',
     DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW = 'diagnostic_growth_report_subscription_overview',
-    DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS = 'diagnostic_growth_report_subscription_skill',
-    DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENTS = 'diagnostic_growth_report_subscription_student',
+    DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL = 'diagnostic_growth_report_subscription_skill',
+    DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT = 'diagnostic_growth_report_subscription_student',
     USAGE_SNAPSHOT_REPORT = 'usage_snapshot_report',
     USAGE_SNAPSHOT_REPORT_PDF = 'usage_snapshot_report_pdf'
   ]

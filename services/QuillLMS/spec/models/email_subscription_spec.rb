@@ -87,14 +87,14 @@ RSpec.describe EmailSubscription, type: :model do
 
       it do
         subject
-        expect(AdminReportFilterSelection.find_by(user:, report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS).filter_selections).to eq(copy_from_filter_selection)
+        expect(AdminReportFilterSelection.find_by(user:, report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL).filter_selections).to eq(copy_from_filter_selection)
       end
 
       context 'copy to filter already exists' do
         before do
           create(:admin_report_filter_selection,
             user:,
-            report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS,
+            report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL,
             filter_selections: {"test" => "intended to be overwritten"}
           )
         end
@@ -103,7 +103,7 @@ RSpec.describe EmailSubscription, type: :model do
 
         it do
           subject
-          expect(AdminReportFilterSelection.find_by(user:, report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS).filter_selections).to eq(copy_from_filter_selection)
+          expect(AdminReportFilterSelection.find_by(user:, report: AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL).filter_selections).to eq(copy_from_filter_selection)
         end
       end
     end
