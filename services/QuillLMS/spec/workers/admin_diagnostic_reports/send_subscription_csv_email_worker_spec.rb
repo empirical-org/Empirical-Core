@@ -12,8 +12,8 @@ module AdminDiagnosticReports
       let(:user_id) { user.id }
       let(:shared_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SHARED }
       let(:overview_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW }
-      let(:skills_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS }
-      let(:students_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENTS }
+      let(:skills_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL }
+      let(:students_filter_report_name) { AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT }
       let(:default_params) do
         [
           user_id,
