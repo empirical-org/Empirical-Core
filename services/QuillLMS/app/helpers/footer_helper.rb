@@ -4,9 +4,9 @@ module FooterHelper
   def teacher_dashboard_links
     [
       { href: '/assign', label: 'Assign Activities' },
-      { href: '/teachers/classrooms', label: 'My Classes' },
-      { href: '/teachers/classrooms/activity_planner', label: 'My Activities' },
-      { href: '/teachers/progress_reports/landing_page', label: 'My Reports' }
+      { href: '/teachers/classrooms', label: 'Manage Classes' },
+      { href: '/teachers/classrooms/activity_planner', label: 'Manage Activities' },
+      { href: '/teachers/progress_reports/landing_page', label: 'View Reports' }
     ]
   end
 
