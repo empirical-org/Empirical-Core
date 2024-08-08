@@ -634,5 +634,4 @@ describe PublicProgressReports, type: :model do
       include_examples 'returns rounded percentage', :proofreader
     end
   end
-
 end
