@@ -164,7 +164,7 @@ jobs:
                 command: |
                   cd services/QuillLMS
                   TESTFILES=$(circleci tests glob "spec/system/*_spec.rb")
-                  echo $TESTFILES
+                  echo "test files: ${TESTFILES}"
 
             - run:
                 name: Run tests
