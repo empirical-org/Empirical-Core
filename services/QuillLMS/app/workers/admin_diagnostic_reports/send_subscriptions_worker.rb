@@ -10,8 +10,8 @@ module AdminDiagnosticReports
           subscription.user_id,
           AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SHARED,
           AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW,
-          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILLS,
-          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENTS
+          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL,
+          AdminReportFilterSelection::DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT
         )
       end
     end
