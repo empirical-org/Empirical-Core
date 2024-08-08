@@ -160,6 +160,13 @@ jobs:
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - run:
+                name: debugging
+                command: |
+                  cd services/QuillLMS
+                  TESTFILES=$(circleci tests glob "spec/system/*_spec.rb")
+                  echo $TESTFILES
+
+            - run:
                 name: Run tests
                 command: |
                   cd services/QuillLMS
