@@ -516,7 +516,7 @@ parameters:
     default: false
   lms-run-integration:
     type: boolean
-    default: false
+    default: true # temporarily hardcoded for testing
   lms-run-evidence:
     type: boolean
     default: false
