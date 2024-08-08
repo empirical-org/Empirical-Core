@@ -2456,8 +2456,8 @@ RSpec.describe User, type: :model do
     it { is_expected.to eq [] }
 
     context 'has a PDF subscription' do
-      let(:usage_snapshot) { described_class::SEGMENT_MAPPING[pdf_subscription.report] }
-      let(:admin_report_filter_selection) { create(:admin_report_filter_selection) }
+      let(:usage_snapshot) { described_class::SEGMENT_MAPPING[pdf_subscription.admin_report_filter_selection.report] }
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:,  report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT_PDF) }
       let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
 
       it { is_expected.to match_array [usage_snapshot] }

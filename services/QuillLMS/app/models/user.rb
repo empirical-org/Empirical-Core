@@ -927,8 +927,6 @@ class User < ApplicationRecord
   end
 
   def segment_admin_report_subscriptions
-    puts admin_report_filter_selections.joins(:pdf_subscriptions).pluck(:report)
-    puts email_subscriptions.pluck(:subscription_type)
     (admin_report_filter_selections
       .joins(:pdf_subscriptions)
       .pluck(:report) +
