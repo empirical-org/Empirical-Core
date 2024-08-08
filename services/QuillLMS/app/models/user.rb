@@ -934,6 +934,8 @@ class User < ApplicationRecord
     ).map do |subscription|
       SEGMENT_MAPPING[subscription]
     end
+      .uniq
+      .compact
   end
 
   private def validate_flags

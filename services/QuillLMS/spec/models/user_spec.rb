@@ -2455,12 +2455,25 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to eq [] }
 
+    context 'has a PDF subscription of a type not in SEGMENT_MAPPING' do
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:,  report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT) }
+      let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
+
+      it { is_expected.to eq [] }
+    end
+
     context 'has a PDF subscription' do
       let(:usage_snapshot) { described_class::SEGMENT_MAPPING[pdf_subscription.admin_report_filter_selection.report] }
       let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:,  report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT_PDF) }
       let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
 
       it { is_expected.to match_array [usage_snapshot] }
+
+      context 'has a second PDF subscription of the same type' do
+        before { create(:pdf_subscription, admin_report_filter_selection:) }
+
+        it { is_expected.to match_array [usage_snapshot] }
+      end
 
       context 'also has an EmailSubscription' do
         let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
