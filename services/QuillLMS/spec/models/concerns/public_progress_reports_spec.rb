@@ -578,4 +578,61 @@ describe PublicProgressReports, type: :model do
       expect(result.length).to eq(1)
     end
   end
+
+  describe '#formatted_score_obj' do
+    let(:activity_session) { create(:activity_session, percentage: 0.75, timespent: 1000) }
+    let(:student) { create(:student) }
+    let(:average_score_on_quill) { 85 }
+    let(:concept_result) { { key_target_skill_concept: { correct: true } } }
+    let(:formatted_concept_results) { [concept_result] }
+    let(:average_score) { 90 }
+
+    before do
+      allow_any_instance_of(FakeReports).to receive(:format_concept_results).and_return(formatted_concept_results)
+      allow_any_instance_of(FakeReports).to receive(:get_average_score).and_return(average_score)
+    end
+
+    shared_examples 'returns rounded percentage' do |classification_key|
+      it "returns the rounded percentage as a whole number for #{classification_key} activities" do
+        classification = create(classification_key)
+
+        score_obj = FakeReports.new.formatted_score_obj(activity_session, classification, student, average_score_on_quill)
+
+        expect(score_obj[:score]).to eq((activity_session.percentage * 100).round)
+      end
+    end
+
+    context 'when calculating score' do
+      it 'returns the result of the average score function for lesson activities' do
+        classification = create(:lesson_classification)
+
+        score_obj = FakeReports.new.formatted_score_obj(activity_session, classification, student, average_score_on_quill)
+
+        expect(score_obj[:score]).to eq(average_score)
+      end
+
+      it 'returns the result of the average score function for diagnostic activities' do
+        classification = create(:diagnostic)
+
+        score_obj = FakeReports.new.formatted_score_obj(activity_session, classification, student, average_score_on_quill)
+
+        expect(score_obj[:score]).to eq(average_score)
+      end
+
+      it 'returns nil for evidence activities with a nil score' do
+        classification = create(:evidence)
+        activity_session.percentage = nil
+
+        score_obj = FakeReports.new.formatted_score_obj(activity_session, classification, student, average_score_on_quill)
+
+        expect(score_obj[:score]).to be_nil
+      end
+
+      include_examples 'returns rounded percentage', :evidence
+      include_examples 'returns rounded percentage', :connect
+      include_examples 'returns rounded percentage', :grammar
+      include_examples 'returns rounded percentage', :proofreader
+    end
+  end
+
 end
