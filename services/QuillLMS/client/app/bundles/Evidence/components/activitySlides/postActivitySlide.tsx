@@ -76,18 +76,11 @@ export const PostActivitySlide = ({ handleClick, previewMode, prompts, responses
         <img alt="An illustration of a party popper" id="celebration-vector" src={`${process.env.CDN_URL}/images/evidence/party-celebration.svg`} />
         <p id="revision-text">You have completed the activity!</p>
         <p className="slide-sub-text" id="second-sub-text">Be proud of the work you did today, and celebrate your success! This practice will help you grow as a reader and a writer. The more you practice, the stronger your critical thinking, reading, and writing skills will be.</p>
-        <section id="reminder-badge-section">
-          <img alt="An illustration of an A+ that is crossed out" id="grade-badge" src={`${process.env.CDN_URL}/images/evidence/paper-check.svg`} />
-          <section id="reminder-text-section">
-            <p className="sub-header-text">Reminder about grades</p>
-            <p className="sub-header-subtext">This is practice, so your teacher will see your revisions, but Quill won&apos;t assign you a grade.</p>
-          </section>
-        </section>
       </section>
       <section className="responses-exemplars-container">
         <section className="review-response-header-section">
-          <p className="sub-header-text">Reflect on your work</p>
-          <p className="sub-header-subtext">There are many different ways to use evidence in your writing. Consider how your responses compare to the strong examples. In what ways are they similar or different? Notice the ideas, the phrasing, and the tone of voice, and think about how you could use because, but, and so in your future writing.</p>
+          <p className="sub-header-text">Here are some examples of strong responses</p>
+          <p className="sub-header-subtext">There are many different ways to use evidence in your writing.</p>
         </section>
         {renderResponseAndExamplarsSection(BECAUSE)}
         {renderResponseAndExamplarsSection(BUT)}
