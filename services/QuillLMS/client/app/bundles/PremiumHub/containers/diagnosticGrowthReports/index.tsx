@@ -213,21 +213,7 @@ export const DiagnosticGrowthReportsContainer = ({
   function handleSubscriptionSave(isSubscribed, frequency) {
     setIsSubscriptionModalOpen(false);
     if (isSubscribed) {
-      requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE.slice(0,-1)}` }, (sharedSelections) => {
-        requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${OVERVIEW}` }, (overviewSelections) => {
-          requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${SKILL}` }, (skillSelections) => {
-            requestPost('/admin_report_filter_selections/show', { report: `${FILTER_SELECTIONS_REPORT_BASE}${STUDENT}` }, (studentSelections) => {
-              if (sharedSelections) postFilterSelections(`subscription`, sharedSelections.filter_selections)
-              if (overviewSelections) postFilterSelections(`subscription_${OVERVIEW}`, overviewSelections.filter_selections)
-              if (skillSelections) postFilterSelections(`subscription_${SKILL}`, skillSelections.filter_selections)
-              if (studentSelections) postFilterSelections(`subscription_${STUDENT}`, studentSelections.filter_selections)
-
-              createOrUpdateEmailSubscription(frequency)
-            })
-          })
-        })
-      })
-
+      createOrUpdateEmailSubscription(frequency)
     } else if (currentEmailSubscription) {
       deleteEmailSubscription()
     }
