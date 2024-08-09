@@ -171,7 +171,7 @@ But how can democracies have representative governments unless all or most of th
             Next
           </button>
           <div
-            id="step-indictator-container"
+            id="step-indicator-container"
           >
             <div
               className="step-indicator active"
