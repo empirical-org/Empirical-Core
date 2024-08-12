@@ -102,7 +102,7 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
     end
 
     it 'should calculate diagnostic data' do
-      pre_diagnostic_activity = create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS.first, follow_up_activity_id: post_diagnostic_activity.id)
+      pre_diagnostic_activity = create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id)
 
       create(:unit_activity, unit: unit, activity: post_diagnostic_activity, created_at: Date.new(year, 10, 1))
       create(:unit_activity, unit: unit, activity: pre_diagnostic_activity, created_at: Date.new(year, 10, 1))

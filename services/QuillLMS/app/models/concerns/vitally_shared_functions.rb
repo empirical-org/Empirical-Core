@@ -3,7 +3,8 @@
 module VitallySharedFunctions
   extend ActiveSupport::Concern
 
-  POST_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_TEST_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
+  PRE_DIAGNOSTIC_IDS = Activity.where.not(follow_up_activity: nil)
+  POST_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
   attr_reader :vitally_entity, :school_year_start, :school_year_end
 
@@ -28,7 +29,7 @@ module VitallySharedFunctions
   end
 
   def filter_pre_diagnostic(activities)
-    activities.select { |r| Activity::PRE_TEST_DIAGNOSTIC_IDS.include?(r.id) }
+    activities.select { |r| PRE_DIAGNOSTIC_IDS.include?(r.id) }
   end
 
   def filter_post_diagnostic(activities)
@@ -72,7 +73,7 @@ module VitallySharedFunctions
   end
 
   def pre_diagnostics_completed
-    activities_finished_query.where(activity: { id: Activity::PRE_TEST_DIAGNOSTIC_IDS })
+    activities_finished_query.where(activity: { id: PRE_DIAGNOSTIC_IDS })
   end
 
   def post_diagnostics_completed

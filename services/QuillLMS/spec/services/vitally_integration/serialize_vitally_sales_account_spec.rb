@@ -356,7 +356,7 @@ describe VitallyIntegration::SerializeVitallySalesAccount do
     unit = create(:unit, user_id: teacher.id)
     student = create(:user, role: 'student')
     classroom_unit = create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id])
-    pre_diagnostic_activity = create(:diagnostic_activity, id: Activity::PRE_TEST_DIAGNOSTIC_IDS.first)
+    pre_diagnostic_activity = create(:diagnostic_activity)
     create(:unit_activity, unit: unit, activity: pre_diagnostic_activity)
     create(:unit_activity, unit: unit, activity: post_diagnostic_activity)
 
