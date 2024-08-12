@@ -85,6 +85,13 @@ module AdminDiagnosticReports
       SQL
     end
 
+    def contextual_query
+      <<-SQL
+        #{super}
+        #{order_by_clause}
+      SQL
+    end
+
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name"
     def limit_clause = (' LIMIT 5000' if limited)
 
