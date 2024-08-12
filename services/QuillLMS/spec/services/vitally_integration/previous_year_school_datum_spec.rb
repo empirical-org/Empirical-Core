@@ -17,6 +17,7 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
     let!(:evidence_activity) { create(:evidence_lms_activity, id: 1) }
     let!(:classroom_unit1) { create(:classroom_unit, unit: unit, classroom: relevent_classroom, created_at: Date.new(year, 10, 1), assigned_student_ids: [student.id, student2.id]) }
     let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
+    let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
 
     before do
       create(:unit_activity, unit: unit, activity: evidence_activity, created_at: Date.new(year, 10, 1))
@@ -33,6 +34,7 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         completed_at: Date.new(year, 10, 2),
         updated_at: Date.new(year, 10, 2),
         activity: evidence_activity)
+      stub_const("VitallySharedFunctions::PRE_DIAGNOSTIC_IDS", [pre_diagnostic_activity.id])
       stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
     end
 
@@ -59,8 +61,6 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
     end
 
     it 'should calculate diagnostic data' do
-      pre_diagnostic_activity = create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id)
-
       create(:unit_activity, unit: unit, activity: post_diagnostic_activity, created_at: Date.new(year, 10, 1))
       create(:unit_activity, unit: unit, activity: pre_diagnostic_activity, created_at: Date.new(year, 10, 1))
       create(:activity_session,
