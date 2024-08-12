@@ -70,7 +70,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
       videoLink: 'https://www.youtube.com/watch?v=oVXZTmi2ruI',
       videoDescription: "I'll write it myself, and we'll do it live!",
-      tweetLink: 'https://twitter.com/EdSurge/status/956861254982873088',
+      tweetLink: 'https://x.com/EdSurge/status/956861254982873088',
       tweetImage: 'http://placehold.it/300x135/00998a/fff',
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
       tweetAuthor: 'EdSurge',

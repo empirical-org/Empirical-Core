@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
-  let(:chat_response) { { 'feedback' => 'Sample feedback', 'optimal' => true, 'highlight' => '1' } }
+  let(:primary_response) { { 'feedback' => 'Sample feedback', 'optimal' => true } }
+  let(:secondary_response) { { 'highlight' => '1', 'secondary_feedback' => 'Secondary feedback' } }
   let(:entry) { double('Entry') }
   let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_arrays: [['Highlight text 1']]) }
   let(:rule) { double('Rule', concept_uid: 'sample_concept_uid') }
@@ -12,11 +13,19 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
     allow(Evidence::Rule).to receive(:find_by).and_return(rule)
   end
 
-  subject { described_class.new(chat_response: chat_response, entry: entry, prompt: prompt) }
+  subject do
+    described_class.new(
+      primary_response: primary_response,
+      secondary_response: secondary_response,
+      entry: entry,
+      prompt: prompt
+    )
+  end
 
   describe '#initialize' do
-    it 'initializes with chat_response, entry, and prompt' do
-      expect(subject.chat_response).to eq(chat_response)
+    it 'initializes with primary_response, secondary_response, entry, and prompt' do
+      expect(subject.primary_response).to eq(primary_response)
+      expect(subject.secondary_response).to eq(secondary_response)
       expect(subject.entry).to eq(entry)
       expect(subject.prompt).to eq(prompt)
     end
@@ -25,7 +34,7 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
   describe '#run' do
     it 'returns the response object with correct values' do
       expected_output = {
-        feedback: 'Sample feedback',
+        feedback: 'Secondary feedback',
         feedback_type: Evidence::Rule::TYPE_GEN_AI,
         optimal: true,
         entry: entry,
@@ -68,7 +77,7 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
       end
     end
 
-    describe '#highlight_text' do
+    describe '#highlight_array' do
       it 'returns the correct highlight text based on the highlight key' do
         expect(subject.send(:highlight_array)).to eq(['Highlight text 1'])
       end
@@ -86,20 +95,20 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
     end
 
     describe '#highlight_key' do
-      it 'returns the highlight key from the chat_response' do
+      it 'returns the highlight key from the secondary_response' do
         expect(subject.send(:highlight_key)).to eq('1')
       end
     end
 
     describe '#optimal' do
-      it 'returns the optimal value from the chat_response' do
+      it 'returns the optimal value from the primary_response' do
         expect(subject.send(:optimal)).to eq(true)
       end
     end
 
     describe '#feedback' do
-      it 'returns the feedback from the chat_response' do
-        expect(subject.send(:feedback)).to eq('Sample feedback')
+      it 'returns the feedback from the secondary_response if present, otherwise from primary_response' do
+        expect(subject.send(:feedback)).to eq('Secondary feedback')
       end
     end
   end
