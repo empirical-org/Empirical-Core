@@ -39,6 +39,7 @@ RSpec.configure do |config|
   end
 
   config.filter_run_excluding benchmarking: true
+  config.filter_run_excluding external_api: true
 
   config.around(:each, :external_api) { |example| with_webmock_disabled { example.run } }
 

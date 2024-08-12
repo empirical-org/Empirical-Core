@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { LanguagePicker } from '../../../Shared';
+import { LanguagePicker, renderSaveAndExitButton } from '../../../Shared';
+import { DropdownObjectInterface } from '../../../Staff/interfaces/evidenceInterfaces';
 
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`
 
 interface StudentNavbarProps {
-  language: string;
-  updateLanguage: (language: string) => void;
+  isELLDiagnostic: boolean;
+  language?: string;
+  updateLanguage?: (language: string) => void;
+  translate?: (language: string) => string;
+  languageOptions?: DropdownObjectInterface[];
 }
 
-export const StudentNavbar = ({ language, updateLanguage }: StudentNavbarProps) => {
+export const StudentNavbar = ({ language, updateLanguage, translate, isELLDiagnostic }: StudentNavbarProps) => {
   return(
     <header className='nav student-nav'>
       <div className="container">
@@ -26,7 +30,8 @@ export const StudentNavbar = ({ language, updateLanguage }: StudentNavbarProps) 
             language={language}
             updateLanguage={updateLanguage}
           />}
-          <a className="quill-button medium contained white focus-on-dark" href={`${process.env.DEFAULT_URL}/profile`}>Save and exit</a>        </div>
+          {renderSaveAndExitButton({ language, translate, isELLDiagnostic })}
+        </div>
       </div>
     </header>
   );
