@@ -68,6 +68,169 @@ exports[`ResultsPage container renders correctly when activityType is diagnostic
 </DocumentFragment>
 `;
 
+exports[`ResultsPage container renders correctly when activityType is evidence 1`] = `
+<DocumentFragment>
+  <div
+    class="results-page-container white-background-accommodate-footer"
+  >
+    <div
+      id="results-page"
+    >
+      <div
+        class="top-section"
+      >
+        <h1>
+          Activity Complete!
+        </h1>
+        <div
+          class="header-buttons"
+        >
+          <a
+            class="quill-button-archived primary contained large focus-on-light"
+            href="/"
+          >
+            Return to dashboard
+          </a>
+          <a
+            class="quill-button-archived secondary outlined large focus-on-light"
+            href="/activity_sessions/1/student_activity_report"
+          >
+            View results
+          </a>
+          <a
+            class="quill-button-archived secondary outlined large focus-on-light"
+            href="/activity_sessions/classroom_units/undefined/activities/undefined"
+          >
+            Replay activity
+          </a>
+        </div>
+      </div>
+      <div
+        class="activity-results"
+      >
+        <div
+          class="activity-name-and-overall-score"
+        >
+          <div>
+            <h2>
+              Cool Activity
+            </h2>
+          </div>
+          <div
+            class="results-icon-container"
+          >
+            <div
+              class="icon"
+              style="background-color: rgb(235, 153, 17);"
+            >
+              <img
+                alt="activity-type"
+                src="undefined/images/icons/s/tool-evidence-white.svg"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="results-section"
+        >
+          <h2>
+            Proficient
+          </h2>
+          <div
+            class="target-skill"
+          >
+            <span>
+              Capitalizing Geographic Names
+            </span>
+            <span />
+          </div>
+        </div>
+        <div
+          class="results-section"
+        >
+          <h2>
+            Keep Practicing
+          </h2>
+          <div
+            class="target-skill"
+          >
+            <span>
+              Capitalizing Dates
+            </span>
+            <span />
+          </div>
+          <div
+            class="target-skill"
+          >
+            <span>
+              Capitalizing Holidays
+            </span>
+            <span />
+          </div>
+        </div>
+      </div>
+      <div
+        class="evidence-scoring-guide"
+      >
+        <h2>
+          How Reading for Evidence Scoring Works
+        </h2>
+        <div
+          class="score-keys"
+        >
+          <div
+            class="score-key"
+          >
+            <div
+              class="green"
+            />
+            <p>
+              Earn a green score by reaching a strong response on all three prompts
+            </p>
+          </div>
+          <div
+            class="score-key"
+          >
+            <div
+              class="yellow"
+            />
+            <p>
+              Reaching a strong response on one or two prompts will result in a yellow score
+            </p>
+          </div>
+          <div
+            class="score-key"
+          >
+            <div
+              class="red"
+            />
+            <p>
+              Not reaching a strong response on any prompt will result in a red score
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="keep-practicing-section"
+      >
+        <img
+          alt=""
+          src="undefined/images/pages/student_results_page/pencil_illustration.svg"
+        />
+        <div>
+          <h2>
+            Keep practicing!
+          </h2>
+          <p>
+            Becoming a strong writer takes practice. You kept going and finished the activity! By practicing, you will continue to improve and build your skills.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`ResultsPage container renders correctly when showExactScore is false 1`] = `
 <DocumentFragment>
   <div
