@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { LanguagePicker, TeacherPreviewMenuButton, showTranslations } from '../../../Shared/index';
+import { LanguagePicker, TeacherPreviewMenuButton, renderSaveAndExitButton, showTranslations } from '../../../Shared/index';
 const quillLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-2022.svg`;
 
 interface NavBarProps {
@@ -10,10 +10,11 @@ interface NavBarProps {
   onTogglePreview?: () => void;
   language: string;
   languageOptions?: any;
+  translate: (language: string) => string;
   updateLanguage: (language: string) => void;
 }
 
-export const NavBar: React.SFC<NavBarProps> = ({ isOnMobile, isTeacher, previewShowing, onTogglePreview, language, languageOptions, updateLanguage }) => {
+export const NavBar: React.SFC<NavBarProps> = ({ isOnMobile, isTeacher, previewShowing, onTogglePreview, language, languageOptions, updateLanguage, translate }) => {
   const handleTogglePreview = () => {
     onTogglePreview();
   }
@@ -25,7 +26,7 @@ export const NavBar: React.SFC<NavBarProps> = ({ isOnMobile, isTeacher, previewS
         <a className="focus-on-dark" href={process.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
         <div className='header-buttons-container'>
           {showTranslations(language, languageOptions) && <LanguagePicker language={language} languageOptions={languageOptions} updateLanguage={updateLanguage} />}
-          <a className="quill-button medium contained white focus-on-dark" href={process.env.DEFAULT_URL}>Save and exit</a>
+          {renderSaveAndExitButton({ language, languageOptions, translate })}
         </div>
       </div>
     </div>

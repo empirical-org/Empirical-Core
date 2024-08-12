@@ -151,6 +151,7 @@ export {
   findFeedbackForReport,
   formatAnswerStringForReport,
   getlanguageOptions,
+  renderSaveAndExitButton,
   hasTranslationFlag,
   showTranslations
 } from './libs/index'
@@ -272,6 +273,6 @@ export {
   HOVER
 } from './utils/constants'
 
-export { ENGLISH } from './utils/languageList'
+export { ENGLISH, defaultLanguages } from './utils/languageList'
 
 export { DefaultReactQueryClient } from './utils/defaultReactQueryClient'

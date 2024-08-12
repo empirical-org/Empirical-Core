@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ResumeOrBeginButton } from '../../../Shared/index';
-import { languageData } from '../../modules/translation/languagePageInfo';
+import { languageData } from '../../../Shared/libs/translations/modules/languagePageInfo';
 import { ENGLISH, rightToLeftLanguages} from '../../../Shared/utils/languageList';
 
 

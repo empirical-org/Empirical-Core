@@ -1,0 +1,109 @@
+{
+    "buttons": {
+        "begin": "Begin / شروع کریں",
+        "continue": "Continue / جاری رکھیں",
+        "next": "Next / جاری رکھیں",
+        "resume": "Continue / جاری رکھیں",
+        "submit": "Submit / جمع کرائیں",
+        "save and exit": "Save and exit / محفوظ کریں اور باہر نکلیں"
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "خالی جگہ پر کریں",
+        "text": "اس حصے میں ، ہر جملے میں ایک ، دو ، یا تین خالی جگہیں ہوں گی۔ آپ فہرست میں سے ایک ایک لفظ کے ساتھ ہر خالی جگہ پر کریں گے ، یا اگر کسی لفظ کی ضرورت نہ ہو تو آپ خالی چھوڑ دیں گے۔ خانے میں اپنے منتخب کردہ الفاظ ٹائپ کریں۔ اپنی ہجے چیک کرنا یاد رکھیں! آو شروع کریں!"
+    },
+    "ELL Starter Fill in the Blanks": {
+        "header": "خالی جگہ پر کریں",
+        "text": "اس حصے میں ، ہر جملے میں ایک ، دو ، یا تین خالی جگہیں ہوں گی۔ آپ فہرست میں سے ایک ایک لفظ کے ساتھ ہر خالی جگہ پر کریں گے ، یا اگر کسی لفظ کی ضرورت نہ ہو تو آپ خالی چھوڑ دیں گے۔ خانے میں اپنے منتخب کردہ الفاظ ٹائپ کریں۔ اپنی ہجے چیک کرنا یاد رکھیں! آو شروع کریں!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "خالی جگہ پر کریں۔",
+        "text": "اس حصے میں ہر جملے میں ایک، دو، تین یا چار خالی جگہیں ہوں گی۔  آپ کو فہرست میں دیے گئے الفاظ میں سے ایک ایک سے ہر خالی جگہ پر کرنی ہو گی۔ کچھ سوالوں میں آپ دو خالی جگہوں میں ایک ہی لفظ بھی استعمال کر سکتے ہیں۔ اپنے منتخب کردہ الفاظ خالی خانوں میں درج کریں۔ درست ہجوں کا خیال رکھیں! چلیں شروع کریں!"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "خالی جگہ پر کریں۔",
+        "text": "بہت اچھا کام جا رہا ہے آپ کا! اس حصے میں ہر فقرے میں ایک، دو، تین یا چار خالی جگہیں ہوں گی۔ اگر ایک سے زائد خالی جگہیں ہوں تو ہر لفظ صرف ایک بار درج کریں۔ چلیں شروع کریں!"
+    },
+    "ELL Halfway": {
+        "header": "آپ آدھے راستے پر ہیں!",
+        "text": "بہت اچھا کام جاری رکھیں!"
+    },
+    "ELL Starter Questions": {
+        "header": "سوالات",
+        "text": "اس حصے میں ، آپ سوالات لکھ رہے ہوں گے۔ یاد رکھیں کہ سوالات کے آخر میں سوالیہ نشان (؟) ہوتا ہے۔ تم کر سکتے ہو!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "جملہ جمع کرنا",
+        "text": "آپ تقریبا ختم ہو چکے ہیں! صرف 3 سوال باقی ہیں۔ اس حصے میں ، آپ جملوں کو ایک جملے میں جوڑ دیتے ہیں۔ استعمال کرنے کیلئے آپ کو شامل ہونے کا لفظ دیا جائے گا۔ یاد رکھیں کہ ایک جملہ کی صرف ایک مدت ہوتی ہے۔ آپ سمجھ گئے!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "خالی جگہ پر کریں۔",
+        "text": "اس حصے میں ہر جملے میں ایک، دو، تین یا چار خالی جگہیں ہوں گی۔ آپ کو فہرست میں دیے گئے الفاظ میں سے ایک ایک سے ہر خالی جگہ پر کرنی ہو گی۔ کچھ سوالوں میں آپ دو خالی جگہوں میں ایک ہی لفظ بھی استعمال کر سکتے ہیں۔ اپنے منتخب کردہ الفاظ خالی خانوں میں درج کریں۔ درست ہجوں کا خیال رکھیں! چلیں شروع کریں!"
+    },
+    "ELL Advanced Sentences": {
+        "header": "جملوں میں افعال",
+        "text": "اس حصے کے ہر سوال میں مکمل جملہ لکھیں۔ خط کشیدہ لفظ کی شکل تبدیل کر کے اسے باقی جملے کے ساتھ ملائیں۔ درست ہجوں کا خیال رکھیں! چلیں شروع کریں!"
+    },
+    "End: You Did it!": {
+        "header": "تم نے یہ کیا!",
+        "text": "یہی ہے! ابھی آپ نے کوئل پلیسمنٹ کی سرگرمی ختم کردی۔ نتائج آپ کے اساتذہ کو بھیجے جائیں گے ، اور ہم آپ کے سیکھنے کا منصوبہ بنانا شروع کریں گے۔"
+    },
+    "completedDiagnostic": {
+        "header": "آپ نے کوئل پلیسمنٹ سرگرمی مکمل کرلی ہے",
+        "text": "آپ کے نتائج ابھی محفوظ ہو رہے ہیں۔ ایک بار جب وہ محفوظ ہوجائیں گے تو آپ کو خود بخود ری ڈائریکٹ کردیا جائے گا۔"
+    },
+    "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "انتخابات میں سے کسی ایک سے ہر خالی جگہ پر کریں۔ آپ کسی ایک کو خالی چھوڑ سکتے ہیں۔",
+        "Fill in the blank with one of the choices.": "کسی ایک انتخاب میں خالی جگہ پر کریں۔",
+        "Fill in each blank with one of the choices.": "کسی ایک انتخاب میں ہر خالی جگہ کو بھریں۔",
+        "Fill in the blanks with one word each.": "ایک ایک لفظ کے ساتھ خالی جگہیں بھریں۔",
+        "Fill in the blanks with one word each. You can leave one empty.": "ایک ایک لفظ کے ساتھ خالی جگہیں بھریں۔ آپ ایک خالی بھی چھوڑ سکتے ہیں۔",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "ہر خالی جگہ انتخابات میں سے کسی ایک سے پر کریں۔ آپ ایک لفظ ایک سے زائد بار استعمال کر سکتے ہیں۔ ایک سے زائد درست جواب بھی ہو سکتے ہیں۔",
+        "Fill in the blanks. Use each word once.": "خالی جگہیں پر کریں۔ ہر لفظ ایک بار استعمال کریں۔",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "جملہ دوبارہ لکھیں۔ خط کشیدہ فعل درست کریں تاکہ وہ فعل مستقبل میں ہو۔",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "جملہ دوبارہ لکھیں۔ خط کشیدہ فعل درست کریں تاکہ باقی جملے کے مطابق اس کے فعل کا زمانہ درست ہو۔",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "جملہ دوبارہ لکھیں۔ خط کشیدہ الفاظ درست کریں تاکہ وہ فعل مستقبل میں ہوں۔",
+        "Respond to the question. Fill in the blank with one of the choices.": "سوال کا جواب دیں۔ دیے گئے انتخابات میں سے کسی ایک سے خالی جگہ پر کریں۔",
+        "Use the joining word to combine the sentences into one sentence.": "جملے کو ایک جملے میں جوڑنے کے لئے شامل ہونے والے لفظ کا استعمال کریں۔",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "کچھ خالی جگہیں پیلے رنگ کے الفاظ سے پُر کریں۔ آپ خالی جگہیں خالی چھوڑ سکتے ہیں۔",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "دو جواب صحیح ہیں۔ درست جوابات میں سے ایک کے ساتھ ہر خالی جگہ پُر کریں۔ ایک ہی جواب دو بار نہ لکھیں۔",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "ہر خالی جگہ دیے گئے الفاظ میں سے کسی ایک سے پُر کریں۔ آپ ایک ہی لفظ ایک سے زیادہ بار استعمال کر سکتے ہیں۔",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "جملے لکھیں۔ جن لفظوں کے نیچے لکیر لگی ہے انہیں زیادہ لوگوں کے بارے میں بات کرنے کے لئے تبدیل کریں۔",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "سوالات لکھیں۔ جن لفظوں کے نیچے لکیر لگی ہے انہیں اس طرح تبدیل کریں کہ سوالات صحیح طریقے سے لکھے جائیں۔",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "یہ جملے صحیح کر کے لکھیں۔ صرف وہ الفاظ تبدیل کریں جن کے نیچے لکیر لگی ہے۔ لفظ not ہر جملے میں باقی رکھیں۔",
+        "Write the words in the correct order. There are multiple correct answers.": "الفاظ صحیح ترتیب میں لکھیں۔ ایک سے زیادہ جوابات صحیح ہیں۔",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "جملہ لکھیں۔ جس لفظ کے نیچے لکیر لگی ہے اسے جملے کے مطابق تبدیل کریں۔ کوئی نئے الفاظ شامل نہ کریں۔",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "جملہ لکھیں۔ جس لفظ کے نیچے لکیر لگی ہے اسے جملے کے مطابق تبدیل کریں۔ آپ اس میں 1 یا 2 الفاظ تبدیل کر سکتے ہیں۔",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "جملے لکھیں۔ نیچے لکیر لگے لفظوں کا ہر مجموعہ ایک لفظ میں تبدیل کریں۔ اپاسٹرفی ( ' ) استعمال کریں۔",
+        "Fill in the blank with the correct option.": "صحیح انتخاب کے ساتھ خالی جگہ پُر کریں۔",
+        "Fill in each blank with the correct option. You may use an option more than once.": "صحیح انتخاب کے ساتھ ہر خالی جگہ پُر کریں۔ آپ ایک انتخاب ایک سے زیادہ بار استعمال کر سکتے ہیں۔",
+        "Fill in the blank with the most natural option.": "خالی جگہ اس انتخاب سے پُر کریں جو سب سے زیادہ وہاں آ سکتا ہو۔",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "ہر خالی جگہ اختیارات میں سے ایک کے ساتھ پُر کریں۔ آپ کو ایک ہی انتخاب بار بار استعمال کرنے کی اجازت ہے، لیکن آپ کے لئے ایسا کرنا ضروری نہیں۔",
+        "Fill in the blank with the most natural sentence.": "خالی جگہ اس جملے سے پُر کریں جو سب سے زیادہ وہاں آ سکتا ہو۔",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "ان خالی جگہوں کو پُر کریں جن میں الفاظ کی ضرورت ہے۔ آپ خالی جگہیں خالی چھوڑ سکتے ہیں۔ آپ کو ایک ہی انتخاب بار بار استعمال کرنے کی اجازت ہے، لیکن آپ کے لئے ایسا کرنا ضروری نہیں۔",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "ہر خالی جگہ ایک انتخاب کے ساتھ پُر کریں۔ آپ کو ایک ہی انتخاب بار بار استعمال کرنے کی اجازت ہے، لیکن آپ کے لئے ایسا کرنا ضروری نہیں۔",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "ہر خالی جگہ ایک لفظ سے پُر کریں۔ آپ کو ایک ہی لفظ بار بار استعمال کرنے کی اجازت ہے، لیکن آپ کے لئے ایسا کرنا ضروری نہیں۔",
+        "Fill in each blank with one of the words.": "ہر خالی جگہ دیے گئے الفاظ میں سے کسی ایک سے پُر کریں۔",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "دو اختیارات صحیح ہیں۔ ہر خالی جگہ صحیح اختیارات میں سے ایک کے ساتھ پُر کریں۔ ایک ہی جواب دو بار نہ لکھیں۔",
+        "Fill in each blank with one of the options.": "ہر خالی جگہ اختیارات میں سے ایک کے ساتھ پُر کریں۔",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "جملہ دوبارہ لکھیں۔ جن لفظوں کے نیچے لکیر لگی ہے ان میں سے جو غلط ہوں انہیں تبدیل کریں۔ ایسے الفاظ کو تبدیل نہ کریں جو پہلے سے درست ہیں۔"
+    },
+    "cues": {
+        "type one": "type one / ایک درج کریں",
+        "type one in each blank": "type one in each blank / ہر خالی جگہ میں ایک لفظ درج کریں۔",
+        "type two or three": "type two or three / دو یا تین درج کریں",
+        "type three": "type three / تین درج کریں",
+        "choose one": "choose one / ایک کا انتخاب کریں",
+        "choose three": "choose three / تین کا انتخاب کریں",
+        "choose two or three" : "choose two or three / دو یا تین کا انتخاب کریں",
+        "joining word": "joining word / شامل ہونے کا لفظ",
+        "words": "words / الفاظ",
+        "type two": "type two / دو کو ٹائپ کریں",
+        "options": "options / اختیارات",
+        "sentences": "sentences / جملے",
+        "answers": "answers / جوابات"
+    },
+    "feedback": {
+        "blank": "ذیل میں سے ایک آپشن استعمال کریں یا خالی چھوڑیں۔",
+        "no blank": "ذیل میں سے ایک آپشن استعمال کریں۔"
+    }
+}

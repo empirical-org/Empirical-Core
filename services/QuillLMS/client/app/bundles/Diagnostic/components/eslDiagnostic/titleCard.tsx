@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { commonText } from '../../modules/translation/commonText';
+import { commonText } from '../../../Shared/libs/translations/modules/commonText';
 import { ENGLISH, rightToLeftLanguages } from '../../../Shared/utils/languageList';
 
 export interface ComponentProps {
