@@ -47,7 +47,7 @@ export const PostNavigationBanner = ({ tagText, primaryHeaderText, secondaryHead
         </div>
       </div>
       <img alt={icon.alt} className="banner-icon" src={icon.src} />
-      {closeIconSrc && <button aria-label={closeAria} className="interactive-wrapper close-button" onClick={handleCloseCard} type="button"><img alt="" src={closeIconSrc} /></button>}
+      {handleCloseCard && <button aria-label={closeAria} className="interactive-wrapper close-button" onClick={handleCloseCard} type="button"><img alt="" src={closeIconSrc} /></button>}
     </div>
   )
 }
