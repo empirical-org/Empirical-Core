@@ -4,7 +4,7 @@ module VitallySharedFunctions
   extend ActiveSupport::Concern
 
   PRE_DIAGNOSTIC_IDS = Activity.where.not(follow_up_activity: nil)
-  POST_DIAGNOSTIC_IDS = Activity.where(id: Activity::PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
+  POST_DIAGNOSTIC_IDS = Activity.where(id: PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
   attr_reader :vitally_entity, :school_year_start, :school_year_end
 
