@@ -170,7 +170,7 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
         <section className="assigned-activity-text-section">
           <p>You've previously assigned this activity in another activity pack. You can remove individual activities from a pre-created pack on the next page.</p>
           <br />
-          <p>Tip: If you want to add individual students to a previously created Activity Pack, go to "My Activities" to add students.</p>
+          <p>Tip: If you want to add individual students to a previously created Activity Pack, go to "Manage Activities" to add students.</p>
         </section>
       </section>
       <tbody>
@@ -202,3 +202,10 @@ export const renderPreviouslyAssignedActivitiesTooltipElement = (data) => {
   )
   return renderToString(table)
 }
+
+export const DisabledDiagnosticsBanner = ({ className }) => (
+  <div className={`disabled-diagnostic-banner ${className}`}>
+    <p>We've made improvements to the diagnostics for the 2024-2025 school year.</p>
+    <a className="focus-on-dark" href="https://www.quill.org/teacher-center/important-update-to-diagnostics" rel='noopener noreferrer' target="_blank">Learn more</a>
+  </div>
+)
