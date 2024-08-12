@@ -1,0 +1,109 @@
+{
+    "buttons": {
+        "begin": "Begin / Anfangen",
+        "continue": "Continue / Weiter",
+        "next": "Next / Weiter",
+        "resume": "Continue / Weiter",
+        "submit": "Submit / Einreichen",
+        "save and exit": "Save and exit / Speichern und schließen"
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "Fülle die Lücken aus",
+        "text": "Jeder Satz in diesem Abschnitt hat eine, zwei oder drei Lücken. Du kannst entweder jede Lücke mit einem der Wörter aus der Liste ausfüllen oder die Lücke leer lassen, falls kein Wort benötigt wird. Gib die Wörter, die du ausgewählt hast, in die Felder ein. Vergiss nicht, deine Rechtschreibung zu überprüfen! Lass uns loslegen!"
+    },
+    "ELL Starter Fill in the Blanks": {
+        "header": "Fülle die Lücken aus",
+        "text": "Jeder Satz in diesem Abschnitt hat eine, zwei oder drei Lücken. Du kannst entweder jede Lücke mit einem der Wörter aus der Liste ausfüllen oder die Lücke leer lassen, falls kein Wort benötigt wird. Gib die Wörter, die du ausgewählt hast, in die Felder ein. Vergiss nicht, deine Rechtschreibung zu überprüfen! Lass uns loslegen!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "Fülle die Lücke aus",
+        "text": "In diesem Abschnitt hat jeder Satz eine, zwei, drei oder vier Lücken. Du füllst jede Lücke mit einem der Wörter aus der Liste aus. Bei einigen Fragen kannst du ein Wort aus der Liste in zwei Lücken einsetzen. Tippe die gewählten Wörter in die Kästchen ein. Denke dabei an die Rechtschreibung! Fangen wir an!"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "Fülle die Lücke aus",
+        "text": "Bisher, gut gemacht! In diesem Abschnitt hat jeder Satz eine, zwei, drei oder vier Lücken. Wenn es mehrere Lücken gibt, dann tippe jedes Wort nur ein Mal ein. Fangen wir an!"
+    },
+    "ELL Halfway": {
+        "header": "Du bist schon halbwegs fertig!",
+        "text": "Großartige Arbeit, mach weiter so!"
+    },
+    "ELL Starter Questions": {
+        "header": "Fragen",
+        "text": "In diesem Abschnitt wirst du Fragen schreiben. Denke daran, dass am Ende jeder Frage ein Fragezeichen (?) stehen muss. Du schaffst das schon!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "Sätze kombinieren",
+        "text": "Du bist fast fertig! Es sind nur noch 3 Fragen übrig. In diesem Abschnitt wirst du mehrere Sätze zu einem einzigen Satz kombinieren. Dafür wirst du ein Verbindungswort erhalten. Denke daran, dass ein Satz nur einen Punkt hat. Du hast das hier im Griff!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Sätze schreiben",
+        "text": "Gut gemacht! Es sind nur noch zwei Fragen übrig. Beim nächsten Abschnitt geht es um die Zukunftsform. Schreibe den ganzen Satz für beide Fragen. Fangen wir an."
+    },
+    "ELL Advanced Sentences": {
+        "header": "Tätigkeitsworte in Sätzen",
+        "text": "Schreibe für jede Frage in diesem Abschnitt den ganzen Satz. Ändere die Form des Wortes, das unterstrichen ist, damit es zum restlichen Satz passt. Denke dabei an die Rechtschreibung!! Fangen wir an!"
+    },
+    "End: You Did it!": {
+        "header": "Du hast es geschafft!",
+        "text": "Das war schon alles! Du hast gerade die Platzdeckchen-Methode von Quill beendet. Die Ergebnisse werden an deinen Lehrer geschickt und wir fangen mit der Erstellung deines Lernplans an."
+    },
+    "completedDiagnostic": {
+        "header": "Du hast die Platzdeckchen-Methode von Quill abgeschlossen.",
+        "text": "Deine Ergebnisse werden jetzt gespeichert. Sobald diese gespeichert sind, wirst du automatisch weitergeleitet."
+    },
+    "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Fülle jede Lücke mit einem der Wörter aus. Du kannst eine Lücke leer lassen.",
+        "Fill in the blank with one of the choices.": "Fülle die Lücken mit einer der möglichen Optionen aus.",
+        "Fill in each blank with one of the choices.": "Fülle jede Lücke mit einer der möglichen Optionen aus.",
+        "Fill in the blanks with one word each.": "Fülle die Lücken mit je einem Wort aus.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Fülle die Lücken mit je einem Wort aus oder lasse sie leer.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Fülle die Lücken mit einer der möglichen Optionen aus.",
+        "Fill in the blanks. Use each word once.": "Füllen Sie die Lücken aus. Verwenden Sie jedes Wort einmal.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Schreibe den Satz um. Korrigiere das unterstrichene Tätigkeitswort, damit es in der Zukunftsform steht.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Schreibe den Satz um. Korrigiere das unterstrichene Tätigkeitswort, damit es in der richtigen Zeitform steht und zum restlichen Satz passt.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Schreibe den Satz um. Korrigiere die unterstrichenen Tätigkeitsworte, damit sie in der Zukunftsform stehen.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Antworte auf die Frage. Fülle die Lücke mit einem der Wörter aus.",
+        "Use the joining word to combine the sentences into one sentence.": "Benutze das Verbindungswort, um Sätze zu einem einzigen Satz zu verbinden.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Fülle einige der Felder mit den gelben Wörtern aus. Du kannst Felder leer lassen.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Es gibt zwei richtige Antworten. Fülle jedes Feld mit einer der richtigen Antworten aus. Schreibe dieselbe Antwort nicht zweimal.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Fülle jedes Feld mit einem der Wörter aus. Du kannst dasselbe Wort mehrmals verwenden.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "Schreibe die Sätze. Ändere die unterstrichenen Wörter, damit sie über mehrere Personen sprechen.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Schreibe die Fragen. Ändere die unterstrichenen Wörter so, dass die Fragen richtig geschrieben sind.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Schreibe diese Sätze richtig. Ändere nur die unterstrichenen Wörter. Behalte das Wort „not“ in jedem Satz bei.",
+        "Write the words in the correct order. There are multiple correct answers.": "Schreibe die Wörter in der richtigen Reihenfolge. Es gibt mehrere richtige Antworten.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Schreibe den Satz. Ändere das unterstrichene Wort so, dass es in den Satz passt. Füge keine neuen Wörter hinzu.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Schreibe den Satz. Ändere das unterstrichene Wort so, dass es in den Satz passt. Du kannst es in 1 oder 2 Wörter ändern.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Schreibe die Sätze. Mache aus jeder Gruppe von unterstrichenen Wörtern ein Wort. Verwende ein Apostroph (').",
+        "Fill in the blank with the correct option.": "Fülle das Feld mit der richtigen Option aus.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Fülle jedes Feld mit der richtigen Option aus. Du kannst eine Option mehrmals verwenden.",
+        "Fill in the blank with the most natural option.": "Fülle das Feld mit der natürlichsten Option aus.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "Fülle jedes Feld mit einer der Optionen aus. Du darfst dieselbe Option mehrmals verwenden, musst es aber nicht.",
+        "Fill in the blank with the most natural sentence.": "Fülle das Feld mit dem natürlichsten Satz aus.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "Fülle die Felder aus, die Wörter benötigen. Du kannst Felder leer lassen. Du darfst dieselbe Option mehrmals verwenden, musst es aber nicht.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Fülle jedes Feld mit einer Option aus. Du darfst dieselbe Option mehrmals verwenden, musst es aber nicht.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Fülle jedes Feld mit einem Wort aus. Du darfst dasselbe Wort mehrmals verwenden, musst es aber nicht.",
+        "Fill in each blank with one of the words.": "Fülle jedes Feld mit einem der Wörter aus.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Es gibt zwei richtige Optionen. Fülle jedes Feld mit einer der richtigen Optionen aus. Schreibe dieselbe Antwort nicht zweimal.",
+        "Fill in each blank with one of the options.": "Fülle jedes Feld mit einer der Optionen aus.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Formuliere den Satz um. Ändere die unterstrichenen Wörter, die falsch sind. Ändere keine Wörter, die bereits korrekt sind."
+    },
+    "cues": {
+        "type one": "type one / tippe ein",
+        "type one in each blank": "type one in each blank / tippe ein in jede Lücke",
+        "type two or three": "type two or three / tippe zwei oder drei",
+        "type three": "type three / tippe drei",
+        "choose one": "choose one / wähle eins",
+        "choose three": "choose three / wähle drei",
+        "choose two or three" : "choose two or three / wähle zwei oder drei",
+        "joining word": "joining word / verbindungswort",
+        "words": "words / wörter",
+        "type two": "type two / zwei eingeben",
+        "options": "options / optionen",
+        "sentences": "sentences / sätze",
+        "answers": "answers / antworten"
+    },
+    "feedback": {
+        "blank": "Verwende eine der untenstehenden Optionen oder lass sie leer.",
+        "no blank": "Verwende eine der untenstehenden Optionen."
+    }
+}

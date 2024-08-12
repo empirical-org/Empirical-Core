@@ -34,7 +34,6 @@ exports[`StudentNavbar renders when the language menu is not open 1`] = `
         >
           Save and exit
         </a>
-                
       </div>
     </div>
   </header>
@@ -79,7 +78,6 @@ exports[`StudentNavbar renders when the language menu is open 1`] = `
         >
           Save and exit
         </a>
-                
       </div>
     </div>
   </header>

@@ -1,0 +1,109 @@
+{
+    "buttons": {
+        "begin": "Begin / Почати",
+        "continue": "Continue / Продовжити",
+        "next": "Next / Продовжити",
+        "resume": "Continue / Продовжити",
+        "submit": "Submit / Надіслати",
+        "save and exit": "Save and exit / зберегти та вийти"
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "Заповніть пробіли",
+        "text": "У цьому розділі кожне речення має один, два або три пробіли. Вам потрібно заповнити кожен пробіл одним словом зі списку або залишити його порожнім, якщо не потрібно нічого вставляти. Вводьте слова, які ви обираєте, у комірки. Не забудьте перевірити свій правопис! Почнемо!"
+    },
+    "ELL Starter Fill in the Blanks": {
+        "header": "Заповніть пробіли",
+        "text": "У цьому розділі кожне речення має один, два або три пробіли. Вам потрібно заповнити кожен пробіл одним словом зі списку або залишити його порожнім, якщо не потрібно нічого вставляти. Вводьте слова, які ви обираєте, у комірки. Не забудьте перевірити свій правопис! Почнемо!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "Заповніть пробіли",
+        "text": "У цьому розділі кожне речення матиме один, два, три або чотири пробіли. Вам потрібно заповнити кожен пробіл, використовуючи слово зі списку. Для деяких запитань можливо використовувати одне слово зі списку для двох пробілів. Введіть вибране слово у відповідному полі. Не забудьте перевірити правопис! Поїхали!"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "Заповніть пробіли",
+        "text": "Ви гарно справляєтеся! У цьому розділі кожне речення матиме один, два, три або чотири пробіли. Якщо у реченні декілька пробілів, введіть кожне слово лише один раз. Поїхали!"
+    },
+    "ELL Halfway": {
+        "header": "Ви на півдорозі!",
+        "text": "Так тримати!"
+    },
+    "ELL Starter Questions": {
+        "header": "Запитання",
+        "text": "У цьому розділі вам потрібно написати запитання. Пам’ятайте, що запитання мають знак питання (?) в кінці. Ви зможете!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "Поєднання речень",
+        "text": "Ви майже закінчили! Залишилося лише 3 запитання. У цьому розділі вам потрібно з’єднати кілька речень в одне. Вам буде надано сполучне слово. Пам’ятайте, що речення має лише одну крапку. У вас все вийде!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "Письмові речення",
+        "text": "Чудова робота! У вас залишилося лише два запитання. Наступний розділ стосується майбутнього часу. Напишіть відповіді на обидва запитання повними реченнями. Зробімо це!"
+    },
+    "ELL Advanced Sentences": {
+        "header": "Дієслова у реченнях",
+        "text": "Напишіть відповіді на усі запитання повними реченнями. Змініть форму підкресленого слова, щоб воно відповідало решті речення. Не забудьте перевірити правопис! Поїхали!"
+    },
+    "End: You Did it!": {
+        "header": "Ви це зробили!",
+        "text": "Ось і все! Ви щойно закінчили розподільний тест Quill. Результати буде надіслано вашому вчителю, і ми розпочнемо створення вашого індивідуального навчального плану."
+    },
+    "completedDiagnostic": {
+        "header": "Ви завершили розподільний тест Quill",
+        "text": "Зараз ваші результати зберігаються. Вас буде перенаправлено автоматично, як тільки їх буде збережено."
+    },
+    "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "Заповніть кожен пробіл одним із варіантів. Один пробіл можна залишити порожнім.",
+        "Fill in the blank with one of the choices.": "Заповніть пробіл одним із запропонованих варіантів.",
+        "Fill in each blank with one of the choices.": "Заповніть кожен пробіл одним із запропонованих варіантів.",
+        "Fill in the blanks with one word each.": "Заповніть кожен із пробілів одним словом.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Заповніть кожен із пробілів одним словом. Ви можете залишити його порожнім.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "Заповніть кожен пробіл одним із варіантів. Можна використовувати одне слово кілька разів. Правильних відповідей є декілька.",
+        "Fill in the blanks. Use each word once.": "Заповніть пробіли. Кожне слово можна вживати один раз.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "Перепишіть речення. Виправте підкреслене дієслово, щоб воно було в майбутньому часі.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "Перепишіть речення. Виправте підкреслене дієслово, щоб воно було у правильному часі та відповідало решті речення.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "Перепишіть речення. Виправте підкреслені дієслова, щоб вони були в майбутньому часі.",
+        "Respond to the question. Fill in the blank with one of the choices.": "Дайте відповідь на запитання. Заповніть пробіл, використовуючи один з варіантів.",
+        "Use the joining word to combine the sentences into one sentence.": "Використовуйте сполучне слово, щоб з’єднати кілька речень в одне.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "Заповни деякі порожні поля жовтими словами. Можеш залишити порожні поля незаповненими.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "Є дві правильні відповіді. Заповни кожне порожнє поле однією з правильних відповідей. Не пиши одну і ту ж відповідь двічі.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "Заповни кожне порожнє поле одним із слів. Можеш використовувати одне і те саме слово більше одного разу.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "Напиши речення. Зміни підкреслені слова, щоб вони говорили про кількох людей.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "Напиши питання. Зміни підкреслені слова, щоб питання були написані правильно.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "Напиши ці речення правильно. Змінюй лише підкреслені слова. Зберігай слово «not» в кожному реченні.",
+        "Write the words in the correct order. There are multiple correct answers.": "Напиши слова в правильному порядку. Є кілька правильних відповідей.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "Напиши речення. Зміни підкреслене слово так, щоб воно відповідало реченню. Не додавай нових слів.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "Напиши речення. Зміни підкреслене слово так, щоб воно відповідало реченню. Можеш змінити його на 1 або 2 слова.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "Напиши речення. Перетвори кожен набір підкреслених слів в одне слово. Використовуй апостроф (').",
+        "Fill in the blank with the correct option.": "Заповни порожнє поле правильним варіантом.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "Заповни кожне порожнє поле правильним варіантом. Можеш використовувати варіант не один раз.",
+        "Fill in the blank with the most natural option.": "Заповни порожнє поле найприроднішим варіантом.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "Заповни кожне порожнє поле одним із варіантів. Дозволено використовувати один і той же варіант кілька разів, але це не обов'язково.",
+        "Fill in the blank with the most natural sentence.": "Заповни порожнє поле найприроднішим реченням.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "Заповни порожні поля, які потребуються слів. Можна залишити порожні поля незаповненими. Дозволено використовувати один і той же варіант кілька разів, але це не обов'язково.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "Заповни кожне порожнє поле варіантом. Дозволено використовувати один і той же варіант кілька разів, але це не обов'язково.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "Заповни кожне порожнє поле варіантом. Дозволено використовувати один і той же варіант кілька разів, але це не обов'язково.",
+        "Fill in each blank with one of the words.": "Заповни кожне порожнє поле одним із слів.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "Є два правильних варіанти. Заповни кожне порожнє поле одним із правильних варіантів. Не пиши одну і ту ж відповідь двічі.",
+        "Fill in each blank with one of the options.": "Заповни кожне порожнє поле одним з варіантів.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "Перепиши речення. Зміни підкреслені слова, які є неправильними. Не змінюй слова, які вже правильні."
+    },
+    "cues": {
+        "type one": "type one / напишіть один",
+        "type one in each blank": "type one in each blank / напишіть один варіант в кожен пробіл",
+        "type two or three": "type two or three / напишіть два або три",
+        "type three": "type three / напишіть три",
+        "choose one": "choose one / Виберіть одне",
+        "choose three": "choose three / Виберіть три",
+        "choose two or three" : "choose two or three / Виберіть два або три",
+        "joining word": "joining word / сполучне слово",
+        "words": "words / слова",
+        "type two": "type two / тип два",
+        "options": "options / варіанти",
+        "sentences": "sentences / речення",
+        "answers": "answers / відповіді"
+    },
+    "feedback": {
+        "blank": "Виберіть один з варіантів нижче або залиште порожнім.",
+        "no blank": "Виберіть один з варіантів нижче."
+    }
+}

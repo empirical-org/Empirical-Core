@@ -2,10 +2,12 @@ import * as React from 'react';
 import { useQuery } from 'react-query';
 import { connect } from 'react-redux';
 import { renderRoutes } from "react-router-config";
+import { withTranslation } from 'react-i18next';
 
 import { NavBar } from './navbar/navbar';
 
 import { addKeyDownListener } from '../../Shared/hooks/addKeyDownListener';
+import i18n from '../../Shared/libs/translations/i18n';
 import { ScreenreaderInstructions, TeacherPreviewMenu, getlanguageOptions, } from '../../Shared/index';
 import { fetchUserRole } from '../../Shared/utils/userAPIs';
 import { setLanguage } from '../actions.js';
@@ -13,7 +15,7 @@ import { lessonUid } from '../app';
 import { getParameterByName } from '../libs/getParameterByName';
 import { routes } from "../routes";
 
-export const Home = ({playLesson, lessons, dispatch}) => {
+export const Home = ({ playLesson, lessons, dispatch, t }) => {
   const studentSession = getParameterByName('student', window.location.href);
   const turkSession = window.location.href.includes('turk');
   const studentOrTurk = studentSession || turkSession;
@@ -69,6 +71,7 @@ export const Home = ({playLesson, lessons, dispatch}) => {
   }
 
   function handleUpdateLanguage(language: string) {
+    i18n.changeLanguage(language);
     const action = setLanguage(language)
     dispatch(action)
   }
@@ -86,12 +89,14 @@ export const Home = ({playLesson, lessons, dispatch}) => {
       languageOptions={languageOptions}
       onTogglePreview={handleTogglePreviewMenu}
       previewShowing={previewShowing}
+      translate={t}
       updateLanguage={handleUpdateLanguage}
     />);
   } else if (!isTeacherOrAdmin && isPlaying) {
     header = (<NavBar
       language={playLesson?.language}
       languageOptions={languageOptions}
+      translate={t}
       updateLanguage={handleUpdateLanguage}
     />);
   }
@@ -116,6 +121,7 @@ export const Home = ({playLesson, lessons, dispatch}) => {
           <button className="skip-main" onClick={handleSkipToMainContentClick} type="button">Skip to main content</button>
           {header}
           <div id="main-content" tabIndex={-1}>{renderRoutes(routes, {
+            availableLanguages: languageOptions?.map(option => option.value),
             isOnMobile: isOnMobile,
             switchedBackToPreview: switchedBackToPreview,
             handleToggleQuestion: handleToggleQuestion,
@@ -123,9 +129,9 @@ export const Home = ({playLesson, lessons, dispatch}) => {
             previewMode: showPreview,
             questionToPreview: questionToPreview,
             skippedToQuestionFromIntro: skippedToQuestionFromIntro,
-            languageOptions: languageOptions,
             updateLanguage: handleUpdateLanguage,
-            language: playLesson?.language
+            language: playLesson?.language,
+            translate: t
           })}</div>
         </main>
       </div>
@@ -140,4 +146,4 @@ const select = (state: any, props: any) => {
   };
 }
 
-export default connect(select)(Home);
+export default withTranslation()(connect(select)(Home));

@@ -47,6 +47,8 @@ interface PlayFillInTheBlankQuestionProps {
   question: FillInBlankQuestion;
   setResponse: (response: Response) => void;
   submitResponse?: (response: any) => void;
+  translate: (language: string) => string;
+  showTranslation: boolean;
   key: string;
 }
 
@@ -364,23 +366,27 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   renderButton = () => {
-    const { nextQuestion, isLastQuestion, previewMode, question } = this.props
+    const { nextQuestion, isLastQuestion, previewMode, question, translate, showTranslation } = this.props
     const { responses } = this.state
     const showRecheckWorkButton = question && question.attempts ? question.attempts.length > 0 : false
     if (this.showNextQuestionButton()) {
-      const buttonText = isLastQuestion ? 'Next' : 'Next question';
+      let buttonText = isLastQuestion ? 'Next' : 'Next question';
+      buttonText = showTranslation ? translate(`buttons^${buttonText.toLowerCase()}`) : buttonText
       const disabledStyle = previewMode && isLastQuestion ? 'disabled' : '';
       return (
         <button className={`quill-button-archived focus-on-light large primary contained ${disabledStyle}`} onClick={nextQuestion} type="button">{buttonText}</button>
       );
     } else if (responses) {
       if (showRecheckWorkButton) {
-        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
+        const buttonText = showTranslation ? translate('buttons^recheck work') : 'Recheck work'
+        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">{buttonText}</button>;
       } else {
-        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
+        const buttonText = showTranslation ? translate('buttons^submit') : 'Submit'
+        return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">{buttonText}</button>;
       }
     } else {
-      <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">Submit</button>;
+      const buttonText = showTranslation ? translate('buttons^submit') : 'Submit'
+      return <button className="quill-button-archived focus-on-light large primary contained disabled" type="button">{buttonText}</button>
     }
   }
 
