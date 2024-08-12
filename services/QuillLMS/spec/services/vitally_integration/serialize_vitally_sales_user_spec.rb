@@ -20,6 +20,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
   let!(:diagnostic_unit_activity) { create(:unit_activity, :diagnostic_unit_activity, unit: unit) }
   let!(:old_unit_activity) { create(:unit_activity, unit: old_unit, created_at: current_time - 1.year) }
   let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
+  let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
   let!(:student) { create(:user, role: 'student') }
   let!(:old_student) { create(:user, role: 'student') }
 
@@ -48,6 +49,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
     stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
+    stub_const("VitallySharedFunctions::PRE_DIAGNOSTIC_IDS", [pre_diagnostic_activity.id])
   end
 
   it 'includes the accountId and userId in the data' do
