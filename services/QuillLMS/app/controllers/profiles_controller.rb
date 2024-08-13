@@ -48,7 +48,7 @@ class ProfilesController < ApplicationController
         classroom_id:,
         show_exact_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
         metrics: StudentDashboardMetrics.new(current_user, classroom_id).run,
-        completed_evidence_activity_prior_to_july_2024:
+        completed_evidence_activity_prior_to_scoring:
       }
     elsif current_user.classrooms.any?
       render json: {}
@@ -191,7 +191,7 @@ class ProfilesController < ApplicationController
     @act_sesh_records.first
   end
 
-  protected def completed_evidence_activity_prior_to_july_2024
+  protected def completed_evidence_activity_prior_to_scoring
     ActivitySession
       .where(user_id: current_user.id, activity_id: Activity.evidence.ids)
       .where("completed_at < ?", DateTime.new(2024, School::SCHOOL_YEAR_START_MONTH, 1))

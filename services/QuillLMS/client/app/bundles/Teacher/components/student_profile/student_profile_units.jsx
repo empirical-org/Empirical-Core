@@ -104,14 +104,14 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, completedEvidenceActivityPriorToJuly2024, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, completedEvidenceActivityPriorToScoring, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, user_pack_sequence_item_status, } = unit[Object.keys(unit)[0]][0]
       return (
         <StudentProfileUnit
-          completedEvidenceActivityPriorToJuly2024={completedEvidenceActivityPriorToJuly2024}
+          completedEvidenceActivityPriorToScoring={completedEvidenceActivityPriorToScoring}
           data={unit}
           exactScoresData={exactScoresData}
           exactScoresDataPending={exactScoresDataPending}
