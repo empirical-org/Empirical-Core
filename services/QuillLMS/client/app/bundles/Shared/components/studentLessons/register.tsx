@@ -40,11 +40,6 @@ class Register extends React.Component<any, any> {
     }
   }
 
-  handleStartLessonClick = () => {
-    const { startActivity, } = this.props
-    startActivity();
-  }
-
   resume = () => {
     const { resumeActivity, session, } = this.props
     resumeActivity(session);
@@ -65,10 +60,6 @@ class Register extends React.Component<any, any> {
     const { session, translate, showTranslation } = this.props
     let onClickFn, text;
 
-    if(showIntro) {
-      const buttonText = showTranslation ? translate('buttons^start activity') : 'Start activity'
-      return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">{buttonText}</button>
-    }
     if (session) {
       // resume session if one is passed
       onClickFn = this.resume;
@@ -76,7 +67,7 @@ class Register extends React.Component<any, any> {
     } else {
       // otherwise begin new session
       onClickFn = this.startActivity;
-      text = showTranslation ? translate('buttons^begin') : 'Begin'
+      text = showTranslation ? translate('buttons^start activity') : 'Start activity'
     }
     return (
       <button className="quill-button-archived focus-on-light primary contained large" onClick={onClickFn} type="button">
