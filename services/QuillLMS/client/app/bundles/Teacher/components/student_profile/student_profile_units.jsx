@@ -4,6 +4,7 @@ import _ from 'underscore';
 import PinnedActivityBar from './pinned_activity_bar';
 import PinnedActivityModal from './pinned_activity_modal';
 import PreviewActivityModal from './preview_activity_modal';
+import EvidenceScoringModal from './evidence_scoring_modal';
 import StudentProfileUnit from './student_profile_unit.jsx';
 
 import { COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES, } from '../../../../constants/student_profile';
@@ -17,7 +18,8 @@ export default class StudentProfileUnits extends React.Component {
 
     this.state = {
       closedPinnedActivityModal: false,
-      showPreviewModal: false
+      showPreviewModal: false,
+      showEvidenceScoringModal: false
     }
   }
 
@@ -97,7 +99,7 @@ export default class StudentProfileUnits extends React.Component {
     this.setState({ showEvidenceScoringModal: true, })
   }
 
-  handleCloseEvidenceScoringModal = () => {
+  handleCloseEvidenceScoringModalClick = () => {
     this.setState({ showEvidenceScoringModal: false, })
   }
 
@@ -175,7 +177,7 @@ export default class StudentProfileUnits extends React.Component {
 
     return (
       <EvidenceScoringModal
-        onCloseEvidencScoringModalClick={this.handleCloseEvidenceScoringModalClick}
+        onCloseEvidenceScoringModalClick={this.handleCloseEvidenceScoringModalClick}
       />
     )
   }
@@ -204,6 +206,7 @@ export default class StudentProfileUnits extends React.Component {
         {this.renderPinnedActivityBar()}
         {this.renderPinnedActivityModal()}
         {this.renderPreviewModal()}
+        {this.renderEvidenceScoringModal()}
         {this.renderContent()}
       </div>
     );
