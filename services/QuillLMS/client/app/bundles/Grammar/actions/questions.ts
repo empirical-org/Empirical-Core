@@ -1,13 +1,13 @@
 import Pusher from 'pusher-js';
-import { ConceptResult, Response } from '../../Shared/quill-marking-logic/src/main';
 import { push } from 'react-router-redux';
 import _ from 'underscore';
 
-import { FocusPoint, IncorrectSequence, Question, Questions } from '../interfaces/questions';
 import { ActionTypes } from './actionTypes';
 import * as responseActions from './responses';
 import { populateQuestions, setSessionReducerToSavedSession } from './session.ts';
 
+import { FocusPoint, IncorrectSequence, Question, Questions } from '../interfaces/questions';
+import { ConceptResult, Response } from '../../Shared/quill-marking-logic/src/main';
 import { requestGet, requestPost, } from '../../../modules/request/index';
 import {
   FocusPointApi,
@@ -18,9 +18,7 @@ import {
 
 export const startListeningToQuestions = (activityUID?: string, sessionID?: string) => {
   return (dispatch: Function) => {
-    const fetchQuestions = activityUID
-      ? QuestionApi.getAllForActivity(activityUID)
-      : QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE);
+    const fetchQuestions = QuestionApi.getAllForType(GRAMMAR_QUESTION_TYPE);
 
     fetchQuestions.then((questions: Array<Question>) => {
       if (questions) {

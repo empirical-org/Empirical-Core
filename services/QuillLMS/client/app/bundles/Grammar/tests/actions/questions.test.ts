@@ -6,13 +6,10 @@ jest.mock('../../libs/questions_api', () => ({
   IncorrectSequenceApi: mockIncorrectSequenceApi,
   QuestionApi: mockQuestionApi,
 }))
-
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
-
 import {
   GRAMMAR_QUESTION_TYPE
 } from '../../libs/questions_api'
-
 import {
   deleteFocusPoint,
   deleteIncorrectSequence,
@@ -33,12 +30,6 @@ describe('Questions actions', () => {
     it('should call QuestionApi.getAllForType()', () => {
       dispatch(startListeningToQuestions())
       expect(mockQuestionApi.getAllForType).toHaveBeenLastCalledWith(GRAMMAR_QUESTION_TYPE)
-    })
-
-    it('should call QuestionApi.getAllForActivity if an activity ID is passd in', () => {
-      const MOCK_UID = "23"
-      dispatch(startListeningToQuestions(MOCK_UID))
-      expect(mockQuestionApi.getAllForActivity).toHaveBeenLastCalledWith(MOCK_UID)
     })
   })
 
