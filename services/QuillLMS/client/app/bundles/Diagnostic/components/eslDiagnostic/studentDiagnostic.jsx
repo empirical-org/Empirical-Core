@@ -405,7 +405,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { dispatch, match, playDiagnostic, t, previewMode, isOnMobile, handleTogglePreview } = this.props;
+    const { dispatch, match, playDiagnostic, translate, previewMode, isOnMobile, handleTogglePreview } = this.props;
     const { params } = match;
     const { diagnosticID } = params;
 
