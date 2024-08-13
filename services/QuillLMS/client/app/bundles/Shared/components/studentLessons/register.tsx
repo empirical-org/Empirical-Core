@@ -87,56 +87,19 @@ class Register extends React.Component<any, any> {
     const { lesson } = this.props
     const { showIntro, hasSentenceFragment, } = this.state
     const translatedText = this.translatedText()
-    if (showIntro) {
-      return (
-        <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: lesson.landingPageHtml, }} />
-          {translatedText && (
-            <React.Fragment>
-              <hr />
-              <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
-            </React.Fragment>
-          )}
-          {this.renderButton(showIntro)}
-        </div>
-      );
-    } else if (hasSentenceFragment) {
-      return (
-        <div className="container">
-          <h2 className="title is-3 register">
-            Welcome to Quill Connect Fragments!
-          </h2>
-          <div className="register-container">
-            <ul className="register-list">
-              <li>Add to the group of words to make a complete sentence.</li>
-              <li>Add the number of words shown in the directions.</li>
-              <li>There is often more than one correct answer.</li>
-              <li>Remember to use correct spelling, capitalization, and punctuation!</li>
-            </ul>
-            {this.renderButton(showIntro)}
-            <br />
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="container">
-          <h2 className="title is-3 register">
-            Welcome to Quill Connect!
-          </h2>
-          <div className="register-container">
-            <ul className="register-list">
-              <li>Combine the sentences together into one sentence.</li>
-              <li>You may add or remove words.</li>
-              <li>There is often more than one correct answer.</li>
-              <li>Remember to use correct spelling, capitalization, and punctuation!</li>
-            </ul>
-            {this.renderButton(showIntro)}
-            <br />
-          </div>
-        </div>
-      );
-    }
+
+    return (
+      <div className="container">
+        <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: lesson.landingPageHtml, }} />
+        {translatedText && (
+          <React.Fragment>
+            <hr />
+            <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
+          </React.Fragment>
+        )}
+        {this.renderButton(showIntro)}
+      </div>
+    );
   }
 
   render() {
