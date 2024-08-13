@@ -3,6 +3,9 @@
 module Evidence
   module Check
     class GenAI < Check::Base
+      CHAT_API = Evidence::OpenAI::Chat
+      SMALL_MODEL = CHAT_API::SMALL_MODEL
+
       def run
         @response = Evidence::GenAI::ResponseBuilder.run(primary_response:, secondary_response:, entry:, prompt:)
       end
@@ -15,7 +18,7 @@ module Evidence
       private def primary_optimal = primary_response[Evidence::GenAI::ResponseBuilder::KEY_OPTIMAL]
 
       private def primary_response
-        @primary_response ||= Evidence::OpenAI::Chat.run(system_prompt:, history: session_history, entry:)
+        @primary_response ||= CHAT_API.run(system_prompt:, history: session_history, entry:)
       end
 
       private def system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:)
@@ -23,11 +26,11 @@ module Evidence
       private def secondary_response = repeated_feedback? ? secondary_feedback_response : {}
 
       private def repeated_feedback?
-        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal)
+        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal, chat_api: CHAT_API)
       end
 
       private def secondary_feedback_response
-        @secondary_feedback_response ||= Evidence::OpenAI::Chat.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: 'gpt-4o-mini')
+        @secondary_feedback_response ||= CHAT_API.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: SMALL_MODEL)
       end
 
       private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
@@ -44,7 +47,7 @@ module Evidence
         @history ||= session
           .feedback_history
           .sort_by(&:id)
-          .map { |fh| Evidence::OpenAI::Chat::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
+          .map { |fh| Evidence::GenAI::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
       end
 
       private def session
