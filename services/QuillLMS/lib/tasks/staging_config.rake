@@ -67,6 +67,7 @@ namespace :staging_config do
 
     STAGING_APP = 'empirical-grammar-staging'
     STAGING_PERSONAL_APPS = %w[
+      quill-lms-beta
       quill-lms-brendan
       quill-lms-cissy
       quill-lms-dan
