@@ -375,6 +375,5 @@ describe ProfilesController, type: :controller do
         end
       end
     end
-
   end
 end
