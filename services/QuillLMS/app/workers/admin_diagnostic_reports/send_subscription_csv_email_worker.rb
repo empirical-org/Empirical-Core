@@ -7,9 +7,9 @@ module AdminDiagnosticReports
     private def email_payload
       @email_payload ||= [
         user.id,
-        generate_overview_link(user.id, shared_filter_report_name, overview_filter_report_name),
-        generate_skills_link(user.id, shared_filter_report_name, skills_filter_report_name),
-        generate_students_link(user.id, shared_filter_report_name, students_filter_report_name),
+        generate_overview_link,
+        generate_skills_link,
+        generate_students_link,
         EmailSubscription.find_by(user: user, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT)
       ]
     end
