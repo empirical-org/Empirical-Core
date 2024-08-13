@@ -93,14 +93,23 @@ export default class StudentProfileUnits extends React.Component {
     this.setState({ showPreviewModal: true, previewActivityId: activityId, })
   }
 
+  handleShowEvidenceScoringModal = () => {
+    this.setState({ showEvidenceScoringModal: true, })
+  }
+
+  handleCloseEvidenceScoringModal = () => {
+    this.setState({ showEvidenceScoringModal: false, })
+  }
+
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, completedEvidenceActivityPriorToJuly2024, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, user_pack_sequence_item_status, } = unit[Object.keys(unit)[0]][0]
       return (
         <StudentProfileUnit
+          completedEvidenceActivityPriorToJuly2024={completedEvidenceActivityPriorToJuly2024}
           data={unit}
           exactScoresData={exactScoresData}
           exactScoresDataPending={exactScoresDataPending}
@@ -109,6 +118,7 @@ export default class StudentProfileUnits extends React.Component {
           isSelectedUnit={String(unit_id) === selectedUnitId}
           key={unit_id}
           nextActivitySession={nextActivitySession}
+          onShowEvidenceScoringModal={this.handleShowEvidenceScoringModal}
           onShowPreviewModal={this.handleShowPreviewModal}
           showExactScores={showExactScores}
           staggeredReleaseStatus={user_pack_sequence_item_status}
@@ -154,6 +164,18 @@ export default class StudentProfileUnits extends React.Component {
       <PreviewActivityModal
         onClosePreviewActivityModalClick={this.handleClosePreviewActivityModalClick}
         previewActivityId={previewActivityId}
+      />
+    )
+  }
+
+  renderEvidenceScoringModal = () => {
+    const { showEvidenceScoringModal, } = this.state
+
+    if (!(showEvidenceScoringModal)) { return }
+
+    return (
+      <EvidenceScoringModal
+        onCloseEvidencScoringModalClick={this.handleCloseEvidenceScoringModalClick}
       />
     )
   }

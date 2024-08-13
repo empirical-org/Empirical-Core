@@ -20,14 +20,18 @@ const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gra
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
 const evidenceSrc = `${process.env.CDN_URL}/images/icons/tool-evidence-gray.svg`
 
+const HAS_SEEN_EVIDENCE_SCORING_MODAL = 'hasSeenEvidenceScoringModal'
+
 const CONNECT_ACTIVITY_CLASSIFICATION_KEY = "connect"
 const GRAMMAR_ACTIVITY_CLASSIFICATION_KEY = "sentence"
 const PROOFREADER_ACTIVITY_CLASSIFICATION_KEY = "passage"
 const LESSONS_ACTIVITY_CLASSIFICATION_KEY = "lessons"
 const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_KEY = "diagnostic"
 const EVIDENCE_ACTIVITY_CLASSIFICATION_KEY = "evidence"
+
 const FREQUENTLY_DEMONSTRATED_SKILL_CUTOFF = 0.83
 const SOMETIMES_DEMONSTRATED_SKILL_CUTOFF = 0.32
+
 export const LOCKED = 'locked'
 export const UNLOCKED = 'unlocked'
 
@@ -168,7 +172,7 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   actionButton = (act, nextActivitySession) => {
-    const { isBeingPreviewed, onShowPreviewModal, } = this.props
+    const { isBeingPreviewed, onShowPreviewModal, onShowEvidenceScoringModal, completedEvidenceActivityPriorToJuly2024, } = this.props
     const { repeatable, locked, marked_complete, resume_link, classroom_unit_id, activity_id, finished, pre_activity_id, completed_pre_activity_session, activity_classification_key, name, closed, } = act
     let linkText = 'Start'
 
@@ -205,6 +209,19 @@ export default class StudentProfileUnit extends React.Component {
 
     const isNextActivity = nextActivitySession && classroom_unit_id === nextActivitySession.classroom_unit_id && activity_id === nextActivitySession.activity_id
     const buttonStyle = isNextActivity ? 'primary contained' : 'secondary outlined'
+
+    if (completedEvidenceActivityPriorToJuly2024 && activity_classification_key === EVIDENCE_ACTIVITY_CLASSIFICATION_KEY && !window.localStorage.getItem(HAS_SEEN_EVIDENCE_SCORING_MODAL)) {
+      return (
+        <button
+          aria-label={`${linkText} ${name}`}
+          className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
+          onClick={onShowEvidenceScoringModal}
+          type="button"
+        >
+          {linkText}
+        </button>
+      )
+    }
 
     if (isBeingPreviewed) {
       const onClick = () => onShowPreviewModal(activity_id)

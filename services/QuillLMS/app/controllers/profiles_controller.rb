@@ -43,11 +43,12 @@ class ProfilesController < ApplicationController
     if current_user.classrooms.any? && classroom_id
       render json: {
         scores: student_profile_data_sql(classroom_id),
-        next_activity_session: next_activity_session,
+        next_activity_session:,
         student: student_data,
-        classroom_id: classroom_id,
+        classroom_id:,
         show_exact_scores: Classroom.find_by_id(classroom_id)&.owner&.teacher_info&.show_students_exact_score,
-        metrics: StudentDashboardMetrics.new(current_user, classroom_id).run
+        metrics: StudentDashboardMetrics.new(current_user, classroom_id).run,
+        completed_evidence_activity_prior_to_july_2024:
       }
     elsif current_user.classrooms.any?
       render json: {}
@@ -188,6 +189,13 @@ class ProfilesController < ApplicationController
     return unless can_display_next_activity
 
     @act_sesh_records.first
+  end
+
+  protected def completed_evidence_activity_prior_to_july_2024
+    ActivitySession
+      .where(user_id: current_user.id, activity_id: Activity.evidence.ids)
+      .where("completed_at < ?", DateTime.new(2024, School::SCHOOL_YEAR_START_MONTH, 1))
+      .present?
   end
 
   protected def get_parsed_mobile_profile_data(classroom_id)
