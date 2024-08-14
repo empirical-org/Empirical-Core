@@ -468,7 +468,6 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
       defaultHandleFinishActivity()
     } else if(previewMode && session.previewSessionStep === SO) {
       dispatch(setPreviewSessionStep('complete'))
-      setCompleteButtonClicked(true)
     }
   }
 

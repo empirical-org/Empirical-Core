@@ -5,7 +5,7 @@ import {
   submitNewTitleCard,
   submitTitleCardEdit
 } from '../../actions/titleCards';
-import { commonText } from '../../modules/translation/commonText';
+import { commonText } from '../../../Shared/libs/translations/modules/commonText';
 
 
 interface TitleCardFormState {

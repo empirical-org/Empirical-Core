@@ -20,6 +20,7 @@ exports[`TeacherNavbar renders when the language menu is not open 1`] = `
     >
       <a
         className="quill-button medium contained white focus-on-dark"
+        href="undefined/profile"
       >
         Save and exit
       </a>
@@ -48,6 +49,7 @@ exports[`TeacherNavbar renders when the language menu is open 1`] = `
     >
       <a
         className="quill-button medium contained white focus-on-dark"
+        href="undefined/profile"
       >
         Save and exit
       </a>

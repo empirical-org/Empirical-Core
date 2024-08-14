@@ -21,10 +21,10 @@ exports[`Register it should render with translations 1`] = `
         Conjunto oraciones
       </div>
       <button
-        class="quill-button-archived focus-on-light large primary contained"
+        class="quill-button-archived focus-on-light primary contained large"
         type="button"
       >
-        Start activity
+        Begin
       </button>
     </div>
   </section>
@@ -46,10 +46,10 @@ exports[`Register it should render without translations 1`] = `
         Joining sentences
       </div>
       <button
-        class="quill-button-archived focus-on-light large primary contained"
+        class="quill-button-archived focus-on-light primary contained large"
         type="button"
       >
-        Start activity
+        Begin
       </button>
     </div>
   </section>

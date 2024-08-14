@@ -1,29 +1,16 @@
-import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
-import replace from '@rollup/plugin-replace';
-//import react from '@vitejs/plugin-react';
 import fs from 'fs/promises';
 import path, { resolve } from 'path';
-import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
-import { createLogger, defineConfig, loadEnv } from 'vite';
-import RubyPlugin from 'vite-plugin-ruby';
 
-const logger = createLogger();
-const originalWarning = logger.warn;
-logger.warn = (msg, options) => {
-  return;
-  if (msg.includes('vite:css') && msg.includes(' is empty')) return;
-  originalWarning(msg, options);
-};
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
+import replace from '@rollup/plugin-replace';
+import friendlyTypeImports from 'rollup-plugin-friendly-type-imports';
+import { defineConfig, loadEnv } from 'vite';
+import RubyPlugin from 'vite-plugin-ruby';
 
 export default defineConfig(({command, mode}) => {
   // Load env file based on `mode` in the current working directory.
   // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '')
-  //const env_stuff = {...process.env, ...loadEnv(mode, process.cwd())};
-  // console.log("--")
-  // console.log(process.env)
-  // console.log("--")
-
 
   const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
   const pusherKey = process.env.PUSHER_KEY;

@@ -122,6 +122,11 @@ class User < ApplicationRecord
 
   LEADING_CAPITALIZE_NAMES = %w(van dit)
 
+  SEGMENT_MAPPING = {
+    AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT_PDF => 'Usage Snapshot',
+    EmailSubscription::ADMIN_DIAGNOSTIC_REPORT => 'Admin Diagnostic Growth Report'
+  }
+
   attr_accessor :newsletter,
     :require_password_confirmation_when_password_present,
     :skip_capitalize_names_callback,
@@ -205,6 +210,7 @@ class User < ApplicationRecord
 
   has_many :admin_report_filter_selections, dependent: :destroy
   has_many :pdf_subscriptions, through: :admin_report_filter_selections
+  has_many :email_subscriptions, dependent: :destroy
 
   accepts_nested_attributes_for :auth_credential, :canvas_accounts
 
@@ -918,6 +924,18 @@ class User < ApplicationRecord
 
   def google_student_set_password?
     student? && google_id.present? && password_digest_changed? && password_digest_was.nil?
+  end
+
+  def segment_admin_report_subscriptions
+    (admin_report_filter_selections
+      .joins(:pdf_subscriptions)
+      .pluck(:report) +
+    email_subscriptions.pluck(:subscription_type)
+    ).map do |subscription|
+      SEGMENT_MAPPING[subscription]
+    end
+      .uniq
+      .compact
   end
 
   private def validate_flags

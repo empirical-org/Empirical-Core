@@ -1,108 +1,0 @@
-{
-    "buttons": {
-        "begin": "Begin / شروع",
-        "continue": "Continue / جاری",
-        "next": "Next / جاری",
-        "resume": "Continue / جاری",
-        "submit": "Submit / ارسال"
-    },
-    "ELL Starter Fill in the Blank": {
-        "header": "خانه خالی را پورنماید",
-        "text": "دراین بخش هرجمله یک,دو یا سه خانه خالی دارد.شماپورکنید هرخانه خالی رابایکی ازکلمات درلیست. کلماتی را که انتخاب می کنید در جعبه ها تایپ کنید. به یاد داشته باشید که املای خود را بررسی کنید! بیایید شروع کنیم!"
-    },
-    "ELL Starter Fill in the Blanks": {
-        "header": "خانه خالی را پورنماید",
-        "text": "دراین بخش هرجمله یک,دو یا سه خانه خالی دارد.شماپورکنید هرخانه خالی رابایکی ازکلمات درلیست. کلماتی را که انتخاب می کنید در جعبه ها تایپ کنید. به یاد داشته باشید که املای خود را بررسی کنید! بیایید شروع کنیم!"
-    },
-    "ELL Intermediate Fill in the Blanks": {
-        "header": "جا خالی را پر کنید",
-        "text": "در این بخش، هر جمله یک، دو، سه، یا چهار خانه خالی خواهد داشت. شما در هر خانه خالی با یکی از کلمات از لیست پر کنید. برای برخی از سوالات، شما می توانید یک کلمه از لیست را در دو خانه خالی استفاده کنید. کلماتی را که انتخاب می کنید در چوکات تایپ کنید. بررسی املای خود را به یاد داشته باشید! بيا شروع کنيم!"
-    },
-    "ELL Advanced Fill in the Blanks": {
-        "header": "جا خالی را پر کنید",
-        "text": "کار خوب تا کنون! در این بخش، هر جمله یک، دو، سه، یا چهار خانه خالی خواهد داشت. هنگامی که چند خانه خالی وجود دارد، هر کلمه را تنها یک بار تایپ کنید. بيا شروع کنيم!"
-    },
-    "ELL Halfway": {
-        "header": "شماه درنیمه راه هستین!",
-        "text": "کارعالی تان ادامه دهید!"
-    },
-    "ELL Starter Questions": {
-        "header": "سوالات",
-        "text": "دراین بخش شما سوالات را نوشته خواهید کرد. بیاد داشته باشید که سوالات علامه سوالیه دارد(؟) دراخر. شمامیتوانید!"
-    },
-    "ELL Starter Sentence Combining": {
-        "header": "وصل کردن جمله",
-        "text": "شما تقریباٌ خلاص کردین! فقط 3 سوال مانده. دراین بخش, شما جملات راوصل میکنید که یک جمله شود. کلمه وصل کردن به شماداده خواهد شد. به یاد داشته باشید که یک جمله فقط یک دوره دارد. شما این را فهمیدین!"
-    },
-    "ELL Intermediate Sentences": {
-        "header": "نوشتن جملات",
-        "text": "کار زیبا! فقط دو سوال باقی مانده است. این بخش بعدی در مورد زمان آینده است. تمام جمله را برای هر دو سوال بنویسید. بیا انجامش بدیم."
-    },
-    "ELL Advanced Sentences": {
-        "header": "کلمات فاعلی در جملات",
-        "text": "برای هر سوال در این بخش، کل جمله را بنویسید. شکل کلمه زیرین را تغییر دهید تا با بقیه جمله مطابقت داشته باشد. بررسی املای خود را به یاد داشته باشید! بيا شروع کنيم!"
-    },
-    "End: You Did it!": {
-        "header": "شما انجام دادید!",
-        "text": "بس همین قدربود! شما به تازگی فعالیت جایگذاری Quill را تمام کرده اید. نتایج به معلم شما ارسال می شود ، و ما در ایجاد برنامه یادگیری شما شروع خواهیم کرد."
-    },
-    "completedDiagnostic": {
-        "header": "شما فعالیت جایگذاری Quill را کامل کردید",
-        "text": "نتایج شما اکنون ذخیره می شود. پس از ذخیره به صورت خودکار هدایت می شوید."
-    },
-    "instructions": {
-        "Fill in each blank with one of the choices. You can leave one empty.": "در هر خانه خالی با یکی از انتخاب ها پر کنید. شما می توانید یک خانه خالی را ترک کنید.",
-        "Fill in the blank with one of the choices.": "بایکی از گزینه ها خانه خالی را پورکنید",
-        "Fill in each blank with one of the choices.": " بایکی از گزینه ها هرخانه خالی راپورنماید",
-        "Fill in the blanks with one word each.": "هرخانه خالی رابایک کلمه پورکنید",
-        "Fill in the blanks with one word each. You can leave one empty.": "هرخانه خالی رابایک کلمه پورکنید. میتوانید یکی راخالی بمانید.",
-        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "در هر خانه خالی با یکی از انتخاب ها پر کنید. شما ممکن است یک کلمه بیش از یک بار استفاده کنید. بیش از یک پاسخ درست وجود دارد.",
-        "Fill in the blanks. Use each word once.": "خانه خالی ها را پر کنید. هر لغت را یکبار استفاده کنید.",
-        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "باز نویس جمله. کلمه فاعلی زیرین را به زمان آینده تغییر دهید.",
-        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "باز نویس جمله. کلمه فاعلی زیرین اصلاح کنید تا با بقیه جمله از نگاه زمان درست مطابقت کنید.",
-        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "باز نویس جمله. کلمات زیرین را به زمان آینده تغییر دهید.",
-        "Respond to the question. Fill in the blank with one of the choices.": "به این سوال پاسخ دهید. خانه خالی با یکی از انتخاب پر کنید.",
-        "Use the joining word to combine the sentences into one sentence.": "برای ترکیب جملات با یک جمله از کلمه وصل کردن استفاده کنید",
-        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "تعدادی از جاهای خالی را با کلمات زرد رنگ پر کن. می‌توانی بعضی از آنها را خالی بگذاری.",
-        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "دو جواب درست وجود دارد. هر جای خالی را با یکی از جواب‌های درست پر کن. یک جواب را دو بار ننویس.",
-        "Fill in each blank with one of the words. You may use the same word more than once.": "هر جای خالی را با یکی از این کلمه‌ها پر کن. می‌توانی از یک کلمه بیشتر از یک بار استفاده کنی.",
-        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "جمله‌ها را بنویس. کلمه‌هایی را که زیرشان خط کشیده شده، طوری تغییر بده که مناسب حرف زدن در مورد چند نفر باشند.",
-        "Write the questions. Change the underlined words so that the questions are written correctly.": "سوال‌ها را بنویس. کلمه‌هایی را که زیرشان خط کشیده شده، طوری تغییر بده که سوال‌ها درست نوشته شده باشند.",
-        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "شکل درست این جمله‌ها را بنویس. فقط کلمه‌هایی را که زیرشان خط کشیده شده، تغییر بده. در هر جمله کلمه‌ی“not”  را نگه دار. ",
-        "Write the words in the correct order. There are multiple correct answers.": "کلمه‌ها را به ترتیب درست بنویس. چند جواب درست وجود دارد.",
-        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "جمله را بنویس. کلمه‌ای را که زیرش خط کشیده شده، متناسب با جمله تغییر بده. هیچ کلمه‌ی جدیدی اضافه نکن. ",
-        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "جمله را بنویس. کلمه‌ای را که زیرش خط کشیده شده، متناسب با جمله تغییر بده. می‌توانی آن را به 1 یا 2 کلمه تغییر بدهی. ",
-        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "جمله‌ها را بنویس. هر یک از مجموعه کلمه‌هایی را که زیرشان خط کشیده شده، به یک کلمه تبدیل کن. از علامت آپوستروف (') استفاده کن.",
-        "Fill in the blank with the correct option.": "جای خالی را با گزینه‌ی درست پر کن.",
-        "Fill in each blank with the correct option. You may use an option more than once.": "هر جای خالی را با گزینه‌ی درست پر کن. می‌توانی از یک گزینه بیشتر از یک بار استفاده کنی.",
-        "Fill in the blank with the most natural option.": "جای خالی را با گزینه‌ای که از همه طبیعی‌تر است، پر کن.",
-        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "هر جای خالی را با یکی از این گزینه‌ها پر کن. می‌توانی از یک گزینه چند بار استفاده کنی، اما این کار ضروری نیست. ",
-        "Fill in the blank with the most natural sentence.": "جای خالی را با جمله‌ای که از همه طبیعی‌تر است، پر کن.   ",
-        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "جاهای خالی را که کلمه‌هایی لازم دارند، پر کن. می‌توانی بعضی از آنها را خالی بگذاری. می‌توانی از یک گزینه چند بار استفاده کنی، اما این کار ضروری نیست. ",
-        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "هر جای خالی را با یک گزینه پر کن. می‌توانی از یک گزینه چند بار استفاده کنی، اما این کار ضروری نیست. ",
-        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "هر جای خالی را با یک کلمه پر کن. می‌توانی از یک گزینه چند بار استفاده کنی، اما این کار ضروری نیست.",
-        "Fill in each blank with one of the words.": "هر جای خالی را با یکی از این کلمه‌ها پر کن.",
-        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "دو گزینه‌ی درست وجود دارد. هر جای خالی را با یکی از گزینه‌های درست پر کن. یک جواب را دوبار ننویس. ",
-        "Fill in each blank with one of the options.": "هر جای خالی را با یکی از گزینه‌ها پر کن. ",
-        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "جمله را بازنویسی کن. کلمه‌هایی را که زیرشان خط کشیده شده اگر غلط هستند، تغییر بده. کلمه‌هایی را که درست هستند تغییر نده."
-    },
-    "cues": {
-        "type one": "type one / یک تایپ کنید",
-        "type one in each blank": "type one in each blank / در هر خانه خالی یک تایپ کنید",
-        "type two or three": "type two or three / دو یا سه تایپ کنید",
-        "type three": "type three / سه تایپ کنید",
-        "choose one": "choose one / یکی راانتخاب کن",
-        "choose three": "choose three / سه تا انتخاب کن",
-        "choose two or three" : "choose two or three / دویا سه تا انتخاب کن",
-        "joining word": "joining word / کلمه وصل یا الحاق",
-        "words": "words / کلمه‌ها",
-        "type two": "type two / نوع دو  ",
-        "options": "options / گزینه‌ها",
-        "sentences": "sentences / جمله‌ها",
-        "answers": "answers / جواب‌ها"
-    },
-    "feedback": {
-        "blank": "ازیکی گزینه زیراستفاده کیند یا خالی بگذارید.",
-        "no blank": "ازیکی گزینه زیراستفاده کنید."
-    }
-}

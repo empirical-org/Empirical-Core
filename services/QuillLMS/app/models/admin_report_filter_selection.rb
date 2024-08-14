@@ -25,13 +25,13 @@ class AdminReportFilterSelection < ApplicationRecord
     DIAGNOSTIC_GROWTH_REPORT_OVERVIEW = 'diagnostic_growth_report_overview',
     DIAGNOSTIC_GROWTH_REPORT_SKILL = 'diagnostic_growth_report_skill',
     DIAGNOSTIC_GROWTH_REPORT_STUDENT = 'diagnostic_growth_report_student',
+    DIAGNOSTIC_GROWTH_SUBSCRIPTION_SHARED = 'diagnostic_growth_report_subscription',
+    DIAGNOSTIC_GROWTH_SUBSCRIPTION_OVERVIEW = 'diagnostic_growth_report_subscription_overview',
+    DIAGNOSTIC_GROWTH_SUBSCRIPTION_SKILL = 'diagnostic_growth_report_subscription_skill',
+    DIAGNOSTIC_GROWTH_SUBSCRIPTION_STUDENT = 'diagnostic_growth_report_subscription_student',
     USAGE_SNAPSHOT_REPORT = 'usage_snapshot_report',
     USAGE_SNAPSHOT_REPORT_PDF = 'usage_snapshot_report_pdf'
   ]
-
-  SEGMENT_MAPPING = {
-    USAGE_SNAPSHOT_REPORT_PDF => 'Usage Snapshot'
-  }
 
   belongs_to :user
 
@@ -40,15 +40,6 @@ class AdminReportFilterSelection < ApplicationRecord
   validates :filter_selections, presence: true
   validates :report, inclusion: { in: REPORTS }
   validates :user_id, presence: true
-
-  def self.segment_admin_report_subscriptions
-    joins(:pdf_subscriptions)
-      .pluck(:report)
-      .uniq
-      .map { |report| SEGMENT_MAPPING[report] }
-      .compact
-      .join(', ')
-  end
 
   def aggregation = filter_selections.dig('group_by_value', 'value')
 

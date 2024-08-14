@@ -216,6 +216,77 @@ class GenAITasks < Thor
     puts Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_primary, model: 'gpt-4o-mini')
   end
 
+  # bundle exec thor gen_a_i_tasks:repeated_feedback_prompt_entry 'some feedback' 'feedback in history'
+  desc "repeated_feedback_prompt_entry 'some feedback' 'feedback in history'", 'Run to see system prompt and response'
+  def repeated_feedback_prompt_entry(entry, previous)
+    prompt = Evidence::Prompt.first
+    history_item = Evidence::OpenAI::Chat::HistoryItem.new(user: 'unused', assistant: previous)
+    system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt:, history: [history_item])
+
+    puts system_prompt
+    print_line
+    puts entry
+    print_line
+    puts Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
+  end
+
+  # bundle exec thor gen_a_i_tasks:example_check
+  desc "example_check", 'Run to see system prompt and feedback for a given prompt / entry'
+  def example_check
+    prompt = Evidence::Prompt.last
+    entry = 'because it is good.'
+
+    previous = [
+      { 'feedback' => "Clear your response and try again. Think about what specific actions Korean leaders took to remove the pirates. Can you mention a specific strategy they used?" },
+      { 'feedback' => "Clear your response and try again. Think about a specific action or strategy that Korean leaders used to remove Wokou pirates. What did they do to discourage piracy?" },
+      { 'feedback' => 'Clear your response and try again. Can you think of a specific way Korean leaders tried to stop the pirates, using information from the text?' }
+    ]
+
+    check = Evidence::Check::GenAI.new(entry, prompt, previous)
+    response = check.run
+
+    puts "System Prompt"
+    puts check.send(:system_prompt)
+    print_line
+    puts "Original Response: #{check.send(:primary_response)}"
+    print_line
+    puts "Repeated Feedback?: #{check.send(:repeated_feedback?)}"
+    print_line
+    puts "Secondary Prompt"
+    puts check.send(:secondary_feedback_prompt)
+    print_line
+    puts "Secondary Response: #{check.send(:secondary_feedback_response)}"
+    print_line
+    puts response
+  end
+
+  desc 'populate_concepts_and_rules', 'Seed the 3 GenAI concepts, the 6 rules needed by the system'
+  def populate_concepts_and_rules
+    concept_mapping = {
+      'because' => 'qkjnIjFfXdTuKO7FgPzsIg',
+      'but' => 'KwspxuelfGZQCq7yX6ThPQ',
+      'so' => 'IBdOFpAWi42LgfXvcz0scQ'
+    }
+    rules_uids_optimal = Evidence::GenAI::ResponseBuilder::RULES_OPTIMAL
+    rule_uids_suboptimal = Evidence::GenAI::ResponseBuilder::RULES_SUBOPTIMAL
+
+    Evidence::Prompt::CONJUNCTIONS.each do |conjunction|
+      [true, false].each do |optimal|
+        uid_mapping = optimal ? rules_uids_optimal : rule_uids_suboptimal
+
+        Evidence::Rule.create(
+          uid: uid_mapping[conjunction],
+          concept_uid: concept_mapping[conjunction],
+          universal: true,
+          rule_type: Evidence::Rule::TYPE_GEN_AI,
+          optimal:,
+          state: 'active',
+          name: "GenAI universal #{conjunction} - #{optimal ? 'optimal' : 'suboptimal'}"
+        )
+      end
+    end
+  end
+
   # put helper methods in this block
   no_commands do
     KEY_OPTIMAL = 'optimal'

@@ -8,6 +8,7 @@ import { route } from "./routes";
 import { configureStore, initStore } from "./store/configStore";
 
 import { DefaultReactQueryClient } from "../Shared";
+import '../Shared/libs/translations/i18n';
 
 const store = configureStore();
 store.dispatch(initStore());
