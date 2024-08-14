@@ -81,7 +81,7 @@ const MultipleChoiceOption = ({ text, selectedMultipleChoiceOptions, setSelected
   )
 }
 
-const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyResponse, setSubmittedActivitySurvey, }) => {
+const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyResponse, setSubmittedActivitySurvey, resultPageUrl, }) => {
   const [selectedEmoji, setSelectedEmoji] = React.useState(null)
   const [selectedMultipleChoiceOptions, setSelectedMultipleChoiceOptions] = React.useState([])
 
@@ -128,7 +128,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
     saveActivitySurveyResponse({ sessionID, activitySurveyResponse, callback, })
   }
 
-  function handleLinkClick() { window.location.href = process.env.DEFAULT_URL }
+  function handleLinkClick() { window.location.href = resultPageUrl }
 
   let activitySurveyHeader
   let multipleChoiceSection
@@ -168,7 +168,7 @@ const ActivitySurvey = ({ activity, dispatch, sessionID, saveActivitySurveyRespo
         {multipleChoiceSection}
       </div>
       <div className="button-section">
-        <a className="focus-on-dark" href={process.env.DEFAULT_URL} onClick={handleLinkClick}>Skip</a>
+        <a className="focus-on-dark" href={resultPageUrl} onClick={handleLinkClick}>Skip</a>
         <button className={sendButtonClassName} onClick={handleSend} type="button">Send</button>
       </div>
     </div>

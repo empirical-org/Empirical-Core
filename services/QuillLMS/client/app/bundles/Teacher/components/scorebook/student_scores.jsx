@@ -9,7 +9,7 @@ export const StudentScores = ({ data, premium_state }) => {
     let totalScore = 0;
     let relevantScores = 0;
     data.scores.forEach(score => {
-      if(shouldCountForScoring(score.activity_classification_id) && score.percentage) {
+      if(shouldCountForScoring(score.activity_classification_id) && score.percentage !== null) {
         relevantScores += 1;
         totalScore += parseFloat(score.percentage);
       }

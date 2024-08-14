@@ -1,6 +1,528 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ScorebookTooltip component in student view should render if showExactScores is false  1`] = `
+exports[`ScorebookTooltip component color explanation in student view should display green explanation for evidence activity with high score 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This activity has not been completed.
+      </p>
+      <div
+        class="activity-tooltip-details-section "
+      >
+        <p
+          class="header"
+        >
+          Why Green?
+        </p>
+        <div
+          class="description-block"
+        >
+          <p>
+            Within five revisions, you wrote a strong response for all prompts.
+          </p>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        *Your dashboard shows the highest score of all your attempts
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component color explanation in student view should display red explanation for evidence activity with low score 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This activity has not been completed.
+      </p>
+      <div
+        class="activity-tooltip-details-section "
+      >
+        <p
+          class="header"
+        >
+          Why Red?
+        </p>
+        <div
+          class="description-block"
+        >
+          <p>
+            You did not write a strong response within five revisions on any of the prompts.
+          </p>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        *Your dashboard shows the highest score of all your attempts
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component color explanation in student view should display yellow explanation for evidence activity with medium score 1`] = `
+<DocumentFragment>
+  <div
+    class="scorebook-tooltip"
+  >
+    <i
+      class="fas fa-caret-up"
+    />
+    <i
+      class="fas fa-caret-up border-color"
+    />
+    <div
+      class="title"
+    >
+      Capitalizing Holidays, People, & Places - Mixed Topics
+    </div>
+    <div
+      class="main"
+    >
+      <div
+        class="activity-overview"
+      >
+        <div
+          class="activity-details"
+        >
+          <div
+            class="activity-detail"
+          >
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Objectives
+              </p>
+              <p
+                class="description"
+              >
+                Students rewrite sentences, adding the correct capitalization.
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Published
+              </p>
+              <p
+                class="description"
+              >
+                December 10, 2021 at 9:00 am
+              </p>
+            </div>
+            <div
+              class="activity-tooltip-details-section no-border-top"
+            >
+              <p
+                class="header"
+              >
+                Due
+              </p>
+              <p
+                class="description"
+              >
+                N/A
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            1st score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                8 of 10 Target Skills Correct (80%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 12, 2021 at 9:00 am / 2 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            2nd score
+          </p>
+          <div
+            class="description-block"
+          >
+            <p
+              class="description"
+            >
+              <span
+                class="percentage"
+              >
+                6 of 10 Target Skills Correct (60%)
+              </span>
+               
+            </p>
+            <p
+              class="description"
+            >
+              December 17, 2021 at 9:00 am / 4 mins
+            </p>
+          </div>
+        </div>
+        <div
+          class="activity-tooltip-details-section "
+        >
+          <p
+            class="header"
+          >
+            Scoring
+          </p>
+          <p
+            class="description"
+          >
+            The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color.
+          </p>
+        </div>
+      </div>
+      <p
+        class="no-data-message"
+      >
+        This activity has not been completed.
+      </p>
+      <div
+        class="activity-tooltip-details-section "
+      >
+        <p
+          class="header"
+        >
+          Why Yellow?
+        </p>
+        <div
+          class="description-block"
+        >
+          <p>
+            Within five revisions, you wrote a strong response for some, but not all, prompts.
+          </p>
+        </div>
+      </div>
+      <p
+        class="tooltip-message"
+      >
+        *Your dashboard shows the highest score of all your attempts
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ScorebookTooltip component in student view should render if showExactScores is false 1`] = `
 <DocumentFragment>
   <div
     class="scorebook-tooltip"
@@ -121,7 +643,7 @@ exports[`ScorebookTooltip component in student view should render if showExactSc
 </DocumentFragment>
 `;
 
-exports[`ScorebookTooltip component in student view should render if the percentage is above the proficient threshold  1`] = `
+exports[`ScorebookTooltip component in student view should render if the percentage is above the proficient threshold 1`] = `
 <DocumentFragment>
   <div
     class="scorebook-tooltip"
@@ -302,7 +824,7 @@ exports[`ScorebookTooltip component in student view should render if the percent
 </DocumentFragment>
 `;
 
-exports[`ScorebookTooltip component in student view should render if the percentage is below the nearly proficient threshold  1`] = `
+exports[`ScorebookTooltip component in student view should render if the percentage is below the nearly proficient threshold 1`] = `
 <DocumentFragment>
   <div
     class="scorebook-tooltip"
@@ -428,7 +950,7 @@ exports[`ScorebookTooltip component in student view should render if the percent
 </DocumentFragment>
 `;
 
-exports[`ScorebookTooltip component in student view should render if the percentage is between the nearly proficient threshold and the proficient threshold  1`] = `
+exports[`ScorebookTooltip component in student view should render if the percentage is between the nearly proficient threshold and the proficient threshold 1`] = `
 <DocumentFragment>
   <div
     class="scorebook-tooltip"

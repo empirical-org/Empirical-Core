@@ -10,8 +10,10 @@ const ActivityFollowUp = ({ activity, dispatch, responses, sessionID, saveActivi
 
   function onClickNext() { setShowActivitySurvey(true) }
 
+  const resultPageUrl = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`
+
   if (submittedActivitySurvey && !previewMode) {
-    return <ThankYouSlide />
+    return <ThankYouSlide resultPageUrl={resultPageUrl} />
   }
 
   if (showActivitySurvey && !previewMode) {
@@ -19,6 +21,7 @@ const ActivityFollowUp = ({ activity, dispatch, responses, sessionID, saveActivi
       <ActivitySurvey
         activity={activity}
         dispatch={dispatch}
+        resultPageUrl={resultPageUrl}
         saveActivitySurveyResponse={saveActivitySurveyResponse}
         sessionID={sessionID}
         setSubmittedActivitySurvey={setSubmittedActivitySurvey}

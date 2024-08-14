@@ -27,7 +27,7 @@ export default class OverviewBoxes extends React.Component {
     if (group === 'red-score-color') {
       range = '0 - 31%';
       proficiency = 'Rarely demonstrated skill'
-    } else if (group === 'yellow-score-color') {
+    } else if (group === 'orange-score-color') {
       range = '32 - 82%';
       proficiency = 'Sometimes demonstrated skill'
     } else {
@@ -46,7 +46,7 @@ export default class OverviewBoxes extends React.Component {
     // need to list the keys in an array instead of just using a for in
     // loop as we want them in this particular order
     let groupCounts = this.countBoxType();
-    let groups = ['red', 'yellow', 'green', 'blue'];
+    let groups = ['red', 'orange', 'green', 'blue'];
     return groups.map(group => {
       group += '-score-color'
       return this.boxCreator(group, groupCounts[group])
