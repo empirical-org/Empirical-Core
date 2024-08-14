@@ -25,41 +25,6 @@ module Evidence
         @model = model
       end
 
-      def request_body
-        {
-          system_instruction: system_instructions,
-          contents: messages,
-          generationConfig: generation_config,
-          safety_settings: SAFETY_SETTINGS
-        }
-      end
-
-      def body = request_body.to_json
-
-      private def system_instructions = { KEY_PARTS => { KEY_TEXT => system_prompt } }
-      private def messages = [history_messages, current_message].flatten
-      private def current_message = { KEY_ROLE => ROLE_USER, KEY_PARTS => [{ KEY_TEXT => entry }] }
-
-      private def history_messages
-        history.map do |h|
-          [
-            { KEY_ROLE => ROLE_USER, KEY_PARTS => [{ KEY_TEXT => h.user }] },
-            { KEY_ROLE => ROLE_ASSISTANT, KEY_PARTS => [{ KEY_TEXT => h.assistant }] }
-          ]
-        end.flatten
-      end
-
-      private def generation_config
-        {
-          'temperature' => temperature,
-          'responseMimeType': 'application/json'
-        }
-      end
-
-      private def model_version = model
-
-      private def instruction = GENERATE_CONTENT
-
       def cleaned_results
         return nil if response&.body&.nil?
 
@@ -75,6 +40,35 @@ module Evidence
       rescue => e
         raise CleanedResultsError, e.message
       end
+
+      def body = request_body.to_json
+
+      def request_body
+        {
+          system_instruction:,
+          contents:,
+          generationConfig: generation_config,
+          safety_settings:
+        }
+      end
+
+      private def system_instruction = { KEY_PARTS => { KEY_TEXT => system_prompt } }
+      private def contents = [history_messages, current_message].flatten
+      private def current_message = { KEY_ROLE => ROLE_USER, KEY_PARTS => [{ KEY_TEXT => entry }] }
+
+      private def history_messages
+        history.map do |h|
+          [
+            { KEY_ROLE => ROLE_USER, KEY_PARTS => [{ KEY_TEXT => h.user }] },
+            { KEY_ROLE => ROLE_ASSISTANT, KEY_PARTS => [{ KEY_TEXT => h.assistant }] }
+          ]
+        end.flatten
+      end
+
+      private def generation_config = { temperature:, responseMimeType: 'application/json' }
+
+      private def model_version = model
+      private def instruction = GENERATE_CONTENT
     end
   end
 end
