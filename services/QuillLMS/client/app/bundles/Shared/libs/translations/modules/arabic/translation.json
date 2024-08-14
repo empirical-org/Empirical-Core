@@ -1,0 +1,109 @@
+{
+    "buttons": {
+        "begin": "Begin / ابدأ",
+        "continue": "Continue / استمر",
+        "next": "Next / استمر",
+        "resume": "Resume / استمر",
+        "submit": "Submit / إرسال",
+        "save and exit": "Save and exit / حفظ وخروج"
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "املأ الفراغ",
+        "text": "في هذا القسم، سيكون لكل جملة فراغ واحد أو اثنان أو ثلاثة. ستملأ كل فراغ بأحد الكلمات من القائمة، أو ستترك الفراغ دون ملء إذا لم تكن هناك حاجة إلى كلمة. اكتب الكلمات التي تختارها في المربعات. تذكر أن تتأكد من إملائك! هيا بنا نبدأ!"
+    },
+    "ELL Starter Fill in the Blanks": {
+        "header": "املأ الفراغ",
+        "text": "في هذا القسم، سيكون لكل جملة فراغ واحد أو اثنان أو ثلاثة. ستملأ كل فراغ بأحد الكلمات من القائمة، أو ستترك الفراغ دون ملء إذا لم تكن هناك حاجة إلى كلمة. اكتب الكلمات التي تختارها في المربعات. تذكر أن تتأكد من إملائك! هيا بنا نبدأ!"
+    },
+    "ELL Intermediate Fill in the Blanks": {
+        "header": "املأ الفراغات",
+        "text": "في هذا القسم، ستتضمن كل جملة فراغًا واحدًا أو فراغين أو ثلاثة أو أربعة فراغات. وسيتعيّن عليك ملء الفراغات بإحدى الكلمات الواردة في القائمة. وبالنسبة لبعض الأسئلة، يمكنك استخدام كلمة واحدة من القائمة في فراغين. اكتب الكلمات التي تختارها في المربعات. وتذكّر أن تتحقق دائمًا من كتابة حروف الكلمات بطريقة صحيحة! هيا نبدأ!"
+    },
+    "ELL Advanced Fill in the Blanks": {
+        "header": "املأ الفراغات",
+        "text": "أداؤك رائع حتى الآن! في هذا القسم، ستتضمن كل جملة فراغًا واحدًا أو فراغين أو ثلاثة أو أربعة فراغات. حين تجد عدة فراغات، اكتب كل كلمة مرة واحدة فقط. هيا نبدأ!"
+    },
+    "ELL Halfway": {
+        "header": "ت في منتصف الطريق!",
+        "text": "ستمر في العمل الرائع!"
+    },
+    "ELL Starter Questions": {
+        "header": "الأسئلة",
+        "text": "في هذا القسم، سوف تكتب الأسئلة. تذكر أن الأسئلة لها علامة استفهام (؟) في النهاية. ستنجح في هذا!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "جمع الجمل",
+        "text": "لقد انتهيت تقريبًا! بقي 3 أسئلة فقط. في هذا القسم، سوف تجمع الجمل في جملة واحدة. ستحصل على كلمة ربط لتستخدمها. تذكر أن الجملة لها نقطة واحدة فقط. ستنجح في هذا!"
+    },
+    "ELL Intermediate Sentences": {
+        "header": "كتابة الجمل",
+        "text": "عمل رائع! متبقي لك سؤالان فقط.  القسم التالي مرتبط بالمستقبل البسيط. اكتب الجملة الكاملة لكلا السؤالين. هيا فلتفعلها."
+    },
+    "ELL Advanced Sentences": {
+        "header": "كلمات الأفعال في الجمل",
+        "text": "اكتب الجملة الكاملة لكل سؤال في هذا القسم. غير شكل الكلمة التي تحتها خط لتطابق باقي الجملة. تذكّر أن تتحقق دائمًا من كتابة حروف الكلمات بطريقة صحيحة! هيا نبدأ!"
+    },
+    "End: You Did it!": {
+        "header": "لقد نجحت!",
+        "text": "انتهى الأمر! لقد انتهيت للتو من نشاط تحديد المستوى الخاص ب Quill. سيتم إرسال النتائج إلى معلمك، وسنبدأ في إنشاء خطة التعلم الخاصة بك."
+    },
+    "completedDiagnostic": {
+        "header": "لقد أكملت نشاط تحديد المستوى الخاص ب Quill",
+        "text": "يتم حفظ نتائجك الآن. سيتم إعادة توجيهك تلقائيًا بمجرد حفظها."
+    },
+    "instructions": {
+        "Fill in each blank with one of the choices. You can leave one empty.": "املأ كل فراغ باختيار واحد من بين الخيارات. يمكنك ترك فراغ واحد بدون ملء.",
+        "Fill in the blank with one of the choices.": "املأ الفراغ بأحد الخيارات.",
+        "Fill in each blank with one of the choices.": "املأ كل فراغ بأحد الخيارات.",
+        "Fill in the blanks with one word each.": "املأ الفراغات بكلمة واحدة لكل منها.",
+        "Fill in the blanks with one word each. You can leave one empty.": "املأ الفراغات بكلمة واحدة. يمكنك ترك أحد الفراغات دون ملء.",
+        "Fill in each blank with one of the choices. You may use one word more than once. There is more than one right answer.": "املأ كل فراغ باختيار واحد من بين الخيارات. يمكنك استخدام كلمة واحدة أكثر من مرة. يوجد أكثر من إجابة صحيحة.",
+        "Fill in the blanks. Use each word once.": "املأ الفراغات. استخدم كل كلمة مرة واحدة.",
+        "Rewrite the sentence. Correct the underlined action word so it is in future tense.": "أعد كتابة الجملة. صحّح كلمة الفعل التي تحتها خط لتصبح في المستقبل البسيط.",
+        "Rewrite the sentence. Correct the underlined action word so it is in the right tense to match the rest of the sentence.": "أعد كتابة الجملة. صحّح كلمة الفعل التي تحتها خط لتصبح في الزمن الصحيح المطابق لباقي الجملة.",
+        "Rewrite the sentence. Correct the underlined words so they are in future tense.": "أعد كتابة الجملة. صحّح الكلمات التي تحتها خط لتصبح في المستقبل البسيط.",
+        "Respond to the question. Fill in the blank with one of the choices.": "أجب عن السؤال. املأ الفراغ باختيار واحد من بين الخيارات.",
+        "Use the joining word to combine the sentences into one sentence.": "استخدم كلمة الربط لدمج الجمل في جملة واحدة.",
+        "Fill in some of the blanks with the yellow words. You can leave blanks empty.": "املأ بعض الفراغات بالكلمات الصفراء. يمكنك ترك الفراغات فارغة.",
+        "There are two correct answers. Fill in each blank with one of the correct answers. Do not write the same answer twice.": "هناك إجابتان صحيحتان. املأ كل فراغ بإحدى الإجابتين الصحيحتين. لا تكتب نفس الإجابة مرتين.",
+        "Fill in each blank with one of the words. You may use the same word more than once.": "املأ كل فراغ بإحدى الكلمات. يمكنك استخدام نفس الكلمة أكثر من مرة.",
+        "Write the sentences. Change the underlined words to make them talk about multiple people, animals, or things.": "اكتب الجمل. غيّر الكلمات المسطرة للتحدث عن عدة أشخاص.",
+        "Write the questions. Change the underlined words so that the questions are written correctly.": "اكتب الأسئلة. غيّر الكلمات المسطرة لتصبح الأسئلة مكتوبة بشكل صحيح.",
+        "Write these sentences correctly. Only change the underlined words. Keep the word “not” in each sentence.": "اكتب هذه الجمل بشكل صحيح. غيّر الكلمات المسطرة فقط. احتفظ بكلمة not في كل جملة.",
+        "Write the words in the correct order. There are multiple correct answers.": "اكتب الكلمات بالترتيب الصحيح. هناك العديد من الإجابات الصحيحة.",
+        "Write the sentence. Change the underlined word to fit the sentence. Do not add any new words.": "اكتب الجملة. غيّر الكلمة المسطرة لتناسب الجملة. لا تضف أي كلمات جديدة.",
+        "Write the sentence. Change the underlined word to fit the sentence. You may change it to 1 or 2 words.": "اكتب الجملة. غيّر الكلمة المسطرة لتناسب الجملة. يمكنك تغييرها بكلمة أو كلمتين.",
+        "Write the sentences. Turn each set of underlined words into one word. Use an apostrophe ( ' ).": "اكتب الجمل. حوّل كل مجموعة من الكلمات المسطرة إلى كلمة واحدة. استخدم فاصلة عليا (').",
+        "Fill in the blank with the correct option.": "املأ الفراغ بالخيار الصحيح.",
+        "Fill in each blank with the correct option. You may use an option more than once.": "املأ كل فراغ بالخيار الصحيح. يمكنك استخدام الخيار أكثر من مرة.",
+        "Fill in the blank with the most natural option.": "املأ الفراغ بالخيار الأكثر دقة.",
+        "Fill in each blank with one of the options. You are allowed to use the same option multiple times, but you don’t have to.": "املأ كل فراغ بأحد الخيارات. يُسمح لك باستخدام نفس الخيار عدة مرات، ولكن ليس عليك بالضرورة فعل ذلك.",
+        "Fill in the blank with the most natural sentence.": "املأ الفراغ بالجملة الأكثر دقة.",
+        "Fill in the blanks that need words. You can leave blanks empty. You are allowed to use the same word multiple times, but you don’t have to.": "املأ الفراغات التي تحتاج إلى كلمات. يمكنك ترك الفراغات فارغة. يُسمح لك باستخدام نفس الخيار عدة مرات، ولكن ليس عليك بالضرورة فعل ذلك.",
+        "Fill in each blank with an option. You are allowed to use the same option multiple times, but you don’t have to.": "املأ كل فراغ بخيار. يُسمح لك باستخدام نفس الخيار عدة مرات، ولكن ليس عليك بالضرورة فعل ذلك.",
+        "Fill in each blank with a word. You are allowed to use the same word multiple times, but you don’t have to.": "املأ كل فراغ بكلمة. يُسمح لك باستخدام نفس الكلمة عدة مرات، ولكن ليس عليك بالضرورة فعل ذلك.",
+        "Fill in each blank with one of the words.": "املأ كل فراغ بإحدى الكلمات.",
+        "There are two correct options. Fill in each blank with one of the correct options. Do not write the same answer twice.": "هناك خياران صحيحان. املأ كل فراغ بأحد الخيارين الصحيحين. لا تكتب نفس الإجابة مرتين.",
+        "Fill in each blank with one of the options.": "املأ كل فراغ بأحد الخيارات.",
+        "Rewrite the sentence. Change the underlined words that are incorrect. Do not change words that are already correct.": "أعد كتابة الجملة. غيّر الكلمات المسطرة غير الصحيحة. لا تغير الكلمات الصحيحة فعلًا."
+    },
+    "cues": {
+        "type one": "type one / اكتب واحدة",
+        "type one in each blank": "type one in each blank / اكتب واحدة في كل فراغ",
+        "type two or three": "type two or three / اكتب اثنتين أو ثلاث",
+        "type three": "type three / اكتب ثلاث",
+        "choose one": "choose one / اختر واحدًا",
+        "choose three": "choose three / اختر ثلاثة",
+        "choose two or three" : "choose two or three / اختر اثنين أو ثلاثة",
+        "joining word": "joining word / كلمة الربط",
+        "words": "words / الكلمات",
+        "type two": "type two / النوع الثاني",
+        "options": "options / الخيارات",
+        "sentences": "sentences / الجمل",
+        "answers": "answers / الإجابات"
+    },
+    "feedback": {
+        "blank": "استخدم أحد الخيارات أدناه أو اتركه فارغًا.",
+        "no blank": "استخدم أحد الخيارات أدناه."
+    }
+}

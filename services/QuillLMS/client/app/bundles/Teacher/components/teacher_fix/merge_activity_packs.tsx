@@ -47,7 +47,7 @@ export default class MergeActivityPacks extends React.Component {
         <h2>Merge Activity Packs</h2>
         <p>This allows you to transfer all of the activities in one activity pack over to a second activity pack.</p>
         <p>All finished and started data will be moved.</p>
-        <p>To find an activity pack's ID, go to the "My Activities" tab and click the "Add/remove students assigned" button underneath the activity pack's name. You will then find the ID (which is a number) in the URL.</p>
+        <p>To find an activity pack's ID, go to the "Manage Activities" tab and click the "Add/remove students assigned" button underneath the activity pack's name. You will then find the ID (which is a number) in the URL.</p>
         <div>
           <div className="input-row">
             <label>From Activity Pack ID:</label>

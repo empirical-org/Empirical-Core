@@ -201,7 +201,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
             </div>
             <p className="share-text">More ways to share: </p>
             <div className='share-links'>
-              <a href={`https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="twitter icon" src={twitterSrc} /></a>
+              <a href={`https://x.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="twitter icon" src={twitterSrc} /></a>
               <a href={`https://www.facebook.com/share.php?u=${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="facebook icon" src={facebookSrc} /></a>
               <a href={`https://plus.google.com/share?url=${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="google plus icon" src={googleSrc} /></a>
               <a href={`mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! ${referralLink}`} rel="noopener noreferrer" target="_blank"><img alt="mail" src={emailSrc} /></a>
