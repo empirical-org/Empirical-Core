@@ -24,7 +24,7 @@ exports[`Register it should render with translations 1`] = `
         class="quill-button-archived focus-on-light primary contained large"
         type="button"
       >
-        Start activity
+        Begin
       </button>
     </div>
   </section>
@@ -49,7 +49,7 @@ exports[`Register it should render without translations 1`] = `
         class="quill-button-archived focus-on-light primary contained large"
         type="button"
       >
-        Start activity
+        Begin
       </button>
     </div>
   </section>
