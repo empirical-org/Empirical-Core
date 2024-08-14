@@ -69,8 +69,9 @@ module Evidence
         end.flatten
       end
 
-      private def generation_config = { temperature:, responseMimeType: 'application/json' }
+      private def generation_config = { temperature:, response_mime_type:}
 
+      private def response_mime_type = 'application/json'
       private def model_version = model
       private def instruction = GENERATE_CONTENT
     end
