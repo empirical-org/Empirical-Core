@@ -27,7 +27,7 @@ RSpec.describe Evidence::Gemini::Chat, type: :service do
   subject { described_class.new(system_prompt: system_prompt, entry: entry, history: history, temperature: temperature, model: model) }
 
   before do
-    stub_request(:post, "#{Evidence::Gemini::BASE_URI}/#{model}:generateContent?key=").to_return(body: body, headers: headers)
+    stub_request(:post, "#{Evidence::Gemini::BASE_URI}/#{model}:generateContent?key=#{Evidence::Gemini::API_KEY}").to_return(body: body, headers: headers)
   end
 
   describe '#initialize' do
