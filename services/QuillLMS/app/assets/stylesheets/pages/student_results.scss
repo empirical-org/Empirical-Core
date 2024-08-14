@@ -40,7 +40,7 @@
     border-radius: 8px;
   }
 
-  .activity-name-and-overall-score, .results-section, .keep-practicing-section {
+  .activity-name-and-overall-score, .results-section, .keep-practicing-section, .evidence-scoring-guide {
     padding: 32px;
     &:not(:last-of-type) {
       border-bottom: 1px solid $quill-grey-15;
@@ -94,16 +94,67 @@
     }
   }
 
-  .keep-practicing-section {
+  .keep-practicing-section, .evidence-scoring-guide {
     border-radius: 8px;
     border: 1px solid $quill-grey-15;
     margin-top: 32px;
+  }
+
+  .keep-practicing-section {
     display: flex;
     align-items: center;
     gap: 16px;
     p {
       font-size: 16px;
       margin-top: 8px;
+    }
+  }
+
+  .evidence-scoring-guide {
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .score-keys {
+      display: flex;
+      gap: 32px;
+    }
+    .score-key {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex: 1;
+      p {
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      div {
+        min-width: 44px;
+        height: 44px;
+        border-radius: 8px;
+      }
+      .green {
+        background-color: $quill-green-vibrant-50;
+      }
+      .yellow {
+        background-color: $quill-gold;
+      }
+      .red {
+        background-color: $quill-red;
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    padding: 64px 32px;
+    .score-keys, .header-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    .score-key p {
+      max-width: 300px;
     }
   }
 }
