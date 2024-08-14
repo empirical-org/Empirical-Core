@@ -211,8 +211,11 @@ class GenAITasks < Thor
     file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
     full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
 
+    total = full_set.size
+
     new_data = full_set
-      .map { |fs|
+      .map.with_index { |fs, index|
+        puts "#{index + 1} of #{total}"
         Repeated.new(
           activity_id: fs.activity_id,
           prompt_id: fs.prompt_id,
@@ -234,7 +237,7 @@ class GenAITasks < Thor
     full_set = csv_data.map {|d| Repeated.new(**d) }
 
     test_set = full_set.select { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
-    train_set = full_set.reject { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_ID }
+    train_set = full_set.reject { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
 
     CSV.open(repeated_folder + 'test.csv', 'wb') do |csv|
       csv << Repeated.members.map(&:to_s)
@@ -245,7 +248,6 @@ class GenAITasks < Thor
       csv << Repeated.members.map(&:to_s)
       train_set.each { |data| csv << data.deconstruct }
     end
-
   end
 
   # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
