@@ -26,9 +26,15 @@ module Evidence
       end
 
       def cleaned_results
-        return nil if response&.body&.nil?
+        return nil if response&.body.nil?
 
-        @cleaned_results ||= JSON.parse(result_json_string)
+        @cleaned_results ||= result_json
+      end
+
+      private def result_json
+        JSON.parse(result_json_string)
+      rescue => e
+        raise CleanedResultsError, e.message
       end
 
       private def result_json_string
@@ -37,8 +43,6 @@ module Evidence
           .first
           .dig('content', 'parts')
           .first['text']
-      rescue => e
-        raise CleanedResultsError, e.message
       end
 
       def body = request_body.to_json
