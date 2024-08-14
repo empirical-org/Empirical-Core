@@ -31,12 +31,12 @@ exports[`EvidenceScoringModal component should render 1`] = `
       <div
         class="form-buttons"
       >
-        <button
+        <a
           class="quill-button contained medium green focus-on-light"
-          type="button"
+          href=""
         >
           Got it
-        </button>
+        </a>
       </div>
     </div>
   </div>
