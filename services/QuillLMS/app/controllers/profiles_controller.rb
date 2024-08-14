@@ -193,7 +193,9 @@ class ProfilesController < ApplicationController
 
   protected def completed_evidence_activity_prior_to_scoring
     ActivitySession
-      .where(user_id: current_user.id, activity_id: Activity.evidence.ids)
+      .joins(activity: :classification)
+      .where(activity: {classification: ActivityClassification.evidence})
+      .where(user_id: current_user.id)
       .where("completed_at < ?", DateTime.new(2024, School::SCHOOL_YEAR_START_MONTH, 1))
       .present?
   end
