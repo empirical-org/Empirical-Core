@@ -36,23 +36,15 @@ interface StudentReportProps extends RouteComponentProps {
   passedActivitySessions?: Student[]
 }
 
-function learnMoreLink(activityClassificationKey, activityClassificationName) {
-  let href
+const classificationKeyToHref = {
+  [EVIDENCE_KEY]: "https://support.quill.org/en/articles/6070182-how-do-i-read-quill-reading-for-evidence-data-reports",
+  [CONNECT_KEY]: "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_3f8eef1d9d",
+  [GRAMMAR_KEY]: "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_664b302f5a",
+  [PROOFREADER_KEY]: "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_39e630b653"
+}
 
-  switch(activityClassificationKey) {
-    case EVIDENCE_KEY:
-      href = "https://support.quill.org/en/articles/6070182-how-do-i-read-quill-reading-for-evidence-data-reports"
-      break
-    case CONNECT_KEY:
-      href = "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_3f8eef1d9d"
-      break
-    case GRAMMAR_KEY:
-      href = "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_664b302f5a"
-      break
-    case PROOFREADER_KEY:
-      href = "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_39e630b653"
-      break
-  }
+function learnMoreLink(activityClassificationKey, activityClassificationName) {
+  const href = classificationKeyToHref[activityClassificationKey]
 
   if (!href) { return }
 
