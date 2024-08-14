@@ -56,7 +56,7 @@ export default class extends React.Component {
     let average;
     reportData.forEach((row) => {
       count += 1;
-      if (shouldCountForScoring(row.activity_classification_id)) {
+      if (shouldCountForScoring(row.activity_classification_id) && row.percentage !== null) {
         cumulativeScore += parseFloat(row.percentage);
         countForAverage += 1;
       }
@@ -126,7 +126,7 @@ export default class extends React.Component {
       const csvReportData = [];
       reportData.forEach((row) => {
         const newRow = _.omit(row, keysToOmit);
-        if (shouldCountForScoring(row.activity_classification_id) && row.percentage) {
+        if (shouldCountForScoring(row.activity_classification_id) && row.percentage !== null) {
           newRow.percentage = `${(newRow.percentage * 100).toString()}%`;
         } else if ((row.activity_classification_id === 6 && row.is_a_completed_lesson) || row.percentage) {
           newRow.percentage = 'Completed';

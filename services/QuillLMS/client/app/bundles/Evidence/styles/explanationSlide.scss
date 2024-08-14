@@ -7,8 +7,18 @@
   min-height: calc(100vh - 60px);
   .subtext {
     font-size: 20px;
-    font-weight: 600;
-    color: #e1f3f1
+    color: $quill-white;
+    max-width: 580px;
+    font-weight: 700;
+    line-height: 30px;
+  }
+  .good-to-know {
+    color: #B4E2DB;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
   }
   #information-section {
     flex: 1;
@@ -19,9 +29,11 @@
     #header-container {
       display: flex;
       align-items: center;
+      margin: 4px 0px 32px;
       h1 {
         font-size: 40px;
-        font-weight: bold;
+        font-weight: 700;
+        line-height: 48px;
         color: $quill-white;
       }
       #beta-tag {
@@ -36,10 +48,8 @@
     }
     #image {
       max-width: 580px;
-      height: 312px;
-    }
-    .subtext {
-      max-width: 496px;
+      height: 270px;
+      margin-bottom: 24px;
     }
     #instructions-container {
       display: flex;
@@ -85,7 +95,7 @@
       margin-left: 96px;
     }
 
-    #step-indictator-container {
+    #step-indicator-container {
       display: flex;
       align-items: center;
       visibility: visible;
@@ -100,6 +110,16 @@
           border-color: $quill-white;
         }
       }
+    }
+  }
+  &.step-3 {
+    .subtext {
+      max-width: 456px;
+    }
+  }
+  &.step-4 {
+    .subtext {
+      max-width: 440px;
     }
   }
 }

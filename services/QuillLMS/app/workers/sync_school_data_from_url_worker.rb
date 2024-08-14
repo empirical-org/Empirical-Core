@@ -20,6 +20,7 @@ class SyncSchoolDataFromUrlWorker
       # this type coercion ensures that we'll find the matching one no matter what
 
       nces_id = attributes_hash[:nces_id]
+
       school = School.find_by(nces_id:) || School.find_by(NCES_ID_TYPE_COERCION_QUERY, nces_id)
       school.present? ? school.update!(attributes_hash.except(:name)) : School.create!(attributes_hash)
     end
@@ -28,6 +29,10 @@ class SyncSchoolDataFromUrlWorker
   end
 
   def build_attribute_hash(school_data)
+    enrollment = school_data['enrollment']
+    free_or_reduced_price_lunch = school_data['free_or_reduced_price_lunch']
+    direct_certification = school_data['direct_certification']
+
     {
       name: school_data['school_name'].titleize,
       nces_id: school_data['ncessch_num'],
@@ -48,9 +53,9 @@ class SyncSchoolDataFromUrlWorker
       latitude: school_data['latitude'].to_f,
       ulocal: school_data['urban_centric_locale'],
       fte_classroom_teacher: school_data['teachers_fte'].to_i,
-      free_lunches: school_data['enrollment'].to_i > 0 ? (school_data['free_or_reduced_price_lunch'].to_i / school_data['enrollment'].to_f * 100).to_i : nil, # we receive free_or_reduced_price_lunch as an integer but want to store it as a percentage,
-      direct_certification: school_data['enrollment'].to_i > 0 ? (school_data['direct_certification'].to_i / school_data['enrollment'].to_f * 100).to_i : nil, # we receive direct_certification as an integer but want to store it as a percentage
-      total_students: school_data['enrollment'],
+      free_lunches: free_or_reduced_price_lunch && enrollment.to_i > 0 ? (free_or_reduced_price_lunch.to_i / enrollment.to_f * 100).to_i : nil,
+      direct_certification: direct_certification && enrollment.to_i > 0 ? (direct_certification.to_i / enrollment.to_f * 100).to_i : nil,
+      total_students: enrollment
     }
   end
 end
