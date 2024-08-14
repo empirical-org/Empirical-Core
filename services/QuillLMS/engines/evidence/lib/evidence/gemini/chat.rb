@@ -36,15 +36,15 @@ module Evidence
 
       def body = request_body.to_json
 
-      private def system_instructions = {KEY_PARTS => {KEY_TEXT => system_prompt}}
+      private def system_instructions = { KEY_PARTS => { KEY_TEXT => system_prompt } }
       private def messages = [history_messages, current_message].flatten
-      private def current_message = { KEY_ROLE => ROLE_USER, KEY_PARTS => [{KEY_TEXT => entry}] }
+      private def current_message = { KEY_ROLE => ROLE_USER, KEY_PARTS => [{ KEY_TEXT => entry }] }
 
       private def history_messages
         history.map do |h|
           [
-            { KEY_ROLE => ROLE_USER, KEY_PARTS => [{KEY_TEXT => h.user}] },
-            { KEY_ROLE => ROLE_ASSISTANT, KEY_PARTS => [{KEY_TEXT => h.assistant}] }
+            { KEY_ROLE => ROLE_USER, KEY_PARTS => [{ KEY_TEXT => h.user }] },
+            { KEY_ROLE => ROLE_ASSISTANT, KEY_PARTS => [{ KEY_TEXT => h.assistant }] }
           ]
         end.flatten
       end

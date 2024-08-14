@@ -3,7 +3,7 @@
 module Evidence
   module Check
     class GenAI < Check::Base
-      CHAT_API = Evidence::OpenAI::Chat
+      CHAT_API = Evidence::Gemini::Chat
       SMALL_MODEL = CHAT_API::SMALL_MODEL
 
       def run

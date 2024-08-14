@@ -247,7 +247,6 @@ class GenAITasks < Thor
     response = check.run
     end_time = Time.zone.now
 
-
     puts "System Prompt"
     puts check.send(:system_prompt)
     print_line
