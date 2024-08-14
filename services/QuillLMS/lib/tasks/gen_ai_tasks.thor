@@ -206,7 +206,7 @@ class GenAITasks < Thor
   Repeated = Data.define(:activity_id, :prompt_id, :original, :different, :paraphrase)
 
   # bundle exec thor gen_a_i_tasks:generate_repeated_data_file
-  desc "generate_repeated_data_file", 'Create a csv for training and test.'
+  desc "generate_repeated_data_file", 'Create a csv for example data.'
   def generate_repeated_data_file
     file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
     full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
@@ -226,6 +226,26 @@ class GenAITasks < Thor
       csv << Repeated.members.map(&:to_s)
       new_data.each { |data| csv << data.deconstruct }
     end
+  end
+
+  # bundle exec thor gen_a_i_tasks:generate_repeated_test_files
+  def generate_repeated_test_files
+    csv_data = CSV.read(repeated_folder + 'all.csv', headers: true)
+    full_set = csv_data.map {|d| Repeated.new(**d) }
+
+    test_set = full_set.select { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
+    train_set = full_set.reject { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_ID }
+
+    CSV.open(repeated_folder + 'test.csv', 'wb') do |csv|
+      csv << Repeated.members.map(&:to_s)
+      test_set.each { |data| csv << data.deconstruct }
+    end
+
+    CSV.open(repeated_folder + 'train.csv', 'wb') do |csv|
+      csv << Repeated.members.map(&:to_s)
+      train_set.each { |data| csv << data.deconstruct }
+    end
+
   end
 
   # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
