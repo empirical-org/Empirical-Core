@@ -8,7 +8,7 @@ describe('EvidenceScoringModal component', () => {
   it('should render', () => {
     const { asFragment, } = render(
       <EvidenceScoringModal
-        onCloseEvidenceScoringModalClick={jest.fn()}
+        launchLink=''
       />
     );
     expect(asFragment()).toMatchSnapshot()

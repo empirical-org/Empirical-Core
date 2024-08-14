@@ -95,12 +95,8 @@ export default class StudentProfileUnits extends React.Component {
     this.setState({ showPreviewModal: true, previewActivityId: activityId, })
   }
 
-  handleShowEvidenceScoringModal = () => {
-    this.setState({ showEvidenceScoringModal: true, })
-  }
-
-  handleCloseEvidenceScoringModalClick = () => {
-    this.setState({ showEvidenceScoringModal: false, })
+  handleShowEvidenceScoringModal = (launchLink) => {
+    this.setState({ showEvidenceScoringModal: true, evidenceLaunchLink: launchLink })
   }
 
   renderContent = () => {
@@ -171,13 +167,13 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   renderEvidenceScoringModal = () => {
-    const { showEvidenceScoringModal, } = this.state
+    const { showEvidenceScoringModal, evidenceLaunchLink, } = this.state
 
     if (!(showEvidenceScoringModal)) { return }
 
     return (
       <EvidenceScoringModal
-        onCloseEvidenceScoringModalClick={this.handleCloseEvidenceScoringModalClick}
+        launchLink={evidenceLaunchLink}
       />
     )
   }

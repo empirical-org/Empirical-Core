@@ -171,11 +171,11 @@ export default class StudentProfileUnit extends React.Component {
     )
   }
 
-  handleShowEvidenceScoringModal = () => {
+  handleShowEvidenceScoringModal = (launchLink) => {
     const { onShowEvidenceScoringModal, } = this.props
 
     window.localStorage.setItem(HAS_SEEN_EVIDENCE_SCORING_MODAL_LOCAL_STORAGE_KEY, 'true')
-    onShowEvidenceScoringModal()
+    onShowEvidenceScoringModal(launchLink)
   }
 
   actionButton = (act, nextActivitySession) => {
@@ -217,12 +217,16 @@ export default class StudentProfileUnit extends React.Component {
     const isNextActivity = nextActivitySession && classroom_unit_id === nextActivitySession.classroom_unit_id && activity_id === nextActivitySession.activity_id
     const buttonStyle = isNextActivity ? 'primary contained' : 'secondary outlined'
 
+    const launchLink = activityLaunchLink(classroom_unit_id, activity_id)
+
     if (completedEvidenceActivityPriorToScoring && activity_classification_key === EVIDENCE_ACTIVITY_CLASSIFICATION_KEY && !window.localStorage.getItem(HAS_SEEN_EVIDENCE_SCORING_MODAL_LOCAL_STORAGE_KEY)) {
+      const onClick = () => this.handleShowEvidenceScoringModal(launchLink)
+
       return (
         <button
           aria-label={`${linkText} ${name}`}
           className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
-          onClick={this.handleShowEvidenceScoringModal}
+          onClick={onClick}
           type="button"
         >
           {linkText}
@@ -249,7 +253,7 @@ export default class StudentProfileUnit extends React.Component {
       <a
         aria-label={`${linkText} ${name}`}
         className={`quill-button-archived medium focus-on-light ${buttonStyle}`}
-        href={activityLaunchLink(classroom_unit_id, activity_id)}
+        href={launchLink}
       >
         {linkText}
       </a>
