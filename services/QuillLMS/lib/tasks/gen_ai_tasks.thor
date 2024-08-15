@@ -232,6 +232,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:generate_repeated_test_files
+  desc "generate_repeated_test_files", 'Generate test.csv and train.csv files from all.csv'
   def generate_repeated_test_files
     csv_data = CSV.read(repeated_folder + 'all.csv', headers: true)
     full_set = csv_data.map {|d| Repeated.new(**d) }
