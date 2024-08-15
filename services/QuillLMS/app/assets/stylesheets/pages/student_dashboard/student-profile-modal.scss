@@ -1,5 +1,6 @@
 .student-profile-modal-container {
   .student-profile-modal {
+    border-radius: 8px;
     height: min-content;
     transform: translate(-50%, -50%);
     bottom: inherit;
@@ -7,13 +8,13 @@
     max-width: 560px;
     width: 100%;
     .title {
-      margin-bottom: 24px;
+      margin-bottom: 8px;
     }
     .student-profile-modal-text {
       font-size: 14px;
       line-height: 1.57;
-      color: #646464;
-      margin-bottom: 48px;
+      color: $quill-grey-40;
+      margin-bottom: 32px;
     }
   }
   @media (max-width: 650px) {
