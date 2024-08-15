@@ -15,7 +15,7 @@ module CsvExporter::Standards
       ]
     end
 
-    def data_row(record, filters)
+    def data_row(record, _filters)
       json_hash = ProgressReports::Standards::ClassroomSerializer.new(record).as_json(root: false)
       [
         PAGE_TITLE,

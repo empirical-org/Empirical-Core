@@ -39,7 +39,7 @@ namespace :flags do
     end
 
     desc 'Update User.flags from a CSV file'
-    task :update_from_csv, [:filepath] => :environment do |t, args|
+    task :update_from_csv, [:filepath] => :environment do |_t, args|
       iostream = File.read(args[:filepath])
       if (CSV.parse(iostream, headers: true).headers & ['email', 'flag']).count != 2
         puts 'Invalid headers. Exiting.'
@@ -61,7 +61,7 @@ namespace :flags do
     end
 
     desc 'remove specified flag for users from a CSV file'
-    task :remove_from_csv, [:filepath, :flag_name] => :environment do |t, args|
+    task :remove_from_csv, [:filepath, :flag_name] => :environment do |_t, args|
       iostream = File.read(args[:filepath])
       if (CSV.parse(iostream, headers: true).headers & ['id']).count != 1
         puts 'Invalid headers. Exiting.'

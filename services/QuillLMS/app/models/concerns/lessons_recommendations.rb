@@ -6,7 +6,7 @@ include DiagnosticReports
 module LessonsRecommendations
   extend ActiveSupport::Concern
 
-  def get_recommended_lessons(current_user, unit_id, classroom_id, activity_id)
+  def get_recommended_lessons(_current_user, unit_id, classroom_id, activity_id)
     set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id)
     @activity_id = activity_id
     @classroom_id = classroom_id

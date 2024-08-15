@@ -149,7 +149,7 @@ FactoryBot.define do
 
     trait :with_translated_focus_points do
       after(:create) do |question|
-        focus_points.each do |key, value|
+        focus_points.each do |key, _value|
           create(:translation_mapping_with_translation,
             source: question,
             field_name: "#{Question::FOCUS_POINTS}.#{key}")
@@ -159,7 +159,7 @@ FactoryBot.define do
 
     trait :with_translated_incorrect_sequences do
       after(:create) do |question|
-        incorrect_sequences.each do |key, value|
+        incorrect_sequences.each do |key, _value|
           create(:translation_mapping_with_translation,
             source: question,
             field_name: "#{Question::INCORRECT_SEQUENCES}.#{key}")

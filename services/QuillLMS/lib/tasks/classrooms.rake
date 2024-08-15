@@ -4,7 +4,7 @@ require_relative './progress_bar'
 
 namespace :classrooms do
   desc 'Purge activity history for a specified list of classroom ids'
-  task :purge_histories, [:classroom_ids] => :environment do |t, args|
+  task :purge_histories, [:classroom_ids] => :environment do |_t, args|
     classroom_ids = args[:classroom_ids].split
 
     classroom_units = ClassroomUnit.where(classroom_id: classroom_ids)

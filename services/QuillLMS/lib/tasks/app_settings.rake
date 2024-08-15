@@ -5,7 +5,7 @@ namespace :app_settings do
   # Example usage: rake 'app_settings:create[theName,true,true,50,[]]'
   # To pass user_ids to the allow list, separate ids with spaces instead of commas
   # Example usage: rake 'app_settings:create[theName,true,true,50,[1 5]]'
-  task :create, [:name, :enabled, :enabled_for_staff, :percent_active, :user_ids_allow_list] => :environment do |t, args|
+  task :create, [:name, :enabled, :enabled_for_staff, :percent_active, :user_ids_allow_list] => :environment do |_t, args|
     app_setting = AppSetting.create!(
       name: args[:name],
       enabled: args[:enabled],
@@ -18,7 +18,7 @@ namespace :app_settings do
 
   desc 'Updates user allow list for existing AppSetting from a CSV file.'
   # Example usage: rake 'app_settings:update_user_ids_allow_list_from_csv[theName, filename]'
-  task :update_user_ids_allow_list_from_csv, [:name, :filename] => :environment do |t, args|
+  task :update_user_ids_allow_list_from_csv, [:name, :filename] => :environment do |_t, args|
     iostream = File.read(args[:filename])
     if (CSV.parse(iostream, headers: true).headers & ['email', 'flag']).count != 2
       puts 'Invalid headers. Exiting.'
@@ -43,7 +43,7 @@ namespace :app_settings do
 
   # Example usage: rake 'remove_user_ids_from_allow_list[theName, filename]'
   # This task uses ids instead of emails, since some users do not have emails
-  task :remove_user_ids_from_allow_list, [:name, :filename] => :environment do |t, args|
+  task :remove_user_ids_from_allow_list, [:name, :filename] => :environment do |_t, args|
     iostream = File.read(args[:filename])
     if (CSV.parse(iostream, headers: true).headers & ['id']).count != 1
       puts 'Invalid headers. Exiting.'
