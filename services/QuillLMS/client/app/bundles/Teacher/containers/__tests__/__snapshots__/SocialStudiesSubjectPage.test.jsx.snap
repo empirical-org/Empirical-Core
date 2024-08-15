@@ -1,0 +1,390 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SocialStudiesSubjectPage renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="social-studies-subject-page subject-page"
+  >
+    <header>
+      <div
+        class="container"
+      >
+        <h1>
+          Social Studies
+        </h1>
+        <p>
+          Quill Social Studies activities allow teachers to give students the literacy instruction they need while covering core course content. In these Reading for Evidence activities, students read course-aligned texts, use what they’ve read to draft evidence-based claims, and receive AI-powered feedback to strengthen their writing. Process and growth are key: our responsive coaching guides students to revise until their sentences are clear, logical, and grounded in specific details from the text.
+          <br />
+          <br />
+          Quill Social Studies is designed to supplement high school social studies courses. World History: 1200 CE-Present is available now, and World History: 1750 CE-Present will launch during the 2024-2025 school year!
+        </p>
+        <div
+          class="course-cards"
+        >
+          <div
+            class="course-card"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/l/ship.svg"
+            />
+            <div>
+              <h2>
+                World History
+              </h2>
+              <span>
+                1200 CE - Present
+              </span>
+            </div>
+            <a
+              class="quill-button focus-on-light contained medium teal"
+              href="/world-history-1200-to-present"
+            >
+              View activities
+            </a>
+          </div>
+          <div
+            class="course-card"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/l/scroll.svg"
+            />
+            <div>
+              <h2>
+                World History
+              </h2>
+              <span>
+                1750 CE - Present
+              </span>
+            </div>
+            <button
+              class="quill-button focus-on-light medium disabled contained"
+              disabled=""
+              type="button"
+            >
+              View activities
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section
+      class="summary-section"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          Build Content Knowledge & Writing Skills With Reading for Evidence
+        </h2>
+        <p>
+          Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:
+        </p>
+        <div
+          class="summary-items"
+        >
+          <div
+            class="summary-item"
+          >
+            <img
+              alt=""
+              src="undefined/images/pages/social_studies_subject_page/close-reading.svg"
+            />
+            <h3>
+              Close reading
+            </h3>
+            <p>
+              Every activity begins with a structured highlighting task as an entry point to the text. Then, students read and reread up to ten times in the process of developing their responses.
+            </p>
+          </div>
+          <div
+            class="summary-item"
+          >
+            <img
+              alt=""
+              src="undefined/images/pages/social_studies_subject_page/constructing-claims.svg"
+            />
+            <h3>
+              Constructing evidence-based claims
+            </h3>
+            <p>
+              Students receive custom feedback developed by real teachers to help them use what they have read to craft strong sentences.
+            </p>
+          </div>
+          <div
+            class="summary-item"
+          >
+            <img
+              alt=""
+              src="undefined/images/pages/social_studies_subject_page/sentence-fundamentals.svg"
+            />
+            <h3>
+              Sentence fundamentals
+            </h3>
+            <p>
+              Practice with conjunctions like because, but, and so provides students with a framework to combine sentences and express complex ideas effectively. Once they’ve clearly captured these ideas in their response, students receive grammar and spelling guidance too.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="teacher-quotes"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          What Are Social Studies Teachers Saying?
+        </h2>
+        <div
+          class="quote-boxes"
+        >
+          <div
+            class="quote-box"
+          >
+            <p>
+              “With Quill giving them that instant feedback, it's like having me over their shoulder, but with everyone at the same time.”
+            </p>
+            <span>
+              Alison B.
+            </span>
+          </div>
+          <div
+            class="quote-box"
+          >
+            <p>
+              “They're learning content that I would probably not have time to teach them. They are practicing skills that, honestly, they all need more practice on every day.”
+            </p>
+            <span>
+              Amber L. 
+            </span>
+          </div>
+          <div
+            class="quote-box"
+          >
+            <p>
+              “I think Quill has helped them understand what they're really looking for in the document or in the writing -— they are definitely annotating and highlighting better as the semester goes on.”
+            </p>
+            <span>
+              Devin G.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="oer-project container"
+    >
+      <img
+        alt="Quill logo plus OER Project logo"
+        src="undefined/images/pages/social_studies_subject_page/quill-plus-oer-project-logo.svg"
+      />
+      <p>
+        Quill has partnered with 
+        <a
+          href="https://www.oerproject.com/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          OER Project
+        </a>
+         to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history classroom.
+      </p>
+    </section>
+    <div
+      id="q-and-a"
+    >
+      <div
+        class="q-and-a-inner-wrapper"
+      >
+        <h2>
+          Questions and Answers
+        </h2>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              How does Quill Reading for Evidence build reading, writing, and critical thinking skills?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <img
+                alt="expand-and-collapse"
+                src="undefined/images/shared/expand.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              What distinguishes Quill Reading for Evidence from other online reading tools?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <img
+                alt="expand-and-collapse"
+                src="undefined/images/shared/expand.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              What do students need to know about Quill Reading for Evidence?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <img
+                alt="expand-and-collapse"
+                src="undefined/images/shared/expand.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              What are some best practices for introducing Quill Reading for Evidence to my students and integrating it into my instruction?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <img
+                alt="expand-and-collapse"
+                src="undefined/images/shared/expand.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              For whom are these activities most appropriate? How does the tool support students who may need more scaffolding, like multilingual learners and students with IEPs?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <img
+                alt="expand-and-collapse"
+                src="undefined/images/shared/expand.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <a
+          class="support-link hidden"
+        >
+          View all questions and answers
+        </a>
+      </div>
+    </div>
+    <section
+      class="teacher-center-articles"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          Learn more with these Teacher Center articles
+        </h2>
+        <div
+          class="articles-wrapper"
+        >
+          <span />
+          <span />
+        </div>
+      </div>
+    </section>
+    <section
+      class="try-it-out"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          Try it out for yourself
+        </h2>
+        <div
+          class="links-wrapper"
+        >
+          <a
+            class="quill-button focus-on-dark outlined teal large"
+            href="/evidence/#/play?anonymous=true&uid=457"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Try a sample activity
+          </a>
+          <a
+            class="quill-button focus-on-dark outlined teal large"
+            href="/world-history-1200-to-present"
+          >
+            View 1200 CE - Present activities
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

@@ -93,9 +93,9 @@ describe('CoursePageUnitTemplate', () => {
 
     // Check OER resources section
     expect(screen.getByText(`OER Project Unit ${mockUnitTemplate.oer_unit_number} Resources`)).toBeInTheDocument();
-    expect(screen.getByText(`OER Unit ${mockUnitTemplate.oer_unit_number} website`)).toBeInTheDocument();
-    expect(screen.getByText(`OER Unit ${mockUnitTemplate.oer_unit_number} teacher guide`)).toBeInTheDocument();
-    expect(screen.getByText(`Download all OER Unit ${mockUnitTemplate.oer_unit_number} articles`)).toBeInTheDocument();
+    expect(screen.getByText(`OER Project Unit ${mockUnitTemplate.oer_unit_number} website`)).toBeInTheDocument();
+    expect(screen.getByText(`OER Project Unit ${mockUnitTemplate.oer_unit_number} teacher guide`)).toBeInTheDocument();
+    expect(screen.getByText(`Download all OER Project Unit ${mockUnitTemplate.oer_unit_number} articles`)).toBeInTheDocument();
   });
 
   test('handles toggle expansion correctly', async () => {

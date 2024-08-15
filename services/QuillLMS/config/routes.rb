@@ -830,6 +830,7 @@ EmpiricalGrammar::Application.routes.draw do
     teacher_premium
   )
 
+  get 'social-studies' => 'pages#social_studies'
   get 'social-studies/world-history-1200-to-present' => 'pages#world_history_1200_to_present'
 
   all_pages = other_pages

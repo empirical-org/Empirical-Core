@@ -15,6 +15,7 @@ import UnitTemplateProfile from '../components/assignment_flow/unit_templates_ma
 import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager';
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx';
 import AssignWorldHistory1200ToPresent from '../components/assignment_flow/create_unit/assign_world_history_1200_to_present.tsx';
+import AssignSocialStudiesSubjectPage from '../components/assignment_flow/create_unit/assign_social_studies_subject_page.tsx';
 
 const AssignActivitiesRouter = props => (
   <BrowserRouter>
@@ -22,6 +23,7 @@ const AssignActivitiesRouter = props => (
       <Route component={AssignActivitiesContainer} path="/assign" />
       <Switch>
         <Route component={routerProps => <AssignWorldHistory1200ToPresent {...props} {...routerProps} />} path="/assign/social-studies/world-history-1200-to-present" />
+        <Route component={routerProps => <AssignSocialStudiesSubjectPage {...props} {...routerProps} />} path="/assign/social-studies" />
         <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />
         <Route component={routerProps => <AssignPreAp {...props} {...routerProps} />} path="/assign/pre-ap" />
         <Route component={routerProps => <AssignAp {...props} {...routerProps} />} path="/assign/ap" />

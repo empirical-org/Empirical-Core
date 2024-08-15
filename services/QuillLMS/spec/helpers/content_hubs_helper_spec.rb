@@ -59,7 +59,7 @@ describe ContentHubsHelper, type: :helper do
       unit = create(:unit)
       create(:unit_activity, activity_id: activity.id, unit_id: unit.id)
       classroom_unit = create(:classroom_unit, unit_id: unit.id, classroom_id: classroom.id, assigned_student_ids: [classroom_student1.student_id, classroom_student2.student_id])
-      create(:activity_session, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user_id: classroom_student1.student_id, is_final_score: true, percentage: 80)
+      create(:activity_session, classroom_unit_id: classroom_unit.id, activity_id: activity.id, user_id: classroom_student1.student_id, is_final_score: true, percentage: 0.8)
 
       result = helper.assignment_data_for_unit_template(unit_template, classroom_ids_as_string)
 

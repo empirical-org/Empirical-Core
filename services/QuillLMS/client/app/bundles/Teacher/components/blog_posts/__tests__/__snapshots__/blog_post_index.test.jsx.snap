@@ -923,7 +923,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light green"
                 >
                   Read
                 </span>
@@ -1172,7 +1172,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light green"
                 >
                   Read
                 </span>
@@ -1532,7 +1532,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light blue"
                 >
                   Read
                 </span>
@@ -1782,7 +1782,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light blue"
                 >
                   Read
                 </span>
@@ -2032,7 +2032,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light blue"
                 >
                   Read
                 </span>
@@ -2438,7 +2438,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light gold"
                 >
                   Read
                 </span>
@@ -2688,7 +2688,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light gold"
                 >
                   Read
                 </span>
@@ -2920,7 +2920,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light gold"
                 >
                   Read
                 </span>
@@ -3280,7 +3280,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light violet"
                 >
                   Read
                 </span>
@@ -3530,7 +3530,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light violet"
                 >
                   Read
                 </span>
@@ -3780,7 +3780,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light violet"
                 >
                   Read
                 </span>
@@ -4117,7 +4117,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light purple"
                 >
                   Read
                 </span>
@@ -4367,7 +4367,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light purple"
                 >
                   Read
                 </span>
@@ -4681,7 +4681,7 @@ exports[`BlogPostIndex component renders 1`] = `
                   </div>
                 </ReactMarkdown>
                 <span
-                  className="quill-button-archived fun contained primary focus-on-light"
+                  className="quill-button small contained focus-on-light purple"
                 >
                   Read
                 </span>

@@ -38,7 +38,7 @@ module ContentHubsHelper
       activity[:assigned_student_count] = classroom_units.pluck(:assigned_student_ids).flatten.uniq.count
       activity[:completed_student_count] = activity_sessions.pluck(:user_id).uniq.count
       activity[:link_for_report] = get_link_for_report(activity, classroom_units, activity_sessions)
-      activity[:average_score] = activity_sessions_with_scores.empty? ? nil : activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count
+      activity[:average_score] = activity_sessions_with_scores.empty? ? nil : (activity_sessions_with_scores.pluck(:percentage).sum / activity_sessions_with_scores.count) * 100
 
       activity
     end
@@ -343,21 +343,21 @@ module ContentHubsHelper
   def cold_war_and_decolonization_activities
     [
       {
-        activity_id: 2490,
+        activity_id: 2491,
         display_name: 'How Did Bananas Lead to a Coup in Guatemala?',
         description: "Students will read and write about the causes and effects of the United States' intervention in Guatemala during the Cold War.",
         paired_oer_asset_name: 'The Cold War Around the World',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit8/The-Cold-War-Around-the-World'
       },
       {
-        activity_id: 2482,
+        activity_id: 2589,
         display_name: 'Why Did the USSR Race to Send a Woman to Space?',
         description: "Students will read and write about why Soviet leaders wanted to be the first country to send a woman to space during the Cold War.",
         paired_oer_asset_name: 'Arms Race, Space Race',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit8/Arms-Race-Space-Race'
       },
       {
-        activity_id: 2470,
+        activity_id: 2606,
         display_name: 'How Did Black South African Students Protest Apartheid?',
         description: "Students will read and write about how Black South African students challenged the segregated school system under apartheid.",
         paired_oer_asset_name: 'Apartheid',

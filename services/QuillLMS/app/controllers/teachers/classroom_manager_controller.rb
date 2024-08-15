@@ -371,6 +371,8 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to "/activities/packs?category=#{params[:category]}"
       elsif params[:activityPackId]
         redirect_to "/activities/packs/#{params[:activityPackId]}"
+      elsif params[:subtab]
+        redirect_to "/activities/packs/#{params[:subtab]}"
       elsif params[:grade]
         redirect_to "/activities/packs?grade=#{params[:grade]}"
       else

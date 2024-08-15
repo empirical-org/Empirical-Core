@@ -85,7 +85,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
           <p
             class="oer-asset-line"
           >
-            Optional Paired OER Activity: 
+            Optional Paired OER Project Activity: 
             <a
               href="https://example.com/oer1"
               rel="noopener noreferrer"
@@ -141,7 +141,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
           <p
             class="oer-asset-line"
           >
-            Optional Paired OER Activity: 
+            Optional Paired OER Project Activity: 
             <a
               href="https://example.com/oer2"
               rel="noopener noreferrer"
@@ -193,7 +193,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          OER Unit 123 website
+          OER Project Unit 123 website
         </a>
         <a
           class="quill-button focus-on-light small outlined grey"
@@ -201,7 +201,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          OER Unit 123 teacher guide
+          OER Project Unit 123 teacher guide
         </a>
         <a
           class="quill-button focus-on-light small outlined grey"
@@ -209,7 +209,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
           rel="noopener noreferrer"
           target="_blank"
         >
-          Download all OER Unit 123 articles
+          Download all OER Project Unit 123 articles
         </a>
       </div>
     </div>
