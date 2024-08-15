@@ -46,11 +46,10 @@
           </tr>
         </thead>
         <tbody>
-          <% num_trials = @trials.count %>
           <% @trials.each.with_index(0) do |trial, index| %>
             <% llm_prompt = trial.llm_prompt %>
             <tr>
-              <td><%= "Trial #{num_trials - index}" %></td>
+              <td><%= "Trial #{trial.number}" %></td>
               <td><%= date_helper(trial.created_at) %></td>
               <td><%= llm_prompt.name %></td>
               <td><%= llm_prompt.optimal_examples_count %></td>
