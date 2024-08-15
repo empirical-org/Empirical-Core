@@ -8,6 +8,8 @@ module Evidence
       GENERATE_CONTENT = 'generateContent'
       DEFAULT_MODEL = 'gemini-1.5-flash-latest'
       SMALL_MODEL = DEFAULT_MODEL
+      DEFAULT_TEMPERATURE = 1
+      JSON_MIME_TYPE = 'application/json'
 
       KEY_ROLE = 'role'
       KEY_PARTS = 'parts'
@@ -17,7 +19,7 @@ module Evidence
 
       attr_reader :system_prompt, :entry, :history, :temperature, :model
 
-      def initialize(system_prompt:, entry:, history: [], temperature: 1, model: DEFAULT_MODEL)
+      def initialize(system_prompt:, entry:, history: [], temperature: DEFAULT_TEMPERATURE, model: DEFAULT_MODEL)
         @system_prompt = system_prompt
         @entry = entry
         @history = history
@@ -71,7 +73,7 @@ module Evidence
 
       private def generation_config = { temperature:, response_mime_type: }
 
-      private def response_mime_type = 'application/json'
+      private def response_mime_type = JSON_MIME_TYPE
       private def model_version = model
       private def instruction = GENERATE_CONTENT
     end
