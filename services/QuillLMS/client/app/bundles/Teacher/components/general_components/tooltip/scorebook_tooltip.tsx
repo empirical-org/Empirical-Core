@@ -157,7 +157,7 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   function totalScoreOrNot() {
     const { percentage, sessions, } = data
 
-    const hasScoreData = percentage && sessions && sessions.length > 0
+    const hasScoreData = percentage !== null && sessions && sessions.length > 0
     if (hasScoreData && (!inStudentView || showExactScores)) {
       return displayScores()
     } else {
