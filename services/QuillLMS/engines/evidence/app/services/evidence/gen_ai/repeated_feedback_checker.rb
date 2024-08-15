@@ -4,14 +4,14 @@ module Evidence
   module GenAI
     class RepeatedFeedbackChecker < ApplicationService
       KEY_REPEAT = 'repeat_feedback'
-      MODEL = 'gpt-4o-mini'
 
-      attr_reader :feedback, :history, :optimal
+      attr_reader :feedback, :history, :optimal, :chat_api
 
-      def initialize(feedback:, history: [], optimal: false)
+      def initialize(feedback:, history: [], optimal: false, chat_api: Evidence::OpenAI::Chat)
         @feedback = feedback
         @history = history
         @optimal = optimal
+        @chat_api = chat_api
       end
 
       def run
@@ -24,7 +24,7 @@ module Evidence
 
       private def system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt: nil, history:)
 
-      private def llm_response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback, model: MODEL)
+      private def llm_response = chat_api.run(system_prompt:, entry: feedback, model: chat_api::SMALL_MODEL)
     end
   end
 end
