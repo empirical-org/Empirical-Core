@@ -251,6 +251,41 @@ class GenAITasks < Thor
     end
   end
 
+  RepeatedResult = Data.define(:activity_id, :prompt_id, :original, :different, :repeated_different, :paraphrase, :repeated_paraphrase)
+
+  # bundle exec thor gen_a_i_tasks:repeated_feedback_test 2
+  desc "repeated_feedback_test limit", 'Test a number or entries from the test.csv file'
+  def repeated_feedback_test(limit = 150)
+    csv_data = CSV.read(repeated_folder + 'test.csv', headers: true)
+    test_set = csv_data.first(limit.to_i).map {|d| Repeated.new(**d) }
+
+    results = []
+
+    test_set.each do |data|
+      # test difference
+      repeated_different = repeated_feedback?(data.original, [data.different])
+      # test similar
+      repeated_paraphrase = repeated_feedback?(data.original, [data.paraphrase])
+
+      params = data.to_h.merge(repeated_different:, repeated_paraphrase:)
+
+      results << RepeatedResult.new(*params)
+    end
+    total = results.size
+    different_correct = results.count {|r| !r.repeated_different }
+    paraphrase_correct = results.count {|r| r.repeated_paraphrase }
+
+    puts "Difference: #{different_correct}/#{total} | #{((different_correct / total.to_f) * 100).round(2)}"
+    puts "Similar: #{paraphrase_correct}/#{total} | #{((paraphrase_correct / total.to_f) * 100).round(2)}"
+
+    CSV.open(repeated_output_file(limit), 'wb') do |csv|
+      csv << RepeatedResult.members.map(&:to_s)
+      results.each { |data| csv << data.deconstruct }
+    end
+  end
+
+
+
   # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
   desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
@@ -345,6 +380,14 @@ class GenAITasks < Thor
     SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
     GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root.join('/lib/data/'))
 
+
+    private def repeated_feedback?(feedback, history)
+      system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt: nil, history:)
+      llm_response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback, model: 'gpt-4o-mini')
+      puts llm_response
+
+      !!llm_response[Evidence::GenAI::RepeatedFeedbackChecker::KEY_REPEAT]
+    end
     private def paraphrase(entry)
       result = Evidence::OpenAI::Chat.run(
         system_prompt: "rephrase the user's entry with some synonyms. Return as JSON with one key `text`",
@@ -353,6 +396,10 @@ class GenAITasks < Thor
       )
 
       result['text']
+    end
+
+    private def repeated_output_file(limit)
+      "#{GEN_AI_OUTPUT_FOLDER}repeated_feedback_#{limit}_#{Time.now.to_i}.csv"
     end
 
     def repeated_folder
