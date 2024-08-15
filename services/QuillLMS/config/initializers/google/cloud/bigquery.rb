@@ -2,6 +2,6 @@
 
 require 'google/cloud/bigquery'
 
-Google::Cloud::Bigquery.configure do |config|
-  config.credentials = JSON.parse(ENV.fetch('BIGQUERY_CREDENTIALS', '{}'))
-end
+# Google::Cloud::Bigquery.configure do |config|
+#   config.credentials = JSON.parse(ENV.fetch('BIGQUERY_CREDENTIALS', '{}'))
+# end
