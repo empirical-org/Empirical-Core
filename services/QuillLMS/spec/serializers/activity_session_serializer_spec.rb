@@ -41,14 +41,14 @@ describe ActivitySessionSerializer, type: :serializer do
     let(:concept)         { create(:concept) }
 
     let(:expected_serialized_keys) do
-      %w(activity_uid
+      %w[activity_uid
          anonymous
          completed_at
          data
          percentage
          state
          temporary
-         uid)
+         uid]
     end
   end
 end

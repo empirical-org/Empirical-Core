@@ -174,7 +174,7 @@ module Evidence
       end_index = start_index + matched_slice.size - 1
       extra_space_indexes.each { |i| end_index += 1 if i > start_index && i <= end_index }
 
-      char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |c| Regexp.last_match.begin(0) }
+      char_positions = text.enum_for(:scan, /[A-Za-z0-9\s]/).map { |_c| Regexp.last_match.begin(0) }
       text[char_positions[start_index]..char_positions[end_index]]
     end
     # rubocop:enable Metrics/CyclomaticComplexity

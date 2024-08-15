@@ -50,7 +50,7 @@ module EmpiricalGrammar
     config.active_record.schema_format = :sql
     config.active_record.legacy_connection_handling = false
 
-    config.action_controller.always_permitted_parameters = %w(controller action format)
+    config.action_controller.always_permitted_parameters = %w[controller action format]
 
     # http://stackoverflow.com/questions/14647731/rails-converts-empty-arrays-into-nils-in-params-of-the-request
     config.action_dispatch.perform_deep_munge = false

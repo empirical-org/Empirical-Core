@@ -50,7 +50,7 @@ class ConceptReplacementConnectWorker
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def replace_focus_points_for_question(fp_obj, original_concept_uid, new_concept_uid)
-    return if fp_obj.none? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+    return if fp_obj.none? { |_k, v| v['conceptResults'] && v['conceptResults'].any? { |_crk, crv| crv['conceptUID'] == original_concept_uid } }
 
     new_fp_obj = fp_obj.deep_dup
     begin
@@ -77,7 +77,7 @@ class ConceptReplacementConnectWorker
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def replace_incorrect_sequences_for_question(is_array, original_concept_uid, new_concept_uid)
-    return if is_array.none? { |is| is['conceptResults'] && is['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+    return if is_array.none? { |is| is['conceptResults'] && is['conceptResults'].any? { |_crk, crv| crv['conceptUID'] == original_concept_uid } }
 
     new_is_array = is_array.deep_dup
 

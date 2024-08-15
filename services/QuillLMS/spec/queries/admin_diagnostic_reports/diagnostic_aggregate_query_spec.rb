@@ -45,7 +45,7 @@ module AdminDiagnosticReports
     let(:classrooms) { grades.map { |grade| create(:classroom, grade: grade) } }
 
     let(:activities) { [pre_diagnostic] }
-    let(:units) { activities.map { |a| create(:unit, activities: activities) } }
+    let(:units) { activities.map { |_a| create(:unit, activities: activities) } }
     let(:unit_activities) { units.map(&:unit_activities) }
     let(:classroom_units) do
       classrooms.map do |classroom|

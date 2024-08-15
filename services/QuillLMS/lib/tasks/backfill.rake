@@ -3,7 +3,7 @@
 namespace :backfill do
   # rake 'backfill:updated_at[ClassroomUnit "2020-01-01"]'
   desc 'backfills updated_at so null values do not exist'
-  task :updated_at, [:klass, :fill_datetime] => :environment do |t, args|
+  task :updated_at, [:klass, :fill_datetime] => :environment do |_t, args|
     klass = args[:klass].constantize
     fallback_fill_datetime = DateTime.new(2018, 4, 1)
 

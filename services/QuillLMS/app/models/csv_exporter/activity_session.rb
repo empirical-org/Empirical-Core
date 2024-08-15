@@ -18,7 +18,7 @@ module CsvExporter
       ]
     end
 
-    def data_row(record, filters)
+    def data_row(record, _filters)
       json_hash = ProgressReports::ActivitySessionSerializer.new(record).as_json(root: false)
       # Student, Date, Activity, Score, Standard, App
       [

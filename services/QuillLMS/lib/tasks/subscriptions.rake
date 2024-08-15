@@ -4,7 +4,7 @@ require 'csv'
 
 namespace :subscriptions do
   desc 'Add credit to users from a CSV file'
-  task :add_credit_to_users, [:filepath, :amount_in_days] => :environment do |t, args|
+  task :add_credit_to_users, [:filepath, :amount_in_days] => :environment do |_t, args|
     iostream = File.read(args[:filepath])
     if (CSV.parse(iostream, headers: true).headers & ['email']).count != 1
       puts 'Invalid headers. Exiting.'

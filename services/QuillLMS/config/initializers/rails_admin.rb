@@ -5,7 +5,7 @@ RailsAdmin.config do |config|
 
   config.asset_source = :sprockets
 
-  config.authorize_with do |controller|
+  config.authorize_with do |_controller|
     current_user = User.find_by(id: session[:user_id])
     redirect_to main_app.root_path unless current_user&.staff?
   end

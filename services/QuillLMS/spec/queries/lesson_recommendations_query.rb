@@ -52,7 +52,7 @@ describe LessonRecommendationsQuery do
         let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, unit: unit) }
 
         before do
-          allow(subject).to receive(:mark_previously_assigned) do |recs, activity|
+          allow(subject).to receive(:mark_previously_assigned) do |recs, _activity|
             recs.each { |r| r[:previously_assigned] = true }
             recs
           end
@@ -327,7 +327,7 @@ describe LessonRecommendationsQuery do
         let!(:classroom_activity) { create(:classroom_activity, classroom: classroom, unit: unit) }
 
         before do
-          allow(subject).to receive(:mark_previously_assigned) do |recs, activity|
+          allow(subject).to receive(:mark_previously_assigned) do |recs, _activity|
             recs.each { |r| r[:previously_assigned] = true }
             recs
           end
