@@ -269,7 +269,7 @@ class GenAITasks < Thor
 
       params = data.to_h.merge(repeated_different:, repeated_paraphrase:)
 
-      results << RepeatedResult.new(*params)
+      results << RepeatedResult.new(**params)
     end
     total = results.size
     different_correct = results.count {|r| !r.repeated_different }
