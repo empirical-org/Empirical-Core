@@ -240,15 +240,8 @@ class GenAITasks < Thor
     test_set = full_set.select { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
     train_set = full_set.reject { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
 
-    CSV.open("#{repeated_folder}test.csv", 'wb') do |csv|
-      csv << Repeated.members.map(&:to_s)
-      test_set.each { |data| csv << data.deconstruct }
-    end
-
-    CSV.open("#{repeated_folder}train.csv", 'wb') do |csv|
-      csv << Repeated.members.map(&:to_s)
-      train_set.each { |data| csv << data.deconstruct }
-    end
+    save_repeated_file('test.csv', test_set)
+    save_repeated_file('train.csv', train_set)
   end
 
   RepeatedResult = Data.define(:activity_id, :prompt_id, :original, :different, :repeated_different, :paraphrase, :repeated_paraphrase)
@@ -393,6 +386,13 @@ class GenAITasks < Thor
       )
 
       result['text']
+    end
+
+    private def save_repeated_file(name, dataset)
+      CSV.open("#{repeated_folder}#{name}", 'wb') do |csv|
+        csv << Repeated.members.map(&:to_s)
+        dataset.each { |data| csv << data.deconstruct }
+      end
     end
 
     private def repeated_output_file(limit)
