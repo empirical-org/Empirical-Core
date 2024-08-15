@@ -5,11 +5,10 @@ import QuestionsAndAnswers from './QuestionsAndAnswers'
 
 import PreviewCard from '../components/shared/preview_card.jsx';
 import { requestGet } from '../../../modules/request';
+import { LARGE_ICON_BASE_SRC, } from '../../Shared/index'
 
-const largeIconBaseSrc = `${process.env.CDN_URL}/images/icons/l`
-
-const shipIconSrc = `${largeIconBaseSrc}/ship.svg`
-const scrollIconSrc = `${largeIconBaseSrc}/scroll.svg`
+const shipIconSrc = `${LARGE_ICON_BASE_SRC}/ship.svg`
+const scrollIconSrc = `${LARGE_ICON_BASE_SRC}/scroll.svg`
 
 const pageImgBaseSrc = `${process.env.CDN_URL}/images/pages/social_studies_subject_page`
 
