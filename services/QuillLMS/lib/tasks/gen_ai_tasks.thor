@@ -204,7 +204,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
-  desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
+  desc "secondary_prompt_entry 256 'some feedback'", 'Run to see system prompt and feedback for a given prompt / entry'
   def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
     system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:, template_file:)
@@ -242,8 +242,10 @@ class GenAITasks < Thor
       { 'feedback' => 'Clear your response and try again. Can you think of a specific way Korean leaders tried to stop the pirates, using information from the text?' }
     ]
 
+    start_time = Time.zone.now
     check = Evidence::Check::GenAI.new(entry, prompt, previous)
     response = check.run
+    end_time = Time.zone.now
 
     puts "System Prompt"
     puts check.send(:system_prompt)
@@ -258,6 +260,7 @@ class GenAITasks < Thor
     puts "Secondary Response: #{check.send(:secondary_feedback_response)}"
     print_line
     puts response
+    puts "Time elapsed: #{end_time - start_time} seconds"
   end
 
   desc 'populate_concepts_and_rules', 'Seed the 3 GenAI concepts, the 6 rules needed by the system'

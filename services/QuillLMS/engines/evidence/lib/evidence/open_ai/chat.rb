@@ -5,11 +5,10 @@ module Evidence
     class Chat < Evidence::ApplicationService
       include Evidence::OpenAI::Concerns::Api
 
-      HistoryItem = Struct.new(:user, :assistant, keyword_init: true)
-
       ENDPOINT = '/chat/completions'
 
       DEFAULT_MODEL = 'gpt-4-turbo'
+      SMALL_MODEL = 'gpt-4o-mini'
 
       KEY_ROLE = 'role'
       KEY_CONTENT = 'content'
@@ -20,7 +19,7 @@ module Evidence
 
       attr_reader :system_prompt, :entry, :history, :temperature, :model
 
-      def initialize(system_prompt:, entry:, history: [], temperature: 0.5, model: DEFAULT_MODEL)
+      def initialize(system_prompt:, entry:, history: [], temperature: 1, model: DEFAULT_MODEL)
         @system_prompt = system_prompt
         @entry = entry
         @history = history
@@ -43,7 +42,7 @@ module Evidence
       end
 
       def cleaned_results
-        return nil if response&.body&.nil?
+        return nil if response&.body.nil?
 
         @cleaned_results ||= JSON.parse(result_json_string)
       end

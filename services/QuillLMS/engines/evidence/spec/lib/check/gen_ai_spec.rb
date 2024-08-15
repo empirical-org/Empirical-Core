@@ -16,7 +16,7 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
 
   before do
     allow(Evidence::GenAI::SystemPromptBuilder).to receive(:run).and_return(system_prompt)
-    allow(Evidence::OpenAI::Chat).to receive(:run).and_return(primary_response, secondary_response)
+    allow(Evidence::Check::GenAI::CHAT_API).to receive(:run).and_return(primary_response, secondary_response)
     allow(Evidence::GenAI::ResponseBuilder).to receive(:run).and_return(response)
     allow(Evidence::GenAI::RepeatedFeedbackChecker).to receive(:run).and_return(false)
   end
@@ -101,8 +101,8 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
 
       it 'returns the correct history items' do
         expected_history = [
-          Evidence::OpenAI::Chat::HistoryItem.new(user: 'History entry 1', assistant: 'History feedback 1'),
-          Evidence::OpenAI::Chat::HistoryItem.new(user: 'History entry 2', assistant: 'History feedback 2')
+          Evidence::GenAI::HistoryItem.new(user: 'History entry 1', assistant: 'History feedback 1'),
+          Evidence::GenAI::HistoryItem.new(user: 'History entry 2', assistant: 'History feedback 2')
         ]
         expect(subject.send(:session_history)).to eq(expected_history)
       end
