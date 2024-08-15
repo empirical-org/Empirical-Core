@@ -4,7 +4,7 @@ module Evidence
   module GenAI
     class RepeatedFeedbackPromptBuilder < PromptBuilder
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/repeated_feedback_prompts/'
-      DEFAULT_TEMPLATE = '2024_08_15_ask_identical.md'
+      DEFAULT_TEMPLATE = '2024_08_15_identical_with_examples.md'
 
       private def template_variables = { feedback_history: }
 
