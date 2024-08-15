@@ -31,10 +31,12 @@ module Evidence
           'optimal_examples' => ->(builder, _) { builder.optimal_examples },
           'suboptimal_examples' => ->(builder, _) { builder.suboptimal_examples },
           'optimal_guidelines' => ->(builder, _) { builder.optimal_guidelines },
-          'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines }
+          'suboptimal_guidelines' => ->(builder, _) { builder.suboptimal_guidelines },
+          'optimal_student_responses' => ->(builder, _) { builder.optimal_student_responses },
+          'suboptimal_student_responses' => ->(builder, _) { builder.suboptimal_student_responses }
         }.freeze
 
-        GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |name|
+        GENERAL_SUBSTITUTIONS = PromptTemplateVariable::NAMES.index_with do |_name|
           ->(builder, id) { builder.prompt_template_variable(id) }
         end
 
@@ -74,6 +76,9 @@ module Evidence
 
         def optimal_guidelines = guidelines.optimal.map(&:text).join("\n")
         def suboptimal_guidelines = guidelines.suboptimal.map(&:text).join("\n")
+
+        def optimal_student_responses = prompt_examples.optimal.map { |eg| "- #{eg.student_response}" }.join("\n")
+        def suboptimal_student_responses = prompt_examples.suboptimal.map { |eg| "- #{eg.student_response}" }.join("\n")
 
         def prompt_template_variable(id) = PromptTemplateVariable.find(id).value
 

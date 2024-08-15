@@ -689,7 +689,7 @@ describe Activity, type: :model, redis: true do
       Rails.cache.clear
       expect(Recommendation).to receive(:all).with(any_args).once.and_call_original
 
-      2.times do |i|
+      2.times do |_i|
         expect(Activity.activity_with_recommendations_ids).to eq([recommendation1.activity_id, recommendation2.activity_id])
       end
     end

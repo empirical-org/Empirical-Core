@@ -42,7 +42,7 @@ module SegmentIntegration
         admin_linkedin_or_url: admin_verification_url,
         number_of_schools_administered: schools_admins.any? ? schools_admins.count : nil,
         number_of_districts_administered: district_admins.any? ? district_admins.count : nil,
-        admin_report_subscriptions: premium_admin? ? admin_report_filter_selections.segment_admin_report_subscriptions : nil
+        admin_report_subscriptions: premium_admin? ? segment_admin_report_subscriptions.join(', ') : nil
       }.reject { |_, v| v.nil? }
     end
     # rubocop:enable Metrics/CyclomaticComplexity

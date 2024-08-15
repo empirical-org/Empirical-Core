@@ -14,8 +14,8 @@ class AddFunctionTimespentStudent < ActiveRecord::Migration[4.2]
   end
 
   def down
-    connection.execute(%q{
+    connection.execute(%q(
       DROP FUNCTION timespent_student;
-    })
+    ))
   end
 end

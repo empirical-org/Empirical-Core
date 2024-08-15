@@ -68,7 +68,9 @@ interface PlayGrammarContainerProps {
   isOnMobile: boolean;
   handleTogglePreviewMenu: () => void;
   updateLanguage: () => void;
-  languageOptions: DropdownObjectInterface[];
+  availableLanguages: string[];
+  language?: string;
+  t: (language: string) => string;
 }
 
 export class PlayGrammarContainer extends React.Component<PlayGrammarContainerProps, PlayGrammarContainerState> {
@@ -336,7 +338,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
       const { showTurkCode, saving, } = this.state
-      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, languageOptions, updateLanguage, language } = this.props
+      const { dispatch, grammarActivities, session, concepts, conceptsFeedback, previewMode, questions, handleToggleQuestion, isOnMobile, handleTogglePreviewMenu, availableLanguages, updateLanguage, language, translate } = this.props
       if (showTurkCode) {
         return <TurkCodePage />
       }
@@ -348,6 +350,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             <QuestionComponent
               activity={grammarActivities ? grammarActivities.currentActivity : null}
               answeredQuestions={session.answeredQuestions}
+              availableLanguages={availableLanguages}
               checkAnswer={this.checkAnswer}
               concepts={concepts}
               conceptsFeedback={conceptsFeedback}
@@ -357,21 +360,22 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
               handleTogglePreviewMenu={handleTogglePreviewMenu}
               handleToggleQuestion={handleToggleQuestion}
               isOnMobile={isOnMobile}
+              language={language}
               previewMode={previewMode}
               questions={questions}
               questionSet={session.questionSet}
+              translate={translate}
               unansweredQuestions={session.unansweredQuestions}
             />
           )
         }
         if (saving || (!grammarActivities && !proofreaderSessionId)) { return <LoadingSpinner /> }
 
-        if (languageOptions && hasTranslationFlag() && !language) {
-          const languages = languageOptions.map(language => language.value)
+        if (availableLanguages && hasTranslationFlag() && !language) {
           return (
             <LanguageSelectionPage
               dispatch={dispatch}
-              languages={languages}
+              languages={availableLanguages}
               previewMode={previewMode}
               setLanguage={updateLanguage}
             />
@@ -381,10 +385,12 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         return(
           <Intro
             activity={grammarActivities.currentActivity}
+            availableLanguages={availableLanguages}
             language={session?.language}
             previewMode={previewMode}
             session={session}
             startActivity={this.goToNextQuestion}
+            translate={translate}
           />
         )
       }

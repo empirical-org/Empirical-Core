@@ -9,9 +9,9 @@ describe LessonPlanner::UnitSerializer, type: :serializer do
 
   it_behaves_like 'serializer' do
     let!(:record_instance) { create(:unit) }
-    let!(:expected_serialized_keys) { %w(id name selectedActivities classrooms dueDates) }
-    let!(:nested_hash_keys) { %w(dueDates) }
-    let!(:neseted_array_keys) { %w(selectedActivities classrooms) }
+    let!(:expected_serialized_keys) { %w[id name selectedActivities classrooms dueDates] }
+    let!(:nested_hash_keys) { %w[dueDates] }
+    let!(:neseted_array_keys) { %w[selectedActivities classrooms] }
   end
 
   context 'unit with nontrivial data' do

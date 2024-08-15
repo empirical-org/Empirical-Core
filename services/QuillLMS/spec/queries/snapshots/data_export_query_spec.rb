@@ -94,7 +94,7 @@ module Snapshots
         it { expect(results.count).to eq 10 }
 
         it 'each row contains the expected fields' do
-          expected_fields = %i(
+          expected_fields = %i[
             student_name
             student_email
             completed_at
@@ -108,7 +108,7 @@ module Snapshots
             classroom_grade
             teacher_name
             classroom_name
-          )
+          ]
 
           results.each do |row|
             expect(row.keys.to_set > expected_fields.to_set).to be true

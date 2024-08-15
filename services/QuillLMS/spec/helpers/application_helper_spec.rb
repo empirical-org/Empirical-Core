@@ -20,7 +20,7 @@ describe ApplicationHelper do
 
   describe '#pages' do
     it 'should return the correct array' do
-      expect(pages).to eq %w{home the_peculiar_institution democracy_in_america aggregation}
+      expect(pages).to eq %w[home the_peculiar_institution democracy_in_america aggregation]
     end
   end
 

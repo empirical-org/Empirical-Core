@@ -27,7 +27,7 @@ module Evidence
 
     MIN_TEXT_LENGTH = 10
     MAX_TEXT_LENGTH = 255
-    CONJUNCTIONS = %w(because but so)
+    CONJUNCTIONS = %w[because but so]
     DEFAULT_MAX_ATTEMPTS = 5
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6
@@ -94,11 +94,13 @@ module Evidence
         .uniq
     end
 
+    # TODO: add caching for demo, very slow
     def optimal_samples(limit: OPTIMAL_SAMPLE_COUNT)
       Evidence.feedback_history_class
         .optimal_sample(prompt_id: id, limit:)
     end
 
+    # TODO: add caching for demo, very slow
     def suboptimal_samples(limit: SUBOPTIMAL_SAMPLE_COUNT, offset: 0)
       Evidence.feedback_history_class
         .suboptimal_sample(prompt_id: id, limit:, offset:)

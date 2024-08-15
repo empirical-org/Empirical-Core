@@ -70,7 +70,7 @@ module Teachers
       @element = element
     end
 
-    %i(first_name last_name username).each do |attrib|
+    %i[first_name last_name username].each do |attrib|
       line_no = __LINE__; str = %{
         def #{attrib}
           @element.find('td.#{attrib}').text

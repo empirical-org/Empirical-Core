@@ -128,7 +128,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @prompt_examples.unscoped.optimal.order(:student_response).each do |prompt_example| %>
+        <% @prompt_examples.optimal.sort_by(&:student_response).each do |prompt_example| %>
           <tr>
             <td>
               <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>
@@ -165,7 +165,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @prompt_examples.unscoped.suboptimal.order(:student_response).each do |prompt_example| %>
+        <% @prompt_examples.suboptimal.sort_by(&:student_response).each do |prompt_example| %>
           <tr>
             <td>
               <%= f.check_box :prompt_example_ids, { multiple: true }, prompt_example.id, nil %>

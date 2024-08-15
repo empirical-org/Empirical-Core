@@ -6,7 +6,7 @@ module AdminDiagnosticReports
 
     DEFAULT_TIMEFRAME = 'this-school-year'
     DEFAULT_AGGREGATION = 'grade'
-    DEFAULT_DIAGNOSTIC_ID = 1663
+    DEFAULT_DIAGNOSTIC_ID = Activity::STARTER_DIAGNOSTIC_ACTIVITY_ID
 
     def initialize(user_id, shared_filters_name, specific_filters_name)
       @user_id = user_id

@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
   let(:url) { 'http://example.com/schools' }
-  let(:response_body) do
+
+  def generate_response_body(overrides = {})
     {
       'results' => [
         {
@@ -31,16 +32,14 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
           'direct_certification' => '50',
           'enrollment' => '200',
           'leaid' => '654321'
-        }
+        }.merge(overrides)
       ],
       'next' => nil
     }.to_json
   end
 
-  let(:response_school) { JSON.parse(response_body)['results'][0] }
-
   before do
-    stub_request(:get, url).to_return(body: response_body, headers: { 'Content-Type' => 'application/json' })
+    stub_request(:get, url).to_return(body: generate_response_body, headers: { 'Content-Type' => 'application/json' })
   end
 
   it 'enqueues the worker' do
@@ -57,6 +56,7 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
     }.to change(School, :count).by(1)
 
     school = School.last
+    response_school = JSON.parse(generate_response_body)['results'][0]
 
     expect(school.name).to eq(response_school['school_name'])
     expect(school.nces_id).to eq(response_school['ncessch_num'])
@@ -93,6 +93,7 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
     }.not_to change(School, :count)
 
     school.reload
+    response_school = JSON.parse(generate_response_body)['results'][0]
 
     expect(school.name).to eq(original_school_name) # name should not be updated
     expect(school.nces_id).to eq(response_school['ncessch_num'])
@@ -118,4 +119,49 @@ RSpec.describe SyncSchoolDataFromUrlWorker, type: :worker do
     expect(school.total_students).to eq(response_school['enrollment'].to_i)
     expect(school.district_id).to eq(district.id)
   end
+
+  shared_examples 'calculates percentage correctly' do |attribute, database_attribute, divisor, expected_value|
+    it "calculates #{attribute} percentage correctly" do
+      response_body = generate_response_body({ attribute => divisor, 'enrollment' => '200' })
+      stub_request(:get, url).to_return(body: response_body, headers: { 'Content-Type' => 'application/json' })
+
+      SyncSchoolDataFromUrlWorker.new.perform(url)
+      school = School.last
+
+      expect(school.send(database_attribute)).to eq(expected_value)
+    end
+  end
+
+  include_examples 'calculates percentage correctly', 'free_or_reduced_price_lunch', 'free_lunches', '50', 25 # 50/200*100 = 25%
+  include_examples 'calculates percentage correctly', 'direct_certification', 'direct_certification', '100', 50 # 100/200*100 = 50%
+
+  shared_examples 'handles zero enrollment' do |attribute, database_attribute|
+    it "handles cases where enrollment is zero for #{attribute}" do
+      response_body = generate_response_body({ attribute => '100', 'enrollment' => '0' })
+      stub_request(:get, url).to_return(body: response_body, headers: { 'Content-Type' => 'application/json' })
+
+      SyncSchoolDataFromUrlWorker.new.perform(url)
+      school = School.last
+
+      expect(school.send(database_attribute)).to be_nil
+    end
+  end
+
+  include_examples 'handles zero enrollment', 'free_or_reduced_price_lunch', 'free_lunches'
+  include_examples 'handles zero enrollment', 'direct_certification', 'direct_certification'
+
+  shared_examples 'handles nil value for attribute' do |attribute, database_attribute|
+    it "handles cases where #{attribute} is nil" do
+      response_body = generate_response_body({ attribute => nil, 'enrollment' => '100' })
+      stub_request(:get, url).to_return(body: response_body, headers: { 'Content-Type' => 'application/json' })
+
+      SyncSchoolDataFromUrlWorker.new.perform(url)
+      school = School.last
+
+      expect(school.send(database_attribute)).to be_nil
+    end
+  end
+
+  include_examples 'handles nil value for attribute', 'free_or_reduced_price_lunch', 'free_lunches'
+  include_examples 'handles nil value for attribute', 'direct_certification', 'direct_certification'
 end

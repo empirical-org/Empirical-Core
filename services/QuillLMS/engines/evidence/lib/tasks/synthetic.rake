@@ -10,7 +10,7 @@ namespace :synthetic do
   # Some conjunctions (NB: don't leave spaces after commas)
   # Run: bundle exec rake synthetic:generate_seed_data\[262,1,'but','so'\]
   desc 'generate seed data to local files'
-  task :generate_seed_data, [:activity_id, :run_number] => :environment do |t, args|
+  task :generate_seed_data, [:activity_id, :run_number] => :environment do |_t, args|
     activity_id = args[:activity_id]
     run_number = args[:run_number]
     conjunctions = args.extras.presence || Evidence::Synthetic::SeedDataGenerator::CONJUNCTIONS
@@ -33,7 +33,7 @@ namespace :synthetic do
 
   # Run: bundle exec rake synthetic:generate_labeled_data\['/Users/danieldrabik/Dropbox/quill/synthetic_surge_sample.csv',133, 1\]
   desc 'generate labeled data from a local file'
-  task :generate_labeled_data, [:filepath, :prompt_id, :run_number] => :environment do |t, args|
+  task :generate_labeled_data, [:filepath, :prompt_id, :run_number] => :environment do |_t, args|
     filepath = args[:filepath]
     prompt_id = args[:prompt_id]
     run_number = args[:run_number]

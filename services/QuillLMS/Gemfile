@@ -109,7 +109,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 # API
 gem 'active_model_serializers', '~> 0.10.13'
-gem 'graphql'
+gem 'graphql', '~> 1.13.20'
 
 # UI HELPERS
 gem 'bootstrap-sass', '~> 3.4.1'
@@ -191,7 +191,8 @@ group :test, :development do
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'
-  gem 'rspec-rails'
+  gem 'rspec-core', '~> 3.12'
+  gem 'rspec-rails', '~> 6.0.4'
   gem 'rspec-redis_helper'
   gem 'rspec-retry'
   gem 'rubocop'

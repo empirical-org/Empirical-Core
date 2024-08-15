@@ -31,7 +31,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
       get :admin_show, params: { name: 'lorem' }, as: :json
 
       expect(response).to be_successful
-      expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w(a@b.com c@d.com))
+      expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w[a@b.com c@d.com])
     end
 
     it 'should handle users with nil emails gracefully' do
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
       get :admin_show, params: { name: 'lorem' }, as: :json
 
       expect(response).to be_successful
-      expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w(a@b.com))
+      expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w[a@b.com])
     end
 
     it 'should return the names of users without emails' do
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::AppSettingsController, type: :controller do
       get :admin_show, params: { name: 'lorem' }, as: :json
 
       expect(response).to be_successful
-      expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w(a@b.com))
+      expect(JSON.parse(response.body)['user_emails_in_allow_list']).to eq(%w[a@b.com])
       expect(JSON.parse(response.body)['users_without_emails']).to eq([user2.name])
     end
   end

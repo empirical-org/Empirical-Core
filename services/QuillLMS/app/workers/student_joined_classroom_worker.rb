@@ -3,7 +3,7 @@
 class StudentJoinedClassroomWorker
   include Sidekiq::Worker
 
-  def perform(teacher_id, student_id)
+  def perform(teacher_id, _student_id)
     teacher = User.find_by(id: teacher_id)
 
     # do in following order so we identify the teacher last

@@ -62,14 +62,14 @@ describe NavigationHelper do
     end
   end
 
-  describe '#my_activities_page_active?' do
+  describe '#manage_activities_page_active?' do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
       without_partial_double_verification { allow(helper).to receive(:action_name) { 'lesson_planner' } }
     end
 
     it 'should return true if classroom manager controller and lesson planner action' do
-      expect(helper.my_activities_page_active?).to eq true
+      expect(helper.manage_activities_page_active?).to eq true
     end
   end
 
@@ -185,10 +185,10 @@ describe NavigationHelper do
       [
         helper.home_tab,
         helper.overview_tab,
-        helper.my_classes_tab,
+        helper.manage_classes_tab,
         NavigationHelper::ASSIGN_ACTIVITIES_TAB,
-        helper.my_activities_tab,
-        helper.my_reports_tab
+        helper.manage_activities_tab,
+        helper.view_reports_tab
       ]
     end
 
@@ -325,26 +325,26 @@ describe NavigationHelper do
         expect(helper.determine_active_tab('assign')).to eq(NavigationHelper::ASSIGN_ACTIVITIES)
       end
 
-      it 'should return "My Activities" for relevant paths' do
-        expect(helper.determine_active_tab('teachers/classrooms/activity_planner')).to eq(NavigationHelper::MY_ACTIVITIES)
-        expect(helper.determine_active_tab('teachers/classrooms/activity_planner/closed')).to eq(NavigationHelper::MY_ACTIVITIES)
-        expect(helper.determine_active_tab('teachers/classrooms/activity_planner/lessons')).to eq(NavigationHelper::MY_ACTIVITIES)
+      it 'should return "Manage Activities" for relevant paths' do
+        expect(helper.determine_active_tab('teachers/classrooms/activity_planner')).to eq(NavigationHelper::MANAGE_ACTIVITIES)
+        expect(helper.determine_active_tab('teachers/classrooms/activity_planner/closed')).to eq(NavigationHelper::MANAGE_ACTIVITIES)
+        expect(helper.determine_active_tab('teachers/classrooms/activity_planner/lessons')).to eq(NavigationHelper::MANAGE_ACTIVITIES)
       end
 
-      it 'should return "My Reports" for relevant paths' do
-        expect(helper.determine_active_tab('teachers/progress_reports/landing_page')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/classrooms/scorebook')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/#/activity_packs')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/#/diagnostics')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/activities_scores_by_classroom')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/concepts/students')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/standards/classrooms')).to eq(NavigationHelper::MY_REPORTS)
-        expect(helper.determine_active_tab('teachers/progress_reports/activity_sessions')).to eq(NavigationHelper::MY_REPORTS)
+      it 'should return "View Reports" for relevant paths' do
+        expect(helper.determine_active_tab('teachers/progress_reports/landing_page')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/classrooms/scorebook')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/#/activity_packs')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/#/diagnostics')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/activities_scores_by_classroom')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/concepts/students')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/progress_reports/diagnostic_reports/standards/classrooms')).to eq(NavigationHelper::VIEW_REPORTS)
+        expect(helper.determine_active_tab('teachers/progress_reports/activity_sessions')).to eq(NavigationHelper::VIEW_REPORTS)
       end
 
-      it 'should return "My Classes" for relevant paths' do
-        expect(helper.determine_active_tab('teachers/classrooms')).to eq(NavigationHelper::MY_CLASSES)
-        expect(helper.determine_active_tab('teachers/classrooms/archived')).to eq(NavigationHelper::MY_CLASSES)
+      it 'should return "Manage Classes" for relevant paths' do
+        expect(helper.determine_active_tab('teachers/classrooms')).to eq(NavigationHelper::MANAGE_CLASSES)
+        expect(helper.determine_active_tab('teachers/classrooms/archived')).to eq(NavigationHelper::MANAGE_CLASSES)
       end
 
       it 'should return "Teacher Premium" for Teacher Premium path' do

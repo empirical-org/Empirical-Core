@@ -28,35 +28,6 @@ RSpec.describe AdminReportFilterSelection, type: :model, redis: true do
   it { should validate_presence_of(:filter_selections) }
   it { should validate_inclusion_of(:report).in_array(described_class::REPORTS) }
 
-  describe '.segment_admin_report_subscriptions' do
-    subject { described_class.segment_admin_report_subscriptions }
-
-    it { is_expected.to eq '' }
-
-    context 'when there are pdf subscriptions' do
-      let(:usage_snapshot) { described_class::SEGMENT_MAPPING[described_class::USAGE_SNAPSHOT_REPORT_PDF] }
-
-      before { create(:pdf_subscription) }
-
-      it { is_expected.to eq usage_snapshot }
-
-      context 'when the report type is not mapped to segment' do
-        let(:report) { described_class::USAGE_SNAPSHOT_REPORT }
-        let(:admin_report_filter_selection) { create(:admin_report_filter_selection, report:) }
-
-        before { create(:pdf_subscription, admin_report_filter_selection:) }
-
-        it { is_expected.to eq usage_snapshot }
-      end
-
-      context 'when there are multiple pdf subscriptions' do
-        before { create(:pdf_subscription) }
-
-        it { is_expected.to eq usage_snapshot }
-      end
-    end
-  end
-
   describe 'instance methods' do
     let(:admin_report_filter_selection) { build(:admin_report_filter_selection, :with_default_filters) }
     let(:filter_selections) { admin_report_filter_selection.filter_selections }
