@@ -39,7 +39,7 @@ describe ProgressReports::Standards::StandardSerializer, type: :serializer do
 
     it 'includes the right keys' do
       expect(parsed_standard.keys)
-        .to match_array %w(name
+        .to match_array %w[name
                            id
                            standard_level_name
                            total_student_count
@@ -50,7 +50,7 @@ describe ProgressReports::Standards::StandardSerializer, type: :serializer do
                            average_score
                            standard_students_href
                            mastery_status
-                           is_evidence)
+                           is_evidence]
     end
 
     it 'includes properly rounded scores' do

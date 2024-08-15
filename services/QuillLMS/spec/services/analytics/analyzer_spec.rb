@@ -45,7 +45,7 @@ describe Analytics::Analyzer do
         event: 'another_event',
         context: { ip: user.ip_address }
       })
-      subject.track_chain(user, %w{event another_event})
+      subject.track_chain(user, %w[event another_event])
     end
   end
 end

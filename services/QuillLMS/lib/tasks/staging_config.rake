@@ -66,7 +66,7 @@ namespace :staging_config do
     end
 
     STAGING_APP = 'empirical-grammar-staging'
-    STAGING_PERSONAL_APPS = %w(
+    STAGING_PERSONAL_APPS = %w[
       quill-lms-brendan
       quill-lms-cissy
       quill-lms-dan
@@ -74,7 +74,7 @@ namespace :staging_config do
       quill-lms-eric
       quill-lms-pkong
       quill-lms-thomas
-    )
+    ]
     ALL_STAGING_APPS = STAGING_PERSONAL_APPS + [STAGING_APP]
   end
 end

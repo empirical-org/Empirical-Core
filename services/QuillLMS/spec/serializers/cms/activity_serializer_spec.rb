@@ -8,7 +8,7 @@ describe Cms::ActivitySerializer do
     let(:result_key) { 'activity' }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         uid
         id
         name
@@ -22,7 +22,7 @@ describe Cms::ActivitySerializer do
         readability_grade_level
         unit_templates
         classification
-      }
+      ]
     end
   end
 end

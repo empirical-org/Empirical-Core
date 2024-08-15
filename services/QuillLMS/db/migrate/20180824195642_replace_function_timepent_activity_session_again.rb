@@ -62,8 +62,8 @@ class ReplaceFunctionTimepentActivitySessionAgain < ActiveRecord::Migration[4.2]
   end
 
   def down
-    connection.execute(%q{
+    connection.execute(%q(
       DROP FUNCTION timespent_activity_session;
-    })
+    ))
   end
 end
