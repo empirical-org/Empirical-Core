@@ -79,7 +79,7 @@ RSpec.describe Evidence::Gemini::Chat, type: :service do
           { 'role' => 'model', 'parts' => [{ 'text' => history.first.assistant }] },
           { 'role' => 'user', 'parts' => [{ 'text' => entry }] }
         ],
-        generationConfig: { temperature: temperature, responseMimeType: 'application/json' },
+        generationConfig: { temperature: temperature, response_mime_type: 'application/json' },
         safety_settings: Evidence::Gemini::Concerns::Api::SAFETY_SETTINGS
       }
     end
@@ -121,7 +121,7 @@ RSpec.describe Evidence::Gemini::Chat, type: :service do
 
     describe '#generation_config' do
       it 'returns the correct generation config' do
-        expect(subject.send(:generation_config)).to eq({ temperature: temperature, responseMimeType: 'application/json' })
+        expect(subject.send(:generation_config)).to eq({ temperature: temperature, response_mime_type: 'application/json' })
       end
     end
 
