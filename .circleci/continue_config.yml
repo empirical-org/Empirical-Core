@@ -166,7 +166,7 @@ jobs:
                   echo 'hi'
             - run:
                 name: Start services with Foreman
-                command: foreman start -f Procfile.ci
+                command: cd services/QuillLMS && foreman start -f Procfile.ci
                 background: true
             - run:
                 name: Wait for Rails server
