@@ -15,12 +15,12 @@
 #
 
 class CsvExport < ApplicationRecord
-  EXPORT_TYPE_OPTIONS = %w(activity_sessions
+  EXPORT_TYPE_OPTIONS = %w[activity_sessions
                            standards_classrooms
                            standards_classroom_students
                            standards_classroom_standards
                            standards_student_standards
-                           standards_standard_students)
+                           standards_standard_students]
 
   belongs_to :teacher, class_name: 'User'
 

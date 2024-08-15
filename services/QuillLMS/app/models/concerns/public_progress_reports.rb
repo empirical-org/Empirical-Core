@@ -122,7 +122,7 @@ module PublicProgressReports
 
       # TODO: change the diagnostic reports so they take in a hash of classrooms -- this is just
       # being converted to an array because that is what the diagnostic reports expect
-      h.map { |k, v| v }
+      h.map { |_k, v| v }
     else
       []
     end
@@ -249,7 +249,7 @@ module PublicProgressReports
   def format_activity_session_for_tooltip(activity_session, user)
     questions = activity_session.concept_results.group_by { |cr| cr.question_number }
 
-    key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, activity_session) }
+    key_target_skill_concepts = questions.map { |_key, question| get_key_target_skill_concept_for_question(question, activity_session) }
 
     correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
 
@@ -270,7 +270,7 @@ module PublicProgressReports
   def format_grouped_key_target_skill_concepts(key_target_skill_concepts)
     key_target_skill_concepts
       .group_by { |ktsc| ktsc[:name] }
-      .map do |key, key_target_skill_group|
+      .map do |_key, key_target_skill_group|
         {
           name: key_target_skill_group.first[:name],
           correct: key_target_skill_group.filter { |ktsc| ktsc[:correct] }.length,
@@ -288,7 +288,7 @@ module PublicProgressReports
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def format_concept_results(activity_session, concept_results)
-    concept_results.group_by { |cr| cr.question_number }.map { |key, cr|
+    concept_results.group_by { |cr| cr.question_number }.map { |_key, cr|
       # if we don't sort them, we can't rely on the first result being the first attemptNum
       # however, it would be more efficient to make them a hash with attempt numbers as keys
       cr.sort! { |x, y| (x.attempt_number || 0) <=> (y.attempt_number || 0) }
@@ -371,7 +371,7 @@ module PublicProgressReports
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def generate_recommendations_for_classroom(current_user, unit_id, classroom_id, activity_id)
+  def generate_recommendations_for_classroom(_current_user, unit_id, classroom_id, activity_id)
     set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id)
     diagnostic = Activity.find(activity_id)
     activity_sessions_counted = activity_sessions_with_counted_concepts(@activity_sessions)

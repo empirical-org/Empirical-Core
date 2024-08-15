@@ -63,23 +63,23 @@ class EgFormBuilder < CMS::FormBuilder
     text(name, options.merge(label: options[:label], append: counter))
   end
 
-  def boolean(*args, **options)
+  def boolean(*args, **_options)
     field :boolean, *_apply_default_options(args, label_first: false)
   end
 
-  def string(*args, **options)
+  def string(*args, **_options)
     field :string, *args
   end
 
-  def search(*args, **options)
+  def search(*args, **_options)
     field :search, *args
   end
 
-  def text(*args, **options)
+  def text(*args, **_options)
     field :text, *args
   end
 
-  def email(*args, **options)
+  def email(*args, **_options)
     field :email, *args
   end
 
@@ -87,7 +87,7 @@ class EgFormBuilder < CMS::FormBuilder
     field :password, *args, **options
   end
 
-  def hidden(*args, **options)
+  def hidden(*args, **_options)
     field :hidden, *_apply_default_options(args, label: false, wrap_field: false)
   end
 
@@ -158,7 +158,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def field(*args, **kwargs, &block)
+  def field(*args, **_kwargs)
     type, name, options = _extract_field_args(args)
     out = ''.html_safe
 

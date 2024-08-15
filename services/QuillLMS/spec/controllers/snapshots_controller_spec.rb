@@ -46,7 +46,7 @@ describe SnapshotsController, type: :controller do
       let(:grades) { ['Kindergarten', '1'] }
       let(:teacher_ids) { ['4', '5'] }
       let(:classroom_ids) { ['7', '8'] }
-      let(:headers_to_display) { %w(student_name student_email) }
+      let(:headers_to_display) { %w[student_name student_email] }
 
       before do
         allow(Snapshots::Timeframes).to receive(:calculate_timeframes).and_return(timeframes)

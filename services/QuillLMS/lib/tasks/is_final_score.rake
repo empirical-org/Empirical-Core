@@ -6,7 +6,7 @@ namespace :activity_sessions do
     User.find_each do |user|
       a = user.activity_sessions.where('completed_at IS NOT NULL and percentage IS NOT NULL').group_by(&:activity_id)
 
-      a.each do |aid, ass|
+      a.each do |_aid, ass|
         x1 = ass.max_by { |x| x.percentage }
         x1.update_columns is_final_score: true
 

@@ -158,7 +158,7 @@ concepts.each do |c|
 end
 
 CSV.open('organized_data.csv', 'wb') do |new_csv|
-  headers = %w(name uid rule_number grades_proofreader_activities grades_grammar_activities grades_connect_activities categorized_connect_questions part_of_diagnostic_recommendations)
+  headers = %w[name uid rule_number grades_proofreader_activities grades_grammar_activities grades_connect_activities categorized_connect_questions part_of_diagnostic_recommendations]
   new_csv << headers
   organized_concepts.each do |oc|
     new_csv << headers.map { |attr| oc[attr] }

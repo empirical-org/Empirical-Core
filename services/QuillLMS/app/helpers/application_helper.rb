@@ -7,10 +7,10 @@ module ApplicationHelper
   end
 
   def pages
-    %w(home
+    %w[home
        the_peculiar_institution
        democracy_in_america
-       aggregation)
+       aggregation]
   end
 
   def question_section

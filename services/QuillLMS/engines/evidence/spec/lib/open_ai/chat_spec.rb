@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Evidence::OpenAI::Chat, type: :service do
   let(:system_prompt) { 'You are a helpful assistant.' }
   let(:entry) { 'What is the capital of France?' }
-  let(:history) { [described_class::HistoryItem.new(user: 'Tell me a joke.', assistant: 'Why did the chicken cross the road?')] }
+  let(:history) { [Evidence::GenAI::HistoryItem.new(user: 'Tell me a joke.', assistant: 'Why did the chicken cross the road?')] }
   let(:temperature) { 0.7 }
   let(:json_response) { '{"answer" : "The capital of France is Paris."}' }
   let(:body) { { 'choices' => [{ 'message' => { 'content' => json_response } }] }.to_json }

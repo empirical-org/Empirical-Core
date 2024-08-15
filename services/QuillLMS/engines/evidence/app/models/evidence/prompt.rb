@@ -27,7 +27,7 @@ module Evidence
 
     MIN_TEXT_LENGTH = 10
     MAX_TEXT_LENGTH = 255
-    CONJUNCTIONS = %w(because but so)
+    CONJUNCTIONS = %w[because but so]
     DEFAULT_MAX_ATTEMPTS = 5
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6

@@ -4,7 +4,7 @@ class PremiumAnalyticsWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  def perform(id, account_type)
+  def perform(id, _account_type)
     @user = User.find_by_id(id)
     return unless @user
 

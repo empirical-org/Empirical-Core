@@ -11,7 +11,7 @@ class AdminsController < ApplicationController
   before_action :admin!
 
   before_action :set_teacher, :admin_of_this_teacher!,
-    only: %w{
+    only: %w[
       resend_login_details
       remove_as_admin
       make_admin
@@ -19,14 +19,14 @@ class AdminsController < ApplicationController
       sign_in_classroom_manager
       sign_in_progress_reports
       sign_in_account_settings
-    }
+    ]
 
   before_action :sign_in,
-    only: %w{
+    only: %w[
       sign_in_classroom_manager
       sign_in_progress_reports
       sign_in_account_settings
-    }
+    ]
 
   def show
     serialized_admin_users_json = $redis.get("#{SchoolsAdmins::ADMIN_USERS_CACHE_KEY_STEM}#{current_user.id}")

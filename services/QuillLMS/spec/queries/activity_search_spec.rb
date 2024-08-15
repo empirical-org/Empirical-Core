@@ -7,8 +7,8 @@ describe ActivitySearch do
     let!(:activity_classification) { create(:activity_classification) }
     let!(:standard) { create(:standard) }
     let!(:standard_level) { create(:standard_level) }
-    let!(:activity) { create(:activity, activity_categories: [], flags: %w{beta production}, activity_classification_id: activity_classification.id, standard: standard, standard_level: standard_level) }
-    let!(:beta_flagset_activity) { create(:activity, activity_categories: [], name: 'special activity', flags: %w{evidence_beta1}, activity_classification_id: activity_classification.id, standard: standard, standard_level: standard_level) }
+    let!(:activity) { create(:activity, activity_categories: [], flags: %w[beta production], activity_classification_id: activity_classification.id, standard: standard, standard_level: standard_level) }
+    let!(:beta_flagset_activity) { create(:activity, activity_categories: [], name: 'special activity', flags: %w[evidence_beta1], activity_classification_id: activity_classification.id, standard: standard, standard_level: standard_level) }
     let!(:activity_category) { create(:activity_category) }
     let!(:activity_category_activity) { create(:activity_category_activity, activity_category: activity_category, activity: activity) }
     let!(:content_partner) { create(:content_partner) }

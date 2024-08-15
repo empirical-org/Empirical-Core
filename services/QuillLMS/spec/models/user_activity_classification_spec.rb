@@ -69,7 +69,7 @@ RSpec.describe UserActivityClassification, type: :model do
         wait_to_start = true
         failure_in_thread = false
 
-        threads = call_count.times.map do |i|
+        threads = call_count.times.map do |_i|
           Thread.new do
             true while wait_to_start
             begin

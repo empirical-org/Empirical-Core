@@ -331,7 +331,7 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
       Benchmark.bm do |x|
         x.report do
           uids = ActiveActivitySession.all.pluck(:uid)
-          uids.each do |uid|
+          uids.each do |_uid|
             put :update, params: { id: active_activity_session.uid, active_activity_session: update_payload }, as: :json
           end
         end

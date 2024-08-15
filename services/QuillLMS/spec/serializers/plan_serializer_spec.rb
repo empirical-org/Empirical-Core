@@ -25,11 +25,11 @@ describe PlanSerializer, type: :serializer do
     let(:record_instance) { create(:plan) }
 
     let(:expected_serialized_keys) do
-      %w(
+      %w[
         display_name
         price_in_dollars
         stripe_price_id
-      )
+      ]
     end
   end
 end

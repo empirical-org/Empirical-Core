@@ -162,7 +162,7 @@ class GetConceptsInUseIndividualConceptWorker
     begin
       $redis.watch('CONCEPTS_IN_USE')
       concepts_in_use = JSON.parse($redis.get('CONCEPTS_IN_USE'))
-      headers = %w(name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions part_of_diagnostic_recommendations last_retrieved)
+      headers = %w[name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions part_of_diagnostic_recommendations last_retrieved]
       @organized_concepts.each do |oc|
         concepts_in_use << headers.map do |attr|
           if oc[attr].is_a?(Array)

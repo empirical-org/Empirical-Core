@@ -45,7 +45,7 @@ class SignUpPage < Page
     submit_form
   end
 
-  def select_school(choose_unlisted_school)
+  def select_school(_choose_unlisted_school)
     # choose_unlisted_school is deprecated, and this method now
     # simply selects the the user is not a member of any school.
     # page.has_content?('not listed')
