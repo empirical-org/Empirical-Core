@@ -13,6 +13,7 @@ module Evidence
 
           trial = Trial.find(trial_id)
           trial.update_results(confusion_matrix: ConfusionMatrixBuilder.run(trial.llm_examples))
+          trial.update(evaluation_start_time: Time.zone.now.to_s)
           GEvalScoresFetcher.run(trial)
         end
       end

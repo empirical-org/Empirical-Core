@@ -51,7 +51,9 @@ module Evidence
           :api_call_times,
           :confusion_matrix,
           :g_eval_ids,
-          :g_evals
+          :g_evals,
+          :trial_start_time,
+          :evaluation_start_time
 
         attr_readonly :llm_id, :llm_prompt_id, :dataset_id
 
@@ -78,11 +80,11 @@ module Evidence
         def run
           return unless pending?
 
-          start_time = Time.zone.now
+          update!(trial_start_time: Time.zone.now)
           update!(status: RUNNING)
 
           batch = Sidekiq::Batch.new
-          batch.on(:complete, self.class, trial_id: id, trial_errors:)
+          batch.on(:complete, self.class, trial_id: id)
 
           batch.jobs do
             test_examples.each do |test_example|
@@ -92,8 +94,6 @@ module Evidence
         rescue => e
           trial_errors << e.message
           update!(status: FAILED)
-        ensure
-          update!(trial_duration: Time.zone.now - start_time)
         end
 
         def update_results(new_data)
@@ -111,8 +111,9 @@ module Evidence
 
         private def on_complete(status, options)
           trial = Trial.find(options['trial_id'])
+          trial.update(trial_duration: Time.zone.now - trial.trial_start_time)
           CalculateResultsWorker.perform_async(options['trial_id'])
-          trial_errors.empty? ? trial.update!(status: COMPLETED) : trial.update!(status: FAILED)
+          trial.trial_errors.empty? ? trial.update!(status: COMPLETED) : trial.update!(status: FAILED)
         end
       end
     end
