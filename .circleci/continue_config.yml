@@ -171,9 +171,9 @@ jobs:
             - run:
                 name: Wait for Rails server
                 command: |
-                  for i in {1..10}
+                  for i in {1..20}
                   do
-                    nc -z localhost 3000 && echo Success && exit 0
+                    nc -z localhost 5000 && echo Success && exit 0
                     echo -n .
                     sleep 1
                   done
