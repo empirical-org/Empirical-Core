@@ -220,12 +220,12 @@ class GenAITasks < Thor
           activity_id: fs.activity_id,
           prompt_id: fs.prompt_id,
           original: fs.primary,
-          different: full_set.select {|f| f.prompt_id == fs.prompt_id && f.rule_id != fs.rule_id}.sample.primary,
+          different: full_set.select { |f| f.prompt_id == fs.prompt_id && f.rule_id != fs.rule_id }.sample.primary,
           paraphrase: paraphrase(fs.primary)
         )
       }
 
-    CSV.open(repeated_folder + 'all.csv', 'wb') do |csv|
+    CSV.open("#{repeated_folder}all.csv", 'wb') do |csv|
       csv << Repeated.members.map(&:to_s)
       new_data.each { |data| csv << data.deconstruct }
     end
@@ -234,18 +234,18 @@ class GenAITasks < Thor
   # bundle exec thor gen_a_i_tasks:generate_repeated_test_files
   desc "generate_repeated_test_files", 'Generate test.csv and train.csv files from all.csv'
   def generate_repeated_test_files
-    csv_data = CSV.read(repeated_folder + 'all.csv', headers: true)
-    full_set = csv_data.map {|d| Repeated.new(**d) }
+    csv_data = CSV.read("#{repeated_folder}all.csv", headers: true)
+    full_set = csv_data.map { |d| Repeated.new(**d) }
 
     test_set = full_set.select { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
     train_set = full_set.reject { |f| f.activity_id.to_i.in?(TEST_SET_ACTIVITY_IDS) }
 
-    CSV.open(repeated_folder + 'test.csv', 'wb') do |csv|
+    CSV.open("#{repeated_folder}test.csv", 'wb') do |csv|
       csv << Repeated.members.map(&:to_s)
       test_set.each { |data| csv << data.deconstruct }
     end
 
-    CSV.open(repeated_folder + 'train.csv', 'wb') do |csv|
+    CSV.open("#{repeated_folder}train.csv", 'wb') do |csv|
       csv << Repeated.members.map(&:to_s)
       train_set.each { |data| csv << data.deconstruct }
     end
@@ -256,8 +256,8 @@ class GenAITasks < Thor
   # bundle exec thor gen_a_i_tasks:repeated_feedback_test 2
   desc "repeated_feedback_test limit", 'Test a number or entries from the test.csv file'
   def repeated_feedback_test(limit = 150)
-    csv_data = CSV.read(repeated_folder + 'test.csv', headers: true)
-    test_set = csv_data.first(limit.to_i).map {|d| Repeated.new(**d) }
+    csv_data = CSV.read("#{repeated_folder}test.csv", headers: true)
+    test_set = csv_data.first(limit.to_i).map { |d| Repeated.new(**d) }
 
     results = []
 
@@ -272,8 +272,8 @@ class GenAITasks < Thor
       results << RepeatedResult.new(**params)
     end
     total = results.size
-    different_correct = results.count {|r| !r.repeated_different }
-    paraphrase_correct = results.count {|r| r.repeated_paraphrase }
+    different_correct = results.count { |r| !r.repeated_different }
+    paraphrase_correct = results.count { |r| r.repeated_paraphrase }
 
     puts "Difference: #{different_correct}/#{total} | #{((different_correct / total.to_f) * 100).round(2)}"
     puts "Similar: #{paraphrase_correct}/#{total} | #{((paraphrase_correct / total.to_f) * 100).round(2)}"
@@ -283,8 +283,6 @@ class GenAITasks < Thor
       results.each { |data| csv << data.deconstruct }
     end
   end
-
-
 
   # bundle exec thor gen_a_i_tasks:secondary_prompt_entry 753 'Keep revising! Try to be even more specific. What did Black South African students do to show that they opposed segregated schools?  Read the highlighted text for ideas.'
   desc "secondary_prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
@@ -379,7 +377,6 @@ class GenAITasks < Thor
     TEST_SET_ACTIVITY_IDS = [467, 460, 442, 435, 431, 387]
     SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
     GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root.join('/lib/data/'))
-
 
     private def repeated_feedback?(feedback, history)
       system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt: nil, history:)
