@@ -4,7 +4,7 @@ module Evidence
   module Research
     module GenAI
       class ActivitiesController < ApplicationController
-        def index = @activities = Activity.all
+        def index = @activities = Activity.all.order(created_at: :desc)
 
         def new = @activity = Activity.new
 

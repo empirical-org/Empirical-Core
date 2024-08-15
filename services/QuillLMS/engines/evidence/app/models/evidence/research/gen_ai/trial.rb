@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  evaluation_duration :float
+#  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
 #  trial_duration      :float
@@ -56,6 +57,8 @@ module Evidence
 
         attr_accessor :guideline_ids, :llm_prompt_template_id, :prompt_example_ids, :g_eval_id
 
+        before_create :set_trial_number
+
         def pending? = status == PENDING
         def failed? = status == FAILED
         def running? = status == RUNNING
@@ -95,6 +98,11 @@ module Evidence
         end
 
         def retry_params = { llm_id:, llm_prompt_id:, dataset_id: }
+
+        private def set_trial_number
+          last_trial_number = self.class.where(dataset_id:).maximum(:number) || 0
+          self.number = last_trial_number + 1
+        end
 
         private def query_llm
           [].tap do |api_call_times|

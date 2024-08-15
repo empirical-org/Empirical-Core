@@ -31,7 +31,7 @@
           <th class='dark-border-top-bottom'></th>
           <th class="dark-border-top-bottom-right trial-column">
             <div style='font-size: 0.7em'>
-              Trial <%= trial.id %>
+              <%= link_to "Trial #{trial.number}", research_gen_ai_dataset_trial_path(@dataset, trial) %></td>
               <ul style='list-style-type: none; padding: 0;'>
                 <li>Model: <%= trial.llm.version %></li>
                 <li>
@@ -43,6 +43,10 @@
                   Examples:
                   <%= llm_prompt.optimal_examples_count %> Optimal,
                   <%= llm_prompt.suboptimal_examples_count %> Sub-Optimal
+                </li>
+                <li>
+                  Prompt Template:
+                  <%= link_to llm_prompt.llm_prompt_template, llm_prompt.llm_prompt_template %>
                 </li>
               </ul>
             </div>
