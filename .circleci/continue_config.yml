@@ -161,9 +161,9 @@ jobs:
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - run:
-                name: debugging
+                name: vite build
                 command: |
-                  echo 'hi'
+                  cd services/QuillLMS && bin/vite build
             - run:
                 name: Start services with Foreman
                 command: cd services/QuillLMS && foreman start -f Procfile.ci
