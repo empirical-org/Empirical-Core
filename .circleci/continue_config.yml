@@ -133,6 +133,7 @@ jobs:
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
+                  gem install foreman
             - save_cache:
                 key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
                 paths:
@@ -162,16 +163,27 @@ jobs:
             - run:
                 name: debugging
                 command: |
-                  cd services/QuillLMS
-                  TESTFILES=$(circleci tests glob "spec/system/*_spec.rb")
-                  echo "test files: ${TESTFILES}"
+                  echo 'hi'
+            - run:
+                name: Start services with Foreman
+                command: foreman start -f Procfile.ci
+                background: true
+            - run:
+                name: Wait for Rails server
+                command: |
+                  for i in {1..10}
+                  do
+                    nc -z localhost 3000 && echo Success && exit 0
+                    echo -n .
+                    sleep 1
+                  done
+                  echo Failed waiting for Rails && exit 1
 
             - run:
                 name: Run tests
                 command: |
                   cd services/QuillLMS
-                  TESTFILES=$(circleci tests glob "spec/system/*_spec.rb" | circleci tests split)
-                  bin/rspec ${TESTFILES}
+                  npx playwright test
             - store_artifacts:
                 path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
