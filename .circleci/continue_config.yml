@@ -183,6 +183,7 @@ jobs:
                 name: Run tests
                 command: |
                   cd services/QuillLMS
+                  sudo npx playwright install-deps
                   npx playwright install
                   npx playwright test
             - store_artifacts:
