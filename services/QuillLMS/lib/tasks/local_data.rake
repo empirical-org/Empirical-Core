@@ -91,7 +91,7 @@ namespace :local_data do
     # Tables that other tables have foreign keys to are loaded first
     # Or else they will raise FK errors
     # Then the rest alphabetically
-    NONUSER_TABLES = %w(
+    NONUSER_TABLES = %w[
       standard_categories
       standard_levels
       standards
@@ -156,6 +156,6 @@ namespace :local_data do
       unit_template_categories
       unit_templates
       zipcode_infos
-    )
+    ]
   end
 end

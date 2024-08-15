@@ -3,7 +3,7 @@
 namespace :plagiarism do
   desc 'Migrates old plagiarism from fields on Prompt to new models PlagiarismText and Feedback'
 
-  task :migrate => :environment do |t, args|
+  task :migrate => :environment do |_t, _args|
     CONCEPT_ID = 863
     concept = Concept.find(CONCEPT_ID)
     ActiveRecord::Base.transaction do

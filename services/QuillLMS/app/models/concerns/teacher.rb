@@ -674,7 +674,7 @@ module Teacher
     credit_transactions.sum(:amount)
   end
 
-  def teaches_student?(student_id)
+  def teaches_student?(_student_id)
     RawSqlRunner.execute(
       <<-SQL
         SELECT 1

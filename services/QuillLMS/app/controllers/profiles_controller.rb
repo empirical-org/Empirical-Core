@@ -94,7 +94,7 @@ class ProfilesController < ApplicationController
 
   private def student_score_cache_key = User.student_scores_cache_key(current_user.id, params[:classroom_id])
 
-  private def exact_scores_data_all(user, data, classroom_id)
+  private def exact_scores_data_all(user, data, _classroom_id)
     activity_sessions_grouped = student_activity_sessions_grouped(user.id, data)
 
     data.map do |user_activity|

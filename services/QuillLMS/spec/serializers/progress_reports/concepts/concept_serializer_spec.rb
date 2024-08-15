@@ -40,13 +40,13 @@ describe ProgressReports::Concepts::ConceptSerializer, type: :serializer do
 
     it 'includes the right keys' do
       expect(parsed_concept.keys)
-        .to match_array %w(concept_id
+        .to match_array %w[concept_id
                            concept_name
                            total_result_count
                            correct_result_count
                            incorrect_result_count
                            level_2_concept_name
-                           percentage)
+                           percentage]
     end
 
     it 'includes the percentage' do

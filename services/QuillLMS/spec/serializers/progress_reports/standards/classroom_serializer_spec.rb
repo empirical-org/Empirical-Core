@@ -34,13 +34,13 @@ describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
 
     it 'includes the right keys' do
       expect(parsed_classroom.keys)
-        .to match_array %w(name
+        .to match_array %w[name
                            total_student_count
                            proficient_student_count
                            not_proficient_student_count
                            total_standard_count
                            students_href
-                           standards_href)
+                           standards_href]
     end
   end
 end

@@ -3,7 +3,7 @@
 namespace :translate do
   desc 'translate hints (concept feedback)'
   desc 'on zsh use `noglob rake translate:hints[es-la]` or whatever language code you choose'
-  task :hints, [:locale] => :environment do |t, args|
+  task :hints, [:locale] => :environment do |_t, args|
     locale = args[:locale] || Translatable::DEFAULT_LOCALE
     hints = ConceptFeedback.all
     count = hints.count
@@ -16,7 +16,7 @@ namespace :translate do
   desc 'translate activities and their questions'
   desc 'on zsh use `noglob rake translate:activities[es-la, 2]`'
   desc 'first param is locale, second is (optional) number of activities to translate'
-  task :activities, [:locale, :limit] => :environment do |t, args|
+  task :activities, [:locale, :limit] => :environment do |_t, args|
     puts "translating activities"
     limit = args[:limit] ? args[:limit].to_i : nil
     locale = args[:locale] || Translatable::DEFAULT_LOCALE
@@ -38,7 +38,7 @@ namespace :translate do
   end
 
   desc 'translate hard-coded feedback_strings'
-  task :feedback_strings, [:locale] => :environment do |t, args|
+  task :feedback_strings, [:locale] => :environment do |_t, args|
     locale = args[:locale] || Translatable::DEFAULT_LOCALE
     prompt = TranslationPrompts.feedback_strings_prompt(locale:)
     english_text = feedback_data
@@ -58,7 +58,7 @@ namespace :translate do
   end
 
   def activity_uids
-    %w(
+    %w[
       -LsTRP0gFdy-d5lIfifn
       22409f4f-c2d7-4b10-84c9-3fd046eb9a41
       -LuZ7PvG10DtLrdJDPvw
@@ -343,6 +343,6 @@ namespace :translate do
       72c938f8-ac9f-45dc-9eeb-8cab93f85dc7
       ae5fd428-0922-47f8-b9f8-c98679f1b4f1
       8f401c3f-4f75-4141-a41d-42d5643e7f72
-    )
+    ]
   end
 end

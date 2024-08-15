@@ -15,7 +15,7 @@ module Analytics
 
       self.backend ||= Segment::Analytics.new(
         write_key: Analytics::SegmentIo.configuration.write_key,
-        on_error: proc { |status, msg| print msg }
+        on_error: proc { |_status, msg| print msg }
       )
     end
 

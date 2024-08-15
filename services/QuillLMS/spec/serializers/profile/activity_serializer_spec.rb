@@ -7,14 +7,14 @@ describe Profile::ActivitySerializer, type: :serializer do
     let(:record_instance) { create(:activity) }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         name
         description
         repeatable
         classification
         standard_level
         standard
-      }
+      ]
     end
   end
 end

@@ -4,7 +4,7 @@ class QuillStaffAccountsChangedWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  PARAMS_TO_TRACK = %w(id name email username created_at google_id signed_up_with_google)
+  PARAMS_TO_TRACK = %w[id name email username created_at google_id signed_up_with_google]
   STAFF_ACCOUNTS_CACHE_KEY = 'check_staff_accounts'
   EXPIRES_IN = 25.hours.to_i
 

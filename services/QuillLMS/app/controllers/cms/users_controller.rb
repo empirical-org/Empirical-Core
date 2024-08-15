@@ -154,7 +154,7 @@ class Cms::UsersController < Cms::CmsController
     params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:flagset, :page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status, :class_code])
   end
 
-  protected def user_query(params)
+  protected def user_query(_params)
     # This should return an array of hashes that look like this:
     # [
     #   {

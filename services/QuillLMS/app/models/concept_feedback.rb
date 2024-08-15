@@ -37,7 +37,7 @@ class ConceptFeedback < ApplicationRecord
 
   def cache_key = "#{ALL_CONCEPT_FEEDBACKS_KEY}_#{activity_type}"
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     data
   end
 

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Auth::Canvas::Setup do
   subject { described_class.new(env, strategy: strategy).run }
 
-  let(:rack_app) { ->(env) { [200, {}, ''] } }
+  let(:rack_app) { ->(_env) { [200, {}, ''] } }
   let(:strategy) { OmniAuth::Strategies::Canvas.new(rack_app, {}) }
 
   let(:request_path_env) do

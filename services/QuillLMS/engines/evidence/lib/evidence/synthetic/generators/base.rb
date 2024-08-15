@@ -9,7 +9,7 @@ module Evidence
         attr_reader :results_hash
 
         # takes an array of unique strings, e.g. ['original string', 'sample 2']
-        def initialize(string_array, options = {})
+        def initialize(string_array, _options = {})
           @results_hash = string_array.to_h { |string| [string, []] }
         end
 

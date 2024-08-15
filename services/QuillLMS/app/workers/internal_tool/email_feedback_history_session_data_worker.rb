@@ -4,7 +4,7 @@ class InternalTool::EmailFeedbackHistorySessionDataWorker
   include Sidekiq::Worker
   sidekiq_options queue: SidekiqQueue::LOW
 
-  FEEDBACK_HISTORY_CSV_HEADERS = %w{Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule}
+  FEEDBACK_HISTORY_CSV_HEADERS = %w[Date/Time SessionID Conjunction Attempt Optimal? Completed? Response Feedback Rule]
   DEFAULT_MAX_ATTEMPTS = 5
 
   def perform(activity_id, start_date, end_date, filter_type, responses_for_scoring, email)

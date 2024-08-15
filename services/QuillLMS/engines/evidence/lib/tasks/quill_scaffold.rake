@@ -3,7 +3,7 @@
 namespace :quill_scaffold do
   desc "Generate a scaffold resource, uses syntax following rails scaffold generator passed in as the arg, e.g.o: bundle exec rake quill_scaffold:generate['FakeModel name:string level:integer activity:references']"
 
-  task :generate, [:options] do |t, args|
+  task :generate, [:options] do |_t, args|
     system("rails g quill_scaffold #{args[:options]} --force")
     system("rails g factory_bot:model #{args[:options]} --force")
     system("rails g quill_scaffold_controller #{args[:options]} --force")
