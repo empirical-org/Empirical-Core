@@ -67,8 +67,6 @@ describe Activity, type: :model, redis: true do
   it { should have_many(:teachers).through(:teacher_saved_activities) }
   it { should have_many(:activity_topics) }
   it { should have_many(:topics).through(:activity_topics) }
-  it { should have_many(:activities_unit_templates).dependent(:destroy) }
-  it { should have_many(:unit_templates).through(:activities_unit_templates) }
 
   it { is_expected.to callback(:flag_as_beta).before(:create).unless(:flags?) }
 

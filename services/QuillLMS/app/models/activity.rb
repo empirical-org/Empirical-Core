@@ -71,8 +71,6 @@ class Activity < ApplicationRecord
   has_many :teachers, through: :teacher_saved_activities, foreign_key: 'teacher_id'
   has_many :activity_topics, dependent: :destroy
   has_many :topics, through: :activity_topics
-  has_many :activities_unit_templates, dependent: :destroy
-  has_many :unit_templates, through: :activities_unit_templates
 
   before_validation :populate_question_count
   before_create :flag_as_beta, unless: :flags?
