@@ -44,6 +44,7 @@ module NavigationHelper
   MY_SUBSCRIPTIONS = 'My Subscriptions'
   STANDARDS = 'Standards'
   SOCIAL_STUDIES_DASHBOARD = 'Social Studies Dashboard'
+  SCIENCE_DASHBOARD = 'Science Dashboard'
 
   # primary/secondary navigation tabs
   ABOUT_US_TAB = { name: ABOUT_US, url: '/about' }
@@ -131,6 +132,12 @@ module NavigationHelper
     return nil unless show_social_studies_dashboard_tab?(current_user)
 
     @social_studies_dashboard_tab ||= { name: SOCIAL_STUDIES_DASHBOARD, url: teachers_progress_reports_social_studies_world_history_1200_to_present_path }
+  end
+
+  def science_dashboard_tab(current_user)
+    return nil unless show_science_dashboard_tab?(current_user)
+
+    @science_dashboard_tab ||= { name: SCIENCE_DASHBOARD, url: teachers_progress_reports_science_bulding_ai_knowledge_path }
   end
 
   def home_tab
@@ -344,7 +351,8 @@ module NavigationHelper
         concepts_tab,
         standards_tab,
         data_export_tab,
-        social_studies_dashboard_tab(current_user)
+        social_studies_dashboard_tab(current_user),
+        science_dashboard_tab(current_user)
       ].compact
     end
   end
@@ -352,6 +360,11 @@ module NavigationHelper
   def show_social_studies_dashboard_tab?(current_user)
     unit_activities = current_user.unit_activities_for_classrooms_i_teach
     unit_activities_include_social_studies_activities?(unit_activities)
+  end
+
+  def show_science_dashboard_tab?(current_user)
+    unit_activities = current_user.unit_activities_for_classrooms_i_teach
+    unit_activities_include_science_activities?(unit_activities)
   end
 
   private def overview_tab_access?

@@ -7,7 +7,7 @@ class Teachers::ProgressReportsController < ApplicationController
 
   around_action :force_writer_db_role, only: [:admin_demo, :coach_demo, :staff_demo, :demo]
 
-  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo, :world_history_1200_to_present_unit_templates]
+  before_action :authorize!, except: [:demo, :admin_demo, :coach_demo, :staff_demo, :world_history_1200_to_present_unit_templates, :building_ai_knowledge_unit_templates]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
 
   def demo
@@ -65,6 +65,14 @@ class Teachers::ProgressReportsController < ApplicationController
 
   def world_history_1200_to_present_unit_templates
     render json: { unit_templates: course_with_assignment_data(world_history_1200_to_present_data, current_user&.classrooms_i_teach) }
+  end
+
+  def building_ai_knowledge
+    render 'building_ai_knowledge'
+  end
+
+  def building_ai_knowledge_unit_templates
+    render json: { unit_templates: course_with_assignment_data(building_ai_knowledge_data, current_user&.classrooms_i_teach) }
   end
 
   private def authorize!

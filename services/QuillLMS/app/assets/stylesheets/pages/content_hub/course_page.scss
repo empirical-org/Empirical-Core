@@ -164,14 +164,15 @@
         width: 100%;
       }
 
-      .oer-asset-line {
-        font-weight: 700;
+      .asset-line {
         margin-bottom: 0px;
         color: $quill-grey-50;
         a {
-          font-weight: 400;
           text-decoration-line: underline;
           color: $quill-green;
+        }
+        span {
+          font-weight: 700;
         }
       }
     }

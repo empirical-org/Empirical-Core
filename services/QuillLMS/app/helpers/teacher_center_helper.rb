@@ -10,6 +10,7 @@ module TeacherCenterHelper
   SPRINGBOARD_ACTIVITIES = 'SpringBoard Activities'
   ELA_STANDARDS = 'ELA Standards'
   SOCIAL_STUDIES_ACTIVITIES = 'Social Studies Activities'
+  SCIENCE_ACTIVITIES = 'Science Activities'
 
   def teacher_center_tabs
     [

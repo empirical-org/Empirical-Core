@@ -167,7 +167,7 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
               Activity 1 description
             </p>
             <p
-              class="oer-asset-line"
+              class="asset-line"
             >
               Optional Paired OER Project Activity: 
               <a
@@ -223,7 +223,7 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
               Activity 2 description
             </p>
             <p
-              class="oer-asset-line"
+              class="asset-line"
             >
               Optional Paired OER Project Activity: 
               <a

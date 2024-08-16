@@ -20,9 +20,12 @@ exports[`CoursePageActivity renders correctly when link_for_report is not provid
         This is a test activity
       </p>
       <p
-        class="oer-asset-line"
+        class="asset-line"
       >
-        Optional Paired OER Project Activity: 
+        <span>
+          Optional Paired OER Project Activity:
+        </span>
+         
         <a
           href="https://example.com/oer"
           rel="noopener noreferrer"
@@ -31,6 +34,7 @@ exports[`CoursePageActivity renders correctly when link_for_report is not provid
           Test OER Asset
         </a>
       </p>
+      Inside the return statement of a React component I'm creating links like this, but I want to join them with text " and " if there are multiple. Can you help me with that?
     </div>
     <div
       class="results-section"
@@ -87,9 +91,12 @@ exports[`CoursePageActivity renders correctly when link_for_report is provided 1
         This is a test activity
       </p>
       <p
-        class="oer-asset-line"
+        class="asset-line"
       >
-        Optional Paired OER Project Activity: 
+        <span>
+          Optional Paired OER Project Activity:
+        </span>
+         
         <a
           href="https://example.com/oer"
           rel="noopener noreferrer"
@@ -98,6 +105,7 @@ exports[`CoursePageActivity renders correctly when link_for_report is provided 1
           Test OER Asset
         </a>
       </p>
+      Inside the return statement of a React component I'm creating links like this, but I want to join them with text " and " if there are multiple. Can you help me with that?
     </div>
     <div
       class="results-section"

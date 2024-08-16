@@ -83,9 +83,12 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
             Activity 1 description
           </p>
           <p
-            class="oer-asset-line"
+            class="asset-line"
           >
-            Optional Paired OER Project Activity: 
+            <span>
+              Optional Paired OER Project Activity:
+            </span>
+             
             <a
               href="https://example.com/oer1"
               rel="noopener noreferrer"
@@ -94,6 +97,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
               OER 1
             </a>
           </p>
+          Inside the return statement of a React component I'm creating links like this, but I want to join them with text " and " if there are multiple. Can you help me with that?
         </div>
         <div
           class="results-section"
@@ -139,9 +143,12 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
             Activity 2 description
           </p>
           <p
-            class="oer-asset-line"
+            class="asset-line"
           >
-            Optional Paired OER Project Activity: 
+            <span>
+              Optional Paired OER Project Activity:
+            </span>
+             
             <a
               href="https://example.com/oer2"
               rel="noopener noreferrer"
@@ -150,6 +157,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
               OER 2
             </a>
           </p>
+          Inside the return statement of a React component I'm creating links like this, but I want to join them with text " and " if there are multiple. Can you help me with that?
         </div>
         <div
           class="results-section"

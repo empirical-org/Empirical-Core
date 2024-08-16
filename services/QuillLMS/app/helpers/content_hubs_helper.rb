@@ -14,7 +14,14 @@ module ContentHubsHelper
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
-  def unit_activities_include_science_activities?(unit_activities) = false
+  def unit_activities_include_science_activities?(unit_activities)
+    activity_ids = building_ai_knowledge_data
+      .map do |unit_template|
+        unit_template[:activities].map { |act| act[:activity_id] }
+      end
+      .flatten
+    unit_activities_include_content_activities?(unit_activities, activity_ids)
+  end
 
   def course_with_assignment_data(course_data, classrooms)
     return course_data if !classrooms || classrooms.empty?
@@ -81,6 +88,107 @@ module ContentHubsHelper
 
   def classroom_id_for_report(last_classroom_unit, last_activity_session)
     last_activity_session&.classroom&.id || last_classroom_unit&.classroom_id
+  end
+
+  def building_ai_knowledge_data
+    [
+      {
+        display_name: "AI & Animal Conservation",
+        description: "One exciting application of AI is helping to protect endangered and vulnerable animals. In this activity pack, students will learn about how researchers are using AI to help protect elephants from poachers, monitor the health of coral reefs, and even try to communicate with whales! Students will also be introduced to foundational concepts in AI, including computer vision, machine learning, and large language models.",
+        unit_template_id: 711,
+        all_quill_articles_href: "https://docs.google.com/document/u/0/d/1YKOsYcaZ86PbEbrBRo9RR7JW9EkT7ETCY_cMBdu5V70/edit",
+        quill_teacher_guide_href: '',
+        activities: activities_with_preview_link(ai_and_animal_conservation_activities)
+      },
+      {
+        display_name: "AI & Arts and Entertainment",
+        description: "Many people are concerned about how AI will impact jobs, and those working in arts and entertainment are no exception. In this activity pack, students will explore debates related to the use of AI in music, visual art, and video game development. They will also be introduced to foundational AI concepts, including voice cloning, image generation, and generative artificial intelligence.",
+        unit_template_id: 713,
+        all_quill_articles_href: "https://docs.google.com/document/u/0/d/1sAf0m5q4vTtZUTDndsQejMhgUxOxrCXOgO2sm2dmbM0/edit",
+        quill_teacher_guide_href: '',
+        activities: activities_with_preview_link(ai_and_arts_and_entertainment_activities)
+      },
+    ]
+  end
+
+  def ai_and_animal_conservation_activities
+    [
+      {
+        activity_id: 2523,
+        display_name: 'How Can Computer Vision Protect Elephants From Poachers?',
+        description: 'Students will read a text that explores how TrailGuard uses computer vision to protect wild elephants from poachers, while also investigating the limits of this technology.',
+        paired_ai_edu_activities: [
+          {
+            name: 'Seeing is believing',
+            link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_1463'
+          }
+        ]
+      },
+      {
+        activity_id: 2525,
+        display_name: 'Can Large Language Models Help Humans Talk to Whales?',
+        description: 'Students will read a text that explores how researchers are using large language models to try to communicate with whales.',
+        paired_ai_edu_activities: [
+          {
+            name: 'Interspecies Communication App',
+            link: 'https://www.aiedu.org/interspecies-comm-download'
+          }
+        ]
+      },
+      {
+        activity_id: 2514,
+        display_name: 'How Are Marine Biologists Using Machine Learning to Protect Coral Reefs?',
+        description: 'Students will read a text that explores how researchers are using AI and audio analysis to monitor the health of coral reefs.',
+        paired_ai_edu_activities: [
+          {
+            name: 'And this piggy... sounded happy!',
+            link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_1684'
+          }
+        ]
+      },
+    ]
+  end
+
+  def ai_and_arts_and_entertainment_activities
+    [
+      {
+        activity_id: 2543,
+        display_name: 'Why Did a Drake Song Spark a Debate About AI Voice Cloning?',
+        description: 'Students will read a text that explores the benefits and drawbacks of AI voice cloning technology in the music industry.',
+        paired_ai_edu_activities: [
+          {
+            name: 'Sound like myself',
+            link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_231'
+          },
+          {
+            name: 'Where credit is due',
+            link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_341'
+          },
+        ]
+      },
+      {
+        activity_id: 2562,
+        display_name: 'Are AI Image Generators Stealing From Visual Artists?',
+        description: 'Students will read a text that explores whether AI companies broke copyright laws when creating their AI image generators.',
+        paired_ai_edu_activities: [
+          {
+            name: 'Counting Mars',
+            link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_99'
+          }
+        ]
+      },
+      {
+        activity_id: 2597,
+        display_name: 'Can Generative AI Improve Non-Player Characters in Video Games?',
+        description: 'Students will read a text that explores opposing perspectives on using generative artificial intelligence to improve non-player characters (NPCs) in video games.',
+        paired_ai_edu_activities: [
+          {
+            name: "Methink'st thou art a general offense",
+            link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_242'
+          }
+        ]
+      },
+    ]
   end
 
   def world_history_1200_to_present_data
