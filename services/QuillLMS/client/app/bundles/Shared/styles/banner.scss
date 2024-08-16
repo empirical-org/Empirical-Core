@@ -3,6 +3,7 @@
   justify-content: space-between;
   padding: 20px;
   border-radius: 8px;
+  position: relative;
   .left-side-container {
     .upper-section {
       display: flex;
@@ -15,14 +16,14 @@
         border-radius: 5px;
         font-size: 9px;
         font-weight: 700;
-        margin: 0;
+        margin: 0px 8px 0px 0px;
         text-transform: uppercase;
       }
       .secondary-header {
         text-transform: uppercase;
         font-size: 12px;
         font-weight: 700;
-        margin: 0px 0px 0px 8px;
+        margin: 0px 0px 0px 0px;
       }
     }
     .primary-header {
@@ -72,6 +73,11 @@
       }
     }
   }
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
   &.green {
     background-color: $quill-green-1;
     border: 1px solid $quill-green-20;
@@ -93,6 +99,21 @@
     }
     .quill-button-archived:hover {
       background-color: $quill-gold-dark-20 !important;
+    }
+    .secondary-header {
+      color: $quill-gold-dark;
+    }
+  }
+  &.gold-secondary {
+    background-color: $quill-gold-1;
+    border: 1px solid $quill-gold-dark-10;
+    .tag, .quill-button-archived {
+      background-color: $quill-white !important;
+      color: $quill-gold-dark !important;
+      border: 1px solid $quill-gold-dark-10;
+    }
+    .quill-button-archived:hover {
+      background-color: $quill-white !important;
     }
     .secondary-header {
       color: $quill-gold-dark;

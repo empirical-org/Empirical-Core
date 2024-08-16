@@ -47,7 +47,7 @@ module EmailApiHelper
     parse_comment_response(JSON.parse(response.body)) if response.is_a?(Net::HTTPSuccess)
   end
 
-  def get_intercom_data(start_time, end_time)
+  def get_intercom_data(start_time, _end_time)
     # The Intercom API has a before key to fetch all conversations before a certain time, but it does not yet
     # have support for fetching conversations closed after a certain time, so this is the most efficient way to handle this case
     # https://github.com/intercom/intercom-ruby/issues/377

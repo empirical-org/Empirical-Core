@@ -55,8 +55,8 @@ RSpec.describe StudentClassroomAssociator do
     def makes_concurrent_calls_and_not_raise_errors
       wait_to_start = true
 
-      threads = call_count.times.map do |i|
-        Thread.new do |t|
+      threads = call_count.times.map do |_i|
+        Thread.new do |_t|
           true while wait_to_start
           subject
         end

@@ -85,6 +85,14 @@ module AdminDiagnosticReports
       SQL
     end
 
+    def contextual_query
+      <<-SQL
+        #{super}
+        /* This query uses SQL-based ORDER BY logic which seems to work fine if there is a LIMIT clause.  Without a LIMIT clause, the ORDER BY is not respected in the aggregation query, so we need to apply the ORDER BY in a second place */
+        #{order_by_clause}
+      SQL
+    end
+
     def order_by_clause = "ORDER BY TRIM(SUBSTR(TRIM(student_name), STRPOS(student_name, ' ') + 1)), student_name, student_id, skill_group_name"
     def limit_clause = (' LIMIT 5000' if limited)
 

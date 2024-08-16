@@ -2,7 +2,7 @@
 
 namespace :report_demo do
   desc 'make report demo accounts'
-  task :create, [:name] => :environment do |t, args|
+  task :create, [:name] => :environment do |_t, args|
     # call this with no arguments if you want quill.org/demo to be created. otherwise
     # to use this call rake report_demo:create["firstname lastname"]
     name = args[:name] ? args[:name].to_s : nil

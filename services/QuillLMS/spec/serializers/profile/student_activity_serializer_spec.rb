@@ -8,12 +8,12 @@ describe Profile::StudentActivitySerializer, type: :serializer do
     let(:result_key) { 'student_activity' }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         name
         description
         repeatable
         activity_classification_id
-      }
+      ]
     end
   end
 end

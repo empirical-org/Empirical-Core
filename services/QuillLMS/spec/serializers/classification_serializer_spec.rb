@@ -9,7 +9,7 @@ describe ClassificationSerializer, type: :serializer do
       let(:result_key) { 'classification' }
 
       let(:expected_serialized_keys) do
-        %w(uid
+        %w[uid
            id
            name
            key
@@ -19,7 +19,7 @@ describe ClassificationSerializer, type: :serializer do
            updated_at
            green_image_class
            alias
-           scorebook_icon_class)
+           scorebook_icon_class]
       end
     end
   end

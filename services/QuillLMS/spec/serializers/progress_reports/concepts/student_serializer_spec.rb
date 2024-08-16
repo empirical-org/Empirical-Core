@@ -38,13 +38,13 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
 
     it 'includes the right keys' do
       expect(parsed_student.keys)
-        .to match_array %w(name
+        .to match_array %w[name
                            concepts_href
                            total_result_count
                            correct_result_count
                            incorrect_result_count
                            percentage
-                           id)
+                           id]
     end
 
     it 'includes the percentage' do

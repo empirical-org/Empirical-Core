@@ -51,7 +51,7 @@ RSpec.shared_context 'LearnWorlds Enrolled Free Course Event Data' do
           'location' => 'Athens',
           'phone' => nil,
           'skype' => nil,
-          'twitter' => 'htttps =>//www.twitter.com',
+          'twitter' => 'htttps =>//www.x.com',
           'university' => nil,
           'url' => 'https =>//test.com'
         },

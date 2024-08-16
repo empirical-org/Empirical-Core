@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 class Register extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -11,11 +12,8 @@ class Register extends React.Component<any, any> {
 
   componentDidMount() {
     const { previewMode, lesson } = this.props;
-    if(previewMode) {
+    if (previewMode) {
       this.startActivity();
-    }
-    if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
-      this.handleSetShowIntro();
     }
   }
 
@@ -32,17 +30,13 @@ class Register extends React.Component<any, any> {
   }
 
   startActivity = () => {
+    const { showIntro, } = this.state
     const { lesson, startActivity, } = this.props
-    if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
+    if (lesson.landingPageHtml && this.landingPageHtmlHasText() && !showIntro) {
       this.setState({ showIntro: true, });
     } else {
       startActivity();
     }
-  }
-
-  handleStartLessonClick = () => {
-    const { startActivity, } = this.props
-    startActivity();
   }
 
   resume = () => {
@@ -61,18 +55,22 @@ class Register extends React.Component<any, any> {
     return false;
   }
 
-  renderButton = () => {
-    const { session, } = this.props
-    let onClickFn,
-      text;
+  renderButton = (showIntro) => {
+    const { session, translate, showTranslation } = this.props
+    let onClickFn, text;
+
     if (session) {
       // resume session if one is passed
       onClickFn = this.resume;
-      text = <span>Resume</span>;
+      text = showTranslation ? translate('buttons^resume') : 'Resume'
+    } else if (showIntro) {
+      // this and the following conditional have the same action because the function handles what should happen next  
+      onClickFn = this.startActivity;
+      text = showTranslation ? translate('buttons^begin') : 'Begin'
     } else {
       // otherwise begin new session
       onClickFn = this.startActivity;
-      text = <span>Begin</span>;
+      text = showTranslation ? translate('buttons^start activity') : 'Start activity'
     }
     return (
       <button className="quill-button-archived focus-on-light primary contained large" onClick={onClickFn} type="button">
@@ -89,7 +87,7 @@ class Register extends React.Component<any, any> {
 
 
   renderIntro = () => {
-    const { lesson, } = this.props
+    const { lesson } = this.props
     const { showIntro, hasSentenceFragment, } = this.state
     const translatedText = this.translatedText()
     if (showIntro) {
@@ -102,7 +100,7 @@ class Register extends React.Component<any, any> {
               <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: translatedText }} />
             </React.Fragment>
           )}
-          <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
+          {this.renderButton(showIntro)}
         </div>
       );
     } else if (hasSentenceFragment) {
@@ -118,7 +116,7 @@ class Register extends React.Component<any, any> {
               <li>There is often more than one correct answer.</li>
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
-            {this.renderButton()}
+            {this.renderButton(showIntro)}
             <br />
           </div>
         </div>
@@ -136,7 +134,7 @@ class Register extends React.Component<any, any> {
               <li>There is often more than one correct answer.</li>
               <li>Remember to use correct spelling, capitalization, and punctuation!</li>
             </ul>
-            {this.renderButton()}
+            {this.renderButton(showIntro)}
             <br />
           </div>
         </div>

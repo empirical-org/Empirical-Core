@@ -33,7 +33,7 @@ class ActivitySessionsController < ApplicationController
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
 
     questions = @activity_session.concept_results.group_by { |cr| cr.question_number }
-    key_target_skill_concepts = questions.map { |key, question| get_key_target_skill_concept_for_question(question, @activity_session) }
+    key_target_skill_concepts = questions.map { |_key, question| get_key_target_skill_concept_for_question(question, @activity_session) }
     correct_key_target_skill_concepts = key_target_skill_concepts.filter { |ktsc| ktsc[:correct] }
 
     @number_of_questions = questions.length

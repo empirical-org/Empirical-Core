@@ -2,7 +2,7 @@
 
 namespace :data do
   desc 'Add prefilter rules and feedbacks'
-  task :prefilter => :environment do |t, args|
+  task :prefilter => :environment do |_t, _args|
     TOO_SHORT_FEEDBACK = 'Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided.'
     PROFANITY_FEEDBACK = 'Revise your work. When writing your response, make sure to use appropriate language.'
     MULTIPLE_SENTENCES_FEEDBACK = 'Revise your work. Your response should be only one sentence long.'

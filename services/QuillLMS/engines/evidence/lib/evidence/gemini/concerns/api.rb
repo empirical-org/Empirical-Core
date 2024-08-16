@@ -54,7 +54,9 @@ module Evidence
 
         private def endpoint = "#{BASE_URI}/#{model_version}:#{instruction}?key=#{Evidence::Gemini::API_KEY}"
 
-        private def body = request_body.merge(safety_settings: SAFETY_SETTINGS).to_json
+        private def body = request_body.merge(safety_settings:).to_json
+
+        private def safety_settings = SAFETY_SETTINGS
 
         private def headers = { 'Content-Type' => 'application/json' }
 

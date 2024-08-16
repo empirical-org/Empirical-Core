@@ -30,7 +30,7 @@ class ActiveActivitySession < ApplicationRecord
       .where('classroom_units.visible = false OR activity_sessions.completed_at IS NOT NULL')
   }
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     data
   end
 

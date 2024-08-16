@@ -42,7 +42,7 @@ describe ActivitySerializer, type: :serializer do
     let(:record_instance) { create(:activity) }
 
     let(:expected_serialized_keys) do
-      %w(anonymous_path
+      %w[anonymous_path
          classification
          created_at
          data
@@ -55,7 +55,7 @@ describe ActivitySerializer, type: :serializer do
          uid
          updated_at
          activity_category
-         supporting_info)
+         supporting_info]
     end
   end
 

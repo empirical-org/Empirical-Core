@@ -98,6 +98,7 @@ RSpec.describe User, type: :model do
   it { should have_one(:auth_credential).dependent(:destroy) }
   it { should have_many(:admin_report_filter_selections).dependent(:destroy) }
   it { should have_many(:pdf_subscriptions).through(:admin_report_filter_selections) }
+  it { should have_many(:email_subscriptions).dependent(:destroy) }
 
   it { should delegate_method(:name).to(:school).with_prefix(:school) }
   it { should delegate_method(:mail_city).to(:school).with_prefix(:school) }
@@ -358,8 +359,8 @@ RSpec.describe User, type: :model do
 
   describe 'constants' do
     it 'should give the correct value for all the constants' do
-      expect(User::ROLES).to eq(%w(teacher student staff sales-contact admin))
-      expect(User::SAFE_ROLES).to eq(%w(student teacher sales-contact admin))
+      expect(User::ROLES).to eq(%w[teacher student staff sales-contact admin])
+      expect(User::SAFE_ROLES).to eq(%w[student teacher sales-contact admin])
     end
   end
 
@@ -685,7 +686,7 @@ RSpec.describe User, type: :model do
   describe 'User scope' do
     describe '::ROLES' do
       it 'must contain all roles' do
-        %w(student teacher staff).each do |role|
+        %w[student teacher staff].each do |role|
           expect(User::ROLES).to include role
         end
       end
@@ -693,7 +694,7 @@ RSpec.describe User, type: :model do
 
     describe '::SAFE_ROLES' do
       it 'must contain safe roles' do
-        %w(student teacher).each do |role|
+        %w[student teacher].each do |role|
           expect(User::SAFE_ROLES).to include role
         end
       end
@@ -718,11 +719,11 @@ RSpec.describe User, type: :model do
       user.authenticate(password)
     end
 
-    %i(email username).each do |cred_base|
+    %i[email username].each do |cred_base|
       context "with #{cred_base}" do
         let(:password_val) { send(:"#{cred_base}_password") }
 
-        %i(original swapped).each do |name_case|
+        %i[original swapped].each do |name_case|
           case_mod = if name_case == :swapped
                        :swapcase # e.g., "a B c" => "A b C"
                      else
@@ -2446,6 +2447,47 @@ RSpec.describe User, type: :model do
 
         it { is_expected.to eq true }
       end
+    end
+  end
+
+  describe '#segment_admin_report_subscriptions' do
+    subject { user.segment_admin_report_subscriptions }
+
+    it { is_expected.to eq [] }
+
+    context 'has a PDF subscription of a type not in SEGMENT_MAPPING' do
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:, report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT) }
+      let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
+
+      it { is_expected.to eq [] }
+    end
+
+    context 'has a PDF subscription' do
+      let(:usage_snapshot) { described_class::SEGMENT_MAPPING[pdf_subscription.admin_report_filter_selection.report] }
+      let(:admin_report_filter_selection) { create(:admin_report_filter_selection, user:, report: AdminReportFilterSelection::USAGE_SNAPSHOT_REPORT_PDF) }
+      let!(:pdf_subscription) { create(:pdf_subscription, admin_report_filter_selection:) }
+
+      it { is_expected.to match_array [usage_snapshot] }
+
+      context 'has a second PDF subscription of the same type' do
+        before { create(:pdf_subscription, admin_report_filter_selection:) }
+
+        it { is_expected.to match_array [usage_snapshot] }
+      end
+
+      context 'also has an EmailSubscription' do
+        let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
+        let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
+
+        it { is_expected.to match_array [usage_snapshot, admin_diagnostic_report] }
+      end
+    end
+
+    context 'EmailSubscription with no PDF subscription' do
+      let(:admin_diagnostic_report) { described_class::SEGMENT_MAPPING[email_subscription.subscription_type] }
+      let!(:email_subscription) { create(:email_subscription, user:, subscription_type: EmailSubscription::ADMIN_DIAGNOSTIC_REPORT) }
+
+      it { is_expected.to match_array [admin_diagnostic_report] }
     end
   end
 end

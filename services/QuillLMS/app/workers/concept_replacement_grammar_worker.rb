@@ -50,7 +50,7 @@ class ConceptReplacementGrammarWorker
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def replace_focus_points_or_incorrect_sequences_for_question(fp_or_is, original_concept_uid, new_concept_uid)
-    return unless fp_or_is.any? { |k, v| v['conceptResults'] && v['conceptResults'].any? { |crk, crv| crv['conceptUID'] == original_concept_uid } }
+    return unless fp_or_is.any? { |_k, v| v['conceptResults'] && v['conceptResults'].any? { |_crk, crv| crv['conceptUID'] == original_concept_uid } }
 
     new_fp_or_is = fp_or_is.deep_dup
     begin

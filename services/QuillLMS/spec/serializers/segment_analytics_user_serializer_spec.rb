@@ -8,7 +8,7 @@ describe SegmentAnalyticsUserSerializer do
     let(:result_key) { 'segment_analytics_user' }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         email
         created_at
         id
@@ -21,7 +21,7 @@ describe SegmentAnalyticsUserSerializer do
         subscription
         school
         time_zone
-      }
+      ]
     end
   end
 end

@@ -7,7 +7,7 @@ describe Profile::ActivitySessionSerializer do
     let(:record_instance) { create(:activity_session) }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         id
         percentage
         link
@@ -15,7 +15,7 @@ describe Profile::ActivitySessionSerializer do
         due_date
         state
         activity
-      }
+      ]
     end
   end
 end

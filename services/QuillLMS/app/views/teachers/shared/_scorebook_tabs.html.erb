@@ -10,19 +10,19 @@
         </li>
 
         <li class="<%= 'active' if classes_page_active? %>">
-          <%= link_to 'My Classes', teachers_classrooms_path %>
+          <%= link_to 'Manage Classes', teachers_classrooms_path %>
         </li>
 
         <li class="<%= 'active' if assign_activity_page_active? %>">
           <%= link_to raw("Assign<span class='hide-on-mobile'> Activities</span>"), '/assign' %>
         </li>
 
-        <li class="<%= 'active' if my_activities_page_active? %>">
-          <%= link_to raw("<span class='hide-on-mobile'>My </span>Activities"), lesson_planner_teachers_classrooms_path %>
+        <li class="<%= 'active' if manage_activities_page_active? %>">
+          <%= link_to raw("<span class='hide-on-mobile'>Manage </span>Activities"), lesson_planner_teachers_classrooms_path %>
         </li>
 
         <li class="<%= 'active' if student_reports_page_active? %>" id="student-reports-link">
-          <%= link_to raw("<span class='hide-on-mobile'>My Reports</span>"), teachers_progress_reports_landing_page_path %>
+          <%= link_to raw("<span class='hide-on-mobile'>View Reports</span>"), teachers_progress_reports_landing_page_path %>
         </li>
 
         <% unless current_user.premium_state == 'paid' || current_user.should_render_teacher_premium? %>

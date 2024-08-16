@@ -73,7 +73,7 @@ exports[`Unit assignment followup component When there are only empty classes as
             className="share-links"
           >
             <a
-              href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? undefined/?referral_code=code"
+              href="https://x.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? undefined/?referral_code=code"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -193,7 +193,7 @@ exports[`Unit assignment followup component When there are students assigned on 
             className="share-links"
           >
             <a
-              href="https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? undefined/?referral_code=code"
+              href="https://x.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? undefined/?referral_code=code"
               rel="noopener noreferrer"
               target="_blank"
             >

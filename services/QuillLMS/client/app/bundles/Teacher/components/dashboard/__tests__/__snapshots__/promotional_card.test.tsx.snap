@@ -260,52 +260,87 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   <ScoringUpdatesCard
     handleCloseCard={[Function]}
   >
-    <section
-      className="scoring-updates-card"
+    <PostNavigationBanner
+      bannerStyle="gold-secondary"
+      bodyText=""
+      buttons={
+        Array [
+          Object {
+            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "standardButtonStyle": true,
+            "target": "_blank",
+            "text": "Learn more about Quill's updates to activity scores",
+          },
+        ]
+      }
+      closeAria="Hide card until next school year"
+      closeIconSrc="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+      handleCloseCard={[Function]}
+      icon={
+        Object {
+          "alt": "Image of a school building",
+          "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
+        }
+      }
+      primaryHeaderText="Educators, we have updated our approach to scoring activities"
+      secondaryHeaderText="Update for the 2023-2024 school year"
     >
-      <div>
-        <div
-          className="badge-section"
-        >
-          <span
-            className="title-tag"
-          >
-            UPDATE FOR THE 2023-2024 SCHOOL YEAR
-          </span>
-        </div>
-        <h2>
-          Educators, we have updated our approach to scoring activities
-        </h2>
-        <div
-          className="link-section"
-        >
-          <a
-            href="undefined/teacher-center/quill-scoring-updates-2023"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>
-              Learn more about Quill's updates to activity scores
-            </span>
-            <img
-              alt="Arrow pointing right icon"
-              src="undefined/images/icons/icons-arrow-back.svg"
-            />
-          </a>
-        </div>
-      </div>
-      <button
-        aria-label="Hide card until next school year"
-        className="interactive-wrapper close-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="banner-container gold-secondary"
       >
+        <div
+          className="left-side-container"
+        >
+          <div
+            className="upper-section"
+          >
+            <p
+              className="secondary-header"
+            >
+              Update for the 2023-2024 school year
+            </p>
+          </div>
+          <p
+            className="primary-header"
+          >
+            Educators, we have updated our approach to scoring activities
+          </p>
+          <p
+            className="body"
+          />
+          <div
+            className="buttons-container"
+          >
+            <a
+              className="quill-button-archived fun primary contained focus-on-light"
+              href="undefined/teacher-center/quill-scoring-updates-2023"
+              key="button-0"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Learn more about Quill's updates to activity scores
+               
+            </a>
+          </div>
+        </div>
         <img
-          alt=""
-          src="undefined/images/pages/dashboard/bulk_archive_close_icon.svg"
+          alt="Image of a school building"
+          className="banner-icon"
+          src="https://assets.quill.org/images/banners/large-school-campus-gold.svg"
         />
-      </button>
-    </section>
+        <button
+          aria-label="Hide card until next school year"
+          className="interactive-wrapper close-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt=""
+            src="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+          />
+        </button>
+      </div>
+    </PostNavigationBanner>
   </ScoringUpdatesCard>
 </PromotionalCard>
 `;
@@ -402,52 +437,87 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   <ScoringUpdatesCard
     handleCloseCard={[Function]}
   >
-    <section
-      className="scoring-updates-card"
+    <PostNavigationBanner
+      bannerStyle="gold-secondary"
+      bodyText=""
+      buttons={
+        Array [
+          Object {
+            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "standardButtonStyle": true,
+            "target": "_blank",
+            "text": "Learn more about Quill's updates to activity scores",
+          },
+        ]
+      }
+      closeAria="Hide card until next school year"
+      closeIconSrc="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+      handleCloseCard={[Function]}
+      icon={
+        Object {
+          "alt": "Image of a school building",
+          "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
+        }
+      }
+      primaryHeaderText="Educators, we have updated our approach to scoring activities"
+      secondaryHeaderText="Update for the 2023-2024 school year"
     >
-      <div>
-        <div
-          className="badge-section"
-        >
-          <span
-            className="title-tag"
-          >
-            UPDATE FOR THE 2023-2024 SCHOOL YEAR
-          </span>
-        </div>
-        <h2>
-          Educators, we have updated our approach to scoring activities
-        </h2>
-        <div
-          className="link-section"
-        >
-          <a
-            href="undefined/teacher-center/quill-scoring-updates-2023"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>
-              Learn more about Quill's updates to activity scores
-            </span>
-            <img
-              alt="Arrow pointing right icon"
-              src="undefined/images/icons/icons-arrow-back.svg"
-            />
-          </a>
-        </div>
-      </div>
-      <button
-        aria-label="Hide card until next school year"
-        className="interactive-wrapper close-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="banner-container gold-secondary"
       >
+        <div
+          className="left-side-container"
+        >
+          <div
+            className="upper-section"
+          >
+            <p
+              className="secondary-header"
+            >
+              Update for the 2023-2024 school year
+            </p>
+          </div>
+          <p
+            className="primary-header"
+          >
+            Educators, we have updated our approach to scoring activities
+          </p>
+          <p
+            className="body"
+          />
+          <div
+            className="buttons-container"
+          >
+            <a
+              className="quill-button-archived fun primary contained focus-on-light"
+              href="undefined/teacher-center/quill-scoring-updates-2023"
+              key="button-0"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Learn more about Quill's updates to activity scores
+               
+            </a>
+          </div>
+        </div>
         <img
-          alt=""
-          src="undefined/images/pages/dashboard/bulk_archive_close_icon.svg"
+          alt="Image of a school building"
+          className="banner-icon"
+          src="https://assets.quill.org/images/banners/large-school-campus-gold.svg"
         />
-      </button>
-    </section>
+        <button
+          aria-label="Hide card until next school year"
+          className="interactive-wrapper close-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt=""
+            src="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+          />
+        </button>
+      </div>
+    </PostNavigationBanner>
   </ScoringUpdatesCard>
 </PromotionalCard>
 `;
@@ -712,52 +782,87 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   <ScoringUpdatesCard
     handleCloseCard={[Function]}
   >
-    <section
-      className="scoring-updates-card"
+    <PostNavigationBanner
+      bannerStyle="gold-secondary"
+      bodyText=""
+      buttons={
+        Array [
+          Object {
+            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "standardButtonStyle": true,
+            "target": "_blank",
+            "text": "Learn more about Quill's updates to activity scores",
+          },
+        ]
+      }
+      closeAria="Hide card until next school year"
+      closeIconSrc="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+      handleCloseCard={[Function]}
+      icon={
+        Object {
+          "alt": "Image of a school building",
+          "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
+        }
+      }
+      primaryHeaderText="Educators, we have updated our approach to scoring activities"
+      secondaryHeaderText="Update for the 2023-2024 school year"
     >
-      <div>
-        <div
-          className="badge-section"
-        >
-          <span
-            className="title-tag"
-          >
-            UPDATE FOR THE 2023-2024 SCHOOL YEAR
-          </span>
-        </div>
-        <h2>
-          Educators, we have updated our approach to scoring activities
-        </h2>
-        <div
-          className="link-section"
-        >
-          <a
-            href="undefined/teacher-center/quill-scoring-updates-2023"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>
-              Learn more about Quill's updates to activity scores
-            </span>
-            <img
-              alt="Arrow pointing right icon"
-              src="undefined/images/icons/icons-arrow-back.svg"
-            />
-          </a>
-        </div>
-      </div>
-      <button
-        aria-label="Hide card until next school year"
-        className="interactive-wrapper close-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="banner-container gold-secondary"
       >
+        <div
+          className="left-side-container"
+        >
+          <div
+            className="upper-section"
+          >
+            <p
+              className="secondary-header"
+            >
+              Update for the 2023-2024 school year
+            </p>
+          </div>
+          <p
+            className="primary-header"
+          >
+            Educators, we have updated our approach to scoring activities
+          </p>
+          <p
+            className="body"
+          />
+          <div
+            className="buttons-container"
+          >
+            <a
+              className="quill-button-archived fun primary contained focus-on-light"
+              href="undefined/teacher-center/quill-scoring-updates-2023"
+              key="button-0"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Learn more about Quill's updates to activity scores
+               
+            </a>
+          </div>
+        </div>
         <img
-          alt=""
-          src="undefined/images/pages/dashboard/bulk_archive_close_icon.svg"
+          alt="Image of a school building"
+          className="banner-icon"
+          src="https://assets.quill.org/images/banners/large-school-campus-gold.svg"
         />
-      </button>
-    </section>
+        <button
+          aria-label="Hide card until next school year"
+          className="interactive-wrapper close-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt=""
+            src="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+          />
+        </button>
+      </div>
+    </PostNavigationBanner>
   </ScoringUpdatesCard>
 </PromotionalCard>
 `;
@@ -854,52 +959,87 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   <ScoringUpdatesCard
     handleCloseCard={[Function]}
   >
-    <section
-      className="scoring-updates-card"
+    <PostNavigationBanner
+      bannerStyle="gold-secondary"
+      bodyText=""
+      buttons={
+        Array [
+          Object {
+            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "standardButtonStyle": true,
+            "target": "_blank",
+            "text": "Learn more about Quill's updates to activity scores",
+          },
+        ]
+      }
+      closeAria="Hide card until next school year"
+      closeIconSrc="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+      handleCloseCard={[Function]}
+      icon={
+        Object {
+          "alt": "Image of a school building",
+          "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
+        }
+      }
+      primaryHeaderText="Educators, we have updated our approach to scoring activities"
+      secondaryHeaderText="Update for the 2023-2024 school year"
     >
-      <div>
-        <div
-          className="badge-section"
-        >
-          <span
-            className="title-tag"
-          >
-            UPDATE FOR THE 2023-2024 SCHOOL YEAR
-          </span>
-        </div>
-        <h2>
-          Educators, we have updated our approach to scoring activities
-        </h2>
-        <div
-          className="link-section"
-        >
-          <a
-            href="undefined/teacher-center/quill-scoring-updates-2023"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>
-              Learn more about Quill's updates to activity scores
-            </span>
-            <img
-              alt="Arrow pointing right icon"
-              src="undefined/images/icons/icons-arrow-back.svg"
-            />
-          </a>
-        </div>
-      </div>
-      <button
-        aria-label="Hide card until next school year"
-        className="interactive-wrapper close-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="banner-container gold-secondary"
       >
+        <div
+          className="left-side-container"
+        >
+          <div
+            className="upper-section"
+          >
+            <p
+              className="secondary-header"
+            >
+              Update for the 2023-2024 school year
+            </p>
+          </div>
+          <p
+            className="primary-header"
+          >
+            Educators, we have updated our approach to scoring activities
+          </p>
+          <p
+            className="body"
+          />
+          <div
+            className="buttons-container"
+          >
+            <a
+              className="quill-button-archived fun primary contained focus-on-light"
+              href="undefined/teacher-center/quill-scoring-updates-2023"
+              key="button-0"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Learn more about Quill's updates to activity scores
+               
+            </a>
+          </div>
+        </div>
         <img
-          alt=""
-          src="undefined/images/pages/dashboard/bulk_archive_close_icon.svg"
+          alt="Image of a school building"
+          className="banner-icon"
+          src="https://assets.quill.org/images/banners/large-school-campus-gold.svg"
         />
-      </button>
-    </section>
+        <button
+          aria-label="Hide card until next school year"
+          className="interactive-wrapper close-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt=""
+            src="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+          />
+        </button>
+      </div>
+    </PostNavigationBanner>
   </ScoringUpdatesCard>
 </PromotionalCard>
 `;
@@ -1164,52 +1304,87 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
   <ScoringUpdatesCard
     handleCloseCard={[Function]}
   >
-    <section
-      className="scoring-updates-card"
+    <PostNavigationBanner
+      bannerStyle="gold-secondary"
+      bodyText=""
+      buttons={
+        Array [
+          Object {
+            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "standardButtonStyle": true,
+            "target": "_blank",
+            "text": "Learn more about Quill's updates to activity scores",
+          },
+        ]
+      }
+      closeAria="Hide card until next school year"
+      closeIconSrc="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+      handleCloseCard={[Function]}
+      icon={
+        Object {
+          "alt": "Image of a school building",
+          "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
+        }
+      }
+      primaryHeaderText="Educators, we have updated our approach to scoring activities"
+      secondaryHeaderText="Update for the 2023-2024 school year"
     >
-      <div>
-        <div
-          className="badge-section"
-        >
-          <span
-            className="title-tag"
-          >
-            UPDATE FOR THE 2023-2024 SCHOOL YEAR
-          </span>
-        </div>
-        <h2>
-          Educators, we have updated our approach to scoring activities
-        </h2>
-        <div
-          className="link-section"
-        >
-          <a
-            href="undefined/teacher-center/quill-scoring-updates-2023"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <span>
-              Learn more about Quill's updates to activity scores
-            </span>
-            <img
-              alt="Arrow pointing right icon"
-              src="undefined/images/icons/icons-arrow-back.svg"
-            />
-          </a>
-        </div>
-      </div>
-      <button
-        aria-label="Hide card until next school year"
-        className="interactive-wrapper close-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="banner-container gold-secondary"
       >
+        <div
+          className="left-side-container"
+        >
+          <div
+            className="upper-section"
+          >
+            <p
+              className="secondary-header"
+            >
+              Update for the 2023-2024 school year
+            </p>
+          </div>
+          <p
+            className="primary-header"
+          >
+            Educators, we have updated our approach to scoring activities
+          </p>
+          <p
+            className="body"
+          />
+          <div
+            className="buttons-container"
+          >
+            <a
+              className="quill-button-archived fun primary contained focus-on-light"
+              href="undefined/teacher-center/quill-scoring-updates-2023"
+              key="button-0"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Learn more about Quill's updates to activity scores
+               
+            </a>
+          </div>
+        </div>
         <img
-          alt=""
-          src="undefined/images/pages/dashboard/bulk_archive_close_icon.svg"
+          alt="Image of a school building"
+          className="banner-icon"
+          src="https://assets.quill.org/images/banners/large-school-campus-gold.svg"
         />
-      </button>
-    </section>
+        <button
+          aria-label="Hide card until next school year"
+          className="interactive-wrapper close-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <img
+            alt=""
+            src="undefined/images/pages/dashboard/bulk_archive_close_icon_orange.svg"
+          />
+        </button>
+      </div>
+    </PostNavigationBanner>
   </ScoringUpdatesCard>
 </PromotionalCard>
 `;
