@@ -84,7 +84,7 @@ jobs:
     parameters:
       <<: *should_run_params
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 1
     docker:
       - image: cimg/ruby:3.2.2-node
         environment:
@@ -92,14 +92,12 @@ jobs:
           PG_USER: ubuntu
           RAILS_ENV: test
           RACK_ENV: test
-          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub
           DEFAULT_URL: http://localhost:3000
       - image: pgvector/pgvector:pg15
         environment:
           POSTGRES_DB: quill_test_db
           POSTGRES_USER: ubuntu
           POSTGRES_PASSWORD: password
-      - image: selenium/standalone-chrome:4.11.0
     steps:
       - run:
           <<: *blank_required_step
@@ -133,7 +131,6 @@ jobs:
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
-                  gem install foreman
             - save_cache:
                 key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
                 paths:
