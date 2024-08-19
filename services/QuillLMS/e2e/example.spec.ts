@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 
 
 test('has visible signup button', async ({ page }) => {
-  console.log(process.env)
   await page.goto('http://localhost:5000');
 
 
