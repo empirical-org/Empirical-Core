@@ -163,7 +163,7 @@ jobs:
                   cd services/QuillLMS && bin/vite build
             - run:
                 name: Start services with Foreman
-                command: cd services/QuillLMS && foreman start -f Procfile.ci
+                command: cd services/QuillLMS && bundle exec foreman start -f Procfile.ci
                 background: true
             - run:
                 name: Wait for Rails server
