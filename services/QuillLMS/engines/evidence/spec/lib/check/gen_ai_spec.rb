@@ -16,7 +16,8 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
 
   before do
     allow(Evidence::GenAI::SystemPromptBuilder).to receive(:run).and_return(system_prompt)
-    allow(Evidence::Check::GenAI::CHAT_API).to receive(:run).and_return(primary_response, secondary_response)
+    allow(Evidence::Check::GenAI::FEEDBACK_API).to receive(:run).and_return(primary_response)
+    allow(Evidence::Check::GenAI::SECONDARY_API).to receive(:run).and_return(secondary_response)
     allow(Evidence::GenAI::ResponseBuilder).to receive(:run).and_return(response)
     allow(Evidence::GenAI::RepeatedFeedbackChecker).to receive(:run).and_return(false)
   end

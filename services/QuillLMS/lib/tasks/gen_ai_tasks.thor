@@ -18,7 +18,7 @@ class GenAITasks < Thor
 
       prompt.example_sets(optimal:).each do |entry|
         begin
-          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+          response = feedback_api.run(system_prompt:, entry:)
           total += 1
 
           if response[KEY_OPTIMAL] == optimal
@@ -58,7 +58,7 @@ class GenAITasks < Thor
       test_data = optimal ? dataset.optimals : dataset.suboptimals
       test_data.each do |entry|
         begin
-          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+          response = feedback_api.run(system_prompt:, entry:)
           total += 1
 
           if response[KEY_OPTIMAL] == optimal
@@ -127,7 +127,7 @@ class GenAITasks < Thor
     print_line
     puts "#{prompt.text}: #{entry}"
     print_line
-    puts Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+    puts feedback_api.run(system_prompt:, entry:)
   end
 
   desc "test_csv 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
@@ -149,11 +149,12 @@ class GenAITasks < Thor
     results = []
     # Pull a random sample, but use the same seed so examples are consistent.
     test_subset = test_set.sample(limit.to_i, random: Random.new(1))
+
     test_subset.each do |feedback_set|
       prompt = Evidence::Prompt.find(feedback_set.prompt_id)
       system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
 
-      response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_set.primary, model: 'gpt-4o-mini')
+      response = secondary_api.run(system_prompt:, entry: feedback_set.primary, model: secondary_model)
       highlight_key = response[KEY_HIGHLIGHT] || 99
       llm_highlight = prompt.distinct_automl_highlight_arrays[highlight_key - 1]
 
@@ -287,21 +288,21 @@ class GenAITasks < Thor
     print_line
     puts "Original Feedback: #{feedback_primary}"
     print_line
-    puts Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback_primary, model: 'gpt-4o-mini')
+    puts secondary_api.run(system_prompt:, entry: feedback_primary, model: secondary_model)
   end
 
   # bundle exec thor gen_a_i_tasks:repeated_feedback_prompt_entry 'some feedback' 'feedback in history'
   desc "repeated_feedback_prompt_entry 'some feedback' 'feedback in history'", 'Run to see system prompt and response'
   def repeated_feedback_prompt_entry(entry, previous)
     prompt = Evidence::Prompt.first
-    history_item = Evidence::OpenAI::Chat::HistoryItem.new(user: 'unused', assistant: previous)
+    history_item = Evidence::GenAI::HistoryItem.new(user: 'unused', assistant: previous)
     system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt:, history: [history_item])
 
     puts system_prompt
     print_line
     puts entry
     print_line
-    puts Evidence::OpenAI::Chat.run(system_prompt:, entry:, model: 'gpt-4o-mini')
+    puts repeat_api.run(system_prompt:, entry:, model: repeat_model)
   end
 
   # bundle exec thor gen_a_i_tasks:example_check
@@ -374,13 +375,22 @@ class GenAITasks < Thor
     SECONDARY_CSV_HEADERS = %w[activity_id prompt_id conjunction rule_id label sample_entry feedback_primary feedback_secondary highlights_secondary]
     GEN_AI_OUTPUT_FOLDER = ENV.fetch('GEN_AI_OUTPUT_FOLDER', Rails.root.join('/lib/data/'))
 
+    private def feedback_api = Evidence::Check::GenAI::FEEDBACK_API
+    private def repeat_api = Evidence::Check::GenAI::REPEAT_API
+    private def secondary_api = Evidence::Check::GenAI::SECONDARY_API
+
+    private def repeat_model = repeat_api::SMALL_MODEL
+    private def secondary_model = secondary_api::SMALL_MODEL
+
     private def repeated_feedback?(feedback, history)
       system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt: nil, history:)
-      llm_response = Evidence::OpenAI::Chat.run(system_prompt:, entry: feedback, model: 'gpt-4o-mini')
+
+      llm_response = repeat_api.run(system_prompt:, entry: feedback, model: repeat_model)
       puts llm_response
 
       !!llm_response[Evidence::GenAI::RepeatedFeedbackChecker::KEY_REPEAT]
     end
+
     private def paraphrase(entry)
       result = Evidence::OpenAI::Chat.run(
         system_prompt: "rephrase the user's entry with some synonyms. Return as JSON with one key `text`",
