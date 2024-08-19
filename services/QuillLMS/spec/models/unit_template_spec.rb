@@ -29,7 +29,7 @@ describe UnitTemplate, redis: true, type: :model do
 
   it { should belong_to(:unit_template_category) }
   it { should belong_to(:author) }
-  it { should have_many(:activities_unit_templates) }
+  it { should have_many(:activities_unit_templates).dependent(:destroy) }
   it { should have_many(:activities).through(:activities_unit_templates) }
   it { should have_many(:units) }
   it { should serialize(:grades).as(Array) }

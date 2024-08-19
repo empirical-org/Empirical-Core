@@ -52,9 +52,11 @@ class DiagnosticsOrganizedByClassroomFetcher < ApplicationService
           record['classroom_id']
         )
 
+        activity = Activity.find_by_id(record['post_test_id'])
+
         grouped_record[:post] = post_test || {
-          activity_name: Activity.find_by_id(record['post_test_id'])&.name,
-          unit_template_id: ActivitiesUnitTemplate.find_by_activity_id(record['post_test_id'])&.unit_template_id
+          activity_name: activity&.name,
+          unit_template_id: activity&.unit_templates&.first&.id
         }
       end
 
