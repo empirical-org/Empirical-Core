@@ -163,7 +163,7 @@ module ContentHubsHelper
           {
             name: 'Where credit is due',
             link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_341'
-          },
+          }
         ]
       },
       {
