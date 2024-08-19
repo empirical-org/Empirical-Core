@@ -162,4 +162,29 @@ describe ContentHubsHelper, type: :helper do
       end
     end
   end
+
+  describe '#building_ai_knowledge_data' do
+    it 'returns an array of ai units with the expected structure' do
+      result = helper.building_ai_knowledge_data
+
+      expect(result).to be_an(Array)
+      expect(result).not_to be_empty
+
+      result.each do |unit|
+        expect(unit).to have_key(:display_name)
+        expect(unit).to have_key(:description)
+        expect(unit).to have_key(:unit_template_id)
+        expect(unit).to have_key(:all_quill_articles_href)
+        expect(unit).to have_key(:quill_teacher_guide_href)
+        expect(unit).to have_key(:activities)
+
+        activities = unit[:activities]
+        expect(activities).to be_an(Array)
+        expect(activities).to all(have_key(:activity_id))
+        expect(activities).to all(have_key(:display_name))
+        expect(activities).to all(have_key(:description))
+        expect(activities).to all(have_key(:paired_ai_edu_activities))
+      end
+    end
+  end
 end
