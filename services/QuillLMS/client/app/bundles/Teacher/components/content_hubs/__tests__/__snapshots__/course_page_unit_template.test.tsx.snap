@@ -97,7 +97,6 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
               OER 1
             </a>
           </p>
-          Inside the return statement of a React component I'm creating links like this, but I want to join them with text " and " if there are multiple. Can you help me with that?
         </div>
         <div
           class="results-section"
@@ -157,7 +156,6 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
               OER 2
             </a>
           </p>
-          Inside the return statement of a React component I'm creating links like this, but I want to join them with text " and " if there are multiple. Can you help me with that?
         </div>
         <div
           class="results-section"
@@ -187,7 +185,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
       </div>
     </div>
     <div
-      class="oer-resources-section"
+      class="resources-section"
     >
       <h4>
         OER Project Unit 123 Resources
