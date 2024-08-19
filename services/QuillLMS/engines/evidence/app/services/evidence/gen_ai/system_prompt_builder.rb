@@ -4,7 +4,7 @@ module Evidence
   module GenAI
     class SystemPromptBuilder < PromptBuilder
       TEMPLATE_FOLDER = 'app/services/evidence/gen_ai/system_prompts/'
-      DEFAULT_TEMPLATE = '2024_07_11_plagiarism_only.md'
+      DEFAULT_TEMPLATE = '2024_08_19_gemini_optimized.md'
 
       OPTIMAL_SAMPLE_COUNT = 100
       SUBOPTIMAL_SAMPLE_COUNT = 100
