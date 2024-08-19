@@ -25,7 +25,7 @@
 class UnitTemplate < ApplicationRecord
   belongs_to :unit_template_category
   belongs_to :author
-  has_many :activities_unit_templates, -> { order('order_number ASC') }
+  has_many :activities_unit_templates, -> { order('order_number ASC') }, dependent: :destroy
   has_many :activities, through: :activities_unit_templates
   has_many :units
   has_many :partner_contents, dependent: :destroy, as: :content
