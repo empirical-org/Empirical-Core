@@ -140,7 +140,7 @@ describe ResultsSummary do
       let(:expected_result) { activity.skill_groups.order(:order_number).map(&:name) }
 
       it 'should order skill_group_summaries by order_number' do
-        expect(subject[:skill_group_summaries].map{|sg| sg[:name]}).to eq(expected_result)
+        expect(subject[:skill_group_summaries].map { |sg| sg[:name] }).to eq(expected_result)
       end
     end
   end
