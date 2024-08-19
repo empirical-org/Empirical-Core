@@ -2,6 +2,8 @@
 
 module QuillBigQuery
   class MaterializedViewQuery < Query
+    class BrokenMaterializedViewError < StandardError; end
+
     BROKEN_MATERIALIZED_VIEW_ERRORS = [
       ::Google::Cloud::NotFoundError,
       ::Google::Cloud::InvalidArgumentError
@@ -17,7 +19,8 @@ module QuillBigQuery
 
     def run_query
       query_runner(query)
-    rescue *BROKEN_MATERIALIZED_VIEW_ERRORS
+    rescue *BROKEN_MATERIALIZED_VIEW_ERRORS => e
+      ErrorNotifier.report(BrokenMaterializedViewError.new(e.message))
       query_runner(query_fallback)
     end
 

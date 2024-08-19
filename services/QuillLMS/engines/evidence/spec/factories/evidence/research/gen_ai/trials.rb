@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  evaluation_duration :float
+#  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
 #  trial_duration      :float

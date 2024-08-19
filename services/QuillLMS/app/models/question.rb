@@ -245,7 +245,7 @@ class Question < ApplicationRecord
 
     case sequences
     when Hash
-      sequences.each { |key, value| validate_text_and_feedback(value) }
+      sequences.each { |_key, value| validate_text_and_feedback(value) }
     when Array
       sequences.each { |value| validate_text_feedback_and_uid(value) }
     end

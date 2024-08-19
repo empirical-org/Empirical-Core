@@ -109,7 +109,7 @@ class Cms::DistrictsController < Cms::CmsController
     params.permit(default_params + all_search_inputs)
   end
 
-  private def district_query(params)
+  private def district_query(_params)
     page = [district_query_params[:page].to_i - 1, 0].max
     result = District.distinct.offset(DISTRICTS_PER_PAGE * page)
 

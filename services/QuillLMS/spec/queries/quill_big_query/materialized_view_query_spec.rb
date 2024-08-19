@@ -38,11 +38,20 @@ describe QuillBigQuery::MaterializedViewQuery do
       expect(subject).to eq(result)
     end
 
-    it 'mat view query error' do
-      expect(runner).to receive(:execute).with(query).and_raise(::Google::Cloud::InvalidArgumentError)
-      expect(runner).to receive(:execute).with(query_fallback).and_return(result)
+    context 'mat view query error' do
+      let(:message) { 'This is the error message.' }
 
-      expect(subject).to eq(result)
+      before do
+        allow(runner).to receive(:execute).with(query).and_raise(::Google::Cloud::InvalidArgumentError, message)
+        allow(runner).to receive(:execute).with(query_fallback).and_return(result)
+      end
+
+      it { expect(subject).to eq(result) }
+
+      it do
+        expect(ErrorNotifier).to receive(:report).with(described_class::BrokenMaterializedViewError.new(message))
+        subject
+      end
     end
   end
 end

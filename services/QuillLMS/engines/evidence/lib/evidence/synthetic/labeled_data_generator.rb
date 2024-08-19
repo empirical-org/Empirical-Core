@@ -100,7 +100,7 @@ module Evidence
       # generated
       # {'their originial response' => [Generated(spelling)]}
       def run_generators(generator_hash, results_set)
-        generator_hash.each do |type, generator|
+        generator_hash.each do |_type, generator|
           results_hash = generator.run(results_set.map(&:text), passage: passage)
 
           results_set.each do |result|

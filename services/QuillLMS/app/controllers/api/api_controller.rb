@@ -9,7 +9,7 @@ class Api::ApiController < ActionController::Base
 
   include NewRelicAttributable
 
-  rescue_from ActiveRecord::RecordNotFound do |e|
+  rescue_from ActiveRecord::RecordNotFound do |_e|
     not_found
   end
 

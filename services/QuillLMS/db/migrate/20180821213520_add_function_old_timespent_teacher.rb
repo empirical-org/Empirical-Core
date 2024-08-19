@@ -38,8 +38,8 @@ class AddFunctionOldTimespentTeacher < ActiveRecord::Migration[4.2]
   end
 
   def down
-    connection.execute(%q{
+    connection.execute(%q(
       DROP FUNCTION old_timespent_teacher;
-    })
+    ))
   end
 end

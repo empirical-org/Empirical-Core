@@ -9,6 +9,8 @@ class EmailSubscriptionsController < ApplicationController
     subscription = @current_subscription || EmailSubscription.new(user_id:, subscription_type:)
 
     if subscription.update(subscription_params)
+      subscription.copy_filters
+
       render json: subscription, status: :ok
     else
       render json: subscription.errors, status: :unprocessable_entity

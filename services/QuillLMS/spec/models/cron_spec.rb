@@ -177,6 +177,7 @@ RSpec.describe Cron, type: :model do
   describe '#run_monday' do
     it 'enqueues Pdfs::SendWeeklySubscriptionsWorker' do
       expect(Pdfs::SendWeeklySubscriptionsWorker).to receive(:perform_async)
+      expect(AdminDiagnosticReports::SendWeeklySubscriptionsWorker).to receive(:perform_async)
       Cron.run_monday
     end
   end
@@ -213,6 +214,7 @@ RSpec.describe Cron, type: :model do
   describe '#run_monthly' do
     it 'enqueues Pdfs::SendMonthlySubscriptionsWorker' do
       expect(Pdfs::SendMonthlySubscriptionsWorker).to receive(:perform_async)
+      expect(AdminDiagnosticReports::SendMonthlySubscriptionsWorker).to receive(:perform_async)
       Cron.run_monthly
     end
   end

@@ -1525,7 +1525,8 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     trial_duration double precision,
-    evaluation_duration double precision
+    evaluation_duration double precision,
+    number integer NOT NULL
 );
 
 
@@ -2600,6 +2601,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240701180438'),
 ('20240713141016'),
 ('20240714214900'),
-('20240801134328');
+('20240801134328'),
+('20240805185650');
 
 

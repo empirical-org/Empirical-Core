@@ -9,7 +9,7 @@ describe Admin::TeacherSerializer do
     let(:result_key) { 'teacher' }
 
     let(:expected_serialized_keys) do
-      %w{
+      %w[
         id
         name
         email
@@ -18,7 +18,7 @@ describe Admin::TeacherSerializer do
         number_of_students
         has_valid_subscription
         admin_info
-      }
+      ]
     end
   end
 

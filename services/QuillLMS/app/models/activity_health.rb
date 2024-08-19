@@ -20,8 +20,8 @@
 #  url                     :string
 #
 class ActivityHealth < ApplicationRecord
-  ALLOWED_TOOLS = %w(connect grammar)
-  FLAGS = %w(production archived alpha beta gamma private)
+  ALLOWED_TOOLS = %w[connect grammar]
+  FLAGS = %w[production archived alpha beta gamma private]
 
   has_many :prompt_healths
 

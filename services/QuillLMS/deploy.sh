@@ -26,6 +26,11 @@ case $1 in
     HEROKU_APP=empirical-grammar-staging
     URL="https://staging.quill.org/"
     ;;
+  beta)
+    DEPLOY_GIT_BRANCH=deploy-lms-beta
+    HEROKU_APP=quill-lms-beta
+    URL="https://beta.quill.org/"
+    ;;
   dan)
     DEPLOY_GIT_BRANCH=deploy-lms-dan
     HEROKU_APP=quill-lms-dan

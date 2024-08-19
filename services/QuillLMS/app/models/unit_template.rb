@@ -149,7 +149,7 @@ class UnitTemplate < ApplicationRecord
 
   def self.delete_all_caches
     UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
-    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+    %w[private_ production_ gamma_ beta_ alpha_].each do |flag|
       $redis.del("#{flag}unit_templates")
     end
   end
@@ -196,12 +196,12 @@ class UnitTemplate < ApplicationRecord
     # from both the 'production' and 'gamma' caches while leaving it as-is in
     # 'beta'.  It's rare enough to make these changes that we should just flush
     # all the caches.
-    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+    %w[private_ production_ gamma_ beta_ alpha_].each do |flag|
       $redis.del("#{flag}unit_templates")
     end
     yield
     $redis.del("unit_template_id:#{id}_serialized")
-    %w(private_ production_ gamma_ beta_ alpha_).each do |flag|
+    %w[private_ production_ gamma_ beta_ alpha_].each do |flag|
       $redis.del("#{flag}unit_templates")
     end
   end

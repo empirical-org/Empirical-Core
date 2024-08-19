@@ -27,7 +27,7 @@
 class Classroom < ApplicationRecord
   include CheckboxCallback
 
-  GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
+  GRADES = %w[1 2 3 4 5 6 7 8 9 10 11 12 University]
   UNIVERSITY = 'University'
   GRADE_INTEGERS = { Kindergarten: 0, University: 13, PostGraduate: 14 }
 

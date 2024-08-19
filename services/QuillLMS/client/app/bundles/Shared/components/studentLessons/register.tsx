@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 class Register extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -11,11 +12,8 @@ class Register extends React.Component<any, any> {
 
   componentDidMount() {
     const { previewMode, lesson } = this.props;
-    if(previewMode) {
+    if (previewMode) {
       this.startActivity();
-    }
-    if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
-      this.handleSetShowIntro();
     }
   }
 
@@ -32,17 +30,13 @@ class Register extends React.Component<any, any> {
   }
 
   startActivity = () => {
+    const { showIntro, } = this.state
     const { lesson, startActivity, } = this.props
-    if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
+    if (lesson.landingPageHtml && this.landingPageHtmlHasText() && !showIntro) {
       this.setState({ showIntro: true, });
     } else {
       startActivity();
     }
-  }
-
-  handleStartLessonClick = () => {
-    const { startActivity, } = this.props
-    startActivity();
   }
 
   resume = () => {
@@ -61,22 +55,22 @@ class Register extends React.Component<any, any> {
     return false;
   }
 
-  renderButton = (showIntro: boolean) => {
+  renderButton = (showIntro) => {
     const { session, translate, showTranslation } = this.props
     let onClickFn, text;
 
-    if(showIntro) {
-      const buttonText = showTranslation ? translate('buttons^start activity') : 'Start activity'
-      return <button className="quill-button-archived focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">{buttonText}</button>
-    }
     if (session) {
       // resume session if one is passed
       onClickFn = this.resume;
       text = showTranslation ? translate('buttons^resume') : 'Resume'
+    } else if (showIntro) {
+      // this and the following conditional have the same action because the function handles what should happen next  
+      onClickFn = this.startActivity;
+      text = showTranslation ? translate('buttons^begin') : 'Begin'
     } else {
       // otherwise begin new session
       onClickFn = this.startActivity;
-      text = showTranslation ? translate('buttons^begin') : 'Begin'
+      text = showTranslation ? translate('buttons^start activity') : 'Start activity'
     }
     return (
       <button className="quill-button-archived focus-on-light primary contained large" onClick={onClickFn} type="button">

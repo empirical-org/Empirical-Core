@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe Array do
   describe '#median' do
-    let(:odd_sized_letters) { %w{e a b c d} }
-    let(:even_sized_letters) { %w{f e a b c d} }
+    let(:odd_sized_letters) { %w[e a b c d] }
+    let(:even_sized_letters) { %w[f e a b c d] }
     let(:odd_sized_numbers) { [3, 2, 1] }
     let(:even_sized_numbers) { [4, 3, 2, 1] }
     let(:one_number) { [1] }

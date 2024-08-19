@@ -6,6 +6,7 @@
 #
 #  id                  :bigint           not null, primary key
 #  evaluation_duration :float
+#  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
 #  trial_duration      :float
@@ -43,6 +44,28 @@ module Evidence
 
         it { have_many(:llm_examples) }
         it { have_many(:test_examples).through(:dataset) }
+
+        describe 'callbacks' do
+          describe 'before_create :set_trial_number' do
+            let(:dataset) { create(:evidence_research_gen_ai_dataset) }
+
+            let!(:trial1) { create(:evidence_research_gen_ai_trial, dataset:) }
+            let!(:trial2) { create(:evidence_research_gen_ai_trial, dataset:) }
+
+            it { expect(trial1.number).to eq(1) }
+            it { expect(trial2.number).to eq(2) }
+
+            it 'assigns the correct number to a new trial' do
+              new_trial = create(:evidence_research_gen_ai_trial, dataset:)
+              expect(new_trial.number).to eq(3)
+            end
+
+            it 'assigns the correct number to a new trial with a different dataset' do
+              new_trial = create(:evidence_research_gen_ai_trial)
+              expect(new_trial.number).to eq(1)
+            end
+          end
+        end
 
         describe '#run' do
           subject { trial.run }

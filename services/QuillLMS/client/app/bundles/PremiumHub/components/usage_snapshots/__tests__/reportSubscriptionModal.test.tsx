@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { render, fireEvent, screen, } from '@testing-library/react';
+
 import ReportSubscriptionModal from '../reportSubscriptionModal';
 
 describe('<ReportSubscriptionModal />', () => {
   const mockSave = jest.fn();
   const mockCancel = jest.fn();
-  const currentPdfSubscription = { frequency: 'Weekly' };
+  const currentSubscription = { frequency: 'Weekly' };
 
   const renderComponent = (isOpen: boolean, subscription = null) =>
     render(
       <ReportSubscriptionModal
         cancel={mockCancel}
-        currentPdfSubscription={subscription}
+        currentSubscription={subscription}
         isOpen={isOpen}
         save={mockSave}
       />
@@ -22,7 +23,7 @@ describe('<ReportSubscriptionModal />', () => {
   });
 
   test('matches the component snapshot', () => {
-    const { asFragment } = renderComponent(true, currentPdfSubscription);
+    const { asFragment } = renderComponent(true, currentSubscription);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -37,7 +38,7 @@ describe('<ReportSubscriptionModal />', () => {
   });
 
   test('initial state with existing subscription', () => {
-    renderComponent(true, currentPdfSubscription)
+    renderComponent(true, currentSubscription)
     expect(screen.getByLabelText('On')).toBeChecked();
     expect(screen.getByText('Weekly')).toBeInTheDocument();
   });
@@ -50,13 +51,13 @@ describe('<ReportSubscriptionModal />', () => {
   });
 
   test('calls save function with correct arguments on save click', () => {
-    renderComponent(true, currentPdfSubscription)
+    renderComponent(true, currentSubscription)
     fireEvent.click(screen.getByText('Save'));
-    expect(mockSave).toHaveBeenCalledWith(true, 'Weekly', currentPdfSubscription);
+    expect(mockSave).toHaveBeenCalledWith(true, 'Weekly', currentSubscription);
   });
 
   test('calls cancel function on cancel click', () => {
-    renderComponent(true, currentPdfSubscription)
+    renderComponent(true, currentSubscription)
     fireEvent.click(screen.getByText('Cancel'));
     expect(mockCancel).toHaveBeenCalled();
   });

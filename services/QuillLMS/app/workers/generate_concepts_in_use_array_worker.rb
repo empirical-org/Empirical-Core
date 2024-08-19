@@ -13,11 +13,11 @@ class GenerateConceptsInUseArrayWorker
     'D_SF_QUESTIONS' => 'diagnostic_sentence_fragments',
   }.freeze
 
-  CONCEPTS_IN_USE = [%w(
+  CONCEPTS_IN_USE = [%w[
     name uid grades_proofreader_activities grades_grammar_activities grades_connect_activities
     grades_diagnostic_activities categorized_connect_questions categorized_diagnostic_questions
     part_of_diagnostic_recommendations last_retrieved
-  )].to_json.freeze
+  ]].to_json.freeze
 
   def perform
     set_concepts_in_use
