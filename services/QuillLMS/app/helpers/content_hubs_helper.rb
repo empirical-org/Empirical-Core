@@ -107,7 +107,7 @@ module ContentHubsHelper
         all_quill_articles_href: "https://docs.google.com/document/u/0/d/1sAf0m5q4vTtZUTDndsQejMhgUxOxrCXOgO2sm2dmbM0/edit",
         quill_teacher_guide_href: '',
         activities: activities_with_preview_link(ai_and_arts_and_entertainment_activities)
-      },
+      }
     ]
   end
 
@@ -145,7 +145,7 @@ module ContentHubsHelper
             link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_1684'
           }
         ]
-      },
+      }
     ]
   end
 
@@ -187,7 +187,7 @@ module ContentHubsHelper
             link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_242'
           }
         ]
-      },
+      }
     ]
   end
 
