@@ -36,8 +36,7 @@ const socialStudies = () => [
           <li><strong>What kind of writing will Quill&apos;s AI Feedback Bot encourage and discourage?</strong></li>
           <ul>
             <li>These activities are all about specificity and accuracy. This means the Bot may ask for more detail if your response is accurate, but short.</li>
-            <li>If you write a response that is accurate but not based on evidence from the text, the Bot will ask you to revise using evidence from the text. Likewise, you will be discouraged from using direct quotations—the Bot will prompt you to put ideas into your own words.</li>
-            <li>The Bot will also discourage you from drawing your own conclusions or making claims or recommendations. (Of course, your teacher may <i>want</i> you to do this outside of these activities! But in Reading for Evidence, it&apos;s all about what&apos;s in the text.)</li>
+            <li>The Bot will also discourage you from drawing your own conclusions, sharing an opinion, or giving a recommendation. (Of course, your teacher may want you to do this outside of these activities! But in Reading for Evidence, it's all about what's in the text.)</li>
           </ul>
           <li><strong>Sometimes Quill&apos;s AI Feedback Bot will give the wrong feedback.</strong> Try your best to use the feedback you&apos;ve been given, and let Quill know when you&apos;ve received unhelpful feedback (just click the “Report a Problem” button under that piece of feedback). You can also share general feedback on the tool through the optional emoji survey at the end of every activity. </li>
         </ul>

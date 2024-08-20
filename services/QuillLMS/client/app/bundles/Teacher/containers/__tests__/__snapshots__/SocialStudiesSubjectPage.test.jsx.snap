@@ -145,11 +145,21 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
             class="quote-box"
           >
             <p>
-              “With Quill giving them that instant feedback, it's like having me over their shoulder, but with everyone at the same time.”
+              “Quill has been helpful in giving them a toolkit to make arguments [and] to identify and test claims.”
             </p>
-            <span>
-              Alison B.
-            </span>
+            <div>
+              <span
+                class="name"
+              >
+                Rachel R.
+              </span>
+              <span>
+                State Fine Arts High School
+              </span>
+              <span>
+                Modern World History
+              </span>
+            </div>
           </div>
           <div
             class="quote-box"
@@ -157,19 +167,36 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
             <p>
               “They're learning content that I would probably not have time to teach them. They are practicing skills that, honestly, they all need more practice on every day.”
             </p>
-            <span>
-              Amber L. 
-            </span>
+            <div>
+              <span
+                class="name"
+              >
+                Amber L.
+              </span>
+              <span>
+                Glasgow School District
+              </span>
+            </div>
           </div>
           <div
             class="quote-box"
           >
             <p>
-              “I think Quill has helped them understand what they're really looking for in the document or in the writing -— they are definitely annotating and highlighting better as the semester goes on.”
+              “I would say that the combination of using the OER curriculum and Quill has pushed them in their reading stamina and level.”
             </p>
-            <span>
-              Devin G.
-            </span>
+            <div>
+              <span
+                class="name"
+              >
+                Tricia C.
+              </span>
+              <span>
+                Latexo High School
+              </span>
+              <span>
+                9th Grade World History
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -184,7 +211,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
       <p>
         Quill has partnered with 
         <a
-          href="https://www.oerproject.com/"
+          href="https://www.oerproject.com/World-History?WT.mc_id=00_00_2024__course-WHP_OER-QUILL_&WT.tsrc=OERQUILL"
           rel="noopener noreferrer"
           target="_blank"
         >

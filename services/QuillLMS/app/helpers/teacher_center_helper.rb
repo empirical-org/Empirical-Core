@@ -100,6 +100,11 @@ module TeacherCenterHelper
         url: '/social-studies'
       },
       {
+        id: SCIENCE_ACTIVITIES,
+        name: SCIENCE_ACTIVITIES,
+        url: '/interdisciplinary-science'
+      },
+      {
         id: AP_ACTIVITIES,
         name: AP_ACTIVITIES,
         url: '/ap'

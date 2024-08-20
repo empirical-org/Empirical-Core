@@ -311,15 +311,15 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
         Paired with the OER Project for deeper learning
       </h2>
       <p>
-        OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. Want to learn more? Visit 
+        OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. 
         <a
-          href="www.oerproject.com"
+          href="https://www.oerproject.com/World-History?WT.mc_id=00_00_2024__course-WHP_OER-QUILL_&WT.tsrc=OERQUILL"
           rel="noopener noreferrer"
           target="_blank"
         >
-          www.oerproject.com
+          Learn more about OER Project’s World History Project
         </a>
-        !
+        .
       </p>
       <a
         class="quill-button medium outlined grey focus-on-light"

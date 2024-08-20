@@ -104,9 +104,13 @@
       background-color: $quill-white;
       padding: 32px;
       color: $quill-teal;
+      flex-direction: column;
+      justify-content: space-between;
+      display: flex;
+      min-height: 330px;
     }
     p {
-      font-size: 18px;
+      font-size: 20px;
       font-style: italic;
       font-weight: 400;
       line-height: normal;
@@ -114,9 +118,11 @@
     }
     span {
       font-size: 18px;
-      font-weight: 700;
       text-align: right;
       display: block;
+      &.name {
+        font-weight: 700;
+      }
     }
   }
 

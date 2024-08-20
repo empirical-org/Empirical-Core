@@ -131,16 +131,27 @@ const teacherQuotes = (
       <h2>What Are Social Studies Teachers Saying?</h2>
       <div className="quote-boxes">
         <div className="quote-box">
-          <p>“With Quill giving them that instant feedback, it&#39;s like having me over their shoulder, but with everyone at the same time.”</p>
-          <span>Alison B.</span>
+          <p>“Quill has been helpful in giving them a toolkit to make arguments [and] to identify and test claims.”</p>
+          <div>
+            <span className="name">Rachel R.</span>
+            <span>State Fine Arts High School</span>
+            <span>Modern World History</span>
+          </div>
         </div>
         <div className="quote-box">
           <p>“They&#39;re learning content that I would probably not have time to teach them. They are practicing skills that, honestly, they all need more practice on every day.”</p>
-          <span>Amber L. </span>
+          <div>
+            <span className="name">Amber L.</span>
+            <span>Glasgow School District</span>
+          </div>
         </div>
         <div className="quote-box">
-          <p>“I think Quill has helped them understand what they&#39;re really looking for in the document or in the writing -— they are definitely annotating and highlighting better as the semester goes on.”</p>
-          <span>Devin G.</span>
+          <p>“I would say that the combination of using the OER curriculum and Quill has pushed them in their reading stamina and level.”</p>
+          <div>
+            <span className="name">Tricia C.</span>
+            <span>Latexo High School</span>
+            <span>9th Grade World History</span>
+          </div>
         </div>
       </div>
     </div>
@@ -150,7 +161,7 @@ const teacherQuotes = (
 const oerProject = (
   <section className="oer-project container">
     <img alt="Quill logo plus OER Project logo" src={quillPlusOERProjectLogoSrc} />
-    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
+    <p>Quill has partnered with <a href="https://www.oerproject.com/World-History?WT.mc_id=00_00_2024__course-WHP_OER-QUILL_&WT.tsrc=OERQUILL" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
   </section>
 )
 
