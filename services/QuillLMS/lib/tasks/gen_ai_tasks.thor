@@ -143,8 +143,8 @@ class GenAITasks < Thor
   # bundle exec thor gen_a_i_tasks:secondary_feedback_test 2
   desc "secondary_feedback_test 'because' 5", 'Create a csv of the prompt test optimal and suboptimals with supporting info.'
   def secondary_feedback_test(limit = 2)
-    test_file = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
-    test_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: test_file)
+    test_file = Evidence::GenAI::SecondaryFeedback::DataFetcher::FILE_TEST
+    test_set = Evidence::GenAI::SecondaryFeedback::DataFetcher.run(file: test_file)
 
     results = []
     # Pull a random sample, but use the same seed so examples are consistent.
@@ -152,7 +152,7 @@ class GenAITasks < Thor
 
     test_subset.each do |feedback_set|
       prompt = Evidence::Prompt.find(feedback_set.prompt_id)
-      system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
+      system_prompt = Evidence::GenAI::SecondaryFeedback::PromptBuilder.run(prompt:)
 
       response = secondary_api.run(system_prompt:, entry: feedback_set.primary, model: secondary_model)
       highlight_key = response[KEY_HIGHLIGHT] || 99
@@ -182,13 +182,13 @@ class GenAITasks < Thor
   # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
   desc "generate_secondary_data_files", 'Create a csv for training and test.'
   def generate_secondary_data_files
-    file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
-    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TRAIN
-    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TEST
+    file_all = Evidence::GenAI::SecondaryFeedback::DataFetcher::FILE_ALL
+    file_train = Evidence::GenAI::SecondaryFeedback::DataFetcher::FILE_TRAIN
+    file_test = Evidence::GenAI::SecondaryFeedback::DataFetcher::FILE_TEST
 
-    full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
-    file_test = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file: file_test).send(:file_path)
-    file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher.new(file: file_train).send(:file_path)
+    full_set = Evidence::GenAI::SecondaryFeedback::DataFetcher.run(file: file_all)
+    file_test = Evidence::GenAI::SecondaryFeedback::DataFetcher.new(file: file_test).send(:file_path)
+    file_train = Evidence::GenAI::SecondaryFeedback::DataFetcher.new(file: file_train).send(:file_path)
 
     test_set = full_set.select { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
     train_set = full_set.reject { |f| f.activity_id.in?(TEST_SET_ACTIVITY_IDS) }
@@ -209,8 +209,8 @@ class GenAITasks < Thor
   # bundle exec thor gen_a_i_tasks:generate_repeated_data_file
   desc "generate_repeated_data_file", 'Create a csv for example data.'
   def generate_repeated_data_file
-    file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
-    full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
+    file_all = Evidence::GenAI::SecondaryFeedback::DataFetcher::FILE_ALL
+    full_set = Evidence::GenAI::SecondaryFeedback::DataFetcher.run(file: file_all)
 
     total = full_set.size
 
@@ -282,7 +282,7 @@ class GenAITasks < Thor
   desc "secondary_prompt_entry 256 'some feedback'", 'Run to see system prompt and feedback for a given prompt / entry'
   def secondary_prompt_entry(prompt_id, feedback_primary, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
-    system_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:, template_file:)
+    system_prompt = Evidence::GenAI::SecondaryFeedback::PromptBuilder.run(prompt:, template_file:)
 
     puts system_prompt
     print_line
@@ -296,7 +296,7 @@ class GenAITasks < Thor
   def repeated_feedback_prompt_entry(entry, previous)
     prompt = Evidence::Prompt.first
     history_item = Evidence::GenAI::HistoryItem.new(user: 'unused', assistant: previous)
-    system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt:, history: [history_item])
+    system_prompt = Evidence::GenAI::RepeatedFeedback::PromptBuilder.run(prompt:, history: [history_item])
 
     puts system_prompt
     print_line
@@ -383,12 +383,12 @@ class GenAITasks < Thor
     private def secondary_model = secondary_api::SMALL_MODEL
 
     private def repeated_feedback?(feedback, history)
-      system_prompt = Evidence::GenAI::RepeatedFeedbackPromptBuilder.run(prompt: nil, history:)
+      system_prompt = Evidence::GenAI::RepeatedFeedback::PromptBuilder.run(prompt: nil, history:)
 
       llm_response = repeat_api.run(system_prompt:, entry: feedback, model: repeat_model)
       puts llm_response
 
-      !!llm_response[Evidence::GenAI::RepeatedFeedbackChecker::KEY_REPEAT]
+      !!llm_response[Evidence::GenAI::RepeatedFeedback::Checker::KEY_REPEAT]
     end
 
     private def paraphrase(entry)

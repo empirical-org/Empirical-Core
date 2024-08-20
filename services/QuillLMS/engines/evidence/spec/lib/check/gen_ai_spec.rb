@@ -19,7 +19,7 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
     allow(Evidence::Check::GenAI::FEEDBACK_API).to receive(:run).and_return(primary_response)
     allow(Evidence::Check::GenAI::SECONDARY_API).to receive(:run).and_return(secondary_response)
     allow(Evidence::GenAI::ResponseBuilder).to receive(:run).and_return(response)
-    allow(Evidence::GenAI::RepeatedFeedbackChecker).to receive(:run).and_return(false)
+    allow(Evidence::GenAI::RepeatedFeedback::Checker).to receive(:run).and_return(false)
   end
 
   describe '#initialize' do
@@ -65,7 +65,7 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
 
     describe '#secondary_response' do
       context 'when repeated feedback is true' do
-        before { allow(Evidence::GenAI::RepeatedFeedbackChecker).to receive(:run).and_return(true) }
+        before { allow(Evidence::GenAI::RepeatedFeedback::Checker).to receive(:run).and_return(true) }
 
         it 'calls secondary_feedback_response' do
           expect(subject.send(:secondary_response)).to eq(secondary_response)
@@ -73,7 +73,7 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
       end
 
       context 'when repeated feedback is false' do
-        before { allow(Evidence::GenAI::RepeatedFeedbackChecker).to receive(:run).and_return(false) }
+        before { allow(Evidence::GenAI::RepeatedFeedback::Checker).to receive(:run).and_return(false) }
 
         it 'returns an empty hash' do
           expect(subject.send(:secondary_response)).to eq({})

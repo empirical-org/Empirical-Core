@@ -27,7 +27,7 @@ module Evidence
       private def secondary_response = repeated_feedback? ? secondary_feedback_response : {}
 
       private def repeated_feedback?
-        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal, chat_api: REPEAT_API)
+        Evidence::GenAI::RepeatedFeedback::Checker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal, chat_api: REPEAT_API)
       end
 
       private def secondary_feedback_response
