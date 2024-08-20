@@ -247,10 +247,10 @@ describe Teachers::ProgressReportsController do
   describe '#building_ai_knowledge_unit_templates' do
     before do
       allow(controller).to receive(:course_with_assignment_data).and_return([])
+      get :building_ai_knowledge_unit_templates
     end
 
     it 'renders json with a unit_templates key' do
-      get :building_ai_knowledge_unit_templates
       expect(JSON.parse(response.body)).to eq({
         "unit_templates" => []
       })

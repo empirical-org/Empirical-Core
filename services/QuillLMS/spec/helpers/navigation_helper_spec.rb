@@ -442,31 +442,26 @@ describe NavigationHelper do
   describe '#show_science_dashboard_tab?' do
     subject { helper.show_science_dashboard_tab?(current_user) }
 
-    context 'when user has unit activities including social studies activities' do
-      before do
-        allow(helper).to receive(:unit_activities_include_science_activities?).and_return(true)
-      end
+    before do
+      allow(helper).to receive(:unit_activities_include_science_activities?).and_return(helper_result)
+    end
 
+    context 'when user has unit activities including social studies activities' do
+      let(:helper_result) { true }
       let(:current_user) { double(:user, unit_activities_for_classrooms_i_teach: [double(:unit_activity)]) }
 
       it { is_expected.to eq true }
     end
 
     context 'when user does not have unit activities including social studies activities' do
-      before do
-        allow(helper).to receive(:unit_activities_include_science_activities?).and_return(false)
-      end
-
+      let(:helper_result) { false }
       let(:current_user) { double(:user, unit_activities_for_classrooms_i_teach: [double(:unit_activity)]) }
 
       it { is_expected.to eq false }
     end
 
     context 'when user has no unit activities' do
-      before do
-        allow(helper).to receive(:unit_activities_include_science_activities?).and_return(false)
-      end
-
+      let(:helper_result) { false }
       let(:current_user) { double(:user, unit_activities_for_classrooms_i_teach: []) }
 
       it { is_expected.to eq false }

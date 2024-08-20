@@ -6,20 +6,14 @@ module ContentHubsHelper
   end
 
   def unit_activities_include_social_studies_activities?(unit_activities)
-    activity_ids = world_history_1200_to_present_data
-      .map do |unit_template|
-        unit_template[:activities].map { |act| act[:activity_id] }
-      end
-      .flatten
+    activity_ids = world_history_1200_to_present_data.flat_map { |template| template[:activities].pluck(:activity_id) }
+
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
   def unit_activities_include_science_activities?(unit_activities)
-    activity_ids = building_ai_knowledge_data
-      .map do |unit_template|
-        unit_template[:activities].map { |act| act[:activity_id] }
-      end
-      .flatten
+    activity_ids = building_ai_knowledge_data.flat_map { |template| template[:activities].pluck(:activity_id) }
+
     unit_activities_include_content_activities?(unit_activities, activity_ids)
   end
 
