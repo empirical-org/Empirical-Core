@@ -6,7 +6,7 @@ class IntegrationsController < ApplicationController
   before_action :set_root_url
 
   def amplify
-    store_partner_session()
+    store_partner_session
     @body_class = 'full-width-page white-page'
     @js_file = 'public'
     @active_tab = 'Featured Activities'

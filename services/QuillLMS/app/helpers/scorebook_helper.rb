@@ -58,7 +58,7 @@ module ScorebookHelper
     end
   end
 
-  def alias_by_id id
+  def alias_by_id(id)
     case id
     when 1
       'Quill Proofreader'

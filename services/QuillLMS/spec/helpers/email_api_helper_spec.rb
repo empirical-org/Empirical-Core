@@ -27,10 +27,10 @@ describe EmailApiHelper do
 
   describe '#parse_nps_response' do
     it 'should return the parsed response for the Satismeter response statistics API' do
-      mock_result = ({
+      mock_result = {
         'nps': 73.33,
         'respondents': [11, 4, 0]
-      }).as_json
+      }.as_json
 
       result = parse_nps_response(mock_nps_response.as_json)
       expect(result).to eq(mock_result)
@@ -39,10 +39,10 @@ describe EmailApiHelper do
 
   describe '#parse_comment_response' do
     it 'should return the parsed response for the Satismeter responses API' do
-      mock_result = ([
+      mock_result = [
         { 'feedback': 'this is great!', 'rating': 10 },
         { 'feedback': 'meh', 'rating': 5 }
-      ]).as_json
+      ].as_json
 
       result = parse_comment_response(mock_comment_response.as_json)
       expect(result).to eq(mock_result)

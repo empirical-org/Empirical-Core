@@ -86,8 +86,7 @@ class SchoolsController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
-  def new
-  end
+  def new; end
 
   def select_school
     respond_to do |format|
@@ -130,7 +129,7 @@ class SchoolsController < ApplicationController
     zipcode = nil
     if search.present?
       zipcode = search.match(/\d{5}/).to_s
-      prefix = search.gsub(/\d{5}/, '').strip()
+      prefix = search.gsub(/\d{5}/, '').strip
     end
     unless zipcode.present?
       zipcode = nil

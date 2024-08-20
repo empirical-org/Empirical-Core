@@ -17,7 +17,7 @@ namespace :translate do
   desc 'on zsh use `noglob rake translate:activities[es-la, 2]`'
   desc 'first param is locale, second is (optional) number of activities to translate'
   task :activities, [:locale, :limit] => :environment do |_t, args|
-    puts "translating activities"
+    puts 'translating activities'
     limit = args[:limit] ? args[:limit].to_i : nil
     locale = args[:locale] || Translatable::DEFAULT_LOCALE
 

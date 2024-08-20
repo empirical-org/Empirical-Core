@@ -44,7 +44,7 @@ module Evidence
         it 'should not allow a prompt to be created that is too short' do
           activity = create(:evidence_activity)
           prompt = build(:evidence_prompt, :conjunction => 'but', :text => 'too short', :max_attempts => 5, :activity_id => activity.id)
-          expect((!prompt.valid?)).to(be_truthy)
+          expect(!prompt.valid?).to(be_truthy)
           expect(prompt.errors[:text].include?("#{prompt.conjunction} prompt too short (minimum is #{Prompt::MIN_TEXT_LENGTH} characters)")).to(eq(true))
         end
 
@@ -52,7 +52,7 @@ module Evidence
           activity = create(:evidence_activity)
           prompt_text = "And both that morning equally lay In leaves no step had trodden black. Oh, I kept the first for another day! Yet knowing how way leads on to way, I doubted if I should ever come back. I shall be telling this with a sigh Somewhere ages and ages hence: Two roads diverged in a wood, and I\u2014 I took the one less traveled by, And that has made all the difference."
           prompt = build(:evidence_prompt, :conjunction => 'because', :text => prompt_text, :max_attempts => 5, :activity_id => activity.id)
-          expect((!prompt.valid?)).to(be_truthy)
+          expect(!prompt.valid?).to(be_truthy)
           expect(prompt.errors[:text].include?("#{prompt.conjunction} prompt too long (maximum is #{Prompt::MAX_TEXT_LENGTH} characters)")).to(eq(true))
         end
       end
@@ -72,7 +72,7 @@ module Evidence
         it 'should not duplicate rule assignments if some exist already' do
           rule1 = create(:evidence_rule, :universal => true)
           rule2 = create(:evidence_rule, :universal => true)
-          prompt = create(:evidence_prompt, :rules => ([rule1]))
+          prompt = create(:evidence_prompt, :rules => [rule1])
           expect(prompt.rules.length).to(eq(2))
           expect(prompt.rules.include?(rule1)).to(eq(true))
           expect(prompt.rules.include?(rule2)).to(eq(true))
@@ -90,7 +90,7 @@ module Evidence
         it 'should not remove existing non-universal assignments' do
           universal_rule = create(:evidence_rule, :universal => true)
           non_universal_rule = create(:evidence_rule, :universal => false)
-          prompt = create(:evidence_prompt, :rules => ([non_universal_rule]))
+          prompt = create(:evidence_prompt, :rules => [non_universal_rule])
           expect(prompt.rules.length).to(eq(2))
           expect(prompt.rules.include?(universal_rule)).to(eq(true))
           expect(prompt.rules.include?(non_universal_rule)).to(eq(true))
