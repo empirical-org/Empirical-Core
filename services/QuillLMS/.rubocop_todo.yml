@@ -34,6 +34,18 @@ Lint/RedundantSafeNavigation:
     - 'app/controllers/admins_controller.rb'
     - 'engines/evidence/lib/evidence/change_log.rb'
 
+# Offense count: 70
+# This cop supports safe autocorrection (--autocorrect).
+# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+# Offense count: 42
+# This cop supports safe autocorrection (--autocorrect).
+# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
+Lint/UnusedMethodArgument:
+  Enabled: false
+
 # Offense count: 218
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Lint/UselessAssignment:
@@ -650,15 +662,6 @@ Style/AndOr:
     - 'app/models/zipcode_info.rb'
     - 'lib/tasks/create_concepts.rake'
 
-# Offense count: 141
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, AllowedMethods, AllowedPatterns, AllowBracesOnProceduralOneLiners, BracesRequiredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining, always_braces
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# AllowedMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Enabled: false
 
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
@@ -722,38 +725,12 @@ Style/DoubleNegation:
     - 'script/recommendations/01_import_group_lesson_recommendations.rb'
     - 'spec/models/classroom_spec.rb'
 
-# Offense count: 15
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, expanded
-Style/EmptyMethod:
-  Exclude:
-    - 'app/controllers/cms/images_controller.rb'
-    - 'app/controllers/cms/rosters_controller.rb'
-    - 'app/controllers/cms/subscriptions_controller.rb'
-    - 'app/controllers/cms/unit_template_categories_controller.rb'
-    - 'app/controllers/cms/users_controller.rb'
-    - 'app/controllers/schools_controller.rb'
-    - 'app/controllers/teacher_fix_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/ability.rb'
-    - 'db/migrate/20140423225449_add_search_indexes_to_users.rb'
-    - 'engines/evidence/spec/dummy/app/mailers/file_mailer.rb'
-    - 'engines/evidence/spec/dummy/app/models/concerns/sidekiq_module.rb'
-    - 'engines/evidence/spec/dummy/app/models/error_notifier.rb'
+
 
 # Offense count: 27
 # This cop supports safe autocorrection (--autocorrect).
 Style/ExpandPathArguments:
   Enabled: false
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'engines/evidence/lib/generators/controller_tests/controller_tests_generator.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
@@ -794,25 +771,6 @@ Style/IdenticalConditionalBranches:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 9
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'app/controllers/integrations_controller.rb'
-    - 'app/controllers/schools_controller.rb'
-    - 'app/models/concerns/public_progress_reports.rb'
-    - 'app/models/invitation.rb'
-    - 'spec/models/activity_spec.rb'
-    - 'spec/script/setup_concepts_spec.rb'
-
-# Offense count: 28
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
-Style/MethodDefParentheses:
-  Enabled: false
-
 # Offense count: 5
 Style/MixinUsage:
   Exclude:
@@ -828,30 +786,6 @@ Style/MixinUsage:
 Style/MutableConstant:
   Enabled: false
 
-# Offense count: 49
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Enabled: false
-
-# Offense count: 13
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'app/helpers/email_api_helper.rb'
-    - 'app/models/concerns/public_progress_reports.rb'
-    - 'app/models/concerns/student.rb'
-    - 'app/queries/progress_reports/activities_scores_by_classroom.rb'
-    - 'app/workers/concept_replacement_connect_worker.rb'
-    - 'app/workers/concept_replacement_grammar_worker.rb'
-    - 'db/migrate/20201023212528_populate_topics.rb'
-    - 'lib/tasks/add_user_id_to_units.rake'
-    - 'lib/tasks/convert_activity_session_timetracking_data.rake'
-    - 'lib/tasks/convert_to_markdown.rake'
-    - 'lib/tasks/reset_admin_caches.rake'
 
 # Offense count: 243
 # This cop supports safe autocorrection (--autocorrect).
@@ -866,22 +800,13 @@ Style/NumericLiterals:
 Style/NumericPredicate:
   Enabled: false
 
-
-# Offense count: 35
+# Offense count: 108
 # This cop supports safe autocorrection (--autocorrect).
-Style/RedundantBegin:
+# Configuration parameters: PreferredDelimiters.
+Style/PercentLiteralDelimiters:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantCapitalW:
-  Exclude:
-    - 'config/initializers/sentry.rb'
 
-# Offense count: 380
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantParentheses:
-  Enabled: false
 
 # Offense count: 23
 # This cop supports safe autocorrection (--autocorrect).
@@ -898,7 +823,6 @@ Style/RedundantPercentQ:
     - 'db/migrate/20180824185130_replace_function_timepent_activity_session.rb'
     - 'db/migrate/20180824195642_replace_function_timepent_activity_session_again.rb'
     - 'db/migrate/20180831194810_add_function_timespent_question.rb'
-    - 'spec/support/pages/teachers/class_manager/invite_students_page.rb'
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
@@ -920,20 +844,6 @@ Style/RescueStandardError:
 Style/SafeNavigation:
   Enabled: false
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'app/controllers/teachers/progress_reports/activity_sessions_controller.rb'
-    - 'spec/support/pages/teachers/class_manager/invite_students_page.rb'
-
-# Offense count: 6453
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
 
 # Offense count: 284
 # This cop supports safe autocorrection (--autocorrect).
