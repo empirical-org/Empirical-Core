@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'csv'
 
-RSpec.describe Evidence::GenAI::SecondaryFeedbackDataFetcher do
-  let(:file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/secondary_feedback_data/#{file}" }
+RSpec.describe Evidence::GenAI::SecondaryFeedback::DataFetcher do
+  let(:file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/secondary_feedback/data/#{file}" }
   let(:file) { described_class::FILE_TRAIN }
   let(:conjunctions) { Evidence::Prompt::CONJUNCTIONS }
   let(:limit) { described_class::UNLIMITED }

@@ -34,7 +34,7 @@ module Evidence
         @secondary_feedback_response ||= SECONDARY_API.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: SECONDARY_API::SMALL_MODEL)
       end
 
-      private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
+      private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedback::PromptBuilder.run(prompt:)
 
       private def feedback_history
         previous_feedback.map { |f| f['feedback'] }
