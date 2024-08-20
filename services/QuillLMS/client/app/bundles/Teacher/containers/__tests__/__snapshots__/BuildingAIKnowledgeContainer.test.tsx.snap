@@ -1,42 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
+exports[`BuildingAIKnowledge renders correctly in loaded state 1`] = `
 <DocumentFragment>
   <div
     class="container content-hub-course-page-container white-background-accommodate-footer"
   >
     <a
       class="quill-button medium outlined grey icon focus-on-light"
-      href="/social-studies"
+      href="/interdisciplinary-science"
     >
       <img
         alt=""
         src="undefined/images/icons/xs/chevron-left.svg"
       />
-      View all social studies activities
+      View all interdisciplinary science activities
     </a>
     <div
       class="overview"
     >
       <div>
         <h1>
-          World History: 1200 CE - Present
+          Building AI Knowledge
         </h1>
         <p
           class="overview-description"
         >
-          World history, or the story of our past, belongs to everyone: it helps us understand where we've come from, how we got here, and where we might go next. In this course, students explore that shared human story beginning with the rise of complex, connected societies and ending with the emergence of the globalized world in which we live today.
+          In recent years, significant advancements have been made in artificial intelligence, and now it's expected to play an integral part in everyday life in the near future. Quill's Building AI Knowledge activities aim to provide teachers and students with an understanding of how AI works and to explain what skills and knowledge are needed to thrive in an AI-driven world.
         </p>
         <p
           class="overview-description"
         >
-          Quill Reading for Evidence activities provide a deep dive into key moments and movements from the period spanning 1200 CE to the present, helping students expand their content knowledge while building core reading and writing skills.
+          Quill Reading for Evidence activities are designed to engage students in learning about AI by exploring how it might impact their lives and the world around them. Students read a mix of stories that explore both the potential promises and pitfalls of AI. One of the main goals of this offering is to show students that AI is not just something that exists in the world; it is something that humans create. The young people reading these articles will have the opportunity to shape the future of AI, either by working with technology directly or by being informed citizens who influence laws.
         </p>
       </div>
       <div>
         <img
           alt=""
-          src="undefined/images/pages/content_hub/world_history_1200_to_present@2x.png"
+          src="undefined/images/pages/content_hub/building_ai_knowledge@2x.png"
         />
         <span
           aria-expanded="false"
@@ -308,24 +308,24 @@ exports[`WorldHistory1200ToPresent renders correctly in loaded state 1`] = `
       class="partner-section"
     >
       <h2>
-        Paired with the OER Project for deeper learning
+        Paired with aiEDU for deeper learning
       </h2>
       <p>
-        OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. Want to learn more? Visit 
+        Quill.org & aiEDU, two nonprofit organizations dedicated to building foundational AI literacy, have partnered to curate a suite of resources from each organization that can be paired together to build student knowledge of AI. Each Quill activity can be paired with an aiEDU activity, which range from in-depth, 2-3 hour activities to 5-minute snapshot discussion items. Want to learn more? Visit 
         <a
-          href="www.oerproject.com"
+          href="www.aiedu.org"
           rel="noopener noreferrer"
           target="_blank"
         >
-          www.oerproject.com
+          www.aiedu.org
         </a>
         !
       </p>
       <a
         class="quill-button medium outlined grey focus-on-light"
-        href="/social-studies"
+        href="/interdisciplinary-science"
       >
-        Learn More About Quill’s Social Studies Activities
+        Learn more about Quill's interdisciplinary science activities
       </a>
     </div>
   </div>

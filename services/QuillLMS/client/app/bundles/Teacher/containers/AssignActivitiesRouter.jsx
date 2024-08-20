@@ -16,12 +16,16 @@ import UnitTemplatesManager from '../components/assignment_flow/unit_templates_m
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx';
 import AssignWorldHistory1200ToPresent from '../components/assignment_flow/create_unit/assign_world_history_1200_to_present.tsx';
 import AssignSocialStudiesSubjectPage from '../components/assignment_flow/create_unit/assign_social_studies_subject_page.tsx';
+import AssignBuildingAIKnowledge from '../components/assignment_flow/create_unit/assign_building_ai_knowledge.tsx';
+import AssignInterdisciplinaryScienceSubjectPage from '../components/assignment_flow/create_unit/assign_interdisciplinary_science_subject_page.tsx';
 
 const AssignActivitiesRouter = props => (
   <BrowserRouter>
     <CompatRouter>
       <Route component={AssignActivitiesContainer} path="/assign" />
       <Switch>
+        <Route component={routerProps => <AssignBuildingAIKnowledge {...props} {...routerProps} />} path="/assign/interdisciplinary-science/building-ai-knowledge" />
+        <Route component={routerProps => <AssignInterdisciplinaryScienceSubjectPage {...props} {...routerProps} />} path="/assign/interdisciplinary-science" />
         <Route component={routerProps => <AssignWorldHistory1200ToPresent {...props} {...routerProps} />} path="/assign/social-studies/world-history-1200-to-present" />
         <Route component={routerProps => <AssignSocialStudiesSubjectPage {...props} {...routerProps} />} path="/assign/social-studies" />
         <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />

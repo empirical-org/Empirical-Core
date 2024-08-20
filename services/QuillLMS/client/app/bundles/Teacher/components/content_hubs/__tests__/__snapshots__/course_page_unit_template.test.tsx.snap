@@ -83,9 +83,12 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
             Activity 1 description
           </p>
           <p
-            class="oer-asset-line"
+            class="asset-line"
           >
-            Optional Paired OER Project Activity: 
+            <span>
+              Optional Paired OER Project Activity:
+            </span>
+             
             <a
               href="https://example.com/oer1"
               rel="noopener noreferrer"
@@ -139,9 +142,12 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
             Activity 2 description
           </p>
           <p
-            class="oer-asset-line"
+            class="asset-line"
           >
-            Optional Paired OER Project Activity: 
+            <span>
+              Optional Paired OER Project Activity:
+            </span>
+             
             <a
               href="https://example.com/oer2"
               rel="noopener noreferrer"
@@ -179,7 +185,7 @@ exports[`CoursePageUnitTemplate renders correctly in expanded state 1`] = `
       </div>
     </div>
     <div
-      class="oer-resources-section"
+      class="resources-section"
     >
       <h4>
         OER Project Unit 123 Resources

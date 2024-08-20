@@ -7,6 +7,8 @@ export const SPRING_BOARD_SLUG = 'springboard'
 
 export const SOCIAL_STUDIES_SLUG = 'social-studies'
 export const WORLD_HISTORY_1200_TO_PRESENT_SLUG = 'world-history-1200-to-present'
+export const INTERDISCIPLINARY_SCIENCE = 'interdisciplinary-science'
+export const BUILDING_AI_KNOWLEDGE_SLUG = 'building-ai-knowledge'
 
 export const UNIT_TEMPLATE_NAME = 'unitTemplateName'
 export const UNIT_TEMPLATE_ID = 'unitTemplateId'

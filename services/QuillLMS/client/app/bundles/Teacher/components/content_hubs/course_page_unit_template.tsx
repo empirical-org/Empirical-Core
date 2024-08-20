@@ -39,6 +39,7 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
   let quillResourceLinks
   let activitiesSection
   let oerResourcesSection
+  let aiEduResourcesSection
 
   if (isExpanded) {
     quillResourceLinks = (
@@ -56,12 +57,21 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
     )
 
     oerResourcesSection = oer_unit_number && (
-      <div className="oer-resources-section">
+      <div className="resources-section">
         <h4>OER Project Unit {oer_unit_number} Resources</h4>
         <div className="links">
           <a className="quill-button focus-on-light small outlined grey" href={oer_unit_website} rel="noopener noreferrer" target="_blank">OER Project Unit {oer_unit_number} website</a>
           <a className="quill-button focus-on-light small outlined grey" href={oer_unit_teacher_guide} rel="noopener noreferrer" target="_blank">OER Project Unit {oer_unit_number} teacher guide</a>
           <a className="quill-button focus-on-light small outlined grey" href={all_oer_articles} rel="noopener noreferrer" target="_blank">Download all OER Project Unit {oer_unit_number} articles</a>
+        </div>
+      </div>
+    )
+
+    aiEduResourcesSection = activities.find(act => act.paired_ai_edu_activities?.length) && (
+      <div className="resources-section">
+        <h4>aiEDU Aligned Resources</h4>
+        <div className="links">
+          <a className="quill-button focus-on-light small outlined grey" href="https://www.aiedu.org/teach-ai" rel="noopener noreferrer" target="_blank">aiEDU website</a>
         </div>
       </div>
     )
@@ -82,6 +92,7 @@ const CoursePageUnitTemplate = ({ toggleUnitTemplateExpansion, unitTemplate, exp
       </div>
       {activitiesSection}
       {oerResourcesSection}
+      {aiEduResourcesSection}
     </section>
   )
 }

@@ -4,8 +4,10 @@ import { Tooltip, } from '../../../Shared/index'
 
 const evidenceImgSrc = `${process.env.CDN_URL}/images/icons/s/tool-evidence.svg`
 
+const assetLink = (link, name) => (<a href={link} rel="noopener noreferrer" target="_blank">{name}</a>)
+
 const CoursePageActivity = ({ activity, }) => {
-  const { display_name, description, paired_oer_asset_name, paired_oer_asset_link, assigned_student_count, completed_student_count, link_for_report, average_score, preview_href, } = activity
+  const { display_name, description, paired_oer_asset_name, paired_oer_asset_link, assigned_student_count, completed_student_count, link_for_report, average_score, preview_href, paired_ai_edu_activities, } = activity
 
   const renderPieChart = () => {
     const rawPercent = completed_student_count / assigned_student_count;
@@ -17,6 +19,20 @@ const CoursePageActivity = ({ activity, }) => {
         <path d={pathData} fill="#348fdf" />
       </svg>
     );
+  }
+
+  const renderPairedActivityLinks = (pairedActivities) => {
+    const activityLinks = pairedActivities.map(({ name, link, }) => {
+      return assetLink(link, name)
+    })
+
+    if (activityLinks.length === 1) {
+      return activityLinks
+    }
+
+    activityLinks.splice(1, 0, ' and ')
+
+    return activityLinks
   }
 
   let resultsSection = (
@@ -45,7 +61,10 @@ const CoursePageActivity = ({ activity, }) => {
         <h5>{preview_href ? <a href={preview_href} rel="noopener noreferrer" target="_blank">{display_name}</a> : display_name}</h5>
         <p>{description}</p>
         {paired_oer_asset_link && paired_oer_asset_name && (
-          <p className="oer-asset-line">Optional Paired OER Project Activity: <a href={paired_oer_asset_link} rel="noopener noreferrer" target="_blank">{paired_oer_asset_name}</a></p>
+          <p className="asset-line"><span>Optional Paired OER Project Activity:</span> {assetLink(paired_oer_asset_link, paired_oer_asset_name)}</p>
+        )}
+        {paired_ai_edu_activities?.length && (
+          <p className="asset-line"><span>Optional Paired aiEDU Activities:</span> {renderPairedActivityLinks(paired_ai_edu_activities)}</p>
         )}
       </div>
       {resultsSection}

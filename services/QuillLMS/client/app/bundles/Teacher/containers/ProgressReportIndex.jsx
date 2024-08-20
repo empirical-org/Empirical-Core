@@ -19,7 +19,7 @@ export default class ProgressReportIndex extends React.Component {
     const { currentUser, premiumStatus, classrooms, } = this.props
 
     const path = window.location.pathname;
-    const shouldHaveBanner = !['landing_page', 'diagnostic_report', 'social-studies'].find(slug => path.includes(slug));
+    const shouldHaveBanner = !['landing_page', 'diagnostic_report', 'social-studies', 'interdisciplinary-science'].find(slug => path.includes(slug));
 
     const props = {
       sourceUrl: `${path}.json`,

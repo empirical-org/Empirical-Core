@@ -102,6 +102,10 @@
               <li><%= active_link_to raw('<span>Social Studies</span><div class="small-bar-chart-icon"></div>'), teachers_progress_reports_social_studies_world_history_1200_to_present_path, class: 'default' %></li>
             <% end%>
 
+            <% if show_science_dashboard_tab?(current_user) %>
+              <li><%= active_link_to raw('<span>Science</span><div class="small-bar-chart-icon"></div>'), teachers_progress_reports_science_building_ai_knowledge_path, class: 'default' %></li>
+            <% end%>
+
           <% end %>
 
         </ul>
