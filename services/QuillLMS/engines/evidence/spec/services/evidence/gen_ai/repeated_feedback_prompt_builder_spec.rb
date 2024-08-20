@@ -7,7 +7,7 @@ RSpec.describe Evidence::GenAI::RepeatedFeedbackPromptBuilder, type: :service do
   let(:history) { ['Feedback 1', 'Feedback 2'] }
   let(:template_content) { "Template with history:\n%<feedback_history>s" }
   let(:expected_output) { "Template with history:\n- Feedback 1\n- Feedback 2" }
-  let(:template_file_path) { Evidence::Engine.root.join('app/services/evidence/gen_ai/repeated_feedback_prompts/2024_07_31_initial.md') }
+  let(:template_file_path) { Evidence::Engine.root.join("app/services/evidence/gen_ai/repeated_feedback_prompts/#{described_class::DEFAULT_TEMPLATE}") }
 
   before do
     allow(File).to receive(:read).with(template_file_path).and_return(template_content)
@@ -31,7 +31,7 @@ RSpec.describe Evidence::GenAI::RepeatedFeedbackPromptBuilder, type: :service do
 
     describe '#default_template' do
       it 'returns the default template filename' do
-        expect(subject.send(:default_template)).to eq('2024_07_31_initial.md')
+        expect(subject.send(:default_template)).to eq(described_class::DEFAULT_TEMPLATE)
       end
     end
 
