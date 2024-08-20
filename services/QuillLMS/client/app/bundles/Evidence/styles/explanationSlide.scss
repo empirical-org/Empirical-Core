@@ -26,6 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 48px 0px;
     #header-container {
       display: flex;
       align-items: center;
@@ -170,7 +171,6 @@
 @media (max-height: 670px) {
   .explanation-slide-container {
     height: min-content;
-    padding-top: 16px;
     #information-section {
       #instructions-container {
         margin-top: 40px;
