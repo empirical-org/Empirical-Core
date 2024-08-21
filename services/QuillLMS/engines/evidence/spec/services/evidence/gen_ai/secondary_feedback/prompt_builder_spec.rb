@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
+RSpec.describe Evidence::GenAI::SecondaryFeedback::PromptBuilder do
   let(:prompt) { create(:evidence_prompt) }
   let(:history) { [] }
   let(:template_file) { nil }
@@ -106,7 +106,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackPromptBuilder do
     let(:feedback_data) { [double(primary: 'Primary feedback 1', secondary: 'Secondary feedback 1')] }
 
     before do
-      allow(Evidence::GenAI::SecondaryFeedbackDataFetcher).to receive(:run).with(conjunctions: [prompt.conjunction], limit: described_class::EXAMPLE_LIMIT).and_return(feedback_data)
+      allow(Evidence::GenAI::SecondaryFeedback::DataFetcher).to receive(:run).with(conjunctions: [prompt.conjunction], limit: described_class::EXAMPLE_LIMIT).and_return(feedback_data)
     end
 
     it 'fetches feedback data from SecondaryFeedbackDataFetcher with correct parameters' do
