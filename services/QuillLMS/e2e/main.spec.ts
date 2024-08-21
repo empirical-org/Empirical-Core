@@ -9,7 +9,6 @@ test('has visible footer', async ({ page }) => {
 
 test('@login form submission with valid credentials', async ({ page }) => {
   await page.goto('http://localhost:5000/session/new');
-  await page.getByRole('link', { name: 'Log In' }).click();
   await page.getByLabel('Email or username').click();
   await expect(page.getByLabel('Email or username')).toBeVisible();
   await page.getByLabel('Email or username').fill('johnnyci@gmail.com');
