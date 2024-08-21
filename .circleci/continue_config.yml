@@ -177,7 +177,7 @@ jobs:
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - store_artifacts:
-                path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
+                path: /home/circleci/Empirical-Core/services/QuillLMS/test-results
   lms_big_query_build:
     parameters:
       <<: *should_run_params
