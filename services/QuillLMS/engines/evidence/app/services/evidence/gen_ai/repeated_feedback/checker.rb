@@ -16,12 +16,14 @@ module Evidence
         end
 
         def run
-          return false if optimal
-          return false if history.empty? # can't be repeat with no history
-          return false if history.size >= 4 # No secondary feedback on last attempt
+          # Avoid LLM call in situations that don't use secondary feedback
+          return false if optimal || first_attempt? || last_attempt?
 
           !!llm_response[KEY_REPEAT]
         end
+
+        private def first_attempt? = history.empty?
+        private def last_attempt? = history.size >= 4
 
         private def system_prompt = Evidence::GenAI::RepeatedFeedback::PromptBuilder.run(prompt: nil, history:)
 
