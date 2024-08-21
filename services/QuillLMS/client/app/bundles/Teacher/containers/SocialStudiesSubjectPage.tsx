@@ -3,8 +3,8 @@ import ReactMarkdown from 'react-markdown';
 
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 
-import PreviewCard from '../components/shared/preview_card.jsx';
-import { requestGet } from '../../../modules/request';
+import SubjectPageTeacherCenterArticles from '../components/content_hubs/subject_page_teacher_center_articles'
+import SubjectPageSummary from '../components/content_hubs/subject_page_summary'
 import { LARGE_ICON_BASE_SRC, } from '../../Shared/index'
 
 const shipIconSrc = `${LARGE_ICON_BASE_SRC}/ship.svg`
@@ -12,65 +12,9 @@ const scrollIconSrc = `${LARGE_ICON_BASE_SRC}/scroll.svg`
 
 const pageImgBaseSrc = `${process.env.CDN_URL}/images/pages/social_studies_subject_page`
 
-const closeReadingSrc = `${pageImgBaseSrc}/close-reading.svg`
-const constructingClaimsSrc = `${pageImgBaseSrc}/constructing-claims.svg`
-const sentenceFundamentalsSrc = `${pageImgBaseSrc}/sentence-fundamentals.svg`
 const quillPlusOERProjectLogoSrc = `${pageImgBaseSrc}/quill-plus-oer-project-logo.svg`
 
-const GETTING_STARTED_COLLECTION_ID = 477
-const INTEGRATING_QUILL_EVIDENCE_ARTICLE_ID = 666
-
 const WORLD_HISTORY_1200_TO_PRESENT_LINK = `${window.location.pathname}/world-history-1200-to-present`.replace('//', '/')
-
-const TeacherCenterArticleCard = ({ blogPostId, }) => {
-  const [blogPost, setBlogPost] = React.useState(null);
-  const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
-
-  React.useEffect(() => {
-    getBlogPost(blogPostId)
-  }, [])
-
-  function getBlogPost(id: string) {
-    requestGet(`/featured_blog_post/${id}`,
-      (data) => {
-        if(data.blog_post) {
-          const { blog_post, author } = data;
-          setBlogPost(blog_post)
-          setBlogPostAuthor(author)
-        }
-      }
-    )
-  }
-
-  function renderPreviewContent({ title, slug, preview_card_content, external_link, footer_content }) {
-    if (footer_content) {
-      return(
-        <section className="content-section">
-          <h4>{title}</h4>
-          <ReactMarkdown className="preview-card" source={footer_content} />
-          <section className="footer-section">
-            {blogPostAuthor && <p className="author">{`By ${blogPostAuthor}`}</p>}
-            <a className="quill-button focus-on-light contained teal extra-small" href={`/teacher-center/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
-          </section>
-        </section>
-      )
-    }
-
-    return(
-      <PreviewCard
-        color="teal"
-        content={preview_card_content}
-        externalLink={!!external_link}
-        key={title}
-        link={external_link ? external_link : `/teacher-center/${slug}`}
-      />
-    )
-  }
-
-  if(!blogPost) { return <span /> }
-
-  return renderPreviewContent(blogPost)
-}
 
 const overview = (
   <header>
@@ -100,29 +44,9 @@ const overview = (
 )
 
 const summary = (
-  <section className="summary-section">
-    <div className="container">
-      <h2>Build Content Knowledge & Writing Skills With Reading for Evidence</h2>
-      <p>Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:</p>
-      <div className="summary-items">
-        <div className="summary-item">
-          <img alt="" src={closeReadingSrc} />
-          <h3>Close reading</h3>
-          <p>Every activity begins with a structured highlighting task as an entry point to the text. Then, students read and reread up to ten times in the process of developing their responses.</p>
-        </div>
-        <div className="summary-item">
-          <img alt="" src={constructingClaimsSrc} />
-          <h3>Constructing evidence-based claims</h3>
-          <p>Students receive custom feedback developed by real teachers to help them use what they have read to craft strong sentences.</p>
-        </div>
-        <div className="summary-item">
-          <img alt="" src={sentenceFundamentalsSrc} />
-          <h3>Sentence fundamentals</h3>
-          <p>Practice with conjunctions like because, but, and so provides students with a framework to combine sentences and express complex ideas effectively. Once they’ve clearly captured these ideas in their response, students receive grammar and spelling guidance too.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SubjectPageSummary
+    paragraphCopy="Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:"
+  />
 )
 
 const teacherQuotes = (
@@ -165,18 +89,6 @@ const partners = (
   </section>
 )
 
-const teacherCenterArticles = (
-  <section className="teacher-center-articles">
-    <div className="container">
-      <h2>Learn more with these Teacher Center articles</h2>
-      <div className="articles-wrapper">
-        <TeacherCenterArticleCard blogPostId={GETTING_STARTED_COLLECTION_ID} />
-        <TeacherCenterArticleCard blogPostId={INTEGRATING_QUILL_EVIDENCE_ARTICLE_ID} />
-      </div>
-    </div>
-  </section>
-)
-
 const tryItOutForYourself = (
   <section className="try-it-out">
     <div className="container">
@@ -197,7 +109,7 @@ const SocialStudiesSubjectPage = ({}) => {
       {teacherQuotes}
       {partners}
       <QuestionsAndAnswers questionsAndAnswersFile="socialStudies" supportLink={null} />
-      {teacherCenterArticles}
+      <SubjectPageTeacherCenterArticles />
       {tryItOutForYourself}
     </div>
   )
