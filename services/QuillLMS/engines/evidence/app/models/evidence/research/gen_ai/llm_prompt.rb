@@ -64,7 +64,7 @@ module Evidence
             LLMPromptGuideline.create!(guideline_ids.map { |id| { llm_prompt:, guideline_id: id } })
             LLMPromptPromptExample.create!(prompt_example_ids.map { |id| { llm_prompt:, prompt_example_id: id } })
 
-            llm_prompt.update(locked: true)
+            llm_prompt.update!(locked: true)
             llm_prompt
           end
         end

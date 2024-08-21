@@ -51,7 +51,9 @@ module Evidence
           :api_call_times,
           :confusion_matrix,
           :g_eval_ids,
-          :g_evals
+          :g_evals,
+          :trial_start_time,
+          :evaluation_start_time
 
         attr_readonly :llm_id, :llm_prompt_id, :dataset_id
 
@@ -76,22 +78,25 @@ module Evidence
         def scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
 
         def run
-          start_time = Time.zone.now
-
           return unless pending?
 
+          update!(trial_start_time: Time.zone.now)
           update!(status: RUNNING)
-          query_llm
-          CalculateResultsWorker.perform_async(id)
-          trial_errors.empty? ? update!(status: COMPLETED) : update!(status: FAILED)
+
+          batch = Sidekiq::Batch.new
+          batch.on(:complete, self.class, trial_id: id)
+
+          batch.jobs do
+            test_examples.each do |test_example|
+              BuildLLMExampleWorker.perform_async(id, test_example.id)
+            end
+          end
         rescue => e
           trial_errors << e.message
           update!(status: FAILED)
-        ensure
-          update!(trial_duration: Time.zone.now - start_time)
         end
 
-        def update_results(new_data)
+        def update_results!(new_data)
           self.results ||= {}
           results.merge!(new_data)
           save!
@@ -104,24 +109,11 @@ module Evidence
           self.number = last_trial_number + 1
         end
 
-        private def query_llm
-          [].tap do |api_call_times|
-            test_examples.each do |test_example|
-              api_call_start_time = Time.zone.now
-              prompt = llm_prompt.prompt_with_student_response(test_example.student_response)
-              raw_text = llm.completion(prompt)
-              api_call_times << (Time.zone.now - api_call_start_time).round(2)
-
-              llm_feedback = LLMFeedbackResolver.run(raw_text:)
-              llm_assigned_status = LLMAssignedStatusResolver.run(raw_text:)
-
-              LLMExample.create!(trial: self, raw_text:, llm_feedback:, test_example:, llm_assigned_status:)
-            rescue => e
-              trial_errors << { error: e.message, test_example_id: test_example.id, raw_text: }.to_json
-              next
-            end
-            update_results(api_call_times:)
-          end
+        private def on_complete(_status, options)
+          trial = Trial.find(options['trial_id'])
+          trial.update!(trial_duration: Time.zone.now - Time.zone.parse(trial.trial_start_time))
+          CalculateResultsWorker.perform_async(options['trial_id'])
+          trial.trial_errors.empty? ? trial.update!(status: COMPLETED) : trial.update!(status: FAILED)
         end
       end
     end
