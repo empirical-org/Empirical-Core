@@ -46,7 +46,7 @@ const HandyActions = ({ linkedToClever, setShowDemoModal}) => {
     <section className="handy-actions">
       <h2>Handy Actions</h2>
       {hasAssignedSocialStudiesActivities && <HandyAction icon={globeIcon} link="/teachers/progress_reports/social-studies/world-history-1200-to-present" showNewTag={true} text="Social Studies Dashboard" /> }
-      {hasAssignedScienceActivities && <HandyAction icon={aiIcon} link="/teachers/progress_reports/interdisciplinary-science" showNewTag={true} text="Interdisciplinary Science Dashboard" /> }
+      {hasAssignedScienceActivities && <HandyAction icon={aiIcon} link="/teachers/progress_reports/interdisciplinary-science/building-ai-knowledge" showNewTag={true} text="Interdisciplinary Science Dashboard" /> }
       <HandyAction icon={searchMapIcon} link="/assign/activity-library" text="Explore activity library" />
       <HandyAction icon={clipboardCheckIcon} link="/assign/diagnostic" text="Assign a diagnostic" />
       <HandyAction icon={tableCheckIcon} link="/teachers/classrooms/scorebook" text="View activity summary report" />
