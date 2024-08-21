@@ -1,22 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SocialStudiesSubjectPage renders correctly 1`] = `
+exports[`InterdisciplinaryScienceSubjectPage renders correctly 1`] = `
 <DocumentFragment>
   <div
-    class="social-studies-subject-page subject-page"
+    class="interdisciplinary-science-subject-page subject-page"
   >
     <header>
       <div
         class="container"
       >
         <h1>
-          Social Studies
+          Interdisciplinary Science
         </h1>
         <p>
-          Quill Social Studies activities allow teachers to give students the literacy instruction they need while covering core course content. In these Reading for Evidence activities, students read course-aligned texts, use what they’ve read to draft evidence-based claims, and receive AI-powered feedback to strengthen their writing. Process and growth are key: our responsive coaching guides students to revise until their sentences are clear, logical, and grounded in specific details from the text.
+          Over the next few years, Quill will building out Reading for Evidence activities aligned to high school science classrooms. Our first offering, Building AI Knowledge, features activities that introduce students to how AI will impact society over the next decade. In the future, we will build offerings around biology, earth sciences, and other science topics.
           <br />
           <br />
-          Quill Social Studies is designed to supplement high school social studies courses. World History: 1200 CE-Present is available now, and World History: 1750 CE-Present will launch during the 2024-2025 school year!
+          In these Reading for Evidence activities, students read science-aligned texts, use what they’ve read to draft evidence-based claims, and receive AI-powered feedback to strengthen their writing. Process and growth are key: our responsive coaching guides students to revise until their sentences are clear, logical, and grounded in specific details from the text.
+          <br />
+          <br />
+          Our Interdisciplinary Science work is meant to be used in either ELA or science classrooms. These activities are not meant to replace a textbook. Our activities provide a deep-dive into some of the most fascinating ideas in science.
         </p>
         <div
           class="course-cards"
@@ -26,45 +29,19 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
           >
             <img
               alt=""
-              src="undefined/images/icons/l/ship.svg"
+              src="undefined/images/icons/l/ai.svg"
             />
             <div>
               <h2>
-                World History
+                Building AI Knowledge
               </h2>
-              <span>
-                1200 CE - Present
-              </span>
             </div>
             <a
               class="quill-button focus-on-light contained medium teal"
-              href="/world-history-1200-to-present"
+              href="/building-ai-knowledge"
             >
               View activities
             </a>
-          </div>
-          <div
-            class="course-card"
-          >
-            <img
-              alt=""
-              src="undefined/images/icons/l/scroll.svg"
-            />
-            <div>
-              <h2>
-                World History
-              </h2>
-              <span>
-                1750 CE - Present
-              </span>
-            </div>
-            <button
-              class="quill-button focus-on-light medium disabled contained"
-              disabled=""
-              type="button"
-            >
-              View activities
-            </button>
           </div>
         </div>
       </div>
@@ -79,7 +56,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
           Build Content Knowledge & Writing Skills With Reading for Evidence
         </h2>
         <p>
-          Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:
+          Written and reviewed by educators, each Quill Interdisciplinary Science activity highlights a science concept. Not only do these activities deepen students’ subject area learning and reinforce essential science content, they also provide support for:
         </p>
         <div
           class="summary-items"
@@ -130,94 +107,22 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
       </div>
     </section>
     <section
-      class="teacher-quotes"
-    >
-      <div
-        class="container"
-      >
-        <h2>
-          What Are Social Studies Teachers Saying?
-        </h2>
-        <div
-          class="quote-boxes"
-        >
-          <div
-            class="quote-box"
-          >
-            <p>
-              “Quill has been helpful in giving them a toolkit to make arguments [and] to identify and test claims.”
-            </p>
-            <div>
-              <span
-                class="name"
-              >
-                Rachel R.
-              </span>
-              <span>
-                State Fine Arts High School
-              </span>
-              <span>
-                Modern World History
-              </span>
-            </div>
-          </div>
-          <div
-            class="quote-box"
-          >
-            <p>
-              “They're learning content that I would probably not have time to teach them. They are practicing skills that, honestly, they all need more practice on every day.”
-            </p>
-            <div>
-              <span
-                class="name"
-              >
-                Amber L.
-              </span>
-              <span>
-                Glasgow School District
-              </span>
-            </div>
-          </div>
-          <div
-            class="quote-box"
-          >
-            <p>
-              “I would say that the combination of using the OER curriculum and Quill has pushed them in their reading stamina and level.”
-            </p>
-            <div>
-              <span
-                class="name"
-              >
-                Tricia C.
-              </span>
-              <span>
-                Latexo High School
-              </span>
-              <span>
-                9th Grade World History
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section
       class="partners container"
     >
       <img
-        alt="Quill logo plus OER Project logo"
-        src="undefined/images/pages/social_studies_subject_page/quill-plus-oer-project-logo.svg"
+        alt="Quill logo plus AI Edu logo"
+        src="undefined/images/pages/interdisciplinary_science_subject_page/quill_logo_plus_ai_edu_logo.svg"
       />
       <p>
         Quill has partnered with 
         <a
-          href="https://www.oerproject.com/World-History?WT.mc_id=00_00_2024__course-WHP_OER-QUILL_&WT.tsrc=OERQUILL"
+          href="https://www.aiedu.org/"
           rel="noopener noreferrer"
           target="_blank"
         >
-          OER Project
+          aiEDU
         </a>
-         to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history classroom.
+         to curate activities from their site that work well with Quill Building AI Knowledge activities. On the course landing page, each each Reading for Evidence activity includes a suggested paired aiEDU activity, which range from 5-minute warm-up activities to 3-4 hour student-led activities. These activities can be used to preview new content, reinforce prior knowledge, provide additional context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or in conjunction with aiEDU activities, these resources are a valuable addition to any high school ELA or Computer Science classroom.
       </p>
     </section>
     <div
@@ -248,10 +153,9 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               class="expand-collapse-button focus-on-light"
               type="button"
             >
-              <img
-                alt="expand-and-collapse"
-                src="undefined/images/shared/expand.svg"
-              />
+              <p>
+                Expand
+              </p>
             </button>
           </div>
         </div>
@@ -274,10 +178,9 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               class="expand-collapse-button focus-on-light"
               type="button"
             >
-              <img
-                alt="expand-and-collapse"
-                src="undefined/images/shared/expand.svg"
-              />
+              <p>
+                Expand
+              </p>
             </button>
           </div>
         </div>
@@ -300,10 +203,9 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               class="expand-collapse-button focus-on-light"
               type="button"
             >
-              <img
-                alt="expand-and-collapse"
-                src="undefined/images/shared/expand.svg"
-              />
+              <p>
+                Expand
+              </p>
             </button>
           </div>
         </div>
@@ -326,10 +228,9 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               class="expand-collapse-button focus-on-light"
               type="button"
             >
-              <img
-                alt="expand-and-collapse"
-                src="undefined/images/shared/expand.svg"
-              />
+              <p>
+                Expand
+              </p>
             </button>
           </div>
         </div>
@@ -352,10 +253,9 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               class="expand-collapse-button focus-on-light"
               type="button"
             >
-              <img
-                alt="expand-and-collapse"
-                src="undefined/images/shared/expand.svg"
-              />
+              <p>
+                Expand
+              </p>
             </button>
           </div>
         </div>
@@ -397,7 +297,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
         >
           <a
             class="quill-button focus-on-dark outlined teal large"
-            href="/evidence/#/play?anonymous=true&uid=457"
+            href="/evidence/#/play?anonymous=true&uid=442"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -405,9 +305,9 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
           </a>
           <a
             class="quill-button focus-on-dark outlined teal large"
-            href="/world-history-1200-to-present"
+            href="/building-ai-knowledge"
           >
-            View 1200 CE - Present activities
+            View Building AI Knowledge activities
           </a>
         </div>
       </div>

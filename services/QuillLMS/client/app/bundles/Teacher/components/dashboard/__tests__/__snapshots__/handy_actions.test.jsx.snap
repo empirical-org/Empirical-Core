@@ -10,7 +10,7 @@ exports[`HandyActions component should render when the user has assigned science
     </h2>
     <a
       class="handy-action focus-on-light"
-      href="/teachers/progress_reports/interdisciplinary-science"
+      href="/teachers/progress_reports/interdisciplinary-science/building-ai-knowledge"
     >
       <img
         alt="Brain icon"
