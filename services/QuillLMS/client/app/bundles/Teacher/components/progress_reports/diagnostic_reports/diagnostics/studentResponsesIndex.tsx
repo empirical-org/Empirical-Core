@@ -13,7 +13,7 @@ import {
 } from './shared';
 
 import { requestGet } from '../../../../../../modules/request/index';
-import { DataTable } from '../../../../../Shared/index';
+import { DataTable, pluralize } from '../../../../../Shared/index';
 import LoadingSpinner from '../../../shared/loading_indicator.jsx';
 
 interface Student {
@@ -267,8 +267,8 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
       const countOfSkillsToPractice = skill_groups.length - countOfPreSkillsProficienct
       return (
         <div className="skills-correct-element">
-          <p>{countOfPreSkillsProficienct} of {skill_groups.length} Skills</p>
-          {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} Skills to Practice)</p>}
+          <p>{countOfPreSkillsProficienct} of {skill_groups.length} {pluralize(countOfSkillsProficient, "Skill", "Skills")}</p>
+          {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} {pluralize({countOfSkillsToPractice}, "Skill", "Skills")} to Practice)</p>}
         </div>
       )
     }
@@ -277,7 +277,7 @@ export const StudentResponsesIndex = ({ passedStudents, match, mobileNavigation,
     return(
       <div className="skills-correct-element">
         <p>{correct_skill_groups_text}</p>
-        {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} Skills to Practice)</p>}
+        {!!countOfSkillsToPractice && <p>({countOfSkillsToPractice} {pluralize(countOfSkillsToPractice, "Skill", "Skills")} to Practice)</p>}
       </div>
     )
   }
