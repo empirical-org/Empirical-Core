@@ -53,32 +53,29 @@
   </h3>
   <ul>
     <% @optimal_guidelines.each do |guideline| %>
-      <%= form_with(url: hide_research_gen_ai_stem_vault_guideline_path(@stem_vault, guideline), method: :patch, class: 'guideline-form') do |form| %>
+      <%= form_with(url: hide_research_gen_ai_stem_vault_guideline_path(@stem_vault, guideline), method: :patch, class: 'guideline-form') do |f| %>
         <li id="guideline_<%= guideline.id %>" class="guideline-item">
           <div class="guideline-content">
             <%= guideline %>
           </div>
-          <%= form.submit 'Hide', class: 'hide-button', data: { confirm: 'Are you sure you want to hide this guideline?' } %>
+          <%= f.submit 'Hide', class: 'hide-button', data: { confirm: 'Are you sure you want to hide this guideline?' } %>
         </li>
       <% end %>
     <% end %>
   </ul>
 
-
   <h3>
     Suboptimal Guidelines
     <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@stem_vault), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </h3>
-
-
   <ul>
     <% @suboptimal_guidelines.each do |guideline| %>
-      <%= form_with(url: hide_research_gen_ai_stem_vault_guideline_path(@stem_vault, guideline), method: :patch, class: 'guideline-form') do |form| %>
+      <%= form_with(url: hide_research_gen_ai_stem_vault_guideline_path(@stem_vault, guideline), method: :patch, class: 'guideline-form') do |f| %>
         <li id="guideline_<%= guideline.id %>" class="guideline-item">
           <div class="guideline-content">
             <%= guideline %>
           </div>
-          <%= form.submit 'Hide', class: 'hide-button', data: { confirm: 'Are you sure you want to hide this guideline?' } %>
+          <%= f.submit 'Hide', class: 'hide-button', data: { confirm: 'Are you sure you want to hide this guideline?' } %>
         </li>
       <% end %>
     <% end %>
