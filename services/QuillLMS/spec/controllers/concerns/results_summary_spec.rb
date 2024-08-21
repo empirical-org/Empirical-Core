@@ -128,6 +128,21 @@ describe ResultsSummary do
         ]
       })
     end
+
+    context 'multiple skill groups' do
+      subject { results_summary(unit_activity.activity_id, classroom.id, nil) }
+
+      let(:activity) { unit_activity.activity }
+      let(:order_number) { skill_group_activity.skill_group.order_number - 1 }
+      let(:skill_group2) { create(:skill_group, order_number:) }
+      let!(:skill_group_activity2) { create(:skill_group_activity, activity:, skill_group: skill_group2) }
+
+      let(:expected_result) { activity.skill_groups.order(:order_number).map(&:name) }
+
+      it 'should order skill_group_summaries by order_number' do
+        expect(subject[:skill_group_summaries].map { |sg| sg[:name] }).to eq(expected_result)
+      end
+    end
   end
 
   describe '#student_results' do
