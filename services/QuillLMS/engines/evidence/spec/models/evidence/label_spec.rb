@@ -36,10 +36,10 @@ module Evidence
 
         it 'should not allow a label to be created if its name collides with another on the prompt' do
           prompt = create(:evidence_prompt)
-          label.rule.update(:prompts => ([prompt]))
-          rule = create(:evidence_rule, :prompts => ([prompt]))
+          label.rule.update(:prompts => [prompt])
+          rule = create(:evidence_rule, :prompts => [prompt])
           new_label = build(:evidence_label, :rule => rule, :name => label.name)
-          expect((!new_label.valid?)).to(be_truthy)
+          expect(!new_label.valid?).to(be_truthy)
           expect(new_label.errors[:name].include?("can't be the same as any other labels related to the same prompt")).to(eq(true))
         end
       end

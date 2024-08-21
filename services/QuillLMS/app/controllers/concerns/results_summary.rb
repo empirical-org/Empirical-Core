@@ -8,7 +8,7 @@ module ResultsSummary
 
   def results_summary(activity_id, classroom_id, unit_id)
     activity = Activity.find(activity_id)
-    @skill_groups = activity.skill_groups
+    @skill_groups = activity.skill_groups.order(:order_number)
     set_activity_sessions_and_assigned_students_for_activity_classroom_and_unit(activity_id, classroom_id, unit_id, hashify_activity_sessions: true)
     @skill_group_summaries = @skill_groups.map do |skill_group|
       {

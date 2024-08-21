@@ -19,14 +19,12 @@ module Evidence
 
     def self.run(entry, prompt, previous_feedback, session_uid = nil)
       new(entry, prompt, previous_feedback, session_uid).tap do |check|
-        begin
-          check.run
-        rescue => e
-          context = { entry: entry, prompt_id: prompt&.id, prompt_text: prompt&.text }
-          Evidence.error_notifier.report(e, context)
+        check.run
+      rescue => e
+        context = { entry: entry, prompt_id: prompt&.id, prompt_text: prompt&.text }
+        Evidence.error_notifier.report(e, context)
 
-          @error = e
-        end
+        @error = e
       end
     end
 

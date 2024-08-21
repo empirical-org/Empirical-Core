@@ -11,7 +11,7 @@ class TranslatedTextsController < ApplicationController
       .per(200)
 
     @translated_texts = @translated_texts.where(locale: params[:locale]) if params[:locale].present?
-    @js_file = "entrypoints/snippets/translated_text.ts"
+    @js_file = 'entrypoints/snippets/translated_text.ts'
     @locales = TranslatedText.select(:locale).distinct.pluck(:locale)
   end
 

@@ -33,10 +33,10 @@ module Evidence
 
     context 'should create' do
       let!(:activity) { create(:evidence_activity) }
-      let!(:turking_round) { build(:evidence_turking_round, :activity => (activity)) }
+      let!(:turking_round) { build(:evidence_turking_round, :activity => activity) }
 
       it 'should create a valid record and return it as json' do
-        post(:create, :params => ({ :turking_round => ({ :activity_id => activity.id, :uuid => turking_round.uuid, :expires_at => turking_round.expires_at.iso8601(3) }) }))
+        post(:create, :params => { :turking_round => { :activity_id => activity.id, :uuid => turking_round.uuid, :expires_at => turking_round.expires_at.iso8601(3) } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(201))
         expect(parsed_response['activity_id']).to(eq(turking_round.activity_id))
@@ -46,7 +46,7 @@ module Evidence
       end
 
       it 'should not create an invalid record and return errors as json' do
-        post(:create, :params => ({ :turking_round => ({ :activity_id => nil, :expires_at => nil }) }))
+        post(:create, :params => { :turking_round => { :activity_id => nil, :expires_at => nil } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['activity_id'].include?("can't be blank")).to(eq(true))
@@ -59,7 +59,7 @@ module Evidence
       let!(:turking_round) { create(:evidence_turking_round) }
 
       it 'should return json if found' do
-        get(:show, :params => ({ :id => turking_round.id }))
+        get(:show, :params => { :id => turking_round.id })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response['activity_id']).to(eq(turking_round.activity.id))
@@ -68,7 +68,7 @@ module Evidence
       end
 
       it 'should raise if not found (to be handled by parent app)' do
-        expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
+        expect { get(:show, :params => { :id => 99999 }) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
 
@@ -78,7 +78,7 @@ module Evidence
       it 'should update record if valid, return nothing' do
         new_activity = create(:evidence_activity)
         new_datetime = DateTime.current.utc
-        patch(:update, :params => ({ :id => turking_round.id, :turking_round => ({ :activity_id => new_activity.id, :expires_at => new_datetime }) }))
+        patch(:update, :params => { :id => turking_round.id, :turking_round => { :activity_id => new_activity.id, :expires_at => new_datetime } })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         turking_round.reload
@@ -87,7 +87,7 @@ module Evidence
       end
 
       it 'should not update record and return errors as json' do
-        patch(:update, :params => ({ :id => turking_round.id, :turking_round => ({ :activity_id => nil, :uuid => nil, :expires_at => nil }) }))
+        patch(:update, :params => { :id => turking_round.id, :turking_round => { :activity_id => nil, :uuid => nil, :expires_at => nil } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['activity_id'].include?("can't be blank")).to(eq(true))
@@ -100,7 +100,7 @@ module Evidence
       let!(:turking_round) { create(:evidence_turking_round) }
 
       it 'should destroy record at id' do
-        delete(:destroy, :params => ({ :id => turking_round.id }))
+        delete(:destroy, :params => { :id => turking_round.id })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect(turking_round.id).to(be_truthy)

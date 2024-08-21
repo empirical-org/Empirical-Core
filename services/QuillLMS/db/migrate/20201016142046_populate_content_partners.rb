@@ -12,13 +12,11 @@ class PopulateContentPartners < ActiveRecord::Migration[4.2]
 
     table = CSV.parse(File.read('lib/data/content_partners_by_activity.csv'), headers: true)
     table.each do |row|
-      begin
-        activity = Activity.find(row['Activity ID'])
-        content_partner = ContentPartner.find_by(name: row['Content Partner'])
-        content_partner.activities << activity
-      rescue => e
-        puts e
-      end
+      activity = Activity.find(row['Activity ID'])
+      content_partner = ContentPartner.find_by(name: row['Content Partner'])
+      content_partner.activities << activity
+    rescue => e
+      puts e
     end
   end
 end

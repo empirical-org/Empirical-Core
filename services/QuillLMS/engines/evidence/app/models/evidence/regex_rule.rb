@@ -97,12 +97,10 @@ module Evidence
     end
 
     private def validate_regex
-      begin
-        Regexp.new(regex_text)
-      rescue RegexpError => e
-        rule.errors.add(:invalid_regex, e.to_s)
-        throw(:abort)
-      end
+      Regexp.new(regex_text)
+    rescue RegexpError => e
+      rule.errors.add(:invalid_regex, e.to_s)
+      throw(:abort)
     end
 
     private def log_creation

@@ -12,11 +12,9 @@ class GoogleIntegration::User
   end
 
   private def set_user
-    @user ||= begin
-      find_user_by_google_id_or_email.tap do |user|
-        new_attributes = user_params(user)
-        user.new_record? ? user.assign_attributes(new_attributes) : user.update!(new_attributes)
-      end
+    @user ||= find_user_by_google_id_or_email.tap do |user|
+      new_attributes = user_params(user)
+      user.new_record? ? user.assign_attributes(new_attributes) : user.update!(new_attributes)
     end
   end
 

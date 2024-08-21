@@ -8,19 +8,19 @@ namespace :add_user_id_to_units do
 
     Unit.where(user_id: nil).each do |unit|
       classroom_activities = ClassroomActivity.unscoped.where(unit_id: unit.id)
-      if classroom_activities.any?
-        teacher = nil
-        ca_with_teacher = classroom_activities.find do |ca|
-          classy = Classroom.unscoped.find_by_id(ca.classroom_id)
-          teacher = User.find_by_id(classy.teacher_id) if classy
-          classy && teacher
-        end
-        if ca_with_teacher
-          unit.update_attribute('user_id', teacher.id)
-          puts 'unit_id'
-          puts unit.id
-        end
+      next unless classroom_activities.any?
+
+      teacher = nil
+      ca_with_teacher = classroom_activities.find do |ca|
+        classy = Classroom.unscoped.find_by_id(ca.classroom_id)
+        teacher = User.find_by_id(classy.teacher_id) if classy
+        classy && teacher
       end
+      next unless ca_with_teacher
+
+      unit.update_attribute('user_id', teacher.id)
+      puts 'unit_id'
+      puts unit.id
     end
   end
 end

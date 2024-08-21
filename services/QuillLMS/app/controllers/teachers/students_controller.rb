@@ -114,7 +114,7 @@ class Teachers::StudentsController < ApplicationController
     # if teacher was the last user to reset the students password, we will show that password in the class manager to the teacher
     @teacher_created_student = @student.username.split('@').last == @classroom.code
     @teacher_can_edit_password = !(@student.clever_id || @student.signed_up_with_google)
-    @teacher_can_see_password =  (@student.password_digest && @student.authenticate(@student.last_name))
+    @teacher_can_see_password =  @student.password_digest && @student.authenticate(@student.last_name)
     @sign_up_method = {
       "Clever User": @student.clever_id,
       "Google Sign On User": @student.signed_up_with_google,

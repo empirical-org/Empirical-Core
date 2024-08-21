@@ -157,10 +157,10 @@ describe UserMailer, type: :mailer do
     let(:user) { build(:user) }
 
     before do
-      mock_nps_data = ({
+      mock_nps_data = {
         'nps': 100,
         'respondents': [9, 0, 0]
-      }).as_json
+      }.as_json
       allow_any_instance_of(UserMailer).to receive(:get_satismeter_nps_data).and_return(mock_nps_data)
       allow_any_instance_of(UserMailer).to receive(:get_satismeter_comment_data).and_return([])
       allow_any_instance_of(UserMailer).to receive(:get_intercom_data).and_return({})

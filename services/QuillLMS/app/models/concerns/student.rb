@@ -177,14 +177,14 @@ module Student
     secondary_account_grouped_activity_sessions = secondary_account_activity_sessions.group_by { |as| as.classroom_unit_id }
 
     secondary_account_grouped_activity_sessions.each do |classroom_unit_id, activity_sessions|
-      if classroom_unit_id
-        activity_sessions.each { |as| as.update_columns(user_id: id, updated_at: DateTime.current) }
-        if primary_account_grouped_activity_sessions[classroom_unit_id]
-          hide_extra_activity_sessions(classroom_unit_id)
-        else
-          cu = ClassroomUnit.find_by(id: classroom_unit_id)
-          cu.update(assigned_student_ids: cu.assigned_student_ids.push(id))
-        end
+      next unless classroom_unit_id
+
+      activity_sessions.each { |as| as.update_columns(user_id: id, updated_at: DateTime.current) }
+      if primary_account_grouped_activity_sessions[classroom_unit_id]
+        hide_extra_activity_sessions(classroom_unit_id)
+      else
+        cu = ClassroomUnit.find_by(id: classroom_unit_id)
+        cu.update(assigned_student_ids: cu.assigned_student_ids.push(id))
       end
     end
   end

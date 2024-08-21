@@ -11,6 +11,5 @@ class AddSearchIndexesToUsers < ActiveRecord::Migration[4.2]
       create index on users using gin(to_tsvector('english', split_part((ip_address)::text, '/', 1)));"
   end
 
-  def down
-  end
+  def down; end
 end

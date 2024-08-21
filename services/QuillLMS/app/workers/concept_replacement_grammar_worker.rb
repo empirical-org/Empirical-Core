@@ -8,12 +8,12 @@ class ConceptReplacementGrammarWorker
   def perform(original_concept_uid, new_concept_uid)
     activities = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v3/grammarActivities.json").parsed_response
     activities.each do |key, act|
-      if act['concepts'] && act['concepts'].keys.include?(original_concept_uid)
-        new_concepts = act['concepts'].dup
-        new_concepts[new_concept_uid] = new_concepts[original_concept_uid]
-        new_concepts.delete(original_concept_uid)
-        HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v3/grammarActivities/#{key}/concepts.json", body: new_concepts.to_json)
-      end
+      next unless act['concepts'] && act['concepts'].keys.include?(original_concept_uid)
+
+      new_concepts = act['concepts'].dup
+      new_concepts[new_concept_uid] = new_concepts[original_concept_uid]
+      new_concepts.delete(original_concept_uid)
+      HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v3/grammarActivities/#{key}/concepts.json", body: new_concepts.to_json)
     end
     questions = HTTParty.get("#{ENV['FIREBASE_DATABASE_URL']}/v3/questions.json").parsed_response
     questions.each do |key, q|
@@ -56,16 +56,16 @@ class ConceptReplacementGrammarWorker
     begin
       fp_or_is.each do |k, v|
         v['conceptResults'].each do |crk, crv|
-          if crv['conceptUID'] == original_concept_uid
-            concept = Concept.unscoped.find_by(uid: new_concept_uid)
-            parent_concept = concept.try(:parent)
-            grandparent_concept = parent_concept.try(:parent)
-            if concept && parent_concept && grandparent_concept
-              name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
-              new_fp_or_is[k]['conceptResults'][crk]['name'] = name
-            end
-            new_fp_or_is[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+          next unless crv['conceptUID'] == original_concept_uid
+
+          concept = Concept.unscoped.find_by(uid: new_concept_uid)
+          parent_concept = concept.try(:parent)
+          grandparent_concept = parent_concept.try(:parent)
+          if concept && parent_concept && grandparent_concept
+            name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+            new_fp_or_is[k]['conceptResults'][crk]['name'] = name
           end
+          new_fp_or_is[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
         end
       end
     rescue => e

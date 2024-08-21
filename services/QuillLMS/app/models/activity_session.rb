@@ -267,9 +267,9 @@ class ActivitySession < ApplicationRecord
 
   def display_due_date_or_completed_at_date
     if completed_at.present?
-      (completed_at.strftime('%A, %B %d, %Y')).to_s
+      completed_at.strftime('%A, %B %d, %Y').to_s
     elsif unit_activity.present? and unit_activity.due_date.present?
-      (unit_activity.due_date.strftime('%A, %B %d, %Y')).to_s
+      unit_activity.due_date.strftime('%A, %B %d, %Y').to_s
     else
       ''
     end
@@ -307,7 +307,7 @@ class ActivitySession < ApplicationRecord
     self['data'] = data.to_h.update(input.except('activity_session'))
   end
 
-  def activity_uid= uid
+  def activity_uid=(uid)
     self.activity_id = Activity.find_by_uid!(uid).id
   end
 
@@ -326,7 +326,7 @@ class ActivitySession < ApplicationRecord
   alias owner user
 
   # TODO: legacy fix
-  def anonymous= anonymous
+  def anonymous=(anonymous)
     self.temporary = anonymous
   end
 
@@ -467,12 +467,10 @@ class ActivitySession < ApplicationRecord
   # when using this method, you should eager load as
   # e.g. .includes(:concept_results, activity: {skills: :concepts})
   def correct_skills
-    @correct_skills ||= begin
-      skills.select do |skill|
-        results = concept_results.select { |cr| cr.concept_id.in?(skill.concept_ids) }
+    @correct_skills ||= skills.select do |skill|
+      results = concept_results.select { |cr| cr.concept_id.in?(skill.concept_ids) }
 
-        results.length && results.all?(&:correct)
-      end
+      results.length && results.all?(&:correct)
     end
   end
 

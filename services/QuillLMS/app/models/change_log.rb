@@ -157,7 +157,7 @@ class ChangeLog < ApplicationRecord
       'Evidence::Highlight',
       'Evidence::RegexRule',
       'Evidence::PlagiarismText'
-    ].include?(changed_record_type) || !(GENERIC_USER_ACTIONS.include?(action))
+    ].include?(changed_record_type) || !GENERIC_USER_ACTIONS.include?(action)
   end
 
   def record_is_not_being_created_from_cms?

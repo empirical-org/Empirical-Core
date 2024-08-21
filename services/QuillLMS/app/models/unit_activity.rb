@@ -59,7 +59,7 @@ class UnitActivity < ApplicationRecord
     end
   end
 
-  def due_date_string= val
+  def due_date_string=(val)
     self.due_date = Date.strptime(val, Time::DATE_FORMATS[:quill_default])
   end
 
