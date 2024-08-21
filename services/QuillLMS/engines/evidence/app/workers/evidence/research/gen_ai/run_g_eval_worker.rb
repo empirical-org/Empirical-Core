@@ -6,8 +6,7 @@ module Evidence
       class RunGEvalWorker
         include Evidence.sidekiq_module
 
-        sidekiq_options retry: 3
-        # sidekiq_options retry: 3, queue: 'gen_ai_eval'
+        sidekiq_options retry: 3, queue: SidekiqQueue::LOW
 
         def perform(trial_id, g_eval_id, llm_example_id)
           GEvalScore.create!(
