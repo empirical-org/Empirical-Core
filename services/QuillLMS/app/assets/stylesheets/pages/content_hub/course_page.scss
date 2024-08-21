@@ -30,6 +30,7 @@
     }
     img {
       height: 350px;
+      border-radius: 16px;
     }
     .quill-tooltip-trigger {
       display: block;
@@ -210,6 +211,10 @@
       font-style: normal;
       font-weight: 400;
       margin: 16px 0px;
+    }
+
+    a {
+      text-decoration: underline;
     }
   }
 

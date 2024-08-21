@@ -36,7 +36,7 @@ const overview = (
             <h2>World History</h2>
             <span>1750 CE - Present</span>
           </div>
-          <button className="quill-button focus-on-light medium disabled contained" disabled={true} type="button">View activities</button>
+          <button className="quill-button focus-on-light medium disabled contained" disabled={true} type="button">Coming soon!</button>
         </div>
       </div>
     </div>

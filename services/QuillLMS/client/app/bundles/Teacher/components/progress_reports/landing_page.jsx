@@ -64,7 +64,7 @@ const contentHubMiniList = (hasAssignedSocialStudiesActivities, hasAssignedScien
   const socialStudiesLink = hasAssignedSocialStudiesActivities ? '/teachers/progress_reports/social-studies/world-history-1200-to-present' : '/assign/social-studies'
   const socialStudiesBodyText = hasAssignedSocialStudiesActivities ? 'Your one-stop shop for assigning new social studies activities and tracking student\xa0progress.' : "Explore Quill's Social Studies Activities. Once assigned, return here to assign additional activities and track student\xa0progress."
 
-  const interdisciplinaryScienceLink = hasAssignedScienceActivities ? '/teachers/progress_reports/interdisciplinary-science' : '/assign/interdisciplinary-science'
+  const interdisciplinaryScienceLink = hasAssignedScienceActivities ? '/teachers/progress_reports/interdisciplinary-science/building-ai-knowledge' : '/assign/interdisciplinary-science'
   const interdisciplinaryScienceBodyText = hasAssignedScienceActivities ? 'Your one-stop shop for assigning new interdisciplinary science activities and tracking student\xa0progress.' : "Explore Quill's Interdisciplinary Science Activities. Once assigned, return here to assign additional activities and track student\xa0progress."
 
   return [
