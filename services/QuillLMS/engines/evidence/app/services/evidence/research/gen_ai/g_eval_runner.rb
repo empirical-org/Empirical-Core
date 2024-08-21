@@ -4,11 +4,11 @@ module Evidence
   module Research
     module GenAI
       class GEvalRunner < ApplicationService
-        attr_reader :g_eval_id, :llm_example
+        attr_reader :g_eval_id, :llm_example_id
 
-        def initialize(g_eval_id:, llm_example:)
+        def initialize(g_eval_id:, llm_example_id:)
           @g_eval_id = g_eval_id
-          @llm_example = llm_example
+          @llm_example_id = llm_example_id
         end
 
         def run = JSON.parse(g_eval_output)[g_eval.metric]&.to_i
@@ -16,6 +16,8 @@ module Evidence
         private def g_eval_output = llm.completion(prompt).strip
 
         private def llm = LLM.g_eval
+
+        private def llm_example = @llm_example ||= LLMExample.find(llm_example_id)
 
         private def g_eval = @g_eval ||= GEval.find(g_eval_id)
 

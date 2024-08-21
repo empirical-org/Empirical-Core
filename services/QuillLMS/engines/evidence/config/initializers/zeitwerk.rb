@@ -4,8 +4,11 @@ Rails.autoloaders.each do |autoloader|
   autoloader.inflector = Zeitwerk::Inflector.new
   autoloader.inflector.inflect(
     'auto_ml' => 'AutoML',
+    'build_llm_example_worker' => 'BuildLLMExampleWorker',
     'gen_ai' => 'GenAI',
     'g_eval' => 'GEval',
+    'g_eval_score' => 'GEvalScore',
+    'g_eval_scores_fetcher_callback' => 'GEvalScoresFetcherCallback',
     'g_evals_controller' => 'GEvalsController',
     'html_tag_remover' => 'HTMLTagRemover',
     'llm' => 'LLM',

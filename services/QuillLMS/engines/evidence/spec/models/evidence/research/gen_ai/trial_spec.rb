@@ -70,61 +70,54 @@ module Evidence
         describe '#run' do
           subject { trial.run }
 
+          let(:batch) { Sidekiq::Batch.new }
           let(:trial) { create(factory) }
           let(:dataset) { trial.dataset }
-          let(:llm) { trial.llm }
-          let(:llm_prompt) { trial.llm_prompt }
-          let(:raw_text) { { 'feedback' => 'This is feedback', 'optimal' => true }.to_json }
           let(:test_examples_count) { 3 }
-
           let!(:test_examples) { create_list(:evidence_research_gen_ai_test_example, test_examples_count, dataset:) }
 
           before do
-            allow(trial).to receive(:llm).and_return(llm)
+            stub_const(
+              'Sidekiq::Batch',
+              Class.new do
+                attr_reader :callback, :callback_args, :event
 
-            allow(llm)
-              .to receive(:completion)
-              .with(instance_of(String))
-              .and_return(raw_text)
+                def initialize
+                  @jobs = []
+                end
 
-            allow(CalculateResultsWorker).to receive(:perform_async).with(trial.id)
+                def on(event, klass, **args)
+                  @event = event
+                  @callback = klass
+                  @callback_args = args
+                end
+
+                def jobs
+                  yield @jobs if block_given?
+                end
+              end
+            )
+            allow(Sidekiq::Batch).to receive(:new).and_return(batch)
           end
 
-          it { expect { subject }.to change { trial.reload.status }.to(described_class::COMPLETED) }
-          it { expect { subject }.to change(LLMExample, :count).by(test_examples_count) }
-
-          context 'when querying LLM' do
-            it 'only processes testing example student responses' do
-              expect(llm).to receive(:completion).exactly(test_examples_count).times
-
-              subject
-            end
-
-            it 'measures and records API call times' do
-              # 2 calls for each example: one for the API call and one for the trial_duration
-              expect(Time.zone).to receive(:now).exactly((test_examples_count * 2) + 2).times.and_call_original
-
-              subject
-
-              expect(trial.reload.api_call_times.size).to eq(test_examples_count)
-            end
+          it 'updates status to running and sets trial_start_time' do
+            expect(BuildLLMExampleWorker).to receive(:perform_async).exactly(test_examples_count).times
+            subject
+            expect(trial.status).to eq('running')
+            expect(trial.trial_start_time).to be_present
           end
 
-          context 'when an error occurs during execution' do
-            let(:error_message) { 'Test error' }
-
-            before { allow(trial).to receive(:query_llm).and_raise(StandardError, error_message) }
-
-            it { expect { subject }.to change { trial.reload.status }.to(described_class::FAILED) }
-            it { expect { subject }.not_to change(LLMExample, :count) }
-            it { expect { subject }.to change { trial.reload.trial_errors }.from([]).to([error_message]) }
+          it 'creates a Sidekiq batch and enqueues jobs' do
+            expect(batch).to receive(:on).with(:complete, Trial, trial_id: trial.id)
+            expect(BuildLLMExampleWorker).to receive(:perform_async).exactly(test_examples_count).times
+            subject
           end
 
-          context 'when the trial is not pending' do
-            before { trial.update!(status: described_class::FAILED) }
-
-            it { expect { subject }.not_to change { trial.reload.status } }
-            it { expect { subject }.not_to change(LLMExample, :count) }
+          it 'handles errors and updates status to failed' do
+            allow(batch).to receive(:on).and_raise(StandardError.new("Test error"))
+            subject
+            expect(trial.status).to eq('failed')
+            expect(trial.trial_errors).to include("Test error")
           end
         end
       end
