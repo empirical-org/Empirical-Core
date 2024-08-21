@@ -31,10 +31,6 @@ module Evidence
 
         def self.assigned_status_column = :curriculum_assigned_status
 
-        def archive! = update!(archived: true)
-
-        def unarchive! = update!(archived: false)
-
         def to_s = text
       end
     end
