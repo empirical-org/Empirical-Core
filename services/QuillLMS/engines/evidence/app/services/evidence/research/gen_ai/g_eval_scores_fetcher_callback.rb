@@ -6,8 +6,8 @@ module Evidence
       class GEvalScoresFetcherCallback
         def on_complete(status, options)
           trial = Trial.find(options['trial_id'])
-          trial.update_results(g_evals: g_evals(trial, options['llm_example_ids']))
-          trial.update(evaluation_duration: Time.zone.now - trial.evaluation_start_time)
+          trial.update_results!(g_evals: g_evals(trial, options['llm_example_ids']))
+          trial.update!(evaluation_duration: Time.zone.now - Time.zone.parse(trial.evaluation_start_time))
         end
 
         private def g_evals(trial, llm_example_ids)

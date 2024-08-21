@@ -3,8 +3,10 @@
 module Evidence
   module Research
     module GenAI
-      class BlahWorker
+      class BuildLLMExampleWorker
         include Evidence.sidekiq_module
+
+        sidekiq_options retry: 0, queue: 'low'
 
         def perform(trial_id, test_example_id)
           trial = Trial.find(trial_id)
@@ -20,7 +22,7 @@ module Evidence
 
           LLMExample.create!(trial:, raw_text:, llm_feedback:, test_example:, llm_assigned_status:)
 
-          trial.update_results(api_call_times: trial.results.fetch('api_call_times', []) << api_call_time.round(2))
+          trial.update_results!(api_call_times: trial.results.fetch('api_call_times', []) << api_call_time.round(2))
         rescue => e
           trial.trial_errors << { error: e.message, test_example_id: test_example.id, raw_text: raw_text }.to_json
           trial.save!

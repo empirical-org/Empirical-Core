@@ -38,7 +38,7 @@ module Evidence
           end
 
           it 'merges and updates the trial results' do
-            expect(trial).to receive(:update_results).with(fetched_results)
+            expect(trial).to receive(:update_results!).with(fetched_results)
             expect(trial).to receive(:update!).with(evaluation_duration: an_instance_of(Float))
             subject
           end

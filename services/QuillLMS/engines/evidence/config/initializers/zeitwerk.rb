@@ -4,6 +4,7 @@ Rails.autoloaders.each do |autoloader|
   autoloader.inflector = Zeitwerk::Inflector.new
   autoloader.inflector.inflect(
     'auto_ml' => 'AutoML',
+    'build_llm_example_worker' => 'BuildLLMExampleWorker',
     'gen_ai' => 'GenAI',
     'g_eval' => 'GEval',
     'g_eval_score' => 'GEvalScore',

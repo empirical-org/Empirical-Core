@@ -4,6 +4,7 @@ Rails.autoloaders.each do |autoloader|
   autoloader.inflector = Zeitwerk::Inflector.new
   autoloader.inflector.inflect(
     'auto_ml' => 'AutoML',
+    'build_llm_example_worker' => 'BuildLLMExampleWorker',
     'concept_replacement_cms_worker' => 'ConceptReplacementCMSWorker',
     'concept_replacement_lms_worker' => 'ConceptReplacementLMSWorker',
     'ell_starter_diagnostic_email_job' => 'ELLStarterDiagnosticEmailJob',

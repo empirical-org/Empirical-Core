@@ -88,7 +88,7 @@ module Evidence
 
           batch.jobs do
             test_examples.each do |test_example|
-              BlahWorker.perform_async(id, test_example.id)
+              BuildLLMExampleWorker.perform_async(id, test_example.id)
             end
           end
         rescue => e
@@ -96,7 +96,7 @@ module Evidence
           update!(status: FAILED)
         end
 
-        def update_results(new_data)
+        def update_results!(new_data)
           self.results ||= {}
           results.merge!(new_data)
           save!
@@ -111,7 +111,7 @@ module Evidence
 
         private def on_complete(status, options)
           trial = Trial.find(options['trial_id'])
-          trial.update(trial_duration: Time.zone.now - trial.trial_start_time)
+          trial.update!(trial_duration: Time.zone.now - Time.zone.parse(trial.trial_start_time))
           CalculateResultsWorker.perform_async(options['trial_id'])
           trial.trial_errors.empty? ? trial.update!(status: COMPLETED) : trial.update!(status: FAILED)
         end
