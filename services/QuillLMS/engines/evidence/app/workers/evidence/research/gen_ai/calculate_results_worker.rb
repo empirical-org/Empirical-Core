@@ -6,7 +6,7 @@ module Evidence
       class CalculateResultsWorker
         include Evidence.sidekiq_module
 
-        sidekiq_options retry: 3, queue: 'low'
+        sidekiq_options retry: 3, queue: 'default'
 
         def perform(trial_id)
           return if ENV.fetch('STOP_ALL_GEN_AI_TRIALS', 'false') == 'true'
