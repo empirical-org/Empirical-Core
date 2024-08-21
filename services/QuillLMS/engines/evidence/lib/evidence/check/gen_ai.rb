@@ -3,8 +3,9 @@
 module Evidence
   module Check
     class GenAI < Check::Base
-      CHAT_API = Evidence::Gemini::Chat
-      SMALL_MODEL = CHAT_API::SMALL_MODEL
+      FEEDBACK_API = Evidence::Gemini::Chat
+      REPEAT_API = Evidence::OpenAI::Chat
+      SECONDARY_API = Evidence::OpenAI::Chat
 
       def run
         @response = Evidence::GenAI::ResponseBuilder.run(primary_response:, secondary_response:, entry:, prompt:)
@@ -18,22 +19,24 @@ module Evidence
       private def primary_optimal = primary_response[Evidence::GenAI::ResponseBuilder::KEY_OPTIMAL]
 
       private def primary_response
-        @primary_response ||= CHAT_API.run(system_prompt:, history: session_history, entry:)
+        @primary_response ||= FEEDBACK_API.run(system_prompt: primary_feedback_prompt, history: session_history, entry:)
       end
 
-      private def system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:)
+      private def primary_feedback_prompt
+        Evidence::GenAI::PrimaryFeedback::StaticPromptBuilder.run(prompt.id) || Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:)
+      end
 
       private def secondary_response = repeated_feedback? ? secondary_feedback_response : {}
 
       private def repeated_feedback?
-        Evidence::GenAI::RepeatedFeedbackChecker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal, chat_api: CHAT_API)
+        Evidence::GenAI::RepeatedFeedback::Checker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal, chat_api: REPEAT_API)
       end
 
       private def secondary_feedback_response
-        @secondary_feedback_response ||= CHAT_API.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: SMALL_MODEL)
+        @secondary_feedback_response ||= SECONDARY_API.run(system_prompt: secondary_feedback_prompt, entry: primary_feedback, model: SECONDARY_API::SMALL_MODEL)
       end
 
-      private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedbackPromptBuilder.run(prompt:)
+      private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedback::PromptBuilder.run(prompt:)
 
       private def feedback_history
         previous_feedback.map { |f| f['feedback'] }
