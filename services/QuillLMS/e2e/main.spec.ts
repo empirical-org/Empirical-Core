@@ -1,0 +1,23 @@
+import { test, expect } from '@playwright/test';
+
+test('has visible footer', async ({ page }) => {
+  await page.goto('http://localhost:5000');
+
+  await expect(page.locator('footer')).toBeVisible();
+});
+
+
+test('@login form submission with valid credentials', async ({ page }) => {
+  await page.goto('http://localhost:5000/');
+  await page.getByRole('link', { name: 'Log In' }).click();
+  await page.getByLabel('Email or username').click();
+  await page.getByLabel('Email or username').fill('johnnyci@gmail.com');
+  await page.getByLabel('Email or username').press('Tab');
+  await page.getByLabel('Password', { exact: true }).fill('password');
+  // Other clickable items on this page include the text 'Log in', so we need a more
+  // sensitive element selector
+  await page.locator('#log-in').click();
+
+  await expect(page).toHaveURL(/.*dashboard/);
+
+});
