@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/services/evidence/gen_ai/primary_feedback/static_prompt_builder_spec.rb
 require 'rails_helper'
 
@@ -10,7 +12,7 @@ RSpec.describe Evidence::GenAI::PrimaryFeedback::StaticPromptBuilder do
     context 'live files' do
       let(:coral_reef_because_prompt_id) { 673 }
 
-      subject {described_class.run(coral_reef_because_prompt_id)}
+      subject { described_class.run(coral_reef_because_prompt_id) }
 
       it 'should return text' do
         expect(subject).to_not be_nil

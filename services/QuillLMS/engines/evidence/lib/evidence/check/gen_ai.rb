@@ -19,10 +19,12 @@ module Evidence
       private def primary_optimal = primary_response[Evidence::GenAI::ResponseBuilder::KEY_OPTIMAL]
 
       private def primary_response
-        @primary_response ||= FEEDBACK_API.run(system_prompt:, history: session_history, entry:)
+        @primary_response ||= FEEDBACK_API.run(system_prompt: primary_feedback_prompt, history: session_history, entry:)
       end
 
-      private def system_prompt = Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:)
+      private def primary_feedback_prompt
+        Evidence::GenAI::PrimaryFeedback::StaticPromptBuilder.run(prompt.id) || Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:)
+      end
 
       private def secondary_response = repeated_feedback? ? secondary_feedback_response : {}
 
