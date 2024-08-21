@@ -17,7 +17,7 @@ test('@login form submission with valid credentials', async ({ page }) => {
   // Other clickable items on this page include the text 'Log in', so we need a more
   // sensitive element selector
   await page.locator('#log-in').click();
+  await page.waitForURL('http://localhost:5000/teachers/classrooms/dashboard');
 
   await expect(page).toHaveURL(/.*dashboard/);
-
 });
