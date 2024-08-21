@@ -281,7 +281,6 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     classroom_unit.save!
 
     old_diagnostic_unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: old_unit, created_at: current_time - 1.year)
-    pre_diagnostic_activity = create(:diagnostic_activity)
     create(:unit_activity, unit: unit, activity: pre_diagnostic_activity)
     create(:unit_activity, unit: unit, activity: post_diagnostic_activity)
 
