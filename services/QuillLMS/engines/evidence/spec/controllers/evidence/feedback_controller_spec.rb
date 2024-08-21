@@ -8,11 +8,11 @@ module Evidence
   RSpec.describe(FeedbackController, :type => :controller) do
     before do
       @routes = Engine.routes
-      create(:evidence_regex_rule, :regex_text => '^test', :rule => (rule_regex))
-      create(:evidence_prompts_rule, :rule => (rule), :prompt => (prompt))
-      create(:evidence_prompts_rule, :rule => (rule_regex), :prompt => (prompt))
-      create(:evidence_plagiarism_text, :text => (plagiarized_text1), :rule => (rule))
-      create(:evidence_plagiarism_text, :text => (plagiarized_text2), :rule => (rule))
+      create(:evidence_regex_rule, :regex_text => '^test', :rule => rule_regex)
+      create(:evidence_prompts_rule, :rule => rule, :prompt => prompt)
+      create(:evidence_prompts_rule, :rule => rule_regex, :prompt => prompt)
+      create(:evidence_plagiarism_text, :text => plagiarized_text1, :rule => rule)
+      create(:evidence_plagiarism_text, :text => plagiarized_text2, :rule => rule)
     end
 
     let(:activity_version) { 2 }
@@ -26,9 +26,9 @@ module Evidence
     let!(:low_confidence_rule) { create(:evidence_rule, :rule_type => 'low-confidence', :hint => low_confidence_hint) }
     let(:plagiarized_text1) { 'do not plagiarize this text please there will be consequences' }
     let(:plagiarized_text2) { 'this is completely different text that you also should not plagiarize or else' }
-    let!(:first_feedback) { create(:evidence_feedback, :text => 'here is our first feedback', :rule => (rule), :order => 0) }
-    let!(:second_feedback) { create(:evidence_feedback, :text => 'here is our second feedback', :rule => (rule), :order => 1) }
-    let!(:low_confidence_feedback) { create(:evidence_feedback, :text => 'here is low confidence feedback', :rule => (low_confidence_rule), :order => 0) }
+    let!(:first_feedback) { create(:evidence_feedback, :text => 'here is our first feedback', :rule => rule, :order => 0) }
+    let!(:second_feedback) { create(:evidence_feedback, :text => 'here is our second feedback', :rule => rule, :order => 1) }
+    let!(:low_confidence_feedback) { create(:evidence_feedback, :text => 'here is low confidence feedback', :rule => low_confidence_rule, :order => 0) }
 
     describe '#create' do
       let(:feedback) { double('feedback', response: { key1: 'some value', api: { api_key: 'api_value' } }) }
@@ -47,14 +47,14 @@ module Evidence
           api_metadata: feedback.response[:api]
         )
 
-        post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
+        post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: [], attempt: attempt }, as: :json
 
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['key1']).to eq('some value')
       end
 
       it 'should return 404 when the entry is empty' do
-        post :create, params: { prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
+        post :create, params: { prompt_id: prompt.id, session_id: session_id, previous_feedback: [], attempt: attempt }, as: :json
 
         expect(response.status).to eq 404
       end
@@ -74,7 +74,7 @@ module Evidence
           expect(Check::Spelling).not_to receive(:run)
           expect(Check::RegexTypo).not_to receive(:run)
 
-          post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt, feedback_types: ['Prefilter', 'Plagiarism'] }, as: :json
+          post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: [], attempt: attempt, feedback_types: ['Prefilter', 'Plagiarism'] }, as: :json
         end
       end
 
@@ -84,7 +84,7 @@ module Evidence
         it 'should return an empty json response if check_all returns nil' do
           expect(Check).to receive(:get_feedback).with(entry, prompt, [], session_id, nil).and_return(fallback_feedback)
 
-          post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: ([]), attempt: attempt }, as: :json
+          post :create, params: { entry: entry, prompt_id: prompt.id, session_id: session_id, previous_feedback: [], attempt: attempt }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response).to eq(fallback_feedback.stringify_keys)
@@ -101,7 +101,7 @@ module Evidence
         end
 
         it 'should return correct spelling feedback when endpoint returns 200' do
-          stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=#{ERB::Util.url_encode(entry_with_error)}").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => 'spelin' }]) }.to_json, :headers => ({}))
+          stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=#{ERB::Util.url_encode(entry_with_error)}").to_return(:status => 200, :body => { :flaggedTokens => [{ :token => 'spelin' }] }.to_json, :headers => {})
           post :create, params: { entry: entry_with_error, :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -113,7 +113,7 @@ module Evidence
           expect(Evidence.error_notifier).to receive(:report).with(Evidence::Check::Spelling::BingException, error_context).once
           expect(Evidence.error_notifier).to receive(:report).with(NoMethodError).once
 
-          stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=#{ERB::Util.url_encode(entry)}").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => ({}))
+          stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=#{ERB::Util.url_encode(entry)}").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => {})
           post :create, params: { entry: entry, :prompt_id => prompt.id, :session_id => 1 }, as: :json
 
           parsed_response = JSON.parse(response.body)
@@ -126,7 +126,7 @@ module Evidence
       context 'regex1 test' do
         it 'should return successfully when there is regex1 feedback' do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::RegexSentence])
-          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: [] }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -134,13 +134,13 @@ module Evidence
       end
 
       context 'regex2 test' do
-        let!(:rule_regex2) { create(:evidence_regex_rule, :regex_text => '^test', :rule => (rule2)) }
+        let!(:rule_regex2) { create(:evidence_regex_rule, :regex_text => '^test', :rule => rule2) }
         let!(:rule2) { create(:evidence_rule, :rule_type => 'rules-based-2') }
-        let!(:prompts_rule2) { create(:evidence_prompts_rule, :rule => (rule2), :prompt => (prompt)) }
+        let!(:prompts_rule2) { create(:evidence_prompts_rule, :rule => rule2, :prompt => prompt) }
 
         it 'should return successfully when there is regex2 feedback' do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::RegexPostTopic])
-          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: [] }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -148,13 +148,13 @@ module Evidence
       end
 
       context 'regex3 test' do
-        let!(:rule_regex3) { create(:evidence_regex_rule, :regex_text => '^test', :rule => (rule3)) }
+        let!(:rule_regex3) { create(:evidence_regex_rule, :regex_text => '^test', :rule => rule3) }
         let!(:rule3) { create(:evidence_rule, :rule_type => 'rules-based-3') }
-        let!(:prompts_rule3) { create(:evidence_prompts_rule, :rule => (rule3), :prompt => (prompt)) }
+        let!(:prompts_rule3) { create(:evidence_prompts_rule, :rule => rule3, :prompt => prompt) }
 
         it 'should return successfully when there is regex3 feedback' do
           stub_const('Evidence::Check::ALL_CHECKS', [Check::RegexTypo])
-          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: ([]) }, as: :json
+          post :create, params: { entry: 'test regex response', prompt_id: prompt.id, session_id: 1, previous_feedback: [] }, as: :json
 
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -172,7 +172,7 @@ module Evidence
           expect(plagiarized_text2).to(eq(parsed_response['highlight'][1]['text']))
           expect(first_feedback.text).to(eq(parsed_response['feedback']))
           request.env.delete('RAW_POST_DATA')
-          post :create, :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json
+          post :create, :params => { :entry => "bla bla bla #{plagiarized_text2}", :prompt_id => prompt.id, :session_id => 5, :previous_feedback => [parsed_response] }, :as => :json
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
           expect(second_feedback.text).to(eq(parsed_response['feedback']))
@@ -192,7 +192,7 @@ module Evidence
               entry: 'nero was an ahole',
               prompt_id: prompt.id,
               session_id: 1,
-              previous_feedback: ([])
+              previous_feedback: []
             }, :as => :json
             expect(response.status).to eq 200
             parsed_response = JSON.parse(response.body)
@@ -497,12 +497,12 @@ module Evidence
 
       context 'profanity violation' do
         it 'should return correct rule uid' do
-          post :create, :params => ({
+          post :create, :params => {
             :entry => 'nero was an ahole',
             :prompt_id => prompt.id,
             :session_id => 1,
-            :previous_feedback => ([])
-          }), :as => :json
+            :previous_feedback => []
+          }, :as => :json
           expect(response.status).to eq 200
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be false
@@ -513,12 +513,12 @@ module Evidence
 
       context 'return fallback feedback if no violation' do
         it 'should return successfully' do
-          post :create, :params => ({
+          post :create, :params => {
             :entry => 'the quick brown fox',
             :prompt_id => prompt.id,
             :session_id => 1,
-            :previous_feedback => ([])
-          }), :as => :json
+            :previous_feedback => []
+          }, :as => :json
           expect(response.status).to eq 200
           parsed_response = JSON.parse(response.body)
           expect(parsed_response['optimal']).to be true
@@ -533,53 +533,53 @@ module Evidence
       end
 
       it 'should return successfully' do
-        post :create, :params => ({ :entry => 'No plagiarism here.', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'No plagiarism here.', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be true
       end
 
       it 'should return 404 if prompt id does not exist' do
-        post :create, :params => ({ :entry => 'No plagiarism here.', :prompt_id => 100, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'No plagiarism here.', :prompt_id => 100, :session_id => 1, :previous_feedback => [] }, :as => :json
         expect(response.status).to(eq(404))
       end
 
       it 'should return successfully when there is plagiarism that matches the first plagiarism text string' do
-        post :create, :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => "bla bla bla #{plagiarized_text1}", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
         expect(plagiarized_text1).to(eq(parsed_response['highlight'][0]['text']))
         expect(plagiarized_text1).to(eq(parsed_response['highlight'][1]['text']))
         expect(first_feedback.text).to(eq(parsed_response['feedback']))
         request.env.delete('RAW_POST_DATA')
-        post :create, :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json
+        post :create, :params => { :entry => "bla bla bla #{plagiarized_text1}", :prompt_id => prompt.id, :session_id => 5, :previous_feedback => [parsed_response] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
         expect(second_feedback.text).to(eq(parsed_response['feedback']))
       end
 
       it 'should return successfully when there is plagiarism that matches the second plagiarism text string' do
-        post :create, :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => "bla bla bla #{plagiarized_text2}", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
         expect(plagiarized_text2).to(eq(parsed_response['highlight'][0]['text']))
         expect(plagiarized_text2).to(eq(parsed_response['highlight'][1]['text']))
         expect(first_feedback.text).to(eq(parsed_response['feedback']))
         request.env.delete('RAW_POST_DATA')
-        post :create, :params => ({ :entry => ("bla bla bla #{plagiarized_text2}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json
+        post :create, :params => { :entry => "bla bla bla #{plagiarized_text2}", :prompt_id => prompt.id, :session_id => 5, :previous_feedback => [parsed_response] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
         expect(second_feedback.text).to(eq(parsed_response['feedback']))
       end
 
       it 'should return successfully when there is fuzzy match plagiarism' do
-        post :create, :params => ({ :entry => ("bla bla bla FZY#{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => "bla bla bla FZY#{plagiarized_text1}", :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
         expect("FZY#{plagiarized_text1}").to(eq(parsed_response['highlight'][0]['text']))
         expect(plagiarized_text1).to(eq(parsed_response['highlight'][1]['text']))
         expect(first_feedback.text).to(eq(parsed_response['feedback']))
         request.env.delete('RAW_POST_DATA')
-        post :create, :params => ({ :entry => ("bla bla bla #{plagiarized_text1}"), :prompt_id => prompt.id, :session_id => 5, :previous_feedback => ([parsed_response]) }), :as => :json
+        post :create, :params => { :entry => "bla bla bla #{plagiarized_text1}", :prompt_id => prompt.id, :session_id => 5, :previous_feedback => [parsed_response] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
         expect(second_feedback.text).to(eq(parsed_response['feedback']))
@@ -592,18 +592,18 @@ module Evidence
       end
 
       it 'should return successfully' do
-        post :create, :params => ({ :entry => 'no regex problems here.', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'no regex problems here.', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be true
       end
 
       it 'should return 404 if prompt id does not exist' do
-        post :create, :params => ({ :entry => 'no regex problems here.', :prompt_id => 100, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'no regex problems here.', :prompt_id => 100, :session_id => 1, :previous_feedback => [] }, :as => :json
         expect(response.status).to(eq(404))
       end
 
       it 'should return successfully when there is regex feedback' do
-        post :create, :params => ({ :entry => 'test regex response', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'test regex response', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(parsed_response['optimal']).to be false
       end
@@ -616,12 +616,12 @@ module Evidence
       end
 
       it 'should return 404 if prompt id does not exist' do
-        post :create, :params => ({ :entry => 'some text', :prompt_id => (prompt.id + 1000), :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'some text', :prompt_id => (prompt.id + 1000), :session_id => 1, :previous_feedback => [] }, :as => :json
         expect(response.status).to(eq(404))
       end
 
       it 'should return 200 with fallback feedback if prompt has no associated automl_model' do
-        post :create, :params => ({ :entry => 'some text', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        post :create, :params => { :entry => 'some text', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
 
         expect(response.status).to(eq(200))
@@ -634,7 +634,7 @@ module Evidence
         AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
           AutomlCheck.stub_any_instance(:matched_low_confidence_rule, nil) do
             Rule.stub_any_instance(:determine_feedback_from_history, first_feedback) do
-              post :create, :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+              post :create, :params => { :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
               parsed_response = JSON.parse(response.body)
               expect(parsed_response).to eq({
                 :feedback => first_feedback.text,
@@ -643,7 +643,7 @@ module Evidence
                 :entry => entry,
                 :concept_uid => rule.concept_uid,
                 :rule_uid => rule.uid,
-                :highlight => ([]),
+                :highlight => [],
                 :hint => rule.hint.serializable_hash
               }.deep_stringify_keys)
             end
@@ -656,7 +656,7 @@ module Evidence
         AutomlCheck.stub_any_instance(:matched_automl_rule, rule) do
           AutomlCheck.stub_any_instance(:matched_low_confidence_rule, low_confidence_rule) do
             Rule.stub_any_instance(:determine_feedback_from_history, low_confidence_feedback) do
-              post :create, :params => ({ :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+              post :create, :params => { :entry => entry, :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
               parsed_response = JSON.parse(response.body)
               expect(parsed_response).to eq({
                 :feedback => low_confidence_feedback.text,
@@ -665,7 +665,7 @@ module Evidence
                 :entry => entry,
                 :concept_uid => low_confidence_rule.concept_uid,
                 :rule_uid => low_confidence_rule.uid,
-                :highlight => ([]),
+                :highlight => [],
                 :hint => low_confidence_rule.hint.serializable_hash
               }.deep_stringify_keys)
             end
@@ -680,16 +680,16 @@ module Evidence
       end
 
       it 'should return correct spelling feedback when endpoint returns 200' do
-        stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => ([{ :token => 'spelin' }]) }.to_json, :headers => ({}))
-        post :create, :params => ({ :entry => 'test spelin error', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=test%20spelin%20error").to_return(:status => 200, :body => { :flaggedTokens => [{ :token => 'spelin' }] }.to_json, :headers => {})
+        post :create, :params => { :entry => 'test spelin error', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(response.status).to(eq(200))
         expect(parsed_response['optimal']).to be false
       end
 
       it 'should return 200 with fallback feedback if there is an error on the bing API' do
-        stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => ({ :message => "There's a problem here" }) }.to_json, :headers => ({}))
-        post :create, :params => ({ :entry => 'there is no spelling error here', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => ([]) }), :as => :json
+        stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=there%20is%20no%20spelling%20error%20here").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => {})
+        post :create, :params => { :entry => 'there is no spelling error here', :prompt_id => prompt.id, :session_id => 1, :previous_feedback => [] }, :as => :json
         parsed_response = JSON.parse(response.body)
         expect(response.status).to(eq(200))
         expect(parsed_response['optimal']).to be true

@@ -28,13 +28,11 @@ class StudentDashboardMetrics
   end
 
   def completed_sessions
-    @completed_sessions ||= begin
-      ActivitySession
-        .unscoped
-        .joins(:classroom_unit)
-        .where(user:, classroom_unit: { classroom_id: })
-        .where.not(completed_at: nil)
-        .where(visible: true)
-    end
+    @completed_sessions ||= ActivitySession
+      .unscoped
+      .joins(:classroom_unit)
+      .where(user:, classroom_unit: { classroom_id: })
+      .where.not(completed_at: nil)
+      .where(visible: true)
   end
 end

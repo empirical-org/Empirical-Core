@@ -321,7 +321,7 @@ module Teacher
       classy
     end
     # TODO: move setter to background worker
-    classroom_minis_cache = (info)
+    classroom_minis_cache = info
     info
   end
 
@@ -366,7 +366,7 @@ module Teacher
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
-  def update_teacher params
+  def update_teacher(params)
     return if !teacher?
 
     params.permit(

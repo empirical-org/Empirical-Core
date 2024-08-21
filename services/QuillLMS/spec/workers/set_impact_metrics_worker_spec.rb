@@ -37,12 +37,12 @@ describe SetImpactMetricsWorker do
 
     it 'should set the NUMBER_OF_SENTENCES redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq((SetImpactMetricsWorker.round_to_hundred_millions(activity_sessions_payload.size * SetImpactMetricsWorker::SENTENCES_PER_ACTIVITY_SESSION)).to_s)
+      expect($redis.get(PagesController::NUMBER_OF_SENTENCES)).to eq(SetImpactMetricsWorker.round_to_hundred_millions(activity_sessions_payload.size * SetImpactMetricsWorker::SENTENCES_PER_ACTIVITY_SESSION).to_s)
     end
 
     it 'should set the NUMBER_OF_STUDENTS redis value' do
       subject.perform
-      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq((SetImpactMetricsWorker.round_to_hundred_thousands(activity_sessions_payload.count('DISTINCT(user_id)'))).to_s)
+      expect($redis.get(PagesController::NUMBER_OF_STUDENTS)).to eq(SetImpactMetricsWorker.round_to_hundred_thousands(activity_sessions_payload.count('DISTINCT(user_id)')).to_s)
     end
 
     it 'should set the NUMBER_OF_TEACHERS redis value' do

@@ -128,7 +128,7 @@ describe 'ScorebookQuery' do
         new_act_sesh_2_completed_at = activity_session_completed_at_to_time_midnight_minus_offset(activity_session2, offset + 1)
         activity_session1.update(completed_at: new_act_sesh_1_completed_at)
         activity_session2.update(completed_at: new_act_sesh_2_completed_at)
-        begin_date = (activity_session1.reload.completed_at).to_date.to_s
+        begin_date = activity_session1.reload.completed_at.to_date.to_s
         end_date = begin_date
         results = Scorebook::Query.run(classroom.id, 1, nil, begin_date, end_date, offset)
         expect(results.find { |res| res['id'] == activity_session2.id }).to be

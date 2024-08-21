@@ -10,14 +10,12 @@ class PopulateRawScoresByActivity < ActiveRecord::Migration[4.2]
 
     table = CSV.parse(File.read('lib/data/readability_levels_by_activity.csv'), headers: true)
     table.each do |row|
-      begin
-        activity = Activity.find(row['Activity ID'])
-        raw_score = RawScore.find_by(name: row['Lexile Raw'])
-        activity.raw_score_id = raw_score.id
-        activity.save!
-      rescue => e
-        puts e
-      end
+      activity = Activity.find(row['Activity ID'])
+      raw_score = RawScore.find_by(name: row['Lexile Raw'])
+      activity.raw_score_id = raw_score.id
+      activity.save!
+    rescue => e
+      puts e
     end
   end
 end

@@ -56,16 +56,16 @@ class ConceptReplacementConnectWorker
     begin
       fp_obj.each do |k, v|
         v['conceptResults'].each do |crk, crv|
-          if crv['conceptUID'] == original_concept_uid
-            concept = Concept.unscoped.find_by(uid: new_concept_uid)
-            parent_concept = concept.try(:parent)
-            grandparent_concept = parent_concept.try(:parent)
-            if concept && parent_concept && grandparent_concept
-              name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
-              new_fp_obj[k]['conceptResults'][crk]['name'] = name
-            end
-            new_fp_obj[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+          next unless crv['conceptUID'] == original_concept_uid
+
+          concept = Concept.unscoped.find_by(uid: new_concept_uid)
+          parent_concept = concept.try(:parent)
+          grandparent_concept = parent_concept.try(:parent)
+          if concept && parent_concept && grandparent_concept
+            name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+            new_fp_obj[k]['conceptResults'][crk]['name'] = name
           end
+          new_fp_obj[k]['conceptResults'][crk]['conceptUID'] = new_concept_uid
         end
       end
     rescue => e
@@ -84,16 +84,16 @@ class ConceptReplacementConnectWorker
     begin
       is_array.each_with_index do |is, i|
         is['conceptResults'].each do |crk, crv|
-          if crv['conceptUID'] == original_concept_uid
-            concept = Concept.unscoped.find_by(uid: new_concept_uid)
-            parent_concept = concept.try(:parent)
-            grandparent_concept = parent_concept.try(:parent)
-            if concept && parent_concept && grandparent_concept
-              name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
-              new_is_array[i]['conceptResults'][crk]['name'] = name
-            end
-            new_is_array[i]['conceptResults'][crk]['conceptUID'] = new_concept_uid
+          next unless crv['conceptUID'] == original_concept_uid
+
+          concept = Concept.unscoped.find_by(uid: new_concept_uid)
+          parent_concept = concept.try(:parent)
+          grandparent_concept = parent_concept.try(:parent)
+          if concept && parent_concept && grandparent_concept
+            name = "#{grandparent_concept.name} | #{parent_concept.name} | #{concept.name}"
+            new_is_array[i]['conceptResults'][crk]['name'] = name
           end
+          new_is_array[i]['conceptResults'][crk]['conceptUID'] = new_concept_uid
         end
       end
     rescue => e

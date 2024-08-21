@@ -3,8 +3,7 @@
 class Cms::RostersController < Cms::CmsController
   before_action :signed_in!
 
-  def index
-  end
+  def index; end
 
   # rubocop:disable Metrics/CyclomaticComplexity
   def upload_teachers_and_students

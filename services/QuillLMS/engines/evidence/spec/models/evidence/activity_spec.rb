@@ -75,8 +75,8 @@ module Evidence
 
     context 'should serializable_hash' do
       let!(:activity) { create(:evidence_activity, :title => 'First Activity', :notes => 'First Activity - Notes', :target_level => 8, :scored_level => '4th grade') }
-      let!(:passage) { create(:evidence_passage, :activity => (activity), :text => ('Hello' * 20)) }
-      let!(:prompt) { create(:evidence_prompt, :activity => (activity), :text => 'it is good.', :conjunction => 'because', :max_attempts_feedback => 'good work!.') }
+      let!(:passage) { create(:evidence_passage, :activity => activity, :text => ('Hello' * 20)) }
+      let!(:prompt) { create(:evidence_prompt, :activity => activity, :text => 'it is good.', :conjunction => 'because', :max_attempts_feedback => 'good work!.') }
 
       it 'should fill out hash with all fields' do
         json_hash = activity.as_json
@@ -175,14 +175,14 @@ module Evidence
     context 'should dependent destroy' do
       it 'should destroy dependent passages' do
         activity = create(:evidence_activity)
-        passage = create(:evidence_passage, :activity => (activity))
+        passage = create(:evidence_passage, :activity => activity)
         activity.destroy
         expect(Passage.exists?(passage.id)).to(eq(false))
       end
 
       it 'should destroy dependent prompts' do
         activity = create(:evidence_activity)
-        prompt = create(:evidence_prompt, :activity => (activity))
+        prompt = create(:evidence_prompt, :activity => activity)
         activity.destroy
         expect(Prompt.exists?(prompt.id)).to(eq(false))
       end
@@ -191,7 +191,7 @@ module Evidence
     context 'should before_destroy' do
       it 'should expire all associated Turking Rounds before destroy' do
         activity = create(:evidence_activity)
-        turking_round = create(:evidence_turking_round, :activity => (activity))
+        turking_round = create(:evidence_turking_round, :activity => activity)
         expect(turking_round.expires_at > Time.current).to be true
         activity.destroy
         turking_round.reload

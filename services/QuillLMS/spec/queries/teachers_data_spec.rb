@@ -16,7 +16,7 @@ describe 'TeachersData' do
   let!(:student2) { classroom.students.second }
 
   let!(:time2) { Time.current }
-  let!(:time1) { time2 - (10.minutes) }
+  let!(:time1) { time2 - 10.minutes }
 
   let!(:classroom_unit) {
     create(:classroom_unit, classroom_id: classroom.id,

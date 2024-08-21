@@ -7,15 +7,13 @@ class OrderRecommendations
 
   def update_order
     ActiveRecord::Base.transaction do
-      begin
-        @recommendation_ids.each_with_index do |id, i|
-          Recommendation.find(id).update!(order: i)
-        end
-
-        true
-      rescue
-        false
+      @recommendation_ids.each_with_index do |id, i|
+        Recommendation.find(id).update!(order: i)
       end
+
+      true
+    rescue
+      false
     end
   end
 end

@@ -17,14 +17,14 @@ class ProgressReports::ActivitiesScoresByClassroom
   #       Examples: "America/Chicago", 'Eastern Time (US & Canada)', nil
   def self.transform_timestamps!(data, timezone)
     data.each_index do |i|
-      if timezone
-        begin
-          data[i]['last_active'] = DateTime.strptime(
-            data[i]['last_active'], '%Y-%m-%d %H:%M:%S'
-          ).in_time_zone(timezone).strftime('%Y-%m-%d %H:%M:%S')
-        rescue ArgumentError, TypeError, NoMethodError => e
-          # no-op error handling, fails silently
-        end
+      next unless timezone
+
+      begin
+        data[i]['last_active'] = DateTime.strptime(
+          data[i]['last_active'], '%Y-%m-%d %H:%M:%S'
+        ).in_time_zone(timezone).strftime('%Y-%m-%d %H:%M:%S')
+      rescue ArgumentError, TypeError, NoMethodError => e
+        # no-op error handling, fails silently
       end
     end
   end
