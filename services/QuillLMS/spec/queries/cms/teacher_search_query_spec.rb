@@ -31,7 +31,7 @@ describe Cms::TeacherSearchQuery do
         email: user.email,
         number_classrooms: 1,
         number_students: 1,
-        last_active: (todays_date).strftime("%b %d,\u00A0%Y"),
+        last_active: todays_date.strftime("%b %d,\u00A0%Y"),
         subscription: subscription.account_type,
         user_id: user.id,
         admin_id: schools_admins.id

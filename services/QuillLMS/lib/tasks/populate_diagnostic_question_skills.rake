@@ -7,12 +7,10 @@ namespace :diagnostic_question_skills do
 
     ActiveRecord::Base.transaction do
       skill_to_question_mapping.each do |row|
-        begin
-          question = Question.find_by_uid(row['Question ID'])
-          DiagnosticQuestionSkill.create(question: question, skill_group_id: row['Skill Group ID'], name: row['Skill Name'])
-        rescue => e
-          puts "ID:#{row['Question ID']}: #{e}"
-        end
+        question = Question.find_by_uid(row['Question ID'])
+        DiagnosticQuestionSkill.create(question: question, skill_group_id: row['Skill Group ID'], name: row['Skill Name'])
+      rescue => e
+        puts "ID:#{row['Question ID']}: #{e}"
       end
     end
   end

@@ -49,14 +49,12 @@ class UserActivityClassification < ApplicationRecord
   end
 
   def self.count_for(user, activity_classification)
-    begin
-      transaction(requires_new: true) do
-        instance = find_or_create_by(user: user, activity_classification: activity_classification)
-        instance.increment_count
-      end
-    rescue ActiveRecord::RecordNotUnique
-      retry
+    transaction(requires_new: true) do
+      instance = find_or_create_by(user: user, activity_classification: activity_classification)
+      instance.increment_count
     end
+  rescue ActiveRecord::RecordNotUnique
+    retry
   end
 
   def increment_count

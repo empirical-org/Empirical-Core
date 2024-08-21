@@ -26,7 +26,7 @@ describe Teachers::UnitTemplatesController, type: :controller do
       it 'can create new units and classroom activities' do
         data = { "id": unit_template1.id }
         current_jobs = FastAssignWorker.jobs.size
-        post 'fast_assign', params: (data)
+        post 'fast_assign', params: data
         expect(FastAssignWorker.jobs.size).to eq(current_jobs + 1)
       end
     end

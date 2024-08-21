@@ -5,9 +5,9 @@ require 'rails_helper'
 module Evidence
   RSpec.describe(RegexCheck, :type => :model) do
     let!(:prompt) { create(:evidence_prompt) }
-    let!(:rule) { create(:evidence_rule, :rule_type => 'rules-based-1', :prompts => ([prompt]), :suborder => 0) }
-    let!(:regex_rule) { create(:evidence_regex_rule, :rule => (rule), :regex_text => '^Test') }
-    let!(:feedback) { create(:evidence_feedback, :rule => (rule), :text => 'This string begins with the word Test!') }
+    let!(:rule) { create(:evidence_rule, :rule_type => 'rules-based-1', :prompts => [prompt], :suborder => 0) }
+    let!(:regex_rule) { create(:evidence_regex_rule, :rule => rule, :regex_text => '^Test') }
+    let!(:feedback) { create(:evidence_feedback, :rule => rule, :text => 'This string begins with the word Test!') }
 
     context 'should #initialize' do
       it 'should should have working accessor methods for all initialized fields' do
@@ -45,7 +45,7 @@ module Evidence
       end
 
       it 'should return the highest priority feedback when two feedbacks exist' do
-        new_rule = create(:evidence_rule, :rule_type => 'rules-based-1', :prompts => ([prompt]), :suborder => 1)
+        new_rule = create(:evidence_rule, :rule_type => 'rules-based-1', :prompts => [prompt], :suborder => 1)
         new_regex_rule = create(:evidence_regex_rule, :rule => new_rule, :regex_text => '^Testing')
         entry = 'Test this is a good regex match'
         regex_check = Evidence::RegexCheck.new(entry, prompt, rule.rule_type)

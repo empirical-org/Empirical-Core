@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 describe TimeTrackingCleaner do
-  let(:empty_data) { ({}) }
-  let(:data_without_time_tracking) { ({ 'other_key' => 'other_value' }) }
+  let(:empty_data) { {} }
+  let(:data_without_time_tracking) { { 'other_key' => 'other_value' } }
 
   let(:data_without_outliers) do
     {

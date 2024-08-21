@@ -23,7 +23,7 @@ module Utils::Numeric
 
   # time must be in the format "MM:SS"
   def self.human_readable_time_to_seconds(time)
-    (time.split(':')[0].to_i * 60) + (time.split(':')[1].to_i)
+    (time.split(':')[0].to_i * 60) + time.split(':')[1].to_i
   end
 
   def self.safe_division(numerator, denominator, fallback = nil)

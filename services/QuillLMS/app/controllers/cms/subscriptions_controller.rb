@@ -4,8 +4,7 @@ class Cms::SubscriptionsController < Cms::CmsController
   before_action :set_subscription, only: %i[show edit update destroy]
   before_action :subscription_data, only: [:edit]
 
-  def show
-  end
+  def show; end
 
   def create
     if params[:subscriber_id] && params[:subscriber_type]
@@ -40,8 +39,7 @@ class Cms::SubscriptionsController < Cms::CmsController
     render json: @subscription.reload
   end
 
-  def destroy
-  end
+  def destroy; end
 
   private def set_subscription
     @subscription = Subscription.find(params[:id])

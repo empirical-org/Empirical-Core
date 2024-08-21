@@ -438,13 +438,11 @@ activities.each do |activity_id, recommendations|
       puts "Created recommendation - #{recommendation.name}"
 
       recommendation_data[:requirements].each do |criterion_data|
-        concept_uid = begin
-          if criterion_data[:concept_id] === 'mandatory'
-            manditory_concept.uid
+        concept_uid = if criterion_data[:concept_id] === 'mandatory'
+                        manditory_concept.uid
           else
             criterion_data[:concept_id]
           end
-        end
 
         concept   = Concept.find_by(uid: concept_uid)
         criterion = Criterion.create!(
