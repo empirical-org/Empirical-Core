@@ -167,24 +167,15 @@ jobs:
                 command: cd services/QuillLMS && bundle exec foreman start -f Procfile.ci
                 background: true
             - run:
-                name: Wait for Rails server
-                command: |
-                  for i in {1..20}
-                  do
-                    nc -z localhost 5000 && echo Success && exit 0
-                    nc -z localhost 3000 && echo Success && exit 0
-                    echo -n .
-                    sleep 1
-                  done
-                  echo Failed waiting for Rails && exit 0
-
-            - run:
                 name: Run tests
                 command: |
                   cd services/QuillLMS
                   sudo npx playwright install-deps
                   npx playwright install
+                  bundle exec rails runner "puts User.find_by_email('johnnyci@gmail.com').id"
                   npx playwright test
+                environment:
+                  DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - store_artifacts:
                 path: /home/circleci/Empirical-Core/services/QuillLMS/tmp/screenshots
   lms_big_query_build:
