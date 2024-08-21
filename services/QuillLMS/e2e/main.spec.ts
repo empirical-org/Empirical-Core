@@ -22,5 +22,7 @@ test('@login form submission with valid credentials', async ({ page }) => {
   await expect(page.locator('#log-in')).toBeVisible()
   await page.locator('#log-in').click();
 
+  await page.screenshot({ path: 'test-results/playwright_screenshot.png' });
+
   await page.waitForURL('http://localhost:5000/teachers/classrooms/dashboard');
 });
