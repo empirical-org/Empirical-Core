@@ -88,7 +88,7 @@ module ContentHubsHelper
     [
       {
         display_name: "AI & Animal Conservation",
-        description: "One exciting application of AI is helping to protect endangered and vulnerable animals. In this activity pack, students will learn about how researchers are using AI to help protect elephants from poachers, monitor the health of coral reefs, and even try to communicate with whales! Students will also be introduced to foundational concepts in AI, including computer vision, machine learning, and large language models.",
+        description: "In this activity pack, students will learn about how researchers are using AI to help protect elephants from poachers, try to communicate with whales, and monitor the health of coral reefs. Students will also be introduced to foundational concepts in AI, including computer vision, large language models, and machine learning.",
         unit_template_id: 711,
         all_quill_articles_href: "https://docs.google.com/document/u/0/d/1YKOsYcaZ86PbEbrBRo9RR7JW9EkT7ETCY_cMBdu5V70/edit",
         quill_teacher_guide_href: '',
