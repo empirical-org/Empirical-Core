@@ -3,7 +3,6 @@
 require 'open3'
 
 namespace :local_data do
-
   desc 'Seed data intended for end-to-end / integration testing'
   task e2e_seed: :environment do
     ActiveRecord::Base.transaction do
