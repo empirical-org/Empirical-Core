@@ -6,7 +6,7 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe GEvalRunner do
-        subject { described_class.run(g_eval_id:, llm_example:) }
+        subject { described_class.run(g_eval_id:, llm_example_id:) }
 
         let(:g_eval) { create(:evidence_research_gen_ai_g_eval) }
         let(:g_eval_id) { g_eval.id }
@@ -21,6 +21,7 @@ module Evidence
             llm_feedback: test_example.curriculum_proposed_feedback
           )
         end
+        let(:llm_example_id) { llm_example.id }
 
         let(:llm) { instance_double('LLM', completion: llm_response) }
         let(:llm_response) { { metric => score }.to_json }
