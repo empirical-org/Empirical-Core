@@ -34,7 +34,7 @@ export default defineConfig({
   },
 
   // per-test timeout, in ms
-  timeout: 90 * 1000,
+  timeout: 60 * 1000,
 
   /* Configure projects for major browsers */
   projects: [

@@ -18,7 +18,6 @@ test('@login form submission with valid credentials', async ({ page }) => {
   // sensitive element selector
   await expect(page.locator('#log-in')).toBeVisible()
   await page.locator('#log-in').click();
-  //await page.waitForURL('http://localhost:5000/teachers/classrooms/dashboard');
-
-  await expect(page).toHaveURL(/.*dashboard/);
+  console.log("page url", page.url());
+  await page.waitForURL('http://localhost:5000/teachers/classrooms/dashboard');
 });
