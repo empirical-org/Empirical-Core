@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Evidence::GenAI::OptimalBoundaryDataFetcher, type: :service do
+RSpec.describe Evidence::GenAI::PrimaryFeedback::DataFetcher, type: :service do
   let(:default_file) { 'gen_ai_optimal_because_50.csv' }
   let(:custom_file) { 'custom_file.csv' }
-  let(:file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/optimal_boundary_data/#{default_file}" }
-  let(:custom_file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/optimal_boundary_data/#{custom_file}" }
+  let(:file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/primary_feedback/data/#{default_file}" }
+  let(:custom_file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/primary_feedback/data/#{custom_file}" }
   let(:csv_data) do
     [
       { 'prompt_id' => '1', 'optimal1' => 'optimal_value_1', 'optimal2' => nil, 'suboptimal1' => 'suboptimal_value_1', 'suboptimal2' => nil },
@@ -83,7 +83,7 @@ RSpec.describe Evidence::GenAI::OptimalBoundaryDataFetcher, type: :service do
         row = csv_data.first
         dataset = subject.send(:dataset_from_row, row)
 
-        expect(dataset).to be_a(Evidence::GenAI::OptimalBoundaryDataFetcher::DataSet)
+        expect(dataset).to be_a(Evidence::GenAI::PrimaryFeedback::DataFetcher::DataSet)
         expect(dataset.optimals).to contain_exactly('optimal_value_1')
         expect(dataset.suboptimals).to contain_exactly('suboptimal_value_1')
       end

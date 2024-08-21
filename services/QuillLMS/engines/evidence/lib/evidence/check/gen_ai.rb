@@ -22,7 +22,7 @@ module Evidence
         @primary_response ||= FEEDBACK_API.run(system_prompt:, history: session_history, entry:)
       end
 
-      private def system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:)
+      private def system_prompt = Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:)
 
       private def secondary_response = repeated_feedback? ? secondary_feedback_response : {}
 

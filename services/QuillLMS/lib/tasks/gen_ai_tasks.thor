@@ -14,7 +14,7 @@ class GenAITasks < Thor
     name = optimal ? 'Optimal' : 'Suboptimal'
 
     all_live_prompts(conjunction, limit).each do |prompt|
-      system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
+      system_prompt = Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:, template_file:)
 
       prompt.example_sets(optimal:).each do |entry|
         begin
@@ -49,11 +49,11 @@ class GenAITasks < Thor
     error_examples = []
     name = optimal ? 'Optimal' : 'Suboptimal'
 
-    prompt_data = Evidence::GenAI::OptimalBoundaryDataFetcher.run
+    prompt_data = Evidence::GenAI::PrimaryFeedback::DataFetcher.run
 
     prompt_data.first(limit.to_i).each do |prompt_id, dataset|
       prompt = Evidence::Prompt.find(prompt_id)
-      system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
+      system_prompt = Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:, template_file:)
 
       test_data = optimal ? dataset.optimals : dataset.suboptimals
       test_data.each do |entry|
@@ -121,7 +121,7 @@ class GenAITasks < Thor
   desc "prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def prompt_entry(prompt_id, entry, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
-    system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
+    system_prompt = Evidence::GenAI::PrimaryFeedback::PromptBuilder.run(prompt:, template_file:)
 
     puts system_prompt
     print_line
