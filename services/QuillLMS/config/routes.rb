@@ -313,7 +313,8 @@ EmpiricalGrammar::Application.routes.draw do
     get 'progress_reports/landing_page' => 'progress_reports#landing_page'
     get 'progress_reports/activities_scores_by_classroom' => 'progress_reports#activities_scores_by_classroom'
     get 'progress_reports/real_time' => 'progress_reports#real_time'
-    get 'progress_reports/studies/world-history-1200-to-present' => 'progress_reports#world_history_1200_to_present'
+    get 'progress_reports/social-studies/world-history-1200-to-present' => 'progress_reports#world_history_1200_to_present'
+    get 'progress_reports/interdisciplinary-science/building-ai-knowledge' => 'progress_reports#building_ai_knowledge'
     # in actual use with progress_reports/student_overview, pass the query string ?classroom_id=x&student_id=y
     get 'progress_reports/student_overview' => 'progress_reports#student_overview'
 

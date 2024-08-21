@@ -137,7 +137,7 @@ module NavigationHelper
   def science_dashboard_tab(current_user)
     return nil unless show_science_dashboard_tab?(current_user)
 
-    @science_dashboard_tab ||= { name: SCIENCE_DASHBOARD, url: teachers_progress_reports_science_bulding_ai_knowledge_path }
+    @science_dashboard_tab ||= { name: SCIENCE_DASHBOARD, url: teachers_progress_reports_interdisciplinary_science_building_ai_knowledge_path }
   end
 
   def home_tab
