@@ -173,7 +173,7 @@ jobs:
                   sudo npx playwright install-deps
                   npx playwright install
                   bundle exec rails runner "puts 'user id:' ; puts User.find_by_email('johnnyci@gmail.com').id"
-                  npx playwright test
+                  CI=true npx playwright test
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - store_artifacts:
