@@ -14,7 +14,6 @@
 
   header {
     background-color: $quill-teal;
-    background-image: url("https://assets.quill.org/images/pages/social_studies_subject_page/header-backdrop.svg");
     background-size: cover;
     background-repeat: no-repeat;
     padding: 64px 0px 80px;
@@ -35,6 +34,7 @@
     .course-cards {
       display: flex;
       gap: 24px;
+      justify-content: center;
     }
     .course-card {
       border-radius: 16px;
@@ -45,6 +45,7 @@
       width: 100%;
       gap: 24px;
       align-items: center;
+      max-width: 588px;
       div {
         flex: 1;
       }
@@ -126,7 +127,7 @@
     }
   }
 
-  .oer-project {
+  .partners {
     border-bottom: 1px solid $quill-grey-15;
     p {
       margin-top: 24px;
@@ -192,6 +193,19 @@
     }
     .preview-card {
       margin-bottom: 0px;
+    }
+  }
+  &.social-studies-subject-page {
+    header {
+      background-image: url("https://assets.quill.org/images/pages/social_studies_subject_page/header-backdrop.svg");
+    }
+  }
+  &.interdisciplinary-science-subject-page {
+    header {
+      background-image: url("https://assets.quill.org/images/pages/interdisciplinary_science_subject_page/header_backdrop.svg");
+    }
+    .partners {
+      border-top: 1px solid $quill-grey-15;
     }
   }
 }

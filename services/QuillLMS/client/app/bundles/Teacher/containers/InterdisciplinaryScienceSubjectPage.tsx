@@ -1,5 +1,3 @@
-// @TODO THIS FILE IS MOSTLY A DUPLICATE OF SOCIAL STUDIES SUBJECT PAGE AND NOT READY FOR PRODUCTION
-
 import * as React from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -7,22 +5,22 @@ import QuestionsAndAnswers from './QuestionsAndAnswers'
 
 import PreviewCard from '../components/shared/preview_card.jsx';
 import { requestGet } from '../../../modules/request';
-import { LARGE_ICON_BASE_SRC, } from '../../Shared/index'
+import { LARGE_ICON_BASE_SRC, EXTRA_LARGE_ICON_BASE_SRC, } from '../../Shared/index'
 
-const shipIconSrc = `${LARGE_ICON_BASE_SRC}/ship.svg`
-const scrollIconSrc = `${LARGE_ICON_BASE_SRC}/scroll.svg`
+const aiIconSrc = `${LARGE_ICON_BASE_SRC}/ai.svg`
 
-const pageImgBaseSrc = `${process.env.CDN_URL}/images/pages/social_studies_subject_page`
+const pageImgBaseSrc = `${process.env.CDN_URL}/images/pages/interdisciplinary_science_subject_page`
 
-const closeReadingSrc = `${pageImgBaseSrc}/close-reading.svg`
-const constructingClaimsSrc = `${pageImgBaseSrc}/constructing-claims.svg`
-const sentenceFundamentalsSrc = `${pageImgBaseSrc}/sentence-fundamentals.svg`
-const quillPlusOERProjectLogoSrc = `${pageImgBaseSrc}/quill-plus-oer-project-logo.svg`
+const closeReadingSrc = `${EXTRA_LARGE_ICON_BASE_SRC}/search-document.svg`
+const constructingClaimsSrc = `${EXTRA_LARGE_ICON_BASE_SRC}/research-books.svg`
+const sentenceFundamentalsSrc = `${EXTRA_LARGE_ICON_BASE_SRC}/comment-document.svg`
+
+const quillPlusAiEduLogo = `${pageImgBaseSrc}/quill_logo_plus_ai_edu_logo.svg`
 
 const GETTING_STARTED_COLLECTION_ID = 477
 const INTEGRATING_QUILL_EVIDENCE_ARTICLE_ID = 666
 
-const INTERDISCIPLINARY_SCIENCE_LINK = `${window.location.pathname}/world-history-1200-to-present`.replace('//', '/')
+const BUILDING_AI_KNOWLEDGE = `${window.location.pathname}/building-ai-knowledge`.replace('//', '/')
 
 const TeacherCenterArticleCard = ({ blogPostId, }) => {
   const [blogPost, setBlogPost] = React.useState(null);
@@ -77,24 +75,15 @@ const TeacherCenterArticleCard = ({ blogPostId, }) => {
 const overview = (
   <header>
     <div className="container">
-      <h1>Social Studies</h1>
-      <p>Quill Social Studies activities allow teachers to give students the literacy instruction they need while covering core course content. In these Reading for Evidence activities, students read course-aligned texts, use what they’ve read to draft evidence-based claims, and receive AI-powered feedback to strengthen their writing. Process and growth are key: our responsive coaching guides students to revise until their sentences are clear, logical, and grounded in specific details from the text.<br /><br />Quill Social Studies is designed to supplement high school social studies courses. World History: 1200 CE-Present is available now, and World History: 1750 CE-Present will launch during the 2024-2025 school year!</p>
+      <h1>Interdisciplinary Science</h1>
+      <p>Over the next few years, Quill will building out Reading for Evidence activities aligned to high school science classrooms. Our first offering, Building AI Knowledge, features activities that introduce students to how AI will impact society over the next decade. In the future, we will build offerings around biology, earth sciences, and other science topics.<br /><br />In these Reading for Evidence activities, students read science-aligned texts, use what they’ve read to draft evidence-based claims, and receive AI-powered feedback to strengthen their writing. Process and growth are key: our responsive coaching guides students to revise until their sentences are clear, logical, and grounded in specific details from the text.<br /><br />Our Interdisciplinary Science work is meant to be used in either ELA or science classrooms. These activities are not meant to replace a textbook. Our activities provide a deep-dive into some of the most fascinating ideas in science.</p>
       <div className="course-cards">
         <div className="course-card">
-          <img alt="" src={shipIconSrc} />
+          <img alt="" src={aiIconSrc} />
           <div>
-            <h2>World History</h2>
-            <span>1200 CE - Present</span>
+            <h2>Building AI Knowledge</h2>
           </div>
-          <a className="quill-button focus-on-light contained medium teal" href={INTERDISCIPLINARY_SCIENCE_LINK}>View activities</a>
-        </div>
-        <div className="course-card">
-          <img alt="" src={scrollIconSrc} />
-          <div>
-            <h2>World History</h2>
-            <span>1750 CE - Present</span>
-          </div>
-          <button className="quill-button focus-on-light medium disabled contained" disabled={true} type="button">View activities</button>
+          <a className="quill-button focus-on-light contained medium teal" href={BUILDING_AI_KNOWLEDGE}>View activities</a>
         </div>
       </div>
     </div>
@@ -105,7 +94,7 @@ const summary = (
   <section className="summary-section">
     <div className="container">
       <h2>Build Content Knowledge & Writing Skills With Reading for Evidence</h2>
-      <p>Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:</p>
+      <p>Written and reviewed by educators, each Quill Interdisciplinary Science activity highlights a science concept. Not only do these activities deepen students’ subject area learning and reinforce essential science content, they also provide support for:</p>
       <div className="summary-items">
         <div className="summary-item">
           <img alt="" src={closeReadingSrc} />
@@ -127,32 +116,10 @@ const summary = (
   </section>
 )
 
-const teacherQuotes = (
-  <section className="teacher-quotes">
-    <div className="container">
-      <h2>What Are Social Studies Teachers Saying?</h2>
-      <div className="quote-boxes">
-        <div className="quote-box">
-          <p>“With Quill giving them that instant feedback, it&#39;s like having me over their shoulder, but with everyone at the same time.”</p>
-          <span>Alison B.</span>
-        </div>
-        <div className="quote-box">
-          <p>“They&#39;re learning content that I would probably not have time to teach them. They are practicing skills that, honestly, they all need more practice on every day.”</p>
-          <span>Amber L. </span>
-        </div>
-        <div className="quote-box">
-          <p>“I think Quill has helped them understand what they&#39;re really looking for in the document or in the writing -— they are definitely annotating and highlighting better as the semester goes on.”</p>
-          <span>Devin G.</span>
-        </div>
-      </div>
-    </div>
-  </section>
-)
-
-const oerProject = (
-  <section className="oer-project container">
-    <img alt="Quill logo plus OER Project logo" src={quillPlusOERProjectLogoSrc} />
-    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
+const partners = (
+  <section className="partners container">
+    <img alt="Quill logo plus AI Edu logo" src={quillPlusAiEduLogo} />
+    <p>Quill has partnered with <a href="https://www.aiedu.org/" rel="noopener noreferrer" target="_blank">aiEDU</a> to curate activities from their site that work well with Quill Building AI Knowledge activities. On the course landing page, each each Reading for Evidence activity includes a suggested paired aiEDU activity, which range from 5-minute warm-up activities to 3-4 hour student-led activities. These activities can be used to preview new content, reinforce prior knowledge, provide additional context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or in conjunction with aiEDU activities, these resources are a valuable addition to any high school ELA or Computer Science classroom.</p>
   </section>
 )
 
@@ -173,25 +140,24 @@ const tryItOutForYourself = (
     <div className="container">
       <h2>Try it out for yourself</h2>
       <div className="links-wrapper">
-        <a className="quill-button focus-on-dark outlined teal large" href="/evidence/#/play?anonymous=true&uid=457" rel="noopener noreferrer" target="_blank" >Try a sample activity</a>
-        <a className="quill-button focus-on-dark outlined teal large" href={INTERDISCIPLINARY_SCIENCE_LINK}>View 1200 CE - Present activities</a>
+        <a className="quill-button focus-on-dark outlined teal large" href="/evidence/#/play?anonymous=true&uid=442" rel="noopener noreferrer" target="_blank" >Try a sample activity</a>
+        <a className="quill-button focus-on-dark outlined teal large" href={BUILDING_AI_KNOWLEDGE}>View Building AI Knowledge activities</a>
       </div>
     </div>
   </section>
 )
 
-const SocialStudiesSubjectPage = ({}) => {
+const InterdisciplinaryScienceSubjectPage = ({}) => {
   return (
-    <div className="social-studies-subject-page subject-page">
+    <div className="interdisciplinary-science-subject-page subject-page">
       {overview}
       {summary}
-      {teacherQuotes}
-      {oerProject}
-      <QuestionsAndAnswers questionsAndAnswersFile="socialStudies" supportLink={null} />
+      {partners}
+      <QuestionsAndAnswers questionsAndAnswersFile="interdisciplinaryScience" supportLink={null} />
       {teacherCenterArticles}
       {tryItOutForYourself}
     </div>
   )
 }
 
-export default SocialStudiesSubjectPage
+export default InterdisciplinaryScienceSubjectPage

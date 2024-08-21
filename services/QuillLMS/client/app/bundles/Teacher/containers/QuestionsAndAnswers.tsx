@@ -9,6 +9,7 @@ import preap from '../components/modules/questionsAndAnswers/preap'
 import premium from '../components/modules/questionsAndAnswers/premium'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
 import socialStudies from '../components/modules/questionsAndAnswers/socialStudies'
+import interdisciplinaryScience from '../components/modules/questionsAndAnswers/interdisciplinaryScience'
 import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 
 export interface QuestionsAndAnswersProps {
@@ -47,6 +48,9 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
         break
       case 'socialStudies':
         questionsAndAnswers = socialStudies
+        break
+      case 'interdisciplinaryScience':
+        questionsAndAnswers = interdisciplinaryScience
         break
       default:
         questionsAndAnswers = []
