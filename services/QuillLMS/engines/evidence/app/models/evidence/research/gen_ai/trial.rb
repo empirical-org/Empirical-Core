@@ -109,7 +109,7 @@ module Evidence
           self.number = last_trial_number + 1
         end
 
-        private def on_complete(status, options)
+        private def on_complete(_status, options)
           trial = Trial.find(options['trial_id'])
           trial.update!(trial_duration: Time.zone.now - Time.zone.parse(trial.trial_start_time))
           CalculateResultsWorker.perform_async(options['trial_id'])

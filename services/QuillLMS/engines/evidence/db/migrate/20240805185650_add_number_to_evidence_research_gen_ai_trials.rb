@@ -6,7 +6,7 @@ class AddNumberToEvidenceResearchGenAITrials < ActiveRecord::Migration[7.0]
 
     Evidence::Research::GenAI::Trial.reset_column_information
 
-    Evidence::Research::GenAI::Trial.order(:dataset_id, :created_at).group_by(&:dataset_id).each do |dataset_id, trials|
+    Evidence::Research::GenAI::Trial.order(:dataset_id, :created_at).group_by(&:dataset_id).each do |_dataset_id, trials|
       trials.each_with_index do |trial, index|
         trial.update_column(:number, index + 1)
       end
