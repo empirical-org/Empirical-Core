@@ -21,7 +21,7 @@ shared_context 'array and hash data fields' do |data_field|
       ]
     }
 
-    it "creates translation mappings for focusPoints" do
+    it 'creates translation mappings for focusPoints' do
       subject
       expect(translation_map1.text).to eq(feedback1)
       expect(translation_map2.text).to eq(feedback2)
@@ -36,7 +36,7 @@ shared_context 'array and hash data fields' do |data_field|
       }
     }
 
-    it "creates translation mappings for focusPoints" do
+    it 'creates translation mappings for focusPoints' do
       subject
       expect(translation_map1.text).to eq(feedback1)
       expect(translation_map2.text).to eq(feedback2)
@@ -59,7 +59,7 @@ RSpec.describe TranslatableQuestion do
     context 'instructions' do
       let(:field_name) { 'instructions' }
       let(:data) { { field_name => instructions } }
-      let(:instructions) { "do this question" }
+      let(:instructions) { 'do this question' }
 
       it 'creates translation_mappings for instructions' do
         subject
@@ -99,14 +99,14 @@ RSpec.describe TranslatableQuestion do
           [
             {
               "id": id1,
-              "question_uid": "-Jzw0qjNNnNInNWZT9tJ",
-              "text": "Last year, my teacher knew my name.",
+              "question_uid": '-Jzw0qjNNnNInNWZT9tJ',
+              "text": 'Last year, my teacher knew my name.',
               "feedback": feedback1
             },
             {
               "id": id2,
-              "question_uid": "-Jzw0qjNNnNInNWZT9tJ",
-              "text": "Last year, my teacher knew my name.",
+              "question_uid": '-Jzw0qjNNnNInNWZT9tJ',
+              "text": 'Last year, my teacher knew my name.',
               "feedback": feedback2
             }
           ]
@@ -130,7 +130,7 @@ RSpec.describe TranslatableQuestion do
     end
   end
 
-  describe "#translated_data(locale:)" do
+  describe '#translated_data(locale:)' do
     subject { question.translated_data(locale:) }
 
     let(:question) { create(:question, :with_all_translations) }
@@ -138,7 +138,7 @@ RSpec.describe TranslatableQuestion do
 
     shared_examples 'translatable field' do |field_key|
       let(:translated_field) { subject[field_key] }
-      let(:field_mappings) { question.translation_mappings.where("field_name LIKE ?", "#{field_key}%") }
+      let(:field_mappings) { question.translation_mappings.where('field_name LIKE ?', "#{field_key}%") }
 
       it "includes translations for all #{field_key}" do
         field_mappings.each do |mapping|

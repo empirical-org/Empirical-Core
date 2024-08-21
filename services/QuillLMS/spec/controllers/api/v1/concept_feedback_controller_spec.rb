@@ -28,7 +28,7 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
     end
   end
 
-  describe "#translations" do
+  describe '#translations' do
     let(:locale) { Translatable::DEFAULT_LOCALE }
     let!(:concept_feedback_untranslated) { create(:concept_feedback) }
     let(:cache_key) {

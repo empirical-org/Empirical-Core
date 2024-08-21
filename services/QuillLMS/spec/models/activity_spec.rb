@@ -199,12 +199,12 @@ describe Activity, type: :model, redis: true do
 
     it "must add uid param of it's a valid student session" do
       activity.valid?
-      expect(activity.module_url(student.activity_sessions.build()).to_s).to include 'uid='
+      expect(activity.module_url(student.activity_sessions.build).to_s).to include 'uid='
     end
 
     it "must add student param of it's a valid student session" do
       activity.valid?
-      expect(activity.module_url(student.activity_sessions.build()).to_s).to include 'student'
+      expect(activity.module_url(student.activity_sessions.build).to_s).to include 'student'
     end
 
     it "must add 'activities' param if the student has completed previous sessions of this activity classification" do
@@ -731,7 +731,7 @@ describe Activity, type: :model, redis: true do
         activity = create(:evidence_lms_activity, created_at: Time.zone.today - 10.days)
         create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
 
-        expect(activity.publication_date).to eq(activity.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
+        expect(activity.publication_date).to eq(activity.created_at.strftime('%Y-%m-%dT%H:%M:%S'))
       end
     end
 
@@ -741,7 +741,7 @@ describe Activity, type: :model, redis: true do
         evidence_activity = create(:evidence_activity, parent_activity: activity, title: 'title', notes: 'notes')
         change_log = create(:change_log, created_at: Time.zone.today - 20.days, changed_attribute: Activity::FLAGS_ATTRIBUTE, changed_record: evidence_activity)
 
-        expect(activity.publication_date).to eq(change_log.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
+        expect(activity.publication_date).to eq(change_log.created_at.strftime('%Y-%m-%dT%H:%M:%S'))
       end
     end
   end
@@ -756,7 +756,7 @@ describe Activity, type: :model, redis: true do
       serialized_hash = activity.serialize_with_topics_and_publication_date
       expect(serialized_hash['id']).to eq(activity.id)
       expect(serialized_hash[:topics]).to eq([topic.genealogy])
-      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime("%Y-%m-%dT%H:%M:%S"))
+      expect(serialized_hash[:publication_date]).to eq(change_log.created_at.strftime('%Y-%m-%dT%H:%M:%S'))
     end
   end
 
@@ -799,7 +799,7 @@ describe Activity, type: :model, redis: true do
       let(:questions) { create_list(:question, 2) }
 
       before do
-        activity.data["questions"] = questions.map { |q| { "key" => q.uid } }
+        activity.data['questions'] = questions.map { |q| { 'key' => q.uid } }
         activity.save
       end
 
@@ -809,7 +809,7 @@ describe Activity, type: :model, redis: true do
 
       context 'has an extra question key that does not exist' do
         before do
-          activity.data["questions"] << { "key" => "124" }
+          activity.data['questions'] << { 'key' => '124' }
           activity.save
         end
 
@@ -819,7 +819,7 @@ describe Activity, type: :model, redis: true do
 
     context 'there are no questions in the data field' do
       before do
-        activity.data.delete("questions")
+        activity.data.delete('questions')
         activity.save
       end
 
@@ -835,9 +835,9 @@ describe Activity, type: :model, redis: true do
 
     context 'there are translations' do
       it 'is data + all available languages' do
-        activity.data.merge!({ 'landingPageHtml' => "html" })
+        activity.data.merge!({ 'landingPageHtml' => 'html' })
         activity.create_translation_mappings
-        chinese_locale = "zh-cn"
+        chinese_locale = 'zh-cn'
         english_text = activity.english_texts.first
         chinese = create(:translated_text, english_text:, locale: chinese_locale)
         spanish = create(:translated_text, english_text:, locale: Translatable::SPANISH_LOCALE)

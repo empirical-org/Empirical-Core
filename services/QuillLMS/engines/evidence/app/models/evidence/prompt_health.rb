@@ -90,12 +90,10 @@ module Evidence
     end
 
     def poor_health_flag
-      (
-        failed_cutoff(first_attempt_optimal, FIRST_ATTEMPT_OPTIMAL_CUTOFF) ||
+      failed_cutoff(first_attempt_optimal, FIRST_ATTEMPT_OPTIMAL_CUTOFF) ||
         failed_cutoff(final_attempt_optimal, FINAL_ATTEMPT_OPTIMAL_CUTFF) ||
         failed_cutoff(confidence, CONFIDENCE_CUTOFF) ||
         (percent_automl_consecutive_repeated && percent_automl_consecutive_repeated > PERCENT_AUTOML_CONSECUTIVE_REPEATED_CUTOFF)
-      )
     end
 
     def conjunction

@@ -76,11 +76,9 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   private def redirect_to_public_index_if_no_unit_template_found
-    begin
-      @unit_template = UnitTemplate.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to :public_index
-    end
+    @unit_template = UnitTemplate.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to :public_index
   end
 
   private def format_unit_template(ut_id)

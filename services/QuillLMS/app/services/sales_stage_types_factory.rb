@@ -84,15 +84,13 @@ class SalesStageTypesFactory
 
   def build
     STAGE_TYPE_SEEDS.map do |seed|
-      begin
-        SalesStageType.find_or_create_by!(name: seed[:name]) do |type|
-          type.order       = seed[:order]
-          type.description = seed[:description]
-          type.trigger     = seed[:trigger]
-        end
-      rescue ActiveRecord::RecordInvalid
-        retry
+      SalesStageType.find_or_create_by!(name: seed[:name]) do |type|
+        type.order       = seed[:order]
+        type.description = seed[:description]
+        type.trigger     = seed[:trigger]
       end
+    rescue ActiveRecord::RecordInvalid
+      retry
     end
   end
 end
