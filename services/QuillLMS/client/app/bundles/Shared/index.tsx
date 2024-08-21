@@ -153,7 +153,8 @@ export {
   getlanguageOptions,
   renderSaveAndExitButton,
   hasTranslationFlag,
-  showTranslations
+  showTranslations,
+  pluralize
 } from './libs/index'
 
 export {

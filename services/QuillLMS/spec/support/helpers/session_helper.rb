@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SessionHelper
-  def user_params hash = {}
+  def user_params(hash = {})
     {
       name: 'John Smith',
       email: 'user@example.com',

@@ -37,6 +37,7 @@ export { filterNumbers } from './filterFunctions'
 export { redirectToActivity } from './redirectToActivity'
 export { renderNavList } from './navbarHelpers'
 export { noResultsMessage } from './stringManipulationFunctions'
+export { pluralize } from './pluralize'
 export {
   getStatusForResponse,
   responsesWithStatus,

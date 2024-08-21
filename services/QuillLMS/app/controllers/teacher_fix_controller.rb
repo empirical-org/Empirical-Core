@@ -5,8 +5,7 @@ class TeacherFixController < ApplicationController
   before_action :staff!
   before_action :set_user, only: :archived_units
 
-  def index
-  end
+  def index; end
 
   def archived_units
     if !@user

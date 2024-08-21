@@ -453,7 +453,7 @@ class User < ApplicationRecord
     false
   end
 
-  def safe_role_assignment role
+  def safe_role_assignment(role)
     sanitized_role = SAFE_ROLES.find { |r| r == role.strip }
     self.role = sanitized_role || 'user'
   end
@@ -511,7 +511,7 @@ class User < ApplicationRecord
     @role_inquirer ||= ActiveSupport::StringInquirer.new(self[:role])
   end
 
-  def role= role
+  def role=(role)
     remove_instance_variable :@role_inquirer if defined?(@role_inquirer)
     super
   end
@@ -576,7 +576,7 @@ class User < ApplicationRecord
     "#{role.capitalize}Serializer".constantize.new(self)
   end
 
-  def first_name= first_name
+  def first_name=(first_name)
     last_name
     @first_name = first_name
     set_name
@@ -586,7 +586,7 @@ class User < ApplicationRecord
     ClearUserDataWorker.perform_async(id)
   end
 
-  def last_name= last_name
+  def last_name=(last_name)
     first_name
     @last_name = last_name
     set_name
@@ -1015,7 +1015,7 @@ class User < ApplicationRecord
   end
 
   private def school_type_account_info
-    return (School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME) if school&.name
+    return School::ALTERNATIVE_SCHOOLS_DISPLAY_NAME_MAP[school.name] || School::US_K12_SCHOOL_DISPLAY_NAME if school&.name
 
     School::US_K12_SCHOOL_DISPLAY_NAME
   end

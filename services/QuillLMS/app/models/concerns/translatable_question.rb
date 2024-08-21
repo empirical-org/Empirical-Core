@@ -26,7 +26,7 @@ module TranslatableQuestion
     translated_texts
       .joins(english_text: :translation_mappings)
       .where(translation_mappings: { source: self })
-      .where("translation_mappings.field_name LIKE ?", "#{prefix}%")
+      .where('translation_mappings.field_name LIKE ?', "#{prefix}%")
       .where(locale: locale)
       .pluck('translation_mappings.field_name', :translation)
       .to_h

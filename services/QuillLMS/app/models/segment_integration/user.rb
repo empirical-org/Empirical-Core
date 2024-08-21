@@ -72,7 +72,7 @@ module SegmentIntegration
     end
 
     def integration_rules
-      { all: true, Intercom: (teacher?) }
+      { all: true, Intercom: teacher? }
     end
   end
 end

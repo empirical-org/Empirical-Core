@@ -11,8 +11,7 @@ class Cms::UnitTemplateCategoriesController < Cms::CmsController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @unit_template_category = UnitTemplateCategory.new(unit_template_category_params)

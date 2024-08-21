@@ -7,7 +7,7 @@ class ActionController::Responder
     navigation_behavior(e)
   end
 
-  def api_behavior error
+  def api_behavior(error)
     raise error unless resourceful?
 
     if get?
