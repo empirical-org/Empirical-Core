@@ -32,7 +32,7 @@ module Evidence
         private def file_path = format(CSV_FILE_PATH, file:)
 
         private def dataset_from_row(row)
-          Evidence::GenAI::SecondaryFeedbackSet.new(
+          Evidence::GenAI::SecondaryFeedback::DataSet.new(
             activity_id: row['activity_id']&.to_i,
             rule_id: row['rule_id']&.to_i,
             prompt_id: row['prompt_id']&.to_i,
