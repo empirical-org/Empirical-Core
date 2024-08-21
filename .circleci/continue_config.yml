@@ -155,6 +155,7 @@ jobs:
                   cd services/QuillLMS
                   bundle exec rake db:schema:load
                   bundle exec rake db:migrate
+                  bundle exec rake local_data:e2e_seed
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
             - run:
