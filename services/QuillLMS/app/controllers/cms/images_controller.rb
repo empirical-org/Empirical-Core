@@ -26,8 +26,7 @@ class Cms::ImagesController < Cms::CmsController
     redirect_to action: 'index'
   end
 
-  def update
-  end
+  def update; end
 
   private def directory
     credentials = {

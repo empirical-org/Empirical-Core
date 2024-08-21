@@ -52,18 +52,16 @@ class StudentsClassroomsController < ApplicationController
   end
 
   def classroom_manager_data
-    begin
-      active = current_user.students_classrooms
-        .includes(classroom: :teacher)
-        .map(&:archived_classrooms_manager)
-      inactive = StudentsClassrooms.unscoped
-        .where(student_id: current_user.id, visible: false)
-        .includes(classroom: :teacher)
-        .map(&:archived_classrooms_manager)
-    rescue NoMethodError => e
-      render json: { error: 'No classrooms yet!' }, status: 400
-      else
-        render json: { active: active, inactive: inactive }
-    end
+    active = current_user.students_classrooms
+      .includes(classroom: :teacher)
+      .map(&:archived_classrooms_manager)
+    inactive = StudentsClassrooms.unscoped
+      .where(student_id: current_user.id, visible: false)
+      .includes(classroom: :teacher)
+      .map(&:archived_classrooms_manager)
+  rescue NoMethodError => e
+    render json: { error: 'No classrooms yet!' }, status: 400
+    else
+      render json: { active: active, inactive: inactive }
   end
 end

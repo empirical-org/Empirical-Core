@@ -35,7 +35,7 @@ module Evidence
 
       it 'should create a valid record and return it as json' do
         expect do
-          post(:create, :params => ({ :hint => ({ :name => hint.name, :image_link => hint.image_link, :image_alt_text => hint.image_alt_text, :explanation => hint.explanation }) }))
+          post(:create, :params => { :hint => { :name => hint.name, :image_link => hint.image_link, :image_alt_text => hint.image_alt_text, :explanation => hint.explanation } })
           parsed_response = JSON.parse(response.body)
           expect(response.code.to_i).to(eq(201))
           expect(parsed_response['name']).to(eq(hint.name))
@@ -47,7 +47,7 @@ module Evidence
 
       it 'should not create an invalid record and return errors as json' do
         expect do
-          post(:create, :params => ({ :hint => { :name => 'New Hint' } }))
+          post(:create, :params => { :hint => { :name => 'New Hint' } })
           parsed_response = JSON.parse(response.body)
           expect(response.code.to_i).to(eq(422))
           expect(parsed_response['image_link']).to(include("can't be blank"))
@@ -61,7 +61,7 @@ module Evidence
       let!(:hint) { create(:evidence_hint) }
 
       it 'should return json if found' do
-        get(:show, :params => ({ :id => hint.id }))
+        get(:show, :params => { :id => hint.id })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(200))
         expect(parsed_response['name']).to(eq(hint.name))
@@ -71,7 +71,7 @@ module Evidence
       end
 
       it 'should raise if not found (to be handled by parent app)' do
-        expect { get(:show, :params => ({ :id => 99999 })) }.to(raise_error(ActiveRecord::RecordNotFound))
+        expect { get(:show, :params => { :id => 99999 }) }.to(raise_error(ActiveRecord::RecordNotFound))
       end
     end
 
@@ -81,7 +81,7 @@ module Evidence
       it 'should update record if valid, return nothing' do
         new_name = 'This is a new name'
         new_explanation = 'This is a new explanation'
-        patch(:update, :params => ({ :id => hint.id, :hint => ({ :name => new_name, :explanation => new_explanation }) }))
+        patch(:update, :params => { :id => hint.id, :hint => { :name => new_name, :explanation => new_explanation } })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         hint.reload
@@ -90,7 +90,7 @@ module Evidence
       end
 
       it 'should not update record and return errors as json' do
-        patch(:update, :params => ({ :id => hint.id, :hint => ({ :name => nil, :explanation => nil }) }))
+        patch(:update, :params => { :id => hint.id, :hint => { :name => nil, :explanation => nil } })
         parsed_response = JSON.parse(response.body)
         expect(response.code.to_i).to(eq(422))
         expect(parsed_response['name']).to(include("can't be blank"))
@@ -102,7 +102,7 @@ module Evidence
       let!(:hint) { create(:evidence_hint) }
 
       it 'should destroy record at id' do
-        delete(:destroy, :params => ({ :id => hint.id }))
+        delete(:destroy, :params => { :id => hint.id })
         expect(response.body).to(eq(''))
         expect(response.code.to_i).to(eq(204))
         expect(hint.id).to(be_truthy)

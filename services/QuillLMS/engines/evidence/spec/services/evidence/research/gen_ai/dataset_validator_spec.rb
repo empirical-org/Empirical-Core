@@ -33,7 +33,7 @@ module Evidence
             CSV
           end
 
-          it { is_expected.to eq("CSV is missing required headers: Optional - AutoML Secondary Feedback, Optional - Curriculum Label, Curriculum Proposed Feedback, Optional - Highlight, Student Response.") }
+          it { is_expected.to eq('CSV is missing required headers: Optional - AutoML Secondary Feedback, Optional - Curriculum Label, Curriculum Proposed Feedback, Optional - Highlight, Student Response.') }
         end
 
         context 'when the CSV content is missing a Student Response' do

@@ -21,7 +21,7 @@ describe OpenAI::TranslateActivityAndQuestionsWorker, type: :worker do
 
     it 'calls translate on each of the questions' do
       question = create(:question)
-      activity.data["questions"] = [{ "key" => question.uid }]
+      activity.data['questions'] = [{ 'key' => question.uid }]
       allow(activity).to receive(:questions).and_return([question])
       expect(question).to receive(:translate!)
       subject
@@ -29,7 +29,7 @@ describe OpenAI::TranslateActivityAndQuestionsWorker, type: :worker do
   end
 
   context 'the activity is not present' do
-    subject { worker.perform("223980") }
+    subject { worker.perform('223980') }
 
     it do
       expect(OpenAI::Translate).not_to receive(:run)

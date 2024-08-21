@@ -120,7 +120,7 @@ module Evidence
       parent_activity&.flag
     end
 
-    def flag=flag
+    def flag=(flag)
       set_parent_activity
       parent_activity.lms_user_id = @lms_user_id
       parent_activity.update(flag: flag)

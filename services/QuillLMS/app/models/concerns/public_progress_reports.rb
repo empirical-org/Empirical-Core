@@ -107,15 +107,15 @@ module PublicProgressReports
         cuas = ClassroomUnitActivityState.find_by(unit_activity: unit_activity, classroom_unit: cu)
         classroom = cu.classroom.attributes
         activity_sessions = cu.completed_activity_sessions
-        if activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
-          class_id = classroom['id']
-          h[class_id] ||= classroom
-          h[class_id][:classroom_unit_id] = cu.id
-          activity_sessions.each do |activity_session|
-            h[class_id][:students] ||= []
-            if h[class_id][:students].exclude? activity_session.user
-              h[class_id][:students] << activity_session.user
-            end
+        next unless activity_sessions.present? || cuas&.completed || Activity.diagnostic_activity_ids.include?(activity_id.to_i)
+
+        class_id = classroom['id']
+        h[class_id] ||= classroom
+        h[class_id][:classroom_unit_id] = cu.id
+        activity_sessions.each do |activity_session|
+          h[class_id][:students] ||= []
+          if h[class_id][:students].exclude? activity_session.user
+            h[class_id][:students] << activity_session.user
           end
         end
       end
@@ -282,7 +282,7 @@ module PublicProgressReports
   def get_time_in_minutes(activity_session)
     return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
 
-    time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
+    time = ((activity_session.completed_at - activity_session.started_at) / 60).round
     time > 60 ? '> 60' : time
   end
 
@@ -366,7 +366,7 @@ module PublicProgressReports
     if formatted_results.empty?
       100
     else
-      (formatted_results.inject(0) { |sum, crs| sum + crs[:score] } / formatted_results.length).round()
+      (formatted_results.inject(0) { |sum, crs| sum + crs[:score] } / formatted_results.length).round
     end
   end
 
@@ -380,7 +380,7 @@ module PublicProgressReports
       { id: s&.id, name: s&.name || 'Unknown Student', completed: completed }
     end
 
-    sorted_students = students.compact.sort_by { |stud| stud[:name].split().second || '' }
+    sorted_students = students.compact.sort_by { |stud| stud[:name].split.second || '' }
 
     recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |recommendation|
       student_ids = []

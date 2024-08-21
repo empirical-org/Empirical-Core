@@ -274,11 +274,6 @@ Lint/UnexpectedBlockArity:
 Lint/UnmodifiedReduceAccumulator:
   Enabled: true
 
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Enabled: true
-  AllowUnusedKeywordArguments: true
-
 Lint/UriEscapeUnescape:
   Enabled: true
 
@@ -499,6 +494,9 @@ Style/BarePercentLiterals:
 Style/BlockComments:
   Enabled: true
 
+Style/BlockDelimiters:
+  Enabled: false
+
 Style/ClassEqualityComparison:
   Enabled: true
 
@@ -616,6 +614,9 @@ Style/MultilineInPatternThen:
 Style/MultipleComparison:
   Enabled: true
 
+Style/NegatedIf:
+  Enabled: false
+
 Style/NegatedIfElseCondition:
   Enabled: true
 
@@ -700,6 +701,10 @@ Style/RegexpLiteral:
 
 Style/SelectByRegexp:
   Enabled: true
+
+Style/Semicolon:
+  Enabled: true
+  AllowAsExpressionSeparator: true
 
 Style/SignalException:
   Enabled: true

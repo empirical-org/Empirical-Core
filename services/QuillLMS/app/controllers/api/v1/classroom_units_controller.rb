@@ -64,27 +64,23 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
       end
     end
 
-    follow_up_unit_activity = begin
-      if params[:follow_up].present?
-        ActivitySession.assign_follow_up_lesson(
-          params[:classroom_unit_id],
-          params[:activity_id]
-        )
+    follow_up_unit_activity = if params[:follow_up].present?
+                                ActivitySession.assign_follow_up_lesson(
+                                  params[:classroom_unit_id],
+                                  params[:activity_id]
+                                )
       else
         false
       end
-    end
 
-    url = begin
-      if follow_up_unit_activity.present?
-        ActivitySession.generate_activity_url(
-          params[:classroom_unit_id],
-          follow_up_unit_activity.activity_id
-        )
+    url = if follow_up_unit_activity.present?
+            ActivitySession.generate_activity_url(
+              params[:classroom_unit_id],
+              follow_up_unit_activity.activity_id
+            )
       else
         (ENV['DEFAULT_URL']).to_s
       end
-    end
 
     render json: { follow_up_url: url }
   end

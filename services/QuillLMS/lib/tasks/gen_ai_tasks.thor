@@ -17,21 +17,19 @@ class GenAITasks < Thor
       system_prompt = Evidence::GenAI::SystemPromptBuilder.run(prompt:, template_file:)
 
       prompt.example_sets(optimal:).each do |entry|
-        begin
-          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
-          total += 1
+        response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+        total += 1
 
-          if response[KEY_OPTIMAL] == optimal
-            print '.'
-            correct_count += 1
-          else
-            print 'F'
-            incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
-          end
-        rescue => e
-          error_count += 1
-          error_examples.append([prompt, entry])
+        if response[KEY_OPTIMAL] == optimal
+          print '.'
+          correct_count += 1
+        else
+          print 'F'
+          incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
         end
+      rescue => e
+        error_count += 1
+        error_examples.append([prompt, entry])
       end
     end
     puts '' # new line after prints
@@ -40,7 +38,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:static_sample_test 2
-  desc "static_sample_test 2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  desc 'static_sample_test 2', 'Run to see if examplar optimals are labeled optimal by the prompt'
   def static_sample_test(limit = 10, optimal = true, template_file = nil)
     correct_count = 0
     total = 0
@@ -57,21 +55,19 @@ class GenAITasks < Thor
 
       test_data = optimal ? dataset.optimals : dataset.suboptimals
       test_data.each do |entry|
-        begin
-          response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
-          total += 1
+        response = Evidence::OpenAI::Chat.run(system_prompt:, entry:)
+        total += 1
 
-          if response[KEY_OPTIMAL] == optimal
-            print '.'
-            correct_count += 1
-          else
-            print 'F'
-            incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
-          end
-        rescue => e
-          error_count += 1
-          error_examples.append([prompt, entry])
+        if response[KEY_OPTIMAL] == optimal
+          print '.'
+          correct_count += 1
+        else
+          print 'F'
+          incorrect_examples.append([prompt, entry, response[KEY_FEEDBACK]])
         end
+      rescue => e
+        error_count += 1
+        error_examples.append([prompt, entry])
       end
     end
     puts '' # new line after prints
@@ -80,20 +76,20 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:static_full_test 2
-  desc "static_full_test  2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  desc 'static_full_test  2', 'Run to see if examplar optimals are labeled optimal by the prompt'
   def static_full_test(limit = 50, template_file = nil)
     static_sample_test(limit, true, template_file)
     static_sample_test(limit, false, template_file)
   end
 
   # bundle exec thor gen_a_i_tasks:static_optimal_test 2
-  desc "static_optimal_test  2", 'Run to see if examplar optimals are labeled optimal by the prompt'
+  desc 'static_optimal_test  2', 'Run to see if examplar optimals are labeled optimal by the prompt'
   def static_optimal_test(limit = 50, template_file = nil)
     static_sample_test(limit, true, template_file)
   end
 
   # bundle exec thor gen_a_i_tasks:static_suboptimal_test 'because' 2
-  desc "static_suboptimal_test 2", 'Run to see if examplar suboptimals are labeled suboptimal by the prompt'
+  desc 'static_suboptimal_test 2', 'Run to see if examplar suboptimals are labeled suboptimal by the prompt'
   def static_suboptimal_test(limit = 50, template_file = nil)
     static_sample_test(limit, false, template_file)
   end
@@ -179,7 +175,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:generate_secondary_data_files
-  desc "generate_secondary_data_files", 'Create a csv for training and test.'
+  desc 'generate_secondary_data_files', 'Create a csv for training and test.'
   def generate_secondary_data_files
     file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
     file_train = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_TRAIN
@@ -206,7 +202,7 @@ class GenAITasks < Thor
   Repeated = Data.define(:activity_id, :prompt_id, :original, :different, :paraphrase)
 
   # bundle exec thor gen_a_i_tasks:generate_repeated_data_file
-  desc "generate_repeated_data_file", 'Create a csv for example data.'
+  desc 'generate_repeated_data_file', 'Create a csv for example data.'
   def generate_repeated_data_file
     file_all = Evidence::GenAI::SecondaryFeedbackDataFetcher::FILE_ALL
     full_set = Evidence::GenAI::SecondaryFeedbackDataFetcher.run(file: file_all)
@@ -232,7 +228,7 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:generate_repeated_test_files
-  desc "generate_repeated_test_files", 'Generate test.csv and train.csv files from all.csv'
+  desc 'generate_repeated_test_files', 'Generate test.csv and train.csv files from all.csv'
   def generate_repeated_test_files
     csv_data = CSV.read("#{repeated_folder}all.csv", headers: true)
     full_set = csv_data.map { |d| Repeated.new(**d) }
@@ -247,7 +243,7 @@ class GenAITasks < Thor
   RepeatedResult = Data.define(:activity_id, :prompt_id, :original, :different, :repeated_different, :paraphrase, :repeated_paraphrase)
 
   # bundle exec thor gen_a_i_tasks:repeated_feedback_test 2
-  desc "repeated_feedback_test limit", 'Test a number or entries from the test.csv file'
+  desc 'repeated_feedback_test limit', 'Test a number or entries from the test.csv file'
   def repeated_feedback_test(limit = 150)
     csv_data = CSV.read("#{repeated_folder}test.csv", headers: true)
     test_set = csv_data.first(limit.to_i).map { |d| Repeated.new(**d) }
@@ -305,14 +301,14 @@ class GenAITasks < Thor
   end
 
   # bundle exec thor gen_a_i_tasks:example_check
-  desc "example_check", 'Run to see system prompt and feedback for a given prompt / entry'
+  desc 'example_check', 'Run to see system prompt and feedback for a given prompt / entry'
   def example_check
     prompt = Evidence::Prompt.last
     entry = 'because it is good.'
 
     previous = [
-      { 'feedback' => "Clear your response and try again. Think about what specific actions Korean leaders took to remove the pirates. Can you mention a specific strategy they used?" },
-      { 'feedback' => "Clear your response and try again. Think about a specific action or strategy that Korean leaders used to remove Wokou pirates. What did they do to discourage piracy?" },
+      { 'feedback' => 'Clear your response and try again. Think about what specific actions Korean leaders took to remove the pirates. Can you mention a specific strategy they used?' },
+      { 'feedback' => 'Clear your response and try again. Think about a specific action or strategy that Korean leaders used to remove Wokou pirates. What did they do to discourage piracy?' },
       { 'feedback' => 'Clear your response and try again. Can you think of a specific way Korean leaders tried to stop the pirates, using information from the text?' }
     ]
 
@@ -321,14 +317,14 @@ class GenAITasks < Thor
     response = check.run
     end_time = Time.zone.now
 
-    puts "System Prompt"
+    puts 'System Prompt'
     puts check.send(:system_prompt)
     print_line
     puts "Original Response: #{check.send(:primary_response)}"
     print_line
     puts "Repeated Feedback?: #{check.send(:repeated_feedback?)}"
     print_line
-    puts "Secondary Prompt"
+    puts 'Secondary Prompt'
     puts check.send(:secondary_feedback_prompt)
     print_line
     puts "Secondary Response: #{check.send(:secondary_feedback_response)}"

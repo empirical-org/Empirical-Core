@@ -153,11 +153,11 @@ class Activity < ApplicationRecord
     find_by(uid: arg) || find(arg)
   end
 
-  def standard_uid= uid
+  def standard_uid=(uid)
     self.standard_id = Standard.find_by_uid(uid).id
   end
 
-  def activity_classification_uid= uid
+  def activity_classification_uid=(uid)
     self.activity_classification_id = ActivityClassification.find_by(uid: uid).id
   end
 
@@ -174,7 +174,7 @@ class Activity < ApplicationRecord
     end
   end
 
-  def classification_key= key
+  def classification_key=(key)
     self.classification = ActivityClassification.find_by_key(key)
   end
 
@@ -186,7 +186,7 @@ class Activity < ApplicationRecord
     url = Addressable::URI.parse(classification.form_url)
 
     if uid.present?
-      params = (url.query_values || {})
+      params = url.query_values || {}
       params[:uid] = uid
       url.query_values = params
     end
@@ -211,7 +211,7 @@ class Activity < ApplicationRecord
     return nil unless is_evidence?
 
     created_time = child_activity.last_flags_change_log_record&.created_at || created_at
-    created_time.strftime("%Y-%m-%dT%H:%M:%S")
+    created_time.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   # TODO: cleanup
@@ -346,7 +346,7 @@ class Activity < ApplicationRecord
 
   def questions = Question.where(uid: question_uids)
 
-  private def question_uids = data["questions"]&.map { |q| q["key"] }
+  private def question_uids = data['questions']&.map { |q| q['key'] }
 
   private def update_evidence_title?
     is_evidence? && saved_change_to_name?
@@ -406,7 +406,7 @@ class Activity < ApplicationRecord
 
   private def construct_redirect_url(base_url, initial_params)
     @url = Addressable::URI.parse(base_url)
-    params = (@url.query_values || {})
+    params = @url.query_values || {}
     params.merge!(initial_params)
     @url.query_values = params
     fix_angular_fragment!
@@ -418,7 +418,7 @@ class Activity < ApplicationRecord
     return evidence_url_helper(initial_params) if classification.key == ActivityClassification::EVIDENCE_KEY
 
     @url = Addressable::URI.parse(classification.module_url)
-    params = (@url.query_values || {})
+    params = @url.query_values || {}
     params.merge!(initial_params)
     params[:uid] = uid if uid.present?
     @url.query_values = params

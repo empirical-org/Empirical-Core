@@ -14,7 +14,7 @@ describe 'Downloading the concepts' do
 
   before do
     VCR.use_cassette('fetching concepts') do
-      @response = @setup.fetch_concepts()
+      @response = @setup.fetch_concepts
     end
   end
 

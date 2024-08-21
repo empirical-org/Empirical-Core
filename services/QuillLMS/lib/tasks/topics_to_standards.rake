@@ -25,11 +25,9 @@ namespace :topics_to_standards do
     ActiveRecord::Base.connection.reset_pk_sequence!('standards')
 
     Activity.all.each do |a|
-      begin
-        a.update(standard_id: a.topic_id)
-      rescue
-        puts 'a.name', a.name
-      end
+      a.update(standard_id: a.topic_id)
+    rescue
+      puts 'a.name', a.name
     end
   end
 end
