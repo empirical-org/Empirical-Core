@@ -3188,7 +3188,8 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    visible boolean DEFAULT true NOT NULL
 );
 
 
@@ -12143,6 +12144,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240714215711'),
 ('20240801134426'),
 ('20240805190219'),
-('20240808123813');
+('20240808123813'),
+('20240821210256');
 
 
