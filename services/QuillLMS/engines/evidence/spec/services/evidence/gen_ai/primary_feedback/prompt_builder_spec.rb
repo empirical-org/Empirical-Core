@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
+RSpec.describe Evidence::GenAI::PrimaryFeedback::PromptBuilder, type: :service do
   let(:passage_text) { 'passage text' * 50 }
   let(:stem) { 'just because' }
   let(:plagiarism_text) { 'plagiarism plagiarism_text' }
@@ -64,7 +64,7 @@ RSpec.describe Evidence::GenAI::SystemPromptBuilder, type: :service do
     end
 
     it 'builds the correct template file path' do
-      expect(subject.send(:template_file_path).to_s).to include('app/services/evidence/gen_ai/system_prompts/spec/fixtures/files/sample_system_template.md')
+      expect(subject.send(:template_file_path).to_s).to include('app/services/evidence/gen_ai/primary_feedback/prompts/spec/fixtures/files/sample_system_template.md')
     end
   end
 

@@ -3,8 +3,8 @@
 require 'rails_helper'
 require 'csv'
 
-RSpec.describe Evidence::GenAI::SecondaryFeedbackDataFetcher do
-  let(:file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/secondary_feedback_data/#{file}" }
+RSpec.describe Evidence::GenAI::SecondaryFeedback::DataFetcher do
+  let(:file_path) { "#{Evidence::Engine.root}/app/services/evidence/gen_ai/secondary_feedback/data/#{file}" }
   let(:file) { described_class::FILE_TRAIN }
   let(:conjunctions) { Evidence::Prompt::CONJUNCTIONS }
   let(:limit) { described_class::UNLIMITED }
@@ -40,7 +40,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackDataFetcher do
     let(:conjunctions) { ['because'] }
     let(:limit) { 1 }
 
-    it 'returns an array of SecondaryFeedbackSet objects filtered by conjunction and limited by the provided limit' do
+    it 'returns an array of SecondaryFeedback::DataSet objects filtered by conjunction and limited by the provided limit' do
       result = fetcher.run
 
       expect(result.size).to eq(1)
@@ -72,7 +72,7 @@ RSpec.describe Evidence::GenAI::SecondaryFeedbackDataFetcher do
       )
     end
 
-    it 'returns a SecondaryFeedbackSet object with correct attributes' do
+    it 'returns a SecondaryFeedback::DataSet object with correct attributes' do
       result = fetcher.send(:dataset_from_row, row)
 
       expect(result).to have_attributes(

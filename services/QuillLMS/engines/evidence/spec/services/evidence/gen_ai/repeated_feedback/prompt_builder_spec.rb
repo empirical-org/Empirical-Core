@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe Evidence::GenAI::RepeatedFeedbackPromptBuilder, type: :service do
+RSpec.describe Evidence::GenAI::RepeatedFeedback::PromptBuilder, type: :service do
   let(:prompt) { double('Prompt', text: 'Explain the causes of World War II.', first_passage: nil) }
   let(:history) { ['Feedback 1', 'Feedback 2'] }
   let(:template_content) { "Template with history:\n%<feedback_history>s" }
   let(:expected_output) { "Template with history:\n- Feedback 1\n- Feedback 2" }
-  let(:template_file_path) { Evidence::Engine.root.join("app/services/evidence/gen_ai/repeated_feedback_prompts/#{described_class::DEFAULT_TEMPLATE}") }
+  let(:template_file_path) { Evidence::Engine.root.join("app/services/evidence/gen_ai/repeated_feedback/prompts/#{described_class::DEFAULT_TEMPLATE}") }
 
   before do
     allow(File).to receive(:read).with(template_file_path).and_return(template_content)
@@ -37,7 +37,7 @@ RSpec.describe Evidence::GenAI::RepeatedFeedbackPromptBuilder, type: :service do
 
     describe '#template_folder' do
       it 'returns the template folder path' do
-        expect(subject.send(:template_folder)).to eq('app/services/evidence/gen_ai/repeated_feedback_prompts/')
+        expect(subject.send(:template_folder)).to eq('app/services/evidence/gen_ai/repeated_feedback/prompts/')
       end
     end
   end

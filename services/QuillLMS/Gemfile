@@ -89,15 +89,13 @@ gem 'parslet'
 gem 'redcarpet', '~> 3.5.1'
 
 # QUEUE/CACHE
-source 'https://gems.contribsys.com/' do
-  gem 'sidekiq-pro'
-end
 gem 'actionpack-action_caching'
 gem 'redis', '~> 4.5'
 gem 'redis-namespace', '~> 1.8'
 gem 'redis-rack-cache'
 gem 'redis-rails'
 gem 'sidekiq', '~> 5.2.10'
+source('https://gems.contribsys.com/') { gem 'sidekiq-pro' }
 gem 'sidekiq-retries', require: false
 
 # JS/APP/UI
