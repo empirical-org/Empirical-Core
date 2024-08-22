@@ -10,6 +10,24 @@ module Evidence
     let(:error) { Evidence::Check::Spelling::BingException }
     let(:error_context) { { entry: entry, prompt_id: prompt.id, prompt_text: prompt.text } }
 
+    let(:gen_ai_checks) do
+      [
+        Check::Prefilter,
+        Check::RegexSentence,
+        Check::Opinion,
+        Check::Plagiarism,
+        Check::GenAI,
+        Check::RegexPostTopic,
+        Check::Grammar,
+        Check::Spelling,
+        Check::RegexTypo
+      ]
+    end
+
+    before do
+      stub_const("Evidence::Check::ALL_CHECKS", gen_ai_checks)
+    end
+
     context 'get_feedback' do
       let(:response) { { key: 'value' } }
 
@@ -52,7 +70,7 @@ module Evidence
 
           feedback = Check.find_triggered_check(entry, prompt, previous_feedback)
 
-          expect(feedback).to be(Check::AutoML)
+          expect(feedback).to be(Check::GenAI)
         end
       end
 
@@ -120,7 +138,7 @@ module Evidence
         expect(Evidence.error_notifier).to receive(:report).with(error, error_context).once
 
         Check::ALL_CHECKS.each do |check_class|
-          if check_class == Check::AutoML
+          if check_class == Check::GenAI
             expect_any_instance_of(check_class).to receive(:run).and_raise(error)
           else
             expect_any_instance_of(check_class).to receive(:run)
@@ -141,13 +159,30 @@ module Evidence
         expect(Evidence.error_notifier).to receive(:report).with(error, error_context).once
 
         Check::ALL_CHECKS.each do |check_class|
-          if check_class == Check::AutoML
+          if check_class == Check::GenAI
             expect_any_instance_of(check_class).to receive(:run).and_raise(error)
           else
             expect_any_instance_of(check_class).to receive(:run)
             expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
           end
         end
+        result = Check.get_feedback(entry, prompt, previous_feedback)
+
+        expect(result).to eq(Check::FALLBACK_RESPONSE)
+      end
+
+      it 'provides constant-based feedback if there are multiple error-type rules' do
+        Check::ALL_CHECKS.each do |check_class|
+          if check_class == Check::GenAI
+            expect_any_instance_of(check_class).to receive(:run).and_raise('some error')
+          else
+            expect_any_instance_of(check_class).to receive(:run)
+            expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
+          end
+        end
+        create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
+        create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
+
         result = Check.get_feedback(entry, prompt, previous_feedback)
 
         expect(result).to eq(Check::FALLBACK_RESPONSE)
