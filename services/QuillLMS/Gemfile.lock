@@ -303,7 +303,7 @@ GEM
       csv (>= 3.0.0)
     get_process_mem (0.2.7)
       ffi (~> 1.0)
-    global (2.1.0)
+    global (1.1.0)
       activesupport (>= 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -921,7 +921,7 @@ DEPENDENCIES
   foreman
   gengo (~> 0.2.1)
   geocoder
-  global
+  global (~> 1.1)
   google-apis-classroom_v1 (~> 0.27.0)
   google-cloud-bigquery (~> 1.43.0)
   graphiql-rails
