@@ -32,6 +32,7 @@ interface StudentViewContainerProps {
   handleFinishActivity?: () => void;
   isTurk?: boolean;
   user: string;
+  userRole: string;
   previewMode: boolean;
 }
 
@@ -59,7 +60,7 @@ const STUDENT_HIGHLIGHT_ENDS_TEXT = "(highlighted text ends here)"
 const PASSAGE_HIGHLIGHT_STARTS_TEXT = "(yellow underlined text begins here)"
 const PASSAGE_HIGHLIGHT_ENDS_TEXT = "(yellow underlined text ends here)"
 
-export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, previewMode }: StudentViewContainerProps) => {
+export const StudentViewContainer = ({ dispatch, session, isTurk, location, activities, handleFinishActivity, user, previewMode, userRole, }: StudentViewContainerProps) => {
   const skipToSpecificStep = window.location.href.includes('skipToStep')
   const shouldSkipToPrompts = window.location.href.includes('turk') || window.location.href.includes('skipToPrompts') || skipToSpecificStep
   const defaultCompletedSteps = shouldSkipToPrompts ? [READ_PASSAGE_STEP_NUMBER] : []
@@ -708,7 +709,7 @@ export const StudentViewContainer = ({ dispatch, session, isTurk, location, acti
 
   if(completeButtonClicked && !window.location.href.includes('turk')) {
     return(
-      <ActivityFollowUp activity={activities.currentActivity} dispatch={dispatch} previewMode={previewMode} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} />
+      <ActivityFollowUp activity={activities.currentActivity} dispatch={dispatch} previewMode={previewMode} responses={submittedResponses} saveActivitySurveyResponse={saveActivitySurveyResponse} sessionID={sessionID} userRole={userRole} />
     );
   }
 
