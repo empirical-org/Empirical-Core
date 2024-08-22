@@ -194,7 +194,7 @@ class ProfilesController < ApplicationController
       .joins(activity: :classification)
       .where(activity: { classification: ActivityClassification.evidence })
       .where(user_id: current_user.id)
-      .where('completed_at < ?'', DateTime.new(2024, School::SCHOOL_YEAR_START_MONTH, 1))
+      .where('completed_at < ?', DateTime.new(2024, School::SCHOOL_YEAR_START_MONTH, 1))
       .present?
   end
 
