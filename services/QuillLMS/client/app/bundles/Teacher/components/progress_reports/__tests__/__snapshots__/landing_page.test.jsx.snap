@@ -577,7 +577,7 @@ exports[`LandingPage component matches the snapshot when the user has assigned b
           class="generic-mini"
         >
           <a
-            href="/teachers/progress_reports/interdisciplinary-science"
+            href="/teachers/progress_reports/interdisciplinary-science/building-ai-knowledge"
           >
             <span
               class="new-tag"

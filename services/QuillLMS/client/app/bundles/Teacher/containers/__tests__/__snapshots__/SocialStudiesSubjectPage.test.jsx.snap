@@ -63,7 +63,7 @@ exports[`SocialStudiesSubjectPage renders correctly 1`] = `
               disabled=""
               type="button"
             >
-              View activities
+              Coming soon!
             </button>
           </div>
         </div>

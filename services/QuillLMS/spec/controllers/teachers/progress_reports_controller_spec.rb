@@ -209,8 +209,8 @@ describe Teachers::ProgressReportsController do
       it 'renders json with both social studies and science activities as true' do
         get :assigned_content_hub_activities_status
         expect(JSON.parse(response.body)).to eq({
-          "has_assigned_social_studies_activities" => true,
-          "has_assigned_science_activities" => true
+          'has_assigned_social_studies_activities' => true,
+          'has_assigned_science_activities' => true
         })
       end
     end
@@ -224,8 +224,8 @@ describe Teachers::ProgressReportsController do
       it 'renders json with both social studies and science activities as false' do
         get :assigned_content_hub_activities_status
         expect(JSON.parse(response.body)).to eq({
-          "has_assigned_social_studies_activities" => false,
-          "has_assigned_science_activities" => false
+          'has_assigned_social_studies_activities' => false,
+          'has_assigned_science_activities' => false
         })
       end
     end
@@ -239,7 +239,7 @@ describe Teachers::ProgressReportsController do
     it 'renders json with a unit_templates key' do
       get :world_history_1200_to_present_unit_templates
       expect(JSON.parse(response.body)).to eq({
-        "unit_templates" => []
+        'unit_templates' => []
       })
     end
   end
@@ -252,7 +252,7 @@ describe Teachers::ProgressReportsController do
 
     it 'renders json with a unit_templates key' do
       expect(JSON.parse(response.body)).to eq({
-        "unit_templates" => []
+        'unit_templates' => []
       })
     end
   end
