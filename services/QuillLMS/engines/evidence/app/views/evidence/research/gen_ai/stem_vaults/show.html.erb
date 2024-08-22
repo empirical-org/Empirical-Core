@@ -52,8 +52,15 @@
     <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@stem_vault), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </h3>
   <ul>
-    <% @stem_vault.guidelines.optimal.each do |guideline| %>
-      <li><%= guideline %></li>
+    <% @optimal_guidelines.each do |guideline| %>
+      <%= form_with(url: hide_research_gen_ai_stem_vault_guideline_path(@stem_vault, guideline), method: :patch, class: 'guideline-form') do |f| %>
+        <li id="guideline_<%= guideline.id %>" class="guideline-item">
+          <div class="guideline-content">
+            <%= guideline %>
+          </div>
+          <%= f.submit 'Hide', class: 'hide-button', data: { confirm: 'Are you sure you want to hide this guideline?' } %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 
@@ -61,10 +68,16 @@
     Suboptimal Guidelines
     <%= link_to 'new', new_research_gen_ai_stem_vault_guideline_path(@stem_vault), class: 'new-link', target: '_blank', style: 'margin-right: 20px;' %>
   </h3>
-
   <ul>
-    <% @stem_vault.guidelines.suboptimal.each do |guideline| %>
-      <li><%= guideline %></li>
+    <% @suboptimal_guidelines.each do |guideline| %>
+      <%= form_with(url: hide_research_gen_ai_stem_vault_guideline_path(@stem_vault, guideline), method: :patch, class: 'guideline-form') do |f| %>
+        <li id="guideline_<%= guideline.id %>" class="guideline-item">
+          <div class="guideline-content">
+            <%= guideline %>
+          </div>
+          <%= f.submit 'Hide', class: 'hide-button', data: { confirm: 'Are you sure you want to hide this guideline?' } %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

@@ -59,7 +59,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @guidelines.optimal.each do |guideline| %>
+        <% @optimal_guidelines.each do |guideline| %>
           <tr>
             <td>
               <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
@@ -93,7 +93,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @guidelines.suboptimal.each do |guideline| %>
+        <% @suboptimal_guidelines.each do |guideline| %>
           <tr>
             <td>
               <%= f.check_box :guideline_ids, { multiple: true }, guideline.id, nil %>
