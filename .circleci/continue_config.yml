@@ -49,7 +49,6 @@ jobs:
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
-                no_output_timeout: 30m
             - save_cache:
                 key: bundle-cache-lms-v3-{{ checksum "services/QuillLMS/Gemfile.lock" }}
                 paths:
