@@ -36,5 +36,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda', '~> 4.0'
   s.add_development_dependency 'sidekiq', '~> 5.2.10'
-  s.add_development_dependency 'sidekiq-pro'
+  s.add_development_dependency 'sidekiq-pro', '~> 4.0'
 end
