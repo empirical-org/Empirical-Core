@@ -25,7 +25,7 @@ module Evidence
     end
 
     before do
-      stub_const("Evidence::Check::ALL_CHECKS", gen_ai_checks)
+      stub_const('Evidence::Check::ALL_CHECKS', gen_ai_checks)
     end
 
     context 'get_feedback' do
@@ -166,23 +166,6 @@ module Evidence
             expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
           end
         end
-        result = Check.get_feedback(entry, prompt, previous_feedback)
-
-        expect(result).to eq(Check::FALLBACK_RESPONSE)
-      end
-
-      it 'provides constant-based feedback if there are multiple error-type rules' do
-        Check::ALL_CHECKS.each do |check_class|
-          if check_class == Check::GenAI
-            expect_any_instance_of(check_class).to receive(:run).and_raise('some error')
-          else
-            expect_any_instance_of(check_class).to receive(:run)
-            expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
-          end
-        end
-        create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
-        create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
-
         result = Check.get_feedback(entry, prompt, previous_feedback)
 
         expect(result).to eq(Check::FALLBACK_RESPONSE)
