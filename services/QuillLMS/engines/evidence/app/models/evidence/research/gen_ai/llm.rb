@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_llms
 #
 #  id         :bigint           not null, primary key
+#  order      :integer          not null
 #  vendor     :string           not null
 #  version    :string           not null
 #  created_at :datetime         not null
@@ -35,8 +36,11 @@ module Evidence
 
         validates :vendor, presence: true
         validates :version, presence: true
+        validates :order, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
         attr_readonly :vendor, :version
+
+        before_validation :set_default_order
 
         def self.auto_cot = find_by(vendor: OPEN_AI, version: GPT_4_O)
         def self.g_eval = find_by(vendor: GOOGLE, version: GEMINI_1_5_FLASH_LATEST)
@@ -56,6 +60,10 @@ module Evidence
         end
 
         def to_s = "#{vendor}: #{version}"
+
+        private def set_default_order
+          self.order ||= (self.class.maximum(:order) || 0) + 1
+        end
       end
     end
   end

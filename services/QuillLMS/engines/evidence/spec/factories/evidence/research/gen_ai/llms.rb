@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_llms
 #
 #  id         :bigint           not null, primary key
+#  order      :integer          not null
 #  vendor     :string           not null
 #  version    :string           not null
 #  created_at :datetime         not null

@@ -48,6 +48,7 @@
         <tbody>
           <% @trials.each.with_index(0) do |trial, index| %>
             <% llm_prompt = trial.llm_prompt %>
+            <% next unless llm_prompt %>
             <tr>
               <td><%= "Trial #{trial.number}" %></td>
               <td><%= date_helper(trial.created_at) %></td>
