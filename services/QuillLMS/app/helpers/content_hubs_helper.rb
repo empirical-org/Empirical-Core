@@ -177,7 +177,7 @@ module ContentHubsHelper
         description: 'Students will read a text that explores opposing perspectives on using generative artificial intelligence to improve non-player characters (NPCs) in video games.',
         paired_ai_edu_activities: [
           {
-            name: 'Methink'st thou art a general offense',
+            name: "Methink'st thou art a general offense",
             link: 'https://docs.google.com/presentation/d/1i3GaqNUIIHoSLTptHu-0TQ4vZGFyEbN2-RWxaGZps-c/edit#slide=id.g1265186feb3_0_242'
           }
         ]
@@ -236,7 +236,7 @@ module ContentHubsHelper
         activities: activities_with_preview_link(industrialization_activities)
       },
       {
-        display_name: ''New' Imperialism & Resistance (1850-1950 CE)',
+        display_name: "'New' Imperialism & Resistance (1850-1950 CE)",
         description: 'As industrialized nations competed for raw materials and new markets, they expanded their influence and control over parts of Africa, Asia, and other regions. These imperial ambitions led to the establishment of vast colonial empires. At the same time, local populations used many different strategies to resist and challenge these colonizing forces.',
         unit_template_id: 597,
         oer_unit_website: 'https://www.oerproject.com/1200-to-the-Present/Unit-6',
@@ -316,7 +316,7 @@ module ContentHubsHelper
     [
       {
         activity_id: 2518,
-        display_name: 'How Did Horses Reshape Indigenous Americans' Ways of Life?',
+        display_name: "How Did Horses Reshape Indigenous Americans' Ways of Life?",
         description: 'Students will read and write about the impact of growing horse populations on 16th and 17th century Indigenous communities on the North American Plains.',
         paired_oer_asset_name: 'The Columbian Exchange',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/The-Columbian-Exchange'
@@ -330,7 +330,7 @@ module ContentHubsHelper
       },
       {
         activity_id: 2516,
-        display_name: 'Why Did a 'Hidden Christian' Community Emerge in Tokugawa Japan?',
+        display_name: "Why Did a 'Hidden Christian' Community Emerge in Tokugawa Japan?",
         description: 'Students will read and write about the political and cultural responses to the spread of Catholicism in Japan during the 1600s.',
         paired_oer_asset_name: 'Oceanic Empires, 1450 to 1750',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit3/Oceanic-Empires-1450-to-1750'
@@ -350,14 +350,14 @@ module ContentHubsHelper
       {
         activity_id: 2519,
         display_name: 'Why Did France Intervene in the American Revolution?',
-        description: 'Students will read and write about France's motivation for supporting North American colonists in their fight for independence during the American Revolution.',
+        description: "Students will read and write about France's motivation for supporting North American colonists in their fight for independence during the American Revolution.",
         paired_oer_asset_name: 'Economic and Material Causes of Revolt',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/AP-World-History/Unit5/Economic-and-Material-Causes-of-Revolt'
       },
       {
         activity_id: 2427,
         display_name: 'How Did Haiti Become the First Independent Black Republic?',
-        description: 'Students will read and write about how enslaved people led a revolution in Haiti and won the country's independence from France.',
+        description: "Students will read and write about how enslaved people led a revolution in Haiti and won the country's independence from France.",
         paired_oer_asset_name: 'Americas in 1750',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit1/Americas-in-1750'
       }
@@ -369,7 +369,7 @@ module ContentHubsHelper
       {
         activity_id: 2545,
         display_name: 'How Did British Women Workers Fight for Their Rights in the 19th Century?',
-        description: 'Students will read and write about how groups like the Women's Protective and Provident League (WPPL) helped British women workers organize to improve their pay and conditions.',
+        description: "Students will read and write about how groups like the Women's Protective and Provident League (WPPL) helped British women workers organize to improve their pay and conditions.",
         paired_oer_asset_name: 'Responses to Industrialization',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit5/Responses-to-Industrialization'
       },
@@ -428,7 +428,7 @@ module ContentHubsHelper
       {
         activity_id: 2482,
         display_name: 'Why Was Racial Equality Excluded From the Treaty of Versailles?',
-        description: 'Students will read and write about the debate over including Japan's Racial Equality Proposal in the Treaty of Versailles.',
+        description: "Students will read and write about the debate over including Japan's Racial Equality Proposal in the Treaty of Versailles.",
         paired_oer_asset_name: 'Fascist Histories, Part I',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit7/Fascist-Histories-Part-I'
       },
@@ -447,7 +447,7 @@ module ContentHubsHelper
       {
         activity_id: 2491,
         display_name: 'How Did Bananas Lead to a Coup in Guatemala?',
-        description: 'Students will read and write about the causes and effects of the United States' intervention in Guatemala during the Cold War.',
+        description: "Students will read and write about the causes and effects of the United States' intervention in Guatemala during the Cold War.",
         paired_oer_asset_name: 'The Cold War Around the World',
         paired_oer_asset_link: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1750/Unit8/The-Cold-War-Around-the-World'
       },
