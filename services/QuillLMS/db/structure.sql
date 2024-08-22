@@ -3391,7 +3391,8 @@ CREATE TABLE public.evidence_research_gen_ai_llms (
     vendor character varying NOT NULL,
     version character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    "order" integer NOT NULL
 );
 
 
@@ -12145,6 +12146,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240801134426'),
 ('20240805190219'),
 ('20240808123813'),
-('20240821210256');
+('20240821210256'),
+('20240822145310');
 
 
