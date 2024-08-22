@@ -200,10 +200,6 @@ group :test, :development do
   gem 'timecop', '~> 0.9.8'
 end
 
-group :test, :development, :cypress do
-  gem 'cypress-on-rails', '~> 1.0'
-end
-
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
