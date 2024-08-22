@@ -11,6 +11,7 @@ jobs:
         default: false
     working_directory: ~/Empirical-Core
     parallelism: 8
+    resource_class: xlarge
     docker:
       - image: cimg/ruby:3.2.2
         environment:
