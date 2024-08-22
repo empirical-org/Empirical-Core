@@ -48,7 +48,6 @@ module EmpiricalGrammar
     # https://stackoverflow.com/questions/31953498/can-i-write-postgresql-functions-on-ruby-on-rails
     # Aug 21, 2018 Max Buck]
     config.active_record.schema_format = :sql
-    config.active_record.legacy_connection_handling = false
 
     config.action_controller.always_permitted_parameters = %w[controller action format]
 
