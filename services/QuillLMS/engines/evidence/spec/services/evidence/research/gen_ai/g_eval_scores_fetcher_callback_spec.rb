@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require 'sidekiq-pro'
-require 'sidekiq/testing'
 
 module Evidence
   module Research

@@ -32,6 +32,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'faker', '3.2.0'
   s.add_development_dependency 'pg', '1.4.2'
+  s.add_development_dependency 'redis', '~> 4.5'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'shoulda', '~> 4.0'
+  s.add_development_dependency 'sidekiq', '~> 5.2.10'
+  s.add_development_dependency 'sidekiq-pro'
 end

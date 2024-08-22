@@ -16,7 +16,7 @@ module Evidence
           batch.on(:complete, GEvalScoresFetcherCallback, trial_id: trial.id, llm_example_ids:)
 
           batch.jobs do
-            trial.g_eval_ids&.index_with do |g_eval_id|
+            trial.g_eval_ids&.each do |g_eval_id|
               llm_example_ids.each do |llm_example_id|
                 RunGEvalWorker.perform_async(trial.id, g_eval_id, llm_example_id)
               end
