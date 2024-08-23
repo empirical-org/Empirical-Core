@@ -172,7 +172,6 @@ jobs:
                   cd services/QuillLMS
                   sudo npx playwright install-deps
                   npx playwright install
-                  bundle exec rails runner "puts 'user id:' ; puts User.find_by_email('johnnyci@gmail.com').id"
                   CI=true npx playwright test
                 environment:
                   DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
@@ -527,7 +526,7 @@ parameters:
     default: false
   lms-run-integration:
     type: boolean
-    default: true # temporarily hardcoded for testing
+    default: false
   lms-run-evidence:
     type: boolean
     default: false
