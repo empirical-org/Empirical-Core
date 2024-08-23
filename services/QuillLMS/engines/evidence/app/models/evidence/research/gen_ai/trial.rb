@@ -38,6 +38,7 @@ module Evidence
 
         validates :llm_id, :llm_prompt_id, :dataset_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
+        validates :temperature, presence: true
 
         delegate :stem_vault, to: :dataset
         delegate :conjunction, :name, to: :stem_vault
