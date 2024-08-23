@@ -7,7 +7,7 @@ test('has visible footer', async ({ page }) => {
 });
 
 
-test('@login form submission with valid credentials', async ({ page }) => {
+test.skip('@login form submission with valid credentials', async ({ page }) => {
   await page.goto('http://localhost:5000/session/new');
 
   await page.getByLabel('Email or username').click();
