@@ -9,10 +9,13 @@ const iconGroups = [
     icons: [
       { path: "book-empty.svg" },
       { path: "clipboard.svg" },
+      { path: "comment-document.svg" },
       { path: "diagnostic.svg" },
       { path: "evidence-handbook.svg" },
       { path: "list.svg" },
+      { path: "research-books.svg" },
       { path: "retry-pencil.svg" },
+      { path: "search-document.svg" },
       { path: "search-empty.svg" },
       { path: "success.svg" }
     ]

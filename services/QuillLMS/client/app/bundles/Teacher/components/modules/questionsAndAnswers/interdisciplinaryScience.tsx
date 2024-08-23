@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-const socialStudies = () => [
+const interdisciplinaryScience = () => [
   {
     question: 'How does Quill Reading for Evidence build reading, writing, and critical thinking skills?',
     answer: (
@@ -15,11 +15,11 @@ const socialStudies = () => [
     answer: (
       <div>
         <p>Over the last few years, we&apos;ve watched as more and more digital tools enter classrooms that intend to improve students&apos; reading and writing. We&apos;ve been struck by the fact that virtually all of them assess student learning the same way: through multiple-choice questions. Many members of the Quill team are former teachers; we&apos;ve seen firsthand what many students do with multiple-choice questions: they scan the text for the “right answer,” and move on as soon as they find it, or worse, they copy the answers from a friend or a quick Google search. We wanted to create a digital reading tool that would go <i>beyond</i> multiple-choice—to provide a rich learning experience, and not only an assessment of learning.</p>
-        <p>We began with a writing strategy in which students are asked to use the connectives <i>because</i>, <i>but</i>, and <i>so</i> to expand a provided sentence stem. In the paper-based version of this activity, a social studies teacher, for example, might give students the stem: “The British government wanted to vaccinate the public against smallpox…” A strong set of sentences in response might be:</p>
+        <p>We began with a writing strategy in which students are asked to use the connectives <i>because</i>, <i>but</i>, and <i>so</i> to expand a provided sentence stem.  In the paper-based version of this activity, an ELA or Science teacher, for example, might give students the stem: “The sounds of a coral reef can help scientists monitor its health…” A strong set of sentences in response might be:</p>
         <ul>
-          <li>The British government wanted to vaccinate the public against smallpox <strong>because</strong> <i>smallpox was responsible for the deaths of thousands of people in England every year</i>.</li>
-          <li>The British government wanted to vaccinate the public against smallpox, <strong>but</strong> <i>some citizens believed that it was a violation of their medical freedom</i>.</li>
-          <li>The British government wanted to vaccinate the public against smallpox, <strong>so</strong> <i>the British government made these laws mandatory</i>.</li>
+          <li>The sounds of a coral reef can help scientists monitor its health <strong>because</strong> <i>healthy reefs are noisy, while unhealthy reefs are quieter</i>.</li>
+          <li>The sounds of a coral reef can help scientists monitor its health, <strong>but</strong> <i>reviewing coral reef recordings can be a slow and difficult task</i>.</li>
+          <li>The sounds of a coral reef can help scientists monitor its health, <strong>so</strong> <i>some scientists are using machine learning to analyze audio recordings more efficiently</i>.</li>
         </ul>
         <p>This activity accomplishes so much simultaneously. Students have to read—and have to <i>understand</i> what they read—to complete the stems. Instead of selecting A, B, C, or D, they have to think through complex logical relationships: cause-effect and claim-counterclaim.</p>
         <p>What&apos;s more, even with the wide variety of sentences they might write, students will get precise, targeted feedback. Quill&apos;s AI Feedback Bot can show students where to reread, suggest information to include in their response, or show them an exemplar to follow. Each activity&apos;s feedback is highly specific to the activity&apos;s text. In the end, each student completing a Reading for Evidence activity gets their own private coach.</p>
@@ -33,13 +33,13 @@ const socialStudies = () => [
       <div>
         <p>You may want to share the following with students before they complete a Reading for Evidence activity:</p>
         <ul>
+          <li><strong>Sometimes Quill&apos;s AI Feedback Bot will give the wrong feedback.</strong> Try your best to use the feedback you&apos;ve been given, and let Quill know when you&apos;ve received unhelpful feedback (just click the “Report a Problem” button under that piece of feedback). You can also share general feedback on the tool through the optional emoji survey at the end of every activity. </li>
           <li><strong>What kind of writing will Quill&apos;s AI Feedback Bot encourage and discourage?</strong></li>
           <ul>
             <li>These activities are all about specificity and accuracy. This means the Bot may ask for more detail if your response is accurate, but short.</li>
             <li>If you write a response that is accurate but not based on evidence from the text, the Bot will ask you to revise using evidence from the text. Likewise, you will be discouraged from using direct quotations—the Bot will prompt you to put ideas into your own words.</li>
             <li>The Bot will also discourage you from drawing your own conclusions, sharing an opinion, or giving a recommendation. (Of course, your teacher may want you to do this outside of these activities! But in Reading for Evidence, it's all about what's in the text.)</li>
           </ul>
-          <li><strong>Sometimes Quill&apos;s AI Feedback Bot will give the wrong feedback.</strong> Try your best to use the feedback you&apos;ve been given, and let Quill know when you&apos;ve received unhelpful feedback (just click the “Report a Problem” button under that piece of feedback). You can also share general feedback on the tool through the optional emoji survey at the end of every activity. </li>
         </ul>
         <p>For more on introducing Reading for Evidence to students, check out <a href="https://www.quill.org/teacher-center/using-quill-evidence-with-students-best-practices" rel="noopener noreferrer" target="_blank">this article</a>.</p>
       </div>
@@ -77,4 +77,4 @@ const socialStudies = () => [
   },
 ]
 
-export default socialStudies
+export default interdisciplinaryScience

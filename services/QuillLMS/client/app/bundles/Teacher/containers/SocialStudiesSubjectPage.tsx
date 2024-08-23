@@ -3,8 +3,8 @@ import ReactMarkdown from 'react-markdown';
 
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 
-import PreviewCard from '../components/shared/preview_card.jsx';
-import { requestGet } from '../../../modules/request';
+import SubjectPageTeacherCenterArticles from '../components/content_hubs/subject_page_teacher_center_articles'
+import SubjectPageSummary from '../components/content_hubs/subject_page_summary'
 import { LARGE_ICON_BASE_SRC, } from '../../Shared/index'
 
 const shipIconSrc = `${LARGE_ICON_BASE_SRC}/ship.svg`
@@ -12,65 +12,9 @@ const scrollIconSrc = `${LARGE_ICON_BASE_SRC}/scroll.svg`
 
 const pageImgBaseSrc = `${process.env.CDN_URL}/images/pages/social_studies_subject_page`
 
-const closeReadingSrc = `${pageImgBaseSrc}/close-reading.svg`
-const constructingClaimsSrc = `${pageImgBaseSrc}/constructing-claims.svg`
-const sentenceFundamentalsSrc = `${pageImgBaseSrc}/sentence-fundamentals.svg`
 const quillPlusOERProjectLogoSrc = `${pageImgBaseSrc}/quill-plus-oer-project-logo.svg`
 
-const GETTING_STARTED_COLLECTION_ID = 477
-const INTEGRATING_QUILL_EVIDENCE_ARTICLE_ID = 666
-
 const WORLD_HISTORY_1200_TO_PRESENT_LINK = `${window.location.pathname}/world-history-1200-to-present`.replace('//', '/')
-
-const TeacherCenterArticleCard = ({ blogPostId, }) => {
-  const [blogPost, setBlogPost] = React.useState(null);
-  const [blogPostAuthor, setBlogPostAuthor] = React.useState(null);
-
-  React.useEffect(() => {
-    getBlogPost(blogPostId)
-  }, [])
-
-  function getBlogPost(id: string) {
-    requestGet(`/featured_blog_post/${id}`,
-      (data) => {
-        if(data.blog_post) {
-          const { blog_post, author } = data;
-          setBlogPost(blog_post)
-          setBlogPostAuthor(author)
-        }
-      }
-    )
-  }
-
-  function renderPreviewContent({ title, slug, preview_card_content, external_link, footer_content }) {
-    if (footer_content) {
-      return(
-        <section className="content-section">
-          <h4>{title}</h4>
-          <ReactMarkdown className="preview-card" source={footer_content} />
-          <section className="footer-section">
-            {blogPostAuthor && <p className="author">{`By ${blogPostAuthor}`}</p>}
-            <a className="quill-button focus-on-light contained teal extra-small" href={`/teacher-center/${slug}`} rel="noopener noreferrer" target="_blank">Read</a>
-          </section>
-        </section>
-      )
-    }
-
-    return(
-      <PreviewCard
-        color="teal"
-        content={preview_card_content}
-        externalLink={!!external_link}
-        key={title}
-        link={external_link ? external_link : `/teacher-center/${slug}`}
-      />
-    )
-  }
-
-  if(!blogPost) { return <span /> }
-
-  return renderPreviewContent(blogPost)
-}
 
 const overview = (
   <header>
@@ -92,7 +36,7 @@ const overview = (
             <h2>World History</h2>
             <span>1750 CE - Present</span>
           </div>
-          <button className="quill-button focus-on-light medium disabled contained" disabled={true} type="button">View activities</button>
+          <button className="quill-button focus-on-light medium disabled contained" disabled={true} type="button">Coming soon!</button>
         </div>
       </div>
     </div>
@@ -100,29 +44,9 @@ const overview = (
 )
 
 const summary = (
-  <section className="summary-section">
-    <div className="container">
-      <h2>Build Content Knowledge & Writing Skills With Reading for Evidence</h2>
-      <p>Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:</p>
-      <div className="summary-items">
-        <div className="summary-item">
-          <img alt="" src={closeReadingSrc} />
-          <h3>Close reading</h3>
-          <p>Every activity begins with a structured highlighting task as an entry point to the text. Then, students read and reread up to ten times in the process of developing their responses.</p>
-        </div>
-        <div className="summary-item">
-          <img alt="" src={constructingClaimsSrc} />
-          <h3>Constructing evidence-based claims</h3>
-          <p>Students receive custom feedback developed by real teachers to help them use what they have read to craft strong sentences.</p>
-        </div>
-        <div className="summary-item">
-          <img alt="" src={sentenceFundamentalsSrc} />
-          <h3>Sentence fundamentals</h3>
-          <p>Practice with conjunctions like because, but, and so provides students with a framework to combine sentences and express complex ideas effectively. Once they’ve clearly captured these ideas in their response, students receive grammar and spelling guidance too.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SubjectPageSummary
+    paragraphCopy="Written and reviewed by social studies educators, each Quill Social Studies text highlights a moment or movement linked to course themes. Not only do these activities deepen students’ subject area learning and reinforce essential social studies content, they also provide support for:"
+  />
 )
 
 const teacherQuotes = (
@@ -131,38 +55,37 @@ const teacherQuotes = (
       <h2>What Are Social Studies Teachers Saying?</h2>
       <div className="quote-boxes">
         <div className="quote-box">
-          <p>“With Quill giving them that instant feedback, it&#39;s like having me over their shoulder, but with everyone at the same time.”</p>
-          <span>Alison B.</span>
+          <p>“Quill has been helpful in giving them a toolkit to make arguments [and] to identify and test claims.”</p>
+          <div>
+            <span className="name">Rachel R.</span>
+            <span>State Fine Arts High School</span>
+            <span>Modern World History</span>
+          </div>
         </div>
         <div className="quote-box">
           <p>“They&#39;re learning content that I would probably not have time to teach them. They are practicing skills that, honestly, they all need more practice on every day.”</p>
-          <span>Amber L. </span>
+          <div>
+            <span className="name">Amber L.</span>
+            <span>Glasgow School District</span>
+          </div>
         </div>
         <div className="quote-box">
-          <p>“I think Quill has helped them understand what they&#39;re really looking for in the document or in the writing -— they are definitely annotating and highlighting better as the semester goes on.”</p>
-          <span>Devin G.</span>
+          <p>“I would say that the combination of using the OER curriculum and Quill has pushed them in their reading stamina and level.”</p>
+          <div>
+            <span className="name">Tricia C.</span>
+            <span>Latexo High School</span>
+            <span>9th Grade World History</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 )
 
-const oerProject = (
-  <section className="oer-project container">
+const partners = (
+  <section className="partners container">
     <img alt="Quill logo plus OER Project logo" src={quillPlusOERProjectLogoSrc} />
-    <p>Quill has partnered with <a href="https://www.oerproject.com/" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
-  </section>
-)
-
-const teacherCenterArticles = (
-  <section className="teacher-center-articles">
-    <div className="container">
-      <h2>Learn more with these Teacher Center articles</h2>
-      <div className="articles-wrapper">
-        <TeacherCenterArticleCard blogPostId={GETTING_STARTED_COLLECTION_ID} />
-        <TeacherCenterArticleCard blogPostId={INTEGRATING_QUILL_EVIDENCE_ARTICLE_ID} />
-      </div>
-    </div>
+    <p>Quill has partnered with <a href="https://www.oerproject.com/World-History?WT.mc_id=00_00_2024__course-WHP_OER-QUILL_&WT.tsrc=OERQUILL" rel="noopener noreferrer" target="_blank">OER Project</a> to curate open educational resources from their site that work well with Quill social studies content. On the course landing page, each Reading for Evidence activity includes a suggested paired OER Project leveled text (ranging from 600L to 1500L). These texts can be used to preview new content, reinforce prior knowledge, provide additional historical context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or as part of the full OER Project curriculum, these resources are a valuable addition to any high school world history&nbsp;classroom.</p>
   </section>
 )
 
@@ -184,9 +107,9 @@ const SocialStudiesSubjectPage = ({}) => {
       {overview}
       {summary}
       {teacherQuotes}
-      {oerProject}
+      {partners}
       <QuestionsAndAnswers questionsAndAnswersFile="socialStudies" supportLink={null} />
-      {teacherCenterArticles}
+      <SubjectPageTeacherCenterArticles />
       {tryItOutForYourself}
     </div>
   )

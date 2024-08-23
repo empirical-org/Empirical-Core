@@ -33,7 +33,7 @@ const WorldHistory1200ToPresent = ({ backlinkPath, }) => {
   const partnerSection = (
     <div className="partner-section">
       <h2>Paired with the OER Project for deeper learning</h2>
-      <p>OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. Want to learn more? Visit <a href="www.oerproject.com" rel="noopener noreferrer" target="_blank">www.oerproject.com</a>!</p>
+      <p>OER Project provides open educational resources to empower teachers to better serve their students through innovative curricula and teaching tools. Currently, OER Project offers three complete social studies courses: Big History Project (BHP), World History Project (WHP), and World History AP (WH AP). Each course includes primary and secondary source readings, videos, and learning activities, along with scaffolded supports like leveled texts. <a href="https://www.oerproject.com/World-History?WT.mc_id=00_00_2024__course-WHP_OER-QUILL_&WT.tsrc=OERQUILL" rel="noopener noreferrer" target="_blank">Learn more about OER Project’s World History Project</a>.</p>
       <a className="quill-button medium outlined grey focus-on-light" href={contentPage}>Learn More About Quill’s Social Studies Activities</a>
     </div>
   )

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Tooltip, } from '../../../Shared/index'
+import { Tooltip, pluralize, } from '../../../Shared/index'
 
 const evidenceImgSrc = `${process.env.CDN_URL}/images/icons/s/tool-evidence.svg`
 
@@ -64,7 +64,7 @@ const CoursePageActivity = ({ activity, }) => {
           <p className="asset-line"><span>Optional Paired OER Project Activity:</span> {assetLink(paired_oer_asset_link, paired_oer_asset_name)}</p>
         )}
         {paired_ai_edu_activities?.length && (
-          <p className="asset-line"><span>Optional Paired aiEDU Activities:</span> {renderPairedActivityLinks(paired_ai_edu_activities)}</p>
+          <p className="asset-line"><span>Optional Paired aiEDU {pluralize(paired_ai_edu_activities.length, 'Activity', 'Activities')}:</span> {renderPairedActivityLinks(paired_ai_edu_activities)}</p>
         )}
       </div>
       {resultsSection}
