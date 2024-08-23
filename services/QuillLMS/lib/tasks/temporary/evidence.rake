@@ -6,8 +6,8 @@ namespace :evidence do
       .joins(:activity)
       .where(activity: { classification: ActivityClassification.evidence })
       .where(completed_at: ..DateTime.new(2023, 11, 15))
-      .find_each do |concept_result|
-      EvidenceUpdateScoringWorker.perform_async(concept_result.activity_session_id)
+      .find_each do |activity_session|
+      EvidenceUpdateScoringWorker.perform_async(activity_session.id)
     end
   end
 end
