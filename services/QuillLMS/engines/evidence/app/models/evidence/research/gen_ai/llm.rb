@@ -18,6 +18,8 @@ module Evidence
       class LLM < ApplicationRecord
         class UnsupportedVendorError < StandardError; end
 
+        DEFAULT_TEMPERATURE = 1.0
+
         GOOGLE_VERSIONS = [
           GEMINI_1_0_PRO = 'gemini-1.0-pro',
           GEMINI_1_5_PRO_LATEST = 'gemini-1.5-pro-latest',
@@ -47,7 +49,7 @@ module Evidence
 
         def completion_client = VENDOR_COMPLETION_MAP.fetch(vendor) { raise UnsupportedVendorError }
 
-        def completion(prompt) = completion_client.run(prompt:, llm: self)
+        def completion(prompt, temperature) = completion_client.run(prompt:, llm: self, temperature: DEFAULT_TEMPERATURE)
 
         def google? = vendor == GOOGLE
         def open_ai? = vendor == OPEN_AI

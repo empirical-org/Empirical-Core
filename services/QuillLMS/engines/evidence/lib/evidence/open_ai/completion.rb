@@ -7,11 +7,12 @@ module Evidence
 
       ENDPOINT = '/chat/completions'
 
-      attr_reader :prompt, :llm
+      attr_reader :prompt, :llm, :temperature
 
-      def initialize(prompt:, llm:)
+      def initialize(prompt:, llm:, temperature:)
         @prompt = prompt
         @llm = llm
+        @temperature = temperature
       end
 
       def endpoint = ENDPOINT
@@ -29,6 +30,7 @@ module Evidence
           messages: [
             { role: 'user', content: prompt }
           ],
+          temperature:
         }.merge(llm.request_body_customizations)
       end
     end

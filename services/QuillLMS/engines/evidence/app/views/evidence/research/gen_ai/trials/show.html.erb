@@ -29,6 +29,9 @@
     <h3>LLM Prompt</h3>
     <p><%= link_to @trial.llm_prompt.name, @trial.llm_prompt %></p>
 
+    <h3>Temperature</h3>
+    <p><%= @trial.temperature %></p>
+
     <% if @g_evals %>
       <h3>G-eval</h3>
       <% @g_evals.each do |g_eval| %>

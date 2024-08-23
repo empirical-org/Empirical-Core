@@ -33,6 +33,7 @@
             <th>Trial Number</th>
             <th>Created</th>
             <th>Prompt Template</th>
+            <th>Temperature</th>
             <th>Optimal Prompt Example Count</th>
             <th>Suboptimal Prompt Example Count</th>
             <th>Guidelines</th>
@@ -53,6 +54,7 @@
               <td><%= "Trial #{trial.number}" %></td>
               <td><%= date_helper(trial.created_at) %></td>
               <td><%= llm_prompt.name %></td>
+              <td><%= trial.temperature %></td>
               <td><%= llm_prompt.optimal_examples_count %></td>
               <td><%= llm_prompt.suboptimal_examples_count %></td>
               <td><%= llm_prompt.guidelines_count %></td>
