@@ -7,6 +7,7 @@
 #  id                         :bigint           not null, primary key
 #  curriculum_assigned_status :string           not null
 #  text                       :text             not null
+#  visible                    :boolean          default(TRUE), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  stem_vault_id              :integer          not null
@@ -24,6 +25,9 @@ module Evidence
         validates :curriculum_assigned_status, presence: true
         validates :stem_vault_id, presence: true
         validates :text, presence: true
+
+        scope :visible, -> { where(visible: true) }
+        scope :archived, -> { where(visible: false) }
 
         def self.assigned_status_column = :curriculum_assigned_status
 

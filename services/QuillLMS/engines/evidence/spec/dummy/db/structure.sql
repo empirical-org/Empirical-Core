@@ -1112,7 +1112,8 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    visible boolean DEFAULT true NOT NULL
 );
 
 
@@ -1314,7 +1315,8 @@ CREATE TABLE public.evidence_research_gen_ai_llms (
     vendor character varying NOT NULL,
     version character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    "order" integer NOT NULL
 );
 
 
@@ -2652,6 +2654,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240714214900'),
 ('20240801134328'),
 ('20240805185650'),
-('20240808123536');
+('20240808123536'),
+('20240821205700'),
+('20240822145206');
 
 
