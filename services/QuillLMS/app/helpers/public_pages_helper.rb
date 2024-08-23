@@ -413,7 +413,7 @@ module PublicPagesHelper
             <p>The following are our recommendations for teachers using Reading for Evidence with students:</p>
             <ol>
               <li><strong>Introduce students to Quill and the Reading for Evidence tool.</strong> Frame the work they are about to do. Explaining the function of the connectives <i>because</i>, <i>but</i>, and <i>so</i>) and providing examples can be particularly helpful.</li>
-              <li><strong>Walk students through the student onboarding section of a Reading for Evidence activity.</strong> These pages emphasize three takeaways: all writers revise; feedback may not always be correct; their teacher can see their responses and score./li>
+              <li><strong>Walk students through the student onboarding section of a Reading for Evidence activity.</strong> These pages emphasize three takeaways: all writers revise; feedback may not always be correct; their teacher can see their responses and score.</li>
               <li><strong>Model application of Reading for Evidence&apos;s feedback.</strong> This helps students develop the skill of applying feedback. This is also a great place to explain what Reading for Evidence is looking for.</li>
               <li><strong>Align Reading for Evidence activities to your curriculum.</strong> Whenever possible, help students connect the content in Reading for Evidence activities to content they've studied in your class.</li>
               <li><strong>Invite students to reflect on their thinking, writing, and learning in the tool.</strong> Have students use <i>because</i>, <i>but</i>, and <i>so</i> to extend their responses about content in class. </li>

@@ -46,14 +46,17 @@
         color: $quill-teal;
         max-width: 355px;
         border-radius: 8px;
+        padding: 0px;
         .topic {
           font-weight: 700;
           font-size: 22px;
-          margin: 12px 0px 12px 0px;
+          margin: 16px 0px 12px 0px;
         }
         img {
           width: 355px;
           height: 239px;
+          object-fit: cover;
+          object-position: top;
         }
         .activity-title {
           font-size: 20px;
@@ -70,7 +73,7 @@
           margin-top: 24px;
         }
         .q-button {
-          margin-bottom: 18px;
+          margin-bottom: 16px;
           border: 1px solid $quill-teal;
           border-radius: 4px;
           font-size: 14px;
