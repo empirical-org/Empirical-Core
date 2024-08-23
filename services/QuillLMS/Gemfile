@@ -194,9 +194,9 @@ group :test, :development do
   gem 'rspec-rails', '~> 6.0.4'
   gem 'rspec-redis_helper'
   gem 'rspec-retry'
-  gem 'rubocop'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
+  gem 'rubocop', '= 1.64.1'
+  gem 'rubocop-rails', '= 2.25.0'
+  gem 'rubocop-rspec', '= 2.25.0'
   gem 'timecop', '~> 0.9.8'
 end
 
