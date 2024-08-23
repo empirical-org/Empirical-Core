@@ -66,35 +66,18 @@ module Evidence
         def running? = status == RUNNING
         def completed? = status == COMPLETED
 
+        def pending! = update!(status: PENDING)
+        def failed! = update!(status: FAILED)
+        def running! = update!(status: RUNNING)
+        def completed! = update!(status: COMPLETED)
+
+        def run = TrialRunner.run(self)
+
         def optimal_correct = confusion_matrix ? confusion_matrix[0][0] : 0
         def suboptimal_correct = confusion_matrix ? confusion_matrix[1][1] : 0
 
-        def average_g_eval_score
-          return 0 if scores.blank?
-
-          (1.0 * scores.sum / scores.size).round(2)
-        end
-
+        def average_g_eval_score = scores.blank? ? 0 : (1.0 * scores.sum / scores.size).round(2)
         def scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
-
-        def run
-          return unless pending?
-
-          update!(trial_start_time: Time.zone.now)
-          update!(status: RUNNING)
-
-          batch = Sidekiq::Batch.new
-          batch.on(:complete, self.class, trial_id: id)
-
-          batch.jobs do
-            test_examples.each do |test_example|
-              BuildLLMExampleWorker.perform_async(id, test_example.id)
-            end
-          end
-        rescue => e
-          trial_errors << e.message
-          update!(status: FAILED)
-        end
 
         def update_results!(new_data)
           self.results ||= {}
@@ -102,18 +85,15 @@ module Evidence
           save!
         end
 
-        def retry_params = { llm_id:, llm_prompt_id:, dataset_id: }
+        def set_confusion_matrix = update_results!(confusion_matrix: ConfusionMatrixBuilder.run(llm_examples))
+        def set_evaluation_start_time = update!(evaluation_start_time: Time.zone.now)
+        def set_trial_start_time = update!(trial_start_time: Time.zone.now)
+        def set_trial_duration = update!(trial_duration: Time.zone.now - Time.zone.parse(trial_start_time))
+        def set_status = trial_errors.empty? ? completed! : failed!
 
         private def set_trial_number
           last_trial_number = self.class.where(dataset_id:).maximum(:number) || 0
           self.number = last_trial_number + 1
-        end
-
-        private def on_complete(_status, options)
-          trial = Trial.find(options['trial_id'])
-          trial.update!(trial_duration: Time.zone.now - Time.zone.parse(trial.trial_start_time))
-          CalculateResultsWorker.perform_async(options['trial_id'])
-          trial.trial_errors.empty? ? trial.update!(status: COMPLETED) : trial.update!(status: FAILED)
         end
       end
     end
