@@ -201,7 +201,7 @@ group :test, :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '= 3.39.2'
   gem 'capybara-screenshot'
   gem 'fakeredis', '~> 0.7.0'
   gem 'rails-controller-testing'
