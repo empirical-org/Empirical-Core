@@ -407,32 +407,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -648,32 +627,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -889,32 +847,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -1150,32 +1087,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -1391,32 +1307,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -1652,32 +1547,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -1893,32 +1767,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -2134,32 +1987,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -2375,32 +2207,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -2616,32 +2427,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -2857,32 +2647,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -3098,32 +2867,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -3359,32 +3107,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -3600,32 +3327,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -3861,32 +3567,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -4102,32 +3787,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -4363,32 +4027,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -4604,32 +4247,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -4865,32 +4487,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -5106,32 +4707,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -5347,32 +4927,11 @@ exports[`IndividualStudentResponses component should render for a post-test 1`] 
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -5757,32 +5316,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -5998,32 +5536,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -6239,32 +5756,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -6500,32 +5996,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -6741,32 +6216,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -7002,32 +6456,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -7243,32 +6676,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -7484,32 +6896,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -7725,32 +7116,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -7966,32 +7336,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -8207,32 +7556,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -8448,32 +7776,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -8709,32 +8016,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -8950,32 +8236,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -9211,32 +8476,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -9452,32 +8696,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -9713,32 +8936,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -9954,32 +9156,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -10215,32 +9396,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -10456,32 +9616,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
@@ -10697,32 +9836,11 @@ exports[`IndividualStudentResponses component should render for a pre-test 1`] =
             <tr
               class="data-table-row  "
             >
-              <td>
-                <span
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  class="quill-tooltip-trigger "
-                  role="button"
-                  style="width: 66px; min-width: 66px; text-align: left;"
-                  tabindex="0"
-                >
-                  <span
-                    class="data-table-row-section undefined"
-                    style="width: 66px; min-width: 66px; text-align: left;"
-                  >
-                    Directions
-                  </span>
-                  <span
-                    class="quill-tooltip-wrapper"
-                  >
-                    <span
-                      aria-live="polite"
-                      class="quill-tooltip"
-                      id="tooltip"
-                      role="tooltip"
-                    />
-                  </span>
-                </span>
+              <td
+                class="data-table-row-section undefined"
+                style="width: 66px; min-width: 66px; text-align: left;"
+              >
+                Directions
               </td>
               <td
                 class="data-table-row-section undefined"
