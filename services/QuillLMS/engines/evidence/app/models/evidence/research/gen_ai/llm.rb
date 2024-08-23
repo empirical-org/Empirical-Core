@@ -49,7 +49,7 @@ module Evidence
 
         def completion_client = VENDOR_COMPLETION_MAP.fetch(vendor) { raise UnsupportedVendorError }
 
-        def completion(prompt, temperature) = completion_client.run(prompt:, llm: self, temperature: DEFAULT_TEMPERATURE)
+        def completion(prompt, temperature = DEFAULT_TEMPERATURE) = completion_client.run(prompt:, llm: self, temperature:)
 
         def google? = vendor == GOOGLE
         def open_ai? = vendor == OPEN_AI
