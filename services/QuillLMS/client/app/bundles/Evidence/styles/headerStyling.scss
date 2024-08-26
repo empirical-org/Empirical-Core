@@ -27,9 +27,7 @@
     border-right: 1px solid #0b9d88;
     .left-side {
       display: flex;
-      .quill-tooltip-trigger {
-        padding-top: 7px;
-      }
+      align-items: center;
     }
     #teacher-preview-menu-button {
       margin-left: 16px;
