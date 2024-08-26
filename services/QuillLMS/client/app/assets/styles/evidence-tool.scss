@@ -62,6 +62,7 @@
           font-size: 20px;
           margin: 18px 8px 10px 8px;
           max-width: 335px;
+          min-height: 58px;
         }
         #first-title-topic {
           margin-bottom: 0 !important;
@@ -168,6 +169,9 @@
     background-position-y: -32px;
     background-size: cover;
     background-repeat: no-repeat;
+    .evidence-report-graphic {
+      margin: 52px 0px;
+    }
     .inner-container {
       display: flex;
       max-width: 1175px;
@@ -186,10 +190,11 @@
             font-weight: 700;
             color: $quill-white;
             margin: 0px;
+            min-height: 69px;
           }
         }
         #image {
-          margin: 16px 0px 16px 0px;
+          margin: 18px 0px;
           max-width: 200px;
           max-height: 200px;
         }
