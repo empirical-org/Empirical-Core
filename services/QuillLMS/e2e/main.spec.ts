@@ -38,12 +38,15 @@ test('@login form submission with valid credentials', async ({ page }) => {
   await page.waitForSelector('#log-in');
   await expect(page.locator('#log-in')).toBeVisible()
 
-  await page.waitForTimeout(1000);
-  await page.locator('#log-in').click();
+
 
   // await page.mouse.wheel(0,200)
 
   await page.screenshot({ path: 'test-results/playwright_login.png', fullPage: true });
 
-  await page.waitForURL('/teachers/classrooms/dashboard');
+  await expect( async () => {
+    await page.locator('#log-in').click();
+    await page.waitForURL('/teachers/classrooms/dashboard')
+  }).toPass()
+
 });
