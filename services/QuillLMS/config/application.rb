@@ -8,7 +8,7 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 require 'sprockets/railtie'
 require 'active_support/core_ext/hash/indifferent_access'
-require "action_cable/engine" # workaround for Rails 7.1 upgrade: https://github.com/hotwired/turbo-rails/issues/512
+require 'action_cable/engine' # workaround for Rails 7.1 upgrade: https://github.com/hotwired/turbo-rails/issues/512
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
