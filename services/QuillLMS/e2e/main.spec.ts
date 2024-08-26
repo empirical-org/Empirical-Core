@@ -1,14 +1,14 @@
 import { test, expect } from '@playwright/test';
 
 test.skip('has visible footer', async ({ page }) => {
-  await page.goto('http://localhost:5000');
+  await page.goto('/');
 
   await expect(page.locator('footer')).toBeVisible();
 });
 
 
 test('@login form submission with valid credentials', async ({ page }) => {
-  await page.goto('http://localhost:5000/session/new');
+  await page.goto('/session/new');
 
   await page.getByLabel('Email or username').click();
   await expect(page.getByLabel('Email or username')).toBeVisible();
@@ -26,5 +26,5 @@ test('@login form submission with valid credentials', async ({ page }) => {
 
   await page.screenshot({ path: 'test-results/playwright_login.png', fullPage: true });
 
-  await page.waitForURL('http://localhost:5000/teachers/classrooms/dashboard');
+  await page.waitForURL('/teachers/classrooms/dashboard');
 });
