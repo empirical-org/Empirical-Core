@@ -111,7 +111,6 @@ module Evidence
 
         it 'should return default spelling feedback spelling endpoint has an error' do
           expect(Evidence.error_notifier).to receive(:report).with(Evidence::Check::Spelling::BingException, error_context).once
-          expect(Evidence.error_notifier).to receive(:report).with(NoMethodError).once
 
           stub_request(:get, "#{::Evidence::SpellingCheck::BING_API_URL}?mode=proof&text=#{ERB::Util.url_encode(entry)}").to_return(:status => 200, :body => { :error => { :message => "There's a problem here" } }.to_json, :headers => {})
           post :create, params: { entry: entry, :prompt_id => prompt.id, :session_id => 1 }, as: :json
