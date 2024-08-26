@@ -394,7 +394,6 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
 
   render() {
     const { question, isAdmin, previewMode, showTranslation, translate } = this.props
-    console.log("🚀 ~ PlayLessonQuestion ~ render ~ showTranslation:", showTranslation)
     const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions  } = this.state
     const questionID = question.key;
 
