@@ -34,8 +34,8 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
         completed_at: Date.new(year, 10, 2),
         updated_at: Date.new(year, 10, 2),
         activity: evidence_activity)
-      stub_const("VitallySharedFunctions::PRE_DIAGNOSTIC_IDS", [pre_diagnostic_activity.id])
-      stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
+      stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+      stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
       create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
     end
 
