@@ -73,11 +73,14 @@ module VitallySharedFunctions
   end
 
   def pre_diagnostics_completed
-    activities_finished_query.where(activity: { id: PRE_DIAGNOSTIC_IDS })
+    pre_diagnostic_ids = Activity.where(activity_classification_id: ActivityClassification.diagnostic.id).where.not(follow_up_activity: nil).pluck(:id)
+    activities_finished_query.where(activity: { id: pre_diagnostic_ids })
   end
 
   def post_diagnostics_completed
-    activities_finished_query.where(activity: { id: POST_DIAGNOSTIC_IDS })
+    pre_diagnostic_ids = Activity.where(activity_classification_id: ActivityClassification.diagnostic.id).where.not(follow_up_activity: nil).pluck(:id)
+    post_diagnostic_ids = Activity.where(id: pre_diagnostic_ids).pluck(:follow_up_activity_id)
+    activities_finished_query.where(activity: { id: post_diagnostic_ids })
   end
 
   private def evidence_assigned_count
