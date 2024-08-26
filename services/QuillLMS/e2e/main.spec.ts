@@ -25,6 +25,7 @@ test('@login form submission with valid credentials', async ({ page }) => {
   page.on('response', response => filterAndLogResponse(response, 'localhost|quill'));
 
   await page.goto('/session/new');
+  await page.waitForLoadState('networkidle');
 
   await page.getByLabel('Email or username').click();
   await expect(page.getByLabel('Email or username')).toBeVisible();
