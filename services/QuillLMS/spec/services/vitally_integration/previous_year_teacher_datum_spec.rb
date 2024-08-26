@@ -72,8 +72,8 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         classroom_unit: classroom_unit3,
         state: 'finished',
         completed_at: Date.new(2021, 10, 2))
-      stub_const("VitallySharedFunctions::PRE_DIAGNOSTIC_IDS", [pre_diagnostic_activity.id])
-      stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
+      stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+      stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
       create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
     end
 
