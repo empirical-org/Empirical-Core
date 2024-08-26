@@ -50,6 +50,7 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     VitallyIntegration::CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
     stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
     stub_const("VitallySharedFunctions::PRE_DIAGNOSTIC_IDS", [pre_diagnostic_activity.id])
+    create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
   it 'includes the accountId and userId in the data' do
