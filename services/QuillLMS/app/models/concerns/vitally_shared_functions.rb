@@ -5,7 +5,7 @@ module VitallySharedFunctions
 
   attr_reader :vitally_entity, :school_year_start, :school_year_end
 
-  PRE_DIAGNOSTIC_IDS = Activity.where(activity_classification_id: ActivityClassification&.diagnostic&.id).where.not(follow_up_activity: nil).pluck(:id)
+  PRE_DIAGNOSTIC_IDS = Activity.where(activity_classification_id: ActivityClassification.diagnostic&.id).where.not(follow_up_activity: nil).pluck(:id)
   POST_DIAGNOSTIC_IDS = Activity.where(id: PRE_DIAGNOSTIC_IDS).pluck(:follow_up_activity_id)
 
   def activities_per_student(active_students, activities_finished)
