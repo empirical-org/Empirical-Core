@@ -1,0 +1,28 @@
+<h1>
+  LLMs
+  <%= link_to 'new', new_research_gen_ai_llm_path, class: 'new-link', target: '_blank' %>
+</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vendor</th>
+      <th>Version</th>
+      <th>Order</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @llms.each do |llm| %>
+      <tr>
+        <td><%= llm.vendor %></td>
+        <td><%= llm.version %></td>
+        <td>
+          <%= form_with(model: llm, local: true) do |form| %>
+            <%= form.number_field :order, min: 0 %>
+            <%= form.submit 'Update' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

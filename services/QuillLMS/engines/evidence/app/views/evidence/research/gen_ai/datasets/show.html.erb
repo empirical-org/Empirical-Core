@@ -8,10 +8,10 @@
   <p><%= @dataset %></p>
 
 
-  <h3>Optimal Count</h3>
+  <h3>Optimal Test Count</h3>
   <p><%= @dataset.optimal_count %></p>
 
-  <h3>Suboptimal Count</h3>
+  <h3>Suboptimal Test Count</h3>
   <p><%= @dataset.suboptimal_count %></p>
   <hr/>
 
@@ -33,11 +33,11 @@
             <th>Trial Number</th>
             <th>Created</th>
             <th>Prompt Template</th>
-            <th>Optimal Examples</th>
-            <th>Sub-Optimal Feedback Examples</th>
+            <th>Optimal Prompt Example Count</th>
+            <th>Suboptimal Prompt Example Count</th>
             <th>Guidelines</th>
             <th>Optimal Accuracy</th>
-            <th>Sub-Optimal Accuracy</th>
+            <th>Suboptimal Accuracy</th>
             <th>Model</th>
             <th>GEval Average</th>
             <th>Status</th>
@@ -48,6 +48,7 @@
         <tbody>
           <% @trials.each.with_index(0) do |trial, index| %>
             <% llm_prompt = trial.llm_prompt %>
+            <% next unless llm_prompt %>
             <tr>
               <td><%= "Trial #{trial.number}" %></td>
               <td><%= date_helper(trial.created_at) %></td>

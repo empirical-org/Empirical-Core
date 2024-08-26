@@ -10,7 +10,7 @@ export const Footer = ({ buttonText, onHandleClick, step }) => {
     <section id="button-container">
       <span />
       <button className="quill-button-archived large secondary outlined focus-on-dark" onClick={handleClick} type="submit">{buttonText}</button>
-      <div id="step-indictator-container">
+      <div id="step-indicator-container">
         <div className={`step-indicator ${step === 1 ? 'active' : ''}`} />
         <div className={`step-indicator ${step === 2 ? 'active' : ''}`} />
         <div className={`step-indicator ${step === 3 ? 'active' : ''}`} />

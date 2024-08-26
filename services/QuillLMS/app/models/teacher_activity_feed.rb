@@ -47,7 +47,8 @@ class TeacherActivityFeed < RedisFeed
   end
 
   private def text_for_score(key, percentage)
-    if ActivityClassification.unscored?(key)
+    # handles fact that Evidence used to be unscored
+    if ActivityClassification.unscored?(key) || (key == ActivityClassification::EVIDENCE_KEY && percentage.nil?)
       return ActivitySession::COMPLETED
     end
 

@@ -394,7 +394,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849",
             "scoreTag": <Tooltip
               isTabbable={true}
-              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
               tooltipTriggerStyle={
                 Object {
                   "minWidth": "210px",
@@ -426,7 +426,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849",
             "scoreTag": <Tooltip
               isTabbable={true}
-              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
               tooltipTriggerStyle={
                 Object {
                   "minWidth": "210px",
@@ -458,7 +458,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849",
             "scoreTag": <Tooltip
               isTabbable={true}
-              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
               tooltipTriggerStyle={
                 Object {
                   "minWidth": "210px",
@@ -490,7 +490,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
             "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849",
             "scoreTag": <Tooltip
               isTabbable={true}
-              tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+              tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
               tooltipTriggerStyle={
                 Object {
                   "minWidth": "210px",
@@ -1824,7 +1824,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 >
                   <Tooltip
                     isTabbable={true}
-                    tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                    tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
                     tooltipTriggerStyle={
                       Object {
                         "minWidth": "210px",
@@ -1984,7 +1984,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 >
                   <Tooltip
                     isTabbable={true}
-                    tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                    tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
                     tooltipTriggerStyle={
                       Object {
                         "minWidth": "210px",
@@ -2144,7 +2144,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 >
                   <Tooltip
                     isTabbable={true}
-                    tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                    tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
                     tooltipTriggerStyle={
                       Object {
                         "minWidth": "210px",
@@ -2304,7 +2304,7 @@ exports[`ActivityFeed component not on mobile should render when there are activ
                 >
                   <Tooltip
                     isTabbable={true}
-                    tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+                    tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
                     tooltipTriggerStyle={
                       Object {
                         "minWidth": "210px",
@@ -3459,7 +3459,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/6/unit/85/user/7/activity/849",
           "scoreTag": <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3505,7 +3505,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
         <div>
           <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3587,7 +3587,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/85/user/7/activity/849",
           "scoreTag": <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3633,7 +3633,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
         <div>
           <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3715,7 +3715,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/6/activity/849",
           "scoreTag": <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3761,7 +3761,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
         <div>
           <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3843,7 +3843,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
           "link": "/teachers/progress_reports/report_from_classroom_and_unit_and_activity_and_user/classroom/1/unit/4/user/7/activity/849",
           "scoreTag": <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",
@@ -3889,7 +3889,7 @@ exports[`ActivityFeed component on mobile should render when there are activitie
         <div>
           <Tooltip
             isTabbable={true}
-            tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+            tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
             tooltipTriggerStyle={
               Object {
                 "minWidth": "210px",

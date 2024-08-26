@@ -155,8 +155,9 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   };
 
   function totalScoreOrNot() {
-    const { percentage, sessions } = data
-    const hasScoreData = percentage && sessions && sessions.length > 0
+    const { percentage, sessions, } = data
+
+    const hasScoreData = percentage !== null && sessions && sessions.length > 0
     if (hasScoreData && (!inStudentView || showExactScores)) {
       return displayScores()
     } else {
@@ -173,7 +174,7 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
   }
 
   function colorExplanation() {
-    const { percentage, } = data
+    const { percentage, activity_classification_key, } = data
 
     if (percentage === null) { return }
 
@@ -181,39 +182,54 @@ export const ScorebookTooltip = ({ data, inStudentView, showExactScores, }: Scor
 
     const scoreForComparison = percentage * 100
 
+    const isEvidenceActivity = activity_classification_key === EVIDENCE
+
     let header = 'Why Red?'
-    let descriptionLineOne = 'Rarely Demonstrated Skill'
-    let descriptionLineTwo = `${cutOff.nearlyProficient - 1} - 0% of prompts exhibit skill`
+    let descriptionElements = isEvidenceActivity ?
+      <p>You did not write a strong response within five revisions on any of the prompts.</p> :
+      (
+        <React.Fragment>
+          <p className="description">Rarely Demonstrated Skill</p>
+          <p className="description">{cutOff.nearlyProficient - 1} - 0% of prompts exhibit skill</p>
+        </React.Fragment>
+      )
 
     if (scoreForComparison >= cutOff.proficient) {
       header = 'Why Green?'
-      descriptionLineOne = 'Frequently Demonstrated Skill'
-      descriptionLineTwo = `100 - ${cutOff.proficient}% of prompts exhibit skill`
+      descriptionElements = isEvidenceActivity ?
+        <p>Within five revisions, you wrote a strong response for all prompts.</p> :
+        (
+          <React.Fragment>
+            <p className="description">Frequently Demonstrated Skill</p>
+            <p className="description">100 - {cutOff.proficient}% of prompts exhibit skill</p>
+          </React.Fragment>
+        )
     } else if (scoreForComparison >= cutOff.nearlyProficient) {
       header = 'Why Yellow?'
-      descriptionLineOne = 'Sometimes Demonstrated Skill'
-      descriptionLineTwo = `${cutOff.proficient - 1} - ${cutOff.nearlyProficient}% of prompts exhibit skill`
+      descriptionElements = isEvidenceActivity ?
+        <p>Within five revisions, you wrote a strong response for some, but not all, prompts.</p> :
+        (
+          <React.Fragment>
+            <p className="description">Sometimes Demonstrated Skill</p>
+            <p className="description">{cutOff.proficient - 1} - {cutOff.nearlyProficient}% of prompts exhibit skill</p>
+          </React.Fragment>
+        )
     }
 
     const descriptionElement = (
       <div className="description-block">
-        <p className="description">{descriptionLineOne}</p>
-        <p className="description">{descriptionLineTwo}</p>
+        {descriptionElements}
       </div>
     )
     return <ActivityDetailsSection description={descriptionElement} header={header} />
   }
 
   function tooltipMessage() {
-    const isEvidenceActivity = activity_classification_key === EVIDENCE
-
-    if (inStudentView && !showExactScores && !isEvidenceActivity) { return }
+    if (inStudentView && !showExactScores) { return }
 
     let text = 'Clicking on the activity icon loads the report'
 
-    if (inStudentView && isEvidenceActivity) {
-      text = 'This type of activity is not graded.'
-    } else if (inStudentView && showExactScores) {
+    if (inStudentView && showExactScores) {
       text = '*Your dashboard shows the highest score of all your attempts'
     }
 
