@@ -45,7 +45,6 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillLMS
-                  gem install bundler:2.3.17
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
@@ -205,7 +204,6 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillLMS
-                  gem install bundler:2.3.17
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
@@ -350,7 +348,6 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillCMS
-                  gem install bundler:2.3.26
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
             - save_cache:
