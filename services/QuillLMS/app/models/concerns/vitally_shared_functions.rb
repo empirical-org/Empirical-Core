@@ -53,19 +53,19 @@ module VitallySharedFunctions
   end
 
   def pre_diagnostics_completed_in_year_count
-    pre_diagnostics_completed.where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+    pre_diagnostics_completed.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
   end
 
   def post_diagnostics_completed_in_year_count
-    post_diagnostics_completed.where("activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?", school_year_start, school_year_end).count
+    post_diagnostics_completed.where('activity_sessions.completed_at >=? AND activity_sessions.completed_at < ?', school_year_start, school_year_end).count
   end
 
   def pre_diagnostics_assigned_count
-    sum_students(filter_pre_diagnostic((activities_assigned_query)))
+    sum_students(filter_pre_diagnostic(activities_assigned_query))
   end
 
   def post_diagnostics_assigned_count
-    sum_students(filter_post_diagnostic((activities_assigned_query)))
+    sum_students(filter_post_diagnostic(activities_assigned_query))
   end
 
   def diagnostics_completed
