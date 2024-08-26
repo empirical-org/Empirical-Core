@@ -69,8 +69,10 @@
           <td class='dark-border'>
             <%= test_example.curriculum_proposed_feedback %>
           </td>
+
           <% @trials.each do |trial| %>
-            <% llm_example = trial.llm_examples.find_by(test_example:) %>
+            <% llm_example = @llm_examples_map[[trial.id, test_example.id]]&.first %>
+
             <% if llm_example %>
               <% llm_example_index = trial.llm_examples.index(llm_example) %>
               <% g_eval_id = trial.g_evals&.keys&.first %>
