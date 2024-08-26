@@ -319,7 +319,7 @@ class GenAITasks < Thor
     end_time = Time.zone.now
 
     puts 'System Prompt'
-    puts check.send(:system_prompt)
+    puts check.send(:primary_feedback_prompt)
     print_line
     puts "Original Response: #{check.send(:primary_response)}"
     print_line
@@ -334,6 +334,7 @@ class GenAITasks < Thor
     puts "Time elapsed: #{end_time - start_time} seconds"
   end
 
+  # bundle exec thor gen_a_i_tasks:populate_concepts_and_rules
   desc 'populate_concepts_and_rules', 'Seed the 3 GenAI concepts, the 6 rules needed by the system'
   def populate_concepts_and_rules
     concept_mapping = {
