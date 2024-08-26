@@ -9,6 +9,7 @@
 #  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  temperature         :float            not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
@@ -37,6 +38,7 @@ module Evidence
 
         validates :llm_id, :llm_prompt_id, :dataset_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
+        validates :temperature, presence: true
 
         delegate :stem_vault, to: :dataset
         delegate :conjunction, :name, to: :stem_vault
@@ -55,7 +57,7 @@ module Evidence
           :trial_start_time,
           :evaluation_start_time
 
-        attr_readonly :llm_id, :llm_prompt_id, :dataset_id
+        attr_readonly :llm_id, :llm_prompt_id, :dataset_id, :temperature
 
         attr_accessor :guideline_ids, :llm_prompt_template_id, :prompt_example_ids, :g_eval_id
 

@@ -48,6 +48,7 @@
                   Prompt Template:
                   <%= link_to llm_prompt.llm_prompt_template, llm_prompt.llm_prompt_template %>
                 </li>
+                <li>Temperature: <%= trial.temperature %></li>
               </ul>
             </div>
             <%= render 'confusion_matrix', matrix: trial.confusion_matrix %>

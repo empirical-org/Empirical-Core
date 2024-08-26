@@ -9,6 +9,7 @@
 #  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  temperature         :float            not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
@@ -32,12 +33,14 @@ module Evidence
         it { should validate_presence_of(:llm_id) }
         it { should validate_presence_of(:llm_prompt_id) }
         it { should validate_presence_of(:dataset_id) }
+        it { should validate_presence_of(:temperature) }
 
         it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
 
         it { should have_readonly_attribute(:llm_id) }
         it { should have_readonly_attribute(:llm_prompt_id) }
         it { should have_readonly_attribute(:dataset_id) }
+        it { should have_readonly_attribute(:temperature) }
 
         it { should belong_to(:llm) }
         it { should belong_to(:llm_prompt) }
