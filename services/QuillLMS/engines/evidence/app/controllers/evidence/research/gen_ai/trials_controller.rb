@@ -8,10 +8,11 @@ module Evidence
 
         def new
           @trial = dataset.trials.new
-          @llms = LLM.all
+          @llms = LLM.order(:order)
           @llm_prompt_templates = LLMPromptTemplate.all
           @g_evals = GEval.selectable
-          @guidelines = dataset.stem_vault.guidelines
+          @optimal_guidelines = dataset.stem_vault.guidelines.optimal.visible
+          @suboptimal_guidelines = dataset.stem_vault.guidelines.suboptimal.visible
           @prompt_examples = dataset.prompt_examples
         end
 

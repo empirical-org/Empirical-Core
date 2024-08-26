@@ -27,6 +27,7 @@
     border-right: 1px solid #0b9d88;
     .left-side {
       display: flex;
+      align-items: center;
     }
     #teacher-preview-menu-button {
       margin-left: 16px;
@@ -64,7 +65,7 @@
   }
 
   img {
-    height: 25px;
+    height: 40px;
   }
 
   .right-side-container {

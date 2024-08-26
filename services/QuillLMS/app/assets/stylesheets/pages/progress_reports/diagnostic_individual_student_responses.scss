@@ -129,12 +129,12 @@
         margin-right: 0px;
       }
     }
-    .data-table-row-section:first-of-type {
+    td.data-table-row-section:first-of-type {
       color: $quill-grey-90;
       font-size: 13px;
       font-weight: 600;
     }
-    .data-table-row-section:last-of-type {
+    .data-table-row-section {
       font-size: 13px;
       font-weight: 400;
       line-height: 20px; /* 166.667% */

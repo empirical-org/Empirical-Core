@@ -22,7 +22,6 @@ const ScoringUpdatesCard = ({ handleCloseCard, }) => {
       handleCloseCard={handleCloseCard}
       icon={{ alt: "Image of a school building", src: "https://assets.quill.org/images/banners/large-school-campus-gold.svg" }}
       primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
     />
   )
 }
