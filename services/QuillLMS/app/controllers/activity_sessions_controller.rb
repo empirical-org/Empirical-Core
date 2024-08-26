@@ -3,7 +3,7 @@
 class ActivitySessionsController < ApplicationController
   include HTTParty
   include PublicProgressReports
-  # random change
+
   layout :determine_layout
 
   around_action :force_writer_db_role, only: [:activity_session_from_classroom_unit_and_activity]
