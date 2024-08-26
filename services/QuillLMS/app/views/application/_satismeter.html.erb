@@ -5,7 +5,7 @@
     writeKey: "<%= ENV["SATISMETER_API_KEY"] %>",
     userId: "<%= current_user.try!(:id) %>",
     traits: {
-      createdAt: "<%= current_user.try!(:created_at).to_s(:iso8601) %>"
+      createdAt: "<%= current_user.try!(:created_at).to_s %>"
     }
   });
 </script>
