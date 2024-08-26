@@ -38,6 +38,13 @@
     <%= f.collection_select :g_eval_id, @g_evals, :id, :to_s, { required: true } %>
   </div>
 
+  <div class="field-spacing">
+    <label>Temperature: (lower is less random)</label>
+    <br>
+    <%= f.range_field :temperature, min: 0.0, max: 2.0, step: 0.25, value: 1.0, id: 'trial_temperature' %>
+    <output id="temperature_value">1.0</output>
+  </div>
+
   <br>
   <div class="field-spacing optimal-section">
     <h3>
@@ -234,10 +241,30 @@
   th {
     background-color: #f2f2f2;
   }
+
+  .field-spacing {
+    margin-bottom: 15px;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  output {
+    margin-left: 10px;
+  }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    const temperatureSlider = document.getElementById('trial_temperature');
+    const temperatureOutput = document.getElementById('temperature_value');
+
+    temperatureSlider.addEventListener('input', function() {
+      temperatureOutput.textContent = this.value;
+    });
+
     function handleSelectAll(selectAllCheckboxId, tableId) {
       const selectAllCheckbox = document.getElementById(selectAllCheckboxId);
       const table = document.getElementById(tableId);

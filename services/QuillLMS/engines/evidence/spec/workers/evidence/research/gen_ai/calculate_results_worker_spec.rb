@@ -26,13 +26,24 @@ module Evidence
           let(:fetched_results) { { key: 'value' } }
 
           before do
-            allow(GEvalScoresFetcher).to receive(:run).with(trial)
             allow(Trial).to receive(:find).with(trial.id).and_return(trial)
+            allow(trial).to receive(:set_confusion_matrix)
+            allow(trial).to receive(:set_evaluation_start_time)
+            allow(GEvalScoresFetcher).to receive(:run).with(trial)
           end
 
-          it 'updates the confusion matrix' do
-            expect(trial).to receive(:update_results!).with(confusion_matrix: [[0, 0], [0, 0]])
-            expect(trial).to receive(:update!).with(evaluation_start_time: a_kind_of(ActiveSupport::TimeWithZone))
+          it 'sets the confusion matrix' do
+            expect(trial).to receive(:set_confusion_matrix)
+            subject
+          end
+
+          it 'sets the evaluation start time' do
+            expect(trial).to receive(:set_evaluation_start_time)
+            subject
+          end
+
+          it 'runs the GEvalScoresFetcher' do
+            expect(GEvalScoresFetcher).to receive(:run).with(trial)
             subject
           end
         end

@@ -7,8 +7,15 @@ module Evidence
         def show
           @comparison = Comparison.find(params[:id])
           @dataset = @comparison.dataset
-          @trials = @comparison.trials.order(id: :asc)
+          @trials = @comparison.trials.includes(:llm, llm_prompt: :llm_prompt_template, llm_examples: :test_example).order(id: :asc)
+
           @test_examples = @trials.first.dataset.test_examples
+
+          @llm_examples_map =
+            LLMExample
+              .where(trial: @trials, test_example: @test_examples)
+              .includes(:test_example)
+              .group_by { |le| [le.trial_id, le.test_example_id] }
         end
 
         def create
