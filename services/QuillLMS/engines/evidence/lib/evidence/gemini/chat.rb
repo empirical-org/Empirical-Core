@@ -8,7 +8,7 @@ module Evidence
       GENERATE_CONTENT = 'generateContent'
       DEFAULT_MODEL = 'gemini-1.5-flash-latest'
       SMALL_MODEL = DEFAULT_MODEL
-      DEFAULT_TEMPERATURE = 1
+      DEFAULT_TEMPERATURE = 0
       JSON_MIME_TYPE = 'application/json'
 
       KEY_ROLE = 'role'
