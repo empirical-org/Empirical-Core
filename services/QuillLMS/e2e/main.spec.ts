@@ -6,21 +6,23 @@ test.skip('has visible footer', async ({ page }) => {
   await expect(page.locator('footer')).toBeVisible();
 });
 
-function filterAndLogRequest(request, simpleMatcher) {
-  if (request.url().includes(simpleMatcher)) {
+function filterAndLogRequest(request, regex) {
+  const re = new RegExp(regex);
+  if (request.url().match(re)) {
     console.log('>>', request.method(), request.url())
   }
 }
 
-function filterAndLogResponse(response, simpleMatcher) {
-  if (response.url().includes(simpleMatcher)) {
-    console.log('>>', response.status(), response.url())
+function filterAndLogResponse(response, regex) {
+  const re = new RegExp(regex);
+  if (response.url().match(re)) {
+    console.log('<<', response.status(), response.url())
   }
 }
 
 test('@login form submission with valid credentials', async ({ page }) => {
-  page.on('request', request => filterAndLogRequest(request, 'quill'));
-  page.on('response', response => filterAndLogResponse(response, 'quill'));
+  page.on('request', request => filterAndLogRequest(request, 'localhost|quill'));
+  page.on('response', response => filterAndLogResponse(response, 'localhost|quill'));
 
   await page.goto('/session/new');
 
