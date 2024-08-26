@@ -28,9 +28,6 @@ module VitallyIntegration
       activities_finished_this_year = activities_finished_query.where('activity_sessions.completed_at >= ?', school_year_start).count
       activities_assigned = activities_assigned_count
       activities_assigned_this_year = activities_assigned_in_year_count
-      diagnostics_assigned = diagnostics_assigned_count
-      diagnostics_assigned_this_year = diagnostics_assigned_in_year_count
-      diagnostics_finished_this_year = diagnostics_finished.where('activity_sessions.completed_at >=?', school_year_start).count
       evidence_activities_assigned_all_time = evidence_assigned_count
       evidence_activities_assigned_this_year = evidence_assigned_in_year_count
       evidence_activities_completed_all_time = evidence_finished.count
@@ -78,9 +75,6 @@ module VitallyIntegration
           completed_activities: activities_finished,
           percent_completed_activities: activities_assigned > 0 ? (activities_finished.to_f / activities_assigned).round(2) : 'N/A',
           completed_activities_per_student: activities_per_student(active_students, activities_finished),
-          diagnostics_assigned: diagnostics_assigned,
-          diagnostics_finished: diagnostics_finished.count,
-          percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.count.to_f / diagnostics_assigned).round(2) : 'N/A',
           total_students_this_year: total_students_in_year,
           total_students_last_year: get_from_cache('total_students'),
           active_students_this_year: active_students_this_year,
@@ -93,12 +87,7 @@ module VitallyIntegration
           completed_activities_per_student_last_year: get_from_cache('completed_activities_per_student'),
           percent_completed_activities_this_year: activities_assigned_this_year > 0 ? (activities_finished_this_year.to_f / activities_assigned_this_year).round(2) : 'N/A',
           percent_completed_activities_last_year: get_from_cache('percent_completed_activities'),
-          diagnostics_assigned_this_year: diagnostics_assigned_this_year,
-          diagnostics_assigned_last_year: get_from_cache('diagnostics_assigned'),
-          diagnostics_finished_this_year: diagnostics_finished_this_year,
-          diagnostics_finished_last_year: get_from_cache('diagnostics_finished'),
-          percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
-          percent_completed_diagnostics_last_year: get_from_cache('percent_completed_diagnostics'),
+          **diagnostic_rollups,
           evidence_activities_assigned_all_time:,
           evidence_activities_assigned_this_year:,
           evidence_activities_assigned_last_year: get_from_cache('evidence_activities_assigned'),
@@ -136,6 +125,36 @@ module VitallyIntegration
         accountId: account_uid.to_s,
         type: 'account',
         traits: account_data_params
+      }
+    end
+
+    private def diagnostic_rollups
+      diagnostics_assigned = diagnostics_assigned_count
+      diagnostics_assigned_this_year = diagnostics_assigned_in_year_count
+      diagnostics_finished_this_year = diagnostics_finished.where('activity_sessions.completed_at >=?', school_year_start).count
+
+      {
+        diagnostics_assigned: diagnostics_assigned,
+        diagnostics_finished: diagnostics_finished.count,
+        percent_completed_diagnostics: diagnostics_assigned > 0 ? (diagnostics_finished.count.to_f / diagnostics_assigned).round(2) : 'N/A',
+        diagnostics_assigned_this_year: diagnostics_assigned_this_year,
+        diagnostics_assigned_last_year: get_from_cache('diagnostics_assigned'),
+        diagnostics_finished_this_year: diagnostics_finished_this_year,
+        diagnostics_finished_last_year: get_from_cache('diagnostics_finished'),
+        percent_completed_diagnostics_this_year: diagnostics_assigned_this_year > 0 ? (diagnostics_finished_this_year.to_f / diagnostics_assigned_this_year).round(2) : 'N/A',
+        percent_completed_diagnostics_last_year: get_from_cache('percent_completed_diagnostics'),
+        pre_diagnostics_assigned_this_year: pre_diagnostics_assigned_in_year_count,
+        pre_diagnostics_completed_this_year: pre_diagnostics_completed_in_year_count,
+        pre_diagnostics_assigned_last_year: get_from_cache("pre_diagnostics_assigned"),
+        pre_diagnostics_completed_last_year: get_from_cache("pre_diagnostics_completed"),
+        pre_diagnostics_assigned_all_time: pre_diagnostics_assigned_count,
+        pre_diagnostics_completed_all_time: pre_diagnostics_completed.count,
+        post_diagnostics_assigned_this_year: post_diagnostics_assigned_in_year_count,
+        post_diagnostics_completed_this_year: post_diagnostics_completed_in_year_count,
+        post_diagnostics_assigned_last_year: get_from_cache("post_diagnostics_assigned"),
+        post_diagnostics_completed_last_year: get_from_cache("post_diagnostics_completed"),
+        post_diagnostics_assigned_all_time: post_diagnostics_assigned_count,
+        post_diagnostics_completed_all_time: post_diagnostics_completed.count
       }
     end
 
