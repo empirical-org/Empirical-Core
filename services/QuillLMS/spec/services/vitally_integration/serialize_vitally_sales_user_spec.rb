@@ -19,6 +19,8 @@ describe VitallyIntegration::SerializeVitallySalesUser do
   let!(:unit_activity) { create(:unit_activity, unit: unit) }
   let!(:diagnostic_unit_activity) { create(:unit_activity, :diagnostic_unit_activity, unit: unit) }
   let!(:old_unit_activity) { create(:unit_activity, unit: old_unit, created_at: current_time - 1.year) }
+  let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
+  let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
   let!(:student) { create(:user, role: 'student') }
   let!(:old_student) { create(:user, role: 'student') }
 
@@ -34,7 +36,11 @@ describe VitallyIntegration::SerializeVitallySalesUser do
       completed_activities_per_student: 1.5,
       percent_completed_activities: 1.0,
       diagnostics_assigned: 2,
+      pre_diagnostics_assigned: 2,
+      post_diagnostics_assigned: 2,
       diagnostics_finished: 2,
+      pre_diagnostics_completed: 2,
+      post_diagnostics_completed: 2,
       percent_completed_diagnostics: 1.0,
       evidence_activities_assigned: 2,
       evidence_activities_completed: 1,
@@ -42,6 +48,9 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     }
     year = School.school_year_start(1.year.ago).year
     VitallyIntegration::CacheVitallyTeacherData.set(teacher.id, year, previous_year_data.to_json)
+    stub_const("VitallySharedFunctions::POST_DIAGNOSTIC_IDS", [post_diagnostic_activity.id])
+    stub_const("VitallySharedFunctions::PRE_DIAGNOSTIC_IDS", [pre_diagnostic_activity.id])
+    create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
   it 'includes the accountId and userId in the data' do
@@ -273,9 +282,22 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     classroom_unit.save!
 
     old_diagnostic_unit_activity = create(:unit_activity, :diagnostic_unit_activity, unit: old_unit, created_at: current_time - 1.year)
+    create(:unit_activity, unit: unit, activity: pre_diagnostic_activity)
+    create(:unit_activity, unit: unit, activity: post_diagnostic_activity)
+
     create(:activity_session,
       classroom_unit: classroom_unit,
       activity: diagnostic_unit_activity.activity,
+      user: student,
+      state: 'finished')
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: pre_diagnostic_activity,
+      user: student,
+      state: 'finished')
+    create(:activity_session,
+      classroom_unit: classroom_unit,
+      activity: post_diagnostic_activity,
       user: student,
       state: 'finished')
     create(:activity_session,
@@ -289,11 +311,23 @@ describe VitallyIntegration::SerializeVitallySalesUser do
     teacher_data = described_class.new(teacher).data
 
     expect(teacher_data[:traits]).to include(
-      diagnostics_assigned: 3,
-      diagnostics_finished: 2,
-      diagnostics_assigned_this_year: 2,
-      diagnostics_finished_this_year: 1,
-      percent_completed_diagnostics: 0.67,
+      diagnostics_assigned: 7,
+      diagnostics_assigned_this_year: 6,
+      pre_diagnostics_assigned_this_year: 2,
+      pre_diagnostics_assigned_last_year: 2,
+      pre_diagnostics_assigned_all_time: 2,
+      post_diagnostics_assigned_this_year: 2,
+      post_diagnostics_assigned_last_year: 2,
+      post_diagnostics_assigned_all_time: 2,
+      diagnostics_finished: 4,
+      diagnostics_finished_this_year: 3,
+      pre_diagnostics_completed_this_year: 1,
+      pre_diagnostics_completed_last_year: 2,
+      pre_diagnostics_completed_all_time: 1,
+      post_diagnostics_completed_this_year: 1,
+      post_diagnostics_completed_last_year: 2,
+      post_diagnostics_completed_all_time: 1,
+      percent_completed_diagnostics: 0.57,
       percent_completed_diagnostics_this_year: 0.5
     )
   end
