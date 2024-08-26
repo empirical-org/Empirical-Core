@@ -6,10 +6,11 @@ module Evidence
   module OpenAI
     RSpec.describe Completion do
       Evidence::Research::GenAI::LLM::OPEN_AI_VERSIONS.each do |version|
-        subject { described_class.new(prompt:, llm:) }
+        subject { described_class.new(prompt:, llm:, temperature:) }
 
         let(:prompt) { 'some prompt' }
         let(:llm) { create(:evidence_research_gen_ai_llm, :open_ai, version:) }
+        let(:temperature) { 0.5 }
 
         context 'test endpoint', external_api: true do
           it { expect { subject.run }.not_to raise_error }

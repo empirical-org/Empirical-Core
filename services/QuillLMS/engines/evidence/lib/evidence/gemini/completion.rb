@@ -7,11 +7,12 @@ module Evidence
 
       GENERATE_CONTENT = 'generateContent'
 
-      attr_accessor :llm, :prompt
+      attr_reader :llm, :prompt, :temperature
 
-      def initialize(llm:, prompt:)
+      def initialize(llm:, prompt:, temperature:)
         @llm = llm
         @prompt = prompt
+        @temperature = temperature
       end
 
       def request_body
@@ -22,7 +23,10 @@ module Evidence
                 { 'text' => prompt }
               ]
             }
-          ]
+          ],
+          'generationConfig' => {
+            'temperature' => temperature
+          }
         }.merge(llm.request_body_customizations)
       end
 

@@ -14,7 +14,7 @@ module Evidence
 
           api_call_start_time = Time.zone.now
           prompt = trial.llm_prompt.prompt_with_student_response(test_example.student_response)
-          raw_text = trial.llm.completion(prompt)
+          raw_text = trial.llm.completion(prompt, trial.temperature)
           api_call_time = Time.zone.now - api_call_start_time
 
           llm_feedback = LLMFeedbackResolver.run(raw_text:)

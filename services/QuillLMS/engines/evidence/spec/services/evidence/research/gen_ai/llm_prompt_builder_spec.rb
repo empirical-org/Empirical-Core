@@ -6,9 +6,10 @@ module Evidence
   module Research
     module GenAI
       RSpec.describe LLMPromptBuilder do
-        subject { described_class.run(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:) }
+        subject { described_class.run(dataset_id:, guidelines:, llm_prompt_template_id:, prompt_examples:, text:) }
 
         let(:contents) { 'This is contents' }
+        let(:text) { nil }
         let(:dataset) { create(:evidence_research_gen_ai_dataset) }
         let(:dataset_id) { dataset.id }
         let(:stem_vault) { dataset.stem_vault }
@@ -133,6 +134,13 @@ module Evidence
           let(:contents) { prompt_template_variable.substitution }
 
           it { is_expected.to eq prompt_template_variable.value }
+        end
+
+        context 'contents is passed via text' do
+          let(:text) { "#{delimit('stem')} #{filler}" }
+          let(:filler) { '...some filler here...' }
+
+          it { is_expected.to eq "#{stem} #{filler}" }
         end
       end
     end

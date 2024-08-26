@@ -19,7 +19,7 @@ module Evidence
         def create
           llm_prompt = LLMPrompt.create_from_template!(dataset_id:, guideline_ids:, llm_prompt_template_id:, prompt_example_ids:)
 
-          trial = dataset.trials.new(llm_id:, llm_prompt:)
+          trial = dataset.trials.new(llm_id:, llm_prompt:, temperature:)
           trial.results = { g_eval_ids: [g_eval_id] }
 
           if trial.save
@@ -38,12 +38,6 @@ module Evidence
           @g_evals = GEval.where(id: @trial.g_eval_ids)
         end
 
-        def retry
-          run_trial(**Trial.find(params[:id]).retry_params)
-
-          redirect_to research_gen_ai_dataset_trials_path(dataset_id:)
-        end
-
         private def dataset = @dataset ||= Dataset.find(dataset_id)
 
         private def dataset_id = params[:dataset_id]
@@ -52,11 +46,19 @@ module Evidence
         private def llm_id = trial_params[:llm_id]
         private def llm_prompt_template_id = trial_params[:llm_prompt_template_id]
         private def prompt_example_ids = trial_params[:prompt_example_ids]&.reject(&:blank?)&.map(&:to_i) || []
+        private def temperature = trial_params[:temperature]
 
         private def trial_params
           params
             .require(:research_gen_ai_trial)
-            .permit(:g_eval_id, :llm_id, :llm_prompt_template_id, guideline_ids: [], prompt_example_ids: [])
+            .permit(
+              :g_eval_id,
+              :llm_id,
+              :llm_prompt_template_id,
+              :temperature,
+              guideline_ids: [],
+              prompt_example_ids: []
+            )
         end
       end
     end

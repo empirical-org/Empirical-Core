@@ -9,6 +9,7 @@
 #  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  temperature         :float            not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
@@ -24,6 +25,7 @@ module Evidence
     module GenAI
       RSpec.describe Trial, type: :model do
         let(:factory) { described_class.model_name.singular.to_sym }
+        let(:trial) { create(factory) }
 
         it { expect(build(factory)).to be_valid }
 
@@ -31,12 +33,14 @@ module Evidence
         it { should validate_presence_of(:llm_id) }
         it { should validate_presence_of(:llm_prompt_id) }
         it { should validate_presence_of(:dataset_id) }
+        it { should validate_presence_of(:temperature) }
 
         it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
 
         it { should have_readonly_attribute(:llm_id) }
         it { should have_readonly_attribute(:llm_prompt_id) }
         it { should have_readonly_attribute(:dataset_id) }
+        it { should have_readonly_attribute(:temperature) }
 
         it { should belong_to(:llm) }
         it { should belong_to(:llm_prompt) }
@@ -70,55 +74,76 @@ module Evidence
         describe '#run' do
           subject { trial.run }
 
-          let(:batch) { Sidekiq::Batch.new }
-          let(:trial) { create(factory) }
-          let(:dataset) { trial.dataset }
-          let(:test_examples_count) { 3 }
-          let!(:test_examples) { create_list(:evidence_research_gen_ai_test_example, test_examples_count, dataset:) }
+          before { allow(TrialRunner).to receive(:run) }
+
+          it 'calls TrialRunner.run' do
+            expect(TrialRunner).to receive(:run).with(trial)
+            subject
+          end
+        end
+
+        describe '#set_confusion_matrix' do
+          subject { trial.set_confusion_matrix }
+
+          let(:llm_examples) { create_list(:evidence_research_gen_ai_llm_example, 3, trial:) }
+          let(:confusion_matrix) { [[2, 1], [0, 3]] }
 
           before do
-            stub_const(
-              'Sidekiq::Batch',
-              Class.new do
-                attr_reader :callback, :callback_args, :event
-
-                def initialize
-                  @jobs = []
-                end
-
-                def on(event, klass, **args)
-                  @event = event
-                  @callback = klass
-                  @callback_args = args
-                end
-
-                def jobs
-                  yield @jobs if block_given?
-                end
-              end
-            )
-            allow(Sidekiq::Batch).to receive(:new).and_return(batch)
+            allow(trial).to receive(:llm_examples).and_return(llm_examples)
+            allow(ConfusionMatrixBuilder).to receive(:run).with(llm_examples).and_return(confusion_matrix)
           end
 
-          it 'updates status to running and sets trial_start_time' do
-            expect(BuildLLMExampleWorker).to receive(:perform_async).exactly(test_examples_count).times
-            subject
-            expect(trial.status).to eq('running')
-            expect(trial.trial_start_time).to be_present
-          end
-
-          it 'creates a Sidekiq batch and enqueues jobs' do
-            expect(batch).to receive(:on).with(:complete, Trial, trial_id: trial.id)
-            expect(BuildLLMExampleWorker).to receive(:perform_async).exactly(test_examples_count).times
+          it 'calls ConfusionMatrixBuilder.run with llm_examples' do
+            expect(ConfusionMatrixBuilder).to receive(:run).with(llm_examples)
             subject
           end
 
-          it 'handles errors and updates status to failed' do
-            allow(batch).to receive(:on).and_raise(StandardError.new('Test error'))
+          it 'updates the results with the confusion matrix' do
+            expect(trial).to receive(:update_results!).with(confusion_matrix:)
             subject
-            expect(trial.status).to eq('failed')
-            expect(trial.trial_errors).to include('Test error')
           end
+        end
+
+        describe '#set_evaluation_start_time' do
+          subject { trial.set_evaluation_start_time }
+
+          it { expect { subject }.to change { trial.reload.evaluation_start_time } }
+        end
+
+        describe '#set_trial_start_time' do
+          subject { trial.set_trial_start_time }
+
+          it { expect { subject }.to change { trial.reload.trial_start_time } }
+        end
+
+        describe '#set_trial_duration' do
+          subject { trial.set_trial_duration }
+
+          let(:trial) { create(factory, trial_start_time: 1.hour.ago) }
+
+          it { expect { subject }.to change { trial.reload.trial_duration }.to be_within(2.seconds).of(1.hour) }
+        end
+
+        describe '#set_status' do
+          subject { trial.set_status }
+
+          context 'when there are no errors' do
+            it { expect { subject }.to change { trial.reload.status }.to(described_class::COMPLETED) }
+          end
+
+          context 'when there are errors' do
+            before { allow(trial).to receive(:trial_errors).and_return(['error']) }
+
+            it { expect { subject }.to change { trial.reload.status }.to(described_class::FAILED) }
+          end
+        end
+
+        describe '#update_results!' do
+          subject { trial.update_results!(new_data) }
+
+          let(:new_data) { { 'key' => 'value' } }
+
+          it { expect { subject }.to change { trial.reload.results }.to(new_data) }
         end
       end
     end

@@ -12,8 +12,8 @@ module Evidence
           return if ENV.fetch('STOP_ALL_GEN_AI_TRIALS', 'false') == 'true'
 
           trial = Trial.find(trial_id)
-          trial.update_results!(confusion_matrix: ConfusionMatrixBuilder.run(trial.llm_examples))
-          trial.update!(evaluation_start_time: Time.zone.now)
+          trial.set_confusion_matrix
+          trial.set_evaluation_start_time
           GEvalScoresFetcher.run(trial)
         end
       end
