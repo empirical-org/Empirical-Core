@@ -114,10 +114,10 @@ module Evidence
           end
 
           it 'handles errors and updates status to failed' do
-            allow(batch).to receive(:on).and_raise(StandardError.new("Test error"))
+            allow(batch).to receive(:on).and_raise(StandardError.new('Test error'))
             subject
             expect(trial.status).to eq('failed')
-            expect(trial.trial_errors).to include("Test error")
+            expect(trial.trial_errors).to include('Test error')
           end
         end
       end

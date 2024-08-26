@@ -283,7 +283,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         }
       }
       primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
     >
       <div
         className="banner-container gold-secondary"
@@ -291,15 +290,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
@@ -460,7 +450,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         }
       }
       primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
     >
       <div
         className="banner-container gold-secondary"
@@ -468,15 +457,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
@@ -805,7 +785,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         }
       }
       primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
     >
       <div
         className="banner-container gold-secondary"
@@ -813,15 +792,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
@@ -982,7 +952,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         }
       }
       primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
     >
       <div
         className="banner-container gold-secondary"
@@ -990,15 +959,6 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
@@ -1327,7 +1287,6 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
         }
       }
       primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
     >
       <div
         className="banner-container gold-secondary"
@@ -1335,15 +1294,6 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >

@@ -28,6 +28,8 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
     let!(:unit_activity2) { create(:unit_activity, unit: unit2, activity: diagnostic, created_at: Date.new(2021, 10, 1)) }
     let!(:unit_activity3) { create(:unit_activity, unit: unit3, activity: connect, created_at: Date.new(year, 10, 1)) }
     let!(:unit_activity4) { create(:unit_activity, unit: unit4, activity: evidence, created_at: Date.new(year, 10, 1)) }
+    let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
+    let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
 
     before do
       create(:classrooms_teacher, user: teacher, classroom: active_classroom)
@@ -57,6 +59,7 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         user: student4,
         classroom_unit: classroom_unit2,
         state: 'finished',
+        activity: connect,
         completed_at: Date.new(year, 10, 2))
       create(:activity_session,
         user: student4,
@@ -69,6 +72,9 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         classroom_unit: classroom_unit3,
         state: 'finished',
         completed_at: Date.new(2021, 10, 2))
+      stub_const('VitallySharedFunctions::PRE_DIAGNOSTIC_IDS', [pre_diagnostic_activity.id])
+      stub_const('VitallySharedFunctions::POST_DIAGNOSTIC_IDS', [post_diagnostic_activity.id])
+      create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
     end
 
     it 'should raise error if the year is the current year' do
@@ -88,10 +94,41 @@ RSpec.describe VitallyIntegration::PreviousYearTeacherDatum, type: :model do
         diagnostics_finished: 2,
         evidence_activities_assigned: 1,
         evidence_activities_completed: 1,
-        percent_completed_diagnostics: 1.0
+        percent_completed_diagnostics: 1.0,
+        pre_diagnostics_assigned: 0,
+        pre_diagnostics_completed: 0,
+        post_diagnostics_assigned: 0,
+        post_diagnostics_completed: 0
       }
       teacher_data = described_class.new(teacher, year).calculate_data
       expect(teacher_data).to eq(expected_data)
+    end
+
+    it 'should calculate diagnostic data' do
+      create(:unit_activity, unit: unit, activity: post_diagnostic_activity, created_at: Date.new(year, 10, 1))
+      create(:unit_activity, unit: unit, activity: pre_diagnostic_activity, created_at: Date.new(year, 10, 1))
+      create(:activity_session,
+        user: student1,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: pre_diagnostic_activity)
+      create(:activity_session,
+        user: student1,
+        classroom_unit: classroom_unit1,
+        state: 'finished',
+        completed_at: Date.new(year, 10, 2),
+        updated_at: Date.new(year, 10, 2),
+        activity: post_diagnostic_activity)
+
+      expected_data = {
+        pre_diagnostics_assigned: 2,
+        pre_diagnostics_completed: 1,
+        post_diagnostics_assigned: 2,
+        post_diagnostics_completed: 1
+      }
+      expect(described_class.new(teacher, year).calculate_data).to include(expected_data)
     end
   end
 end

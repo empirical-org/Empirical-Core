@@ -43,12 +43,15 @@ Evidence::Engine.routes.draw do
 
   namespace :research do
     namespace :gen_ai do
-      resources :llms, only: [:new, :create, :show, :index]
+      resources :llms, only: [:new, :create, :show, :index, :update]
       resources :llm_prompts, only: [:show]
       resources :llm_prompt_templates, only: [:new, :create, :show, :index, :edit, :update]
 
       resources :stem_vaults, only: [] do
-        resources :guidelines, only: [:new, :create]
+        resources :guidelines, only: [:new, :create] do
+          member { patch :hide }
+        end
+
         resources :datasets, only: [:new, :create, :show], shallow: true
       end
 

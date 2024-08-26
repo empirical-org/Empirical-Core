@@ -5,6 +5,7 @@ require 'rails_helper'
 describe VitallyIntegration::SerializeVitallySalesOrganization do
   before do
     create(:evidence)
+    create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
   context '#data' do

@@ -24,9 +24,19 @@ module VitallyIntegration
         active_students: active_students_this_year,
         activities_finished: activities_finished_this_year,
         activities_per_student: activities_per_student(active_students_this_year, activities_finished_this_year),
+        **diagnostic_rollups,
         evidence_activities_assigned: evidence_assigned_in_year_count,
         evidence_activities_completed: evidence_activities_completed_this_year,
         completed_evidence_activities_per_student: activities_per_student(active_students_this_year, evidence_activities_completed_this_year)
+      }
+    end
+
+    def diagnostic_rollups
+      {
+        pre_diagnostics_assigned: pre_diagnostics_assigned_in_year_count,
+        pre_diagnostics_completed: pre_diagnostics_completed_in_year_count,
+        post_diagnostics_assigned: post_diagnostics_assigned_in_year_count,
+        post_diagnostics_completed: post_diagnostics_completed_in_year_count
       }
     end
   end

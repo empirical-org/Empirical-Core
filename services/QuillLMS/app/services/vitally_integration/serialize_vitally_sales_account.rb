@@ -63,6 +63,7 @@ module VitallyIntegration
           activities_per_student_this_year: activities_per_student(active_students_this_year, activities_finished_this_year),
           activities_per_student_last_year: get_from_cache('activities_per_student'),
           **evidence_rollups,
+          **diagnostic_rollups,
           school_link: school_link,
           created_at: @school.created_at,
           premium_expiry_date: subscription_expiration_date,
@@ -98,6 +99,23 @@ module VitallyIntegration
         evidence_activities_completed_last_year: get_from_cache('evidence_activities_completed'),
         evidence_activities_completed_per_student_this_year:,
         evidence_activities_completed_per_student_last_year: get_from_cache('completed_evidence_activities_per_student'),
+      }
+    end
+
+    private def diagnostic_rollups
+      {
+        pre_diagnostics_assigned_this_year: pre_diagnostics_assigned_in_year_count,
+        pre_diagnostics_completed_this_year: pre_diagnostics_completed_in_year_count,
+        pre_diagnostics_assigned_last_year: get_from_cache('pre_diagnostics_assigned'),
+        pre_diagnostics_completed_last_year: get_from_cache('pre_diagnostics_completed'),
+        pre_diagnostics_assigned_all_time: pre_diagnostics_assigned_count,
+        pre_diagnostics_completed_all_time: pre_diagnostics_completed.count,
+        post_diagnostics_assigned_this_year: post_diagnostics_assigned_in_year_count,
+        post_diagnostics_completed_this_year: post_diagnostics_completed_in_year_count,
+        post_diagnostics_assigned_last_year: get_from_cache('post_diagnostics_assigned'),
+        post_diagnostics_completed_last_year: get_from_cache('post_diagnostics_completed'),
+        post_diagnostics_assigned_all_time: post_diagnostics_assigned_count,
+        post_diagnostics_completed_all_time: post_diagnostics_completed.count
       }
     end
 

@@ -19,6 +19,12 @@ module Evidence
           end
         end
 
+        def hide
+          @guideline = Guideline.find(params[:id])
+          @guideline.update(visible: false)
+          redirect_to @guideline.stem_vault
+        end
+
         private def guideline_params
           params
             .require(:research_gen_ai_guideline)
