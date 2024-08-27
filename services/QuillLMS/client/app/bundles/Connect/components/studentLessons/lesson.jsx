@@ -214,8 +214,15 @@ export class Lesson extends React.Component {
   }
 
   getQuestion = () => {
-    const { playLesson } = this.props;
-    const { question } = playLesson.currentQuestion;
+    const { playLesson, questions } = this.props;
+    const { translated_questions } = questions
+    const { currentQuestion, language } = playLesson
+    const { question } = currentQuestion;
+    const { key } = question
+    if (translated_questions && language && language !== ENGLISH) {
+      const question_translation = translated_questions[key]
+      return { ...question, translation: question_translation };
+    }
     return question;
   }
 

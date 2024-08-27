@@ -7,7 +7,7 @@ const initialState = {
     submittingnew: false,
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
     data: {}, // this will contain firebase data,
-    translated_data: {}
+    translated_questions: null
   },
 };
 
@@ -21,7 +21,7 @@ export default function (currentstate, action) {
       });
     case C.RECEIVE_TRANSLATED_QUESTIONS_DATA:
       return Object.assign({}, currentstate, {
-        translated_data: action.data,
+        translated_questions: action.data,
       });
     case C.RECEIVE_QUESTION_DATA:
       return Object.assign({}, currentstate, {
