@@ -29,6 +29,7 @@ import {
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
+import * as LessonActions from '../../actions/lessons.ts';
 import {
   answeredQuestionCount,
   getProgressPercent,
@@ -131,6 +132,9 @@ export class Lesson extends React.Component {
       // user has toggled to another question from last question
       if(previewMode && questionToPreview && playLesson && playLesson.questionSet && isLastQuestion && this.getNextPreviewQuestion(questionToPreview)) {
         this.toggleIsLastQuestion();
+      }
+      if (lessonLoaded && playLesson?.language && playLesson.language !== prevProps?.playLesson?.language) {
+        dispatch(LessonActions.default.loadTranslatedQuestions(lessonID, playLesson.language))
       }
     }
   }

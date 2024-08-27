@@ -45,7 +45,7 @@ const filterQuestionType = (data, key) => {
 const loadLessonWithQuestions = (uid) => {
   return (dispatch, getState) => {
     dispatch(loadLesson(uid)).then(() => {
-      const questions = QuestionApi.getAllForActivity(uid).then((questions) => {
+      QuestionApi.getAllForActivity(uid).then((questions) => {
         if (!questions) { return }
         dispatch({
           type: C.RECEIVE_QUESTIONS_DATA,
@@ -62,6 +62,25 @@ const loadLessonWithQuestions = (uid) => {
         dispatch({
           type: C.RECEIVE_TITLE_CARDS_DATA,
           data: filterQuestionType(questions, CONNECT_TITLE_CARD_TYPE)
+        })
+        dispatch({
+          type: C.RECEIVE_TRANSLATED_QUESTIONS_DATA,
+          data: questions
+        })
+      })
+    })
+  }
+}
+
+
+const loadTranslatedQuestions = (uid, language) => {
+  return (dispatch, getState) => {
+    dispatch(loadLesson(uid)).then(() => {
+      QuestionApi.getAllForActivity(uid, language).then((questions) => {
+        if (!questions) { return }
+        dispatch({
+          type: C.RECEIVE_TRANSLATED_QUESTIONS_DATA,
+          data: questions
         })
       })
     })
@@ -154,6 +173,7 @@ export default {
   startListeningToLessons,
   loadLesson,
   loadLessonWithQuestions,
+  loadTranslatedQuestions,
   loadLessons,
   startLessonEdit,
   cancelLessonEdit,

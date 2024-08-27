@@ -409,13 +409,13 @@ RSpec.describe Question, type: :model do
       let(:locale) { 'ch-zn' }
       let(:options) { { locale: } }
 
-      it 'should return translated_data(locale:)' do
-        expect(question).to receive(:translated_data).with(locale:).and_return({})
+      it 'should return translated_data(language:)' do
+        expect(question).to receive(:translated_data).with(locale: Translatable::CHINESE_LOCALE).and_return({})
         subject
       end
 
-      it 'adds the question type' do
-        expect(subject.keys).to include(:question_type)
+      it 'does not add the question type' do
+        expect(subject.keys).not_to include(:question_type)
       end
     end
   end
