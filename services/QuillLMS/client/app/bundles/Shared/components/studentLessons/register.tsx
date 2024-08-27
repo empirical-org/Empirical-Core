@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+const FILL_IN_BLANK = 'fillInBlank'
+
 class Register extends React.Component<any, any> {
   constructor(props) {
     super(props)
@@ -12,6 +14,9 @@ class Register extends React.Component<any, any> {
 
   componentDidMount() {
     const { previewMode, lesson } = this.props;
+    if (lesson?.questionType === FILL_IN_BLANK) {
+      this.handleSetShowIntro()
+    }
     if (previewMode) {
       this.startActivity();
     }
@@ -64,7 +69,7 @@ class Register extends React.Component<any, any> {
       onClickFn = this.resume;
       text = showTranslation ? translate('buttons^resume') : 'Resume'
     } else if (showIntro) {
-      // this and the following conditional have the same action because the function handles what should happen next  
+      // this and the following conditional have the same action because the function handles what should happen next
       onClickFn = this.startActivity;
       text = showTranslation ? translate('buttons^begin') : 'Begin'
     } else {
@@ -85,6 +90,88 @@ class Register extends React.Component<any, any> {
     return translations && translations[language];
   }
 
+  renderSentenceFragmentIntro = () => {
+    const { showTranslation, translate } = this.props
+    const { showIntro } = this.state
+    if(showTranslation) {
+      return (
+        <div className="container">
+          <h2 className="title is-3 register">
+            {translate('Quill Connect Fragments Intro^Welcome to Quill Connect Fragments!')}
+          </h2>
+          <div className="register-container">
+            <ul className="register-list">
+              <li>{translate('Quill Connect Fragments Intro^Add to the group of words to make a complete sentence.')}</li>
+              <li>{translate('Quill Connect Fragments Intro^Add the number of words shown in the directions.')}</li>
+              <li>{translate('Quill Connect Fragments Intro^There is often more than one correct answer.')}</li>
+              <li>{translate('Quill Connect Fragments Intro^Remember to use correct spelling, capitalization, and punctuation!')}</li>
+            </ul>
+            {this.renderButton(showIntro)}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="container">
+        <h2 className="title is-3 register">
+          Welcome to Quill Connect Fragments!
+        </h2>
+        <div className="register-container">
+          <ul className="register-list">
+            <li>Add to the group of words to make a complete sentence.</li>
+            <li>Add the number of words shown in the directions.</li>
+            <li>There is often more than one correct answer.</li>
+            <li>Remember to use correct spelling, capitalization, and punctuation!</li>
+          </ul>
+          {this.renderButton(showIntro)}
+          <br />
+        </div>
+      </div>
+    );
+  }
+
+  renderConnectIntro = () => {
+    const { showTranslation, translate } = this.props
+    const { showIntro } = this.state
+
+    if(showTranslation) {
+      return (
+        <div className="container">
+          <h2 className="title is-3 register">
+            {translate('Quill Connect Intro^Welcome to Quill Connect!')}
+          </h2>
+          <div className="register-container">
+            <ul className="register-list">
+              <li>{translate('Quill Connect Intro^Combine the sentences together into one sentence.')}</li>
+              <li>{translate('Quill Connect Intro^You may add or remove words.')}</li>
+              <li>{translate('Quill Connect Intro^There is often more than one correct answer.')}</li>
+              <li>{translate('Quill Connect Intro^Remember to use correct spelling, capitalization, and punctuation!')}</li>
+            </ul>
+            {this.renderButton(showIntro)}
+            <br />
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="container">
+        <h2 className="title is-3 register">
+          Welcome to Quill Connect!
+        </h2>
+        <div className="register-container">
+          <ul className="register-list">
+            <li>Combine the sentences together into one sentence.</li>
+            <li>You may add or remove words.</li>
+            <li>There is often more than one correct answer.</li>
+            <li>Remember to use correct spelling, capitalization, and punctuation!</li>
+          </ul>
+          {this.renderButton(showIntro)}
+          <br />
+        </div>
+      </div>
+    );
+  }
 
   renderIntro = () => {
     const { lesson } = this.props
@@ -104,41 +191,9 @@ class Register extends React.Component<any, any> {
         </div>
       );
     } else if (hasSentenceFragment) {
-      return (
-        <div className="container">
-          <h2 className="title is-3 register">
-            Welcome to Quill Connect Fragments!
-          </h2>
-          <div className="register-container">
-            <ul className="register-list">
-              <li>Add to the group of words to make a complete sentence.</li>
-              <li>Add the number of words shown in the directions.</li>
-              <li>There is often more than one correct answer.</li>
-              <li>Remember to use correct spelling, capitalization, and punctuation!</li>
-            </ul>
-            {this.renderButton(showIntro)}
-            <br />
-          </div>
-        </div>
-      );
+      return this.renderSentenceFragmentIntro()
     } else {
-      return (
-        <div className="container">
-          <h2 className="title is-3 register">
-            Welcome to Quill Connect!
-          </h2>
-          <div className="register-container">
-            <ul className="register-list">
-              <li>Combine the sentences together into one sentence.</li>
-              <li>You may add or remove words.</li>
-              <li>There is often more than one correct answer.</li>
-              <li>Remember to use correct spelling, capitalization, and punctuation!</li>
-            </ul>
-            {this.renderButton(showIntro)}
-            <br />
-          </div>
-        </div>
-      );
+      return this.renderConnectIntro()
     }
   }
 
