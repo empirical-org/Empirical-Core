@@ -63,10 +63,6 @@ const loadLessonWithQuestions = (uid) => {
           type: C.RECEIVE_TITLE_CARDS_DATA,
           data: filterQuestionType(questions, CONNECT_TITLE_CARD_TYPE)
         })
-        dispatch({
-          type: C.RECEIVE_TRANSLATED_QUESTIONS_DATA,
-          data: questions
-        })
       })
     })
   }
