@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
   let(:primary_response) { { 'feedback' => 'Sample feedback', 'optimal' => true } }
-  let(:secondary_response) { { } }
+  let(:secondary_response) { {} }
   let(:entry) { double('Entry') }
-  let(:optimal_label_feedback) { "Great work!" }
+  let(:optimal_label_feedback) { 'Great work!' }
   let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_arrays: [['Highlight text 1']], optimal_label_feedback:) }
   let(:rule) { double('Rule', concept_uid: 'sample_concept_uid') }
 
@@ -81,7 +81,7 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
       context 'with secondary feedback' do
         let(:secondary_response) { { 'secondary_feedback' => 'Secondary feedback', 'highlight' => '1' } }
 
-        it { expect(subject.run).to eq(suboptimal_secondary_response)}
+        it { expect(subject.run).to eq(suboptimal_secondary_response) }
       end
     end
   end
