@@ -45,7 +45,7 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillLMS
-                  gem install bundler:2.3.17
+                  gem install bundler:2.2.33
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
@@ -205,7 +205,7 @@ jobs:
                 name: Bundle Install if cache isn't present.
                 command: |
                   cd services/QuillLMS
-                  gem install bundler:2.3.17
+                  gem install bundler:2.2.33
                   # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
@@ -401,8 +401,8 @@ jobs:
             - checkout
             - restore_cache:
                 keys:
-                  - bundle-cache-evidence-v4-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
-                  - bundle-cache-evidence-v4
+                  - bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+                  - bundle-cache-evidence-v3
             - run:
                 name: Bundle Install if cache isn't present.
                 command: |
@@ -411,7 +411,7 @@ jobs:
                   bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
                   bundle check || bundle install --path vendor/bundle
             - save_cache:
-                key: bundle-cache-evidence-v4-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
+                key: bundle-cache-evidence-v3-{{ checksum "services/QuillLMS/engines/evidence/Gemfile.lock" }}
                 paths:
                   - services/QuillLMS/engines/evidence/vendor/bundle
             - run:
