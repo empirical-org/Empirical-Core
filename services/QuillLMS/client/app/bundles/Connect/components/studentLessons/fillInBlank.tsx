@@ -433,7 +433,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   render() {
     const { language, question } = this.props
-    console.log("🚀 ~ PlayFillInTheBlankQuestion ~ render ~ question:", question)
     let fullPageInstructions
     if (language === 'arabic' && !(question.mediaURL)) {
       fullPageInstructions = { maxWidth: 800, width: '100%' }
