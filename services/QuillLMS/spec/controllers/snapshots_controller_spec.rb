@@ -107,7 +107,7 @@ describe SnapshotsController, type: :controller do
             teacher_ids: teacher_ids,
             classroom_ids: classroom_ids
           }
-        ).and_return(:example_response)
+        )
 
         get :top_x, params: { query: query, timeframe: timeframe_name, school_ids: school_ids, grades: grades, teacher_ids: teacher_ids, classroom_ids: classroom_ids }
       end
