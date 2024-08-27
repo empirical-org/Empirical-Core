@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register it should render default Connect intro 1`] = `
+<DocumentFragment>
+  <section
+    class="student"
+    style="padding-top: 20px;"
+  >
+    <div
+      class="container"
+    >
+      <h2
+        class="title is-3 register"
+      >
+        Welcome to Quill Connect!
+      </h2>
+      <div
+        class="register-container"
+      >
+        <ul
+          class="register-list"
+        >
+          <li>
+            Combine the sentences together into one sentence.
+          </li>
+          <li>
+            You may add or remove words.
+          </li>
+          <li>
+            There is often more than one correct answer.
+          </li>
+          <li>
+            Remember to use correct spelling, capitalization, and punctuation!
+          </li>
+        </ul>
+        <button
+          class="quill-button-archived focus-on-light primary contained large"
+          type="button"
+        >
+          Resume
+        </button>
+        <br />
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Register it should render lesson specific intro 1`] = `
+<DocumentFragment>
+  <section
+    class="student"
+    style="padding-top: 20px;"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="landing-page-html"
+      >
+        test landing page
+      </div>
+      <button
+        class="quill-button-archived focus-on-light primary contained large"
+        type="button"
+      >
+        Resume
+      </button>
+    </div>
+  </section>
+</DocumentFragment>
+`;
