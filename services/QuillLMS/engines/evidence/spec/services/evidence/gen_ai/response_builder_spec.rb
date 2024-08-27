@@ -4,23 +4,60 @@ require 'rails_helper'
 
 RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
   let(:primary_response) { { 'feedback' => 'Sample feedback', 'optimal' => true } }
-  let(:secondary_response) { { 'highlight' => '1', 'secondary_feedback' => 'Secondary feedback' } }
+  let(:secondary_response) { { } }
   let(:entry) { double('Entry') }
-  let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_arrays: [['Highlight text 1']]) }
+  let(:optimal_label_feedback) { "Great work!" }
+  let(:prompt) { double('Prompt', conjunction: 'because', distinct_automl_highlight_arrays: [['Highlight text 1']], optimal_label_feedback:) }
   let(:rule) { double('Rule', concept_uid: 'sample_concept_uid') }
+
+  let(:optimal_response) do
+    {
+      feedback: optimal_label_feedback,
+      feedback_type: Evidence::Rule::TYPE_GEN_AI,
+      optimal: true,
+      entry: entry,
+      concept_uid: 'sample_concept_uid',
+      rule_uid: '35e2312d-ebbf-4408-a83a-5c62913e5d2c',
+      hint: nil,
+      highlight: []
+    }
+  end
+
+  let(:suboptimal_response) do
+    {
+      feedback: 'Sample feedback',
+      feedback_type: Evidence::Rule::TYPE_GEN_AI,
+      optimal: false,
+      entry: entry,
+      concept_uid: 'sample_concept_uid',
+      rule_uid: '62c6af4d-fcea-4ea7-b9c6-3e74035f0ce2',
+      hint: nil,
+      highlight: []
+    }
+  end
+
+  let(:suboptimal_secondary_response) do
+    {
+      feedback: 'Secondary feedback',
+      feedback_type: Evidence::Rule::TYPE_GEN_AI,
+      optimal: false,
+      entry: entry,
+      concept_uid: 'sample_concept_uid',
+      rule_uid: '62c6af4d-fcea-4ea7-b9c6-3e74035f0ce2',
+      hint: nil,
+      highlight: [{
+        type: Evidence::Highlight::TYPE_PASSAGE,
+        text: 'Highlight text 1',
+        category: ''
+      }]
+    }
+  end
 
   before do
     allow(Evidence::Rule).to receive(:find_by).and_return(rule)
   end
 
-  subject do
-    described_class.new(
-      primary_response: primary_response,
-      secondary_response: secondary_response,
-      entry: entry,
-      prompt: prompt
-    )
-  end
+  subject { described_class.new(primary_response:, secondary_response:, entry:, prompt:) }
 
   describe '#initialize' do
     it 'initializes with primary_response, secondary_response, entry, and prompt' do
@@ -33,21 +70,19 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
 
   describe '#run' do
     it 'returns the response object with correct values' do
-      expected_output = {
-        feedback: 'Secondary feedback',
-        feedback_type: Evidence::Rule::TYPE_GEN_AI,
-        optimal: true,
-        entry: entry,
-        concept_uid: 'sample_concept_uid',
-        rule_uid: '35e2312d-ebbf-4408-a83a-5c62913e5d2c',
-        hint: nil,
-        highlight: [{
-          type: Evidence::Highlight::TYPE_PASSAGE,
-          text: 'Highlight text 1',
-          category: ''
-        }]
-      }
-      expect(subject.run).to eq(expected_output)
+      expect(subject.run).to eq(optimal_response)
+    end
+
+    context 'suboptimal' do
+      let(:primary_response) { { 'feedback' => 'Sample feedback', 'optimal' => false } }
+
+      it { expect(subject.run).to eq(suboptimal_response) }
+
+      context 'with secondary feedback' do
+        let(:secondary_response) { { 'secondary_feedback' => 'Secondary feedback', 'highlight' => '1' } }
+
+        it { expect(subject.run).to eq(suboptimal_secondary_response)}
+      end
     end
   end
 
@@ -79,24 +114,19 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
 
     describe '#highlight_array' do
       it 'returns the correct highlight text based on the highlight key' do
-        expect(subject.send(:highlight_array)).to eq(['Highlight text 1'])
+        expect(subject.send(:highlight_array)).to eq([])
       end
     end
 
     describe '#highlight' do
       it 'returns the correct highlight array based on the highlight text' do
-        expected_highlight = [{
-          type: Evidence::Highlight::TYPE_PASSAGE,
-          text: 'Highlight text 1',
-          category: ''
-        }]
-        expect(subject.send(:highlight)).to eq(expected_highlight)
+        expect(subject.send(:highlight)).to eq([])
       end
     end
 
     describe '#highlight_key' do
       it 'returns the highlight key from the secondary_response' do
-        expect(subject.send(:highlight_key)).to eq('1')
+        expect(subject.send(:highlight_key)).to be_nil
       end
     end
 
@@ -107,8 +137,8 @@ RSpec.describe Evidence::GenAI::ResponseBuilder, type: :service do
     end
 
     describe '#feedback' do
-      it 'returns the feedback from the secondary_response if present, otherwise from primary_response' do
-        expect(subject.send(:feedback)).to eq('Secondary feedback')
+      it 'returns the optimal feedback' do
+        expect(subject.send(:feedback)).to eq(optimal_label_feedback)
       end
     end
   end
