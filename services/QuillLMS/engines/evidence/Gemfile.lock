@@ -400,6 +400,7 @@ DEPENDENCIES
   evidence!
   factory_bot_rails (~> 4.8.2)
   faker (= 3.2.0)
+  google-cloud-ai_platform-v1 (~> 0.32.0)
   hotwater
   httparty
   m (~> 1.5.0)
