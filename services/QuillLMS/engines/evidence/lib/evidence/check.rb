@@ -4,12 +4,15 @@ module Evidence
   module Check
     class NoMatchedFeedbackTypesError < StandardError; end
 
+    USE_GEN_AI = ENV.fetch('EVIDENCE_USE_GEN_AI', 'false') == 'true'
+    AI_CHECK = USE_GEN_AI ? GenAI : AutoML
+
     ALL_CHECKS = [
       Prefilter,
       RegexSentence,
       Opinion,
       Plagiarism,
-      AutoML,
+      AI_CHECK,
       RegexPostTopic,
       Grammar,
       Spelling,
@@ -52,22 +55,28 @@ module Evidence
     end
 
     def self.fallback_feedback(debug = nil)
-      @error_rule ||= Rule.find_by(rule_type: Rule::TYPE_ERROR)
-      feedback = {
-        feedback: @error_rule.feedbacks.first&.text || FALLBACK_RESPONSE[:feedback],
-        feedback_type: @error_rule.rule_type,
-        optimal: @error_rule.optimal,
-      }
-
-      return feedback.merge({ debug: debug }) if debug
-
-      feedback
+      fallback_response(debug)
+        .merge(error_rule_response)
     rescue => e
       Evidence.error_notifier.report(e)
 
-      return FALLBACK_RESPONSE.merge({ debug: debug }) if debug
+      fallback_response(debug)
+    end
 
+    def self.fallback_response(debug = nil)
       FALLBACK_RESPONSE
+        .merge(debug:)
+        .compact
+    end
+
+    def self.error_rule_response
+      rule = Rule.find_by(rule_type: Rule::TYPE_ERROR)
+
+      {
+        feedback: rule&.feedbacks&.first&.text,
+        feedback_type: rule&.rule_type,
+        optimal: rule&.optimal,
+      }.compact
     end
 
     def self.checks_to_run(feedback_types)

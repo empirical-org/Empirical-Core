@@ -153,23 +153,6 @@ module Evidence
         expect(result).to eq(Check::FALLBACK_RESPONSE)
       end
 
-      it 'provides constant-based feedback if there are multiple error-type rules' do
-        Check::ALL_CHECKS.each do |check_class|
-          if check_class == Check::AutoML
-            expect_any_instance_of(check_class).to receive(:run).and_raise('some error')
-          else
-            expect_any_instance_of(check_class).to receive(:run)
-            expect_any_instance_of(check_class).to receive(:optimal?).and_return(true)
-          end
-        end
-        create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
-        create(:evidence_rule, rule_type: Rule::TYPE_ERROR)
-
-        result = Check.get_feedback(entry, prompt, previous_feedback)
-
-        expect(result).to eq(Check::FALLBACK_RESPONSE)
-      end
-
       it 'attaches a "debug" key to the feedback if one is passed in' do
         debug = 'This is a debug message'
 

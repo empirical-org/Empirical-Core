@@ -27,6 +27,5 @@ class Ability
     temporary
   end
 
-  def temporary
-  end
+  def temporary; end
 end

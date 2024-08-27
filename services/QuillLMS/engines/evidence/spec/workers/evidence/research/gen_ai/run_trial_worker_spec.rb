@@ -5,7 +5,7 @@ require 'rails_helper'
 module Evidence
   module Research
     module GenAI
-      RSpec.describe Evidence::Research::GenAI::RunTrialWorker do
+      RSpec.describe RunTrialWorker do
         subject { described_class.new.perform(trial.id) }
 
         let(:trial) { create(:evidence_research_gen_ai_trial) }

@@ -11,6 +11,20 @@
         "save and exit": "Save and exit / Guardar y salir",
         "start activity": "Start activity / Iniciar actividad"
     },
+    "Quill Connect Fragments Intro": {
+        "Welcome to Quill Connect Fragments!": "¡Bienvenido a Quill Connect Fragments!",
+        "Add to the group of words to make a complete sentence.": "Agrega al grupo de palabras para formar una oración completa.",
+        "Add the number of words shown in the directions.": "Agrega el número de palabras indicado en las instrucciones.",
+        "There is often more than one correct answer.": "A menudo hay más de una respuesta correcta.",
+        "Remember to use correct spelling, capitalization, and punctuation!": "¡Recuerda usar la ortografía, mayúsculas y puntuación correctas!"
+    },
+    "Quill Connect Intro": {
+        "Welcome to Quill Connect!": "¡Bienvenido a Quill Connect!",
+        "Combine the sentences together into one sentence.": "Combina las oraciones en una sola oración.",
+        "You may add or remove words.": "Puedes agregar o eliminar palabras.",
+        "There is often more than one correct answer.": "A menudo hay más de una respuesta correcta.",
+        "Remember to use correct spelling, capitalization, and punctuation!": "¡Recuerda usar la ortografía, la capitalización y la puntuación correctas!"
+    },
     "ELL Starter Fill in the Blank": {
         "header": "Rellena el espacio en blanco",
         "text": "En esta sección, cada oración tendrá uno, dos o tres espacios en blanco. Rellenarás cada espacio en blanco con una de las palabras de la lista o lo dejarás en blanco si no se necesita ninguna palabra. Escribe las palabras que elijas en los cuadros. ¡Recuerda revisar tu ortografía! ¡Empecemos!"

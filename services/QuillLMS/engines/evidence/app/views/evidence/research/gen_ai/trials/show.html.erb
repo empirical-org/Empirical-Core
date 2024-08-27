@@ -6,16 +6,6 @@
 
 <div class="container">
   <div class="column">
-    <h2>
-      Trial
-      <% if @trial.failed? %>
-        <%= button_to 'Retry',
-              retry_research_gen_ai_dataset_trial_path(dataset: @dataset, trial: @trial),
-              method: :post,
-              data: { confirm: 'Are you sure you want to retry this trial?' }
-        %>
-      <% end %>
-    </h2>
     <p><%= datetime_helper(@trial.created_at) %></p>
 
     <h3>Stem Vault</h3>
@@ -28,6 +18,9 @@
 
     <h3>LLM Prompt</h3>
     <p><%= link_to @trial.llm_prompt.name, @trial.llm_prompt %></p>
+
+    <h3>Temperature</h3>
+    <p><%= @trial.temperature %></p>
 
     <% if @g_evals %>
       <h3>G-eval</h3>

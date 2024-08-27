@@ -9,6 +9,7 @@
 #  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  temperature         :float            not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
@@ -24,6 +25,7 @@ module Evidence
     module GenAI
       RSpec.describe Trial, type: :model do
         let(:factory) { described_class.model_name.singular.to_sym }
+        let(:trial) { create(factory) }
 
         it { expect(build(factory)).to be_valid }
 
@@ -31,12 +33,14 @@ module Evidence
         it { should validate_presence_of(:llm_id) }
         it { should validate_presence_of(:llm_prompt_id) }
         it { should validate_presence_of(:dataset_id) }
+        it { should validate_presence_of(:temperature) }
 
         it { should validate_inclusion_of(:status).in_array(described_class::STATUSES) }
 
         it { should have_readonly_attribute(:llm_id) }
         it { should have_readonly_attribute(:llm_prompt_id) }
         it { should have_readonly_attribute(:dataset_id) }
+        it { should have_readonly_attribute(:temperature) }
 
         it { should belong_to(:llm) }
         it { should belong_to(:llm_prompt) }
@@ -70,62 +74,76 @@ module Evidence
         describe '#run' do
           subject { trial.run }
 
-          let(:trial) { create(factory) }
-          let(:dataset) { trial.dataset }
-          let(:llm) { trial.llm }
-          let(:llm_prompt) { trial.llm_prompt }
-          let(:raw_text) { { 'feedback' => 'This is feedback', 'optimal' => true }.to_json }
-          let(:test_examples_count) { 3 }
+          before { allow(TrialRunner).to receive(:run) }
 
-          let!(:test_examples) { create_list(:evidence_research_gen_ai_test_example, test_examples_count, dataset:) }
+          it 'calls TrialRunner.run' do
+            expect(TrialRunner).to receive(:run).with(trial)
+            subject
+          end
+        end
+
+        describe '#set_confusion_matrix' do
+          subject { trial.set_confusion_matrix }
+
+          let(:llm_examples) { create_list(:evidence_research_gen_ai_llm_example, 3, trial:) }
+          let(:confusion_matrix) { [[2, 1], [0, 3]] }
 
           before do
-            allow(trial).to receive(:llm).and_return(llm)
-
-            allow(llm)
-              .to receive(:completion)
-              .with(instance_of(String))
-              .and_return(raw_text)
-
-            allow(CalculateResultsWorker).to receive(:perform_async).with(trial.id)
+            allow(trial).to receive(:llm_examples).and_return(llm_examples)
+            allow(ConfusionMatrixBuilder).to receive(:run).with(llm_examples).and_return(confusion_matrix)
           end
 
-          it { expect { subject }.to change { trial.reload.status }.to(described_class::COMPLETED) }
-          it { expect { subject }.to change(LLMExample, :count).by(test_examples_count) }
-
-          context 'when querying LLM' do
-            it 'only processes testing example student responses' do
-              expect(llm).to receive(:completion).exactly(test_examples_count).times
-
-              subject
-            end
-
-            it 'measures and records API call times' do
-              # 2 calls for each example: one for the API call and one for the trial_duration
-              expect(Time.zone).to receive(:now).exactly((test_examples_count * 2) + 2).times.and_call_original
-
-              subject
-
-              expect(trial.reload.api_call_times.size).to eq(test_examples_count)
-            end
+          it 'calls ConfusionMatrixBuilder.run with llm_examples' do
+            expect(ConfusionMatrixBuilder).to receive(:run).with(llm_examples)
+            subject
           end
 
-          context 'when an error occurs during execution' do
-            let(:error_message) { 'Test error' }
+          it 'updates the results with the confusion matrix' do
+            expect(trial).to receive(:update_results!).with(confusion_matrix:)
+            subject
+          end
+        end
 
-            before { allow(trial).to receive(:query_llm).and_raise(StandardError, error_message) }
+        describe '#set_evaluation_start_time' do
+          subject { trial.set_evaluation_start_time }
+
+          it { expect { subject }.to change { trial.reload.evaluation_start_time } }
+        end
+
+        describe '#set_trial_start_time' do
+          subject { trial.set_trial_start_time }
+
+          it { expect { subject }.to change { trial.reload.trial_start_time } }
+        end
+
+        describe '#set_trial_duration' do
+          subject { trial.set_trial_duration }
+
+          let(:trial) { create(factory, trial_start_time: 1.hour.ago) }
+
+          it { expect { subject }.to change { trial.reload.trial_duration }.to be_within(2.seconds).of(1.hour) }
+        end
+
+        describe '#set_status' do
+          subject { trial.set_status }
+
+          context 'when there are no errors' do
+            it { expect { subject }.to change { trial.reload.status }.to(described_class::COMPLETED) }
+          end
+
+          context 'when there are errors' do
+            before { allow(trial).to receive(:trial_errors).and_return(['error']) }
 
             it { expect { subject }.to change { trial.reload.status }.to(described_class::FAILED) }
-            it { expect { subject }.not_to change(LLMExample, :count) }
-            it { expect { subject }.to change { trial.reload.trial_errors }.from([]).to([error_message]) }
           end
+        end
 
-          context 'when the trial is not pending' do
-            before { trial.update!(status: described_class::FAILED) }
+        describe '#update_results!' do
+          subject { trial.update_results!(new_data) }
 
-            it { expect { subject }.not_to change { trial.reload.status } }
-            it { expect { subject }.not_to change(LLMExample, :count) }
-          end
+          let(:new_data) { { 'key' => 'value' } }
+
+          it { expect { subject }.to change { trial.reload.results }.to(new_data) }
         end
       end
     end

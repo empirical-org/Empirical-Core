@@ -16,11 +16,11 @@ namespace :unit_templates do
       unless ut.teacher_review.blank?
         markdown.concat "### Activity Info\n\n#{ut.teacher_review}\n\n"
       end
-      unless markdown.blank?
-        ut.activity_info = markdown
-        ut.save
-        puts "💪   Unit Template updated: #{ut.name}"
-      end
+      next if markdown.blank?
+
+      ut.activity_info = markdown
+      ut.save
+      puts "💪   Unit Template updated: #{ut.name}"
     end
   end
 end

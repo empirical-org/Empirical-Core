@@ -9,6 +9,7 @@ describe SyncVitallyAccountsWorker do
 
   before do
     create(:evidence)
+    create(:activity_classification, key: ActivityClassification::DIAGNOSTIC_KEY)
   end
 
   describe '#perform' do

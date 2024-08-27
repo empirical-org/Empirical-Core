@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from '../../../Shared/index';
+import { Modal, showTranslations } from '../../../Shared/index';
 import getAnswerState from './answerState';
 import EndState from './renderEndState.jsx';
 import TextEditor from './renderTextEditor.jsx';
@@ -72,7 +72,9 @@ export default class RenderFormForAnswer extends React.Component {
       handleChange,
       spellCheck,
       value,
-      isAdmin
+      isAdmin,
+      showTranslation,
+      translate
     } = this.props
     let content
     let button
@@ -91,7 +93,7 @@ export default class RenderFormForAnswer extends React.Component {
     } else if (nextQuestionButton) { // if you're going to next, it is the end state
       button = nextQuestionButton;
     } else {
-      const message = 'Get feedback'
+      const message = showTranslation ? translate('buttons^get feedback') : 'Get feedback'
       button = (
         <button
           className={`quill-button-archived focus-on-light large primary contained ${toggleDisabled}`}

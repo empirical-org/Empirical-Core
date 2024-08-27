@@ -20,7 +20,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
       it 'redirects to the correct page' do
-        get :report_from_classroom_unit_and_activity_and_user, params: ({ classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id })
+        get :report_from_classroom_unit_and_activity_and_user, params: { classroom_unit_id: classroom_unit.id, user_id: student.id, activity_id: activity.id }
         expect(response).to redirect_to("/teachers/progress_reports/diagnostic_reports#/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report/#{student.id}")
       end
     end
@@ -36,7 +36,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a responses link' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({ unit_id: unit.id, activity_id: activity.id })
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: { unit_id: unit.id, activity_id: activity.id }
           expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses?unit=#{unit.id}" }.to_json)
         end
       end
@@ -50,7 +50,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a responses link' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({ unit_id: unit.id, activity_id: activity.id })
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: { unit_id: unit.id, activity_id: activity.id }
           expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses?unit=#{unit.id}" }.to_json)
         end
       end
@@ -64,7 +64,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a growth responses link' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({ unit_id: unit.id, activity_id: activity.id })
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: { unit_id: unit.id, activity_id: activity.id }
           expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses?unit=#{unit.id}" }.to_json)
         end
       end
@@ -77,7 +77,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         let!(:activity_session) { create(:activity_session, classroom_unit: classroom_unit, activity: activity, user: student) }
 
         it 'responds with a responses link that has a unit query param' do
-          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: ({ unit_id: unit.id, activity_id: activity.id })
+          get :redirect_to_report_for_most_recent_activity_session_associated_with_activity_and_unit, params: { unit_id: unit.id, activity_id: activity.id }
           expect(response.body).to eq({ url: "/teachers/progress_reports/diagnostic_reports#/diagnostics/#{activity.id}/classroom/#{classroom.id}/responses?unit=#{unit.id}" }.to_json)
         end
       end
@@ -95,14 +95,14 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       expect_any_instance_of(Teachers::ProgressReports::DiagnosticReportsController).to receive(:results_for_classroom).with(unit.id.to_s, activity.id.to_s, classroom.id.to_s).once.and_call_original
 
       2.times do
-        get :students_by_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+        get :students_by_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
         expect(response).to be_successful
       end
     end
 
     it 'should return empty arrays when there are no activity_sessions' do
-      get :students_by_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+      get :students_by_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
       expect(response).to be_successful
 
@@ -123,7 +123,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
       end
 
       it 'should return report data for students and not_completed_name' do
-        get :students_by_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+        get :students_by_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
         expect(response).to be_successful
 
@@ -148,7 +148,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         end
 
         it 'should return report data for students and missing_name' do
-          get :students_by_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+          get :students_by_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
           expect(response).to be_successful
 
@@ -177,7 +177,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         end
 
         it 'should return all 3 records and average score' do
-          get :students_by_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+          get :students_by_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
           expect(response).to be_successful
 
@@ -198,7 +198,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     let!(:ua) { create(:unit_activity, unit: unit, activity: activity) }
 
     it 'should return empty arrays when there are no activity_sessions' do
-      get :classrooms_with_students, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+      get :classrooms_with_students, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
       json = JSON.parse(response.body)
 
@@ -220,7 +220,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
 
       it 'should return report data for completed student sessions' do
         Rails.logger.info "\n\n\nStart"
-        get :classrooms_with_students, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+        get :classrooms_with_students, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
         expect(response).to be_successful
 
@@ -234,7 +234,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
         expect(controller).to receive(:classrooms_with_students_for_report).with(any_args).once.and_call_original
 
         2.times do
-          get :classrooms_with_students, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+          get :classrooms_with_students, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
           expect(response).to be_successful
 
@@ -294,14 +294,14 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     it 'should not error with no activity_sessions' do
-      get :lesson_recommendations_for_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+      get :lesson_recommendations_for_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
       expect(response).to be_successful
     end
 
     it 'should not error with activity_sessions' do
       create(:activity_session, classroom_unit: @classroom_unit, activity: activity)
-      get :lesson_recommendations_for_classroom, params: ({ activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id })
+      get :lesson_recommendations_for_classroom, params: { activity_id: activity.id, unit_id: unit.id, classroom_id: classroom.id }
 
       expect(response).to be_successful
     end

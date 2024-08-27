@@ -32,8 +32,8 @@ module Evidence
     MIN_MAX_ATTEMPTS = 3
     MAX_MAX_ATTEMPTS = 6
 
-    OPTIMAL_SAMPLE_COUNT = Evidence::GenAI::SystemPromptBuilder::OPTIMAL_SAMPLE_COUNT
-    SUBOPTIMAL_SAMPLE_COUNT = Evidence::GenAI::SystemPromptBuilder::SUBOPTIMAL_SAMPLE_COUNT
+    OPTIMAL_SAMPLE_COUNT = Evidence::GenAI::PrimaryFeedback::PromptBuilder::OPTIMAL_SAMPLE_COUNT
+    SUBOPTIMAL_SAMPLE_COUNT = Evidence::GenAI::PrimaryFeedback::PromptBuilder::SUBOPTIMAL_SAMPLE_COUNT
 
     belongs_to :activity, inverse_of: :prompts
     has_many :automl_models, inverse_of: :prompt

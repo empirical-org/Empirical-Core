@@ -9,6 +9,7 @@
 #  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  temperature         :float            not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
@@ -37,6 +38,7 @@ module Evidence
 
         validates :llm_id, :llm_prompt_id, :dataset_id, presence: true
         validates :status, presence: true, inclusion: { in: STATUSES }
+        validates :temperature, presence: true
 
         delegate :stem_vault, to: :dataset
         delegate :conjunction, :name, to: :stem_vault
@@ -51,9 +53,11 @@ module Evidence
           :api_call_times,
           :confusion_matrix,
           :g_eval_ids,
-          :g_evals
+          :g_evals,
+          :trial_start_time,
+          :evaluation_start_time
 
-        attr_readonly :llm_id, :llm_prompt_id, :dataset_id
+        attr_readonly :llm_id, :llm_prompt_id, :dataset_id, :temperature
 
         attr_accessor :guideline_ids, :llm_prompt_template_id, :prompt_example_ids, :g_eval_id
 
@@ -64,64 +68,34 @@ module Evidence
         def running? = status == RUNNING
         def completed? = status == COMPLETED
 
+        def pending! = update!(status: PENDING)
+        def failed! = update!(status: FAILED)
+        def running! = update!(status: RUNNING)
+        def completed! = update!(status: COMPLETED)
+
+        def run = TrialRunner.run(self)
+
         def optimal_correct = confusion_matrix ? confusion_matrix[0][0] : 0
         def suboptimal_correct = confusion_matrix ? confusion_matrix[1][1] : 0
 
-        def average_g_eval_score
-          return 0 if scores.blank?
-
-          (1.0 * scores.sum / scores.size).round(2)
-        end
-
+        def average_g_eval_score = scores.blank? ? 0 : (1.0 * scores.sum / scores.size).round(2)
         def scores = g_evals&.values&.flatten&.compact&.map(&:to_f)
 
-        def run
-          start_time = Time.zone.now
-
-          return unless pending?
-
-          update!(status: RUNNING)
-          query_llm
-          CalculateResultsWorker.perform_async(id)
-          trial_errors.empty? ? update!(status: COMPLETED) : update!(status: FAILED)
-        rescue => e
-          trial_errors << e.message
-          update!(status: FAILED)
-        ensure
-          update!(trial_duration: Time.zone.now - start_time)
-        end
-
-        def update_results(new_data)
+        def update_results!(new_data)
           self.results ||= {}
           results.merge!(new_data)
           save!
         end
 
-        def retry_params = { llm_id:, llm_prompt_id:, dataset_id: }
+        def set_confusion_matrix = update_results!(confusion_matrix: ConfusionMatrixBuilder.run(llm_examples))
+        def set_evaluation_start_time = update!(evaluation_start_time: Time.zone.now)
+        def set_trial_start_time = update!(trial_start_time: Time.zone.now)
+        def set_trial_duration = update!(trial_duration: Time.zone.now - Time.zone.parse(trial_start_time))
+        def set_status = trial_errors.empty? ? completed! : failed!
 
         private def set_trial_number
           last_trial_number = self.class.where(dataset_id:).maximum(:number) || 0
           self.number = last_trial_number + 1
-        end
-
-        private def query_llm
-          [].tap do |api_call_times|
-            test_examples.each do |test_example|
-              api_call_start_time = Time.zone.now
-              prompt = llm_prompt.prompt_with_student_response(test_example.student_response)
-              raw_text = llm.completion(prompt)
-              api_call_times << (Time.zone.now - api_call_start_time).round(2)
-
-              llm_feedback = LLMFeedbackResolver.run(raw_text:)
-              llm_assigned_status = LLMAssignedStatusResolver.run(raw_text:)
-
-              LLMExample.create!(trial: self, raw_text:, llm_feedback:, test_example:, llm_assigned_status:)
-            rescue => e
-              trial_errors << { error: e.message, test_example_id: test_example.id, raw_text: }.to_json
-              next
-            end
-            update_results(api_call_times:)
-          end
         end
       end
     end

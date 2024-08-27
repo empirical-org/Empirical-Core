@@ -32,14 +32,14 @@ module Evidence
 
     context 'should custom validations' do
       let!(:rule) { create(:evidence_rule) }
-      let(:regex_rule) { RegexRule.create(:rule => (rule), :regex_text => 'test regex') }
+      let(:regex_rule) { RegexRule.create(:rule => rule, :regex_text => 'test regex') }
 
       it 'provide a default value for "case_sensitive"' do
         expect(regex_rule.case_sensitive).to(be_truthy)
       end
 
       it 'not override a "case_sensitive" with the default if one is provided' do
-        a_rule = RegexRule.create(:rule => (rule), :regex_text => 'test regex', :case_sensitive => false)
+        a_rule = RegexRule.create(:rule => rule, :regex_text => 'test regex', :case_sensitive => false)
         expect(a_rule.valid?).to(eq(true))
         expect(a_rule.case_sensitive).to(be_falsey)
       end
@@ -52,7 +52,7 @@ module Evidence
 
     context 'should entry_failing?' do
       let!(:rule) { create(:evidence_rule) }
-      let!(:regex_rule) { RegexRule.create(:rule => (rule), :regex_text => '^test', :sequence_type => 'required', :case_sensitive => false) }
+      let!(:regex_rule) { RegexRule.create(:rule => rule, :regex_text => '^test', :sequence_type => 'required', :case_sensitive => false) }
 
       it 'should flag entry as failing if regex does not match and sequence type is required' do
         expect(regex_rule.entry_failing?('not test passing')).to(eq(true))

@@ -32,11 +32,11 @@ RSpec.describe TranslatedTextsController, type: :controller do
       end
 
       it 'assigns @js_file' do
-        expect(assigns(:js_file)).to eq("entrypoints/snippets/translated_text.ts")
+        expect(assigns(:js_file)).to eq('entrypoints/snippets/translated_text.ts')
       end
 
       it 'assigns @locales' do
-        locales = ["es-la", "zh-cn"]
+        locales = ['es-la', 'zh-cn']
         locales.each { |locale| create(:translated_text, locale:) }
         get :index
         expect(assigns(:locales)).to match_array(locales)
@@ -45,7 +45,7 @@ RSpec.describe TranslatedTextsController, type: :controller do
       context 'a locale parameter is passed in' do
         let(:locale) { 'es-la' }
         let!(:es_text) { create(:translated_text, locale:) }
-        let!(:zh_text) { create(:translated_text, locale: "zh-cn") }
+        let!(:zh_text) { create(:translated_text, locale: 'zh-cn') }
 
         before do
           get :index, params: { locale: }

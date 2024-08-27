@@ -18,7 +18,7 @@ module Evidence
         SUBOPTIMAL = HasAssignedStatus::SUBOPTIMAL
 
         MISSING_FEEDBACK_ERROR = 'CSV is missing feedback. Please add Curriculum Proposed Feedback or AutoML Primary Feedback.'
-        MISSING_STUDENT_RESPONSE_ERROR = 'is missing a Student Response.'
+        MISSING_STUDENT_RESPONSE_ERROR = 'CSV is missing a Student Response.'
         MISSING_HEADERS_ERROR = 'CSV is missing required headers: %s.'
 
         def initialize(file:)

@@ -11,6 +11,7 @@ import PlaySentenceFragment from './sentenceFragment.jsx';
 import { requestPost, requestPut, } from '../../../../modules/request/index';
 import {
   CLICK,
+  ENGLISH,
   KEYDOWN,
   KEYPRESS,
   LanguageSelectionPage,
@@ -472,7 +473,7 @@ export class Lesson extends React.Component {
     const { params } = match
     const { lessonID, } = params;
     const studentSession = getParameterByName('student', window.location.href);
-    const showTranslation = language && availableLanguages?.includes(language)
+    const showTranslation = language && availableLanguages?.includes(language) && language !== ENGLISH
     let component;
 
     if (!this.dataHasLoaded()) {
@@ -540,6 +541,8 @@ export class Lesson extends React.Component {
             previewMode={previewMode}
             question={question}
             questionToPreview={questionToPreview}
+            showTranslation={showTranslation}
+            translate={translate}
           />
         );
       }
