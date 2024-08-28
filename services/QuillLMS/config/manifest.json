@@ -1,0 +1,12 @@
+{
+  "name": "Quill.org",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "https://www.quill.org/",
+  "display": "minimal-ui"
+}
