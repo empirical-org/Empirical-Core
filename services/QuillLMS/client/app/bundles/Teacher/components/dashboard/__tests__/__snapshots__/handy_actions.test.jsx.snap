@@ -1,358 +1,455 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HandyActions component should render when the user is linked to Clever 1`] = `
-<HandyActions
-  linkedToClever={true}
->
+exports[`HandyActions component should render when the user has assigned science activities 1`] = `
+<DocumentFragment>
   <section
-    className="handy-actions"
+    class="handy-actions"
   >
     <h2>
       Handy Actions
     </h2>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Map with a magnifying glass icon",
-          "src": "undefined/images/icons/s/map-search.svg",
-        }
-      }
-      link="/assign/activity-library"
-      text="Explore activity library"
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/progress_reports/interdisciplinary-science/building-ai-knowledge"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/assign/activity-library"
+      <img
+        alt="Brain icon"
+        src="undefined/images/icons/s/ai.svg"
+      />
+      <span>
+        Interdisciplinary Science Dashboard
+      </span>
+      <span
+        class="gold-new-tag"
       >
-        <img
-          alt="Map with a magnifying glass icon"
-          src="undefined/images/icons/s/map-search.svg"
-        />
-        <span>
-          Explore activity library
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Clipboard with a checkmark icon",
-          "src": "undefined/images/icons/s/clipboard-check.svg",
-        }
-      }
-      link="/assign/diagnostic"
-      text="Assign a diagnostic"
+        NEW
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/activity-library"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/assign/diagnostic"
-      >
-        <img
-          alt="Clipboard with a checkmark icon"
-          src="undefined/images/icons/s/clipboard-check.svg"
-        />
-        <span>
-          Assign a diagnostic
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Table with a checkmark icon",
-          "src": "undefined/images/icons/s/table-check.svg",
-        }
-      }
-      link="/teachers/classrooms/scorebook"
-      text="View activity summary report"
+      <img
+        alt="Map with a magnifying glass icon"
+        src="undefined/images/icons/s/map-search.svg"
+      />
+      <span>
+        Explore activity library
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/diagnostic"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms/scorebook"
-      >
-        <img
-          alt="Table with a checkmark icon"
-          src="undefined/images/icons/s/table-check.svg"
-        />
-        <span>
-          View activity summary report
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Avatar with an eye next to it icon",
-          "src": "undefined/images/icons/s/account-view.svg",
-        }
-      }
-      link="/teachers/classrooms?modal=view-as-student"
-      text="View as a student"
+      <img
+        alt="Clipboard with a checkmark icon"
+        src="undefined/images/icons/s/clipboard-check.svg"
+      />
+      <span>
+        Assign a diagnostic
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/scorebook"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms?modal=view-as-student"
-      >
-        <img
-          alt="Avatar with an eye next to it icon"
-          src="undefined/images/icons/s/account-view.svg"
-        />
-        <span>
-          View as a student
-        </span>
-      </a>
-    </HandyAction>
-    <ExploreDemoAction>
-      <button
-        className="handy-action handy-action-button focus-on-light"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Teacher preview icon"
-          src="undefined/images/icons/s/teacher-account-view.svg"
-        />
-        <span>
-          Explore a demo teacher account
-        </span>
-      </button>
-    </ExploreDemoAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Gift icon",
-          "src": "undefined/images/icons/s/gift.svg",
-        }
-      }
-      link="/referrals"
-      text="Refer a teacher"
+      <img
+        alt="Table with a checkmark icon"
+        src="undefined/images/icons/s/table-check.svg"
+      />
+      <span>
+        View activity summary report
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=view-as-student"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/referrals"
-      >
-        <img
-          alt="Gift icon"
-          src="undefined/images/icons/s/gift.svg"
-        />
-        <span>
-          Refer a teacher
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Three avatars icon",
-          "src": "undefined/images/icons/s/account-group.svg",
-        }
-      }
-      link="/teachers/classrooms/new"
-      text="Add a class"
+      <img
+        alt="Avatar with an eye next to it icon"
+        src="undefined/images/icons/s/account-view.svg"
+      />
+      <span>
+        View as a student
+      </span>
+    </a>
+    <button
+      class="handy-action handy-action-button focus-on-light"
+      type="button"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms/new"
-      >
-        <img
-          alt="Three avatars icon"
-          src="undefined/images/icons/s/account-group.svg"
-        />
-        <span>
-          Add a class
-        </span>
-      </a>
-    </HandyAction>
+      <img
+        alt="Teacher preview icon"
+        src="undefined/images/icons/s/teacher-account-view.svg"
+      />
+      <span>
+        Explore a demo teacher account
+      </span>
+    </button>
+    <a
+      class="handy-action focus-on-light"
+      href="/referrals"
+    >
+      <img
+        alt="Gift icon"
+        src="undefined/images/icons/s/gift.svg"
+      />
+      <span>
+        Refer a teacher
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/new"
+    >
+      <img
+        alt="Three avatars icon"
+        src="undefined/images/icons/s/account-group.svg"
+      />
+      <span>
+        Add a class
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=google-classroom"
+    >
+      <img
+        alt="Google Classroom icon"
+        src="undefined/images/icons/s/google-classroom.svg"
+      />
+      <span>
+        Import classes from Google
+      </span>
+    </a>
   </section>
-</HandyActions>
+</DocumentFragment>
+`;
+
+exports[`HandyActions component should render when the user has assigned social studies activities 1`] = `
+<DocumentFragment>
+  <section
+    class="handy-actions"
+  >
+    <h2>
+      Handy Actions
+    </h2>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/progress_reports/social-studies/world-history-1200-to-present"
+    >
+      <img
+        alt="Globe icon"
+        src="undefined/images/icons/s/globe.svg"
+      />
+      <span>
+        Social Studies Dashboard
+      </span>
+      <span
+        class="gold-new-tag"
+      >
+        NEW
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/activity-library"
+    >
+      <img
+        alt="Map with a magnifying glass icon"
+        src="undefined/images/icons/s/map-search.svg"
+      />
+      <span>
+        Explore activity library
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/diagnostic"
+    >
+      <img
+        alt="Clipboard with a checkmark icon"
+        src="undefined/images/icons/s/clipboard-check.svg"
+      />
+      <span>
+        Assign a diagnostic
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/scorebook"
+    >
+      <img
+        alt="Table with a checkmark icon"
+        src="undefined/images/icons/s/table-check.svg"
+      />
+      <span>
+        View activity summary report
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=view-as-student"
+    >
+      <img
+        alt="Avatar with an eye next to it icon"
+        src="undefined/images/icons/s/account-view.svg"
+      />
+      <span>
+        View as a student
+      </span>
+    </a>
+    <button
+      class="handy-action handy-action-button focus-on-light"
+      type="button"
+    >
+      <img
+        alt="Teacher preview icon"
+        src="undefined/images/icons/s/teacher-account-view.svg"
+      />
+      <span>
+        Explore a demo teacher account
+      </span>
+    </button>
+    <a
+      class="handy-action focus-on-light"
+      href="/referrals"
+    >
+      <img
+        alt="Gift icon"
+        src="undefined/images/icons/s/gift.svg"
+      />
+      <span>
+        Refer a teacher
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/new"
+    >
+      <img
+        alt="Three avatars icon"
+        src="undefined/images/icons/s/account-group.svg"
+      />
+      <span>
+        Add a class
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=google-classroom"
+    >
+      <img
+        alt="Google Classroom icon"
+        src="undefined/images/icons/s/google-classroom.svg"
+      />
+      <span>
+        Import classes from Google
+      </span>
+    </a>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`HandyActions component should render when the user is linked to Clever 1`] = `
+<DocumentFragment>
+  <section
+    class="handy-actions"
+  >
+    <h2>
+      Handy Actions
+    </h2>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/activity-library"
+    >
+      <img
+        alt="Map with a magnifying glass icon"
+        src="undefined/images/icons/s/map-search.svg"
+      />
+      <span>
+        Explore activity library
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/diagnostic"
+    >
+      <img
+        alt="Clipboard with a checkmark icon"
+        src="undefined/images/icons/s/clipboard-check.svg"
+      />
+      <span>
+        Assign a diagnostic
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/scorebook"
+    >
+      <img
+        alt="Table with a checkmark icon"
+        src="undefined/images/icons/s/table-check.svg"
+      />
+      <span>
+        View activity summary report
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=view-as-student"
+    >
+      <img
+        alt="Avatar with an eye next to it icon"
+        src="undefined/images/icons/s/account-view.svg"
+      />
+      <span>
+        View as a student
+      </span>
+    </a>
+    <button
+      class="handy-action handy-action-button focus-on-light"
+      type="button"
+    >
+      <img
+        alt="Teacher preview icon"
+        src="undefined/images/icons/s/teacher-account-view.svg"
+      />
+      <span>
+        Explore a demo teacher account
+      </span>
+    </button>
+    <a
+      class="handy-action focus-on-light"
+      href="/referrals"
+    >
+      <img
+        alt="Gift icon"
+        src="undefined/images/icons/s/gift.svg"
+      />
+      <span>
+        Refer a teacher
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/new"
+    >
+      <img
+        alt="Three avatars icon"
+        src="undefined/images/icons/s/account-group.svg"
+      />
+      <span>
+        Add a class
+      </span>
+    </a>
+  </section>
+</DocumentFragment>
 `;
 
 exports[`HandyActions component should render when the user is not linked to Clever 1`] = `
-<HandyActions
-  linkedToClever={false}
->
+<DocumentFragment>
   <section
-    className="handy-actions"
+    class="handy-actions"
   >
     <h2>
       Handy Actions
     </h2>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Map with a magnifying glass icon",
-          "src": "undefined/images/icons/s/map-search.svg",
-        }
-      }
-      link="/assign/activity-library"
-      text="Explore activity library"
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/activity-library"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/assign/activity-library"
-      >
-        <img
-          alt="Map with a magnifying glass icon"
-          src="undefined/images/icons/s/map-search.svg"
-        />
-        <span>
-          Explore activity library
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Clipboard with a checkmark icon",
-          "src": "undefined/images/icons/s/clipboard-check.svg",
-        }
-      }
-      link="/assign/diagnostic"
-      text="Assign a diagnostic"
+      <img
+        alt="Map with a magnifying glass icon"
+        src="undefined/images/icons/s/map-search.svg"
+      />
+      <span>
+        Explore activity library
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/assign/diagnostic"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/assign/diagnostic"
-      >
-        <img
-          alt="Clipboard with a checkmark icon"
-          src="undefined/images/icons/s/clipboard-check.svg"
-        />
-        <span>
-          Assign a diagnostic
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Table with a checkmark icon",
-          "src": "undefined/images/icons/s/table-check.svg",
-        }
-      }
-      link="/teachers/classrooms/scorebook"
-      text="View activity summary report"
+      <img
+        alt="Clipboard with a checkmark icon"
+        src="undefined/images/icons/s/clipboard-check.svg"
+      />
+      <span>
+        Assign a diagnostic
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/scorebook"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms/scorebook"
-      >
-        <img
-          alt="Table with a checkmark icon"
-          src="undefined/images/icons/s/table-check.svg"
-        />
-        <span>
-          View activity summary report
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Avatar with an eye next to it icon",
-          "src": "undefined/images/icons/s/account-view.svg",
-        }
-      }
-      link="/teachers/classrooms?modal=view-as-student"
-      text="View as a student"
+      <img
+        alt="Table with a checkmark icon"
+        src="undefined/images/icons/s/table-check.svg"
+      />
+      <span>
+        View activity summary report
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=view-as-student"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms?modal=view-as-student"
-      >
-        <img
-          alt="Avatar with an eye next to it icon"
-          src="undefined/images/icons/s/account-view.svg"
-        />
-        <span>
-          View as a student
-        </span>
-      </a>
-    </HandyAction>
-    <ExploreDemoAction>
-      <button
-        className="handy-action handy-action-button focus-on-light"
-        onClick={[Function]}
-        type="button"
-      >
-        <img
-          alt="Teacher preview icon"
-          src="undefined/images/icons/s/teacher-account-view.svg"
-        />
-        <span>
-          Explore a demo teacher account
-        </span>
-      </button>
-    </ExploreDemoAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Gift icon",
-          "src": "undefined/images/icons/s/gift.svg",
-        }
-      }
-      link="/referrals"
-      text="Refer a teacher"
+      <img
+        alt="Avatar with an eye next to it icon"
+        src="undefined/images/icons/s/account-view.svg"
+      />
+      <span>
+        View as a student
+      </span>
+    </a>
+    <button
+      class="handy-action handy-action-button focus-on-light"
+      type="button"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/referrals"
-      >
-        <img
-          alt="Gift icon"
-          src="undefined/images/icons/s/gift.svg"
-        />
-        <span>
-          Refer a teacher
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Three avatars icon",
-          "src": "undefined/images/icons/s/account-group.svg",
-        }
-      }
-      link="/teachers/classrooms/new"
-      text="Add a class"
+      <img
+        alt="Teacher preview icon"
+        src="undefined/images/icons/s/teacher-account-view.svg"
+      />
+      <span>
+        Explore a demo teacher account
+      </span>
+    </button>
+    <a
+      class="handy-action focus-on-light"
+      href="/referrals"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms/new"
-      >
-        <img
-          alt="Three avatars icon"
-          src="undefined/images/icons/s/account-group.svg"
-        />
-        <span>
-          Add a class
-        </span>
-      </a>
-    </HandyAction>
-    <HandyAction
-      icon={
-        Object {
-          "alt": "Google Classroom icon",
-          "src": "undefined/images/icons/s/google-classroom.svg",
-        }
-      }
-      link="/teachers/classrooms?modal=google-classroom"
-      text="Import classes from Google"
+      <img
+        alt="Gift icon"
+        src="undefined/images/icons/s/gift.svg"
+      />
+      <span>
+        Refer a teacher
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms/new"
     >
-      <a
-        className="handy-action focus-on-light"
-        href="/teachers/classrooms?modal=google-classroom"
-      >
-        <img
-          alt="Google Classroom icon"
-          src="undefined/images/icons/s/google-classroom.svg"
-        />
-        <span>
-          Import classes from Google
-        </span>
-      </a>
-    </HandyAction>
+      <img
+        alt="Three avatars icon"
+        src="undefined/images/icons/s/account-group.svg"
+      />
+      <span>
+        Add a class
+      </span>
+    </a>
+    <a
+      class="handy-action focus-on-light"
+      href="/teachers/classrooms?modal=google-classroom"
+    >
+      <img
+        alt="Google Classroom icon"
+        src="undefined/images/icons/s/google-classroom.svg"
+      />
+      <span>
+        Import classes from Google
+      </span>
+    </a>
   </section>
-</HandyActions>
+</DocumentFragment>
 `;

@@ -1,0 +1,317 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterdisciplinaryScienceSubjectPage renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="interdisciplinary-science-subject-page subject-page"
+  >
+    <header>
+      <div
+        class="container"
+      >
+        <h1>
+          Interdisciplinary Science
+        </h1>
+        <p>
+          Over the next few years, Quill will building out Reading for Evidence activities aligned to high school science classrooms. Our first offering, Building AI Knowledge, features activities that introduce students to how AI will impact society over the next decade. In the future, we will build offerings around biology, earth sciences, and other science topics.
+          <br />
+          <br />
+          In these Reading for Evidence activities, students read science-aligned texts, use what they’ve read to draft evidence-based claims, and receive AI-powered feedback to strengthen their writing. Process and growth are key: our responsive coaching guides students to revise until their sentences are clear, logical, and grounded in specific details from the text.
+          <br />
+          <br />
+          Our Interdisciplinary Science work is meant to be used in either ELA or science classrooms. These activities are not meant to replace a textbook. Our activities provide a deep-dive into some of the most fascinating ideas in science.
+        </p>
+        <div
+          class="course-cards"
+        >
+          <div
+            class="course-card"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/l/ai.svg"
+            />
+            <div>
+              <h2>
+                Building AI Knowledge
+              </h2>
+            </div>
+            <a
+              class="quill-button focus-on-light contained medium teal"
+              href="/building-ai-knowledge"
+            >
+              View activities
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section
+      class="summary-section"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          Build Content Knowledge & Writing Skills With Reading for Evidence
+        </h2>
+        <p>
+          Written and reviewed by educators, each Quill Interdisciplinary Science activity highlights a science concept. Not only do these activities deepen students’ subject area learning and reinforce essential science content, they also provide support for:
+        </p>
+        <div
+          class="summary-items"
+        >
+          <div
+            class="summary-item"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/xl/search-document.svg"
+            />
+            <h3>
+              Close reading
+            </h3>
+            <p>
+              Every activity begins with a structured highlighting task as an entry point to the text. Then, students read and reread up to ten times in the process of developing their responses.
+            </p>
+          </div>
+          <div
+            class="summary-item"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/xl/research-books.svg"
+            />
+            <h3>
+              Constructing evidence-based claims
+            </h3>
+            <p>
+              Students receive custom feedback developed by real teachers to help them use what they have read to craft strong sentences.
+            </p>
+          </div>
+          <div
+            class="summary-item"
+          >
+            <img
+              alt=""
+              src="undefined/images/icons/xl/comment-document.svg"
+            />
+            <h3>
+              Sentence fundamentals
+            </h3>
+            <p>
+              Practice with conjunctions like because, but, and so provides students with a framework to combine sentences and express complex ideas effectively. Once they’ve clearly captured these ideas in their response, students receive grammar and spelling guidance too.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="partners container"
+    >
+      <img
+        alt="Quill logo plus AI Edu logo"
+        src="undefined/images/pages/interdisciplinary_science_subject_page/quill_logo_plus_ai_edu_logo.svg"
+      />
+      <p>
+        Quill has partnered with 
+        <a
+          href="https://www.aiedu.org/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          aiEDU
+        </a>
+         to curate activities from their site that work well with Quill Building AI Knowledge activities. On the course landing page, each each Reading for Evidence activity includes a suggested paired aiEDU activity, which range from 5-minute warm-up activities to 3-4 hour student-led activities. These activities can be used to preview new content, reinforce prior knowledge, provide additional context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or in conjunction with aiEDU activities, these resources are a valuable addition to any high school ELA or Computer Science classroom.
+      </p>
+    </section>
+    <div
+      id="q-and-a"
+    >
+      <div
+        class="q-and-a-inner-wrapper"
+      >
+        <h2>
+          Questions and Answers
+        </h2>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              How does Quill Reading for Evidence build reading, writing, and critical thinking skills?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <p>
+                Expand
+              </p>
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              What distinguishes Quill Reading for Evidence from other online reading tools?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <p>
+                Expand
+              </p>
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              What do students need to know about Quill Reading for Evidence?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <p>
+                Expand
+              </p>
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              What are some best practices for introducing Quill Reading for Evidence to my students and integrating it into my instruction?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <p>
+                Expand
+              </p>
+            </button>
+          </div>
+        </div>
+        <div
+          class="qa-section"
+        >
+          <div
+            class="qa"
+          >
+            <button
+              class="question"
+              tabindex="-1"
+              type="button"
+            >
+              For whom are these activities most appropriate? How does the tool support students who may need more scaffolding, like multilingual learners and students with IEPs?
+            </button>
+          </div>
+          <div>
+            <button
+              class="expand-collapse-button focus-on-light"
+              type="button"
+            >
+              <p>
+                Expand
+              </p>
+            </button>
+          </div>
+        </div>
+        <a
+          class="support-link hidden"
+        >
+          View all questions and answers
+        </a>
+      </div>
+    </div>
+    <section
+      class="teacher-center-articles"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          Learn more with these Teacher Center articles
+        </h2>
+        <div
+          class="articles-wrapper"
+        >
+          <span />
+          <span />
+        </div>
+      </div>
+    </section>
+    <section
+      class="try-it-out"
+    >
+      <div
+        class="container"
+      >
+        <h2>
+          Try it out for yourself
+        </h2>
+        <div
+          class="links-wrapper"
+        >
+          <a
+            class="quill-button focus-on-dark outlined teal large"
+            href="/evidence/#/play?anonymous=true&uid=442"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Try a sample activity
+          </a>
+          <a
+            class="quill-button focus-on-dark outlined teal large"
+            href="/building-ai-knowledge"
+          >
+            View Building AI Knowledge activities
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

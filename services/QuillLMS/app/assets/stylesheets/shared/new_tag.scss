@@ -7,3 +7,18 @@
   letter-spacing: normal;
   color: #ff6676;
 }
+
+.gold-new-tag {
+  font-size: 9px;
+  color: $quill-white;
+  background-color: $quill-gold;
+  border-radius: 5px;
+  margin-left: 8px;
+  display: inline-block;
+  width: 32px;
+  height: 19px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
