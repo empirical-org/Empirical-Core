@@ -11,6 +11,7 @@ module Evidence
       KEY_ENTRY = 'entry'
 
       def run
+        # TODO: Remove temporary debugging code once beta version is locked down.
         with_logging
         @response = Evidence::GenAI::ResponseBuilder.run(primary_response:, secondary_response:, entry:, prompt:)
       end
