@@ -7,7 +7,12 @@ module Evidence
       REPEAT_API = Evidence::OpenAI::Chat
       SECONDARY_API = Evidence::OpenAI::Chat
 
+      KEY_FEEDBACK = 'feedback'
+      KEY_ENTRY = 'entry'
+
       def run
+        # TODO: Remove temporary debugging code once beta version is locked down.
+        with_logging
         @response = Evidence::GenAI::ResponseBuilder.run(primary_response:, secondary_response:, entry:, prompt:)
       end
 
@@ -19,7 +24,7 @@ module Evidence
       private def primary_optimal = primary_response[Evidence::GenAI::ResponseBuilder::KEY_OPTIMAL]
 
       private def primary_response
-        @primary_response ||= FEEDBACK_API.run(system_prompt: primary_feedback_prompt, history: session_history, entry:)
+        @primary_response ||= FEEDBACK_API.run(system_prompt: primary_feedback_prompt, history:, entry:)
       end
 
       private def primary_feedback_prompt
@@ -29,7 +34,7 @@ module Evidence
       private def secondary_response = repeated_feedback? ? secondary_feedback_response : {}
 
       private def repeated_feedback?
-        Evidence::GenAI::RepeatedFeedback::Checker.run(feedback: primary_feedback, history: feedback_history, optimal: primary_optimal, chat_api: REPEAT_API)
+        Evidence::GenAI::RepeatedFeedback::Checker.run(feedback: primary_feedback, history: history_feedback_only, optimal: primary_optimal, chat_api: REPEAT_API)
       end
 
       private def secondary_feedback_response
@@ -38,23 +43,30 @@ module Evidence
 
       private def secondary_feedback_prompt = Evidence::GenAI::SecondaryFeedback::PromptBuilder.run(prompt:)
 
-      private def feedback_history
-        previous_feedback.map { |f| f['feedback'] }
+      private def history
+        previous_feedback.map do |feedback|
+          Evidence::GenAI::HistoryItem.new(
+            user: feedback[KEY_ENTRY]&.gsub(prompt.text, '')&.strip,
+            assistant: feedback[KEY_FEEDBACK]
+          )
+        end
       end
 
-      # TODO: This is a relative inefficient query. We'd likely want to update the Feedback#create API
-      # to save the user entry and feedback history (instead of just feedback history)
-      private def session_history
-        return [] if session.nil?
+      private def history_feedback_only = previous_feedback.map { |f| f[KEY_FEEDBACK] }
 
-        @history ||= session
-          .feedback_history
-          .sort_by(&:id)
-          .map { |fh| Evidence::GenAI::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
-      end
-
-      private def session
-        @session ||= Evidence.feedback_session_class.find_by(activity_session_uid: session_uid)
+      # TODO: Remove temporary debugging code once beta version is locked down.
+      private def with_logging
+        Rails.logger.info '-------------------------'
+        Rails.logger.info 'Previous Feedback'
+        Rails.logger.info history
+        Rails.logger.info history_feedback_only
+        Rails.logger.info '-------------------------'
+        Rails.logger.info 'Primary Response'
+        Rails.logger.info primary_response
+        Rails.logger.info '-------------------------'
+        Rails.logger.info 'Secondary Response'
+        Rails.logger.info secondary_response
+        Rails.logger.info '-------------------------'
       end
     end
   end
