@@ -114,7 +114,7 @@ exports[`InterdisciplinaryScienceSubjectPage renders correctly 1`] = `
         src="undefined/images/pages/interdisciplinary_science_subject_page/quill_logo_plus_ai_edu_logo.svg"
       />
       <p>
-        Quill has partnered with
+        Quill has partnered with 
         <a
           href="https://www.aiedu.org/"
           rel="noopener noreferrer"
