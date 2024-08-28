@@ -38,6 +38,7 @@ module Evidence
         it { have_many(:trials).dependent(:destroy) }
         it { have_many(:trial_comparisons).dependent(:destroy) }
         it { have_many(:comparisons).through(:trial_comparisons) }
+        it { have_many(:dataslices).dependent(:destroy) }
 
         it { should belong_to(:stem_vault) }
       end

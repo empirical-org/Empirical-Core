@@ -21,6 +21,7 @@ module Evidence
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
         has_many :comparisons, dependent: :destroy
+        has_many :dataslices, dependent: :destroy
 
         belongs_to :stem_vault
 
