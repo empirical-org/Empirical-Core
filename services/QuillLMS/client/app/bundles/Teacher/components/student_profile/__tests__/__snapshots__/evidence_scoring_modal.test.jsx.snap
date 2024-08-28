@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EvidenceScoringModal component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="modal-container student-profile-modal-container"
+  >
+    <div
+      class="modal-background"
+    />
+    <div
+      class="student-profile-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          class="title"
+        >
+          Heads up! We’ve updated this activity to include a score
+        </h3>
+      </div>
+      <div
+        class="student-profile-modal-text"
+      >
+        <p>
+          It looks like you completed a Reading for Evidence activity last year.
+          <br />
+          <br />
+          We have turned on scoring for Reading for Evidence activities this year so you and your teacher can better understand your results.
+        </p>
+      </div>
+      <div
+        class="form-buttons"
+      >
+        <a
+          class="quill-button contained medium green focus-on-light"
+          href=""
+        >
+          Got it
+        </a>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

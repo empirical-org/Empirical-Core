@@ -52,6 +52,11 @@ describe('ResultsPage container', () => {
     expect(asFragment()).toMatchSnapshot()
   });
 
+  test('renders correctly when activityType is evidence', () => {
+    const { asFragment, } = render(<ResultsPage {...sharedProps} activityType='evidence' />);
+    expect(asFragment()).toMatchSnapshot()
+  });
+
   test('renders the Keep practicing section when the percentage is below the proficiency threshold', () => {
     render(<ResultsPage {...sharedProps} percentage={0.5} />);
     expect(screen.getByRole('heading', { name: /keep practicing!/i })).toBeInTheDocument()

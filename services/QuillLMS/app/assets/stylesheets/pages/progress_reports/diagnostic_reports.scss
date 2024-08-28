@@ -372,7 +372,7 @@ $lightgray: #cecece;
     background-color: $quill-blue-5;
   }
 }
-.yellow-score-color, .orange-score-color {
+.orange-score-color {
   background-color: #FFF6E2;
   &:hover {
     background-color: #FEF0D2;
@@ -754,6 +754,31 @@ $lightgray: #cecece;
     }
     .dropdown__control {
       background-color: transparent;
+    }
+  }
+  .curriculum-minis {
+    display: flex;
+    gap: 32px;
+    .generic-mini {
+      width: 100%;
+      max-width: 100%;
+    }
+    .new-tag {
+      font-size: 9px;
+      color: $quill-white;
+      background: $quill-gold;
+      border-radius: 5px;
+      color: white;
+      padding: 4px 8px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .spinner-container {
+      margin: 0px;
+      padding: 0px;
+      .spinner {
+        height: 32px;
+      }
     }
   }
   .premium {

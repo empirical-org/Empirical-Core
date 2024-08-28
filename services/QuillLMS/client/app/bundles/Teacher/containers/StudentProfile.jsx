@@ -123,6 +123,7 @@ class StudentProfile extends React.Component {
       exactScoresDataPending,
       exactScoresData,
       showExactScores,
+      completedEvidenceActivityPriorToScoring
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
@@ -153,6 +154,7 @@ class StudentProfile extends React.Component {
         <div id="student-profile">
           <StudentProfileUnits
             activeClassworkTab={activeClassworkTab}
+            completedEvidenceActivityPriorToScoring={completedEvidenceActivityPriorToScoring}
             data={scores}
             exactScoresData={exactScoresData}
             exactScoresDataPending={exactScoresDataPending}

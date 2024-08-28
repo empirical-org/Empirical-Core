@@ -270,3 +270,13 @@ export const whiteEmailIcon = {
   alt: 'Envelope icon',
   src: `${process.env.CDN_URL}/images/icons/email-icon-white.svg`
 }
+
+export const globeIcon = {
+  alt: 'Globe icon',
+  src: `${process.env.CDN_URL}/images/icons/s/globe.svg`
+}
+
+export const aiIcon = {
+  alt: 'Brain icon',
+  src: `${process.env.CDN_URL}/images/icons/s/ai.svg`
+}

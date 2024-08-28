@@ -198,4 +198,62 @@ describe Teachers::ProgressReportsController do
       expect(response).to render_template 'student_overview'
     end
   end
+
+  describe '#assigned_content_hub_activities_status' do
+    context 'when unit_activities include social studies and science activities' do
+      before do
+        allow(controller).to receive(:unit_activities_include_social_studies_activities?).and_return(true)
+        allow(controller).to receive(:unit_activities_include_science_activities?).and_return(true)
+      end
+
+      it 'renders json with both social studies and science activities as true' do
+        get :assigned_content_hub_activities_status
+        expect(JSON.parse(response.body)).to eq({
+          'has_assigned_social_studies_activities' => true,
+          'has_assigned_science_activities' => true
+        })
+      end
+    end
+
+    context 'when unit_activities do not include social studies and science activities' do
+      before do
+        allow(controller).to receive(:unit_activities_include_social_studies_activities?).and_return(false)
+        allow(controller).to receive(:unit_activities_include_science_activities?).and_return(false)
+      end
+
+      it 'renders json with both social studies and science activities as false' do
+        get :assigned_content_hub_activities_status
+        expect(JSON.parse(response.body)).to eq({
+          'has_assigned_social_studies_activities' => false,
+          'has_assigned_science_activities' => false
+        })
+      end
+    end
+  end
+
+  describe '#world_history_1200_to_present_unit_templates' do
+    before do
+      allow(controller).to receive(:course_with_assignment_data).and_return([])
+    end
+
+    it 'renders json with a unit_templates key' do
+      get :world_history_1200_to_present_unit_templates
+      expect(JSON.parse(response.body)).to eq({
+        'unit_templates' => []
+      })
+    end
+  end
+
+  describe '#building_ai_knowledge_unit_templates' do
+    before do
+      allow(controller).to receive(:course_with_assignment_data).and_return([])
+      get :building_ai_knowledge_unit_templates
+    end
+
+    it 'renders json with a unit_templates key' do
+      expect(JSON.parse(response.body)).to eq({
+        'unit_templates' => []
+      })
+    end
+  end
 end
