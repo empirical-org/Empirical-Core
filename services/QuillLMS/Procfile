@@ -16,7 +16,3 @@ internalworker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bund
 
 # Migration workers to be turned on only in cases where we have complex migration jobs to process
 migrationworker: MAX_THREADS=$SIDEKIQ_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -q migration
-
-# Experiments
-experimentworker: MAX_THREADS=$SIDEKIQ_EXPERIMENT_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -C config/sidekiq_experiment.yml
-gen_ai_eval_worker: MAX_THREADS=$SIDEKIQ_EXPERIMENT_PROCESS_MAX_THREADS MALLOC_ARENA_MAX=2 bundle exec sidekiq -C config/sidekiq_gen_ai_eval.yml

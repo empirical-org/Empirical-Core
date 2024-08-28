@@ -9,6 +9,7 @@
 #  number              :integer          not null
 #  results             :jsonb
 #  status              :string           default("pending"), not null
+#  temperature         :float            not null
 #  trial_duration      :float
 #  trial_errors        :text             default([]), not null, is an Array
 #  created_at          :datetime         not null
@@ -26,6 +27,7 @@ module Evidence
           llm { association :evidence_research_gen_ai_llm }
           llm_prompt { association :evidence_research_gen_ai_llm_prompt }
           dataset { association :evidence_research_gen_ai_dataset }
+          temperature { 1.0 }
         end
       end
     end

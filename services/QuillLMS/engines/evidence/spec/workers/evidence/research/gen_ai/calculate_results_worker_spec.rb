@@ -26,20 +26,24 @@ module Evidence
           let(:fetched_results) { { key: 'value' } }
 
           before do
-            allow(ResultsFetcher)
-              .to receive(:run)
-              .with(trial)
-              .and_return(fetched_results)
-
-            allow(Trial)
-              .to receive(:find)
-              .with(trial.id)
-              .and_return(trial)
+            allow(Trial).to receive(:find).with(trial.id).and_return(trial)
+            allow(trial).to receive(:set_confusion_matrix)
+            allow(trial).to receive(:set_evaluation_start_time)
+            allow(GEvalScoresFetcher).to receive(:run).with(trial)
           end
 
-          it 'merges and updates the trial results' do
-            expect(trial).to receive(:update_results).with(fetched_results)
-            expect(trial).to receive(:update!).with(evaluation_duration: an_instance_of(Float))
+          it 'sets the confusion matrix' do
+            expect(trial).to receive(:set_confusion_matrix)
+            subject
+          end
+
+          it 'sets the evaluation start time' do
+            expect(trial).to receive(:set_evaluation_start_time)
+            subject
+          end
+
+          it 'runs the GEvalScoresFetcher' do
+            expect(GEvalScoresFetcher).to receive(:run).with(trial)
             subject
           end
         end

@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import PromotionalCard from '../promotional_card';
 import BulkArchiveClassesCard from '../bulk_archive_classrooms_card'
-import ScoringUpdatesCard from '../scoring_updates_card'
+import SchoolYearUpdatesCard from '../school_year_updates_card'
 
 const classrooms = [
   {
@@ -96,7 +96,7 @@ const sharedProps = {
 
 describe('PromotionalCard container', () => {
 
-  describe('ScoringUpdatesCard rendering behavior', () => {
+  describe('SchoolYearUpdatesCard rendering behavior', () => {
     describe('when the bulk archive classes card has been closed for the calendar year', () => {
       beforeEach(() => {
         window.localStorage.clear();
@@ -108,7 +108,7 @@ describe('PromotionalCard container', () => {
         window.localStorage.setItem('2022BulkArchiveBannerClosedForUser1', 'true')
       });
 
-      it('should render the ScoringUpdatesCard if it has not been closed for that user', () => {
+      it('should render the SchoolYearUpdatesCard if it has not been closed for that user', () => {
         const wrapper = mount(
           <PromotionalCard
             passedBulkArchiveCardClosedForRelevantYear={true}
@@ -117,20 +117,20 @@ describe('PromotionalCard container', () => {
         );
 
         expect(wrapper).toMatchSnapshot()
-        expect(wrapper.find(ScoringUpdatesCard)).toHaveLength(1);
+        expect(wrapper.find(SchoolYearUpdatesCard)).toHaveLength(1);
       })
 
-      describe('it should not render the ScoringUpdatesCard if it has been closed for that user', () => {
+      describe('it should not render the SchoolYearUpdatesCard if it has been closed for that user', () => {
         const wrapper = mount(
           <PromotionalCard
             passedBulkArchiveCardClosedForRelevantYear={true}
-            passedScoringUpdatesCardClosed={true}
+            passedSchoolYearUpdatesCardClosed={true}
             {...sharedProps}
           />
         );
 
         expect(wrapper).toMatchSnapshot()
-        expect(wrapper.find(ScoringUpdatesCard)).toHaveLength(0);
+        expect(wrapper.find(SchoolYearUpdatesCard)).toHaveLength(0);
       })
 
     })

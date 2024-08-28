@@ -7,6 +7,7 @@
 #  id                         :bigint           not null, primary key
 #  curriculum_assigned_status :string           not null
 #  text                       :text             not null
+#  visible                    :boolean          default(TRUE), not null
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  stem_vault_id              :integer          not null

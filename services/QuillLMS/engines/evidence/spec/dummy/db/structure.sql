@@ -1031,6 +1031,40 @@ ALTER SEQUENCE public.evidence_research_gen_ai_datasets_id_seq OWNED BY public.e
 
 
 --
+-- Name: evidence_research_gen_ai_g_eval_scores; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_g_eval_scores (
+    id bigint NOT NULL,
+    trial_id integer NOT NULL,
+    g_eval_id integer NOT NULL,
+    llm_example_id integer NOT NULL,
+    score integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_g_eval_scores_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_g_eval_scores_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_g_eval_scores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_g_eval_scores_id_seq OWNED BY public.evidence_research_gen_ai_g_eval_scores.id;
+
+
+--
 -- Name: evidence_research_gen_ai_g_evals; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1078,7 +1112,8 @@ CREATE TABLE public.evidence_research_gen_ai_guidelines (
     text text NOT NULL,
     stem_vault_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    visible boolean DEFAULT true NOT NULL
 );
 
 
@@ -1280,7 +1315,8 @@ CREATE TABLE public.evidence_research_gen_ai_llms (
     vendor character varying NOT NULL,
     version character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    "order" integer NOT NULL
 );
 
 
@@ -1526,7 +1562,8 @@ CREATE TABLE public.evidence_research_gen_ai_trials (
     updated_at timestamp(6) without time zone NOT NULL,
     trial_duration double precision,
     evaluation_duration double precision,
-    number integer NOT NULL
+    number integer NOT NULL,
+    temperature double precision NOT NULL
 );
 
 
@@ -1814,6 +1851,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons ALTER COLUMN id SET
 --
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_datasets ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_datasets_id_seq'::regclass);
+
+
+--
+-- Name: evidence_research_gen_ai_g_eval_scores id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_g_eval_scores ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_g_eval_scores_id_seq'::regclass);
 
 
 --
@@ -2165,6 +2209,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_datasets
     ADD CONSTRAINT evidence_research_gen_ai_datasets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_g_eval_scores evidence_research_gen_ai_g_eval_scores_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_g_eval_scores
+    ADD CONSTRAINT evidence_research_gen_ai_g_eval_scores_pkey PRIMARY KEY (id);
 
 
 --
@@ -2602,6 +2654,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240713141016'),
 ('20240714214900'),
 ('20240801134328'),
-('20240805185650');
+('20240805185650'),
+('20240808123536'),
+('20240821205700'),
+('20240822145206'),
+('20240823204315');
 
 

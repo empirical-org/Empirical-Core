@@ -39,6 +39,8 @@ interface PlayLessonQuestionProps {
   question: any;
   questionToPreview: any;
   key: any;
+  showTranslation: boolean;
+  translate: (input: string) => string;
 }
 
 interface PlayLessonQuestionState {
@@ -89,7 +91,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   shouldComponentUpdate(nextProps: PlayLessonQuestionProps, nextState: PlayLessonQuestionState) {
-    const { question, } = this.props
+    const { question, showTranslation } = this.props
     const { response, finished, multipleChoice, responses} = this.state
     if (question !== nextProps.question) {
       return true;
@@ -100,6 +102,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     } else if (multipleChoice !== nextState.multipleChoice) {
       return true;
     } else if (responses !== nextState.responses) {
+      return true;
+    } else if (showTranslation !== nextProps.showTranslation) {
       return true;
     }
     return false;
@@ -293,25 +297,30 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderNextQuestionButton = () => {
-    const { isLastQuestion, } = this.props
-    const buttonText = isLastQuestion ? 'Next' : 'Next question'
+    const { isLastQuestion, showTranslation, translate } = this.props
+    let buttonText = isLastQuestion ? 'Next' : 'Next question'
+    buttonText = showTranslation ? translate(`buttons^${buttonText.toLowerCase()}`) : buttonText
     const disabledStatus = this.getDisabledStatus();
     const disabledStyle = disabledStatus ? 'disabled' : '';
     return (<button className={`quill-button-archived focus-on-light primary contained large ${disabledStyle}`} disabled={disabledStatus} onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>);
   }
 
   renderFinishedQuestionButton = () => {
+    const { showTranslation, translate } = this.props
+    const buttonText = showTranslation ? translate('buttons^next') : 'Next'
     const nextF = () => {
       this.setState({ finished: true, });
     };
-    return (<button className="quill-button-archived focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button-archived focus-on-light primary contained large" onClick={nextF} type="button">{buttonText}</button>);
   }
 
   renderMultipleChoiceButton = () => {
+    const { showTranslation, translate } = this.props
+    const buttonText = showTranslation ? translate('buttons^next') : 'Next'
     const nextF = () => {
       this.setState({ multipleChoice: true, });
     };
-    return (<button className="quill-button-archived focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button-archived focus-on-light primary contained large" onClick={nextF} type="button">{buttonText}</button>);
   }
 
   finishQuestion = () => {
@@ -384,7 +393,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   render() {
-    const { question, isAdmin, previewMode } = this.props
+    const { question, isAdmin, previewMode, showTranslation, translate } = this.props
     const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions  } = this.state
     const questionID = question.key;
 
@@ -404,7 +413,9 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         sentenceFragments: this.renderSentenceFragments(),
         cues: this.renderCues(),
         className: 'fubar',
-        previewMode
+        previewMode,
+        showTranslation,
+        translate
       };
       let component;
       const maxAttemptsSubmitted = question.attempts && question.attempts.length > 4;

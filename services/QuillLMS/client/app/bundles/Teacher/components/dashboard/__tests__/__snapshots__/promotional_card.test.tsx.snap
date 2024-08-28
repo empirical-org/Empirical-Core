@@ -86,7 +86,7 @@ exports[` 1`] = `
   }
   handleBulkArchiveSuccess={[MockFunction]}
   passedBulkArchiveCardClosedForRelevantYear={true}
-  passedScoringUpdatesCardClosed={true}
+  passedSchoolYearUpdatesCardClosed={true}
   showEvidencePromotionCard={true}
   userId={1}
 >
@@ -257,19 +257,39 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   showEvidencePromotionCard={true}
   userId={1}
 >
-  <ScoringUpdatesCard
+  <SchoolYearUpdatesCard
     handleCloseCard={[Function]}
   >
     <PostNavigationBanner
-      bannerStyle="gold-secondary"
-      bodyText=""
+      bannerStyle="gold-secondary school-year-updates-card"
+      bodyText={
+        <ul>
+          <li>
+            Content improvements for all Diagnostics
+          </li>
+          <li>
+            Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+          </li>
+          <li>
+            New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+          </li>
+          <li>
+            Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+          </li>
+          <ul>
+            <li>
+              Diagnostics continue to support 16 languages
+            </li>
+          </ul>
+        </ul>
+      }
       buttons={
         Array [
           Object {
-            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
             "standardButtonStyle": true,
             "target": "_blank",
-            "text": "Learn more about Quill's updates to activity scores",
+            "text": "Learn more about Quill’s latest updates",
           },
         ]
       }
@@ -282,43 +302,53 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
         }
       }
-      primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
+      primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary"
+        className="banner-container gold-secondary school-year-updates-card"
       >
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
-            Educators, we have updated our approach to scoring activities
+            Four Big Updates for the 2024-2025 School Year
           </p>
           <p
             className="body"
-          />
+          >
+            <ul>
+              <li>
+                Content improvements for all Diagnostics
+              </li>
+              <li>
+                Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+              </li>
+              <li>
+                New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+              </li>
+              <li>
+                Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+              </li>
+              <ul>
+                <li>
+                  Diagnostics continue to support 16 languages
+                </li>
+              </ul>
+            </ul>
+          </p>
           <div
             className="buttons-container"
           >
             <a
               className="quill-button-archived fun primary contained focus-on-light"
-              href="undefined/teacher-center/quill-scoring-updates-2023"
+              href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Learn more about Quill's updates to activity scores
+              Learn more about Quill’s latest updates
                
             </a>
           </div>
@@ -341,7 +371,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         </button>
       </div>
     </PostNavigationBanner>
-  </ScoringUpdatesCard>
+  </SchoolYearUpdatesCard>
 </PromotionalCard>
 `;
 
@@ -434,19 +464,39 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   showEvidencePromotionCard={true}
   userId={1}
 >
-  <ScoringUpdatesCard
+  <SchoolYearUpdatesCard
     handleCloseCard={[Function]}
   >
     <PostNavigationBanner
-      bannerStyle="gold-secondary"
-      bodyText=""
+      bannerStyle="gold-secondary school-year-updates-card"
+      bodyText={
+        <ul>
+          <li>
+            Content improvements for all Diagnostics
+          </li>
+          <li>
+            Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+          </li>
+          <li>
+            New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+          </li>
+          <li>
+            Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+          </li>
+          <ul>
+            <li>
+              Diagnostics continue to support 16 languages
+            </li>
+          </ul>
+        </ul>
+      }
       buttons={
         Array [
           Object {
-            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
             "standardButtonStyle": true,
             "target": "_blank",
-            "text": "Learn more about Quill's updates to activity scores",
+            "text": "Learn more about Quill’s latest updates",
           },
         ]
       }
@@ -459,43 +509,53 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
         }
       }
-      primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
+      primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary"
+        className="banner-container gold-secondary school-year-updates-card"
       >
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
-            Educators, we have updated our approach to scoring activities
+            Four Big Updates for the 2024-2025 School Year
           </p>
           <p
             className="body"
-          />
+          >
+            <ul>
+              <li>
+                Content improvements for all Diagnostics
+              </li>
+              <li>
+                Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+              </li>
+              <li>
+                New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+              </li>
+              <li>
+                Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+              </li>
+              <ul>
+                <li>
+                  Diagnostics continue to support 16 languages
+                </li>
+              </ul>
+            </ul>
+          </p>
           <div
             className="buttons-container"
           >
             <a
               className="quill-button-archived fun primary contained focus-on-light"
-              href="undefined/teacher-center/quill-scoring-updates-2023"
+              href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Learn more about Quill's updates to activity scores
+              Learn more about Quill’s latest updates
                
             </a>
           </div>
@@ -518,7 +578,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         </button>
       </div>
     </PostNavigationBanner>
-  </ScoringUpdatesCard>
+  </SchoolYearUpdatesCard>
 </PromotionalCard>
 `;
 
@@ -779,19 +839,39 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   showEvidencePromotionCard={true}
   userId={1}
 >
-  <ScoringUpdatesCard
+  <SchoolYearUpdatesCard
     handleCloseCard={[Function]}
   >
     <PostNavigationBanner
-      bannerStyle="gold-secondary"
-      bodyText=""
+      bannerStyle="gold-secondary school-year-updates-card"
+      bodyText={
+        <ul>
+          <li>
+            Content improvements for all Diagnostics
+          </li>
+          <li>
+            Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+          </li>
+          <li>
+            New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+          </li>
+          <li>
+            Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+          </li>
+          <ul>
+            <li>
+              Diagnostics continue to support 16 languages
+            </li>
+          </ul>
+        </ul>
+      }
       buttons={
         Array [
           Object {
-            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
             "standardButtonStyle": true,
             "target": "_blank",
-            "text": "Learn more about Quill's updates to activity scores",
+            "text": "Learn more about Quill’s latest updates",
           },
         ]
       }
@@ -804,43 +884,53 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
         }
       }
-      primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
+      primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary"
+        className="banner-container gold-secondary school-year-updates-card"
       >
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
-            Educators, we have updated our approach to scoring activities
+            Four Big Updates for the 2024-2025 School Year
           </p>
           <p
             className="body"
-          />
+          >
+            <ul>
+              <li>
+                Content improvements for all Diagnostics
+              </li>
+              <li>
+                Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+              </li>
+              <li>
+                New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+              </li>
+              <li>
+                Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+              </li>
+              <ul>
+                <li>
+                  Diagnostics continue to support 16 languages
+                </li>
+              </ul>
+            </ul>
+          </p>
           <div
             className="buttons-container"
           >
             <a
               className="quill-button-archived fun primary contained focus-on-light"
-              href="undefined/teacher-center/quill-scoring-updates-2023"
+              href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Learn more about Quill's updates to activity scores
+              Learn more about Quill’s latest updates
                
             </a>
           </div>
@@ -863,7 +953,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         </button>
       </div>
     </PostNavigationBanner>
-  </ScoringUpdatesCard>
+  </SchoolYearUpdatesCard>
 </PromotionalCard>
 `;
 
@@ -956,19 +1046,39 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
   showEvidencePromotionCard={true}
   userId={1}
 >
-  <ScoringUpdatesCard
+  <SchoolYearUpdatesCard
     handleCloseCard={[Function]}
   >
     <PostNavigationBanner
-      bannerStyle="gold-secondary"
-      bodyText=""
+      bannerStyle="gold-secondary school-year-updates-card"
+      bodyText={
+        <ul>
+          <li>
+            Content improvements for all Diagnostics
+          </li>
+          <li>
+            Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+          </li>
+          <li>
+            New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+          </li>
+          <li>
+            Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+          </li>
+          <ul>
+            <li>
+              Diagnostics continue to support 16 languages
+            </li>
+          </ul>
+        </ul>
+      }
       buttons={
         Array [
           Object {
-            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
             "standardButtonStyle": true,
             "target": "_blank",
-            "text": "Learn more about Quill's updates to activity scores",
+            "text": "Learn more about Quill’s latest updates",
           },
         ]
       }
@@ -981,43 +1091,53 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
           "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
         }
       }
-      primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
+      primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary"
+        className="banner-container gold-secondary school-year-updates-card"
       >
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
-            Educators, we have updated our approach to scoring activities
+            Four Big Updates for the 2024-2025 School Year
           </p>
           <p
             className="body"
-          />
+          >
+            <ul>
+              <li>
+                Content improvements for all Diagnostics
+              </li>
+              <li>
+                Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+              </li>
+              <li>
+                New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+              </li>
+              <li>
+                Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+              </li>
+              <ul>
+                <li>
+                  Diagnostics continue to support 16 languages
+                </li>
+              </ul>
+            </ul>
+          </p>
           <div
             className="buttons-container"
           >
             <a
               className="quill-button-archived fun primary contained focus-on-light"
-              href="undefined/teacher-center/quill-scoring-updates-2023"
+              href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Learn more about Quill's updates to activity scores
+              Learn more about Quill’s latest updates
                
             </a>
           </div>
@@ -1040,7 +1160,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
         </button>
       </div>
     </PostNavigationBanner>
-  </ScoringUpdatesCard>
+  </SchoolYearUpdatesCard>
 </PromotionalCard>
 `;
 
@@ -1212,7 +1332,7 @@ exports[`PromotionalCard container BulkArchiveClassesCard rendering behavior whe
 </PromotionalCard>
 `;
 
-exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when the bulk archive classes card has been closed for the calendar year should render the ScoringUpdatesCard if it has not been closed for that user 1`] = `
+exports[`PromotionalCard container SchoolYearUpdatesCard rendering behavior when the bulk archive classes card has been closed for the calendar year should render the SchoolYearUpdatesCard if it has not been closed for that user 1`] = `
 <PromotionalCard
   classrooms={
     Array [
@@ -1301,19 +1421,39 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
   showEvidencePromotionCard={true}
   userId={1}
 >
-  <ScoringUpdatesCard
+  <SchoolYearUpdatesCard
     handleCloseCard={[Function]}
   >
     <PostNavigationBanner
-      bannerStyle="gold-secondary"
-      bodyText=""
+      bannerStyle="gold-secondary school-year-updates-card"
+      bodyText={
+        <ul>
+          <li>
+            Content improvements for all Diagnostics
+          </li>
+          <li>
+            Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+          </li>
+          <li>
+            New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+          </li>
+          <li>
+            Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+          </li>
+          <ul>
+            <li>
+              Diagnostics continue to support 16 languages
+            </li>
+          </ul>
+        </ul>
+      }
       buttons={
         Array [
           Object {
-            "href": "undefined/teacher-center/quill-scoring-updates-2023",
+            "href": "/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics",
             "standardButtonStyle": true,
             "target": "_blank",
-            "text": "Learn more about Quill's updates to activity scores",
+            "text": "Learn more about Quill’s latest updates",
           },
         ]
       }
@@ -1326,43 +1466,53 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
           "src": "https://assets.quill.org/images/banners/large-school-campus-gold.svg",
         }
       }
-      primaryHeaderText="Educators, we have updated our approach to scoring activities"
-      secondaryHeaderText="Update for the 2023-2024 school year"
+      primaryHeaderText="Four Big Updates for the 2024-2025 School Year"
     >
       <div
-        className="banner-container gold-secondary"
+        className="banner-container gold-secondary school-year-updates-card"
       >
         <div
           className="left-side-container"
         >
-          <div
-            className="upper-section"
-          >
-            <p
-              className="secondary-header"
-            >
-              Update for the 2023-2024 school year
-            </p>
-          </div>
           <p
             className="primary-header"
           >
-            Educators, we have updated our approach to scoring activities
+            Four Big Updates for the 2024-2025 School Year
           </p>
           <p
             className="body"
-          />
+          >
+            <ul>
+              <li>
+                Content improvements for all Diagnostics
+              </li>
+              <li>
+                Quill Reading for Evidence now provides green, yellow, and red scores for students and teachers
+              </li>
+              <li>
+                New High School Reading for Evidence Offerings: Social Studies (World History) and Interdisciplinary Science (Building AI Knowledge)
+              </li>
+              <li>
+                Coming soon: All ELL Practice Activities will provide bilingual translation to Spanish
+              </li>
+              <ul>
+                <li>
+                  Diagnostics continue to support 16 languages
+                </li>
+              </ul>
+            </ul>
+          </p>
           <div
             className="buttons-container"
           >
             <a
               className="quill-button-archived fun primary contained focus-on-light"
-              href="undefined/teacher-center/quill-scoring-updates-2023"
+              href="/teacher-center/quills-four-big-updates-for-the-20242025-school-year#diagnostics"
               key="button-0"
               rel="noopener noreferrer"
               target="_blank"
             >
-              Learn more about Quill's updates to activity scores
+              Learn more about Quill’s latest updates
                
             </a>
           </div>
@@ -1385,6 +1535,6 @@ exports[`PromotionalCard container ScoringUpdatesCard rendering behavior when th
         </button>
       </div>
     </PostNavigationBanner>
-  </ScoringUpdatesCard>
+  </SchoolYearUpdatesCard>
 </PromotionalCard>
 `;

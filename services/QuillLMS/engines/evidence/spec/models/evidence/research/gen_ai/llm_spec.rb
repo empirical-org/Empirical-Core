@@ -5,6 +5,7 @@
 # Table name: evidence_research_gen_ai_llms
 #
 #  id         :bigint           not null, primary key
+#  order      :integer          not null
 #  vendor     :string           not null
 #  version    :string           not null
 #  created_at :datetime         not null
@@ -79,6 +80,39 @@ module Evidence
               let(:version) { 'some_other_version' }
 
               it { is_expected.to eq({}) }
+            end
+          end
+        end
+
+        describe '#set_default_order' do
+          subject { llm.order }
+
+          let(:llm) { create(factory) }
+
+          it { is_expected.to eq(1) }
+
+          context 'when there are existing LLMs' do
+            let!(:llm1) { create(factory, order: 0) }
+            let!(:llm2) { create(factory, order: max_order) }
+            let(:max_order) { 10 }
+
+            it { is_expected.to eq(max_order + 1) }
+          end
+
+          context 'when order is manually set' do
+            let(:llm) { create(factory, order:) }
+            let(:order) { 100 }
+
+            it { is_expected.to eq(order) }
+          end
+
+          context 'when saving an existing record' do
+            let(:llm) { create(factory, order:) }
+            let(:order) { 5 }
+
+            it 'does not change the order' do
+              llm.touch
+              expect(llm.order).to eq(order)
             end
           end
         end

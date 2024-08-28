@@ -1,42 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExplanationSlide Component should match snapshot 1`] = `
-<div
-  className="explanation-slide-container"
->
-  <section
-    className="no-focus-outline"
-    id="information-section"
-    tabIndex={-1}
+<DocumentFragment>
+  <div
+    class="explanation-slide-container step-1"
   >
-    <p
-      aria-hidden={true}
-      className="subtext"
-    >
-      Good to know
-    </p>
     <section
-      id="header-container"
+      class="no-focus-outline"
+      id="information-section"
+      tabindex="-1"
     >
-      <h1>
-        Test Header
-      </h1>
+      <p
+        aria-hidden="true"
+        class="good-to-know"
+      >
+        Good to know
+      </p>
+      <section
+        id="header-container"
+      >
+        <h1>
+          Test Header
+        </h1>
+      </section>
+      <img
+        alt="test alt text"
+        id="image"
+        src="undefined/test.com"
+      />
+      <p
+        class="subtext"
+      >
+        test subtext
+      </p>
     </section>
-    <img
-      alt="test alt text"
-      id="image"
-      src="undefined/test.com"
-    />
-    <p
-      className="subtext"
+    <section
+      id="button-container"
     >
-      test subtext
-    </p>
-  </section>
-  <Footer
-    buttonText="Next"
-    onHandleClick={[MockFunction]}
-    step={1}
-  />
-</div>
+      <span />
+      <button
+        class="quill-button-archived large secondary outlined focus-on-dark"
+        type="submit"
+      >
+        Next
+      </button>
+      <div
+        id="step-indicator-container"
+      >
+        <div
+          class="step-indicator active"
+        />
+        <div
+          class="step-indicator "
+        />
+        <div
+          class="step-indicator "
+        />
+        <div
+          class="step-indicator "
+        />
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
 `;

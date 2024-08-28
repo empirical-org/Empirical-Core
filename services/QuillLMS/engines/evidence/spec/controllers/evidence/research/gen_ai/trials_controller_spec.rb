@@ -27,6 +27,7 @@ module Evidence
 
           let(:num_prompt_examples) { rand(1..3) }
           let(:prompt_example_ids) { create_list(:evidence_research_gen_ai_prompt_example, num_prompt_examples).map(&:id) }
+          let(:temperature) { rand(0.0..2.0) }
 
           subject do
             post :create, params: {
@@ -37,6 +38,7 @@ module Evidence
                 llm_id:,
                 llm_prompt_template_id:,
                 prompt_example_ids:,
+                temperature:
               }
             }
           end
