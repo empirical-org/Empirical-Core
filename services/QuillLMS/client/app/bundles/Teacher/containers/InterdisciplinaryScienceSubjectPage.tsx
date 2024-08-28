@@ -41,7 +41,7 @@ const summary = (
 const partners = (
   <section className="partners container">
     <img alt="Quill logo plus AI Edu logo" src={quillPlusAiEduLogo} />
-    <p>Quill has partnered with <a href="https://www.aiedu.org/" rel="noopener noreferrer" target="_blank">aiEDU</a> to curate activities from their site that work well with Quill Building AI Knowledge activities. On the course landing page, each each Reading for Evidence activity includes a suggested paired aiEDU activity, which range from 5-minute warm-up activities to 3-4 hour student-led activities. These activities can be used to preview new content, reinforce prior knowledge, provide additional context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or in conjunction with aiEDU activities, these resources are a valuable addition to any high school ELA or Computer Science classroom.</p>
+    <p>Quill has partnered with <a href="https://www.aiedu.org/" rel="noopener noreferrer" target="_blank">aiEDU</a> to curate activities from their site that work well with Quill Building AI Knowledge activities. On the course landing page, each Reading for Evidence activity includes a suggested paired aiEDU activity, which range from 5-minute warm-up activities to 3-4 hour student-led activities. These activities can be used to preview new content, reinforce prior knowledge, provide additional context, or, when used in conjunction with the Quill activity, serve as part of a text set to support extended writing practice. Whether used on their own or in conjunction with aiEDU activities, these resources are a valuable addition to any high school ELA or Computer Science classroom.</p>
   </section>
 )
 
