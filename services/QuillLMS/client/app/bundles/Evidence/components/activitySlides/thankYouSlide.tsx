@@ -4,7 +4,7 @@ import useFocus from '../../../Shared/hooks/useFocus'
 
 const applaudingSrc = `${process.env.CDN_URL}/images/pages/evidence/applauding.svg`
 
-const ThankYouSlide = () => {
+const ThankYouSlide = ({ resultPageUrl, }) => {
   const [containerRef, setContainerFocus] = useFocus()
 
   React.useEffect(() => {
@@ -12,7 +12,7 @@ const ThankYouSlide = () => {
   }, [])
 
   const backToDashboard = () => {
-    window.location.href = process.env.DEFAULT_URL
+    window.location.href = resultPageUrl
   }
 
   return (
@@ -25,7 +25,7 @@ const ThankYouSlide = () => {
         <img alt="Two hands clapping together" src={applaudingSrc} />
       </div>
       <div className="button-section">
-        <a className='quill-button-archived large secondary outlined focus-on-dark' href={process.env.DEFAULT_URL} onClick={backToDashboard}>Back to my dashboard</a>
+        <a className='quill-button-archived large secondary outlined focus-on-dark' href={resultPageUrl} onClick={backToDashboard}>Back to my dashboard</a>
       </div>
     </div>
   )

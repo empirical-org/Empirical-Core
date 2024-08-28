@@ -4,6 +4,7 @@ import _ from 'underscore';
 import PinnedActivityBar from './pinned_activity_bar';
 import PinnedActivityModal from './pinned_activity_modal';
 import PreviewActivityModal from './preview_activity_modal';
+import EvidenceScoringModal from './evidence_scoring_modal';
 import StudentProfileUnit from './student_profile_unit.jsx';
 
 import { COMPLETED_ACTIVITIES, TO_DO_ACTIVITIES, } from '../../../../constants/student_profile';
@@ -17,7 +18,8 @@ export default class StudentProfileUnits extends React.Component {
 
     this.state = {
       closedPinnedActivityModal: false,
-      showPreviewModal: false
+      showPreviewModal: false,
+      showEvidenceScoringModal: false
     }
   }
 
@@ -93,14 +95,19 @@ export default class StudentProfileUnits extends React.Component {
     this.setState({ showPreviewModal: true, previewActivityId: activityId, })
   }
 
+  handleShowEvidenceScoringModal = (launchLink) => {
+    this.setState({ showEvidenceScoringModal: true, evidenceLaunchLink: launchLink })
+  }
+
   renderContent = () => {
-    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, selectedUnitId, exactScoresData, showExactScores, exactScoresDataPending, completedEvidenceActivityPriorToScoring, } = this.props
     if (loading) { return <LoadingIndicator /> }
 
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, user_pack_sequence_item_status, } = unit[Object.keys(unit)[0]][0]
       return (
         <StudentProfileUnit
+          completedEvidenceActivityPriorToScoring={completedEvidenceActivityPriorToScoring}
           data={unit}
           exactScoresData={exactScoresData}
           exactScoresDataPending={exactScoresDataPending}
@@ -109,6 +116,7 @@ export default class StudentProfileUnits extends React.Component {
           isSelectedUnit={String(unit_id) === selectedUnitId}
           key={unit_id}
           nextActivitySession={nextActivitySession}
+          onShowEvidenceScoringModal={this.handleShowEvidenceScoringModal}
           onShowPreviewModal={this.handleShowPreviewModal}
           showExactScores={showExactScores}
           staggeredReleaseStatus={user_pack_sequence_item_status}
@@ -158,6 +166,18 @@ export default class StudentProfileUnits extends React.Component {
     )
   }
 
+  renderEvidenceScoringModal = () => {
+    const { showEvidenceScoringModal, evidenceLaunchLink, } = this.state
+
+    if (!(showEvidenceScoringModal)) { return }
+
+    return (
+      <EvidenceScoringModal
+        launchLink={evidenceLaunchLink}
+      />
+    )
+  }
+
   renderPinnedActivityModal = () => {
     const { data, teacherName, isBeingPreviewed, } = this.props
     const { closedPinnedActivityModal, } = this.state
@@ -182,6 +202,7 @@ export default class StudentProfileUnits extends React.Component {
         {this.renderPinnedActivityBar()}
         {this.renderPinnedActivityModal()}
         {this.renderPreviewModal()}
+        {this.renderEvidenceScoringModal()}
         {this.renderContent()}
       </div>
     );
