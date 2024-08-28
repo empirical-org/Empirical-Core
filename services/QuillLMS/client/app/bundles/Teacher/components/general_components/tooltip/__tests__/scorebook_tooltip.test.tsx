@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
 import * as React from 'react';
-
+import { render, screen } from '@testing-library/react';
 import ScorebookTooltip from '../scorebook_tooltip';
+import { EVIDENCE, } from '../../../../../Shared'
 
 describe('ScorebookTooltip component', () => {
   const mockData = {
@@ -39,78 +39,119 @@ describe('ScorebookTooltip component', () => {
   it('should render', () => {
     const { asFragment } = render(<ScorebookTooltip data={mockData} />);
     expect(asFragment()).toMatchSnapshot();
-  })
+  });
 
   describe('scoring', () => {
     it('should display the scoring information for each session', () => {
       const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByText(/1st score/i)).toBeInTheDocument()
-      expect(screen.getByText(/December 12, 2021/i)).toBeInTheDocument()
-      expect(screen.getByText(/2 min/i)).toBeInTheDocument()
-      expect(screen.getByText(/2nd score/i)).toBeInTheDocument()
-      expect(screen.getByText(/December 17, 2021/i)).toBeInTheDocument()
-      expect(screen.getByText(/4 min/i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/1st score/i)).toBeInTheDocument();
+      expect(screen.getByText(/December 12, 2021/i)).toBeInTheDocument();
+      expect(screen.getByText(/2 min/i)).toBeInTheDocument();
+      expect(screen.getByText(/2nd score/i)).toBeInTheDocument();
+      expect(screen.getByText(/December 17, 2021/i)).toBeInTheDocument();
+      expect(screen.getByText(/4 min/i)).toBeInTheDocument();
+    });
+
     it('should display a scoring explanation if it is a Diagnostic activity', () => {
-      mockData.activity_classification_id = 4
+      mockData.activity_classification_id = 4;
       const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByText(/The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color./i)).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText(/The Quill Diagnostic is meant to diagnose skills to practice. Students are not provided a color-coded score or percentage score. Teachers see only a percentage score without a color./i)).toBeInTheDocument();
+    });
+  });
 
   describe('key target and skills explanation', () => {
     it('student missed the lesson', () => {
-      mockData.marked_complete = true
-      mockData.completed_attempts = 0
+      mockData.marked_complete = true;
+      mockData.completed_attempts = 0;
       const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByText(/This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it./i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it./i)).toBeInTheDocument();
+    });
+
     it('activity has not been published', () => {
-      mockData.scheduled = true
-      mockData.completed_attempts = null
+      mockData.scheduled = true;
+      mockData.completed_attempts = null;
       const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByText(/This scheduled activity has not been published./i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/This scheduled activity has not been published./i)).toBeInTheDocument();
+    });
+
     it('activity is locked', () => {
-      mockData.scheduled = false
-      mockData.locked = true
+      mockData.scheduled = false;
+      mockData.locked = true;
       const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByText(/This activity is set for staggered release and has not been unlocked by this student./i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/This activity is set for staggered release and has not been unlocked by this student./i)).toBeInTheDocument();
+    });
+
     it('activity has not been completed', () => {
-      mockData.locked = false
-      mockData.completed_attempts = null
+      mockData.locked = false;
+      mockData.completed_attempts = null;
       const { asFragment } = render(<ScorebookTooltip data={mockData} />);
       expect(asFragment()).toMatchSnapshot();
-      expect(screen.getByText(/This activity has not been completed./i)).toBeInTheDocument()
-    })
-  })
+      expect(screen.getByText(/This activity has not been completed./i)).toBeInTheDocument();
+    });
+  });
 
   describe('in student view', () => {
-    it('should render if the percentage is below the nearly proficient threshold ', () => {
+    it('should render if the percentage is below the nearly proficient threshold', () => {
       const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0 }} inStudentView={true} showExactScores={true} />);
       expect(asFragment()).toMatchSnapshot();
-    })
+    });
 
-    it('should render if the percentage is between the nearly proficient threshold and the proficient threshold ', () => {
+    it('should render if the percentage is between the nearly proficient threshold and the proficient threshold', () => {
       const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.5 }} inStudentView={true} showExactScores={true} />);
       expect(asFragment()).toMatchSnapshot();
-    })
+    });
 
-    it('should render if the percentage is above the proficient threshold ', () => {
+    it('should render if the percentage is above the proficient threshold', () => {
       const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.9 }} inStudentView={true} showExactScores={true} />);
       expect(asFragment()).toMatchSnapshot();
-    })
+    });
 
-    it('should render if showExactScores is false ', () => {
+    it('should render if showExactScores is false', () => {
       const { asFragment } = render(<ScorebookTooltip data={{ ...mockData, percentage: 0.9 }} inStudentView={true} showExactScores={false} />);
       expect(asFragment()).toMatchSnapshot();
-    })
+    });
+  });
 
-  })
+  describe('color explanation in student view', () => {
+    it('should display red explanation for evidence activity with low score', () => {
+      const evidenceData = {
+        ...mockData,
+        activity_classification_key: EVIDENCE,
+        percentage: 0.1
+      };
+      const { asFragment } = render(<ScorebookTooltip data={evidenceData} inStudentView={true} showExactScores={true} />);
+      expect(asFragment()).toMatchSnapshot();
+      expect(screen.getByText(/Why Red\?/i)).toBeInTheDocument();
+      expect(screen.getByText(/You did not write a strong response within five revisions on any of the prompts./i)).toBeInTheDocument();
+    });
+
+    it('should display yellow explanation for evidence activity with medium score', () => {
+      const evidenceData = {
+        ...mockData,
+        activity_classification_key: EVIDENCE,
+        percentage: 0.5
+      };
+      const { asFragment } = render(<ScorebookTooltip data={evidenceData} inStudentView={true} showExactScores={true} />);
+      expect(asFragment()).toMatchSnapshot();
+      expect(screen.getByText(/Why Yellow\?/i)).toBeInTheDocument();
+      expect(screen.getByText(/Within five revisions, you wrote a strong response for some, but not all, prompts./i)).toBeInTheDocument();
+    });
+
+    it('should display green explanation for evidence activity with high score', () => {
+      const evidenceData = {
+        ...mockData,
+        activity_classification_key: EVIDENCE,
+        percentage: 0.9
+      };
+      const { asFragment } = render(<ScorebookTooltip data={evidenceData} inStudentView={true} showExactScores={true} />);
+      expect(asFragment()).toMatchSnapshot();
+      expect(screen.getByText(/Why Green\?/i)).toBeInTheDocument();
+      expect(screen.getByText(/Within five revisions, you wrote a strong response for all prompts./i)).toBeInTheDocument();
+    });
+  });
 });

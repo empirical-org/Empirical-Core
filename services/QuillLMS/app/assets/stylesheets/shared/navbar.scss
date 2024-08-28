@@ -905,6 +905,9 @@ nav.q-navbar-home {
           .hover {
             display: none;
           }
+          #social-studies-img, #interdisciplinary-science-img {
+            @include quill-green-filter;
+          }
         }
         h3 {
           font-size: 14px;

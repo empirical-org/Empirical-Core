@@ -14,6 +14,7 @@ import KeyMetrics from '../components/dashboard/key_metrics';
 import LessonsMini from '../components/dashboard/lessons_mini';
 import OnboardingChecklist from '../components/dashboard/onboarding_checklist';
 import TeacherCenterHighlights from '../components/dashboard/teacher_center_highlights';
+import ContentHubCard, { WORLD_HISTORY, AI_KNOWLEDGE, } from '../components/dashboard/content_hub_card'
 import TeacherInfoModal from '../components/dashboard/teacher_info_modal';
 import WelcomeModal from '../components/dashboard/welcome_modal';
 import ArticleSpotlight from '../components/shared/articleSpotlight';
@@ -141,6 +142,8 @@ const Dashboard = ({ onboardingChecklist, firstName, mustSeeWelcomeModal, mustSe
             <HandyActions linkedToClever={linkedToClever} setShowDemoModal={setShowDemoModal} />
             <DailyTinyTip />
             <TeacherCenterHighlights featuredBlogPosts={featuredBlogPosts} />
+            <ContentHubCard contentHub={WORLD_HISTORY} />
+            <ContentHubCard contentHub={AI_KNOWLEDGE} />
           </aside>
         </div>
       </div>

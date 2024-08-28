@@ -30,6 +30,8 @@ describe TeacherCenterHelper do
     let(:tabs) {
       [
         { id: 'Featured Activities', name: 'Featured Activities', url: '/activities/packs' },
+        { id: 'Social Studies Activities', name: 'Social Studies Activities', url: '/social-studies' },
+        { id: 'Science Activities', name: 'Science Activities', url: '/interdisciplinary-science' },
         { id: 'AP Activities', name: 'AP Activities', url: '/ap' },
         { id: 'Pre-AP Activities', name: 'Pre-AP Activities', url: '/preap' },
         { id: 'SpringBoard Activities', name: 'SpringBoard Activities', url: '/springboard' },

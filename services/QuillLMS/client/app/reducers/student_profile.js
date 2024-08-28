@@ -35,7 +35,8 @@ export default (state, action) => {
         selectedClassroomId: action.data.classroom_id,
         metrics: action.data.metrics,
         showExactScores: action.data.show_exact_scores,
-        exactScoresDataPending: true
+        exactScoresDataPending: true,
+        completedEvidenceActivityPriorToScoring: action.data.completed_evidence_activity_prior_to_scoring
       });
     case 'RECEIVE_EXACT_SCORES_DATA': {
       return Object.assign({}, state, {
