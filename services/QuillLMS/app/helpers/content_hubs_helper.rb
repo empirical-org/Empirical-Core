@@ -190,7 +190,7 @@ module ContentHubsHelper
       {
         display_name: 'The Global Tapestry (1200-1450 CE)',
         description: 'From 1200 to 1450 CE, diverse societies emerged and expanded around the world. Although these societies had many similarities, they also had important differences. As interactions increased, unique ideas, resources, and technology spread farther than ever before. New trade networks—and new conflicts—arose as societies made contact across Europe, Asia, and Africa.',
-        unit_template_id: 470,
+        unit_template_id: 710,
         oer_unit_website: 'https://www.oerproject.com/1200-to-the-Present/Unit-2',
         oer_unit_teacher_guide: 'https://www.oerproject.com/OER-Materials/OER-Media/PDFs/1200/Unit2/Unit-2-Guide',
         all_oer_articles: 'https://docs.google.com/document/d/1Q62sQb8H4aWMqNxn2V525s4d2B6YryxS/edit?usp=drive_link&ouid=110057766825806701001&rtpof=true&sd=true',
