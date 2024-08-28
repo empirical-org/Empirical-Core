@@ -339,5 +339,41 @@ describe ProfilesController, type: :controller do
         end
       end
     end
+
+    context 'as a student with completed evidence activity' do
+      let(:student) { create(:student) }
+      let!(:evidence_activity) { create(:evidence_lms_activity) }
+      let!(:activity_session) do
+        create(
+          :activity_session,
+          activity: evidence_activity,
+          user: student,
+          completed_at: DateTime.new(2024, 6, 12)
+        )
+      end
+
+      before do
+        allow(controller).to receive(:current_user) { student }
+        session[:user_id] = student.id
+      end
+
+      describe '#student_profile_data' do
+        it 'returns true for completed_evidence_activity_prior_to_scoring when evidence activity was completed before the scoring date' do
+          get :student_profile_data, params: { current_classroom_id: student.classrooms.first.id }
+
+          response_body = JSON.parse(response.body)
+          expect(response_body['completed_evidence_activity_prior_to_scoring']).to be_truthy
+        end
+
+        it 'returns false for completed_evidence_activity_prior_to_scoring when evidence activity was completed after the scoring date' do
+          activity_session.update(completed_at: DateTime.new(2024, 9, 1))
+
+          get :student_profile_data, params: { current_classroom_id: student.classrooms.first.id }
+
+          response_body = JSON.parse(response.body)
+          expect(response_body['completed_evidence_activity_prior_to_scoring']).to be_falsey
+        end
+      end
+    end
   end
 end

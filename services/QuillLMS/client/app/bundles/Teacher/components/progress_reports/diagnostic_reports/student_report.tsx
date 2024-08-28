@@ -36,6 +36,21 @@ interface StudentReportProps extends RouteComponentProps {
   passedActivitySessions?: Student[]
 }
 
+const classificationKeyToHref = {
+  [EVIDENCE_KEY]: "https://support.quill.org/en/articles/6070182-how-do-i-read-quill-reading-for-evidence-data-reports",
+  [CONNECT_KEY]: "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_3f8eef1d9d",
+  [GRAMMAR_KEY]: "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_664b302f5a",
+  [PROOFREADER_KEY]: "https://support.quill.org/en/articles/1049935-how-does-quill-grade-activities#h_39e630b653"
+}
+
+function learnMoreLink(activityClassificationKey, activityClassificationName) {
+  const href = classificationKeyToHref[activityClassificationKey]
+
+  if (!href) { return }
+
+  return <a href={href} rel="noopener noreferrer" target="_blank">Learn more about {activityClassificationName} scoring.</a>
+}
+
 const StudentReport = ({ params, studentDropdownCallback, activitySessionDropdownCallback, passedStudents, passedActivitySessions }) => {
   const [loading, setLoading] = React.useState(!(passedStudents && passedActivitySessions))
   const [students, setStudents] = React.useState(passedStudents || null)
@@ -123,33 +138,59 @@ const StudentReport = ({ params, studentDropdownCallback, activitySessionDropdow
 
   function scoringExplanation(student) {
     let headerText = `The score for ${student.activity_classification_name} activities is based on reaching a correct response by the final attempt.`
+    let body = (
+      <React.Fragment>
+        <p>Quill employs a <b>mastery-based grading</b> system to grade activities.</p>
+        <br />
+        <p>Students earn:</p>
+        <ul>
+          <li>Proficient (‘green’) for scoring between 83%-100%.</li>
+          <li>Nearly Proficient (‘yellow’) for scoring between 32%-82%.</li>
+          <li>Not Proficient (‘red’) for scoring between 0%-31%.</li>
+          <li>Completed (’blue’) for activities that are not graded, such as a <a href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for" rel="noopener noreferrer" target="_blank">Diagnostic</a> or <a href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide" rel="noopener noreferrer" target="_blank">Quill Lesson</a>.</li>
+        </ul>
+        <br />
+        <p>We encourage students to <a href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities" rel="noopener noreferrer" target="_blank">replay</a> their activities and <a href="https://www.quill.org/teacher-center/go-for-green">Go for Green</a> to get additional practice on skills and earn a higher grade.</p>
+        <br />
+        {learnMoreLink(student.activity_classification, student.activity_classification_name)}
+      </React.Fragment>
+    )
 
     if (student.activity_classification === EVIDENCE_KEY) {
-      headerText = "Quill Reading for Evidence does not currently provide a score to students. Quill will be introducing scoring for Reading for Evidence activities during the 2023-2024 school year."
-    }
-
-    if (student.activity_classification === LESSONS_KEY) {
-      headerText = "Quill Lessons does not provide a score for students as there is no automated grading in the tool. Instead, the purpose of the tool is for teachers and students to collaboratively discuss answers, with feedback coming from peers rather than the automated grading and feedback that Quill provides in its independent practice tools."
-    }
-
-    return {
-      headerText,
-      isDisabled: ![CONNECT_KEY, GRAMMAR_KEY, PROOFREADER_KEY].includes(student.activity_classification),
-      body: (
+      headerText = "The score for Quill Reading for Evidence activities is based on reaching a strong response on each prompt by the final attempt"
+      body = (
         <React.Fragment>
           <p>Quill employs a <b>mastery-based grading</b> system to grade activities.</p>
           <br />
           <p>Students earn:</p>
           <ul>
-            <li>Proficient (‘green’) for scoring between 83-100%.</li>
+            <li>Proficient (‘green’) for scoring between 83%-100%.</li>
             <li>Nearly Proficient (‘yellow’) for scoring between 32%-82%.</li>
             <li>Not Proficient (‘red’) for scoring between 0%-31%.</li>
             <li>Completed (’blue’) for activities that are not graded, such as a <a href="https://support.quill.org/en/articles/2554430-what-assessments-diagnostics-and-skills-surveys-are-available-on-quill-and-who-are-they-for" rel="noopener noreferrer" target="_blank">Diagnostic</a> or <a href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide" rel="noopener noreferrer" target="_blank">Quill Lesson</a>.</li>
           </ul>
           <br />
-          <p>Students will only see their proficiency after submitting an activity. The grade does not appear. We encourage students to <a href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities" rel="noopener noreferrer" target="_blank">replay</a> their activities and <a href="https://www.quill.org/teacher-center/go-for-green">Go for Green</a> to get additional practice on skills and earn a higher grade.</p>
+          <p>For each of the three prompts, students will have five opportunities to revise their work. Their score for each prompt is based on whether they reach a strong response by the final attempt. For example, if they reach a strong response on their fourth attempt, they’ll receive full credit for that prompt.</p>
+          <br />
+          <p>Students will receive full credit for this activity by writing a strong response for all three prompts. They will receive partial credit for reaching a strong response on any of the three prompts.</p>
+          <br />
+          <p>We encourage students to <a href="https://support.quill.org/en/articles/5554673-how-can-students-replay-activities" rel="noopener noreferrer" target="_blank">replay</a> their activities and <a href="https://www.quill.org/teacher-center/go-for-green">Go for Green</a> to get additional practice on skills and earn a higher grade.</p>
+          <br />
+          {learnMoreLink(student.activity_classification, student.activity_classification_name)}
         </React.Fragment>
       )
+    }
+
+    if (student.activity_classification === LESSONS_KEY) {
+      headerText = "Quill Lessons does not provide a score for students as there is no automated grading in the tool. Instead, the purpose of the tool is for teachers and students to collaboratively discuss answers, with feedback coming from peers rather than the automated grading and feedback that Quill provides in its independent practice tools."
+      body = (
+        <p>During <a href="/tools/lessons" rel="noopener noreferrer" target="_blank">Quill Lessons</a>, our tool meant for instruction with whole classes or small groups, teachers lead students through slides, and students engage with the slides by <a href="https://support.quill.org/en/articles/1173157-quill-lessons-getting-started-guide#using-the-lesson" rel="noopener noreferrer" target="_blank">responding to prompts and discussing the relevant writing skills</a>. During Quill Lessons, <b>students will not receive automatic targeted feedback on their responses</b>; however, teachers can choose to anonymously display student responses during the Quill Lesson to prompt discussion, give feedback, and encourage students to revise their answers. On the last slide of the lesson, you can assign a follow-up Quill Grammar or Quill Connect activity. Please note that although Quill Lessons are not graded, the follow-up Quill Grammar or Quill Connect activity are graded.</p>
+      )
+    }
+
+    return {
+      headerText,
+      body
     }
   }
 

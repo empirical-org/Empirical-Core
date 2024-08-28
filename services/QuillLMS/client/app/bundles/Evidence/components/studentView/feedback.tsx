@@ -121,8 +121,6 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
           <p>Heads up</p>
         </div>
         <p>Our feedback bot is not perfect, and it sometimes might be wrong. If you think the feedback is inaccurate, please click on the “Report a problem” button above.</p>
-        <br />
-        <p>This activity is just for practice, and it is not graded. By practicing and revising on Quill, you are strengthening your writing skills.</p>
       </div>
     )
   }

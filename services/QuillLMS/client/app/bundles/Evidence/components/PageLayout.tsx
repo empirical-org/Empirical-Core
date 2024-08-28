@@ -64,7 +64,8 @@ const PageLayout = (props: any) => {
         </aside>}
         <div className={contentClass} id="main-content" tabIndex={-1}>{renderRoutes(routes, {
           user,
-          previewMode: showPreview
+          previewMode: showPreview,
+          userRole: data?.role
         })}</div>
       </div>
     </div>
