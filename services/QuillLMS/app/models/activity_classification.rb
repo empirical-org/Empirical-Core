@@ -39,8 +39,7 @@ class ActivityClassification < ApplicationRecord
 
   UNSCORED_KEYS = [
     DIAGNOSTIC_KEY,
-    LESSONS_KEY,
-    EVIDENCE_KEY
+    LESSONS_KEY
   ]
 
   scope :connect_or_grammar, -> { where(key: [CONNECT_KEY, GRAMMAR_KEY]) }

@@ -24,29 +24,6 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
     >
       Be proud of the work you did today, and celebrate your success! This practice will help you grow as a reader and a writer. The more you practice, the stronger your critical thinking, reading, and writing skills will be.
     </p>
-    <section
-      id="reminder-badge-section"
-    >
-      <img
-        alt="An illustration of an A+ that is crossed out"
-        id="grade-badge"
-        src="undefined/images/evidence/paper-check.svg"
-      />
-      <section
-        id="reminder-text-section"
-      >
-        <p
-          className="sub-header-text"
-        >
-          Reminder about grades
-        </p>
-        <p
-          className="sub-header-subtext"
-        >
-          This is practice, so your teacher will see your revisions, but Quill won't assign you a grade.
-        </p>
-      </section>
-    </section>
   </section>
   <section
     className="responses-exemplars-container"
@@ -57,12 +34,12 @@ exports[`PostActivitySlide Component should match snapshot 1`] = `
       <p
         className="sub-header-text"
       >
-        Reflect on your work
+        Here are some examples of strong responses
       </p>
       <p
         className="sub-header-subtext"
       >
-        There are many different ways to use evidence in your writing. Consider how your responses compare to the strong examples. In what ways are they similar or different? Notice the ideas, the phrasing, and the tone of voice, and think about how you could use because, but, and so in your future writing.
+        There are many different ways to use evidence in your writing.
       </p>
     </section>
     <section

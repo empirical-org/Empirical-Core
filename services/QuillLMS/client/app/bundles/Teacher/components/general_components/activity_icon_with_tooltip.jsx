@@ -107,11 +107,17 @@ export default class ActivityIconWithTooltip extends React.Component {
     this.setState({ showToolTip: false, });
   };
 
+  indicateCompletedButUngradedActivity = () => {
+    const { data, context, } = this.props
+
+    return context === 'scorebook' && (nonRelevantActivityClassificationIds.includes(Number(data.activity_classification_id)) || data.percentage === null)
+  }
+
   altText() {
     const { data, context, } = this.props
 
     if (data.completed_attempts > 0 || data.percentage) {
-      if (context === 'scorebook' && nonRelevantActivityClassificationIds.includes(Number(data.activity_classification_id))) {
+      if (this.indicateCompletedButUngradedActivity()) {
         return `${activityIconDescription(data.activity_classification_id)} in dark blue to indicate that the student completed the activity.`
       } else {
         return `${activityIconDescription(data.activity_classification_id)} in ${gradeColor(parseFloat(data.percentage))} to indicate that the student ${skillDescription(parseFloat(data.percentage))}`
@@ -129,7 +135,7 @@ export default class ActivityIconWithTooltip extends React.Component {
 
   imageName() {
     if (this.props.data.completed_attempts > 0 || this.props.data.percentage) {
-      if (this.props.context === 'scorebook' && nonRelevantActivityClassificationIds.includes(Number(this.props.data.activity_classification_id))) {
+      if (this.indicateCompletedButUngradedActivity()) {
         return  `${activityFromClassificationId(this.getActClassId())}-dark-blue`
       } else {
         return `${activityFromClassificationId(this.getActClassId())}-${gradeColor(parseFloat(this.props.data.percentage))}`

@@ -4,14 +4,16 @@ import ActivitySurvey from '../activitySlides/activitySurvey'
 import PostActivitySlide from '../activitySlides/postActivitySlide'
 import ThankYouSlide from '../activitySlides/thankYouSlide'
 
-const ActivityFollowUp = ({ activity, dispatch, responses, sessionID, saveActivitySurveyResponse, previewMode }) => {
+const ActivityFollowUp = ({ activity, dispatch, responses, sessionID, saveActivitySurveyResponse, previewMode, userRole, }) => {
   const [showActivitySurvey, setShowActivitySurvey] = React.useState(false)
   const [submittedActivitySurvey, setSubmittedActivitySurvey] = React.useState(false)
 
   function onClickNext() { setShowActivitySurvey(true) }
 
+  const resultPageUrl = userRole === 'student' ? `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}` : process.env.DEFAULT_URL
+
   if (submittedActivitySurvey && !previewMode) {
-    return <ThankYouSlide />
+    return <ThankYouSlide resultPageUrl={resultPageUrl} />
   }
 
   if (showActivitySurvey && !previewMode) {
@@ -19,6 +21,7 @@ const ActivityFollowUp = ({ activity, dispatch, responses, sessionID, saveActivi
       <ActivitySurvey
         activity={activity}
         dispatch={dispatch}
+        resultPageUrl={resultPageUrl}
         saveActivitySurveyResponse={saveActivitySurveyResponse}
         sessionID={sessionID}
         setSubmittedActivitySurvey={setSubmittedActivitySurvey}

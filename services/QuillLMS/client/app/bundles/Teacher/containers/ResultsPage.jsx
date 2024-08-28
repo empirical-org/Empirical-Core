@@ -6,6 +6,7 @@ import ScrollToTop from '../components/shared/scroll_to_top'
 import { proficiencyCutoffsAsPercentage } from '../../../modules/proficiency_cutoffs';
 
 const diagnosticActivityType = 'diagnostic'
+const evidenceActivityType = 'evidence'
 
 const ResultsPage = ({
   activityName,
@@ -24,6 +25,7 @@ const ResultsPage = ({
   activitySessionId,
 }) => {
   const isDiagnostic = activityType === diagnosticActivityType
+  const isEvidence = activityType === evidenceActivityType
 
   const cutOff = proficiencyCutoffsAsPercentage();
 
@@ -44,6 +46,30 @@ const ResultsPage = ({
       <div className="results-section">
         <h2>{sectionHeader}</h2>
         {targetSkillElements}
+      </div>
+    )
+  }
+
+  const renderEvidenceScoringGuide = () => {
+    if (!isEvidence) { return }
+
+    return (
+      <div className="evidence-scoring-guide">
+        <h2>How Reading for Evidence Scoring Works</h2>
+        <div className="score-keys">
+          <div className="score-key">
+            <div className="green" />
+            <p>Earn a green score by reaching a strong response on all three prompts</p>
+          </div>
+          <div className="score-key">
+            <div className="yellow" />
+            <p>Reaching a strong response on one or two prompts will result in a yellow score</p>
+          </div>
+          <div className="score-key">
+            <div className="red" />
+            <p>Not reaching a strong response on any prompt will result in a red score</p>
+          </div>
+        </div>
       </div>
     )
   }
@@ -142,6 +168,7 @@ const ResultsPage = ({
           </div>
           {bottomSection()}
         </div>
+        {renderEvidenceScoringGuide()}
         {renderKeepPracticingSection()}
       </div>
     </div>
