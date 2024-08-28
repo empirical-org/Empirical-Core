@@ -6,7 +6,7 @@ interface BannerProps {
   tagText?: string,
   primaryHeaderText: string,
   secondaryHeaderText?: string,
-  bodyText: string,
+  bodyText: string|JSX.Element,
   closeAria?: string,
   closeIconSrc?: string,
   handleCloseCard?: () => void,
