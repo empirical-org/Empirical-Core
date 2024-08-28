@@ -99,7 +99,7 @@ class FeedbackHistory < ApplicationRecord
   scope :autoML, -> { where(feedback_type: AUTO_ML) }
   scope :confidence_greater_than, ->(lower_limit) { where("CAST(metadata->'api'->'confidence' AS DOUBLE PRECISION) > ?", lower_limit) }
   scope :entry_shorter_than, ->(length) { where('LENGTH(entry) < ?', length) }
-  scope :for_prompt, ->(prompt_id) { where(prompt_id: prompt_id) }
+  scope :for_prompt, ->(prompt_id) { where(prompt_id: prompt_id, prompt_type: DEFAULT_PROMPT_TYPE) }
 
   def readonly?
     !new_record?
@@ -129,6 +129,13 @@ class FeedbackHistory < ApplicationRecord
       .pluck(:entry)
       .uniq
   end
+
+  def self.prompt_session(feedback_session_uid:, prompt_id:)
+    for_prompt(prompt_id)
+      .where(feedback_session_uid:)
+      .order('id DESC')
+  end
+
 
   def concept_results_hash
     return {} if concept.blank?
