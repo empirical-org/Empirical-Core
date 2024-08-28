@@ -22,6 +22,7 @@ class ProgressReports::Standards::NewStandard
           SUM(best_activity_sessions.timespent) AS timespent,
           COALESCE(AVG(proficient_count.user_count), 0)::integer AS proficient_student_count,
           COALESCE(AVG(not_proficient_count.user_count), 0)::integer AS not_proficient_student_count,
+          COUNT(DISTINCT(best_activity_sessions.user_id)) FILTER (WHERE best_activity_sessions.score IS NOT NULL) AS total_scored_student_count,
           (CASE WHEN standards.standard_category_id = #{::Constants::EVIDENCE_STANDARD_CATEGORY} THEN true ELSE false END) AS is_evidence
         SQL
       )

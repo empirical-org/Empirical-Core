@@ -9,7 +9,8 @@ class ProgressReports::Standards::ClassroomSerializer < ApplicationSerializer
     :not_proficient_student_count,
     :total_standard_count,
     :students_href,
-    :standards_href
+    :standards_href,
+    :total_scored_student_count
 
   def total_standard_count
     object.unique_standard_count
