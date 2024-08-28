@@ -2087,9 +2087,9 @@ exports[`PreAp component should render when it is not part of the assignment flo
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
+            <h2>
               Questions and Answers
-            </h1>
+            </h2>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -4873,9 +4873,9 @@ exports[`PreAp component should render when it is part of the assignment flow 1`
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
+            <h2>
               Questions and Answers
-            </h1>
+            </h2>
             <QuestionAndAnswer
               key="0"
               qa={
@@ -6187,9 +6187,9 @@ exports[`PreAp component should render with no units 1`] = `
           <div
             className="q-and-a-inner-wrapper"
           >
-            <h1>
+            <h2>
               Questions and Answers
-            </h1>
+            </h2>
             <QuestionAndAnswer
               key="0"
               qa={

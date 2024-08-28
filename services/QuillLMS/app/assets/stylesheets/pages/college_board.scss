@@ -339,64 +339,6 @@
       }
     }
   }
-  #q-and-a {
-    .q-and-a-inner-wrapper {
-      .qa-section {
-        .qa {
-          .question {
-            text-align: left;
-            padding-left: 0;
-            margin: 16px 0px 16px 0px;
-          }
-          .question:focus {
-            outline: none !important;
-          }
-          .answer {
-            div {
-              .college-board-sub-header {
-                font-weight: 600;
-              }
-              .college-board-q-and-a-text {
-                padding-bottom: 20px;
-                a {
-                  color: black;
-                }
-                strong {
-                  font-weight: 600;
-                }
-              }
-              .college-board-q-and-a-text:last-child {
-                padding-bottom: 0px;
-              }
-              ul {
-                li {
-                  p:first-of-type {
-                    font-weight: 600;
-                  }
-                }
-              }
-            }
-            p {
-              line-height: 1.5;
-              a {
-                color: black;
-              }
-            }
-            .college-board-block {
-              padding: 15px 0px 15px 0px;
-            }
-          }
-        }
-        .expand-collapse-button {
-          background-color: white;
-          margin-top: 16px;
-        }
-      }
-      .qa-section:last-of-type {
-        border-bottom: 1px solid $quill-grey-5;
-      }
-    }
-  }
 }
 
 @media only screen and (max-width : 750px){

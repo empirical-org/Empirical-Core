@@ -1,0 +1,30 @@
+.post-checklist-container aside section.content-hub-card {
+  padding-bottom: 0px;
+  h2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px;
+  }
+  h3 {
+    font-weight: 700;
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  p:first-of-type {
+    margin-bottom: 24px;
+  }
+  .logo-container {
+    border-top: 1px solid $quill-grey-15;
+    display: flex;
+    align-items: center;
+    padding: 16px 0px;
+    justify-content: center;
+  }
+  .content {
+    padding: 16px;
+    color: $quill-grey-90;
+    font-style: normal;
+    line-height: normal;
+  }
+}

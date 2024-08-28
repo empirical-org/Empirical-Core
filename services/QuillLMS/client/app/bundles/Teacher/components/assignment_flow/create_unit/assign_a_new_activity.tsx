@@ -19,6 +19,8 @@ const allDiagnosticsSrc = `${process.env.CDN_URL}/images/icons/icons-diagnostics
 const graduationCapSrc = `${process.env.CDN_URL}/images/icons/icons-graduation-cap.svg`
 const closeIconSrc = `${process.env.CDN_URL}/images/icons/close.svg`
 const globeIconSrc = `${process.env.CDN_URL}/images/icons/icons-description-topic.svg`
+const largeGlobeSrc = `${process.env.CDN_URL}/images/icons/l/globe.svg`
+const largeArtificalIntelligenceSrc = `${process.env.CDN_URL}/images/icons/l/ai.svg`
 
 const minis = (diagnosticBannerShowing) => [
   (<AssignmentCard
@@ -66,6 +68,34 @@ const minis = (diagnosticBannerShowing) => [
     imgSrc={graduationCapSrc}
     key="college-board"
     selectCard={() => window.location.href = '/assign/college-board'}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Explore Reading for Evidence activities that reinforce world history content while helping students strengthen their reading and writing skills.'},
+      { key: 'When', text: "You teach high school history or ELA and want to supplement your curriculum with a deep dive into essential world history topics and themes." }
+    ]}
+    header="View World History Activities"
+    imgAlt="globe"
+    imgClassName="globe"
+    imgSrc={largeGlobeSrc}
+    key="world-history"
+    preHeader="Social Studies"
+    selectCard={() => window.location.href = '/assign/social-studies'}
+    showNewTagInPreHeaderLine={true}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Discover Reading for Evidence activities where students can learn and write about the opportunities and challenges of artificial intelligence in society.', },
+      { key: 'When', text: "You’re an ELA or STEM teacher interested in exploring the societal impacts of artificial intelligence with your high school students." }
+    ]}
+    header="View Building AI Knowledge Activities"
+    imgAlt="brain with nodes extending from it"
+    imgClassName="artificial-intelligence"
+    imgSrc={largeArtificalIntelligenceSrc}
+    key="building-ai-knowledge"
+    preHeader="Interdisciplinary Science"
+    selectCard={() => window.location.href = '/assign/interdisciplinary-science'}
+    showNewTagInPreHeaderLine={true}
   />)
 ];
 

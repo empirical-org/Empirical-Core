@@ -4,11 +4,12 @@ import { EVIDENCE, LESSONS } from '../../Shared'
 import { AP, PRE_AP, SPRINGBOARD } from '../components/college_board/collegeBoardConstants'
 import admin from '../components/modules/questionsAndAnswers/admin'
 import ap from '../components/modules/questionsAndAnswers/ap'
-import evidence from '../components/modules/questionsAndAnswers/evidence'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
 import preap from '../components/modules/questionsAndAnswers/preap'
 import premium from '../components/modules/questionsAndAnswers/premium'
 import springboard from '../components/modules/questionsAndAnswers/springboard'
+import socialStudies from '../components/modules/questionsAndAnswers/socialStudies'
+import interdisciplinaryScience from '../components/modules/questionsAndAnswers/interdisciplinaryScience'
 import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 
 export interface QuestionsAndAnswersProps {
@@ -45,8 +46,11 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
       case SPRINGBOARD:
         questionsAndAnswers = springboard
         break
-      case EVIDENCE:
-        questionsAndAnswers = evidence
+      case 'socialStudies':
+        questionsAndAnswers = socialStudies
+        break
+      case 'interdisciplinaryScience':
+        questionsAndAnswers = interdisciplinaryScience
         break
       default:
         questionsAndAnswers = []
@@ -71,7 +75,7 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
-          <h1>Questions and Answers</h1>
+          <h2>Questions and Answers</h2>
           {this.renderQuestionsAndAnswers()}
           <a className={style} href={supportLink}>View all questions and answers</a>
         </div>
