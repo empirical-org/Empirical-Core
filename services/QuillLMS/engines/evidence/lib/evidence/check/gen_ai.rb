@@ -53,6 +53,7 @@ module Evidence
 
       private def history_feedback_only = previous_feedback.map { |f| f[KEY_FEEDBACK] }
 
+      # TODO: Remove temporary debugging code once beta version is locked down.
       private def with_logging
         Rails.logger.info '-------------------------'
         Rails.logger.info 'Previous Feedback'
