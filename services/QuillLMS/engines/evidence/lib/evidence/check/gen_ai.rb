@@ -47,9 +47,7 @@ module Evidence
       private def session_history
         return [] if session.nil?
 
-        @history ||= session
-          .feedback_history
-          .sort_by(&:id)
+        @history ||= session.prompt_history(prompt_id: prompt.id)
           .map { |fh| Evidence::GenAI::HistoryItem.new(user: fh.entry, assistant: fh.feedback_text) }
       end
 

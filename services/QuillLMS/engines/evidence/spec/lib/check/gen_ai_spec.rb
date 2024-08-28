@@ -88,8 +88,8 @@ RSpec.describe Evidence::Check::GenAI, type: :service do
     end
 
     describe '#session_history' do
-      let(:session) { double('Session', feedback_history: feedback_history) }
-      let(:feedback_history) do
+      let(:session) { double('Session', prompt_history:) }
+      let(:prompt_history) do
         [
           double('FeedbackHistory', id: 1, entry: 'History entry 1', feedback_text: 'History feedback 1'),
           double('FeedbackHistory', id: 2, entry: 'History entry 2', feedback_text: 'History feedback 2')

@@ -4,4 +4,6 @@ class FeedbackSession
   def history_texts = []
 
   def feedback_history = []
+
+  def prompt_history(prompt_id:) = []
 end
