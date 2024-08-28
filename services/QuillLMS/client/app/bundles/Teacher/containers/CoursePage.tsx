@@ -3,10 +3,13 @@ import * as React from 'react';
 import CoursePageUnitTemplate from '../components/content_hubs/course_page_unit_template'
 import { Spinner, } from '../../Shared/index'
 import { requestGet, } from '../../../modules/request'
+import { scrollToTop } from '../hooks/scrollToTop';
 
 const CoursePage = ({ overviewSection, localStorageKey, contentPageLink, partnerSection, unitTemplatePath,  }) => {
   const [unitTemplates, setUnitTemplates] = React.useState(null)
   const [expandedUnitTemplateIds, setExpandedUnitTemplateIds] = React.useState(window.localStorage.getItem(localStorageKey)?.split(',').map(id => Number(id)))
+
+  scrollToTop()
 
   React.useEffect(() => {
     requestGet(unitTemplatePath,
