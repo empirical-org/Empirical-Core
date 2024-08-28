@@ -213,6 +213,8 @@ export {
   whiteEmailIcon,
   accountGreenIcon,
   accountGreyIcon,
+  globeIcon,
+  aiIcon,
 } from './images/index'
 
 export {
@@ -271,7 +273,13 @@ export {
   INDETERMINATE,
   DISABLED,
   DEFAULT,
-  HOVER
+  HOVER,
+  EXTRA_EXTRA_SMALL_ICON_BASE_SRC,
+  EXTRA_SMALL_ICON_BASE_SRC,
+  SMALL_ICON_BASE_SRC,
+  SMALL_MEDIUM_ICON_BASE_SRC,
+  LARGE_ICON_BASE_SRC,
+  EXTRA_LARGE_ICON_BASE_SRC,
 } from './utils/constants'
 
 export { ENGLISH, defaultLanguages } from './utils/languageList'

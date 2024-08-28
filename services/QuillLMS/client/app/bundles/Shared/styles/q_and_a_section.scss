@@ -1,0 +1,116 @@
+#q-and-a {
+  background-color: $quill-white;
+  padding: 50px 86px;
+  text-align: left;
+
+  @media only screen and (max-width: 800px) {
+    padding: 50px 10px;
+  }
+
+  h2, .qa-section {
+    color: $quill-black;
+  }
+
+  .q-and-a-inner-wrapper {
+    margin: 0 auto;
+    max-width: $sitewidepagewidth;
+    padding: 0px 10px;
+    width: 100%;
+
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: normal;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .qa-section {
+      border-bottom: 1px solid $quill-grey-15;
+      display: flex;
+      justify-content: space-between;
+      text-align: left;
+      padding: 32px 0px 0px;
+
+      .answer {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin: 16px 0px 48px;
+        p, li {
+          margin-bottom: 14px;
+        }
+      }
+
+      a {
+        text-decoration: underline;
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+      }
+
+      .expand-collapse-button {
+        border: none;
+
+        p {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+
+      .expand-or-collapse {
+        align-items: center;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 42px;
+        margin: 0px;
+        margin-left: 10px;
+        margin-top: 1.3em;
+      }
+
+      img {
+        height: 24px;
+        width: 24px;
+      }
+
+      .question {
+        border: none;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-align: left;
+        padding-left: 0px;
+        margin-bottom: 32px;
+
+        &:focus {
+          outline: none !important;
+        }
+      }
+    }
+
+    .support-link {
+      border: solid 1px #bdbdbd;
+      border-radius: 4px;
+      color: black;
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 600;
+      height: 40px;
+      margin-top: 30px;
+      padding: 10px 0px;
+      text-align: center;
+      text-decoration: none;
+      width: 249px;
+
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}

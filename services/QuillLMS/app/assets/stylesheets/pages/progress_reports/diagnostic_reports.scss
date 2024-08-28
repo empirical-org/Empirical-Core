@@ -756,6 +756,31 @@ $lightgray: #cecece;
       background-color: transparent;
     }
   }
+  .curriculum-minis {
+    display: flex;
+    gap: 32px;
+    .generic-mini {
+      width: 100%;
+      max-width: 100%;
+    }
+    .new-tag {
+      font-size: 9px;
+      color: $quill-white;
+      background: $quill-gold;
+      border-radius: 5px;
+      color: white;
+      padding: 4px 8px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .spinner-container {
+      margin: 0px;
+      padding: 0px;
+      .spinner {
+        height: 32px;
+      }
+    }
+  }
   .premium {
     border-radius: 4px;
     border: 1px solid $quill-gold-dark-20;

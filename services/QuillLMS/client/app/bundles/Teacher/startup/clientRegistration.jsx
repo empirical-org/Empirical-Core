@@ -40,6 +40,10 @@ import TeacherFixApp from './TeacherFixAppClient';
 import TeacherGuideApp from './TeacherGuideClient';
 import TutorialsApp from './TutorialsAppClient';
 import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient';
+import WorldHistory1200ToPresentApp from './WorldHistory1200ToPresentAppClient';
+import SocialStudiesSubjectPageApp from './SocialStudiesSubjectPageAppClient';
+import BuildingAIKnowledgeApp from './BuildingAIKnowledgeAppClient';
+import InterdisciplinaryScienceSubjectPageApp from './InterdisciplinaryScienceSubjectPageAppClient';
 
 import UploadRostersApp from '../../Staff/startup/UploadRostersAppClient';
 import StudentFeedbackModal from '../../Student/startup/StudentFeedbackModalAppClient';
@@ -93,5 +97,9 @@ ReactOnRails.register({
   UploadRostersApp,
   SalesFormApp,
   DemoAccountBanner,
-  AdminAccessApp
+  AdminAccessApp,
+  WorldHistory1200ToPresentApp,
+  SocialStudiesSubjectPageApp,
+  BuildingAIKnowledgeApp,
+  InterdisciplinaryScienceSubjectPageApp
 });
