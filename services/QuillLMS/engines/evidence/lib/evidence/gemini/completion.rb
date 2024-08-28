@@ -25,9 +25,10 @@ module Evidence
             }
           ],
           'generationConfig' => {
-            'temperature' => temperature
+            'temperature' => temperature,
+            'response_mime_type' => 'application/json'
           }
-        }.merge(llm.request_body_customizations)
+        }
       end
 
       private def model_version = llm.version
