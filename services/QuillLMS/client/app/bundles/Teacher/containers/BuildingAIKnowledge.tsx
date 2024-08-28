@@ -33,7 +33,7 @@ const BuildingAIKnowledge = ({ backlinkPath, }) => {
   const partnerSection = (
     <div className="partner-section">
       <h2>Paired with aiEDU for deeper learning</h2>
-      <p>Quill.org & aiEDU, two nonprofit organizations dedicated to building foundational AI literacy, have partnered to curate a suite of resources from each organization that can be paired together to build student knowledge of AI. Each Quill activity can be paired with an aiEDU activity, which range from in-depth, 2-3 hour activities to 5-minute snapshot discussion items. Want to learn more? Visit <a href="www.aiedu.org" rel="noopener noreferrer" target="_blank">www.aiedu.org</a>!</p>
+      <p>Quill.org & aiEDU, two nonprofit organizations dedicated to building foundational AI literacy, have partnered to curate a suite of resources from each organization that can be paired together to build student knowledge of AI. Each Quill activity can be paired with an aiEDU activity, which range from in-depth, 2-3 hour activities to 5-minute snapshot discussion items. Want to learn more? Visit <a href="https://www.aiedu.org/" rel="noopener noreferrer" target="_blank">www.aiedu.org</a>!</p>
       <a className="quill-button medium outlined grey focus-on-light" href={contentPage}>Learn more about Quill's interdisciplinary science activities</a>
     </div>
   )
