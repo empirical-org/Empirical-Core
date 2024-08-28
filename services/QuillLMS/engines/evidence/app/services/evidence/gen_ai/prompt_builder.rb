@@ -35,6 +35,7 @@ module Evidence
       private def stem = prompt.text
 
       private def markdown_ul(array) = array.map { |i| "- #{i}" }.join("\n")
+      private def markdown_ol(array) = array.map.with_index { |text, i| "#{i + 1}. #{text}" }.join("\n")
       private def markdown_table_rows(array_of_arrays)
         array_of_arrays.map { |array| "#{PIPE}#{array.join(PIPE)}#{PIPE}" }.join("\n")
       end
@@ -42,7 +43,7 @@ module Evidence
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
-      private def feedback_history = markdown_ul(history)
+      private def feedback_history = markdown_ol(history.map(&:chomp).map{|t| HTMLTagRemover.run(t)})
       private def highlight_texts
         prompt
           .distinct_automl_highlight_arrays

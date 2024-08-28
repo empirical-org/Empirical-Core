@@ -409,7 +409,7 @@ class GenAITasks < Thor
     end
 
     def repeated_folder
-      Evidence::Engine.root.join('app/services/evidence/gen_ai/repeated_feedback_data/')
+      Evidence::Engine.root.join('app/services/evidence/gen_ai/repeated_feedback/data/')
     end
 
     private def output_file(conjunction, limit)
