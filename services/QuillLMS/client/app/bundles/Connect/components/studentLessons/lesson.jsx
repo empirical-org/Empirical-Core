@@ -29,7 +29,7 @@ import {
 } from '../../../Shared/index';
 import { clearData, loadData, nextQuestion, resumePreviousSession, setCurrentQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
-import * as LessonActions from '../../actions/lessons.ts';
+import LessonActions from '../../actions/lessons';
 import {
   answeredQuestionCount,
   getProgressPercent,
@@ -134,7 +134,7 @@ export class Lesson extends React.Component {
         this.toggleIsLastQuestion();
       }
       if (lessonLoaded && playLesson?.language && playLesson.language !== prevProps?.playLesson?.language) {
-        dispatch(LessonActions.default.loadTranslatedQuestions(lessonID, playLesson.language))
+        dispatch(LessonActions.loadTranslatedQuestions(lessonID, playLesson.language))
       }
     }
   }
