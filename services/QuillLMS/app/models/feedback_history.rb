@@ -130,13 +130,6 @@ class FeedbackHistory < ApplicationRecord
       .uniq
   end
 
-  def self.prompt_session(feedback_session_uid:, prompt_id:)
-    for_prompt(prompt_id)
-      .where(feedback_session_uid:)
-      .order('id DESC')
-  end
-
-
   def concept_results_hash
     return {} if concept.blank?
 

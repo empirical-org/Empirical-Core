@@ -35,10 +35,4 @@ class FeedbackSession < ApplicationRecord
       item.uid = SecureRandom.uuid if !item.uid
     end.uid
   end
-
-  def prompt_history(prompt_id:)
-    feedback_history
-      .for_prompt(prompt_id)
-      .order(id: :desc)
-  end
 end
