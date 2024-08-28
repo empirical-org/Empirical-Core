@@ -113,7 +113,7 @@ class GenAITasks < Thor
     sample_test(conjunction, limit, false, template_file)
   end
 
-  # bundle exec prompt_entry 256 'some answer from student'
+  # bundle exec thor gen_a_i_tasks:prompt_entry 256 'some answer from student'
   desc "prompt_entry 256 'some answer from student'", 'Run to see system prompt and feedback for a given prompt / entry'
   def prompt_entry(prompt_id, entry, template_file: nil)
     prompt = Evidence::Prompt.find(prompt_id)
