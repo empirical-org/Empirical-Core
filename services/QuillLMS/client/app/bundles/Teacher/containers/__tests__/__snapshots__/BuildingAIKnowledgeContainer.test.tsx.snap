@@ -313,7 +313,7 @@ exports[`BuildingAIKnowledge renders correctly in loaded state 1`] = `
       <p>
         Quill.org & aiEDU, two nonprofit organizations dedicated to building foundational AI literacy, have partnered to curate a suite of resources from each organization that can be paired together to build student knowledge of AI. Each Quill activity can be paired with an aiEDU activity, which range from in-depth, 2-3 hour activities to 5-minute snapshot discussion items. Want to learn more? Visit 
         <a
-          href="www.aiedu.org"
+          href="https://www.aiedu.org/"
           rel="noopener noreferrer"
           target="_blank"
         >

@@ -49,7 +49,7 @@ const CoursePageActivity = ({ activity, }) => {
       <div className="results-section">
         <a className="quill-button focus-on-light small contained green" href={link_for_report}>View results</a>
         <p>{renderPieChart()} {completed_student_count} of {assigned_student_count} student{assigned_student_count === 1 ? '' : 's'} completed</p>
-        {average_score && <p>Average score: {average_score}%</p>}
+        {average_score !== null && <p>Average score: {average_score}%</p>}
       </div>
     )
   }
