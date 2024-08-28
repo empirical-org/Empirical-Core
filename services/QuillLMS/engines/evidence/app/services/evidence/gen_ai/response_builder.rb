@@ -47,6 +47,7 @@ module Evidence
       private def rule = Evidence::Rule.find_by(uid: rule_uid)
       private def rule_uid = rule_set[conjunction]
       private def rule_set = optimal ? RULES_OPTIMAL : RULES_SUBOPTIMAL
+      private def optimal_feedback = prompt.optimal_label_feedback
 
       private def highlight_array
         return [] if highlight_key.nil?
@@ -60,7 +61,11 @@ module Evidence
 
       private def highlight_key = secondary_response[KEY_HIGHLIGHT]
       private def optimal = primary_response[KEY_OPTIMAL]
-      private def feedback = secondary_response[KEY_SECONDARY_FEEDBACK] || primary_response[KEY_FEEDBACK]
+      private def feedback
+        return optimal_feedback if optimal
+
+        secondary_response[KEY_SECONDARY_FEEDBACK] || primary_response[KEY_FEEDBACK]
+      end
     end
   end
 end
