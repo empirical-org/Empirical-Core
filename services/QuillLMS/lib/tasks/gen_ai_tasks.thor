@@ -267,10 +267,10 @@ class GenAITasks < Thor
     paraphrase_correct = results.count { |r| r.repeated_paraphrase }
 
     different_score = "#{different_correct}/#{total}"
-    different_percent = "#{((different_correct / total.to_f) * 100).round(2)}"
+    different_percent = ((different_correct / total.to_f) * 100).round(2).to_s
 
     similar_score = "#{paraphrase_correct}/#{total}"
-    similar_percent = "#{((paraphrase_correct / total.to_f) * 100).round(2)}"
+    similar_percent = ((paraphrase_correct / total.to_f) * 100).round(2).to_s
 
     puts "Difference: #{different_score} | #{different_percent}"
     puts "Similar: #{similar_score} | #{similar_percent}"
@@ -280,7 +280,7 @@ class GenAITasks < Thor
       results.each { |data| csv << data.deconstruct }
     end
 
-    matrix = "#{[[different_correct, total - different_correct],[total - paraphrase_correct, paraphrase_correct]]}"
+    matrix = [[different_correct, total - different_correct], [total - paraphrase_correct, paraphrase_correct]].to_s
 
     result_row = RepeatedTestRow.new(
       description:,
@@ -298,7 +298,7 @@ class GenAITasks < Thor
     )
 
     # append results to test file
-    CSV.open(repeat_test_runs_file,"a") do |csv|
+    CSV.open(repeat_test_runs_file, 'a') do |csv|
       csv << result_row.deconstruct
     end
   end
@@ -316,8 +316,8 @@ class GenAITasks < Thor
       different = Evidence::HTMLTagRemover.run(data.different)
       similar = Evidence::HTMLTagRemover.run(data.paraphrase)
 
-      nonrepeat = {entry:, list: "1. #{different}", repeat_feedback: false}
-      repeat = { entry:, list: "1. #{similar}", repeat_feedback: true}
+      nonrepeat = { entry:, list: "1. #{different}", repeat_feedback: false }
+      repeat = { entry:, list: "1. #{similar}", repeat_feedback: true }
       puts nonrepeat.to_json
       puts repeat.to_json
     end

@@ -43,7 +43,7 @@ module Evidence
       # TODO: These are currently unused, but may be used in the future. Remove if not used.
       private def example_one = prompt.first_strong_example
       private def example_two = prompt.second_strong_example
-      private def feedback_history = markdown_ol(history.map {|h| strip_tags(h)})
+      private def feedback_history = markdown_ol(history.map { |h| strip_tags(h) })
 
       private def strip_tags(entry) = HTMLTagRemover.run(entry&.chomp)
 
