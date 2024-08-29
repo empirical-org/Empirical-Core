@@ -68,7 +68,7 @@ exports[`ScoreLegend component should render 1`] = `
           Completed
         </span>
       }
-      tooltipText="Quill Reading for Evidence, Quill Lessons, and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
+      tooltipText="Quill Lessons and Quill Diagnostic activities do not provide a score for students. Instead, a blue square is provided once the activity is completed."
     />
     <Icon
       explanation="Not finished"

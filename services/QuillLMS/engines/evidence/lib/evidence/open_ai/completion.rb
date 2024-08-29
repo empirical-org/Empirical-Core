@@ -30,8 +30,9 @@ module Evidence
           messages: [
             { role: 'user', content: prompt }
           ],
-          temperature:
-        }.merge(llm.request_body_customizations)
+          temperature:,
+          response_format: { type: 'json_object' }
+        }
       end
     end
   end

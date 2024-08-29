@@ -1,0 +1,211 @@
+.subject-page {
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+    color: $quill-grey-90;
+    text-align: center;
+  }
+
+  section {
+    padding: 80px 0px;
+    border-bottom: none;
+  }
+
+  header {
+    background-color: $quill-teal;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 64px 0px 80px;
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: normal;
+      color: $quill-white;
+      text-align: center;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: normal;
+      color: $quill-white;
+      margin: 16px 0px 64px;
+    }
+    .course-cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+    .course-card {
+      border-radius: 16px;
+      background: $quill-teal-1;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+      display: flex;
+      padding: 32px;
+      width: 100%;
+      gap: 24px;
+      align-items: center;
+      max-width: 588px;
+      div {
+        flex: 1;
+      }
+      span {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: normal;
+        margin-top: 8px;
+        color: $quill-grey-90;
+      }
+      h2 {
+        text-align: left;
+      }
+    }
+  }
+
+  .summary-section {
+    p {
+      text-align: center;
+      margin: 32px 0px 64px;
+      font-size: 16px;
+      line-height: normal;
+    }
+    .summary-items {
+      display: flex;
+      gap: 64px;
+    }
+    .summary-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      p {
+        margin: 0px;
+      }
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: normal;
+      color: $quill-teal;
+      margin: 16px 0px;
+      text-align: center;
+    }
+  }
+
+  .teacher-quotes {
+    background-color: $quill-teal-1;
+    .quote-boxes {
+      display: flex;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .quote-box {
+      flex: 1;
+      border-radius: 16px;
+      background-color: $quill-white;
+      padding: 32px;
+      color: $quill-teal;
+      flex-direction: column;
+      justify-content: space-between;
+      display: flex;
+      min-height: 330px;
+    }
+    p {
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 10px;
+    }
+    span {
+      font-size: 18px;
+      text-align: right;
+      display: block;
+      &.name {
+        font-weight: 700;
+      }
+    }
+  }
+
+  .partners {
+    border-bottom: 1px solid $quill-grey-15;
+    p {
+      margin-top: 24px;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    a {
+      text-decoration: underline;
+    }
+    img {
+      width: 100%;
+    }
+  }
+
+  #q-and-a {
+    .q-and-a-inner-wrapper {
+      h2 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+  }
+
+  .teacher-center-articles {
+    background-color: $quill-grey-1;
+    .articles-wrapper {
+      margin-top: 32px;
+      display: flex;
+      gap: 32px;
+    }
+    .preview-card-link {
+      flex: 1;
+    }
+  }
+
+  .try-it-out {
+    background-color: $quill-teal;
+    h2 {
+      color: white;
+      margin-bottom: 16px;
+    }
+    .links-wrapper {
+      gap: 8px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .course-cards, .summary-items, .quote-boxes {
+      flex-direction: column;
+    }
+    .summary-items, .quote-boxes {
+      max-width: 700px;
+      margin: 48px auto 0px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .articles-wrapper, .links-wrapper, .course-card {
+      flex-direction: column;
+    }
+    .preview-card {
+      margin-bottom: 0px;
+    }
+  }
+  &.social-studies-subject-page {
+    header {
+      background-image: url("https://assets.quill.org/images/pages/social_studies_subject_page/header-backdrop.svg");
+    }
+  }
+  &.interdisciplinary-science-subject-page {
+    header {
+      background-image: url("https://assets.quill.org/images/pages/interdisciplinary_science_subject_page/header_backdrop.svg");
+    }
+    .partners {
+      border-top: 1px solid $quill-grey-15;
+    }
+  }
+}

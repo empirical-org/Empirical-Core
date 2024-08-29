@@ -1009,6 +1009,12 @@ $tool-grey: #f8f9f9;
 }
 
 .lessons-tool-page {
+  #q-and-a {
+    background-color: #5aaef6;
+    h2, .qa-section {
+      color: $quill-white;
+    }
+  }
   .tool-animation-section {
     background-image: url('https://assets.quill.org/images/tools/lessons/lessons_tool_pattern.svg');
     background-position: center;
@@ -1056,87 +1062,4 @@ $tool-grey: #f8f9f9;
 // should be removed when these links are up
 .need-links {
   display: none;
-}
-
-#q-and-a {
-  background-color: #5aaef6;
-  color: white;
-  padding: 50px 86px;
-  text-align: left;
-
-  @media only screen and (max-width: 800px) {
-    padding: 50px 10px;
-  }
-
-  .q-and-a-inner-wrapper {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-size: 34px;
-    font-weight: 600;
-    text-align: center;
-  }
-  .qa-section {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: solid 1px #5bbefe;
-    .expand-collapse-button {
-      background-color: #58aef6;
-      border: none;
-      margin-top: 2em;
-      p {
-        font-size: 16px;
-        font-weight: 600;
-        margin: 0;
-      }
-    }
-    &:last-of-type {
-      border-bottom: none;
-    }
-  }
-  .qa {
-    max-width: 1030px;
-    width: 100%;
-  }
-  .question {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 1em 0;
-    background-color: #58aef6;
-    border: none;
-    text-align: left;
-  }
-  .question:focus {
-    outline: none !important;
-  }
-  .answer {
-    font-size: 20px;
-    color: white;
-    p {
-      a {
-        color: white;
-        text-decoration: underline;
-      }
-    }
-  }
-  .expand-or-collapse {
-    font-size: 16px;
-    line-height: 42px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-left: 10px;
-    margin-top: 1.3em;
-  }
-  .support-link {
-    color: $quill-white;
-    font-size: 18px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    text-decoration: underline;
-    margin-top: 30px;
-  }
 }

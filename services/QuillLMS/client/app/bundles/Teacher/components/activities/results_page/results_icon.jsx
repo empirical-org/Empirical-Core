@@ -30,10 +30,13 @@ const ResultsIcon = ({ activityType, percentage, }) => {
       case 'diagnostic':
         img = 'tool-diagnostic-white.svg'
         break;
+      case 'evidence':
+        img = 'tool-evidence-white.svg'
+        break;
       default:
         img = 'tool-proofreader-white.svg'
     }
-    return `${process.env.CDN_URL}/images/tools/${img}`
+    return `${process.env.CDN_URL}/images/icons/s/${img}`
   }
 
   return (
