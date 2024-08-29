@@ -436,3 +436,10 @@ List
 %<feedback_history>s
 ```
 ",2024_08_28_gemini2.md,290,117/145,80.69,145/145,100.0,"[[117, 28], [0, 145]]"
+gemini2,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"One at a time, compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,4,1/2,50.0,2/2,100.0,"[[1, 1], [0, 2]]"
