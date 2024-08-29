@@ -242,10 +242,11 @@ class GenAITasks < Thor
   end
 
   RepeatedResult = Data.define(:activity_id, :prompt_id, :original, :different, :repeated_different, :paraphrase, :repeated_paraphrase)
+  RepeatedTestRow = Data.define(:description, :api, :model, :temperature, :prompt_text, :template, :sample_size, :different_score, :different_percent, :similar_score, :similar_percent, :matrix)
 
   # bundle exec thor gen_a_i_tasks:repeated_feedback_test 2
   desc 'repeated_feedback_test limit', 'Test a number or entries from the test.csv file'
-  def repeated_feedback_test(limit = 150)
+  def repeated_feedback_test(description, limit = 150, temperature = 1)
     csv_data = CSV.read("#{repeated_folder}test.csv", headers: true)
     test_set = csv_data.first(limit.to_i).map { |d| Repeated.new(**d) }
 
@@ -253,9 +254,9 @@ class GenAITasks < Thor
 
     test_set.each do |data|
       # test difference
-      repeated_different = repeated_feedback?(data.original, [data.different])
+      repeated_different = repeated_feedback?(data.original, [data.different], temperature)
       # test similar
-      repeated_paraphrase = repeated_feedback?(data.original, [data.paraphrase])
+      repeated_paraphrase = repeated_feedback?(data.original, [data.paraphrase], temperature)
 
       params = data.to_h.merge(repeated_different:, repeated_paraphrase:)
 
@@ -265,12 +266,40 @@ class GenAITasks < Thor
     different_correct = results.count { |r| !r.repeated_different }
     paraphrase_correct = results.count { |r| r.repeated_paraphrase }
 
-    puts "Difference: #{different_correct}/#{total} | #{((different_correct / total.to_f) * 100).round(2)}"
-    puts "Similar: #{paraphrase_correct}/#{total} | #{((paraphrase_correct / total.to_f) * 100).round(2)}"
+    different_score = "#{different_correct}/#{total}"
+    different_percent = "#{((different_correct / total.to_f) * 100).round(2)}"
+
+    similar_score = "#{paraphrase_correct}/#{total}"
+    similar_percent = "#{((paraphrase_correct / total.to_f) * 100).round(2)}"
+
+    puts "Difference: #{different_score} | #{different_percent}"
+    puts "Similar: #{similar_score} | #{similar_percent}"
 
     CSV.open(repeated_output_file(limit), 'wb') do |csv|
       csv << RepeatedResult.members.map(&:to_s)
       results.each { |data| csv << data.deconstruct }
+    end
+
+    matrix = "#{[[different_correct, total - different_correct],[total - paraphrase_correct, paraphrase_correct]]}"
+
+    result_row = RepeatedTestRow.new(
+      description:,
+      api: repeat_api,
+      model: repeat_model,
+      temperature:,
+      prompt_text: repeat_template_text,
+      template: repeat_template,
+      sample_size: total * 2,
+      different_score:,
+      different_percent:,
+      similar_score:,
+      similar_percent:,
+      matrix:
+    )
+
+    # append results to test file
+    CSV.open(repeat_test_runs_file,"a") do |csv|
+      csv << result_row.deconstruct
     end
   end
 
@@ -378,10 +407,14 @@ class GenAITasks < Thor
     private def repeat_model = repeat_api::SMALL_MODEL
     private def secondary_model = secondary_api::SMALL_MODEL
 
-    private def repeated_feedback?(feedback, history)
+    private def repeat_template_text = Evidence::GenAI::RepeatedFeedback::PromptBuilder.new(prompt: nil).send(:template)
+    private def repeat_template = Evidence::GenAI::RepeatedFeedback::PromptBuilder.new(prompt: nil).template_file
+
+    private def repeated_feedback?(feedback, history, temperature)
       system_prompt = Evidence::GenAI::RepeatedFeedback::PromptBuilder.run(prompt: nil, history:)
 
-      llm_response = repeat_api.run(system_prompt:, entry: feedback, model: repeat_model)
+      llm_response = repeat_api.run(system_prompt:, entry: feedback, model: repeat_model, temperature:)
+
       puts llm_response
 
       !!llm_response[Evidence::GenAI::RepeatedFeedback::Checker::KEY_REPEAT]
@@ -403,6 +436,8 @@ class GenAITasks < Thor
         dataset.each { |data| csv << data.deconstruct }
       end
     end
+
+    private def repeat_test_runs_file = Evidence::Engine.root.join('app/services/evidence/gen_ai/repeated_feedback/results/test_runs.csv')
 
     private def repeated_output_file(limit)
       "#{GEN_AI_OUTPUT_FOLDER}repeated_feedback_#{limit}_#{Time.now.to_i}.csv"
