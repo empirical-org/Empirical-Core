@@ -22,6 +22,7 @@ module Evidence
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
         has_many :comparisons, dependent: :destroy
+        has_many :data_subsets, class_name: 'Evidence::Research::GenAI::Dataset', foreign_key: 'parent_id'
 
         belongs_to :stem_vault
         belongs_to :parent, class_name: 'Evidence::Research::GenAI::Dataset', optional: true
@@ -43,7 +44,6 @@ module Evidence
 
         before_validation :set_version
 
-        def data_subsets = self.class.where(parent_id: id)
         def whole? = parent_id.nil?
         def subset? = parent_id.present?
 

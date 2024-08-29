@@ -1,4 +1,11 @@
 <% if matrix %>
+  <% optimal_correct_count = matrix[0][0] %>
+  <% optimal_incorrect_count = matrix[0][1] %>
+  <% suboptimal_correct_count = matrix[1][1] %>
+  <% suboptimal_incorrect_count = matrix[1][0] %>
+  <% optimal_count = optimal_correct_count + optimal_incorrect_count %>
+  <% suboptimal_count = suboptimal_correct_count + suboptimal_incorrect_count %>
+
   <table style="table-layout: fixed; border-collapse: collapse; border: 1px solid black;">
     <tr class='light-gray' style='text-align: center'>
       <td style="text-align: center"></td>
@@ -9,28 +16,28 @@
     </tr>
     <tr>
       <td class='white curriculum-optimal' style="text-align: center;">Curriculum Optimal</td>
-      <td class='light-green' style="text-align: center;"><%= matrix[0][0] %></td>
-      <td class='dark-red' style="text-align: center;"><%= matrix[0][1] %></td>
-      <td class='white' style="text-align: center;"><%= matrix[0][0] + matrix[0][1] %></td>
+      <td class='light-green' style="text-align: center;"><%= optimal_correct_count %></td>
+      <td class='dark-red' style="text-align: center;"><%= optimal_incorrect_count %></td>
+      <td class='white' style="text-align: center;"><%= optimal_count %></td>
       <td class='white' style="text-align: center;">
-        <% if matrix[0][0] + matrix[0][1] == 0 %>
+        <% if optimal_count.zero? %>
           0%
         <% else %>
-          <%= (100.0 * matrix[0][0] / (matrix[0][0] + matrix[0][1])).round.to_s + '%' %>
+          <%= (100.0 * optimal_correct_count / optimal_count).round.to_s + '%' %>
         <% end %>
       </td>
     </tr>
 
     <tr>
       <td class='white curriculum-suboptimal' style="text-align: center;">Curriculum Sub-Optimal</td>
-      <td class='light-red' style="text-align: center;"><%= matrix[1][0] %></td>
-      <td class='green' style="text-align: center;"><%= matrix[1][1] %></td>
-      <td class='white' style="text-align: center;"><%= matrix[1][0] + matrix[1][1] %></td>
+      <td class='light-red' style="text-align: center;"><%= suboptimal_incorrect_count %></td>
+      <td class='green' style="text-align: center;"><%= suboptimal_correct_count %></td>
+      <td class='white' style="text-align: center;"><%= suboptimal_count %></td>
       <td class='white' style="text-align: center;">
-        <% if matrix[1][0] + matrix[1][1] == 0%>
+        <% if suboptimal_count.zero? %>
           0%
         <% else %>
-          <%= (100.0 * matrix[1][1] / (matrix[1][0] + matrix[1][1])).round.to_s + '%' %>
+          <%= (100.0 * suboptimal_correct_count / suboptimal_count).round.to_s + '%' %>
         <% end %>
       </td>
     </tr>
