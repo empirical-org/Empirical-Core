@@ -996,6 +996,38 @@ ALTER SEQUENCE public.evidence_research_gen_ai_comparisons_id_seq OWNED BY publi
 
 
 --
+-- Name: evidence_research_gen_ai_data_slices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.evidence_research_gen_ai_data_slices (
+    id bigint NOT NULL,
+    parent_dataset_id integer NOT NULL,
+    child_dataset_id integer NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: evidence_research_gen_ai_data_slices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.evidence_research_gen_ai_data_slices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: evidence_research_gen_ai_data_slices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.evidence_research_gen_ai_data_slices_id_seq OWNED BY public.evidence_research_gen_ai_data_slices.id;
+
+
+--
 -- Name: evidence_research_gen_ai_datasets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1007,7 +1039,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     locked boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    version integer NOT NULL
+    version integer NOT NULL,
+    parent_id integer
 );
 
 
@@ -1847,6 +1880,13 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons ALTER COLUMN id SET
 
 
 --
+-- Name: evidence_research_gen_ai_data_slices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_data_slices ALTER COLUMN id SET DEFAULT nextval('public.evidence_research_gen_ai_data_slices_id_seq'::regclass);
+
+
+--
 -- Name: evidence_research_gen_ai_datasets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2201,6 +2241,14 @@ ALTER TABLE ONLY public.evidence_research_gen_ai_activities
 
 ALTER TABLE ONLY public.evidence_research_gen_ai_comparisons
     ADD CONSTRAINT evidence_research_gen_ai_comparisons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: evidence_research_gen_ai_data_slices evidence_research_gen_ai_data_slices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.evidence_research_gen_ai_data_slices
+    ADD CONSTRAINT evidence_research_gen_ai_data_slices_pkey PRIMARY KEY (id);
 
 
 --
@@ -2658,6 +2706,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240808123536'),
 ('20240821205700'),
 ('20240822145206'),
-('20240823204315');
+('20240823204315'),
+('20240828221309');
 
 

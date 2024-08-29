@@ -40,6 +40,32 @@ module Evidence
         it { have_many(:comparisons).through(:trial_comparisons) }
 
         it { should belong_to(:stem_vault) }
+
+        describe '#set_version' do
+          let(:stem_vault) { create(:evidence_research_gen_ai_stem_vault) }
+
+          context 'when there are no existing datasets' do
+            let(:dataset) { create(factory, stem_vault:) }
+
+            it { expect(dataset.version).to eq(1) }
+          end
+
+          context 'when there are existing datasets with same parents' do
+            let(:dataset) { create(factory, stem_vault:, parent_id: 1) }
+
+            before { create(factory, stem_vault:, parent_id: 1) }
+
+            it { expect(dataset.version).to eq(2) }
+          end
+
+          context 'when there are existing datasets with different parents' do
+            let(:dataset) { create(factory, stem_vault:, parent_id: 1) }
+
+            before { create(factory, stem_vault:, parent_id: 2) }
+
+            it { expect(dataset.version).to eq(1) }
+          end
+        end
       end
     end
   end
