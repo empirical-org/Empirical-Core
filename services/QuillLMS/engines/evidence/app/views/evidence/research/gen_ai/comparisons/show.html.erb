@@ -12,11 +12,16 @@
 <hr>
 
 <div>
-  <select id="filter-dropdown" onchange="filterRows()">
-    <option value="all">Show all</option>
-    <option value="checked">Checked responses only</option>
-    <option value="non-matching">Show Non-Matching (Red) Only</option>
-  </select>
+  <%= form_with url: research_gen_ai_stem_vault_datasets_path(@dataset.stem_vault), method: :post, local: true, id: 'data-subset-form' do |form| %>
+    <select id="filter-dropdown" onchange="filterRows()">
+      <option value="all">Show all</option>
+      <option value="checked">Checked responses only</option>
+      <option value="non-matching">Show Non-Matching (Red) Only</option>
+    </select>
+    <%= form.hidden_field :parent_id, value: @dataset.id %>
+    <%= form.submit "Create Data Subset", id: "create-data-subset", disabled: true %>
+  <% end %>
+
   <table>
     <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
       <tr>
@@ -58,9 +63,8 @@
     </thead>
     <tbody>
       <% @test_examples.each.with_index do |test_example, index| %>
-        <tr class="response-row">
-          <td class='dark-border'>
-            <input type="checkbox" class="response-checkbox" id="checkbox-<%= index %>">
+        <tr class="response-row">          <td class='dark-border'>
+            <%= check_box_tag "test_example_ids[]", test_example.id, false, class: "response-checkbox", form: "data-subset-form", id: "checkbox-#{index}" %>
           </td>
           <td class='dark-border'><%= index + 1 %></td>
           <td class='dark-border'>
@@ -149,6 +153,9 @@
   .feedback-key-column {
     width: 18%;
   }
+  #create-data-subset {
+    margin-left: 10px;
+  }
 </style>
 
 <script>
@@ -173,5 +180,19 @@
       }
     });
   }
+
+  function updateCreateDataSubsetButton() {
+    const checkboxes = document.querySelectorAll('.response-checkbox');
+    const createButton = document.getElementById('create-data-subset');
+    const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+    createButton.disabled = !anyChecked;
+  }
+
+  document.querySelectorAll('.response-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', updateCreateDataSubsetButton);
+  });
+
+  updateCreateDataSubsetButton();
+
   filterRows();
 </script>

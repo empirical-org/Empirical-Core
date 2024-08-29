@@ -37,11 +37,15 @@ module Evidence
 
         delegate :stem_and_conjunction, to: :stem_vault
 
+        scope :whole, -> { where(parent_id: nil) }
+
         attr_accessor :file
 
         before_validation :set_version
 
-        def dataslices = where(parent_id: id)
+        def data_subsets = self.class.where(parent_id: id)
+        def whole? = parent_id.nil?
+        def subset? = parent_id.present?
 
         def set_version
           existing_version = self.class.where(parent_id:, stem_vault:).order(version: :desc).first&.version
@@ -50,7 +54,7 @@ module Evidence
 
         def test_examples_count = optimal_count + suboptimal_count
 
-        def to_s = "Dataset v#{version}"
+        def to_s = whole? ? "Dataset v#{version}" : "Data Subset v#{version}"
 
         def validate_file_content
           return unless file.present?

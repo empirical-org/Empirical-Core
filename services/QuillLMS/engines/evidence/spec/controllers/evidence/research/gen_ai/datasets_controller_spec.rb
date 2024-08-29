@@ -53,7 +53,7 @@ module Evidence
             let(:data_subset) { create(:evidence_research_gen_ai_dataset, parent_id:) }
             let(:test_example_ids) { test_examples.pluck(:id) }
 
-            let(:attributes) { { research_gen_ai_dataset: { parent_id:, test_example_ids: } } }
+            let(:attributes) { { parent_id:, test_example_ids: } }
 
             before { allow(Evidence::Research::GenAI::DataSubsetBuilder).to receive(:run).and_return(data_subset) }
 

@@ -7,6 +7,11 @@
   <h2><%= @dataset.model_name.human.titleize %></h2>
   <p><%= @dataset %></p>
 
+  <% if @dataset.subset? %>
+    <h3>Parent Dataset</h3>
+    <p><%= link_to @dataset.parent, research_gen_ai_dataset_path(@dataset.parent) %></p>
+  <% end %>
+
 
   <h3>Optimal Test Count</h3>
   <p><%= @dataset.optimal_count %></p>
@@ -14,6 +19,43 @@
   <h3>Suboptimal Test Count</h3>
   <p><%= @dataset.suboptimal_count %></p>
   <hr/>
+
+  <% if @dataset.whole? %>
+    <h2>
+      Data Subsets
+      <button id="toggle-subsets" class="toggle-button">+</button>
+    </h2>
+
+    <div id="subsets-content" class="expandable-content" style="display: none;">
+      <table>
+        <thead>
+          <tr>
+            <th>Data Subset</th>
+            <th>Created</th>
+            <th>Total Evaluation Responses</th>
+            <th>Optimal</th>
+            <th>Sub-optimal</th>
+            <th>Trials</th>
+            <th>Access</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @data_subsets.each do |data_subset| %>
+            <tr>
+              <td><%= "Data Subset #{data_subset.version}" %></td>
+              <td><%= date_helper(data_subset.created_at) %></td>
+              <td><%= data_subset.optimal_count + data_subset.suboptimal_count %></td>
+              <td><%= data_subset.optimal_count %></td>
+              <td><%= data_subset.suboptimal_count %></td>
+              <td><%= data_subset.trials.count %></td>
+              <td><%= link_to "View", research_gen_ai_dataset_path(data_subset) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+  <% end %>
 
   <header>
     <h2>
@@ -76,6 +118,21 @@
   <% end %>
 </div>
 
+<style>
+  .toggle-button {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    margin-left: 10px;
+  }
+
+  .expandable-content {
+    transition: opacity 0.3s ease-out;
+  }
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const checkboxes = document.querySelectorAll('.compare-checkbox');
@@ -95,4 +152,21 @@
 
     updateCompareButtons();
   });
+
+  const toggleButton = document.getElementById('toggle-subsets');
+  const subsetsContent = document.getElementById('subsets-content');
+
+  if (toggleButton && subsetsContent) {
+    toggleButton.addEventListener('click', function() {
+      if (subsetsContent.style.display === 'none') {
+        subsetsContent.style.display = 'block';
+        toggleButton.textContent = '-';
+        // Optional: Smooth scroll to the content
+        subsetsContent.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        subsetsContent.style.display = 'none';
+        toggleButton.textContent = '+';
+      }
+    });
+  }
 </script>

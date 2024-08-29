@@ -9,15 +9,16 @@ module Evidence
         end
 
         def create
-          if file_upload?
-            create_dataset_from_file
-          elsif data_subset?
+          if data_subset?
             redirect_to DataSubsetBuilder.run(parent_id:, test_example_ids:)
+          elsif file_upload?
+            create_dataset_from_file
           end
         end
 
         def show
           @dataset = Dataset.find(params[:id])
+          @data_subsets = @dataset.data_subsets.order(id: :desc)
           @stem_vault = @dataset.stem_vault
           @trials = @dataset.trials.order(id: :desc)
         end
@@ -43,11 +44,7 @@ module Evidence
         private def test_example_ids = data_subset_params[:test_example_ids]
         private def parent_id = data_subset_params[:parent_id]
 
-        private def data_subset_params
-          params
-            .require(:research_gen_ai_dataset)
-            .permit(:parent_id, test_example_ids: [])
-        end
+        private def data_subset_params = params.permit(:parent_id, test_example_ids: [])
       end
     end
   end
