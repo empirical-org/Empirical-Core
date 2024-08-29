@@ -22,3 +22,417 @@ Here are some examples
 |<p>That&#x27;s true! Now be more specific. What is one more aspect that cheerleading and &quot;sports&quot; have in common?</p>|<p>That&#x27;s true! Now try to answer more generally instead of focusing on Gabi.</p>|{'repeat_feedback' : false}|
 |<p>Some people question whether Shakespeare is the true author of these plays—that&#x27;s one consequence of the fact that the plays seem like they were written by a nobleman.<br/><br/>Now try clearing your response and giving an explanation or a reason why instead. What features of the plays make them seem like they were written by a nobleman?</p>|<p>Some people question whether Shakespeare is the true author of these plays—that&#x27;s one consequence of the fact that the plays seem like they were written by a nobleman.<br/><br/>Clear your response and give an explanation why instead. What features of the plays make them seem like they were written by a nobleman?</p>|{'repeat_feedback' : true}|
 ",2024_08_15_identical_with_examples.md,4,2/2,100.0,2/2,100.0,"[[2, 0], [0, 2]]"
+gemini new template strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Is the entry a repeat of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,290,110/145,75.86,145/145,100.0,"[[110, 35], [0, 145]]"
+gemini new template strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Is the entry a repeat of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,4,2/2,100.0,2/2,100.0,"[[2, 0], [0, 2]]"
+gemini new template exact meaning strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+gemini new template exact meaning strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,290,113/145,77.93,145/145,100.0,"[[113, 32], [0, 145]]"
+gemini new template identical meaning strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry have identical meaning to any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,14/20,70.0,20/20,100.0,"[[14, 6], [0, 20]]"
+gemini new template identical meaning strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,290,109/145,75.17,145/145,100.0,"[[109, 36], [0, 145]]"
+gemini new template identical meaning strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,1,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,290,113/145,77.93,145/145,100.0,"[[113, 32], [0, 145]]"
+gemini new template identical meaning strip html and spaces,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+Here are some examples:
+""entry"":""Instead of writing about how historians think about the Berlin Olympics today, focus on what the Nazi government did at the time. What did Nazi leaders do to try to convince others that their regime wasn't dangerous?"",""history"":""1. Instead of writing about why the Nazi Party wanted their government to be seen as tolerant, focus on what they did to accomplish that goal. What did Nazi leaders do to try to convince others that their regime wasn't dangerous?"",""repeated_feedback"":false}
+{""entry"":""Instead of writing about how historians think about the Berlin Olympics today, focus on what the Nazi government did at the time. What did Nazi leaders do to try to convince others that their regime wasn't dangerous?"",""history"":""1. Rather than discussing contemporary historians' perspectives on the Berlin Olympics, concentrate on the actions taken by the Nazi regime during that period. What measures did Nazi officials implement to persuade others that their administration posed no threat?"",""repeated_feedback"":true}
+{""entry"":""That's true— Romeo and Juliet is different from typical tragedies of its time. Now explain why. What is one aspect of the play that goes against the genre's standard tropes or themes?"",""history"":""1. It's true that romance wasn't usually considered a serious enough topic for tragedies, but your response should include a contrast or opposition. Try clearing your response and starting again. How is Romeo and Juliet different from the typical tragedies of its time?"",""repeated_feedback"":false}
+{""entry"":""That's true— Romeo and Juliet is different from typical tragedies of its time. Now explain why. What is one aspect of the play that goes against the genre's standard tropes or themes?"",""history"":""1. That's correct— Romeo and Juliet stands apart from conventional tragedies of its era. Please clarify why. What is one element of the play that contradicts the usual conventions or motifs of the genre?"",""repeated_feedback"":true}
+{""entry"":""It's true that Russia was an absolute monarchy. Now add more specific information to your response. How did the Russian government make it difficult for industrial workers to improve their working conditions?"",""history"":""1. Try clearing your response and starting again. Instead of focusing how the industrial workers fought for change, write about a barrier they faced when trying to improve their working conditions. How did the Russian government make it difficult for industrial workers to improve their working conditions?"",""repeated_feedback"":false}
+{""entry"":""It's true that Russia was an absolute monarchy. Now add more specific information to your response. How did the Russian government make it difficult for industrial workers to improve their working conditions?"",""history"":""1. Indeed, Russia was a complete monarchy. Now incorporate additional detailed information into your reply. In what ways did the Russian administration hinder industrial laborers from enhancing their work environments?"",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Instead of talking about the drawbacks of surgical robots, talk about their benefits. What is one advantage of using surgical robots?"",""history"":""1. That's true! Now be more specific. What is another reason why surgical robots can increase the success of some surgical procedures?"",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Instead of talking about the drawbacks of surgical robots, talk about their benefits. What is one advantage of using surgical robots?"",""history"":""1. Consider resetting your reply and beginning anew. Rather than discussing the disadvantages of surgical robots, focus on their advantages. What is one benefit of employing surgical robots?"",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. What did Nazi leaders do to try to convince the world that their government was tolerant? Check that your response only uses information from the text."",""history"":""1. The Nazi government did use propaganda to control their public image—that's true. Add more information about how they did this before the 1936 Olympics. What did Nazi leaders do to try to convince visitors that Germany was tolerant?"",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. What did Nazi leaders do to try to convince the world that their government was tolerant? Check that your response only uses information from the text."",""history"":""1. Attempt to erase your reply and begin anew. What actions did Nazi officials undertake to persuade the globe that their regime was accepting? Ensure that your reply solely relies on details from the passage."",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Instead of focusing on the fact that some people want to conserve the current bowhead population, talk about how the Inupiat responded to the whaling ban. What did they do as a result of the fact that the whales are essential to them?"",""history"":""1. That's true—the Inupiat disagreed with the IWC's whaling ban. Now make your response even stronger by adding specific details from the text. What did the Inupiat do in response?"",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Instead of focusing on the fact that some people want to conserve the current bowhead population, talk about how the Inupiat responded to the whaling ban. What did they do as a result of the fact that the whales are essential to them?"",""history"":""1. Consider resetting your reply and beginning anew. Rather than concentrating on the notion that certain individuals aim to preserve the existing bowhead population, discuss how the Inupiat reacted to the whaling prohibition. What actions did they take in light of the significance of whales to their community?"",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. So is used to give consequence or effect. What is a consequence of the fact that some people think BeReal is a more authentic form of social media?"",""history"":""1. Try clearing your response and starting again. What is a consequence of the fact that some people think BeReal is a more authentic form of social media? Check that your response only uses information from the text."",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. So is used to give consequence or effect. What is a consequence of the fact that some people think BeReal is a more authentic form of social media?"",""history"":""1. Attempt to erase your reply and begin anew. Thus is utilized to indicate a result or outcome. What is an outcome of the reality that certain individuals believe BeReal is a more genuine type of social media?"",""repeated_feedback"":true}
+{""entry"":""That's true! Now add more information. What did Black South African students use these unofficial schools to do?"",""history"":""1. Try clearing your response and starting again. That's a reason that Black students opposed the segregated schools in South Africa. Write about an action they took instead. How did they challenge the segregated school system in South Africa?"",""repeated_feedback"":false}
+{""entry"":""That's true! Now add more information. What did Black South African students use these unofficial schools to do?"",""history"":""1. Indeed! Now provide additional details. What purposes did Black South African students utilize these informal schools for?"",""repeated_feedback"":true}
+{""entry"":""It's true that the Norwegian team was fined. Now explain why. How was this a consequence of opposition to the uniform requirement?"",""history"":""1. The IHF did update the uniform policy. Now make your response more specific. Why did they rewrite the policy?"",""repeated_feedback"":false}
+{""entry"":""It's true that the Norwegian team was fined. Now explain why. How was this a consequence of opposition to the uniform requirement?"",""history"":""1. Indeed, the Norwegian squad was penalized. Now clarify the reasons behind this. How did this relate to their resistance against the apparel regulations?"",""repeated_feedback"":true}
+{""entry"":""That's something that happened as a result of young boys' interest in joining the army. Since this sentence uses 'but,' write about a contrasting idea about them wanting to enlist instead. What prevented some boys from volunteering in the British Army?"",""history"":""1. Some boys didn't last too long in the British Army during WWI—that's true! Add another detail to your response more specific. How many boys were discharged shortly after their enlistment?"",""repeated_feedback"":false}
+{""entry"":""That's something that happened as a result of young boys' interest in joining the army. Since this sentence uses 'but,' write about a contrasting idea about them wanting to enlist instead. What prevented some boys from volunteering in the British Army?"",""history"":""1. That's an occurrence that took place as a consequence of young males' fascination with enlisting in the military. Given that this statement employs 'but,' discuss an opposing notion regarding their desire to enlist instead. What hindered certain boys from enlisting in the British Army?"",""repeated_feedback"":true}
+",2024_08_28_gemini_with_examples.md,20,6/10,60.0,7/10,70.0,"[[6, 4], [3, 7]]"
+gemini with examples,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+### Here are some examples:
+```
+{""entry"":""Instead of writing about how historians think about the Berlin Olympics today, focus on what the Nazi government did at the time. What did Nazi leaders do to try to convince others that their regime wasn't dangerous?"",""history"":""1. Instead of writing about why the Nazi Party wanted their government to be seen as tolerant, focus on what they did to accomplish that goal. What did Nazi leaders do to try to convince others that their regime wasn't dangerous?"",""repeated_feedback"":false}
+{""entry"":""Instead of writing about how historians think about the Berlin Olympics today, focus on what the Nazi government did at the time. What did Nazi leaders do to try to convince others that their regime wasn't dangerous?"",""history"":""1. Rather than discussing contemporary historians' perspectives on the Berlin Olympics, concentrate on the actions taken by the Nazi regime during that period. What measures did Nazi officials implement to persuade others that their administration posed no threat?"",""repeated_feedback"":true}
+{""entry"":""That's true— Romeo and Juliet is different from typical tragedies of its time. Now explain why. What is one aspect of the play that goes against the genre's standard tropes or themes?"",""history"":""1. It's true that romance wasn't usually considered a serious enough topic for tragedies, but your response should include a contrast or opposition. Try clearing your response and starting again. How is Romeo and Juliet different from the typical tragedies of its time?"",""repeated_feedback"":false}
+{""entry"":""That's true— Romeo and Juliet is different from typical tragedies of its time. Now explain why. What is one aspect of the play that goes against the genre's standard tropes or themes?"",""history"":""1. That's correct— Romeo and Juliet stands apart from conventional tragedies of its era. Please clarify why. What is one element of the play that contradicts the usual conventions or motifs of the genre?"",""repeated_feedback"":true}
+{""entry"":""It's true that Russia was an absolute monarchy. Now add more specific information to your response. How did the Russian government make it difficult for industrial workers to improve their working conditions?"",""history"":""1. Try clearing your response and starting again. Instead of focusing how the industrial workers fought for change, write about a barrier they faced when trying to improve their working conditions. How did the Russian government make it difficult for industrial workers to improve their working conditions?"",""repeated_feedback"":false}
+{""entry"":""It's true that Russia was an absolute monarchy. Now add more specific information to your response. How did the Russian government make it difficult for industrial workers to improve their working conditions?"",""history"":""1. Indeed, Russia was a complete monarchy. Now incorporate additional detailed information into your reply. In what ways did the Russian administration hinder industrial laborers from enhancing their work environments?"",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Instead of talking about the drawbacks of surgical robots, talk about their benefits. What is one advantage of using surgical robots?"",""history"":""1. That's true! Now be more specific. What is another reason why surgical robots can increase the success of some surgical procedures?"",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Instead of talking about the drawbacks of surgical robots, talk about their benefits. What is one advantage of using surgical robots?"",""history"":""1. Consider resetting your reply and beginning anew. Rather than discussing the disadvantages of surgical robots, focus on their advantages. What is one benefit of employing surgical robots?"",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. What did Nazi leaders do to try to convince the world that their government was tolerant? Check that your response only uses information from the text."",""history"":""1. The Nazi government did use propaganda to control their public image—that's true. Add more information about how they did this before the 1936 Olympics. What did Nazi leaders do to try to convince visitors that Germany was tolerant?"",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. What did Nazi leaders do to try to convince the world that their government was tolerant? Check that your response only uses information from the text."",""history"":""1. Attempt to erase your reply and begin anew. What actions did Nazi officials undertake to persuade the globe that their regime was accepting? Ensure that your reply solely relies on details from the passage."",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Instead of focusing on the fact that some people want to conserve the current bowhead population, talk about how the Inupiat responded to the whaling ban. What did they do as a result of the fact that the whales are essential to them?"",""history"":""1. That's true—the Inupiat disagreed with the IWC's whaling ban. Now make your response even stronger by adding specific details from the text. What did the Inupiat do in response?"",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Instead of focusing on the fact that some people want to conserve the current bowhead population, talk about how the Inupiat responded to the whaling ban. What did they do as a result of the fact that the whales are essential to them?"",""history"":""1. Consider resetting your reply and beginning anew. Rather than concentrating on the notion that certain individuals aim to preserve the existing bowhead population, discuss how the Inupiat reacted to the whaling prohibition. What actions did they take in light of the significance of whales to their community?"",""repeated_feedback"":true}
+{""entry"":""Try clearing your response and starting again. So is used to give consequence or effect. What is a consequence of the fact that some people think BeReal is a more authentic form of social media?"",""history"":""1. Try clearing your response and starting again. What is a consequence of the fact that some people think BeReal is a more authentic form of social media? Check that your response only uses information from the text."",""repeated_feedback"":false}
+{""entry"":""Try clearing your response and starting again. So is used to give consequence or effect. What is a consequence of the fact that some people think BeReal is a more authentic form of social media?"",""history"":""1. Attempt to erase your reply and begin anew. Thus is utilized to indicate a result or outcome. What is an outcome of the reality that certain individuals believe BeReal is a more genuine type of social media?"",""repeated_feedback"":true}
+{""entry"":""That's true! Now add more information. What did Black South African students use these unofficial schools to do?"",""history"":""1. Try clearing your response and starting again. That's a reason that Black students opposed the segregated schools in South Africa. Write about an action they took instead. How did they challenge the segregated school system in South Africa?"",""repeated_feedback"":false}
+{""entry"":""That's true! Now add more information. What did Black South African students use these unofficial schools to do?"",""history"":""1. Indeed! Now provide additional details. What purposes did Black South African students utilize these informal schools for?"",""repeated_feedback"":true}
+{""entry"":""It's true that the Norwegian team was fined. Now explain why. How was this a consequence of opposition to the uniform requirement?"",""history"":""1. The IHF did update the uniform policy. Now make your response more specific. Why did they rewrite the policy?"",""repeated_feedback"":false}
+{""entry"":""It's true that the Norwegian team was fined. Now explain why. How was this a consequence of opposition to the uniform requirement?"",""history"":""1. Indeed, the Norwegian squad was penalized. Now clarify the reasons behind this. How did this relate to their resistance against the apparel regulations?"",""repeated_feedback"":true}
+{""entry"":""That's something that happened as a result of young boys' interest in joining the army. Since this sentence uses 'but,' write about a contrasting idea about them wanting to enlist instead. What prevented some boys from volunteering in the British Army?"",""history"":""1. Some boys didn't last too long in the British Army during WWI—that's true! Add another detail to your response more specific. How many boys were discharged shortly after their enlistment?"",""repeated_feedback"":false}
+{""entry"":""That's something that happened as a result of young boys' interest in joining the army. Since this sentence uses 'but,' write about a contrasting idea about them wanting to enlist instead. What prevented some boys from volunteering in the British Army?"",""history"":""1. That's an occurrence that took place as a consequence of young males' fascination with enlisting in the military. Given that this statement employs 'but,' discuss an opposing notion regarding their desire to enlist instead. What hindered certain boys from enlisting in the British Army?"",""repeated_feedback"":true}
+```
+",2024_08_28_gemini_with_examples.md,20,8/10,80.0,7/10,70.0,"[[8, 2], [3, 7]]"
+gemini with examples use same terms,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the exact meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+### Here are some examples:
+```
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. You're on the right track! Add more information from the text to make your sentence stronger. What specific action shows that the Nazi government wasn't actually tolerant?"",""repeat_feedback"":false}
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. Rather than concentrating on how Nazi officials attempted to appear accepting, discuss a specific aspect that contradicts the persona they aimed to convey. What is one deed that disputes the notion that the regime under Nazi leadership was accepting?"",""repeat_feedback"":true}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's true that some artists believe they should get credit and payment. Now expand your response. What do they want credit and payment for?"",""repeat_feedback"":false}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's accurate that Kelly McKernan perceived AI-generated visuals as incomplete drafts in their mind, yet that doesn't clarify why certain artists think that AI firms violated copyright regulations. Why do some artists think that AI firms violated copyright regulations?"",""repeat_feedback"":true}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Try clearing your response and starting again. What is a contrast to the fact that many tourists enjoy taking selfies with quokkas? Check that your response only uses information from the text."",""repeat_feedback"":false}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Indeed, it's accurate—human cuisine can be detrimental to quokkas. Now enhance your reply further by incorporating particular details from the content. What consequences can quokkas face if they consume human food?"",""repeat_feedback"":true}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Try clearing your response and starting again. Because is used to explain why or give a reason. Go back to the text and look for a reason why Australia made voting mandatory."",""repeat_feedback"":false}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Indeed! Please provide more details. When did they face challenges with low electoral participation?"",""repeat_feedback"":true}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. That's true—only 40 percent of PHOs are being tracked. Now make your response even stronger by adding the name of a specific organization or group. Who is tracking these PHOs?"",""repeat_feedback"":false}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. Financial constraints could affect NASA's capacity to safeguard the Earth, although the passage does not mention this. Consider resetting your reply and beginning anew. What other factors might hinder planetary defense initiatives from aiding humankind?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. It's true that there are no U.S. laws protecting kidfluencers. Now explain what these laws would protect kids from. What legal protections do kidfluencers lack under current U.S. law?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What reasons do supporters hold for thinking that child influencers require legal safeguards? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Clear your response and try again. You're right that the school wanted to save money, but focus your response on how the school responded to the lawsuit instead. What information did the school use to argue that they hadn't violated Title IX?"",""repeat_feedback"":false}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Eradicate your reply and attempt once more. However is utilized to present a differing concept. Return to the passage and search for a justification as to why the institution thought they hadn't breached Title IX."",""repeat_feedback"":true}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. That's true! Now expand your response. What did critics think the flaws of the program were?"",""repeat_feedback"":false}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. Indeed! Now elaborate on your reply with a figure or data point. In what ways would SolarTogether be more advantageous for large corporations compared to single individuals?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Try clearing your response and starting again. Instead of focusing on the other animal species that are shapeshifting, talk about the bird species that aren't shapeshifting. Why are some bird species unable to evolve?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What is an opposing viewpoint to the notion that possessing bigger beaks can assist birds in enduring climate change? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's true that the use of shark-monitoring drones is increasing, but your response should focus on how those drones can help with public safety. How do shark-monitoring drones keep swimmers safe from sharks?"",""repeat_feedback"":false}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's a fact that unmanned aerial vehicles can assist in ensuring public safety. Now clarify how. What functions do shark-surveillance drones perform?"",""repeat_feedback"":true}
+```
+",2024_08_28_gemini_with_examples.md,40,20/20,100.0,12/20,60.0,"[[20, 0], [8, 12]]"
+gemini with examples use same terms,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Does the entry repeat the basic meaning of any single item in the following list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+```
+%<feedback_history>s
+```
+### Here are some examples:
+```
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. You're on the right track! Add more information from the text to make your sentence stronger. What specific action shows that the Nazi government wasn't actually tolerant?"",""repeat_feedback"":false}
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. Rather than concentrating on how Nazi officials attempted to appear accepting, discuss a specific aspect that contradicts the persona they aimed to convey. What is one deed that disputes the notion that the regime under Nazi leadership was accepting?"",""repeat_feedback"":true}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's true that some artists believe they should get credit and payment. Now expand your response. What do they want credit and payment for?"",""repeat_feedback"":false}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's accurate that Kelly McKernan perceived AI-generated visuals as incomplete drafts in their mind, yet that doesn't clarify why certain artists think that AI firms violated copyright regulations. Why do some artists think that AI firms violated copyright regulations?"",""repeat_feedback"":true}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Try clearing your response and starting again. What is a contrast to the fact that many tourists enjoy taking selfies with quokkas? Check that your response only uses information from the text."",""repeat_feedback"":false}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Indeed, it's accurate—human cuisine can be detrimental to quokkas. Now enhance your reply further by incorporating particular details from the content. What consequences can quokkas face if they consume human food?"",""repeat_feedback"":true}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Try clearing your response and starting again. Because is used to explain why or give a reason. Go back to the text and look for a reason why Australia made voting mandatory."",""repeat_feedback"":false}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Indeed! Please provide more details. When did they face challenges with low electoral participation?"",""repeat_feedback"":true}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. That's true—only 40 percent of PHOs are being tracked. Now make your response even stronger by adding the name of a specific organization or group. Who is tracking these PHOs?"",""repeat_feedback"":false}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. Financial constraints could affect NASA's capacity to safeguard the Earth, although the passage does not mention this. Consider resetting your reply and beginning anew. What other factors might hinder planetary defense initiatives from aiding humankind?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. It's true that there are no U.S. laws protecting kidfluencers. Now explain what these laws would protect kids from. What legal protections do kidfluencers lack under current U.S. law?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What reasons do supporters hold for thinking that child influencers require legal safeguards? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Clear your response and try again. You're right that the school wanted to save money, but focus your response on how the school responded to the lawsuit instead. What information did the school use to argue that they hadn't violated Title IX?"",""repeat_feedback"":false}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Eradicate your reply and attempt once more. However is utilized to present a differing concept. Return to the passage and search for a justification as to why the institution thought they hadn't breached Title IX."",""repeat_feedback"":true}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. That's true! Now expand your response. What did critics think the flaws of the program were?"",""repeat_feedback"":false}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. Indeed! Now elaborate on your reply with a figure or data point. In what ways would SolarTogether be more advantageous for large corporations compared to single individuals?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Try clearing your response and starting again. Instead of focusing on the other animal species that are shapeshifting, talk about the bird species that aren't shapeshifting. Why are some bird species unable to evolve?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What is an opposing viewpoint to the notion that possessing bigger beaks can assist birds in enduring climate change? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's true that the use of shark-monitoring drones is increasing, but your response should focus on how those drones can help with public safety. How do shark-monitoring drones keep swimmers safe from sharks?"",""repeat_feedback"":false}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's a fact that unmanned aerial vehicles can assist in ensuring public safety. Now clarify how. What functions do shark-surveillance drones perform?"",""repeat_feedback"":true}
+```
+",2024_08_28_gemini_with_examples.md,40,15/20,75.0,18/20,90.0,"[[15, 5], [2, 18]]"
+gemini with examples use same terms clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry has the same meaning as any item in the following list return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+### Here are some examples:
+```
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. You're on the right track! Add more information from the text to make your sentence stronger. What specific action shows that the Nazi government wasn't actually tolerant?"",""repeat_feedback"":false}
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. Rather than concentrating on how Nazi officials attempted to appear accepting, discuss a specific aspect that contradicts the persona they aimed to convey. What is one deed that disputes the notion that the regime under Nazi leadership was accepting?"",""repeat_feedback"":true}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's true that some artists believe they should get credit and payment. Now expand your response. What do they want credit and payment for?"",""repeat_feedback"":false}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's accurate that Kelly McKernan perceived AI-generated visuals as incomplete drafts in their mind, yet that doesn't clarify why certain artists think that AI firms violated copyright regulations. Why do some artists think that AI firms violated copyright regulations?"",""repeat_feedback"":true}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Try clearing your response and starting again. What is a contrast to the fact that many tourists enjoy taking selfies with quokkas? Check that your response only uses information from the text."",""repeat_feedback"":false}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Indeed, it's accurate—human cuisine can be detrimental to quokkas. Now enhance your reply further by incorporating particular details from the content. What consequences can quokkas face if they consume human food?"",""repeat_feedback"":true}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Try clearing your response and starting again. Because is used to explain why or give a reason. Go back to the text and look for a reason why Australia made voting mandatory."",""repeat_feedback"":false}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Indeed! Please provide more details. When did they face challenges with low electoral participation?"",""repeat_feedback"":true}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. That's true—only 40 percent of PHOs are being tracked. Now make your response even stronger by adding the name of a specific organization or group. Who is tracking these PHOs?"",""repeat_feedback"":false}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. Financial constraints could affect NASA's capacity to safeguard the Earth, although the passage does not mention this. Consider resetting your reply and beginning anew. What other factors might hinder planetary defense initiatives from aiding humankind?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. It's true that there are no U.S. laws protecting kidfluencers. Now explain what these laws would protect kids from. What legal protections do kidfluencers lack under current U.S. law?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What reasons do supporters hold for thinking that child influencers require legal safeguards? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Clear your response and try again. You're right that the school wanted to save money, but focus your response on how the school responded to the lawsuit instead. What information did the school use to argue that they hadn't violated Title IX?"",""repeat_feedback"":false}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Eradicate your reply and attempt once more. However is utilized to present a differing concept. Return to the passage and search for a justification as to why the institution thought they hadn't breached Title IX."",""repeat_feedback"":true}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. That's true! Now expand your response. What did critics think the flaws of the program were?"",""repeat_feedback"":false}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. Indeed! Now elaborate on your reply with a figure or data point. In what ways would SolarTogether be more advantageous for large corporations compared to single individuals?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Try clearing your response and starting again. Instead of focusing on the other animal species that are shapeshifting, talk about the bird species that aren't shapeshifting. Why are some bird species unable to evolve?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What is an opposing viewpoint to the notion that possessing bigger beaks can assist birds in enduring climate change? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's true that the use of shark-monitoring drones is increasing, but your response should focus on how those drones can help with public safety. How do shark-monitoring drones keep swimmers safe from sharks?"",""repeat_feedback"":false}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's a fact that unmanned aerial vehicles can assist in ensuring public safety. Now clarify how. What functions do shark-surveillance drones perform?"",""repeat_feedback"":true}
+```
+",2024_08_28_gemini_with_examples.md,40,12/20,60.0,20/20,100.0,"[[12, 8], [0, 20]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry has the same meaning as any item in the following list return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,8/20,40.0,20/20,100.0,"[[8, 12], [0, 20]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry has the identical meaning as any item in the following list return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,12/20,60.0,20/20,100.0,"[[12, 8], [0, 20]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,2,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,16/20,80.0,19/20,95.0,"[[16, 4], [1, 19]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,1,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,16/20,80.0,19/20,95.0,"[[16, 4], [1, 19]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+gemini clarified instructions,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is an exact, identical repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+open_ai clarified instructions,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+",2024_08_28_open_ai_new.md,40,19/20,95.0,6/20,30.0,"[[19, 1], [14, 6]]"
+open_ai clarified instructions,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is identical to any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+",2024_08_28_open_ai_new.md,40,19/20,95.0,13/20,65.0,"[[19, 1], [7, 13]]"
+open_ai clarified instructions,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is a repeat of any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+",2024_08_28_open_ai_new.md,40,17/20,85.0,20/20,100.0,"[[17, 3], [0, 20]]"
+open_ai clarified instructions,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is a repeat of any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+",2024_08_28_open_ai_new.md,290,121/145,83.45,139/145,95.86,"[[121, 24], [6, 139]]"
+open_ai clarified instructions examples,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is a repeat of any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+
+### Here are some examples:
+```
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. You're on the right track! Add more information from the text to make your sentence stronger. What specific action shows that the Nazi government wasn't actually tolerant?"",""repeat_feedback"":false}
+{""entry"":""Instead of focusing on how Nazi leaders tried to seem tolerant, write about a detail that contrasts with the image they tried to project. What is one action that challenges the idea that the Nazi-led government was tolerant?"",""list"":""1. Rather than concentrating on how Nazi officials attempted to appear accepting, discuss a specific aspect that contradicts the persona they aimed to convey. What is one deed that disputes the notion that the regime under Nazi leadership was accepting?"",""repeat_feedback"":true}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's true that some artists believe they should get credit and payment. Now expand your response. What do they want credit and payment for?"",""repeat_feedback"":false}
+{""entry"":""It's true that Kelly McKernan felt that AI-generated images represented unfinished sketches in their head, but that doesn't explain why some artists believe that AI companies broke copyright laws. Why do some artists believe that AI companies broke copyright laws?"",""list"":""1. It's accurate that Kelly McKernan perceived AI-generated visuals as incomplete drafts in their mind, yet that doesn't clarify why certain artists think that AI firms violated copyright regulations. Why do some artists think that AI firms violated copyright regulations?"",""repeat_feedback"":true}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Try clearing your response and starting again. What is a contrast to the fact that many tourists enjoy taking selfies with quokkas? Check that your response only uses information from the text."",""repeat_feedback"":false}
+{""entry"":""That's true—human food can be harmful to quokkas. Now make your response even stronger by adding specific information from the text. What can happen to quokkas if they eat human food?"",""list"":""1. Indeed, it's accurate—human cuisine can be detrimental to quokkas. Now enhance your reply further by incorporating particular details from the content. What consequences can quokkas face if they consume human food?"",""repeat_feedback"":true}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Try clearing your response and starting again. Because is used to explain why or give a reason. Go back to the text and look for a reason why Australia made voting mandatory."",""repeat_feedback"":false}
+{""entry"":""That's true! Now be more specific. When were they struggling with low voter turnout?"",""list"":""1. Indeed! Please provide more details. When did they face challenges with low electoral participation?"",""repeat_feedback"":true}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. That's true—only 40 percent of PHOs are being tracked. Now make your response even stronger by adding the name of a specific organization or group. Who is tracking these PHOs?"",""repeat_feedback"":false}
+{""entry"":""Budget limitations might have an impact on NASA's ability to defend the planet, but the text doesn't say that. Try clearing your response and starting again. What else could prevent planetary defense strategies from benefiting humanity?"",""list"":""1. Financial constraints could affect NASA's capacity to safeguard the Earth, although the passage does not mention this. Consider resetting your reply and beginning anew. What other factors might hinder planetary defense initiatives from aiding humankind?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. It's true that there are no U.S. laws protecting kidfluencers. Now explain what these laws would protect kids from. What legal protections do kidfluencers lack under current U.S. law?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. Why do advocates believe that kidfluencers need legal protection? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What reasons do supporters hold for thinking that child influencers require legal safeguards? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Clear your response and try again. You're right that the school wanted to save money, but focus your response on how the school responded to the lawsuit instead. What information did the school use to argue that they hadn't violated Title IX?"",""repeat_feedback"":false}
+{""entry"":""Clear your response and try again. But is used to introduce a contrasting idea. Go back to the text and look for a reason why the school believed they hadn't violated Title IX."",""list"":""1. Eradicate your reply and attempt once more. However is utilized to present a differing concept. Return to the passage and search for a justification as to why the institution thought they hadn't breached Title IX."",""repeat_feedback"":true}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. That's true! Now expand your response. What did critics think the flaws of the program were?"",""repeat_feedback"":false}
+{""entry"":""That's true! Now expand your response with a number or statistic. How would SolarTogether benefit big companies more than individuals?"",""list"":""1. Indeed! Now elaborate on your reply with a figure or data point. In what ways would SolarTogether be more advantageous for large corporations compared to single individuals?"",""repeat_feedback"":true}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Try clearing your response and starting again. Instead of focusing on the other animal species that are shapeshifting, talk about the bird species that aren't shapeshifting. Why are some bird species unable to evolve?"",""repeat_feedback"":false}
+{""entry"":""Try clearing your response and starting again. What is a contrast to the idea that having larger beaks can help birds survive climate change? Check that your response only uses information from the text."",""list"":""1. Attempt to erase your reply and begin anew. What is an opposing viewpoint to the notion that possessing bigger beaks can assist birds in enduring climate change? Ensure that your answer solely utilizes details from the passage."",""repeat_feedback"":true}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's true that the use of shark-monitoring drones is increasing, but your response should focus on how those drones can help with public safety. How do shark-monitoring drones keep swimmers safe from sharks?"",""repeat_feedback"":false}
+{""entry"":""It's true that drones can help keep people safe. Now explain how. What do shark-monitoring drones do?"",""list"":""1. It's a fact that unmanned aerial vehicles can assist in ensuring public safety. Now clarify how. What functions do shark-surveillance drones perform?"",""repeat_feedback"":true}
+```
+",2024_08_28_open_ai_new.md,40,20/20,100.0,3/20,15.0,"[[20, 0], [17, 3]]"
+open_ai clarified instructions examples,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is a repeat of any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+",2024_08_28_open_ai_new.md,40,17/20,85.0,19/20,95.0,"[[17, 3], [1, 19]]"
+open_ai clarified instructions examples,Evidence::OpenAI::Chat,gpt-4o-mini,0,"Compare the entry to each numbered entry in the list. If the entry is a repeat of any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+Return as JSON with one key 'repeat_feedback'.
+
+### Here are some examples:
+|Entry|List|repeat_feedback|
+|-----|----|----|
+|It's true that the Wokou were dangerous. Now be more specific. What did the Wokou do that threatened Korea?| 1. You have the right idea! Now be more specific. How did the Wokou threaten Korea's coastal communities?|false|
+|It's true that the Wokou were dangerous. Now be more specific. What did the Wokou do that threatened Korea?| 1. Indeed, the Wokou posed a significant threat. Please elaborate further. What actions did the Wokou take that endangered Korea?|true|
+|It's true that factory workers had few ways to address their issues. Now add more specific information to your response. How did the Russian government make it difficult for industrial workers to improve their working conditions?| 1. That's true—industrial workers did face violence or imprisonment. Now add more specific information to your response. What caused the industrial workers to face imprisonment or violence?|false|
+|It's true that factory workers had few ways to address their issues. Now add more specific information to your response. How did the Russian government make it difficult for industrial workers to improve their working conditions?| 1. It is a fact that factory laborers had limited options to tackle their problems. Now include additional detailed information in your reply. In what ways did the Russian government hinder industrial workers from enhancing their working environments?|true|
+|It's true that some musicians worry that AI voice cloning technology could be used to harm their reputation. Now be more specific. What could this technology be used to do?| 1. That's true! Now be more specific. What do they find inauthentic and difficult to emotionally connect to?|false|
+|It's true that some musicians worry that AI voice cloning technology could be used to harm their reputation. Now be more specific. What could this technology be used to do?| 1. It is a fact that certain artists are concerned that AI voice replication technology might be employed to damage their image. Now, let's elaborate. What potential uses could this technology have?|true|
+|That's something Korea did in response to the Wokou's threat. Write about a challenge that made it hard for leaders to fight the pirates instead.| 1. It's true that Japan used the Wokou. Now be more specific. What did the pirates do that helped Japan?|false|
+|That's something Korea did in response to the Wokou's threat. Write about a challenge that made it hard for leaders to fight the pirates instead.| 1. That's an action Korea took as a reaction to the Wokou's menace. Describe a difficulty that hindered leaders from combating the pirates instead.|true|
+|Clear your response and try again. What did some students do after the sports cuts were announced? Check that your response only uses information from the text.| 1. Clear your response and try again. So is used to show the response to or consequence of something. Go back to the text and look for an action that students did after the sports cuts.|false|
+|Clear your response and try again. What did some students do after the sports cuts were announced? Check that your response only uses information from the text.| 1. Reset your reply and attempt once more. What actions did certain students take following the announcement of the sports reductions? Ensure that your reply exclusively utilizes details from the passage.|true|
+|Some athletes might think that bikinis are impractical or limit their athletic abilities, but the text doesn't say that. Focus your response on evidence from the text. What is one reason given in the text why some athletes think the bikini requirement was a bad idea?| 1. Try clearing your response and starting again. What is one reason why some beach handball players disagreed with the required uniform? Check that your response only uses information from the text.|false|
+|Some athletes might think that bikinis are impractical or limit their athletic abilities, but the text doesn't say that. Focus your response on evidence from the text. What is one reason given in the text why some athletes think the bikini requirement was a bad idea?| 1. Certain sports competitors may believe that bikinis are unfeasible or restrict their performance, yet the passage does not state that. Center your reply on proof from the passage. What is one justification provided in the passage for why some athletes consider the bikini mandate to be a poor decision?|true|
+|Try clearing your response and starting again. So is used to show an effect or consequence of something. How have state governments responded to the benefits of later school start times?| 1. That's true! Now be more specific. Which state already changed school start times?|false|
+|Try clearing your response and starting again. So is used to show an effect or consequence of something. How have state governments responded to the benefits of later school start times?| 1. Attempt to erase your reply and begin anew. Thus is employed to indicate an outcome or result of something. How have state administrations reacted to the advantages of delayed school start times?|true|
+|It's true that lyrics might be offensive or not in line with their beliefs. Now be more specific. What could be used to make it seem like they're singing these lyrics?| 1. That's true! Now be more specific. What do they find inauthentic and difficult to emotionally connect to?|false|
+|It's true that lyrics might be offensive or not in line with their beliefs. Now be more specific. What could be used to make it seem like they're singing these lyrics?| 1. It's accurate that song lyrics may be distasteful or not align with their principles. Now, please elaborate. What could be utilized to create the impression that they are performing these lyrics?|true|
+|It's true that Korea's government was unstable. Now add more information. How did the Wokou take advantage of Korea's unstable government?| 1. It's true that the Wokou were dangerous. Now be more specific. What did the Wokou do that threatened Korea?|false|
+|It's true that Korea's government was unstable. Now add more information. How did the Wokou take advantage of Korea's unstable government?| 1. It is a fact that the Korean administration was precarious. Now provide additional details. In what ways did the Wokou exploit Korea's unstable governance?|true|
+|Clear your response and try again. Why did some people not want students to change the dress code? Check that your response only uses information from the text.| 1. That's true! Now be more specific. Why do schools advocate for stricter dress codes?|false|
+|Clear your response and try again. Why did some people not want students to change the dress code? Check that your response only uses information from the text.| 1. Erase your reply and attempt once more. What were the reasons some individuals opposed students altering the attire regulations? Ensure that your answer relies solely on details from the passage.|true|
+
+",2024_08_28_open_ai_new_examples.md,40,17/20,85.0,14/20,70.0,"[[17, 3], [6, 14]]"
+open_ai original no examples,Evidence::OpenAI::Chat,gpt-4o-mini,0,"### Previous Feedback:
+```
+%<feedback_history>s
+```
+Is the entry identical to any item in Previous Feedback? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+Return as JSON with one key 'repeat_feedback'.
+",2024_08_15_ask_identical.md,40,16/20,80.0,19/20,95.0,"[[16, 4], [1, 19]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is identical in meaning to any item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,40,14/20,70.0,20/20,100.0,"[[14, 6], [0, 20]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is a repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,40,15/20,75.0,20/20,100.0,"[[15, 5], [0, 20]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. Is the entry a repeat of any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,40,15/20,75.0,20/20,100.0,"[[15, 5], [0, 20]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"One at atime, compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,40,16/20,80.0,20/20,100.0,"[[16, 4], [0, 20]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"One at atime, compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,100,41/50,82.0,50/50,100.0,"[[41, 9], [0, 50]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"Compare the entry to each numbered entry in the list. If the entry is an exact repeat of any single item in the list, then return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini.md,100,41/50,82.0,49/50,98.0,"[[41, 9], [1, 49]]"
+gemini,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"One at a time, compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,100,41/50,82.0,50/50,100.0,"[[41, 9], [0, 50]]"
+gemini2,Evidence::Gemini::Chat,gemini-1.5-flash-latest,0,"One at a time, compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,290,119/145,82.07,145/145,100.0,"[[119, 26], [0, 145]]"
+gemini2,Evidence::Gemini::Chat,gemini-1.5-flash-latest,1,"One at a time, compare the entry to each numbered entry in the list. Is the entry identical to any item in the list? If so, return {'repeat_feedback' : true}. Otherwise, return {'repeat_feedback' : false}
+
+List
+```
+%<feedback_history>s
+```
+",2024_08_28_gemini2.md,290,117/145,80.69,145/145,100.0,"[[117, 28], [0, 145]]"
