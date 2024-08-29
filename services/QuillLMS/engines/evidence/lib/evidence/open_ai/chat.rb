@@ -9,7 +9,7 @@ module Evidence
 
       DEFAULT_MODEL = 'gpt-4-turbo'
       SMALL_MODEL = 'gpt-4o-mini'
-      DEFAULT_TEMPERATURE = 0
+      DEFAULT_TEMPERATURE = 1
 
       KEY_ROLE = 'role'
       KEY_CONTENT = 'content'
