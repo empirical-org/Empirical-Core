@@ -25,7 +25,7 @@ export const StandardsReportsTable = ({ data, isFreemiumView }) => {
       accessor: 'proficient_count',
       resizable: false,
       maxWidth: 130,
-      Cell: ({row}) => `${row.original.proficient_count  } of ${  row.original.total_student_count}`,
+      Cell: ({row}) => `${row.original.proficient_count  } of ${row.original.total_student_count}`,
     }, {
       Header: 'Activities',
       accessor: 'total_activity_count',

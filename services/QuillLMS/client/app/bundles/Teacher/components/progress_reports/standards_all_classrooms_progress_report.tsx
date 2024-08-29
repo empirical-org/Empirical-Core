@@ -159,7 +159,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities', 'Time Spent']
     ]
     standardsData.forEach((row) => {
-      const profiencyRow = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_student_count}`
+      const profiencyRow = row.is_evidence && row.total_scored_student_count === 0 ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_scored_student_count}`
 
       csvData.push([
         row['standard_level_name'], row['name'], row['total_student_count'], profiencyRow, row['total_activity_count'], getTimeSpent(row['timespent'])
@@ -175,7 +175,7 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
       row.number_of_students = Number(row.total_student_count)
-      row.proficient = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_student_count}`
+      row.proficient = row.is_evidence && row.total_scored_student_count === 0 ? NOT_SCORED_DISPLAY_TEXT : `${row.proficient_count} of ${row.total_student_count}`
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId || 0}/standards/${row.id}/students`}>

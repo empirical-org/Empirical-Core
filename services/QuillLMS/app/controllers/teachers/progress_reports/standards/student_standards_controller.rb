@@ -9,8 +9,10 @@ class Teachers::ProgressReports::Standards::StudentStandardsController < Teacher
           standard_id: params['standard_id'],
           student_id: params['student_id']
         }
-        response = current_user.all_classrooms_cache(key: 'teachers.progress_reports.standards.student_standards.index', groups: cache_groups) do
+        # response = current_user.all_classrooms_cache(key: 'teachers.progress_reports.standards.student_standards.index', groups: cache_groups) do
           standards = ::ProgressReports::Standards::NewStandard.new(current_user).results(params)
+          puts 'standards.length', standards.length
+          puts 'params', params
           standards_json = standards.map do |standard|
             serializer = ::ProgressReports::Standards::StandardSerializer.new(standard)
             # Doing this because can't figure out how to get custom params into serializers
@@ -19,13 +21,13 @@ class Teachers::ProgressReports::Standards::StudentStandardsController < Teacher
           end
           student = User.find(params[:student_id])
           student = nil unless current_user.teaches_student?(student.id)
-          {
+          response = {
             standards: standards_json,
             student: student,
             units: ProgressReports::Standards::Unit.new(current_user).results({}),
             teacher: UserWithEmailSerializer.new(current_user).as_json(root: false)
           }
-        end
+        # end
         render json: response
       end
     end

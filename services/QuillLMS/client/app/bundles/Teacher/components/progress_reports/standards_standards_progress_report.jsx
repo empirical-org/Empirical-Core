@@ -120,8 +120,8 @@ export default class StandardsProgressReport extends React.Component {
       row.standard_level = row.standard_level_name
       row.standard_name = row.name
       row.activities = Number(row.total_activity_count)
-      row.average_score = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : `${Number(row.average_score * 100)}%`
-      row.mastery_status = row.is_evidence ? NOT_SCORED_DISPLAY_TEXT : row.mastery_status
+      row.average_score = row.is_evidence && row.total_scored_student_count === 0 ? NOT_SCORED_DISPLAY_TEXT : `${Number(row.average_score * 100)}%`
+      row.mastery_status = row.is_evidence && row.total_scored_student_count === 0 ? NOT_SCORED_DISPLAY_TEXT : row.mastery_status
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/standards/${row.id}/students`}>
           <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />

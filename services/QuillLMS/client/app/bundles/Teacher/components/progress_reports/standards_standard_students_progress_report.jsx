@@ -27,7 +27,7 @@ export default class IndividualStandardsReport extends React.Component {
   }
 
   decorateAsEvidence(standard) {
-    return !!standard?.is_evidence
+    return standard && standard.is_evidence && standard.total_scored_student_count === 0
   }
 
   getData() {

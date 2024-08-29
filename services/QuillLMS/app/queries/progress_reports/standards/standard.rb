@@ -22,7 +22,7 @@ class ProgressReports::Standards::Standard
           SUM(best_activity_sessions.timespent) AS timespent,
           COALESCE(AVG(proficient_count.user_count), 0)::integer AS proficient_student_count,
           COALESCE(AVG(not_proficient_count.user_count), 0)::integer AS not_proficient_student_count,
-          COUNT(DISTINCT(best_activity_sessions.user_id)) FILTER (WHERE best_activity_sessions.score IS NOT NULL) AS total_scored_student_count
+          COUNT(DISTINCT(best_activity_sessions.user_id)) FILTER (WHERE best_activity_sessions.percentage IS NOT NULL) AS total_scored_student_count
         SQL
       )
       .joins('JOIN standard_levels ON standard_levels.id = standards.standard_level_id')

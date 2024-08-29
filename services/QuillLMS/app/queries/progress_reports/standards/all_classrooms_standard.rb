@@ -41,7 +41,7 @@ class ProgressReports::Standards::AllClassroomsStandard
           COUNT(DISTINCT(final_activity_sessions.user_id)) AS total_student_count,
           COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) AS proficient_count,
           SUM(final_activity_sessions.timespent) AS timespent,
-          COUNT(DISTINCT(final_activity_sessions.user_id)) FILTER (WHERE final_activity_sessions.score IS NOT NULL) AS total_scored_student_count,
+          COUNT(DISTINCT(final_activity_sessions.user_id)) FILTER (WHERE final_activity_sessions.percentage IS NOT NULL) AS total_scored_student_count,
           (CASE WHEN standards.standard_category_id = #{::Constants::EVIDENCE_STANDARD_CATEGORY} THEN true ELSE false END) AS is_evidence
 
         FROM standards

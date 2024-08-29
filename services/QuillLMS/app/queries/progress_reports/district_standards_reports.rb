@@ -59,7 +59,6 @@ class ProgressReports::DistrictStandardsReports
           standard_levels.name as standard_level_name,
           COUNT(DISTINCT(final_activity_sessions.activity_id)) as total_activity_count,
           COUNT(DISTINCT(final_activity_sessions.user_id)) as total_student_count,
-          COUNT(DISTINCT(final_activity_sessions.user_id)) FILTER (WHERE final_activity_sessions.score IS NOT NULL) AS total_scored_students_count,
           COUNT(DISTINCT(avg_score_for_standard_by_user.user_id)) as proficient_count,
           ROUND(AVG(final_activity_sessions.timespent) * COUNT(DISTINCT(final_activity_sessions.id))) AS timespent
         FROM lms.standards
