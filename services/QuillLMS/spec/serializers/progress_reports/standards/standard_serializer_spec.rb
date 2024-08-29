@@ -39,22 +39,19 @@ describe ProgressReports::Standards::StandardSerializer, type: :serializer do
 
     it 'includes the right keys' do
       expect(parsed_standard.keys)
-        .to match_array
-          %w[
-              name
-              id
-              standard_level_name
-              total_student_count
-              proficient_student_count
-              not_proficient_student_count
-              timespent
-              total_activity_count
-              average_score
-              standard_students_href
-              mastery_status
-              is_evidence
-              total_scored_student_count
-           ]
+      .to match_array %w[name
+                         id
+                         standard_level_name
+                         total_student_count
+                         proficient_student_count
+                         not_proficient_student_count
+                         timespent
+                         total_activity_count
+                         average_score
+                         standard_students_href
+                         mastery_status
+                         is_evidence
+                         total_scored_student_count]
     end
 
     it 'includes properly rounded scores' do
