@@ -58,8 +58,6 @@ Evidence::Engine.routes.draw do
       resources :datasets, only: [] do
         resources :trials, only: [:new, :create, :show]
         resources :comparisons, only: [:create, :show]
-        resources :data_slices, only: [:create]
-
         resources :prompt_examples, only: [:new, :create]
       end
 
