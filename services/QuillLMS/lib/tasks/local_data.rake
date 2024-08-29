@@ -3,6 +3,17 @@
 require 'open3'
 
 namespace :local_data do
+  desc 'Seed data intended for end-to-end / integration testing'
+  task e2e_seed: :environment do
+    ActiveRecord::Base.transaction do
+      User.find_or_create_by!(email: 'johnnyci@gmail.com') do |u|
+        u.name = 'Johnny CI'
+        u.role = 'teacher'
+        u.password = 'password'
+      end
+    end
+  end
+
   desc 'truncate local non-user tables'
   task truncate_nonuser_tables: :environment do
     include LocalSeedCommands
