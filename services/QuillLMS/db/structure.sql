@@ -3115,7 +3115,8 @@ CREATE TABLE public.evidence_research_gen_ai_datasets (
     locked boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    version integer NOT NULL
+    version integer NOT NULL,
+    parent_id integer
 );
 
 
@@ -12196,6 +12197,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20240808123813'),
 ('20240821210256'),
 ('20240822145310'),
-('20240823212106');
+('20240823212106'),
+('20240828221440');
 
 

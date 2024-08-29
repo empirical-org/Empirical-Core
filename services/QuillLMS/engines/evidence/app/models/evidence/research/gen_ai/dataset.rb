@@ -11,6 +11,7 @@
 #  version          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  parent_id        :integer
 #  stem_vault_id    :integer          not null
 #
 module Evidence
@@ -21,9 +22,9 @@ module Evidence
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
         has_many :comparisons, dependent: :destroy
-        has_many :dataslices, dependent: :destroy
 
         belongs_to :stem_vault
+        belongs_to :parent, class_name: 'Evidence::Research::GenAI::Dataset', optional: true
 
         validates :optimal_count, presence: true
         validates :suboptimal_count, presence: true
@@ -39,6 +40,8 @@ module Evidence
         attr_accessor :file
 
         before_validation :set_version
+
+        def dataslices = where(parent_id: id)
 
         def set_version
           existing_version = self.class.where(stem_vault: stem_vault).order(version: :desc).first&.version
