@@ -26,8 +26,8 @@ export default class IndividualStandardsReport extends React.Component {
     this.getData()
   }
 
-  decorateAsEvidence(standard) {
-    return standard && standard.is_evidence && standard.total_scored_student_count === 0
+  showNotScored(row) {
+    return row && (row.proficient_standard_count + row.not_proficient_standard_count) === 0
   }
 
   getData() {
@@ -40,8 +40,7 @@ export default class IndividualStandardsReport extends React.Component {
       requestGet(
         url,
         (body) => {
-          const decorateAsEvidence = this.decorateAsEvidence(body.standards[0])
-          const studentData = this.formattedStudentData(body.students, decorateAsEvidence)
+          const studentData = this.formattedStudentData(body.students)
           const csvData = this.formatDataForCSV(body.students)
           const standard = body.standards[0]
           const classrooms = body.classrooms
@@ -120,12 +119,12 @@ export default class IndividualStandardsReport extends React.Component {
     return csvData
   }
 
-  formattedStudentData(data, decorateAsEvidence=false) {
+  formattedStudentData(data) {
     return data.map((row) => {
       row.name = row.name
       row.total_activity_count = Number(row.total_activity_count)
-      row.average_score = decorateAsEvidence ? NOT_SCORED_DISPLAY_TEXT : `${Number(row.average_score * 100)}%`
-      row.mastery_status = decorateAsEvidence ? NOT_SCORED_DISPLAY_TEXT : row.mastery_status
+      row.average_score = this.showNotScored(row) ? NOT_SCORED_DISPLAY_TEXT : `${Number(row.average_score * 100)}%`
+      row.mastery_status = this.showNotScored(row) ? NOT_SCORED_DISPLAY_TEXT : row.mastery_status
       row.green_arrow = (
         <a className='green-arrow' href={row.student_standards_href}>
           <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
