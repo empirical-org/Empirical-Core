@@ -254,9 +254,9 @@ class GenAITasks < Thor
 
     test_set.each do |data|
       # test difference
-      repeated_different = repeated_feedback?(data.original, [data.different], temperature)
+      repeated_different = repeated_feedback?(data.original, [data.different], temperature.to_i)
       # test similar
-      repeated_paraphrase = repeated_feedback?(data.original, [data.paraphrase], temperature)
+      repeated_paraphrase = repeated_feedback?(data.original, [data.paraphrase], temperature.to_i)
 
       params = data.to_h.merge(repeated_different:, repeated_paraphrase:)
 
@@ -300,6 +300,26 @@ class GenAITasks < Thor
     # append results to test file
     CSV.open(repeat_test_runs_file,"a") do |csv|
       csv << result_row.deconstruct
+    end
+  end
+
+  # bundle exec thor gen_a_i_tasks:repeated_generate_examples 2
+  desc 'repeated_generate_examples limit', 'print some examples to the screen for use in prompt'
+  def repeated_generate_examples(limit = 150)
+    csv_data = CSV.read("#{repeated_folder}train.csv", headers: true)
+    train_set = csv_data.to_a[1..].sample(limit.to_i).map { |d| Repeated.new(*d) }
+
+    3.times { print_line }
+
+    train_set.each do |data|
+      entry = Evidence::HTMLTagRemover.run(data.original)
+      different = Evidence::HTMLTagRemover.run(data.different)
+      similar = Evidence::HTMLTagRemover.run(data.paraphrase)
+
+      nonrepeat = {entry:, list: "1. #{different}", repeat_feedback: false}
+      repeat = { entry:, list: "1. #{similar}", repeat_feedback: true}
+      puts nonrepeat.to_json
+      puts repeat.to_json
     end
   end
 
@@ -413,7 +433,7 @@ class GenAITasks < Thor
     private def repeated_feedback?(feedback, history, temperature)
       system_prompt = Evidence::GenAI::RepeatedFeedback::PromptBuilder.run(prompt: nil, history:)
 
-      llm_response = repeat_api.run(system_prompt:, entry: feedback, model: repeat_model, temperature:)
+      llm_response = repeat_api.run(system_prompt:, entry: Evidence::HTMLTagRemover.run(feedback.chomp), model: repeat_model, temperature:)
 
       puts llm_response
 
