@@ -44,7 +44,7 @@ module Evidence
         def dataslices = where(parent_id: id)
 
         def set_version
-          existing_version = self.class.where(stem_vault: stem_vault).order(version: :desc).first&.version
+          existing_version = self.class.where(parent_id:, stem_vault:).order(version: :desc).first&.version
           self.version = existing_version.is_a?(Integer) ? existing_version + 1 : 1
         end
 
