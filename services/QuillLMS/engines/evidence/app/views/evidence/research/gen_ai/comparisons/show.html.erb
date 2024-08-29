@@ -25,7 +25,10 @@
   <table>
     <thead style="position: sticky; top: 0; background-color: #fff; z-index: 1;">
       <tr>
-        <th class="dark-border select-column">Select</th>
+        <th class="dark-border select-column">
+          Select all
+          <input type="checkbox" id="select-all-checkbox" onchange="toggleAllVisibleCheckboxes(this)">
+        </th>
         <th class="dark-border example-number-column">#</th>
         <th class="dark-border student-response-column"><%= @comparison.stem_and_conjunction %></th>
         <th class="dark-border feedback-key-column"><%= render 'feedback_key' %></th>
@@ -63,7 +66,8 @@
     </thead>
     <tbody>
       <% @test_examples.each.with_index do |test_example, index| %>
-        <tr class="response-row">          <td class='dark-border'>
+        <tr class="response-row">
+          <td class='dark-border'>
             <%= check_box_tag "test_example_ids[]", test_example.id, false, class: "response-checkbox", form: "data-subset-form", id: "checkbox-#{index}" %>
           </td>
           <td class='dark-border'><%= index + 1 %></td>
@@ -162,6 +166,7 @@
   function filterRows() {
     const filterValue = document.getElementById('filter-dropdown').value;
     const rows = document.querySelectorAll('.response-row');
+    const selectAllCheckbox = document.getElementById('select-all-checkbox');
 
     rows.forEach(row => {
       const checkbox = row.querySelector('.response-checkbox');
@@ -179,20 +184,35 @@
           break;
       }
     });
+
+    selectAllCheckbox.checked = false;
+    updateCreateDataSubsetButton();
   }
 
   function updateCreateDataSubsetButton() {
-    const checkboxes = document.querySelectorAll('.response-checkbox');
+    const checkboxes = document.querySelectorAll('.response-checkbox:not(.hidden)');
     const createButton = document.getElementById('create-data-subset');
     const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
     createButton.disabled = !anyChecked;
+  }
+
+  function toggleAllVisibleCheckboxes(selectAllCheckbox) {
+    const visibleCheckboxes = document.querySelectorAll('.response-row:not(.hidden) .response-checkbox');
+    visibleCheckboxes.forEach(checkbox => {
+      checkbox.checked = selectAllCheckbox.checked;
+    });
+    updateCreateDataSubsetButton();
   }
 
   document.querySelectorAll('.response-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', updateCreateDataSubsetButton);
   });
 
-  updateCreateDataSubsetButton();
+  document.getElementById('filter-dropdown').addEventListener('change', () => {
+    const selectAllCheckbox = document.getElementById('select-all-checkbox');
+    selectAllCheckbox.checked = false;
+  });
 
+  updateCreateDataSubsetButton();
   filterRows();
 </script>
