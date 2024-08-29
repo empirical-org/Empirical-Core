@@ -22,6 +22,7 @@ module Evidence
         has_many :prompt_examples, dependent: :destroy
         has_many :trials, dependent: :destroy
         has_many :comparisons, dependent: :destroy
+        has_many :data_subsets, class_name: 'Evidence::Research::GenAI::Dataset', foreign_key: 'parent_id'
 
         belongs_to :stem_vault
         belongs_to :parent, class_name: 'Evidence::Research::GenAI::Dataset', optional: true
@@ -37,20 +38,23 @@ module Evidence
 
         delegate :stem_and_conjunction, to: :stem_vault
 
+        scope :whole, -> { where(parent_id: nil) }
+
         attr_accessor :file
 
         before_validation :set_version
 
-        def dataslices = where(parent_id: id)
+        def whole? = parent_id.nil?
+        def subset? = parent_id.present?
 
         def set_version
-          existing_version = self.class.where(stem_vault: stem_vault).order(version: :desc).first&.version
+          existing_version = self.class.where(parent_id:, stem_vault:).order(version: :desc).first&.version
           self.version = existing_version.is_a?(Integer) ? existing_version + 1 : 1
         end
 
         def test_examples_count = optimal_count + suboptimal_count
 
-        def to_s = "Dataset v#{version}"
+        def to_s = whole? ? "Dataset v#{version}" : "Data Subset v#{version}"
 
         def validate_file_content
           return unless file.present?

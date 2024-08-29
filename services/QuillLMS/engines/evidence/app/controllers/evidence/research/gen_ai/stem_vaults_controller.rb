@@ -21,7 +21,7 @@ module Evidence
 
         def show
           @stem_vault = StemVault.find(params[:id])
-          @datasets = @stem_vault.datasets.order(id: :desc)
+          @datasets = @stem_vault.datasets.whole.order(id: :desc)
           @optimal_guidelines = @stem_vault.guidelines.optimal.visible
           @suboptimal_guidelines = @stem_vault.guidelines.suboptimal.visible
         end
