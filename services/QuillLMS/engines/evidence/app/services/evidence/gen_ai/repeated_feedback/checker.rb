@@ -21,10 +21,6 @@ module Evidence
           # Avoid LLM call in situations that don't use secondary feedback
           return false if optimal || first_attempt? || last_attempt?
 
-          puts system_prompt
-          puts history
-          puts llm_response
-
           !!llm_response[KEY_REPEAT]
         end
 
