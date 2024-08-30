@@ -16,7 +16,8 @@ class ProgressReports::Standards::StandardSerializer < ApplicationSerializer
     :average_score,
     :standard_students_href,
     :mastery_status,
-    :is_evidence
+    :is_evidence,
+    :total_scored_student_count
 
   # rubocop:disable Naming/PredicateName
   def is_evidence
