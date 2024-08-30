@@ -4,7 +4,7 @@ module Evidence
   module Check
     class GenAI < Check::Base
       FEEDBACK_API = Evidence::Gemini::Chat
-      REPEAT_API = Evidence::OpenAI::Chat
+      REPEAT_API = Evidence::Gemini::Chat
       SECONDARY_API = Evidence::OpenAI::Chat
 
       KEY_FEEDBACK = 'feedback'
