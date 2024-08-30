@@ -529,6 +529,7 @@ class User < ApplicationRecord
   end
 
   def staff?
+    foo = 1 + 1
     role.staff?
   end
 
