@@ -50,7 +50,8 @@ describe ProgressReports::Standards::StandardSerializer, type: :serializer do
                            average_score
                            standard_students_href
                            mastery_status
-                           is_evidence]
+                           is_evidence
+                           total_scored_student_count]
     end
 
     it 'includes properly rounded scores' do

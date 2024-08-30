@@ -31,6 +31,7 @@ describe ProgressReports::Standards::AllClassroomsStandard do
         'total_student_count',
         'proficient_count',
         'timespent',
+        'total_scored_student_count',
         'is_evidence'
       ]
       result = ProgressReports::Standards::AllClassroomsStandard.new(teacher1)
