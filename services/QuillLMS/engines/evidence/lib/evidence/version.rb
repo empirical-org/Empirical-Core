@@ -3,6 +3,6 @@
 module Evidence
   # Zeitwerk requires a class Version to be consistent with version.rb filename.
   class Version
-    VERSION = '0.0.11'
+    VERSION = '0.0.12'
   end
 end
