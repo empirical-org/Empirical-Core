@@ -244,8 +244,8 @@ class GenAITasks < Thor
   RepeatedResult = Data.define(:activity_id, :prompt_id, :original, :different, :repeated_different, :paraphrase, :repeated_paraphrase)
   RepeatedTestRow = Data.define(:description, :api, :model, :temperature, :prompt_text, :template, :sample_size, :different_score, :different_percent, :similar_score, :similar_percent, :matrix)
 
-  # bundle exec thor gen_a_i_tasks:repeated_feedback_test 2
-  desc 'repeated_feedback_test limit', 'Test a number or entries from the test.csv file'
+  # bundle exec thor gen_a_i_tasks:repeated_feedback_test 'gemini new prompt with examples' 2
+  desc 'repeated_feedback_test description limit', 'Test a number or entries from the test.csv file'
   def repeated_feedback_test(description, limit = 150, temperature = 1)
     csv_data = CSV.read("#{repeated_folder}test.csv", headers: true)
     test_set = csv_data.first(limit.to_i).map { |d| Repeated.new(**d) }
