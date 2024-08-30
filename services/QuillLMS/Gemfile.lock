@@ -946,6 +946,7 @@ DEPENDENCIES
   graphiql-rails
   graphql (~> 1.13.20)
   grover
+  grpc (= 1.66.0)
   haversine
   httparty (~> 0.16)
   intercom (~> 3.5.23)
