@@ -21,6 +21,10 @@ export const activityClassificationGroupings = [
     keys: ['connect', 'sentence', 'passage']
   },
   {
+    group: 'Independent: Proofreading',
+    keys: ['passage']
+  },
+  {
     group: 'Whole Class Instruction',
     keys: ['lessons']
   },

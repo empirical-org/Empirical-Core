@@ -258,6 +258,11 @@ export const ACTIVITY_PACK_TYPES = [
     types: ['Language Skill Review', 'Language Skills for Writing Genres', 'Language Skills Themed Practice']
   },
   {
+    name: 'Proofreading',
+    id: 'proofreading',
+    types: [DAILY_PROOFREADING]
+  },
+  {
     name: 'Whole Class Lessons',
     id: 'whole-class'
   },

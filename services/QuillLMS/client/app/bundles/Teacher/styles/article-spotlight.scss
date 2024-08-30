@@ -29,6 +29,9 @@
     .preview-card-link {
       display: block;
       height: min-content;
+      .quill-button {
+        bottom: 10px;
+      }
     }
     .preview-card {
       height: auto;
@@ -42,7 +45,7 @@
         }
       }
       .preview-card-footer {
-        padding-bottom: 8px;
+        padding: 16px;
       }
     }
     .content-section {
