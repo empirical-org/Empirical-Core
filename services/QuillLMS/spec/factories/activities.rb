@@ -60,6 +60,10 @@ FactoryBot.define do
       classification { ActivityClassification.find_by_key attributes_for(:diagnostic)[:key] || create(:diagnostic) }
       activity_classification_id { ActivityClassification.find_by_key(attributes_for(:diagnostic)[:key])&.id || create(:diagnostic).id }
       repeatable { false }
+
+      factory :pre_diagnostic_activity do
+        association :follow_up_activity, factory: :diagnostic_activity
+      end
     end
 
     factory :proofreader_activity do
