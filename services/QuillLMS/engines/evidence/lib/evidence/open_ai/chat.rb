@@ -9,6 +9,7 @@ module Evidence
 
       DEFAULT_MODEL = 'gpt-4-turbo'
       SMALL_MODEL = 'gpt-4o-mini'
+      DEFAULT_TEMPERATURE = 0
 
       KEY_ROLE = 'role'
       KEY_CONTENT = 'content'
@@ -19,7 +20,7 @@ module Evidence
 
       attr_reader :system_prompt, :entry, :history, :temperature, :model
 
-      def initialize(system_prompt:, entry:, history: [], temperature: 1, model: DEFAULT_MODEL)
+      def initialize(system_prompt:, entry:, history: [], temperature: DEFAULT_TEMPERATURE, model: DEFAULT_MODEL)
         @system_prompt = system_prompt
         @entry = entry
         @history = history
