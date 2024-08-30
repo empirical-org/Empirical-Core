@@ -42,7 +42,7 @@ RSpec.describe Evidence::Gemini::Chat, type: :service do
     it 'uses default values when not provided' do
       chat = described_class.new(system_prompt: system_prompt, entry: entry)
       expect(chat.history).to eq([])
-      expect(chat.temperature).to eq(1)
+      expect(chat.temperature).to eq(0)
       expect(chat.model).to eq(described_class::DEFAULT_MODEL)
     end
   end

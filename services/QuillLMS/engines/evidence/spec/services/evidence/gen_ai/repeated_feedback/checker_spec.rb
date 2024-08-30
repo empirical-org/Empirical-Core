@@ -82,7 +82,7 @@ RSpec.describe Evidence::GenAI::RepeatedFeedback::Checker, type: :service do
 
     describe '#llm_response' do
       it 'calls Evidence::OpenAI::Chat.run with the correct parameters' do
-        expect(Evidence::OpenAI::Chat).to receive(:run).with(system_prompt: system_prompt, entry: feedback, model: Evidence::OpenAI::Chat::SMALL_MODEL).and_return(llm_response)
+        expect(Evidence::OpenAI::Chat).to receive(:run).with(system_prompt: system_prompt, entry: feedback, model: Evidence::OpenAI::Chat::SMALL_MODEL, temperature: 0).and_return(llm_response)
         subject.send(:llm_response)
       end
     end
