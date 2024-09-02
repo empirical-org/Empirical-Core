@@ -9,18 +9,19 @@
   ],
   "screenshots": [
     {
+      "form_factor": "wide",
       "src": "https://quill-cdn.s3.amazonaws.com/images/photos/screenshot-1.png",
-      "sizes": "919x468",
+      "sizes": "1400x713",
       "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "https://quill-cdn.s3.amazonaws.com/images/photos/screenshot-3.png",
-      "sizes": "919x501",
+      "sizes": "1202x656",
       "type": "image/png",
       "purpose": "any"
     }
   ],
-  "start_url": "https://www.quill.org/",
+  "start_url": "https://cissy.quill.org/",
   "display": "minimal-ui"
 }
