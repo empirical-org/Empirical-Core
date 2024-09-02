@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe StaticController, type: :controller do
-
   it 'should send the manifest.json file' do
     get :manifest
 
