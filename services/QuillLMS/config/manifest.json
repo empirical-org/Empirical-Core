@@ -4,9 +4,8 @@
     {
       "src": "favicon.ico",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "16x16"
     }
   ],
-  "start_url": "https://www.quill.org/",
   "display": "minimal-ui"
 }
