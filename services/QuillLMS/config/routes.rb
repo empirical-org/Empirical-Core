@@ -18,9 +18,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
   get '/study', to: 'students#index'
-  get '/classes', to: 'students#index'
-
-  get '/manifest.json', to: 'static#manifest'
+  get '/classes', to: 'students#index'  
 
   get '/school_for_current_user', to: 'schools_users#school_for_current_user'
 
@@ -47,6 +45,8 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
+
+  get '/manifest.json', to: 'static#manifest'
 
   get '/sitemap.xml', to: redirect('https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml')
 
