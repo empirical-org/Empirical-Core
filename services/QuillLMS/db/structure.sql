@@ -5520,6 +5520,7 @@ CREATE TABLE public.student_activity_sequences (
     id bigint NOT NULL,
     classroom_id integer NOT NULL,
     initial_activity_id integer NOT NULL,
+    initial_classroom_unit_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
