@@ -42,9 +42,6 @@
         width: 140px;
       }
     }
-    .dropdown-container:nth-of-type(2) {
-      width: 325px;
-    }
   }
 
   .pack-type-header, .top-card-margin-top {
@@ -55,7 +52,6 @@
 
   .type-options {
     display: flex;
-    width: 668px;
     justify-content: space-between;
     a {
       line-height: 1;

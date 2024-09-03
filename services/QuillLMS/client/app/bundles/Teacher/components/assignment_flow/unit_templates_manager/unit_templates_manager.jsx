@@ -35,7 +35,6 @@ export default class UnitTemplatesManager extends React.Component {
         model: null,
         model_id: null,
         relatedModels: [],
-        selectedCategoryId: null,
         selectedGradeLevel: null,
         lastActivityAssigned: null,
         grade: getParameterByName('grade'),
@@ -88,21 +87,19 @@ export default class UnitTemplatesManager extends React.Component {
     })
   }
 
-  filterModels = (category, grade, typeId, gradeLevelRange) => {
+  filterModels = (grade, typeId, gradeLevelRange) => {
     const { unitTemplatesManager, } = this.state
     let displayedModels = unitTemplatesManager.models
+
     if (grade) {
       displayedModels = this.modelsInGrade(grade)
     }
-    if (category) {
-      displayedModels = displayedModels.filter(ut => ut.unit_template_category.name === category)
-    }
     if (typeId) {
       const selectedType = ACTIVITY_PACK_TYPES.find(t => t.id === typeId)
-      const { name } = selectedType
+      const { name, types, } = selectedType
       displayedModels = displayedModels.filter(ut => {
         const { type, unit_template_category } = ut
-        if(typeId === 'independent-practice') {
+        if(['proofreading', 'independent-practice'].includes(typeId)) {
           return selectedType.types.includes(unit_template_category.name)
         } else if(unit_template_category) {
           return unit_template_category.name === name
@@ -129,16 +126,6 @@ export default class UnitTemplatesManager extends React.Component {
     window.scrollTo(0, 0);
   }
 
-  selectCategory = category => {
-    const { history, } = this.props
-    const { unitTemplatesManager, } = this.state
-    const newUnitTemplatesManager = unitTemplatesManager
-    newUnitTemplatesManager.selectedCategoryId = category.value
-    this.setState({ unitTemplatesManager: newUnitTemplatesManager })
-
-    history.push(category.link)
-  };
-
   selectGradeLevel = gradeLevel => {
     const { history, } = this.props
     const { unitTemplatesManager, } = this.state
@@ -160,14 +147,13 @@ export default class UnitTemplatesManager extends React.Component {
       return <LoadingIndicator />
     }
 
-    const { category, grade, type, gradeLevel, } = this.parsedQueryParams()
-    const displayedModels = this.filterModels(category, grade, type, gradeLevel)
+    const { grade, type, gradeLevel, } = this.parsedQueryParams()
+    const displayedModels = this.filterModels(grade, type, gradeLevel)
     return (
       <UnitTemplateMinis
         actions={this.unitTemplatesManagerActions()}
         data={unitTemplatesManager}
         displayedModels={displayedModels}
-        selectCategory={this.selectCategory}
         selectedTypeId={type}
         selectGradeLevel={this.selectGradeLevel}
         signedInTeacher={signedInTeacher}
@@ -218,10 +204,10 @@ export default class UnitTemplatesManager extends React.Component {
     }
     this.updateUnitTemplatesManager(newHash)
 
-    const { category, grade, type, gradeLevel, } = this.parsedQueryParams()
+    const { grade, type, gradeLevel, } = this.parsedQueryParams()
 
-    if (category || grade || type || gradeLevel) {
-      this.filterModels(category, grade, type, gradeLevel)
+    if (grade || type || gradeLevel) {
+      this.filterModels(grade, type, gradeLevel)
     }
   };
 
