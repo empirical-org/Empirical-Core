@@ -14,7 +14,7 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
     let!(:current_classroom) { create(:classroom, created_at: Date.new(2021, 10, 1)) }
     let!(:school) { create(:school) }
     let!(:unit) { create(:unit, user_id: teacher.id) }
-    let!(:evidence_activity) { create(:evidence_lms_activity, id: 1) }
+    let!(:evidence_activity) { create(:evidence_lms_activity) }
     let!(:classroom_unit1) { create(:classroom_unit, unit: unit, classroom: relevent_classroom, created_at: Date.new(year, 10, 1), assigned_student_ids: [student.id, student2.id]) }
     let!(:post_diagnostic_activity) { create(:diagnostic_activity) }
     let!(:pre_diagnostic_activity) { create(:diagnostic_activity, follow_up_activity_id: post_diagnostic_activity.id) }
