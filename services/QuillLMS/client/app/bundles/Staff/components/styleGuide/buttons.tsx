@@ -4,7 +4,7 @@ import { DISABLED, HOVER } from "../../../Shared";
 
 const DEFAULT = 'default'
 const BUTTON = 'Button'
-const SIZES = [{ label: 'Extra Small (XS)', value: 'extra-small' }, { label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }]
+const SIZES = [{ label: 'Extra Small (XS)', value: 'extra-small' }, { label: 'Small', value: 'small' }, { label: 'Medium', value: 'medium' }, { label: 'Large', value: 'large' }, { label: 'Extra Large (XL)', value: 'extra-large' }, ]
 const STATES = [DEFAULT, HOVER, DISABLED]
 const COLORS = ['green', 'gold', 'maroon', 'blue', 'teal', 'viridian', 'purple', 'violet', 'red', 'grey']
 const WHITE_STAR_ICON_SRC = 'https://assets.quill.org/images/icons/xs/star-white.svg'
