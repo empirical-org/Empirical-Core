@@ -113,6 +113,29 @@ exports[`Buttons it should render 1`] = `
             quill-button large contained
           </p>
         </div>
+        <div
+          class="option-container"
+        >
+          <p
+            class="option-label"
+          >
+            Extra Large (XL)
+          </p>
+          <div
+            class="quill-button-container"
+          >
+            <button
+              class="quill-button focus-on-light extra-large contained"
+            >
+              Button
+            </button>
+          </div>
+          <p
+            class="option-label"
+          >
+            quill-button extra-large contained
+          </p>
+        </div>
       </div>
       <h4
         class="style-guide-h4"
