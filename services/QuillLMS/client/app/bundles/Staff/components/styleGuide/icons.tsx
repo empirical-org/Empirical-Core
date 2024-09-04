@@ -11,13 +11,18 @@ const iconGroups = [
       { path: "clipboard.svg" },
       { path: "comment-document.svg" },
       { path: "diagnostic.svg" },
+      { path: "diamond-in-hand.svg" },
       { path: "evidence-handbook.svg" },
+      { path: "fountain-pen.svg" },
+      { path: "global-education.svg" },
+      { path: "lecture-hall.svg" },
       { path: "list.svg" },
       { path: "research-books.svg" },
       { path: "retry-pencil.svg" },
       { path: "search-document.svg" },
       { path: "search-empty.svg" },
-      { path: "success.svg" }
+      { path: "success.svg" },
+      { path: "time-in-hand.svg" }
     ]
   },
   {
