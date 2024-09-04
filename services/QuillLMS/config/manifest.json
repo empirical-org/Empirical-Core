@@ -2,9 +2,29 @@
   "name": "Quill.org",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://quill-cdn.s3.amazonaws.com/images/icons/Icon-macOS-16x16%401x.png",
       "type": "image/png",
       "sizes": "16x16"
+    },
+    {
+      "src": "https://quill-cdn.s3.amazonaws.com/images/icons/Icon-macOS-32x32%401x.png",
+      "type": "image/png",
+      "sizes": "32x32"
+    },
+    {
+      "src": "https://quill-cdn.s3.amazonaws.com/images/icons/Icon-macOS-128x128%401x.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "https://quill-cdn.s3.amazonaws.com/images/icons/Icon-macOS-256x256%401x.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "https://quill-cdn.s3.amazonaws.com/images/icons/Icon-macOS-512x512%401x.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "screenshots": [
