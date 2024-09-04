@@ -268,6 +268,8 @@ describe NavigationHelper do
   describe '#determine_active_tab' do
     context 'primary navigation' do
       it 'should return "Learning Tools" for relevant paths' do
+        expect(helper.determine_active_tab('admins')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
+        expect(helper.determine_active_tab('premium')).to eq(NavigationHelper::SCHOOLS_AND_DISTRICTS)
         expect(helper.determine_active_tab('tools')).to eq(NavigationHelper::LEARNING_TOOLS)
         expect(helper.determine_active_tab('tools/connect')).to eq(NavigationHelper::LEARNING_TOOLS)
         expect(helper.determine_active_tab('about')).to eq(NavigationHelper::ABOUT_US)

@@ -32,11 +32,13 @@
 		<% else %>
   		<div class='home-nav-right wide' >
 	  		<% if !current_user %>
+          <%= render 'navbar/schools_and_districts', active_tab: active_tab  %>
 	  	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
 	  	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
 	  	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
 	  	    <%= render 'navbar/our_story', active_tab: active_tab %>
 	  		<% elsif current_user.role != 'student' %>
+          <%= render 'navbar/schools_and_districts', active_tab: active_tab  %>
 	  			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
 	  			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
 	  			<%= render 'navbar/quill_support', active_tab: active_tab  %>

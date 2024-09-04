@@ -292,10 +292,10 @@ $background-images-list: (diagnostic-pattern-magnifier connect-pattern-bullseye 
 
 section.q-hero {
   width: 100%;
-  min-height: 530px;
-  background-image: url("https://assets.quill.org/images/background_images/background-pattern-crop.png");
-  background-position: center center;
-  background-size: 800px;
+  min-height: 780px;
+  background-image: url("https://assets.quill.org/images/homepage/header_background.svg");
+  background-position: center;
+  background-repeat: no-repeat;
   .navbar {
     background-color: initial;
     .navbar-tooltip-trigger {
@@ -321,7 +321,8 @@ section.q-hero {
     }
   }
   .main-text {
-    margin-bottom: 64px !important;
+    margin-bottom: 71.5px;
+    line-height: 40px;
   }
   .q-button {
     // margin-top: 0px !important;
@@ -330,6 +331,25 @@ section.q-hero {
     position: relative;
     right: 16px;
     margin-bottom: 48px !important;
+  }
+  .buttons-wrapper {
+    gap: 32px;
+    display: flex;
+    justify-content: center;
+    .quill-button {
+      border-radius: 16px;
+      flex-direction: column;
+      padding: 24px 64px;
+      text-decoration: none;
+      gap: 0px;
+      span:not(.subtext) {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      span.subtext {
+        font-weight: 400;
+      }
+    }
   }
 }
 
