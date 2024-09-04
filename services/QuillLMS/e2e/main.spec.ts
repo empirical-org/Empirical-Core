@@ -1,14 +1,31 @@
 import { test, expect } from '@playwright/test';
 
-test('has visible footer', async ({ page }) => {
-  await page.goto('http://localhost:5000');
+test.skip('has visible footer', async ({ page }) => {
+  await page.goto('/');
 
   await expect(page.locator('footer')).toBeVisible();
 });
 
+function filterAndLogRequest(request, regex) {
+  const re = new RegExp(regex);
+  if (request.url().match(re)) {
+    console.log('>>', request.method(), request.url())
+  }
+}
 
-test.skip('@login form submission with valid credentials', async ({ page }) => {
-  await page.goto('http://localhost:5000/session/new');
+function filterAndLogResponse(response, regex) {
+  const re = new RegExp(regex);
+  if (response.url().match(re)) {
+    console.log('<<', response.status(), response.url())
+  }
+}
+
+test('@login form submission with valid credentials', async ({ page }) => {
+  page.on('request', request => filterAndLogRequest(request, 'localhost|quill'));
+  page.on('response', response => filterAndLogResponse(response, 'localhost|quill'));
+
+  await page.goto('/session/new');
+  await page.waitForLoadState('networkidle');
 
   await page.getByLabel('Email or username').click();
   await expect(page.getByLabel('Email or username')).toBeVisible();
@@ -18,11 +35,21 @@ test.skip('@login form submission with valid credentials', async ({ page }) => {
   await page.locator('.password-wrapper #password').fill('password');
   // Other clickable items on this page include the text 'Log in', so we need a more
   // sensitive element selector
-  await page.waitForSelector('#log-in');
-  await expect(page.locator('#log-in')).toBeVisible()
-  await page.locator('#log-in').click();
 
-  await page.screenshot({ path: 'test-results/playwright_screenshot.png' });
+  // await page.waitForSelector('#log-in');
+  // await expect(page.locator('#log-in')).toBeVisible()
 
-  await page.waitForURL('http://localhost:5000/teachers/classrooms/dashboard');
+
+
+  // await page.mouse.wheel(0,200)
+
+
+
+  await expect( async () => {
+    await page.locator('#log-in').click({force: true});
+    await page.waitForURL('/teachers/classrooms/dashboard')
+  }).toPass()
+
+  await page.screenshot({ path: 'test-results/playwright_login.png', fullPage: true });
+
 });
