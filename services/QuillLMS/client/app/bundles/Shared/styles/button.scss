@@ -200,8 +200,15 @@
     min-width: 73px;
   }
   &.large {
-    @include display-xs;
+    @include display-s;
     height: 44px;
     min-width: 89px;
+    border-radius: 10px;
+  }
+  &.extra-large {
+    @include display-m;
+    height: 56px;
+    min-width: 122px;
+    border-radius: 12px;
   }
 }
