@@ -7,3 +7,7 @@
 /cypress
 cypress/*
 cypress
+
+*.snap
+*test.tsx
+*test.jsx
