@@ -308,12 +308,10 @@ section.q-hero {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 128px;
-    .header {
-      .q-h1 {
-        margin-top: 0px;
-        margin-bottom: 0px;
-      }
+    margin-top: 200px;
+    .q-h1 {
+      margin-top: 0px;
+      margin-bottom: 0px;
     }
     p.text-white {
       margin-top: 10px;
@@ -321,7 +319,7 @@ section.q-hero {
     }
   }
   .main-text {
-    margin-bottom: 71.5px;
+    margin: 44px auto 72px;
     line-height: 40px;
   }
   .q-button {
@@ -336,12 +334,14 @@ section.q-hero {
     gap: 32px;
     display: flex;
     justify-content: center;
+    padding-bottom: 52px;
     .quill-button {
       border-radius: 16px;
       flex-direction: column;
       padding: 24px 64px;
       text-decoration: none;
       gap: 0px;
+      min-width: 360px;
       span:not(.subtext) {
         font-size: 18px;
         font-weight: 700;
@@ -600,6 +600,17 @@ section.q-hero {
     }
   }
 }
+
+@media (max-width: 750px) {
+  section.q-hero .buttons-wrapper {
+    flex-direction: column;
+    align-items: center;
+    .quill-button {
+      width: min-content;
+    }
+  }
+}
+
 
 @media only screen and (max-width : 1099px) {
   .evidence-explanation-section, .topics-section {
