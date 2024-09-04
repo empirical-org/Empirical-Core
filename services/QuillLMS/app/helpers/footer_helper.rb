@@ -4,7 +4,7 @@ module FooterHelper
   def schools_and_districts_links
     [
       { href: '/admins', label: 'For Administrators' },
-      { href: '/premium', label: 'Premium Pricing' },
+      { href: '/premium', label: 'Premium Pricing' }
     ]
   end
 
