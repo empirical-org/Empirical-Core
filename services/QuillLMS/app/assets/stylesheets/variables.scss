@@ -318,6 +318,10 @@ $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
   filter: invert(33%) sepia(99%) saturate(912%) hue-rotate(16deg) brightness(95%) contrast(96%);
 }
 
+@mixin quill-teal-filter {
+  filter: invert(45%) sepia(23%) saturate(1204%) hue-rotate(149deg) brightness(91%) contrast(91%);
+}
+
 @mixin quill-green-filter {
   filter: invert(22%) sepia(62%) saturate(6162%) hue-rotate(164deg) brightness(95%) contrast(95%);
 }
