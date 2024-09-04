@@ -81,6 +81,9 @@
       p {
         margin: 0px;
       }
+      img {
+        @include quill-teal-filter;
+      }
     }
     h3 {
       font-size: 20px;
