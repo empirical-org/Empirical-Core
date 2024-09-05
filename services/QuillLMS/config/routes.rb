@@ -46,8 +46,6 @@ EmpiricalGrammar::Application.routes.draw do
 
   post 'admins/:id/create_and_link_accounts', to: 'admins#create_and_link_accounts'
 
-  get '/manifest.json', to: 'static#manifest'
-
   get '/sitemap.xml', to: redirect('https://quill-cdn.s3.amazonaws.com/documents/quill_sitemap.xml')
 
   # this blog post needs to be redirected
