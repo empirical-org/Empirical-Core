@@ -9,7 +9,7 @@
     "serve": "node lib/index.js",
     "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOSTS=localhost:28015 nodemon src/index.js --exec babel-node src/index.js; ./rethink_local.sh stop",
     "test": "jest test",
-    "heroku-postbuild": "[ $NODE_ENV = staging ] && npm prune --production"
+    "heroku-postbuild": "[ $NODE_ENV = staging ] && npm prune --production ; :"
   },
   "author": "",
   "license": "ISC",
