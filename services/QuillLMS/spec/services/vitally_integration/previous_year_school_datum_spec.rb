@@ -88,9 +88,9 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
       expect(described_class.new(school, year).calculate_data).to include(expected_data)
     end
 
-    it 'should include archived classrooms' do 
+    it 'should include archived classrooms' do
       archived_classroom = create(:classroom, created_at: Date.new(year, 10, 1), visible: false)
-      classroom_unit = create(:classroom_unit, unit: unit, classroom: archived_classroom, created_at: Date.new(year, 10, 1), assigned_student_ids: [student.id, student2.id]) 
+      classroom_unit = create(:classroom_unit, unit: unit, classroom: archived_classroom, created_at: Date.new(year, 10, 1), assigned_student_ids: [student.id, student2.id])
       create(:classrooms_teacher, user: teacher, classroom: archived_classroom)
       create(:students_classrooms, student: student, classroom: archived_classroom)
       create(:students_classrooms, student: student2, classroom: archived_classroom)
@@ -106,6 +106,6 @@ RSpec.describe VitallyIntegration::PreviousYearSchoolDatum, type: :model do
 
       teacher_data = described_class.new(school, year).calculate_data
       expect(teacher_data).to include(expected_data)
-    end 
+    end
   end
 end
