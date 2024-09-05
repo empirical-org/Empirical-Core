@@ -135,6 +135,9 @@ module PublicProgressReports
       unit_id: unit_id
     )
 
+    activity = Activity.find_by(id: activity_id)
+
+    return [] unless activity
     return [] if !classroom_unit
 
     activity_sessions = ActivitySession
@@ -150,7 +153,7 @@ module PublicProgressReports
     classification = Activity.find_by(id: activity_id).classification
     student = User.find_by(id: student_id)
 
-    activity_sessions.map { |activity_session| formatted_score_obj(activity_session, classification, student) }
+    activity_sessions.map { |activity_session| formatted_score_obj(activity_session, activity.classification, student) }
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
