@@ -383,6 +383,39 @@ class GenAITasks < Thor
     puts "Time elapsed: #{end_time - start_time} seconds"
   end
 
+
+  # bundle exec thor gen_a_i_tasks:session_check 673 -e 'they make sounds' 'they make loud sounds'
+  desc 'session_check 673', 'Run a series of entries through the check to simulate a session'
+  method_option :entries, type: :array, default: [], required: true, aliases: '-e'
+  def session_check(id = 673)
+    prompt = Evidence::Prompt.find id
+
+    previous = []
+
+    options[:entries].each.with_index do |entry, index|
+
+      print_line
+      puts "Attempt #{index + 1}"
+      print_line
+
+      check = Evidence::Check::GenAI.new(entry, prompt, previous)
+      check.run
+      response = check.response
+      previous << response.stringify_keys
+      puts "Entry: #{entry}"
+      puts "Feedback: #{response[:feedback]}"
+      puts "Highlight: #{response[:highlight]&.map{|h| h[:text]}}"
+      puts "Optimal: #{response[:optimal]}"
+
+      break if response[:optimal] == true
+      break if index >= 4
+
+    rescue => e
+      puts "Error: #{e.class} - #{e.message}"
+    end
+
+  end
+
   desc 'populate_concepts_and_rules', 'Seed the 3 GenAI concepts, the 6 rules needed by the system'
   def populate_concepts_and_rules
     concept_mapping = {
