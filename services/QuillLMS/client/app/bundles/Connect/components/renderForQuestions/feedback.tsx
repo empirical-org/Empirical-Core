@@ -42,6 +42,7 @@ class FeedbackComponent extends React.Component<any, any> {
     const { question, sentence, renderFeedbackStatements } = data;
     const latestAttempt = getLatestAttempt(question.attempts);
     let returnVal;
+    // console.log("🚀 ~ FeedbackComponent ~ getFeedbackCopy ~ this.getFeedbackType(data):", this.getFeedbackType(data))
     switch (this.getFeedbackType(data)) {
       case "revise-unmatched":
         returnVal = (<p>{sentence}</p>);
@@ -80,7 +81,7 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   render() {
-    const { question, } = this.props
+    const { question, showTranslation, translate, latestAttempt } = this.props
     const key:number = question && question.attempts ? question.attempts.length : 0;
     if (question) {
       return (
@@ -88,6 +89,10 @@ class FeedbackComponent extends React.Component<any, any> {
           feedback={this.getFeedbackCopy(this.props)}
           feedbackType={this.getFeedbackType(this.props)}
           key={key}
+          latestAttempt={latestAttempt}
+          question={question}
+          showTranslation={showTranslation}
+          translate={translate}
         />
       )
     } else {

@@ -89,6 +89,8 @@ export default class RenderFormForAnswer extends React.Component {
         question={question}
         questionID={questionID}
         responses={responses}
+        showTranslation={showTranslation}
+        translate={translate}
       />)
     } else if (nextQuestionButton) { // if you're going to next, it is the end state
       button = nextQuestionButton;

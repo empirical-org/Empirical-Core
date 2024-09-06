@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { stripHtml } from "string-strip-html";
+
 const icon = "https://assets.quill.org/images/icons/direction.svg"
 const revise = "https://assets.quill.org/images/icons/revise.svg"
 const multiple = "https://assets.quill.org/images/icons/multiple-choice.svg"
@@ -114,14 +116,65 @@ function getCSSClasses(feedbackType: string): string {
   return "student-feedback-container " + returnVal
 }
 
-const Feedback = ({ feedbackType, feedback, }: any) => (
-  <div aria-live="assertive" className={getCSSClasses(feedbackType)} role="status">
-    <div className='feedback-row student-feedback-inner-container'>
-      <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
-      {feedback}
+interface FeedbackProps {
+  feedbackType: any,
+  feedback: any,
+  latestAttempt?: any,
+  question?: any,
+  showTranslation?: boolean,
+  translate?: (input: string) => string
+}
+
+const Feedback = ({
+  feedbackType,
+  feedback,
+  latestAttempt,
+  question,
+  showTranslation,
+  translate
+}: FeedbackProps) => {
+
+  function getTranslatedFeedback(showTranslation, question, feedbackType) {
+    if(!showTranslation) { return null }
+    const showInstructions = feedbackType === 'instructions' || feedbackType === 'getQuestion-instructions'
+    const showOverride = feedbackType === 'override' || feedbackType === 'revise-unmatched' || feedbackType === 'continue'
+    const showCmsResponse = feedbackType === 'revise-matched' || feedbackType === 'correct-matched'
+    let value
+    if (question?.translation?.instructions && showInstructions) {
+      const { translation } = question
+      const { instructions } = translation
+      value = instructions
+    } else if(feedbackType === 'default-fill-in-blank') {
+      value = translate('feedback^Fill in the blank with the correct option.')
+    } else if(feedbackType === 'default-with-cues') {
+      value = question?.cues?.length === 1 ? translate('feedback^Combine the sentences into one sentence. Use the joining word.') : translate('feedback^Combine the sentences into one sentence. Use one of the joining words.')
+    } else if(feedbackType === 'default') {
+      value = translate('feedback^Combine the sentences into one sentence. Use one of the joining words.')
+    } else if (feedback && showOverride) {
+      value = translate(`feedback^${feedback.props.children}`)
+    } else if (question?.translation?.cms_responses && latestAttempt?.response && showCmsResponse) {
+      const { response } = latestAttempt
+      const { translation } = question
+      const { cms_responses } = translation
+      const id = response.id || response.parent_id
+      const translatedResponse = cms_responses[`cms_responses.${id}`]
+      value = stripHtml(translatedResponse).result
+    }
+    return <p>{value}</p>
+  }
+  const translatedFeedback = getTranslatedFeedback(showTranslation, question, feedbackType)
+  return(
+    <div aria-live="assertive" className={getCSSClasses(feedbackType)} role="status">
+      <div className='feedback-row student-feedback-inner-container'>
+        <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)} />
+        <div>
+          {feedback}
+          {translatedFeedback}
+        </div>
+      </div>
     </div>
-  </div>
-);
+  )
+}
 
 export { Feedback };
 

@@ -122,6 +122,16 @@
     },
     "feedback": {
         "blank": "Usa una de las opciones a continuación o déjalo en blanco.",
-        "no blank": "Usa una de las opciones a continuación."
+        "no blank": "Usa una de las opciones a continuación.",
+        "Choose one of the options provided. Make sure it is spelled correctly.": "Utiliza una de las opciones proporcionadas. Asegúrese de que esté escrita correctamente.",
+        "Nice try. Let’s try a multiple choice question.": "Buen intento. Probemos con una pregunta de opción múltiple.",
+        "Revise your work. Use the hint below as an example.": "Revise su trabajo. Use la pista a continuación como ejemplo.",
+        "Keep writing! Revise your sentence by changing the order of the ideas.": "Siga escribiendo. Revise su oración cambiando el orden de las ideas.",
+        "Fill in the blank with the correct option.": "Escribe la opción correcta en el espacio en blanco.",
+        "Combine the sentences into one sentence. Use the joining word.": "Combine las oraciones en una sola oración. Use la palabra de enlace.",
+        "Combine the sentences into one sentence. Use one of the joining words.": "Combine las oraciones en una sola oración. Use una de las palabras de enlace.",
+        "Combine the sentences into one sentence.": "Combine las oraciones en una sola oración.",
+        "Select a strong answer. There may be more than one.": "Seleccione una respuesta sólida. Puede haber más de una.",
+        "Good work! Here are the most popular strong answers:": "¡Buen trabajo! Aquí están las respuestas más populares y sólidas:"
     }
 }

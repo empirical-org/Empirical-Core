@@ -176,7 +176,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
   }
 
   renderFeedback = (override?: string) => {
-    const { question, previewMode } = this.props;
+    const { question, previewMode, translate, showTranslation } = this.props;
+    const latestAttempt = this.handleGetLatestAttempt()
     let sentence;
     if (override) {
       sentence = override;
@@ -187,6 +188,7 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
     }
     return (
       <RenderFeedback
+        latestAttempt={latestAttempt}
         listCuesAsString={this.listCuesAsString}
         override={!!override}
         previewMode={previewMode}
@@ -194,6 +196,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
         renderFeedbackStatements={this.renderFeedbackStatements}
         responses={this.getResponses()}
         sentence={sentence}
+        showTranslation={showTranslation}
+        translate={translate}
       />
     );
   }
@@ -436,6 +440,8 @@ export default class PlayLessonQuestion extends React.Component<PlayLessonQuesti
             answers={multipleChoiceResponseOptions}
             next={this.multipleChoiceFinishQuestion}
             prompt={this.renderSentenceFragments()}
+            showTranslation={showTranslation}
+            translate={translate}
           />
         );
       } else if (maxAttemptsSubmitted) {

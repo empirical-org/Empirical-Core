@@ -42,7 +42,7 @@ class EndState extends React.Component {
   }
 
   renderStaticText = () => {
-    const { answeredNonMultipleChoiceCorrectly, multipleChoiceCorrect, } = this.props
+    const { answeredNonMultipleChoiceCorrectly, multipleChoiceCorrect, showTranslation, translate } = this.props
     let message = '';
     if (answeredNonMultipleChoiceCorrectly || multipleChoiceCorrect) {
       message = 'Good work! Here are the most popular strong answers:';
@@ -54,6 +54,8 @@ class EndState extends React.Component {
         feedback={(<p>{message}</p>)}
         feedbackType="continue"
         key="end-state"
+        showTranslation={showTranslation}
+        translate={translate}
       />
     );
   }
