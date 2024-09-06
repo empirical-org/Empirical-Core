@@ -266,7 +266,7 @@ describe Teachers::ProgressReports::DiagnosticReportsController, type: :controll
     end
 
     it 'returns an empty array when activity does not exist' do
-      get :finished_activity_sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: 999, activity_id: 99_999 } # Unmatched student ID
+      get :finished_activity_sessions_for_student, params: { classroom_id: classroom.id, unit_id: unit.id, student_id: 999, activity_id: 99_999 }
 
       expect(response).to have_http_status(:success)
       json_response = JSON.parse(response.body)

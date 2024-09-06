@@ -150,7 +150,6 @@ module PublicProgressReports
       )
       .order('activity_sessions.completed_at')
 
-    classification = Activity.find_by(id: activity_id).classification
     student = User.find_by(id: student_id)
 
     activity_sessions.map { |activity_session| formatted_score_obj(activity_session, activity.classification, student) }
