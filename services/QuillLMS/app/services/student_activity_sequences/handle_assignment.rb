@@ -25,7 +25,7 @@ module StudentActivitySequences
 
     private def activities = classroom_unit.unit_activities.map(&:activity)
     private def classroom_unit = @classroom_unit ||= ClassroomUnit.find(classroom_unit_id)
-    private def initial_activity = @initial_activity ||= FindStartActivity.run(activities.first.id, classroom_unit_id)
+    private def initial_activity = @initial_activity ||= FindStartActivity.run(activities&.first&.id, classroom_unit_id)
     private def pre_diagnostic = @pre_diagnostic ||= activities.find { |a| a.follow_up_activity_id != nil }
     private def student = @student ||= User.find(student_id)
     private def user_id = student_id
@@ -36,10 +36,11 @@ module StudentActivitySequences
     end
 
     private def fetch_student_activity_sequence
-      StudentActivitySequence.find_by(
-        classroom_id: classroom_unit.classroom_id,
-        initial_activity:,
-        user_id:)
+      StudentActivitySequence.order(created_at: :desc)
+        .find_by(
+          classroom_id: classroom_unit.classroom_id,
+          initial_activity:,
+          user_id:)
     end
 
     private def create_student_activity_sequence
@@ -52,6 +53,5 @@ module StudentActivitySequences
         initial_classroom_unit_id: classroom_unit_id,
         user_id:)
     end
-
   end
 end

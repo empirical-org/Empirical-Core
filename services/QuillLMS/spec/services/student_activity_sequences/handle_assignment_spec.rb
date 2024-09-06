@@ -21,6 +21,9 @@ module StudentActivitySequences
         .and change(StudentActivitySequenceActivity, :count).by(1)
     end
 
+    context 'multiple assignments for the pre diagnostic' do
+    end
+
     context 'pre-diagnostic already recorded' do
       let(:student_activity_sequence) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit, classroom: pre_classroom_unit.classroom) }
       let!(:student_activity_sequence_activity) { create(:student_activity_sequence_activity, student_activity_sequence:, activity: pre_diagnostic, classroom_unit: pre_classroom_unit) }
@@ -40,6 +43,17 @@ module StudentActivitySequences
         it do
           expect { subject }.to not_change(StudentActivitySequence, :count)
             .and change(StudentActivitySequenceActivity, :count).by(1)
+        end
+
+        context 'multiple pre-diagnostic assignments recorded' do
+          let(:pre_unit2) { create(:unit, unit_template: pre_unit_template, activities: [pre_diagnostic]) }
+          let(:pre_classroom_unit2) { create(:classroom_unit, classroom:, unit: pre_unit2, assigned_student_ids: [student_id]) }
+          let!(:student_activity_sequence2) { create(:student_activity_sequence, user: student, initial_activity: pre_diagnostic, initial_classroom_unit: pre_classroom_unit2, classroom:, created_at: student_activity_sequence.created_at + 1.day) }
+
+          it do
+            expect { subject }.to change { student_activity_sequence2.reload.student_activity_sequence_activities.count }.by(1)
+              .and not_change { student_activity_sequence.reload.student_activity_sequence_activities.count }
+          end
         end
 
         context 'recommended activity already recorded' do
