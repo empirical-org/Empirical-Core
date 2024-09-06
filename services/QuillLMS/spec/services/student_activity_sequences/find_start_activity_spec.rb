@@ -14,6 +14,12 @@ module StudentActivitySequences
     let(:classroom_unit) { create(:classroom_unit, unit:) }
   
     it { expect(subject).to be(nil) }
+
+    context 'passed a nil activity_id' do
+      let(:activity_id) { nil }
+
+      it { expect(subject).to be(nil) }
+    end
   
     context 'activity is pre_diagnostic' do
       let(:activity) { create(:pre_diagnostic_activity) }

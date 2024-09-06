@@ -10,12 +10,13 @@ module StudentActivitySequences
     end
   
     def run
+      return unless activity_id && classroom_unit_id
       return activity if pre_diagnostic?
   
       for_recommended_activity || for_post_diagnostic
     end
   
-    private def activity = @activity ||= Activity.find(activity_id)
+    private def activity = @activity ||= Activity.find_by(id: activity_id)
     private def classroom_unit = @classroom_unit ||= ClassroomUnit.find(classroom_unit_id)
   
     private def pre_diagnostic? = activity.follow_up_activity_id.present?
