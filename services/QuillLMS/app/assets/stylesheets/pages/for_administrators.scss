@@ -1,0 +1,128 @@
+.for-administrators-container {
+
+  section {
+    border-bottom: none;
+    padding: 0px;
+  }
+
+  header {
+    background-color: $quill-green;
+    position: relative;
+    max-height: 714px;
+    height: fit-content;
+    color: $quill-white;
+    .video-section {
+      position: absolute;
+      width: 100%;
+      max-height: 714px;
+      overflow: hidden;
+      video {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+    .container {
+      z-index: 1;
+      position: relative;
+      text-align: center;
+      padding-top: 96px;
+    }
+    .pre-header {
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%; /* 32px */
+    }
+    h1 {
+      font-size: 80px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%;
+      margin: 8px 0px 24px;
+    }
+    .sub-header {
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 34px;
+      color: $quill-white;
+      max-width: 650px;
+      margin-bottom: 48px;
+    }
+    .buttons-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      .quill-button {
+        padding: 16px 32px;
+      }
+    }
+  }
+
+  .connect-on-laptop {
+    position: relative;
+    margin: 80px 0px;
+    height: 748px;
+    .video-section, img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .video-section, video {
+      max-width: 1000px;
+      width: 100%;
+    }
+    video {
+      margin-top: 25px;
+    }
+  }
+
+  .research-blocks {
+    background-color: $quill-grey-1;
+    display: flex;
+    padding: 80px 0px;
+    gap: 32px;
+    justify-content: center;
+    .research-block {
+      background-color: $quill-white;
+      border-radius: 32px;
+      border: 1px solid $quill-grey-15;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 380px;
+      flex: 1;
+      text-align: center;
+      img {
+        @include quill-green-filter;
+      }
+      h3 {
+        color: $quill-green;
+        text-align: center;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 100%; /* 32px */
+        padding: 32px 0px;
+      }
+      p {
+        margin-bottom: 32px;
+        font-size: 20px;
+        line-height: normal;
+      }
+      p:first-of-type {
+        font-weight: 700;
+      }
+      p:last-of-type {
+        color: $quill-grey-90;
+        max-width: 305px;
+      }
+      a {
+        line-height: normal;
+        text-decoration-line: underline;
+      }
+    }
+  }
+}

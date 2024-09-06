@@ -1,13 +1,15 @@
 <% for_administrators_img_base = "#{ENV['CDN_URL']}/images/pages/for_administrators" %>
 <% s_icon_img_base = "#{ENV['CDN_URL']}/images/icons/s" %>
 <% xl_icon_img_base = "#{ENV['CDN_URL']}/images/icons/xl" %>
-<% contained_check_img = <img alt="checkmark" src="#{s_icon_img_base}/check-contained.svg"> %>
+<% contained_check_img = "<img alt='checkmark' src='#{s_icon_img_base}/check-contained.svg'>".html_safe %>
 <% schools_and_districts_video_base = "#{ENV['CDN_URL']}/videos/schools_and_districts" %>
 <% @device = device %>
 
 <%= render partial: 'pages/shared/schools_and_districts_navbar', locals: { active_tab: NavigationHelper::FOR_ADMINISTRATORS } %>
-<div class="for-administrators-container"
+<div class="for-administrators-container">
   <header>
+    <%= render_video_content(@device, 'desktop', "#{schools_and_districts_video_base}/header_background.mp4") %>
+    <%= render_video_content(@device, 'mobile', "#{schools_and_districts_video_base}/header_background.mp4") %>
     <div class="container">
       <p class="pre-header">How do you build stronger writers?</p>
       <h1>Start with sentences</h1>
