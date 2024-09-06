@@ -17,6 +17,7 @@ const iconGroups = [
       { path: "global-education.svg" },
       { path: "lecture-hall.svg" },
       { path: "list.svg" },
+      { path: "pencil.svg" },
       { path: "research-books.svg" },
       { path: "retry-pencil.svg" },
       { path: "search-document.svg" },
